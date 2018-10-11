@@ -3,18 +3,24 @@ package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(value="Historic")
 @JsonPropertyOrder({
+    "estat",
     "dataCreacio",
-    "tipus",
     "descripcio"
 })
 public class HistoricsRDTO {
 	
-    private String dataCreacio;
+	@ApiModelProperty(value="Estat de l'històric")
     private String estat;
+	@ApiModelProperty(value="Data de creació de l'històric")
+    private String dataCreacio;
+	@ApiModelProperty(value="Descipció de l'històric")
     private String descripcio;
+    
+    
 	public String getDataCreacio() {
 		return dataCreacio;
 	}

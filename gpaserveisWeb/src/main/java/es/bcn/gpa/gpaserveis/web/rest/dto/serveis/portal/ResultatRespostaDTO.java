@@ -1,6 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta;
-
-import java.math.BigDecimal;
+package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -8,29 +6,21 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value="Tramits")
+@ApiModel(value="UnitatGestora")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id",
     "codi",
     "descripcio"
 })
-public class TramitsRDTO {
+public class ResultatRespostaDTO {
 	
-	@ApiModelProperty(value="Identificador del tràmit")
-    private BigDecimal id;
-	@ApiModelProperty(value="Codi del tràmit")
-    private String codi;
-	@ApiModelProperty(value="Descripció del tràmit")
-    private String descripcio;
+	@ApiModelProperty(value="Codi resultat de l'operació",
+			allowableValues = "FISICA, JURIDICA")
+	private String codi;
+	@ApiModelProperty(value="Descripció del resultat de l'operació")
+	private String descripcio;
 	
 	
-	public BigDecimal getId() {
-		return id;
-	}
-	public void setId(BigDecimal id) {
-		this.id = id;
-	}
 	public String getCodi() {
 		return codi;
 	}

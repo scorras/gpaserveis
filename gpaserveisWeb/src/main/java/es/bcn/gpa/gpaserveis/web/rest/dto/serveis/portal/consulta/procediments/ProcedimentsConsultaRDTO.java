@@ -53,6 +53,8 @@ public class ProcedimentsConsultaRDTO {
 	private TramitsRDTO tramits;
 	@ApiModelProperty(value="Dades d'identificació del procediment")
 	private DadesIdentificacioRDTO dadesIdentificacio;
+	
+	
 	public BigDecimal getId() {
 		return id;
 	}

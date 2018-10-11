@@ -20,6 +20,8 @@ public class DadesIdentificacioRDTO {
 	@ApiModelProperty(value="Nivell d'autenticació requerit")
     private String nivellAutenticacio;
     private TerminisDuracioRDTO terminisDuracio;
+    
+    
 	public String getInformacioCiutada() {
 		return informacioCiutada;
 	}

@@ -16,7 +16,8 @@ import io.swagger.annotations.ApiModelProperty;
     "nomRaoSocial",
     "cognom1",
     "cognom2",
-    "documentIndentitat"
+    "documentIndentitat",
+    "dadesContacte"
 })
 public class PersonesRDTO {
 	
@@ -24,7 +25,7 @@ public class PersonesRDTO {
     private BigDecimal id;
 	@ApiModelProperty(value="Tipus de persona",
 			allowableValues = "FISICA, JURIDICA")
-	private BigDecimal tipusPersona;
+	private String tipusPersona;
     @ApiModelProperty(value="Nom o raó social de la persona")
     private String nomRaoSocial;
     @ApiModelProperty(value="Cognom 1 de la persona")
@@ -32,16 +33,18 @@ public class PersonesRDTO {
     @ApiModelProperty(value="Cognom 2 de la persona")
     private String cognom2;
     private DocumentsIdentitatRDTO documentIndentitat;
+    private DadesContacteRDTO dadesContacte;
+    
 	public BigDecimal getId() {
 		return id;
 	}
 	public void setId(BigDecimal id) {
 		this.id = id;
 	}
-	public BigDecimal getTipusPersona() {
+	public String getTipusPersona() {
 		return tipusPersona;
 	}
-	public void setTipusPersona(BigDecimal tipusPersona) {
+	public void setTipusPersona(String tipusPersona) {
 		this.tipusPersona = tipusPersona;
 	}
 	public String getNomRaoSocial() {
@@ -67,6 +70,12 @@ public class PersonesRDTO {
 	}
 	public void setDocumentIndentitat(DocumentsIdentitatRDTO documentIndentitat) {
 		this.documentIndentitat = documentIndentitat;
+	}
+	public DadesContacteRDTO getDadesContacte() {
+		return dadesContacte;
+	}
+	public void setDadesContacte(DadesContacteRDTO dadesContacte) {
+		this.dadesContacte = dadesContacte;
 	}
 
 }

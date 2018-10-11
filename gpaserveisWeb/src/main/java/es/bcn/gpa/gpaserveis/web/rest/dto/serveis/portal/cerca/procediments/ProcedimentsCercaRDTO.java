@@ -46,6 +46,7 @@ public class ProcedimentsCercaRDTO {
 			allowableValues="EN_ELABORACIO, PUBLICAT, FINALITZAT")
 		private String estat;
 	
+	
 	public BigDecimal getId() {
 		return id;
 	}

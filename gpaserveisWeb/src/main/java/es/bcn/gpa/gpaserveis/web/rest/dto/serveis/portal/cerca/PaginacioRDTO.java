@@ -1,10 +1,20 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 
 @ApiModel(value="Paginacio")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+    "totalResultats",
+    "totalPagines",
+    "resultatsPerPagina",
+    "numeroPagina"
+})
 public class PaginacioRDTO {
     
 	@ApiModelProperty(value="Número total de resultats de la cerca")
@@ -15,6 +25,8 @@ public class PaginacioRDTO {
 	private int resultatsPerPagina;
 	@ApiModelProperty(value="Número de pàgina de la cerca")
 	private int numeroPagina;
+	
+	
 	public long getTotalResultats() {
 		return totalResultats;
 	}

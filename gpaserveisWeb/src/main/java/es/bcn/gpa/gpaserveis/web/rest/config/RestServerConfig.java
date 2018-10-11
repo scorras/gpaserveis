@@ -6,14 +6,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
+import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaActualitzarSolicitudMockService;
+import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCercaExpedientsMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCercaProcedimentsMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaDadesOperacioMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaDocumentsMockService;
+import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaExpedientsMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaProcedimentsMockService;
+import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCrearSolicitudMockService;
+import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaObrirSolicitudMockService;
+import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaRegistrarSolicitudMockService;
 import net.opentrends.openframe.services.rest.apidocs.config.RestServiceDefaultSwaggerConfiguration;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
@@ -46,15 +49,42 @@ public class RestServerConfig extends RestServiceDefaultSwaggerConfiguration {
 		return respostaConsultaDocumentsMockService;
 	}
     
+    @Bean(name = "respostaCercaExpedientMock")
+	public RespostaCercaExpedientsMockService respostaCercaExpedientMock() {
+    	RespostaCercaExpedientsMockService respostaCercaExpedientMock = new RespostaCercaExpedientsMockService();
+    	respostaCercaExpedientMock.initialize();
+		return respostaCercaExpedientMock;
+	}
     
-	
+    @Bean(name = "respostaConsultaExpedientMock")
+	public RespostaConsultaExpedientsMockService respostaConsultaExpedientMock() {
+		return new RespostaConsultaExpedientsMockService();
+	}    
+    
+    @Bean(name = "respostaCrearSolicitudMock")
+	public RespostaCrearSolicitudMockService respostaCrearSolicitudMock() {
+		return new RespostaCrearSolicitudMockService();
+	}      
+    
+    @Bean(name = "respostaActualitzarSolicitudMock")
+	public RespostaActualitzarSolicitudMockService respostaActualitzarSolicitudMock() {
+		return new RespostaActualitzarSolicitudMockService();
+	}          
+    
+    @Bean(name = "respostaRegistrarSolicitudMock")
+	public RespostaRegistrarSolicitudMockService respostaRegistrarSolicitudMock() {
+		return new RespostaRegistrarSolicitudMockService();
+	}        
+    
+    @Bean(name = "respostaObrirSolicitudMock")
+	public RespostaObrirSolicitudMockService respostaObrirSolicitudMock() {
+		return new RespostaObrirSolicitudMockService();
+	}
+    
+    
     @Bean(name = "apiDocumentedByRestService")
     public Docket apiDocumentedByRestService(){
-    	 return new Docket(DocumentationType.SWAGGER_2)
-    	            .select()
-    	            .apis(RequestHandlerSelectors.any())
-    	            .paths(PathSelectors.any())
-    	            .build();    
+    	return super.apiDocumentedByRestService().pathProvider(null);
     }    
     
     @Override

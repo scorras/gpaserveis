@@ -32,6 +32,8 @@ public class TerminisDuracioRDTO {
     @ApiModelProperty(value="Data fi vigència")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private String dataFiVigencia;
+    
+    
 	public String getTerminiMaxim() {
 		return terminiMaxim;
 	}

@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value="DocumentsConsulta")
+@ApiModel(value="DocumentConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
@@ -39,6 +39,8 @@ public class DocumentsConsultaRDTO {
 	private String suportConfeccio;
 	@ApiModelProperty(value="Enllaç document de suport per a la confecció del document")
 	private String suportEnllac;
+	
+	
 	public BigDecimal getId() {
 		return id;
 	}

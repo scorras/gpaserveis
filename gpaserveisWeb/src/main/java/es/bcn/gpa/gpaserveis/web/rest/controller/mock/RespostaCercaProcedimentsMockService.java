@@ -40,7 +40,7 @@ public class RespostaCercaProcedimentsMockService {
 		paginacio.setTotalPagines(1);
 		paginacio.setTotalResultats(data.size());
 		paginacio.setNumeroPagina(1);
-		paginacio.setResultatsPerPagina(data.size());
+		paginacio.setResultatsPerPagina(20);
 		resposta.setPaginacio(paginacio);
 		
 		return resposta;

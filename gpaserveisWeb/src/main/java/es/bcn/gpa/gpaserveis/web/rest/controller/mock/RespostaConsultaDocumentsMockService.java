@@ -24,7 +24,8 @@ public class RespostaConsultaDocumentsMockService {
 	}
 	
 	
-	public RespostaConsultaDocumentsRDTO getRespostaConsultaDocuments() {
+	public RespostaConsultaDocumentsRDTO getRespostaConsultaDocuments(
+			BigDecimal idProcediment, BigDecimal idTramit ) {
 		
 		RespostaConsultaDocumentsRDTO resposta = new RespostaConsultaDocumentsRDTO();
 		resposta.setDocuments(data);

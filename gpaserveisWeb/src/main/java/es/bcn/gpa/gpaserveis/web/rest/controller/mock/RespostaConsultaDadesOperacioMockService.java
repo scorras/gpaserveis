@@ -15,14 +15,16 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.Respo
 public class RespostaConsultaDadesOperacioMockService {
     
 	
-	public RespostaConsultaDadesOperacioRDTO getRespostaConsultaDadesOperacio() {
+	public RespostaConsultaDadesOperacioRDTO getRespostaConsultaDadesOperacio(
+			BigDecimal idProcediment, BigDecimal idTramit
+	) {
 		
 		RespostaConsultaDadesOperacioRDTO resposta = new RespostaConsultaDadesOperacioRDTO();
 		
 		DadesOperacioConsultaRDTO dadesOperacio = new DadesOperacioConsultaRDTO();
 		
 		dadesOperacio.setTramit(
-				TramitsRDTOFactory.create(new BigDecimal("1"), "SOLC", "Sol·licitud")
+				TramitsRDTOFactory.create(idTramit, "SOLC", "Sol·licitud")
 		);
 		
 		dadesOperacio.setGrups( 

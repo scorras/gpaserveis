@@ -15,13 +15,18 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.R
 public class RespostaConsultaProcedimentsMockService {
     
 	
-	public RespostaConsultaProcedimentsRDTO getRespostaConsultaProcediments() {
+	public RespostaConsultaProcedimentsRDTO getRespostaConsultaProcediments(BigDecimal idProcediment) {
+		
+//		if(idProcediment.compareTo(new BigDecimal("1")) == 0) {
+//			throw new GPAServeisServiceRuntimeException("No se encuentra el procedimiento con id=1");
+//		}
+
 		
 		RespostaConsultaProcedimentsRDTO resposta = new RespostaConsultaProcedimentsRDTO();
 		
 		ProcedimentsConsultaRDTO procediment = new ProcedimentsConsultaRDTO();
 		
-		procediment.setId(new BigDecimal("1"));
+		procediment.setId(idProcediment);
 		procediment.setCodi("CODI");
 		procediment.setDescripcio("Procediment 1");
 		procediment.setVersio("1");

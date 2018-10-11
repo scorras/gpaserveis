@@ -22,6 +22,8 @@ public class DocumentsIdentitatRDTO {
     private String numeroDocument;
 	@ApiModelProperty(value="Codi ISO del país del document d'identitat de la persona")
     private String pais;
+	
+	
 	public String getTipusDocument() {
 		return tipusDocument;
 	}

@@ -41,6 +41,7 @@ public class ExpedientsCercaRDTO {
 	private String estat;
 	private PersonesRDTO solicitant;
 	
+	
 	public BigDecimal getId() {
 		return id;
 	}

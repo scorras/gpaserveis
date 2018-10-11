@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta;
+package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.actualitzar.solicituds;
 
 import java.math.BigDecimal;
 
@@ -8,21 +8,23 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value="Tramits")
+
+@ApiModel(value="SolicitudActualitzar")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
     "codi",
-    "descripcio"
+    "valor"
 })
-public class TramitsRDTO {
+public class AtributsActualitzarRDTO {
+    
 	
-	@ApiModelProperty(value="Identificador del tràmit")
-    private BigDecimal id;
-	@ApiModelProperty(value="Codi del tràmit")
-    private String codi;
-	@ApiModelProperty(value="Descripció del tràmit")
-    private String descripcio;
+	@ApiModelProperty(value="Identificador de l'atribut")
+	private BigDecimal id;
+	@ApiModelProperty(value="Codi de l'atribut")
+	private String codi;
+	@ApiModelProperty(value="Valor de l'atribut")
+	private String valor;
 	
 	
 	public BigDecimal getId() {
@@ -37,11 +39,13 @@ public class TramitsRDTO {
 	public void setCodi(String codi) {
 		this.codi = codi;
 	}
-	public String getDescripcio() {
-		return descripcio;
+	public String getValor() {
+		return valor;
 	}
-	public void setDescripcio(String descripcio) {
-		this.descripcio = descripcio;
+	public void setValor(String valor) {
+		this.valor = valor;
 	}
 	
 }
+
+

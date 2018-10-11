@@ -19,9 +19,9 @@ import io.swagger.annotations.ApiModel;
 public class DadesOperacioConsultaRDTO {
 	
 	private TramitsRDTO tramit;
-
     private List<DadesGrupsRDTO> grups = Collections.emptyList();
 
+    
 	public TramitsRDTO getTramit() {
 		return tramit;
 	}

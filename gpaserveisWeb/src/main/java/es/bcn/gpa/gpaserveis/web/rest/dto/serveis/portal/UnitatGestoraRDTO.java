@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(value="UnitatGestora")
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -13,8 +14,12 @@ import io.swagger.annotations.ApiModel;
 })
 public class UnitatGestoraRDTO {
 	
+	@ApiModelProperty(value="Codi de la Unitat Gestora")
 	private String codi;
+	@ApiModelProperty(value="Descripció de la Unitat Gestora")
 	private String descripcio;
+	
+	
 	public String getCodi() {
 		return codi;
 	}
