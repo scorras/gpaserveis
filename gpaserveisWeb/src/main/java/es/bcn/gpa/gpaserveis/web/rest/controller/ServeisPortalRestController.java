@@ -39,6 +39,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.registrar.solicitud.Res
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Extension;
+import io.swagger.annotations.ExtensionProperty;
 import net.opentrends.openframe.services.rest.controller.AbstractRestController;
 
 /**
@@ -83,7 +85,12 @@ public class ServeisPortalRestController extends AbstractRestController {
 	
 	
 	@GetMapping("/procediments")
-	@ApiOperation(value = "Cerca de procediments", tags = { "Serveis Portal API", "Funcions d'integració amb RPA" })
+	@ApiOperation(value = "Cerca de procediments", tags = { "Serveis Portal API", "Funcions d'integració amb RPA" },
+	extensions = {
+	@Extension(name = "x-imi-roles",
+		properties = {
+			@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta")
+	})})	
 	public RespostaCercaProcedimentsRDTO cercaProcediments(
 			@ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
 			@ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
@@ -105,7 +112,12 @@ public class ServeisPortalRestController extends AbstractRestController {
 	
 	
 	@GetMapping("/procediments/{idProcediment}")
-	@ApiOperation(value = "Consultar les dades del procediment", tags = { "Serveis Portal API", "Funcions d'integració amb RPA" })
+	@ApiOperation(value = "Consultar les dades del procediment", tags = { "Serveis Portal API", "Funcions d'integració amb RPA" },
+	extensions = {
+	@Extension(name = "x-imi-roles",
+		properties = {
+			@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta")
+	})})	
 	public RespostaConsultaProcedimentsRDTO consultarDadesProcediment(
 			@ApiParam(value = "Identificador del procediment") @PathVariable BigDecimal idProcediment)  {
 		
@@ -113,7 +125,12 @@ public class ServeisPortalRestController extends AbstractRestController {
 	}
 	
 	@GetMapping("/procediments/{idProcediment}/tramits/{idTramit}/atributs")
-	@ApiOperation(value = "Consultar les dades d'operació del tràmit", tags = { "Serveis Portal API", "Funcions d'integració amb RPA" })
+	@ApiOperation(value = "Consultar les dades d'operació del tràmit", tags = { "Serveis Portal API", "Funcions d'integració amb RPA" },
+	extensions = {
+	@Extension(name = "x-imi-roles",
+		properties = {
+			@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta")
+	})})
 	public RespostaConsultaDadesOperacioRDTO consultarDadesOperacioProcediment(
 			@ApiParam(value = "Identificador del procediment") @PathVariable BigDecimal idProcediment,
 			@ApiParam(value = "Identificador del tràmit") @PathVariable BigDecimal idTramit)  {
@@ -123,7 +140,12 @@ public class ServeisPortalRestController extends AbstractRestController {
 	
 	
 	@GetMapping("/procediments/{idProcediment}/tramits/{idTramit}/documentacio")
-	@ApiOperation(value = "Consultar les dades de documentació del procediment", tags = { "Serveis Portal API", "Funcions d'integració amb RPA" })
+	@ApiOperation(value = "Consultar les dades de documentació del procediment", tags = { "Serveis Portal API", "Funcions d'integració amb RPA" },
+	extensions = {
+		@Extension(name = "x-imi-roles",
+		properties = {
+			@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta")
+	})})
 	public RespostaConsultaDocumentsRDTO consultarDocumentacioProcediment(
 			@ApiParam(value = "Identificador del procediment") @PathVariable BigDecimal idProcediment,
 			@ApiParam(value = "Identificador del tràmit") @PathVariable BigDecimal idTramit)  {
@@ -133,7 +155,12 @@ public class ServeisPortalRestController extends AbstractRestController {
 	
 	
 	@GetMapping("/expedients")
-	@ApiOperation(value = "Cerca d'expedients", tags = { "Serveis Portal API", "Funcions de consulta al repositori de dades d'expedients" })
+	@ApiOperation(value = "Cerca d'expedients", tags = { "Serveis Portal API", "Funcions de consulta al repositori de dades d'expedients" },
+	extensions = {
+	@Extension(name = "x-imi-roles",
+		properties = {
+			@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta")
+	})})
 	public RespostaCercaExpedientsRDTO cercaExpedients(
 			@ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
 			@ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
@@ -152,7 +179,12 @@ public class ServeisPortalRestController extends AbstractRestController {
 	
 	
 	@GetMapping("/expedients/{idExpedient}")
-	@ApiOperation(value = "Consultar les dades de l'expedient", tags = { "Serveis Portal API", "Funcions de consulta al repositori de dades d'expedients" })
+	@ApiOperation(value = "Consultar les dades de l'expedient", tags = { "Serveis Portal API", "Funcions de consulta al repositori de dades d'expedients" },
+	extensions = {
+	@Extension(name = "x-imi-roles",
+		properties = {
+			@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta")
+	})})
 	public RespostaConsultaExpedientsRDTO consultarDadesExpedient(
 			@ApiParam(value = "Identificador de l'expedient") @PathVariable BigDecimal idExpedient)  {
 		
@@ -161,7 +193,12 @@ public class ServeisPortalRestController extends AbstractRestController {
 	
 	
 	@PostMapping("/expedients")
-	@ApiOperation(value = "Crear una sol·licitud d'un expedient", tags = { "Serveis Portal API", "Funcions d'execució d'accions" })
+	@ApiOperation(value = "Crear una sol·licitud d'un expedient", tags = { "Serveis Portal API", "Funcions d'execució d'accions" },
+	extensions = {
+	@Extension(name = "x-imi-roles",
+		properties = {
+			@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta")
+	})})	
 	public RespostaCrearSolicitudsRDTO crearSolicitudExpedient(
 			@ApiParam(value = "Identificador de l'expedient") @RequestBody SolicitudsCrearRDTO solicitudExpedient)  {
 		
@@ -170,7 +207,12 @@ public class ServeisPortalRestController extends AbstractRestController {
 	
 	
 	@PutMapping("/expedients/{idExpedient}")
-	@ApiOperation(value = "Actualitzar dades de la sol·licitud de l'expedient", tags = { "Serveis Portal API", "Funcions d'execució d'accions" })
+	@ApiOperation(value = "Actualitzar dades de la sol·licitud de l'expedient", tags = { "Serveis Portal API", "Funcions d'execució d'accions" },
+	extensions = {
+	@Extension(name = "x-imi-roles",
+		properties = {
+			@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor")
+	})})
 	public RespostaActualitzarSolicitudsRDTO actualitzarSolicitudExpedient(
 			@ApiParam(value = "Identificador de l'expedient") @PathVariable BigDecimal idExpedient,
 			@ApiParam(value = "Identificador de l'expedient") @RequestBody SolicitudsActualitzarRDTO solicitudExpedient)  {
@@ -180,7 +222,12 @@ public class ServeisPortalRestController extends AbstractRestController {
 	
 	
 	@PostMapping("/expedients/{idExpedient}/registre")
-	@ApiOperation(value = "Registrar la sol·licitud de l'expedient", tags = { "Serveis Portal API", "Funcions d'execució d'accions" })
+	@ApiOperation(value = "Registrar la sol·licitud de l'expedient", tags = { "Serveis Portal API", "Funcions d'execució d'accions" },
+	extensions = {
+	@Extension(name = "x-imi-roles",
+		properties = {
+			@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor")
+	})})	
 	public RespostaRegistrarSolicitudsRDTO registrarSolicitudExpedient(
 			@ApiParam(value = "Identificador de l'expedient") @PathVariable BigDecimal idExpedient)  {
 		
@@ -189,7 +236,12 @@ public class ServeisPortalRestController extends AbstractRestController {
 	
 	
 	@PostMapping("/expedients/{idExpedient}/obrir")
-	@ApiOperation(value = "Obrir la sol·licitud de l'expedient", tags = { "Serveis Portal API", "Funcions d'execució d'accions" })
+	@ApiOperation(value = "Obrir la sol·licitud de l'expedient", tags = { "Serveis Portal API", "Funcions d'execució d'accions" },
+	extensions = {
+	@Extension(name = "x-imi-roles",
+		properties = {
+			@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor")
+	})})	
 	public RespostaObrirSolicitudsRDTO obrirSolicitudExpedient(
 			@ApiParam(value = "Identificador de l'expedient") @PathVariable BigDecimal idExpedient)  {
 		
