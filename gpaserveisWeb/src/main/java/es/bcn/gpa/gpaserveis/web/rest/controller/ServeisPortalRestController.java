@@ -104,7 +104,7 @@ public class ServeisPortalRestController extends AbstractRestController {
 				allowableValues="EN_ELABORACIO, PUBLICAT, FINALITZAT") @RequestParam(value = "estat", required = false) String estat,
 			@ApiParam(value = "Filtra procediments interns") @RequestParam(value = "intern", required = false) String intern,
 			@ApiParam(value = "Filtra procediments per versió") @RequestParam(value = "versio", required = false) String versio,
-			@ApiParam(value = "Filtra aquells procediments entre els que tinguin el període de sol·licitud obert i els que no") @RequestParam(value = "versio", required = false) String actiu
+			@ApiParam(value = "Filtra aquells procediments entre els que tinguin el període de sol·licitud obert i els que no") @RequestParam(value = "actiu", required = false) String actiu
 	)  {
 		
 		return respostaCercaProcedimentsMockService.getRespostaCercaProcediments();
@@ -119,7 +119,7 @@ public class ServeisPortalRestController extends AbstractRestController {
 			@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta")
 	})})	
 	public RespostaConsultaProcedimentsRDTO consultarDadesProcediment(
-			@ApiParam(value = "Identificador del procediment") @PathVariable BigDecimal idProcediment)  {
+			@ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment)  {
 		
 		return respostaConsultaProcedimentsMockService.getRespostaConsultaProcediments(idProcediment);
 	}
@@ -132,8 +132,8 @@ public class ServeisPortalRestController extends AbstractRestController {
 			@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta")
 	})})
 	public RespostaConsultaDadesOperacioRDTO consultarDadesOperacioProcediment(
-			@ApiParam(value = "Identificador del procediment") @PathVariable BigDecimal idProcediment,
-			@ApiParam(value = "Identificador del tràmit") @PathVariable BigDecimal idTramit)  {
+			@ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
+			@ApiParam(value = "Identificador del tràmit", required = true) @PathVariable BigDecimal idTramit)  {
 		
 		return respostaConsultaDadesOperacioMockService.getRespostaConsultaDadesOperacio(idProcediment, idTramit);
 	}
@@ -147,8 +147,8 @@ public class ServeisPortalRestController extends AbstractRestController {
 			@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta")
 	})})
 	public RespostaConsultaDocumentsRDTO consultarDocumentacioProcediment(
-			@ApiParam(value = "Identificador del procediment") @PathVariable BigDecimal idProcediment,
-			@ApiParam(value = "Identificador del tràmit") @PathVariable BigDecimal idTramit)  {
+			@ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
+			@ApiParam(value = "Identificador del tràmit", required = true) @PathVariable BigDecimal idTramit)  {
 		
 		return respostaConsultaDocumentsMockService.getRespostaConsultaDocuments(idProcediment, idTramit);
 	}		
@@ -186,7 +186,7 @@ public class ServeisPortalRestController extends AbstractRestController {
 			@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta")
 	})})
 	public RespostaConsultaExpedientsRDTO consultarDadesExpedient(
-			@ApiParam(value = "Identificador de l'expedient") @PathVariable BigDecimal idExpedient)  {
+			@ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient)  {
 		
 		return respostaConsultaExpedientsMockService.getRespostaConsultaExpedients(idExpedient);
 	}	
@@ -214,7 +214,7 @@ public class ServeisPortalRestController extends AbstractRestController {
 			@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor")
 	})})
 	public RespostaActualitzarSolicitudsRDTO actualitzarSolicitudExpedient(
-			@ApiParam(value = "Identificador de l'expedient") @PathVariable BigDecimal idExpedient,
+			@ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient,
 			@ApiParam(value = "Identificador de l'expedient") @RequestBody SolicitudsActualitzarRDTO solicitudExpedient)  {
 		
 		return respostaActualitzarSolicitudMockService.getRespostaRespostaActualitzarSolicituds(idExpedient);
@@ -229,7 +229,7 @@ public class ServeisPortalRestController extends AbstractRestController {
 			@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor")
 	})})	
 	public RespostaRegistrarSolicitudsRDTO registrarSolicitudExpedient(
-			@ApiParam(value = "Identificador de l'expedient") @PathVariable BigDecimal idExpedient)  {
+			@ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient)  {
 		
 		return respostaRegistrarSolicitudMockService.getRespostaRespostaRegistrarSolicituds(idExpedient);
 	}	
@@ -243,7 +243,7 @@ public class ServeisPortalRestController extends AbstractRestController {
 			@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor")
 	})})	
 	public RespostaObrirSolicitudsRDTO obrirSolicitudExpedient(
-			@ApiParam(value = "Identificador de l'expedient") @PathVariable BigDecimal idExpedient)  {
+			@ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient)  {
 		
 		return respostaObrirSolicitudMockService.getRespostaObrirSolicituds(idExpedient);
 	}		
