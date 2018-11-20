@@ -9,13 +9,16 @@
   </parent>
   <groupId>es.bcn.gpa</groupId>
   <artifactId>gpaserveis</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>${gpaserveis.version}</version>
   <packaging>pom</packaging>
   <description></description>
   <modules>
     <module>gpaserveisWeb</module>
     <module>gpaserveisEar</module>
   </modules>
+  <properties>
+    <gpaserveis.version>1.0.2</gpaserveis.version>
+  </properties>
   <profiles>
     <profile>
       <id>was_build</id>
