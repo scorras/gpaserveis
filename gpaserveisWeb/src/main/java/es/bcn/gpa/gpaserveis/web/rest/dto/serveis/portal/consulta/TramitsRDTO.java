@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 @ApiModel(value="Tramits")
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -15,6 +17,8 @@ import io.swagger.annotations.ApiModelProperty;
     "codi",
     "descripcio"
 })
+@Getter
+@Setter
 public class TramitsRDTO {
 	
 	@ApiModelProperty(value="Identificador del tràmit")
@@ -23,25 +27,5 @@ public class TramitsRDTO {
     private String codi;
 	@ApiModelProperty(value="Descripció del tràmit")
     private String descripcio;
-	
-	
-	public BigDecimal getId() {
-		return id;
-	}
-	public void setId(BigDecimal id) {
-		this.id = id;
-	}
-	public String getCodi() {
-		return codi;
-	}
-	public void setCodi(String codi) {
-		this.codi = codi;
-	}
-	public String getDescripcio() {
-		return descripcio;
-	}
-	public void setDescripcio(String descripcio) {
-		this.descripcio = descripcio;
-	}
 	
 }

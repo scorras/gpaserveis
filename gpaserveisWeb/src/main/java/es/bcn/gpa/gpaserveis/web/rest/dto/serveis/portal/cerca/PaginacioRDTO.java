@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @ApiModel(value="Paginacio")
@@ -15,6 +17,8 @@ import io.swagger.annotations.ApiModelProperty;
     "resultatsPerPagina",
     "numeroPagina"
 })
+@Getter
+@Setter
 public class PaginacioRDTO {
     
 	@ApiModelProperty(value="Número total de resultats de la cerca")
@@ -25,31 +29,5 @@ public class PaginacioRDTO {
 	private int resultatsPerPagina;
 	@ApiModelProperty(value="Número de pàgina de la cerca")
 	private int numeroPagina;
-	
-	
-	public long getTotalResultats() {
-		return totalResultats;
-	}
-	public void setTotalResultats(long totalResultats) {
-		this.totalResultats = totalResultats;
-	}
-	public int getTotalPagines() {
-		return totalPagines;
-	}
-	public void setTotalPagines(int totalPagines) {
-		this.totalPagines = totalPagines;
-	}
-	public int getResultatsPerPagina() {
-		return resultatsPerPagina;
-	}
-	public void setResultatsPerPagina(int resultatsPerPagina) {
-		this.resultatsPerPagina = resultatsPerPagina;
-	}
-	public int getNumeroPagina() {
-		return numeroPagina;
-	}
-	public void setNumeroPagina(int numeroPagina) {
-		this.numeroPagina = numeroPagina;
-	}
 	
 }

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 @ApiModel(value="DocumentIdentitat")
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -13,6 +15,8 @@ import io.swagger.annotations.ApiModelProperty;
     "numeroDocument",
     "pais"
 })
+@Getter
+@Setter
 public class DocumentsIdentitatRDTO {
     
 	@ApiModelProperty(value="Tipus de document d'identitat de la persona",
@@ -22,26 +26,5 @@ public class DocumentsIdentitatRDTO {
     private String numeroDocument;
 	@ApiModelProperty(value="Codi ISO del país del document d'identitat de la persona")
     private String pais;
-	
-	
-	public String getTipusDocument() {
-		return tipusDocument;
-	}
-	public void setTipusDocument(String tipusDocument) {
-		this.tipusDocument = tipusDocument;
-	}
-	public String getNumeroDocument() {
-		return numeroDocument;
-	}
-	public void setNumeroDocument(String numeroDocument) {
-		this.numeroDocument = numeroDocument;
-	}
-	public String getPais() {
-		return pais;
-	}
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
-	
     
 }

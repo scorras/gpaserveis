@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsRDTO;
 import io.swagger.annotations.ApiModel;
+import lombok.Getter;
+import lombok.Setter;
 
 @ApiModel(value="DadesOperacio")
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -16,27 +18,11 @@ import io.swagger.annotations.ApiModel;
     "tramit",
     "grups"
 })
+@Getter
+@Setter
 public class DadesOperacioConsultaRDTO {
 	
 	private TramitsRDTO tramit;
     private List<DadesGrupsRDTO> grups = Collections.emptyList();
-
-    
-	public TramitsRDTO getTramit() {
-		return tramit;
-	}
-
-	public void setTramit(TramitsRDTO tramit) {
-		this.tramit = tramit;
-	}
-
-	public List<DadesGrupsRDTO> getGrups() {
-		return grups;
-	}
-
-	public void setGrups(List<DadesGrupsRDTO> grups) {
-		this.grups = grups;
-	}
-
     
 }

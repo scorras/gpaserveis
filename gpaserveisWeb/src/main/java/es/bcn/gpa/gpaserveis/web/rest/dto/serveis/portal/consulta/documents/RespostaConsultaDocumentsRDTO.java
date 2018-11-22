@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.swagger.annotations.ApiModel;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @ApiModel(value="RespostaConsultaDocuments")
@@ -14,19 +16,11 @@ import io.swagger.annotations.ApiModel;
 @JsonPropertyOrder({
     "documents"
 })
+@Getter
+@Setter
 public class RespostaConsultaDocumentsRDTO {
     
 	private List<DocumentsConsultaRDTO> documents = Collections.emptyList();
-
-	
-	public List<DocumentsConsultaRDTO> getDocuments() {
-		return documents;
-	}
-
-	public void setDocuments(List<DocumentsConsultaRDTO> documents) {
-		this.documents = documents;
-	}
-	
 	
 }
 

@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ResultatRespostaDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @ApiModel(value="RespostaObrirSolicitud")
@@ -14,26 +16,14 @@ import io.swagger.annotations.ApiModelProperty;
     "resultat",
     "expedient"
 })
+@Getter
+@Setter
 public class RespostaObrirSolicitudsRDTO {
     
 	@ApiModelProperty("Resultat de l'operació")
 	private ResultatRespostaDTO resultat;
 	@ApiModelProperty("Expedient creat en estat inicial")
 	private RespostaObrirExpedientsRDTO expedient;
-	
-	public ResultatRespostaDTO getResultat() {
-		return resultat;
-	}
-	public void setResultat(ResultatRespostaDTO resultat) {
-		this.resultat = resultat;
-	}
-	public RespostaObrirExpedientsRDTO getExpedient() {
-		return expedient;
-	}
-	public void setExpedient(RespostaObrirExpedientsRDTO expedient) {
-		this.expedient = expedient;
-	}
-	
 	
 }
 

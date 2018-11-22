@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 @ApiModel(value="TerminisDuracio")
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -16,6 +18,8 @@ import io.swagger.annotations.ApiModelProperty;
     "dataIniciVigencia",
     "dataFiVigencia"
 })
+@Getter
+@Setter
 public class TerminisDuracioRDTO {
 	
 	@ApiModelProperty(value="Termini màxim de duració del procediment")
@@ -32,37 +36,5 @@ public class TerminisDuracioRDTO {
     @ApiModelProperty(value="Data fi vigència")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private String dataFiVigencia;
-    
-    
-	public String getTerminiMaxim() {
-		return terminiMaxim;
-	}
-	public void setTerminiMaxim(String terminiMaxim) {
-		this.terminiMaxim = terminiMaxim;
-	}
-	public String getUnitat() {
-		return unitat;
-	}
-	public void setUnitat(String unitat) {
-		this.unitat = unitat;
-	}
-	public String getPeriodicitat() {
-		return periodicitat;
-	}
-	public void setPeriodicitat(String periodicitat) {
-		this.periodicitat = periodicitat;
-	}
-	public String getDataIniciVigencia() {
-		return dataIniciVigencia;
-	}
-	public void setDataIniciVigencia(String dataIniciVigencia) {
-		this.dataIniciVigencia = dataIniciVigencia;
-	}
-	public String getDataFiVigencia() {
-		return dataFiVigencia;
-	}
-	public void setDataFiVigencia(String dataFiVigencia) {
-		this.dataFiVigencia = dataFiVigencia;
-	}
     
 }

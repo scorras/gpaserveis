@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 @ApiModel(value="UnitatGestora")
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -12,25 +14,13 @@ import io.swagger.annotations.ApiModelProperty;
     "codi",
     "descripcio"
 })
+@Getter
+@Setter
 public class UnitatGestoraRDTO {
 	
 	@ApiModelProperty(value="Codi de la Unitat Gestora")
 	private String codi;
 	@ApiModelProperty(value="Descripció de la Unitat Gestora")
 	private String descripcio;
-	
-	
-	public String getCodi() {
-		return codi;
-	}
-	public void setCodi(String codi) {
-		this.codi = codi;
-	}
-	public String getDescripcio() {
-		return descripcio;
-	}
-	public void setDescripcio(String descripcio) {
-		this.descripcio = descripcio;
-	}
 	
 }

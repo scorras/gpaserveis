@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @ApiModel(value="DocumentActualitzar")
@@ -14,6 +16,8 @@ import io.swagger.annotations.ApiModelProperty;
     "codi",
     "nom",
 })
+@Getter
+@Setter
 public class DocumentsActualitzarRDTO {
     
 	@ApiModelProperty("Identificador del document")
@@ -23,27 +27,6 @@ public class DocumentsActualitzarRDTO {
 	@ApiModelProperty("Nom del document")
 	private String nom;
 	
-	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getCodi() {
-		return codi;
-	}
-	public void setCodi(String codi) {
-		this.codi = codi;
-	}
-	public String getNom() {
-		return nom;
-	}
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-	
-
 }
 
 

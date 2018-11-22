@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.swagger.annotations.ApiModel;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @ApiModel(value="RespostaConsultaExpedients")
@@ -11,19 +13,12 @@ import io.swagger.annotations.ApiModel;
 @JsonPropertyOrder({
     "expedient"
 })
+@Getter
+@Setter
 public class RespostaConsultaExpedientsRDTO {
     
 	private ExpedientsConsultaRDTO expedient;
 
-	
-	public ExpedientsConsultaRDTO getExpedient() {
-		return expedient;
-	}
-
-	public void setExpedient(ExpedientsConsultaRDTO expedient) {
-		this.expedient = expedient;
-	}
-	
 }
 
 

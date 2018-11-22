@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.PaginacioRDTO;
 import io.swagger.annotations.ApiModel;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @ApiModel(value="RespostaCercaProcediments")
@@ -16,24 +18,12 @@ import io.swagger.annotations.ApiModel;
     "data",
     "paginacio"
 })
+@Getter
+@Setter
 public class RespostaCercaExpedientsRDTO {
     
 	private List<ExpedientsCercaRDTO> data = Collections.emptyList();
 	private PaginacioRDTO paginacio;
-	
-	
-	public List<ExpedientsCercaRDTO> getData() {
-		return data;
-	}
-	public void setData(List<ExpedientsCercaRDTO> data) {
-		this.data = data;
-	}
-	public PaginacioRDTO getPaginacio() {
-		return paginacio;
-	}
-	public void setPaginacio(PaginacioRDTO paginacio) {
-		this.paginacio = paginacio;
-	}
 	
 }
 
