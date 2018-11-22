@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 @ApiModel(value="Registre")
 @JsonPropertyOrder({
@@ -11,6 +13,8 @@ import io.swagger.annotations.ApiModelProperty;
     "dataRegistre",
     "persona"
 })
+@Getter
+@Setter
 public class RegistreRDTO {
 	
 	@ApiModelProperty(value="Codi del registre")
@@ -20,23 +24,4 @@ public class RegistreRDTO {
 	@ApiModelProperty(value="Persona que ha efectuat el registre")
     private PersonesRDTO persona;
 
-    
-	public String getCodi() {
-		return codi;
-	}
-	public void setCodi(String codi) {
-		this.codi = codi;
-	}
-	public String getDataRegistre() {
-		return dataRegistre;
-	}
-	public void setDataRegistre(String dataRegistre) {
-		this.dataRegistre = dataRegistre;
-	}
-	public PersonesRDTO getPersona() {
-		return persona;
-	}
-	public void setPersona(PersonesRDTO persona) {
-		this.persona = persona;
-	}
 }

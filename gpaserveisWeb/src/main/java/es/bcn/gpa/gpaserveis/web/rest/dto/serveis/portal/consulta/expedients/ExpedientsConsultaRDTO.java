@@ -14,6 +14,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.ProcedimentsConsultaRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 @ApiModel(value="ExpedientsConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -35,6 +37,8 @@ import io.swagger.annotations.ApiModelProperty;
     "documents",
     "atributs"
 })
+@Getter
+@Setter
 public class ExpedientsConsultaRDTO {
 	
 	@ApiModelProperty(value="Identificador de l'expedient")
@@ -63,106 +67,5 @@ public class ExpedientsConsultaRDTO {
 	private PersonesRDTO representant;
 	private List<DocumentsExpedientsRDTO> documents = Collections.emptyList();
 	private List<DadesAtributsExpedientsRDTO> atributs = Collections.emptyList();
-	
-	
-	public BigDecimal getId() {
-		return id;
-	}
-	public void setId(BigDecimal id) {
-		this.id = id;
-	}
-	public String getCodi() {
-		return codi;
-	}
-	public void setCodi(String codi) {
-		this.codi = codi;
-	}
-	public boolean isPermetAportacio() {
-		return permetAportacio;
-	}
-	public void setPermetAportacio(boolean permetAportacio) {
-		this.permetAportacio = permetAportacio;
-	}
-	public boolean isPermetEsmena() {
-		return permetEsmena;
-	}
-	public void setPermetEsmena(boolean permetEsmena) {
-		this.permetEsmena = permetEsmena;
-	}
-	public boolean isPermetAlegacio() {
-		return permetAlegacio;
-	}
-	public void setPermetAlegacio(boolean permetAlegacio) {
-		this.permetAlegacio = permetAlegacio;
-	}
-	public String getDataPresentacio() {
-		return dataPresentacio;
-	}
-	public void setDataPresentacio(String dataPresentacio) {
-		this.dataPresentacio = dataPresentacio;
-	}
-	public String getDataModificacio() {
-		return dataModificacio;
-	}
-	public void setDataModificacio(String dataModificacio) {
-		this.dataModificacio = dataModificacio;
-	}
-	public UnitatGestoraRDTO getUnitatGestora() {
-		return unitatGestora;
-	}
-	public void setUnitatGestora(UnitatGestoraRDTO unitatGestora) {
-		this.unitatGestora = unitatGestora;
-	}
-	public String getEstat() {
-		return estat;
-	}
-	public void setEstat(String estat) {
-		this.estat = estat;
-	}
-	public List<HistoricsRDTO> getHistorics() {
-		return historics;
-	}
-	public void setHistorics(List<HistoricsRDTO> historics) {
-		this.historics = historics;
-	}
-	public ProcedimentsConsultaRDTO getProcediment() {
-		return procediment;
-	}
-	public void setProcediment(ProcedimentsConsultaRDTO procediment) {
-		this.procediment = procediment;
-	}
-	public RegistreRDTO getRegistre() {
-		return registre;
-	}
-	public void setRegistre(RegistreRDTO registre) {
-		this.registre = registre;
-	}
-	public PersonesRDTO getSolicitant() {
-		return solicitant;
-	}
-	public void setSolicitant(PersonesRDTO solicitant) {
-		this.solicitant = solicitant;
-	}
-	public PersonesRDTO getRepresentant() {
-		return representant;
-	}
-	public void setRepresentant(PersonesRDTO representant) {
-		this.representant = representant;
-	}
-	public List<DocumentsExpedientsRDTO> getDocuments() {
-		return documents;
-	}
-	public void setDocuments(List<DocumentsExpedientsRDTO> documents) {
-		this.documents = documents;
-	}
-	public List<DadesAtributsExpedientsRDTO> getAtributs() {
-		return atributs;
-	}
-	public void setAtributs(List<DadesAtributsExpedientsRDTO> atributs) {
-		this.atributs = atributs;
-	}
-	
-	
-	
 	
 }

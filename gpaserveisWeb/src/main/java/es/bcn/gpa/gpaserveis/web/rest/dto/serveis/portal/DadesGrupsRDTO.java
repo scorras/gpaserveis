@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 @ApiModel(value="Grups")
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -19,6 +21,8 @@ import io.swagger.annotations.ApiModelProperty;
     "urlAjuda",
     "atributs"
 })
+@Getter
+@Setter
 public class DadesGrupsRDTO {
 	
 	@ApiModelProperty(value="Descripció del grup d'atributs")
@@ -33,43 +37,5 @@ public class DadesGrupsRDTO {
     private String urlAjuda;
     @ApiModelProperty(value="Atributs del grup")
     private List<DadesAtributsRDTO> atributs = Collections.emptyList();
-    
-    
-	public String getDescripcio() {
-		return descripcio;
-	}
-	public void setDescripcio(String descripcio) {
-		this.descripcio = descripcio;
-	}
-	public String getColumnes() {
-		return columnes;
-	}
-	public void setColumnes(String columnes) {
-		this.columnes = columnes;
-	}
-	public String getOrdre() {
-		return ordre;
-	}
-	public void setOrdre(String ordre) {
-		this.ordre = ordre;
-	}
-	public String getUrlValidacio() {
-		return urlValidacio;
-	}
-	public void setUrlValidacio(String urlValidacio) {
-		this.urlValidacio = urlValidacio;
-	}
-	public String getUrlAjuda() {
-		return urlAjuda;
-	}
-	public void setUrlAjuda(String urlAjuda) {
-		this.urlAjuda = urlAjuda;
-	}
-	public List<DadesAtributsRDTO> getAtributs() {
-		return atributs;
-	}
-	public void setAtributs(List<DadesAtributsRDTO> atributs) {
-		this.atributs = atributs;
-	}
     
 }

@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @ApiModel(value="RespostaObrirExpedient")
@@ -15,26 +17,14 @@ import io.swagger.annotations.ApiModelProperty;
     "id",
     "codi"
 })
+@Getter
+@Setter
 public class RespostaObrirExpedientsRDTO {
     
 	@ApiModelProperty("Identificador de l'expedient")
 	private BigDecimal id;
 	@ApiModelProperty("Codi de l'expedient")
 	private String codi;
-	
-	
-	public BigDecimal getId() {
-		return id;
-	}
-	public void setId(BigDecimal id) {
-		this.id = id;
-	}
-	public String getCodi() {
-		return codi;
-	}
-	public void setCodi(String codi) {
-		this.codi = codi;
-	}
 	
 }
 

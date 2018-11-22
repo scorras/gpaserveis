@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @ApiModel(value="SolicitudCrear")
@@ -18,6 +20,8 @@ import io.swagger.annotations.ApiModelProperty;
     "solicitant",
     "representant"
 })
+@Getter
+@Setter
 public class SolicitudsCrearRDTO {
     
 	@ApiModelProperty("Codi del procediment")
@@ -33,45 +37,6 @@ public class SolicitudsCrearRDTO {
 	private PersonesRDTO solicitant;
 	@ApiModelProperty("Persona representant")
 	private PersonesRDTO representant;
-	
-	
-	public String getCodiProcediment() {
-		return codiProcediment;
-	}
-	public void setCodiProcediment(String codiProcediment) {
-		this.codiProcediment = codiProcediment;
-	}
-	public String getVersioProcediment() {
-		return versioProcediment;
-	}
-	public void setVersioProcediment(String versioProcediment) {
-		this.versioProcediment = versioProcediment;
-	}	
-	public String getCodiUnitatGestora() {
-		return codiUnitatGestora;
-	}
-	public void setCodiUnitatGestora(String codiUnitatGestora) {
-		this.codiUnitatGestora = codiUnitatGestora;
-	}
-	public String getInici() {
-		return inici;
-	}
-	public void setInici(String inici) {
-		this.inici = inici;
-	}	
-	public PersonesRDTO getSolicitant() {
-		return solicitant;
-	}
-	public void setSolicitant(PersonesRDTO solicitant) {
-		this.solicitant = solicitant;
-	}
-	public PersonesRDTO getRepresentant() {
-		return representant;
-	}
-	public void setRepresentant(PersonesRDTO representant) {
-		this.representant = representant;
-	}	
-	
 	
 }
 
