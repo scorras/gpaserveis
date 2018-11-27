@@ -1,6 +1,8 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -14,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.Expedients_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.PageDataOfExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.invoker.ApiException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaActualitzarSolicitudMockService;
-import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCercaExpedientsMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCercaProcedimentsMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaDadesOperacioMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaDocumentsMockService;
@@ -26,6 +31,8 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaObrirSolicitudMock
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaRegistrarSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.actualitzar.solicituds.RespostaActualitzarSolicitudsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.actualitzar.solicituds.SolicitudsActualitzarRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.PaginacioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.expedients.ExpedientsCercaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.expedients.RespostaCercaExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.RespostaCercaProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.RespostaConsultaDadesOperacioRDTO;
@@ -36,6 +43,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.crear.solicituds.Respos
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.crear.solicituds.SolicitudsCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.obrir.expedients.RespostaObrirSolicitudsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.registrar.solicitud.RespostaRegistrarSolicitudsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.exception.GPAServeisServiceRuntimeException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -64,9 +72,9 @@ public class ServeisPortalRestController extends AbstractRestController {
 	@Autowired
 	private RespostaConsultaDocumentsMockService respostaConsultaDocumentsMockService;
 	
-	@Autowired
-	private RespostaCercaExpedientsMockService respostaCercaExpedientsMockService;
-	
+//	@Autowired
+//	private RespostaCercaExpedientsMockService respostaCercaExpedientsMockService;
+//	
 	@Autowired
 	private RespostaConsultaExpedientsMockService respostaConsultaExpedientsMockService;	
 
@@ -81,6 +89,10 @@ public class ServeisPortalRestController extends AbstractRestController {
 	
 	@Autowired
 	private RespostaObrirSolicitudMockService respostaObrirSolicitudMockService;
+
+
+	@Autowired
+	private Expedients_Api expedientsApi;
 	
 	
 	
@@ -174,7 +186,65 @@ public class ServeisPortalRestController extends AbstractRestController {
 			@ApiParam(value = "Filtra expedients per data de presentació") @RequestParam(value = "dataPresentacioFi", required = false) String dataPresentacioFi
 	) {
 		
-		return respostaCercaExpedientsMockService.getRespostaCercaExpedients();
+		RespostaCercaExpedientsRDTO resposta = new RespostaCercaExpedientsRDTO();
+		try {
+			
+			
+			List<ExpedientsCercaRDTO> data = new ArrayList<ExpedientsCercaRDTO>();
+			PaginacioRDTO paginacio = new PaginacioRDTO();
+			
+			
+			PageDataOfExpedientsRDTO pageDataExpedients = 
+					expedientsApi.getExpedientsUsingGET1(
+							null, 
+							null, 
+							null, 
+							null, 
+							null, 
+							null, 
+							numeroPagina, 
+							null, 
+							null, 
+							resultatsPerPagina, 
+							null, 
+							null, 
+							null, 
+							null
+				);
+			
+			
+			
+			List<ExpedientsRDTO> dades = pageDataExpedients.getData();
+			ExpedientsCercaRDTO resultatExp = null;
+			for(ExpedientsRDTO expedient : dades) {
+				
+				resultatExp = new ExpedientsCercaRDTO();
+				
+				resultatExp.setCodi(expedient.getCodi());
+				resultatExp.setDataModificacio(expedient.getDarreraModificacio().toString());
+				//TODO:: Resto de datos	
+				data.add(resultatExp);
+					
+			}
+			
+			//Paginacio
+			paginacio.setNumeroPagina(pageDataExpedients.getPage().getCurrentPageNumber());
+			paginacio.setResultatsPerPagina(pageDataExpedients.getPage().getPageSize());
+			paginacio.setTotalPagines(pageDataExpedients.getPage().getTotalPages());
+			paginacio.setTotalResultats(pageDataExpedients.getPage().getTotalElements());
+			
+			
+			resposta.setPaginacio(paginacio);
+			resposta.setData(data);
+			
+		} catch (ApiException e) {
+			throw new GPAServeisServiceRuntimeException(e);
+		}
+ 		
+		//Mock de datos
+		//return respostaCercaExpedientsMockService.getRespostaCercaExpedients();
+		
+		return resposta;
 	}
 	
 	
