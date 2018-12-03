@@ -34,7 +34,7 @@ public class RespostaConsultaProcedimentsMockService {
 		procediment.setInici(Arrays.asList(new String[]{"OFICI","ADMINISTRACIO"}));
 		
 		procediment.setTramits(
-				TramitsRDTOFactory.create(new BigDecimal("1"), "SOLC", "Sol·licitud")
+				TramitsRDTOFactory.create(new BigDecimal("1"), "SOLC", "SolÂ·licitud")
 		);
 		
 		procediment.setUgo(

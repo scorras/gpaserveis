@@ -21,9 +21,9 @@ import lombok.Setter;
 public class RespostaRegistrarSolicitudsRDTO {
     
     
-	@ApiModelProperty("Resultat de l'operació")
+	@ApiModelProperty("Resultat de l'operaciÃ³")
 	private ResultatRespostaDTO resultat;
-	@ApiModelProperty("Resultat de l'operació")
+	@ApiModelProperty("Resultat de l'operaciÃ³")
 	private RespostaRegistrarExpedientsRDTO expedient;
 
 }

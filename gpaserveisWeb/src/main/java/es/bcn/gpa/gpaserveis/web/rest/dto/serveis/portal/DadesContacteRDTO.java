@@ -36,9 +36,9 @@ public class DadesContacteRDTO {
 	
 	@ApiModelProperty(value="Email")
 	private String email;
-	@ApiModelProperty(value="Telèfon fixe")
+	@ApiModelProperty(value="TelÃ¨fon fixe")
     private String telefon;
-	@ApiModelProperty(value="Telèfon mobil")
+	@ApiModelProperty(value="TelÃ¨fon mobil")
     private String mobil;
 	@ApiModelProperty(value="Fax")
     private String fax;
@@ -47,7 +47,7 @@ public class DadesContacteRDTO {
     private String tipusVia;
 	@ApiModelProperty(value="Nom de la via")
     private String nomVia;
-	@ApiModelProperty(value="Número")
+	@ApiModelProperty(value="NÃºmero")
     private String numero;
 	@ApiModelProperty(value="Escala")
     private String escala;

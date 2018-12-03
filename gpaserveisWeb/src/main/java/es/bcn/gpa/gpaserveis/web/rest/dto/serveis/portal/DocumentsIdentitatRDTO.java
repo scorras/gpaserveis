@@ -22,9 +22,9 @@ public class DocumentsIdentitatRDTO {
 	@ApiModelProperty(value="Tipus de document d'identitat de la persona",
 			allowableValues = "NIF, NIE, CIF, PASSAPORT, DOCUMENT_IDENTITAT_ESTRANGER, DOCUMENT_EMPRESA_ESTRANGERA")
     private String tipusDocument;
-	@ApiModelProperty(value="Número de document d'identitat de la persona")
+	@ApiModelProperty(value="NÃºmero de document d'identitat de la persona")
     private String numeroDocument;
-	@ApiModelProperty(value="Codi ISO del país del document d'identitat de la persona")
+	@ApiModelProperty(value="Codi ISO del paÃ­s del document d'identitat de la persona")
     private String pais;
     
 }

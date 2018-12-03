@@ -20,7 +20,7 @@ import lombok.Setter;
 @Setter
 public class RespostaCrearSolicitudsRDTO {
     
-	@ApiModelProperty("Resultat de l'operació")
+	@ApiModelProperty("Resultat de l'operaciÃ³")
 	private ResultatRespostaDTO resultat;
 	@ApiModelProperty("Expedient creat en estat inicial")
 	private RespostaCrearExpedientsRDTO expedient;

@@ -30,18 +30,18 @@ public class DocumentsConsultaRDTO {
 	private BigDecimal id;
 	@ApiModelProperty(value="Codi del document")
 	private String codi;
-	@ApiModelProperty(value="Descripció del document")
+	@ApiModelProperty(value="DescripciÃ³ del document")
 	private String descripcio;
-	@ApiModelProperty(value="Descripció ampliada del document")
+	@ApiModelProperty(value="DescripciÃ³ ampliada del document")
 	private String descripcioAmpliada;
 	@ApiModelProperty(value="Obligatori")
 	private boolean obligatori;
 	@ApiModelProperty(value="Repetible")
 	private boolean repetible;
-	@ApiModelProperty(value="Suport per a la confecció del document",
+	@ApiModelProperty(value="Suport per a la confecciÃ³ del document",
 			allowableValues="SENSE_SUPORT, PLANTILLA, GUIA, FORMULARI")
 	private String suportConfeccio;
-	@ApiModelProperty(value="Enllaç document de suport per a la confecció del document")
+	@ApiModelProperty(value="EnllaÃ§ document de suport per a la confecciÃ³ del document")
 	private String suportEnllac;
 	
 }
