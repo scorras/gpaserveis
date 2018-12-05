@@ -40,10 +40,10 @@ public class RespostaConsultaExpedientsMockService {
 		
 		expedient.setHistorics(
 				Arrays.asList(
-						HistoricsRDTOFactory.create("EN_REVISIO", "05/10/2018 20:05:47", "Expedient en revisió"),
-						HistoricsRDTOFactory.create("PENDENT_SUBSANACIO", "03/10/2018 19:44:58", "Expedient en espera de subsanació"),
-						HistoricsRDTOFactory.create("EN_REVISIO", "02/10/2018 14:13:28", "Expedient en revisió"),
-						HistoricsRDTOFactory.create("EN_PREPARACIO", "01/10/2018 17:30:52", "Expedient en preparació")
+						HistoricsRDTOFactory.create("EN_REVISIO", "05/10/2018 20:05:47", "Expedient en revisiÃ³"),
+						HistoricsRDTOFactory.create("PENDENT_SUBSANACIO", "03/10/2018 19:44:58", "Expedient en espera de subsanaciÃ³"),
+						HistoricsRDTOFactory.create("EN_REVISIO", "02/10/2018 14:13:28", "Expedient en revisiÃ³"),
+						HistoricsRDTOFactory.create("EN_PREPARACIO", "01/10/2018 17:30:52", "Expedient en preparaciÃ³")
 				)
 		);	
 		

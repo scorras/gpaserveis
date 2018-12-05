@@ -25,13 +25,13 @@ import lombok.Setter;
 @Setter
 public class DadesGrupsRDTO {
 	
-	@ApiModelProperty(value="Descripció del grup d'atributs")
+	@ApiModelProperty(value="DescripciÃ³ del grup d'atributs")
     private String descripcio;
 	@ApiModelProperty(value="Columnes del grup d'atributs")
     private String columnes;
 	@ApiModelProperty(value="Ordre del grup d'atributs")
     private String ordre;
-	@ApiModelProperty(value="URL de validació a nivell de grup d'atributs")
+	@ApiModelProperty(value="URL de validaciÃ³ a nivell de grup d'atributs")
     private String urlValidacio;
     @ApiModelProperty(value="URL d'ajuda a nivell de grup d'atributs")
     private String urlAjuda;

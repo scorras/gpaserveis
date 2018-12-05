@@ -18,10 +18,10 @@ import lombok.Setter;
 @Setter
 public class ResultatRespostaDTO {
 	
-	@ApiModelProperty(value="Codi resultat de l'operació",
+	@ApiModelProperty(value="Codi resultat de l'operaciÃ³",
 			allowableValues = "FISICA, JURIDICA")
 	private String codi;
-	@ApiModelProperty(value="Descripció del resultat de l'operació")
+	@ApiModelProperty(value="DescripciÃ³ del resultat de l'operaciÃ³")
 	private String descripcio;
 	
 }

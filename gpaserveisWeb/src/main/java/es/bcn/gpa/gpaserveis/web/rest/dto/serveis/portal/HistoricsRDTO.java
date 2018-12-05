@@ -17,11 +17,11 @@ import lombok.Setter;
 @Setter
 public class HistoricsRDTO {
 	
-	@ApiModelProperty(value="Estat de l'històric")
+	@ApiModelProperty(value="Estat de l'histÃ²ric")
     private String estat;
-	@ApiModelProperty(value="Data de creació de l'històric")
+	@ApiModelProperty(value="Data de creaciÃ³ de l'histÃ²ric")
     private String dataCreacio;
-	@ApiModelProperty(value="Descipció de l'històric")
+	@ApiModelProperty(value="DescipciÃ³ de l'histÃ²ric")
     private String descripcio;
     
 }

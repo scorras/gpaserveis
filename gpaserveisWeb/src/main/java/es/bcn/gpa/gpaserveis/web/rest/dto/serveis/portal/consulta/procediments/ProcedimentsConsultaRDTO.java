@@ -38,25 +38,25 @@ public class ProcedimentsConsultaRDTO {
 	private BigDecimal id;
 	@ApiModelProperty(value="Codi del procediment")
 	private String codi;
-	@ApiModelProperty(value="DescripciÛ del procediment")
+	@ApiModelProperty(value="Descripci√≥ del procediment")
 	private String descripcio;
 	@ApiModelProperty(value="Unitat gestora responsable")
 	private UnitatGestoraRDTO ugr;
 	@ApiModelProperty(value="Llista d'unitats gestores operatives")
 	private List<UnitatGestoraRDTO> ugo;
-	@ApiModelProperty(value="“rgan resolutori")
+	@ApiModelProperty(value="√írgan resolutori")
 	private String organResolutori;
 	@ApiModelProperty(value="Tipus d'inici del procediment",
 		allowableValues="OFICI, SOLICITUD, ADMINISTRACIO, ALTRES")
 	private List<String> inici;
-	@ApiModelProperty(value="VersiÛ del procediment")
+	@ApiModelProperty(value="Versi√≥ del procediment")
 	private String versio;
 	@ApiModelProperty(value="Estat actual del procediment",
 		allowableValues="EN_ELABORACIO, PUBLICAT, FINALITZAT")
 	private String estat;
-	@ApiModelProperty(value="Tr‡mits del procediment")
+	@ApiModelProperty(value="Tr√†mits del procediment")
 	private TramitsRDTO tramits;
-	@ApiModelProperty(value="Dades d'identificaciÛ del procediment")
+	@ApiModelProperty(value="Dades d'identificaci√≥ del procediment")
 	private DadesIdentificacioRDTO dadesIdentificacio;
 	
 }

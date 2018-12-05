@@ -20,7 +20,7 @@ public class UnitatGestoraRDTO {
 	
 	@ApiModelProperty(value="Codi de la Unitat Gestora")
 	private String codi;
-	@ApiModelProperty(value="Descripció de la Unitat Gestora")
+	@ApiModelProperty(value="DescripciÃ³ de la Unitat Gestora")
 	private String descripcio;
 	
 }

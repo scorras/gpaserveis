@@ -85,17 +85,17 @@ public class ServeisPortalRestController extends AbstractRestController {
 	
 	
 	@GetMapping("/procediments")
-	@ApiOperation(value = "Cerca de procediments", tags = { "Serveis Portal API", "Funcions d'integraciÛ amb RPA" },
+	@ApiOperation(value = "Cerca de procediments", tags = { "Serveis Portal API", "Funcions d'integraci√≥ amb RPA" },
 	extensions = {
 	@Extension(name = "x-imi-roles",
 		properties = {
 			@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta")
 	})})	
 	public RespostaCercaProcedimentsRDTO cercaProcediments(
-			@ApiParam(value = "Indicar‡ el n˙mero de resultats per p‡gina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
-			@ApiParam(value = "Indicar‡ en quina p‡gina hauria de comenÁar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
+			@ApiParam(value = "Indicar√† el n√∫mero de resultats per p√†gina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
+			@ApiParam(value = "Indicar√† en quina p√†gina hauria de comen√ßar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
 			@ApiParam(value = "Filtra procediments per codi") @RequestParam(value = "codi", required = false) String codi,
-			@ApiParam(value = "Filtra procediments per descripciÛ") @RequestParam(value = "descripcio", required = false) String descripcio,
+			@ApiParam(value = "Filtra procediments per descripci√≥") @RequestParam(value = "descripcio", required = false) String descripcio,
 			@ApiParam(value = "Filtra procediments per Unitat Gestora Responsable") @RequestParam(value = "ugr", required = false) String ugr,
 			@ApiParam(value = "Filtra procediments per Unitat Gestora Operativa") @RequestParam(value = "ugo", required = false) String ugo,
 			@ApiParam(value = "Filtra procediments per tipus d'inici", 
@@ -103,8 +103,8 @@ public class ServeisPortalRestController extends AbstractRestController {
 			@ApiParam(value = "Filtra procediments per estat",
 				allowableValues="EN_ELABORACIO, PUBLICAT, FINALITZAT") @RequestParam(value = "estat", required = false) String estat,
 			@ApiParam(value = "Filtra procediments interns") @RequestParam(value = "intern", required = false) String intern,
-			@ApiParam(value = "Filtra procediments per versiÛ") @RequestParam(value = "versio", required = false) String versio,
-			@ApiParam(value = "Filtra aquells procediments entre els que tinguin el perÌode de sol∑licitud obert i els que no") @RequestParam(value = "actiu", required = false) String actiu
+			@ApiParam(value = "Filtra procediments per versi√≥") @RequestParam(value = "versio", required = false) String versio,
+			@ApiParam(value = "Filtra aquells procediments entre els que tinguin el per√≠ode de sol¬∑licitud obert i els que no") @RequestParam(value = "actiu", required = false) String actiu
 	)  {
 		
 		return respostaCercaProcedimentsMockService.getRespostaCercaProcediments();
@@ -112,7 +112,7 @@ public class ServeisPortalRestController extends AbstractRestController {
 	
 	
 	@GetMapping("/procediments/{idProcediment}")
-	@ApiOperation(value = "Consultar les dades del procediment", tags = { "Serveis Portal API", "Funcions d'integraciÛ amb RPA" },
+	@ApiOperation(value = "Consultar les dades del procediment", tags = { "Serveis Portal API", "Funcions d'integraci√≥ amb RPA" },
 	extensions = {
 	@Extension(name = "x-imi-roles",
 		properties = {
@@ -125,7 +125,7 @@ public class ServeisPortalRestController extends AbstractRestController {
 	}
 	
 	@GetMapping("/procediments/{idProcediment}/tramits/{idTramit}/atributs")
-	@ApiOperation(value = "Consultar les dades d'operaciÛ del tr‡mit", tags = { "Serveis Portal API", "Funcions d'integraciÛ amb RPA" },
+	@ApiOperation(value = "Consultar les dades d'operaci√≥ del tr√†mit", tags = { "Serveis Portal API", "Funcions d'integraci√≥ amb RPA" },
 	extensions = {
 	@Extension(name = "x-imi-roles",
 		properties = {
@@ -133,14 +133,14 @@ public class ServeisPortalRestController extends AbstractRestController {
 	})})
 	public RespostaConsultaDadesOperacioRDTO consultarDadesOperacioProcediment(
 			@ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
-			@ApiParam(value = "Identificador del tr‡mit", required = true) @PathVariable BigDecimal idTramit)  {
+			@ApiParam(value = "Identificador del tr√†mit", required = true) @PathVariable BigDecimal idTramit)  {
 		
 		return respostaConsultaDadesOperacioMockService.getRespostaConsultaDadesOperacio(idProcediment, idTramit);
 	}
 	
 	
 	@GetMapping("/procediments/{idProcediment}/tramits/{idTramit}/documentacio")
-	@ApiOperation(value = "Consultar les dades de documentaciÛ del procediment", tags = { "Serveis Portal API", "Funcions d'integraciÛ amb RPA" },
+	@ApiOperation(value = "Consultar les dades de documentaci√≥ del procediment", tags = { "Serveis Portal API", "Funcions d'integraci√≥ amb RPA" },
 	extensions = {
 		@Extension(name = "x-imi-roles",
 		properties = {
@@ -148,7 +148,7 @@ public class ServeisPortalRestController extends AbstractRestController {
 	})})
 	public RespostaConsultaDocumentsRDTO consultarDocumentacioProcediment(
 			@ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
-			@ApiParam(value = "Identificador del tr‡mit", required = true) @PathVariable BigDecimal idTramit)  {
+			@ApiParam(value = "Identificador del tr√†mit", required = true) @PathVariable BigDecimal idTramit)  {
 		
 		return respostaConsultaDocumentsMockService.getRespostaConsultaDocuments(idProcediment, idTramit);
 	}		
@@ -162,16 +162,16 @@ public class ServeisPortalRestController extends AbstractRestController {
 			@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta")
 	})})
 	public RespostaCercaExpedientsRDTO cercaExpedients(
-			@ApiParam(value = "Indicar‡ el n˙mero de resultats per p‡gina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
-			@ApiParam(value = "Indicar‡ en quina p‡gina hauria de comenÁar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
+			@ApiParam(value = "Indicar√† el n√∫mero de resultats per p√†gina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
+			@ApiParam(value = "Indicar√† en quina p√†gina hauria de comen√ßar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
 			@ApiParam(value = "Filtra expedients per codi") @RequestParam(value = "codiExpedient", required = false) String codiExpedient,
 			@ApiParam(value = "Filtra expedients per codi del procediment") @RequestParam(value = "codiProcediment", required = false) String codiProcediment,
 			@ApiParam(value = "Filtra expedients per Unitat Gestora") @RequestParam(value = "unitatGestora", required = false) String unitatGestora,
 			@ApiParam(value = "Filtra expedients per estat",
 				allowableValues="EN_PREPARACIO, EN_REVISIO, PENDENT_SUBSANACIO, EN_TRAMITACIO, PENDENT_ALEGACIONS, PENDENT_INFORMES, PROPOSAT_RESOLUCIO, RESOLT, TANCAT") @RequestParam(value = "estat", required = false) String estat,
-			@ApiParam(value = "Filtra expedients d'un sol∑licitant") @RequestParam(value = "nifSolicitant", required = false) String nifSolicitant,
-			@ApiParam(value = "Filtra expedients per data de presentaciÛ") @RequestParam(value = "dataPresentacioInici", required = false) String dataPresentacioInici,
-			@ApiParam(value = "Filtra expedients per data de presentaciÛ") @RequestParam(value = "dataPresentacioFi", required = false) String dataPresentacioFi
+			@ApiParam(value = "Filtra expedients d'un sol¬∑licitant") @RequestParam(value = "nifSolicitant", required = false) String nifSolicitant,
+			@ApiParam(value = "Filtra expedients per data de presentaci√≥") @RequestParam(value = "dataPresentacioInici", required = false) String dataPresentacioInici,
+			@ApiParam(value = "Filtra expedients per data de presentaci√≥") @RequestParam(value = "dataPresentacioFi", required = false) String dataPresentacioFi
 	) {
 		
 		return respostaCercaExpedientsMockService.getRespostaCercaExpedients();
@@ -193,7 +193,7 @@ public class ServeisPortalRestController extends AbstractRestController {
 	
 	
 	@PostMapping("/expedients")
-	@ApiOperation(value = "Crear una sol∑licitud d'un expedient", tags = { "Serveis Portal API", "Funcions d'execuciÛ d'accions" },
+	@ApiOperation(value = "Crear una sol¬∑licitud d'un expedient", tags = { "Serveis Portal API", "Funcions d'execuci√≥ d'accions" },
 	extensions = {
 	@Extension(name = "x-imi-roles",
 		properties = {
@@ -207,7 +207,7 @@ public class ServeisPortalRestController extends AbstractRestController {
 	
 	
 	@PutMapping("/expedients/{idExpedient}")
-	@ApiOperation(value = "Actualitzar dades de la sol∑licitud de l'expedient", tags = { "Serveis Portal API", "Funcions d'execuciÛ d'accions" },
+	@ApiOperation(value = "Actualitzar dades de la sol¬∑licitud de l'expedient", tags = { "Serveis Portal API", "Funcions d'execuci√≥ d'accions" },
 	extensions = {
 	@Extension(name = "x-imi-roles",
 		properties = {
@@ -222,7 +222,7 @@ public class ServeisPortalRestController extends AbstractRestController {
 	
 	
 	@PostMapping("/expedients/{idExpedient}/registre")
-	@ApiOperation(value = "Registrar la sol∑licitud de l'expedient", tags = { "Serveis Portal API", "Funcions d'execuciÛ d'accions" },
+	@ApiOperation(value = "Registrar la sol¬∑licitud de l'expedient", tags = { "Serveis Portal API", "Funcions d'execuci√≥ d'accions" },
 	extensions = {
 	@Extension(name = "x-imi-roles",
 		properties = {
@@ -236,7 +236,7 @@ public class ServeisPortalRestController extends AbstractRestController {
 	
 	
 	@PostMapping("/expedients/{idExpedient}/obrir")
-	@ApiOperation(value = "Obrir la sol∑licitud de l'expedient", tags = { "Serveis Portal API", "Funcions d'execuciÛ d'accions" },
+	@ApiOperation(value = "Obrir la sol¬∑licitud de l'expedient", tags = { "Serveis Portal API", "Funcions d'execuci√≥ d'accions" },
 	extensions = {
 	@Extension(name = "x-imi-roles",
 		properties = {

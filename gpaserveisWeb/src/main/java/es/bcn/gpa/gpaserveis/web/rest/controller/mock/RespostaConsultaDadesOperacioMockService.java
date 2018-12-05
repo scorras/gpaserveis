@@ -24,7 +24,7 @@ public class RespostaConsultaDadesOperacioMockService {
 		DadesOperacioConsultaRDTO dadesOperacio = new DadesOperacioConsultaRDTO();
 		
 		dadesOperacio.setTramit(
-				TramitsRDTOFactory.create(idTramit, "SOLC", "Sol·licitud")
+				TramitsRDTOFactory.create(idTramit, "SOLC", "SolÂ·licitud")
 		);
 		
 		dadesOperacio.setGrups( 

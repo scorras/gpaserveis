@@ -26,14 +26,14 @@ public class SolicitudsCrearRDTO {
     
 	@ApiModelProperty("Codi del procediment")
 	private String codiProcediment;
-	@ApiModelProperty("Versió del procediment")
+	@ApiModelProperty("VersiÃ³ del procediment")
 	private String versioProcediment;	
 	@ApiModelProperty("Codi de la Unitat Gestora")
 	private String codiUnitatGestora;
 	@ApiModelProperty(value = "Tipus d'inici de l'expedient",
 			allowableValues = "OFICI, SOLICITUD, ADMINISTRACIO, ALTRES")
 	private String inici;
-	@ApiModelProperty("Persona sol·licitant")
+	@ApiModelProperty("Persona solÂ·licitant")
 	private PersonesRDTO solicitant;
 	@ApiModelProperty("Persona representant")
 	private PersonesRDTO representant;

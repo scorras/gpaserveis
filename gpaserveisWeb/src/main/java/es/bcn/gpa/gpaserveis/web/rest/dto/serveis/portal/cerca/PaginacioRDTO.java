@@ -21,13 +21,13 @@ import lombok.Setter;
 @Setter
 public class PaginacioRDTO {
     
-	@ApiModelProperty(value="Número total de resultats de la cerca")
+	@ApiModelProperty(value="NÃºmero total de resultats de la cerca")
 	private long totalResultats;
-	@ApiModelProperty(value="Número total de pàgines de la cerca")
+	@ApiModelProperty(value="NÃºmero total de pÃ gines de la cerca")
 	private int totalPagines;
-	@ApiModelProperty(value="Resultats per pàgina de la cerca")
+	@ApiModelProperty(value="Resultats per pÃ gina de la cerca")
 	private int resultatsPerPagina;
-	@ApiModelProperty(value="Número de pàgina de la cerca")
+	@ApiModelProperty(value="NÃºmero de pÃ gina de la cerca")
 	private int numeroPagina;
 	
 }

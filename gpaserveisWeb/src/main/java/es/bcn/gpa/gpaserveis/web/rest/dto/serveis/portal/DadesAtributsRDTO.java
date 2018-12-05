@@ -25,16 +25,16 @@ public class DadesAtributsRDTO {
 	
 	@ApiModelProperty(value="Codi de l'atribut")
     private String codi;
-	@ApiModelProperty(value="Descripció de l'atribut")
+	@ApiModelProperty(value="DescripciÃ³ de l'atribut")
     private String descripcio;
 	@ApiModelProperty(value="Ordre del atribut dins del grup")
     private String ordre;
 	@ApiModelProperty(value="Tipus de camp de l'atribut", 
 			allowableValues = "INTEGER, DOUBLE, DATE, DATETIME, TIME, STRING, LARGE, CHECK, PAIS, COMARCA, PROVINCIA, MUNICIPI")
     private String tipus;
-	@ApiModelProperty(value="Validacións de l'atribut")
+	@ApiModelProperty(value="ValidaciÃ³ns de l'atribut")
     private String validacions;
-	@ApiModelProperty(value="URL de validació a nivell d'atribut")
+	@ApiModelProperty(value="URL de validaciÃ³ a nivell d'atribut")
     private String urlValidacio;
 	@ApiModelProperty(value="URL d'ajuda a nivell d'atribut")
     private String urlAjuda;

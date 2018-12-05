@@ -45,15 +45,15 @@ public class ExpedientsConsultaRDTO {
 	private BigDecimal id;
 	@ApiModelProperty(value="Codi de l'expedient")
 	private String codi;
-	@ApiModelProperty(value="Indica si l'expedient permet aportar documentació sense requerir")
+	@ApiModelProperty(value="Indica si l'expedient permet aportar documentaciÃ³ sense requerir")
 	private boolean permetAportacio;
 	@ApiModelProperty(value="Indica si l'expedient permet realitzar esmenes")
 	private boolean permetEsmena;
-	@ApiModelProperty(value="Indica si l'expedient permet realitzar al·legacions")
+	@ApiModelProperty(value="Indica si l'expedient permet realitzar alÂ·legacions")
 	private boolean permetAlegacio;
-	@ApiModelProperty(value="Data de presentació de l'expedient")
+	@ApiModelProperty(value="Data de presentaciÃ³ de l'expedient")
 	private String dataPresentacio;
-	@ApiModelProperty(value="Data de l'última modificació de l'expedient")
+	@ApiModelProperty(value="Data de l'Ãºltima modificaciÃ³ de l'expedient")
 	private String dataModificacio;
 	@ApiModelProperty(value="Unitat gestora")
 	private UnitatGestoraRDTO unitatGestora;

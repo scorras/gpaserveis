@@ -21,11 +21,11 @@ import lombok.Setter;
 @Setter
 public class TramitsRDTO {
 	
-	@ApiModelProperty(value="Identificador del tr‡mit")
+	@ApiModelProperty(value="Identificador del tr√†mit")
     private BigDecimal id;
-	@ApiModelProperty(value="Codi del tr‡mit")
+	@ApiModelProperty(value="Codi del tr√†mit")
     private String codi;
-	@ApiModelProperty(value="DescripciÛ del tr‡mit")
+	@ApiModelProperty(value="Descripci√≥ del tr√†mit")
     private String descripcio;
 	
 }

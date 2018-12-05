@@ -19,9 +19,9 @@ import lombok.Setter;
 @Setter
 public class DadesIdentificacioRDTO {
 	
-	@ApiModelProperty(value="InformaciÛ complement‡ria per a mostrar al ciutad‡")
+	@ApiModelProperty(value="Informaci√≥ complement√†ria per a mostrar al ciutad√†")
     private String informacioCiutada;
-	@ApiModelProperty(value="Nivell d'autenticaciÛ requerit")
+	@ApiModelProperty(value="Nivell d'autenticaci√≥ requerit")
     private String nivellAutenticacio;
     private TerminisDuracioRDTO terminisDuracio;
     

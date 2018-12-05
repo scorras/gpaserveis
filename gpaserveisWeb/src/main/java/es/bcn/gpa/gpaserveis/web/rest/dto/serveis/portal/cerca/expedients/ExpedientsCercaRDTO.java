@@ -33,9 +33,9 @@ public class ExpedientsCercaRDTO {
 	private BigDecimal id;
 	@ApiModelProperty(value="Codi de l'expedient")
 	private String codi;
-	@ApiModelProperty(value="Data de presentació de l'expedient")
+	@ApiModelProperty(value="Data de presentaciÃ³ de l'expedient")
 	private String dataPresentacio;
-	@ApiModelProperty(value="Data de l'última modificació de l'expedient")
+	@ApiModelProperty(value="Data de l'Ãºltima modificaciÃ³ de l'expedient")
 	private String dataModificacio;
 	@ApiModelProperty(value="Unitat gestora")
 	private UnitatGestoraRDTO unitatGestora;

@@ -30,7 +30,7 @@ public class PersonesRDTO {
 	@ApiModelProperty(value="Tipus de persona",
 			allowableValues = "FISICA, JURIDICA")
 	private String tipusPersona;
-    @ApiModelProperty(value="Nom o raó social de la persona")
+    @ApiModelProperty(value="Nom o raÃ³ social de la persona")
     private String nomRaoSocial;
     @ApiModelProperty(value="Cognom 1 de la persona")
     private String cognom1;

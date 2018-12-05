@@ -18,7 +18,7 @@ public class RespostaConsultaDocumentsMockService {
 
 	public void initialize() {
 		data = new ArrayList<>();
-		data.add(DocumentsConsultaRDTOFactory.create(new BigDecimal("1"), "SOLC", "Document Sol·licitud", "Formulari de sol·licitud", true, false, "FORMULARI", "http://gpa.ajuntament.bcn/formularis/solc"));
+		data.add(DocumentsConsultaRDTOFactory.create(new BigDecimal("1"), "SOLC", "Document SolÂ·licitud", "Formulari de solÂ·licitud", true, false, "FORMULARI", "http://gpa.ajuntament.bcn/formularis/solc"));
 		data.add(DocumentsConsultaRDTOFactory.create(new BigDecimal("2"), "DNI", "Document d'identitat", "Document d'identitat", true, false, "SENSE_SUPORT", null));
 		data.add(DocumentsConsultaRDTOFactory.create(new BigDecimal("3"), "ALTRES", "Altres documents", "Altres documents", true, false, "SENSE_SUPORT", null));
 	}

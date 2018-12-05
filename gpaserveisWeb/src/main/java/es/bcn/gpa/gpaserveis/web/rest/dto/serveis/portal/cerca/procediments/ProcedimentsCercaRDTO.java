@@ -33,18 +33,18 @@ public class ProcedimentsCercaRDTO {
 	private BigDecimal id;
 	@ApiModelProperty(value="Codi del procediment")
 	private String codi;
-	@ApiModelProperty(value="Descripció del procediment")
+	@ApiModelProperty(value="DescripciÃ³ del procediment")
 	private String descripcio;
 	@ApiModelProperty(value="Unitat gestora responsable")
 	private UnitatGestoraRDTO ugr;
 	@ApiModelProperty(value="Llista d'unitats gestores operatives")
 	private List<UnitatGestoraRDTO> ugo;
-	@ApiModelProperty(value="Òrgan resolutori")
+	@ApiModelProperty(value="Ã’rgan resolutori")
 	private String organResolutori;
 	@ApiModelProperty(value="Tipus d'inici del procediment",
 		allowableValues="OFICI, SOLICITUD, ADMINISTRACIO, ALTRES")
 	private List<String> inici;
-	@ApiModelProperty(value="Versió del procediment")
+	@ApiModelProperty(value="VersiÃ³ del procediment")
 	private String versio;
 	@ApiModelProperty(value="Estat actual del procediment",
 			allowableValues="EN_ELABORACIO, PUBLICAT, FINALITZAT")
