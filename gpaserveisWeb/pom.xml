@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -10,82 +11,217 @@
 
 	<artifactId>gpaserveisWeb</artifactId>
 	<packaging>war</packaging>
-	
+
+
+	<properties>
+		<gpaexpedients.yaml.file>${project.basedir}/src/main/resources/rest/client/gpaexpedients.yaml</gpaexpedients.yaml.file>
+		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
+		<generated-sources-java-path>src/main/java</generated-sources-java-path>
+		<version.swagger.codegen>2.3.1</version.swagger.codegen>
+
+
+		<!-- TODO add the properties from target/generated-sources/pom.xml here -->
+		<gson-fire-version>1.8.0</gson-fire-version>
+		<okhttp-version>2.7.5</okhttp-version>
+		<gson-version>2.8.1</gson-version>
+		<threetenbp-version>1.3.5</threetenbp-version>
+
+		<swagger-core-version>1.5.15</swagger-core-version>
+		<jetty-version>9.2.9.v20150224</jetty-version>
+		<junit-version>4.12</junit-version>
+		<logback-version>1.1.7</logback-version>
+		<servlet-api-version>2.5</servlet-api-version>
+		<cxf-version>3.1.11</cxf-version>
+		<jackson-jaxrs-version>2.8.9</jackson-jaxrs-version>
+
+		<org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
+
+		<jersey-version>2.25.1</jersey-version>
+		<jackson-version>2.7.5</jackson-version>
+
+		<org.projectlombok.version>1.18.0</org.projectlombok.version>
+
+	</properties>
+
+
 	<dependencies>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.0</version>
+			<version>${org.projectlombok.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
-        </dependency>		
-		
-	</dependencies>	
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
+		<!-- HTTP client: jersey-client -->
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>${jersey-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-multipart</artifactId>
+			<version>${jersey-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>${jersey-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-joda</artifactId>
+			<version>${jackson-version}</version>
+		</dependency>
+		<!-- Base64 encoding that works in both JVM and Android -->
+		<dependency>
+			<groupId>com.brsanthu</groupId>
+			<artifactId>migbase64</artifactId>
+			<version>2.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-java-client</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+	</dependencies>
+
 
 	<build>
+
 		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.0</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${org.projectlombok.version}</version>
+						</path>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${org.mapstruct.version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<warSourceDirectory>WebContent</warSourceDirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<webResources>
+						<resource>
+							<!-- this is relative to the pom.xml directory -->
+							<directory>WebContent</directory>
+							<filtering>true</filtering>
+							<!-- the list has a default value of ** -->
+							<includes>
+								<include>**/index.jsp</include>
+							</includes>
+						</resource>
+					</webResources>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 			</plugin>
- 			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.1</version>
+			<!-- <plugin> <groupId>org.jacoco</groupId> <artifactId>jacoco-maven-plugin</artifactId> 
+				<version>0.8.1</version> <configuration> <excludes> <exclude>**/orm/model/**/*.*</exclude> 
+				<exclude>**/dto/**/*.*</exclude> <exclude>**/web/initialization/**/*.*</exclude> 
+				<exclude>**/web/initialization/**/*.*</exclude> <exclude>**/generated-sources/**/*.*</exclude> 
+				</excludes> </configuration> <executions> <execution> <id>default-prepare-agent</id> 
+				<goals> <goal>prepare-agent</goal> </goals> </execution> <execution> <id>default-report</id> 
+				<phase>prepare-package</phase> <goals> <goal>report</goal> </goals> </execution> 
+				<execution> <id>default-check</id> <goals> <goal>check</goal> </goals> <configuration> 
+				<rules> <rule> <element>BUNDLE</element> <limits> <limit> <counter>INSTRUCTION</counter> 
+				<value>COVEREDRATIO</value> <minimum>0.60</minimum> </limit> </limits> </rule> 
+				</rules> </configuration> </execution> </executions> </plugin> -->
+			<plugin>
+				<groupId>io.swagger</groupId>
+				<artifactId>swagger-codegen-maven-plugin</artifactId>
+				<version>${version.swagger.codegen}</version>
 				<configuration>
-					<excludes>
-						<exclude>**/orm/model/**/*.*</exclude>
-					</excludes>
+					<inputSpec>${gpaexpedients.yaml.file}</inputSpec>
+					<configOptions>
+						<sourceFolder>${generated-sources-java-path}</sourceFolder>
+					</configOptions>
+					<output>${generated-sources-path}</output>
 				</configuration>
 				<executions>
 					<execution>
-						<id>default-prepare-agent</id>
+						<id>generate-client-gpaexpedients</id>
+						<phase>generate-sources</phase>
 						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>default-report</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>default-check</id>
-						<goals>
-							<goal>check</goal>
+							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<rules>
-								<rule>
-									<element>BUNDLE</element>
-									<limits>
-										<limit>
-											<counter>INSTRUCTION</counter>
-											<value>COVEREDRATIO</value>
-											<minimum>0.60</minimum>
-										</limit>
-									</limits>
-								</rule>
-							</rules>
+							<language>java</language>
+							<library>jersey2</library>
+							<modelPackage>es.bcn.gpa.gpaserveis.rest.client.api.model</modelPackage>
+							<apiPackage>es.bcn.gpa.gpaserveis.rest.client.api</apiPackage>
+							<invokerPackage>es.bcn.gpa.gpaserveis.rest.client.invoker</invokerPackage>
+							<generateApiTests>false</generateApiTests>
+							<generateApiDocumentation>false</generateApiDocumentation>
+							<generateModelTests>false</generateModelTests>
+							<configOptions>
+								<sourceFolder>src/main/java</sourceFolder>
+								<dateLibrary>joda</dateLibrary>
+							</configOptions>
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>			
+			</plugin>
+
 		</plugins>
+
+		<!-- the following is only necessary if you are using eclipse and m2e -->
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>io.swagger</groupId>
+										<artifactId>swagger-codegen-maven-plugin</artifactId>
+										<versionRange>[${version.swagger.codegen},)</versionRange>
+										<goals>
+											<goal>generate</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
 	</build>
 
 	<profiles>
@@ -94,6 +230,37 @@
 			<build>
 				<finalName>gpaserveis</finalName>
 			</build>
+		</profile>
+
+		<profile>
+			<id>sonar</id>
+			<build>
+				<finalName>gpaserveis</finalName>
+			</build>
+			<properties>
+				<sonar.host.url>http://localhost:9000</sonar.host.url>
+
+				<sonar.projectKey>${project.parent.artifactId}</sonar.projectKey>
+				<sonar.projectName>${project.parent.artifactId}</sonar.projectName>
+				<sonar.projectVersion>${project.version}</sonar.projectVersion>
+				<sonar.sources>src/main/java,src/main/resources</sonar.sources>
+				<sonar.java.binaries>**/target/classes</sonar.java.binaries>
+				<sonar.java.libraries>**/lib/**/*.jar</sonar.java.libraries>
+
+				<sonar.tests>src/test/java</sonar.tests>
+				<sonar.java.test.binaries>**/target/test-classes</sonar.java.test.binaries>
+				<sonar.java.test.libraries>**/lib/**/*.jar</sonar.java.test.libraries>
+
+				<!-- Sonar-JaCoCo properties -->
+				<sonar.exclusions>target/generated-sources/**/*.*</sonar.exclusions>
+				<sonar.coverage.exclusions>**/model/**/*.java,**/dto/**/*.java,**/web/initialization/**/*.java</sonar.coverage.exclusions>
+				<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+				<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+				<!-- <sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath> -->
+				<sonar.language>java</sonar.language>
+				<sonar.java.source>1.7</sonar.java.source>
+				<sonar.java.target>1.7</sonar.java.target>
+			</properties>
 		</profile>
 	</profiles>
 
