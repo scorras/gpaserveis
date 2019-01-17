@@ -21,8 +21,6 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import es.bcn.gpa.gpaserveis.test.parent.RestServerParentTest;
 import net.opentrends.openframe.services.rest.apidocs.filegeneration.ApiDocsFilesGenerator;
 
-
-
 /**
  * The Class SwaggerFilesGenerationTest.
  */
@@ -49,7 +47,7 @@ public class SwaggerFilesGenerationTest extends RestServerParentTest {
 		StringBuilder buffer = new StringBuilder();
 		while ((linea = bf.readLine()) != null) {
 			if (linea.contains("basePath")) {
-				linea = "\"basePath\":\""+basePath+"\",";
+				linea = "\"basePath\":\"" + basePath + "\",";
 			}
 			buffer.append(linea);
 		}
@@ -61,7 +59,8 @@ public class SwaggerFilesGenerationTest extends RestServerParentTest {
 		writer.flush();
 		writer.close();
 
-		BufferedWriter writerYaml = new BufferedWriter(new FileWriter(Paths.get(jsonFile.getAbsolutePath().replace(".json",".yaml")).toFile()));
+		BufferedWriter writerYaml = new BufferedWriter(
+		        new FileWriter(Paths.get(jsonFile.getAbsolutePath().replace(".json", ".yaml")).toFile()));
 		writerYaml.write(new YAMLMapper().writerWithDefaultPrettyPrinter().writeValueAsString(json));
 		writerYaml.flush();
 		writerYaml.close();
@@ -71,17 +70,18 @@ public class SwaggerFilesGenerationTest extends RestServerParentTest {
 		return Paths.get(SWAGGER_FILE_PATH + getJsonFileName()).toFile();
 	}
 
-	private String  getJsonFileName() throws IOException {
+	private String getJsonFileName() throws IOException {
 		String[] names = Paths.get(SWAGGER_FILE_PATH).toFile().list(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
-				if(name.toLowerCase().endsWith(".json"))
+				if (name.toLowerCase().endsWith(".json"))
 					return true;
 				return false;
 			}
 		});
 
-		if(names.length!=1) throw new IOException("File not found");
+		if (names.length != 1)
+			throw new IOException("File not found");
 
 		return names[0];
 	}

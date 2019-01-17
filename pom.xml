@@ -9,7 +9,7 @@
   </parent>
   <groupId>es.bcn.gpa</groupId>
   <artifactId>gpaserveis</artifactId>
-  <version>${gpaserveis.version}</version>
+  <version>${revision}</version>
   <packaging>pom</packaging>
   <description></description>
   <modules>
@@ -17,10 +17,86 @@
     <module>gpaserveisEar</module>
   </modules>
   <properties>
-    <gpaserveis.version>1.0.2</gpaserveis.version>
+    <revision>1.0.2</revision>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <versionRange>[1.0.0,)</versionRange>
+                    <goals>
+                      <goal>flatten</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
+        <version>1.0.1</version>
+        <executions>
+          <execution>
+            <id>flatten</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>flatten</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>flatten.clean</id>
+            <phase>clean</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <updatePomFile>true</updatePomFile>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
   <profiles>
+    <profile>
+      <id>sonar</id>
+      <build>
+        <finalName>gpaserveis</finalName>
+      </build>
+      <properties>
+        <sonar.language>java</sonar.language>
+        <sonar.exclusions>target/generated-sources/**</sonar.exclusions>
+        <sonar.java.target>1.7</sonar.java.target>
+        <sonar.projectVersion>${project.version}</sonar.projectVersion>
+        <sonar.java.binaries>**/target/classes</sonar.java.binaries>
+        <sonar.projectKey>${project.artifactId}</sonar.projectKey>
+        <sonar.host.url>http://localhost:9000</sonar.host.url>
+        <sonar.coverage.exclusions>**/model/**/*.java,**/dto/**/*.java,**/web/initialization/**/*.java</sonar.coverage.exclusions>
+        <sonar.java.source>1.7</sonar.java.source>
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.cpd.exclusions>**/model/**/*.java,**/dto/**/*.java</sonar.cpd.exclusions>
+        <sonar.projectName>${project.artifactId}</sonar.projectName>
+      </properties>
+    </profile>
     <profile>
       <id>was_build</id>
       <dependencies>

@@ -1,9 +1,9 @@
 package es.bcn.gpa.gpaserveis.web.rest.exception;
 
 /**
- * The Class GPAServeisServiceRuntimeException.
+ * The Class GPAServeisRuntimeException.
  */
-public class GPAServeisServiceRuntimeException extends RuntimeException {
+public class GPAServeisRuntimeException extends RuntimeException {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -11,7 +11,7 @@ public class GPAServeisServiceRuntimeException extends RuntimeException {
 	/**
 	 * Instantiates a new GPA serveis service exception.
 	 */
-	public GPAServeisServiceRuntimeException() {
+	public GPAServeisRuntimeException() {
 		super();
 	}
 
@@ -23,7 +23,7 @@ public class GPAServeisServiceRuntimeException extends RuntimeException {
 	 * @param enableSuppression the enable suppression
 	 * @param writableStackTrace the writable stack trace
 	 */
-	public GPAServeisServiceRuntimeException(String message, Throwable cause, boolean enableSuppression,
+	public GPAServeisRuntimeException(String message, Throwable cause, boolean enableSuppression,
 			boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
@@ -34,7 +34,7 @@ public class GPAServeisServiceRuntimeException extends RuntimeException {
 	 * @param message the message
 	 * @param cause the cause
 	 */
-	public GPAServeisServiceRuntimeException(String message, Throwable cause) {
+	public GPAServeisRuntimeException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
@@ -43,7 +43,7 @@ public class GPAServeisServiceRuntimeException extends RuntimeException {
 	 *
 	 * @param message the message
 	 */
-	public GPAServeisServiceRuntimeException(String message) {
+	public GPAServeisRuntimeException(String message) {
 		super(message);
 	}
 
@@ -52,7 +52,7 @@ public class GPAServeisServiceRuntimeException extends RuntimeException {
 	 *
 	 * @param cause the cause
 	 */
-	public GPAServeisServiceRuntimeException(Throwable cause) {
+	public GPAServeisRuntimeException(Throwable cause) {
 		super(cause);
 	}
 	

@@ -3,8 +3,7 @@ package es.bcn.gpa.gpaserveis.web.initialization.root;
 import es.bcn.gpa.gpaserveis.business.config.BusinessConfig;
 import net.opentrends.openframe.services.web.context.AbstractAnnotationConfigRootApplicationContextLoaderInitializer;
 
-public class RootApplicationContextLoaderInitializer
-		extends AbstractAnnotationConfigRootApplicationContextLoaderInitializer {
+public class RootApplicationContextLoaderInitializer extends AbstractAnnotationConfigRootApplicationContextLoaderInitializer {
 
 	@Override
 	protected Class<?>[] getRootApplicationContextSecurityConfigClasses() {

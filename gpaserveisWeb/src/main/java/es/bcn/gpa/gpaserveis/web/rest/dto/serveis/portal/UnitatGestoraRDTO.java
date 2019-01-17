@@ -8,19 +8,16 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value="UnitatGestora")
+@ApiModel(value = "UnitatGestora")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "codi",
-    "descripcio"
-})
+@JsonPropertyOrder({ "nom", "descripcio" })
 @Getter
 @Setter
 public class UnitatGestoraRDTO {
-	
-	@ApiModelProperty(value="Codi de la Unitat Gestora")
-	private String codi;
-	@ApiModelProperty(value="Descripció de la Unitat Gestora")
+
+	@ApiModelProperty(value = "Nom de la Unitat Gestora")
+	private String nom;
+	@ApiModelProperty(value = "Descripció de la Unitat Gestora")
 	private String descripcio;
-	
+
 }

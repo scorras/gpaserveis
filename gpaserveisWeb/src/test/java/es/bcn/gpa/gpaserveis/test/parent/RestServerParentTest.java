@@ -22,10 +22,7 @@ public abstract class RestServerParentTest extends ParentTest {
 
 	@Before
 	public void setUp() {
-		this.mockMvc = MockMvcBuilders
-				.webAppContextSetup(this.wac)
-				.apply(new ServletBaseContextReplacer("/rest", ""))
-				.build();
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).apply(new ServletBaseContextReplacer("/rest", "")).build();
 	}
 
 	protected MockMvc getMockMvc() {

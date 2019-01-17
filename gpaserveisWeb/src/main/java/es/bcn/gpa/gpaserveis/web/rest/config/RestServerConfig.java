@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.web.rest.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,8 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaProcedimen
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCrearSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaObrirSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaRegistrarSolicitudMockService;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.procediment.PaginacioMapper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.procediment.ProcedimentsCercaMapper;
 import net.opentrends.openframe.services.rest.apidocs.config.RestServiceDefaultSwaggerConfiguration;
 import net.opentrends.openframe.services.rest.http.ResponseEntity;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -26,80 +29,84 @@ import springfox.documentation.spring.web.plugins.Docket;
 @EnableWebMvc
 @Lazy(true)
 public class RestServerConfig extends RestServiceDefaultSwaggerConfiguration {
-	
-	
-    @Bean(name = "respostaCercaProcedimentMock")
+
+	@Bean(name = "respostaCercaProcedimentMock")
 	public RespostaCercaProcedimentsMockService respostaCercaProcedimentMock() {
-    	RespostaCercaProcedimentsMockService respostaCercaProcedimentMock = new RespostaCercaProcedimentsMockService();
-    	respostaCercaProcedimentMock.initialize();
+		RespostaCercaProcedimentsMockService respostaCercaProcedimentMock = new RespostaCercaProcedimentsMockService();
+		respostaCercaProcedimentMock.initialize();
 		return respostaCercaProcedimentMock;
 	}
-	
-    @Bean(name = "respostaConsultaProcedimentMock")
+
+	@Bean(name = "respostaConsultaProcedimentMock")
 	public RespostaConsultaProcedimentsMockService respostaConsultaProcedimentMock() {
 		return new RespostaConsultaProcedimentsMockService();
-	}	
-	
-    @Bean(name = "respostaConsultaDadesOperacioMockService")
+	}
+
+	@Bean(name = "respostaConsultaDadesOperacioMockService")
 	public RespostaConsultaDadesOperacioMockService respostaConsultaDadesOperacioMockService() {
 		return new RespostaConsultaDadesOperacioMockService();
-	}	
-    
-    @Bean(name = "respostaConsultaDocumentsMockService")
+	}
+
+	@Bean(name = "respostaConsultaDocumentsMockService")
 	public RespostaConsultaDocumentsMockService respostaConsultaDocumentsMockService() {
-    	RespostaConsultaDocumentsMockService respostaConsultaDocumentsMockService = new RespostaConsultaDocumentsMockService();
-    	respostaConsultaDocumentsMockService.initialize();
+		RespostaConsultaDocumentsMockService respostaConsultaDocumentsMockService = new RespostaConsultaDocumentsMockService();
+		respostaConsultaDocumentsMockService.initialize();
 		return respostaConsultaDocumentsMockService;
 	}
-    
-    @Bean(name = "respostaCercaExpedientMock")
+
+	@Bean(name = "respostaCercaExpedientMock")
 	public RespostaCercaExpedientsMockService respostaCercaExpedientMock() {
-    	RespostaCercaExpedientsMockService respostaCercaExpedientMock = new RespostaCercaExpedientsMockService();
-    	respostaCercaExpedientMock.initialize();
+		RespostaCercaExpedientsMockService respostaCercaExpedientMock = new RespostaCercaExpedientsMockService();
+		respostaCercaExpedientMock.initialize();
 		return respostaCercaExpedientMock;
 	}
-    
-    @Bean(name = "respostaConsultaExpedientMock")
+
+	@Bean(name = "respostaConsultaExpedientMock")
 	public RespostaConsultaExpedientsMockService respostaConsultaExpedientMock() {
 		return new RespostaConsultaExpedientsMockService();
-	}    
-    
-    @Bean(name = "respostaCrearSolicitudMock")
+	}
+
+	@Bean(name = "respostaCrearSolicitudMock")
 	public RespostaCrearSolicitudMockService respostaCrearSolicitudMock() {
 		return new RespostaCrearSolicitudMockService();
-	}      
-    
-    @Bean(name = "respostaActualitzarSolicitudMock")
+	}
+
+	@Bean(name = "respostaActualitzarSolicitudMock")
 	public RespostaActualitzarSolicitudMockService respostaActualitzarSolicitudMock() {
 		return new RespostaActualitzarSolicitudMockService();
-	}          
-    
-    @Bean(name = "respostaRegistrarSolicitudMock")
+	}
+
+	@Bean(name = "respostaRegistrarSolicitudMock")
 	public RespostaRegistrarSolicitudMockService respostaRegistrarSolicitudMock() {
 		return new RespostaRegistrarSolicitudMockService();
-	}        
-    
-    @Bean(name = "respostaObrirSolicitudMock")
+	}
+
+	@Bean(name = "respostaObrirSolicitudMock")
 	public RespostaObrirSolicitudMockService respostaObrirSolicitudMock() {
 		return new RespostaObrirSolicitudMockService();
 	}
-    
-    
-    @Bean(name = "apiDocumentedByRestService")
-    public Docket apiDocumentedByRestService(){
-    	return super.apiDocumentedByRestService().pathProvider(null)
-    			.genericModelSubstitutes(ResponseEntity.class)
-    			.forCodeGeneration(true)
-    			.useDefaultResponseMessages(true);
-    }   
-    
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html")
-          .addResourceLocations("classpath:/META-INF/resources/");
-     
-        registry.addResourceHandler("/webjars/**")
-          .addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
+
+	@Bean(name = "apiDocumentedByRestService")
+	public Docket apiDocumentedByRestService() {
+		return super.apiDocumentedByRestService().pathProvider(null).genericModelSubstitutes(ResponseEntity.class).forCodeGeneration(true)
+		        .useDefaultResponseMessages(true);
+	}
+
+	@Bean(name = "procedimentsModelMapper")
+	public ModelMapper procedimentsModelMapper() {
+		ModelMapper modelMapper = new ModelMapper();
+		// modelMapper.getConfiguration().setFieldMatchingEnabled(false).setImplicitMappingEnabled(false);
+		modelMapper.addMappings(new ProcedimentsCercaMapper());
+		modelMapper.addMappings(new PaginacioMapper());
+
+		return modelMapper;
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+
+		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+	}
 
 }

@@ -1,0 +1,3410 @@
+---
+swagger: "2.0"
+info:
+  description: "API gpaprocediments"
+  version: "1.2.0"
+  title: "API gpaprocediments"
+  contact:
+    name: "Sergio Corras"
+    email: "sergio.corras@iecisa.com"
+  license:
+    name: "Llicència IMI"
+basePath: "/services/gpaprocediments/rest"
+tags:
+- name: "catalog-rest-controller"
+  description: "Catalog Rest Controller"
+- name: "comentaris-rest-controller"
+  description: "Comentaris Rest Controller"
+- name: "historics-rest-controller"
+  description: "Historics Rest Controller"
+- name: "procediments-rest-controller"
+  description: "Procediments Rest Controller"
+- name: "procediments-tramits-rest-controller"
+  description: "Procediments Tramits Rest Controller"
+paths:
+  /procediments:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns all the procediments"
+      operationId: "getProcedimentsUsingGET_1"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfProcedimentsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+    post:
+      tags:
+      - "Procediments"
+      summary: "Inserts the provided procediment"
+      operationId: "insertProcedimentsUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "procedimentRDTO"
+        description: "procedimentRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/ProcedimentsRDTO"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProcedimentsResponse"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/associar:
+    post:
+      tags:
+      - "DadesGroup"
+      summary: "Inserts the provided dadesGrup"
+      operationId: "associarUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "procedimentsRelacionatsRDTOList"
+        description: "procedimentsRelacionatsRDTOList"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/ProcedimentsRelacionatsRDTO"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/bloquejar/{id}:
+    post:
+      tags:
+      - "Procediments"
+      summary: "Locks the provided procediment for editing"
+      operationId: "lockProcedimentUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "bloquejo"
+        description: "bloquejo"
+        required: true
+        schema:
+          $ref: "#/definitions/BloquejosRDTO"
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProcedimentsResponse"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/camp/{idTipusCamp}/validacio:
+    get:
+      tags:
+      - "Tipus Camp"
+      summary: "Returns all the validacions entries for the camp"
+      operationId: "getValidacionsByIdCampUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idTipusCamp"
+        in: "path"
+        description: "idTipusCamp"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/TipusValidacioRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/canviEstat/{id}:
+    post:
+      tags:
+      - "Procediments"
+      summary: "Change the state of a procediment"
+      operationId: "canviEstatProcedimentsUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      - in: "body"
+        name: "procedimentRDTO"
+        description: "procedimentRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/ProcedimentsRDTO"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProcedimentsRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/catalog/competencies:
+    get:
+      tags:
+      - "Estats Expedients"
+      summary: "Returns all the estats expedients"
+      operationId: "getCompetenciesUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/CompetenciesRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/catalog/estats:
+    get:
+      tags:
+      - "Estats"
+      summary: "Returns all the Estats"
+      operationId: "getEstatsUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/EstatsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/catalog/estatsExpedients:
+    get:
+      tags:
+      - "Estats Expedients"
+      summary: "Returns all the estats expedients"
+      operationId: "getEstatsExpedientsUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/EstatsExpedientsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/catalog/families:
+    get:
+      tags:
+      - "Families"
+      summary: "Returns all the families"
+      operationId: "getFamiliesUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/FamiliesRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/catalog/iniciacions:
+    get:
+      tags:
+      - "iniciacions"
+      summary: "Returns all the iniciacions"
+      operationId: "getIniciacionsUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/IniciacionsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/catalog/nivellsIntegracio:
+    get:
+      tags:
+      - "NivellIntegracio"
+      summary: "Returns all the Nivell Integracio"
+      operationId: "getNivellIntegracioUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/NivellIntegracioRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/catalog/recursos:
+    get:
+      tags:
+      - "Estats Expedients"
+      summary: "Returns all the estats expedients"
+      operationId: "getRecursosUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/RecursosRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/catalog/tipusCamps:
+    get:
+      tags:
+      - "Tipus Camps"
+      summary: "Returns all the tipus camps"
+      operationId: "getTipusCampsUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/TipusCampsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/catalog/tipusHistoric:
+    get:
+      tags:
+      - "TipusHistoric"
+      summary: "Returns all the TipusHistorics"
+      operationId: "getTipusHistoricUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/TipusHistoricRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/checkExpedients/{codProcediment}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns true/false if the published procediment has expedients"
+      operationId: "checkExpedientsUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codProcediment"
+        in: "path"
+        description: "codProcediment"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "boolean"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/clonar/{id}:
+    post:
+      tags:
+      - "Procediments"
+      summary: "Clone the provided procediment"
+      operationId: "cloneProcedimentUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      - in: "body"
+        name: "procedimentRDTO"
+        description: "procedimentRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/ProcedimentsRDTO"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProcedimentsResponse"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/comentaris:
+    post:
+      tags:
+      - "Comentaris"
+      summary: "Save the provided comment"
+      operationId: "saveComentarisUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - in: "body"
+        name: "comentarisRDTO"
+        description: "comentarisRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/ComentarisRDTO"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfComentarisRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/comentaris/delete:
+    post:
+      tags:
+      - "Comentaris"
+      summary: "Deletes the requested comentaris list"
+      operationId: "deleteComentarisListUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - in: "body"
+        name: "comentarisRDTOList"
+        description: "comentarisRDTOList"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/ComentarisRDTO"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfComentarisRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/comentaris/{id}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns all the comentaris entries for the procedure that meet the\
+        \ search criteria"
+      operationId: "searchComentarisUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfComentarisRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/dadesGrups/delete:
+    post:
+      tags:
+      - "DadesGrup"
+      summary: "Deletes the requested dades grup list"
+      operationId: "deleteDadesGrupsUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "idList"
+        description: "idList"
+        required: true
+        schema:
+          type: "array"
+          items:
+            type: "number"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/dadesOperacioForCercaExpedient/{codi}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Retorna les dades d'operació de la darrera versió del procediment"
+      operationId: "getDadesOperacioForCercaExpedientUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codi"
+        in: "path"
+        description: "codi"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/DadesOperacionsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/dadesOperacions/delete:
+    post:
+      tags:
+      - "DadesOperacio"
+      summary: "Deletes the requested dades operacio list"
+      operationId: "deleteDadesOperacioUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "idList"
+        description: "idList"
+        required: true
+        schema:
+          type: "array"
+          items:
+            type: "number"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/delete:
+    post:
+      tags:
+      - "Procediments"
+      summary: "Deletes the requested procediment list"
+      operationId: "bulkDeleteProcedimentsListUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "procedimentIdList"
+        description: "procedimentIdList"
+        required: true
+        schema:
+          type: "array"
+          items:
+            type: "number"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/desassociar:
+    post:
+      tags:
+      - "DadesGroup"
+      summary: "Inserts the provided dadesGrup"
+      operationId: "desassociarUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "procedimentsRelacionatsRDTOList"
+        description: "procedimentsRelacionatsRDTOList"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/ProcedimentsRelacionatsRDTO"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/desbloquejar/{id}:
+    post:
+      tags:
+      - "Procediments"
+      summary: "Unlocks the provided procediment"
+      operationId: "unlockProcedimentUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProcedimentsResponse"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/estatsAnteriorProcediment/{id}:
+    get:
+      tags:
+      - "EstatsProcediment"
+      summary: "Get all versions of the provided codi"
+      operationId: "getEstatsAnteriorProcedimentUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/EstatsProcedimentRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/estatsProcCanviEstat/{estatProcediment}:
+    get:
+      tags:
+      - "EstatsProcediment"
+      summary: "Get all versions of the provided codi"
+      operationId: "getTransicionsEstatsByEstatProcUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "estatProcediment"
+        in: "path"
+        description: "estatProcediment"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/TransicionsEstatsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/getProcedimentsAssociatedTramits/{idTramitList}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns procediments associated to tramits"
+      operationId: "getProcedimentsAssociatedTramitsUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idTramitList"
+        in: "path"
+        description: "idTramitList"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ProcedimentsForTramitsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/historic/{id}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns all the historic entries for the procedure that meet the search\
+        \ criteria"
+      operationId: "searchHistoricsUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "tipus"
+        in: "query"
+        description: "tipus"
+        required: false
+        type: "array"
+        items:
+          type: "integer"
+          format: "int32"
+        collectionFormat: "multi"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfHistoricsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/identificacions:
+    post:
+      tags:
+      - "Procediments/Identificacions"
+      summary: "Inserts the provided identificacions to the procediment"
+      operationId: "updateIdentificacionsUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "procedimentsRDTO"
+        description: "procedimentsRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/ProcedimentsRDTO"
+      - name: "tipo"
+        in: "query"
+        description: "tipo"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RestClientResponse"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/infoProcediments:
+    post:
+      tags:
+      - "Procediments"
+      summary: "Returns all the procediments names"
+      operationId: "getNomProcedimentsForOgeUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "procList"
+        description: "procList"
+        required: true
+        schema:
+          type: "array"
+          items:
+            type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ProcedimentsRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/procedimentIdsByCodiAndTramitador:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns all the procediment ids by codi"
+      operationId: "procedimentIdsByCodiAndTramitadorUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "aplicacio"
+        in: "query"
+        description: "aplicacio"
+        required: false
+        type: "string"
+      - name: "procedimentCodis"
+        in: "query"
+        description: "procedimentCodis"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+      - name: "procedimentVersio"
+        in: "query"
+        description: "procedimentVersio"
+        required: false
+        type: "string"
+      - name: "tramitador"
+        in: "query"
+        description: "tramitador"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              type: "number"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/procedimentsForOge:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns all the procediments for OGE"
+      operationId: "getProcedimentsForOgeUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ProcedimentsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/relacionats/{id}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns the associated  procediment list "
+      operationId: "getProcedimentsRelacionatsUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfProcedimentsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/requerimentsOperatius:
+    post:
+      tags:
+      - "Procediments/RequerimentsOperatius"
+      summary: "Inserts the provided Requeriments Operatius to the procediment"
+      operationId: "updateRequerimentsOperatiusUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "procedimentsRDTO"
+        description: "procedimentsRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/ProcedimentsRDTO"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProcedimentsRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/saveDadesGrup:
+    post:
+      tags:
+      - "DadesGroup"
+      summary: "Inserts the provided dadesGrup"
+      operationId: "saveDadesGrupUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "dadesGrupsRDTO"
+        description: "dadesGrupsRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/DadesGrupsRDTO"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/DadesGrupsRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/saveDadesOperacio:
+    post:
+      tags:
+      - "DadesOperacio"
+      summary: "Inserts the provided dadesOperacio"
+      operationId: "saveDadesOperacioUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "dadesOperacionsRDTO"
+        description: "dadesOperacionsRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/DadesOperacionsRDTO"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfDadesOperacionsRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/search:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns all procedures that meet the search criteria"
+      operationId: "cercaProcediments"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "activableFormatElectronic"
+        in: "query"
+        description: "Canals d'activació en format electrònic"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+      - name: "actuacio"
+        in: "query"
+        description: "Actuació"
+        required: false
+        type: "string"
+      - name: "aplicacioNegoci"
+        in: "query"
+        description: "Nom de l'aplicació de negoci"
+        required: false
+        type: "string"
+      - name: "codi"
+        in: "query"
+        description: "Codi del procediment"
+        required: false
+        type: "string"
+      - name: "competencies"
+        in: "query"
+        description: "Competències associades al procediment"
+        required: false
+        type: "array"
+        items:
+          type: "number"
+        collectionFormat: "multi"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "estats"
+        in: "query"
+        description: "Estats"
+        required: false
+        type: "array"
+        items:
+          type: "number"
+        collectionFormat: "multi"
+      - name: "families"
+        in: "query"
+        description: "Famílies del procediment"
+        required: false
+        type: "array"
+        items:
+          type: "number"
+        collectionFormat: "multi"
+      - name: "id"
+        in: "query"
+        description: "Identificador pel qual es realitza la cerca"
+        required: false
+        type: "number"
+      - name: "idUsuari"
+        in: "query"
+        description: "Identificador d'usuari pel qual es realitza la cerca"
+        required: false
+        type: "number"
+      - name: "intern"
+        in: "query"
+        description: "Exclusivament intern"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "nom"
+        in: "query"
+        description: "Nom del procediment"
+        required: false
+        type: "string"
+      - name: "operador"
+        in: "query"
+        description: "operador tramitador"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "organResolutori"
+        in: "query"
+        description: "Òrgan resolutori"
+        required: false
+        type: "string"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "ugos"
+        in: "query"
+        description: "Unitats gestores responsables"
+        required: false
+        type: "array"
+        items:
+          type: "number"
+        collectionFormat: "multi"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfProcedimentsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/searchAssociats:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns all procedures that meet the search criteria"
+      operationId: "searchAssoaciatsUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "codi"
+        in: "query"
+        description: "Codi del procediment"
+        required: false
+        type: "string"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "query"
+        description: "Identificador pel qual es realitza la cerca"
+        required: false
+        type: "number"
+      - name: "idUsuari"
+        in: "query"
+        description: "Identificador d'usuari pel qual es realitza la cerca"
+        required: false
+        type: "number"
+      - name: "ids"
+        in: "query"
+        description: "Identificadors dels procediments ja associats"
+        required: false
+        type: "array"
+        items:
+          type: "number"
+        collectionFormat: "multi"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "nom"
+        in: "query"
+        description: "Nom del procediment"
+        required: false
+        type: "string"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfProcedimentsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/sequenceNextVal/{idProcediment}:
+    get:
+      tags:
+      - "Numeradors"
+      summary: "Returns the next val of the procediment sequence"
+      operationId: "getSequenceNextValUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idProcediment"
+        in: "path"
+        description: "idProcediment"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/tramits/associar:
+    post:
+      tags:
+      - "ProcedimentsTramits"
+      summary: "Inserts the provided tramits for procediment"
+      operationId: "associarUsingPOST_1"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "procedimentsTramitsRDTOList"
+        description: "procedimentsTramitsRDTOList"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/ProcedimentsTramitsRDTO"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/tramits/desassociar:
+    post:
+      tags:
+      - "ProcedimentsTramits"
+      summary: "Removes the provided tramits from procediment"
+      operationId: "desassociarUsingPOST_1"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "procedimentsTramitsRDTOList"
+        description: "procedimentsTramitsRDTOList"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/ProcedimentsTramitsRDTO"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/tramits/{id}:
+    get:
+      tags:
+      - "ProcedimentsTramits"
+      summary: "Returns all the tramits for the procedure that meet the search criteria"
+      operationId: "tramitsForProcedimentUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              type: "number"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/unitatsInUse/{ugIdList}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "check if the units are being used"
+      operationId: "unitatsInUseUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "ugIdList"
+        in: "path"
+        description: "ugIdList"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ProcedimentsForUnitatsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/updateDoc:
+    post:
+      tags:
+      - "Procediments"
+      summary: "updates de requested doc info"
+      operationId: "updateDocUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "infoDocProcedimentRDTO"
+        description: "infoDocProcedimentRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/InfoDocProcedimentRDTO"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RestClientResponse"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/versionar/{id}:
+    post:
+      tags:
+      - "Procediments"
+      summary: "Version the provided procediment"
+      operationId: "versionProcedimentUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProcedimentsResponse"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/versions/{codi}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Get all versions of the provided codi"
+      operationId: "versionsByCodiUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codi"
+        in: "path"
+        description: "codi"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ProcedimentsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/{id}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns the requested procediment"
+      operationId: "getProcedimentsUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProcedimentsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+    delete:
+      tags:
+      - "Procediments"
+      summary: "Deletes the requested procediment"
+      operationId: "deleteProcedimentsUsingDELETE"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+        204:
+          description: "No Content"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/{id}/dades:
+    get:
+      tags:
+      - "Dades Operacions"
+      summary: "Returns all the dades operacions entries for the procedure"
+      operationId: "getDadesOperacionsUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfDadesOperacionsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/{id}/dadesGrupsWithDadesOperacio:
+    get:
+      tags:
+      - "Dades Grups"
+      summary: "Returns all the dades operacions entries for the procedure"
+      operationId: "getDadesGrupsWithDadesOperacioUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/DadesGrupsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/{id}/grups:
+    get:
+      tags:
+      - "Dades Grups"
+      summary: "Returns all the grups entries for the procedure"
+      operationId: "getDadesGrupsUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfDadesGrupsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+definitions:
+  Bloquejos:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+      momentBloqueig:
+        type: "string"
+        format: "date-time"
+      tipus:
+        type: "string"
+      usuari:
+        type: "number"
+    title: "Bloquejos"
+  BloquejosRDTO:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+      momentBloqueig:
+        type: "string"
+        format: "date-time"
+      tipus:
+        type: "string"
+      usuari:
+        type: "number"
+    title: "BloquejosRDTO"
+  Comentaris:
+    type: "object"
+    properties:
+      dataCreacio:
+        type: "string"
+        format: "date-time"
+      descripcio:
+        type: "string"
+      eliminat:
+        type: "number"
+      id:
+        type: "number"
+      procediment:
+        type: "number"
+      titol:
+        type: "string"
+      usuari:
+        type: "number"
+    title: "Comentaris"
+  ComentarisRDTO:
+    type: "object"
+    properties:
+      dataCreacio:
+        type: "string"
+        format: "date-time"
+      descripcio:
+        type: "string"
+      eliminat:
+        type: "number"
+      id:
+        type: "number"
+      procediment:
+        type: "number"
+      titol:
+        type: "string"
+      usuari:
+        type: "number"
+    title: "ComentarisRDTO"
+  CompetenciesRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "CompetenciesRDTO"
+  DadesGrups:
+    type: "object"
+    properties:
+      dadesOperacionsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesOperacions"
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+      nomColumnes:
+        type: "integer"
+        format: "int32"
+      ordre:
+        type: "integer"
+        format: "int32"
+      procediment:
+        type: "number"
+      titol:
+        type: "string"
+      urlValidacio:
+        type: "string"
+      vigent:
+        type: "integer"
+        format: "int32"
+    title: "DadesGrups"
+  DadesGrupsRDTO:
+    type: "object"
+    properties:
+      dadesOperacionsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesOperacions"
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+      nomColumnes:
+        type: "integer"
+        format: "int32"
+      ordre:
+        type: "integer"
+        format: "int32"
+      procediment:
+        type: "number"
+      titol:
+        type: "string"
+      urlValidacio:
+        type: "string"
+      vigent:
+        type: "integer"
+        format: "int32"
+    title: "DadesGrupsRDTO"
+  DadesOperTramitsOvt:
+    type: "object"
+    properties:
+      dadaOper:
+        type: "number"
+      tramitOvtIdext:
+        type: "number"
+    title: "DadesOperTramitsOvt"
+  DadesOperacions:
+    type: "object"
+    properties:
+      cercable:
+        type: "integer"
+        format: "int32"
+      codi:
+        type: "string"
+      comentari:
+        type: "string"
+      dadesOperTramitsOvtList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesOperTramitsOvt"
+      desTipusCamp:
+        type: "string"
+      descripcio:
+        type: "string"
+      detallValidacio:
+        type: "string"
+      grup:
+        type: "number"
+      id:
+        type: "number"
+      itemsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Items"
+      obligatori:
+        type: "integer"
+        format: "int32"
+      ordre:
+        type: "integer"
+        format: "int32"
+      procediment:
+        type: "number"
+      tipus:
+        type: "integer"
+        format: "int32"
+      titol:
+        type: "string"
+      titolGrup:
+        type: "string"
+      validacio:
+        type: "integer"
+        format: "int32"
+      vigent:
+        type: "integer"
+        format: "int32"
+    title: "DadesOperacions"
+  DadesOperacionsRDTO:
+    type: "object"
+    properties:
+      cercable:
+        type: "integer"
+        format: "int32"
+      codi:
+        type: "string"
+      comentari:
+        type: "string"
+      dadesOperTramitsOvtList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesOperTramitsOvt"
+      desTipusCamp:
+        type: "string"
+      descripcio:
+        type: "string"
+      detallValidacio:
+        type: "string"
+      grup:
+        type: "number"
+      id:
+        type: "number"
+      itemsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Items"
+      obligatori:
+        type: "integer"
+        format: "int32"
+      ordre:
+        type: "integer"
+        format: "int32"
+      procediment:
+        type: "number"
+      tipus:
+        type: "integer"
+        format: "int32"
+      titol:
+        type: "string"
+      titolGrup:
+        type: "string"
+      validacio:
+        type: "integer"
+        format: "int32"
+      vigent:
+        type: "integer"
+        format: "int32"
+    title: "DadesOperacionsRDTO"
+  Estats:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "Estats"
+  EstatsExpedientsRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "EstatsExpedientsRDTO"
+  EstatsProcediment:
+    type: "object"
+    properties:
+      estat:
+        type: "number"
+      estatProcedimentAnt:
+        type: "number"
+      estats:
+        $ref: "#/definitions/Estats"
+      estatsProcedimentAnt:
+        $ref: "#/definitions/EstatsProcediment"
+      historic:
+        type: "number"
+      id:
+        type: "number"
+      procediment:
+        type: "number"
+    title: "EstatsProcediment"
+  EstatsProcedimentRDTO:
+    type: "object"
+    properties:
+      estat:
+        type: "number"
+      estatProcedimentAnt:
+        type: "number"
+      estats:
+        $ref: "#/definitions/Estats"
+      estatsProcedimentAnt:
+        $ref: "#/definitions/EstatsProcediment"
+      historic:
+        type: "number"
+      id:
+        type: "number"
+      procediment:
+        type: "number"
+    title: "EstatsProcedimentRDTO"
+  EstatsRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "EstatsRDTO"
+  Exception:
+    type: "object"
+    properties:
+      cause:
+        $ref: "#/definitions/Throwable"
+      localizedMessage:
+        type: "string"
+      message:
+        type: "string"
+      stackTrace:
+        type: "array"
+        items:
+          $ref: "#/definitions/StackTraceElement"
+      suppressed:
+        type: "array"
+        items:
+          $ref: "#/definitions/Throwable"
+    title: "Exception"
+  FamiliesRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "FamiliesRDTO"
+  Fitxers:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+      identificacio:
+        type: "number"
+    title: "Fitxers"
+  HistoricValors:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+      ordre:
+        type: "integer"
+        format: "int64"
+      valor:
+        type: "string"
+    title: "HistoricValors"
+  Historics:
+    type: "object"
+    properties:
+      clauMissatge:
+        type: "string"
+      dataCreacio:
+        type: "string"
+        format: "date-time"
+      descTipus:
+        type: "string"
+      descripcio:
+        type: "string"
+      historicValorsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/HistoricValors"
+      id:
+        type: "number"
+      procediment:
+        type: "number"
+      tipus:
+        type: "integer"
+        format: "int32"
+      usuari:
+        type: "number"
+    title: "Historics"
+  HistoricsRDTO:
+    type: "object"
+    properties:
+      clauMissatge:
+        type: "string"
+      dataCreacio:
+        type: "string"
+        format: "date-time"
+      descTipus:
+        type: "string"
+      descripcio:
+        type: "string"
+      historicValorsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/HistoricValors"
+      id:
+        type: "number"
+      procediment:
+        type: "number"
+      tipus:
+        type: "integer"
+        format: "int32"
+      usuari:
+        type: "number"
+    title: "HistoricsRDTO"
+  Identificacions:
+    type: "object"
+    properties:
+      accesMobil:
+        type: "string"
+      accesQuiosc:
+        type: "string"
+      adrecaAltraWeb:
+        type: "string"
+      adrecaPortalTramits:
+        type: "string"
+      afectaCollectius:
+        type: "integer"
+        format: "int32"
+      altraClassificacioFamilia:
+        type: "string"
+      altraWeb:
+        type: "integer"
+        format: "int32"
+      altresCompetencies:
+        type: "string"
+      altresMotiusIniciacio:
+        type: "string"
+      condCreacioExpedient:
+        type: "string"
+      condFinalitzacioExpedient:
+        type: "string"
+      condRelacioExpedient:
+        type: "string"
+      conferimentsVista:
+        type: "integer"
+        format: "int32"
+      crearExpedient:
+        type: "integer"
+        format: "int32"
+      descripcioActivador:
+        type: "string"
+      descripcioDestinatari:
+        type: "string"
+      detallCanalEspecific:
+        type: "string"
+      document:
+        type: "string"
+        format: "byte"
+      especAfectaCollectius:
+        type: "string"
+      especPeriodicitat:
+        type: "string"
+      especRecursInterposables:
+        type: "string"
+      especSilenciAdm:
+        type: "string"
+      especTerminiMaxim:
+        type: "integer"
+        format: "int32"
+      finalitzaViaAdminisitrat:
+        type: "integer"
+        format: "int32"
+      finalitzarExpedient:
+        type: "integer"
+        format: "int32"
+      finsAGestElect:
+        type: "string"
+        format: "date-time"
+      fitxersList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Fitxers"
+      gestioElectronica:
+        type: "integer"
+        format: "int32"
+      id:
+        type: "number"
+      identificacionsCompetenciesList:
+        type: "array"
+        items:
+          $ref: "#/definitions/IdentificacionsCompetencies"
+      identificacionsFamiliesList:
+        type: "array"
+        items:
+          $ref: "#/definitions/IdentificacionsFamilies"
+      identificacionsRecursosList:
+        type: "array"
+        items:
+          $ref: "#/definitions/IdentificacionsRecursos"
+      informacioCiutada:
+        type: "string"
+      informacioPublica:
+        type: "integer"
+        format: "int32"
+      informacioTramitador:
+        type: "string"
+      informacioVeinal:
+        type: "integer"
+        format: "int32"
+      intern:
+        type: "integer"
+        format: "int32"
+      lletratConeixedorProc:
+        type: "string"
+      mobil:
+        type: "integer"
+        format: "int32"
+      nivellAutenticacio:
+        type: "integer"
+        format: "int32"
+      nomDocument:
+        type: "string"
+      normativaReferencia:
+        type: "string"
+      normesList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Normes"
+      numConferimentsVista:
+        type: "integer"
+        format: "int32"
+      numInformacioPublica:
+        type: "integer"
+        format: "int32"
+      numInformacioVeinal:
+        type: "integer"
+        format: "int32"
+      numTramitsAudiencia:
+        type: "integer"
+        format: "int32"
+      ordenancesList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Ordenances"
+      organResolutori:
+        type: "string"
+      perCanalEspecific:
+        type: "integer"
+        format: "int32"
+      perCanalGeneralista:
+        type: "integer"
+        format: "int32"
+      periodicitatTermini:
+        type: "integer"
+        format: "int32"
+      portalTramits:
+        type: "integer"
+        format: "int32"
+      quadreClassificacio:
+        type: "string"
+      quiosc:
+        type: "integer"
+        format: "int32"
+      relacioAmbExpedient:
+        type: "integer"
+        format: "int32"
+      responActuacions:
+        type: "string"
+      serveisList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Serveis"
+      silenciAdministratiu:
+        type: "integer"
+        format: "int32"
+      tecnicConeixedorProc:
+        type: "string"
+      terminiMaxim:
+        type: "integer"
+        format: "int32"
+      tramitsAudiencia:
+        type: "integer"
+        format: "int32"
+      vigenciaFi:
+        type: "string"
+        format: "date-time"
+      vigenciaInici:
+        type: "string"
+        format: "date-time"
+    title: "Identificacions"
+  IdentificacionsCompetencies:
+    type: "object"
+    properties:
+      competencia:
+        type: "number"
+      identificacio:
+        type: "number"
+    title: "IdentificacionsCompetencies"
+  IdentificacionsFamilies:
+    type: "object"
+    properties:
+      familia:
+        type: "number"
+      identificacio:
+        type: "number"
+    title: "IdentificacionsFamilies"
+  IdentificacionsRecursos:
+    type: "object"
+    properties:
+      identificacio:
+        type: "number"
+      recurs:
+        type: "number"
+    title: "IdentificacionsRecursos"
+  InfoDocProcedimentRDTO:
+    type: "object"
+    properties:
+      idProcediment:
+        type: "number"
+      nomDoc:
+        type: "string"
+      tipoDoc:
+        type: "string"
+    title: "InfoDocProcedimentRDTO"
+  IniciacionsRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "IniciacionsRDTO"
+  Items:
+    type: "object"
+    properties:
+      dadesOperacions:
+        type: "number"
+      id:
+        type: "number"
+      itemDescripcio:
+        type: "string"
+      itemId:
+        type: "integer"
+        format: "int32"
+      itemOrdre:
+        type: "integer"
+        format: "int32"
+    title: "Items"
+  NivellIntegracioRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      esOge:
+        type: "integer"
+        format: "int32"
+      id:
+        type: "number"
+    title: "NivellIntegracioRDTO"
+  Normes:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+      identificacio:
+        type: "number"
+    title: "Normes"
+  Ordenances:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+      identificacio:
+        type: "number"
+    title: "Ordenances"
+  PageDataOfComentarisRDTO:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/ComentarisRDTO"
+      page:
+        $ref: "#/definitions/PaginationAttributes"
+      sortInfo:
+        $ref: "#/definitions/SortInfo"
+    title: "PageDataOfComentarisRDTO"
+  PageDataOfDadesGrupsRDTO:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesGrupsRDTO"
+      page:
+        $ref: "#/definitions/PaginationAttributes"
+      sortInfo:
+        $ref: "#/definitions/SortInfo"
+    title: "PageDataOfDadesGrupsRDTO"
+  PageDataOfDadesOperacionsRDTO:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesOperacionsRDTO"
+      page:
+        $ref: "#/definitions/PaginationAttributes"
+      sortInfo:
+        $ref: "#/definitions/SortInfo"
+    title: "PageDataOfDadesOperacionsRDTO"
+  PageDataOfHistoricsRDTO:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/HistoricsRDTO"
+      page:
+        $ref: "#/definitions/PaginationAttributes"
+      sortInfo:
+        $ref: "#/definitions/SortInfo"
+    title: "PageDataOfHistoricsRDTO"
+  PageDataOfProcedimentsRDTO:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentsRDTO"
+      page:
+        $ref: "#/definitions/PaginationAttributes"
+      sortInfo:
+        $ref: "#/definitions/SortInfo"
+    title: "PageDataOfProcedimentsRDTO"
+  PaginationAttributes:
+    type: "object"
+    properties:
+      absoluteRowNumberOfFirstRowInCurrentPage:
+        type: "integer"
+        format: "int32"
+      absoluteRowNumberOfLastRowInCurrentPage:
+        type: "integer"
+        format: "int32"
+      currentPageHasNextPage:
+        type: "boolean"
+      currentPageHasPreviousPage:
+        type: "boolean"
+      currentPageIsFirstPage:
+        type: "boolean"
+      currentPageIsLastPage:
+        type: "boolean"
+      currentPageNumber:
+        type: "integer"
+        format: "int32"
+      nextPageNumber:
+        type: "integer"
+        format: "int32"
+      pageSize:
+        type: "integer"
+        format: "int32"
+      previousPageNumber:
+        type: "integer"
+        format: "int32"
+      totalElements:
+        type: "integer"
+        format: "int64"
+      totalPages:
+        type: "integer"
+        format: "int32"
+    title: "PaginationAttributes"
+  Procediments:
+    type: "object"
+    properties:
+      bloqueig:
+        type: "number"
+      bloquejos:
+        $ref: "#/definitions/Bloquejos"
+      codi:
+        type: "string"
+      codiNom:
+        type: "string"
+      comentarisList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Comentaris"
+      configuracioAvisos:
+        type: "number"
+      configuracioDocumentacio:
+        type: "number"
+      dadesGrupsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesGrups"
+      darreraModificacio:
+        type: "string"
+        format: "date-time"
+      descripcio:
+        type: "string"
+      descripcioEstat:
+        type: "string"
+      estatProcediment:
+        type: "number"
+      estatsProcediment:
+        $ref: "#/definitions/EstatsProcediment"
+      historicsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Historics"
+      id:
+        type: "number"
+      identificacio:
+        type: "number"
+      identificacions:
+        $ref: "#/definitions/Identificacions"
+      iniciacionsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentsIniciacions"
+      nom:
+        type: "string"
+      numerador:
+        type: "number"
+      procedimentsAssociatsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Procediments"
+      procedimentsRelacionatsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentsRelacionats"
+      reqOperatius:
+        $ref: "#/definitions/RequerimentsOperatius"
+      requerimentsOperatius:
+        type: "number"
+      serieDocumental:
+        type: "string"
+      tramitador:
+        type: "string"
+      ugosList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentsUgos"
+      ugosNoms:
+        type: "string"
+      ugrIdext:
+        type: "number"
+      ugrNom:
+        type: "string"
+      ultimaModificacio:
+        type: "number"
+      unitat:
+        type: "string"
+      versio:
+        type: "string"
+    title: "Procediments"
+  ProcedimentsForTramitsRDTO:
+    type: "object"
+    properties:
+      codiProcediment:
+        type: "string"
+      idTramit:
+        type: "number"
+    title: "ProcedimentsForTramitsRDTO"
+  ProcedimentsForUnitatsRDTO:
+    type: "object"
+    properties:
+      codi:
+        type: "string"
+      idUgo:
+        type: "number"
+    title: "ProcedimentsForUnitatsRDTO"
+  ProcedimentsIniciacions:
+    type: "object"
+    properties:
+      iniciacio:
+        type: "integer"
+        format: "int32"
+      procediment:
+        type: "number"
+    title: "ProcedimentsIniciacions"
+  ProcedimentsRDTO:
+    type: "object"
+    properties:
+      bloqueig:
+        type: "number"
+      bloquejos:
+        $ref: "#/definitions/Bloquejos"
+      codi:
+        type: "string"
+      codiNom:
+        type: "string"
+      comentarisList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Comentaris"
+      configuracioAvisos:
+        type: "number"
+      configuracioDocumentacio:
+        type: "number"
+      dadesGrupsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesGrups"
+      darreraModificacio:
+        type: "string"
+        format: "date-time"
+      descripcio:
+        type: "string"
+      descripcioEstat:
+        type: "string"
+      estatProcediment:
+        type: "number"
+      estatsProcediment:
+        $ref: "#/definitions/EstatsProcediment"
+      historicsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Historics"
+      id:
+        type: "number"
+      identificacio:
+        type: "number"
+      identificacions:
+        $ref: "#/definitions/Identificacions"
+      iniciacionsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentsIniciacions"
+      nom:
+        type: "string"
+      numerador:
+        type: "number"
+      procedimentsAssociatsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Procediments"
+      procedimentsRelacionatsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentsRelacionats"
+      reqOperatius:
+        $ref: "#/definitions/RequerimentsOperatius"
+      requerimentsOperatius:
+        type: "number"
+      serieDocumental:
+        type: "string"
+      tramitador:
+        type: "string"
+      ugosList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentsUgos"
+      ugosNoms:
+        type: "string"
+      ugrIdext:
+        type: "number"
+      ugrNom:
+        type: "string"
+      ultimaModificacio:
+        type: "number"
+      unitat:
+        type: "string"
+      versio:
+        type: "string"
+    title: "ProcedimentsRDTO"
+  ProcedimentsRelacionats:
+    type: "object"
+    properties:
+      procediment:
+        type: "number"
+      relacionat:
+        type: "number"
+    title: "ProcedimentsRelacionats"
+  ProcedimentsRelacionatsRDTO:
+    type: "object"
+    properties:
+      procediment:
+        type: "number"
+      relacionat:
+        type: "number"
+    title: "ProcedimentsRelacionatsRDTO"
+  ProcedimentsResponse:
+    type: "object"
+    properties:
+      error:
+        $ref: "#/definitions/Exception"
+      id:
+        type: "number"
+    title: "ProcedimentsResponse"
+  ProcedimentsTramitsRDTO:
+    type: "object"
+    properties:
+      procediment:
+        type: "number"
+      tramit:
+        type: "number"
+    title: "ProcedimentsTramitsRDTO"
+  ProcedimentsUgos:
+    type: "object"
+    properties:
+      procediment:
+        type: "number"
+      ugoIdext:
+        type: "number"
+    title: "ProcedimentsUgos"
+  RecursosRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "RecursosRDTO"
+  RequerimentsOperatius:
+    type: "object"
+    properties:
+      ambDocumentSuport:
+        type: "integer"
+        format: "int32"
+      aplicaProcediment:
+        type: "integer"
+        format: "int32"
+      aplicacioNegoci:
+        type: "string"
+      detallActivador:
+        type: "string"
+      detallDestinatari:
+        type: "string"
+      diagramaProcediment:
+        type: "integer"
+        format: "int32"
+      id:
+        type: "number"
+      informacioTramitacio:
+        type: "string"
+      instruccionsArxiu:
+        type: "string"
+      linkDocumentSuport:
+        type: "string"
+      nivellIntegracio:
+        type: "number"
+      nomDocument:
+        type: "string"
+      plantillaDadesNegoci:
+        type: "integer"
+        format: "int32"
+      procedimentExecutable:
+        type: "integer"
+        format: "int32"
+    title: "RequerimentsOperatius"
+  RestClientResponse:
+    type: "object"
+    properties:
+      error:
+        $ref: "#/definitions/Throwable"
+      id:
+        type: "number"
+      result:
+        type: "boolean"
+    title: "RestClientResponse"
+  Serveis:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+      identificacio:
+        type: "number"
+    title: "Serveis"
+  SortInfo:
+    type: "object"
+    properties:
+      dir:
+        type: "string"
+      sort:
+        type: "string"
+    title: "SortInfo"
+  StackTraceElement:
+    type: "object"
+    properties:
+      className:
+        type: "string"
+      fileName:
+        type: "string"
+      lineNumber:
+        type: "integer"
+        format: "int32"
+      methodName:
+        type: "string"
+      nativeMethod:
+        type: "boolean"
+    title: "StackTraceElement"
+  Throwable:
+    type: "object"
+    properties:
+      cause:
+        $ref: "#/definitions/Throwable"
+      localizedMessage:
+        type: "string"
+      message:
+        type: "string"
+      stackTrace:
+        type: "array"
+        items:
+          $ref: "#/definitions/StackTraceElement"
+      suppressed:
+        type: "array"
+        items:
+          $ref: "#/definitions/Throwable"
+    title: "Throwable"
+  TipusCampsRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "TipusCampsRDTO"
+  TipusHistoricRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "integer"
+        format: "int32"
+    title: "TipusHistoricRDTO"
+  TipusValidacioRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "TipusValidacioRDTO"
+  TransicionsEstatsRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      estatDestino:
+        type: "number"
+      estatOrigen:
+        type: "number"
+      id:
+        type: "number"
+    title: "TransicionsEstatsRDTO"
