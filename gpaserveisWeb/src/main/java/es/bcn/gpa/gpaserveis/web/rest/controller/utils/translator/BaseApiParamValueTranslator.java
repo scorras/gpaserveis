@@ -1,13 +1,13 @@
-package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter;
+package es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator;
 
 import java.util.List;
 
-import es.bcn.gpa.gpaserveis.web.rest.exception.GPAServeisRuntimeException;
+import es.bcn.gpa.gpaserveis.business.exception.GPAServeisRuntimeException;
 
 /**
- * The Interface BaseApiParamValueConverter.
+ * The Interface BaseApiParamValueTranslator.
  */
-public interface BaseApiParamValueConverter {
+public interface BaseApiParamValueTranslator {
 
 	/**
 	 * Gets the api param allowable values.

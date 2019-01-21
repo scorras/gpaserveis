@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.impl;
+package es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -10,24 +10,24 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.BaseApiParamValueConverter;
-import es.bcn.gpa.gpaserveis.web.rest.exception.GPAServeisRuntimeException;
+import es.bcn.gpa.gpaserveis.business.exception.GPAServeisRuntimeException;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 
 /**
- * The Class ApiParamValueConverter.
+ * The Class ApiParamValueTranslator.
  *
  * @param <E>
  *            the element type
  * @param <T>
  *            the generic type
  */
-public class ApiParamValueConverter<E extends Enum<E>, T extends Object> implements BaseApiParamValueConverter {
+public class ApiParamValueTranslator<E extends Enum<E>, T extends Object> implements BaseApiParamValueTranslator {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.
-	 * BaseApiParamValueConverter#getApiParamAllowableValues()
+	 * @see es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.
+	 * BaseApiParamValueTranslator#getApiParamAllowableValues()
 	 */
 	@Override
 	public String getApiParamAllowableValues() throws GPAServeisRuntimeException {
@@ -50,8 +50,8 @@ public class ApiParamValueConverter<E extends Enum<E>, T extends Object> impleme
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.
-	 * BaseApiParamValueConverter#getInternalValueByApiParamValue(java.lang.
+	 * @see es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.
+	 * BaseApiParamValueTranslator#getInternalValueByApiParamValue(java.lang.
 	 * String)
 	 */
 	@SuppressWarnings("unchecked")
@@ -73,8 +73,8 @@ public class ApiParamValueConverter<E extends Enum<E>, T extends Object> impleme
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.
-	 * BaseApiParamValueConverter#getInternalValueListByApiParamValueList(java.
+	 * @see es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.
+	 * BaseApiParamValueTranslator#getInternalValueListByApiParamValueList(java.
 	 * lang.String[])
 	 */
 	@SuppressWarnings("unchecked")
@@ -96,8 +96,8 @@ public class ApiParamValueConverter<E extends Enum<E>, T extends Object> impleme
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.
-	 * BaseApiParamValueConverter#getApiParamValueByInternalValue(java.lang.
+	 * @see es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.
+	 * BaseApiParamValueTranslator#getApiParamValueByInternalValue(java.lang.
 	 * Object)
 	 */
 	@Override

@@ -1,0 +1,70 @@
+package es.bcn.gpa.gpaserveis.business.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
+import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaunitats.ApiException;
+import lombok.extern.apachecommons.CommonsLog;
+
+/**
+ * The Class UnitatsGestoresServiceImpl.
+ */
+@Service
+@CommonsLog
+public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
+
+	/** The unitats gestores api. */
+	@Autowired
+	private UnitatsGestoresApi unitatsGestoresApi;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.UnitatsGestoresService#
+	 * cercaUnitatsGestores(es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.
+	 * UnitatsGestoresCercaBDTO)
+	 */
+	@Override
+	// @HystrixCommand(fallbackMethod = "fallbackCercaUnitatsGestores")
+	public PageDataOfUnitatsGestoresRDTO cercaUnitatsGestores(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("cercaUnitatsGestores(UnitatsGestoresCercaBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			PageDataOfUnitatsGestoresRDTO pageDataOfUnitatsGestoresRDTO = unitatsGestoresApi.cercaUnitatsGestores(null, null, null, null,
+			        null, null, null, null, null, null, null, null, null, unitatsGestoresCercaBDTO.getNom(), null, null, null, null, null,
+			        null);
+
+			if (log.isDebugEnabled()) {
+				log.debug("cercaUnitatsGestores(UnitatsGestoresCercaBDTO) - fi"); //$NON-NLS-1$
+			}
+			return pageDataOfUnitatsGestoresRDTO;
+		} catch (ApiException e) {
+			log.error("cercaUnitatsGestores(UnitatsGestoresCercaBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback cerca unitats gestores.
+	 *
+	 * @return the page data of unitats gestores RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public PageDataOfUnitatsGestoresRDTO fallbackCercaUnitatsGestores() throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCercaUnitatsGestores() - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de unitats gestores no està disponible");
+	}
+}

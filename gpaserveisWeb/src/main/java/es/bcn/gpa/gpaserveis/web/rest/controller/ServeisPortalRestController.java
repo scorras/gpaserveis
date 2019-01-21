@@ -4,10 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,16 +17,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
+import es.bcn.gpa.gpaserveis.business.ProcedimentsService;
+import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
+import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaunitats.ApiException;
+import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaActualitzarSolicitudMockService;
-import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCercaProcedimentsMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaDadesOperacioMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaDocumentsMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaExpedientsMockService;
@@ -36,15 +35,15 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaProcedimen
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCrearSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaObrirSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaRegistrarSolicitudMockService;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.BaseApiParamValueConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.impl.SentitOrdenacioApiParamValueConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.impl.procediment.ActivableEnFormatElectronicApiParamValueConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.impl.procediment.CompetenciaAssociadaApiParamValueConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.impl.procediment.EstatApiParamValueConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.impl.procediment.ExclusivamentInternApiParamValueConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.impl.procediment.FamiliaApiParamValueConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.impl.procediment.OrdenarPerApiParamValueConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.impl.procediment.TramitadorApiParamValueConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.procediment.ApiParamToInternalMapper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.SentitOrdenacioApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.ActivableEnFormatElectronicApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.CompetenciaAssociadaApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.EstatApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.ExclusivamentInternApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.FamiliaApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TramitadorApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.actualitzar.solicituds.RespostaActualitzarSolicitudsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.actualitzar.solicituds.SolicitudsActualitzarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.PaginacioRDTO;
@@ -60,13 +59,12 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.crear.solicituds.Respos
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.crear.solicituds.SolicitudsCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.obrir.expedients.RespostaObrirSolicitudsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.registrar.solicitud.RespostaRegistrarSolicitudsRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.exception.GPAServeisServiceException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Extension;
 import io.swagger.annotations.ExtensionProperty;
-import net.opentrends.openframe.services.rest.controller.AbstractRestController;
+import lombok.extern.apachecommons.CommonsLog;
 
 /**
  * The Class ServeisPortalRestController.
@@ -75,180 +73,170 @@ import net.opentrends.openframe.services.rest.controller.AbstractRestController;
 @RequestMapping(value = "/serveis/portal", produces = MediaType.APPLICATION_JSON_VALUE)
 @Lazy(true)
 @Api(value = "Serveis Portal API", tags = "Serveis Portal API")
-public class ServeisPortalRestController extends AbstractRestController {
+@CommonsLog
+public class ServeisPortalRestController extends BaseRestController {
 
-	@Autowired
-	private RespostaCercaProcedimentsMockService respostaCercaProcedimentsMockService;
-
+	/** The resposta consulta procediments mock service. */
 	@Autowired
 	private RespostaConsultaProcedimentsMockService respostaConsultaProcedimentsMockService;
 
+	/** The resposta consulta dades operacio mock service. */
 	@Autowired
 	private RespostaConsultaDadesOperacioMockService respostaConsultaDadesOperacioMockService;
 
+	/** The resposta consulta documents mock service. */
 	@Autowired
 	private RespostaConsultaDocumentsMockService respostaConsultaDocumentsMockService;
 
 	// @Autowired
 	// private RespostaCercaExpedientsMockService
 	// respostaCercaExpedientsMockService;
+	/** The resposta consulta expedients mock service. */
 	//
 	@Autowired
 	private RespostaConsultaExpedientsMockService respostaConsultaExpedientsMockService;
 
+	/** The resposta crear solicitud mock service. */
 	@Autowired
 	private RespostaCrearSolicitudMockService respostaCrearSolicitudMockService;
 
+	/** The resposta actualitzar solicitud mock service. */
 	@Autowired
 	private RespostaActualitzarSolicitudMockService respostaActualitzarSolicitudMockService;
 
+	/** The resposta registrar solicitud mock service. */
 	@Autowired
 	private RespostaRegistrarSolicitudMockService respostaRegistrarSolicitudMockService;
 
+	/** The resposta obrir solicitud mock service. */
 	@Autowired
 	private RespostaObrirSolicitudMockService respostaObrirSolicitudMockService;
 
+	/** The procediments service. */
 	@Autowired
-	private ProcedimentsApi procedimentsApi;
+	private ProcedimentsService procedimentsService;
 
+	/** The unitats gestores service. */
 	@Autowired
-	private UnitatsGestoresApi unitatsGestoresApi;
+	private UnitatsGestoresService unitatsGestoresService;
 
+	/** The model mapper. */
 	@Autowired
-	private Expedients_Api expedientsApi;
+	private ModelMapper modelMapper;
 
-	@Autowired
-	@Qualifier("ordenarPerApiParamValueConverter")
-	private BaseApiParamValueConverter ordenarPerApiParamValueConverter;
-
-	@Autowired
-	@Qualifier("sentitOrdenacioApiParamValueConverter")
-	private BaseApiParamValueConverter sentitOrdenacioApiParamValueConverter;
-
-	@Autowired
-	@Qualifier("estatApiParamValueConverter")
-	private BaseApiParamValueConverter estatApiParamValueConverter;
-
-	@Autowired
-	@Qualifier("tramitadorApiParamValueConverter")
-	private BaseApiParamValueConverter tramitadorApiParamValueConverter;
-
-	@Autowired
-	@Qualifier("exclusivamentInternApiParamValueConverter")
-	private BaseApiParamValueConverter exclusivamentInternApiParamValueConverter;
-
-	@Autowired
-	@Qualifier("activableEnFormatElectronicApiParamValueConverter")
-	private BaseApiParamValueConverter activableEnFormatElectronicApiParamValueConverter;
-
-	@Autowired
-	@Qualifier("competenciaAssociadaApiParamValueConverter")
-	private BaseApiParamValueConverter competenciaAssociadaApiParamValueConverter;
-
-	@Autowired
-	@Qualifier("familiaApiParamValueConverter")
-	private BaseApiParamValueConverter familiaApiParamValueConverter;
-
-	@Autowired
-	private ModelMapper procedimentsModelMapper;
-
+	/**
+	 * Cerca procediments.
+	 *
+	 * @param resultatsPerPagina
+	 *            the resultats per pagina
+	 * @param numeroPagina
+	 *            the numero pagina
+	 * @param ordenarPer
+	 *            the ordenar per
+	 * @param sentitOrdenacio
+	 *            the sentit ordenacio
+	 * @param codi
+	 *            the codi
+	 * @param estat
+	 *            the estat
+	 * @param nom
+	 *            the nom
+	 * @param tramitador
+	 *            the tramitador
+	 * @param aplicacioNegoci
+	 *            the aplicacio negoci
+	 * @param ugr
+	 *            the ugr
+	 * @param exclusivamentIntern
+	 *            the exclusivament intern
+	 * @param activableFormatElectronic
+	 *            the activable format electronic
+	 * @param organResolutori
+	 *            the organ resolutori
+	 * @param competenciaAssociada
+	 *            the competencia associada
+	 * @param familia
+	 *            the familia
+	 * @param actuacio
+	 *            the actuacio
+	 * @return the resposta cerca procediments RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 * @throws ApiException
+	 *             the api exception
+	 * @throws ApiException
+	 *             the api exception
+	 */
 	@GetMapping("/procediments")
 	@ApiOperation(value = "Cerca de procediments", tags = { "Serveis Portal API", "Funcions d'integració amb RPA" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaCercaProcedimentsRDTO cercaProcediments(
 	        @ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
 	        @ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
-	        @ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = OrdenarPerApiParamValueConverter.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = OrdenarPerApiParamValueConverter.REQUEST_PARAM_NAME, required = false, defaultValue = OrdenarPerApiParamValueConverter.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
-	        @ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = SentitOrdenacioApiParamValueConverter.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = SentitOrdenacioApiParamValueConverter.REQUEST_PARAM_NAME, required = false, defaultValue = SentitOrdenacioApiParamValueConverter.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio,
+	        @ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
+	        @ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio,
 	        @ApiParam(value = "Filtra procediments per codi") @RequestParam(value = "codi", required = false) String codi,
-	        @ApiParam(value = "Filtrar procediments per conjunt d'estats", allowableValues = EstatApiParamValueConverter.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatApiParamValueConverter.REQUEST_PARAM_NAME, required = false) String[] estat,
+	        @ApiParam(value = "Filtrar procediments per conjunt d'estats", allowableValues = EstatApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
 	        @ApiParam(value = "Filtra procediments per nom") @RequestParam(value = "nom", required = false) String nom,
-	        @ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = TramitadorApiParamValueConverter.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = TramitadorApiParamValueConverter.REQUEST_PARAM_NAME, required = false) String tramitador,
+	        @ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
 	        @ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci,
 	        @ApiParam(value = "Filtra procediments per conjunt d'Unitats Gestores Responsables") @RequestParam(value = "ugr", required = false) String ugr,
-	        @ApiParam(value = "Filtra procediments per exclusivament intern", allowableValues = ExclusivamentInternApiParamValueConverter.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ExclusivamentInternApiParamValueConverter.REQUEST_PARAM_NAME, required = false) String exclusivamentIntern,
-	        @ApiParam(value = "Filtra procediments per canals d'activació en format electrònic", allowableValues = ActivableEnFormatElectronicApiParamValueConverter.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ActivableEnFormatElectronicApiParamValueConverter.REQUEST_PARAM_NAME, required = false) String[] activableFormatElectronic,
+	        @ApiParam(value = "Filtra procediments per exclusivament intern", allowableValues = ExclusivamentInternApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ExclusivamentInternApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String exclusivamentIntern,
+	        @ApiParam(value = "Filtra procediments per canals d'activació en format electrònic", allowableValues = ActivableEnFormatElectronicApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ActivableEnFormatElectronicApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] activableFormatElectronic,
 	        @ApiParam(value = "Filtra procediments per òrgan resolutori") @RequestParam(value = "organResolutori", required = false) String organResolutori,
-	        @ApiParam(value = "Filtrar procediments per conjunt de competències associades", allowableValues = CompetenciaAssociadaApiParamValueConverter.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = CompetenciaAssociadaApiParamValueConverter.REQUEST_PARAM_NAME, required = false) String[] competenciaAssociada,
-	        @ApiParam(value = "Filtrar procediments per conjunt de famílies", allowableValues = FamiliaApiParamValueConverter.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = FamiliaApiParamValueConverter.REQUEST_PARAM_NAME, required = false) String[] familia,
+	        @ApiParam(value = "Filtrar procediments per conjunt de competències associades", allowableValues = CompetenciaAssociadaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = CompetenciaAssociadaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] competenciaAssociada,
+	        @ApiParam(value = "Filtrar procediments per conjunt de famílies", allowableValues = FamiliaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = FamiliaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] familia,
 	        @ApiParam(value = "Filtra procediments per actuació") @RequestParam(value = "actuacio", required = false) String actuacio)
-	        throws GPAServeisServiceException, es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiException,
-	        es.bcn.gpa.gpaserveis.rest.client.invoker.gpaunitats.ApiException {
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug(
+			        "cercaProcediments(int, int, String, String, String, String[], String, String, String, String, String, String[], String, String[], String[], String) - inici"); //$NON-NLS-1$
+		}
 
 		RespostaCercaProcedimentsRDTO resposta = new RespostaCercaProcedimentsRDTO();
 		List<ProcedimentsCercaRDTO> procedimentsCercaRDTOList = new ArrayList<ProcedimentsCercaRDTO>();
 
 		// Data
-		PageDataOfProcedimentsRDTO pageDataOfProcedimentsRDTO = procedimentsApi.cercaProcediments(null, null,
-		        getActivableFormatElectronicInternalValueList(activableFormatElectronic), actuacio, aplicacioNegoci, codi,
-		        getCompetenciaAssociadaInternalValueList(competenciaAssociada), null, null, null, null, numeroPagina,
-		        getSentitOrdenacioInternalValue(sentitOrdenacio), getEstatInternalValueList(estat), getFamiliaInternalValueList(familia),
-		        null, null, getExclusivamentInternInternalValue(exclusivamentIntern), null, nom, getTramitadorInternalValue(tramitador),
-		        organResolutori, resultatsPerPagina, null, getOrdenarPerInternalValue(ordenarPer), null, null,
-		        getIdUnitatGestoraInternalValueList(ugr));
+		// Unitats Gestores que hacen match con el parámetro ugr
+		UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(ugr);
+		PageDataOfUnitatsGestoresRDTO pageDataOfUnitatsGestoresRDTO = unitatsGestoresService.cercaUnitatsGestores(unitatsGestoresCercaBDTO);
+		List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = pageDataOfUnitatsGestoresRDTO.getData();
+
+		// Procediments que cumplen los criterios de búsqueda
+		ProcedimentsCercaBDTO procedimentsCercaBDTO = new ProcedimentsCercaBDTO(codi, nom,
+		        ApiParamToInternalMapper.getActivableFormatElectronicInternalValueList(activableFormatElectronic), actuacio,
+		        ApiParamToInternalMapper.getTramitadorInternalValue(tramitador), aplicacioNegoci,
+		        ApiParamToInternalMapper.getCompetenciaAssociadaInternalValueList(competenciaAssociada),
+		        ApiParamToInternalMapper.getEstatInternalValueList(estat), ApiParamToInternalMapper.getFamiliaInternalValueList(familia),
+		        ApiParamToInternalMapper.getExclusivamentInternInternalValue(exclusivamentIntern), organResolutori,
+		        ApiParamToInternalMapper.getIdUnitatGestoraInternalValueList(unitatsGestoresRDTOList), numeroPagina, resultatsPerPagina,
+		        ApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
+		        ApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio));
+		PageDataOfProcedimentsRDTO pageDataOfProcedimentsRDTO = procedimentsService.cercaProcediments(procedimentsCercaBDTO);
 
 		List<ProcedimentsRDTO> procedimentsRDTOList = pageDataOfProcedimentsRDTO.getData();
-
 		for (ProcedimentsRDTO procedimentsRDTO : procedimentsRDTOList) {
-			procedimentsCercaRDTOList.add(procedimentsModelMapper.map(procedimentsRDTO, ProcedimentsCercaRDTO.class));
+			procedimentsCercaRDTOList.add(modelMapper.map(procedimentsRDTO, ProcedimentsCercaRDTO.class));
 		}
 		resposta.setData(procedimentsCercaRDTOList);
 
 		// Paginació
-		resposta.setPaginacio(procedimentsModelMapper.map(pageDataOfProcedimentsRDTO.getPage(), PaginacioRDTO.class));
+		resposta.setPaginacio(modelMapper.map(pageDataOfProcedimentsRDTO.getPage(), PaginacioRDTO.class));
 
-		return resposta;
-
-		// Mock de datos
-		// return
-		// respostaCercaProcedimentsMockService.getRespostaCercaProcediments();
-	}
-
-	private String getOrdenarPerInternalValue(String ordenarPer) {
-		return ordenarPerApiParamValueConverter.getInternalValueByApiParamValue(ordenarPer);
-	}
-
-	private String getSentitOrdenacioInternalValue(String sentitOrdenacio) {
-		return sentitOrdenacioApiParamValueConverter.getInternalValueByApiParamValue(sentitOrdenacio);
-	}
-
-	private List<BigDecimal> getEstatInternalValueList(String[] estat) {
-		return estatApiParamValueConverter.getInternalValueListByApiParamValueList(estat);
-	}
-
-	private Integer getTramitadorInternalValue(String tramitador) {
-		return tramitadorApiParamValueConverter.getInternalValueByApiParamValue(tramitador);
-	}
-
-	private List<BigDecimal> getIdUnitatGestoraInternalValueList(String ugr) throws ApiException {
-		ArrayList<BigDecimal> idUnitatGestoraInternalValueList = null;
-		if (StringUtils.isNotEmpty(ugr)) {
-			PageDataOfUnitatsGestoresRDTO pageDataOfUnitatsGestoresRDTO = unitatsGestoresApi.cercaUnitatsGestores(null, null, null, null,
-			        null, null, null, null, null, null, null, null, null, ugr, null, null, null, null, null, null);
-			idUnitatGestoraInternalValueList = new ArrayList<BigDecimal>();
-			for (UnitatsGestoresRDTO unitatsGestoresRDTO : pageDataOfUnitatsGestoresRDTO.getData()) {
-				idUnitatGestoraInternalValueList.add(unitatsGestoresRDTO.getId());
-			}
+		if (log.isDebugEnabled()) {
+			log.debug(
+			        "cercaProcediments(int, int, String, String, String, String[], String, String, String, String, String, String[], String, String[], String[], String) - fi"); //$NON-NLS-1$
 		}
-		return idUnitatGestoraInternalValueList;
+		return resposta;
 	}
 
-	private Integer getExclusivamentInternInternalValue(String exclusivamentIntern) {
-		return exclusivamentInternApiParamValueConverter.getInternalValueByApiParamValue(exclusivamentIntern);
-	}
-
-	private List<String> getActivableFormatElectronicInternalValueList(String[] activableFormatElectronic) {
-		return activableEnFormatElectronicApiParamValueConverter.getInternalValueListByApiParamValueList(activableFormatElectronic);
-	}
-
-	private List<BigDecimal> getCompetenciaAssociadaInternalValueList(String[] competenciaAssociada) {
-		return competenciaAssociadaApiParamValueConverter.getInternalValueListByApiParamValueList(competenciaAssociada);
-	}
-
-	private List<BigDecimal> getFamiliaInternalValueList(String[] familia) {
-		return familiaApiParamValueConverter.getInternalValueListByApiParamValueList(familia);
-	}
-
+	/**
+	 * Consultar dades procediment.
+	 *
+	 * @param idProcediment
+	 *            the id procediment
+	 * @return the resposta consulta procediments RDTO
+	 */
 	@GetMapping("/procediments/{idProcediment}")
 	@ApiOperation(value = "Consultar les dades del procediment", tags = { "Serveis Portal API",
 	        "Funcions d'integració amb RPA" }, extensions = { @Extension(name = "x-imi-roles", properties = {
@@ -259,6 +247,15 @@ public class ServeisPortalRestController extends AbstractRestController {
 		return respostaConsultaProcedimentsMockService.getRespostaConsultaProcediments(idProcediment);
 	}
 
+	/**
+	 * Consultar dades operacio procediment.
+	 *
+	 * @param idProcediment
+	 *            the id procediment
+	 * @param idTramit
+	 *            the id tramit
+	 * @return the resposta consulta dades operacio RDTO
+	 */
 	@GetMapping("/procediments/{idProcediment}/tramits/{idTramit}/atributs")
 	@ApiOperation(value = "Consultar les dades d'operació del tràmit", tags = { "Serveis Portal API",
 	        "Funcions d'integració amb RPA" }, extensions = { @Extension(name = "x-imi-roles", properties = {
@@ -270,6 +267,15 @@ public class ServeisPortalRestController extends AbstractRestController {
 		return respostaConsultaDadesOperacioMockService.getRespostaConsultaDadesOperacio(idProcediment, idTramit);
 	}
 
+	/**
+	 * Consultar documentacio procediment.
+	 *
+	 * @param idProcediment
+	 *            the id procediment
+	 * @param idTramit
+	 *            the id tramit
+	 * @return the resposta consulta documents RDTO
+	 */
 	@GetMapping("/procediments/{idProcediment}/tramits/{idTramit}/documentacio")
 	@ApiOperation(value = "Consultar les dades de documentació del procediment", tags = { "Serveis Portal API",
 	        "Funcions d'integració amb RPA" }, extensions = { @Extension(name = "x-imi-roles", properties = {
@@ -281,6 +287,29 @@ public class ServeisPortalRestController extends AbstractRestController {
 		return respostaConsultaDocumentsMockService.getRespostaConsultaDocuments(idProcediment, idTramit);
 	}
 
+	/**
+	 * Cerca expedients.
+	 *
+	 * @param resultatsPerPagina
+	 *            the resultats per pagina
+	 * @param numeroPagina
+	 *            the numero pagina
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param codiProcediment
+	 *            the codi procediment
+	 * @param unitatGestora
+	 *            the unitat gestora
+	 * @param estat
+	 *            the estat
+	 * @param nifSolicitant
+	 *            the nif solicitant
+	 * @param dataPresentacioInici
+	 *            the data presentacio inici
+	 * @param dataPresentacioFi
+	 *            the data presentacio fi
+	 * @return the resposta cerca expedients RDTO
+	 */
 	@GetMapping("/expedients")
 	@ApiOperation(value = "Cerca d'expedients", tags = { "Serveis Portal API",
 	        "Funcions de consulta al repositori de dades d'expedients" }, extensions = { @Extension(name = "x-imi-roles", properties = {
@@ -343,6 +372,13 @@ public class ServeisPortalRestController extends AbstractRestController {
 		return resposta;
 	}
 
+	/**
+	 * Consultar dades expedient.
+	 *
+	 * @param idExpedient
+	 *            the id expedient
+	 * @return the resposta consulta expedients RDTO
+	 */
 	@GetMapping("/expedients/{idExpedient}")
 	@ApiOperation(value = "Consultar les dades de l'expedient", tags = { "Serveis Portal API",
 	        "Funcions de consulta al repositori de dades d'expedients" }, extensions = { @Extension(name = "x-imi-roles", properties = {
@@ -353,6 +389,13 @@ public class ServeisPortalRestController extends AbstractRestController {
 		return respostaConsultaExpedientsMockService.getRespostaConsultaExpedients(idExpedient);
 	}
 
+	/**
+	 * Crear solicitud expedient.
+	 *
+	 * @param solicitudExpedient
+	 *            the solicitud expedient
+	 * @return the resposta crear solicituds RDTO
+	 */
 	@PostMapping("/expedients")
 	@ApiOperation(value = "Crear una sol·licitud d'un expedient", tags = { "Serveis Portal API",
 	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
@@ -363,6 +406,15 @@ public class ServeisPortalRestController extends AbstractRestController {
 		return respostaCrearSolicitudMockService.getRespostaRespostaCrearSolicituds();
 	}
 
+	/**
+	 * Actualitzar solicitud expedient.
+	 *
+	 * @param idExpedient
+	 *            the id expedient
+	 * @param solicitudExpedient
+	 *            the solicitud expedient
+	 * @return the resposta actualitzar solicituds RDTO
+	 */
 	@PutMapping("/expedients/{idExpedient}")
 	@ApiOperation(value = "Actualitzar dades de la sol·licitud de l'expedient", tags = { "Serveis Portal API",
 	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
@@ -374,6 +426,13 @@ public class ServeisPortalRestController extends AbstractRestController {
 		return respostaActualitzarSolicitudMockService.getRespostaRespostaActualitzarSolicituds(idExpedient);
 	}
 
+	/**
+	 * Registrar solicitud expedient.
+	 *
+	 * @param idExpedient
+	 *            the id expedient
+	 * @return the resposta registrar solicituds RDTO
+	 */
 	@PostMapping("/expedients/{idExpedient}/registre")
 	@ApiOperation(value = "Registrar la sol·licitud de l'expedient", tags = { "Serveis Portal API",
 	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
@@ -384,6 +443,13 @@ public class ServeisPortalRestController extends AbstractRestController {
 		return respostaRegistrarSolicitudMockService.getRespostaRespostaRegistrarSolicituds(idExpedient);
 	}
 
+	/**
+	 * Obrir solicitud expedient.
+	 *
+	 * @param idExpedient
+	 *            the id expedient
+	 * @return the resposta obrir solicituds RDTO
+	 */
 	@PostMapping("/expedients/{idExpedient}/obrir")
 	@ApiOperation(value = "Obrir la sol·licitud de l'expedient", tags = { "Serveis Portal API",
 	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {

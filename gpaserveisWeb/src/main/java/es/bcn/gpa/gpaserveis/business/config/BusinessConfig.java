@@ -2,6 +2,7 @@ package es.bcn.gpa.gpaserveis.business.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
@@ -15,6 +16,7 @@ import net.opentrends.openframe.services.core.config.CoreServiceDefaultConfigura
 
 @Configuration
 @Import({ ConfigurationServiceDefaultConfiguration.class, CoreServiceDefaultConfiguration.class })
+@ComponentScan(basePackages = "es.bcn.gpa.gpaserveis.business")
 @Lazy(true)
 @EntornPropertySource(value = { "classpath:/app/config/rest-clients.properties" })
 public class BusinessConfig {
@@ -30,7 +32,6 @@ public class BusinessConfig {
 
 	@Bean
 	public ProcedimentsApi clientApiProcediments() {
-
 		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient();
 		apiClient.setBasePath(URL_SERVICES_PROCEDIMENTS);
 		ProcedimentsApi procedimentsApi = new ProcedimentsApi(apiClient);
@@ -49,7 +50,6 @@ public class BusinessConfig {
 
 	@Bean
 	public Expedients_Api clientApiExpedients() {
-
 		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient();
 		apiClient.setBasePath(URL_SERVICES_EXPEDIENTS);
 		Expedients_Api expedientsApi = new Expedients_Api(apiClient);

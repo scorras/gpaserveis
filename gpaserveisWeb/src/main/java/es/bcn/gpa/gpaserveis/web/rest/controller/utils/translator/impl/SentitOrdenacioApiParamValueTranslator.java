@@ -1,14 +1,15 @@
-package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.impl;
+package es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.SentitOrdenacioApiParamValue;
 
+/**
+ * The Class SentitOrdenacioApiParamValueTranslator.
+ */
 @SuppressWarnings("unchecked")
 @Component
-@Qualifier("sentitOrdenacioApiParamValueConverter")
-public class SentitOrdenacioApiParamValueConverter extends ApiParamValueConverter<SentitOrdenacioApiParamValue, String> {
+public class SentitOrdenacioApiParamValueTranslator extends ApiParamValueTranslator<SentitOrdenacioApiParamValue, String> {
 
 	/** The Constant REQUEST_PARAM_NAME. */
 	public static final String REQUEST_PARAM_NAME = "sentitOrdenacio";

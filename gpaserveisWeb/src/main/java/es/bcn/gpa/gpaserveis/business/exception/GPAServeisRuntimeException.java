@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.exception;
+package es.bcn.gpa.gpaserveis.business.exception;
 
 /**
  * The Class GPAServeisRuntimeException.

@@ -1,6 +1,9 @@
 package es.bcn.gpa.gpaserveis.web.rest.config;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +21,6 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaProcedimen
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCrearSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaObrirSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaRegistrarSolicitudMockService;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.procediment.PaginacioMapper;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.procediment.ProcedimentsCercaMapper;
 import net.opentrends.openframe.services.rest.apidocs.config.RestServiceDefaultSwaggerConfiguration;
 import net.opentrends.openframe.services.rest.http.ResponseEntity;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -92,13 +93,16 @@ public class RestServerConfig extends RestServiceDefaultSwaggerConfiguration {
 		        .useDefaultResponseMessages(true);
 	}
 
-	@Bean(name = "procedimentsModelMapper")
-	public ModelMapper procedimentsModelMapper() {
-		ModelMapper modelMapper = new ModelMapper();
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Bean
+	public ModelMapper modelMapper(List<PropertyMap> propertyMapList) {
+		final ModelMapper modelMapper = new ModelMapper();
 		// modelMapper.getConfiguration().setFieldMatchingEnabled(false).setImplicitMappingEnabled(false);
-		modelMapper.addMappings(new ProcedimentsCercaMapper());
-		modelMapper.addMappings(new PaginacioMapper());
-
+		for (PropertyMap propertyMap : propertyMapList) {
+			if (propertyMap != null) {
+				modelMapper.addMappings(propertyMap);
+			}
+		}
 		return modelMapper;
 	}
 

@@ -44,8 +44,11 @@
 		<org.projectlombok.version>1.18.0</org.projectlombok.version>
 
 		<version.springfox-swagger-ui>2.9.2</version.springfox-swagger-ui>
-		
+
 		<modelmapper-version>2.3.2</modelmapper-version>
+
+		<spring-cloud-starter-hystrix-version>1.4.6.RELEASE</spring-cloud-starter-hystrix-version>
+		<spring-cloud-starter-hystrix-dashboard-version>1.4.6.RELEASE</spring-cloud-starter-hystrix-dashboard-version>
 	</properties>
 
 
@@ -68,6 +71,18 @@
 			<artifactId>modelmapper</artifactId>
 			<version>${modelmapper-version}</version>
 		</dependency>
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.cloud</groupId> -->
+<!-- 			<artifactId>spring-cloud-starter-hystrix</artifactId> -->
+<!-- 			<version>${spring-cloud-starter-hystrix-version}</version> -->
+<!-- 		</dependency> -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.cloud</groupId> -->
+<!-- 			<artifactId>spring-cloud-starter-hystrix-dashboard</artifactId> -->
+<!-- 			<version>${spring-cloud-starter-hystrix-dashboard-version}</version> -->
+<!-- 		</dependency> -->
 
 		<!-- HTTP client: jersey-client -->
 		<dependency>
@@ -154,7 +169,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<argLine>${project.surefire.configuration.jvmOptions} ${jacoco.argLine} -Dfile.encoding=UTF-8</argLine>
+					<argLine>${project.surefire.configuration.jvmOptions}
+						${jacoco.argLine} -Dfile.encoding=UTF-8</argLine>
 				</configuration>
 			</plugin>
 			<plugin>

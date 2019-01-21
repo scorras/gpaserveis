@@ -1,18 +1,16 @@
-package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.impl.procediment;
+package es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.impl.ApiParamValueConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitadorApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.ApiParamValueTranslator;
 
 /**
- * The Class TramitadorApiParamValueConverter.
+ * The Class TramitadorApiParamValueTranslator.
  */
 @SuppressWarnings("unchecked")
 @Component
-@Qualifier("tramitadorApiParamValueConverter")
-public class TramitadorApiParamValueConverter extends ApiParamValueConverter<TramitadorApiParamValue, Integer> {
+public class TramitadorApiParamValueTranslator extends ApiParamValueTranslator<TramitadorApiParamValue, Integer> {
 
 	/** The Constant REQUEST_PARAM_NAME. */
 	public static final String REQUEST_PARAM_NAME = "tramitador";
