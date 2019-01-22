@@ -53,9 +53,9 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	}
 
 	@Test
-	@Ignore
 	public void testStage05_GetCercaExpedients() throws Exception {
-		String url = BASE_URL + "/expedients";
+		String url = BASE_URL
+		        + "/expedients?resultatsPerPagina=20&numeroPagina=1&ordenarPer=DARRERA_MODIFICACIO&sentitOrdenacio=DESC&codiExpedient=PROC-01/2018&sollicitant=La%20Caixa&dataPresentacioInici=22/06/2018&dataPresentacioFi=22/01/2019&codiProcediment=PROC-01,PROC-02,PROC-03&versioProcediment=TOTES_LES_VERSIONS&estat=EN_PREPARACIO,SOL_LICITUD_EN_REVISIO,PENDENT_SUBSANACIO,EN_TRAMITACIO,PENDENT_AL_LEGACIONS,PENDENT_D_INFORMES,PROPOSTA_DE_FINALITZACIO,FINALITZAT_I_COMUNICAT,TANCAT&unitatGestora=U&tramitador=APLICACIO_DE_NEGOCI&aplicacioNegoci=quiosc";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 

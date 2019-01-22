@@ -68,7 +68,7 @@ public class RespostaCercaExpedientsMockService {
 	private static class ExpedientsRDTOFactory {
 
 		private static ExpedientsCercaRDTO create(BigDecimal id, String codi, String dataPresentacio, String dataModificacio,
-		        UnitatGestoraRDTO unitatGestora, ProcedimentsCercaRDTO procediment, String estat, PersonesRDTO solicitant) {
+		        UnitatGestoraRDTO unitatGestora, ProcedimentsCercaRDTO procediment, String estat, PersonesRDTO sollicitant) {
 
 			ExpedientsCercaRDTO expedientRDTO = new ExpedientsCercaRDTO();
 
@@ -79,7 +79,7 @@ public class RespostaCercaExpedientsMockService {
 			expedientRDTO.setUnitatGestora(unitatGestora);
 			expedientRDTO.setProcediment(procediment);
 			expedientRDTO.setEstat(estat);
-			expedientRDTO.setSolicitant(solicitant);
+			expedientRDTO.setSollicitant(sollicitant);
 
 			return expedientRDTO;
 		}

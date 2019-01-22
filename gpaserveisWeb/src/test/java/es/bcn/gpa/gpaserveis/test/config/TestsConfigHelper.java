@@ -1,11 +1,14 @@
 package es.bcn.gpa.gpaserveis.test.config;
 
+import static org.joda.time.DateTime.now;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.apache.commons.lang.math.NumberUtils;
-import org.joda.time.DateTime;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Estats;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.EstatsProcediment;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Identificacions;
@@ -34,7 +37,7 @@ public class TestsConfigHelper {
 		ProcedimentsRDTO procedimentsRDTO = new ProcedimentsRDTO();
 		procedimentsRDTO.setCodi("PROC-01");
 		procedimentsRDTO.setConfiguracioDocumentacio(BigDecimal.ONE);
-		procedimentsRDTO.setDarreraModificacio(new DateTime());
+		procedimentsRDTO.setDarreraModificacio(now());
 		procedimentsRDTO.setDescripcioEstat("En elaboració");
 		procedimentsRDTO.setEstatProcediment(BigDecimal.ONE);
 		EstatsProcediment estatsProcediment = new EstatsProcediment();
@@ -122,32 +125,32 @@ public class TestsConfigHelper {
 		// Data
 		ArrayList<UnitatsGestoresRDTO> unitatsGestoresRDTOList = new ArrayList<UnitatsGestoresRDTO>();
 		UnitatsGestoresRDTO unitatsGestoresRDTO1 = new UnitatsGestoresRDTO();
-		unitatsGestoresRDTO1.setDataCreacio(new DateTime());
-		unitatsGestoresRDTO1.setDataModificacio(new DateTime());
+		unitatsGestoresRDTO1.setDataCreacio(now());
+		unitatsGestoresRDTO1.setDataModificacio(now());
 		unitatsGestoresRDTO1.setDescripcio("Descripció UG1");
 		unitatsGestoresRDTO1.setId(new BigDecimal(1));
 		unitatsGestoresRDTO1.setNom("UG1");
 		unitatsGestoresRDTO1.setVigent(NumberUtils.INTEGER_ONE);
 		unitatsGestoresRDTOList.add(unitatsGestoresRDTO1);
 		UnitatsGestoresRDTO unitatsGestoresRDTO2 = new UnitatsGestoresRDTO();
-		unitatsGestoresRDTO2.setDataCreacio(new DateTime());
-		unitatsGestoresRDTO2.setDataModificacio(new DateTime());
+		unitatsGestoresRDTO2.setDataCreacio(now());
+		unitatsGestoresRDTO2.setDataModificacio(now());
 		unitatsGestoresRDTO2.setDescripcio("Descripció UG2");
 		unitatsGestoresRDTO2.setId(new BigDecimal(2));
 		unitatsGestoresRDTO2.setNom("UG2");
 		unitatsGestoresRDTO2.setVigent(NumberUtils.INTEGER_ONE);
 		unitatsGestoresRDTOList.add(unitatsGestoresRDTO2);
 		UnitatsGestoresRDTO unitatsGestoresRDTO3 = new UnitatsGestoresRDTO();
-		unitatsGestoresRDTO3.setDataCreacio(new DateTime());
-		unitatsGestoresRDTO3.setDataModificacio(new DateTime());
+		unitatsGestoresRDTO3.setDataCreacio(now());
+		unitatsGestoresRDTO3.setDataModificacio(now());
 		unitatsGestoresRDTO3.setDescripcio("Descripció UG3");
 		unitatsGestoresRDTO3.setId(new BigDecimal(3));
 		unitatsGestoresRDTO3.setNom("UG3");
 		unitatsGestoresRDTO3.setVigent(NumberUtils.INTEGER_ONE);
 		unitatsGestoresRDTOList.add(unitatsGestoresRDTO3);
 		UnitatsGestoresRDTO unitatsGestoresRDTO4 = new UnitatsGestoresRDTO();
-		unitatsGestoresRDTO4.setDataCreacio(new DateTime());
-		unitatsGestoresRDTO4.setDataModificacio(new DateTime());
+		unitatsGestoresRDTO4.setDataCreacio(now());
+		unitatsGestoresRDTO4.setDataModificacio(now());
 		unitatsGestoresRDTO4.setDescripcio("Descripció UG4");
 		unitatsGestoresRDTO4.setId(new BigDecimal(4));
 		unitatsGestoresRDTO4.setNom("UG4");
@@ -178,5 +181,64 @@ public class TestsConfigHelper {
 		pageDataOfUnitatsGestoresRDTO.setSortInfo(sortInfo);
 
 		return pageDataOfUnitatsGestoresRDTO;
+	}
+
+	/**
+	 * Cerca expedients response.
+	 *
+	 * @return the page data of expedients RDTO
+	 */
+	public static PageDataOfExpedientsRDTO cercaExpedientsResponse() {
+		PageDataOfExpedientsRDTO pageDataOfExpedientsRDTO = new PageDataOfExpedientsRDTO();
+
+		// Data
+		ArrayList<ExpedientsRDTO> expedientsRDTOList = new ArrayList<ExpedientsRDTO>();
+		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
+		expedientsRDTO.setId(BigDecimal.ONE);
+		expedientsRDTO.setCodi("PROC-01/2019/000001");
+		expedientsRDTO.setSollicitud(BigDecimal.ONE);
+		expedientsRDTO.setProcedimentIdext(BigDecimal.ONE);
+		expedientsRDTO.setDocumentacioIdext(BigDecimal.ONE);
+		expedientsRDTO.setEstatActual(BigDecimal.ONE);
+		expedientsRDTO.setUltimaModificacio(BigDecimal.ONE);
+		expedientsRDTO.setDarreraModificacio(now());
+		expedientsRDTO.setDataPresentacio(now());
+		expedientsRDTO.setNomProcediment("PROC-01");
+		expedientsRDTO.setSollicitant("La Caixa");
+		expedientsRDTO.setAccioEstatIdext(BigDecimal.ONE);
+		expedientsRDTO.setUnitatGestoraIdext(BigDecimal.ONE);
+		expedientsRDTO.setDescUnitatGestora("Descripció UG1");
+		expedientsRDTO.setTramitador("APLICACIO_DE_NEGOCI");
+		expedientsRDTO.setDescEstat("En tramitació");
+		expedientsRDTO.setAplicacioNegoci("quiosc");
+		expedientsRDTO.setEditable(Boolean.TRUE);
+		expedientsRDTO.setSeleccionable(Boolean.TRUE);
+		expedientsRDTO.setConfiguracioDocumentacioProc(BigDecimal.ONE);
+		expedientsRDTOList.add(expedientsRDTO);
+		pageDataOfExpedientsRDTO.setData(expedientsRDTOList);
+
+		// Page
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaginationAttributes paginationAttributes = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaginationAttributes();
+		paginationAttributes.setAbsoluteRowNumberOfFirstRowInCurrentPage(NumberUtils.INTEGER_ONE);
+		paginationAttributes.setAbsoluteRowNumberOfLastRowInCurrentPage(NumberUtils.INTEGER_ONE);
+		paginationAttributes.setCurrentPageHasNextPage(Boolean.FALSE);
+		paginationAttributes.setCurrentPageHasPreviousPage(Boolean.FALSE);
+		paginationAttributes.setCurrentPageIsFirstPage(Boolean.TRUE);
+		paginationAttributes.setCurrentPageIsLastPage(Boolean.TRUE);
+		paginationAttributes.setCurrentPageNumber(NumberUtils.INTEGER_ONE);
+		paginationAttributes.setNextPageNumber(NumberUtils.INTEGER_ZERO);
+		paginationAttributes.setPageSize(new Integer(20));
+		paginationAttributes.setPreviousPageNumber(NumberUtils.INTEGER_ZERO);
+		paginationAttributes.setTotalElements(NumberUtils.LONG_ONE);
+		paginationAttributes.setTotalPages(NumberUtils.INTEGER_ONE);
+		pageDataOfExpedientsRDTO.setPage(paginationAttributes);
+
+		// SortInfo
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SortInfo sortInfo = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SortInfo();
+		sortInfo.setSort("darreraModificacio");
+		sortInfo.setDir("desc");
+		pageDataOfExpedientsRDTO.setSortInfo(sortInfo);
+
+		return pageDataOfExpedientsRDTO;
 	}
 }

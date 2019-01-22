@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
 import lombok.extern.apachecommons.CommonsLog;
@@ -16,6 +17,8 @@ import lombok.extern.apachecommons.CommonsLog;
  */
 @Configuration
 @Lazy(true)
+
+/** The Constant log. */
 @CommonsLog
 public class TestsConfig implements EnvironmentAware {
 
@@ -65,6 +68,25 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("unitatsGestoresApi() - fi"); //$NON-NLS-1$
 		}
 		return unitatsGestoresApi;
+	}
+
+	/**
+	 * Expedients api.
+	 *
+	 * @return the expedients api
+	 */
+	@Bean
+	public Expedients_Api expedients_Api() {
+		if (log.isDebugEnabled()) {
+			log.debug("expedients_Api() - inici"); //$NON-NLS-1$
+		}
+
+		Expedients_Api expedients_Api = Mockito.mock(Expedients_Api.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("expedients_Api() - fi"); //$NON-NLS-1$
+		}
+		return expedients_Api;
 	}
 
 }

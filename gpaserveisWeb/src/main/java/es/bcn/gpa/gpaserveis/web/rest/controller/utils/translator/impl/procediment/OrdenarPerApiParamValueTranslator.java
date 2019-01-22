@@ -9,7 +9,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.ApiParamV
  * The Class OrdenarPerApiParamValueTranslator.
  */
 @SuppressWarnings("unchecked")
-@Component
+@Component("procedimentOrdenarPerApiParamValueTranslator")
 public class OrdenarPerApiParamValueTranslator extends ApiParamValueTranslator<OrdenarPerApiParamValue, String> {
 
 	/** The Constant REQUEST_PARAM_NAME. */

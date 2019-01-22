@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
 
 /**
- * The Class InternalToUgrConverter.
+ * The Class InternalToUnitatGestoraConverter.
  */
-@Component
+@Component("procedimentInternalToUgoConverter")
 public class InternalToUgoConverter extends AbstractConverter<String, List<UnitatGestoraRDTO>> {
 
 	/*

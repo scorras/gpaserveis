@@ -9,7 +9,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.ApiParamV
  * The Class ExclusivamentInternApiParamValueTranslator.
  */
 @SuppressWarnings("unchecked")
-@Component
+@Component("procedimentExclusivamentInternApiParamValueTranslator")
 public class ExclusivamentInternApiParamValueTranslator extends ApiParamValueTranslator<ExclusivamentInternApiParamValue, Integer> {
 
 	/** The Constant REQUEST_PARAM_NAME. */

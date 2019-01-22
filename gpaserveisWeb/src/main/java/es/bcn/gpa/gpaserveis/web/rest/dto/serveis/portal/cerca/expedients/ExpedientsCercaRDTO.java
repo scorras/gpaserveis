@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.ProcedimentsCercaRDTO;
@@ -13,36 +15,33 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value="ExpedientsCerca")
+@ApiModel(value = "ExpedientsCerca")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "id",
-    "codi",
-    "dataPresentacio",
-    "dataModificacio",
-    "unitatGestora",
-    "procediment",
-    "estat",
-    "solicitant"
-})
+@JsonPropertyOrder({ "id", "codi", "dataPresentacio", "dataModificacio", "sollicitant", "estat", "tramitador", "aplicacioNegoci",
+        "unitatGestora", "procediment" })
 @Getter
 @Setter
 public class ExpedientsCercaRDTO {
-	
-	@ApiModelProperty(value="Identificador de l'expedient")
+
+	@ApiModelProperty(value = "Identificador de l'expedient")
 	private BigDecimal id;
-	@ApiModelProperty(value="Codi de l'expedient")
+	@ApiModelProperty(value = "Codi de l'expedient")
 	private String codi;
-	@ApiModelProperty(value="Data de presentació de l'expedient")
+	@ApiModelProperty(value = "Data de presentació de l'expedient (format dd/MM/aaaa HH:mm:ss)")
 	private String dataPresentacio;
-	@ApiModelProperty(value="Data de l'última modificació de l'expedient")
+	@ApiModelProperty(value = "Data de l'última modificació de l'expedient (format dd/MM/aaaa HH:mm:ss)")
 	private String dataModificacio;
-	@ApiModelProperty(value="Unitat gestora")
-	private UnitatGestoraRDTO unitatGestora;
-	private ProcedimentsCercaRDTO procediment;
-	@ApiModelProperty(value="Estat actual del procediment",
-		allowableValues="EN_PREPARACIO, EN_REVISIO, PENDENT_SUBSANACIO, EN_TRAMITACIO, PENDENT_ALEGACIONS, PENDENT_INFORMES, PROPOSAT_RESOLUCIO, RESOLT, TANCAT")
+	@ApiModelProperty(value = "Sol·licitant de l'expedient")
+	private PersonesRDTO sollicitant;
+	@ApiModelProperty(value = "estat actual de l'expedient", allowableValues = EstatApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private String estat;
-	private PersonesRDTO solicitant;
-	
+	@ApiModelProperty(value = "Aplicació de tramitació", allowableValues = TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
+	private String tramitador;
+	@ApiModelProperty(value = "Nom de l'aplicació, en cas que el tramitador sigui una aplicació de negoci")
+	private String aplicacioNegoci;
+	@ApiModelProperty(value = "Unitat gestora")
+	private UnitatGestoraRDTO unitatGestora;
+	@ApiModelProperty(value = "Procediment")
+	private ProcedimentsCercaRDTO procediment;
+
 }

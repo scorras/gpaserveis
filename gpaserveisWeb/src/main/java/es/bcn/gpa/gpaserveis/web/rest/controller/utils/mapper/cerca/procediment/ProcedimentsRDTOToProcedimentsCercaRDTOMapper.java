@@ -2,6 +2,7 @@ package es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.procediment
 
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
@@ -12,7 +13,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.procediment.
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.ProcedimentsCercaRDTO;
 
 /**
- * The Class ProcedimentsRDTOToProcedimentsCercaRDTOMapper.
+ * The Class ExpedientsRDTOToExpedientsCercaRDTOMapper.
  */
 @Component
 public class ProcedimentsRDTOToProcedimentsCercaRDTOMapper extends PropertyMap<ProcedimentsRDTO, ProcedimentsCercaRDTO> {
@@ -42,9 +43,11 @@ public class ProcedimentsRDTOToProcedimentsCercaRDTOMapper extends PropertyMap<P
 	 *            the internal to tramitador converter
 	 */
 	@Autowired
-	public ProcedimentsRDTOToProcedimentsCercaRDTOMapper(InternalToEstatConverter internalToEstatConverter,
-	        InternalToUgrConverter internalToUgrConverter, InternalToUgoConverter internalToUgoConverter,
-	        InternalToTramitadorConverter internalToTramitadorConverter) {
+	public ProcedimentsRDTOToProcedimentsCercaRDTOMapper(
+	        @Qualifier("procedimentInternalToEstatConverter") InternalToEstatConverter internalToEstatConverter,
+	        @Qualifier("procedimentInternalToUgrConverter") InternalToUgrConverter internalToUgrConverter,
+	        @Qualifier("procedimentInternalToUgoConverter") InternalToUgoConverter internalToUgoConverter,
+	        @Qualifier("procedimentInternalToTramitadorConverter") InternalToTramitadorConverter internalToTramitadorConverter) {
 		this.internalToEstatConverter = internalToEstatConverter;
 		this.internalToUgrConverter = internalToUgrConverter;
 		this.internalToUgoConverter = internalToUgoConverter;

@@ -1,14 +1,15 @@
-package es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl;
+package es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment;
 
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.SentitOrdenacioApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.ApiParamValueTranslator;
 
 /**
  * The Class SentitOrdenacioApiParamValueTranslator.
  */
 @SuppressWarnings("unchecked")
-@Component
+@Component("procedimentSentitOrdenacioApiParamValueTranslator")
 public class SentitOrdenacioApiParamValueTranslator extends ApiParamValueTranslator<SentitOrdenacioApiParamValue, String> {
 
 	/** The Constant REQUEST_PARAM_NAME. */

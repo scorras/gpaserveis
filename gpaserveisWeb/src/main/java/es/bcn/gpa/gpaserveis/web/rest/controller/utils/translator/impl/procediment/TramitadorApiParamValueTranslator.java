@@ -9,7 +9,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.ApiParamV
  * The Class TramitadorApiParamValueTranslator.
  */
 @SuppressWarnings("unchecked")
-@Component
+@Component("procedimentTramitadorApiParamValueTranslator")
 public class TramitadorApiParamValueTranslator extends ApiParamValueTranslator<TramitadorApiParamValue, Integer> {
 
 	/** The Constant REQUEST_PARAM_NAME. */

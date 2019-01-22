@@ -6,17 +6,17 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 
 /**
- * The Class ApiParamToInternalMapper.
+ * The Class ExpedientsApiParamToInternalMapper.
  */
 @Component
-public class ApiParamToInternalMapper {
+public class ProcedimentsApiParamToInternalMapper {
 
 	/** The ordenar per api param value translator. */
 	private static BaseApiParamValueTranslator ordenarPerApiParamValueTranslator;
@@ -61,25 +61,25 @@ public class ApiParamToInternalMapper {
 	 *            the competencia associada api param value translator
 	 * @param familiaApiParamValueTranslator
 	 *            the familia api param value translator
-	 * @param unitatsGestoresApi
-	 *            the unitats gestores api
 	 */
 	@Autowired
-	public ApiParamToInternalMapper(BaseApiParamValueTranslator ordenarPerApiParamValueTranslator,
-	        BaseApiParamValueTranslator sentitOrdenacioApiParamValueTranslator, BaseApiParamValueTranslator estatApiParamValueTranslator,
-	        BaseApiParamValueTranslator tramitadorApiParamValueTranslator,
-	        BaseApiParamValueTranslator exclusivamentInternApiParamValueTranslator,
-	        BaseApiParamValueTranslator activableEnFormatElectronicApiParamValueTranslator,
-	        BaseApiParamValueTranslator competenciaAssociadaApiParamValueTranslator,
-	        BaseApiParamValueTranslator familiaApiParamValueTranslator, UnitatsGestoresApi unitatsGestoresApi) {
-		ApiParamToInternalMapper.ordenarPerApiParamValueTranslator = ordenarPerApiParamValueTranslator;
-		ApiParamToInternalMapper.sentitOrdenacioApiParamValueTranslator = sentitOrdenacioApiParamValueTranslator;
-		ApiParamToInternalMapper.estatApiParamValueTranslator = estatApiParamValueTranslator;
-		ApiParamToInternalMapper.tramitadorApiParamValueTranslator = tramitadorApiParamValueTranslator;
-		ApiParamToInternalMapper.exclusivamentInternApiParamValueTranslator = exclusivamentInternApiParamValueTranslator;
-		ApiParamToInternalMapper.activableEnFormatElectronicApiParamValueTranslator = activableEnFormatElectronicApiParamValueTranslator;
-		ApiParamToInternalMapper.competenciaAssociadaApiParamValueTranslator = competenciaAssociadaApiParamValueTranslator;
-		ApiParamToInternalMapper.familiaApiParamValueTranslator = familiaApiParamValueTranslator;
+	public ProcedimentsApiParamToInternalMapper(
+	        @Qualifier("procedimentOrdenarPerApiParamValueTranslator") BaseApiParamValueTranslator ordenarPerApiParamValueTranslator,
+	        @Qualifier("procedimentSentitOrdenacioApiParamValueTranslator") BaseApiParamValueTranslator sentitOrdenacioApiParamValueTranslator,
+	        @Qualifier("procedimentEstatApiParamValueTranslator") BaseApiParamValueTranslator estatApiParamValueTranslator,
+	        @Qualifier("procedimentTramitadorApiParamValueTranslator") BaseApiParamValueTranslator tramitadorApiParamValueTranslator,
+	        @Qualifier("procedimentExclusivamentInternApiParamValueTranslator") BaseApiParamValueTranslator exclusivamentInternApiParamValueTranslator,
+	        @Qualifier("procedimentActivableEnFormatElectronicApiParamValueTranslator") BaseApiParamValueTranslator activableEnFormatElectronicApiParamValueTranslator,
+	        @Qualifier("procedimentCompetenciaAssociadaApiParamValueTranslator") BaseApiParamValueTranslator competenciaAssociadaApiParamValueTranslator,
+	        @Qualifier("procedimentFamiliaApiParamValueTranslator") BaseApiParamValueTranslator familiaApiParamValueTranslator) {
+		ProcedimentsApiParamToInternalMapper.ordenarPerApiParamValueTranslator = ordenarPerApiParamValueTranslator;
+		ProcedimentsApiParamToInternalMapper.sentitOrdenacioApiParamValueTranslator = sentitOrdenacioApiParamValueTranslator;
+		ProcedimentsApiParamToInternalMapper.estatApiParamValueTranslator = estatApiParamValueTranslator;
+		ProcedimentsApiParamToInternalMapper.tramitadorApiParamValueTranslator = tramitadorApiParamValueTranslator;
+		ProcedimentsApiParamToInternalMapper.exclusivamentInternApiParamValueTranslator = exclusivamentInternApiParamValueTranslator;
+		ProcedimentsApiParamToInternalMapper.activableEnFormatElectronicApiParamValueTranslator = activableEnFormatElectronicApiParamValueTranslator;
+		ProcedimentsApiParamToInternalMapper.competenciaAssociadaApiParamValueTranslator = competenciaAssociadaApiParamValueTranslator;
+		ProcedimentsApiParamToInternalMapper.familiaApiParamValueTranslator = familiaApiParamValueTranslator;
 	}
 
 	/**

@@ -3,6 +3,7 @@ package es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.procediment
 import org.apache.commons.lang.StringUtils;
 import org.modelmapper.AbstractConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitadorApiParamValue;
@@ -11,11 +12,12 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamVa
 /**
  * The Class InternalToEstatConverter.
  */
-@Component
+@Component("procedimentInternalToTramitadorConverter")
 public class InternalToTramitadorConverter extends AbstractConverter<String, String> {
 
 	/** The tramitador api param value translator. */
 	@Autowired
+	@Qualifier("procedimentTramitadorApiParamValueTranslator")
 	private BaseApiParamValueTranslator tramitadorApiParamValueTranslator;
 
 	/*

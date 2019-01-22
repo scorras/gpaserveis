@@ -11,7 +11,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.ApiParamV
  * The Class FamiliaApiParamValueTranslator.
  */
 @SuppressWarnings("unchecked")
-@Component
+@Component("procedimentFamiliaApiParamValueTranslator")
 public class FamiliaApiParamValueTranslator extends ApiParamValueTranslator<FamiliaApiParamValue, BigDecimal> {
 
 	/** The Constant REQUEST_PARAM_NAME. */

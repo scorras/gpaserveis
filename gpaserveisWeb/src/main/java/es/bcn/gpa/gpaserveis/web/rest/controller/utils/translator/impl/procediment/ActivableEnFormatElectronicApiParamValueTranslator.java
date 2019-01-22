@@ -9,7 +9,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.ApiParamV
  * The Class ActivableEnFormatElectronicApiParamValueTranslator.
  */
 @SuppressWarnings("unchecked")
-@Component
+@Component("procedimentActivableEnFormatElectronicApiParamValueTranslator")
 public class ActivableEnFormatElectronicApiParamValueTranslator
         extends ApiParamValueTranslator<ActivableEnFormatElectronicApiParamValue, String> {
 

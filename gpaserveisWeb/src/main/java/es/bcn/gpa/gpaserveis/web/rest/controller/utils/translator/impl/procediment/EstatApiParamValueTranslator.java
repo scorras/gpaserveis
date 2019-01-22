@@ -11,7 +11,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.ApiParamV
  * The Class EstatApiParamValueTranslator.
  */
 @SuppressWarnings("unchecked")
-@Component
+@Component("procedimentEstatApiParamValueTranslator")
 public class EstatApiParamValueTranslator extends ApiParamValueTranslator<EstatApiParamValue, BigDecimal> {
 
 	/** The Constant REQUEST_PARAM_NAME. */

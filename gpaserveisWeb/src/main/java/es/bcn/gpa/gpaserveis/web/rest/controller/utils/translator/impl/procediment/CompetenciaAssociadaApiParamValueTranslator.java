@@ -11,7 +11,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.ApiParamV
  * The Class CompetenciaAssociadaApiParamValueTranslator.
  */
 @SuppressWarnings("unchecked")
-@Component
+@Component("procedimentCompetenciaAssociadaApiParamValueTranslator")
 public class CompetenciaAssociadaApiParamValueTranslator extends ApiParamValueTranslator<CompetenciaAssociadaApiParamValue, BigDecimal> {
 
 	/** The Constant REQUEST_PARAM_NAME. */
