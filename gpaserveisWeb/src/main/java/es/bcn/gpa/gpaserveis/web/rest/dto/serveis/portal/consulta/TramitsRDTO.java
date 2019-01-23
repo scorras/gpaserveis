@@ -10,22 +10,18 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value="Tramits")
+@ApiModel(value = "Tramits")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "id",
-    "codi",
-    "descripcio"
-})
+@JsonPropertyOrder({ "id", "nom", "descripcio" })
 @Getter
 @Setter
 public class TramitsRDTO {
-	
-	@ApiModelProperty(value="Identificador del tràmit")
-    private BigDecimal id;
-	@ApiModelProperty(value="Codi del tràmit")
-    private String codi;
-	@ApiModelProperty(value="Descripció del tràmit")
-    private String descripcio;
-	
+
+	@ApiModelProperty(value = "Identificador del tràmit")
+	private BigDecimal id;
+	@ApiModelProperty(value = "Nom del tràmit")
+	private String nom;
+	@ApiModelProperty(value = "Descripció del tràmit")
+	private String descripcio;
+
 }

@@ -27,7 +27,7 @@ paths:
       tags:
       - "Procediments"
       summary: "Returns all the procediments"
-      operationId: "getProcedimentsUsingGET_1"
+      operationId: "getProcedimentsUsingGET"
       produces:
       - "*/*"
       parameters:
@@ -2125,7 +2125,7 @@ paths:
       tags:
       - "Procediments"
       summary: "Returns the requested procediment"
-      operationId: "getProcedimentsUsingGET"
+      operationId: "consultarDadesProcediment"
       produces:
       - "*/*"
       parameters:
@@ -2410,6 +2410,50 @@ definitions:
       tramitOvtIdext:
         type: "number"
     title: "DadesOperTramitsOvt"
+  DadesOperValidVal:
+    type: "object"
+    properties:
+      dadesOperValid:
+        type: "number"
+      id:
+        type: "number"
+      ordre:
+        type: "integer"
+        format: "int64"
+      valorBoolean:
+        type: "integer"
+        format: "int32"
+      valorCalendar:
+        type: "string"
+        format: "date-time"
+      valorClob:
+        type: "string"
+      valorComarca:
+        type: "string"
+      valorDouble:
+        type: "number"
+        format: "double"
+      valorInteger:
+        type: "integer"
+        format: "int64"
+      valorListaMultiple:
+        type: "integer"
+        format: "int32"
+      valorListaSimple:
+        type: "integer"
+        format: "int32"
+      valorMoneda:
+        type: "number"
+        format: "double"
+      valorMunicipi:
+        type: "string"
+      valorPais:
+        type: "string"
+      valorProvincia:
+        type: "string"
+      valorString:
+        type: "string"
+    title: "DadesOperValidVal"
   DadesOperacions:
     type: "object"
     properties:
@@ -2424,6 +2468,10 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/DadesOperTramitsOvt"
+      dadesOperacionsValidacio:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesOperacionsValidacio"
       desTipusCamp:
         type: "string"
       descripcio:
@@ -2474,6 +2522,10 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/DadesOperTramitsOvt"
+      dadesOperacionsValidacio:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesOperacionsValidacio"
       desTipusCamp:
         type: "string"
       descripcio:
@@ -2510,6 +2562,20 @@ definitions:
         type: "integer"
         format: "int32"
     title: "DadesOperacionsRDTO"
+  DadesOperacionsValidacio:
+    type: "object"
+    properties:
+      dadesOperacions:
+        type: "number"
+      dadesOperacionsValidValors:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesOperValidVal"
+      id:
+        type: "number"
+      tipusValidacio:
+        type: "number"
+    title: "DadesOperacionsValidacio"
   Estats:
     type: "object"
     properties:

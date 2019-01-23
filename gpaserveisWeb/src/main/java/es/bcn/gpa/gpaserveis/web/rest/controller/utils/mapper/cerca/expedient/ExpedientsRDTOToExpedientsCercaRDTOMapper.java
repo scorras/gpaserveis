@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.converter.InternalToDataModificacioConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.converter.InternalToDataPresentacioConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.converter.InternalToEstatConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.converter.InternalToProcedimentConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.converter.InternalToSollicitantConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.converter.InternalToTramitadorConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.converter.InternalToUnitatGestoraConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToDataModificacioConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToDataPresentacioConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToEstatConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToProcedimentConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToSollicitantConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToTramitadorConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.expedients.ExpedientsCercaRDTO;
 
 /**
@@ -67,7 +67,7 @@ public class ExpedientsRDTOToExpedientsCercaRDTOMapper extends PropertyMap<Exped
 	        @Qualifier("expedientInternalToSollicitantConverter") InternalToSollicitantConverter internalToSollicitantConverter,
 	        @Qualifier("expedientInternalToEstatConverter") InternalToEstatConverter internalToEstatConverter,
 	        @Qualifier("expedientInternalToTramitadorConverter") InternalToTramitadorConverter internalToTramitadorConverter,
-	        @Qualifier("expedientInternalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
+	        @Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
 	        @Qualifier("expedientInternalToProcedimentConverter") InternalToProcedimentConverter internalToProcedimentConverter) {
 		this.internalToDataPresentacioConverter = internalToDataPresentacioConverter;
 		this.internalToDataModificacioConverter = internalToDataModificacioConverter;
@@ -78,6 +78,9 @@ public class ExpedientsRDTOToExpedientsCercaRDTOMapper extends PropertyMap<Exped
 		this.internalToProcedimentConverter = internalToProcedimentConverter;
 	}
 
+	/**
+	 * Configure.
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -93,7 +96,7 @@ public class ExpedientsRDTOToExpedientsCercaRDTOMapper extends PropertyMap<Exped
 		using(internalToEstatConverter).map(source.getEstatActual()).setEstat(null);
 		using(internalToTramitadorConverter).map(source.getTramitador()).setTramitador(null);
 		map().setAplicacioNegoci(source.getAplicacioNegoci());
-		using(internalToUnitatGestoraConverter).map(source.getDescUnitatGestora()).setUnitatGestora(null);
+		using(internalToUnitatGestoraConverter).map(source.getUnitatGestoraIdext()).setUnitatGestora(null);
 		using(internalToProcedimentConverter).map(source.getNomProcediment()).setProcediment(null);
 	}
 

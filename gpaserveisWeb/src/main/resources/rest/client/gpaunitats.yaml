@@ -346,7 +346,7 @@ paths:
       tags:
       - "Unitats Gestores"
       summary: "Returns the requested unitat"
-      operationId: "getUnitatUsingGET"
+      operationId: "consultarDadesUnitatGestora"
       produces:
       - "*/*"
       parameters:

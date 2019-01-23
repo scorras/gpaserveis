@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.procediment;
+package es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.consulta.procediment;
 
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,17 +7,19 @@ import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToEstatConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToTramitadorConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToIdentificacioConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToIniciacioConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.tramit.InternalToTramitProcedimentListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.MapperHelper;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.ProcedimentsCercaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.ProcedimentsConsultaRDTO;
 
 /**
- * The Class ExpedientsRDTOToExpedientsCercaRDTOMapper.
+ * The Class ProcedimentsRDTOToProcedimentsConsultaRDTOMapper.
  */
 @Component
-public class ProcedimentsRDTOToProcedimentsCercaRDTOMapper extends PropertyMap<ProcedimentsRDTO, ProcedimentsCercaRDTO> {
+public class ProcedimentsRDTOToProcedimentsConsultaRDTOMapper extends PropertyMap<ProcedimentsRDTO, ProcedimentsConsultaRDTO> {
 
 	/** The internal to estat converter. */
 	private InternalToEstatConverter internalToEstatConverter;
@@ -28,11 +30,18 @@ public class ProcedimentsRDTOToProcedimentsCercaRDTOMapper extends PropertyMap<P
 	/** The internal to unitat gestora list converter. */
 	private InternalToUnitatGestoraListConverter internalToUnitatGestoraListConverter;
 
-	/** The internal to tramitador converter. */
-	private InternalToTramitadorConverter internalToTramitadorConverter;
+	/** The internal to iniciacio converter. */
+	private InternalToIniciacioConverter internalToIniciacioConverter;
+
+	/** The internal to tramit procediment list converter. */
+	private InternalToTramitProcedimentListConverter internalToTramitProcedimentListConverter;
+
+	/** The internal to identificacio converter. */
+	private InternalToIdentificacioConverter internalToIdentificacioConverter;
 
 	/**
-	 * Instantiates a new procediments RDTO to procediments cerca RDTO mapper.
+	 * Instantiates a new procediments RDTO to procediments consulta RDTO
+	 * mapper.
 	 *
 	 * @param internalToEstatConverter
 	 *            the internal to estat converter
@@ -40,24 +49,29 @@ public class ProcedimentsRDTOToProcedimentsCercaRDTOMapper extends PropertyMap<P
 	 *            the internal to unitat gestora converter
 	 * @param internalToUnitatGestoraListConverter
 	 *            the internal to unitat gestora list converter
-	 * @param internalToTramitadorConverter
-	 *            the internal to tramitador converter
+	 * @param internalToIniciacioConverter
+	 *            the internal to iniciacio converter
+	 * @param internalToTramitProcedimentListConverter
+	 *            the internal to tramit procediment list converter
+	 * @param internalToIdentificacioConverter
+	 *            the internal to identificacio converter
 	 */
 	@Autowired
-	public ProcedimentsRDTOToProcedimentsCercaRDTOMapper(
+	public ProcedimentsRDTOToProcedimentsConsultaRDTOMapper(
 	        @Qualifier("procedimentInternalToEstatConverter") InternalToEstatConverter internalToEstatConverter,
 	        @Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
 	        @Qualifier("internalToUnitatGestoraListConverter") InternalToUnitatGestoraListConverter internalToUnitatGestoraListConverter,
-	        @Qualifier("procedimentInternalToTramitadorConverter") InternalToTramitadorConverter internalToTramitadorConverter) {
+	        @Qualifier("procedimentInternalToIniciacioConverter") InternalToIniciacioConverter internalToIniciacioConverter,
+	        @Qualifier("internalToTramitProcedimentListConverter") InternalToTramitProcedimentListConverter internalToTramitProcedimentListConverter,
+	        @Qualifier("procedimentInternalToIdentificacioConverter") InternalToIdentificacioConverter internalToIdentificacioConverter) {
 		this.internalToEstatConverter = internalToEstatConverter;
 		this.internalToUnitatGestoraConverter = internalToUnitatGestoraConverter;
 		this.internalToUnitatGestoraListConverter = internalToUnitatGestoraListConverter;
-		this.internalToTramitadorConverter = internalToTramitadorConverter;
+		this.internalToIniciacioConverter = internalToIniciacioConverter;
+		this.internalToTramitProcedimentListConverter = internalToTramitProcedimentListConverter;
+		this.internalToIdentificacioConverter = internalToIdentificacioConverter;
 	}
 
-	/**
-	 * Configure.
-	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -72,9 +86,11 @@ public class ProcedimentsRDTOToProcedimentsCercaRDTOMapper extends PropertyMap<P
 		map().setDescripcio(source.getDescripcio());
 		using(internalToUnitatGestoraConverter).map(source.getUgrIdext()).setUgr(null);
 		using(internalToUnitatGestoraListConverter).map(MapperHelper.getIdUgoList(source)).setUgo(null);
+		map().setOrganResolutori(source.getIdentificacions().getOrganResolutori());
+		using(internalToIniciacioConverter).map(source.getIniciacionsList()).setInici(null);
 		using(internalToEstatConverter).map(source.getEstatsProcediment().getEstats().getId()).setEstat(null);
-		using(internalToTramitadorConverter).map(source.getReqOperatius().getAplicacioNegoci()).setTramitador(null);
-		map().setAplicacioNegoci(source.getReqOperatius().getAplicacioNegoci());
+		using(internalToTramitProcedimentListConverter).map(source.getId()).setTramits(null);
+		using(internalToIdentificacioConverter).map(source.getIdentificacions()).setDadesIdentificacio(null);
 	}
 
 }

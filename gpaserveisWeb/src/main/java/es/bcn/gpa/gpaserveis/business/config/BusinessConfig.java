@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Lazy;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
 import net.opentrends.openframe.services.configuration.annotation.EntornPropertySource;
 import net.opentrends.openframe.services.configuration.config.ConfigurationServiceDefaultConfiguration;
@@ -26,6 +27,9 @@ public class BusinessConfig {
 
 	@Value("${unitats.service.url}")
 	private String URL_SERVICES_UNITATS;
+
+	@Value("${tramits.service.url}")
+	private String URL_SERVICES_TRAMITS;
 
 	@Value("${expedients.service.url}")
 	private String URL_SERVICES_EXPEDIENTS;
@@ -46,6 +50,15 @@ public class BusinessConfig {
 		UnitatsGestoresApi unitatsGestoresApi = new UnitatsGestoresApi(apiClient);
 
 		return unitatsGestoresApi;
+	}
+
+	@Bean
+	public TramitsApi clientApiTramits() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_TRAMITS);
+		TramitsApi tramitsApi = new TramitsApi();
+
+		return tramitsApi;
 	}
 
 	@Bean

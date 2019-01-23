@@ -16,6 +16,7 @@
 	<properties>
 		<gpaprocediments.yaml.file>${project.basedir}/src/main/resources/rest/client/gpaprocediments.yaml</gpaprocediments.yaml.file>
 		<gpaunitats.yaml.file>${project.basedir}/src/main/resources/rest/client/gpaunitats.yaml</gpaunitats.yaml.file>
+		<gpatramits.yaml.file>${project.basedir}/src/main/resources/rest/client/gpatramits.yaml</gpatramits.yaml.file>
 		<gpaexpedients.yaml.file>${project.basedir}/src/main/resources/rest/client/gpaexpedients.yaml</gpaexpedients.yaml.file>
 		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
 		<generated-sources-java-path>src/main/java</generated-sources-java-path>
@@ -219,6 +220,28 @@
 							<modelPackage>es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats</modelPackage>
 							<apiPackage>es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats</apiPackage>
 							<invokerPackage>es.bcn.gpa.gpaserveis.rest.client.invoker.gpaunitats</invokerPackage>
+							<generateApiTests>false</generateApiTests>
+							<generateApiDocumentation>false</generateApiDocumentation>
+							<generateModelTests>false</generateModelTests>
+							<configOptions>
+								<sourceFolder>src/main/java</sourceFolder>
+								<dateLibrary>joda</dateLibrary>
+							</configOptions>
+						</configuration>
+					</execution>
+					<execution>
+						<id>generate-client-gpatramits</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${gpatramits.yaml.file}</inputSpec>
+							<language>java</language>
+							<library>jersey2</library>
+							<modelPackage>es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits</modelPackage>
+							<apiPackage>es.bcn.gpa.gpaserveis.rest.client.api.gpatramits</apiPackage>
+							<invokerPackage>es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits</invokerPackage>
 							<generateApiTests>false</generateApiTests>
 							<generateApiDocumentation>false</generateApiDocumentation>
 							<generateModelTests>false</generateModelTests>

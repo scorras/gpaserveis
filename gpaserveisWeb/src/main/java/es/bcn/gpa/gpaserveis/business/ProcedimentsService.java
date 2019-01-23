@@ -1,8 +1,11 @@
 package es.bcn.gpa.gpaserveis.business;
 
+import java.math.BigDecimal;
+
 import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfProcedimentsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 
 /**
  * The Interface ProcedimentsService.
@@ -19,5 +22,16 @@ public interface ProcedimentsService {
 	 *             the GPA serveis service exception
 	 */
 	PageDataOfProcedimentsRDTO cercaProcediments(ProcedimentsCercaBDTO procedimentsCercaBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar dades procediment.
+	 *
+	 * @param id
+	 *            the id
+	 * @return the procediments RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	ProcedimentsRDTO consultarDadesProcediment(BigDecimal id) throws GPAServeisServiceException;
 
 }

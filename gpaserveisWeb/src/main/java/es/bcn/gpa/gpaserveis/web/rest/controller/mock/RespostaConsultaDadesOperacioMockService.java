@@ -78,12 +78,12 @@ public class RespostaConsultaDadesOperacioMockService {
 
 	private static class TramitsRDTOFactory {
 
-		private static TramitsRDTO create(BigDecimal id, String codi, String descripcio) {
+		private static TramitsRDTO create(BigDecimal id, String nom, String descripcio) {
 
 			TramitsRDTO tramitsRDTO = new TramitsRDTO();
 
 			tramitsRDTO.setId(id);
-			tramitsRDTO.setCodi(codi);
+			tramitsRDTO.setNom(nom);
 			tramitsRDTO.setDescripcio(descripcio);
 
 			return tramitsRDTO;

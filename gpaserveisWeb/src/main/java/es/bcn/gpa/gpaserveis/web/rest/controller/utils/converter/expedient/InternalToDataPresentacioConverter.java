@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.converter;
+package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;

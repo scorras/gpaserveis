@@ -1,8 +1,11 @@
 package es.bcn.gpa.gpaserveis.business;
 
+import java.math.BigDecimal;
+
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 
 /**
  * The Interface UnitatsGestoresService.
@@ -19,5 +22,16 @@ public interface UnitatsGestoresService {
 	 *             the GPA serveis service exception
 	 */
 	PageDataOfUnitatsGestoresRDTO cercaUnitatsGestores(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar dades unitat gestora.
+	 *
+	 * @param id
+	 *            the id
+	 * @return the unitats gestores RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	UnitatsGestoresRDTO consultarDadesUnitatGestora(BigDecimal id) throws GPAServeisServiceException;
 
 }

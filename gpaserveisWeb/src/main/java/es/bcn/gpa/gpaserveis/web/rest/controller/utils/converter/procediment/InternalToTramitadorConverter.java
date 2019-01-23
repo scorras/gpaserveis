@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.procediment.converter;
+package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment;
 
 import org.apache.commons.lang.StringUtils;
 import org.modelmapper.AbstractConverter;

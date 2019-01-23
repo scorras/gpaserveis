@@ -38,7 +38,6 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaActualitzarSolicit
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaDadesOperacioMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaDocumentsMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaExpedientsMockService;
-import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaProcedimentsMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCrearSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaObrirSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaRegistrarSolicitudMockService;
@@ -62,6 +61,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.Resp
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.RespostaConsultaDadesOperacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.RespostaConsultaDocumentsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.RespostaConsultaExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.ProcedimentsConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.RespostaConsultaProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.crear.solicituds.RespostaCrearSolicitudsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.crear.solicituds.SolicitudsCrearRDTO;
@@ -83,10 +83,6 @@ import lombok.extern.apachecommons.CommonsLog;
 @Api(value = "Serveis Portal API", tags = "Serveis Portal API")
 @CommonsLog
 public class ServeisPortalRestController extends BaseRestController {
-
-	/** The resposta consulta procediments mock service. */
-	@Autowired
-	private RespostaConsultaProcedimentsMockService respostaConsultaProcedimentsMockService;
 
 	/** The resposta consulta dades operacio mock service. */
 	@Autowired
@@ -244,15 +240,23 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @param idProcediment
 	 *            the id procediment
 	 * @return the resposta consulta procediments RDTO
+	 * @throws GPAServeisServiceException
 	 */
 	@GetMapping("/procediments/{idProcediment}")
 	@ApiOperation(value = "Consultar les dades del procediment", tags = { "Serveis Portal API",
 	        "Funcions d'integració amb RPA" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaProcedimentsRDTO consultarDadesProcediment(
-	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment) {
+	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment)
+	        throws GPAServeisServiceException {
 
-		return respostaConsultaProcedimentsMockService.getRespostaConsultaProcediments(idProcediment);
+		RespostaConsultaProcedimentsRDTO respostaConsultaProcedimentsRDTO = new RespostaConsultaProcedimentsRDTO();
+
+		ProcedimentsRDTO procedimentsRDTO = procedimentsService.consultarDadesProcediment(idProcediment);
+		ProcedimentsConsultaRDTO procedimentsConsultaRDTO = modelMapper.map(procedimentsRDTO, ProcedimentsConsultaRDTO.class);
+		respostaConsultaProcedimentsRDTO.setProcediment(procedimentsConsultaRDTO);
+
+		return respostaConsultaProcedimentsRDTO;
 	}
 
 	/**

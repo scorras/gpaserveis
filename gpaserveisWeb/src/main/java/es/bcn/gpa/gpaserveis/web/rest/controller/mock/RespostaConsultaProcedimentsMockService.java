@@ -30,7 +30,7 @@ public class RespostaConsultaProcedimentsMockService {
 		procediment.setEstat("EN_ELABORACIO");
 		procediment.setInici(Arrays.asList(new String[] { "OFICI", "ADMINISTRACIO" }));
 
-		procediment.setTramits(TramitsRDTOFactory.create(new BigDecimal("1"), "SOLC", "Sol·licitud"));
+		procediment.setTramits(Arrays.asList(TramitsRDTOFactory.create(new BigDecimal("1"), "SOLC", "Sol·licitud")));
 
 		procediment.setUgo(Arrays.asList(UnitatsRDTOFactory.create("UG1", "Unitat Gestora 1"),
 		        UnitatsRDTOFactory.create("UG2", "Unitat Gestora 2"), UnitatsRDTOFactory.create("UG3", "Unitat Gestora 3")));
@@ -70,12 +70,12 @@ public class RespostaConsultaProcedimentsMockService {
 
 	private static class TramitsRDTOFactory {
 
-		private static TramitsRDTO create(BigDecimal id, String codi, String descripcio) {
+		private static TramitsRDTO create(BigDecimal id, String nom, String descripcio) {
 
 			TramitsRDTO tramitsRDTO = new TramitsRDTO();
 
 			tramitsRDTO.setId(id);
-			tramitsRDTO.setCodi(codi);
+			tramitsRDTO.setNom(nom);
 			tramitsRDTO.setDescripcio(descripcio);
 
 			return tramitsRDTO;
