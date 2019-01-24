@@ -10,7 +10,6 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.Int
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToTramitadorConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraListConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.MapperHelper;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.ProcedimentsCercaRDTO;
 
 /**
@@ -71,7 +70,7 @@ public class ProcedimentsRDTOToProcedimentsCercaRDTOMapper extends PropertyMap<P
 		map().setNom(source.getNom());
 		map().setDescripcio(source.getDescripcio());
 		using(internalToUnitatGestoraConverter).map(source.getUgrIdext()).setUgr(null);
-		using(internalToUnitatGestoraListConverter).map(MapperHelper.getIdUgoList(source)).setUgo(null);
+		using(internalToUnitatGestoraListConverter).map(source.getUgosList()).setUgo(null);
 		using(internalToEstatConverter).map(source.getEstatsProcediment().getEstats().getId()).setEstat(null);
 		using(internalToTramitadorConverter).map(source.getReqOperatius().getAplicacioNegoci()).setTramitador(null);
 		map().setAplicacioNegoci(source.getReqOperatius().getAplicacioNegoci());

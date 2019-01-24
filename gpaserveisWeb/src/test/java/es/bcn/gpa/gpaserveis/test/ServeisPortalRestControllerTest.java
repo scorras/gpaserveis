@@ -32,7 +32,6 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	}
 
 	@Test
-	@Ignore
 	public void testStage02_GetConsultarDadesProcediment() throws Exception {
 		String url = BASE_URL + "/procediments/1";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());

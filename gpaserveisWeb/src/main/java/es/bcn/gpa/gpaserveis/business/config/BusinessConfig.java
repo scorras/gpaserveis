@@ -56,7 +56,7 @@ public class BusinessConfig {
 	public TramitsApi clientApiTramits() {
 		es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiClient();
 		apiClient.setBasePath(URL_SERVICES_TRAMITS);
-		TramitsApi tramitsApi = new TramitsApi();
+		TramitsApi tramitsApi = new TramitsApi(apiClient);
 
 		return tramitsApi;
 	}

@@ -19,9 +19,17 @@ import lombok.extern.apachecommons.CommonsLog;
 @CommonsLog
 public class ExpedientsServiceImpl implements ExpedientsService {
 
+	/** The expedients api. */
 	@Autowired
 	private Expedients_Api expedients_Api;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#cercaExpedients(es.bcn.
+	 * gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO)
+	 */
 	@Override
 	// @HystrixCommand(fallbackMethod = "fallbackCercaExpedients")
 	public PageDataOfExpedientsRDTO cercaExpedients(ExpedientsCercaBDTO expedientsCercaBDTO) throws GPAServeisServiceException {
@@ -49,6 +57,13 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 	}
 
+	/**
+	 * Fallback cerca expedients.
+	 *
+	 * @return the page data of procediments RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	public PageDataOfProcedimentsRDTO fallbackCercaExpedients() throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaProcediments() - inici"); //$NON-NLS-1$

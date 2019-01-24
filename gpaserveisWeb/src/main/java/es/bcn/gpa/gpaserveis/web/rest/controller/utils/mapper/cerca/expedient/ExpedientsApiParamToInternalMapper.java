@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -143,6 +144,10 @@ public class ExpedientsApiParamToInternalMapper {
 	 * @return the codi procediment internal value list
 	 */
 	public static List<String> getCodiProcedimentInternalValueList(String[] codiProcediment) {
-		return Arrays.asList(codiProcediment);
+		List<String> codiProcedimentInternalValueList = null;
+		if (ArrayUtils.isNotEmpty(codiProcediment)) {
+			codiProcedimentInternalValueList = Arrays.asList(codiProcediment);
+		}
+		return codiProcedimentInternalValueList;
 	}
 }

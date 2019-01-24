@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -335,8 +336,14 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		// Expedients que cumplen los criterios de búsqueda
 		DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_PATTERN);
-		DateTime dataPresentacioIniciDateTime = DateTime.parse(dataPresentacioInici, dateTimeFormatter);
-		DateTime dataPresentacioFiDateTime = DateTime.parse(dataPresentacioFi, dateTimeFormatter);
+		DateTime dataPresentacioIniciDateTime = null;
+		if (StringUtils.isNotEmpty(dataPresentacioInici)) {
+			dataPresentacioIniciDateTime = DateTime.parse(dataPresentacioInici, dateTimeFormatter);
+		}
+		DateTime dataPresentacioFiDateTime = null;
+		if (StringUtils.isNotEmpty(dataPresentacioFi)) {
+			dataPresentacioFiDateTime = DateTime.parse(dataPresentacioFi, dateTimeFormatter);
+		}
 		ExpedientsCercaBDTO expedientsCercaBDTO = new ExpedientsCercaBDTO(codiExpedient, sollicitant, dataPresentacioIniciDateTime,
 		        dataPresentacioFiDateTime, ExpedientsApiParamToInternalMapper.getCodiProcedimentInternalValueList(codiProcediment),
 		        ExpedientsApiParamToInternalMapper.getVersioProcedimentInternalValue(versioProcediment),

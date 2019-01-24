@@ -16,10 +16,6 @@ import lombok.extern.apachecommons.CommonsLog;
  * The Class TramitsServiceImpl.
  */
 @Service
-
-/** The Constant log. */
-
-/** The Constant log. */
 @CommonsLog
 public class TramitsServiceImpl implements TramitsService {
 
@@ -38,7 +34,7 @@ public class TramitsServiceImpl implements TramitsService {
 	// @HystrixCommand(fallbackMethod = "fallbackCercaTramitsProcediment")
 	public PageDataOfTramitsRDTO cercaTramitsProcediment(BigDecimal idProcediment) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("cercaTramitsProcediment(UnitatsGestoresCercaBDTO) - inici"); //$NON-NLS-1$
+			log.debug("cercaTramitsProcediment(BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
@@ -47,11 +43,11 @@ public class TramitsServiceImpl implements TramitsService {
 			        null, null);
 
 			if (log.isDebugEnabled()) {
-				log.debug("cercaTramitsProcediment(UnitatsGestoresCercaBDTO) - fi"); //$NON-NLS-1$
+				log.debug("cercaTramitsProcediment(BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return pageDataOfTramitsRDTO;
 		} catch (ApiException e) {
-			log.error("cercaTramitsProcediment(UnitatsGestoresCercaBDTO)", e); //$NON-NLS-1$
+			log.error("cercaTramitsProcediment(BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}

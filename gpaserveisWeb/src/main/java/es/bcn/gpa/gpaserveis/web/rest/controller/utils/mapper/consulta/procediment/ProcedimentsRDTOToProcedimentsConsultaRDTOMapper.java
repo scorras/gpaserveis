@@ -12,7 +12,6 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.Int
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.tramit.InternalToTramitProcedimentListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraListConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.MapperHelper;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.ProcedimentsConsultaRDTO;
 
 /**
@@ -85,7 +84,7 @@ public class ProcedimentsRDTOToProcedimentsConsultaRDTOMapper extends PropertyMa
 		map().setNom(source.getNom());
 		map().setDescripcio(source.getDescripcio());
 		using(internalToUnitatGestoraConverter).map(source.getUgrIdext()).setUgr(null);
-		using(internalToUnitatGestoraListConverter).map(MapperHelper.getIdUgoList(source)).setUgo(null);
+		using(internalToUnitatGestoraListConverter).map(source.getUgosList()).setUgo(null);
 		map().setOrganResolutori(source.getIdentificacions().getOrganResolutori());
 		using(internalToIniciacioConverter).map(source.getIniciacionsList()).setInici(null);
 		using(internalToEstatConverter).map(source.getEstatsProcediment().getEstats().getId()).setEstat(null);

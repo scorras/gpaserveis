@@ -9,6 +9,7 @@ import org.springframework.core.env.Environment;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
 import lombok.extern.apachecommons.CommonsLog;
 
@@ -68,6 +69,25 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("unitatsGestoresApi() - fi"); //$NON-NLS-1$
 		}
 		return unitatsGestoresApi;
+	}
+
+	/**
+	 * Tramits api.
+	 *
+	 * @return the tramits api
+	 */
+	@Bean
+	public TramitsApi tramitsApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("tramitsApi() - inici"); //$NON-NLS-1$
+		}
+
+		TramitsApi tramitsApi = Mockito.mock(TramitsApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("tramitsApi() - fi"); //$NON-NLS-1$
+		}
+		return tramitsApi;
 	}
 
 	/**
