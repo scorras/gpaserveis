@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
@@ -36,7 +38,7 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 	 * UnitatsGestoresCercaBDTO)
 	 */
 	@Override
-	// @HystrixCommand(fallbackMethod = "fallbackCercaUnitatsGestores")
+	@HystrixCommand(fallbackMethod = "fallbackCercaUnitatsGestores")
 	public PageDataOfUnitatsGestoresRDTO cercaUnitatsGestores(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
@@ -66,7 +68,7 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public PageDataOfUnitatsGestoresRDTO fallbackCercaUnitatsGestores() throws GPAServeisServiceException {
+	public PageDataOfUnitatsGestoresRDTO fallbackCercaUnitatsGestores(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaUnitatsGestores() - inici"); //$NON-NLS-1$
 		}
