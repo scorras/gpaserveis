@@ -10,7 +10,6 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procedime
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.IniciacioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.DadesIdentificacioRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -44,8 +43,8 @@ public class ProcedimentsConsultaRDTO {
 	private String versio;
 	@ApiModelProperty(value = "Estat actual del procediment", allowableValues = EstatApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private String estat;
-	@ApiModelProperty(value = "Llista de tràmits del procediment")
-	private List<TramitsRDTO> tramits;
+	// @ApiModelProperty(value = "Llista de tràmits del procediment")
+	// private List<TramitsRDTO> tramits;
 	@ApiModelProperty(value = "Dades d'identificació del procediment")
 	private DadesIdentificacioRDTO dadesIdentificacio;
 

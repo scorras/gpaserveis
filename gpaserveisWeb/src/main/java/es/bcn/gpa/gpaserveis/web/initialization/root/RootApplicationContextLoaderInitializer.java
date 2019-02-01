@@ -1,6 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.initialization.root;
 
 import es.bcn.gpa.gpaserveis.business.config.BusinessConfig;
+import es.bcn.gpa.gpaserveis.business.config.HystrixConfiguration;
 import net.opentrends.openframe.services.web.context.AbstractAnnotationConfigRootApplicationContextLoaderInitializer;
 
 
@@ -13,7 +14,7 @@ public class RootApplicationContextLoaderInitializer extends AbstractAnnotationC
 
 	@Override
 	protected Class<?>[] getRootApplicationContextApplicationConfigClasses() {
-		return new Class[] { BusinessConfig.class };
+		return new Class[] { BusinessConfig.class, HystrixConfiguration.class };
 	}
 
 }

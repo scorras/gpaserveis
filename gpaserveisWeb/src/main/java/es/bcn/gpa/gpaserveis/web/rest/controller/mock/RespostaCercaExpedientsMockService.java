@@ -109,11 +109,11 @@ public class RespostaCercaExpedientsMockService {
 
 	private static class UnitatsRDTOFactory {
 
-		private static UnitatGestoraRDTO create(String nom, String descripcio) {
+		private static UnitatGestoraRDTO create(String codi, String descripcio) {
 
 			UnitatGestoraRDTO unitatRDTO = new UnitatGestoraRDTO();
 
-			unitatRDTO.setNom(nom);
+			unitatRDTO.setCodi(codi);
 			unitatRDTO.setDescripcio(descripcio);
 
 			return unitatRDTO;

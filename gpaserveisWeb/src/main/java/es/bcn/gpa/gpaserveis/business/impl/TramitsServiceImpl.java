@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+
 import es.bcn.gpa.gpaserveis.business.TramitsService;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
@@ -31,7 +33,7 @@ public class TramitsServiceImpl implements TramitsService {
 	 * java.math.BigDecimal)
 	 */
 	@Override
-	// @HystrixCommand(fallbackMethod = "fallbackCercaTramitsProcediment")
+	@HystrixCommand(fallbackMethod = "fallbackCercaTramitsProcediment")
 	public PageDataOfTramitsRDTO cercaTramitsProcediment(BigDecimal idProcediment) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("cercaTramitsProcediment(BigDecimal) - inici"); //$NON-NLS-1$
@@ -60,7 +62,7 @@ public class TramitsServiceImpl implements TramitsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public PageDataOfTramitsRDTO fallbackCercaTramitsProcediment() throws GPAServeisServiceException {
+	public PageDataOfTramitsRDTO fallbackCercaTramitsProcediment(BigDecimal idProcediment) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaTramitsProcediment() - inici"); //$NON-NLS-1$
 		}

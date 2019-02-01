@@ -16,7 +16,7 @@ public enum EstatApiParamValue implements BaseApiParamValue {
 	SOL_LICITUD_EN_REVISIO("SOL_LICITUD_EN_REVISIO", new BigDecimal(2)),
 
 	/** The pendent subsanacio. */
-	PENDENT_SUBSANACIO("PENDENT_SUBSANACIO", new BigDecimal(3)),
+	PENDENT_SUBSANACIO("PENDENT_ESMENES", new BigDecimal(3)),
 
 	/** The en tramitacio. */
 	EN_TRAMITACIO("EN_TRAMITACIO", new BigDecimal(4)),

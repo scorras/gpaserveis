@@ -10,9 +10,9 @@ import com.netflix.hystrix.contrib.javanica.aop.aspectj.HystrixCommandAspect;
 @EnableAspectJAutoProxy
 public class HystrixConfiguration {
 
-  @Bean
-  public HystrixCommandAspect hystrixAspect() {
-    return new HystrixCommandAspect();
-  }
+	@Bean
+	public HystrixCommandAspect hystrixAspect() {
+		return new HystrixCommandAspect();
+	}
 
 }

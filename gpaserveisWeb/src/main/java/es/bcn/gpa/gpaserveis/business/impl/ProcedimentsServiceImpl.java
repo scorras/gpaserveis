@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+
 import es.bcn.gpa.gpaserveis.business.ProcedimentsService;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
@@ -35,7 +37,7 @@ public class ProcedimentsServiceImpl implements ProcedimentsService {
 	 * bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO)
 	 */
 	@Override
-	// @HystrixCommand(fallbackMethod = "fallbackCercaProcediments")
+	@HystrixCommand(fallbackMethod = "fallbackCercaProcediments")
 	public PageDataOfProcedimentsRDTO cercaProcediments(ProcedimentsCercaBDTO procedimentsCercaBDTO) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("cercaProcediments(UnitatsGestoresCercaBDTO) - inici"); //$NON-NLS-1$
@@ -69,7 +71,8 @@ public class ProcedimentsServiceImpl implements ProcedimentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public PageDataOfProcedimentsRDTO fallbackCercaProcediments() throws GPAServeisServiceException {
+	public PageDataOfProcedimentsRDTO fallbackCercaProcediments(ProcedimentsCercaBDTO procedimentsCercaBDTO)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaProcediments() - inici"); //$NON-NLS-1$
 		}
@@ -84,7 +87,7 @@ public class ProcedimentsServiceImpl implements ProcedimentsService {
 	 * consultarDadesProcediment(java.math.BigDecimal)
 	 */
 	@Override
-	// @HystrixCommand(fallbackMethod = "fallbackConsultarDadesProcediment")
+	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesProcediment")
 	public ProcedimentsRDTO consultarDadesProcediment(BigDecimal id) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("consultarDadesProcediment(BigDecimal) - inici"); //$NON-NLS-1$

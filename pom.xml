@@ -15,9 +15,14 @@
   <modules>
     <module>gpaserveisWeb</module>
     <module>gpaserveisEar</module>
+    <module>gpaserveisRestApiClientProcediments</module>
+    <module>gpaserveisRestApiClientTramits</module>
+    <module>gpaserveisRestApiClientUnitats</module>
+    <module>gpaserveisRestApiClientExpedients</module>
+    <module>gpaserveisRestApiClientDocumentacio</module>
   </modules>
   <properties>
-    <revision>1.0.0</revision>
+    <revision>1.3.0</revision>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <build>

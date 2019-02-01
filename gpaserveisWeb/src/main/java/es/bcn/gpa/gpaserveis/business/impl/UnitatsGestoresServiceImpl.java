@@ -11,7 +11,6 @@ import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaunitats.ApiException;
@@ -68,7 +67,8 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public PageDataOfUnitatsGestoresRDTO fallbackCercaUnitatsGestores(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO) throws GPAServeisServiceException {
+	public PageDataOfUnitatsGestoresRDTO fallbackCercaUnitatsGestores(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaUnitatsGestores() - inici"); //$NON-NLS-1$
 		}
@@ -83,7 +83,7 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 	 * consultarDadesUnitatGestora(java.math.BigDecimal)
 	 */
 	@Override
-	// @HystrixCommand(fallbackMethod = "fallbackConsultarDadesUnitatGestora")
+	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesUnitatGestora")
 	public UnitatsGestoresRDTO consultarDadesUnitatGestora(BigDecimal id) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("consultarDadesUnitatGestora(BigDecimal) - inici"); //$NON-NLS-1$
@@ -112,7 +112,7 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public ProcedimentsRDTO fallbackConsultarDadesUnitatGestora(BigDecimal id) throws GPAServeisServiceException {
+	public UnitatsGestoresRDTO fallbackConsultarDadesUnitatGestora(BigDecimal id) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackConsultarDadesUnitatGestora(BigDecimal) - inici"); //$NON-NLS-1$
 		}

@@ -12,43 +12,12 @@
 	<artifactId>gpaserveisWeb</artifactId>
 	<packaging>war</packaging>
 
-
 	<properties>
-		<gpaprocediments.yaml.file>${project.basedir}/src/main/resources/rest/client/gpaprocediments.yaml</gpaprocediments.yaml.file>
-		<gpaunitats.yaml.file>${project.basedir}/src/main/resources/rest/client/gpaunitats.yaml</gpaunitats.yaml.file>
-		<gpatramits.yaml.file>${project.basedir}/src/main/resources/rest/client/gpatramits.yaml</gpatramits.yaml.file>
-		<gpaexpedients.yaml.file>${project.basedir}/src/main/resources/rest/client/gpaexpedients.yaml</gpaexpedients.yaml.file>
-		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
-		<generated-sources-java-path>src/main/java</generated-sources-java-path>
-		<version.swagger.codegen>2.3.1</version.swagger.codegen>
-
-
-		<!-- TODO add the properties from target/generated-sources/pom.xml here -->
-		<gson-fire-version>1.8.0</gson-fire-version>
-		<okhttp-version>2.7.5</okhttp-version>
-		<gson-version>2.8.1</gson-version>
-		<threetenbp-version>1.3.5</threetenbp-version>
-
-		<swagger-core-version>1.5.15</swagger-core-version>
-		<jetty-version>9.2.9.v20150224</jetty-version>
-		<junit-version>4.12</junit-version>
-		<logback-version>1.1.7</logback-version>
-		<servlet-api-version>2.5</servlet-api-version>
-		<cxf-version>3.1.11</cxf-version>
-		<jackson-jaxrs-version>2.8.9</jackson-jaxrs-version>
-
-		<jersey-version>2.25.1</jersey-version>
-		<jackson-version>2.7.5</jackson-version>
-
 		<org.projectlombok.version>1.18.0</org.projectlombok.version>
-
 		<version.springfox-swagger-ui>2.9.2</version.springfox-swagger-ui>
-
 		<modelmapper-version>2.3.2</modelmapper-version>
-
-		<hystrix-version>1.5.12</hystrix-version>
+		<hystrix-javanica-version>1.5.12</hystrix-javanica-version>
 	</properties>
-
 
 	<dependencies>
 		<dependency>
@@ -73,7 +42,7 @@
 		<dependency>
 		    <groupId>com.netflix.hystrix</groupId>
 		    <artifactId>hystrix-javanica</artifactId>
-		    <version>${hystrix-version}</version>
+		    <version>${hystrix-javanica-version}</version>
 		    <exclusions>
 		    	<exclusion>
 		          <groupId>com.google.guava</groupId>
@@ -81,49 +50,40 @@
 		        </exclusion>
 		    </exclusions>
 		</dependency>
-		
-		<!-- HTTP client: jersey-client -->
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-client</artifactId>
-			<version>${jersey-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-multipart</artifactId>
-			<version>${jersey-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-json-jackson</artifactId>
-			<version>${jersey-version}</version>
-		</dependency>
 
+		<!-- Application internal dependencies -->
 		<dependency>
-			<groupId>com.fasterxml.jackson.datatype</groupId>
-			<artifactId>jackson-datatype-joda</artifactId>
-			<version>${jackson-version}</version>
+			<groupId>es.bcn.gpa</groupId>
+			<artifactId>gpaserveisRestApiClientDocumentacio</artifactId>
+			<version>${revision}</version>
 		</dependency>
-		<!-- Base64 encoding that works in both JVM and Android -->
 		<dependency>
-			<groupId>com.brsanthu</groupId>
-			<artifactId>migbase64</artifactId>
-			<version>2.2</version>
+			<groupId>es.bcn.gpa</groupId>
+			<artifactId>gpaserveisRestApiClientExpedients</artifactId>
+			<version>${revision}</version>
 		</dependency>
-
 		<dependency>
-			<groupId>io.swagger</groupId>
-			<artifactId>swagger-java-client</artifactId>
-			<version>1.0.0</version>
+			<groupId>es.bcn.gpa</groupId>
+			<artifactId>gpaserveisRestApiClientProcediments</artifactId>
+			<version>${revision}</version>
 		</dependency>
+		<dependency>
+			<groupId>es.bcn.gpa</groupId>
+			<artifactId>gpaserveisRestApiClientTramits</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>es.bcn.gpa</groupId>
+			<artifactId>gpaserveisRestApiClientUnitats</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<!-- End of Application internal dependencies -->
 
 	</dependencies>
 
 
 	<build>
-
 		<plugins>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -131,6 +91,13 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${org.projectlombok.version}</version>
+						</path>
+					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -159,140 +126,7 @@
 						${jacoco.argLine} -Dfile.encoding=UTF-8</argLine>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>io.swagger</groupId>
-				<artifactId>swagger-codegen-maven-plugin</artifactId>
-				<version>${version.swagger.codegen}</version>
-				<configuration>
-					<configOptions>
-						<sourceFolder>${generated-sources-java-path}</sourceFolder>
-					</configOptions>
-					<output>${generated-sources-path}</output>
-				</configuration>
-				<executions>
-					<execution>
-						<id>generate-client-gpaprocediments</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-						<configuration>
-							<inputSpec>${gpaprocediments.yaml.file}</inputSpec>
-							<language>java</language>
-							<library>jersey2</library>
-							<modelPackage>es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments</modelPackage>
-							<apiPackage>es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments</apiPackage>
-							<invokerPackage>es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments</invokerPackage>
-							<generateApiTests>false</generateApiTests>
-							<generateApiDocumentation>false</generateApiDocumentation>
-							<generateModelTests>false</generateModelTests>
-							<configOptions>
-								<sourceFolder>src/main/java</sourceFolder>
-								<dateLibrary>joda</dateLibrary>
-							</configOptions>
-						</configuration>
-					</execution>
-					<execution>
-						<id>generate-client-gpaunitats</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-						<configuration>
-							<inputSpec>${gpaunitats.yaml.file}</inputSpec>
-							<language>java</language>
-							<library>jersey2</library>
-							<modelPackage>es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats</modelPackage>
-							<apiPackage>es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats</apiPackage>
-							<invokerPackage>es.bcn.gpa.gpaserveis.rest.client.invoker.gpaunitats</invokerPackage>
-							<generateApiTests>false</generateApiTests>
-							<generateApiDocumentation>false</generateApiDocumentation>
-							<generateModelTests>false</generateModelTests>
-							<configOptions>
-								<sourceFolder>src/main/java</sourceFolder>
-								<dateLibrary>joda</dateLibrary>
-							</configOptions>
-						</configuration>
-					</execution>
-					<execution>
-						<id>generate-client-gpatramits</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-						<configuration>
-							<inputSpec>${gpatramits.yaml.file}</inputSpec>
-							<language>java</language>
-							<library>jersey2</library>
-							<modelPackage>es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits</modelPackage>
-							<apiPackage>es.bcn.gpa.gpaserveis.rest.client.api.gpatramits</apiPackage>
-							<invokerPackage>es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits</invokerPackage>
-							<generateApiTests>false</generateApiTests>
-							<generateApiDocumentation>false</generateApiDocumentation>
-							<generateModelTests>false</generateModelTests>
-							<configOptions>
-								<sourceFolder>src/main/java</sourceFolder>
-								<dateLibrary>joda</dateLibrary>
-							</configOptions>
-						</configuration>
-					</execution>
-					<execution>
-						<id>generate-client-gpaexpedients</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-						<configuration>
-							<inputSpec>${gpaexpedients.yaml.file}</inputSpec>
-							<language>java</language>
-							<library>jersey2</library>
-							<modelPackage>es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients</modelPackage>
-							<apiPackage>es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients</apiPackage>
-							<invokerPackage>es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients</invokerPackage>
-							<generateApiTests>false</generateApiTests>
-							<generateApiDocumentation>false</generateApiDocumentation>
-							<generateModelTests>false</generateModelTests>
-							<configOptions>
-								<sourceFolder>src/main/java</sourceFolder>
-								<dateLibrary>joda</dateLibrary>
-							</configOptions>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
 		</plugins>
-
-		<!-- the following is only necessary if you are using eclipse and m2e -->
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>io.swagger</groupId>
-										<artifactId>swagger-codegen-maven-plugin</artifactId>
-										<versionRange>[${version.swagger.codegen},)</versionRange>
-										<goals>
-											<goal>generate</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-
 	</build>
 
 	<profiles>
