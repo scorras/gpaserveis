@@ -44,12 +44,13 @@ public class InternalToIdentificacioConverter extends AbstractConverter<Identifi
 		        nivellAutenticacioApiParamValueTranslator.getApiParamValueByInternalValue(source.getNivellAutenticacio()));
 		TerminisDuracioRDTO terminisDuracioRDTO = new TerminisDuracioRDTO();
 		terminisDuracioRDTO.setUnitat(terminiMaximApiParamValueTranslator.getApiParamValueByInternalValue(source.getTerminiMaxim()));
-		terminisDuracioRDTO.setTerminiMaxim(String.valueOf(source.getEspecTerminiMaxim()));
+		terminisDuracioRDTO.setTerminiMaxim((source.getEspecTerminiMaxim() != null) ? String.valueOf(source.getEspecTerminiMaxim()) : null);
 		terminisDuracioRDTO
 		        .setPeriodicitat(periodicitatApiParamValueTranslator.getApiParamValueByInternalValue(source.getPeriodicitatTermini()));
 		DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_PATTERN);
-		terminisDuracioRDTO.setDataIniciVigencia(dateTimeFormatter.print(source.getVigenciaInici()));
-		terminisDuracioRDTO.setDataFiVigencia(dateTimeFormatter.print(source.getVigenciaFi()));
+		terminisDuracioRDTO
+		        .setDataIniciVigencia((source.getVigenciaInici() != null) ? dateTimeFormatter.print(source.getVigenciaInici()) : null);
+		terminisDuracioRDTO.setDataFiVigencia((source.getVigenciaFi() != null) ? dateTimeFormatter.print(source.getVigenciaFi()) : null);
 		dadesIdentificacioRDTO.setTerminisDuracio(terminisDuracioRDTO);
 
 		return dadesIdentificacioRDTO;

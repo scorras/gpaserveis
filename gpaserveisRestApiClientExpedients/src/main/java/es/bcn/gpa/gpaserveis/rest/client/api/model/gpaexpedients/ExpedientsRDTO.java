@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Estats;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Sollicituds;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -27,7 +28,7 @@ import org.joda.time.DateTime;
 /**
  * ExpedientsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:54:06.565+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-06T01:24:07.150+01:00")
 public class ExpedientsRDTO {
   @JsonProperty("accioEstatIdext")
   private BigDecimal accioEstatIdext = null;
@@ -46,6 +47,9 @@ public class ExpedientsRDTO {
 
   @JsonProperty("configuracioDocumentacioProc")
   private BigDecimal configuracioDocumentacioProc = null;
+
+  @JsonProperty("criticitatAvis")
+  private BigDecimal criticitatAvis = null;
 
   @JsonProperty("darreraModificacio")
   private DateTime darreraModificacio = null;
@@ -104,11 +108,17 @@ public class ExpedientsRDTO {
   @JsonProperty("sollicitant")
   private String sollicitant = null;
 
+  @JsonProperty("sollicitantPrincipal")
+  private PersonesSollicitud sollicitantPrincipal = null;
+
   @JsonProperty("sollicitud")
   private BigDecimal sollicitud = null;
 
   @JsonProperty("sollicituds")
   private Sollicituds sollicituds = null;
+
+  @JsonProperty("tipusAvis")
+  private BigDecimal tipusAvis = null;
 
   @JsonProperty("tramitador")
   private String tramitador = null;
@@ -225,6 +235,24 @@ public class ExpedientsRDTO {
 
   public void setConfiguracioDocumentacioProc(BigDecimal configuracioDocumentacioProc) {
     this.configuracioDocumentacioProc = configuracioDocumentacioProc;
+  }
+
+  public ExpedientsRDTO criticitatAvis(BigDecimal criticitatAvis) {
+    this.criticitatAvis = criticitatAvis;
+    return this;
+  }
+
+   /**
+   * Get criticitatAvis
+   * @return criticitatAvis
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getCriticitatAvis() {
+    return criticitatAvis;
+  }
+
+  public void setCriticitatAvis(BigDecimal criticitatAvis) {
+    this.criticitatAvis = criticitatAvis;
   }
 
   public ExpedientsRDTO darreraModificacio(DateTime darreraModificacio) {
@@ -569,6 +597,24 @@ public class ExpedientsRDTO {
     this.sollicitant = sollicitant;
   }
 
+  public ExpedientsRDTO sollicitantPrincipal(PersonesSollicitud sollicitantPrincipal) {
+    this.sollicitantPrincipal = sollicitantPrincipal;
+    return this;
+  }
+
+   /**
+   * Get sollicitantPrincipal
+   * @return sollicitantPrincipal
+  **/
+  @ApiModelProperty(value = "")
+  public PersonesSollicitud getSollicitantPrincipal() {
+    return sollicitantPrincipal;
+  }
+
+  public void setSollicitantPrincipal(PersonesSollicitud sollicitantPrincipal) {
+    this.sollicitantPrincipal = sollicitantPrincipal;
+  }
+
   public ExpedientsRDTO sollicitud(BigDecimal sollicitud) {
     this.sollicitud = sollicitud;
     return this;
@@ -603,6 +649,24 @@ public class ExpedientsRDTO {
 
   public void setSollicituds(Sollicituds sollicituds) {
     this.sollicituds = sollicituds;
+  }
+
+  public ExpedientsRDTO tipusAvis(BigDecimal tipusAvis) {
+    this.tipusAvis = tipusAvis;
+    return this;
+  }
+
+   /**
+   * Get tipusAvis
+   * @return tipusAvis
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getTipusAvis() {
+    return tipusAvis;
+  }
+
+  public void setTipusAvis(BigDecimal tipusAvis) {
+    this.tipusAvis = tipusAvis;
   }
 
   public ExpedientsRDTO tramitador(String tramitador) {
@@ -675,6 +739,7 @@ public class ExpedientsRDTO {
         Objects.equals(this.bloqueig, expedientsRDTO.bloqueig) &&
         Objects.equals(this.codi, expedientsRDTO.codi) &&
         Objects.equals(this.configuracioDocumentacioProc, expedientsRDTO.configuracioDocumentacioProc) &&
+        Objects.equals(this.criticitatAvis, expedientsRDTO.criticitatAvis) &&
         Objects.equals(this.darreraModificacio, expedientsRDTO.darreraModificacio) &&
         Objects.equals(this.dataPresentacio, expedientsRDTO.dataPresentacio) &&
         Objects.equals(this.dataPresentacioDes, expedientsRDTO.dataPresentacioDes) &&
@@ -694,8 +759,10 @@ public class ExpedientsRDTO {
         Objects.equals(this.procedimentVersio, expedientsRDTO.procedimentVersio) &&
         Objects.equals(this.seleccionable, expedientsRDTO.seleccionable) &&
         Objects.equals(this.sollicitant, expedientsRDTO.sollicitant) &&
+        Objects.equals(this.sollicitantPrincipal, expedientsRDTO.sollicitantPrincipal) &&
         Objects.equals(this.sollicitud, expedientsRDTO.sollicitud) &&
         Objects.equals(this.sollicituds, expedientsRDTO.sollicituds) &&
+        Objects.equals(this.tipusAvis, expedientsRDTO.tipusAvis) &&
         Objects.equals(this.tramitador, expedientsRDTO.tramitador) &&
         Objects.equals(this.ultimaModificacio, expedientsRDTO.ultimaModificacio) &&
         Objects.equals(this.unitatGestoraIdext, expedientsRDTO.unitatGestoraIdext);
@@ -703,7 +770,7 @@ public class ExpedientsRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accioEstatIdext, acumulador, aplicacioNegoci, bloqueig, codi, configuracioDocumentacioProc, darreraModificacio, dataPresentacio, dataPresentacioDes, dataPresentacioFinsA, descEstat, descUnitatGestora, documentacioIdext, editable, estat, estatActual, id, idEstat, nomProcediment, numeroDocument, procedimentCodi, procedimentIdext, procedimentVersio, seleccionable, sollicitant, sollicitud, sollicituds, tramitador, ultimaModificacio, unitatGestoraIdext);
+    return Objects.hash(accioEstatIdext, acumulador, aplicacioNegoci, bloqueig, codi, configuracioDocumentacioProc, criticitatAvis, darreraModificacio, dataPresentacio, dataPresentacioDes, dataPresentacioFinsA, descEstat, descUnitatGestora, documentacioIdext, editable, estat, estatActual, id, idEstat, nomProcediment, numeroDocument, procedimentCodi, procedimentIdext, procedimentVersio, seleccionable, sollicitant, sollicitantPrincipal, sollicitud, sollicituds, tipusAvis, tramitador, ultimaModificacio, unitatGestoraIdext);
   }
 
 
@@ -718,6 +785,7 @@ public class ExpedientsRDTO {
     sb.append("    bloqueig: ").append(toIndentedString(bloqueig)).append("\n");
     sb.append("    codi: ").append(toIndentedString(codi)).append("\n");
     sb.append("    configuracioDocumentacioProc: ").append(toIndentedString(configuracioDocumentacioProc)).append("\n");
+    sb.append("    criticitatAvis: ").append(toIndentedString(criticitatAvis)).append("\n");
     sb.append("    darreraModificacio: ").append(toIndentedString(darreraModificacio)).append("\n");
     sb.append("    dataPresentacio: ").append(toIndentedString(dataPresentacio)).append("\n");
     sb.append("    dataPresentacioDes: ").append(toIndentedString(dataPresentacioDes)).append("\n");
@@ -737,8 +805,10 @@ public class ExpedientsRDTO {
     sb.append("    procedimentVersio: ").append(toIndentedString(procedimentVersio)).append("\n");
     sb.append("    seleccionable: ").append(toIndentedString(seleccionable)).append("\n");
     sb.append("    sollicitant: ").append(toIndentedString(sollicitant)).append("\n");
+    sb.append("    sollicitantPrincipal: ").append(toIndentedString(sollicitantPrincipal)).append("\n");
     sb.append("    sollicitud: ").append(toIndentedString(sollicitud)).append("\n");
     sb.append("    sollicituds: ").append(toIndentedString(sollicituds)).append("\n");
+    sb.append("    tipusAvis: ").append(toIndentedString(tipusAvis)).append("\n");
     sb.append("    tramitador: ").append(toIndentedString(tramitador)).append("\n");
     sb.append("    ultimaModificacio: ").append(toIndentedString(ultimaModificacio)).append("\n");
     sb.append("    unitatGestoraIdext: ").append(toIndentedString(unitatGestoraIdext)).append("\n");

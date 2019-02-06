@@ -7,7 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
@@ -107,6 +110,48 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("expedients_Api() - fi"); //$NON-NLS-1$
 		}
 		return expedients_Api;
+	}
+
+	@Bean
+	public ExpedientsApi expedientsApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("expedientsApi() - inici"); //$NON-NLS-1$
+		}
+
+		ExpedientsApi expedientsApi = Mockito.mock(ExpedientsApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("expedientsApi() - fi"); //$NON-NLS-1$
+		}
+		return expedientsApi;
+	}
+
+	@Bean
+	public PersonesInteressades_Api personesInteressades_Api() {
+		if (log.isDebugEnabled()) {
+			log.debug("personesInteressades_Api() - inici"); //$NON-NLS-1$
+		}
+
+		PersonesInteressades_Api personesInteressades_Api = Mockito.mock(PersonesInteressades_Api.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("personesInteressades_Api() - fi"); //$NON-NLS-1$
+		}
+		return personesInteressades_Api;
+	}
+
+	@Bean
+	public Persones_Api persones_Api() {
+		if (log.isDebugEnabled()) {
+			log.debug("persones_Api() - inici"); //$NON-NLS-1$
+		}
+
+		Persones_Api persones_Api = Mockito.mock(Persones_Api.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("persones_Api() - fi"); //$NON-NLS-1$
+		}
+		return persones_Api;
 	}
 
 }

@@ -620,6 +620,30 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /tramits/catalog/estats:
+    get:
+      tags:
+      - "Estats"
+      summary: "Returns all the Estats"
+      operationId: "getEstatsUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/EstatsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /tramits/catalog/tipusHistoric:
     get:
       tags:
@@ -649,7 +673,103 @@ paths:
       tags:
       - "Comentaris"
       summary: "Save the provided comment"
-      operationId: "saveComentarisUsingPOST"
+      operationId: "createComentarisUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - in: "body"
+        name: "comentarisRDTO"
+        description: "comentarisRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/ComentarisRDTO"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfComentarisRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+    put:
+      tags:
+      - "Comentaris"
+      summary: "Save the provided comment"
+      operationId: "updateComentarisUsingPUT"
       consumes:
       - "application/json"
       produces:
@@ -1030,7 +1150,7 @@ paths:
       tags:
       - "Estats"
       summary: "Returns all the estats"
-      operationId: "getEstatsUsingGET"
+      operationId: "getEstatsUsingGET_1"
       produces:
       - "*/*"
       responses:
@@ -1852,6 +1972,9 @@ definitions:
   ComentarisRDTO:
     type: "object"
     properties:
+      darreraModificacio:
+        type: "string"
+        format: "date-time"
       dataCreacio:
         type: "string"
         format: "date-time"
@@ -1864,6 +1987,8 @@ definitions:
       titol:
         type: "string"
       tramit:
+        type: "number"
+      ultimaModificacio:
         type: "number"
       usuari:
         type: "number"

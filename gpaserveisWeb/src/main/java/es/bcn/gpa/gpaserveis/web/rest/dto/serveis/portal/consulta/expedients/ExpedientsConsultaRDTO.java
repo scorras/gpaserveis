@@ -1,7 +1,6 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -23,7 +22,8 @@ import lombok.Setter;
 @ApiModel(value = "ExpedientsConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id", "codi", "permetAportacio", "permetEsmena", "permetAlegacio", "dataPresentacio", "dataModificacio",
-        "unitatGestora", "estat", "historics", "procediment", "registre", "solicitant", "representant", "documents", "atributs" })
+        "unitatGestora", "estat", "historics", "procediment", "registre", "sollicitant", "representant", "personesInteressades",
+        "personesImplicades" })
 @Getter
 @Setter
 public class ExpedientsConsultaRDTO {
@@ -48,15 +48,19 @@ public class ExpedientsConsultaRDTO {
 	private UnitatGestoraRDTO unitatGestora;
 	@ApiModelProperty(value = "Estat actual del expedient", allowableValues = EstatApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private String estat;
-	private List<HistoricsRDTO> historics = Collections.emptyList();
+	@ApiModelProperty(value = "Llista d'històrics de l'expedient")
+	private List<HistoricsRDTO> historics;
+	@ApiModelProperty(value = "Dades del procediment")
 	private ProcedimentsConsultaRDTO procediment;
+	@ApiModelProperty(value = "Registre del expedient")
 	private RegistreRDTO registre;
-	private PersonesRDTO solicitant;
+	@ApiModelProperty(value = "Sol·licitant principal de l'expedient")
+	private PersonesRDTO sollicitant;
+	@ApiModelProperty(value = "Representant principal de l'expedient")
 	private PersonesRDTO representant;
-	// TODO
-	// private List<PersonesRDTO> personesImplicats
-	// private List<PersonesRDTO> personesInteresats
-	private List<DocumentsExpedientsRDTO> documents = Collections.emptyList();
-	private List<DadesAtributsExpedientsRDTO> atributs = Collections.emptyList();
+	@ApiModelProperty(value = "Altres persones interessades")
+	private List<PersonesRDTO> personesInteressades;
+	@ApiModelProperty(value = "Persones implicades")
+	private List<PersonesRDTO> personesImplicades;
 
 }

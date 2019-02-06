@@ -16,17 +16,17 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioIdsAndEstatFinalId;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatRevisioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatsDocumentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RestClientResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TransicionsEstatsRDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:53:51.582+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:51:34.681+01:00")
 public class DocumentacioApi {
   private ApiClient apiClient;
 
@@ -390,48 +390,6 @@ public class DocumentacioApi {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
-   * Returns the final EstatDocument for a given EstatDocument
-   * 
-   * @param idEstatDocument idEstatDocument (required)
-   * @return EstatsDocumentRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public EstatsDocumentRDTO getEstatFinalDocumentacioTramitacioUsingGET(BigDecimal idEstatDocument) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'idEstatDocument' is set
-    if (idEstatDocument == null) {
-      throw new ApiException(400, "Missing the required parameter 'idEstatDocument' when calling getEstatFinalDocumentacioTramitacioUsingGET");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/documentacio/tramitacio/estatFinal/{idEstatDocument}"
-      .replaceAll("\\{" + "idEstatDocument" + "\\}", apiClient.escapeString(idEstatDocument.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<EstatsDocumentRDTO> localVarReturnType = new GenericType<EstatsDocumentRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
    * Returns all the EstatRevisio
    * 
    * @return List&lt;EstatRevisioRDTO&gt;
@@ -618,6 +576,48 @@ public class DocumentacioApi {
     String[] localVarAuthNames = new String[] {  };
 
     GenericType<List<BigDecimal>> localVarReturnType = new GenericType<List<BigDecimal>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Get all estats documentació tramitació
+   * 
+   * @param estatDocTramitacio estatDocTramitacio (required)
+   * @return List&lt;TransicionsEstatsRDTO&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<TransicionsEstatsRDTO> obtenirTransicionsEstatsByEstatDocTramUsingGET(BigDecimal estatDocTramitacio) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'estatDocTramitacio' is set
+    if (estatDocTramitacio == null) {
+      throw new ApiException(400, "Missing the required parameter 'estatDocTramitacio' when calling obtenirTransicionsEstatsByEstatDocTramUsingGET");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/documentacio/tramitacio/estatsDocTramCanviEstat/{estatDocTramitacio}"
+      .replaceAll("\\{" + "estatDocTramitacio" + "\\}", apiClient.escapeString(estatDocTramitacio.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<TransicionsEstatsRDTO>> localVarReturnType = new GenericType<List<TransicionsEstatsRDTO>>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**

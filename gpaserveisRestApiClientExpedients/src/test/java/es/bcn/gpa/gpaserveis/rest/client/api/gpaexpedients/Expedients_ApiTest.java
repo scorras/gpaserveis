@@ -65,6 +65,7 @@ public class Expedients_ApiTest extends ParentTest {
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
 		String aplicacioNegoci = null;
+		List<String> avisList = null;
 		String codi = null;
 		BigDecimal criteriDeCercaDadesOperacioList0Id = null;
 		BigDecimal criteriDeCercaDadesOperacioList0Tipus = null;
@@ -81,6 +82,7 @@ public class Expedients_ApiTest extends ParentTest {
 		BigDecimal id = null;
 		BigDecimal idUsuari = null;
 		Integer nextPageNumber = null;
+		String numeroDocument = null;
 		Integer pageSize = null;
 		Integer previousPageNumber = null;
 		List<String> procedimentCodisList = null;
@@ -92,11 +94,11 @@ public class Expedients_ApiTest extends ParentTest {
 		String tramitador = null;
 		List<BigDecimal> unitatsGestoresList = null;
 		PageDataOfExpedientsRDTO response = api.cercaExpedients(absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, aplicacioNegoci, codi, criteriDeCercaDadesOperacioList0Id,
+		        absoluteRowNumberOfLastRowInCurrentPage, aplicacioNegoci, avisList, codi, criteriDeCercaDadesOperacioList0Id,
 		        criteriDeCercaDadesOperacioList0Tipus, criteriDeCercaDadesOperacioList0Valor, currentPageHasNextPage,
 		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dataPresentacioDes,
-		        dataPresentacioFinsA, dir, estatList, id, idUsuari, nextPageNumber, pageSize, previousPageNumber, procedimentCodisList,
-		        procedimentVersio, sollicitant, sort, totalElements, totalPages, tramitador, unitatsGestoresList);
+		        dataPresentacioFinsA, dir, estatList, id, idUsuari, nextPageNumber, numeroDocument, pageSize, previousPageNumber,
+		        procedimentCodisList, procedimentVersio, sollicitant, sort, totalElements, totalPages, tramitador, unitatsGestoresList);
 
 		assertTrue(response != null);
 	}

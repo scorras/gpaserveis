@@ -2,9 +2,9 @@ package es.bcn.gpa.gpaserveis.web.rest.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -27,16 +27,10 @@ import es.bcn.gpa.gpaserveis.business.ProcedimentsService;
 import es.bcn.gpa.gpaserveis.business.TramitsService;
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.HistoricsExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfProcedimentsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsUgos;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.PageDataOfTramitsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaActualitzarSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaDadesOperacioMockService;
@@ -207,7 +201,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		// Data
 		// Unitats Gestores que hacen match con el parámetro ugr
 		UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(ugr);
-		List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = loadUnitatsGestoresRDTOList(unitatsGestoresCercaBDTO);
+		List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = ServeisPortalRestControllerHelper
+		        .loadUnitatsGestoresRDTOList(unitatsGestoresService, unitatsGestoresCercaBDTO);
 
 		// Procediments que cumplen los criterios de búsqueda
 		ProcedimentsCercaBDTO procedimentsCercaBDTO = new ProcedimentsCercaBDTO(codi, nom,
@@ -221,7 +216,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		        resultatsPerPagina, ProcedimentsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
 		        ProcedimentsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio));
 
-		CercaProcedimentsRDTO cercaProcedimentsRDTO = loadCercaProcedimentsRDTO(procedimentsCercaBDTO);
+		CercaProcedimentsRDTO cercaProcedimentsRDTO = ServeisPortalRestControllerHelper.loadCercaProcedimentsRDTO(procedimentsService,
+		        unitatsGestoresService, procedimentsCercaBDTO);
 
 		for (DadesProcedimentRDTO dadesProcedimentRDTO : cercaProcedimentsRDTO.getDadesProcedimentRDTOList()) {
 			procedimentsCercaRDTOList.add(modelMapper.map(dadesProcedimentRDTO, ProcedimentsCercaRDTO.class));
@@ -257,7 +253,8 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		RespostaConsultaProcedimentsRDTO respostaConsultaProcedimentsRDTO = new RespostaConsultaProcedimentsRDTO();
 
-		DadesProcedimentRDTO dadesProcedimentRDTO = loadDadesProcedimentRDTO(idProcediment);
+		DadesProcedimentRDTO dadesProcedimentRDTO = ServeisPortalRestControllerHelper.loadDadesProcedimentRDTO(procedimentsService,
+		        unitatsGestoresService, idProcediment);
 		ProcedimentsConsultaRDTO procedimentsConsultaRDTO = modelMapper.map(dadesProcedimentRDTO, ProcedimentsConsultaRDTO.class);
 		respostaConsultaProcedimentsRDTO.setProcediment(procedimentsConsultaRDTO);
 
@@ -349,7 +346,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	        @ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
 	        @ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio,
 	        @ApiParam(value = "Filtra expedients per codi") @RequestParam(value = "codiExpedient", required = false) String codiExpedient,
-	        @ApiParam(value = "Filtra expedients per sollicitant") @RequestParam(value = "sollicitant", required = false) String sollicitant,
+	        @ApiParam(value = "Filtra expedients per sollicitant") @RequestParam(value = "nifSollicitant", required = false) String nifSollicitant,
 	        @ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioInici", required = false) String dataPresentacioInici,
 	        @ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioFi", required = false) String dataPresentacioFi,
 	        @ApiParam(value = "Filtra expedients per un conjunt de codis de procediment") @RequestParam(value = "codiProcediment", required = false) String[] codiProcediment,
@@ -370,7 +367,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		// Data
 		// Unitats Gestores que hacen match con el parámetro unitatGestora
 		UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(unitatGestora);
-		List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = loadUnitatsGestoresRDTOList(unitatsGestoresCercaBDTO);
+		List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = ServeisPortalRestControllerHelper
+		        .loadUnitatsGestoresRDTOList(unitatsGestoresService, unitatsGestoresCercaBDTO);
 
 		// Expedients que cumplen los criterios de búsqueda
 		DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_PATTERN);
@@ -382,7 +380,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		if (StringUtils.isNotEmpty(dataPresentacioFi)) {
 			dataPresentacioFiDateTime = DateTime.parse(dataPresentacioFi, dateTimeFormatter);
 		}
-		ExpedientsCercaBDTO expedientsCercaBDTO = new ExpedientsCercaBDTO(codiExpedient, sollicitant, dataPresentacioIniciDateTime,
+		ExpedientsCercaBDTO expedientsCercaBDTO = new ExpedientsCercaBDTO(codiExpedient, nifSollicitant, dataPresentacioIniciDateTime,
 		        dataPresentacioFiDateTime, ExpedientsApiParamToInternalMapper.getCodiProcedimentInternalValueList(codiProcediment),
 		        ExpedientsApiParamToInternalMapper.getVersioProcedimentInternalValue(versioProcediment),
 		        ExpedientsApiParamToInternalMapper.getEstatInternalValueList(estat),
@@ -391,7 +389,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		        resultatsPerPagina, ExpedientsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
 		        ExpedientsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio));
 
-		CercaExpedientsRDTO cercaExpedientsRDTO = loadCercaExpedientsRDTO(expedientsCercaBDTO);
+		CercaExpedientsRDTO cercaExpedientsRDTO = ServeisPortalRestControllerHelper.loadCercaExpedientsRDTO(expedientsService,
+		        unitatsGestoresService, expedientsCercaBDTO);
 
 		for (DadesExpedientRDTO dadesExpedientRDTO : cercaExpedientsRDTO.getDadesExpedientRDTOList()) {
 			expedientsCercaRDTOList.add(modelMapper.map(dadesExpedientRDTO, ExpedientsCercaRDTO.class));
@@ -427,7 +426,10 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		RespostaConsultaExpedientsRDTO respostaConsultaExpedientsRDTO = new RespostaConsultaExpedientsRDTO();
 
-		DadesExpedientRDTO dadesExpedientRDTO = loadDadesExpedientRDTO(idExpedient);
+		HistoricsExpedientsCercaBDTO historicsExpedientsCercaBDTO = new HistoricsExpedientsCercaBDTO(idExpedient,
+		        Arrays.asList(new BigDecimal(5)));
+		DadesExpedientRDTO dadesExpedientRDTO = ServeisPortalRestControllerHelper.loadDadesExpedientRDTO(expedientsService,
+		        unitatsGestoresService, idExpedient, historicsExpedientsCercaBDTO);
 		ExpedientsConsultaRDTO expedientsConsultaRDTO = modelMapper.map(dadesExpedientRDTO, ExpedientsConsultaRDTO.class);
 		respostaConsultaExpedientsRDTO.setExpedient(expedientsConsultaRDTO);
 
@@ -503,225 +505,6 @@ public class ServeisPortalRestController extends BaseRestController {
 	        @ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient) {
 
 		return respostaObrirSolicitudMockService.getRespostaObrirSolicituds(idExpedient);
-	}
-
-	/**
-	 * Load unitats gestores RDTO list.
-	 *
-	 * @param unitatsGestoresCercaBDTO
-	 *            the unitats gestores cerca BDTO
-	 * @return the list
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	private List<UnitatsGestoresRDTO> loadUnitatsGestoresRDTOList(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO)
-	        throws GPAServeisServiceException {
-		PageDataOfUnitatsGestoresRDTO pageDataOfUnitatsGestoresRDTO = unitatsGestoresService.cercaUnitatsGestores(unitatsGestoresCercaBDTO);
-		List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = pageDataOfUnitatsGestoresRDTO.getData();
-		return unitatsGestoresRDTOList;
-	}
-
-	/**
-	 * Load cerca procediments RDTO.
-	 *
-	 * @param procedimentsCercaBDTO
-	 *            the procediments cerca BDTO
-	 * @return the cerca procediments RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	private CercaProcedimentsRDTO loadCercaProcedimentsRDTO(ProcedimentsCercaBDTO procedimentsCercaBDTO) throws GPAServeisServiceException {
-		CercaProcedimentsRDTO cercaProcedimentsRDTO = new CercaProcedimentsRDTO();
-		ArrayList<DadesProcedimentRDTO> dadesProcedimentRDTOList = new ArrayList<DadesProcedimentRDTO>();
-		DadesProcedimentRDTO dadesProcedimentRDTO = null;
-
-		PageDataOfProcedimentsRDTO pageDataOfProcedimentsRDTO = procedimentsService.cercaProcediments(procedimentsCercaBDTO);
-
-		for (ProcedimentsRDTO procedimentsRDTO : pageDataOfProcedimentsRDTO.getData()) {
-			dadesProcedimentRDTO = new DadesProcedimentRDTO();
-			dadesProcedimentRDTO.setProcedimentsRDTO(procedimentsRDTO);
-
-			loadUgrRDTO(dadesProcedimentRDTO, procedimentsRDTO.getUgrIdext());
-			loadUgoRDTOList(dadesProcedimentRDTO, procedimentsRDTO.getUgosList());
-
-			dadesProcedimentRDTOList.add(dadesProcedimentRDTO);
-		}
-
-		cercaProcedimentsRDTO.setDadesProcedimentRDTOList(dadesProcedimentRDTOList);
-		cercaProcedimentsRDTO.setPaginationAttributes(pageDataOfProcedimentsRDTO.getPage());
-
-		return cercaProcedimentsRDTO;
-	}
-
-	/**
-	 * Load dades procediment RDTO.
-	 *
-	 * @param idProcediment
-	 *            the id procediment
-	 * @return the dades procediment RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	private DadesProcedimentRDTO loadDadesProcedimentRDTO(BigDecimal idProcediment) throws GPAServeisServiceException {
-		DadesProcedimentRDTO dadesProcedimentRDTO = new DadesProcedimentRDTO();
-
-		loadProcedimentsRDTO(dadesProcedimentRDTO, idProcediment);
-		// TODO De momento quitar de la respuesta los trámites
-		loadTramitsRDTOList(dadesProcedimentRDTO, idProcediment);
-		loadUgrRDTO(dadesProcedimentRDTO, dadesProcedimentRDTO.getProcedimentsRDTO().getUgrIdext());
-		loadUgoRDTOList(dadesProcedimentRDTO, dadesProcedimentRDTO.getProcedimentsRDTO().getUgosList());
-
-		return dadesProcedimentRDTO;
-	}
-
-	/**
-	 * Load cerca expedients RDTO.
-	 *
-	 * @param expedientsCercaBDTO
-	 *            the expedients cerca BDTO
-	 * @return the cerca expedients RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	private CercaExpedientsRDTO loadCercaExpedientsRDTO(ExpedientsCercaBDTO expedientsCercaBDTO) throws GPAServeisServiceException {
-		CercaExpedientsRDTO cercaExpedientsRDTO = new CercaExpedientsRDTO();
-		ArrayList<DadesExpedientRDTO> dadesExpedientRDTOList = new ArrayList<DadesExpedientRDTO>();
-		DadesExpedientRDTO dadesExpedientRDTO = null;
-
-		PageDataOfExpedientsRDTO pageDataOfExpedientsRDTO = expedientsService.cercaExpedients(expedientsCercaBDTO);
-
-		for (ExpedientsRDTO expedientsRDTO : pageDataOfExpedientsRDTO.getData()) {
-			dadesExpedientRDTO = new DadesExpedientRDTO();
-			dadesExpedientRDTO.setExpedientsRDTO(expedientsRDTO);
-
-			loadUnitatGestoraRDTO(dadesExpedientRDTO, expedientsRDTO.getUnitatGestoraIdext());
-
-			dadesExpedientRDTOList.add(dadesExpedientRDTO);
-		}
-
-		cercaExpedientsRDTO.setDadesExpedientRDTOList(dadesExpedientRDTOList);
-		cercaExpedientsRDTO.setPaginationAttributes(pageDataOfExpedientsRDTO.getPage());
-
-		return cercaExpedientsRDTO;
-	}
-
-	/**
-	 * Load dades expedient RDTO.
-	 *
-	 * @param idExpedient
-	 *            the id expedient
-	 * @return the dades expedient RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	private DadesExpedientRDTO loadDadesExpedientRDTO(BigDecimal idExpedient) throws GPAServeisServiceException {
-		DadesExpedientRDTO dadesExpedientRDTO = new DadesExpedientRDTO();
-
-		loadExpedientsRDTO(dadesExpedientRDTO, idExpedient);
-		loadUnitatGestoraRDTO(dadesExpedientRDTO, dadesExpedientRDTO.getExpedientsRDTO().getUnitatGestoraIdext());
-
-		return dadesExpedientRDTO;
-	}
-
-	/**
-	 * Load procediments RDTO.
-	 *
-	 * @param dadesProcedimentRDTO
-	 *            the dades procediment RDTO
-	 * @param idProcediment
-	 *            the id procediment
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	private void loadProcedimentsRDTO(DadesProcedimentRDTO dadesProcedimentRDTO, BigDecimal idProcediment)
-	        throws GPAServeisServiceException {
-		ProcedimentsRDTO procedimentsRDTO = procedimentsService.consultarDadesProcediment(idProcediment);
-		dadesProcedimentRDTO.setProcedimentsRDTO(procedimentsRDTO);
-	}
-
-	/**
-	 * Load tramits RDTO list.
-	 *
-	 * @param dadesProcedimentRDTO
-	 *            the dades procediment RDTO
-	 * @param idProcediment
-	 *            the id procediment
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	private void loadTramitsRDTOList(DadesProcedimentRDTO dadesProcedimentRDTO, BigDecimal idProcediment)
-	        throws GPAServeisServiceException {
-		PageDataOfTramitsRDTO pageDataOfTramitsRDTO = tramitsService.cercaTramitsProcediment(idProcediment);
-		dadesProcedimentRDTO.setTramitsRDTOList(pageDataOfTramitsRDTO.getData());
-	}
-
-	/**
-	 * Load ugr RDTO.
-	 *
-	 * @param dadesProcedimentRDTO
-	 *            the dades procediment RDTO
-	 * @param idUgr
-	 *            the id ugr
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	private void loadUgrRDTO(DadesProcedimentRDTO dadesProcedimentRDTO, BigDecimal idUgr) throws GPAServeisServiceException {
-		UnitatsGestoresRDTO ugrRDTO = unitatsGestoresService.consultarDadesUnitatGestora(idUgr);
-		dadesProcedimentRDTO.setUgrRDTO(ugrRDTO);
-	}
-
-	/**
-	 * Load ugo RDTO list.
-	 *
-	 * @param dadesProcedimentRDTO
-	 *            the dades procediment RDTO
-	 * @param procedimentsUgosList
-	 *            the procediments ugos list
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	private void loadUgoRDTOList(DadesProcedimentRDTO dadesProcedimentRDTO, List<ProcedimentsUgos> procedimentsUgosList)
-	        throws GPAServeisServiceException {
-		ArrayList<UnitatsGestoresRDTO> ugoRDTOList = new ArrayList<UnitatsGestoresRDTO>();
-		if (CollectionUtils.isNotEmpty(procedimentsUgosList)) {
-			UnitatsGestoresRDTO ugoRDTO = null;
-			for (ProcedimentsUgos procedimentsUgos : procedimentsUgosList) {
-				ugoRDTO = unitatsGestoresService.consultarDadesUnitatGestora(procedimentsUgos.getUgoIdext());
-				ugoRDTOList.add(ugoRDTO);
-			}
-		}
-		dadesProcedimentRDTO.setUgoRDTOList(ugoRDTOList);
-	}
-
-	/**
-	 * Load unitat gestora RDTO.
-	 *
-	 * @param dadesExpedientRDTO
-	 *            the dades expedient RDTO
-	 * @param idUnitatGestora
-	 *            the id unitat gestora
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	private void loadUnitatGestoraRDTO(DadesExpedientRDTO dadesExpedientRDTO, BigDecimal idUnitatGestora)
-	        throws GPAServeisServiceException {
-		UnitatsGestoresRDTO unitatsGestoresRDTO = unitatsGestoresService.consultarDadesUnitatGestora(idUnitatGestora);
-		dadesExpedientRDTO.setUnitatsGestoresRDTO(unitatsGestoresRDTO);
-	}
-
-	/**
-	 * Load expedients RDTO.
-	 *
-	 * @param dadesExpedientRDTO
-	 *            the dades expedient RDTO
-	 * @param idExpedient
-	 *            the id expedient
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	private void loadExpedientsRDTO(DadesExpedientRDTO dadesExpedientRDTO, BigDecimal idExpedient) throws GPAServeisServiceException {
-		ExpedientsRDTO expedientsRDTO = expedientsService.consultarDadesExpedient(idExpedient);
-		dadesExpedientRDTO.setExpedientsRDTO(expedientsRDTO);
 	}
 
 }

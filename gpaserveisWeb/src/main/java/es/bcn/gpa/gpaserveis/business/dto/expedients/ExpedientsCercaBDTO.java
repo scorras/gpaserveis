@@ -17,8 +17,8 @@ public class ExpedientsCercaBDTO {
 	/** The codi. */
 	private String codi;
 
-	/** The sollicitant. */
-	private String sollicitant;
+	/** The nif sollicitant. */
+	private String nifSollicitant;
 
 	/** The data presentacio des. */
 	private DateTime dataPresentacioDes;

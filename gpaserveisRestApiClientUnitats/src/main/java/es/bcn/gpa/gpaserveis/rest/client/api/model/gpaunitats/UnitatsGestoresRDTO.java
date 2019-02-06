@@ -25,13 +25,16 @@ import org.joda.time.DateTime;
 /**
  * UnitatsGestoresRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:54:42.329+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:52:55.937+01:00")
 public class UnitatsGestoresRDTO {
   @JsonProperty("dataCreacio")
   private DateTime dataCreacio = null;
 
   @JsonProperty("dataModificacio")
   private DateTime dataModificacio = null;
+
+  @JsonProperty("descUnitatOrganigrama")
+  private String descUnitatOrganigrama = null;
 
   @JsonProperty("descripcio")
   private String descripcio = null;
@@ -41,6 +44,9 @@ public class UnitatsGestoresRDTO {
 
   @JsonProperty("nom")
   private String nom = null;
+
+  @JsonProperty("unitatOrganigrama")
+  private BigDecimal unitatOrganigrama = null;
 
   @JsonProperty("vigent")
   private Integer vigent = null;
@@ -79,6 +85,24 @@ public class UnitatsGestoresRDTO {
 
   public void setDataModificacio(DateTime dataModificacio) {
     this.dataModificacio = dataModificacio;
+  }
+
+  public UnitatsGestoresRDTO descUnitatOrganigrama(String descUnitatOrganigrama) {
+    this.descUnitatOrganigrama = descUnitatOrganigrama;
+    return this;
+  }
+
+   /**
+   * Get descUnitatOrganigrama
+   * @return descUnitatOrganigrama
+  **/
+  @ApiModelProperty(value = "")
+  public String getDescUnitatOrganigrama() {
+    return descUnitatOrganigrama;
+  }
+
+  public void setDescUnitatOrganigrama(String descUnitatOrganigrama) {
+    this.descUnitatOrganigrama = descUnitatOrganigrama;
   }
 
   public UnitatsGestoresRDTO descripcio(String descripcio) {
@@ -135,6 +159,24 @@ public class UnitatsGestoresRDTO {
     this.nom = nom;
   }
 
+  public UnitatsGestoresRDTO unitatOrganigrama(BigDecimal unitatOrganigrama) {
+    this.unitatOrganigrama = unitatOrganigrama;
+    return this;
+  }
+
+   /**
+   * Get unitatOrganigrama
+   * @return unitatOrganigrama
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getUnitatOrganigrama() {
+    return unitatOrganigrama;
+  }
+
+  public void setUnitatOrganigrama(BigDecimal unitatOrganigrama) {
+    this.unitatOrganigrama = unitatOrganigrama;
+  }
+
   public UnitatsGestoresRDTO vigent(Integer vigent) {
     this.vigent = vigent;
     return this;
@@ -165,15 +207,17 @@ public class UnitatsGestoresRDTO {
     UnitatsGestoresRDTO unitatsGestoresRDTO = (UnitatsGestoresRDTO) o;
     return Objects.equals(this.dataCreacio, unitatsGestoresRDTO.dataCreacio) &&
         Objects.equals(this.dataModificacio, unitatsGestoresRDTO.dataModificacio) &&
+        Objects.equals(this.descUnitatOrganigrama, unitatsGestoresRDTO.descUnitatOrganigrama) &&
         Objects.equals(this.descripcio, unitatsGestoresRDTO.descripcio) &&
         Objects.equals(this.id, unitatsGestoresRDTO.id) &&
         Objects.equals(this.nom, unitatsGestoresRDTO.nom) &&
+        Objects.equals(this.unitatOrganigrama, unitatsGestoresRDTO.unitatOrganigrama) &&
         Objects.equals(this.vigent, unitatsGestoresRDTO.vigent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dataCreacio, dataModificacio, descripcio, id, nom, vigent);
+    return Objects.hash(dataCreacio, dataModificacio, descUnitatOrganigrama, descripcio, id, nom, unitatOrganigrama, vigent);
   }
 
 
@@ -184,9 +228,11 @@ public class UnitatsGestoresRDTO {
     
     sb.append("    dataCreacio: ").append(toIndentedString(dataCreacio)).append("\n");
     sb.append("    dataModificacio: ").append(toIndentedString(dataModificacio)).append("\n");
+    sb.append("    descUnitatOrganigrama: ").append(toIndentedString(descUnitatOrganigrama)).append("\n");
     sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    nom: ").append(toIndentedString(nom)).append("\n");
+    sb.append("    unitatOrganigrama: ").append(toIndentedString(unitatOrganigrama)).append("\n");
     sb.append("    vigent: ").append(toIndentedString(vigent)).append("\n");
     sb.append("}");
     return sb.toString();

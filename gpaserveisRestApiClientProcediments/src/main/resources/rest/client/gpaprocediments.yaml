@@ -448,6 +448,30 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /procediments/catalog/relacioProcediments:
+    get:
+      tags:
+      - "RelacioProcediments"
+      summary: "Returns all the Relacio Procediments"
+      operationId: "getRelacioProcedimentsUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/RelacioProcedimentsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /procediments/catalog/tipusCamps:
     get:
       tags:
@@ -566,8 +590,104 @@ paths:
     post:
       tags:
       - "Comentaris"
-      summary: "Save the provided comment"
-      operationId: "saveComentarisUsingPOST"
+      summary: "Create the provided comment"
+      operationId: "createComentarisUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - in: "body"
+        name: "comentarisRDTO"
+        description: "comentarisRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/ComentarisRDTO"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfComentarisRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+    put:
+      tags:
+      - "Comentaris"
+      summary: "Update the provided comment"
+      operationId: "updateComentarisUsingPUT"
       consumes:
       - "application/json"
       produces:
@@ -1133,6 +1253,73 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /procediments/getUgsByIdProcediment/{idProcediment}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns UGR and UGOs from procediment"
+      operationId: "getUgsByIdProcedimentUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idProcediment"
+        in: "path"
+        description: "idProcediment"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UnitatsGestoresRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/historic/insert:
+    post:
+      tags:
+      - "Procediments"
+      summary: "Inserts new historic"
+      operationId: "registrarHistoricTramitUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "historicsRDTO"
+        description: "historicsRDTO"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/HistoricsRDTO"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              type: "number"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /procediments/historic/{id}:
     get:
       tags:
@@ -2305,6 +2492,9 @@ definitions:
   Comentaris:
     type: "object"
     properties:
+      darreraModificacio:
+        type: "string"
+        format: "date-time"
       dataCreacio:
         type: "string"
         format: "date-time"
@@ -2318,12 +2508,17 @@ definitions:
         type: "number"
       titol:
         type: "string"
+      ultimaModificacio:
+        type: "number"
       usuari:
         type: "number"
     title: "Comentaris"
   ComentarisRDTO:
     type: "object"
     properties:
+      darreraModificacio:
+        type: "string"
+        format: "date-time"
       dataCreacio:
         type: "string"
         format: "date-time"
@@ -2337,6 +2532,8 @@ definitions:
         type: "number"
       titol:
         type: "string"
+      ultimaModificacio:
+        type: "number"
       usuari:
         type: "number"
     title: "ComentarisRDTO"
@@ -2478,6 +2675,8 @@ definitions:
         type: "string"
       detallValidacio:
         type: "string"
+      estatIdext:
+        type: "number"
       grup:
         type: "number"
       id:
@@ -2500,6 +2699,8 @@ definitions:
       titol:
         type: "string"
       titolGrup:
+        type: "string"
+      urlOrigen:
         type: "string"
       validacio:
         type: "integer"
@@ -2532,6 +2733,8 @@ definitions:
         type: "string"
       detallValidacio:
         type: "string"
+      estatIdext:
+        type: "number"
       grup:
         type: "number"
       id:
@@ -2554,6 +2757,8 @@ definitions:
       titol:
         type: "string"
       titolGrup:
+        type: "string"
+      urlOrigen:
         type: "string"
       validacio:
         type: "integer"
@@ -2841,6 +3046,8 @@ definitions:
       nivellAutenticacio:
         type: "integer"
         format: "int32"
+      nivellSignatura:
+        type: "number"
       nomDocument:
         type: "string"
       normativaReferencia:
@@ -2879,8 +3086,6 @@ definitions:
       portalTramits:
         type: "integer"
         format: "int32"
-      quadreClassificacio:
-        type: "string"
       quiosc:
         type: "integer"
         format: "int32"
@@ -2899,6 +3104,9 @@ definitions:
       tecnicConeixedorProc:
         type: "string"
       terminiMaxim:
+        type: "integer"
+        format: "int32"
+      tramitacioAmbGpa:
         type: "integer"
         format: "int32"
       tramitsAudiencia:
@@ -3126,6 +3334,8 @@ definitions:
         type: "string"
       descripcioEstat:
         type: "string"
+      descripcioRelacio:
+        type: "string"
       estatProcediment:
         type: "number"
       estatsProcediment:
@@ -3236,6 +3446,8 @@ definitions:
         type: "string"
       descripcioEstat:
         type: "string"
+      descripcioRelacio:
+        type: "string"
       estatProcediment:
         type: "number"
       estatsProcediment:
@@ -3294,7 +3506,11 @@ definitions:
   ProcedimentsRelacionats:
     type: "object"
     properties:
+      altresEspecificar:
+        type: "string"
       procediment:
+        type: "number"
+      relacio:
         type: "number"
       relacionat:
         type: "number"
@@ -3302,7 +3518,11 @@ definitions:
   ProcedimentsRelacionatsRDTO:
     type: "object"
     properties:
+      altresEspecificar:
+        type: "string"
       procediment:
+        type: "number"
+      relacio:
         type: "number"
       relacionat:
         type: "number"
@@ -3339,6 +3559,14 @@ definitions:
       id:
         type: "number"
     title: "RecursosRDTO"
+  RelacioProcedimentsRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "RelacioProcedimentsRDTO"
   RequerimentsOperatius:
     type: "object"
     properties:
@@ -3474,3 +3702,16 @@ definitions:
       id:
         type: "number"
     title: "TransicionsEstatsRDTO"
+  UnitatsGestoresRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+      nom:
+        type: "string"
+      vigent:
+        type: "integer"
+        format: "int32"
+    title: "UnitatsGestoresRDTO"

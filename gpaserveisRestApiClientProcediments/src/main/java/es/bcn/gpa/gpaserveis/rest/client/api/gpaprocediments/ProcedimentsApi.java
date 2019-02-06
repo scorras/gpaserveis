@@ -10,6 +10,7 @@ import javax.ws.rs.core.GenericType;
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.BloquejosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.InfoDocProcedimentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfComentarisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfHistoricsRDTO;
@@ -19,13 +20,14 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsF
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.RestClientResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.UnitatsGestoresRDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:54:22.854+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:52:21.804+01:00")
 public class ProcedimentsApi {
   private ApiClient apiClient;
 
@@ -691,6 +693,48 @@ public class ProcedimentsApi {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
+   * Returns UGR and UGOs from procediment
+   * 
+   * @param idProcediment idProcediment (required)
+   * @return List&lt;UnitatsGestoresRDTO&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<UnitatsGestoresRDTO> getUgsByIdProcedimentUsingGET(BigDecimal idProcediment) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'idProcediment' is set
+    if (idProcediment == null) {
+      throw new ApiException(400, "Missing the required parameter 'idProcediment' when calling getUgsByIdProcedimentUsingGET");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/procediments/getUgsByIdProcediment/{idProcediment}"
+      .replaceAll("\\{" + "idProcediment" + "\\}", apiClient.escapeString(idProcediment.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<UnitatsGestoresRDTO>> localVarReturnType = new GenericType<List<UnitatsGestoresRDTO>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
    * Inserts the provided procediment
    * 
    * @param procedimentRDTO procedimentRDTO (required)
@@ -821,6 +865,47 @@ public class ProcedimentsApi {
 
     GenericType<List<BigDecimal>> localVarReturnType = new GenericType<List<BigDecimal>>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Inserts new historic
+   * 
+   * @param historicsRDTO historicsRDTO (required)
+   * @return List&lt;BigDecimal&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<BigDecimal> registrarHistoricTramitUsingPOST(List<HistoricsRDTO> historicsRDTO) throws ApiException {
+    Object localVarPostBody = historicsRDTO;
+    
+    // verify the required parameter 'historicsRDTO' is set
+    if (historicsRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'historicsRDTO' when calling registrarHistoricTramitUsingPOST");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/procediments/historic/insert";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<BigDecimal>> localVarReturnType = new GenericType<List<BigDecimal>>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
    * Returns all procedures that meet the search criteria

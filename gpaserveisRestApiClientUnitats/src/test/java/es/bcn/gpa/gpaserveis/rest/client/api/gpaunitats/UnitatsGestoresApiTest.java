@@ -89,6 +89,7 @@ public class UnitatsGestoresApiTest extends ParentTest {
 		Integer currentPageNumber = null;
 		DateTime dataCreacio = null;
 		DateTime dataModificacio = null;
+		String descUnitatOrganigrama = null;
 		String descripcio = null;
 		String dir = null;
 		BigDecimal id = null;
@@ -99,11 +100,12 @@ public class UnitatsGestoresApiTest extends ParentTest {
 		String sort = null;
 		Long totalElements = null;
 		Integer totalPages = null;
+		BigDecimal unitatOrganigrama = null;
 		Integer vigent = null;
 		PageDataOfUnitatsGestoresRDTO response = api.cercaUnitatsGestores(absoluteRowNumberOfFirstRowInCurrentPage,
 		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dataCreacio, dataModificacio, descripcio, dir, id, nextPageNumber, nom, pageSize,
-		        previousPageNumber, sort, totalElements, totalPages, vigent);
+		        currentPageIsLastPage, currentPageNumber, dataCreacio, dataModificacio, descUnitatOrganigrama, descripcio, dir, id,
+		        nextPageNumber, nom, pageSize, previousPageNumber, sort, totalElements, totalPages, unitatOrganigrama, vigent);
 
 		assertTrue(response != null);
 	}

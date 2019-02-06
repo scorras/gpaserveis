@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.InternalToDataHoraConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToDataHoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToEstatConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToProcedimentConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToSollicitantConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToPersonaConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToProcedimentCercaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToTramitadorConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesExpedientRDTO;
@@ -23,8 +23,8 @@ public class DadesExpedientRDTOToExpedientsCercaRDTOMapper extends PropertyMap<D
 	/** The internal to data hora converter. */
 	private InternalToDataHoraConverter internalToDataHoraConverter;
 
-	/** The internal to sollicitant converter. */
-	private InternalToSollicitantConverter internalToSollicitantConverter;
+	/** The internal to persona converter. */
+	private InternalToPersonaConverter internalToPersonaConverter;
 
 	/** The internal to estat converter. */
 	private InternalToEstatConverter internalToEstatConverter;
@@ -36,7 +36,7 @@ public class DadesExpedientRDTOToExpedientsCercaRDTOMapper extends PropertyMap<D
 	private InternalToUnitatGestoraConverter internalToUnitatGestoraConverter;
 
 	/** The internal to procediment converter. */
-	private InternalToProcedimentConverter internalToProcedimentConverter;
+	private InternalToProcedimentCercaConverter internalToProcedimentCercaConverter;
 
 	/**
 	 * Instantiates a new dades expedient RDTO to expedients cerca RDTO mapper.
@@ -51,23 +51,23 @@ public class DadesExpedientRDTOToExpedientsCercaRDTOMapper extends PropertyMap<D
 	 *            the internal to tramitador converter
 	 * @param internalToUnitatGestoraConverter
 	 *            the internal to unitat gestora converter
-	 * @param internalToProcedimentConverter
-	 *            the internal to procediment converter
+	 * @param internalToProcedimentCercaConverter
+	 *            the internal to procediment cerca converter
 	 */
 	@Autowired
 	public DadesExpedientRDTOToExpedientsCercaRDTOMapper(
 	        @Qualifier("internalToDataHoraConverter") InternalToDataHoraConverter internalToDataHoraConverter,
-	        @Qualifier("expedientInternalToSollicitantConverter") InternalToSollicitantConverter internalToSollicitantConverter,
+	        @Qualifier("expedientInternalToPersonaConverter") InternalToPersonaConverter internalToPersonaConverter,
 	        @Qualifier("expedientInternalToEstatConverter") InternalToEstatConverter internalToEstatConverter,
 	        @Qualifier("expedientInternalToTramitadorConverter") InternalToTramitadorConverter internalToTramitadorConverter,
 	        @Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
-	        @Qualifier("expedientInternalToProcedimentConverter") InternalToProcedimentConverter internalToProcedimentConverter) {
+	        @Qualifier("expedientInternalToProcedimentCercaConverter") InternalToProcedimentCercaConverter internalToProcedimentCercaConverter) {
 		this.internalToDataHoraConverter = internalToDataHoraConverter;
-		this.internalToSollicitantConverter = internalToSollicitantConverter;
+		this.internalToPersonaConverter = internalToPersonaConverter;
 		this.internalToEstatConverter = internalToEstatConverter;
 		this.internalToTramitadorConverter = internalToTramitadorConverter;
 		this.internalToUnitatGestoraConverter = internalToUnitatGestoraConverter;
-		this.internalToProcedimentConverter = internalToProcedimentConverter;
+		this.internalToProcedimentCercaConverter = internalToProcedimentCercaConverter;
 	}
 
 	/**
@@ -84,12 +84,12 @@ public class DadesExpedientRDTOToExpedientsCercaRDTOMapper extends PropertyMap<D
 		map().setCodi(source.getExpedientsRDTO().getCodi());
 		using(internalToDataHoraConverter).map(source.getExpedientsRDTO().getDataPresentacio()).setDataPresentacio(null);
 		using(internalToDataHoraConverter).map(source.getExpedientsRDTO().getDarreraModificacio()).setDataModificacio(null);
-		using(internalToSollicitantConverter).map(source.getExpedientsRDTO().getSollicitant()).setSollicitant(null);
-		using(internalToEstatConverter).map(source.getExpedientsRDTO().getEstatActual()).setEstat(null);
+		using(internalToPersonaConverter).map(source.getExpedientsRDTO().getSollicitantPrincipal().getPersones()).setSollicitant(null);
+		using(internalToEstatConverter).map(source.getExpedientsRDTO().getIdEstat()).setEstat(null);
 		using(internalToTramitadorConverter).map(source.getExpedientsRDTO().getTramitador()).setTramitador(null);
 		map().setAplicacioNegoci(source.getExpedientsRDTO().getAplicacioNegoci());
 		using(internalToUnitatGestoraConverter).map(source.getUnitatsGestoresRDTO()).setUnitatGestora(null);
-		using(internalToProcedimentConverter).map(source.getExpedientsRDTO().getNomProcediment()).setProcediment(null);
+		using(internalToProcedimentCercaConverter).map(source.getExpedientsRDTO()).setProcediment(null);
 	}
 
 }

@@ -7,7 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
@@ -19,7 +22,7 @@ import net.opentrends.openframe.services.core.config.CoreServiceDefaultConfigura
 @Import({ ConfigurationServiceDefaultConfiguration.class, CoreServiceDefaultConfiguration.class })
 @ComponentScan(basePackages = "es.bcn.gpa.gpaserveis.business")
 @Lazy(true)
-@EntornPropertySource(value = { "classpath:/app/config/rest-clients.properties" })
+@EntornPropertySource(value = { "classpath:/app/config/rest-clients.properties", "classpath:/app/config/hystrix.properties" })
 public class BusinessConfig {
 
 	@Value("${procediments.service.url}")
@@ -62,12 +65,39 @@ public class BusinessConfig {
 	}
 
 	@Bean
-	public Expedients_Api clientApiExpedients() {
+	public Expedients_Api clientApiExpedients_() {
 		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient();
 		apiClient.setBasePath(URL_SERVICES_EXPEDIENTS);
-		Expedients_Api expedientsApi = new Expedients_Api(apiClient);
+		Expedients_Api expedients_Api = new Expedients_Api(apiClient);
+
+		return expedients_Api;
+	}
+
+	@Bean
+	public ExpedientsApi clientApiExpedients() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_EXPEDIENTS);
+		ExpedientsApi expedientsApi = new ExpedientsApi(apiClient);
 
 		return expedientsApi;
+	}
+
+	@Bean
+	public PersonesInteressades_Api clientApiPersonesInteressades_() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_EXPEDIENTS);
+		PersonesInteressades_Api personesInteressades_Api = new PersonesInteressades_Api(apiClient);
+
+		return personesInteressades_Api;
+	}
+
+	@Bean
+	public Persones_Api clientApiPersones_() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_EXPEDIENTS);
+		Persones_Api persones_Api = new Persones_Api(apiClient);
+
+		return persones_Api;
 	}
 
 }

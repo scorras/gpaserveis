@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Throwable
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:54:22.854+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:52:21.804+01:00")
 public class Throwable {
   @JsonProperty("cause")
   private Throwable cause = null;

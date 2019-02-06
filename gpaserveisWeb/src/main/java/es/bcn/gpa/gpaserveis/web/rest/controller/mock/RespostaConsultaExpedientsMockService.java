@@ -46,18 +46,23 @@ public class RespostaConsultaExpedientsMockService {
 		expedient.setRegistre(RegistreRDTOFactory.create("0801930008-1-2018-0002094-1", "01/10/2018 14:00:02", PersonesRDTOFactory
 		        .create(null, "FISICA", "Nom", "Cognom 1", "Cognom 2", DocumentIdentitatRDTOFactory.create("NIF", "00000000T", "ES"))));
 
-		expedient.setSolicitant(PersonesRDTOFactory.create(null, "FISICA", "Nom", "Cognom 1", "Cognom 2",
+		expedient.setSollicitant(PersonesRDTOFactory.create(null, "FISICA", "Nom", "Cognom 1", "Cognom 2",
 		        DocumentIdentitatRDTOFactory.create("NIF", "00000000T", "ES")));
 
 		expedient.setRepresentant(PersonesRDTOFactory.create(null, "FISICA", "Nom", "Cognom 1", "Cognom 2",
 		        DocumentIdentitatRDTOFactory.create("NIF", "00000000T", "ES")));
 
-		expedient.setDocuments(Arrays.asList(DocumentsExpedientsRDTOFactory.create(new BigDecimal("1"), "SOLC", "FORM_DOC_SOLC.pdf"),
-		        DocumentsExpedientsRDTOFactory.create(new BigDecimal("2"), "NIF", "FORM_DOC_NIF.pdf")));
-
-		expedient.setAtributs(Arrays.asList(DadesAtributsExpedientsRDTOFactory.create(new BigDecimal("1"), "ATTR1", "Valor Atribut 1"),
-		        DadesAtributsExpedientsRDTOFactory.create(new BigDecimal("2"), "ATTR2", "Valor Atribut 2"),
-		        DadesAtributsExpedientsRDTOFactory.create(new BigDecimal("3"), "ATTR3", "Valor Atribut 3")));
+		// expedient.setDocuments(Arrays.asList(DocumentsExpedientsRDTOFactory.create(new
+		// BigDecimal("1"), "SOLC", "FORM_DOC_SOLC.pdf"),
+		// DocumentsExpedientsRDTOFactory.create(new BigDecimal("2"), "NIF",
+		// "FORM_DOC_NIF.pdf")));
+		//
+		// expedient.setAtributs(Arrays.asList(DadesAtributsExpedientsRDTOFactory.create(new
+		// BigDecimal("1"), "ATTR1", "Valor Atribut 1"),
+		// DadesAtributsExpedientsRDTOFactory.create(new BigDecimal("2"),
+		// "ATTR2", "Valor Atribut 2"),
+		// DadesAtributsExpedientsRDTOFactory.create(new BigDecimal("3"),
+		// "ATTR3", "Valor Atribut 3")));
 
 		resposta.setExpedient(expedient);
 		return resposta;
@@ -148,7 +153,7 @@ public class RespostaConsultaExpedientsMockService {
 
 			RegistreRDTO registreRDTO = new RegistreRDTO();
 
-			registreRDTO.setCodi(codi);
+			registreRDTO.setNumRegistre(codi);
 			registreRDTO.setDataRegistre(dataRegistre);
 			registreRDTO.setPersona(persona);
 

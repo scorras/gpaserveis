@@ -34,7 +34,7 @@ import org.joda.time.DateTime;
 /**
  * Identificacions
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:54:22.854+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:52:21.804+01:00")
 public class Identificacions {
   @JsonProperty("accesMobil")
   private String accesMobil = null;
@@ -156,6 +156,9 @@ public class Identificacions {
   @JsonProperty("nivellAutenticacio")
   private Integer nivellAutenticacio = null;
 
+  @JsonProperty("nivellSignatura")
+  private BigDecimal nivellSignatura = null;
+
   @JsonProperty("nomDocument")
   private String nomDocument = null;
 
@@ -195,9 +198,6 @@ public class Identificacions {
   @JsonProperty("portalTramits")
   private Integer portalTramits = null;
 
-  @JsonProperty("quadreClassificacio")
-  private String quadreClassificacio = null;
-
   @JsonProperty("quiosc")
   private Integer quiosc = null;
 
@@ -218,6 +218,9 @@ public class Identificacions {
 
   @JsonProperty("terminiMaxim")
   private Integer terminiMaxim = null;
+
+  @JsonProperty("tramitacioAmbGpa")
+  private Integer tramitacioAmbGpa = null;
 
   @JsonProperty("tramitsAudiencia")
   private Integer tramitsAudiencia = null;
@@ -980,6 +983,24 @@ public class Identificacions {
     this.nivellAutenticacio = nivellAutenticacio;
   }
 
+  public Identificacions nivellSignatura(BigDecimal nivellSignatura) {
+    this.nivellSignatura = nivellSignatura;
+    return this;
+  }
+
+   /**
+   * Get nivellSignatura
+   * @return nivellSignatura
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getNivellSignatura() {
+    return nivellSignatura;
+  }
+
+  public void setNivellSignatura(BigDecimal nivellSignatura) {
+    this.nivellSignatura = nivellSignatura;
+  }
+
   public Identificacions nomDocument(String nomDocument) {
     this.nomDocument = nomDocument;
     return this;
@@ -1230,24 +1251,6 @@ public class Identificacions {
     this.portalTramits = portalTramits;
   }
 
-  public Identificacions quadreClassificacio(String quadreClassificacio) {
-    this.quadreClassificacio = quadreClassificacio;
-    return this;
-  }
-
-   /**
-   * Get quadreClassificacio
-   * @return quadreClassificacio
-  **/
-  @ApiModelProperty(value = "")
-  public String getQuadreClassificacio() {
-    return quadreClassificacio;
-  }
-
-  public void setQuadreClassificacio(String quadreClassificacio) {
-    this.quadreClassificacio = quadreClassificacio;
-  }
-
   public Identificacions quiosc(Integer quiosc) {
     this.quiosc = quiosc;
     return this;
@@ -1382,6 +1385,24 @@ public class Identificacions {
     this.terminiMaxim = terminiMaxim;
   }
 
+  public Identificacions tramitacioAmbGpa(Integer tramitacioAmbGpa) {
+    this.tramitacioAmbGpa = tramitacioAmbGpa;
+    return this;
+  }
+
+   /**
+   * Get tramitacioAmbGpa
+   * @return tramitacioAmbGpa
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getTramitacioAmbGpa() {
+    return tramitacioAmbGpa;
+  }
+
+  public void setTramitacioAmbGpa(Integer tramitacioAmbGpa) {
+    this.tramitacioAmbGpa = tramitacioAmbGpa;
+  }
+
   public Identificacions tramitsAudiencia(Integer tramitsAudiencia) {
     this.tramitsAudiencia = tramitsAudiencia;
     return this;
@@ -1486,6 +1507,7 @@ public class Identificacions {
         Objects.equals(this.lletratConeixedorProc, identificacions.lletratConeixedorProc) &&
         Objects.equals(this.mobil, identificacions.mobil) &&
         Objects.equals(this.nivellAutenticacio, identificacions.nivellAutenticacio) &&
+        Objects.equals(this.nivellSignatura, identificacions.nivellSignatura) &&
         Objects.equals(this.nomDocument, identificacions.nomDocument) &&
         Objects.equals(this.normativaReferencia, identificacions.normativaReferencia) &&
         Objects.equals(this.normesList, identificacions.normesList) &&
@@ -1499,7 +1521,6 @@ public class Identificacions {
         Objects.equals(this.perCanalGeneralista, identificacions.perCanalGeneralista) &&
         Objects.equals(this.periodicitatTermini, identificacions.periodicitatTermini) &&
         Objects.equals(this.portalTramits, identificacions.portalTramits) &&
-        Objects.equals(this.quadreClassificacio, identificacions.quadreClassificacio) &&
         Objects.equals(this.quiosc, identificacions.quiosc) &&
         Objects.equals(this.relacioAmbExpedient, identificacions.relacioAmbExpedient) &&
         Objects.equals(this.responActuacions, identificacions.responActuacions) &&
@@ -1507,6 +1528,7 @@ public class Identificacions {
         Objects.equals(this.silenciAdministratiu, identificacions.silenciAdministratiu) &&
         Objects.equals(this.tecnicConeixedorProc, identificacions.tecnicConeixedorProc) &&
         Objects.equals(this.terminiMaxim, identificacions.terminiMaxim) &&
+        Objects.equals(this.tramitacioAmbGpa, identificacions.tramitacioAmbGpa) &&
         Objects.equals(this.tramitsAudiencia, identificacions.tramitsAudiencia) &&
         Objects.equals(this.vigenciaFi, identificacions.vigenciaFi) &&
         Objects.equals(this.vigenciaInici, identificacions.vigenciaInici);
@@ -1514,7 +1536,7 @@ public class Identificacions {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accesMobil, accesQuiosc, adrecaAltraWeb, adrecaPortalTramits, afectaCollectius, altraClassificacioFamilia, altraWeb, altresCompetencies, altresMotiusIniciacio, condCreacioExpedient, condFinalitzacioExpedient, condRelacioExpedient, conferimentsVista, crearExpedient, descripcioActivador, descripcioDestinatari, detallCanalEspecific, document, especAfectaCollectius, especPeriodicitat, especRecursInterposables, especSilenciAdm, especTerminiMaxim, finalitzaViaAdminisitrat, finalitzarExpedient, finsAGestElect, fitxersList, gestioElectronica, id, identificacionsCompetenciesList, identificacionsFamiliesList, identificacionsRecursosList, informacioCiutada, informacioPublica, informacioTramitador, informacioVeinal, intern, lletratConeixedorProc, mobil, nivellAutenticacio, nomDocument, normativaReferencia, normesList, numConferimentsVista, numInformacioPublica, numInformacioVeinal, numTramitsAudiencia, ordenancesList, organResolutori, perCanalEspecific, perCanalGeneralista, periodicitatTermini, portalTramits, quadreClassificacio, quiosc, relacioAmbExpedient, responActuacions, serveisList, silenciAdministratiu, tecnicConeixedorProc, terminiMaxim, tramitsAudiencia, vigenciaFi, vigenciaInici);
+    return Objects.hash(accesMobil, accesQuiosc, adrecaAltraWeb, adrecaPortalTramits, afectaCollectius, altraClassificacioFamilia, altraWeb, altresCompetencies, altresMotiusIniciacio, condCreacioExpedient, condFinalitzacioExpedient, condRelacioExpedient, conferimentsVista, crearExpedient, descripcioActivador, descripcioDestinatari, detallCanalEspecific, document, especAfectaCollectius, especPeriodicitat, especRecursInterposables, especSilenciAdm, especTerminiMaxim, finalitzaViaAdminisitrat, finalitzarExpedient, finsAGestElect, fitxersList, gestioElectronica, id, identificacionsCompetenciesList, identificacionsFamiliesList, identificacionsRecursosList, informacioCiutada, informacioPublica, informacioTramitador, informacioVeinal, intern, lletratConeixedorProc, mobil, nivellAutenticacio, nivellSignatura, nomDocument, normativaReferencia, normesList, numConferimentsVista, numInformacioPublica, numInformacioVeinal, numTramitsAudiencia, ordenancesList, organResolutori, perCanalEspecific, perCanalGeneralista, periodicitatTermini, portalTramits, quiosc, relacioAmbExpedient, responActuacions, serveisList, silenciAdministratiu, tecnicConeixedorProc, terminiMaxim, tramitacioAmbGpa, tramitsAudiencia, vigenciaFi, vigenciaInici);
   }
 
 
@@ -1563,6 +1585,7 @@ public class Identificacions {
     sb.append("    lletratConeixedorProc: ").append(toIndentedString(lletratConeixedorProc)).append("\n");
     sb.append("    mobil: ").append(toIndentedString(mobil)).append("\n");
     sb.append("    nivellAutenticacio: ").append(toIndentedString(nivellAutenticacio)).append("\n");
+    sb.append("    nivellSignatura: ").append(toIndentedString(nivellSignatura)).append("\n");
     sb.append("    nomDocument: ").append(toIndentedString(nomDocument)).append("\n");
     sb.append("    normativaReferencia: ").append(toIndentedString(normativaReferencia)).append("\n");
     sb.append("    normesList: ").append(toIndentedString(normesList)).append("\n");
@@ -1576,7 +1599,6 @@ public class Identificacions {
     sb.append("    perCanalGeneralista: ").append(toIndentedString(perCanalGeneralista)).append("\n");
     sb.append("    periodicitatTermini: ").append(toIndentedString(periodicitatTermini)).append("\n");
     sb.append("    portalTramits: ").append(toIndentedString(portalTramits)).append("\n");
-    sb.append("    quadreClassificacio: ").append(toIndentedString(quadreClassificacio)).append("\n");
     sb.append("    quiosc: ").append(toIndentedString(quiosc)).append("\n");
     sb.append("    relacioAmbExpedient: ").append(toIndentedString(relacioAmbExpedient)).append("\n");
     sb.append("    responActuacions: ").append(toIndentedString(responActuacions)).append("\n");
@@ -1584,6 +1606,7 @@ public class Identificacions {
     sb.append("    silenciAdministratiu: ").append(toIndentedString(silenciAdministratiu)).append("\n");
     sb.append("    tecnicConeixedorProc: ").append(toIndentedString(tecnicConeixedorProc)).append("\n");
     sb.append("    terminiMaxim: ").append(toIndentedString(terminiMaxim)).append("\n");
+    sb.append("    tramitacioAmbGpa: ").append(toIndentedString(tramitacioAmbGpa)).append("\n");
     sb.append("    tramitsAudiencia: ").append(toIndentedString(tramitsAudiencia)).append("\n");
     sb.append("    vigenciaFi: ").append(toIndentedString(vigenciaFi)).append("\n");
     sb.append("    vigenciaInici: ").append(toIndentedString(vigenciaInici)).append("\n");

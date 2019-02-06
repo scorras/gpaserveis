@@ -13,6 +13,8 @@ basePath: "/services/gpaexpedients/rest"
 tags:
 - name: "acumulacio-rest-controller"
   description: "Acumulacio Rest Controller"
+- name: "avisos-rest-controller"
+  description: "Avisos Rest Controller"
 - name: "catalog-rest-controller"
   description: "Catalog Rest Controller"
 - name: "comentaris-rest-controller"
@@ -357,6 +359,191 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/PageDataOfExpedientsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /avisos/crearAvis:
+    post:
+      tags:
+      - "Crear Avis Documentació Entrada Pendent Revisió"
+      summary: "Crear Avis"
+      operationId: "crearAvisUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "avisosRDTO"
+        description: "avisosRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/AvisosRDTO"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /avisos/crearAvisDocEntradaPendentRevisio:
+    post:
+      tags:
+      - "Crear Avis Documentació Entrada Pendent Revisió"
+      summary: "Crear Avis Documentació Entrada Pendent Revisió"
+      operationId: "crearAvisDocEntradaPendentRevisioUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "crearAvisDocEntradaPendentRevisioRDTO"
+        description: "crearAvisDocEntradaPendentRevisioRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/CrearAvisDocEntradaPendentRevisio"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /avisos/esborrarAvisDocEntradaPendentRevisio:
+    post:
+      tags:
+      - "Esborrar Avis Documentació Entrada Pendent Revisió"
+      summary: "Esborrar Avis Documentació Entrada Pendent Revisió"
+      operationId: "esborrarAvisDocEntradaPendentRevisioUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "esborrarAvisDocEntradaPendentRevisioRDTO"
+        description: "esborrarAvisDocEntradaPendentRevisioRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/EsborrarAvisDocEntradaPendentRevisio"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /avisos/{id}:
+    get:
+      tags:
+      - "Avisos"
+      summary: "Returns all avisos "
+      operationId: "obtenirAvisosPorIdExpedientUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfAvisosRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -812,6 +999,30 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/catalog/tipusAvisos:
+    get:
+      tags:
+      - "TipusAvisos"
+      summary: "Returns all the TipusAvisos"
+      operationId: "obtenirTipusAvisosUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/TipusAvisosRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /expedients/catalog/tipusDocumentIdentitat:
     get:
       tags:
@@ -899,6 +1110,30 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/TipusRegistreAssentamentRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /expedients/catalog/tipusSexe:
+    get:
+      tags:
+      - "TipusSexe"
+      summary: "Returns all the TipusSexe"
+      operationId: "obtenirTipusSexeUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/TipusSexeRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -1381,7 +1616,7 @@ paths:
       - "Expedients"
       summary: "Returns all the historic entries for the procedure that meet the search\
         \ criteria"
-      operationId: "searchHistoricsUsingGET"
+      operationId: "cercaHistoricsExpedient"
       produces:
       - "*/*"
       parameters:
@@ -1730,7 +1965,7 @@ paths:
       tags:
       - "Persones "
       summary: "Returns all the expedients that meet the search criteria"
-      operationId: "getAltresPersonesImplicadesByIdSolicitudUsingGET"
+      operationId: "cercaAltresPersonesImplicadesExpedient"
       produces:
       - "*/*"
       parameters:
@@ -2018,7 +2253,7 @@ paths:
       tags:
       - "Persones Interessades "
       summary: "Returns all the expedients that meet the search criteria"
-      operationId: "getPersonesInteresadesByIdSolicitudUsingGET"
+      operationId: "cercaPersonesInteresadesExpedient"
       produces:
       - "*/*"
       parameters:
@@ -2187,6 +2422,14 @@ paths:
         description: "Aplicació de negoci"
         required: false
         type: "string"
+      - name: "avisList"
+        in: "query"
+        description: "Llista d'avisos de l'expedient"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
       - name: "codi"
         in: "query"
         description: "Codi de l'expedient"
@@ -2267,6 +2510,11 @@ paths:
         required: false
         type: "integer"
         format: "int32"
+      - name: "numeroDocument"
+        in: "query"
+        description: "Numero de document d'identificació del sol·licitant"
+        required: false
+        type: "string"
       - name: "pageSize"
         in: "query"
         required: false
@@ -2432,6 +2680,28 @@ definitions:
       idExpedientAcumulador:
         type: "number"
     title: "AcumularExpedientRDTO"
+  AvisosRDTO:
+    type: "object"
+    properties:
+      avis:
+        type: "string"
+      criticitat:
+        type: "number"
+      dataCreacio:
+        type: "string"
+        format: "date-time"
+      dataLimit:
+        type: "string"
+        format: "date-time"
+      descripcioAvis:
+        type: "string"
+      expedient:
+        type: "number"
+      id:
+        type: "number"
+      tipus:
+        type: "number"
+    title: "AvisosRDTO"
   CanviEstatRDTO:
     type: "object"
     properties:
@@ -2522,6 +2792,20 @@ definitions:
       usuari:
         type: "number"
     title: "ComentarisRDTO"
+  CrearAvisDocEntradaPendentRevisio:
+    type: "object"
+    properties:
+      criticitat:
+        type: "number"
+        description: "Criticitat de l'avís"
+      expedient:
+        type: "number"
+        description: "Identificador de l'expedient per al qual s'ha de crear l'aví\
+          s"
+      tipus:
+        type: "number"
+        description: "Tipus de l'avís"
+    title: "CrearAvisDocEntradaPendentRevisio"
   CriticitatAvisRDTO:
     type: "object"
     properties:
@@ -2603,8 +2887,12 @@ definitions:
         type: "string"
       pais:
         type: "string"
+      paisos:
+        $ref: "#/definitions/Paisos"
       tipus:
         type: "number"
+      tipusDocumentIdentitat:
+        $ref: "#/definitions/TipusDocumentIdentitat"
     title: "DocumentsIdentitat"
   DropdownItemBDTO:
     type: "object"
@@ -2622,6 +2910,20 @@ definitions:
       id:
         type: "number"
     title: "DropdownItemRDTO"
+  EsborrarAvisDocEntradaPendentRevisio:
+    type: "object"
+    properties:
+      criticitat:
+        type: "number"
+        description: "Criticitat de l'avís"
+      expedient:
+        type: "number"
+        description: "Identificador de l'expedient per al qual s'ha d'esborrar l'aví\
+          s"
+      tipus:
+        type: "number"
+        description: "Tipus de l'avís"
+    title: "EsborrarAvisDocEntradaPendentRevisio"
   Estats:
     type: "object"
     properties:
@@ -2657,6 +2959,8 @@ definitions:
       codi:
         type: "string"
       configuracioDocumentacioProc:
+        type: "number"
+      criticitatAvis:
         type: "number"
       darreraModificacio:
         type: "string"
@@ -2700,10 +3004,14 @@ definitions:
         type: "boolean"
       sollicitant:
         type: "string"
+      sollicitantPrincipal:
+        $ref: "#/definitions/PersonesSollicitud"
       sollicitud:
         type: "number"
       sollicituds:
         $ref: "#/definitions/Sollicituds"
+      tipusAvis:
+        type: "number"
       tramitador:
         type: "string"
       ultimaModificacio:
@@ -2770,6 +3078,18 @@ definitions:
       provincia:
         type: "string"
     title: "MunicipisRDTO"
+  PageDataOfAvisosRDTO:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/AvisosRDTO"
+      page:
+        $ref: "#/definitions/PaginationAttributes"
+      sortInfo:
+        $ref: "#/definitions/SortInfo"
+    title: "PageDataOfAvisosRDTO"
   PageDataOfComentarisRDTO:
     type: "object"
     properties:
@@ -2854,6 +3174,16 @@ definitions:
         type: "integer"
         format: "int32"
     title: "PaginationAttributes"
+  Paisos:
+    type: "object"
+    properties:
+      codiIne:
+        type: "string"
+      codiIso:
+        type: "string"
+      nom:
+        type: "string"
+    title: "Paisos"
   PaisosRDTO:
     type: "object"
     properties:
@@ -2925,6 +3255,8 @@ definitions:
         type: "string"
       provinciaEstranger:
         type: "string"
+      sexe:
+        type: "number"
       telefon:
         type: "string"
       tipusVia:
@@ -3079,6 +3411,24 @@ definitions:
       sort:
         type: "string"
     title: "SortInfo"
+  TipusAvisosRDTO:
+    type: "object"
+    properties:
+      avis:
+        type: "string"
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "TipusAvisosRDTO"
+  TipusDocumentIdentitat:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "TipusDocumentIdentitat"
   TipusDocumentIdentitatRDTO:
     type: "object"
     properties:
@@ -3111,6 +3461,14 @@ definitions:
       id:
         type: "number"
     title: "TipusRegistreAssentamentRDTO"
+  TipusSexeRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "TipusSexeRDTO"
   TipusViesRDTO:
     type: "object"
     properties:

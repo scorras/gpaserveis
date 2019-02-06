@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * DadesOperacionsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:54:22.854+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:52:21.804+01:00")
 public class DadesOperacionsRDTO {
   @JsonProperty("cercable")
   private Integer cercable = null;
@@ -54,6 +54,9 @@ public class DadesOperacionsRDTO {
 
   @JsonProperty("detallValidacio")
   private String detallValidacio = null;
+
+  @JsonProperty("estatIdext")
+  private BigDecimal estatIdext = null;
 
   @JsonProperty("grup")
   private BigDecimal grup = null;
@@ -81,6 +84,9 @@ public class DadesOperacionsRDTO {
 
   @JsonProperty("titolGrup")
   private String titolGrup = null;
+
+  @JsonProperty("urlOrigen")
+  private String urlOrigen = null;
 
   @JsonProperty("validacio")
   private Integer validacio = null;
@@ -246,6 +252,24 @@ public class DadesOperacionsRDTO {
 
   public void setDetallValidacio(String detallValidacio) {
     this.detallValidacio = detallValidacio;
+  }
+
+  public DadesOperacionsRDTO estatIdext(BigDecimal estatIdext) {
+    this.estatIdext = estatIdext;
+    return this;
+  }
+
+   /**
+   * Get estatIdext
+   * @return estatIdext
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getEstatIdext() {
+    return estatIdext;
+  }
+
+  public void setEstatIdext(BigDecimal estatIdext) {
+    this.estatIdext = estatIdext;
   }
 
   public DadesOperacionsRDTO grup(BigDecimal grup) {
@@ -418,6 +442,24 @@ public class DadesOperacionsRDTO {
     this.titolGrup = titolGrup;
   }
 
+  public DadesOperacionsRDTO urlOrigen(String urlOrigen) {
+    this.urlOrigen = urlOrigen;
+    return this;
+  }
+
+   /**
+   * Get urlOrigen
+   * @return urlOrigen
+  **/
+  @ApiModelProperty(value = "")
+  public String getUrlOrigen() {
+    return urlOrigen;
+  }
+
+  public void setUrlOrigen(String urlOrigen) {
+    this.urlOrigen = urlOrigen;
+  }
+
   public DadesOperacionsRDTO validacio(Integer validacio) {
     this.validacio = validacio;
     return this;
@@ -472,6 +514,7 @@ public class DadesOperacionsRDTO {
         Objects.equals(this.desTipusCamp, dadesOperacionsRDTO.desTipusCamp) &&
         Objects.equals(this.descripcio, dadesOperacionsRDTO.descripcio) &&
         Objects.equals(this.detallValidacio, dadesOperacionsRDTO.detallValidacio) &&
+        Objects.equals(this.estatIdext, dadesOperacionsRDTO.estatIdext) &&
         Objects.equals(this.grup, dadesOperacionsRDTO.grup) &&
         Objects.equals(this.id, dadesOperacionsRDTO.id) &&
         Objects.equals(this.itemsList, dadesOperacionsRDTO.itemsList) &&
@@ -481,13 +524,14 @@ public class DadesOperacionsRDTO {
         Objects.equals(this.tipus, dadesOperacionsRDTO.tipus) &&
         Objects.equals(this.titol, dadesOperacionsRDTO.titol) &&
         Objects.equals(this.titolGrup, dadesOperacionsRDTO.titolGrup) &&
+        Objects.equals(this.urlOrigen, dadesOperacionsRDTO.urlOrigen) &&
         Objects.equals(this.validacio, dadesOperacionsRDTO.validacio) &&
         Objects.equals(this.vigent, dadesOperacionsRDTO.vigent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cercable, codi, comentari, dadesOperTramitsOvtList, dadesOperacionsValidacio, desTipusCamp, descripcio, detallValidacio, grup, id, itemsList, obligatori, ordre, procediment, tipus, titol, titolGrup, validacio, vigent);
+    return Objects.hash(cercable, codi, comentari, dadesOperTramitsOvtList, dadesOperacionsValidacio, desTipusCamp, descripcio, detallValidacio, estatIdext, grup, id, itemsList, obligatori, ordre, procediment, tipus, titol, titolGrup, urlOrigen, validacio, vigent);
   }
 
 
@@ -504,6 +548,7 @@ public class DadesOperacionsRDTO {
     sb.append("    desTipusCamp: ").append(toIndentedString(desTipusCamp)).append("\n");
     sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
     sb.append("    detallValidacio: ").append(toIndentedString(detallValidacio)).append("\n");
+    sb.append("    estatIdext: ").append(toIndentedString(estatIdext)).append("\n");
     sb.append("    grup: ").append(toIndentedString(grup)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    itemsList: ").append(toIndentedString(itemsList)).append("\n");
@@ -513,6 +558,7 @@ public class DadesOperacionsRDTO {
     sb.append("    tipus: ").append(toIndentedString(tipus)).append("\n");
     sb.append("    titol: ").append(toIndentedString(titol)).append("\n");
     sb.append("    titolGrup: ").append(toIndentedString(titolGrup)).append("\n");
+    sb.append("    urlOrigen: ").append(toIndentedString(urlOrigen)).append("\n");
     sb.append("    validacio: ").append(toIndentedString(validacio)).append("\n");
     sb.append("    vigent: ").append(toIndentedString(vigent)).append("\n");
     sb.append("}");

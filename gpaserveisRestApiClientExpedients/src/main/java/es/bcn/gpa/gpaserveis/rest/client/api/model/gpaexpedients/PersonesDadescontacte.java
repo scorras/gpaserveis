@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * PersonesDadescontacte
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:54:06.565+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-06T01:24:07.150+01:00")
 public class PersonesDadescontacte {
   @JsonProperty("bloc")
   private String bloc = null;
@@ -76,6 +76,9 @@ public class PersonesDadescontacte {
 
   @JsonProperty("provinciaEstranger")
   private String provinciaEstranger = null;
+
+  @JsonProperty("sexe")
+  private BigDecimal sexe = null;
 
   @JsonProperty("telefon")
   private String telefon = null;
@@ -389,6 +392,24 @@ public class PersonesDadescontacte {
     this.provinciaEstranger = provinciaEstranger;
   }
 
+  public PersonesDadescontacte sexe(BigDecimal sexe) {
+    this.sexe = sexe;
+    return this;
+  }
+
+   /**
+   * Get sexe
+   * @return sexe
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getSexe() {
+    return sexe;
+  }
+
+  public void setSexe(BigDecimal sexe) {
+    this.sexe = sexe;
+  }
+
   public PersonesDadescontacte telefon(String telefon) {
     this.telefon = telefon;
     return this;
@@ -452,13 +473,14 @@ public class PersonesDadescontacte {
         Objects.equals(this.porta, personesDadescontacte.porta) &&
         Objects.equals(this.provincia, personesDadescontacte.provincia) &&
         Objects.equals(this.provinciaEstranger, personesDadescontacte.provinciaEstranger) &&
+        Objects.equals(this.sexe, personesDadescontacte.sexe) &&
         Objects.equals(this.telefon, personesDadescontacte.telefon) &&
         Objects.equals(this.tipusVia, personesDadescontacte.tipusVia);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bloc, codiPostal, comarca, direccioPostal, email, escala, fax, id, mobil, municipi, municipiEstranger, numero, pais, pis, porta, provincia, provinciaEstranger, telefon, tipusVia);
+    return Objects.hash(bloc, codiPostal, comarca, direccioPostal, email, escala, fax, id, mobil, municipi, municipiEstranger, numero, pais, pis, porta, provincia, provinciaEstranger, sexe, telefon, tipusVia);
   }
 
 
@@ -484,6 +506,7 @@ public class PersonesDadescontacte {
     sb.append("    porta: ").append(toIndentedString(porta)).append("\n");
     sb.append("    provincia: ").append(toIndentedString(provincia)).append("\n");
     sb.append("    provinciaEstranger: ").append(toIndentedString(provinciaEstranger)).append("\n");
+    sb.append("    sexe: ").append(toIndentedString(sexe)).append("\n");
     sb.append("    telefon: ").append(toIndentedString(telefon)).append("\n");
     sb.append("    tipusVia: ").append(toIndentedString(tipusVia)).append("\n");
     sb.append("}");

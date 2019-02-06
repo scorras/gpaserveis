@@ -44,6 +44,43 @@ public class ComentarisApiTest extends ParentTest {
 	private ComentarisApi api = new ComentarisApi();
 
 	/**
+	 * Create the provided comment
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void createComentarisUsingPOSTTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/procediments/comentaris"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new PageDataOfComentarisRDTO());
+
+		ComentarisRDTO comentarisRDTO = new ComentarisRDTO();
+		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
+		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
+		Boolean currentPageHasNextPage = null;
+		Boolean currentPageHasPreviousPage = null;
+		Boolean currentPageIsFirstPage = null;
+		Boolean currentPageIsLastPage = null;
+		Integer currentPageNumber = null;
+		String dir = null;
+		Integer nextPageNumber = null;
+		Integer pageSize = null;
+		Integer previousPageNumber = null;
+		String sort = null;
+		Long totalElements = null;
+		Integer totalPages = null;
+		PageDataOfComentarisRDTO response = api.createComentarisUsingPOST(comentarisRDTO, absoluteRowNumberOfFirstRowInCurrentPage,
+		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
+		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
+		        totalPages);
+
+		assertTrue(response != null);
+	}
+
+	/**
 	 * Deletes the requested comentaris list
 	 *
 	 * 
@@ -81,7 +118,7 @@ public class ComentarisApiTest extends ParentTest {
 	}
 
 	/**
-	 * Save the provided comment
+	 * Update the provided comment
 	 *
 	 * 
 	 *
@@ -89,8 +126,8 @@ public class ComentarisApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void saveComentarisUsingPOSTTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/procediments/comentaris"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+	public void updateComentarisUsingPUTTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/procediments/comentaris"), eq("PUT"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new PageDataOfComentarisRDTO());
 
@@ -109,7 +146,7 @@ public class ComentarisApiTest extends ParentTest {
 		String sort = null;
 		Long totalElements = null;
 		Integer totalPages = null;
-		PageDataOfComentarisRDTO response = api.saveComentarisUsingPOST(comentarisRDTO, absoluteRowNumberOfFirstRowInCurrentPage,
+		PageDataOfComentarisRDTO response = api.updateComentarisUsingPUT(comentarisRDTO, absoluteRowNumberOfFirstRowInCurrentPage,
 		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
 		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
 		        totalPages);

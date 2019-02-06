@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * SortInfo
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:54:42.329+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:52:55.937+01:00")
 public class SortInfo {
   @JsonProperty("dir")
   private String dir = null;

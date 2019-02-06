@@ -42,7 +42,7 @@ public class EstatsApiTest extends ParentTest {
 	private EstatsApi api = new EstatsApi();
 
 	/**
-	 * Returns all the estats
+	 * Returns all the Estats
 	 *
 	 * 
 	 *
@@ -51,10 +51,29 @@ public class EstatsApiTest extends ParentTest {
 	 */
 	@Test
 	public void getEstatsUsingGETTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/tramits/catalog/estats"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<EstatsRDTO>());
+
+		List<EstatsRDTO> response = api.getEstatsUsingGET();
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns all the estats
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void getEstatsUsingGET1Test() throws ApiException {
 		when(apiClient.invokeAPI(eq("/tramits/estats"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
 		        any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(new ArrayList<EstatsRDTO>());
 
-		List<EstatsRDTO> response = api.getEstatsUsingGET();
+		List<EstatsRDTO> response = api.getEstatsUsingGET1();
 
 		assertTrue(response != null);
 	}

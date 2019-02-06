@@ -74,6 +74,7 @@ public class DadesProcedimentRDTOToProcedimentsCercaRDTOMapper extends PropertyM
 		using(internalToEstatConverter).map(source.getProcedimentsRDTO().getEstatsProcediment().getEstats().getId()).setEstat(null);
 		using(internalToTramitadorConverter).map(source.getProcedimentsRDTO().getReqOperatius().getAplicacioNegoci()).setTramitador(null);
 		map().setAplicacioNegoci(source.getProcedimentsRDTO().getReqOperatius().getAplicacioNegoci());
+		map().setOrganResolutori(source.getProcedimentsRDTO().getIdentificacions().getOrganResolutori());
 	}
 
 }

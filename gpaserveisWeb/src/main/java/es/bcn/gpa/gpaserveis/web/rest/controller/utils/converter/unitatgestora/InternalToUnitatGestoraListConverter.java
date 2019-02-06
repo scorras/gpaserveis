@@ -7,6 +7,7 @@ import org.modelmapper.AbstractConverter;
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
 
 /**
@@ -23,13 +24,8 @@ public class InternalToUnitatGestoraListConverter extends AbstractConverter<List
 	@Override
 	protected List<UnitatGestoraRDTO> convert(List<UnitatsGestoresRDTO> unitatsGestoresRDTOList) {
 		ArrayList<UnitatGestoraRDTO> unitatGestoraRDTOList = new ArrayList<UnitatGestoraRDTO>();
-		UnitatGestoraRDTO unitatGestoraRDTO = null;
 		for (UnitatsGestoresRDTO unitatsGestoresRDTO : unitatsGestoresRDTOList) {
-			unitatGestoraRDTO = new UnitatGestoraRDTO();
-			unitatGestoraRDTO.setId(unitatsGestoresRDTO.getId());
-			unitatGestoraRDTO.setCodi(unitatsGestoresRDTO.getNom());
-			unitatGestoraRDTO.setDescripcio(unitatsGestoresRDTO.getDescripcio());
-			unitatGestoraRDTOList.add(unitatGestoraRDTO);
+			unitatGestoraRDTOList.add(ConverterHelper.buildUnitatGestoraRDTOUnitats(unitatsGestoresRDTO));
 		}
 
 		return unitatGestoraRDTOList;

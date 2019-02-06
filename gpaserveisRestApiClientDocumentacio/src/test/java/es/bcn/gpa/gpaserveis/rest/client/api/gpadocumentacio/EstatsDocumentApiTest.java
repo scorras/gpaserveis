@@ -28,7 +28,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatsDocumentRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 
 /**
@@ -53,9 +53,9 @@ public class EstatsDocumentApiTest extends ParentTest {
 	public void getEstatsDocumentUsingGETTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/documentacio/catalog/estatsDocument"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<EstatsDocumentRDTO>());
+		                .thenReturn(new ArrayList<EstatsRDTO>());
 
-		List<EstatsDocumentRDTO> response = api.getEstatsDocumentUsingGET();
+		List<EstatsRDTO> response = api.getEstatsDocumentUsingGET();
 
 		assertTrue(response != null);
 	}

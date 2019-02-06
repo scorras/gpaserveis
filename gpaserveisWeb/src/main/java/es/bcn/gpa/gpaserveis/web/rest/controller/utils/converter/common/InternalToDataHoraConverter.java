@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter;
+package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -21,7 +21,13 @@ public class InternalToDataHoraConverter extends AbstractConverter<DateTime, Str
 	 */
 	@Override
 	protected String convert(DateTime dateTime) {
-		DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
-		return dateTimeFormatter.print(dateTime);
+		String dateTimeString = null;
+
+		if (dateTime != null) {
+			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
+			dateTimeString = dateTimeFormatter.print(dateTime);
+		}
+
+		return dateTimeString;
 	}
 }

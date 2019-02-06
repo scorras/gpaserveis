@@ -25,8 +25,11 @@ import org.joda.time.DateTime;
 /**
  * ComentarisRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:54:34.572+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:52:41.089+01:00")
 public class ComentarisRDTO {
+  @JsonProperty("darreraModificacio")
+  private DateTime darreraModificacio = null;
+
   @JsonProperty("dataCreacio")
   private DateTime dataCreacio = null;
 
@@ -45,8 +48,29 @@ public class ComentarisRDTO {
   @JsonProperty("tramit")
   private BigDecimal tramit = null;
 
+  @JsonProperty("ultimaModificacio")
+  private BigDecimal ultimaModificacio = null;
+
   @JsonProperty("usuari")
   private BigDecimal usuari = null;
+
+  public ComentarisRDTO darreraModificacio(DateTime darreraModificacio) {
+    this.darreraModificacio = darreraModificacio;
+    return this;
+  }
+
+   /**
+   * Get darreraModificacio
+   * @return darreraModificacio
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getDarreraModificacio() {
+    return darreraModificacio;
+  }
+
+  public void setDarreraModificacio(DateTime darreraModificacio) {
+    this.darreraModificacio = darreraModificacio;
+  }
 
   public ComentarisRDTO dataCreacio(DateTime dataCreacio) {
     this.dataCreacio = dataCreacio;
@@ -156,6 +180,24 @@ public class ComentarisRDTO {
     this.tramit = tramit;
   }
 
+  public ComentarisRDTO ultimaModificacio(BigDecimal ultimaModificacio) {
+    this.ultimaModificacio = ultimaModificacio;
+    return this;
+  }
+
+   /**
+   * Get ultimaModificacio
+   * @return ultimaModificacio
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getUltimaModificacio() {
+    return ultimaModificacio;
+  }
+
+  public void setUltimaModificacio(BigDecimal ultimaModificacio) {
+    this.ultimaModificacio = ultimaModificacio;
+  }
+
   public ComentarisRDTO usuari(BigDecimal usuari) {
     this.usuari = usuari;
     return this;
@@ -184,18 +226,20 @@ public class ComentarisRDTO {
       return false;
     }
     ComentarisRDTO comentarisRDTO = (ComentarisRDTO) o;
-    return Objects.equals(this.dataCreacio, comentarisRDTO.dataCreacio) &&
+    return Objects.equals(this.darreraModificacio, comentarisRDTO.darreraModificacio) &&
+        Objects.equals(this.dataCreacio, comentarisRDTO.dataCreacio) &&
         Objects.equals(this.descripcio, comentarisRDTO.descripcio) &&
         Objects.equals(this.eliminat, comentarisRDTO.eliminat) &&
         Objects.equals(this.id, comentarisRDTO.id) &&
         Objects.equals(this.titol, comentarisRDTO.titol) &&
         Objects.equals(this.tramit, comentarisRDTO.tramit) &&
+        Objects.equals(this.ultimaModificacio, comentarisRDTO.ultimaModificacio) &&
         Objects.equals(this.usuari, comentarisRDTO.usuari);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dataCreacio, descripcio, eliminat, id, titol, tramit, usuari);
+    return Objects.hash(darreraModificacio, dataCreacio, descripcio, eliminat, id, titol, tramit, ultimaModificacio, usuari);
   }
 
 
@@ -204,12 +248,14 @@ public class ComentarisRDTO {
     StringBuilder sb = new StringBuilder();
     sb.append("class ComentarisRDTO {\n");
     
+    sb.append("    darreraModificacio: ").append(toIndentedString(darreraModificacio)).append("\n");
     sb.append("    dataCreacio: ").append(toIndentedString(dataCreacio)).append("\n");
     sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
     sb.append("    eliminat: ").append(toIndentedString(eliminat)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    titol: ").append(toIndentedString(titol)).append("\n");
     sb.append("    tramit: ").append(toIndentedString(tramit)).append("\n");
+    sb.append("    ultimaModificacio: ").append(toIndentedString(ultimaModificacio)).append("\n");
     sb.append("    usuari: ").append(toIndentedString(usuari)).append("\n");
     sb.append("}");
     return sb.toString();

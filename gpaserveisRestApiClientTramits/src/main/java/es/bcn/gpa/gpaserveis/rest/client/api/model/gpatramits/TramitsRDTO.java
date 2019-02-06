@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 /**
  * TramitsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:54:34.572+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:52:41.089+01:00")
 public class TramitsRDTO {
   @JsonProperty("darreraModificacio")
   private DateTime darreraModificacio = null;

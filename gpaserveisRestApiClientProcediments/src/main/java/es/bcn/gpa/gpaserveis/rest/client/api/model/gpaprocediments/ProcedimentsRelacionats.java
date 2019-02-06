@@ -24,13 +24,37 @@ import java.math.BigDecimal;
 /**
  * ProcedimentsRelacionats
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:54:22.854+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:52:21.804+01:00")
 public class ProcedimentsRelacionats {
+  @JsonProperty("altresEspecificar")
+  private String altresEspecificar = null;
+
   @JsonProperty("procediment")
   private BigDecimal procediment = null;
 
+  @JsonProperty("relacio")
+  private BigDecimal relacio = null;
+
   @JsonProperty("relacionat")
   private BigDecimal relacionat = null;
+
+  public ProcedimentsRelacionats altresEspecificar(String altresEspecificar) {
+    this.altresEspecificar = altresEspecificar;
+    return this;
+  }
+
+   /**
+   * Get altresEspecificar
+   * @return altresEspecificar
+  **/
+  @ApiModelProperty(value = "")
+  public String getAltresEspecificar() {
+    return altresEspecificar;
+  }
+
+  public void setAltresEspecificar(String altresEspecificar) {
+    this.altresEspecificar = altresEspecificar;
+  }
 
   public ProcedimentsRelacionats procediment(BigDecimal procediment) {
     this.procediment = procediment;
@@ -48,6 +72,24 @@ public class ProcedimentsRelacionats {
 
   public void setProcediment(BigDecimal procediment) {
     this.procediment = procediment;
+  }
+
+  public ProcedimentsRelacionats relacio(BigDecimal relacio) {
+    this.relacio = relacio;
+    return this;
+  }
+
+   /**
+   * Get relacio
+   * @return relacio
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getRelacio() {
+    return relacio;
+  }
+
+  public void setRelacio(BigDecimal relacio) {
+    this.relacio = relacio;
   }
 
   public ProcedimentsRelacionats relacionat(BigDecimal relacionat) {
@@ -78,13 +120,15 @@ public class ProcedimentsRelacionats {
       return false;
     }
     ProcedimentsRelacionats procedimentsRelacionats = (ProcedimentsRelacionats) o;
-    return Objects.equals(this.procediment, procedimentsRelacionats.procediment) &&
+    return Objects.equals(this.altresEspecificar, procedimentsRelacionats.altresEspecificar) &&
+        Objects.equals(this.procediment, procedimentsRelacionats.procediment) &&
+        Objects.equals(this.relacio, procedimentsRelacionats.relacio) &&
         Objects.equals(this.relacionat, procedimentsRelacionats.relacionat);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(procediment, relacionat);
+    return Objects.hash(altresEspecificar, procediment, relacio, relacionat);
   }
 
 
@@ -93,7 +137,9 @@ public class ProcedimentsRelacionats {
     StringBuilder sb = new StringBuilder();
     sb.append("class ProcedimentsRelacionats {\n");
     
+    sb.append("    altresEspecificar: ").append(toIndentedString(altresEspecificar)).append("\n");
     sb.append("    procediment: ").append(toIndentedString(procediment)).append("\n");
+    sb.append("    relacio: ").append(toIndentedString(relacio)).append("\n");
     sb.append("    relacionat: ").append(toIndentedString(relacionat)).append("\n");
     sb.append("}");
     return sb.toString();

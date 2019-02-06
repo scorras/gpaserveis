@@ -277,6 +277,10 @@ paths:
         required: false
         type: "string"
         format: "date-time"
+      - name: "descUnitatOrganigrama"
+        in: "query"
+        required: false
+        type: "string"
       - name: "descripcio"
         in: "query"
         required: false
@@ -322,6 +326,10 @@ paths:
         required: false
         type: "integer"
         format: "int32"
+      - name: "unitatOrganigrama"
+        in: "query"
+        required: false
+        type: "number"
       - name: "vigent"
         in: "query"
         required: false
@@ -332,6 +340,30 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/PageDataOfUnitatsGestoresRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /unitats/unitatsOrganigrama:
+    get:
+      tags:
+      - "RelacioProcediments"
+      summary: "Returns all the unitats Organigrama"
+      operationId: "getUnitatsOrganigramaUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UnitatsOrganigramaRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -435,13 +467,27 @@ definitions:
       dataModificacio:
         type: "string"
         format: "date-time"
+      descUnitatOrganigrama:
+        type: "string"
       descripcio:
         type: "string"
       id:
         type: "number"
       nom:
         type: "string"
+      unitatOrganigrama:
+        type: "number"
       vigent:
         type: "integer"
         format: "int32"
     title: "UnitatsGestoresRDTO"
+  UnitatsOrganigramaRDTO:
+    type: "object"
+    properties:
+      codi:
+        type: "string"
+      id:
+        type: "number"
+      nom:
+        type: "string"
+    title: "UnitatsOrganigramaRDTO"

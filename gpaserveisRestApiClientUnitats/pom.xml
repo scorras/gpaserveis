@@ -109,7 +109,7 @@
 							<generateApiTests>true</generateApiTests>
 							<generateApiDocumentation>false</generateApiDocumentation>
 							<generateModels>true</generateModels>
-<!-- 							<modelsToGenerate>A comma separated list of models to generate. All models is the default.</modelsToGenerate> -->
+<!-- 						<modelsToGenerate>A comma separated list of models to generate. All models is the default.</modelsToGenerate> -->
 							<generateModelTests>true</generateModelTests>
 							<generateModelDocumentation>false</generateModelDocumentation>
 							<generateSupportingFiles>false</generateSupportingFiles>

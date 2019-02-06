@@ -1,6 +1,6 @@
 /*
- * API gpadocumentacio
- * API gpadocumentacio
+ * API gpaexpedients
+ * API gpaexpedients
  *
  * OpenAPI spec version: 1.3.0
  * Contact: sergio.corras@iecisa.com
@@ -11,7 +11,7 @@
  */
 
 
-package es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio;
+package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,17 +22,38 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 
 /**
- * EstatsDocumentRDTO
+ * TipusAvisosRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:53:51.582+01:00")
-public class EstatsDocumentRDTO {
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-06T01:24:07.150+01:00")
+public class TipusAvisosRDTO {
+  @JsonProperty("avis")
+  private String avis = null;
+
   @JsonProperty("descripcio")
   private String descripcio = null;
 
   @JsonProperty("id")
   private BigDecimal id = null;
 
-  public EstatsDocumentRDTO descripcio(String descripcio) {
+  public TipusAvisosRDTO avis(String avis) {
+    this.avis = avis;
+    return this;
+  }
+
+   /**
+   * Get avis
+   * @return avis
+  **/
+  @ApiModelProperty(value = "")
+  public String getAvis() {
+    return avis;
+  }
+
+  public void setAvis(String avis) {
+    this.avis = avis;
+  }
+
+  public TipusAvisosRDTO descripcio(String descripcio) {
     this.descripcio = descripcio;
     return this;
   }
@@ -50,7 +71,7 @@ public class EstatsDocumentRDTO {
     this.descripcio = descripcio;
   }
 
-  public EstatsDocumentRDTO id(BigDecimal id) {
+  public TipusAvisosRDTO id(BigDecimal id) {
     this.id = id;
     return this;
   }
@@ -77,22 +98,24 @@ public class EstatsDocumentRDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    EstatsDocumentRDTO estatsDocumentRDTO = (EstatsDocumentRDTO) o;
-    return Objects.equals(this.descripcio, estatsDocumentRDTO.descripcio) &&
-        Objects.equals(this.id, estatsDocumentRDTO.id);
+    TipusAvisosRDTO tipusAvisosRDTO = (TipusAvisosRDTO) o;
+    return Objects.equals(this.avis, tipusAvisosRDTO.avis) &&
+        Objects.equals(this.descripcio, tipusAvisosRDTO.descripcio) &&
+        Objects.equals(this.id, tipusAvisosRDTO.id);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(descripcio, id);
+    return Objects.hash(avis, descripcio, id);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class EstatsDocumentRDTO {\n");
+    sb.append("class TipusAvisosRDTO {\n");
     
+    sb.append("    avis: ").append(toIndentedString(avis)).append("\n");
     sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("}");

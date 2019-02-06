@@ -35,6 +35,7 @@ import org.mockito.InjectMocks;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.BloquejosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.InfoDocProcedimentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfComentarisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfHistoricsRDTO;
@@ -44,6 +45,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsF
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.RestClientResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiException;
 
 /**
@@ -386,6 +388,27 @@ public class ProcedimentsApiTest extends ParentTest {
 	}
 
 	/**
+	 * Returns UGR and UGOs from procediment
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void getUgsByIdProcedimentUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/procediments/getUgsByIdProcediment/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<UnitatsGestoresRDTO>());
+
+		BigDecimal idProcediment = ONE;
+		List<UnitatsGestoresRDTO> response = api.getUgsByIdProcedimentUsingGET(idProcediment);
+
+		assertTrue(response != null);
+	}
+
+	/**
 	 * Inserts the provided procediment
 	 *
 	 * 
@@ -447,6 +470,26 @@ public class ProcedimentsApiTest extends ParentTest {
 		String tramitador = null;
 		List<BigDecimal> response = api.procedimentIdsByCodiAndTramitadorUsingGET(aplicacio, procedimentCodis, procedimentVersio,
 		        tramitador);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Inserts new historic
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void registrarHistoricTramitUsingPOSTTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/procediments/historic/insert"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<BigDecimal>());
+
+		List<HistoricsRDTO> historicsRDTO = Arrays.asList(new HistoricsRDTO());
+		List<BigDecimal> response = api.registrarHistoricTramitUsingPOST(historicsRDTO);
 
 		assertTrue(response != null);
 	}

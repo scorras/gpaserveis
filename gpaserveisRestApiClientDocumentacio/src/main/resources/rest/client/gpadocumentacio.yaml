@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.3.0"
+  version: "1.4.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -18,6 +18,36 @@ tags:
 - name: "documentacio-rest-controller"
   description: "Documentacio Rest Controller"
 paths:
+  /configuracioDocumentacio/configuracioDocsTramitacio/{id}:
+    get:
+      tags:
+      - "Configuracio Documentacio"
+      summary: "Returns the requested tramitacio configuracio"
+      operationId: "obtenirConfiguracioDocumentacioTramitacioUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ConfiguracioDocsTramitacioRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /configuracioDocumentacio/docEntrada:
     post:
       tags:
@@ -252,6 +282,103 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /configuracioDocumentacio/entradaAssociarRequeriment/{idConfiguracioDocumentacio}/{idsConfEntrAssociarReq}:
+    get:
+      tags:
+      - "Configuracio Documentacio"
+      summary: "Returns the requested entrada configuracio"
+      operationId: "obtenirConfiguracioDocEntAssociarRequerimentUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "idConfiguracioDocumentacio"
+        in: "path"
+        description: "idConfiguracioDocumentacio"
+        required: true
+        type: "number"
+      - name: "idsConfEntrAssociarReq"
+        in: "path"
+        description: "idsConfEntrAssociarReq"
+        required: true
+        type: "string"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfConfiguracioDocsEntradaRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /configuracioDocumentacio/getConfDocAssociadaRequeriment/{idRequeriment}:
     get:
       tags:
@@ -295,6 +422,38 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/RestClientResponse"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+    post:
+      tags:
+      - "Configuracio Documentacio"
+      summary: "create doc configuracio to the proc clon"
+      operationId: "createConfiguracioDocToProcClonUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "procedimentsClonarBDTO"
+        description: "procedimentsClonarBDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/ProcedimentsClonarRDTO"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RestClientResponse"
+        201:
+          description: "Created"
         401:
           description: "Unauthorized"
         403:
@@ -515,7 +674,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/EstatsDocumentRDTO"
+              $ref: "#/definitions/EstatsRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -540,6 +699,30 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/FaseProcedimentRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /documentacio/catalog/idiomes:
+    get:
+      tags:
+      - "Idiomes"
+      summary: "Returns all the Idiomes"
+      operationId: "obtenirIdiomesUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/IdiomesRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -1054,25 +1237,27 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/tramitacio/estatFinal/{idEstatDocument}:
+  /documentacio/tramitacio/estatsDocTramCanviEstat/{estatDocTramitacio}:
     get:
       tags:
       - "Documentacio"
-      summary: "Returns the final EstatDocument for a given EstatDocument"
-      operationId: "getEstatFinalDocumentacioTramitacioUsingGET"
+      summary: "Get all estats documentació tramitació"
+      operationId: "obtenirTransicionsEstatsByEstatDocTramUsingGET"
       produces:
       - "*/*"
       parameters:
-      - name: "idEstatDocument"
+      - name: "estatDocTramitacio"
         in: "path"
-        description: "idEstatDocument"
+        description: "estatDocTramitacio"
         required: true
         type: "number"
       responses:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/EstatsDocumentRDTO"
+            type: "array"
+            items:
+              $ref: "#/definitions/TransicionsEstatsRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -1081,7 +1266,7 @@ paths:
           description: "Not Found"
       deprecated: false
       x-imi-roles:
-        consulta: "Perfil usuari consulta"
+        consulta: "Perfil usuari gestor"
   /documentacio/tramitacio/listTipusGrup/{idConfigDoc}:
     get:
       tags:
@@ -1602,6 +1787,9 @@ definitions:
         type: "string"
       tractament:
         type: "string"
+      vinculadaEsmena:
+        type: "integer"
+        format: "int32"
     title: "ConfiguracioDocsTramitacio"
   ConfiguracioDocsTramitacioRDTO:
     type: "object"
@@ -1656,6 +1844,9 @@ definitions:
         type: "string"
       tractament:
         type: "string"
+      vinculadaEsmena:
+        type: "integer"
+        format: "int32"
     title: "ConfiguracioDocsTramitacioRDTO"
   ConfiguracioDocsTramitacioResponse:
     type: "object"
@@ -1714,12 +1905,18 @@ definitions:
       dataCreacio:
         type: "string"
         format: "date-time"
+      dataDigitalitzacio:
+        type: "string"
+        format: "date-time"
       dataPresentacio:
         type: "string"
         format: "date-time"
       dataUltimaModificacio:
         type: "string"
         format: "date-time"
+      digitalitzat:
+        type: "integer"
+        format: "int32"
       docsFisics:
         $ref: "#/definitions/DocsFisics"
       docsFisicsNom:
@@ -1743,6 +1940,8 @@ definitions:
       fileToUploadType:
         type: "string"
       id:
+        type: "number"
+      idioma:
         type: "number"
       numDocsConfiguracio:
         type: "number"
@@ -1844,12 +2043,20 @@ definitions:
       dataCreacio:
         type: "string"
         format: "date-time"
+      dataDigitalitzacio:
+        type: "string"
+        format: "date-time"
       dataNotificacio:
         type: "string"
         format: "date-time"
       dataUltimaModificacio:
         type: "string"
         format: "date-time"
+      descripcioEstat:
+        type: "string"
+      digitalitzat:
+        type: "integer"
+        format: "int32"
       docsFisics:
         $ref: "#/definitions/DocsFisics"
       docsFisicsNom:
@@ -1869,8 +2076,10 @@ definitions:
         type: "number"
       estatAnterior:
         type: "number"
-      estatsDocument:
-        $ref: "#/definitions/EstatsDocument"
+      estatDocsTramitacio:
+        type: "number"
+      estatsDocsTramitacio:
+        $ref: "#/definitions/EstatsDocsTramitacio"
       fileToUploadContent:
         type: "string"
       fileToUploadName:
@@ -1881,6 +2090,8 @@ definitions:
       fileToUploadType:
         type: "string"
       id:
+        type: "number"
+      idioma:
         type: "number"
       numDocsConfiguracio:
         type: "number"
@@ -1930,22 +2141,40 @@ definitions:
         type: "integer"
         format: "int32"
     title: "EstatRevisioRDTO"
-  EstatsDocument:
+  Estats:
     type: "object"
     properties:
       descripcio:
         type: "string"
       id:
         type: "number"
-    title: "EstatsDocument"
-  EstatsDocumentRDTO:
+    title: "Estats"
+  EstatsDocsTramitacio:
+    type: "object"
+    properties:
+      docTramitacio:
+        type: "number"
+      estat:
+        type: "number"
+      estatDocsTramitacioAnt:
+        type: "number"
+      estats:
+        $ref: "#/definitions/Estats"
+      estatsDocsTramitacio:
+        $ref: "#/definitions/EstatsDocsTramitacio"
+      historicIdext:
+        type: "number"
+      id:
+        type: "number"
+    title: "EstatsDocsTramitacio"
+  EstatsRDTO:
     type: "object"
     properties:
       descripcio:
         type: "string"
       id:
         type: "number"
-    title: "EstatsDocumentRDTO"
+    title: "EstatsRDTO"
   Exception:
     type: "object"
     properties:
@@ -2010,6 +2239,14 @@ definitions:
         type: "integer"
         format: "int64"
     title: "File"
+  IdiomesRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "IdiomesRDTO"
   InputStream:
     type: "object"
     title: "InputStream"
@@ -2202,6 +2439,14 @@ definitions:
       tipusVia:
         type: "string"
     title: "PersonesDadescontacte"
+  ProcedimentsClonarRDTO:
+    type: "object"
+    properties:
+      idConfDocProcOriginal:
+        type: "number"
+      idProcClonado:
+        type: "number"
+    title: "ProcedimentsClonarRDTO"
   RegistreAssentament:
     type: "object"
     properties:
@@ -2316,6 +2561,21 @@ definitions:
         type: "integer"
         format: "int32"
     title: "TipusMimeRDTO"
+  TransicionsEstatsRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      estatDestino:
+        type: "number"
+      estatOrigen:
+        type: "number"
+      id:
+        type: "number"
+      visible:
+        type: "integer"
+        format: "int32"
+    title: "TransicionsEstatsRDTO"
   URI:
     type: "object"
     properties:

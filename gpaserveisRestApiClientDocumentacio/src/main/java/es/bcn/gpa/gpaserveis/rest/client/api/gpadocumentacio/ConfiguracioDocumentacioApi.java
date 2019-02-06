@@ -12,6 +12,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ProcedimentsClonarRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RestClientResponse;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:53:51.582+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:51:34.681+01:00")
 public class ConfiguracioDocumentacioApi {
   private ApiClient apiClient;
 
@@ -39,6 +40,47 @@ public class ConfiguracioDocumentacioApi {
     this.apiClient = apiClient;
   }
 
+  /**
+   * create doc configuracio to the proc clon
+   * 
+   * @param procedimentsClonarBDTO procedimentsClonarBDTO (required)
+   * @return RestClientResponse
+   * @throws ApiException if fails to make API call
+   */
+  public RestClientResponse createConfiguracioDocToProcClonUsingPOST(ProcedimentsClonarRDTO procedimentsClonarBDTO) throws ApiException {
+    Object localVarPostBody = procedimentsClonarBDTO;
+    
+    // verify the required parameter 'procedimentsClonarBDTO' is set
+    if (procedimentsClonarBDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'procedimentsClonarBDTO' when calling createConfiguracioDocToProcClonUsingPOST");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/configuracioDocumentacio/newConfiguracioDoc";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<RestClientResponse> localVarReturnType = new GenericType<RestClientResponse>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
   /**
    * Returns the requested entrada configuracio associada al requeriment
    * 
@@ -254,6 +296,125 @@ public class ConfiguracioDocumentacioApi {
     String[] localVarAuthNames = new String[] {  };
 
     GenericType<RestClientResponse> localVarReturnType = new GenericType<RestClientResponse>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Returns the requested entrada configuracio
+   * 
+   * @param idConfiguracioDocumentacio idConfiguracioDocumentacio (required)
+   * @param idsConfEntrAssociarReq idsConfEntrAssociarReq (required)
+   * @param absoluteRowNumberOfFirstRowInCurrentPage  (optional)
+   * @param absoluteRowNumberOfLastRowInCurrentPage  (optional)
+   * @param currentPageHasNextPage  (optional)
+   * @param currentPageHasPreviousPage  (optional)
+   * @param currentPageIsFirstPage  (optional)
+   * @param currentPageIsLastPage  (optional)
+   * @param currentPageNumber  (optional)
+   * @param dir  (optional)
+   * @param nextPageNumber  (optional)
+   * @param pageSize  (optional)
+   * @param previousPageNumber  (optional)
+   * @param sort  (optional)
+   * @param totalElements  (optional)
+   * @param totalPages  (optional)
+   * @return PageDataOfConfiguracioDocsEntradaRDTO
+   * @throws ApiException if fails to make API call
+   */
+  public PageDataOfConfiguracioDocsEntradaRDTO obtenirConfiguracioDocEntAssociarRequerimentUsingGET(BigDecimal idConfiguracioDocumentacio, String idsConfEntrAssociarReq, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'idConfiguracioDocumentacio' is set
+    if (idConfiguracioDocumentacio == null) {
+      throw new ApiException(400, "Missing the required parameter 'idConfiguracioDocumentacio' when calling obtenirConfiguracioDocEntAssociarRequerimentUsingGET");
+    }
+    
+    // verify the required parameter 'idsConfEntrAssociarReq' is set
+    if (idsConfEntrAssociarReq == null) {
+      throw new ApiException(400, "Missing the required parameter 'idsConfEntrAssociarReq' when calling obtenirConfiguracioDocEntAssociarRequerimentUsingGET");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/configuracioDocumentacio/entradaAssociarRequeriment/{idConfiguracioDocumentacio}/{idsConfEntrAssociarReq}"
+      .replaceAll("\\{" + "idConfiguracioDocumentacio" + "\\}", apiClient.escapeString(idConfiguracioDocumentacio.toString()))
+      .replaceAll("\\{" + "idsConfEntrAssociarReq" + "\\}", apiClient.escapeString(idsConfEntrAssociarReq.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasNextPage", currentPageHasNextPage));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasPreviousPage", currentPageHasPreviousPage));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsFirstPage", currentPageIsFirstPage));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsLastPage", currentPageIsLastPage));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "nextPageNumber", nextPageNumber));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "previousPageNumber", previousPageNumber));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<PageDataOfConfiguracioDocsEntradaRDTO> localVarReturnType = new GenericType<PageDataOfConfiguracioDocsEntradaRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Returns the requested tramitacio configuracio
+   * 
+   * @param id id (required)
+   * @return List&lt;ConfiguracioDocsTramitacioRDTO&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<ConfiguracioDocsTramitacioRDTO> obtenirConfiguracioDocumentacioTramitacioUsingGET(BigDecimal id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling obtenirConfiguracioDocumentacioTramitacioUsingGET");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/configuracioDocumentacio/configuracioDocsTramitacio/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<ConfiguracioDocsTramitacioRDTO>> localVarReturnType = new GenericType<List<ConfiguracioDocsTramitacioRDTO>>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**

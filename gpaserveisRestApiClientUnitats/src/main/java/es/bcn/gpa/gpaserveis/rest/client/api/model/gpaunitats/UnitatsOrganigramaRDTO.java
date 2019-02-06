@@ -1,6 +1,6 @@
 /*
- * API gpadocumentacio
- * API gpadocumentacio
+ * API gpaunitats
+ * API gpaunitats
  *
  * OpenAPI spec version: 1.3.0
  * Contact: sergio.corras@iecisa.com
@@ -11,7 +11,7 @@
  */
 
 
-package es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio;
+package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,35 +22,38 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 
 /**
- * EstatsDocument
+ * UnitatsOrganigramaRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:53:51.582+01:00")
-public class EstatsDocument {
-  @JsonProperty("descripcio")
-  private String descripcio = null;
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:52:55.937+01:00")
+public class UnitatsOrganigramaRDTO {
+  @JsonProperty("codi")
+  private String codi = null;
 
   @JsonProperty("id")
   private BigDecimal id = null;
 
-  public EstatsDocument descripcio(String descripcio) {
-    this.descripcio = descripcio;
+  @JsonProperty("nom")
+  private String nom = null;
+
+  public UnitatsOrganigramaRDTO codi(String codi) {
+    this.codi = codi;
     return this;
   }
 
    /**
-   * Get descripcio
-   * @return descripcio
+   * Get codi
+   * @return codi
   **/
   @ApiModelProperty(value = "")
-  public String getDescripcio() {
-    return descripcio;
+  public String getCodi() {
+    return codi;
   }
 
-  public void setDescripcio(String descripcio) {
-    this.descripcio = descripcio;
+  public void setCodi(String codi) {
+    this.codi = codi;
   }
 
-  public EstatsDocument id(BigDecimal id) {
+  public UnitatsOrganigramaRDTO id(BigDecimal id) {
     this.id = id;
     return this;
   }
@@ -68,6 +71,24 @@ public class EstatsDocument {
     this.id = id;
   }
 
+  public UnitatsOrganigramaRDTO nom(String nom) {
+    this.nom = nom;
+    return this;
+  }
+
+   /**
+   * Get nom
+   * @return nom
+  **/
+  @ApiModelProperty(value = "")
+  public String getNom() {
+    return nom;
+  }
+
+  public void setNom(String nom) {
+    this.nom = nom;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -77,24 +98,26 @@ public class EstatsDocument {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    EstatsDocument estatsDocument = (EstatsDocument) o;
-    return Objects.equals(this.descripcio, estatsDocument.descripcio) &&
-        Objects.equals(this.id, estatsDocument.id);
+    UnitatsOrganigramaRDTO unitatsOrganigramaRDTO = (UnitatsOrganigramaRDTO) o;
+    return Objects.equals(this.codi, unitatsOrganigramaRDTO.codi) &&
+        Objects.equals(this.id, unitatsOrganigramaRDTO.id) &&
+        Objects.equals(this.nom, unitatsOrganigramaRDTO.nom);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(descripcio, id);
+    return Objects.hash(codi, id, nom);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class EstatsDocument {\n");
+    sb.append("class UnitatsOrganigramaRDTO {\n");
     
-    sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
+    sb.append("    codi: ").append(toIndentedString(codi)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    nom: ").append(toIndentedString(nom)).append("\n");
     sb.append("}");
     return sb.toString();
   }

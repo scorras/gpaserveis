@@ -69,7 +69,7 @@ public class RespostaRegistrarSolicitudMockService {
 
 			RegistreRDTO registreRDTO = new RegistreRDTO();
 
-			registreRDTO.setCodi(codi);
+			registreRDTO.setNumRegistre(codi);
 			registreRDTO.setDataRegistre(dataRegistre);
 			registreRDTO.setPersona(persona);
 

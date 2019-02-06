@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:54:06.565+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-06T01:24:07.150+01:00")
 public class Persones_Api {
   private ApiClient apiClient;
 
@@ -56,12 +56,12 @@ public class Persones_Api {
    * @return PageDataOfPersonesSollicitudRDTO
    * @throws ApiException if fails to make API call
    */
-  public PageDataOfPersonesSollicitudRDTO getAltresPersonesImplicadesByIdSolicitudUsingGET(BigDecimal idSolicitud, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
+  public PageDataOfPersonesSollicitudRDTO cercaAltresPersonesImplicadesExpedient(BigDecimal idSolicitud, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'idSolicitud' is set
     if (idSolicitud == null) {
-      throw new ApiException(400, "Missing the required parameter 'idSolicitud' when calling getAltresPersonesImplicadesByIdSolicitudUsingGET");
+      throw new ApiException(400, "Missing the required parameter 'idSolicitud' when calling cercaAltresPersonesImplicadesExpedient");
     }
     
     // create path and map variables

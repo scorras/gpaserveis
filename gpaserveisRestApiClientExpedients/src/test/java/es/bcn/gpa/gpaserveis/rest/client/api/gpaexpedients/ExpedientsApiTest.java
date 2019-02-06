@@ -48,6 +48,46 @@ public class ExpedientsApiTest extends ParentTest {
 	private ExpedientsApi api = new ExpedientsApi();
 
 	/**
+	 * Returns all the historic entries for the procedure that meet the search
+	 * criteria
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void cercaHistoricsExpedientTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/expedients/historic/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new PageDataOfHistoricsRDTO());
+
+		BigDecimal id = ONE;
+		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
+		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
+		Boolean currentPageHasNextPage = null;
+		Boolean currentPageHasPreviousPage = null;
+		Boolean currentPageIsFirstPage = null;
+		Boolean currentPageIsLastPage = null;
+		Integer currentPageNumber = null;
+		String dir = null;
+		Integer nextPageNumber = null;
+		Integer pageSize = null;
+		Integer previousPageNumber = null;
+		String sort = null;
+		List<BigDecimal> tipus = null;
+		Long totalElements = null;
+		Integer totalPages = null;
+		PageDataOfHistoricsRDTO response = api.cercaHistoricsExpedient(id, absoluteRowNumberOfFirstRowInCurrentPage,
+		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
+		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, tipus, totalElements,
+		        totalPages);
+
+		assertTrue(response != null);
+	}
+
+	/**
 	 * Returns all the historic entries for the id list
 	 *
 	 * 
@@ -142,46 +182,6 @@ public class ExpedientsApiTest extends ParentTest {
 		PageDataOfComentarisRDTO response = api.searchComentarisUsingGET(id, absoluteRowNumberOfFirstRowInCurrentPage,
 		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
 		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
-		        totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns all the historic entries for the procedure that meet the search
-	 * criteria
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void searchHistoricsUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/historic/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfHistoricsRDTO());
-
-		BigDecimal id = ONE;
-		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
-		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
-		Boolean currentPageHasNextPage = null;
-		Boolean currentPageHasPreviousPage = null;
-		Boolean currentPageIsFirstPage = null;
-		Boolean currentPageIsLastPage = null;
-		Integer currentPageNumber = null;
-		String dir = null;
-		Integer nextPageNumber = null;
-		Integer pageSize = null;
-		Integer previousPageNumber = null;
-		String sort = null;
-		List<BigDecimal> tipus = null;
-		Long totalElements = null;
-		Integer totalPages = null;
-		PageDataOfHistoricsRDTO response = api.searchHistoricsUsingGET(id, absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, tipus, totalElements,
 		        totalPages);
 
 		assertTrue(response != null);

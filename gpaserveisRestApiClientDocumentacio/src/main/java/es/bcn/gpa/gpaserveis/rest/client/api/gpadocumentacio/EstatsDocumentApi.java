@@ -7,14 +7,14 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatsDocumentRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatsRDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:53:51.582+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:51:34.681+01:00")
 public class EstatsDocumentApi {
   private ApiClient apiClient;
 
@@ -37,10 +37,10 @@ public class EstatsDocumentApi {
   /**
    * Returns all the estatsDocument
    * 
-   * @return List&lt;EstatsDocumentRDTO&gt;
+   * @return List&lt;EstatsRDTO&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<EstatsDocumentRDTO> getEstatsDocumentUsingGET() throws ApiException {
+  public List<EstatsRDTO> getEstatsDocumentUsingGET() throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -66,7 +66,7 @@ public class EstatsDocumentApi {
 
     String[] localVarAuthNames = new String[] {  };
 
-    GenericType<List<EstatsDocumentRDTO>> localVarReturnType = new GenericType<List<EstatsDocumentRDTO>>() {};
+    GenericType<List<EstatsRDTO>> localVarReturnType = new GenericType<List<EstatsRDTO>>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
 }

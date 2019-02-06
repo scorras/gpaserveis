@@ -3,6 +3,7 @@ package es.bcn.gpa.gpaserveis.test.config;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static java.math.BigDecimal.ONE;
+import static java.math.BigDecimal.ZERO;
 import static org.apache.commons.lang.math.NumberUtils.INTEGER_ONE;
 import static org.apache.commons.lang.math.NumberUtils.INTEGER_ZERO;
 import static org.apache.commons.lang.math.NumberUtils.LONG_ONE;
@@ -11,8 +12,20 @@ import static org.joda.time.DateTime.now;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfHistoricsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Paisos;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesDadescontacte;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitud;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentament;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Sollicituds;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Estats;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.EstatsProcediment;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Identificacions;
@@ -25,6 +38,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.PageDataOfTramitsR
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 
 /**
  * The Class TestsConfigHelper.
@@ -334,10 +348,37 @@ public class TestsConfigHelper {
 		expedientsRDTO.setDescUnitatGestora("Descripció UG1");
 		expedientsRDTO.setTramitador("APLICACIO_DE_NEGOCI");
 		expedientsRDTO.setDescEstat("En tramitació");
+		expedientsRDTO.setIdEstat(ONE);
 		expedientsRDTO.setAplicacioNegoci("quiosc");
 		expedientsRDTO.setEditable(TRUE);
 		expedientsRDTO.setSeleccionable(TRUE);
 		expedientsRDTO.setConfiguracioDocumentacioProc(ONE);
+		PersonesSollicitud personesSollicitud = new PersonesSollicitud();
+		personesSollicitud.setId(ONE);
+		Persones persones = new Persones();
+		persones.setId(ONE);
+		persones.setTipusPersona(ONE);
+		persones.setNomRaoSocial("Nom");
+		persones.setCognom1("Cognom1");
+		persones.setCognom2("Cognom2");
+		DocumentsIdentitat documentsIdentitat = new DocumentsIdentitat();
+		documentsIdentitat.setId(ONE);
+		documentsIdentitat.setNumeroDocument("79688341B");
+		TipusDocumentIdentitat tipusDocumentIdentitat = new TipusDocumentIdentitat();
+		tipusDocumentIdentitat.setId(ZERO);
+		tipusDocumentIdentitat.setDescripcio("NIF");
+		Paisos paisos = new Paisos();
+		paisos.setCodiIne("108");
+		paisos.setCodiIso("ES");
+		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
+		personesDadescontacte.setId(ONE);
+		personesDadescontacte.setSexe(ONE);
+		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
+		documentsIdentitat.setPaisos(paisos);
+		persones.setDocumentsIdentitat(documentsIdentitat);
+		persones.setPersonesDadescontacte(personesDadescontacte);
+		personesSollicitud.setPersones(persones);
+		expedientsRDTO.setSollicitantPrincipal(personesSollicitud);
 		expedientsRDTOList.add(expedientsRDTO);
 		pageDataOfExpedientsRDTO.setData(expedientsRDTOList);
 
@@ -365,4 +406,268 @@ public class TestsConfigHelper {
 
 		return pageDataOfExpedientsRDTO;
 	}
+
+	public static ExpedientsRDTO consultarDadesExpedientResponse() {
+		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
+
+		expedientsRDTO.setId(ONE);
+		expedientsRDTO.setCodi("Codi/2019/000001");
+		expedientsRDTO.setSollicitud(ONE);
+		expedientsRDTO.setProcedimentIdext(ONE);
+		expedientsRDTO.setDocumentacioIdext(ONE);
+		expedientsRDTO.setEstatActual(ONE);
+		expedientsRDTO.setUltimaModificacio(ONE);
+		expedientsRDTO.setDarreraModificacio(now());
+		expedientsRDTO.setDataPresentacio(now());
+		expedientsRDTO.setNomProcediment("Nom PROC01");
+		expedientsRDTO.setSollicitant("Sol·licitant");
+		expedientsRDTO.setAccioEstatIdext(ONE);
+		expedientsRDTO.setUnitatGestoraIdext(ONE);
+		expedientsRDTO.setDescUnitatGestora("UG1");
+		expedientsRDTO.setTramitador("quiosc");
+		expedientsRDTO.setDescEstat("En preparació");
+		expedientsRDTO.setIdEstat(ONE);
+		expedientsRDTO.setProcedimentCodi("PROC01");
+
+		Sollicituds sollicituds = new Sollicituds();
+		sollicituds.setId(ONE);
+		sollicituds.setDataSollicitud(now());
+		sollicituds.setDataPresentacio(now());
+		sollicituds.setRegistre(ONE);
+
+		RegistreAssentament registreAssentament = new RegistreAssentament();
+		registreAssentament.setId(ONE);
+		registreAssentament.setCodi("REG01");
+		registreAssentament.setUsuari(ONE);
+		registreAssentament.setTipus(ONE);
+		registreAssentament.setDataRegistre(now());
+
+		Persones persones = new Persones();
+		persones.setId(ONE);
+		persones.setTipusPersona(ONE);
+		persones.setNomRaoSocial("NomRaoSocial");
+		persones.setCognom1("Cognom1");
+		persones.setCognom2("Cognom2");
+
+		DocumentsIdentitat documentsIdentitat = new DocumentsIdentitat();
+		documentsIdentitat.setId(ONE);
+		documentsIdentitat.setNumeroDocument("12345678H");
+
+		TipusDocumentIdentitat tipusDocumentIdentitat = new TipusDocumentIdentitat();
+		tipusDocumentIdentitat.setId(ONE);
+		tipusDocumentIdentitat.setDescripcio("NIF");
+
+		Paisos paisos = new Paisos();
+		paisos.setCodiIne("108");
+		paisos.setCodiIso("ES");
+
+		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
+		personesDadescontacte.setId(ONE);
+		personesDadescontacte.setSexe(ONE);
+
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Estats estats = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Estats();
+		estats.setId(ONE);
+		estats.setDataCreacio(now());
+		estats.setAccioEstatIdext(ONE);
+		estats.setEstatAnterior(ONE);
+		estats.setUsuari(ONE);
+		estats.setUnitatGestoraIdext(ONE);
+
+		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
+		documentsIdentitat.setPaisos(paisos);
+		persones.setDocumentsIdentitat(documentsIdentitat);
+		persones.setPersonesDadescontacte(personesDadescontacte);
+		registreAssentament.setPersones(persones);
+		sollicituds.setRegistreAssentament(registreAssentament);
+		expedientsRDTO.setSollicituds(sollicituds);
+		expedientsRDTO.setEstat(estats);
+
+		return expedientsRDTO;
+	}
+
+	public static PageDataOfHistoricsRDTO cercaHistoricsExpedientResponse() {
+		PageDataOfHistoricsRDTO pageDataOfHistoricsRDTO = new PageDataOfHistoricsRDTO();
+
+		// Data
+		ArrayList<HistoricsRDTO> historicsRDTOList = new ArrayList<HistoricsRDTO>();
+		HistoricsRDTO historicsRDTO1 = new HistoricsRDTO();
+		historicsRDTO1.setDataCreacio(now());
+		historicsRDTO1.setDescripcio("S'ha realitzat un canvi d'estat de l'expedient de \"En preparació\" a \"Sol·licitud en revisió\"");
+		historicsRDTOList.add(historicsRDTO1);
+		HistoricsRDTO historicsRDTO2 = new HistoricsRDTO();
+		historicsRDTO2.setDataCreacio(now());
+		historicsRDTO2.setDescripcio("S'ha realitzat un canvi d'estat de l'expedient de \"Sol·licitud en revisió\" a \"Pendent esmenes\"");
+		historicsRDTOList.add(historicsRDTO2);
+		HistoricsRDTO historicsRDTO3 = new HistoricsRDTO();
+		historicsRDTO3.setDataCreacio(now());
+		historicsRDTO3.setDescripcio("S'ha realitzat un canvi d'estat de l'expedient de \"Pendent esmenes\" a \"En tramitació\"");
+		historicsRDTOList.add(historicsRDTO3);
+		pageDataOfHistoricsRDTO.setData(historicsRDTOList);
+
+		// Page
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaginationAttributes paginationAttributes = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaginationAttributes();
+		paginationAttributes.setAbsoluteRowNumberOfFirstRowInCurrentPage(INTEGER_ONE);
+		paginationAttributes.setAbsoluteRowNumberOfLastRowInCurrentPage(new Integer(3));
+		paginationAttributes.setCurrentPageHasNextPage(FALSE);
+		paginationAttributes.setCurrentPageHasPreviousPage(FALSE);
+		paginationAttributes.setCurrentPageIsFirstPage(TRUE);
+		paginationAttributes.setCurrentPageIsLastPage(TRUE);
+		paginationAttributes.setCurrentPageNumber(INTEGER_ONE);
+		paginationAttributes.setNextPageNumber(INTEGER_ZERO);
+		paginationAttributes.setPageSize(new Integer(10));
+		paginationAttributes.setPreviousPageNumber(INTEGER_ZERO);
+		paginationAttributes.setTotalElements(new Long(3));
+		paginationAttributes.setTotalPages(INTEGER_ONE);
+		pageDataOfHistoricsRDTO.setPage(paginationAttributes);
+
+		// SortInfo
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SortInfo sortInfo = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SortInfo();
+		sortInfo.setSort("nom");
+		sortInfo.setDir("DESC");
+		pageDataOfHistoricsRDTO.setSortInfo(sortInfo);
+
+		return pageDataOfHistoricsRDTO;
+	}
+
+	public static PageDataOfPersonesSollicitudRDTO cercaPersonesInteresadesExpedientResponse() {
+		PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = new PageDataOfPersonesSollicitudRDTO();
+
+		// Data
+		ArrayList<PersonesSollicitudRDTO> personesSollicitudRDTOList = new ArrayList<PersonesSollicitudRDTO>();
+		PersonesSollicitudRDTO personesSollicitudRDTO1 = new PersonesSollicitudRDTO();
+		personesSollicitudRDTO1.setId(ONE);
+		personesSollicitudRDTO1.setRelacioPrincipal(Constants.PERSONES_SOLLICITUD_RELACIO_PRINCIPAL);
+		personesSollicitudRDTO1.setRelacio(Constants.PERSONES_SOLLICITUD_RELACIO_SOLLICITANT);
+		personesSollicitudRDTO1.setPersona(ONE);
+		personesSollicitudRDTO1.setSollicitud(ONE);
+		personesSollicitudRDTO1.setPersones(buildPersones());
+		personesSollicitudRDTOList.add(personesSollicitudRDTO1);
+		PersonesSollicitudRDTO personesSollicitudRDTO2 = new PersonesSollicitudRDTO();
+		personesSollicitudRDTO2.setId(ONE);
+		personesSollicitudRDTO2.setRelacioPrincipal(Constants.PERSONES_SOLLICITUD_RELACIO_NO_PRINCIPAL);
+		personesSollicitudRDTO2.setRelacio(Constants.PERSONES_SOLLICITUD_RELACIO_SOLLICITANT);
+		personesSollicitudRDTO2.setPersona(ONE);
+		personesSollicitudRDTO2.setSollicitud(ONE);
+		personesSollicitudRDTO2.setPersones(buildPersones());
+		personesSollicitudRDTOList.add(personesSollicitudRDTO2);
+		PersonesSollicitudRDTO personesSollicitudRDTO3 = new PersonesSollicitudRDTO();
+		personesSollicitudRDTO3.setId(ONE);
+		personesSollicitudRDTO3.setRelacioPrincipal(Constants.PERSONES_SOLLICITUD_RELACIO_PRINCIPAL);
+		personesSollicitudRDTO3.setRelacio(Constants.PERSONES_SOLLICITUD_RELACIO_REPRESENTANT);
+		personesSollicitudRDTO3.setPersona(ONE);
+		personesSollicitudRDTO3.setSollicitud(ONE);
+		personesSollicitudRDTO3.setPersones(buildPersones());
+		personesSollicitudRDTOList.add(personesSollicitudRDTO3);
+		PersonesSollicitudRDTO personesSollicitudRDTO4 = new PersonesSollicitudRDTO();
+		personesSollicitudRDTO4.setId(ONE);
+		personesSollicitudRDTO4.setRelacioPrincipal(Constants.PERSONES_SOLLICITUD_RELACIO_NO_PRINCIPAL);
+		personesSollicitudRDTO4.setRelacio(Constants.PERSONES_SOLLICITUD_RELACIO_REPRESENTANT);
+		personesSollicitudRDTO4.setPersona(ONE);
+		personesSollicitudRDTO4.setSollicitud(ONE);
+		personesSollicitudRDTO4.setPersones(buildPersones());
+		personesSollicitudRDTOList.add(personesSollicitudRDTO4);
+
+		pageDataOfPersonesSollicitudRDTO.setData(personesSollicitudRDTOList);
+
+		// Page
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaginationAttributes paginationAttributes = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaginationAttributes();
+		paginationAttributes.setAbsoluteRowNumberOfFirstRowInCurrentPage(INTEGER_ONE);
+		paginationAttributes.setAbsoluteRowNumberOfLastRowInCurrentPage(new Integer(4));
+		paginationAttributes.setCurrentPageHasNextPage(FALSE);
+		paginationAttributes.setCurrentPageHasPreviousPage(FALSE);
+		paginationAttributes.setCurrentPageIsFirstPage(TRUE);
+		paginationAttributes.setCurrentPageIsLastPage(TRUE);
+		paginationAttributes.setCurrentPageNumber(INTEGER_ONE);
+		paginationAttributes.setNextPageNumber(INTEGER_ZERO);
+		paginationAttributes.setPageSize(new Integer(10));
+		paginationAttributes.setPreviousPageNumber(INTEGER_ZERO);
+		paginationAttributes.setTotalElements(new Long(4));
+		paginationAttributes.setTotalPages(INTEGER_ONE);
+		pageDataOfPersonesSollicitudRDTO.setPage(paginationAttributes);
+
+		// SortInfo
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SortInfo sortInfo = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SortInfo();
+		sortInfo.setSort("nom");
+		sortInfo.setDir("DESC");
+		pageDataOfPersonesSollicitudRDTO.setSortInfo(sortInfo);
+
+		return pageDataOfPersonesSollicitudRDTO;
+	}
+
+	public static PageDataOfPersonesSollicitudRDTO cercaAltresPersonesImplicadesExpedientResponse() {
+		PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = new PageDataOfPersonesSollicitudRDTO();
+
+		// Data
+		ArrayList<PersonesSollicitudRDTO> personesSollicitudRDTOList = new ArrayList<PersonesSollicitudRDTO>();
+		PersonesSollicitudRDTO personesSollicitudRDTO1 = new PersonesSollicitudRDTO();
+		personesSollicitudRDTO1.setId(ONE);
+		personesSollicitudRDTO1.setRelacioPrincipal(Constants.PERSONES_SOLLICITUD_RELACIO_NO_PRINCIPAL);
+		personesSollicitudRDTO1.setRelacio(Constants.PERSONES_SOLLICITUD_RELACIO_TESTIMONI);
+		personesSollicitudRDTO1.setPersona(ONE);
+		personesSollicitudRDTO1.setSollicitud(ONE);
+		personesSollicitudRDTO1.setPersones(buildPersones());
+		personesSollicitudRDTOList.add(personesSollicitudRDTO1);
+		PersonesSollicitudRDTO personesSollicitudRDTO2 = new PersonesSollicitudRDTO();
+		personesSollicitudRDTO2.setId(ONE);
+		personesSollicitudRDTO2.setRelacioPrincipal(Constants.PERSONES_SOLLICITUD_RELACIO_NO_PRINCIPAL);
+		personesSollicitudRDTO2.setRelacio(Constants.PERSONES_SOLLICITUD_RELACIO_ALTRES);
+		personesSollicitudRDTO2.setPersona(ONE);
+		personesSollicitudRDTO2.setSollicitud(ONE);
+		personesSollicitudRDTO2.setPersones(buildPersones());
+		personesSollicitudRDTOList.add(personesSollicitudRDTO2);
+
+		pageDataOfPersonesSollicitudRDTO.setData(personesSollicitudRDTOList);
+
+		// Page
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaginationAttributes paginationAttributes = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaginationAttributes();
+		paginationAttributes.setAbsoluteRowNumberOfFirstRowInCurrentPage(INTEGER_ONE);
+		paginationAttributes.setAbsoluteRowNumberOfLastRowInCurrentPage(new Integer(2));
+		paginationAttributes.setCurrentPageHasNextPage(FALSE);
+		paginationAttributes.setCurrentPageHasPreviousPage(FALSE);
+		paginationAttributes.setCurrentPageIsFirstPage(TRUE);
+		paginationAttributes.setCurrentPageIsLastPage(TRUE);
+		paginationAttributes.setCurrentPageNumber(INTEGER_ONE);
+		paginationAttributes.setNextPageNumber(INTEGER_ZERO);
+		paginationAttributes.setPageSize(new Integer(10));
+		paginationAttributes.setPreviousPageNumber(INTEGER_ZERO);
+		paginationAttributes.setTotalElements(new Long(2));
+		paginationAttributes.setTotalPages(INTEGER_ONE);
+		pageDataOfPersonesSollicitudRDTO.setPage(paginationAttributes);
+
+		// SortInfo
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SortInfo sortInfo = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SortInfo();
+		sortInfo.setSort("nom");
+		sortInfo.setDir("DESC");
+		pageDataOfPersonesSollicitudRDTO.setSortInfo(sortInfo);
+
+		return pageDataOfPersonesSollicitudRDTO;
+	}
+
+	private static Persones buildPersones() {
+		Persones persones = new Persones();
+		persones.setId(ONE);
+		persones.setTipusPersona(ONE);
+		persones.setNomRaoSocial("Nom");
+		persones.setCognom1("Cognom1");
+		persones.setCognom2("Cognom2");
+		DocumentsIdentitat documentsIdentitat = new DocumentsIdentitat();
+		documentsIdentitat.setId(ONE);
+		documentsIdentitat.setNumeroDocument("79688341B");
+		TipusDocumentIdentitat tipusDocumentIdentitat = new TipusDocumentIdentitat();
+		tipusDocumentIdentitat.setId(ZERO);
+		tipusDocumentIdentitat.setDescripcio("NIF");
+		Paisos paisos = new Paisos();
+		paisos.setCodiIne("108");
+		paisos.setCodiIso("ES");
+		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
+		personesDadescontacte.setId(ONE);
+		personesDadescontacte.setSexe(ONE);
+		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
+		documentsIdentitat.setPaisos(paisos);
+		persones.setDocumentsIdentitat(documentsIdentitat);
+		persones.setPersonesDadescontacte(personesDadescontacte);
+
+		return persones;
+	}
+
 }

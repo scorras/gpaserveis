@@ -38,7 +38,7 @@ import org.joda.time.DateTime;
 /**
  * Procediments
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:54:22.854+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:52:21.804+01:00")
 public class Procediments {
   @JsonProperty("bloqueig")
   private BigDecimal bloqueig = null;
@@ -72,6 +72,9 @@ public class Procediments {
 
   @JsonProperty("descripcioEstat")
   private String descripcioEstat = null;
+
+  @JsonProperty("descripcioRelacio")
+  private String descripcioRelacio = null;
 
   @JsonProperty("estatProcediment")
   private BigDecimal estatProcediment = null;
@@ -351,6 +354,24 @@ public class Procediments {
 
   public void setDescripcioEstat(String descripcioEstat) {
     this.descripcioEstat = descripcioEstat;
+  }
+
+  public Procediments descripcioRelacio(String descripcioRelacio) {
+    this.descripcioRelacio = descripcioRelacio;
+    return this;
+  }
+
+   /**
+   * Get descripcioRelacio
+   * @return descripcioRelacio
+  **/
+  @ApiModelProperty(value = "")
+  public String getDescripcioRelacio() {
+    return descripcioRelacio;
+  }
+
+  public void setDescripcioRelacio(String descripcioRelacio) {
+    this.descripcioRelacio = descripcioRelacio;
   }
 
   public Procediments estatProcediment(BigDecimal estatProcediment) {
@@ -810,6 +831,7 @@ public class Procediments {
         Objects.equals(this.darreraModificacio, procediments.darreraModificacio) &&
         Objects.equals(this.descripcio, procediments.descripcio) &&
         Objects.equals(this.descripcioEstat, procediments.descripcioEstat) &&
+        Objects.equals(this.descripcioRelacio, procediments.descripcioRelacio) &&
         Objects.equals(this.estatProcediment, procediments.estatProcediment) &&
         Objects.equals(this.estatsProcediment, procediments.estatsProcediment) &&
         Objects.equals(this.historicsList, procediments.historicsList) &&
@@ -836,7 +858,7 @@ public class Procediments {
 
   @Override
   public int hashCode() {
-    return Objects.hash(bloqueig, bloquejos, codi, codiNom, comentarisList, configuracioAvisos, configuracioDocumentacio, dadesGrupsList, darreraModificacio, descripcio, descripcioEstat, estatProcediment, estatsProcediment, historicsList, id, identificacio, identificacions, iniciacionsList, nom, numerador, procedimentsAssociatsList, procedimentsRelacionatsList, reqOperatius, requerimentsOperatius, serieDocumental, tramitador, ugosList, ugosNoms, ugrIdext, ugrNom, ultimaModificacio, unitat, versio);
+    return Objects.hash(bloqueig, bloquejos, codi, codiNom, comentarisList, configuracioAvisos, configuracioDocumentacio, dadesGrupsList, darreraModificacio, descripcio, descripcioEstat, descripcioRelacio, estatProcediment, estatsProcediment, historicsList, id, identificacio, identificacions, iniciacionsList, nom, numerador, procedimentsAssociatsList, procedimentsRelacionatsList, reqOperatius, requerimentsOperatius, serieDocumental, tramitador, ugosList, ugosNoms, ugrIdext, ugrNom, ultimaModificacio, unitat, versio);
   }
 
 
@@ -856,6 +878,7 @@ public class Procediments {
     sb.append("    darreraModificacio: ").append(toIndentedString(darreraModificacio)).append("\n");
     sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
     sb.append("    descripcioEstat: ").append(toIndentedString(descripcioEstat)).append("\n");
+    sb.append("    descripcioRelacio: ").append(toIndentedString(descripcioRelacio)).append("\n");
     sb.append("    estatProcediment: ").append(toIndentedString(estatProcediment)).append("\n");
     sb.append("    estatsProcediment: ").append(toIndentedString(estatsProcediment)).append("\n");
     sb.append("    historicsList: ").append(toIndentedString(historicsList)).append("\n");

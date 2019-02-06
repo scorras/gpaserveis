@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:54:42.329+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:52:55.937+01:00")
 public class UnitatsGestoresApi {
   private ApiClient apiClient;
 
@@ -89,6 +89,7 @@ public class UnitatsGestoresApi {
    * @param currentPageNumber  (optional)
    * @param dataCreacio  (optional)
    * @param dataModificacio  (optional)
+   * @param descUnitatOrganigrama  (optional)
    * @param descripcio  (optional)
    * @param dir  (optional)
    * @param id  (optional)
@@ -99,11 +100,12 @@ public class UnitatsGestoresApi {
    * @param sort  (optional)
    * @param totalElements  (optional)
    * @param totalPages  (optional)
+   * @param unitatOrganigrama  (optional)
    * @param vigent  (optional)
    * @return PageDataOfUnitatsGestoresRDTO
    * @throws ApiException if fails to make API call
    */
-  public PageDataOfUnitatsGestoresRDTO cercaUnitatsGestores(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, DateTime dataCreacio, DateTime dataModificacio, String descripcio, String dir, BigDecimal id, Integer nextPageNumber, String nom, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages, Integer vigent) throws ApiException {
+  public PageDataOfUnitatsGestoresRDTO cercaUnitatsGestores(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, DateTime dataCreacio, DateTime dataModificacio, String descUnitatOrganigrama, String descripcio, String dir, BigDecimal id, Integer nextPageNumber, String nom, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages, BigDecimal unitatOrganigrama, Integer vigent) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -123,6 +125,7 @@ public class UnitatsGestoresApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "dataCreacio", dataCreacio));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "dataModificacio", dataModificacio));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "descUnitatOrganigrama", descUnitatOrganigrama));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "descripcio", descripcio));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "id", id));
@@ -133,6 +136,7 @@ public class UnitatsGestoresApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "unitatOrganigrama", unitatOrganigrama));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "vigent", vigent));
 
     

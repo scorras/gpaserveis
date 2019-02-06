@@ -17,7 +17,7 @@ import lombok.Setter;
 
 @ApiModel(value = "ProcedimentConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "codi", "nom", "descripcio", "ugr", "ugo", "organResolutori", "inici", "versio", "estat", "tramits",
+@JsonPropertyOrder({ "id", "codi", "versio", "nom", "descripcio", "ugr", "ugo", "organResolutori", "inici", "estat", "tramits",
         "dadesIdentificacio" })
 @Getter
 @Setter
@@ -27,6 +27,8 @@ public class ProcedimentsConsultaRDTO {
 	private BigDecimal id;
 	@ApiModelProperty(value = "Codi del procediment")
 	private String codi;
+	@ApiModelProperty(value = "Versió del procediment")
+	private String versio;
 	@ApiModelProperty(value = "Nom del procediment")
 	private String nom;
 	@ApiModelProperty(value = "Descripció del procediment")
@@ -39,8 +41,6 @@ public class ProcedimentsConsultaRDTO {
 	private String organResolutori;
 	@ApiModelProperty(value = "Tipus d'inici del procediment", allowableValues = IniciacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private List<String> inici;
-	@ApiModelProperty(value = "Versió del procediment")
-	private String versio;
 	@ApiModelProperty(value = "Estat actual del procediment", allowableValues = EstatApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private String estat;
 	// @ApiModelProperty(value = "Llista de tràmits del procediment")

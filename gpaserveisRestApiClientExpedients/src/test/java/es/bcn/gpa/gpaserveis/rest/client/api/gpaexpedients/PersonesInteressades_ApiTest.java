@@ -51,7 +51,7 @@ public class PersonesInteressades_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void getPersonesInteresadesByIdSolicitudUsingGETTest() throws ApiException {
+	public void cercaPersonesInteresadesExpedientTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/expedients/personesSollicitud/interessades/1"), eq("GET"), any(List.class), any(Object.class),
 		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
@@ -72,7 +72,7 @@ public class PersonesInteressades_ApiTest extends ParentTest {
 		String sort = null;
 		Long totalElements = null;
 		Integer totalPages = null;
-		PageDataOfPersonesSollicitudRDTO response = api.getPersonesInteresadesByIdSolicitudUsingGET(idSolicitud,
+		PageDataOfPersonesSollicitudRDTO response = api.cercaPersonesInteresadesExpedient(idSolicitud,
 		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
 		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
 		        previousPageNumber, sort, totalElements, totalPages);
