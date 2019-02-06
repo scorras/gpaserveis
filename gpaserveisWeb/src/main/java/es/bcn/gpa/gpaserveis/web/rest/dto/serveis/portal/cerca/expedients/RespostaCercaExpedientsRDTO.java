@@ -11,20 +11,14 @@ import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
 
-
-@ApiModel(value="RespostaCercaProcediments")
+@ApiModel(value = "RespostaCercaExpedients")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "data",
-    "paginacio"
-})
+@JsonPropertyOrder({ "data", "paginacio" })
 @Getter
 @Setter
 public class RespostaCercaExpedientsRDTO {
-    
+
 	private List<ExpedientsCercaRDTO> data = Collections.emptyList();
 	private PaginacioRDTO paginacio;
-	
+
 }
-
-

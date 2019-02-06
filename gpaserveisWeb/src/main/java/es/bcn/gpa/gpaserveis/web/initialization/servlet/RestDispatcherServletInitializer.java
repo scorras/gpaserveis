@@ -3,8 +3,7 @@ package es.bcn.gpa.gpaserveis.web.initialization.servlet;
 import es.bcn.gpa.gpaserveis.web.rest.config.RestServerConfig;
 import net.opentrends.openframe.services.web.servlet.support.AbstractAnnotationConfigRootApplicationContextlessDispatcherServletInitializer;
 
-public class RestDispatcherServletInitializer
-		extends AbstractAnnotationConfigRootApplicationContextlessDispatcherServletInitializer {
+public class RestDispatcherServletInitializer extends AbstractAnnotationConfigRootApplicationContextlessDispatcherServletInitializer {
 
 	private static final String SERVLET_NAME = "restDispatcher";
 
@@ -17,7 +16,7 @@ public class RestDispatcherServletInitializer
 	protected Class<?>[] getServletApplicationContextApplicationConfigClasses() {
 		return new Class[] { RestServerConfig.class };
 	}
-	
+
 	@Override
 	protected String[] getServletMappings() {
 		return new String[] { "/rest/*" };

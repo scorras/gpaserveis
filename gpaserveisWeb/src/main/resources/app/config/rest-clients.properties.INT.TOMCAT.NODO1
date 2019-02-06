@@ -1,0 +1,4 @@
+procediments.service.url=http://10.228.28.75:8080/gpaprocediments/rest
+unitats.service.url=http://10.228.28.75:8080/gpaunitats/rest
+tramits.service.url=http://10.228.28.75:8080/gpatramits/rest
+expedients.service.url=http://10.228.28.75:8080/gpaexpedients/rest

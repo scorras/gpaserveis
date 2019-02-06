@@ -9,23 +9,16 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-
-@ApiModel(value="RespostaRegistrarSolicitud")
+@ApiModel(value = "RespostaRegistrarSolicitud")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "resultat",
-    "expedient"
-})
+@JsonPropertyOrder({ "resultat", "expedient" })
 @Getter
 @Setter
 public class RespostaRegistrarSolicitudsRDTO {
-    
-    
+
 	@ApiModelProperty("Resultat de l'operació")
 	private ResultatRespostaDTO resultat;
 	@ApiModelProperty("Resultat de l'operació")
 	private RespostaRegistrarExpedientsRDTO expedient;
 
 }
-
-

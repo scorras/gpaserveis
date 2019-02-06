@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>es.bcn.gpa</groupId>
 		<artifactId>gpaserveis</artifactId>
-		<version>${gpaserveis.version}</version>
+		<version>${revision}</version>
 	</parent>
 
 	<artifactId>gpaserveisEar</artifactId>
@@ -38,7 +38,7 @@
 		<dependency>
 			<groupId>es.bcn.gpa</groupId>
 			<artifactId>gpaserveisWeb</artifactId>
-			<version>${gpaserveis.version}</version>
+			<version>${revision}</version>
 			<type>war</type>
 		</dependency>
 		<!-- END OF Application internal dependencies -->
