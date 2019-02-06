@@ -12,12 +12,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaActualitzarSolicitudMockService;
-import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCercaExpedientsMockService;
-import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCercaProcedimentsMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaDadesOperacioMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaDocumentsMockService;
-import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaExpedientsMockService;
-import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaProcedimentsMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCrearSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaObrirSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaRegistrarSolicitudMockService;
@@ -31,18 +27,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Lazy(true)
 public class RestServerConfig extends RestServiceDefaultSwaggerConfiguration {
 
-	@Bean(name = "respostaCercaProcedimentMock")
-	public RespostaCercaProcedimentsMockService respostaCercaProcedimentMock() {
-		RespostaCercaProcedimentsMockService respostaCercaProcedimentMock = new RespostaCercaProcedimentsMockService();
-		respostaCercaProcedimentMock.initialize();
-		return respostaCercaProcedimentMock;
-	}
-
-	@Bean(name = "respostaConsultaProcedimentMock")
-	public RespostaConsultaProcedimentsMockService respostaConsultaProcedimentMock() {
-		return new RespostaConsultaProcedimentsMockService();
-	}
-
 	@Bean(name = "respostaConsultaDadesOperacioMockService")
 	public RespostaConsultaDadesOperacioMockService respostaConsultaDadesOperacioMockService() {
 		return new RespostaConsultaDadesOperacioMockService();
@@ -53,18 +37,6 @@ public class RestServerConfig extends RestServiceDefaultSwaggerConfiguration {
 		RespostaConsultaDocumentsMockService respostaConsultaDocumentsMockService = new RespostaConsultaDocumentsMockService();
 		respostaConsultaDocumentsMockService.initialize();
 		return respostaConsultaDocumentsMockService;
-	}
-
-	@Bean(name = "respostaCercaExpedientMock")
-	public RespostaCercaExpedientsMockService respostaCercaExpedientMock() {
-		RespostaCercaExpedientsMockService respostaCercaExpedientMock = new RespostaCercaExpedientsMockService();
-		respostaCercaExpedientMock.initialize();
-		return respostaCercaExpedientMock;
-	}
-
-	@Bean(name = "respostaConsultaExpedientMock")
-	public RespostaConsultaExpedientsMockService respostaConsultaExpedientMock() {
-		return new RespostaConsultaExpedientsMockService();
 	}
 
 	@Bean(name = "respostaCrearSolicitudMock")

@@ -10,20 +10,21 @@
  * Do not edit the class manually.
  */
 
-
 package es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.auth;
+
+import java.util.List;
+import java.util.Map;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.Pair;
 
-import java.util.Map;
-import java.util.List;
-
 public interface Authentication {
-    /**
-     * Apply authentication settings to header and query params.
-     *
-     * @param queryParams List of query parameters
-     * @param headerParams Map of header parameters
-     */
-    void applyToParams(List<Pair> queryParams, Map<String, String> headerParams);
+	/**
+	 * Apply authentication settings to header and query params.
+	 *
+	 * @param queryParams
+	 *            List of query parameters
+	 * @param headerParams
+	 *            Map of header parameters
+	 */
+	void applyToParams(List<Pair> queryParams, Map<String, String> headerParams);
 }
