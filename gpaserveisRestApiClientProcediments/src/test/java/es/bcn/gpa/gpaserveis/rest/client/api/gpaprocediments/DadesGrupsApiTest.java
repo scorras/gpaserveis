@@ -54,16 +54,41 @@ public class DadesGrupsApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void getDadesGrupsUsingGETTest() throws ApiException {
+	public void cercaDadesOperacioAgrupatsTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/procediments/1/grups"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
 		        isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new PageDataOfDadesGrupsRDTO());
 
 		BigDecimal id = ONE;
+		BigDecimal idTramitOvt = ONE;
 		String dir = null;
 		String sort = null;
-		PageDataOfDadesGrupsRDTO response = api.getDadesGrupsUsingGET(id, dir, sort);
+		PageDataOfDadesGrupsRDTO response = api.cercaDadesOperacioAgrupats(id, idTramitOvt, dir, sort);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns all the grups entries for the procedure
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void cercaDadesOperacioAgrupats1Test() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/procediments/1/grups/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new PageDataOfDadesGrupsRDTO());
+
+		BigDecimal id = ONE;
+		BigDecimal idTramitOvt = ONE;
+		String dir = null;
+		String sort = null;
+		PageDataOfDadesGrupsRDTO response = api.cercaDadesOperacioAgrupats1(id, idTramitOvt, dir, sort);
 
 		assertTrue(response != null);
 	}

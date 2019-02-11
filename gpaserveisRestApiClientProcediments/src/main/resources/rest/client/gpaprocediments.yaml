@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaprocediments"
-  version: "1.3.0"
+  version: "1.4.0"
   title: "API gpaprocediments"
   contact:
     name: "Sergio Corras"
@@ -2431,7 +2431,7 @@ paths:
       tags:
       - "Dades Grups"
       summary: "Returns all the grups entries for the procedure"
-      operationId: "getDadesGrupsUsingGET"
+      operationId: "cercaDadesOperacioAgrupats"
       produces:
       - "*/*"
       parameters:
@@ -2442,6 +2442,52 @@ paths:
       - name: "id"
         in: "path"
         description: "id"
+        required: true
+        type: "number"
+      - name: "idTramitOvt"
+        in: "path"
+        description: "idTramitOvt"
+        required: false
+        type: "number"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfDadesGrupsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/{id}/grups/{idTramitOvt}:
+    get:
+      tags:
+      - "Dades Grups"
+      summary: "Returns all the grups entries for the procedure"
+      operationId: "cercaDadesOperacioAgrupats_1"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      - name: "idTramitOvt"
+        in: "path"
+        description: "idTramitOvt"
         required: true
         type: "number"
       - name: "sort"
@@ -2617,6 +2663,8 @@ definitions:
       ordre:
         type: "integer"
         format: "int64"
+      valor:
+        type: "string"
       valorBoolean:
         type: "integer"
         format: "int32"

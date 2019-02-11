@@ -12,11 +12,13 @@
 
 package es.bcn.gpa.gpaserveis.rest.client.api.gpatramits;
 
+import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +58,26 @@ public class TramitsOvtApiTest extends ParentTest {
 		                .thenReturn(new ArrayList<TramitsOvtRDTO>());
 
 		List<TramitsOvtRDTO> response = api.getTramitsOvtUsingGET();
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested tràmit OVT
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void consultarDadesTramitOvtTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/tramitsOvt/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
+		        any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(new TramitsOvtRDTO());
+
+		BigDecimal id = ONE;
+		TramitsOvtRDTO response = api.consultarDadesTramitOvt(id);
 
 		assertTrue(response != null);
 	}

@@ -19,8 +19,10 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
 import es.bcn.gpa.gpaserveis.test.config.TestsConfigHelper;
 import lombok.extern.apachecommons.CommonsLog;
@@ -62,6 +64,12 @@ public abstract class ParentTest {
 
 	@Autowired
 	protected Persones_Api persones_Api;
+
+	@Autowired
+	protected TramitsOvtApi tramitsOvtApi;
+
+	@Autowired
+	protected DadesGrupsApi dadesGrupsApi;
 
 	/**
 	 * Sets the up.
@@ -130,6 +138,12 @@ public abstract class ParentTest {
 			        isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class), isNull(String.class),
 			        isNull(Long.class), isNull(Integer.class)))
 			                .thenReturn(TestsConfigHelper.cercaAltresPersonesImplicadesExpedientResponse());
+
+			when(tramitsOvtApi.consultarDadesTramitOvt(any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.consultarDadesTramitOvtResponse());
+
+			when(dadesGrupsApi.cercaDadesOperacioAgrupats1(any(BigDecimal.class), any(BigDecimal.class), isNull(String.class),
+			        isNull(String.class))).thenReturn(TestsConfigHelper.cercaDadesOperacioAgrupats1Response());
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$
 

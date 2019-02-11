@@ -22,18 +22,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.bcn.gpa.gpaserveis.business.DadesOperacioService;
 import es.bcn.gpa.gpaserveis.business.ExpedientsService;
 import es.bcn.gpa.gpaserveis.business.ProcedimentsService;
 import es.bcn.gpa.gpaserveis.business.TramitsService;
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.HistoricsExpedientsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaActualitzarSolicitudMockService;
-import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaDadesOperacioMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaConsultaDocumentsMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCrearSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaObrirSolicitudMockService;
@@ -41,12 +43,14 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaRegistrarSolicitud
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.procediment.ProcedimentsApiParamToInternalMapper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.consulta.atributs.DadesOperacioApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.VersioProcedimentApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.ActivableEnFormatElectronicApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.CompetenciaAssociadaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.EstatApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.ExclusivamentInternApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.FamiliaApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TramitOvtApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TramitadorApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesProcedimentRDTO;
@@ -59,6 +63,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.expedients.Respos
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.CercaProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.ProcedimentsCercaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.RespostaCercaProcedimentsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.CercaDadesOperacioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.DadesOperacioConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.RespostaConsultaDadesOperacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.RespostaConsultaDocumentsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.ExpedientsConsultaRDTO;
@@ -85,10 +91,6 @@ import lombok.extern.apachecommons.CommonsLog;
 @Api(value = "Serveis Portal API", tags = "Serveis Portal API")
 @CommonsLog
 public class ServeisPortalRestController extends BaseRestController {
-
-	/** The resposta consulta dades operacio mock service. */
-	@Autowired
-	private RespostaConsultaDadesOperacioMockService respostaConsultaDadesOperacioMockService;
 
 	/** The resposta consulta documents mock service. */
 	@Autowired
@@ -125,6 +127,10 @@ public class ServeisPortalRestController extends BaseRestController {
 	/** The expedients service. */
 	@Autowired
 	private ExpedientsService expedientsService;
+
+	/** The dades operacio service. */
+	@Autowired
+	private DadesOperacioService dadesOperacioService;
 
 	/** The model mapper. */
 	@Autowired
@@ -266,19 +272,41 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *
 	 * @param idProcediment
 	 *            the id procediment
-	 * @param idTramit
-	 *            the id tramit
+	 * @param codiTramit
+	 *            the codi tramit
 	 * @return the resposta consulta dades operacio RDTO
+	 * @throws GPAServeisServiceException
 	 */
-	@GetMapping("/procediments/{idProcediment}/tramits/{idTramit}/atributs")
+	@GetMapping("/procediments/{idProcediment}/tramits/{codiTramit}/atributs")
 	@ApiOperation(value = "Consultar les dades d'operació del tràmit", tags = { "Serveis Portal API",
 	        "Funcions d'integració amb RPA" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
-	public RespostaConsultaDadesOperacioRDTO consultarDadesOperacioProcediment(
+	public RespostaConsultaDadesOperacioRDTO consultarDadesOperacioTramit(
 	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
-	        @ApiParam(value = "Identificador del tràmit", required = true) @PathVariable BigDecimal idTramit) {
+	        @ApiParam(value = "Codi del tràmit", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true) @PathVariable String codiTramit)
+	        throws GPAServeisServiceException {
 
-		return respostaConsultaDadesOperacioMockService.getRespostaConsultaDadesOperacio(idProcediment, idTramit);
+		RespostaConsultaDadesOperacioRDTO respostaConsultaDadesOperacioRDTO = new RespostaConsultaDadesOperacioRDTO();
+		DadesOperacioConsultaRDTO dadesOperacioConsultaRDTO = new DadesOperacioConsultaRDTO();
+
+		// Información del Trámite
+		TramitsOvtCercaBDTO tramitsOvtCercaBDTO = new TramitsOvtCercaBDTO(
+		        DadesOperacioApiParamToInternalMapper.getTramitOvtInternalValue(codiTramit));
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO internalTramitsOvtRDTO = ServeisPortalRestControllerHelper
+		        .loadTramitsOvtRDTO(tramitsService, tramitsOvtCercaBDTO);
+		es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = modelMapper.map(internalTramitsOvtRDTO,
+		        es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
+		respostaConsultaDadesOperacioRDTO.setTramit(tramitsOvtRDTO);
+
+		// Dades Operacio que cumplen los criterios de búsqueda
+		DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(idProcediment,
+		        DadesOperacioApiParamToInternalMapper.getTramitOvtInternalValue(codiTramit));
+		CercaDadesOperacioRDTO cercaDadesOperacioRDTO = ServeisPortalRestControllerHelper.loadCercaDadesOperacioRDTO(dadesOperacioService,
+		        dadesOperacioCercaBDTO);
+		dadesOperacioConsultaRDTO = modelMapper.map(cercaDadesOperacioRDTO, DadesOperacioConsultaRDTO.class);
+		respostaConsultaDadesOperacioRDTO.setDadesOperacio(dadesOperacioConsultaRDTO);
+
+		return respostaConsultaDadesOperacioRDTO;
 	}
 
 	/**

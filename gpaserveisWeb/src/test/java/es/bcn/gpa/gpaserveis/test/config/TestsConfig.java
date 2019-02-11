@@ -11,8 +11,10 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
 import lombok.extern.apachecommons.CommonsLog;
 
@@ -152,6 +154,34 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("persones_Api() - fi"); //$NON-NLS-1$
 		}
 		return persones_Api;
+	}
+
+	@Bean
+	public TramitsOvtApi tramitsOvtApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("tramitsOvtApi() - inici"); //$NON-NLS-1$
+		}
+
+		TramitsOvtApi tramitsOvtApi = Mockito.mock(TramitsOvtApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("tramitsOvtApi() - fi"); //$NON-NLS-1$
+		}
+		return tramitsOvtApi;
+	}
+
+	@Bean
+	public DadesGrupsApi dadesGrupsApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("dadesGrupsApi() - inici"); //$NON-NLS-1$
+		}
+
+		DadesGrupsApi dadesGrupsApi = Mockito.mock(DadesGrupsApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("dadesGrupsApi() - fi"); //$NON-NLS-1$
+		}
+		return dadesGrupsApi;
 	}
 
 }

@@ -12,15 +12,15 @@ import lombok.Setter;
 
 @ApiModel(value = "Tramits")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "nom", "descripcio" })
+@JsonPropertyOrder({ "id", "codi", "descripcio" })
 @Getter
 @Setter
 public class TramitsRDTO {
 
 	@ApiModelProperty(value = "Identificador del tràmit")
 	private BigDecimal id;
-	@ApiModelProperty(value = "Nom del tràmit")
-	private String nom;
+	@ApiModelProperty(value = "Codi del tràmit")
+	private String codi;
 	@ApiModelProperty(value = "Descripció del tràmit")
 	private String descripcio;
 

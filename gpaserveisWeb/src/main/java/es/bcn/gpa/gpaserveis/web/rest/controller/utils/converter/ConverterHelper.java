@@ -1,16 +1,26 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperValidVal;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsValidacio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValidacionsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValorsLlistaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValorsValidacionsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DocumentsIdentitatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
@@ -114,11 +124,85 @@ public class ConverterHelper {
 		if (persones.getDocumentsIdentitat() != null) {
 			documentsIdentitatRDTO.setTipusDocument(tipusDocumentIdentitatApiParamValueTranslator
 			        .getApiParamValueByInternalValue(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getId()));
-			documentsIdentitatRDTO.setNumeroDocument(persones.getDocumentsIdentitat().getNumeroDocument());
+			documentsIdentitatRDTO.setNumeroDocument(persones.getDocumentsIdentitat().getNumeroDocument().toUpperCase());
 			documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPaisos().getCodiIso());
 		}
 		personesRDTO.setDocumentIndentitat(documentsIdentitatRDTO);
 		return personesRDTO;
+	}
+
+	public static es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO buildDadesGrupsRDTOProcediment(
+	        es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO internalDadesGrupsRDTO,
+	        BaseApiParamValueTranslator tipusCampApiParamValueTranslator,
+	        BaseApiParamValueTranslator tipusValidacioApiParamValueTranslator) {
+
+		if (internalDadesGrupsRDTO == null) {
+			return null;
+		}
+
+		es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO dadesGrupsRDTO = new es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO();
+		dadesGrupsRDTO.setDescripcio(internalDadesGrupsRDTO.getDescripcio());
+		dadesGrupsRDTO.setColumnes(
+		        (internalDadesGrupsRDTO.getNomColumnes() != null) ? String.valueOf(internalDadesGrupsRDTO.getNomColumnes()) : null);
+		dadesGrupsRDTO.setUrlValidacio(internalDadesGrupsRDTO.getUrlValidacio());
+		// TODO Obtener Url Ajuda
+		dadesGrupsRDTO.setUrlAjuda("??????????????");
+		dadesGrupsRDTO.setOrdre((internalDadesGrupsRDTO.getOrdre() != null) ? String.valueOf(internalDadesGrupsRDTO.getOrdre()) : null);
+		ArrayList<DadesAtributsRDTO> dadesAtributsRDTOList = new ArrayList<DadesAtributsRDTO>();
+		if (CollectionUtils.isNotEmpty(internalDadesGrupsRDTO.getDadesOperacionsList())) {
+			for (DadesOperacions dadesOperacions : internalDadesGrupsRDTO.getDadesOperacionsList()) {
+				dadesAtributsRDTOList.add(ConverterHelper.buildDadesAtributsRDTOProcediment(dadesOperacions,
+				        tipusCampApiParamValueTranslator, tipusValidacioApiParamValueTranslator));
+			}
+		}
+		dadesGrupsRDTO.setAtributs(dadesAtributsRDTOList);
+		return dadesGrupsRDTO;
+	}
+
+	public static DadesAtributsRDTO buildDadesAtributsRDTOProcediment(DadesOperacions dadesOperacions,
+	        BaseApiParamValueTranslator tipusCampApiParamValueTranslator,
+	        BaseApiParamValueTranslator tipusValidacioApiParamValueTranslator) {
+		DadesAtributsRDTO dadesAtributsRDTO = new DadesAtributsRDTO();
+		dadesAtributsRDTO.setCodi(dadesOperacions.getCodi());
+		dadesAtributsRDTO.setDescripcio(dadesOperacions.getDescripcio());
+		dadesAtributsRDTO.setTipus(tipusCampApiParamValueTranslator.getApiParamValueByInternalValue(dadesOperacions.getTipus()));
+		if (CollectionUtils.isNotEmpty(dadesOperacions.getItemsList())) {
+			ArrayList<DadesAtributsValorsLlistaRDTO> dadesAtributsValorsLlistaRDTOList = new ArrayList<DadesAtributsValorsLlistaRDTO>();
+			DadesAtributsValorsLlistaRDTO dadesAtributsValorsLlistaRDTO = null;
+			for (Items items : dadesOperacions.getItemsList()) {
+				dadesAtributsValorsLlistaRDTO = new DadesAtributsValorsLlistaRDTO();
+				dadesAtributsValorsLlistaRDTO.setValor(items.getItemDescripcio());
+				dadesAtributsValorsLlistaRDTO.setOrdre((items.getItemOrdre() != null) ? String.valueOf(items.getItemOrdre()) : null);
+				dadesAtributsValorsLlistaRDTOList.add(dadesAtributsValorsLlistaRDTO);
+			}
+			dadesAtributsRDTO.setValorsLlista(dadesAtributsValorsLlistaRDTOList);
+		}
+		if (CollectionUtils.isNotEmpty(dadesOperacions.getDadesOperacionsValidacio())) {
+			ArrayList<DadesAtributsValidacionsRDTO> dadesAtributsValidacionsRDTOList = new ArrayList<DadesAtributsValidacionsRDTO>();
+			DadesAtributsValidacionsRDTO dadesAtributsValidacionsRDTO = null;
+			for (DadesOperacionsValidacio dadesOperacionsValidacio : dadesOperacions.getDadesOperacionsValidacio()) {
+				dadesAtributsValidacionsRDTO = new DadesAtributsValidacionsRDTO();
+				dadesAtributsValidacionsRDTO.setTipus(tipusValidacioApiParamValueTranslator
+				        .getApiParamValueByInternalValue(dadesOperacionsValidacio.getTipusValidacio()));
+				if (CollectionUtils.isNotEmpty(dadesOperacionsValidacio.getDadesOperacionsValidValors())) {
+					ArrayList<DadesAtributsValorsValidacionsRDTO> dadesAtributsValorsValidacionsRDTOList = new ArrayList<DadesAtributsValorsValidacionsRDTO>();
+					DadesAtributsValorsValidacionsRDTO dadesAtributsValorsValidacionsRDTO = null;
+					for (DadesOperValidVal dadesOperValidVal : dadesOperacionsValidacio.getDadesOperacionsValidValors()) {
+						dadesAtributsValorsValidacionsRDTO = new DadesAtributsValorsValidacionsRDTO();
+						dadesAtributsValorsValidacionsRDTO.setValor(dadesOperValidVal.getValor());
+						dadesAtributsValorsValidacionsRDTO
+						        .setOrdre((dadesOperValidVal.getOrdre() != null) ? String.valueOf(dadesOperValidVal.getOrdre()) : null);
+						dadesAtributsValorsValidacionsRDTOList.add(dadesAtributsValorsValidacionsRDTO);
+					}
+					dadesAtributsValidacionsRDTO.setValorsValidacions(dadesAtributsValorsValidacionsRDTOList);
+				}
+				dadesAtributsValidacionsRDTOList.add(dadesAtributsValidacionsRDTO);
+			}
+			dadesAtributsRDTO.setValidacions(dadesAtributsValidacionsRDTOList);
+		}
+		dadesAtributsRDTO.setUrlValidacio("?dadesOperacions.getUrlOrigen()?");
+		dadesAtributsRDTO.setUrlAjuda("?dadesOperacions.getUrlOrigen()?");
+		return dadesAtributsRDTO;
 	}
 
 }

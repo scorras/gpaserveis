@@ -11,8 +11,10 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
 import net.opentrends.openframe.services.configuration.annotation.EntornPropertySource;
 import net.opentrends.openframe.services.configuration.config.ConfigurationServiceDefaultConfiguration;
@@ -98,6 +100,24 @@ public class BusinessConfig {
 		Persones_Api persones_Api = new Persones_Api(apiClient);
 
 		return persones_Api;
+	}
+
+	@Bean
+	public DadesGrupsApi clientDadesGrups() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_PROCEDIMENTS);
+		DadesGrupsApi dadesGrupsApi = new DadesGrupsApi(apiClient);
+
+		return dadesGrupsApi;
+	}
+
+	@Bean
+	public TramitsOvtApi clientTramitsOvt() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_TRAMITS);
+		TramitsOvtApi tramitsOvtApi = new TramitsOvtApi(apiClient);
+
+		return tramitsOvtApi;
 	}
 
 }
