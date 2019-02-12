@@ -7,10 +7,12 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 
 import es.bcn.gpa.gpaserveis.business.DadesOperacioService;
+import es.bcn.gpa.gpaserveis.business.DocumentsService;
 import es.bcn.gpa.gpaserveis.business.ExpedientsService;
 import es.bcn.gpa.gpaserveis.business.ProcedimentsService;
 import es.bcn.gpa.gpaserveis.business.TramitsService;
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
+import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.HistoricsExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
@@ -18,6 +20,7 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfHistoricsRDTO;
@@ -38,6 +41,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesProcedimentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.expedients.CercaExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.CercaProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.CercaDadesOperacioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.CercaDocumentsEntradaRDTO;
 
 /**
  * The Class ServeisPortalRestControllerHelper.
@@ -97,6 +101,26 @@ public class ServeisPortalRestControllerHelper {
 		cercaProcedimentsRDTO.setPaginationAttributes(pageDataOfProcedimentsRDTO.getPage());
 
 		return cercaProcedimentsRDTO;
+	}
+
+	/**
+	 * Load dades basiques procediment RDTO.
+	 *
+	 * @param procedimentsService
+	 *            the procediments service
+	 * @param idProcediment
+	 *            the id procediment
+	 * @return the dades procediment RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public static DadesProcedimentRDTO loadDadesBasiquesProcedimentRDTO(ProcedimentsService procedimentsService, BigDecimal idProcediment)
+	        throws GPAServeisServiceException {
+		DadesProcedimentRDTO dadesProcedimentRDTO = new DadesProcedimentRDTO();
+
+		loadProcedimentsRDTO(procedimentsService, dadesProcedimentRDTO, idProcediment);
+
+		return dadesProcedimentRDTO;
 	}
 
 	/**
@@ -400,6 +424,26 @@ public class ServeisPortalRestControllerHelper {
 		PageDataOfDadesGrupsRDTO pageDataOfDadesGrupsRDTO = dadesOperacioService.cercaDadesOperacio(dadesOperacioCercaBDTO);
 		cercaDadesOperacioRDTO.setDadesGrupsRDTOList(pageDataOfDadesGrupsRDTO.getData());
 		return cercaDadesOperacioRDTO;
+	}
+
+	/**
+	 * Load cerca documents entrada RDTO.
+	 *
+	 * @param documentsService
+	 *            the documents service
+	 * @param documentsEntradaCercaBDTO
+	 *            the documents entrada cerca BDTO
+	 * @return the cerca documents entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public static CercaDocumentsEntradaRDTO loadCercaDocumentsEntradaRDTO(DocumentsService documentsService,
+	        DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO) throws GPAServeisServiceException {
+		CercaDocumentsEntradaRDTO cercaDocumentsEntradaRDTO = new CercaDocumentsEntradaRDTO();
+		PageDataOfConfiguracioDocsEntradaRDTO pageDataOfConfiguracioDocsEntradaRDTO = documentsService
+		        .cercaDocumentsEntrada(documentsEntradaCercaBDTO);
+		cercaDocumentsEntradaRDTO.setConfiguracioDocsEntradaRDTOList(pageDataOfConfiguracioDocsEntradaRDTO.getData());
+		return cercaDocumentsEntradaRDTO;
 	}
 
 	/**

@@ -99,13 +99,14 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void getConfiguracioDocumentacioEntradaUsingGETTest() throws ApiException {
+	public void cercaConfiguracioDocumentacioEntradaTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/entrada/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new PageDataOfConfiguracioDocsEntradaRDTO());
 
 		BigDecimal id = ONE;
+		BigDecimal idTramitOvt = ONE;
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
 		Boolean currentPageHasNextPage = null;
@@ -120,7 +121,46 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 		String sort = null;
 		Long totalElements = null;
 		Integer totalPages = null;
-		PageDataOfConfiguracioDocsEntradaRDTO response = api.getConfiguracioDocumentacioEntradaUsingGET(id,
+		PageDataOfConfiguracioDocsEntradaRDTO response = api.cercaConfiguracioDocumentacioEntrada(id, idTramitOvt,
+		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
+		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
+		        previousPageNumber, sort, totalElements, totalPages);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested entrada configuracio
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void cercaConfiguracioDocumentacioEntrada1Test() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/entrada/1/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new PageDataOfConfiguracioDocsEntradaRDTO());
+
+		BigDecimal id = ONE;
+		BigDecimal idTramitOvt = ONE;
+		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
+		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
+		Boolean currentPageHasNextPage = null;
+		Boolean currentPageHasPreviousPage = null;
+		Boolean currentPageIsFirstPage = null;
+		Boolean currentPageIsLastPage = null;
+		Integer currentPageNumber = null;
+		String dir = null;
+		Integer nextPageNumber = null;
+		Integer pageSize = null;
+		Integer previousPageNumber = null;
+		String sort = null;
+		Long totalElements = null;
+		Integer totalPages = null;
+		PageDataOfConfiguracioDocsEntradaRDTO response = api.cercaConfiguracioDocumentacioEntrada1(id, idTramitOvt,
 		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
 		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
 		        previousPageNumber, sort, totalElements, totalPages);

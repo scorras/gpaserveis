@@ -15,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisRuntimeException;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
@@ -33,6 +34,8 @@ import net.opentrends.openframe.services.configuration.context.ContextPropertySo
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {}, initializers = ContextPropertySourcesInitializer.class)
+
+/** The Constant log. */
 
 /** The Constant log. */
 @CommonsLog
@@ -62,14 +65,21 @@ public abstract class ParentTest {
 	@Autowired
 	protected PersonesInteressades_Api personesInteressades_Api;
 
+	/** The persones api. */
 	@Autowired
 	protected Persones_Api persones_Api;
 
+	/** The tramits ovt api. */
 	@Autowired
 	protected TramitsOvtApi tramitsOvtApi;
 
+	/** The dades grups api. */
 	@Autowired
 	protected DadesGrupsApi dadesGrupsApi;
+
+	/** The configuracio documentacio api. */
+	@Autowired
+	protected ConfiguracioDocumentacioApi configuracioDocumentacioApi;
 
 	/**
 	 * Sets the up.
@@ -144,6 +154,12 @@ public abstract class ParentTest {
 
 			when(dadesGrupsApi.cercaDadesOperacioAgrupats1(any(BigDecimal.class), any(BigDecimal.class), isNull(String.class),
 			        isNull(String.class))).thenReturn(TestsConfigHelper.cercaDadesOperacioAgrupats1Response());
+
+			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioEntrada1(any(BigDecimal.class), any(BigDecimal.class),
+			        isNull(Integer.class), isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
+			        isNull(Boolean.class), isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class),
+			        isNull(Integer.class), isNull(String.class), isNull(Long.class), isNull(Integer.class)))
+			                .thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntrada1Response());
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$
 

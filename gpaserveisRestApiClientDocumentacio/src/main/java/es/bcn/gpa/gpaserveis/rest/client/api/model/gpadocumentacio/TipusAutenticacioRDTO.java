@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * TipusAutenticacioRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:51:34.681+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-11T17:30:09.381+01:00")
 public class TipusAutenticacioRDTO {
   @JsonProperty("descripcio")
   private String descripcio = null;

@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 public class RespostaConsultaDadesOperacioRDTO {
 
-	@ApiModelProperty("Llista de dades d'operació")
+	@ApiModelProperty(value = "Llista de dades d'operació")
 	private DadesOperacioConsultaRDTO dadesOperacio;
 
 	@ApiModelProperty(value = "Dades del tràmit")

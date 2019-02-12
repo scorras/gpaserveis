@@ -12,6 +12,9 @@ import static org.joda.time.DateTime.now;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AtributsDocs;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.HistoricsRDTO;
@@ -754,6 +757,25 @@ public class TestsConfigHelper {
 		pageDataOfDadesGrupsRDTO.setData(dadesGrupsRDTOList);
 
 		return pageDataOfDadesGrupsRDTO;
+	}
+
+	public static PageDataOfConfiguracioDocsEntradaRDTO cercaConfiguracioDocumentacioEntrada1Response() {
+		PageDataOfConfiguracioDocsEntradaRDTO pageDataOfConfiguracioDocsEntradaRDTO = new PageDataOfConfiguracioDocsEntradaRDTO();
+
+		ArrayList<ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOList = new ArrayList<ConfiguracioDocsEntradaRDTO>();
+		ConfiguracioDocsEntradaRDTO configuracioDocsEntradaRDTO = new ConfiguracioDocsEntradaRDTO();
+		configuracioDocsEntradaRDTO.setId(ONE);
+		configuracioDocsEntradaRDTO.setNom("Nom Doc");
+		configuracioDocsEntradaRDTO.setDescripcioAmpliada("Descripció Ampliada Doc");
+		AtributsDocs atributsDocs = new AtributsDocs();
+		atributsDocs.setObligatori(INTEGER_ONE);
+		atributsDocs.setRepetible(INTEGER_ONE);
+		configuracioDocsEntradaRDTO.setAtributsDocs(atributsDocs);
+		configuracioDocsEntradaRDTO.setSuportConfeccio(INTEGER_ONE);
+		configuracioDocsEntradaRDTO.setSuportEnllac("Suport Enllac Doc");
+		configuracioDocsEntradaRDTOList.add(configuracioDocsEntradaRDTO);
+
+		return pageDataOfConfiguracioDocsEntradaRDTO;
 	}
 
 }

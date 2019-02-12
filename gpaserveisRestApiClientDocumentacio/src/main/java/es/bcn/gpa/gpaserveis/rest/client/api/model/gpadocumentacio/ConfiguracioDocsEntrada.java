@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * ConfiguracioDocsEntrada
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:51:34.681+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-11T17:30:09.381+01:00")
 public class ConfiguracioDocsEntrada {
   @JsonProperty("atributDoc")
   private BigDecimal atributDoc = null;
@@ -38,7 +38,7 @@ public class ConfiguracioDocsEntrada {
   private AtributsDocs atributsDocs = null;
 
   @JsonProperty("categoriaNti")
-  private Integer categoriaNti = null;
+  private String categoriaNti = null;
 
   @JsonProperty("confdocsentTramitsOvtList")
   private List<ConfdocsentTramitsOvt> confdocsentTramitsOvtList = null;
@@ -127,7 +127,7 @@ public class ConfiguracioDocsEntrada {
     this.atributsDocs = atributsDocs;
   }
 
-  public ConfiguracioDocsEntrada categoriaNti(Integer categoriaNti) {
+  public ConfiguracioDocsEntrada categoriaNti(String categoriaNti) {
     this.categoriaNti = categoriaNti;
     return this;
   }
@@ -137,11 +137,11 @@ public class ConfiguracioDocsEntrada {
    * @return categoriaNti
   **/
   @ApiModelProperty(value = "")
-  public Integer getCategoriaNti() {
+  public String getCategoriaNti() {
     return categoriaNti;
   }
 
-  public void setCategoriaNti(Integer categoriaNti) {
+  public void setCategoriaNti(String categoriaNti) {
     this.categoriaNti = categoriaNti;
   }
 

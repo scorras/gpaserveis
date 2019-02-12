@@ -44,9 +44,8 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	}
 
 	@Test
-	@Ignore
 	public void testStage04_GetConsultarDocumentacioProcediment() throws Exception {
-		String url = BASE_URL + "/procediments/1/tramits/1/documentacio";
+		String url = BASE_URL + "/procediments/1/tramits/APO/documents";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 

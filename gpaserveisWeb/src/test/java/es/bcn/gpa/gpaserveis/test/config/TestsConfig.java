@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
@@ -182,6 +183,20 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("dadesGrupsApi() - fi"); //$NON-NLS-1$
 		}
 		return dadesGrupsApi;
+	}
+
+	@Bean
+	public ConfiguracioDocumentacioApi configuracioDocumentacioApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("configuracioDocumentacioApi() - inici"); //$NON-NLS-1$
+		}
+
+		ConfiguracioDocumentacioApi configuracioDocumentacioApi = Mockito.mock(ConfiguracioDocumentacioApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("configuracioDocumentacioApi() - fi"); //$NON-NLS-1$
+		}
+		return configuracioDocumentacioApi;
 	}
 
 }

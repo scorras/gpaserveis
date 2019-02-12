@@ -6,22 +6,20 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DocumentsRDTO;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-
-@ApiModel(value="RespostaConsultaDocuments")
+@ApiModel(value = "DocumentsEntrada")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "documents"
-})
+@JsonPropertyOrder({ "documents" })
 @Getter
 @Setter
-public class RespostaConsultaDocumentsRDTO {
-    
-	private List<DocumentsConsultaRDTO> documents = Collections.emptyList();
-	
+public class DocumentsEntradaConsultaRDTO {
+
+	@ApiModelProperty("Llista de documents")
+	private List<DocumentsRDTO> documents = Collections.emptyList();
+
 }
-
-

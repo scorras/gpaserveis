@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
@@ -38,6 +39,9 @@ public class BusinessConfig {
 
 	@Value("${expedients.service.url}")
 	private String URL_SERVICES_EXPEDIENTS;
+
+	@Value("${documentacio.service.url}")
+	private String URL_SERVICES_DOCUMENTACIO;
 
 	@Bean
 	public ProcedimentsApi clientApiProcediments() {
@@ -118,6 +122,15 @@ public class BusinessConfig {
 		TramitsOvtApi tramitsOvtApi = new TramitsOvtApi(apiClient);
 
 		return tramitsOvtApi;
+	}
+
+	@Bean
+	public ConfiguracioDocumentacioApi clientConfiguracioDocumentacio() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_DOCUMENTACIO);
+		ConfiguracioDocumentacioApi configuracioDocumentacioApi = new ConfiguracioDocumentacioApi(apiClient);
+
+		return configuracioDocumentacioApi;
 	}
 
 }

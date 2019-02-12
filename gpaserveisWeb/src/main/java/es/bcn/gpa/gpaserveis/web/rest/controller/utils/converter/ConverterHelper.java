@@ -9,6 +9,7 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperValidVal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
@@ -17,11 +18,13 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.common.BooleanApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValidacionsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValorsLlistaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValorsValidacionsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DocumentsIdentitatRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DocumentsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
 
@@ -203,6 +206,27 @@ public class ConverterHelper {
 		dadesAtributsRDTO.setUrlValidacio("?dadesOperacions.getUrlOrigen()?");
 		dadesAtributsRDTO.setUrlAjuda("?dadesOperacions.getUrlOrigen()?");
 		return dadesAtributsRDTO;
+	}
+
+	public static DocumentsRDTO buildDocumentsRDTOProcediment(ConfiguracioDocsEntradaRDTO configuracioDocsEntradaRDTO,
+	        BooleanApiParamValueTranslator booleanApiParamValueTranslator,
+	        BaseApiParamValueTranslator suportConfeccioApiParamValueTranslator) {
+		DocumentsRDTO documentsRDTO = new DocumentsRDTO();
+		documentsRDTO.setId(configuracioDocsEntradaRDTO.getId());
+		// TODO No hay codi en configuració documentació entrada. Se puede
+		// utilizar el Nom
+		documentsRDTO.setCodi(configuracioDocsEntradaRDTO.getNom());
+		// TODO No hay descripció en configuració documentació entrada.
+		// documentsRDTO.setDescripcio(configuracioDocsEntradaRDTO.getDescripcioAmpliada());
+		documentsRDTO.setDescripcioAmpliada(configuracioDocsEntradaRDTO.getDescripcioAmpliada());
+		documentsRDTO.setObligatori(booleanApiParamValueTranslator
+		        .getApiParamValueAsBooleanByInternalValue(configuracioDocsEntradaRDTO.getAtributsDocs().getObligatori()));
+		documentsRDTO.setRepetible(booleanApiParamValueTranslator
+		        .getApiParamValueAsBooleanByInternalValue(configuracioDocsEntradaRDTO.getAtributsDocs().getRepetible()));
+		documentsRDTO.setSuportConfeccio(
+		        suportConfeccioApiParamValueTranslator.getApiParamValueByInternalValue(configuracioDocsEntradaRDTO.getSuportConfeccio()));
+		documentsRDTO.setSuportEnllac(configuracioDocsEntradaRDTO.getSuportEnllac());
+		return documentsRDTO;
 	}
 
 }
