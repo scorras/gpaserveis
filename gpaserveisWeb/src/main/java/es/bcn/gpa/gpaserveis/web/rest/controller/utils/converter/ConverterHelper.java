@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -148,8 +149,6 @@ public class ConverterHelper {
 		dadesGrupsRDTO.setColumnes(
 		        (internalDadesGrupsRDTO.getNomColumnes() != null) ? String.valueOf(internalDadesGrupsRDTO.getNomColumnes()) : null);
 		dadesGrupsRDTO.setUrlValidacio(internalDadesGrupsRDTO.getUrlValidacio());
-		// TODO Obtener Url Ajuda
-		dadesGrupsRDTO.setUrlAjuda("??????????????");
 		dadesGrupsRDTO.setOrdre((internalDadesGrupsRDTO.getOrdre() != null) ? String.valueOf(internalDadesGrupsRDTO.getOrdre()) : null);
 		ArrayList<DadesAtributsRDTO> dadesAtributsRDTOList = new ArrayList<DadesAtributsRDTO>();
 		if (CollectionUtils.isNotEmpty(internalDadesGrupsRDTO.getDadesOperacionsList())) {
@@ -168,6 +167,7 @@ public class ConverterHelper {
 		DadesAtributsRDTO dadesAtributsRDTO = new DadesAtributsRDTO();
 		dadesAtributsRDTO.setCodi(dadesOperacions.getCodi());
 		dadesAtributsRDTO.setDescripcio(dadesOperacions.getDescripcio());
+		dadesAtributsRDTO.setTitol(dadesOperacions.getTitol());
 		dadesAtributsRDTO.setTipus(tipusCampApiParamValueTranslator.getApiParamValueByInternalValue(dadesOperacions.getTipus()));
 		if (CollectionUtils.isNotEmpty(dadesOperacions.getItemsList())) {
 			ArrayList<DadesAtributsValorsLlistaRDTO> dadesAtributsValorsLlistaRDTOList = new ArrayList<DadesAtributsValorsLlistaRDTO>();
@@ -203,8 +203,8 @@ public class ConverterHelper {
 			}
 			dadesAtributsRDTO.setValidacions(dadesAtributsValidacionsRDTOList);
 		}
-		dadesAtributsRDTO.setUrlValidacio("?dadesOperacions.getUrlOrigen()?");
-		dadesAtributsRDTO.setUrlAjuda("?dadesOperacions.getUrlOrigen()?");
+		dadesAtributsRDTO.setUrlValidacio(StringUtils.EMPTY);
+		dadesAtributsRDTO.setUrlOrigen(dadesOperacions.getUrlOrigen());
 		return dadesAtributsRDTO;
 	}
 

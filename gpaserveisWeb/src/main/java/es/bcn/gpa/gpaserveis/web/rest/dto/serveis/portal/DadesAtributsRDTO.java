@@ -13,13 +13,15 @@ import lombok.Setter;
 
 @ApiModel(value = "Atributs")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "codi", "descripcio", "ordre", "tipus", "valorsLlista", "validacions", "urlValidacio", "urlAjuda" })
+@JsonPropertyOrder({ "codi", "titol", "descripcio", "ordre", "tipus", "valorsLlista", "validacions", "urlValidacio", "urlOrigen" })
 @Getter
 @Setter
 public class DadesAtributsRDTO {
 
 	@ApiModelProperty(value = "Codi de l'atribut")
 	private String codi;
+	@ApiModelProperty(value = "Títol de l'atribut")
+	private String titol;
 	@ApiModelProperty(value = "Descripció de l'atribut")
 	private String descripcio;
 	@ApiModelProperty(value = "Ordre del atribut dins del grup")
@@ -32,7 +34,7 @@ public class DadesAtributsRDTO {
 	private List<DadesAtributsValidacionsRDTO> validacions;
 	@ApiModelProperty(value = "URL de validació a nivell d'atribut")
 	private String urlValidacio;
-	@ApiModelProperty(value = "URL d'ajuda a nivell d'atribut")
-	private String urlAjuda;
+	@ApiModelProperty(value = "URL d'origen a nivell d'atribut")
+	private String urlOrigen;
 
 }
