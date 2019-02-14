@@ -9,7 +9,10 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.BaseApiParamValue;
  */
 public enum TipusValidacioApiParamValue implements BaseApiParamValue {
 
-    /** The menor. */
+    /** The obligatori. */
+	OBLIGATORI("OBLIGATORI", new BigDecimal(-1)),
+
+	/** The menor. */
 	MENOR("MENOR", new BigDecimal(1)),
 
 	/** The major. */

@@ -15,6 +15,6 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.ApiParamV
 public class TipusValidacioApiParamValueTranslator extends ApiParamValueTranslator<TipusValidacioApiParamValue, BigDecimal> {
 
 	/** The Constant REQUEST_PARAM_ALLOWABLE_VALUES. */
-	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "MENOR, MAJOR, IGUAL, INTERVAL, LONGITUD_MAXIMA, MASCARA, MENOR_IGUAL, MAJOR_IGUAL, INTERVAL_TANCAT, INTERVAL_OBERT, URL";
+	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "OBLIGATORI, MENOR, MAJOR, IGUAL, INTERVAL, LONGITUD_MAXIMA, MASCARA, MENOR_IGUAL, MAJOR_IGUAL, INTERVAL_TANCAT, INTERVAL_OBERT, URL";
 
 }

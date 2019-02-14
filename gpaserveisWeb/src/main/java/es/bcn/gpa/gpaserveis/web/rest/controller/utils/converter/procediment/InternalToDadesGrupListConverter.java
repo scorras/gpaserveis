@@ -19,13 +19,20 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamVa
 public class InternalToDadesGrupListConverter extends
         AbstractConverter<List<es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO>, List<es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO>> {
 
+	/** The tipus camp api param value translator. */
 	@Autowired
 	@Qualifier("procedimentTipusCampApiParamValueTranslator")
 	private BaseApiParamValueTranslator tipusCampApiParamValueTranslator;
 
+	/** The tipus validacio api param value translator. */
 	@Autowired
 	@Qualifier("procedimentTipusValidacioApiParamValueTranslator")
 	private BaseApiParamValueTranslator tipusValidacioApiParamValueTranslator;
+
+	/** The expedient estat api param value translator. */
+	@Autowired
+	@Qualifier("expedientEstatApiParamValueTranslator")
+	private BaseApiParamValueTranslator expedientEstatApiParamValueTranslator;
 
 	/*
 	 * (non-Javadoc)
@@ -39,7 +46,7 @@ public class InternalToDadesGrupListConverter extends
 		if (CollectionUtils.isNotEmpty(source)) {
 			for (es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO internalDadesGrupsRDTO : source) {
 				dadesGrupsRDTOList.add(ConverterHelper.buildDadesGrupsRDTOProcediment(internalDadesGrupsRDTO,
-				        tipusCampApiParamValueTranslator, tipusValidacioApiParamValueTranslator));
+				        tipusCampApiParamValueTranslator, tipusValidacioApiParamValueTranslator, expedientEstatApiParamValueTranslator));
 			}
 		}
 		return dadesGrupsRDTOList;

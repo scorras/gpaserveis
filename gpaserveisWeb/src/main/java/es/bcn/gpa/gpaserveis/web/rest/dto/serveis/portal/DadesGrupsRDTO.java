@@ -13,11 +13,13 @@ import lombok.Setter;
 
 @ApiModel(value = "Grups")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "descripcio", "columnes", "ordre", "urlValidacio", "atributs" })
+@JsonPropertyOrder({ "titol", "descripcio", "columnes", "ordre", "urlValidacio", "atributs" })
 @Getter
 @Setter
 public class DadesGrupsRDTO {
 
+	@ApiModelProperty(value = "Títol del grup d'atributs")
+	private String titol;
 	@ApiModelProperty(value = "Descripció del grup d'atributs")
 	private String descripcio;
 	@ApiModelProperty(value = "Columnes del grup d'atributs")

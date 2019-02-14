@@ -1,6 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,12 +13,16 @@ import org.joda.time.format.DateTimeFormatter;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperTramitsOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperValidVal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsValidacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.EstatApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TipusValidacioApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.common.BooleanApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsRDTO;
@@ -135,16 +140,31 @@ public class ConverterHelper {
 		return personesRDTO;
 	}
 
+	/**
+	 * Builds the dades grups RDTO procediment.
+	 *
+	 * @param internalDadesGrupsRDTO
+	 *            the internal dades grups RDTO
+	 * @param tipusCampApiParamValueTranslator
+	 *            the tipus camp api param value translator
+	 * @param tipusValidacioApiParamValueTranslator
+	 *            the tipus validacio api param value translator
+	 * @param expedientEstatApiParamValueTranslator
+	 *            the expedient estat api param value translator
+	 * @return the es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal. dades
+	 *         grups RDTO
+	 */
 	public static es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO buildDadesGrupsRDTOProcediment(
 	        es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO internalDadesGrupsRDTO,
-	        BaseApiParamValueTranslator tipusCampApiParamValueTranslator,
-	        BaseApiParamValueTranslator tipusValidacioApiParamValueTranslator) {
+	        BaseApiParamValueTranslator tipusCampApiParamValueTranslator, BaseApiParamValueTranslator tipusValidacioApiParamValueTranslator,
+	        BaseApiParamValueTranslator expedientEstatApiParamValueTranslator) {
 
 		if (internalDadesGrupsRDTO == null) {
 			return null;
 		}
 
 		es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO dadesGrupsRDTO = new es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO();
+		dadesGrupsRDTO.setTitol(internalDadesGrupsRDTO.getTitol());
 		dadesGrupsRDTO.setDescripcio(internalDadesGrupsRDTO.getDescripcio());
 		dadesGrupsRDTO.setColumnes(
 		        (internalDadesGrupsRDTO.getNomColumnes() != null) ? String.valueOf(internalDadesGrupsRDTO.getNomColumnes()) : null);
@@ -154,16 +174,29 @@ public class ConverterHelper {
 		if (CollectionUtils.isNotEmpty(internalDadesGrupsRDTO.getDadesOperacionsList())) {
 			for (DadesOperacions dadesOperacions : internalDadesGrupsRDTO.getDadesOperacionsList()) {
 				dadesAtributsRDTOList.add(ConverterHelper.buildDadesAtributsRDTOProcediment(dadesOperacions,
-				        tipusCampApiParamValueTranslator, tipusValidacioApiParamValueTranslator));
+				        tipusCampApiParamValueTranslator, tipusValidacioApiParamValueTranslator, expedientEstatApiParamValueTranslator));
 			}
 		}
 		dadesGrupsRDTO.setAtributs(dadesAtributsRDTOList);
 		return dadesGrupsRDTO;
 	}
 
+	/**
+	 * Builds the dades atributs RDTO procediment.
+	 *
+	 * @param dadesOperacions
+	 *            the dades operacions
+	 * @param tipusCampApiParamValueTranslator
+	 *            the tipus camp api param value translator
+	 * @param tipusValidacioApiParamValueTranslator
+	 *            the tipus validacio api param value translator
+	 * @param expedientEstatApiParamValueTranslator
+	 *            the expedient estat api param value translator
+	 * @return the dades atributs RDTO
+	 */
 	public static DadesAtributsRDTO buildDadesAtributsRDTOProcediment(DadesOperacions dadesOperacions,
-	        BaseApiParamValueTranslator tipusCampApiParamValueTranslator,
-	        BaseApiParamValueTranslator tipusValidacioApiParamValueTranslator) {
+	        BaseApiParamValueTranslator tipusCampApiParamValueTranslator, BaseApiParamValueTranslator tipusValidacioApiParamValueTranslator,
+	        BaseApiParamValueTranslator expedientEstatApiParamValueTranslator) {
 		DadesAtributsRDTO dadesAtributsRDTO = new DadesAtributsRDTO();
 		dadesAtributsRDTO.setCodi(dadesOperacions.getCodi());
 		dadesAtributsRDTO.setDescripcio(dadesOperacions.getDescripcio());
@@ -178,7 +211,18 @@ public class ConverterHelper {
 				dadesAtributsValorsLlistaRDTO.setOrdre((items.getItemOrdre() != null) ? String.valueOf(items.getItemOrdre()) : null);
 				dadesAtributsValorsLlistaRDTOList.add(dadesAtributsValorsLlistaRDTO);
 			}
+			Collections.sort(dadesAtributsValorsLlistaRDTOList);
 			dadesAtributsRDTO.setValorsLlista(dadesAtributsValorsLlistaRDTOList);
+		}
+		if (esTramitOvt(dadesOperacions, TramitOvtApiParamValue.SOL) && dadesOperacions.getEstatIdext() != null
+		        && expedientEstatApiParamValueTranslator.getApiParamValueByInternalValue(dadesOperacions.getEstatIdext())
+		                .equals(EstatApiParamValue.SOL_LICITUD_EN_REVISIO.getApiParamValue())) {
+			DadesOperacionsValidacio dadesOperacionsValidacio = new DadesOperacionsValidacio();
+			dadesOperacionsValidacio.setTipusValidacio(TipusValidacioApiParamValue.OBLIGATORI.getInternalValue());
+			if (dadesOperacions.getDadesOperacionsValidacio() == null) {
+				dadesOperacions.setDadesOperacionsValidacio(new ArrayList<DadesOperacionsValidacio>());
+			}
+			dadesOperacions.getDadesOperacionsValidacio().add(NumberUtils.INTEGER_ZERO, dadesOperacionsValidacio);
 		}
 		if (CollectionUtils.isNotEmpty(dadesOperacions.getDadesOperacionsValidacio())) {
 			ArrayList<DadesAtributsValidacionsRDTO> dadesAtributsValidacionsRDTOList = new ArrayList<DadesAtributsValidacionsRDTO>();
@@ -197,6 +241,7 @@ public class ConverterHelper {
 						        .setOrdre((dadesOperValidVal.getOrdre() != null) ? String.valueOf(dadesOperValidVal.getOrdre()) : null);
 						dadesAtributsValorsValidacionsRDTOList.add(dadesAtributsValorsValidacionsRDTO);
 					}
+					Collections.sort(dadesAtributsValorsValidacionsRDTOList);
 					dadesAtributsValidacionsRDTO.setValorsValidacions(dadesAtributsValorsValidacionsRDTOList);
 				}
 				dadesAtributsValidacionsRDTOList.add(dadesAtributsValidacionsRDTO);
@@ -208,6 +253,38 @@ public class ConverterHelper {
 		return dadesAtributsRDTO;
 	}
 
+	/**
+	 * Es tramit ovt.
+	 *
+	 * @param dadesOperacions
+	 *            the dades operacions
+	 * @param tramitOvtApiParamValue
+	 *            the tramit ovt api param value
+	 * @return true, if successful
+	 */
+	private static boolean esTramitOvt(DadesOperacions dadesOperacions, TramitOvtApiParamValue tramitOvtApiParamValue) {
+		if (CollectionUtils.isNotEmpty(dadesOperacions.getDadesOperTramitsOvtList())) {
+			for (DadesOperTramitsOvt dadesOperTramitsOvt : dadesOperacions.getDadesOperTramitsOvtList()) {
+				if (dadesOperTramitsOvt.getTramitOvtIdext()
+				        .compareTo(tramitOvtApiParamValue.getInternalValue()) == NumberUtils.INTEGER_ZERO) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Builds the documents RDTO procediment.
+	 *
+	 * @param configuracioDocsEntradaRDTO
+	 *            the configuracio docs entrada RDTO
+	 * @param booleanApiParamValueTranslator
+	 *            the boolean api param value translator
+	 * @param suportConfeccioApiParamValueTranslator
+	 *            the suport confeccio api param value translator
+	 * @return the documents RDTO
+	 */
 	public static DocumentsRDTO buildDocumentsRDTOProcediment(ConfiguracioDocsEntradaRDTO configuracioDocsEntradaRDTO,
 	        BooleanApiParamValueTranslator booleanApiParamValueTranslator,
 	        BaseApiParamValueTranslator suportConfeccioApiParamValueTranslator) {

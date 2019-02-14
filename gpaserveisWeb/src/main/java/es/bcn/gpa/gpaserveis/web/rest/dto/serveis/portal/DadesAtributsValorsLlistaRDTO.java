@@ -13,11 +13,16 @@ import lombok.Setter;
 @JsonPropertyOrder({ "valor", "ordre" })
 @Getter
 @Setter
-public class DadesAtributsValorsLlistaRDTO {
+public class DadesAtributsValorsLlistaRDTO implements Comparable<DadesAtributsValorsLlistaRDTO> {
 
 	@ApiModelProperty(value = "Valor de la llista")
 	private String valor;
 	@ApiModelProperty(value = "Ordre del valor de la llista")
 	private String ordre;
+
+	@Override
+	public int compareTo(DadesAtributsValorsLlistaRDTO dadesAtributsValorsLlistaRDTO) {
+		return this.ordre.compareTo(dadesAtributsValorsLlistaRDTO.getOrdre());
+	}
 
 }
