@@ -43,8 +43,8 @@ public class ConverterHelper {
 	 */
 	public static UnitatGestoraRDTO buildUnitatGestoraRDTOUnitats(UnitatsGestoresRDTO unitatsGestoresRDTO) {
 		UnitatGestoraRDTO unitatGestoraRDTO = new UnitatGestoraRDTO();
-		unitatGestoraRDTO.setCodi(unitatsGestoresRDTO.getNom());
-		unitatGestoraRDTO.setDescripcio(unitatsGestoresRDTO.getDescripcio());
+		unitatGestoraRDTO.setCodi(unitatsGestoresRDTO.getCodi());
+		unitatGestoraRDTO.setNom(unitatsGestoresRDTO.getNom());
 		return unitatGestoraRDTO;
 	}
 

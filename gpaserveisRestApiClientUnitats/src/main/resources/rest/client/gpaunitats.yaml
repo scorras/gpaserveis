@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaunitats"
-  version: "1.3.0"
+  version: "1.4.0"
   title: "API gpaunitats"
   contact:
     name: "Sergio Corras"
@@ -246,6 +246,10 @@ paths:
         required: false
         type: "integer"
         format: "int32"
+      - name: "codi"
+        in: "query"
+        required: false
+        type: "string"
       - name: "currentPageHasNextPage"
         in: "query"
         required: false
@@ -461,6 +465,8 @@ definitions:
   UnitatsGestoresRDTO:
     type: "object"
     properties:
+      codi:
+        type: "string"
       dataCreacio:
         type: "string"
         format: "date-time"

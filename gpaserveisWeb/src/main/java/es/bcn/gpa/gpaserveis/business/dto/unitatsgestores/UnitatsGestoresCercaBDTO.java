@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UnitatsGestoresCercaBDTO {
 
-	/** The nom. */
-	private String nom;
+	/** The codi. */
+	private String codi;
 
 }
