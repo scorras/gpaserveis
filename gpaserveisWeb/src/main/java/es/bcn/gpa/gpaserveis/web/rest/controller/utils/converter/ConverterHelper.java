@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.regex.Matcher;
@@ -11,6 +12,7 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfdocsentTramitsOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperTramitsOvt;
@@ -274,36 +276,51 @@ public class ConverterHelper {
 		return false;
 	}
 
-	/**
-	 * Builds the documents RDTO procediment.
-	 *
-	 * @param configuracioDocsEntradaRDTO
-	 *            the configuracio docs entrada RDTO
-	 * @param booleanApiParamValueTranslator
-	 *            the boolean api param value translator
-	 * @param suportConfeccioApiParamValueTranslator
-	 *            the suport confeccio api param value translator
-	 * @return the documents RDTO
-	 */
 	public static DocumentsRDTO buildDocumentsRDTOProcediment(ConfiguracioDocsEntradaRDTO configuracioDocsEntradaRDTO,
 	        BooleanApiParamValueTranslator booleanApiParamValueTranslator,
-	        BaseApiParamValueTranslator suportConfeccioApiParamValueTranslator) {
+	        BaseApiParamValueTranslator suportConfeccioApiParamValueTranslator,
+	        BaseApiParamValueTranslator expedientEstatApiParamValueTranslator) {
 		DocumentsRDTO documentsRDTO = new DocumentsRDTO();
-		documentsRDTO.setId(configuracioDocsEntradaRDTO.getId());
-		// TODO No hay codi en configuració documentació entrada. Se puede
-		// utilizar el Nom
-		documentsRDTO.setCodi(configuracioDocsEntradaRDTO.getNom());
-		// TODO No hay descripció en configuració documentació entrada.
-		// documentsRDTO.setDescripcio(configuracioDocsEntradaRDTO.getDescripcioAmpliada());
+		documentsRDTO.setCodi((configuracioDocsEntradaRDTO.getId() != null) ? String.valueOf(configuracioDocsEntradaRDTO.getId()) : null);
+		documentsRDTO.setDescripcio(configuracioDocsEntradaRDTO.getNom());
 		documentsRDTO.setDescripcioAmpliada(configuracioDocsEntradaRDTO.getDescripcioAmpliada());
-		documentsRDTO.setObligatori(booleanApiParamValueTranslator
-		        .getApiParamValueAsBooleanByInternalValue(configuracioDocsEntradaRDTO.getAtributsDocs().getObligatori()));
+		if (esTramitOvt(configuracioDocsEntradaRDTO, TramitOvtApiParamValue.SOL)
+		        && configuracioDocsEntradaRDTO.getIniciProcediment() != null
+		        && expedientEstatApiParamValueTranslator
+		                .getApiParamValueByInternalValue(BigDecimal.valueOf(configuracioDocsEntradaRDTO.getIniciProcediment()))
+		                .equals(EstatApiParamValue.SOL_LICITUD_EN_REVISIO.getApiParamValue())) {
+			documentsRDTO.setObligatori(Boolean.TRUE);
+		} else {
+			documentsRDTO.setObligatori(Boolean.FALSE);
+		}
 		documentsRDTO.setRepetible(booleanApiParamValueTranslator
 		        .getApiParamValueAsBooleanByInternalValue(configuracioDocsEntradaRDTO.getAtributsDocs().getRepetible()));
 		documentsRDTO.setSuportConfeccio(
 		        suportConfeccioApiParamValueTranslator.getApiParamValueByInternalValue(configuracioDocsEntradaRDTO.getSuportConfeccio()));
 		documentsRDTO.setSuportEnllac(configuracioDocsEntradaRDTO.getSuportEnllac());
 		return documentsRDTO;
+	}
+
+	/**
+	 * Es tramit ovt.
+	 *
+	 * @param configuracioDocsEntradaRDTO
+	 *            the configuracio docs entrada RDTO
+	 * @param tramitOvtApiParamValue
+	 *            the tramit ovt api param value
+	 * @return true, if successful
+	 */
+	private static boolean esTramitOvt(ConfiguracioDocsEntradaRDTO configuracioDocsEntradaRDTO,
+	        TramitOvtApiParamValue tramitOvtApiParamValue) {
+		if (CollectionUtils.isNotEmpty(configuracioDocsEntradaRDTO.getConfdocsentTramitsOvtList())) {
+			for (ConfdocsentTramitsOvt confdocsentTramitsOvt : configuracioDocsEntradaRDTO.getConfdocsentTramitsOvtList()) {
+				if (confdocsentTramitsOvt.getTramitOvtIdext()
+				        .compareTo(tramitOvtApiParamValue.getInternalValue()) == NumberUtils.INTEGER_ZERO) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }

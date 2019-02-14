@@ -21,13 +21,20 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DocumentsRDTO;
 @Component("procedimentInternalToDocumentsEntradaListConverter")
 public class InternalToDocumentsEntradaListConverter extends AbstractConverter<List<ConfiguracioDocsEntradaRDTO>, List<DocumentsRDTO>> {
 
+	/** The boolean api param value translator. */
 	@Autowired
 	@Qualifier("booleanApiParamValueTranslator")
 	private BooleanApiParamValueTranslator booleanApiParamValueTranslator;
 
+	/** The suport confeccio api param value translator. */
 	@Autowired
 	@Qualifier("procedimentSuportConfeccioApiParamValueTranslator")
 	private BaseApiParamValueTranslator suportConfeccioApiParamValueTranslator;
+
+	/** The expedient estat api param value translator. */
+	@Autowired
+	@Qualifier("expedientEstatApiParamValueTranslator")
+	private BaseApiParamValueTranslator expedientEstatApiParamValueTranslator;
 
 	/*
 	 * (non-Javadoc)
@@ -40,7 +47,7 @@ public class InternalToDocumentsEntradaListConverter extends AbstractConverter<L
 		if (CollectionUtils.isNotEmpty(source)) {
 			for (ConfiguracioDocsEntradaRDTO configuracioDocsEntradaRDTO : source) {
 				documentsRDTOList.add(ConverterHelper.buildDocumentsRDTOProcediment(configuracioDocsEntradaRDTO,
-				        booleanApiParamValueTranslator, suportConfeccioApiParamValueTranslator));
+				        booleanApiParamValueTranslator, suportConfeccioApiParamValueTranslator, expedientEstatApiParamValueTranslator));
 			}
 		}
 		return documentsRDTOList;

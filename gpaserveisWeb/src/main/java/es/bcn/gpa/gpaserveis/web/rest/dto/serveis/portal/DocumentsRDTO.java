@@ -1,7 +1,5 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal;
 
-import java.math.BigDecimal;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -13,13 +11,11 @@ import lombok.Setter;
 
 @ApiModel(value = "Documents")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "codi", "descripcio", "descripcioAmpliada", "obligatori", "repetible", "suportConfeccio", "suportEnllac" })
+@JsonPropertyOrder({ "codi", "descripcio", "descripcioAmpliada", "obligatori", "repetible", "suportConfeccio", "suportEnllac" })
 @Getter
 @Setter
 public class DocumentsRDTO {
 
-	@ApiModelProperty(value = "Identificador del document")
-	private BigDecimal id;
 	@ApiModelProperty(value = "Codi del document")
 	private String codi;
 	@ApiModelProperty(value = "Descripció del document")
