@@ -1,5 +1,0 @@
-procediments.service.url=http://dsv-corp-gpa-gpaprocediments-service:8080/gpaprocediments/rest
-unitats.service.url=http://dsv-corp-gpa-gpaunitats-service:8080/gpaunitats/rest
-tramits.service.url=http://dsv-corp-gpa-gpatramits-service:8080/gpatramits/rest
-expedients.service.url=http://dsv-corp-gpa-gpaexpedients-service:8080/gpaexpedients/rest
-documentacio.service.url=http://dsv-corp-gpa-gpaexpedients-service:8080/gpadocumentacio/rest
