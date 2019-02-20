@@ -6,6 +6,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -74,6 +75,43 @@ public class ApiParamValueTranslator<E extends Enum<E>, T extends Object> implem
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.
+	 * BaseApiParamValueTranslator#getInternalValueListByApiParamValue(java.lang
+	 * .String)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> getInternalValueListByApiParamValue(String apiParamValue) throws GPAServeisRuntimeException {
+		ArrayList<T> tList = new ArrayList<T>();
+
+		try {
+			if (StringUtils.isNotEmpty(apiParamValue)) {
+				E[] enumList = getEnumValues(getEnumClass());
+
+				for (E e : enumList) {
+					Method getApiParamValueMethod = e.getClass().getDeclaredMethod("getApiParamValue");
+					Object apiParamValueObject = getApiParamValueMethod.invoke(e);
+
+					if (ObjectUtils.equals(apiParamValueObject, apiParamValue)) {
+						Method getInternalValueMethod = e.getClass().getMethod("getInternalValue");
+						tList.add((T) getInternalValueMethod.invoke(e));
+					}
+				}
+			}
+
+			if (CollectionUtils.isNotEmpty(tList)) {
+				return tList;
+			}
+
+			throw new GPAServeisRuntimeException("El valor indicat no és vàlid");
+		} catch (Exception e) {
+			throw new GPAServeisRuntimeException("El valor indicat no és vàlid", e);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.
 	 * BaseApiParamValueTranslator#getInternalValueListByApiParamValueList(java.
 	 * lang.String[])
 	 */
@@ -120,6 +158,38 @@ public class ApiParamValueTranslator<E extends Enum<E>, T extends Object> implem
 				}
 			}
 			throw new GPAServeisRuntimeException("El valor indicat no és vàlid");
+		} catch (Exception e) {
+			throw new GPAServeisRuntimeException("El valor indicat no és vàlid", e);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.
+	 * BaseApiParamValueTranslator#getApiParamValueListByInternalValue(java.lang
+	 * .Object)
+	 */
+	@Override
+	public List<String> getApiParamValueListByInternalValue(Object internalValue) throws GPAServeisRuntimeException {
+		ArrayList<String> apiParamValueList = new ArrayList<String>();
+
+		try {
+			if (internalValue != null) {
+				E[] enumList = getEnumValues(getEnumClass());
+
+				for (E e : enumList) {
+					Method getInternalValueMethod = e.getClass().getDeclaredMethod("getInternalValue");
+					Object internalValueObject = getInternalValueMethod.invoke(e);
+
+					if (ObjectUtils.equals(internalValueObject, internalValue)) {
+						Method getApiParamValueMethod = e.getClass().getMethod("getApiParamValue");
+						apiParamValueList.add((getApiParamValueMethod.invoke(e)).toString());
+					}
+				}
+			}
+
+			return apiParamValueList;
 		} catch (Exception e) {
 			throw new GPAServeisRuntimeException("El valor indicat no és vàlid", e);
 		}

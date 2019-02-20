@@ -1,13 +1,13 @@
 package es.bcn.gpa.gpaserveis.business;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.HistoricsExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfHistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
 
 /**
@@ -38,16 +38,15 @@ public interface ExpedientsService {
 	ExpedientsRDTO consultarDadesExpedient(BigDecimal id) throws GPAServeisServiceException;
 
 	/**
-	 * Cerca historics expedient.
+	 * Cerca historics estats expedient.
 	 *
-	 * @param historicsExpedientsCercaBDTO
-	 *            the historics expedients cerca BDTO
-	 * @return the page data of historics RDTO
+	 * @param idExpedient
+	 *            the id expedient
+	 * @return the list
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	PageDataOfHistoricsRDTO cercaHistoricsExpedient(HistoricsExpedientsCercaBDTO historicsExpedientsCercaBDTO)
-	        throws GPAServeisServiceException;
+	List<EstatsRDTO> cercaHistoricsEstatsExpedient(BigDecimal idExpedient) throws GPAServeisServiceException;
 
 	/**
 	 * Cerca persones interesades expedient.

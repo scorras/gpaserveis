@@ -587,6 +587,36 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /tramits/accionsPermesesForEstatActual/{estatId}:
+    get:
+      tags:
+      - "AccionsEstats"
+      summary: "Returns the accions allowed for the current expedient's status"
+      operationId: "cercaAccionsPossibles"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "estatId"
+        in: "path"
+        description: "estatId"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/AccionsEstatsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /tramits/associarEstatTramProcUg:
     post:
       tags:
@@ -1969,6 +1999,8 @@ definitions:
         format: "int32"
       estat:
         type: "number"
+      estatCiutada:
+        type: "string"
       estatTramitador:
         type: "string"
       id:

@@ -10,11 +10,13 @@ import lombok.Setter;
 
 @ApiModel(value = "ValorsLlista")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "valor", "ordre" })
+@JsonPropertyOrder({ "codi", "valor", "ordre" })
 @Getter
 @Setter
 public class DadesAtributsValorsLlistaRDTO implements Comparable<DadesAtributsValorsLlistaRDTO> {
 
+	@ApiModelProperty(value = "Codi del valor de la llista")
+	private String codi;
 	@ApiModelProperty(value = "Valor de la llista")
 	private String valor;
 	@ApiModelProperty(value = "Ordre del valor de la llista")

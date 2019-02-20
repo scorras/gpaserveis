@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.3.0"
+  version: "1.4.0"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -416,6 +416,37 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/CrearAvisDocEntradaPendentRevisio"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /avisos/crearAvisRequeriment:
+    post:
+      tags:
+      - "Crear Avis Requeriment"
+      summary: "Crear Avis Requeriment"
+      operationId: "crearAvisRequerimentUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "crearAvisRequerimentRDTO"
+        description: "crearAvisRequerimentRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/CrearAvisRequeriment"
       responses:
         200:
           description: "OK"
@@ -1547,6 +1578,36 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/estats/{idExpedient}/historics:
+    get:
+      tags:
+      - "Estats"
+      summary: "Returns the historic of states through which the expedient has passed"
+      operationId: "cercaHistoricsEstats"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/EstatsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /expedients/historic/insert:
     post:
       tags:
@@ -2510,9 +2571,14 @@ paths:
         required: false
         type: "integer"
         format: "int32"
-      - name: "numeroDocument"
+      - name: "numeroDocumentSollicitant"
         in: "query"
         description: "Numero de document d'identificació del sol·licitant"
+        required: false
+        type: "string"
+      - name: "numeroDocumentSollicitantEstricte"
+        in: "query"
+        description: "Numero de document d'identificació del sol·licitant estricte"
         required: false
         type: "string"
       - name: "pageSize"
@@ -2536,11 +2602,6 @@ paths:
       - name: "procedimentVersio"
         in: "query"
         description: "Versió del procediment"
-        required: false
-        type: "string"
-      - name: "sollicitant"
-        in: "query"
-        description: "Nom del sol·licitant"
         required: false
         type: "string"
       - name: "sort"
@@ -2806,6 +2867,31 @@ definitions:
         type: "number"
         description: "Tipus de l'avís"
     title: "CrearAvisDocEntradaPendentRevisio"
+  CrearAvisRequeriment:
+    type: "object"
+    properties:
+      criticitat:
+        type: "number"
+        description: "Criticitat de l'avís"
+      dataCreacio:
+        type: "string"
+        format: "date-time"
+        description: "Data creació de l'avís"
+      dataLimit:
+        type: "string"
+        format: "date-time"
+        description: "Data límit de l'avís"
+      expedient:
+        type: "number"
+        description: "Identificador de l'expedient per al qual s'ha de crear l'aví\
+          s"
+      respostaRequeriment:
+        type: "number"
+        description: "Termini de resposta de requeriment"
+      tipus:
+        type: "number"
+        description: "Tipus de l'avís"
+    title: "CrearAvisRequeriment"
   CriticitatAvisRDTO:
     type: "object"
     properties:
@@ -2945,6 +3031,25 @@ definitions:
       usuari:
         type: "number"
     title: "Estats"
+  EstatsRDTO:
+    type: "object"
+    properties:
+      dataCreacio:
+        type: "string"
+        format: "date-time"
+      descripcioEstatActualCiutada:
+        type: "string"
+      descripcioEstatActualTramitador:
+        type: "string"
+      descripcioEstatAnteriorCiutada:
+        type: "string"
+      descripcioEstatAnteriorTramitador:
+        type: "string"
+      idEstatActual:
+        type: "number"
+      idEstatAnterior:
+        type: "number"
+    title: "EstatsRDTO"
   ExpedientsRDTO:
     type: "object"
     properties:
@@ -2976,6 +3081,8 @@ definitions:
         format: "date-time"
       descEstat:
         type: "string"
+      descEstatCiutada:
+        type: "string"
       descUnitatGestora:
         type: "string"
       documentacioIdext:
@@ -2992,7 +3099,9 @@ definitions:
         type: "number"
       nomProcediment:
         type: "string"
-      numeroDocument:
+      numeroDocumentSollicitant:
+        type: "string"
+      numeroDocumentSollicitantEstricte:
         type: "string"
       procedimentCodi:
         type: "string"

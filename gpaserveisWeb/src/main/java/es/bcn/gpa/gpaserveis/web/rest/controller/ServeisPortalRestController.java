@@ -2,7 +2,6 @@ package es.bcn.gpa.gpaserveis.web.rest.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -30,7 +29,6 @@ import es.bcn.gpa.gpaserveis.business.TramitsService;
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.HistoricsExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
@@ -46,6 +44,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.Ex
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.procediment.ProcedimentsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.consulta.atributs.DadesOperacioApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.consulta.documents.DocumentsApiParamToInternalMapper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatCiutadaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.VersioProcedimentApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.ActivableEnFormatElectronicApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.CompetenciaAssociadaApiParamValueTranslator;
@@ -410,7 +409,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	        @ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioFi", required = false) String dataPresentacioFi,
 	        @ApiParam(value = "Filtra expedients per un conjunt de codis de procediment") @RequestParam(value = "codiProcediment", required = false) String[] codiProcediment,
 	        @ApiParam(value = "En cas que s'indiqui codi de procediment, filtra expedients per versió de procediment", allowableValues = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String versioProcediment,
-	        @ApiParam(value = "Filtrar procediments per conjunt d'estats", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
+	        @ApiParam(value = "Filtrar procediments per conjunt d'estats", allowableValues = EstatCiutadaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatCiutadaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
 	        @ApiParam(value = "Filtra expedients per Unitat Gestora") @RequestParam(value = "unitatGestora", required = false) String unitatGestora,
 	        @ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
 	        @ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci)
@@ -442,7 +441,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		ExpedientsCercaBDTO expedientsCercaBDTO = new ExpedientsCercaBDTO(codiExpedient, nifSollicitant, dataPresentacioIniciDateTime,
 		        dataPresentacioFiDateTime, ExpedientsApiParamToInternalMapper.getCodiProcedimentInternalValueList(codiProcediment),
 		        ExpedientsApiParamToInternalMapper.getVersioProcedimentInternalValue(versioProcediment),
-		        ExpedientsApiParamToInternalMapper.getEstatInternalValueList(estat),
+		        ExpedientsApiParamToInternalMapper.getEstatCiutadaInternalValueList(estat),
 		        ExpedientsApiParamToInternalMapper.getIdUnitatGestoraInternalValueList(unitatsGestoresRDTOList),
 		        ExpedientsApiParamToInternalMapper.getTramitadorInternalValue(tramitador), aplicacioNegoci, numeroPagina,
 		        resultatsPerPagina, ExpedientsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
@@ -485,10 +484,8 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		RespostaConsultaExpedientsRDTO respostaConsultaExpedientsRDTO = new RespostaConsultaExpedientsRDTO();
 
-		HistoricsExpedientsCercaBDTO historicsExpedientsCercaBDTO = new HistoricsExpedientsCercaBDTO(idExpedient,
-		        Arrays.asList(new BigDecimal(5)));
 		DadesExpedientRDTO dadesExpedientRDTO = ServeisPortalRestControllerHelper.loadDadesExpedientRDTO(expedientsService,
-		        unitatsGestoresService, idExpedient, historicsExpedientsCercaBDTO);
+		        unitatsGestoresService, tramitsService, documentsService, idExpedient);
 		ExpedientsConsultaRDTO expedientsConsultaRDTO = modelMapper.map(dadesExpedientRDTO, ExpedientsConsultaRDTO.class);
 		respostaConsultaExpedientsRDTO.setExpedient(expedientsConsultaRDTO);
 

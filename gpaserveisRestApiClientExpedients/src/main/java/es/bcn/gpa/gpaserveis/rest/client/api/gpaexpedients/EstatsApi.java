@@ -10,13 +10,14 @@ import javax.ws.rs.core.GenericType;
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviEstatRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownItemRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-06T01:24:07.150+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-19T12:01:33.083+01:00")
 public class EstatsApi {
   private ApiClient apiClient;
 
@@ -36,6 +37,48 @@ public class EstatsApi {
     this.apiClient = apiClient;
   }
 
+  /**
+   * Returns the historic of states through which the expedient has passed
+   * 
+   * @param idExpedient idExpedient (required)
+   * @return List&lt;EstatsRDTO&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<EstatsRDTO> cercaHistoricsEstats(BigDecimal idExpedient) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'idExpedient' is set
+    if (idExpedient == null) {
+      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling cercaHistoricsEstats");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/expedients/estats/{idExpedient}/historics"
+      .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<EstatsRDTO>> localVarReturnType = new GenericType<List<EstatsRDTO>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
   /**
    * Returns the requested estats
    * 

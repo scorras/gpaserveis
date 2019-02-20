@@ -178,6 +178,27 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
+	 * Returns the requested documentacio entrada grouped by tràmit OVT
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void cercaDocumentsEntradaAgrupatsPerTramitOvtTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/1/entrada/agrupatPerTramitOvt"), eq("GET"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<DocsEntradaRDTO>());
+
+		BigDecimal idDocumentacio = ONE;
+		List<DocsEntradaRDTO> response = api.cercaDocumentsEntradaAgrupatsPerTramitOvt(idDocumentacio);
+
+		assertTrue(response != null);
+	}
+
+	/**
 	 * Returns the requested documentacio tramitacio
 	 *
 	 * 

@@ -11,9 +11,12 @@ import static org.joda.time.DateTime.now;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AtributsDocs;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntrada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
@@ -44,6 +47,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsI
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsUgos;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.RequerimentsOperatius;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.PageDataOfTramitsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsRDTO;
@@ -776,6 +780,72 @@ public class TestsConfigHelper {
 		configuracioDocsEntradaRDTOList.add(configuracioDocsEntradaRDTO);
 
 		return pageDataOfConfiguracioDocsEntradaRDTO;
+	}
+
+	public static List<AccionsEstatsRDTO> cercaAccionsPossiblesResponse() {
+		ArrayList<AccionsEstatsRDTO> accionsEstatsRDTOList = new ArrayList<AccionsEstatsRDTO>();
+
+		AccionsEstatsRDTO accionsEstatsRDTO = new AccionsEstatsRDTO();
+		accionsEstatsRDTO.setId(ONE);
+		accionsEstatsRDTO.setNomAccio("Aportar documentació");
+		accionsEstatsRDTO.setAccio(new BigDecimal(2));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO);
+
+		return accionsEstatsRDTOList;
+	}
+
+	public static List<DocsEntradaRDTO> cercaDocumentsEntradaAgrupatsPerTramitOvtResponse() {
+		ArrayList<DocsEntradaRDTO> docsEntradaRDTOList = new ArrayList<DocsEntradaRDTO>();
+
+		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
+		docsEntradaRDTO.setId(ONE);
+		docsEntradaRDTO.setTramitOvtIdext(ONE);
+		docsEntradaRDTO.setDataPresentacio(now());
+		docsEntradaRDTO.setRevisio(INTEGER_ONE);
+		docsEntradaRDTO.setRegistreIdext(ONE);
+		docsEntradaRDTO.setDocsFisicsNom("fitxer.pdf");
+
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones persones = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones();
+		persones.setId(ONE);
+		persones.setTipusPersona(ONE);
+		persones.setNomRaoSocial("NomRaoSocial");
+		persones.setCognom1("Cognom1");
+		persones.setCognom2("Cognom2");
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentsIdentitat documentsIdentitat = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentsIdentitat();
+		documentsIdentitat.setId(ONE);
+		documentsIdentitat.setNumeroDocument("12345678H");
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TipusDocumentIdentitat tipusDocumentIdentitat = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TipusDocumentIdentitat();
+		tipusDocumentIdentitat.setId(ONE);
+		tipusDocumentIdentitat.setDescripcio("NIF");
+		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Paisos paisos = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Paisos();
+		paisos.setCodiIne("108");
+		paisos.setCodiIso("ES");
+		documentsIdentitat.setPaisos(paisos);
+		persones.setDocumentsIdentitat(documentsIdentitat);
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PersonesDadescontacte personesDadescontacte = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PersonesDadescontacte();
+		personesDadescontacte.setId(ONE);
+		personesDadescontacte.setSexe(ONE);
+		persones.setPersonesDadescontacte(personesDadescontacte);
+
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RegistreAssentament registreAssentament = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RegistreAssentament();
+		registreAssentament.setCodi("RADOC1");
+		registreAssentament.setDataRegistre(now());
+		registreAssentament.setId(ONE);
+		registreAssentament.setPersona(ONE);
+		registreAssentament.setTipus(ONE);
+		registreAssentament.setUsuari(ONE);
+		registreAssentament.setPersones(persones);
+		docsEntradaRDTO.setRegistreAssentament(registreAssentament);
+
+		ConfiguracioDocsEntrada configuracioDocsEntrada = new ConfiguracioDocsEntrada();
+		configuracioDocsEntrada.setId(ONE);
+		configuracioDocsEntrada.setDescripcioAmpliada("Configuració Documentació Entrada");
+		docsEntradaRDTO.setConfiguracioDocsEntrada(configuracioDocsEntrada);
+
+		docsEntradaRDTOList.add(docsEntradaRDTO);
+
+		return docsEntradaRDTOList;
 	}
 
 }

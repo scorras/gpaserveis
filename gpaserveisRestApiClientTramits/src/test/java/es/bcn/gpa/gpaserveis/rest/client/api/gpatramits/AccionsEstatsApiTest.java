@@ -207,4 +207,25 @@ public class AccionsEstatsApiTest extends ParentTest {
 		assertTrue(response != null);
 	}
 
+	/**
+	 * Returns the accions allowed for the current expedient&#39;s status
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void cercaAccionsPossiblesTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/tramits/accionsPermesesForEstatActual/1"), eq("GET"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(Arrays.asList(new AccionsEstatsRDTO()));
+
+		BigDecimal accioEstatId = ONE;
+		List<AccionsEstatsRDTO> response = api.cercaAccionsPossibles(accioEstatId);
+
+		assertTrue(response != null);
+	}
+
 }

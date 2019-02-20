@@ -28,7 +28,7 @@ import org.joda.time.DateTime;
 /**
  * DocsEntradaRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-11T17:30:09.381+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-20T14:00:48.668+01:00")
 public class DocsEntradaRDTO {
   @JsonProperty("comentari")
   private String comentari = null;
@@ -122,6 +122,9 @@ public class DocsEntradaRDTO {
 
   @JsonProperty("tipusMimeDescripcio")
   private String tipusMimeDescripcio = null;
+
+  @JsonProperty("tramitOvtIdext")
+  private BigDecimal tramitOvtIdext = null;
 
   @JsonProperty("ultimaModificacioIdext")
   private BigDecimal ultimaModificacioIdext = null;
@@ -687,6 +690,24 @@ public class DocsEntradaRDTO {
     this.tipusMimeDescripcio = tipusMimeDescripcio;
   }
 
+  public DocsEntradaRDTO tramitOvtIdext(BigDecimal tramitOvtIdext) {
+    this.tramitOvtIdext = tramitOvtIdext;
+    return this;
+  }
+
+   /**
+   * Get tramitOvtIdext
+   * @return tramitOvtIdext
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getTramitOvtIdext() {
+    return tramitOvtIdext;
+  }
+
+  public void setTramitOvtIdext(BigDecimal tramitOvtIdext) {
+    this.tramitOvtIdext = tramitOvtIdext;
+  }
+
   public DocsEntradaRDTO ultimaModificacioIdext(BigDecimal ultimaModificacioIdext) {
     this.ultimaModificacioIdext = ultimaModificacioIdext;
     return this;
@@ -764,13 +785,14 @@ public class DocsEntradaRDTO {
         Objects.equals(this.revisio, docsEntradaRDTO.revisio) &&
         Objects.equals(this.seleccionable, docsEntradaRDTO.seleccionable) &&
         Objects.equals(this.tipusMimeDescripcio, docsEntradaRDTO.tipusMimeDescripcio) &&
+        Objects.equals(this.tramitOvtIdext, docsEntradaRDTO.tramitOvtIdext) &&
         Objects.equals(this.ultimaModificacioIdext, docsEntradaRDTO.ultimaModificacioIdext) &&
         Objects.equals(this.usuariIdext, docsEntradaRDTO.usuariIdext);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comentari, configDocEntrada, configuracioDocsEntrada, configuracioDocsEntradaNom, dataCreacio, dataDigitalitzacio, dataPresentacio, dataUltimaModificacio, digitalitzat, docsFisics, docsFisicsNom, documentFisic, documentacio, editable, eliminat, fileToUploadContent, fileToUploadName, fileToUploadSize, fileToUploadType, id, idioma, numDocsConfiguracio, obligatoriEnEstat, origen, registreAssentament, registreCodi, registreIdext, requerit, revisio, seleccionable, tipusMimeDescripcio, ultimaModificacioIdext, usuariIdext);
+    return Objects.hash(comentari, configDocEntrada, configuracioDocsEntrada, configuracioDocsEntradaNom, dataCreacio, dataDigitalitzacio, dataPresentacio, dataUltimaModificacio, digitalitzat, docsFisics, docsFisicsNom, documentFisic, documentacio, editable, eliminat, fileToUploadContent, fileToUploadName, fileToUploadSize, fileToUploadType, id, idioma, numDocsConfiguracio, obligatoriEnEstat, origen, registreAssentament, registreCodi, registreIdext, requerit, revisio, seleccionable, tipusMimeDescripcio, tramitOvtIdext, ultimaModificacioIdext, usuariIdext);
   }
 
 
@@ -810,6 +832,7 @@ public class DocsEntradaRDTO {
     sb.append("    revisio: ").append(toIndentedString(revisio)).append("\n");
     sb.append("    seleccionable: ").append(toIndentedString(seleccionable)).append("\n");
     sb.append("    tipusMimeDescripcio: ").append(toIndentedString(tipusMimeDescripcio)).append("\n");
+    sb.append("    tramitOvtIdext: ").append(toIndentedString(tramitOvtIdext)).append("\n");
     sb.append("    ultimaModificacioIdext: ").append(toIndentedString(ultimaModificacioIdext)).append("\n");
     sb.append("    usuariIdext: ").append(toIndentedString(usuariIdext)).append("\n");
     sb.append("}");

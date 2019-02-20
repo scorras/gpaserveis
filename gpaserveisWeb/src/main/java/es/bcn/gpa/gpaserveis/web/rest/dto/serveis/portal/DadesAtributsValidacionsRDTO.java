@@ -13,7 +13,7 @@ import lombok.Setter;
 
 @ApiModel(value = "Validacions")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "valor", "ordre" })
+@JsonPropertyOrder({ "tipus", "valorsValidacions" })
 @Getter
 @Setter
 public class DadesAtributsValidacionsRDTO {

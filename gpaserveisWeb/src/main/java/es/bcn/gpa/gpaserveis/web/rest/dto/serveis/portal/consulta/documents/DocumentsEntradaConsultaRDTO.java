@@ -6,7 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DocumentsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ConfiguracionsDocumentacioRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -20,6 +20,6 @@ import lombok.Setter;
 public class DocumentsEntradaConsultaRDTO {
 
 	@ApiModelProperty("Llista de documents")
-	private List<DocumentsRDTO> documents = Collections.emptyList();
+	private List<ConfiguracionsDocumentacioRDTO> documents = Collections.emptyList();
 
 }

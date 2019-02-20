@@ -8,12 +8,15 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.AccionsEstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
@@ -107,7 +110,7 @@ public class BusinessConfig {
 	}
 
 	@Bean
-	public DadesGrupsApi clientDadesGrups() {
+	public DadesGrupsApi clientApiDadesGrups() {
 		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient();
 		apiClient.setBasePath(URL_SERVICES_PROCEDIMENTS);
 		DadesGrupsApi dadesGrupsApi = new DadesGrupsApi(apiClient);
@@ -116,7 +119,7 @@ public class BusinessConfig {
 	}
 
 	@Bean
-	public TramitsOvtApi clientTramitsOvt() {
+	public TramitsOvtApi clientApiTramitsOvt() {
 		es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiClient();
 		apiClient.setBasePath(URL_SERVICES_TRAMITS);
 		TramitsOvtApi tramitsOvtApi = new TramitsOvtApi(apiClient);
@@ -125,7 +128,7 @@ public class BusinessConfig {
 	}
 
 	@Bean
-	public ConfiguracioDocumentacioApi clientConfiguracioDocumentacio() {
+	public ConfiguracioDocumentacioApi clientApiConfiguracioDocumentacio() {
 		es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient();
 		apiClient.setBasePath(URL_SERVICES_DOCUMENTACIO);
 		ConfiguracioDocumentacioApi configuracioDocumentacioApi = new ConfiguracioDocumentacioApi(apiClient);
@@ -133,4 +136,30 @@ public class BusinessConfig {
 		return configuracioDocumentacioApi;
 	}
 
+	@Bean
+	public EstatsApi clientApiEstats() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_EXPEDIENTS);
+		EstatsApi estatsApi = new EstatsApi(apiClient);
+
+		return estatsApi;
+	}
+
+	@Bean
+	public AccionsEstatsApi clientApiAccionsEstats() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_TRAMITS);
+		AccionsEstatsApi accionsEstatsApi = new AccionsEstatsApi(apiClient);
+
+		return accionsEstatsApi;
+	}
+
+	@Bean
+	public DocumentacioApi clientApiDocumentacio() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_DOCUMENTACIO);
+		DocumentacioApi documentacioApi = new DocumentacioApi(apiClient);
+
+		return documentacioApi;
+	}
 }

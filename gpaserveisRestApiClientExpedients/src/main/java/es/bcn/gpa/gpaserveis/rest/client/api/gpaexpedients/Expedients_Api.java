@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-06T01:24:07.150+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-19T12:01:33.083+01:00")
 public class Expedients_Api {
   private ApiClient apiClient;
 
@@ -61,12 +61,12 @@ public class Expedients_Api {
    * @param id Identificador pel qual es realitza la cerca (optional)
    * @param idUsuari Identificador d&#39;usuari pel qual es realitza la cerca (optional)
    * @param nextPageNumber  (optional)
-   * @param numeroDocument Numero de document d&#39;identificació del sol·licitant (optional)
+   * @param numeroDocumentSollicitant Numero de document d&#39;identificació del sol·licitant (optional)
+   * @param numeroDocumentSollicitantEstricte Numero de document d&#39;identificació del sol·licitant estricte (optional)
    * @param pageSize  (optional)
    * @param previousPageNumber  (optional)
    * @param procedimentCodisList Llista dels codis dels procediments (optional)
    * @param procedimentVersio Versió del procediment (optional)
-   * @param sollicitant Nom del sol·licitant (optional)
    * @param sort  (optional)
    * @param totalElements  (optional)
    * @param totalPages  (optional)
@@ -75,7 +75,7 @@ public class Expedients_Api {
    * @return PageDataOfExpedientsRDTO
    * @throws ApiException if fails to make API call
    */
-  public PageDataOfExpedientsRDTO cercaExpedients(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, String aplicacioNegoci, List<String> avisList, String codi, BigDecimal criteriDeCercaDadesOperacioList0Id, BigDecimal criteriDeCercaDadesOperacioList0Tipus, String criteriDeCercaDadesOperacioList0Valor, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, DateTime dataPresentacioDes, DateTime dataPresentacioFinsA, String dir, List<BigDecimal> estatList, BigDecimal id, BigDecimal idUsuari, Integer nextPageNumber, String numeroDocument, Integer pageSize, Integer previousPageNumber, List<String> procedimentCodisList, String procedimentVersio, String sollicitant, String sort, Long totalElements, Integer totalPages, String tramitador, List<BigDecimal> unitatsGestoresList) throws ApiException {
+  public PageDataOfExpedientsRDTO cercaExpedients(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, String aplicacioNegoci, List<String> avisList, String codi, BigDecimal criteriDeCercaDadesOperacioList0Id, BigDecimal criteriDeCercaDadesOperacioList0Tipus, String criteriDeCercaDadesOperacioList0Valor, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, DateTime dataPresentacioDes, DateTime dataPresentacioFinsA, String dir, List<BigDecimal> estatList, BigDecimal id, BigDecimal idUsuari, Integer nextPageNumber, String numeroDocumentSollicitant, String numeroDocumentSollicitantEstricte, Integer pageSize, Integer previousPageNumber, List<String> procedimentCodisList, String procedimentVersio, String sort, Long totalElements, Integer totalPages, String tramitador, List<BigDecimal> unitatsGestoresList) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -106,12 +106,12 @@ public class Expedients_Api {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "id", id));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "idUsuari", idUsuari));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "nextPageNumber", nextPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "numeroDocument", numeroDocument));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "numeroDocumentSollicitant", numeroDocumentSollicitant));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "numeroDocumentSollicitantEstricte", numeroDocumentSollicitantEstricte));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "previousPageNumber", previousPageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "procedimentCodisList", procedimentCodisList));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "procedimentVersio", procedimentVersio));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sollicitant", sollicitant));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));

@@ -1437,6 +1437,36 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/{idDocumentacio}/entrada/agrupatPerTramitOvt:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Returns the requested documentacio entrada grouped by tràmit OVT"
+      operationId: "cercaDocumentsEntradaAgrupatsPerTramitOvt"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDocumentacio"
+        in: "path"
+        description: "idDocumentacio"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/DocsEntradaRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /documentacio/{idDocumentacio}/entrada/{idConfiguracioDocumentacio}/{estatsFutursList}:
     get:
       tags:
@@ -2066,6 +2096,8 @@ definitions:
         type: "boolean"
       tipusMimeDescripcio:
         type: "string"
+      tramitOvtIdext:
+        type: "number"
       ultimaModificacioIdext:
         type: "number"
       usuariIdext:
@@ -2230,8 +2262,12 @@ definitions:
         type: "string"
       pais:
         type: "string"
+      paisos:
+        $ref: "#/definitions/Paisos"
       tipus:
         type: "number"
+      tipusDocumentIdentitat:
+        $ref: "#/definitions/TipusDocumentIdentitat"
     title: "DocumentsIdentitat"
   EstatRevisioRDTO:
     type: "object"
@@ -2473,6 +2509,16 @@ definitions:
         type: "integer"
         format: "int32"
     title: "PaginationAttributes"
+  Paisos:
+    type: "object"
+    properties:
+      codiIne:
+        type: "string"
+      codiIso:
+        type: "string"
+      nom:
+        type: "string"
+    title: "Paisos"
   Persones:
     type: "object"
     properties:
@@ -2535,6 +2581,8 @@ definitions:
         type: "string"
       provinciaEstranger:
         type: "string"
+      sexe:
+        type: "number"
       telefon:
         type: "string"
       tipusVia:
@@ -2644,6 +2692,14 @@ definitions:
         type: "integer"
         format: "int32"
     title: "TipusAutenticacioRDTO"
+  TipusDocumentIdentitat:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "TipusDocumentIdentitat"
   TipusMime:
     type: "object"
     properties:

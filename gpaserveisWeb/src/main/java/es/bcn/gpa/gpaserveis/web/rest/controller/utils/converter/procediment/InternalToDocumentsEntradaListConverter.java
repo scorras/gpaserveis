@@ -13,13 +13,14 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.common.BooleanApiParamValueTranslator;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DocumentsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ConfiguracionsDocumentacioRDTO;
 
 /**
  * The Class InternalToDocumentsEntradaListConverter.
  */
 @Component("procedimentInternalToDocumentsEntradaListConverter")
-public class InternalToDocumentsEntradaListConverter extends AbstractConverter<List<ConfiguracioDocsEntradaRDTO>, List<DocumentsRDTO>> {
+public class InternalToDocumentsEntradaListConverter
+        extends AbstractConverter<List<ConfiguracioDocsEntradaRDTO>, List<ConfiguracionsDocumentacioRDTO>> {
 
 	/** The boolean api param value translator. */
 	@Autowired
@@ -31,10 +32,10 @@ public class InternalToDocumentsEntradaListConverter extends AbstractConverter<L
 	@Qualifier("procedimentSuportConfeccioApiParamValueTranslator")
 	private BaseApiParamValueTranslator suportConfeccioApiParamValueTranslator;
 
-	/** The expedient estat api param value translator. */
+	/** The expedient estat tramitador api param value translator. */
 	@Autowired
-	@Qualifier("expedientEstatApiParamValueTranslator")
-	private BaseApiParamValueTranslator expedientEstatApiParamValueTranslator;
+	@Qualifier("expedientEstatTramitadorApiParamValueTranslator")
+	private BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator;
 
 	/*
 	 * (non-Javadoc)
@@ -42,14 +43,15 @@ public class InternalToDocumentsEntradaListConverter extends AbstractConverter<L
 	 * @see org.modelmapper.AbstractConverter#convert(java.lang.Object)
 	 */
 	@Override
-	protected List<DocumentsRDTO> convert(List<ConfiguracioDocsEntradaRDTO> source) {
-		ArrayList<DocumentsRDTO> documentsRDTOList = new ArrayList<DocumentsRDTO>();
+	protected List<ConfiguracionsDocumentacioRDTO> convert(List<ConfiguracioDocsEntradaRDTO> source) {
+		ArrayList<ConfiguracionsDocumentacioRDTO> configuracionsDocumentacioRDTOList = new ArrayList<ConfiguracionsDocumentacioRDTO>();
 		if (CollectionUtils.isNotEmpty(source)) {
 			for (ConfiguracioDocsEntradaRDTO configuracioDocsEntradaRDTO : source) {
-				documentsRDTOList.add(ConverterHelper.buildDocumentsRDTOProcediment(configuracioDocsEntradaRDTO,
-				        booleanApiParamValueTranslator, suportConfeccioApiParamValueTranslator, expedientEstatApiParamValueTranslator));
+				configuracionsDocumentacioRDTOList
+				        .add(ConverterHelper.buildDocumentsRDTOProcediment(configuracioDocsEntradaRDTO, booleanApiParamValueTranslator,
+				                suportConfeccioApiParamValueTranslator, expedientEstatTramitadorApiParamValueTranslator));
 			}
 		}
-		return documentsRDTOList;
+		return configuracionsDocumentacioRDTOList;
 	}
 }

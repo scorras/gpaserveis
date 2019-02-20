@@ -14,7 +14,7 @@ import lombok.Setter;
 @JsonPropertyOrder({ "codi", "descripcio", "descripcioAmpliada", "obligatori", "repetible", "suportConfeccio", "suportEnllac" })
 @Getter
 @Setter
-public class DocumentsRDTO {
+public class ConfiguracionsDocumentacioRDTO {
 
 	@ApiModelProperty(value = "Codi del document")
 	private String codi;
@@ -23,9 +23,9 @@ public class DocumentsRDTO {
 	@ApiModelProperty(value = "Descripció ampliada del document")
 	private String descripcioAmpliada;
 	@ApiModelProperty(value = "Obligatori")
-	private boolean obligatori;
+	private Boolean obligatori;
 	@ApiModelProperty(value = "Repetible")
-	private boolean repetible;
+	private Boolean repetible;
 	@ApiModelProperty(value = "Suport per a la confecció del document", allowableValues = SuportConfeccioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private String suportConfeccio;
 	@ApiModelProperty(value = "Enllaç document de suport per a la confecció del document")

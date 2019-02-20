@@ -16,12 +16,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisRuntimeException;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.AccionsEstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
@@ -34,6 +36,8 @@ import net.opentrends.openframe.services.configuration.context.ContextPropertySo
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {}, initializers = ContextPropertySourcesInitializer.class)
+
+/** The Constant log. */
 
 /** The Constant log. */
 
@@ -81,6 +85,14 @@ public abstract class ParentTest {
 	@Autowired
 	protected ConfiguracioDocumentacioApi configuracioDocumentacioApi;
 
+	/** The accions estats api. */
+	@Autowired
+	protected AccionsEstatsApi accionsEstatsApi;
+
+	/** The documentacio api. */
+	@Autowired
+	protected DocumentacioApi documentacioApi;
+
 	/**
 	 * Sets the up.
 	 */
@@ -124,9 +136,9 @@ public abstract class ParentTest {
 			        any(String.class), isNull(BigDecimal.class), isNull(BigDecimal.class), isNull(String.class), isNull(Boolean.class),
 			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), any(Integer.class), any(DateTime.class),
 			        any(DateTime.class), any(String.class), any(List.class), isNull(BigDecimal.class), isNull(BigDecimal.class),
-			        isNull(Integer.class), any(String.class), any(Integer.class), isNull(Integer.class), any(List.class), any(String.class),
-			        isNull(String.class), any(String.class), isNull(Long.class), isNull(Integer.class), any(String.class), any(List.class)))
-			                .thenReturn(TestsConfigHelper.cercaExpedientsResponse());
+			        isNull(Integer.class), isNull(String.class), any(String.class), any(Integer.class), isNull(Integer.class),
+			        any(List.class), any(String.class), any(String.class), isNull(Long.class), isNull(Integer.class), any(String.class),
+			        any(List.class))).thenReturn(TestsConfigHelper.cercaExpedientsResponse());
 
 			when(expedients_Api.consultarDadesExpedient(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesExpedientResponse());
@@ -160,6 +172,12 @@ public abstract class ParentTest {
 			        isNull(Boolean.class), isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class),
 			        isNull(Integer.class), isNull(String.class), isNull(Long.class), isNull(Integer.class)))
 			                .thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntrada1Response());
+
+			when(accionsEstatsApi.cercaAccionsPossibles(any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.cercaAccionsPossiblesResponse());
+
+			when(documentacioApi.cercaDocumentsEntradaAgrupatsPerTramitOvt(any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.cercaDocumentsEntradaAgrupatsPerTramitOvtResponse());
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$
 

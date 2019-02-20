@@ -32,6 +32,19 @@ public interface BaseApiParamValueTranslator {
 	public <T extends Object> T getInternalValueByApiParamValue(String apiParamValue) throws GPAServeisRuntimeException;
 
 	/**
+	 * Gets the internal value list by api param value.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param apiParamValue
+	 *            the api param value
+	 * @return the internal value list by api param value
+	 * @throws GPAServeisRuntimeException
+	 *             the GPA serveis runtime exception
+	 */
+	public <T extends Object> List<T> getInternalValueListByApiParamValue(String apiParamValue) throws GPAServeisRuntimeException;
+
+	/**
 	 * Gets the internal value list by api param value list.
 	 *
 	 * @param <T>
@@ -54,4 +67,15 @@ public interface BaseApiParamValueTranslator {
 	 *             the GPA serveis runtime exception
 	 */
 	public String getApiParamValueByInternalValue(Object internalValue) throws GPAServeisRuntimeException;
+
+	/**
+	 * Gets the api param value list by internal value.
+	 *
+	 * @param internalValue
+	 *            the internal value
+	 * @return the api param value list by internal value
+	 * @throws GPAServeisRuntimeException
+	 *             the GPA serveis runtime exception
+	 */
+	public List<String> getApiParamValueListByInternalValue(Object internalValue) throws GPAServeisRuntimeException;
 }

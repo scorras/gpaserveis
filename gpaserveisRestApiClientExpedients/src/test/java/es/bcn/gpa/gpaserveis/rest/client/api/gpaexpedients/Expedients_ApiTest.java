@@ -82,12 +82,12 @@ public class Expedients_ApiTest extends ParentTest {
 		BigDecimal id = null;
 		BigDecimal idUsuari = null;
 		Integer nextPageNumber = null;
-		String numeroDocument = null;
+		String numeroDocumentSollicitant = null;
+		String numeroDocumentSollicitantEstricte = null;
 		Integer pageSize = null;
 		Integer previousPageNumber = null;
 		List<String> procedimentCodisList = null;
 		String procedimentVersio = null;
-		String sollicitant = null;
 		String sort = null;
 		Long totalElements = null;
 		Integer totalPages = null;
@@ -97,8 +97,9 @@ public class Expedients_ApiTest extends ParentTest {
 		        absoluteRowNumberOfLastRowInCurrentPage, aplicacioNegoci, avisList, codi, criteriDeCercaDadesOperacioList0Id,
 		        criteriDeCercaDadesOperacioList0Tipus, criteriDeCercaDadesOperacioList0Valor, currentPageHasNextPage,
 		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dataPresentacioDes,
-		        dataPresentacioFinsA, dir, estatList, id, idUsuari, nextPageNumber, numeroDocument, pageSize, previousPageNumber,
-		        procedimentCodisList, procedimentVersio, sollicitant, sort, totalElements, totalPages, tramitador, unitatsGestoresList);
+		        dataPresentacioFinsA, dir, estatList, id, idUsuari, nextPageNumber, numeroDocumentSollicitant,
+		        numeroDocumentSollicitantEstricte, pageSize, previousPageNumber, procedimentCodisList, procedimentVersio, sort,
+		        totalElements, totalPages, tramitador, unitatsGestoresList);
 
 		assertTrue(response != null);
 	}

@@ -21,9 +21,6 @@ public enum TipusValidacioApiParamValue implements BaseApiParamValue {
 	/** The igual. */
 	IGUAL("IGUAL", new BigDecimal(3)),
 
-	/** The interval. */
-	INTERVAL("INTERVAL", new BigDecimal(4)),
-
 	/** The longitud maxima. */
 	LONGITUD_MAXIMA("LONGITUD_MAXIMA", new BigDecimal(5)),
 

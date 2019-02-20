@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * RestClientResponse
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-08T14:38:04.082+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-19T18:19:09.667+01:00")
 public class RestClientResponse {
   @JsonProperty("error")
   private Throwable error = null;

@@ -5,33 +5,33 @@ import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.BaseApiParamValue;
 
 /**
- * The Enum EstatApiParamValue.
+ * The Enum EstatCiutadaApiParamValue.
  */
-public enum EstatApiParamValue implements BaseApiParamValue {
+public enum EstatCiutadaApiParamValue implements BaseApiParamValue {
 
-    /** The en preparacio. */
-	EN_PREPARACIO("EN_PREPARACIO", new BigDecimal(1)),
+    /** The rebut. */
+	REBUT("REBUT", new BigDecimal(1)),
 
-	/** The sol licitud en revisio. */
-	SOL_LICITUD_EN_REVISIO("SOL_LICITUD_EN_REVISIO", new BigDecimal(2)),
+	/** The en curs sol licitud en revisio. */
+	EN_CURS_SOL_LICITUD_EN_REVISIO("EN_CURS", new BigDecimal(2)),
 
-	/** The pendent subsanacio. */
+	/** The pendent esmenes. */
 	PENDENT_ESMENES("PENDENT_ESMENES", new BigDecimal(3)),
 
-	/** The en tramitacio. */
-	EN_TRAMITACIO("EN_TRAMITACIO", new BigDecimal(4)),
+	/** The en curs en tramitacio. */
+	EN_CURS_EN_TRAMITACIO("EN_CURS", new BigDecimal(4)),
 
-	/** The pendent al legacions. */
-	PENDENT_AL_LEGACIONS("PENDENT_AL_LEGACIONS", new BigDecimal(5)),
+	/** The pendent alegacions. */
+	PENDENT_ALEGACIONS("PENDENT_ALEGACIONS", new BigDecimal(5)),
 
-	/** The pendent d informes. */
-	PENDENT_D_INFORMES("PENDENT_D_INFORMES", new BigDecimal(6)),
+	/** The en curs pendent d informes. */
+	EN_CURS_PENDENT_D_INFORMES("EN_CURS", new BigDecimal(6)),
 
-	/** The proposta de finalitzacio. */
-	PROPOSTA_DE_FINALITZACIO("PROPOSTA_DE_FINALITZACIO", new BigDecimal(7)),
+	/** The en curs proposta de finalitzacio. */
+	EN_CURS_PROPOSTA_DE_FINALITZACIO("EN_CURS", new BigDecimal(7)),
 
-	/** The finalitzat i comunicat. */
-	FINALITZAT_I_COMUNICAT("FINALITZAT_I_COMUNICAT", new BigDecimal(8)),
+	/** The resolt. */
+	RESOLT("RESOLT", new BigDecimal(8)),
 
 	/** The tancat. */
 	TANCAT("TANCAT", new BigDecimal(9));
@@ -43,14 +43,14 @@ public enum EstatApiParamValue implements BaseApiParamValue {
 	private BigDecimal internalValue;
 
 	/**
-	 * Instantiates a new estat cerca procediments.
+	 * Instantiates a new estat ciutada api param value.
 	 *
 	 * @param apiParamValue
 	 *            the api param value
 	 * @param internalValue
 	 *            the internal value
 	 */
-	EstatApiParamValue(String apiParamValue, BigDecimal internalValue) {
+	EstatCiutadaApiParamValue(String apiParamValue, BigDecimal internalValue) {
 		this.apiParamValue = apiParamValue;
 		this.internalValue = internalValue;
 	}

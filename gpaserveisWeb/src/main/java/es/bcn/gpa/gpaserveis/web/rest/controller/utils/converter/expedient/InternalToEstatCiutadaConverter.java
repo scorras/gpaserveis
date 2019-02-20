@@ -10,15 +10,15 @@ import org.springframework.stereotype.Component;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 
 /**
- * The Class InternalToEstatConverter.
+ * The Class InternalToEstatCiutadaConverter.
  */
-@Component("expedientInternalToEstatConverter")
-public class InternalToEstatConverter extends AbstractConverter<BigDecimal, String> {
+@Component("expedientInternalToEstatCiutadaConverter")
+public class InternalToEstatCiutadaConverter extends AbstractConverter<BigDecimal, String> {
 
 	/** The estat api param value translator. */
 	@Autowired
-	@Qualifier("expedientEstatApiParamValueTranslator")
-	private BaseApiParamValueTranslator estatApiParamValueTranslator;
+	@Qualifier("expedientEstatCiutadaApiParamValueTranslator")
+	private BaseApiParamValueTranslator expedientEstatCiutadaApiParamValueTranslator;
 
 	/*
 	 * (non-Javadoc)
@@ -27,6 +27,6 @@ public class InternalToEstatConverter extends AbstractConverter<BigDecimal, Stri
 	 */
 	@Override
 	protected String convert(BigDecimal source) {
-		return estatApiParamValueTranslator.getApiParamValueByInternalValue(source);
+		return expedientEstatCiutadaApiParamValueTranslator.getApiParamValueByInternalValue(source);
 	}
 }

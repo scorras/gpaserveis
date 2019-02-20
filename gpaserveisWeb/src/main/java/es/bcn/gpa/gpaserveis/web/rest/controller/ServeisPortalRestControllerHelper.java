@@ -14,16 +14,16 @@ import es.bcn.gpa.gpaserveis.business.TramitsService;
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.HistoricsExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfHistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
@@ -31,6 +31,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDad
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsUgos;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.PageDataOfTramitsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
@@ -185,31 +186,18 @@ public class ServeisPortalRestControllerHelper {
 		return cercaExpedientsRDTO;
 	}
 
-	/**
-	 * Load dades expedient RDTO.
-	 *
-	 * @param expedientsService
-	 *            the expedients service
-	 * @param unitatsGestoresService
-	 *            the unitats gestores service
-	 * @param idExpedient
-	 *            the id expedient
-	 * @param historicsExpedientsCercaBDTO
-	 *            the historics expedients cerca BDTO
-	 * @return the dades expedient RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
 	public static DadesExpedientRDTO loadDadesExpedientRDTO(ExpedientsService expedientsService,
-	        UnitatsGestoresService unitatsGestoresService, BigDecimal idExpedient,
-	        HistoricsExpedientsCercaBDTO historicsExpedientsCercaBDTO) throws GPAServeisServiceException {
+	        UnitatsGestoresService unitatsGestoresService, TramitsService tramitsService, DocumentsService documentsService,
+	        BigDecimal idExpedient) throws GPAServeisServiceException {
 		DadesExpedientRDTO dadesExpedientRDTO = new DadesExpedientRDTO();
 
 		loadExpedientsRDTO(expedientsService, dadesExpedientRDTO, idExpedient);
 		loadUnitatGestoraRDTO(unitatsGestoresService, dadesExpedientRDTO, dadesExpedientRDTO.getExpedientsRDTO().getUnitatGestoraIdext());
-		loadHistoricsRDTOList(expedientsService, dadesExpedientRDTO, historicsExpedientsCercaBDTO);
+		loadHistoricsRDTOList(expedientsService, dadesExpedientRDTO, idExpedient);
 		loadPersonesInteressades(expedientsService, dadesExpedientRDTO, dadesExpedientRDTO.getExpedientsRDTO().getSollicitud());
 		loadAltresPersonesImplicades(expedientsService, dadesExpedientRDTO, dadesExpedientRDTO.getExpedientsRDTO().getSollicitud());
+		loadAccionsPossibles(tramitsService, dadesExpedientRDTO, dadesExpedientRDTO.getExpedientsRDTO().getIdEstat());
+		loadDocumentsAportats(documentsService, dadesExpedientRDTO, dadesExpedientRDTO.getExpedientsRDTO().getDocumentacioIdext());
 
 		return dadesExpedientRDTO;
 	}
@@ -318,15 +306,15 @@ public class ServeisPortalRestControllerHelper {
 	 *            the expedients service
 	 * @param dadesExpedientRDTO
 	 *            the dades expedient RDTO
-	 * @param historicsExpedientsCercaBDTO
-	 *            the historics expedients cerca BDTO
+	 * @param idExpedient
+	 *            the id expedient
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
 	private static void loadHistoricsRDTOList(ExpedientsService expedientsService, DadesExpedientRDTO dadesExpedientRDTO,
-	        HistoricsExpedientsCercaBDTO historicsExpedientsCercaBDTO) throws GPAServeisServiceException {
-		PageDataOfHistoricsRDTO pageDataOfHistoricsRDTO = expedientsService.cercaHistoricsExpedient(historicsExpedientsCercaBDTO);
-		dadesExpedientRDTO.setHistoricsRDTOList(pageDataOfHistoricsRDTO.getData());
+	        BigDecimal idExpedient) throws GPAServeisServiceException {
+		List<EstatsRDTO> estatsRDTOList = expedientsService.cercaHistoricsEstatsExpedient(idExpedient);
+		dadesExpedientRDTO.setHistoricsEstats(estatsRDTOList);
 	}
 
 	/**
@@ -387,6 +375,41 @@ public class ServeisPortalRestControllerHelper {
 			altresPersonesImplicadesList.add(personesSollicitudRDTO.getPersones());
 		}
 		dadesExpedientRDTO.setPersonesImplicades(altresPersonesImplicadesList);
+	}
+
+	/**
+	 * Load accions possibles.
+	 *
+	 * @param tramitsService
+	 *            the tramits service
+	 * @param dadesExpedientRDTO
+	 *            the dades expedient RDTO
+	 * @param idEstat
+	 *            the id estat
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	private static void loadAccionsPossibles(TramitsService tramitsService, DadesExpedientRDTO dadesExpedientRDTO, BigDecimal idEstat)
+	        throws GPAServeisServiceException {
+		List<AccionsEstatsRDTO> accionsEstatsRDTOList = tramitsService.cercaAccionsPossibles(idEstat);
+		dadesExpedientRDTO.setAccionsPossibles(accionsEstatsRDTOList);
+	}
+
+	/**
+	 * Load documents aportats.
+	 *
+	 * @param documentsService
+	 *            the documents service
+	 * @param dadesExpedientRDTO
+	 *            the dades expedient RDTO
+	 * @param documentacioIdext
+	 *            the documentacio idext
+	 * @throws GPAServeisServiceException
+	 */
+	private static void loadDocumentsAportats(DocumentsService documentsService, DadesExpedientRDTO dadesExpedientRDTO,
+	        BigDecimal documentacioIdext) throws GPAServeisServiceException {
+		List<DocsEntradaRDTO> docsEntradaRDTOList = documentsService.cercaDocumentsEntradaAgrupatsPerTramitOvt(documentacioIdext);
+		dadesExpedientRDTO.setDocumentsAportats(docsEntradaRDTOList);
 	}
 
 	/**

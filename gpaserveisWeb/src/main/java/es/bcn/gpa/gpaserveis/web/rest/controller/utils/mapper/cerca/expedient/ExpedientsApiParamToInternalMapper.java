@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatCiutadaApiParamValueTranslator;
 
 /**
  * The Class ExpedientsApiParamToInternalMapper.
@@ -26,8 +27,8 @@ public class ExpedientsApiParamToInternalMapper {
 	/** The sentit ordenacio api param value translator. */
 	private static BaseApiParamValueTranslator sentitOrdenacioApiParamValueTranslator;
 
-	/** The estat api param value translator. */
-	private static BaseApiParamValueTranslator estatApiParamValueTranslator;
+	/** The estat ciutada api param value translator. */
+	private static EstatCiutadaApiParamValueTranslator estatCiutadaApiParamValueTranslator;
 
 	/** The tramitador api param value translator. */
 	private static BaseApiParamValueTranslator tramitadorApiParamValueTranslator;
@@ -42,8 +43,8 @@ public class ExpedientsApiParamToInternalMapper {
 	 *            the ordenar per api param value translator
 	 * @param sentitOrdenacioApiParamValueTranslator
 	 *            the sentit ordenacio api param value translator
-	 * @param estatApiParamValueTranslator
-	 *            the estat api param value translator
+	 * @param estatCiutadaApiParamValueTranslator
+	 *            the expedient estat tramitador api param value translator
 	 * @param tramitadorApiParamValueTranslator
 	 *            the tramitador api param value translator
 	 * @param versioProcedimentApiParamValueTranslator
@@ -53,12 +54,12 @@ public class ExpedientsApiParamToInternalMapper {
 	public ExpedientsApiParamToInternalMapper(
 	        @Qualifier("expedientOrdenarPerApiParamValueTranslator") BaseApiParamValueTranslator ordenarPerApiParamValueTranslator,
 	        @Qualifier("expedientSentitOrdenacioApiParamValueTranslator") BaseApiParamValueTranslator sentitOrdenacioApiParamValueTranslator,
-	        @Qualifier("expedientEstatApiParamValueTranslator") BaseApiParamValueTranslator estatApiParamValueTranslator,
+	        @Qualifier("expedientEstatCiutadaApiParamValueTranslator") EstatCiutadaApiParamValueTranslator estatCiutadaApiParamValueTranslator,
 	        @Qualifier("expedientTramitadorApiParamValueTranslator") BaseApiParamValueTranslator tramitadorApiParamValueTranslator,
 	        @Qualifier("expedientVersioProcedimentApiParamValueTranslator") BaseApiParamValueTranslator versioProcedimentApiParamValueTranslator) {
 		ExpedientsApiParamToInternalMapper.ordenarPerApiParamValueTranslator = ordenarPerApiParamValueTranslator;
 		ExpedientsApiParamToInternalMapper.sentitOrdenacioApiParamValueTranslator = sentitOrdenacioApiParamValueTranslator;
-		ExpedientsApiParamToInternalMapper.estatApiParamValueTranslator = estatApiParamValueTranslator;
+		ExpedientsApiParamToInternalMapper.estatCiutadaApiParamValueTranslator = estatCiutadaApiParamValueTranslator;
 		ExpedientsApiParamToInternalMapper.tramitadorApiParamValueTranslator = tramitadorApiParamValueTranslator;
 		ExpedientsApiParamToInternalMapper.versioProcedimentApiParamValueTranslator = versioProcedimentApiParamValueTranslator;
 	}
@@ -86,14 +87,24 @@ public class ExpedientsApiParamToInternalMapper {
 	}
 
 	/**
-	 * Gets the estat internal value list.
+	 * Gets the estat ciutada internal value list.
 	 *
-	 * @param estat
-	 *            the estat
-	 * @return the estat internal value list
+	 * @param estatList
+	 *            the estat list
+	 * @return the estat ciutada internal value list
 	 */
-	public static List<BigDecimal> getEstatInternalValueList(String[] estat) {
-		return estatApiParamValueTranslator.getInternalValueListByApiParamValueList(estat);
+	public static List<BigDecimal> getEstatCiutadaInternalValueList(String[] estatList) {
+		// Los códigos de ESTAT_CIUTADA se repiten para valores internos, por lo
+		// que por cada código se puede obtener una lista de identificadores
+		// internos
+		ArrayList<BigDecimal> idList = null;
+		if (ArrayUtils.isNotEmpty(estatList)) {
+			idList = new ArrayList<BigDecimal>();
+			for (String estat : estatList) {
+				idList.addAll(estatCiutadaApiParamValueTranslator.getInternalValueListByApiParamValue(estat));
+			}
+		}
+		return idList;
 	}
 
 	/**
