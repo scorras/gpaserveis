@@ -5,18 +5,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToEstatConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToTramitadorConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraListConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesProcedimentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.ProcedimentsCercaRDTO;
 
 /**
- * The Class DadesProcedimentRDTOToProcedimentsCercaRDTOMapper.
+ * The Class RespostaDadesProcedimentBDTOToProcedimentsCercaRDTOMapper.
  */
 @Component
-public class DadesProcedimentRDTOToProcedimentsCercaRDTOMapper extends PropertyMap<DadesProcedimentRDTO, ProcedimentsCercaRDTO> {
+public class RespostaDadesProcedimentBDTOToProcedimentsCercaRDTOMapper extends PropertyMap<DadesProcedimentBDTO, ProcedimentsCercaRDTO> {
 
 	/** The internal to estat converter. */
 	private InternalToEstatConverter internalToEstatConverter;
@@ -31,7 +31,8 @@ public class DadesProcedimentRDTOToProcedimentsCercaRDTOMapper extends PropertyM
 	private InternalToTramitadorConverter internalToTramitadorConverter;
 
 	/**
-	 * Instantiates a new procediments RDTO to procediments cerca RDTO mapper.
+	 * Instantiates a new resposta dades procediment BDTO to procediments cerca
+	 * RDTO mapper.
 	 *
 	 * @param internalToEstatConverter
 	 *            the internal to estat converter
@@ -43,7 +44,7 @@ public class DadesProcedimentRDTOToProcedimentsCercaRDTOMapper extends PropertyM
 	 *            the internal to tramitador converter
 	 */
 	@Autowired
-	public DadesProcedimentRDTOToProcedimentsCercaRDTOMapper(
+	public RespostaDadesProcedimentBDTOToProcedimentsCercaRDTOMapper(
 	        @Qualifier("procedimentInternalToEstatConverter") InternalToEstatConverter internalToEstatConverter,
 	        @Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
 	        @Qualifier("internalToUnitatGestoraListConverter") InternalToUnitatGestoraListConverter internalToUnitatGestoraListConverter,

@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToDocumentsEntradaListConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.CercaDocumentsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.DocumentsEntradaConsultaRDTO;
 
 /**
@@ -14,7 +14,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.Docu
  */
 @Component
 public class CercaDocumentsEntradaRDTOToDocumentsEntradaConsultaRDTO
-        extends PropertyMap<CercaDocumentsEntradaRDTO, DocumentsEntradaConsultaRDTO> {
+        extends PropertyMap<RespostaDocumentsEntradaCercaBDTO, DocumentsEntradaConsultaRDTO> {
 
 	/** The internal to documents entrada list converter. */
 	private InternalToDocumentsEntradaListConverter internalToDocumentsEntradaListConverter;

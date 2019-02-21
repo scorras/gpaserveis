@@ -5,20 +5,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToDataHoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToEstatTramitadorConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToPersonaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToProcedimentCercaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToTramitadorConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.expedients.ExpedientsCercaRDTO;
 
 /**
- * The Class DadesExpedientRDTOToExpedientsCercaRDTOMapper.
+ * The Class RespostaDadesExpedientBDTOToExpedientsCercaRDTOMapper.
  */
 @Component
-public class DadesExpedientRDTOToExpedientsCercaRDTOMapper extends PropertyMap<DadesExpedientRDTO, ExpedientsCercaRDTO> {
+public class RespostaDadesExpedientBDTOToExpedientsCercaRDTOMapper extends PropertyMap<DadesExpedientBDTO, ExpedientsCercaRDTO> {
 
 	/** The internal to data hora converter. */
 	private InternalToDataHoraConverter internalToDataHoraConverter;
@@ -39,7 +39,7 @@ public class DadesExpedientRDTOToExpedientsCercaRDTOMapper extends PropertyMap<D
 	private InternalToProcedimentCercaConverter internalToProcedimentCercaConverter;
 
 	@Autowired
-	public DadesExpedientRDTOToExpedientsCercaRDTOMapper(
+	public RespostaDadesExpedientBDTOToExpedientsCercaRDTOMapper(
 	        @Qualifier("internalToDataHoraConverter") InternalToDataHoraConverter internalToDataHoraConverter,
 	        @Qualifier("expedientInternalToPersonaConverter") InternalToPersonaConverter internalToPersonaConverter,
 	        @Qualifier("expedientInternalToEstatTramitadorConverter") InternalToEstatTramitadorConverter internalToEstatTramitadorConverter,

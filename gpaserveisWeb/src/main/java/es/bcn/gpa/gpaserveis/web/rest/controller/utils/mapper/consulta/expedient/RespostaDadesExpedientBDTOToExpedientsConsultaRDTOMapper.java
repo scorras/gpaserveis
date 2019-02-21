@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToDataHoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToDocumentAportatListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToAccioListConverter;
@@ -16,14 +17,13 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.Inter
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToProcedimentConsultaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToRegistreConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.ExpedientsConsultaRDTO;
 
 /**
- * The Class DadesExpedientRDTOToExpedientsConsultaRDTOMapper.
+ * The Class RespostaDadesExpedientBDTOToExpedientsConsultaRDTOMapper.
  */
 @Component
-public class DadesExpedientRDTOToExpedientsConsultaRDTOMapper extends PropertyMap<DadesExpedientRDTO, ExpedientsConsultaRDTO> {
+public class RespostaDadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMap<DadesExpedientBDTO, ExpedientsConsultaRDTO> {
 
 	/** The internal to data hora converter. */
 	private InternalToDataHoraConverter internalToDataHoraConverter;
@@ -59,7 +59,7 @@ public class DadesExpedientRDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 	private InternalToDocumentsEntradaRequeritsListConverter internalToDocumentsEntradaRequeritsListConverter;
 
 	@Autowired
-	public DadesExpedientRDTOToExpedientsConsultaRDTOMapper(
+	public RespostaDadesExpedientBDTOToExpedientsConsultaRDTOMapper(
 	        @Qualifier("internalToDataHoraConverter") InternalToDataHoraConverter internalToDataHoraConverter,
 	        @Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
 	        @Qualifier("expedientInternalToEstatCiutadaConverter") InternalToEstatCiutadaConverter internalToEstatCiutadaConverter,

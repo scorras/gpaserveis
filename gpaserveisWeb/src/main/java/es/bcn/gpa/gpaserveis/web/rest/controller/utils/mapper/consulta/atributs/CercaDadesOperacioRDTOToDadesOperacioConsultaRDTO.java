@@ -5,15 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToDadesGrupListConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.CercaDadesOperacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.DadesOperacioConsultaRDTO;
 
 /**
  * The Class CercaDadesOperacioRDTOToDadesOperacioConsultaRDTO.
  */
 @Component
-public class CercaDadesOperacioRDTOToDadesOperacioConsultaRDTO extends PropertyMap<CercaDadesOperacioRDTO, DadesOperacioConsultaRDTO> {
+public class CercaDadesOperacioRDTOToDadesOperacioConsultaRDTO
+        extends PropertyMap<RespostaDadesOperacioCercaBDTO, DadesOperacioConsultaRDTO> {
 
 	/** The internal to dades grup list converter. */
 	private InternalToDadesGrupListConverter internalToDadesGrupListConverter;

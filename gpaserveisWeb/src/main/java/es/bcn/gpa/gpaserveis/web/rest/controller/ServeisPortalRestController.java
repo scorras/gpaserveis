@@ -28,16 +28,21 @@ import es.bcn.gpa.gpaserveis.business.ProcedimentsService;
 import es.bcn.gpa.gpaserveis.business.TramitsService;
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaActualitzarSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCrearSolicitudMockService;
-import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaObrirSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaRegistrarSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
@@ -53,21 +58,15 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procedime
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.FamiliaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TramitOvtApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TramitadorApiParamValueTranslator;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesExpedientRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesProcedimentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.actualitzar.solicituds.RespostaActualitzarSolicitudsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.actualitzar.solicituds.SolicitudsActualitzarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.PaginacioRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.expedients.CercaExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.expedients.ExpedientsCercaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.expedients.RespostaCercaExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.CercaProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.ProcedimentsCercaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.RespostaCercaProcedimentsRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.CercaDadesOperacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.DadesOperacioConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.RespostaConsultaDadesOperacioRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.CercaDocumentsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.DocumentsEntradaConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.RespostaConsultaDocumentsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.ExpedientsConsultaRDTO;
@@ -76,7 +75,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.P
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.RespostaConsultaProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.crear.solicituds.RespostaCrearSolicitudsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.crear.solicituds.SolicitudsCrearRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.obrir.expedients.RespostaObrirSolicitudsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.registrar.solicitud.RespostaRegistrarSolicitudsRDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -106,10 +104,6 @@ public class ServeisPortalRestController extends BaseRestController {
 	/** The resposta registrar solicitud mock service. */
 	@Autowired
 	private RespostaRegistrarSolicitudMockService respostaRegistrarSolicitudMockService;
-
-	/** The resposta obrir solicitud mock service. */
-	@Autowired
-	private RespostaObrirSolicitudMockService respostaObrirSolicitudMockService;
 
 	/** The procediments service. */
 	@Autowired
@@ -211,7 +205,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		// Unitats Gestores que hacen match con el parámetro ugr
 		UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(ugr);
 		List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = ServeisPortalRestControllerHelper
-		        .loadUnitatsGestoresRDTOList(unitatsGestoresService, unitatsGestoresCercaBDTO);
+		        .loadUnitatsGestoresList(unitatsGestoresService, unitatsGestoresCercaBDTO);
 
 		// Procediments que cumplen los criterios de búsqueda
 		ProcedimentsCercaBDTO procedimentsCercaBDTO = new ProcedimentsCercaBDTO(codi, nom,
@@ -225,16 +219,16 @@ public class ServeisPortalRestController extends BaseRestController {
 		        resultatsPerPagina, ProcedimentsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
 		        ProcedimentsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio));
 
-		CercaProcedimentsRDTO cercaProcedimentsRDTO = ServeisPortalRestControllerHelper.loadCercaProcedimentsRDTO(procedimentsService,
-		        unitatsGestoresService, procedimentsCercaBDTO);
+		RespostaProcedimentsCercaBDTO respostaProcedimentsCercaBDTO = ServeisPortalRestControllerHelper
+		        .loadCercaProcediments(procedimentsService, unitatsGestoresService, procedimentsCercaBDTO);
 
-		for (DadesProcedimentRDTO dadesProcedimentRDTO : cercaProcedimentsRDTO.getDadesProcedimentRDTOList()) {
-			procedimentsCercaRDTOList.add(modelMapper.map(dadesProcedimentRDTO, ProcedimentsCercaRDTO.class));
+		for (DadesProcedimentBDTO dadesProcedimentBDTO : respostaProcedimentsCercaBDTO.getDadesProcedimentBDTOList()) {
+			procedimentsCercaRDTOList.add(modelMapper.map(dadesProcedimentBDTO, ProcedimentsCercaRDTO.class));
 		}
 		resposta.setData(procedimentsCercaRDTOList);
 
 		// Paginació
-		resposta.setPaginacio(modelMapper.map(cercaProcedimentsRDTO.getPaginationAttributes(), PaginacioRDTO.class));
+		resposta.setPaginacio(modelMapper.map(respostaProcedimentsCercaBDTO.getPaginationAttributes(), PaginacioRDTO.class));
 
 		if (log.isDebugEnabled()) {
 			log.debug(
@@ -262,9 +256,9 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		RespostaConsultaProcedimentsRDTO respostaConsultaProcedimentsRDTO = new RespostaConsultaProcedimentsRDTO();
 
-		DadesProcedimentRDTO dadesProcedimentRDTO = ServeisPortalRestControllerHelper.loadDadesProcedimentRDTO(procedimentsService,
+		DadesProcedimentBDTO dadesProcedimentBDTO = ServeisPortalRestControllerHelper.loadDadesProcediment(procedimentsService,
 		        unitatsGestoresService, idProcediment);
-		ProcedimentsConsultaRDTO procedimentsConsultaRDTO = modelMapper.map(dadesProcedimentRDTO, ProcedimentsConsultaRDTO.class);
+		ProcedimentsConsultaRDTO procedimentsConsultaRDTO = modelMapper.map(dadesProcedimentBDTO, ProcedimentsConsultaRDTO.class);
 		respostaConsultaProcedimentsRDTO.setProcediment(procedimentsConsultaRDTO);
 
 		return respostaConsultaProcedimentsRDTO;
@@ -304,9 +298,9 @@ public class ServeisPortalRestController extends BaseRestController {
 		// Dades Operacio que cumplen los criterios de búsqueda
 		DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(idProcediment,
 		        DadesOperacioApiParamToInternalMapper.getTramitOvtInternalValue(codiTramit));
-		CercaDadesOperacioRDTO cercaDadesOperacioRDTO = ServeisPortalRestControllerHelper.loadCercaDadesOperacioRDTO(dadesOperacioService,
-		        dadesOperacioCercaBDTO);
-		dadesOperacioConsultaRDTO = modelMapper.map(cercaDadesOperacioRDTO, DadesOperacioConsultaRDTO.class);
+		RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = ServeisPortalRestControllerHelper
+		        .loadCercaDadesOperacio(dadesOperacioService, dadesOperacioCercaBDTO);
+		dadesOperacioConsultaRDTO = modelMapper.map(respostaDadesOperacioCercaBDTO, DadesOperacioConsultaRDTO.class);
 		respostaConsultaDadesOperacioRDTO.setDadesOperacio(dadesOperacioConsultaRDTO);
 
 		return respostaConsultaDadesOperacioRDTO;
@@ -344,16 +338,16 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		// Información del Procedimiento, para obtener el Id de Configuració
 		// Documentació
-		DadesProcedimentRDTO dadesProcedimentRDTO = ServeisPortalRestControllerHelper.loadDadesBasiquesProcedimentRDTO(procedimentsService,
+		DadesProcedimentBDTO dadesProcedimentBDTO = ServeisPortalRestControllerHelper.loadDadesBasiquesProcediment(procedimentsService,
 		        idProcediment);
 
 		// Documents que cumplen los criterios de búsqueda
 		DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(
-		        dadesProcedimentRDTO.getProcedimentsRDTO().getConfiguracioDocumentacio(),
+		        dadesProcedimentBDTO.getProcedimentsRDTO().getConfiguracioDocumentacio(),
 		        DocumentsApiParamToInternalMapper.getTramitOvtInternalValue(codiTramit));
-		CercaDocumentsEntradaRDTO cercaDocumentsEntradaRDTO = ServeisPortalRestControllerHelper
-		        .loadCercaDocumentsEntradaRDTO(documentsService, documentsEntradaCercaBDTO);
-		documentsEntradaConsultaRDTO = modelMapper.map(cercaDocumentsEntradaRDTO, DocumentsEntradaConsultaRDTO.class);
+		RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = ServeisPortalRestControllerHelper
+		        .loadCercaDocumentsEntrada(documentsService, documentsEntradaCercaBDTO);
+		documentsEntradaConsultaRDTO = modelMapper.map(respostaDocumentsEntradaCercaBDTO, DocumentsEntradaConsultaRDTO.class);
 		respostaConsultaDocumentsEntradaRDTO.setDocumentacioEntrada(documentsEntradaConsultaRDTO);
 
 		return respostaConsultaDocumentsEntradaRDTO;
@@ -426,7 +420,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		// Unitats Gestores que hacen match con el parámetro unitatGestora
 		UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(unitatGestora);
 		List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = ServeisPortalRestControllerHelper
-		        .loadUnitatsGestoresRDTOList(unitatsGestoresService, unitatsGestoresCercaBDTO);
+		        .loadUnitatsGestoresList(unitatsGestoresService, unitatsGestoresCercaBDTO);
 
 		// Expedients que cumplen los criterios de búsqueda
 		DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_PATTERN);
@@ -447,16 +441,16 @@ public class ServeisPortalRestController extends BaseRestController {
 		        resultatsPerPagina, ExpedientsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
 		        ExpedientsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio));
 
-		CercaExpedientsRDTO cercaExpedientsRDTO = ServeisPortalRestControllerHelper.loadCercaExpedientsRDTO(expedientsService,
+		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = ServeisPortalRestControllerHelper.loadCercaExpedients(expedientsService,
 		        unitatsGestoresService, expedientsCercaBDTO);
 
-		for (DadesExpedientRDTO dadesExpedientRDTO : cercaExpedientsRDTO.getDadesExpedientRDTOList()) {
-			expedientsCercaRDTOList.add(modelMapper.map(dadesExpedientRDTO, ExpedientsCercaRDTO.class));
+		for (DadesExpedientBDTO dadesExpedientBDTO : respostaExpedientsCercaBDTO.getDadesExpedientBDTOList()) {
+			expedientsCercaRDTOList.add(modelMapper.map(dadesExpedientBDTO, ExpedientsCercaRDTO.class));
 		}
 		resposta.setData(expedientsCercaRDTOList);
 
 		// Paginació
-		resposta.setPaginacio(modelMapper.map(cercaExpedientsRDTO.getPaginationAttributes(), PaginacioRDTO.class));
+		resposta.setPaginacio(modelMapper.map(respostaExpedientsCercaBDTO.getPaginationAttributes(), PaginacioRDTO.class));
 
 		if (log.isDebugEnabled()) {
 			log.debug(
@@ -484,9 +478,9 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		RespostaConsultaExpedientsRDTO respostaConsultaExpedientsRDTO = new RespostaConsultaExpedientsRDTO();
 
-		DadesExpedientRDTO dadesExpedientRDTO = ServeisPortalRestControllerHelper.loadDadesExpedientRDTO(expedientsService,
+		DadesExpedientBDTO dadesExpedientBDTO = ServeisPortalRestControllerHelper.loadDadesExpedient(expedientsService,
 		        unitatsGestoresService, tramitsService, documentsService, idExpedient);
-		ExpedientsConsultaRDTO expedientsConsultaRDTO = modelMapper.map(dadesExpedientRDTO, ExpedientsConsultaRDTO.class);
+		ExpedientsConsultaRDTO expedientsConsultaRDTO = modelMapper.map(dadesExpedientBDTO, ExpedientsConsultaRDTO.class);
 		respostaConsultaExpedientsRDTO.setExpedient(expedientsConsultaRDTO);
 
 		return respostaConsultaExpedientsRDTO;
@@ -544,23 +538,6 @@ public class ServeisPortalRestController extends BaseRestController {
 	        @ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient) {
 
 		return respostaRegistrarSolicitudMockService.getRespostaRespostaRegistrarSolicituds(idExpedient);
-	}
-
-	/**
-	 * Obrir solicitud expedient.
-	 *
-	 * @param idExpedient
-	 *            the id expedient
-	 * @return the resposta obrir solicituds RDTO
-	 */
-	@PostMapping("/expedients/{idExpedient}/obrir")
-	@ApiOperation(value = "Obrir la sol·licitud de l'expedient", tags = { "Serveis Portal API",
-	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
-	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	public RespostaObrirSolicitudsRDTO obrirSolicitudExpedient(
-	        @ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient) {
-
-		return respostaObrirSolicitudMockService.getRespostaObrirSolicituds(idExpedient);
 	}
 
 }
