@@ -767,7 +767,6 @@ public class TestsConfigHelper {
 		dadesOperacions.setEstatIdext(ONE);
 		dadesOperacions.setGrup(ONE);
 		dadesOperacions.setId(ONE);
-		dadesOperacions.setObligatori(INTEGER_ONE);
 		dadesOperacions.setOrdre(INTEGER_ONE);
 		dadesOperacions.setProcediment(ONE);
 		dadesOperacions.setTipus(INTEGER_ONE);

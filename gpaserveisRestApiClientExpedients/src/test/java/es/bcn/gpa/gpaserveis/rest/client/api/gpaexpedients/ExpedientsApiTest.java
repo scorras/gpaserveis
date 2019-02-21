@@ -31,6 +31,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.BloquejosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfComentarisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfHistoricsRDTO;
@@ -46,6 +47,27 @@ public class ExpedientsApiTest extends ParentTest {
 
 	@InjectMocks
 	private ExpedientsApi api = new ExpedientsApi();
+
+	/**
+	 * Locks the provided procediment for editing
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void bloquejarExpedientUsingPOSTTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/expedients/bloquejar/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
+
+		BloquejosRDTO bloquejosRDTO = new BloquejosRDTO();
+		BigDecimal id = ONE;
+		api.bloquejarExpedientUsingPOST(bloquejosRDTO, id);
+
+		assertTrue(true);
+	}
 
 	/**
 	 * Returns all the historic entries for the procedure that meet the search
@@ -85,6 +107,26 @@ public class ExpedientsApiTest extends ParentTest {
 		        totalPages);
 
 		assertTrue(response != null);
+	}
+
+	/**
+	 * Unlocks the provided procediment
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void desbloquejarExpedientUsingPOSTTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/expedients/desbloquejar/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
+
+		BigDecimal id = ONE;
+		api.desbloquejarExpedientUsingPOST(id);
+
+		assertTrue(true);
 	}
 
 	/**

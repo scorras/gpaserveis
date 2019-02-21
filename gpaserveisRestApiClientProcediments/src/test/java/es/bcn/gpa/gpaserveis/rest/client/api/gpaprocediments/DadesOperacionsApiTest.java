@@ -51,7 +51,7 @@ public class DadesOperacionsApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void getDadesOperacionsUsingGETTest() throws ApiException {
+	public void getDadesOperacionsUsingGET1Test() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/procediments/1/dades"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
 		        any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
@@ -60,7 +60,7 @@ public class DadesOperacionsApiTest extends ParentTest {
 		BigDecimal id = ONE;
 		String dir = null;
 		String sort = null;
-		PageDataOfDadesOperacionsRDTO response = api.getDadesOperacionsUsingGET(id, dir, sort);
+		PageDataOfDadesOperacionsRDTO response = api.getDadesOperacionsUsingGET1(id, dir, sort);
 
 		assertTrue(response != null);
 	}

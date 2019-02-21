@@ -34,6 +34,7 @@ import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.BloquejosRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.InfoDocProcedimentRDTO;
@@ -254,6 +255,27 @@ public class ProcedimentsApiTest extends ParentTest {
 	}
 
 	/**
+	 * Returns dades operacions from procediment
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void getDadesOperacionsUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/procediments/dadesOperacions/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<DadesOperacionsBDTO>());
+
+		BigDecimal idProcediment = ONE;
+		List<DadesOperacionsBDTO> response = api.getDadesOperacionsUsingGET(idProcediment);
+
+		assertTrue(response != null);
+	}
+
+	/**
 	 * Returns all the procediments names
 	 *
 	 * 
@@ -437,17 +459,17 @@ public class ProcedimentsApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void lockProcedimentUsingPOSTTest() throws ApiException {
+	public void bloquejarProcedimentUsingPOSTTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/procediments/bloquejar/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new ProcedimentsResponse());
 
-		BloquejosRDTO bloquejo = new BloquejosRDTO();
+		BloquejosRDTO bloquejosRDTO = new BloquejosRDTO();
 		BigDecimal id = ONE;
-		ProcedimentsResponse response = api.lockProcedimentUsingPOST(bloquejo, id);
+		api.bloquejarProcedimentUsingPOST(bloquejosRDTO, id);
 
-		assertTrue(response != null);
+		assertTrue(true);
 	}
 
 	/**
@@ -644,16 +666,16 @@ public class ProcedimentsApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void unlockProcedimentUsingPOSTTest() throws ApiException {
+	public void desbloquejarProcedimentUsingPOSTTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/procediments/desbloquejar/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new ProcedimentsResponse());
 
 		BigDecimal id = ONE;
-		ProcedimentsResponse response = api.unlockProcedimentUsingPOST(id);
+		api.desbloquejarProcedimentUsingPOST(id);
 
-		assertTrue(response != null);
+		assertTrue(true);
 	}
 
 	/**

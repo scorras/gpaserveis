@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.4.0"
+  version: "1.5.0"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -23,6 +23,8 @@ tags:
   description: "Expedients Rest Controller"
 - name: "historics-rest-controller"
   description: "Historics Rest Controller"
+- name: "marques-rest-controller"
+  description: "Marques Rest Controller"
 - name: "persones-sollicitud-rest-controller"
   description: "Persones Sollicitud Rest Controller"
 - name: "registre-rest-controller"
@@ -727,6 +729,42 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/bloquejar/{id}:
+    post:
+      tags:
+      - "Expedients"
+      summary: "Locks the provided procediment for editing"
+      operationId: "bloquejarExpedientUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "bloquejosRDTO"
+        description: "bloquejosRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/BloquejosRDTO"
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/canviEstat:
     post:
       tags:
@@ -1550,6 +1588,36 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/desbloquejar/{id}:
+    post:
+      tags:
+      - "Expedients"
+      summary: "Unlocks the provided procediment"
+      operationId: "desbloquejarExpedientUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/estats/{idExpedient}:
     get:
       tags:
@@ -2704,6 +2772,93 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /marques/marquesAdministrador:
+    get:
+      tags:
+      - "Marques"
+      summary: "Returns all the marques entries for the administrador"
+      operationId: "marquesAdministrador"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfMarquesRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
 definitions:
   AccionsEstatsBDTO:
     type: "object"
@@ -2763,6 +2918,32 @@ definitions:
       tipus:
         type: "number"
     title: "AvisosRDTO"
+  Bloquejos:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+      momentBloqueig:
+        type: "string"
+        format: "date-time"
+      tipus:
+        type: "string"
+      usuari:
+        type: "number"
+    title: "Bloquejos"
+  BloquejosRDTO:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+      momentBloqueig:
+        type: "string"
+        format: "date-time"
+      tipus:
+        type: "string"
+      usuari:
+        type: "number"
+    title: "BloquejosRDTO"
   CanviEstatRDTO:
     type: "object"
     properties:
@@ -3061,6 +3242,8 @@ definitions:
         type: "string"
       bloqueig:
         type: "number"
+      bloquejos:
+        $ref: "#/definitions/Bloquejos"
       codi:
         type: "string"
       configuracioDocumentacioProc:
@@ -3173,6 +3356,22 @@ definitions:
       usuari:
         type: "number"
     title: "HistoricsRDTO"
+  MarquesRDTO:
+    type: "object"
+    properties:
+      codi:
+        type: "string"
+      descripcio:
+        type: "string"
+      example:
+        type: "string"
+      expressio:
+        type: "string"
+      id:
+        type: "number"
+      referencia:
+        type: "string"
+    title: "MarquesRDTO"
   MunicipisRDTO:
     type: "object"
     properties:
@@ -3235,6 +3434,18 @@ definitions:
       sortInfo:
         $ref: "#/definitions/SortInfo"
     title: "PageDataOfHistoricsRDTO"
+  PageDataOfMarquesRDTO:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/MarquesRDTO"
+      page:
+        $ref: "#/definitions/PaginationAttributes"
+      sortInfo:
+        $ref: "#/definitions/SortInfo"
+    title: "PageDataOfMarquesRDTO"
   PageDataOfPersonesSollicitudRDTO:
     type: "object"
     properties:
@@ -3400,6 +3611,9 @@ definitions:
         type: "boolean"
       sollicitud:
         type: "number"
+      visibilitatOvt:
+        type: "integer"
+        format: "int32"
     title: "PersonesSollicitud"
   PersonesSollicitudRDTO:
     type: "object"
@@ -3430,6 +3644,9 @@ definitions:
         type: "boolean"
       sollicitud:
         type: "number"
+      visibilitatOvt:
+        type: "integer"
+        format: "int32"
     title: "PersonesSollicitudRDTO"
   ProvinciesRDTO:
     type: "object"
