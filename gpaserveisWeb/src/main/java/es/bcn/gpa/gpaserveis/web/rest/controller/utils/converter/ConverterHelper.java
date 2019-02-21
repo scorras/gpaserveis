@@ -331,8 +331,10 @@ public class ConverterHelper {
 		} else {
 			configuracionsDocumentacioRDTO.setObligatori(Boolean.FALSE);
 		}
-		configuracionsDocumentacioRDTO.setRepetible(booleanApiParamValueTranslator
-		        .getApiParamValueAsBooleanByInternalValue(configuracioDocsEntradaRDTO.getAtributsDocs().getRepetible()));
+		if (configuracioDocsEntradaRDTO.getAtributsDocs() != null) {
+			configuracionsDocumentacioRDTO.setRepetible(booleanApiParamValueTranslator
+			        .getApiParamValueAsBooleanByInternalValue(configuracioDocsEntradaRDTO.getAtributsDocs().getRepetible()));
+		}
 		configuracionsDocumentacioRDTO.setSuportConfeccio(
 		        suportConfeccioApiParamValueTranslator.getApiParamValueByInternalValue(configuracioDocsEntradaRDTO.getSuportConfeccio()));
 		configuracionsDocumentacioRDTO.setSuportEnllac(configuracioDocsEntradaRDTO.getSuportEnllac());
@@ -399,8 +401,10 @@ public class ConverterHelper {
 				} else {
 					configuracionsDocumentacioRDTO.setObligatori(Boolean.FALSE);
 				}
-				configuracionsDocumentacioRDTO.setRepetible(booleanApiParamValueTranslator
-				        .getApiParamValueAsBooleanByInternalValue(confDocEntradaRequeritRDTO.getAtributsDocs().getRepetible()));
+				if (confDocEntradaRequeritRDTO.getAtributsDocs() != null) {
+					configuracionsDocumentacioRDTO.setRepetible(booleanApiParamValueTranslator
+					        .getApiParamValueAsBooleanByInternalValue(confDocEntradaRequeritRDTO.getAtributsDocs().getRepetible()));
+				}
 				configuracionsDocumentacioRDTO.setSuportConfeccio(suportConfeccioApiParamValueTranslator
 				        .getApiParamValueByInternalValue(confDocEntradaRequeritRDTO.getSuportConfeccio()));
 				configuracionsDocumentacioRDTO.setSuportEnllac(confDocEntradaRequeritRDTO.getSuportEnllac());
