@@ -539,5 +539,4 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		return respostaRegistrarSolicitudMockService.getRespostaRespostaRegistrarSolicituds(idExpedient);
 	}
-
 }
