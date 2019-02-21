@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * ConfiguracioDocsTramitacioRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-20T14:00:48.668+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-20T18:32:07.417+01:00")
 public class ConfiguracioDocsTramitacioRDTO {
   @JsonProperty("atributDoc")
   private BigDecimal atributDoc = null;
@@ -76,6 +76,9 @@ public class ConfiguracioDocsTramitacioRDTO {
 
   @JsonProperty("nom")
   private String nom = null;
+
+  @JsonProperty("nomCastella")
+  private String nomCastella = null;
 
   @JsonProperty("origen")
   private Integer origen = null;
@@ -376,6 +379,24 @@ public class ConfiguracioDocsTramitacioRDTO {
     this.nom = nom;
   }
 
+  public ConfiguracioDocsTramitacioRDTO nomCastella(String nomCastella) {
+    this.nomCastella = nomCastella;
+    return this;
+  }
+
+   /**
+   * Get nomCastella
+   * @return nomCastella
+  **/
+  @ApiModelProperty(value = "")
+  public String getNomCastella() {
+    return nomCastella;
+  }
+
+  public void setNomCastella(String nomCastella) {
+    this.nomCastella = nomCastella;
+  }
+
   public ConfiguracioDocsTramitacioRDTO origen(Integer origen) {
     this.origen = origen;
     return this;
@@ -527,6 +548,7 @@ public class ConfiguracioDocsTramitacioRDTO {
         Objects.equals(this.id, configuracioDocsTramitacioRDTO.id) &&
         Objects.equals(this.iniciProcediment, configuracioDocsTramitacioRDTO.iniciProcediment) &&
         Objects.equals(this.nom, configuracioDocsTramitacioRDTO.nom) &&
+        Objects.equals(this.nomCastella, configuracioDocsTramitacioRDTO.nomCastella) &&
         Objects.equals(this.origen, configuracioDocsTramitacioRDTO.origen) &&
         Objects.equals(this.requereixSignatura, configuracioDocsTramitacioRDTO.requereixSignatura) &&
         Objects.equals(this.suportConfeccio, configuracioDocsTramitacioRDTO.suportConfeccio) &&
@@ -538,7 +560,7 @@ public class ConfiguracioDocsTramitacioRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(atributDoc, atributsDocs, categoriaNti, confdocstramTramitsOvtList, configuracioDocsSignatura, configuracioDocumentacio, configuracioSignatura, declaracioResponsableDoc, declaracioResponsableDocs, descripcio, detallOrigen, fase, id, iniciProcediment, nom, origen, requereixSignatura, suportConfeccio, suportEnllac, tipusDocumental, tractament, vinculadaEsmena);
+    return Objects.hash(atributDoc, atributsDocs, categoriaNti, confdocstramTramitsOvtList, configuracioDocsSignatura, configuracioDocumentacio, configuracioSignatura, declaracioResponsableDoc, declaracioResponsableDocs, descripcio, detallOrigen, fase, id, iniciProcediment, nom, nomCastella, origen, requereixSignatura, suportConfeccio, suportEnllac, tipusDocumental, tractament, vinculadaEsmena);
   }
 
 
@@ -562,6 +584,7 @@ public class ConfiguracioDocsTramitacioRDTO {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    iniciProcediment: ").append(toIndentedString(iniciProcediment)).append("\n");
     sb.append("    nom: ").append(toIndentedString(nom)).append("\n");
+    sb.append("    nomCastella: ").append(toIndentedString(nomCastella)).append("\n");
     sb.append("    origen: ").append(toIndentedString(origen)).append("\n");
     sb.append("    requereixSignatura: ").append(toIndentedString(requereixSignatura)).append("\n");
     sb.append("    suportConfeccio: ").append(toIndentedString(suportConfeccio)).append("\n");

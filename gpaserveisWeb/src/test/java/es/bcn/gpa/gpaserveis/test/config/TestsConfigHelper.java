@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AtributsDocs;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntrada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
@@ -150,6 +151,11 @@ public class TestsConfigHelper {
 		return pageDataOfProcedimentsRDTO;
 	}
 
+	/**
+	 * Consultar dades procediment response.
+	 *
+	 * @return the procediments RDTO
+	 */
 	public static ProcedimentsRDTO consultarDadesProcedimentResponse() {
 		ProcedimentsRDTO procedimentsRDTO = new ProcedimentsRDTO();
 
@@ -279,6 +285,11 @@ public class TestsConfigHelper {
 		return pageDataOfUnitatsGestoresRDTO;
 	}
 
+	/**
+	 * Consultar dades unitat gestora response.
+	 *
+	 * @return the unitats gestores RDTO
+	 */
 	public static UnitatsGestoresRDTO consultarDadesUnitatGestoraResponse() {
 		UnitatsGestoresRDTO unitatsGestoresRDTO = new UnitatsGestoresRDTO();
 
@@ -289,6 +300,11 @@ public class TestsConfigHelper {
 		return unitatsGestoresRDTO;
 	}
 
+	/**
+	 * Cerca tramits procediment response.
+	 *
+	 * @return the page data of tramits RDTO
+	 */
 	public static PageDataOfTramitsRDTO cercaTramitsProcedimentResponse() {
 		PageDataOfTramitsRDTO pageDataOfTramitsRDTO = new PageDataOfTramitsRDTO();
 
@@ -422,6 +438,11 @@ public class TestsConfigHelper {
 		return pageDataOfExpedientsRDTO;
 	}
 
+	/**
+	 * Consultar dades expedient response.
+	 *
+	 * @return the expedients RDTO
+	 */
 	public static ExpedientsRDTO consultarDadesExpedientResponse() {
 		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
 
@@ -500,6 +521,11 @@ public class TestsConfigHelper {
 		return expedientsRDTO;
 	}
 
+	/**
+	 * Cerca historics expedient response.
+	 *
+	 * @return the page data of historics RDTO
+	 */
 	public static PageDataOfHistoricsRDTO cercaHistoricsExpedientResponse() {
 		PageDataOfHistoricsRDTO pageDataOfHistoricsRDTO = new PageDataOfHistoricsRDTO();
 
@@ -544,6 +570,11 @@ public class TestsConfigHelper {
 		return pageDataOfHistoricsRDTO;
 	}
 
+	/**
+	 * Cerca persones interesades expedient response.
+	 *
+	 * @return the page data of persones sollicitud RDTO
+	 */
 	public static PageDataOfPersonesSollicitudRDTO cercaPersonesInteresadesExpedientResponse() {
 		PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = new PageDataOfPersonesSollicitudRDTO();
 
@@ -609,6 +640,11 @@ public class TestsConfigHelper {
 		return pageDataOfPersonesSollicitudRDTO;
 	}
 
+	/**
+	 * Cerca altres persones implicades expedient response.
+	 *
+	 * @return the page data of persones sollicitud RDTO
+	 */
 	public static PageDataOfPersonesSollicitudRDTO cercaAltresPersonesImplicadesExpedientResponse() {
 		PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = new PageDataOfPersonesSollicitudRDTO();
 
@@ -658,6 +694,11 @@ public class TestsConfigHelper {
 		return pageDataOfPersonesSollicitudRDTO;
 	}
 
+	/**
+	 * Builds the persones.
+	 *
+	 * @return the persones
+	 */
 	private static Persones buildPersones() {
 		Persones persones = new Persones();
 		persones.setId(ONE);
@@ -685,6 +726,11 @@ public class TestsConfigHelper {
 		return persones;
 	}
 
+	/**
+	 * Consultar dades tramit ovt response.
+	 *
+	 * @return the tramits ovt RDTO
+	 */
 	public static TramitsOvtRDTO consultarDadesTramitOvtResponse() {
 		TramitsOvtRDTO tramitsOvtRDTO = new TramitsOvtRDTO();
 		tramitsOvtRDTO.setId(ONE);
@@ -692,6 +738,11 @@ public class TestsConfigHelper {
 		return tramitsOvtRDTO;
 	}
 
+	/**
+	 * Cerca dades operacio agrupats 1 response.
+	 *
+	 * @return the page data of dades grups RDTO
+	 */
 	public static PageDataOfDadesGrupsRDTO cercaDadesOperacioAgrupats1Response() {
 		PageDataOfDadesGrupsRDTO pageDataOfDadesGrupsRDTO = new PageDataOfDadesGrupsRDTO();
 
@@ -763,6 +814,11 @@ public class TestsConfigHelper {
 		return pageDataOfDadesGrupsRDTO;
 	}
 
+	/**
+	 * Cerca configuracio documentacio entrada 1 response.
+	 *
+	 * @return the page data of configuracio docs entrada RDTO
+	 */
 	public static PageDataOfConfiguracioDocsEntradaRDTO cercaConfiguracioDocumentacioEntrada1Response() {
 		PageDataOfConfiguracioDocsEntradaRDTO pageDataOfConfiguracioDocsEntradaRDTO = new PageDataOfConfiguracioDocsEntradaRDTO();
 
@@ -782,6 +838,11 @@ public class TestsConfigHelper {
 		return pageDataOfConfiguracioDocsEntradaRDTO;
 	}
 
+	/**
+	 * Cerca accions possibles response.
+	 *
+	 * @return the list
+	 */
 	public static List<AccionsEstatsRDTO> cercaAccionsPossiblesResponse() {
 		ArrayList<AccionsEstatsRDTO> accionsEstatsRDTOList = new ArrayList<AccionsEstatsRDTO>();
 
@@ -794,6 +855,11 @@ public class TestsConfigHelper {
 		return accionsEstatsRDTOList;
 	}
 
+	/**
+	 * Cerca documents entrada agrupats per tramit ovt response.
+	 *
+	 * @return the list
+	 */
 	public static List<DocsEntradaRDTO> cercaDocumentsEntradaAgrupatsPerTramitOvtResponse() {
 		ArrayList<DocsEntradaRDTO> docsEntradaRDTOList = new ArrayList<DocsEntradaRDTO>();
 
@@ -846,6 +912,27 @@ public class TestsConfigHelper {
 		docsEntradaRDTOList.add(docsEntradaRDTO);
 
 		return docsEntradaRDTOList;
+	}
+
+	/**
+	 * Cerca configuracio documentacio entrada requerida response.
+	 *
+	 * @return the list
+	 */
+	public static List<ConfDocEntradaRequeritRDTO> cercaConfiguracioDocumentacioEntradaRequeridaResponse() {
+		ArrayList<ConfDocEntradaRequeritRDTO> confDocEntradaRequeritRDTOList = new ArrayList<ConfDocEntradaRequeritRDTO>();
+		ConfDocEntradaRequeritRDTO confDocEntradaRequeritRDTO = new ConfDocEntradaRequeritRDTO();
+		confDocEntradaRequeritRDTO.setId(ONE);
+		confDocEntradaRequeritRDTO.setNom("Nom Doc");
+		confDocEntradaRequeritRDTO.setDescripcioAmpliada("Descripció Ampliada Doc");
+		AtributsDocs atributsDocs = new AtributsDocs();
+		atributsDocs.setObligatori(INTEGER_ONE);
+		atributsDocs.setRepetible(INTEGER_ONE);
+		confDocEntradaRequeritRDTO.setAtributsDocs(atributsDocs);
+		confDocEntradaRequeritRDTO.setSuportConfeccio(INTEGER_ONE);
+		confDocEntradaRequeritRDTO.setSuportEnllac("Suport Enllac Doc");
+		confDocEntradaRequeritRDTOList.add(confDocEntradaRequeritRDTO);
+		return confDocEntradaRequeritRDTOList;
 	}
 
 }

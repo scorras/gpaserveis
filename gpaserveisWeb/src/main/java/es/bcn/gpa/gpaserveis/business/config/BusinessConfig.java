@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Lazy;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
@@ -161,5 +162,14 @@ public class BusinessConfig {
 		DocumentacioApi documentacioApi = new DocumentacioApi(apiClient);
 
 		return documentacioApi;
+	}
+
+	@Bean
+	public DocumentacioRequeritApi clientApiDocumentacioRequerit() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_DOCUMENTACIO);
+		DocumentacioRequeritApi documentacioRequeritApi = new DocumentacioRequeritApi(apiClient);
+
+		return documentacioRequeritApi;
 	}
 }

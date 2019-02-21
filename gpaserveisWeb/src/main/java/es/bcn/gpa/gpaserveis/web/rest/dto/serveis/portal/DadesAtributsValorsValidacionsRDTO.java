@@ -24,4 +24,36 @@ public class DadesAtributsValorsValidacionsRDTO implements Comparable<DadesAtrib
 	public int compareTo(DadesAtributsValorsValidacionsRDTO dadesAtributsValorsLlistaRDTO) {
 		return this.ordre.compareTo(dadesAtributsValorsLlistaRDTO.getOrdre());
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((ordre == null) ? 0 : ordre.hashCode());
+		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DadesAtributsValorsValidacionsRDTO other = (DadesAtributsValorsValidacionsRDTO) obj;
+		if (ordre == null) {
+			if (other.ordre != null)
+				return false;
+		} else if (!ordre.equals(other.ordre))
+			return false;
+		if (valor == null) {
+			if (other.valor != null)
+				return false;
+		} else if (!valor.equals(other.valor))
+			return false;
+		return true;
+	}
+
 }

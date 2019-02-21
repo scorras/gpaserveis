@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
@@ -19,7 +20,7 @@ import lombok.Setter;
 @ApiModel(value = "DadesExpedientRDTO")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "expedients", "unitatGestora", "historics", "sollicitant", "representant", "personesInteressades",
-        "personesImplicades", "accionsPossibles", "documentsAportats" })
+        "personesImplicades", "accionsPossibles", "documentsAportats", "documentsRequerits" })
 @Getter
 @Setter
 public class DadesExpedientRDTO {
@@ -50,5 +51,8 @@ public class DadesExpedientRDTO {
 
 	@JsonProperty("documentsAportats")
 	private List<DocsEntradaRDTO> documentsAportats;
+
+	@JsonProperty("documentsRequerits")
+	private List<ConfDocEntradaRequeritRDTO> documentsRequerits;
 
 }

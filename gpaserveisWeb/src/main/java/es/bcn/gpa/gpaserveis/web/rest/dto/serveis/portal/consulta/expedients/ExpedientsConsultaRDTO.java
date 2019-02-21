@@ -60,4 +60,6 @@ public class ExpedientsConsultaRDTO {
 	private List<String> accionsPossibles;
 	@ApiModelProperty(value = "Documents aportats a l'expedient")
 	private DocumentsAportatsExpedientsRDTO documentsAportats;
+	@ApiModelProperty(value = "Documentació requerida per l'expedient")
+	private DocumentsRequeritsExpedientsRDTO documentsRequerits;
 }

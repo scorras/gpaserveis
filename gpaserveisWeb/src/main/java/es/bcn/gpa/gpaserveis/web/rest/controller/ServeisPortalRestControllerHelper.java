@@ -19,6 +19,7 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
@@ -198,6 +199,7 @@ public class ServeisPortalRestControllerHelper {
 		loadAltresPersonesImplicades(expedientsService, dadesExpedientRDTO, dadesExpedientRDTO.getExpedientsRDTO().getSollicitud());
 		loadAccionsPossibles(tramitsService, dadesExpedientRDTO, dadesExpedientRDTO.getExpedientsRDTO().getIdEstat());
 		loadDocumentsAportats(documentsService, dadesExpedientRDTO, dadesExpedientRDTO.getExpedientsRDTO().getDocumentacioIdext());
+		loadDocumentsRequerits(documentsService, dadesExpedientRDTO, dadesExpedientRDTO.getExpedientsRDTO().getDocumentacioIdext());
 
 		return dadesExpedientRDTO;
 	}
@@ -410,6 +412,25 @@ public class ServeisPortalRestControllerHelper {
 	        BigDecimal documentacioIdext) throws GPAServeisServiceException {
 		List<DocsEntradaRDTO> docsEntradaRDTOList = documentsService.cercaDocumentsEntradaAgrupatsPerTramitOvt(documentacioIdext);
 		dadesExpedientRDTO.setDocumentsAportats(docsEntradaRDTOList);
+	}
+
+	/**
+	 * Load documents requerits.
+	 *
+	 * @param documentsService
+	 *            the documents service
+	 * @param dadesExpedientRDTO
+	 *            the dades expedient RDTO
+	 * @param documentacioIdext
+	 *            the documentacio idext
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	private static void loadDocumentsRequerits(DocumentsService documentsService, DadesExpedientRDTO dadesExpedientRDTO,
+	        BigDecimal documentacioIdext) throws GPAServeisServiceException {
+		List<ConfDocEntradaRequeritRDTO> confDocEntradaRequeritRDTOList = documentsService
+		        .cercaConfiguracioDocumentacioEntradaRequerida(documentacioIdext);
+		dadesExpedientRDTO.setDocumentsRequerits(confDocEntradaRequeritRDTOList);
 	}
 
 	/**

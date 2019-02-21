@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * ConfiguracioDocsEntrada
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-20T14:00:48.668+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-20T18:32:07.417+01:00")
 public class ConfiguracioDocsEntrada {
   @JsonProperty("atributDoc")
   private BigDecimal atributDoc = null;
@@ -73,8 +73,14 @@ public class ConfiguracioDocsEntrada {
   @JsonProperty("nom")
   private String nom = null;
 
+  @JsonProperty("nomCastella")
+  private String nomCastella = null;
+
   @JsonProperty("origen")
   private Integer origen = null;
+
+  @JsonProperty("politicaSignatura")
+  private String politicaSignatura = null;
 
   @JsonProperty("seleccionable")
   private Boolean seleccionable = null;
@@ -351,6 +357,24 @@ public class ConfiguracioDocsEntrada {
     this.nom = nom;
   }
 
+  public ConfiguracioDocsEntrada nomCastella(String nomCastella) {
+    this.nomCastella = nomCastella;
+    return this;
+  }
+
+   /**
+   * Get nomCastella
+   * @return nomCastella
+  **/
+  @ApiModelProperty(value = "")
+  public String getNomCastella() {
+    return nomCastella;
+  }
+
+  public void setNomCastella(String nomCastella) {
+    this.nomCastella = nomCastella;
+  }
+
   public ConfiguracioDocsEntrada origen(Integer origen) {
     this.origen = origen;
     return this;
@@ -367,6 +391,24 @@ public class ConfiguracioDocsEntrada {
 
   public void setOrigen(Integer origen) {
     this.origen = origen;
+  }
+
+  public ConfiguracioDocsEntrada politicaSignatura(String politicaSignatura) {
+    this.politicaSignatura = politicaSignatura;
+    return this;
+  }
+
+   /**
+   * Get politicaSignatura
+   * @return politicaSignatura
+  **/
+  @ApiModelProperty(value = "")
+  public String getPoliticaSignatura() {
+    return politicaSignatura;
+  }
+
+  public void setPoliticaSignatura(String politicaSignatura) {
+    this.politicaSignatura = politicaSignatura;
   }
 
   public ConfiguracioDocsEntrada seleccionable(Boolean seleccionable) {
@@ -483,7 +525,9 @@ public class ConfiguracioDocsEntrada {
         Objects.equals(this.id, configuracioDocsEntrada.id) &&
         Objects.equals(this.iniciProcediment, configuracioDocsEntrada.iniciProcediment) &&
         Objects.equals(this.nom, configuracioDocsEntrada.nom) &&
+        Objects.equals(this.nomCastella, configuracioDocsEntrada.nomCastella) &&
         Objects.equals(this.origen, configuracioDocsEntrada.origen) &&
+        Objects.equals(this.politicaSignatura, configuracioDocsEntrada.politicaSignatura) &&
         Objects.equals(this.seleccionable, configuracioDocsEntrada.seleccionable) &&
         Objects.equals(this.suportConfeccio, configuracioDocsEntrada.suportConfeccio) &&
         Objects.equals(this.suportEnllac, configuracioDocsEntrada.suportEnllac) &&
@@ -493,7 +537,7 @@ public class ConfiguracioDocsEntrada {
 
   @Override
   public int hashCode() {
-    return Objects.hash(atributDoc, atributsDocs, categoriaNti, confdocsentTramitsOvtList, configuracioDocumentacio, declaracioResponsableDoc, declaracioResponsableDocs, descripcioAmpliada, detallOrigen, editable, fase, id, iniciProcediment, nom, origen, seleccionable, suportConfeccio, suportEnllac, tipusDocumental, tractament);
+    return Objects.hash(atributDoc, atributsDocs, categoriaNti, confdocsentTramitsOvtList, configuracioDocumentacio, declaracioResponsableDoc, declaracioResponsableDocs, descripcioAmpliada, detallOrigen, editable, fase, id, iniciProcediment, nom, nomCastella, origen, politicaSignatura, seleccionable, suportConfeccio, suportEnllac, tipusDocumental, tractament);
   }
 
 
@@ -516,7 +560,9 @@ public class ConfiguracioDocsEntrada {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    iniciProcediment: ").append(toIndentedString(iniciProcediment)).append("\n");
     sb.append("    nom: ").append(toIndentedString(nom)).append("\n");
+    sb.append("    nomCastella: ").append(toIndentedString(nomCastella)).append("\n");
     sb.append("    origen: ").append(toIndentedString(origen)).append("\n");
+    sb.append("    politicaSignatura: ").append(toIndentedString(politicaSignatura)).append("\n");
     sb.append("    seleccionable: ").append(toIndentedString(seleccionable)).append("\n");
     sb.append("    suportConfeccio: ").append(toIndentedString(suportConfeccio)).append("\n");
     sb.append("    suportEnllac: ").append(toIndentedString(suportEnllac)).append("\n");

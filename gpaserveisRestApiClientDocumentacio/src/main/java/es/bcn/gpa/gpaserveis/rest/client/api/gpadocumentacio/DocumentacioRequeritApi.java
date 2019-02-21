@@ -7,7 +7,8 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SuportConfeccioRDTO;
+import java.math.BigDecimal;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,14 +16,14 @@ import java.util.List;
 import java.util.Map;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-20T18:32:07.417+01:00")
-public class SuportConfeccioApi {
+public class DocumentacioRequeritApi {
   private ApiClient apiClient;
 
-  public SuportConfeccioApi() {
+  public DocumentacioRequeritApi() {
     this(Configuration.getDefaultApiClient());
   }
 
-  public SuportConfeccioApi(ApiClient apiClient) {
+  public DocumentacioRequeritApi(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
@@ -35,16 +36,23 @@ public class SuportConfeccioApi {
   }
 
   /**
-   * Returns all the suportConfeccios
+   * returns the required documentation for the documentation of a expedient
    * 
-   * @return List&lt;SuportConfeccioRDTO&gt;
+   * @param idDoc idDoc (required)
+   * @return List&lt;ConfDocEntradaRequeritRDTO&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<SuportConfeccioRDTO> getSuportConfeccioUsingGET() throws ApiException {
+  public List<ConfDocEntradaRequeritRDTO> cercaConfiguracioDocumentacioEntradaRequerida(BigDecimal idDoc) throws ApiException {
     Object localVarPostBody = null;
     
+    // verify the required parameter 'idDoc' is set
+    if (idDoc == null) {
+      throw new ApiException(400, "Missing the required parameter 'idDoc' when calling cercaConfiguracioDocumentacioEntradaRequerida");
+    }
+    
     // create path and map variables
-    String localVarPath = "/documentacio/catalog/suportConfeccio";
+    String localVarPath = "/configuracioDocumentacio/docsEntradaRequerit/{idDoc}"
+      .replaceAll("\\{" + "idDoc" + "\\}", apiClient.escapeString(idDoc.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -66,7 +74,7 @@ public class SuportConfeccioApi {
 
     String[] localVarAuthNames = new String[] {  };
 
-    GenericType<List<SuportConfeccioRDTO>> localVarReturnType = new GenericType<List<SuportConfeccioRDTO>>() {};
+    GenericType<List<ConfDocEntradaRequeritRDTO>> localVarReturnType = new GenericType<List<ConfDocEntradaRequeritRDTO>>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
 }

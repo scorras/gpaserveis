@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToDataHoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToDocumentAportatListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToAccioListConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToDocumentsEntradaRequeritsListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToEstatCiutadaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToHistoricEstatCiutadaListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToPersonaConverter;
@@ -54,31 +55,9 @@ public class DadesExpedientRDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 	/** The internal to document aportat list converter. */
 	private InternalToDocumentAportatListConverter internalToDocumentAportatListConverter;
 
-	/**
-	 * Instantiates a new dades expedient RDTO to expedients consulta RDTO
-	 * mapper.
-	 *
-	 * @param internalToDataHoraConverter
-	 *            the internal to data hora converter
-	 * @param internalToUnitatGestoraConverter
-	 *            the internal to unitat gestora converter
-	 * @param internalToEstatCiutadaConverter
-	 *            the internal to estat ciutada converter
-	 * @param internalToHistoricEstatCiutadaListConverter
-	 *            the internal to historic estat ciutada list converter
-	 * @param internalToProcedimentConsultaConverter
-	 *            the internal to procediment consulta converter
-	 * @param internalToRegistreConverter
-	 *            the internal to registre converter
-	 * @param internalToPersonaConverter
-	 *            the internal to persona converter
-	 * @param internalToPersonaListConverter
-	 *            the internal to persona list converter
-	 * @param internalToAccioListConverter
-	 *            the internal to accio list converter
-	 * @param internalToDocumentAportatListConverter
-	 *            the internal to document aportat list converter
-	 */
+	/** The internal to documents entrada requerits list converter. */
+	private InternalToDocumentsEntradaRequeritsListConverter internalToDocumentsEntradaRequeritsListConverter;
+
 	@Autowired
 	public DadesExpedientRDTOToExpedientsConsultaRDTOMapper(
 	        @Qualifier("internalToDataHoraConverter") InternalToDataHoraConverter internalToDataHoraConverter,
@@ -90,7 +69,8 @@ public class DadesExpedientRDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 	        @Qualifier("expedientInternalToPersonaConverter") InternalToPersonaConverter internalToPersonaConverter,
 	        @Qualifier("expedientInternalToPersonaListConverter") InternalToPersonaListConverter internalToPersonaListConverter,
 	        @Qualifier("expedientInternalToAccioListConverter") InternalToAccioListConverter internalToAccioListConverter,
-	        @Qualifier("internalToDocumentAportatListConverter") InternalToDocumentAportatListConverter internalToDocumentAportatListConverter) {
+	        @Qualifier("internalToDocumentAportatListConverter") InternalToDocumentAportatListConverter internalToDocumentAportatListConverter,
+	        @Qualifier("expedientInternalToDocumentsEntradaRequeritsListConverter") InternalToDocumentsEntradaRequeritsListConverter internalToDocumentsEntradaRequeritsListConverter) {
 		this.internalToDataHoraConverter = internalToDataHoraConverter;
 		this.internalToUnitatGestoraConverter = internalToUnitatGestoraConverter;
 		this.internalToEstatCiutadaConverter = internalToEstatCiutadaConverter;
@@ -101,6 +81,7 @@ public class DadesExpedientRDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 		this.internalToPersonaListConverter = internalToPersonaListConverter;
 		this.internalToAccioListConverter = internalToAccioListConverter;
 		this.internalToDocumentAportatListConverter = internalToDocumentAportatListConverter;
+		this.internalToDocumentsEntradaRequeritsListConverter = internalToDocumentsEntradaRequeritsListConverter;
 	}
 
 	/**
@@ -129,6 +110,7 @@ public class DadesExpedientRDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 		using(internalToPersonaListConverter).map(source.getPersonesImplicades()).setPersonesImplicades(null);
 		using(internalToAccioListConverter).map(source.getAccionsPossibles()).setAccionsPossibles(null);
 		using(internalToDocumentAportatListConverter).map(source.getDocumentsAportats()).setDocumentsAportats(null);
+		using(internalToDocumentsEntradaRequeritsListConverter).map(source.getDocumentsRequerits()).setDocumentsRequerits(null);
 	}
 
 }
