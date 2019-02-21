@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaprocediments"
-  version: "1.4.0"
+  version: "1.5.0"
   title: "API gpaprocediments"
   contact:
     name: "Sergio Corras"
@@ -179,15 +179,15 @@ paths:
       tags:
       - "Procediments"
       summary: "Locks the provided procediment for editing"
-      operationId: "lockProcedimentUsingPOST"
+      operationId: "bloquejarProcedimentUsingPOST"
       consumes:
       - "application/json"
       produces:
       - "*/*"
       parameters:
       - in: "body"
-        name: "bloquejo"
-        description: "bloquejo"
+        name: "bloquejosRDTO"
+        description: "bloquejosRDTO"
         required: true
         schema:
           $ref: "#/definitions/BloquejosRDTO"
@@ -199,8 +199,6 @@ paths:
       responses:
         200:
           description: "OK"
-          schema:
-            $ref: "#/definitions/ProcedimentsResponse"
         201:
           description: "Created"
         401:
@@ -1067,6 +1065,36 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /procediments/dadesOperacions/{idProcediment}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns dades operacions from procediment"
+      operationId: "getDadesOperacionsUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idProcediment"
+        in: "path"
+        description: "idProcediment"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/DadesOperacionsBDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /procediments/delete:
     post:
       tags:
@@ -1138,7 +1166,7 @@ paths:
       tags:
       - "Procediments"
       summary: "Unlocks the provided procediment"
-      operationId: "unlockProcedimentUsingPOST"
+      operationId: "desbloquejarProcedimentUsingPOST"
       consumes:
       - "application/json"
       produces:
@@ -1152,8 +1180,6 @@ paths:
       responses:
         200:
           description: "OK"
-          schema:
-            $ref: "#/definitions/ProcedimentsResponse"
         201:
           description: "Created"
         401:
@@ -2365,7 +2391,7 @@ paths:
       tags:
       - "Dades Operacions"
       summary: "Returns all the dades operacions entries for the procedure"
-      operationId: "getDadesOperacionsUsingGET"
+      operationId: "getDadesOperacionsUsingGET_1"
       produces:
       - "*/*"
       parameters:
@@ -2600,6 +2626,8 @@ definitions:
           $ref: "#/definitions/DadesOperacions"
       descripcio:
         type: "string"
+      descripcioCastella:
+        type: "string"
       id:
         type: "number"
       nomColumnes:
@@ -2611,6 +2639,8 @@ definitions:
       procediment:
         type: "number"
       titol:
+        type: "string"
+      titolCastella:
         type: "string"
       urlValidacio:
         type: "string"
@@ -2627,6 +2657,8 @@ definitions:
           $ref: "#/definitions/DadesOperacions"
       descripcio:
         type: "string"
+      descripcioCastella:
+        type: "string"
       id:
         type: "number"
       nomColumnes:
@@ -2638,6 +2670,8 @@ definitions:
       procediment:
         type: "number"
       titol:
+        type: "string"
+      titolCastella:
         type: "string"
       urlValidacio:
         type: "string"
@@ -2721,6 +2755,8 @@ definitions:
         type: "string"
       descripcio:
         type: "string"
+      descripcioCastella:
+        type: "string"
       detallValidacio:
         type: "string"
       estatIdext:
@@ -2733,9 +2769,6 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Items"
-      obligatori:
-        type: "integer"
-        format: "int32"
       ordre:
         type: "integer"
         format: "int32"
@@ -2745,6 +2778,8 @@ definitions:
         type: "integer"
         format: "int32"
       titol:
+        type: "string"
+      titolCastella:
         type: "string"
       titolGrup:
         type: "string"
@@ -2757,6 +2792,65 @@ definitions:
         type: "integer"
         format: "int32"
     title: "DadesOperacions"
+  DadesOperacionsBDTO:
+    type: "object"
+    properties:
+      cercable:
+        type: "integer"
+        format: "int32"
+      codi:
+        type: "string"
+      comentari:
+        type: "string"
+      dadesOperTramitsOvtList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesOperTramitsOvt"
+      dadesOperacionsValidacio:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesOperacionsValidacio"
+      desTipusCamp:
+        type: "string"
+      descripcio:
+        type: "string"
+      descripcioCastella:
+        type: "string"
+      detallValidacio:
+        type: "string"
+      estatIdext:
+        type: "number"
+      grup:
+        type: "number"
+      id:
+        type: "number"
+      itemsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Items"
+      ordre:
+        type: "integer"
+        format: "int32"
+      procediment:
+        type: "number"
+      tipus:
+        type: "integer"
+        format: "int32"
+      titol:
+        type: "string"
+      titolCastella:
+        type: "string"
+      titolGrup:
+        type: "string"
+      urlOrigen:
+        type: "string"
+      validacio:
+        type: "integer"
+        format: "int32"
+      vigent:
+        type: "integer"
+        format: "int32"
+    title: "DadesOperacionsBDTO"
   DadesOperacionsRDTO:
     type: "object"
     properties:
@@ -2779,6 +2873,8 @@ definitions:
         type: "string"
       descripcio:
         type: "string"
+      descripcioCastella:
+        type: "string"
       detallValidacio:
         type: "string"
       estatIdext:
@@ -2791,9 +2887,6 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Items"
-      obligatori:
-        type: "integer"
-        format: "int32"
       ordre:
         type: "integer"
         format: "int32"
@@ -2803,6 +2896,8 @@ definitions:
         type: "integer"
         format: "int32"
       titol:
+        type: "string"
+      titolCastella:
         type: "string"
       titolGrup:
         type: "string"
@@ -3142,6 +3237,8 @@ definitions:
         format: "int32"
       responActuacions:
         type: "string"
+      respostaRequeriment:
+        type: "number"
       serveisList:
         type: "array"
         items:
@@ -3380,6 +3477,8 @@ definitions:
         format: "date-time"
       descripcio:
         type: "string"
+      descripcioCastella:
+        type: "string"
       descripcioEstat:
         type: "string"
       descripcioRelacio:
@@ -3403,6 +3502,8 @@ definitions:
         items:
           $ref: "#/definitions/ProcedimentsIniciacions"
       nom:
+        type: "string"
+      nomCastella:
         type: "string"
       numerador:
         type: "number"
@@ -3492,6 +3593,8 @@ definitions:
         format: "date-time"
       descripcio:
         type: "string"
+      descripcioCastella:
+        type: "string"
       descripcioEstat:
         type: "string"
       descripcioRelacio:
@@ -3515,6 +3618,8 @@ definitions:
         items:
           $ref: "#/definitions/ProcedimentsIniciacions"
       nom:
+        type: "string"
+      nomCastella:
         type: "string"
       numerador:
         type: "number"
