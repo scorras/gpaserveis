@@ -13,7 +13,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaActualitzarSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCrearSolicitudMockService;
-import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaObrirSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaRegistrarSolicitudMockService;
 import net.opentrends.openframe.services.rest.apidocs.config.RestServiceDefaultSwaggerConfiguration;
 import net.opentrends.openframe.services.rest.http.ResponseEntity;
@@ -38,11 +37,6 @@ public class RestServerConfig extends RestServiceDefaultSwaggerConfiguration {
 	@Bean(name = "respostaRegistrarSolicitudMock")
 	public RespostaRegistrarSolicitudMockService respostaRegistrarSolicitudMock() {
 		return new RespostaRegistrarSolicitudMockService();
-	}
-
-	@Bean(name = "respostaObrirSolicitudMock")
-	public RespostaObrirSolicitudMockService respostaObrirSolicitudMock() {
-		return new RespostaObrirSolicitudMockService();
 	}
 
 	@Bean(name = "apiDocumentedByRestService")

@@ -5,20 +5,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToEstatConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToIdentificacioConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToIniciacioConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.tramit.InternalToTramitProcedimentListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraListConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesProcedimentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.ProcedimentsConsultaRDTO;
 
 /**
- * The Class DadesProcedimentRDTOToProcedimentsConsultaRDTOMapper.
+ * The Class RespostaDadesProcedimentBDTOToProcedimentsConsultaRDTOMapper.
  */
 @Component
-public class DadesProcedimentRDTOToProcedimentsConsultaRDTOMapper extends PropertyMap<DadesProcedimentRDTO, ProcedimentsConsultaRDTO> {
+public class RespostaDadesProcedimentBDTOToProcedimentsConsultaRDTOMapper
+        extends PropertyMap<DadesProcedimentBDTO, ProcedimentsConsultaRDTO> {
 
 	/** The internal to estat converter. */
 	private InternalToEstatConverter internalToEstatConverter;
@@ -39,8 +40,8 @@ public class DadesProcedimentRDTOToProcedimentsConsultaRDTOMapper extends Proper
 	private InternalToIdentificacioConverter internalToIdentificacioConverter;
 
 	/**
-	 * Instantiates a new procediments RDTO to procediments consulta RDTO
-	 * mapper.
+	 * Instantiates a new resposta dades procediment BDTO to procediments
+	 * consulta RDTO mapper.
 	 *
 	 * @param internalToEstatConverter
 	 *            the internal to estat converter
@@ -56,7 +57,7 @@ public class DadesProcedimentRDTOToProcedimentsConsultaRDTOMapper extends Proper
 	 *            the internal to identificacio converter
 	 */
 	@Autowired
-	public DadesProcedimentRDTOToProcedimentsConsultaRDTOMapper(
+	public RespostaDadesProcedimentBDTOToProcedimentsConsultaRDTOMapper(
 	        @Qualifier("procedimentInternalToEstatConverter") InternalToEstatConverter internalToEstatConverter,
 	        @Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
 	        @Qualifier("internalToUnitatGestoraListConverter") InternalToUnitatGestoraListConverter internalToUnitatGestoraListConverter,

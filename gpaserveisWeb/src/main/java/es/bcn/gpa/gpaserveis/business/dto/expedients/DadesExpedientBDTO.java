@@ -1,10 +1,6 @@
-package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal;
+package es.bcn.gpa.gpaserveis.business.dto.expedients;
 
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
@@ -13,46 +9,41 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
-import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "DadesExpedientRDTO")
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "expedients", "unitatGestora", "historics", "sollicitant", "representant", "personesInteressades",
-        "personesImplicades", "accionsPossibles", "documentsAportats", "documentsRequerits" })
 @Getter
 @Setter
-public class DadesExpedientRDTO {
+public class DadesExpedientBDTO {
 
-	@JsonProperty("expedients")
+	/** The expedients RDTO. */
 	private ExpedientsRDTO expedientsRDTO = null;
 
-	@JsonProperty("unitatGestora")
+	/** The unitats gestores RDTO. */
 	private UnitatsGestoresRDTO unitatsGestoresRDTO = null;
 
-	@JsonProperty("historics")
+	/** The historics estats. */
 	private List<EstatsRDTO> historicsEstats = null;
 
-	@JsonProperty("sollicitant")
+	/** The sollicitant. */
 	private Persones sollicitant;
 
-	@JsonProperty("representant")
+	/** The representant. */
 	private Persones representant;
 
-	@JsonProperty("personesInteressades")
+	/** The persones interessades. */
 	private List<Persones> personesInteressades;
 
-	@JsonProperty("personesImplicades")
+	/** The persones implicades. */
 	private List<Persones> personesImplicades;
 
-	@JsonProperty("accionsPossibles")
+	/** The accions possibles. */
 	private List<AccionsEstatsRDTO> accionsPossibles;
 
-	@JsonProperty("documentsAportats")
+	/** The documents aportats. */
 	private List<DocsEntradaRDTO> documentsAportats;
 
-	@JsonProperty("documentsRequerits")
+	/** The documents requerits. */
 	private List<ConfDocEntradaRequeritRDTO> documentsRequerits;
 
 }
