@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.4.0"
+  version: "1.5.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -190,12 +190,42 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /configuracioDocumentacio/docsEntradaRequerit/{idDoc}:
+    get:
+      tags:
+      - "Documentacio Requerit"
+      summary: "returns the required documentation for the documentation of a expedient"
+      operationId: "cercaConfiguracioDocumentacioEntradaRequerida"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDoc"
+        in: "path"
+        description: "idDoc"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ConfDocEntradaRequeritRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /configuracioDocumentacio/entrada/{id}:
     get:
       tags:
       - "Configuracio Documentacio"
       summary: "Returns the requested entrada configuracio"
-      operationId: "getConfiguracioDocumentacioEntradaUsingGET"
+      operationId: "cercaConfiguracioDocumentacioEntrada"
       produces:
       - "*/*"
       parameters:
@@ -237,6 +267,108 @@ paths:
       - name: "id"
         in: "path"
         description: "id"
+        required: true
+        type: "number"
+      - name: "idTramitOvt"
+        in: "path"
+        description: "idTramitOvt"
+        required: false
+        type: "number"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfConfiguracioDocsEntradaRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /configuracioDocumentacio/entrada/{id}/{idTramitOvt}:
+    get:
+      tags:
+      - "Configuracio Documentacio"
+      summary: "Returns the requested entrada configuracio"
+      operationId: "cercaConfiguracioDocumentacioEntrada_1"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      - name: "idTramitOvt"
+        in: "path"
+        description: "idTramitOvt"
         required: true
         type: "number"
       - name: "nextPageNumber"
@@ -1335,6 +1467,36 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/{idDocumentacio}/entrada/agrupatPerTramitOvt:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Returns the requested documentacio entrada grouped by tràmit OVT"
+      operationId: "cercaDocumentsEntradaAgrupatsPerTramitOvt"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDocumentacio"
+        in: "path"
+        description: "idDocumentacio"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/DocsEntradaRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /documentacio/{idDocumentacio}/entrada/{idConfiguracioDocumentacio}/{estatsFutursList}:
     get:
       tags:
@@ -1581,7 +1743,10 @@ definitions:
       obligatori:
         type: "integer"
         format: "int32"
-      oficial:
+      origen:
+        type: "integer"
+        format: "int32"
+      publicable:
         type: "integer"
         format: "int32"
       repetible:
@@ -1597,6 +1762,32 @@ definitions:
         type: "integer"
         format: "int32"
     title: "CategoriaNtiRDTO"
+  ConfDocEntradaRequeritRDTO:
+    type: "object"
+    properties:
+      atributsDocs:
+        $ref: "#/definitions/AtributsDocs"
+      comentari:
+        type: "string"
+      confdocsentTramitsOvtList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocsentTramitsOvt"
+      descripcioAmpliada:
+        type: "string"
+      id:
+        type: "number"
+      iniciProcediment:
+        type: "integer"
+        format: "int32"
+      nom:
+        type: "string"
+      suportConfeccio:
+        type: "integer"
+        format: "int32"
+      suportEnllac:
+        type: "string"
+    title: "ConfDocEntradaRequeritRDTO"
   ConfdocsentTramitsOvt:
     type: "object"
     properties:
@@ -1621,8 +1812,7 @@ definitions:
       atributsDocs:
         $ref: "#/definitions/AtributsDocs"
       categoriaNti:
-        type: "integer"
-        format: "int32"
+        type: "string"
       confdocsentTramitsOvtList:
         type: "array"
         items:
@@ -1649,9 +1839,13 @@ definitions:
         format: "int32"
       nom:
         type: "string"
+      nomCastella:
+        type: "string"
       origen:
         type: "integer"
         format: "int32"
+      politicaSignatura:
+        type: "string"
       seleccionable:
         type: "boolean"
       suportConfeccio:
@@ -1672,8 +1866,7 @@ definitions:
       atributsDocs:
         $ref: "#/definitions/AtributsDocs"
       categoriaNti:
-        type: "integer"
-        format: "int32"
+        type: "string"
       confdocsentTramitsOvtList:
         type: "array"
         items:
@@ -1700,9 +1893,13 @@ definitions:
         format: "int32"
       nom:
         type: "string"
+      nomCastella:
+        type: "string"
       origen:
         type: "integer"
         format: "int32"
+      politicaSignatura:
+        type: "string"
       seleccionable:
         type: "boolean"
       suportConfeccio:
@@ -1742,8 +1939,7 @@ definitions:
       atributsDocs:
         $ref: "#/definitions/AtributsDocs"
       categoriaNti:
-        type: "integer"
-        format: "int32"
+        type: "string"
       confdocstramTramitsOvtList:
         type: "array"
         items:
@@ -1771,6 +1967,8 @@ definitions:
         type: "integer"
         format: "int32"
       nom:
+        type: "string"
+      nomCastella:
         type: "string"
       origen:
         type: "integer"
@@ -1799,8 +1997,7 @@ definitions:
       atributsDocs:
         $ref: "#/definitions/AtributsDocs"
       categoriaNti:
-        type: "integer"
-        format: "int32"
+        type: "string"
       confdocstramTramitsOvtList:
         type: "array"
         items:
@@ -1828,6 +2025,8 @@ definitions:
         type: "integer"
         format: "int32"
       nom:
+        type: "string"
+      nomCastella:
         type: "string"
       origen:
         type: "integer"
@@ -1965,6 +2164,8 @@ definitions:
         type: "boolean"
       tipusMimeDescripcio:
         type: "string"
+      tramitOvtIdext:
+        type: "number"
       ultimaModificacioIdext:
         type: "number"
       usuariIdext:
@@ -2129,8 +2330,12 @@ definitions:
         type: "string"
       pais:
         type: "string"
+      paisos:
+        $ref: "#/definitions/Paisos"
       tipus:
         type: "number"
+      tipusDocumentIdentitat:
+        $ref: "#/definitions/TipusDocumentIdentitat"
     title: "DocumentsIdentitat"
   EstatRevisioRDTO:
     type: "object"
@@ -2372,6 +2577,16 @@ definitions:
         type: "integer"
         format: "int32"
     title: "PaginationAttributes"
+  Paisos:
+    type: "object"
+    properties:
+      codiIne:
+        type: "string"
+      codiIso:
+        type: "string"
+      nom:
+        type: "string"
+    title: "Paisos"
   Persones:
     type: "object"
     properties:
@@ -2434,6 +2649,8 @@ definitions:
         type: "string"
       provinciaEstranger:
         type: "string"
+      sexe:
+        type: "number"
       telefon:
         type: "string"
       tipusVia:
@@ -2543,6 +2760,14 @@ definitions:
         type: "integer"
         format: "int32"
     title: "TipusAutenticacioRDTO"
+  TipusDocumentIdentitat:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "TipusDocumentIdentitat"
   TipusMime:
     type: "object"
     properties:

@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpatramits"
-  version: "1.3.0"
+  version: "1.5.0"
   title: "API gpatramits"
   contact:
     name: "Sergio Corras"
@@ -569,6 +569,36 @@ paths:
       - name: "accioEstatId"
         in: "path"
         description: "accioEstatId"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/AccionsEstatsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /tramits/accionsPermesesForEstatActual/{estatId}:
+    get:
+      tags:
+      - "AccionsEstats"
+      summary: "Returns the accions allowed for the current expedient's status"
+      operationId: "cercaAccionsPossibles"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "estatId"
+        in: "path"
+        description: "estatId"
         required: true
         type: "number"
       responses:
@@ -1925,6 +1955,34 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /tramitsOvt/{id}:
+    get:
+      tags:
+      - "TramitsOVT"
+      summary: "Returns the requested tràmit OVT"
+      operationId: "consultarDadesTramitOvt"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/TramitsOvtRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
 definitions:
   AccionsEstatsRDTO:
     type: "object"
@@ -1941,6 +1999,8 @@ definitions:
         format: "int32"
       estat:
         type: "number"
+      estatCiutada:
+        type: "string"
       estatTramitador:
         type: "string"
       id:

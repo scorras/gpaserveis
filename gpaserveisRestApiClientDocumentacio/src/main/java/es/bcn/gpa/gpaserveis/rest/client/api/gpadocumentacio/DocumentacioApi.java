@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:51:34.681+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-21T02:17:09.808+01:00")
 public class DocumentacioApi {
   private ApiClient apiClient;
 
@@ -127,6 +127,48 @@ public class DocumentacioApi {
 
     apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
   }
+  /**
+   * Returns the requested documentacio entrada grouped by tràmit OVT
+   * 
+   * @param idDocumentacio idDocumentacio (required)
+   * @return List&lt;DocsEntradaRDTO&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<DocsEntradaRDTO> cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal idDocumentacio) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'idDocumentacio' is set
+    if (idDocumentacio == null) {
+      throw new ApiException(400, "Missing the required parameter 'idDocumentacio' when calling cercaDocumentsEntradaAgrupatsPerTramitOvt");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/documentacio/{idDocumentacio}/entrada/agrupatPerTramitOvt"
+      .replaceAll("\\{" + "idDocumentacio" + "\\}", apiClient.escapeString(idDocumentacio.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<DocsEntradaRDTO>> localVarReturnType = new GenericType<List<DocsEntradaRDTO>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
   /**
    * Delete all selected DocsEntrada
    * 

@@ -39,7 +39,6 @@ public class RespostaRegistrarSolicitudMockService {
 
 			PersonesRDTO personaRDTO = new PersonesRDTO();
 
-			personaRDTO.setId(id);
 			personaRDTO.setTipusPersona(tipusPersona);
 			personaRDTO.setNomRaoSocial(nomRaoSocial);
 			personaRDTO.setCognom1(cognom1);

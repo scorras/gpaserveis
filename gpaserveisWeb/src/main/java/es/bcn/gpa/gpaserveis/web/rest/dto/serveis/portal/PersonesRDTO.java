@@ -1,7 +1,5 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal;
 
-import java.math.BigDecimal;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -14,13 +12,11 @@ import lombok.Setter;
 
 @ApiModel(value = "Persona")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "tipusPersona", "nomRaoSocial", "cognom1", "cognom2", "documentIndentitat", "dadesContacte" })
+@JsonPropertyOrder({ "tipusPersona", "nomRaoSocial", "cognom1", "cognom2", "documentIndentitat", "dadesContacte" })
 @Getter
 @Setter
 public class PersonesRDTO {
 
-	@ApiModelProperty(value = "Identificador de la persona")
-	private BigDecimal id;
 	@ApiModelProperty(value = "Tipus de persona", allowableValues = TipusPersonaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private String tipusPersona;
 	@ApiModelProperty(value = "Nom o raó social de la persona")

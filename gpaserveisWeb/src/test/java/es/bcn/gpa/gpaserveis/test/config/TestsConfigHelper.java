@@ -11,7 +11,14 @@ import static org.joda.time.DateTime.now;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AtributsDocs;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntrada;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.HistoricsRDTO;
@@ -26,15 +33,24 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollici
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentament;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Sollicituds;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperTramitsOvt;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperValidVal;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsValidacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Estats;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.EstatsProcediment;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Identificacions;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsIniciacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsUgos;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.RequerimentsOperatius;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.PageDataOfTramitsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
@@ -135,6 +151,11 @@ public class TestsConfigHelper {
 		return pageDataOfProcedimentsRDTO;
 	}
 
+	/**
+	 * Consultar dades procediment response.
+	 *
+	 * @return the procediments RDTO
+	 */
 	public static ProcedimentsRDTO consultarDadesProcedimentResponse() {
 		ProcedimentsRDTO procedimentsRDTO = new ProcedimentsRDTO();
 
@@ -264,6 +285,11 @@ public class TestsConfigHelper {
 		return pageDataOfUnitatsGestoresRDTO;
 	}
 
+	/**
+	 * Consultar dades unitat gestora response.
+	 *
+	 * @return the unitats gestores RDTO
+	 */
 	public static UnitatsGestoresRDTO consultarDadesUnitatGestoraResponse() {
 		UnitatsGestoresRDTO unitatsGestoresRDTO = new UnitatsGestoresRDTO();
 
@@ -274,6 +300,11 @@ public class TestsConfigHelper {
 		return unitatsGestoresRDTO;
 	}
 
+	/**
+	 * Cerca tramits procediment response.
+	 *
+	 * @return the page data of tramits RDTO
+	 */
 	public static PageDataOfTramitsRDTO cercaTramitsProcedimentResponse() {
 		PageDataOfTramitsRDTO pageDataOfTramitsRDTO = new PageDataOfTramitsRDTO();
 
@@ -407,6 +438,11 @@ public class TestsConfigHelper {
 		return pageDataOfExpedientsRDTO;
 	}
 
+	/**
+	 * Consultar dades expedient response.
+	 *
+	 * @return the expedients RDTO
+	 */
 	public static ExpedientsRDTO consultarDadesExpedientResponse() {
 		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
 
@@ -485,6 +521,11 @@ public class TestsConfigHelper {
 		return expedientsRDTO;
 	}
 
+	/**
+	 * Cerca historics expedient response.
+	 *
+	 * @return the page data of historics RDTO
+	 */
 	public static PageDataOfHistoricsRDTO cercaHistoricsExpedientResponse() {
 		PageDataOfHistoricsRDTO pageDataOfHistoricsRDTO = new PageDataOfHistoricsRDTO();
 
@@ -529,6 +570,11 @@ public class TestsConfigHelper {
 		return pageDataOfHistoricsRDTO;
 	}
 
+	/**
+	 * Cerca persones interesades expedient response.
+	 *
+	 * @return the page data of persones sollicitud RDTO
+	 */
 	public static PageDataOfPersonesSollicitudRDTO cercaPersonesInteresadesExpedientResponse() {
 		PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = new PageDataOfPersonesSollicitudRDTO();
 
@@ -594,6 +640,11 @@ public class TestsConfigHelper {
 		return pageDataOfPersonesSollicitudRDTO;
 	}
 
+	/**
+	 * Cerca altres persones implicades expedient response.
+	 *
+	 * @return the page data of persones sollicitud RDTO
+	 */
 	public static PageDataOfPersonesSollicitudRDTO cercaAltresPersonesImplicadesExpedientResponse() {
 		PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = new PageDataOfPersonesSollicitudRDTO();
 
@@ -643,6 +694,11 @@ public class TestsConfigHelper {
 		return pageDataOfPersonesSollicitudRDTO;
 	}
 
+	/**
+	 * Builds the persones.
+	 *
+	 * @return the persones
+	 */
 	private static Persones buildPersones() {
 		Persones persones = new Persones();
 		persones.setId(ONE);
@@ -668,6 +724,214 @@ public class TestsConfigHelper {
 		persones.setPersonesDadescontacte(personesDadescontacte);
 
 		return persones;
+	}
+
+	/**
+	 * Consultar dades tramit ovt response.
+	 *
+	 * @return the tramits ovt RDTO
+	 */
+	public static TramitsOvtRDTO consultarDadesTramitOvtResponse() {
+		TramitsOvtRDTO tramitsOvtRDTO = new TramitsOvtRDTO();
+		tramitsOvtRDTO.setId(ONE);
+		tramitsOvtRDTO.setDescripcio("Sol·licitud");
+		return tramitsOvtRDTO;
+	}
+
+	/**
+	 * Cerca dades operacio agrupats 1 response.
+	 *
+	 * @return the page data of dades grups RDTO
+	 */
+	public static PageDataOfDadesGrupsRDTO cercaDadesOperacioAgrupats1Response() {
+		PageDataOfDadesGrupsRDTO pageDataOfDadesGrupsRDTO = new PageDataOfDadesGrupsRDTO();
+
+		ArrayList<DadesGrupsRDTO> dadesGrupsRDTOList = new ArrayList<DadesGrupsRDTO>();
+		DadesGrupsRDTO dadesGrupsRDTO = new DadesGrupsRDTO();
+		dadesGrupsRDTO.setDescripcio("Descripcio G1");
+		dadesGrupsRDTO.setId(ONE);
+		dadesGrupsRDTO.setNomColumnes(INTEGER_ONE);
+		dadesGrupsRDTO.setOrdre(INTEGER_ONE);
+		dadesGrupsRDTO.setProcediment(ONE);
+		dadesGrupsRDTO.setTitol("Tìtol G1");
+		dadesGrupsRDTO.setUrlValidacio("URL Validació G1");
+		dadesGrupsRDTO.setVigent(INTEGER_ONE);
+		ArrayList<DadesOperacions> dadesOperacionsList = new ArrayList<DadesOperacions>();
+		DadesOperacions dadesOperacions = new DadesOperacions();
+		dadesOperacions.setCercable(INTEGER_ONE);
+		dadesOperacions.setCodi("DO");
+		dadesOperacions.setComentari("Comentari DO");
+		dadesOperacions.setDescripcio("Descripció DO");
+		dadesOperacions.setDesTipusCamp("Numèric");
+		dadesOperacions.setDetallValidacio("Detall validació 1");
+		dadesOperacions.setEstatIdext(ONE);
+		dadesOperacions.setGrup(ONE);
+		dadesOperacions.setId(ONE);
+		dadesOperacions.setOrdre(INTEGER_ONE);
+		dadesOperacions.setProcediment(ONE);
+		dadesOperacions.setTipus(INTEGER_ONE);
+		dadesOperacions.setTitol("Tìtol DO");
+		dadesOperacions.setTitolGrup("Tìtol G1");
+		dadesOperacions.setUrlOrigen("URL Origen DO");
+		dadesOperacions.setValidacio(INTEGER_ONE);
+		dadesOperacions.setVigent(INTEGER_ONE);
+		ArrayList<DadesOperacionsValidacio> dadesOperacionsValidacioList = new ArrayList<DadesOperacionsValidacio>();
+		DadesOperacionsValidacio dadesOperacionsValidacio = new DadesOperacionsValidacio();
+		dadesOperacionsValidacio.setDadesOperacions(ONE);
+		dadesOperacionsValidacio.setId(ONE);
+		dadesOperacionsValidacio.setTipusValidacio(ONE);
+		ArrayList<DadesOperValidVal> DadesOperValidValList = new ArrayList<DadesOperValidVal>();
+		DadesOperValidVal dadesOperValidVal = new DadesOperValidVal();
+		dadesOperValidVal.setDadesOperValid(ONE);
+		dadesOperValidVal.setId(ONE);
+		dadesOperValidVal.setOrdre(LONG_ONE);
+		dadesOperValidVal.setValor("Valor");
+		DadesOperValidValList.add(dadesOperValidVal);
+		dadesOperacionsValidacio.setDadesOperacionsValidValors(DadesOperValidValList);
+		dadesOperacionsValidacioList.add(dadesOperacionsValidacio);
+		dadesOperacions.setDadesOperacionsValidacio(dadesOperacionsValidacioList);
+		ArrayList<DadesOperTramitsOvt> dadesOperTramitsOvtList = new ArrayList<DadesOperTramitsOvt>();
+		DadesOperTramitsOvt dadesOperTramitsOvt = new DadesOperTramitsOvt();
+		dadesOperTramitsOvt.setDadaOper(ONE);
+		dadesOperTramitsOvt.setTramitOvtIdext(ONE);
+		dadesOperTramitsOvtList.add(dadesOperTramitsOvt);
+		dadesOperacions.setDadesOperTramitsOvtList(dadesOperTramitsOvtList);
+		ArrayList<Items> itemsList = new ArrayList<Items>();
+		Items items = new Items();
+		items.setDadesOperacions(ONE);
+		items.setId(ONE);
+		items.setItemDescripcio("Descripció Item");
+		items.setItemId(INTEGER_ONE);
+		items.setItemOrdre(INTEGER_ONE);
+		itemsList.add(items);
+		dadesOperacions.setItemsList(itemsList);
+		dadesOperacionsList.add(dadesOperacions);
+		dadesGrupsRDTO.setDadesOperacionsList(dadesOperacionsList);
+		dadesGrupsRDTOList.add(dadesGrupsRDTO);
+		pageDataOfDadesGrupsRDTO.setData(dadesGrupsRDTOList);
+
+		return pageDataOfDadesGrupsRDTO;
+	}
+
+	/**
+	 * Cerca configuracio documentacio entrada 1 response.
+	 *
+	 * @return the page data of configuracio docs entrada RDTO
+	 */
+	public static PageDataOfConfiguracioDocsEntradaRDTO cercaConfiguracioDocumentacioEntrada1Response() {
+		PageDataOfConfiguracioDocsEntradaRDTO pageDataOfConfiguracioDocsEntradaRDTO = new PageDataOfConfiguracioDocsEntradaRDTO();
+
+		ArrayList<ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOList = new ArrayList<ConfiguracioDocsEntradaRDTO>();
+		ConfiguracioDocsEntradaRDTO configuracioDocsEntradaRDTO = new ConfiguracioDocsEntradaRDTO();
+		configuracioDocsEntradaRDTO.setId(ONE);
+		configuracioDocsEntradaRDTO.setNom("Nom Doc");
+		configuracioDocsEntradaRDTO.setDescripcioAmpliada("Descripció Ampliada Doc");
+		AtributsDocs atributsDocs = new AtributsDocs();
+		atributsDocs.setObligatori(INTEGER_ONE);
+		atributsDocs.setRepetible(INTEGER_ONE);
+		configuracioDocsEntradaRDTO.setAtributsDocs(atributsDocs);
+		configuracioDocsEntradaRDTO.setSuportConfeccio(INTEGER_ONE);
+		configuracioDocsEntradaRDTO.setSuportEnllac("Suport Enllac Doc");
+		configuracioDocsEntradaRDTOList.add(configuracioDocsEntradaRDTO);
+
+		return pageDataOfConfiguracioDocsEntradaRDTO;
+	}
+
+	/**
+	 * Cerca accions possibles response.
+	 *
+	 * @return the list
+	 */
+	public static List<AccionsEstatsRDTO> cercaAccionsPossiblesResponse() {
+		ArrayList<AccionsEstatsRDTO> accionsEstatsRDTOList = new ArrayList<AccionsEstatsRDTO>();
+
+		AccionsEstatsRDTO accionsEstatsRDTO = new AccionsEstatsRDTO();
+		accionsEstatsRDTO.setId(ONE);
+		accionsEstatsRDTO.setNomAccio("Aportar documentació");
+		accionsEstatsRDTO.setAccio(new BigDecimal(2));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO);
+
+		return accionsEstatsRDTOList;
+	}
+
+	/**
+	 * Cerca documents entrada agrupats per tramit ovt response.
+	 *
+	 * @return the list
+	 */
+	public static List<DocsEntradaRDTO> cercaDocumentsEntradaAgrupatsPerTramitOvtResponse() {
+		ArrayList<DocsEntradaRDTO> docsEntradaRDTOList = new ArrayList<DocsEntradaRDTO>();
+
+		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
+		docsEntradaRDTO.setId(ONE);
+		docsEntradaRDTO.setTramitOvtIdext(ONE);
+		docsEntradaRDTO.setDataPresentacio(now());
+		docsEntradaRDTO.setRevisio(INTEGER_ONE);
+		docsEntradaRDTO.setRegistreIdext(ONE);
+		docsEntradaRDTO.setDocsFisicsNom("fitxer.pdf");
+
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones persones = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones();
+		persones.setId(ONE);
+		persones.setTipusPersona(ONE);
+		persones.setNomRaoSocial("NomRaoSocial");
+		persones.setCognom1("Cognom1");
+		persones.setCognom2("Cognom2");
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentsIdentitat documentsIdentitat = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentsIdentitat();
+		documentsIdentitat.setId(ONE);
+		documentsIdentitat.setNumeroDocument("12345678H");
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TipusDocumentIdentitat tipusDocumentIdentitat = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TipusDocumentIdentitat();
+		tipusDocumentIdentitat.setId(ONE);
+		tipusDocumentIdentitat.setDescripcio("NIF");
+		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Paisos paisos = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Paisos();
+		paisos.setCodiIne("108");
+		paisos.setCodiIso("ES");
+		documentsIdentitat.setPaisos(paisos);
+		persones.setDocumentsIdentitat(documentsIdentitat);
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PersonesDadescontacte personesDadescontacte = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PersonesDadescontacte();
+		personesDadescontacte.setId(ONE);
+		personesDadescontacte.setSexe(ONE);
+		persones.setPersonesDadescontacte(personesDadescontacte);
+
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RegistreAssentament registreAssentament = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RegistreAssentament();
+		registreAssentament.setCodi("RADOC1");
+		registreAssentament.setDataRegistre(now());
+		registreAssentament.setId(ONE);
+		registreAssentament.setPersona(ONE);
+		registreAssentament.setTipus(ONE);
+		registreAssentament.setUsuari(ONE);
+		registreAssentament.setPersones(persones);
+		docsEntradaRDTO.setRegistreAssentament(registreAssentament);
+
+		ConfiguracioDocsEntrada configuracioDocsEntrada = new ConfiguracioDocsEntrada();
+		configuracioDocsEntrada.setId(ONE);
+		configuracioDocsEntrada.setDescripcioAmpliada("Configuració Documentació Entrada");
+		docsEntradaRDTO.setConfiguracioDocsEntrada(configuracioDocsEntrada);
+
+		docsEntradaRDTOList.add(docsEntradaRDTO);
+
+		return docsEntradaRDTOList;
+	}
+
+	/**
+	 * Cerca configuracio documentacio entrada requerida response.
+	 *
+	 * @return the list
+	 */
+	public static List<ConfDocEntradaRequeritRDTO> cercaConfiguracioDocumentacioEntradaRequeridaResponse() {
+		ArrayList<ConfDocEntradaRequeritRDTO> confDocEntradaRequeritRDTOList = new ArrayList<ConfDocEntradaRequeritRDTO>();
+		ConfDocEntradaRequeritRDTO confDocEntradaRequeritRDTO = new ConfDocEntradaRequeritRDTO();
+		confDocEntradaRequeritRDTO.setId(ONE);
+		confDocEntradaRequeritRDTO.setNom("Nom Doc");
+		confDocEntradaRequeritRDTO.setDescripcioAmpliada("Descripció Ampliada Doc");
+		AtributsDocs atributsDocs = new AtributsDocs();
+		atributsDocs.setObligatori(INTEGER_ONE);
+		atributsDocs.setRepetible(INTEGER_ONE);
+		confDocEntradaRequeritRDTO.setAtributsDocs(atributsDocs);
+		confDocEntradaRequeritRDTO.setSuportConfeccio(INTEGER_ONE);
+		confDocEntradaRequeritRDTO.setSuportEnllac("Suport Enllac Doc");
+		confDocEntradaRequeritRDTOList.add(confDocEntradaRequeritRDTO);
+		return confDocEntradaRequeritRDTOList;
 	}
 
 }

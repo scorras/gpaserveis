@@ -32,6 +32,7 @@ import org.mockito.InjectMocks;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviEstatRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownItemRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
@@ -43,6 +44,27 @@ public class EstatsApiTest extends ParentTest {
 
 	@InjectMocks
 	private EstatsApi api = new EstatsApi();
+
+	/**
+	 * Returns the historic of states through which the expedient has passed
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void cercaHistoricsEstatsTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/expedients/estats/1/historics"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<EstatsRDTO>());
+
+		BigDecimal idExpedient = ONE;
+		List<EstatsRDTO> response = api.cercaHistoricsEstats(idExpedient);
+
+		assertTrue(response != null);
+	}
 
 	/**
 	 * Returns the requested estats

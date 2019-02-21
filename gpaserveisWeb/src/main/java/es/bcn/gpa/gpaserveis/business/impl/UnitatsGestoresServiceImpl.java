@@ -45,9 +45,9 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 		}
 
 		try {
-			PageDataOfUnitatsGestoresRDTO pageDataOfUnitatsGestoresRDTO = unitatsGestoresApi.cercaUnitatsGestores(null, null, null, null,
-			        null, null, null, null, null, null, null, null, null, null, unitatsGestoresCercaBDTO.getNom(), null, null, null, null,
-			        null, null, null);
+			PageDataOfUnitatsGestoresRDTO pageDataOfUnitatsGestoresRDTO = unitatsGestoresApi.cercaUnitatsGestores(null, null,
+			        unitatsGestoresCercaBDTO.getCodi(), null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+			        null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaUnitatsGestores(UnitatsGestoresCercaBDTO) - fi"); //$NON-NLS-1$

@@ -7,12 +7,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.AccionsEstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
 import net.opentrends.openframe.services.configuration.annotation.EntornPropertySource;
 import net.opentrends.openframe.services.configuration.config.ConfigurationServiceDefaultConfiguration;
@@ -36,6 +43,9 @@ public class BusinessConfig {
 
 	@Value("${expedients.service.url}")
 	private String URL_SERVICES_EXPEDIENTS;
+
+	@Value("${documentacio.service.url}")
+	private String URL_SERVICES_DOCUMENTACIO;
 
 	@Bean
 	public ProcedimentsApi clientApiProcediments() {
@@ -100,4 +110,66 @@ public class BusinessConfig {
 		return persones_Api;
 	}
 
+	@Bean
+	public DadesGrupsApi clientApiDadesGrups() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_PROCEDIMENTS);
+		DadesGrupsApi dadesGrupsApi = new DadesGrupsApi(apiClient);
+
+		return dadesGrupsApi;
+	}
+
+	@Bean
+	public TramitsOvtApi clientApiTramitsOvt() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_TRAMITS);
+		TramitsOvtApi tramitsOvtApi = new TramitsOvtApi(apiClient);
+
+		return tramitsOvtApi;
+	}
+
+	@Bean
+	public ConfiguracioDocumentacioApi clientApiConfiguracioDocumentacio() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_DOCUMENTACIO);
+		ConfiguracioDocumentacioApi configuracioDocumentacioApi = new ConfiguracioDocumentacioApi(apiClient);
+
+		return configuracioDocumentacioApi;
+	}
+
+	@Bean
+	public EstatsApi clientApiEstats() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_EXPEDIENTS);
+		EstatsApi estatsApi = new EstatsApi(apiClient);
+
+		return estatsApi;
+	}
+
+	@Bean
+	public AccionsEstatsApi clientApiAccionsEstats() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_TRAMITS);
+		AccionsEstatsApi accionsEstatsApi = new AccionsEstatsApi(apiClient);
+
+		return accionsEstatsApi;
+	}
+
+	@Bean
+	public DocumentacioApi clientApiDocumentacio() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_DOCUMENTACIO);
+		DocumentacioApi documentacioApi = new DocumentacioApi(apiClient);
+
+		return documentacioApi;
+	}
+
+	@Bean
+	public DocumentacioRequeritApi clientApiDocumentacioRequerit() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_DOCUMENTACIO);
+		DocumentacioRequeritApi documentacioRequeritApi = new DocumentacioRequeritApi(apiClient);
+
+		return documentacioRequeritApi;
+	}
 }

@@ -7,12 +7,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.AccionsEstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
 import lombok.extern.apachecommons.CommonsLog;
 
@@ -152,6 +159,104 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("persones_Api() - fi"); //$NON-NLS-1$
 		}
 		return persones_Api;
+	}
+
+	@Bean
+	public TramitsOvtApi tramitsOvtApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("tramitsOvtApi() - inici"); //$NON-NLS-1$
+		}
+
+		TramitsOvtApi tramitsOvtApi = Mockito.mock(TramitsOvtApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("tramitsOvtApi() - fi"); //$NON-NLS-1$
+		}
+		return tramitsOvtApi;
+	}
+
+	@Bean
+	public DadesGrupsApi dadesGrupsApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("dadesGrupsApi() - inici"); //$NON-NLS-1$
+		}
+
+		DadesGrupsApi dadesGrupsApi = Mockito.mock(DadesGrupsApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("dadesGrupsApi() - fi"); //$NON-NLS-1$
+		}
+		return dadesGrupsApi;
+	}
+
+	@Bean
+	public ConfiguracioDocumentacioApi configuracioDocumentacioApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("configuracioDocumentacioApi() - inici"); //$NON-NLS-1$
+		}
+
+		ConfiguracioDocumentacioApi configuracioDocumentacioApi = Mockito.mock(ConfiguracioDocumentacioApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("configuracioDocumentacioApi() - fi"); //$NON-NLS-1$
+		}
+		return configuracioDocumentacioApi;
+	}
+
+	@Bean
+	public EstatsApi estatsApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("estatsApi() - inici"); //$NON-NLS-1$
+		}
+
+		EstatsApi estatsApi = Mockito.mock(EstatsApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("estatsApi() - fi"); //$NON-NLS-1$
+		}
+		return estatsApi;
+	}
+
+	@Bean
+	public AccionsEstatsApi accionsEstatsApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("accionsEstatsApi() - inici"); //$NON-NLS-1$
+		}
+
+		AccionsEstatsApi accionsEstatsApi = Mockito.mock(AccionsEstatsApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("accionsEstatsApi() - fi"); //$NON-NLS-1$
+		}
+		return accionsEstatsApi;
+	}
+
+	@Bean
+	public DocumentacioApi documentacioApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("documentacioApi() - inici"); //$NON-NLS-1$
+		}
+
+		DocumentacioApi documentacioApi = Mockito.mock(DocumentacioApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("documentacioApi() - fi"); //$NON-NLS-1$
+		}
+		return documentacioApi;
+	}
+
+	@Bean
+	public DocumentacioRequeritApi documentacioRequeritApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("documentacioRequeritApi() - inici"); //$NON-NLS-1$
+		}
+
+		DocumentacioRequeritApi documentacioRequeritApi = Mockito.mock(DocumentacioRequeritApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("documentacioRequeritApi() - fi"); //$NON-NLS-1$
+		}
+		return documentacioRequeritApi;
 	}
 
 }

@@ -2,3 +2,4 @@ procediments.service.url=http://localhost:8080/gpaprocediments/rest
 unitats.service.url=http://localhost:8080/gpaunitats/rest
 tramits.service.url=http://localhost:8080/gpatramits/rest
 expedients.service.url=http://localhost:8080/gpaexpedients/rest
+documentacio.service.url=http://localhost:8080/gpadocumentacio/rest

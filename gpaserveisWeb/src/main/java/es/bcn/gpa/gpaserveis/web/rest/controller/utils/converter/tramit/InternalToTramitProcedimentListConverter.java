@@ -29,7 +29,7 @@ public class InternalToTramitProcedimentListConverter extends
 		for (es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsRDTO tramitsRDTOApi : tramitsRDTOApiList) {
 			tramitsRDTO = new TramitsRDTO();
 			tramitsRDTO.setId(tramitsRDTOApi.getId());
-			tramitsRDTO.setNom(tramitsRDTOApi.getNom());
+			tramitsRDTO.setCodi(tramitsRDTOApi.getNom());
 			tramitsRDTO.setDescripcio(tramitsRDTOApi.getDescripcio());
 			tramitsRDTOList.add(tramitsRDTO);
 		}

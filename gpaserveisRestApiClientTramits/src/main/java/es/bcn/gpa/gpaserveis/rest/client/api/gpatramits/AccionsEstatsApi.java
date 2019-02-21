@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:52:41.089+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-21T03:07:48.984+01:00")
 public class AccionsEstatsApi {
   private ApiClient apiClient;
 
@@ -35,6 +35,48 @@ public class AccionsEstatsApi {
     this.apiClient = apiClient;
   }
 
+  /**
+   * Returns the accions allowed for the current expedient&#39;s status
+   * 
+   * @param estatId estatId (required)
+   * @return List&lt;AccionsEstatsRDTO&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<AccionsEstatsRDTO> cercaAccionsPossibles(BigDecimal estatId) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'estatId' is set
+    if (estatId == null) {
+      throw new ApiException(400, "Missing the required parameter 'estatId' when calling cercaAccionsPossibles");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/tramits/accionsPermesesForEstatActual/{estatId}"
+      .replaceAll("\\{" + "estatId" + "\\}", apiClient.escapeString(estatId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<AccionsEstatsRDTO>> localVarReturnType = new GenericType<List<AccionsEstatsRDTO>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
   /**
    * Returns the accio estat inicial
    * 

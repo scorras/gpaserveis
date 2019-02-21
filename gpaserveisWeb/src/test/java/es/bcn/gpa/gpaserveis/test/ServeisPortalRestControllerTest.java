@@ -38,23 +38,21 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	}
 
 	@Test
-	@Ignore
-	public void testStage03_GetConsultarDadesOperacioProcediment() throws Exception {
-		String url = BASE_URL + "/procediments/1/tramits/1/atributs";
+	public void testStage03_GetConsultarDadesOperacioTramit() throws Exception {
+		String url = BASE_URL + "/procediments/1/tramits/SOL/atributs";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
-	@Ignore
 	public void testStage04_GetConsultarDocumentacioProcediment() throws Exception {
-		String url = BASE_URL + "/procediments/1/tramits/1/documentacio";
+		String url = BASE_URL + "/procediments/1/tramits/APO/documents";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
 	public void testStage05_GetCercaExpedients() throws Exception {
 		String url = BASE_URL
-		        + "/expedients?resultatsPerPagina=20&numeroPagina=1&ordenarPer=DARRERA_MODIFICACIO&sentitOrdenacio=DESC&codiExpedient=PROC-01/2018&sollicitant=40954862G&dataPresentacioInici=22/06/2018&dataPresentacioFi=22/01/2019&codiProcediment=PROC-01,PROC-02,PROC-03&versioProcediment=TOTES_LES_VERSIONS&estat=EN_PREPARACIO,SOL_LICITUD_EN_REVISIO,PENDENT_ESMENES,EN_TRAMITACIO,PENDENT_AL_LEGACIONS,PENDENT_D_INFORMES,PROPOSTA_DE_FINALITZACIO,FINALITZAT_I_COMUNICAT,TANCAT&unitatGestora=U&tramitador=APLICACIO_DE_NEGOCI&aplicacioNegoci=quiosc";
+		        + "/expedients?resultatsPerPagina=20&numeroPagina=1&ordenarPer=DARRERA_MODIFICACIO&sentitOrdenacio=DESC&codiExpedient=PROC-01/2018&sollicitant=40954862G&dataPresentacioInici=22/06/2018&dataPresentacioFi=22/01/2019&codiProcediment=PROC-01,PROC-02,PROC-03&versioProcediment=TOTES_LES_VERSIONS&estat=REBUT,EN_CURS,PENDENT_ESMENES,PENDENT_ALEGACIONS,RESOLT,TANCAT&unitatGestora=U&tramitador=APLICACIO_DE_NEGOCI&aplicacioNegoci=quiosc";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 

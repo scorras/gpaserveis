@@ -82,6 +82,7 @@ public class UnitatsGestoresApiTest extends ParentTest {
 
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
+		String codi = null;
 		Boolean currentPageHasNextPage = null;
 		Boolean currentPageHasPreviousPage = null;
 		Boolean currentPageIsFirstPage = null;
@@ -103,7 +104,7 @@ public class UnitatsGestoresApiTest extends ParentTest {
 		BigDecimal unitatOrganigrama = null;
 		Integer vigent = null;
 		PageDataOfUnitatsGestoresRDTO response = api.cercaUnitatsGestores(absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
+		        absoluteRowNumberOfLastRowInCurrentPage, codi, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
 		        currentPageIsLastPage, currentPageNumber, dataCreacio, dataModificacio, descUnitatOrganigrama, descripcio, dir, id,
 		        nextPageNumber, nom, pageSize, previousPageNumber, sort, totalElements, totalPages, unitatOrganigrama, vigent);
 

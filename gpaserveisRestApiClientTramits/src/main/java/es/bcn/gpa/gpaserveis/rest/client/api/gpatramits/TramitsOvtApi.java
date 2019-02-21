@@ -7,6 +7,7 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:52:41.089+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-21T03:07:48.984+01:00")
 public class TramitsOvtApi {
   private ApiClient apiClient;
 
@@ -34,6 +35,48 @@ public class TramitsOvtApi {
     this.apiClient = apiClient;
   }
 
+  /**
+   * Returns the requested tràmit OVT
+   * 
+   * @param id id (required)
+   * @return TramitsOvtRDTO
+   * @throws ApiException if fails to make API call
+   */
+  public TramitsOvtRDTO consultarDadesTramitOvt(BigDecimal id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling consultarDadesTramitOvt");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/tramitsOvt/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<TramitsOvtRDTO> localVarReturnType = new GenericType<TramitsOvtRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
   /**
    * Returns all the tramitsOVT
    * 

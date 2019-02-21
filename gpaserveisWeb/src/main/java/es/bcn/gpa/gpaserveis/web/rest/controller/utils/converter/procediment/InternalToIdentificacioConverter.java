@@ -42,6 +42,10 @@ public class InternalToIdentificacioConverter extends AbstractConverter<Identifi
 		dadesIdentificacioRDTO.setInformacioCiutada(source.getInformacioCiutada());
 		dadesIdentificacioRDTO.setNivellAutenticacio(
 		        nivellAutenticacioApiParamValueTranslator.getApiParamValueByInternalValue(source.getNivellAutenticacio()));
+		// TODO Valor por determinar
+		dadesIdentificacioRDTO.setEndpointSignatura("http://endpoint/signatura");
+		// TODO Valor por determinar
+		dadesIdentificacioRDTO.setEndpointAutenticacio("http://endpoint/autenticacio");
 		TerminisDuracioRDTO terminisDuracioRDTO = new TerminisDuracioRDTO();
 		terminisDuracioRDTO.setUnitat(terminiMaximApiParamValueTranslator.getApiParamValueByInternalValue(source.getTerminiMaxim()));
 		terminisDuracioRDTO.setTerminiMaxim((source.getEspecTerminiMaxim() != null) ? String.valueOf(source.getEspecTerminiMaxim()) : null);

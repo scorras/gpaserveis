@@ -19,14 +19,17 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.RegistreRDTO;
 @Component("expedientInternalToRegistreConverter")
 public class InternalToRegistreConverter extends AbstractConverter<RegistreAssentament, RegistreRDTO> {
 
+	/** The tipus persona api param value translator. */
 	@Autowired
 	@Qualifier("expedientTipusPersonaApiParamValueTranslator")
 	private BaseApiParamValueTranslator tipusPersonaApiParamValueTranslator;
 
+	/** The tipus document identitat api param value translator. */
 	@Autowired
 	@Qualifier("expedientTipusDocumentIdentitatApiParamValueTranslator")
 	private BaseApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator;
 
+	/** The tipus sexe api param value translator. */
 	@Autowired
 	@Qualifier("expedientTipusSexeApiParamValueTranslator")
 	private BaseApiParamValueTranslator tipusSexeApiParamValueTranslator;

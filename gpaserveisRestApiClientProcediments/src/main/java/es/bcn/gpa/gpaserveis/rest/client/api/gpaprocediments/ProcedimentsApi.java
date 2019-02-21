@@ -9,6 +9,7 @@ import javax.ws.rs.core.GenericType;
 
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.BloquejosRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.InfoDocProcedimentRDTO;
@@ -27,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:52:21.804+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-21T02:51:14.183+01:00")
 public class ProcedimentsApi {
   private ApiClient apiClient;
 
@@ -47,6 +48,53 @@ public class ProcedimentsApi {
     this.apiClient = apiClient;
   }
 
+  /**
+   * Locks the provided procediment for editing
+   * 
+   * @param bloquejosRDTO bloquejosRDTO (required)
+   * @param id id (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void bloquejarProcedimentUsingPOST(BloquejosRDTO bloquejosRDTO, BigDecimal id) throws ApiException {
+    Object localVarPostBody = bloquejosRDTO;
+    
+    // verify the required parameter 'bloquejosRDTO' is set
+    if (bloquejosRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'bloquejosRDTO' when calling bloquejarProcedimentUsingPOST");
+    }
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling bloquejarProcedimentUsingPOST");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/procediments/bloquejar/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+
+    apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
   /**
    * Deletes the requested procediment list
    * 
@@ -400,6 +448,47 @@ public class ProcedimentsApi {
     apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
   }
   /**
+   * Unlocks the provided procediment
+   * 
+   * @param id id (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void desbloquejarProcedimentUsingPOST(BigDecimal id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling desbloquejarProcedimentUsingPOST");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/procediments/desbloquejar/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+
+    apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
+  /**
    * Retorna les dades d&#39;operació de la darrera versió del procediment
    * 
    * @param codi codi (required)
@@ -439,6 +528,48 @@ public class ProcedimentsApi {
     String[] localVarAuthNames = new String[] {  };
 
     GenericType<List<DadesOperacionsRDTO>> localVarReturnType = new GenericType<List<DadesOperacionsRDTO>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Returns dades operacions from procediment
+   * 
+   * @param idProcediment idProcediment (required)
+   * @return List&lt;DadesOperacionsBDTO&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<DadesOperacionsBDTO> getDadesOperacionsUsingGET(BigDecimal idProcediment) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'idProcediment' is set
+    if (idProcediment == null) {
+      throw new ApiException(400, "Missing the required parameter 'idProcediment' when calling getDadesOperacionsUsingGET");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/procediments/dadesOperacions/{idProcediment}"
+      .replaceAll("\\{" + "idProcediment" + "\\}", apiClient.escapeString(idProcediment.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<DadesOperacionsBDTO>> localVarReturnType = new GenericType<List<DadesOperacionsBDTO>>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
@@ -751,54 +882,6 @@ public class ProcedimentsApi {
     
     // create path and map variables
     String localVarPath = "/procediments";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<ProcedimentsResponse> localVarReturnType = new GenericType<ProcedimentsResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Locks the provided procediment for editing
-   * 
-   * @param bloquejo bloquejo (required)
-   * @param id id (required)
-   * @return ProcedimentsResponse
-   * @throws ApiException if fails to make API call
-   */
-  public ProcedimentsResponse lockProcedimentUsingPOST(BloquejosRDTO bloquejo, BigDecimal id) throws ApiException {
-    Object localVarPostBody = bloquejo;
-    
-    // verify the required parameter 'bloquejo' is set
-    if (bloquejo == null) {
-      throw new ApiException(400, "Missing the required parameter 'bloquejo' when calling lockProcedimentUsingPOST");
-    }
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling lockProcedimentUsingPOST");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/procediments/bloquejar/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -1163,48 +1246,6 @@ public class ProcedimentsApi {
 
     GenericType<List<ProcedimentsForUnitatsRDTO>> localVarReturnType = new GenericType<List<ProcedimentsForUnitatsRDTO>>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Unlocks the provided procediment
-   * 
-   * @param id id (required)
-   * @return ProcedimentsResponse
-   * @throws ApiException if fails to make API call
-   */
-  public ProcedimentsResponse unlockProcedimentUsingPOST(BigDecimal id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling unlockProcedimentUsingPOST");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/procediments/desbloquejar/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<ProcedimentsResponse> localVarReturnType = new GenericType<ProcedimentsResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
    * updates de requested doc info

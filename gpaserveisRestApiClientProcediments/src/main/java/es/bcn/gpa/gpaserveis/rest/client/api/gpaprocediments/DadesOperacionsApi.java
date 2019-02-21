@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-04T01:52:21.804+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-21T02:51:14.183+01:00")
 public class DadesOperacionsApi {
   private ApiClient apiClient;
 
@@ -44,12 +44,12 @@ public class DadesOperacionsApi {
    * @return PageDataOfDadesOperacionsRDTO
    * @throws ApiException if fails to make API call
    */
-  public PageDataOfDadesOperacionsRDTO getDadesOperacionsUsingGET(BigDecimal id, String dir, String sort) throws ApiException {
+  public PageDataOfDadesOperacionsRDTO getDadesOperacionsUsingGET1(BigDecimal id, String dir, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getDadesOperacionsUsingGET");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getDadesOperacionsUsingGET1");
     }
     
     // create path and map variables
