@@ -833,6 +833,7 @@ public class TestsConfigHelper {
 		configuracioDocsEntradaRDTO.setSuportConfeccio(INTEGER_ONE);
 		configuracioDocsEntradaRDTO.setSuportEnllac("Suport Enllac Doc");
 		configuracioDocsEntradaRDTOList.add(configuracioDocsEntradaRDTO);
+		pageDataOfConfiguracioDocsEntradaRDTO.setData(configuracioDocsEntradaRDTOList);
 
 		return pageDataOfConfiguracioDocsEntradaRDTO;
 	}

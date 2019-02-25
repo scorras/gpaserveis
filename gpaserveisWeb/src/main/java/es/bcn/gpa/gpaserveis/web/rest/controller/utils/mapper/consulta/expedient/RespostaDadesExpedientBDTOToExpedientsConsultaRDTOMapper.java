@@ -17,13 +17,13 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.Inter
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToProcedimentConsultaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToRegistreConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.ExpedientsConsultaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.ExpedientConsultaRDTO;
 
 /**
  * The Class RespostaDadesExpedientBDTOToExpedientsConsultaRDTOMapper.
  */
 @Component
-public class RespostaDadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMap<DadesExpedientBDTO, ExpedientsConsultaRDTO> {
+public class RespostaDadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMap<DadesExpedientBDTO, ExpedientConsultaRDTO> {
 
 	/** The internal to data hora converter. */
 	private InternalToDataHoraConverter internalToDataHoraConverter;
@@ -110,7 +110,8 @@ public class RespostaDadesExpedientBDTOToExpedientsConsultaRDTOMapper extends Pr
 		using(internalToPersonaListConverter).map(source.getPersonesImplicades()).setPersonesImplicades(null);
 		using(internalToAccioListConverter).map(source.getAccionsPossibles()).setAccionsPossibles(null);
 		using(internalToDocumentAportatListConverter).map(source.getDocumentsAportats()).setDocumentsAportats(null);
-		using(internalToDocumentsEntradaRequeritsListConverter).map(source.getDocumentsRequerits()).setDocumentsRequerits(null);
+		using(internalToDocumentsEntradaRequeritsListConverter).map(source.getConfiguracioDocumentacioRequerida())
+		        .setConfiguracioDocumentacioRequerida(null);
 	}
 
 }

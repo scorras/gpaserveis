@@ -9,19 +9,19 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "Documents")
+@ApiModel(value = "Document")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "codi", "nom", "configuracioDocumentacio", "dataPresentacio", "registre", "revisio" })
 @Getter
 @Setter
-public class DocumentsRDTO {
+public class DocumentRDTO {
 
 	@ApiModelProperty(value = "Codi del document")
 	private String codi;
 	@ApiModelProperty(value = "Nom del document")
 	private String nom;
 	@ApiModelProperty(value = "Categoria a la qual pertany el document")
-	private ConfiguracionsDocumentacioRDTO configuracioDocumentacio;
+	private ConfiguracioDocumentacioRDTO configuracioDocumentacio;
 	@ApiModelProperty(value = "Data de presentació del document")
 	private String dataPresentacio;
 	@ApiModelProperty(value = "Registre del document")

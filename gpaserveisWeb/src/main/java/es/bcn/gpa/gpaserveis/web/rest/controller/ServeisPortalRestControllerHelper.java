@@ -447,7 +447,7 @@ public class ServeisPortalRestControllerHelper {
 	        BigDecimal documentacioIdext) throws GPAServeisServiceException {
 		List<ConfDocEntradaRequeritRDTO> confDocEntradaRequeritRDTOList = documentsService
 		        .cercaConfiguracioDocumentacioEntradaRequerida(documentacioIdext);
-		dadesExpedientBDTO.setDocumentsRequerits(confDocEntradaRequeritRDTOList);
+		dadesExpedientBDTO.setConfiguracioDocumentacioRequerida(confDocEntradaRequeritRDTOList);
 	}
 
 	/**

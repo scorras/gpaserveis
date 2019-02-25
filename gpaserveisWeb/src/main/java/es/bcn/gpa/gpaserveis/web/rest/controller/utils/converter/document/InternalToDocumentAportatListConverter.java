@@ -14,13 +14,14 @@ import org.springframework.stereotype.Component;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DocumentsAportatsExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DocumentsAportatsTramitExpedientsRDTO;
 
 /**
  * The Class InternalToDocumentAportatListConverter.
  */
 @Component("internalToDocumentAportatListConverter")
-public class InternalToDocumentAportatListConverter extends AbstractConverter<List<DocsEntradaRDTO>, DocumentsAportatsExpedientsRDTO> {
+public class InternalToDocumentAportatListConverter
+        extends AbstractConverter<List<DocsEntradaRDTO>, List<DocumentsAportatsTramitExpedientsRDTO>> {
 
 	/** The tramit ovt api param value translator. */
 	@Autowired
@@ -53,27 +54,30 @@ public class InternalToDocumentAportatListConverter extends AbstractConverter<Li
 	 * @see org.modelmapper.AbstractConverter#convert(java.lang.Object)
 	 */
 	@Override
-	protected DocumentsAportatsExpedientsRDTO convert(List<DocsEntradaRDTO> docsEntradaRDTOList) {
-		DocumentsAportatsExpedientsRDTO documentsAportatsExpedientsRDTO = null;
+	protected List<DocumentsAportatsTramitExpedientsRDTO> convert(List<DocsEntradaRDTO> docsEntradaRDTOList) {
+		ArrayList<DocumentsAportatsTramitExpedientsRDTO> documentsAportatsTramitExpedientsRDTOList = null;
 		if (CollectionUtils.isNotEmpty(docsEntradaRDTOList)) {
 			// Los documentos aportados deben ser agrupados por Tràmit OVT. Para
 			// ello se crea un map intermedio
 			TreeMap<BigDecimal, ArrayList<DocsEntradaRDTO>> docsEntradaRDTOMap = new TreeMap<BigDecimal, ArrayList<DocsEntradaRDTO>>();
 			ArrayList<DocsEntradaRDTO> docsEntradaRDTOMapList = null;
 			for (DocsEntradaRDTO docsEntradaRDTO : docsEntradaRDTOList) {
-				docsEntradaRDTOMapList = docsEntradaRDTOMap.get(docsEntradaRDTO.getTramitOvtIdext());
+				docsEntradaRDTOMapList = docsEntradaRDTOMap
+				        .get((docsEntradaRDTO.getTramitOvtIdext() != null) ? docsEntradaRDTO.getTramitOvtIdext() : new BigDecimal(-1));
 				if (docsEntradaRDTOMapList == null) {
 					docsEntradaRDTOMapList = new ArrayList<DocsEntradaRDTO>();
-					docsEntradaRDTOMap.put(docsEntradaRDTO.getTramitOvtIdext(), docsEntradaRDTOMapList);
+					docsEntradaRDTOMap.put(
+					        ((docsEntradaRDTO.getTramitOvtIdext() != null) ? docsEntradaRDTO.getTramitOvtIdext() : new BigDecimal(-1)),
+					        docsEntradaRDTOMapList);
 				}
 				docsEntradaRDTOMapList.add(docsEntradaRDTO);
 			}
 
-			documentsAportatsExpedientsRDTO = ConverterHelper.buildDocumentsAportatsRDTOExpedient(docsEntradaRDTOMap,
+			documentsAportatsTramitExpedientsRDTOList = ConverterHelper.buildDocumentsAportatsRDTOListExpedient(docsEntradaRDTOMap,
 			        tramitOvtApiParamValueTranslator, revisioApiParamValueTranslator, tipusPersonaApiParamValueTranslator,
 			        tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator);
 		}
 
-		return documentsAportatsExpedientsRDTO;
+		return documentsAportatsTramitExpedientsRDTOList;
 	}
 }

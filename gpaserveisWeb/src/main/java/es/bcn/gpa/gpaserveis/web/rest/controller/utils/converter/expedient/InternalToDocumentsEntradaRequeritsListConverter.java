@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -12,14 +13,14 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntrad
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.common.BooleanApiParamValueTranslator;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DocumentsRequeritsExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.ConfiguracioDocumentacioRequeridaConsultaRDTO;
 
 /**
  * The Class InternalToDocumentsEntradaRequeritsListConverter.
  */
 @Component("expedientInternalToDocumentsEntradaRequeritsListConverter")
 public class InternalToDocumentsEntradaRequeritsListConverter
-        extends AbstractConverter<List<ConfDocEntradaRequeritRDTO>, DocumentsRequeritsExpedientsRDTO> {
+        extends AbstractConverter<List<ConfDocEntradaRequeritRDTO>, List<ConfiguracioDocumentacioRequeridaConsultaRDTO>> {
 
 	/** The boolean api param value translator. */
 	@Autowired
@@ -42,15 +43,15 @@ public class InternalToDocumentsEntradaRequeritsListConverter
 	 * @see org.modelmapper.AbstractConverter#convert(java.lang.Object)
 	 */
 	@Override
-	protected DocumentsRequeritsExpedientsRDTO convert(List<ConfDocEntradaRequeritRDTO> confDocEntradaRequeritRDTOList) {
-		DocumentsRequeritsExpedientsRDTO documentsRequeritsExpedientsRDTO = null;
+	protected List<ConfiguracioDocumentacioRequeridaConsultaRDTO> convert(List<ConfDocEntradaRequeritRDTO> confDocEntradaRequeritRDTOList) {
+		ArrayList<ConfiguracioDocumentacioRequeridaConsultaRDTO> configuracioDocumentacioRequeridaConsultaRDTOList = null;
 
 		if (CollectionUtils.isNotEmpty(confDocEntradaRequeritRDTOList)) {
-			documentsRequeritsExpedientsRDTO = ConverterHelper.buildDocumentsRequeritsRDTOExpedient(confDocEntradaRequeritRDTOList,
-			        booleanApiParamValueTranslator, suportConfeccioApiParamValueTranslator,
+			configuracioDocumentacioRequeridaConsultaRDTOList = ConverterHelper.buildDocumentsRequeritsRDTOExpedient(
+			        confDocEntradaRequeritRDTOList, booleanApiParamValueTranslator, suportConfeccioApiParamValueTranslator,
 			        expedientEstatTramitadorApiParamValueTranslator);
 		}
 
-		return documentsRequeritsExpedientsRDTO;
+		return configuracioDocumentacioRequeridaConsultaRDTOList;
 	}
 }

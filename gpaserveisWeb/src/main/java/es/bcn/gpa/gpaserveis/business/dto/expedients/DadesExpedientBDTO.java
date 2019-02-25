@@ -44,6 +44,6 @@ public class DadesExpedientBDTO {
 	private List<DocsEntradaRDTO> documentsAportats;
 
 	/** The documents requerits. */
-	private List<ConfDocEntradaRequeritRDTO> documentsRequerits;
+	private List<ConfDocEntradaRequeritRDTO> configuracioDocumentacioRequerida;
 
 }
