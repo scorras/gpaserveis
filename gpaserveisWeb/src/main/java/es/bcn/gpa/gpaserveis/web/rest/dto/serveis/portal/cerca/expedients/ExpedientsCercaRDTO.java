@@ -33,7 +33,7 @@ public class ExpedientsCercaRDTO {
 	private String dataModificacio;
 	@ApiModelProperty(value = "Sol·licitant de l'expedient")
 	private PersonesRDTO sollicitant;
-	@ApiModelProperty(value = "estat actual de l'expedient", allowableValues = EstatTramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
+	@ApiModelProperty(value = "estat actual de l'expedient")
 	private String estat;
 	@ApiModelProperty(value = "Aplicació de tramitació", allowableValues = TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private String tramitador;

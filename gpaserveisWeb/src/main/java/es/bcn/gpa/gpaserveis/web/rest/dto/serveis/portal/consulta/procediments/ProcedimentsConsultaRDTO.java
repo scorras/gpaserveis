@@ -6,7 +6,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.EstatApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.IniciacioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.DadesIdentificacioRDTO;
@@ -17,7 +16,7 @@ import lombok.Setter;
 
 @ApiModel(value = "ProcedimentConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "codi", "versio", "nom", "descripcio", "ugr", "ugo", "organResolutori", "inici", "estat", "tramits",
+@JsonPropertyOrder({ "id", "codi", "versio", "nom", "descripcio", "ugr", "ugo", "organResolutori", "inici", "estat",
         "dadesIdentificacio" })
 @Getter
 @Setter
@@ -41,7 +40,7 @@ public class ProcedimentsConsultaRDTO {
 	private String organResolutori;
 	@ApiModelProperty(value = "Tipus d'inici del procediment", allowableValues = IniciacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private List<String> inici;
-	@ApiModelProperty(value = "Estat actual del procediment", allowableValues = EstatApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
+	@ApiModelProperty(value = "Estat actual del procediment")
 	private String estat;
 	// @ApiModelProperty(value = "Llista de tràmits del procediment")
 	// private List<TramitsRDTO> tramits;
