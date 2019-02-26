@@ -19,6 +19,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.HistoricsRDTO;
@@ -933,6 +935,52 @@ public class TestsConfigHelper {
 		confDocEntradaRequeritRDTO.setSuportEnllac("Suport Enllac Doc");
 		confDocEntradaRequeritRDTOList.add(confDocEntradaRequeritRDTO);
 		return confDocEntradaRequeritRDTOList;
+	}
+
+	public static List<DadesEspecifiquesRDTO> consultarDadesEspecifiquesExpedientResponse() {
+		ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = new ArrayList<DadesEspecifiquesRDTO>();
+
+		DadesEspecifiquesRDTO dadesEspecifiquesRDTO1 = new DadesEspecifiquesRDTO();
+		dadesEspecifiquesRDTO1.setCampIdext(ONE);
+		dadesEspecifiquesRDTO1.setExpedient(ONE);
+		dadesEspecifiquesRDTO1.setId(ONE);
+		dadesEspecifiquesRDTO1.setTipus(ONE);
+		ArrayList<DadesEspecifiquesValors> dadesEspecifiquesValorsList1 = new ArrayList<DadesEspecifiquesValors>();
+		DadesEspecifiquesValors dadesEspecifiquesValors1 = new DadesEspecifiquesValors();
+		dadesEspecifiquesValors1.setId(ONE);
+		dadesEspecifiquesValors1.setValorDouble(3.14D);
+		dadesEspecifiquesValorsList1.add(dadesEspecifiquesValors1);
+		dadesEspecifiquesRDTO1.setDadesEspecifiquesValorsList(dadesEspecifiquesValorsList1);
+		dadesEspecifiquesRDTOList.add(dadesEspecifiquesRDTO1);
+
+		DadesEspecifiquesRDTO dadesEspecifiquesRDTO2 = new DadesEspecifiquesRDTO();
+		dadesEspecifiquesRDTO2.setCampIdext(ONE);
+		dadesEspecifiquesRDTO2.setExpedient(ONE);
+		dadesEspecifiquesRDTO2.setId(ONE);
+		dadesEspecifiquesRDTO2.setTipus(ONE);
+		ArrayList<DadesEspecifiquesValors> dadesEspecifiquesValorsList2 = new ArrayList<DadesEspecifiquesValors>();
+		DadesEspecifiquesValors dadesEspecifiquesValors2 = new DadesEspecifiquesValors();
+		dadesEspecifiquesValors2.setId(ONE);
+		dadesEspecifiquesValors2.setValorCalendar(now());
+		dadesEspecifiquesRDTO2.setDadesEspecifiquesValorsList(dadesEspecifiquesValorsList2);
+		dadesEspecifiquesRDTOList.add(dadesEspecifiquesRDTO2);
+
+		DadesEspecifiquesRDTO dadesEspecifiquesRDTO3 = new DadesEspecifiquesRDTO();
+		dadesEspecifiquesRDTO3.setCampIdext(ONE);
+		dadesEspecifiquesRDTO3.setExpedient(ONE);
+		dadesEspecifiquesRDTO3.setId(ONE);
+		dadesEspecifiquesRDTO3.setTipus(ONE);
+		ArrayList<DadesEspecifiquesValors> dadesEspecifiquesValorsList3 = new ArrayList<DadesEspecifiquesValors>();
+		DadesEspecifiquesValors dadesEspecifiquesValors3 = new DadesEspecifiquesValors();
+		dadesEspecifiquesValors3.setId(ONE);
+		ArrayList<Integer> valoresListaMultiple = new ArrayList<Integer>();
+		valoresListaMultiple.add(INTEGER_ZERO);
+		valoresListaMultiple.add(INTEGER_ONE);
+		dadesEspecifiquesValors3.setValorListaMultipleList(valoresListaMultiple);
+		dadesEspecifiquesRDTO3.setDadesEspecifiquesValorsList(dadesEspecifiquesValorsList3);
+		dadesEspecifiquesRDTOList.add(dadesEspecifiquesRDTO3);
+
+		return dadesEspecifiquesRDTOList;
 	}
 
 }
