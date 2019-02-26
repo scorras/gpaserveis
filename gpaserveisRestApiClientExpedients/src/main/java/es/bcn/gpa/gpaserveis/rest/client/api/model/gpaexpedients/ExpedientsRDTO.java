@@ -29,7 +29,7 @@ import org.joda.time.DateTime;
 /**
  * ExpedientsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-21T02:30:03.349+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-26T12:16:57.923+01:00")
 public class ExpedientsRDTO {
   @JsonProperty("accioEstatIdext")
   private BigDecimal accioEstatIdext = null;
@@ -111,6 +111,9 @@ public class ExpedientsRDTO {
 
   @JsonProperty("procedimentVersio")
   private String procedimentVersio = null;
+
+  @JsonProperty("representantPrincipal")
+  private PersonesSollicitud representantPrincipal = null;
 
   @JsonProperty("seleccionable")
   private Boolean seleccionable = null;
@@ -625,6 +628,24 @@ public class ExpedientsRDTO {
     this.procedimentVersio = procedimentVersio;
   }
 
+  public ExpedientsRDTO representantPrincipal(PersonesSollicitud representantPrincipal) {
+    this.representantPrincipal = representantPrincipal;
+    return this;
+  }
+
+   /**
+   * Get representantPrincipal
+   * @return representantPrincipal
+  **/
+  @ApiModelProperty(value = "")
+  public PersonesSollicitud getRepresentantPrincipal() {
+    return representantPrincipal;
+  }
+
+  public void setRepresentantPrincipal(PersonesSollicitud representantPrincipal) {
+    this.representantPrincipal = representantPrincipal;
+  }
+
   public ExpedientsRDTO seleccionable(Boolean seleccionable) {
     this.seleccionable = seleccionable;
     return this;
@@ -824,6 +845,7 @@ public class ExpedientsRDTO {
         Objects.equals(this.procedimentCodi, expedientsRDTO.procedimentCodi) &&
         Objects.equals(this.procedimentIdext, expedientsRDTO.procedimentIdext) &&
         Objects.equals(this.procedimentVersio, expedientsRDTO.procedimentVersio) &&
+        Objects.equals(this.representantPrincipal, expedientsRDTO.representantPrincipal) &&
         Objects.equals(this.seleccionable, expedientsRDTO.seleccionable) &&
         Objects.equals(this.sollicitant, expedientsRDTO.sollicitant) &&
         Objects.equals(this.sollicitantPrincipal, expedientsRDTO.sollicitantPrincipal) &&
@@ -837,7 +859,7 @@ public class ExpedientsRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accioEstatIdext, acumulador, aplicacioNegoci, bloqueig, bloquejos, codi, configuracioDocumentacioProc, criticitatAvis, darreraModificacio, dataPresentacio, dataPresentacioDes, dataPresentacioFinsA, descEstat, descEstatCiutada, descUnitatGestora, documentacioIdext, editable, estat, estatActual, id, idEstat, nomProcediment, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, procedimentCodi, procedimentIdext, procedimentVersio, seleccionable, sollicitant, sollicitantPrincipal, sollicitud, sollicituds, tipusAvis, tramitador, ultimaModificacio, unitatGestoraIdext);
+    return Objects.hash(accioEstatIdext, acumulador, aplicacioNegoci, bloqueig, bloquejos, codi, configuracioDocumentacioProc, criticitatAvis, darreraModificacio, dataPresentacio, dataPresentacioDes, dataPresentacioFinsA, descEstat, descEstatCiutada, descUnitatGestora, documentacioIdext, editable, estat, estatActual, id, idEstat, nomProcediment, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, procedimentCodi, procedimentIdext, procedimentVersio, representantPrincipal, seleccionable, sollicitant, sollicitantPrincipal, sollicitud, sollicituds, tipusAvis, tramitador, ultimaModificacio, unitatGestoraIdext);
   }
 
 
@@ -873,6 +895,7 @@ public class ExpedientsRDTO {
     sb.append("    procedimentCodi: ").append(toIndentedString(procedimentCodi)).append("\n");
     sb.append("    procedimentIdext: ").append(toIndentedString(procedimentIdext)).append("\n");
     sb.append("    procedimentVersio: ").append(toIndentedString(procedimentVersio)).append("\n");
+    sb.append("    representantPrincipal: ").append(toIndentedString(representantPrincipal)).append("\n");
     sb.append("    seleccionable: ").append(toIndentedString(seleccionable)).append("\n");
     sb.append("    sollicitant: ").append(toIndentedString(sollicitant)).append("\n");
     sb.append("    sollicitantPrincipal: ").append(toIndentedString(sollicitantPrincipal)).append("\n");

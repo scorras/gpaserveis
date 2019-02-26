@@ -1,13 +1,17 @@
 package es.bcn.gpa.gpaserveis.business.dto.expedients;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,13 +41,19 @@ public class DadesExpedientBDTO {
 	/** The persones implicades. */
 	private List<Persones> personesImplicades;
 
-	/** The accions possibles. */
-	private List<AccionsEstatsRDTO> accionsPossibles;
+	/** The accions disponibles. */
+	private List<AccionsEstatsRDTO> accionsDisponibles;
 
 	/** The documents aportats. */
 	private List<DocsEntradaRDTO> documentsAportats;
 
 	/** The documents requerits. */
-	private List<ConfDocEntradaRequeritRDTO> documentsRequerits;
+	private List<ConfDocEntradaRequeritRDTO> configuracioDocumentacioRequerida;
+
+	/** The dades operacio. */
+	private List<DadesEspecifiquesRDTO> dadesOperacio;
+
+	/** The tramits ovt map. */
+	private Map<BigDecimal, TramitsOvtRDTO> tramitsOvtMap;
 
 }

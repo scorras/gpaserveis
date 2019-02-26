@@ -2,6 +2,7 @@ package es.bcn.gpa.gpaserveis.web.rest.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -28,6 +29,7 @@ import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
@@ -214,8 +216,10 @@ public class ServeisPortalRestControllerHelper {
 		loadPersonesInteressades(expedientsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
 		loadAltresPersonesImplicades(expedientsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
 		loadAccionsPossibles(tramitsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
-		loadDocumentsAportats(documentsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
+		loadDocumentsAportats(documentsService, tramitsService, dadesExpedientBDTO,
+		        dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
 		loadDocumentsRequerits(documentsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
+		loadDadesEspecifiques(expedientsService, dadesExpedientBDTO, idExpedient);
 
 		return dadesExpedientBDTO;
 	}
@@ -410,7 +414,7 @@ public class ServeisPortalRestControllerHelper {
 	private static void loadAccionsPossibles(TramitsService tramitsService, DadesExpedientBDTO dadesExpedientBDTO, BigDecimal idEstat)
 	        throws GPAServeisServiceException {
 		List<AccionsEstatsRDTO> accionsEstatsRDTOList = tramitsService.cercaAccionsPossibles(idEstat);
-		dadesExpedientBDTO.setAccionsPossibles(accionsEstatsRDTOList);
+		dadesExpedientBDTO.setAccionsDisponibles(accionsEstatsRDTOList);
 	}
 
 	/**
@@ -418,6 +422,8 @@ public class ServeisPortalRestControllerHelper {
 	 *
 	 * @param documentsService
 	 *            the documents service
+	 * @param tramitsService
+	 *            the tramits service
 	 * @param dadesExpedientBDTO
 	 *            the dades expedient BDTO
 	 * @param documentacioIdext
@@ -425,10 +431,27 @@ public class ServeisPortalRestControllerHelper {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	private static void loadDocumentsAportats(DocumentsService documentsService, DadesExpedientBDTO dadesExpedientBDTO,
-	        BigDecimal documentacioIdext) throws GPAServeisServiceException {
+	private static void loadDocumentsAportats(DocumentsService documentsService, TramitsService tramitsService,
+	        DadesExpedientBDTO dadesExpedientBDTO, BigDecimal documentacioIdext) throws GPAServeisServiceException {
 		List<DocsEntradaRDTO> docsEntradaRDTOList = documentsService.cercaDocumentsEntradaAgrupatsPerTramitOvt(documentacioIdext);
 		dadesExpedientBDTO.setDocumentsAportats(docsEntradaRDTOList);
+
+		// Es necesario recuperar el código y la descripción de los trámites OVT
+		// asociados a los documentos aportados. Para facilitar el manejo de la
+		// información, se utiliza un Map dentro de DadesExpedientBDTO
+		if (dadesExpedientBDTO.getTramitsOvtMap() == null) {
+			dadesExpedientBDTO.setTramitsOvtMap(new HashMap<BigDecimal, TramitsOvtRDTO>());
+		}
+		TramitsOvtCercaBDTO tramitsOvtCercaBDTO = null;
+		TramitsOvtRDTO tramitsOvtRDTO = null;
+		for (DocsEntradaRDTO docsEntradaRDTO : docsEntradaRDTOList) {
+			if (docsEntradaRDTO.getTramitOvtIdext() != null
+			        && !dadesExpedientBDTO.getTramitsOvtMap().containsKey(docsEntradaRDTO.getTramitOvtIdext())) {
+				tramitsOvtCercaBDTO = new TramitsOvtCercaBDTO(docsEntradaRDTO.getTramitOvtIdext());
+				tramitsOvtRDTO = loadTramitsOvtRDTO(tramitsService, tramitsOvtCercaBDTO);
+				dadesExpedientBDTO.getTramitsOvtMap().put(docsEntradaRDTO.getTramitOvtIdext(), tramitsOvtRDTO);
+			}
+		}
 	}
 
 	/**
@@ -447,7 +470,25 @@ public class ServeisPortalRestControllerHelper {
 	        BigDecimal documentacioIdext) throws GPAServeisServiceException {
 		List<ConfDocEntradaRequeritRDTO> confDocEntradaRequeritRDTOList = documentsService
 		        .cercaConfiguracioDocumentacioEntradaRequerida(documentacioIdext);
-		dadesExpedientBDTO.setDocumentsRequerits(confDocEntradaRequeritRDTOList);
+		dadesExpedientBDTO.setConfiguracioDocumentacioRequerida(confDocEntradaRequeritRDTOList);
+	}
+
+	/**
+	 * Load dades especifiques.
+	 *
+	 * @param expedientsService
+	 *            the expedients service
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param idExpedient
+	 *            the id expedient
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	private static void loadDadesEspecifiques(ExpedientsService expedientsService, DadesExpedientBDTO dadesExpedientBDTO,
+	        BigDecimal idExpedient) throws GPAServeisServiceException {
+		List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = expedientsService.cercaDadesEspecifiquesExpedient(idExpedient);
+		dadesExpedientBDTO.setDadesOperacio(dadesEspecifiquesRDTOList);
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients;
+package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal;
 
 import java.math.BigDecimal;
 
@@ -10,22 +10,16 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value="DocumentExpedient")
+@ApiModel(value = "Document")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "id",
-    "codi",
-    "nom"
-})
+@JsonPropertyOrder({ "id", "nom" })
 @Getter
 @Setter
-public class DocumentsExpedientsRDTO {
-	
-	@ApiModelProperty(value="Identificador del document")
+public class DocumentRDTO {
+
+	@ApiModelProperty(value = "Id del document")
 	private BigDecimal id;
-	@ApiModelProperty(value="Codi del document")
-	private String codi;
-	@ApiModelProperty(value="Nom del document")
+	@ApiModelProperty(value = "Nom del document")
 	private String nom;
-	
+
 }

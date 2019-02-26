@@ -45,7 +45,7 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 
 	@Test
 	public void testStage04_GetConsultarDocumentacioProcediment() throws Exception {
-		String url = BASE_URL + "/procediments/1/tramits/APO/documents";
+		String url = BASE_URL + "/procediments/1/tramits/APO/documentacio";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 
@@ -88,14 +88,6 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	@Ignore
 	public void testStage09_PostRegistrarSolicitud() throws Exception {
 		String url = BASE_URL + "/expedients/1/registre";
-		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(print());
-
-	}
-
-	@Test
-	@Ignore
-	public void testStage10_PostObrirSolicitud() throws Exception {
-		String url = BASE_URL + "/expedients/1/obrir";
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(print());
 
 	}

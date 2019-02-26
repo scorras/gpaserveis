@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 /**
  * Comentaris
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-21T02:30:03.349+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-26T12:16:57.923+01:00")
 public class Comentaris {
   @JsonProperty("automatic")
   private Integer automatic = null;
@@ -47,6 +47,9 @@ public class Comentaris {
 
   @JsonProperty("id")
   private BigDecimal id = null;
+
+  @JsonProperty("seleccionable")
+  private Boolean seleccionable = null;
 
   @JsonProperty("titol")
   private String titol = null;
@@ -180,6 +183,24 @@ public class Comentaris {
     this.id = id;
   }
 
+  public Comentaris seleccionable(Boolean seleccionable) {
+    this.seleccionable = seleccionable;
+    return this;
+  }
+
+   /**
+   * Get seleccionable
+   * @return seleccionable
+  **/
+  @ApiModelProperty(value = "")
+  public Boolean isSeleccionable() {
+    return seleccionable;
+  }
+
+  public void setSeleccionable(Boolean seleccionable) {
+    this.seleccionable = seleccionable;
+  }
+
   public Comentaris titol(String titol) {
     this.titol = titol;
     return this;
@@ -233,13 +254,14 @@ public class Comentaris {
         Objects.equals(this.eliminat, comentaris.eliminat) &&
         Objects.equals(this.expedient, comentaris.expedient) &&
         Objects.equals(this.id, comentaris.id) &&
+        Objects.equals(this.seleccionable, comentaris.seleccionable) &&
         Objects.equals(this.titol, comentaris.titol) &&
         Objects.equals(this.usuari, comentaris.usuari);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(automatic, dataCreacio, descripcio, editable, eliminat, expedient, id, titol, usuari);
+    return Objects.hash(automatic, dataCreacio, descripcio, editable, eliminat, expedient, id, seleccionable, titol, usuari);
   }
 
 
@@ -255,6 +277,7 @@ public class Comentaris {
     sb.append("    eliminat: ").append(toIndentedString(eliminat)).append("\n");
     sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    seleccionable: ").append(toIndentedString(seleccionable)).append("\n");
     sb.append("    titol: ").append(toIndentedString(titol)).append("\n");
     sb.append("    usuari: ").append(toIndentedString(usuari)).append("\n");
     sb.append("}");

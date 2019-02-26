@@ -1,8 +1,8 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -29,22 +29,22 @@ public class InternalToHistoricEstatCiutadaListConverter extends AbstractConvert
 		ArrayList<HistoricsRDTO> historicsRDTOList = new ArrayList<HistoricsRDTO>();
 
 		if (CollectionUtils.isNotEmpty(source)) {
-			// Se excluye la transición más reciente por tratarse del estado
-			// actual, que ya se incluye en otro atributo de la respuesta
-			for (EstatsRDTO estatsRDTO : source.subList(1, source.size())) {
+			// No se excluye la transición más reciente. Deben aparecer todas en
+			// el histórico
+			for (EstatsRDTO estatsRDTO : source) {
 				historicsRDTOList.add(ConverterHelper.buildHistoricsRDTOExpedient(estatsRDTO));
 			}
 
 			// Deben eliminarse estados consecutivos que sean repetidos,
-			// agrupándose en el más reciente
-			String ultimEstat = null;
-			Iterator<HistoricsRDTO> historicsRDTOIterator = historicsRDTOList.iterator();
-			while (historicsRDTOIterator.hasNext()) {
-				HistoricsRDTO historicsRDTO = (HistoricsRDTO) historicsRDTOIterator.next();
-				if (StringUtils.equals(ultimEstat, historicsRDTO.getEstat())) {
+			// agrupándose en el más antiguo
+			String primerEstat = null;
+			ListIterator<HistoricsRDTO> historicsRDTOIterator = historicsRDTOList.listIterator(historicsRDTOList.size());
+			while (historicsRDTOIterator.hasPrevious()) {
+				HistoricsRDTO historicsRDTO = (HistoricsRDTO) historicsRDTOIterator.previous();
+				if (StringUtils.equals(primerEstat, historicsRDTO.getEstat())) {
 					historicsRDTOIterator.remove();
 				}
-				ultimEstat = historicsRDTO.getEstat();
+				primerEstat = historicsRDTO.getEstat();
 			}
 		}
 

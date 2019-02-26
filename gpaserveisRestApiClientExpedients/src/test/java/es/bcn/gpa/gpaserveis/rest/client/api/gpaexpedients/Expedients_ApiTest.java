@@ -34,6 +34,7 @@ import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InputStreamResource;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
@@ -295,7 +296,7 @@ public class Expedients_ApiTest extends ParentTest {
 	}
 
 	/**
-	 * Insert or updates the provided exprdient
+	 * Insert the provided expedient
 	 *
 	 * 
 	 *
@@ -303,12 +304,31 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void saveOrUpdateUsingPOST1Test() throws ApiException {
+	public void crearSollicitudExpedientTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/expedients"), eq("POST"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
 		        isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(new ExpedientsRDTO());
 
 		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
-		ExpedientsRDTO response = api.saveOrUpdateUsingPOST1(expedientsRDTO);
+		ExpedientsRDTO response = api.crearSollicitudExpedient(expedientsRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Updates the provided expedient
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void actualitzarDadesSollicitudTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/expedients"), eq("PUT"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
+		        isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(new ExpedientsRDTO());
+
+		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
+		ExpedientsRDTO response = api.actualitzarDadesSollicitud(expedientsRDTO);
 
 		assertTrue(response != null);
 	}
@@ -352,6 +372,66 @@ public class Expedients_ApiTest extends ParentTest {
 		        absoluteRowNumberOfLastRowInCurrentPage, codi, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
 		        currentPageIsLastPage, currentPageNumber, dir, id, idProcedimentAcumulat, idUsuari, idsExpedientAcumulatList,
 		        nextPageNumber, nombreDocument, pageSize, previousPageNumber, sollicitant, sort, totalElements, totalPages);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns excel file with all the expedients that meet the search criteria
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void exportarCercaExpedientExcelTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/expedients/exportarCercaExpedientExcel"), eq("GET"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new InputStreamResource());
+
+		String aplicacioNegoci = null;
+		List<String> avisList = null;
+		String codi = null;
+		BigDecimal criteriDeCercaDadesOperacioList0Id = null;
+		BigDecimal criteriDeCercaDadesOperacioList0Tipus = null;
+		String criteriDeCercaDadesOperacioList0Valor = null;
+		DateTime dataPresentacioDes = null;
+		DateTime dataPresentacioFinsA = null;
+		List<BigDecimal> estatList = null;
+		BigDecimal id = null;
+		BigDecimal idUsuari = null;
+		String numeroDocumentSollicitant = null;
+		String numeroDocumentSollicitantEstricte = null;
+		List<String> procedimentCodisList = null;
+		String procedimentVersio = null;
+		String tramitador = null;
+		List<BigDecimal> unitatsGestoresList = null;
+		InputStreamResource response = api.exportarCercaExpedientExcel(aplicacioNegoci, avisList, codi, criteriDeCercaDadesOperacioList0Id,
+		        criteriDeCercaDadesOperacioList0Tipus, criteriDeCercaDadesOperacioList0Valor, dataPresentacioDes, dataPresentacioFinsA,
+		        estatList, id, idUsuari, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, procedimentCodisList,
+		        procedimentVersio, tramitador, unitatsGestoresList);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * jexl
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirXmlEvaluateUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/expedients/obtenirXmlEvaluate/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new String());
+
+		BigDecimal idExpedient = ONE;
+		String response = api.obtenirXmlEvaluateUsingGET(idExpedient);
 
 		assertTrue(response != null);
 	}

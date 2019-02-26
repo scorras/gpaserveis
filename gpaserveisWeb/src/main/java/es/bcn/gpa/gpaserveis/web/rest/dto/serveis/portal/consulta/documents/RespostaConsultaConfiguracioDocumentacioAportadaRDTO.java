@@ -1,5 +1,8 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents;
 
+import java.util.Collections;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -9,17 +12,17 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "RespostaConsultaDocumentsEntrada")
+@ApiModel(value = "RespostaConsultaConfiguracioDocumentacioAportada")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "documentacioEntrada" })
+@JsonPropertyOrder({ "tramit", "configuracioDocumentacioAportada" })
 @Getter
 @Setter
-public class RespostaConsultaDocumentsEntradaRDTO {
-
-	@ApiModelProperty(value = "Documentació d'entrada")
-	private DocumentsEntradaConsultaRDTO documentacioEntrada;
+public class RespostaConsultaConfiguracioDocumentacioAportadaRDTO {
 
 	@ApiModelProperty(value = "Dades del tràmit")
 	private TramitsOvtRDTO tramit;
+
+	@ApiModelProperty("Llista de configuració documentació aportada")
+	private List<ConfiguracioDocumentacioAportadaConsultaRDTO> configuracioDocumentacioAportada = Collections.emptyList();
 
 }

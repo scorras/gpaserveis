@@ -2,8 +2,12 @@ package es.bcn.gpa.gpaserveis.web.rest.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -40,6 +44,9 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaProcedimentsCerca
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AtributsDocs;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaActualitzarSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCrearSolicitudMockService;
@@ -67,9 +74,10 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.Proc
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.RespostaCercaProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.DadesOperacioConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.RespostaConsultaDadesOperacioRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.DocumentsEntradaConsultaRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.RespostaConsultaDocumentsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.ExpedientsConsultaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.ConfiguracioDocumentacioAportadaConsultaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.DocumentAportatConsultaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.RespostaConsultaConfiguracioDocumentacioAportadaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.ExpedientConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.RespostaConsultaExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.ProcedimentsConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.RespostaConsultaProcedimentsRDTO;
@@ -306,26 +314,15 @@ public class ServeisPortalRestController extends BaseRestController {
 		return respostaConsultaDadesOperacioRDTO;
 	}
 
-	/**
-	 * Consultar documentacio entrada procediment.
-	 *
-	 * @param idProcediment
-	 *            the id procediment
-	 * @param codiTramit
-	 *            the codi tramit
-	 * @return the resposta consulta documents RDTO
-	 * @throws GPAServeisServiceException
-	 */
-	@GetMapping("/procediments/{idProcediment}/tramits/{codiTramit}/documents")
+	@GetMapping("/procediments/{idProcediment}/tramits/{codiTramit}/documentacio")
 	@ApiOperation(value = "Consultar les dades de documentació d'entrada del procediment", tags = { "Serveis Portal API",
 	        "Funcions d'integració amb RPA" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
-	public RespostaConsultaDocumentsEntradaRDTO consultarDocumentacioEntradaProcediment(
+	public RespostaConsultaConfiguracioDocumentacioAportadaRDTO consultarDocumentacioEntradaProcediment(
 	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
 	        @ApiParam(value = "Codi del tràmit", required = true) @PathVariable String codiTramit) throws GPAServeisServiceException {
 
-		RespostaConsultaDocumentsEntradaRDTO respostaConsultaDocumentsEntradaRDTO = new RespostaConsultaDocumentsEntradaRDTO();
-		DocumentsEntradaConsultaRDTO documentsEntradaConsultaRDTO = new DocumentsEntradaConsultaRDTO();
+		RespostaConsultaConfiguracioDocumentacioAportadaRDTO respostaConsultaConfiguracioDocumentacioAportadaRDTO = new RespostaConsultaConfiguracioDocumentacioAportadaRDTO();
 
 		// Información del Trámite
 		TramitsOvtCercaBDTO tramitsOvtCercaBDTO = new TramitsOvtCercaBDTO(
@@ -334,7 +331,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		        .loadTramitsOvtRDTO(tramitsService, tramitsOvtCercaBDTO);
 		es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = modelMapper.map(internalTramitsOvtRDTO,
 		        es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
-		respostaConsultaDocumentsEntradaRDTO.setTramit(tramitsOvtRDTO);
+		respostaConsultaConfiguracioDocumentacioAportadaRDTO.setTramit(tramitsOvtRDTO);
 
 		// Información del Procedimiento, para obtener el Id de Configuració
 		// Documentació
@@ -342,15 +339,24 @@ public class ServeisPortalRestController extends BaseRestController {
 		        idProcediment);
 
 		// Documents que cumplen los criterios de búsqueda
+		ArrayList<ConfiguracioDocumentacioAportadaConsultaRDTO> configuracioDocumentacioAportadaConsultaRDTOList = new ArrayList<ConfiguracioDocumentacioAportadaConsultaRDTO>();
 		DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(
 		        dadesProcedimentBDTO.getProcedimentsRDTO().getConfiguracioDocumentacio(),
 		        DocumentsApiParamToInternalMapper.getTramitOvtInternalValue(codiTramit));
 		RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = ServeisPortalRestControllerHelper
 		        .loadCercaDocumentsEntrada(documentsService, documentsEntradaCercaBDTO);
-		documentsEntradaConsultaRDTO = modelMapper.map(respostaDocumentsEntradaCercaBDTO, DocumentsEntradaConsultaRDTO.class);
-		respostaConsultaDocumentsEntradaRDTO.setDocumentacioEntrada(documentsEntradaConsultaRDTO);
+		for (ConfiguracioDocsEntradaRDTO configuracioDocsEntradaRDTO : respostaDocumentsEntradaCercaBDTO
+		        .getConfiguracioDocsEntradaRDTOList()) {
+			if (configuracioDocsEntradaRDTO.getAtributsDocs() == null) {
+				configuracioDocsEntradaRDTO.setAtributsDocs(new AtributsDocs());
+			}
+			configuracioDocumentacioAportadaConsultaRDTOList
+			        .add(modelMapper.map(configuracioDocsEntradaRDTO, ConfiguracioDocumentacioAportadaConsultaRDTO.class));
+		}
+		respostaConsultaConfiguracioDocumentacioAportadaRDTO
+		        .setConfiguracioDocumentacioAportada(configuracioDocumentacioAportadaConsultaRDTOList);
 
-		return respostaConsultaDocumentsEntradaRDTO;
+		return respostaConsultaConfiguracioDocumentacioAportadaRDTO;
 	}
 
 	/**
@@ -478,10 +484,31 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		RespostaConsultaExpedientsRDTO respostaConsultaExpedientsRDTO = new RespostaConsultaExpedientsRDTO();
 
+		// Datos principales del expedient
 		DadesExpedientBDTO dadesExpedientBDTO = ServeisPortalRestControllerHelper.loadDadesExpedient(expedientsService,
 		        unitatsGestoresService, tramitsService, documentsService, idExpedient);
-		ExpedientsConsultaRDTO expedientsConsultaRDTO = modelMapper.map(dadesExpedientBDTO, ExpedientsConsultaRDTO.class);
-		respostaConsultaExpedientsRDTO.setExpedient(expedientsConsultaRDTO);
+		ExpedientConsultaRDTO expedientConsultaRDTO = modelMapper.map(dadesExpedientBDTO, ExpedientConsultaRDTO.class);
+
+		// Datos de cada tràmit OVT asociado a los documents aportats
+		HashMap<String, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO> tramitsOvtRDTOMap = null;
+		es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = null;
+		if (MapUtils.isNotEmpty(dadesExpedientBDTO.getTramitsOvtMap())) {
+			tramitsOvtRDTOMap = new HashMap<String, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO>();
+			for (Entry<BigDecimal, TramitsOvtRDTO> tramitsOvtRDTOEntry : dadesExpedientBDTO.getTramitsOvtMap().entrySet()) {
+				tramitsOvtRDTO = modelMapper.map(tramitsOvtRDTOEntry.getValue(),
+				        es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
+				tramitsOvtRDTOMap.put(tramitsOvtRDTO.getCodi(), tramitsOvtRDTO);
+			}
+		}
+		if (CollectionUtils.isNotEmpty(expedientConsultaRDTO.getDocumentsAportats()) && MapUtils.isNotEmpty(tramitsOvtRDTOMap)) {
+			for (DocumentAportatConsultaRDTO documentAportatConsultaRDTO : expedientConsultaRDTO.getDocumentsAportats()) {
+				if (documentAportatConsultaRDTO.getTramit() != null) {
+					documentAportatConsultaRDTO.setTramit(tramitsOvtRDTOMap.get(documentAportatConsultaRDTO.getTramit().getCodi()));
+				}
+			}
+		}
+
+		respostaConsultaExpedientsRDTO.setExpedient(expedientConsultaRDTO);
 
 		return respostaConsultaExpedientsRDTO;
 	}
