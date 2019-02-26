@@ -18,6 +18,7 @@ import es.bcn.gpa.gpaserveis.business.exception.GPAServeisRuntimeException;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
@@ -37,12 +38,6 @@ import net.opentrends.openframe.services.configuration.context.ContextPropertySo
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {}, initializers = ContextPropertySourcesInitializer.class)
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
 @CommonsLog
 public abstract class ParentTest {
 
@@ -97,6 +92,10 @@ public abstract class ParentTest {
 	/** The documentacio requerit api. */
 	@Autowired
 	protected DocumentacioRequeritApi documentacioRequeritApi;
+
+	/** The dades especifiques api. */
+	@Autowired
+	protected DadesEspecifiquesApi dadesEspecifiquesApi;
 
 	/**
 	 * Sets the up.
@@ -186,6 +185,10 @@ public abstract class ParentTest {
 
 			when(documentacioRequeritApi.cercaConfiguracioDocumentacioEntradaRequerida(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntradaRequeridaResponse());
+
+			when(dadesEspecifiquesApi.consultarDadesEspecifiquesExpedient(any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.consultarDadesEspecifiquesExpedientResponse());
+
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$
 

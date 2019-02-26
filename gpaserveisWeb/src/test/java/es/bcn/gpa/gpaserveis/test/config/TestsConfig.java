@@ -10,6 +10,7 @@ import org.springframework.core.env.Environment;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
@@ -257,6 +258,20 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("documentacioRequeritApi() - fi"); //$NON-NLS-1$
 		}
 		return documentacioRequeritApi;
+	}
+
+	@Bean
+	public DadesEspecifiquesApi dadesEspecifiquesApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("dadesEspecifiquesApi() - inici"); //$NON-NLS-1$
+		}
+
+		DadesEspecifiquesApi dadesEspecifiquesApi = Mockito.mock(DadesEspecifiquesApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("dadesEspecifiquesApi() - fi"); //$NON-NLS-1$
+		}
+		return dadesEspecifiquesApi;
 	}
 
 }
