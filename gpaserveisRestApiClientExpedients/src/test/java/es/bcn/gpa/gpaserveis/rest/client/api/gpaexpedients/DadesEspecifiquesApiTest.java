@@ -54,14 +54,14 @@ public class DadesEspecifiquesApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void getDadesEspecifiquesByIdExpedientUsingGETTest() throws ApiException {
+	public void consultarDadesEspecifiquesExpedientTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/expedients/dadesEspecifiques/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new ArrayList<DadesEspecifiquesRDTO>());
 
 		BigDecimal idExpedient = ONE;
-		List<DadesEspecifiquesRDTO> response = api.getDadesEspecifiquesByIdExpedientUsingGET(idExpedient);
+		List<DadesEspecifiquesRDTO> response = api.consultarDadesEspecifiquesExpedient(idExpedient);
 
 		assertTrue(response != null);
 	}

@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * PersonesDadescontacte
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-21T02:30:03.349+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-26T12:16:57.923+01:00")
 public class PersonesDadescontacte {
   @JsonProperty("bloc")
   private String bloc = null;
@@ -34,6 +34,9 @@ public class PersonesDadescontacte {
 
   @JsonProperty("comarca")
   private String comarca = null;
+
+  @JsonProperty("comarcaValor")
+  private String comarcaValor = null;
 
   @JsonProperty("direccioPostal")
   private String direccioPostal = null;
@@ -59,11 +62,17 @@ public class PersonesDadescontacte {
   @JsonProperty("municipiEstranger")
   private String municipiEstranger = null;
 
+  @JsonProperty("municipiValor")
+  private String municipiValor = null;
+
   @JsonProperty("numero")
   private String numero = null;
 
   @JsonProperty("pais")
   private String pais = null;
+
+  @JsonProperty("paisValor")
+  private String paisValor = null;
 
   @JsonProperty("pis")
   private String pis = null;
@@ -76,6 +85,9 @@ public class PersonesDadescontacte {
 
   @JsonProperty("provinciaEstranger")
   private String provinciaEstranger = null;
+
+  @JsonProperty("provinciaValor")
+  private String provinciaValor = null;
 
   @JsonProperty("sexe")
   private BigDecimal sexe = null;
@@ -138,6 +150,24 @@ public class PersonesDadescontacte {
 
   public void setComarca(String comarca) {
     this.comarca = comarca;
+  }
+
+  public PersonesDadescontacte comarcaValor(String comarcaValor) {
+    this.comarcaValor = comarcaValor;
+    return this;
+  }
+
+   /**
+   * Get comarcaValor
+   * @return comarcaValor
+  **/
+  @ApiModelProperty(value = "")
+  public String getComarcaValor() {
+    return comarcaValor;
+  }
+
+  public void setComarcaValor(String comarcaValor) {
+    this.comarcaValor = comarcaValor;
   }
 
   public PersonesDadescontacte direccioPostal(String direccioPostal) {
@@ -284,6 +314,24 @@ public class PersonesDadescontacte {
     this.municipiEstranger = municipiEstranger;
   }
 
+  public PersonesDadescontacte municipiValor(String municipiValor) {
+    this.municipiValor = municipiValor;
+    return this;
+  }
+
+   /**
+   * Get municipiValor
+   * @return municipiValor
+  **/
+  @ApiModelProperty(value = "")
+  public String getMunicipiValor() {
+    return municipiValor;
+  }
+
+  public void setMunicipiValor(String municipiValor) {
+    this.municipiValor = municipiValor;
+  }
+
   public PersonesDadescontacte numero(String numero) {
     this.numero = numero;
     return this;
@@ -318,6 +366,24 @@ public class PersonesDadescontacte {
 
   public void setPais(String pais) {
     this.pais = pais;
+  }
+
+  public PersonesDadescontacte paisValor(String paisValor) {
+    this.paisValor = paisValor;
+    return this;
+  }
+
+   /**
+   * Get paisValor
+   * @return paisValor
+  **/
+  @ApiModelProperty(value = "")
+  public String getPaisValor() {
+    return paisValor;
+  }
+
+  public void setPaisValor(String paisValor) {
+    this.paisValor = paisValor;
   }
 
   public PersonesDadescontacte pis(String pis) {
@@ -392,6 +458,24 @@ public class PersonesDadescontacte {
     this.provinciaEstranger = provinciaEstranger;
   }
 
+  public PersonesDadescontacte provinciaValor(String provinciaValor) {
+    this.provinciaValor = provinciaValor;
+    return this;
+  }
+
+   /**
+   * Get provinciaValor
+   * @return provinciaValor
+  **/
+  @ApiModelProperty(value = "")
+  public String getProvinciaValor() {
+    return provinciaValor;
+  }
+
+  public void setProvinciaValor(String provinciaValor) {
+    this.provinciaValor = provinciaValor;
+  }
+
   public PersonesDadescontacte sexe(BigDecimal sexe) {
     this.sexe = sexe;
     return this;
@@ -459,6 +543,7 @@ public class PersonesDadescontacte {
     return Objects.equals(this.bloc, personesDadescontacte.bloc) &&
         Objects.equals(this.codiPostal, personesDadescontacte.codiPostal) &&
         Objects.equals(this.comarca, personesDadescontacte.comarca) &&
+        Objects.equals(this.comarcaValor, personesDadescontacte.comarcaValor) &&
         Objects.equals(this.direccioPostal, personesDadescontacte.direccioPostal) &&
         Objects.equals(this.email, personesDadescontacte.email) &&
         Objects.equals(this.escala, personesDadescontacte.escala) &&
@@ -467,12 +552,15 @@ public class PersonesDadescontacte {
         Objects.equals(this.mobil, personesDadescontacte.mobil) &&
         Objects.equals(this.municipi, personesDadescontacte.municipi) &&
         Objects.equals(this.municipiEstranger, personesDadescontacte.municipiEstranger) &&
+        Objects.equals(this.municipiValor, personesDadescontacte.municipiValor) &&
         Objects.equals(this.numero, personesDadescontacte.numero) &&
         Objects.equals(this.pais, personesDadescontacte.pais) &&
+        Objects.equals(this.paisValor, personesDadescontacte.paisValor) &&
         Objects.equals(this.pis, personesDadescontacte.pis) &&
         Objects.equals(this.porta, personesDadescontacte.porta) &&
         Objects.equals(this.provincia, personesDadescontacte.provincia) &&
         Objects.equals(this.provinciaEstranger, personesDadescontacte.provinciaEstranger) &&
+        Objects.equals(this.provinciaValor, personesDadescontacte.provinciaValor) &&
         Objects.equals(this.sexe, personesDadescontacte.sexe) &&
         Objects.equals(this.telefon, personesDadescontacte.telefon) &&
         Objects.equals(this.tipusVia, personesDadescontacte.tipusVia);
@@ -480,7 +568,7 @@ public class PersonesDadescontacte {
 
   @Override
   public int hashCode() {
-    return Objects.hash(bloc, codiPostal, comarca, direccioPostal, email, escala, fax, id, mobil, municipi, municipiEstranger, numero, pais, pis, porta, provincia, provinciaEstranger, sexe, telefon, tipusVia);
+    return Objects.hash(bloc, codiPostal, comarca, comarcaValor, direccioPostal, email, escala, fax, id, mobil, municipi, municipiEstranger, municipiValor, numero, pais, paisValor, pis, porta, provincia, provinciaEstranger, provinciaValor, sexe, telefon, tipusVia);
   }
 
 
@@ -492,6 +580,7 @@ public class PersonesDadescontacte {
     sb.append("    bloc: ").append(toIndentedString(bloc)).append("\n");
     sb.append("    codiPostal: ").append(toIndentedString(codiPostal)).append("\n");
     sb.append("    comarca: ").append(toIndentedString(comarca)).append("\n");
+    sb.append("    comarcaValor: ").append(toIndentedString(comarcaValor)).append("\n");
     sb.append("    direccioPostal: ").append(toIndentedString(direccioPostal)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    escala: ").append(toIndentedString(escala)).append("\n");
@@ -500,12 +589,15 @@ public class PersonesDadescontacte {
     sb.append("    mobil: ").append(toIndentedString(mobil)).append("\n");
     sb.append("    municipi: ").append(toIndentedString(municipi)).append("\n");
     sb.append("    municipiEstranger: ").append(toIndentedString(municipiEstranger)).append("\n");
+    sb.append("    municipiValor: ").append(toIndentedString(municipiValor)).append("\n");
     sb.append("    numero: ").append(toIndentedString(numero)).append("\n");
     sb.append("    pais: ").append(toIndentedString(pais)).append("\n");
+    sb.append("    paisValor: ").append(toIndentedString(paisValor)).append("\n");
     sb.append("    pis: ").append(toIndentedString(pis)).append("\n");
     sb.append("    porta: ").append(toIndentedString(porta)).append("\n");
     sb.append("    provincia: ").append(toIndentedString(provincia)).append("\n");
     sb.append("    provinciaEstranger: ").append(toIndentedString(provinciaEstranger)).append("\n");
+    sb.append("    provinciaValor: ").append(toIndentedString(provinciaValor)).append("\n");
     sb.append("    sexe: ").append(toIndentedString(sexe)).append("\n");
     sb.append("    telefon: ").append(toIndentedString(telefon)).append("\n");
     sb.append("    tipusVia: ").append(toIndentedString(tipusVia)).append("\n");

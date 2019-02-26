@@ -10,6 +10,7 @@ import javax.ws.rs.core.GenericType;
 import java.math.BigDecimal;
 import org.joda.time.DateTime;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InputStreamResource;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-21T02:30:03.349+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-26T12:16:57.923+01:00")
 public class Expedients_Api {
   private ApiClient apiClient;
 
@@ -38,6 +39,47 @@ public class Expedients_Api {
     this.apiClient = apiClient;
   }
 
+  /**
+   * Updates the provided expedient
+   * 
+   * @param expedientsRDTO expedientsRDTO (required)
+   * @return ExpedientsRDTO
+   * @throws ApiException if fails to make API call
+   */
+  public ExpedientsRDTO actualitzarDadesSollicitud(ExpedientsRDTO expedientsRDTO) throws ApiException {
+    Object localVarPostBody = expedientsRDTO;
+    
+    // verify the required parameter 'expedientsRDTO' is set
+    if (expedientsRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'expedientsRDTO' when calling actualitzarDadesSollicitud");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/expedients";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<ExpedientsRDTO> localVarReturnType = new GenericType<ExpedientsRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
   /**
    * Returns all the expedients that meet the search criteria
    * 
@@ -175,6 +217,116 @@ public class Expedients_Api {
     String[] localVarAuthNames = new String[] {  };
 
     GenericType<ExpedientsRDTO> localVarReturnType = new GenericType<ExpedientsRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Insert the provided expedient
+   * 
+   * @param expedientsRDTO expedientsRDTO (required)
+   * @return ExpedientsRDTO
+   * @throws ApiException if fails to make API call
+   */
+  public ExpedientsRDTO crearSollicitudExpedient(ExpedientsRDTO expedientsRDTO) throws ApiException {
+    Object localVarPostBody = expedientsRDTO;
+    
+    // verify the required parameter 'expedientsRDTO' is set
+    if (expedientsRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'expedientsRDTO' when calling crearSollicitudExpedient");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/expedients";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<ExpedientsRDTO> localVarReturnType = new GenericType<ExpedientsRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Returns excel file with all the expedients that meet the search criteria
+   * 
+   * @param aplicacioNegoci Aplicació de negoci (optional)
+   * @param avisList Llista d&#39;avisos de l&#39;expedient (optional)
+   * @param codi Codi de l&#39;expedient (optional)
+   * @param criteriDeCercaDadesOperacioList0Id Identificador de la dada d&#39;operació (optional)
+   * @param criteriDeCercaDadesOperacioList0Tipus Tipus de la dada d&#39;operació (optional)
+   * @param criteriDeCercaDadesOperacioList0Valor Valor de la dada d&#39;operació (optional)
+   * @param dataPresentacioDes Data presentació des de (optional)
+   * @param dataPresentacioFinsA Data presentació fins a (optional)
+   * @param estatList Llista d&#39;estats de l&#39;expedient (optional)
+   * @param id Identificador pel qual es realitza la cerca (optional)
+   * @param idUsuari Identificador d&#39;usuari pel qual es realitza la cerca (optional)
+   * @param numeroDocumentSollicitant Numero de document d&#39;identificació del sol·licitant (optional)
+   * @param numeroDocumentSollicitantEstricte Numero de document d&#39;identificació del sol·licitant estricte (optional)
+   * @param procedimentCodisList Llista dels codis dels procediments (optional)
+   * @param procedimentVersio Versió del procediment (optional)
+   * @param tramitador Tramitador de l&#39;expedient (optional)
+   * @param unitatsGestoresList Llista d&#39;unitats gestores (optional)
+   * @return InputStreamResource
+   * @throws ApiException if fails to make API call
+   */
+  public InputStreamResource exportarCercaExpedientExcel(String aplicacioNegoci, List<String> avisList, String codi, BigDecimal criteriDeCercaDadesOperacioList0Id, BigDecimal criteriDeCercaDadesOperacioList0Tipus, String criteriDeCercaDadesOperacioList0Valor, DateTime dataPresentacioDes, DateTime dataPresentacioFinsA, List<BigDecimal> estatList, BigDecimal id, BigDecimal idUsuari, String numeroDocumentSollicitant, String numeroDocumentSollicitantEstricte, List<String> procedimentCodisList, String procedimentVersio, String tramitador, List<BigDecimal> unitatsGestoresList) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/expedients/exportarCercaExpedientExcel";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "aplicacioNegoci", aplicacioNegoci));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "avisList", avisList));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "codi", codi));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "criteriDeCercaDadesOperacioList[0].id", criteriDeCercaDadesOperacioList0Id));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "criteriDeCercaDadesOperacioList[0].tipus", criteriDeCercaDadesOperacioList0Tipus));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "criteriDeCercaDadesOperacioList[0].valor", criteriDeCercaDadesOperacioList0Valor));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dataPresentacioDes", dataPresentacioDes));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dataPresentacioFinsA", dataPresentacioFinsA));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "estatList", estatList));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "id", id));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "idUsuari", idUsuari));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "numeroDocumentSollicitant", numeroDocumentSollicitant));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "numeroDocumentSollicitantEstricte", numeroDocumentSollicitantEstricte));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "procedimentCodisList", procedimentCodisList));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "procedimentVersio", procedimentVersio));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "tramitador", tramitador));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "unitatsGestoresList", unitatsGestoresList));
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<InputStreamResource> localVarReturnType = new GenericType<InputStreamResource>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
@@ -493,22 +645,23 @@ public class Expedients_Api {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
-   * Insert  or updates the provided exprdient
+   * jexl
    * 
-   * @param expedientsRDTO expedientsRDTO (required)
-   * @return ExpedientsRDTO
+   * @param idExpedient idExpedient (required)
+   * @return String
    * @throws ApiException if fails to make API call
    */
-  public ExpedientsRDTO saveOrUpdateUsingPOST1(ExpedientsRDTO expedientsRDTO) throws ApiException {
-    Object localVarPostBody = expedientsRDTO;
+  public String obtenirXmlEvaluateUsingGET(BigDecimal idExpedient) throws ApiException {
+    Object localVarPostBody = null;
     
-    // verify the required parameter 'expedientsRDTO' is set
-    if (expedientsRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'expedientsRDTO' when calling saveOrUpdateUsingPOST1");
+    // verify the required parameter 'idExpedient' is set
+    if (idExpedient == null) {
+      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling obtenirXmlEvaluateUsingGET");
     }
     
     // create path and map variables
-    String localVarPath = "/expedients";
+    String localVarPath = "/expedients/obtenirXmlEvaluate/{idExpedient}"
+      .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -524,14 +677,14 @@ public class Expedients_Api {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
     String[] localVarAuthNames = new String[] {  };
 
-    GenericType<ExpedientsRDTO> localVarReturnType = new GenericType<ExpedientsRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    GenericType<String> localVarReturnType = new GenericType<String>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
    * Returns all the expedients that meet the search criteria

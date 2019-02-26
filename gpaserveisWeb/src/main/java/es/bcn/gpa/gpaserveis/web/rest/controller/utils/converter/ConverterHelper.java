@@ -1,20 +1,15 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.TreeMap;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfdocsentTramitsOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
@@ -35,7 +30,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValidacionsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValorsLlistaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValorsValidacionsRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DocumentsIdentitatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
@@ -43,7 +37,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.RegistreRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.ConfiguracioDocumentacioRequeridaConsultaRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DocumentsAportatsTramitExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.DocumentAportatConsultaRDTO;
 
 /**
  * The Class ConverterHelper.
@@ -328,19 +322,6 @@ public class ConverterHelper {
 				        .setCodi((confDocEntradaRequeritRDTO.getId() != null) ? String.valueOf(confDocEntradaRequeritRDTO.getId()) : null);
 				configuracioDocumentacioRequeridaConsultaRDTO.setDescripcio(confDocEntradaRequeritRDTO.getNom());
 				configuracioDocumentacioRequeridaConsultaRDTO.setDescripcioAmpliada(confDocEntradaRequeritRDTO.getDescripcioAmpliada());
-				if (esTramitOvt(confDocEntradaRequeritRDTO, TramitOvtApiParamValue.SOL)
-				        && confDocEntradaRequeritRDTO.getIniciProcediment() != null
-				        && expedientEstatTramitadorApiParamValueTranslator
-				                .getApiParamValueByInternalValue(BigDecimal.valueOf(confDocEntradaRequeritRDTO.getIniciProcediment()))
-				                .equals(EstatTramitadorApiParamValue.SOL_LICITUD_EN_REVISIO.getApiParamValue())) {
-					configuracioDocumentacioRequeridaConsultaRDTO.setObligatori(Boolean.TRUE);
-				} else {
-					configuracioDocumentacioRequeridaConsultaRDTO.setObligatori(Boolean.FALSE);
-				}
-				if (confDocEntradaRequeritRDTO.getAtributsDocs() != null) {
-					configuracioDocumentacioRequeridaConsultaRDTO.setRepetible(booleanApiParamValueTranslator
-					        .getApiParamValueAsBooleanByInternalValue(confDocEntradaRequeritRDTO.getAtributsDocs().getRepetible()));
-				}
 				configuracioDocumentacioRequeridaConsultaRDTO.setSuportConfeccio(suportConfeccioApiParamValueTranslator
 				        .getApiParamValueByInternalValue(confDocEntradaRequeritRDTO.getSuportConfeccio()));
 				configuracioDocumentacioRequeridaConsultaRDTO.setSuportEnllac(confDocEntradaRequeritRDTO.getSuportEnllac());
@@ -352,32 +333,10 @@ public class ConverterHelper {
 	}
 
 	/**
-	 * Es tramit ovt.
-	 *
-	 * @param confDocEntradaRequeritRDTO
-	 *            the conf doc entrada requerit RDTO
-	 * @param tramitOvtApiParamValue
-	 *            the tramit ovt api param value
-	 * @return true, if successful
-	 */
-	private static boolean esTramitOvt(ConfDocEntradaRequeritRDTO confDocEntradaRequeritRDTO,
-	        TramitOvtApiParamValue tramitOvtApiParamValue) {
-		if (CollectionUtils.isNotEmpty(confDocEntradaRequeritRDTO.getConfdocsentTramitsOvtList())) {
-			for (ConfdocsentTramitsOvt confdocsentTramitsOvt : confDocEntradaRequeritRDTO.getConfdocsentTramitsOvtList()) {
-				if (confdocsentTramitsOvt.getTramitOvtIdext()
-				        .compareTo(tramitOvtApiParamValue.getInternalValue()) == NumberUtils.INTEGER_ZERO) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	/**
 	 * Builds the documents aportats RDTO list expedient.
 	 *
-	 * @param docsEntradaRDTOMap
-	 *            the docs entrada RDTO map
+	 * @param docsEntradaRDTOList
+	 *            the docs entrada RDTO list
 	 * @param tramitOvtApiParamValueTranslator
 	 *            the tramit ovt api param value translator
 	 * @param revisioApiParamValueTranslator
@@ -390,62 +349,54 @@ public class ConverterHelper {
 	 *            the tipus sexe api param value translator
 	 * @return the array list
 	 */
-	public static ArrayList<DocumentsAportatsTramitExpedientsRDTO> buildDocumentsAportatsRDTOListExpedient(
-	        TreeMap<BigDecimal, ArrayList<DocsEntradaRDTO>> docsEntradaRDTOMap,
+	public static ArrayList<DocumentAportatConsultaRDTO> buildDocumentsAportatsRDTOListExpedient(List<DocsEntradaRDTO> docsEntradaRDTOList,
 	        BaseApiParamValueTranslator tramitOvtApiParamValueTranslator, BaseApiParamValueTranslator revisioApiParamValueTranslator,
 	        BaseApiParamValueTranslator tipusPersonaApiParamValueTranslator,
 	        BaseApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
 	        BaseApiParamValueTranslator tipusSexeApiParamValueTranslator) {
-		ArrayList<DocumentsAportatsTramitExpedientsRDTO> documentsAportatsTramitExpedientsRDTOList = null;
-		DocumentsAportatsTramitExpedientsRDTO documentsAportatsTramitExpedientsRDTO = null;
-		// Cada entrada del map se referirá a un conjunto de documentos
-		// asociados a un trámite concreto
-		if (MapUtils.isNotEmpty(docsEntradaRDTOMap)) {
+		ArrayList<DocumentAportatConsultaRDTO> documentAportatConsultaRDTOList = null;
+		DocumentAportatConsultaRDTO documentAportatConsultaRDTO = null;
+		ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = null;
+		RegistreRDTO registreRDTO = null;
+		TramitsOvtRDTO tramitsOvtRDTO = null;
+		if (CollectionUtils.isNotEmpty(docsEntradaRDTOList)) {
 			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
-			documentsAportatsTramitExpedientsRDTOList = new ArrayList<DocumentsAportatsTramitExpedientsRDTO>();
-			TramitsOvtRDTO tramitsOvtRDTO = null;
-			ArrayList<DocumentRDTO> documentRDTOList = null;
-			DocumentRDTO documentRDTO = null;
-			ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = null;
-			RegistreRDTO registreRDTO = null;
-			for (Entry<BigDecimal, ArrayList<DocsEntradaRDTO>> docsEntradaRDTOEntry : docsEntradaRDTOMap.entrySet()) {
-				documentsAportatsTramitExpedientsRDTO = new DocumentsAportatsTramitExpedientsRDTO();
-				if (docsEntradaRDTOEntry.getKey().compareTo(new BigDecimal(-1)) != NumberUtils.INTEGER_ZERO) {
+			documentAportatConsultaRDTOList = new ArrayList<DocumentAportatConsultaRDTO>();
+			for (DocsEntradaRDTO docsEntradaRDTO : docsEntradaRDTOList) {
+				documentAportatConsultaRDTO = new DocumentAportatConsultaRDTO();
+				documentAportatConsultaRDTO.setId(docsEntradaRDTO.getId());
+				documentAportatConsultaRDTO.setNom(docsEntradaRDTO.getDocsFisicsNom());
+				documentAportatConsultaRDTO.setDataPresentacio((docsEntradaRDTO.getDataPresentacio() != null)
+				        ? dateTimeFormatter.print(docsEntradaRDTO.getDataPresentacio()) : null);
+				documentAportatConsultaRDTO
+				        .setRevisio(revisioApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTO.getRevisio()));
+				configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
+				configuracioDocumentacioRDTO.setCodi((docsEntradaRDTO.getConfiguracioDocsEntrada().getId() != null)
+				        ? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getId()) : null);
+				configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntradaNom());
+				documentAportatConsultaRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
+				if (docsEntradaRDTO.getRegistreAssentament() != null) {
+					registreRDTO = new RegistreRDTO();
+					registreRDTO.setNumRegistre(docsEntradaRDTO.getRegistreAssentament().getCodi());
+					registreRDTO.setDataRegistre((docsEntradaRDTO.getRegistreAssentament().getDataRegistre() != null)
+					        ? dateTimeFormatter.print(docsEntradaRDTO.getRegistreAssentament().getDataRegistre()) : null);
+					registreRDTO.setPersona(buildPersonesRDTOExpedient(docsEntradaRDTO.getRegistreAssentament().getPersones(),
+					        tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator,
+					        tipusSexeApiParamValueTranslator));
+					documentAportatConsultaRDTO.setRegistre(registreRDTO);
+				}
+				if (docsEntradaRDTO.getTramitOvtIdext() != null) {
 					tramitsOvtRDTO = new TramitsOvtRDTO();
-					tramitsOvtRDTO.setCodi((docsEntradaRDTOEntry.getKey() != null) ? String.valueOf(docsEntradaRDTOEntry.getKey()) : null);
-					tramitsOvtRDTO.setNom(tramitOvtApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTOEntry.getKey()));
-					documentsAportatsTramitExpedientsRDTO.setTramit(tramitsOvtRDTO);
+					tramitsOvtRDTO
+					        .setCodi(tramitOvtApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTO.getTramitOvtIdext()));
+					// La descripción se seteará con la información obtenida del
+					// servicio de trámites
+					documentAportatConsultaRDTO.setTramit(tramitsOvtRDTO);
 				}
-				documentRDTOList = new ArrayList<DocumentRDTO>();
-				for (DocsEntradaRDTO docsEntradaRDTO : docsEntradaRDTOEntry.getValue()) {
-					documentRDTO = new DocumentRDTO();
-					documentRDTO.setCodi((docsEntradaRDTO.getId() != null) ? String.valueOf(docsEntradaRDTO.getId()) : null);
-					documentRDTO.setNom(docsEntradaRDTO.getDocsFisicsNom());
-					documentRDTO.setDataPresentacio((docsEntradaRDTO.getDataPresentacio() != null)
-					        ? dateTimeFormatter.print(docsEntradaRDTO.getDataPresentacio()) : null);
-					documentRDTO.setRevisio(revisioApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTO.getRevisio()));
-					configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
-					configuracioDocumentacioRDTO.setCodi((docsEntradaRDTO.getConfiguracioDocsEntrada().getId() != null)
-					        ? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getId()) : null);
-					configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntradaNom());
-					documentRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
-					if (docsEntradaRDTO.getRegistreAssentament() != null) {
-						registreRDTO = new RegistreRDTO();
-						registreRDTO.setNumRegistre(docsEntradaRDTO.getRegistreAssentament().getCodi());
-						registreRDTO.setDataRegistre((docsEntradaRDTO.getRegistreAssentament().getDataRegistre() != null)
-						        ? dateTimeFormatter.print(docsEntradaRDTO.getRegistreAssentament().getDataRegistre()) : null);
-						registreRDTO.setPersona(buildPersonesRDTOExpedient(docsEntradaRDTO.getRegistreAssentament().getPersones(),
-						        tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator,
-						        tipusSexeApiParamValueTranslator));
-						documentRDTO.setRegistre(registreRDTO);
-					}
-					documentRDTOList.add(documentRDTO);
-				}
-				documentsAportatsTramitExpedientsRDTO.setDocuments(documentRDTOList);
-				documentsAportatsTramitExpedientsRDTOList.add(documentsAportatsTramitExpedientsRDTO);
+				documentAportatConsultaRDTOList.add(documentAportatConsultaRDTO);
 			}
 		}
-		return documentsAportatsTramitExpedientsRDTOList;
+		return documentAportatConsultaRDTOList;
 	}
 
 }

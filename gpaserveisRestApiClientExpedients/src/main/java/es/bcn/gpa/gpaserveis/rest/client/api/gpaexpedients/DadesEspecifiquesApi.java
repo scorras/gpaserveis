@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-21T02:30:03.349+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-26T12:16:57.923+01:00")
 public class DadesEspecifiquesApi {
   private ApiClient apiClient;
 
@@ -42,12 +42,12 @@ public class DadesEspecifiquesApi {
    * @return List&lt;DadesEspecifiquesRDTO&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<DadesEspecifiquesRDTO> getDadesEspecifiquesByIdExpedientUsingGET(BigDecimal idExpedient) throws ApiException {
+  public List<DadesEspecifiquesRDTO> consultarDadesEspecifiquesExpedient(BigDecimal idExpedient) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'idExpedient' is set
     if (idExpedient == null) {
-      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling getDadesEspecifiquesByIdExpedientUsingGET");
+      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling consultarDadesEspecifiquesExpedient");
     }
     
     // create path and map variables

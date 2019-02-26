@@ -15,6 +15,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.RegistreRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.ConfiguracioDocumentacioRequeridaConsultaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.DocumentAportatConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.ProcedimentsConsultaRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,9 +24,9 @@ import lombok.Setter;
 
 @ApiModel(value = "ExpedientConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "codi", "dataPresentacio", "dataModificacio", "unitatGestora", "estat", "historics", "procediment", "registre",
-        "sollicitant", "representant", "personesInteressades", "personesImplicades", "accionsPossibles", "documentsAportatsTramits",
-        "configuracioDocumentacioRequerida" })
+@JsonPropertyOrder({ "id", "codi", "accionsDisponibles", "dataPresentacio", "dataModificacio", "unitatGestora", "estat", "historics",
+        "procediment", "registre", "sollicitant", "representant", "personesInteressades", "personesImplicades", "documentsAportats",
+        "configuracioDocumentacioRequerida", "dadesOperacio" })
 @Getter
 @Setter
 public class ExpedientConsultaRDTO {
@@ -58,10 +59,12 @@ public class ExpedientConsultaRDTO {
 	private List<PersonesRDTO> personesInteressades;
 	@ApiModelProperty(value = "Persones implicades")
 	private List<PersonesRDTO> personesImplicades;
-	@ApiModelProperty(value = "Accions possibles", allowableValues = AccioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
-	private List<String> accionsPossibles;
+	@ApiModelProperty(value = "Accions disponibles", allowableValues = AccioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
+	private List<String> accionsDisponibles;
 	@ApiModelProperty(value = "Documents aportats a l'expedient agrupats per tràmit")
-	private List<DocumentsAportatsTramitExpedientsRDTO> documentsAportats;
+	private List<DocumentAportatConsultaRDTO> documentsAportats;
 	@ApiModelProperty(value = "Documentació requerida per l'expedient")
 	private List<ConfiguracioDocumentacioRequeridaConsultaRDTO> configuracioDocumentacioRequerida;
+	@ApiModelProperty(value = "Dades d'operació de l'expedient")
+	private List<DadesAtributsExpedientsRDTO> dadesOperacio;
 }

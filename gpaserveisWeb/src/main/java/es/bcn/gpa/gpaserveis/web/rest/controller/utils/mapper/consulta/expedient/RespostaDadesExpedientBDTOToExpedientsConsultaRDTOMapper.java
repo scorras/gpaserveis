@@ -9,6 +9,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToDataHoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToDocumentAportatListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToAccioListConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToDadesOperacioListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToDocumentsEntradaRequeritsListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToEstatCiutadaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToHistoricEstatCiutadaListConverter;
@@ -58,6 +59,38 @@ public class RespostaDadesExpedientBDTOToExpedientsConsultaRDTOMapper extends Pr
 	/** The internal to documents entrada requerits list converter. */
 	private InternalToDocumentsEntradaRequeritsListConverter internalToDocumentsEntradaRequeritsListConverter;
 
+	/** The internal to dades operacio list converter. */
+	public InternalToDadesOperacioListConverter internalToDadesOperacioListConverter;
+
+	/**
+	 * Instantiates a new resposta dades expedient BDTO to expedients consulta
+	 * RDTO mapper.
+	 *
+	 * @param internalToDataHoraConverter
+	 *            the internal to data hora converter
+	 * @param internalToUnitatGestoraConverter
+	 *            the internal to unitat gestora converter
+	 * @param internalToEstatCiutadaConverter
+	 *            the internal to estat ciutada converter
+	 * @param internalToHistoricEstatCiutadaListConverter
+	 *            the internal to historic estat ciutada list converter
+	 * @param internalToProcedimentConsultaConverter
+	 *            the internal to procediment consulta converter
+	 * @param internalToRegistreConverter
+	 *            the internal to registre converter
+	 * @param internalToPersonaConverter
+	 *            the internal to persona converter
+	 * @param internalToPersonaListConverter
+	 *            the internal to persona list converter
+	 * @param internalToAccioListConverter
+	 *            the internal to accio list converter
+	 * @param internalToDocumentAportatListConverter
+	 *            the internal to document aportat list converter
+	 * @param internalToDocumentsEntradaRequeritsListConverter
+	 *            the internal to documents entrada requerits list converter
+	 * @param internalToDadesOperacioListConverter
+	 *            the internal to dades operacio list converter
+	 */
 	@Autowired
 	public RespostaDadesExpedientBDTOToExpedientsConsultaRDTOMapper(
 	        @Qualifier("internalToDataHoraConverter") InternalToDataHoraConverter internalToDataHoraConverter,
@@ -70,7 +103,8 @@ public class RespostaDadesExpedientBDTOToExpedientsConsultaRDTOMapper extends Pr
 	        @Qualifier("expedientInternalToPersonaListConverter") InternalToPersonaListConverter internalToPersonaListConverter,
 	        @Qualifier("expedientInternalToAccioListConverter") InternalToAccioListConverter internalToAccioListConverter,
 	        @Qualifier("internalToDocumentAportatListConverter") InternalToDocumentAportatListConverter internalToDocumentAportatListConverter,
-	        @Qualifier("expedientInternalToDocumentsEntradaRequeritsListConverter") InternalToDocumentsEntradaRequeritsListConverter internalToDocumentsEntradaRequeritsListConverter) {
+	        @Qualifier("expedientInternalToDocumentsEntradaRequeritsListConverter") InternalToDocumentsEntradaRequeritsListConverter internalToDocumentsEntradaRequeritsListConverter,
+	        @Qualifier("expedientInternalToDadesOperacioListConverter") InternalToDadesOperacioListConverter internalToDadesOperacioListConverter) {
 		this.internalToDataHoraConverter = internalToDataHoraConverter;
 		this.internalToUnitatGestoraConverter = internalToUnitatGestoraConverter;
 		this.internalToEstatCiutadaConverter = internalToEstatCiutadaConverter;
@@ -82,6 +116,7 @@ public class RespostaDadesExpedientBDTOToExpedientsConsultaRDTOMapper extends Pr
 		this.internalToAccioListConverter = internalToAccioListConverter;
 		this.internalToDocumentAportatListConverter = internalToDocumentAportatListConverter;
 		this.internalToDocumentsEntradaRequeritsListConverter = internalToDocumentsEntradaRequeritsListConverter;
+		this.internalToDadesOperacioListConverter = internalToDadesOperacioListConverter;
 	}
 
 	/**
@@ -108,10 +143,11 @@ public class RespostaDadesExpedientBDTOToExpedientsConsultaRDTOMapper extends Pr
 		using(internalToPersonaConverter).map(source.getRepresentant()).setRepresentant(null);
 		using(internalToPersonaListConverter).map(source.getPersonesInteressades()).setPersonesInteressades(null);
 		using(internalToPersonaListConverter).map(source.getPersonesImplicades()).setPersonesImplicades(null);
-		using(internalToAccioListConverter).map(source.getAccionsPossibles()).setAccionsPossibles(null);
+		using(internalToAccioListConverter).map(source.getAccionsDisponibles()).setAccionsDisponibles(null);
 		using(internalToDocumentAportatListConverter).map(source.getDocumentsAportats()).setDocumentsAportats(null);
 		using(internalToDocumentsEntradaRequeritsListConverter).map(source.getConfiguracioDocumentacioRequerida())
 		        .setConfiguracioDocumentacioRequerida(null);
+		using(internalToDadesOperacioListConverter).map(source.getDadesOperacio()).setDadesOperacio(null);
 	}
 
 }
