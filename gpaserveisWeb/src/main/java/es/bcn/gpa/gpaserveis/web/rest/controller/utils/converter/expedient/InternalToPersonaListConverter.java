@@ -39,8 +39,9 @@ public class InternalToPersonaListConverter extends AbstractConverter<List<Perso
 	 */
 	@Override
 	protected List<PersonesRDTO> convert(List<Persones> source) {
-		ArrayList<PersonesRDTO> personesRDTOList = new ArrayList<PersonesRDTO>();
+		ArrayList<PersonesRDTO> personesRDTOList = null;
 		if (CollectionUtils.isNotEmpty(source)) {
+			personesRDTOList = new ArrayList<PersonesRDTO>();
 			for (Persones persones : source) {
 				personesRDTOList.add(ConverterHelper.buildPersonesRDTOExpedient(persones, tipusPersonaApiParamValueTranslator,
 				        tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator));

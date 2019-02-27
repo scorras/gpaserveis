@@ -19,7 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -320,7 +319,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaConfiguracioDocumentacioAportadaRDTO consultarDocumentacioEntradaProcediment(
 	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
-	        @ApiParam(value = "Codi del tràmit", required = true) @PathVariable String codiTramit) throws GPAServeisServiceException {
+	        @ApiParam(value = "Codi del tràmit", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true) @PathVariable String codiTramit) throws GPAServeisServiceException {
 
 		RespostaConsultaConfiguracioDocumentacioAportadaRDTO respostaConsultaConfiguracioDocumentacioAportadaRDTO = new RespostaConsultaConfiguracioDocumentacioAportadaRDTO();
 
@@ -539,7 +538,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *            the solicitud expedient
 	 * @return the resposta actualitzar solicituds RDTO
 	 */
-	@PutMapping("/expedients/{idExpedient}")
+	@PostMapping("/expedients/{idExpedient}")
 	@ApiOperation(value = "Actualitzar dades de la sol·licitud de l'expedient", tags = { "Serveis Portal API",
 	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })

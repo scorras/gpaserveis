@@ -16,7 +16,7 @@ import lombok.Setter;
     "mobil",
     "fax",
     "tipusVia",
-    "tipusVia",
+    "nomVia",
     "numero",
     "escala",
     "bloc",
