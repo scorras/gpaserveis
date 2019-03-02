@@ -15,10 +15,10 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.I
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.expedients.ExpedientsCercaRDTO;
 
 /**
- * The Class RespostaDadesExpedientBDTOToExpedientsCercaRDTOMapper.
+ * The Class DadesExpedientBDTOToExpedientsCercaRDTOMapper.
  */
 @Component
-public class RespostaDadesExpedientBDTOToExpedientsCercaRDTOMapper extends PropertyMap<DadesExpedientBDTO, ExpedientsCercaRDTO> {
+public class DadesExpedientBDTOToExpedientsCercaRDTOMapper extends PropertyMap<DadesExpedientBDTO, ExpedientsCercaRDTO> {
 
 	/** The internal to data hora converter. */
 	private InternalToDataHoraConverter internalToDataHoraConverter;
@@ -39,7 +39,7 @@ public class RespostaDadesExpedientBDTOToExpedientsCercaRDTOMapper extends Prope
 	private InternalToProcedimentCercaConverter internalToProcedimentCercaConverter;
 
 	@Autowired
-	public RespostaDadesExpedientBDTOToExpedientsCercaRDTOMapper(
+	public DadesExpedientBDTOToExpedientsCercaRDTOMapper(
 	        @Qualifier("internalToDataHoraConverter") InternalToDataHoraConverter internalToDataHoraConverter,
 	        @Qualifier("expedientInternalToPersonaConverter") InternalToPersonaConverter internalToPersonaConverter,
 	        @Qualifier("expedientInternalToEstatTramitadorConverter") InternalToEstatTramitadorConverter internalToEstatTramitadorConverter,

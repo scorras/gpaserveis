@@ -34,4 +34,15 @@ public interface UnitatsGestoresService {
 	 */
 	UnitatsGestoresRDTO consultarDadesUnitatGestora(BigDecimal id) throws GPAServeisServiceException;
 
+	/**
+	 * Consultar dades unitat gestora per codi.
+	 *
+	 * @param codi
+	 *            the codi
+	 * @return the unitats gestores RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	UnitatsGestoresRDTO consultarDadesUnitatGestoraPerCodi(String codi) throws GPAServeisServiceException;
+
 }

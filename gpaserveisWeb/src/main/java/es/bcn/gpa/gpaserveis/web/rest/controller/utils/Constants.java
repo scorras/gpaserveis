@@ -33,4 +33,7 @@ public class Constants {
 	/** The Constant PERSONES_SOLLICITUD_RELACIO_ALTRES. */
 	public static final BigDecimal PERSONES_SOLLICITUD_RELACIO_ALTRES = new BigDecimal(4);
 
+	/** The Constant CODI_ISO_PAIS_PER_DEFECTE. */
+	public static final String CODI_ISO_PAIS_PER_DEFECTE = "ES";
+
 }

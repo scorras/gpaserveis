@@ -1045,6 +1045,34 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/catalog/paisos/perCodiIso/{codiIso}:
+    get:
+      tags:
+      - "Paisos"
+      summary: "Returns the requested pais"
+      operationId: "consultarDadesPaisPerCodiIso"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codiIso"
+        in: "path"
+        description: "codiIso"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PaisosRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /expedients/catalog/provincies:
     get:
       tags:

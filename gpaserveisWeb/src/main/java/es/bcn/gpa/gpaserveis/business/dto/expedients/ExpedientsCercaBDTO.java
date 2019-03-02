@@ -9,6 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * The Class ExpedientsCercaBDTO.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

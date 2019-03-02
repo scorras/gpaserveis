@@ -28,6 +28,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExped
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfHistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Paisos;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesDadescontacte;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitud;
@@ -937,6 +938,11 @@ public class TestsConfigHelper {
 		return confDocEntradaRequeritRDTOList;
 	}
 
+	/**
+	 * Consultar dades especifiques expedient response.
+	 *
+	 * @return the list
+	 */
 	public static List<DadesEspecifiquesRDTO> consultarDadesEspecifiquesExpedientResponse() {
 		ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = new ArrayList<DadesEspecifiquesRDTO>();
 
@@ -983,4 +989,32 @@ public class TestsConfigHelper {
 		return dadesEspecifiquesRDTOList;
 	}
 
+	/**
+	 * Consultar dades pais response.
+	 *
+	 * @return the paisos RDTO
+	 */
+	public static PaisosRDTO consultarDadesPaisResponse() {
+		PaisosRDTO paisosRDTO = new PaisosRDTO();
+
+		paisosRDTO.setCodiIne("108");
+		paisosRDTO.setCodiIso("ES");
+		paisosRDTO.setNom("España");
+
+		return paisosRDTO;
+	}
+
+	/**
+	 * Crear sollicitud expedient response.
+	 *
+	 * @return the expedients RDTO
+	 */
+	public static ExpedientsRDTO crearSollicitudExpedientResponse() {
+		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
+
+		expedientsRDTO.setId(ONE);
+		expedientsRDTO.setCodi("Codi/2019/000001");
+
+		return expedientsRDTO;
+	}
 }

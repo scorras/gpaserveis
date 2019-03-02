@@ -17,18 +17,18 @@ import lombok.Setter;
 @Setter
 public class PersonesRDTO {
 
-	@ApiModelProperty(value = "Tipus de persona", allowableValues = TipusPersonaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
+	@ApiModelProperty(value = "Tipus de persona", allowableValues = TipusPersonaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true)
 	private String tipusPersona;
-	@ApiModelProperty(value = "Nom o raó social de la persona")
+	@ApiModelProperty(value = "Nom o raó social de la persona", required = true)
 	private String nomRaoSocial;
-	@ApiModelProperty(value = "Cognom 1 de la persona")
+	@ApiModelProperty(value = "Cognom 1 de la persona", required = false)
 	private String cognom1;
-	@ApiModelProperty(value = "Cognom 2 de la persona")
+	@ApiModelProperty(value = "Cognom 2 de la persona", required = false)
 	private String cognom2;
-	@ApiModelProperty(value = "Sexe de la persona", allowableValues = TipusSexeApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
+	@ApiModelProperty(value = "Sexe de la persona", allowableValues = TipusSexeApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = false)
 	private String sexe;
-	@ApiModelProperty(value = "Document d'identitat de la persona")
+	@ApiModelProperty(value = "Document d'identitat de la persona", required = false)
 	private DocumentsIdentitatRDTO documentIndentitat;
-	@ApiModelProperty(value = "Dades de contacte de la persona")
+	@ApiModelProperty(value = "Dades de contacte de la persona", required = false)
 	private DadesContacteRDTO dadesContacte;
 }

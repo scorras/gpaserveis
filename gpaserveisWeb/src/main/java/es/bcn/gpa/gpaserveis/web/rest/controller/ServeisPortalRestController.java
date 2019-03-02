@@ -30,11 +30,14 @@ import es.bcn.gpa.gpaserveis.business.ExpedientsService;
 import es.bcn.gpa.gpaserveis.business.ProcedimentsService;
 import es.bcn.gpa.gpaserveis.business.TramitsService;
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
+import es.bcn.gpa.gpaserveis.business.dto.RespostaResultatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
@@ -45,12 +48,16 @@ import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBD
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AtributsDocs;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
+import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaActualitzarSolicitudMockService;
-import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaCrearSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaRegistrarSolicitudMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.procediment.ProcedimentsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.consulta.atributs.DadesOperacioApiParamToInternalMapper;
@@ -99,10 +106,6 @@ import lombok.extern.apachecommons.CommonsLog;
 @Api(value = "Serveis Portal API", tags = "Serveis Portal API")
 @CommonsLog
 public class ServeisPortalRestController extends BaseRestController {
-
-	/** The resposta crear solicitud mock service. */
-	@Autowired
-	private RespostaCrearSolicitudMockService respostaCrearSolicitudMockService;
 
 	/** The resposta actualitzar solicitud mock service. */
 	@Autowired
@@ -518,15 +521,103 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @param solicitudExpedient
 	 *            the solicitud expedient
 	 * @return the resposta crear solicituds RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
 	 */
 	@PostMapping("/expedients")
 	@ApiOperation(value = "Crear una sol·licitud d'un expedient", tags = { "Serveis Portal API",
 	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaCrearSolicitudsRDTO crearSolicitudExpedient(
-	        @ApiParam(value = "Identificador de l'expedient") @RequestBody SolicitudsCrearRDTO solicitudExpedient) {
+	        @ApiParam(value = "Identificador de l'expedient") @RequestBody SolicitudsCrearRDTO solicitudExpedient)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("crearSolicitudExpedient(SolicitudsCrearRDTO) - inici"); //$NON-NLS-1$
+		}
 
-		return respostaCrearSolicitudMockService.getRespostaRespostaCrearSolicituds();
+		RespostaCrearSolicitudsRDTO respostaCrearSolicitudsRDTO = null;
+		ExpedientsRDTO returnExpedientsRDTO = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_CREAR_EXPEDIENT, null);
+		try {
+			// El id del procedimiento debe existir
+			DadesProcedimentBDTO dadesProcedimentBDTO = ServeisPortalRestControllerHelper.loadDadesProcediment(procedimentsService,
+			        unitatsGestoresService, solicitudExpedient.getProcediment().getId());
+			ServeisPortalRestControllerValidationHelper.validateProcedimentCrearSolicitudExpedient(dadesProcedimentBDTO);
+
+			// El codi de la unitat gestora, opcional, debe existir
+			BigDecimal idUnitatGestora = null;
+			if (solicitudExpedient.getUnitatGestora() != null) {
+				UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(
+				        solicitudExpedient.getUnitatGestora().getCodi());
+				UnitatsGestoresRDTO unitatsGestoresRDTO = ServeisPortalRestControllerHelper.loadUnitatGestora(unitatsGestoresService,
+				        unitatsGestoresCercaBDTO);
+				ServeisPortalRestControllerValidationHelper.validateUnitatGestoraCrearSolicitudExpedient(unitatsGestoresRDTO,
+				        dadesProcedimentBDTO);
+				idUnitatGestora = unitatsGestoresRDTO.getId();
+			} else {
+				// Si no se indica, se establece la UGR del procedimiento
+				idUnitatGestora = dadesProcedimentBDTO.getUgrRDTO().getId();
+			}
+
+			// Se obtiene el codi INE correspondiente al codi ISO del documento
+			// de identidad de sollicitant y representant
+			PaisosRDTO paisosRDTO = null;
+			String codiInePaisSollicitant = null;
+			if (solicitudExpedient.getSollicitant().getDocumentIndentitat() != null) {
+				if (StringUtils.isEmpty(solicitudExpedient.getSollicitant().getDocumentIndentitat().getPais())) {
+					solicitudExpedient.getSollicitant().getDocumentIndentitat().setPais(Constants.CODI_ISO_PAIS_PER_DEFECTE);
+				}
+				paisosRDTO = ServeisPortalRestControllerHelper.loadPais(expedientsService,
+				        solicitudExpedient.getSollicitant().getDocumentIndentitat().getPais());
+				codiInePaisSollicitant = paisosRDTO.getCodiIne();
+			}
+			String codiInePaisRepresentant = null;
+			if (solicitudExpedient.getRepresentant() != null && solicitudExpedient.getRepresentant().getDocumentIndentitat() != null) {
+				if (StringUtils.isEmpty(solicitudExpedient.getRepresentant().getDocumentIndentitat().getPais())) {
+					solicitudExpedient.getRepresentant().getDocumentIndentitat().setPais(Constants.CODI_ISO_PAIS_PER_DEFECTE);
+				}
+				paisosRDTO = ServeisPortalRestControllerHelper.loadPais(expedientsService,
+				        solicitudExpedient.getRepresentant().getDocumentIndentitat().getPais());
+				codiInePaisRepresentant = paisosRDTO.getCodiIne();
+			}
+
+			ExpedientsRDTO expedientsRDTO = modelMapper.map(solicitudExpedient, ExpedientsRDTO.class);
+			// Se debe indicar el id de la Unitat Gestora recuperada
+			expedientsRDTO.setUnitatGestoraIdext(idUnitatGestora);
+			if (StringUtils.isNotEmpty(codiInePaisSollicitant)) {
+				expedientsRDTO.getSollicitantPrincipal().getPersones().getDocumentsIdentitat().getPaisos()
+				        .setCodiIne(codiInePaisSollicitant);
+				expedientsRDTO.getSollicitantPrincipal().getPersones().getDocumentsIdentitat().setPais(codiInePaisSollicitant);
+			}
+			if (StringUtils.isNotEmpty(codiInePaisRepresentant)) {
+				expedientsRDTO.getRepresentantPrincipal().getPersones().getDocumentsIdentitat().getPaisos()
+				        .setCodiIne(codiInePaisRepresentant);
+				expedientsRDTO.getRepresentantPrincipal().getPersones().getDocumentsIdentitat().setPais(codiInePaisRepresentant);
+			}
+			ExpedientsCrearBDTO expedientsCrearBDTO = new ExpedientsCrearBDTO(expedientsRDTO);
+
+			returnExpedientsRDTO = expedientsService.crearSollicitudExpedient(expedientsCrearBDTO);
+
+		} catch (
+
+		GPAApiParamValidationException e) {
+			log.error("crearSolicitudExpedient(SolicitudsCrearRDTO)", e); //$NON-NLS-1$
+
+			respostaResultatBDTO = new RespostaResultatBDTO(e.getResultat(), e.getErrorPrincipal());
+		} catch (Exception e) {
+			log.error("crearSolicitudExpedient(SolicitudsCrearRDTO)", e); //$NON-NLS-1$
+
+			respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_CREAR_EXPEDIENT, ErrorPrincipal.ERROR_GENERIC);
+		}
+
+		RespostaExpedientsCrearBDTO respostaExpedientsCrearBDTO = new RespostaExpedientsCrearBDTO(returnExpedientsRDTO,
+		        respostaResultatBDTO);
+		respostaCrearSolicitudsRDTO = modelMapper.map(respostaExpedientsCrearBDTO, RespostaCrearSolicitudsRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("crearSolicitudExpedient(SolicitudsCrearRDTO) - fi"); //$NON-NLS-1$
+		}
+		return respostaCrearSolicitudsRDTO;
 	}
 
 	/**

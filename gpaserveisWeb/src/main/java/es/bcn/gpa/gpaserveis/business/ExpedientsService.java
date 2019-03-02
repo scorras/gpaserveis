@@ -4,12 +4,14 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 
 /**
  * The Interface ExpedientsService.
@@ -81,5 +83,27 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	List<DadesEspecifiquesRDTO> cercaDadesEspecifiquesExpedient(BigDecimal idExpedient) throws GPAServeisServiceException;
+
+	/**
+	 * Crear sollicitud expedient.
+	 *
+	 * @param expedientsCrearBDTO
+	 *            the expedients crear BDTO
+	 * @return the expedients RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	ExpedientsRDTO crearSollicitudExpedient(ExpedientsCrearBDTO expedientsCrearBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar dades pais per codi iso.
+	 *
+	 * @param codiIso
+	 *            the codi iso
+	 * @return the paisos RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	PaisosRDTO consultarDadesPaisPerCodiIso(String codiIso) throws GPAServeisServiceException;
 
 }

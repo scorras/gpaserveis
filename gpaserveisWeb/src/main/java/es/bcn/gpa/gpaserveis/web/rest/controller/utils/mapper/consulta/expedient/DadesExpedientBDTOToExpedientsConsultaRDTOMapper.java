@@ -21,10 +21,10 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.I
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.ExpedientConsultaRDTO;
 
 /**
- * The Class RespostaDadesExpedientBDTOToExpedientsConsultaRDTOMapper.
+ * The Class DadesExpedientBDTOToExpedientsConsultaRDTOMapper.
  */
 @Component
-public class RespostaDadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMap<DadesExpedientBDTO, ExpedientConsultaRDTO> {
+public class DadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMap<DadesExpedientBDTO, ExpedientConsultaRDTO> {
 
 	/** The internal to data hora converter. */
 	private InternalToDataHoraConverter internalToDataHoraConverter;
@@ -92,7 +92,7 @@ public class RespostaDadesExpedientBDTOToExpedientsConsultaRDTOMapper extends Pr
 	 *            the internal to dades operacio list converter
 	 */
 	@Autowired
-	public RespostaDadesExpedientBDTOToExpedientsConsultaRDTOMapper(
+	public DadesExpedientBDTOToExpedientsConsultaRDTOMapper(
 	        @Qualifier("internalToDataHoraConverter") InternalToDataHoraConverter internalToDataHoraConverter,
 	        @Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
 	        @Qualifier("expedientInternalToEstatCiutadaConverter") InternalToEstatCiutadaConverter internalToEstatCiutadaConverter,

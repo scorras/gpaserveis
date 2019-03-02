@@ -11,9 +11,9 @@ import lombok.Setter;
 public class RespostaProcedimentsCercaBDTO {
 
 	/** The dades procediment BDTO list. */
-	private List<DadesProcedimentBDTO> dadesProcedimentBDTOList = null;
+	private List<DadesProcedimentBDTO> dadesProcedimentBDTOList;
 
 	/** The pagination attributes. */
-	private PaginationAttributes paginationAttributes = null;
+	private PaginationAttributes paginationAttributes;
 
 }

@@ -21,6 +21,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeri
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PaisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
@@ -29,6 +30,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.AccionsEstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.test.config.TestsConfigHelper;
 import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.configuration.context.ContextPropertySourcesInitializer;
@@ -96,6 +98,10 @@ public abstract class ParentTest {
 	/** The dades especifiques api. */
 	@Autowired
 	protected DadesEspecifiquesApi dadesEspecifiquesApi;
+
+	/** The paisos api. */
+	@Autowired
+	protected PaisosApi paisosApi;
 
 	/**
 	 * Sets the up.
@@ -188,6 +194,14 @@ public abstract class ParentTest {
 
 			when(dadesEspecifiquesApi.consultarDadesEspecifiquesExpedient(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesEspecifiquesExpedientResponse());
+
+			when(unitatsGestoresApi.consultarDadesUnitatGestoraPerCodi(any(String.class)))
+			        .thenReturn(TestsConfigHelper.consultarDadesUnitatGestoraResponse());
+
+			when(paisosApi.consultarDadesPaisPerCodiIso(any(String.class))).thenReturn(TestsConfigHelper.consultarDadesPaisResponse());
+
+			when(expedients_Api.crearSollicitudExpedient(any(ExpedientsRDTO.class)))
+			        .thenReturn(TestsConfigHelper.crearSollicitudExpedientResponse());
 
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$

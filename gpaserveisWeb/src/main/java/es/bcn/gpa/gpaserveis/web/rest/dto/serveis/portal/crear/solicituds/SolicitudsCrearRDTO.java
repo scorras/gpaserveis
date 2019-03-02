@@ -9,35 +9,20 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-
-@ApiModel(value="SolicitudCrear")
+@ApiModel(value = "SolicitudCrear")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "codiProcediment",
-    "versioProcediment",
-    "codiUnitatGestora",
-    "inici",
-    "solicitant",
-    "representant"
-})
+@JsonPropertyOrder({ "procediment", "unitatGestora", "sollicitant", "representant" })
 @Getter
 @Setter
 public class SolicitudsCrearRDTO {
-    
-	@ApiModelProperty("Codi del procediment")
-	private String codiProcediment;
-	@ApiModelProperty("Versió del procediment")
-	private String versioProcediment;	
-	@ApiModelProperty("Codi de la Unitat Gestora")
-	private String codiUnitatGestora;
-	@ApiModelProperty(value = "Tipus d'inici de l'expedient",
-			allowableValues = "OFICI, SOLICITUD, ADMINISTRACIO, ALTRES")
-	private String inici;
-	@ApiModelProperty("Persona sol·licitant")
-	private PersonesRDTO solicitant;
-	@ApiModelProperty("Persona representant")
+
+	@ApiModelProperty(value = "Procediment associat a la sol·licitud", required = true)
+	private ProcedimentSolicitudsCrearRDTO procediment;
+	@ApiModelProperty(value = "Unitat Gestora que tramitarà inicialment la sol·licitud", required = false)
+	private UnitatGestoraSolicitudsCrearRDTO unitatGestora;
+	@ApiModelProperty(value = "Persona sol·licitant", required = true)
+	private PersonesRDTO sollicitant;
+	@ApiModelProperty(value = "Persona representant", required = false)
 	private PersonesRDTO representant;
-	
+
 }
-
-

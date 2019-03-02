@@ -50,12 +50,12 @@ public class RelacioProcedimentsApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void getUnitatsOrganigramaUsingGETTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/unitats/unitatsOrganigrama"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+	public void obtenirUnitatsOrganigramaUsingGETTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/unitats/catalog/unitatsOrganigrama"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new ArrayList<UnitatsOrganigramaRDTO>());
 
-		List<UnitatsOrganigramaRDTO> response = api.getUnitatsOrganigramaUsingGET();
+		List<UnitatsOrganigramaRDTO> response = api.obtenirUnitatsOrganigramaUsingGET();
 
 		assertTrue(response != null);
 	}

@@ -225,4 +225,25 @@ public class UnitatsGestoresApiTest extends ParentTest {
 
 		assertTrue(response != null);
 	}
+
+	/**
+	 * Returns the requested unitat
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void consultarDadesUnitatGestoraPerCodiTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/unitats/perCodi/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
+		        any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(new UnitatsGestoresRDTO());
+
+		String codi = ONE.toString();
+		UnitatsGestoresRDTO response = api.consultarDadesUnitatGestoraPerCodi(codi);
+
+		assertTrue(response != null);
+	}
+
 }

@@ -11,6 +11,6 @@ import lombok.Setter;
 public class RespostaDocumentsEntradaCercaBDTO {
 
 	/** The configuracio docs entrada RDTO list. */
-	private List<ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOList = null;
+	private List<ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOList;
 
 }

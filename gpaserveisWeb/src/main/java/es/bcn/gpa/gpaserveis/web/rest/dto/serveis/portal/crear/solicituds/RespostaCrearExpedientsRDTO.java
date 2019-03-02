@@ -10,16 +10,17 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value="RespostaExpedientCrear")
+@ApiModel(value = "RespostaExpedientCrear")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "id"
-})
+@JsonPropertyOrder({ "id", "codi" })
 @Getter
 @Setter
 public class RespostaCrearExpedientsRDTO {
 
 	@ApiModelProperty("Identificador de l'expedient")
 	private BigDecimal id;
-	
+
+	@ApiModelProperty("Codi de l’expedient assignat durant la creació")
+	private String codi;
+
 }

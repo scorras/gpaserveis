@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-21T03:13:50.567+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-28T11:16:14.422+01:00")
 public class UnitatsGestoresApi {
   private ApiClient apiClient;
 
@@ -176,6 +176,48 @@ public class UnitatsGestoresApi {
     // create path and map variables
     String localVarPath = "/unitats/{id}"
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<UnitatsGestoresRDTO> localVarReturnType = new GenericType<UnitatsGestoresRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Returns the requested unitat
+   * 
+   * @param codi codi (required)
+   * @return UnitatsGestoresRDTO
+   * @throws ApiException if fails to make API call
+   */
+  public UnitatsGestoresRDTO consultarDadesUnitatGestoraPerCodi(String codi) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'codi' is set
+    if (codi == null) {
+      throw new ApiException(400, "Missing the required parameter 'codi' when calling consultarDadesUnitatGestoraPerCodi");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/unitats/perCodi/{codi}"
+      .replaceAll("\\{" + "codi" + "\\}", apiClient.escapeString(codi.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();

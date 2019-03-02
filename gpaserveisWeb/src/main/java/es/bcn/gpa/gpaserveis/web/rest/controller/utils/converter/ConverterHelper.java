@@ -11,8 +11,13 @@ import org.joda.time.format.DateTimeFormatter;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Paisos;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesDadescontacte;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitud;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperTramitsOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperValidVal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
@@ -20,11 +25,17 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacio
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.BooleanApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.EstatTramitadorApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.RelacioPersonaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TipusValidacioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.common.BooleanApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusDocumentIdentitatApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusPersonaApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusSexeApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusViaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ConfiguracioDocumentacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValidacionsRDTO;
@@ -114,6 +125,65 @@ public class ConverterHelper {
 		}
 		personesRDTO.setDocumentIndentitat(documentsIdentitatRDTO);
 		return personesRDTO;
+	}
+
+	public static PersonesSollicitud buildPersonesSollicitudExpedient(PersonesRDTO personesRDTO,
+	        RelacioPersonaApiParamValue relacioPersonaApiParamValue,
+	        TipusPersonaApiParamValueTranslator tipusPersonaApiParamValueTranslator,
+	        TipusDocumentIdentitatApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
+	        TipusSexeApiParamValueTranslator tipusSexeApiParamValueTranslator,
+	        TipusViaApiParamValueTranslator tipusViaApiParamValueTranslator) {
+		PersonesSollicitud personesSollicitud = null;
+
+		if (personesRDTO != null) {
+			personesSollicitud = new PersonesSollicitud();
+			personesSollicitud.setEsInteressada(BooleanApiParamValue.TRUE.getInternalValue());
+			personesSollicitud.setRelacio(relacioPersonaApiParamValue.getInternalValue());
+			personesSollicitud.setRelacioPrincipal(BooleanApiParamValue.TRUE.getInternalValue());
+			Persones persones = new Persones();
+			persones.setTipusPersona(tipusPersonaApiParamValueTranslator.getInternalValueByApiParamValue(personesRDTO.getTipusPersona()));
+			persones.setNomRaoSocial(personesRDTO.getNomRaoSocial());
+			persones.setCognom1(personesRDTO.getCognom1());
+			persones.setCognom2(personesRDTO.getCognom2());
+			DocumentsIdentitat documentsIdentitat = new DocumentsIdentitat();
+			TipusDocumentIdentitat tipusDocumentIdentitat = new TipusDocumentIdentitat();
+			tipusDocumentIdentitat.setId(tipusDocumentIdentitatApiParamValueTranslator
+			        .getInternalValueByApiParamValue(personesRDTO.getDocumentIndentitat().getTipusDocument()));
+			documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
+			documentsIdentitat.setTipus(tipusDocumentIdentitatApiParamValueTranslator
+			        .getInternalValueByApiParamValue(personesRDTO.getDocumentIndentitat().getTipusDocument()));
+			documentsIdentitat.setNumeroDocument(personesRDTO.getDocumentIndentitat().getNumeroDocument());
+			Paisos paisos = new Paisos();
+			paisos.setCodiIso(personesRDTO.getDocumentIndentitat().getPais());
+			documentsIdentitat.setPaisos(paisos);
+			documentsIdentitat.setPais(paisos.getCodiIne());
+			persones.setDocumentsIdentitat(documentsIdentitat);
+			PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
+			personesDadescontacte.setSexe(tipusSexeApiParamValueTranslator.getInternalValueByApiParamValue(personesRDTO.getSexe()));
+			personesDadescontacte.setEmail(personesRDTO.getDadesContacte().getEmail());
+			personesDadescontacte.setTelefon(personesRDTO.getDadesContacte().getTelefon());
+			personesDadescontacte.setMobil(personesRDTO.getDadesContacte().getMobil());
+			personesDadescontacte.setFax(personesRDTO.getDadesContacte().getFax());
+			personesDadescontacte.setTipusVia(
+			        tipusViaApiParamValueTranslator.getInternalValueByApiParamValue(personesRDTO.getDadesContacte().getTipusVia()));
+			personesDadescontacte.setDireccioPostal(personesRDTO.getDadesContacte().getNomVia());
+			personesDadescontacte.setNumero(personesRDTO.getDadesContacte().getNumero());
+			personesDadescontacte.setEscala(personesRDTO.getDadesContacte().getEscala());
+			personesDadescontacte.setBloc(personesRDTO.getDadesContacte().getBloc());
+			personesDadescontacte.setPorta(personesRDTO.getDadesContacte().getPorta());
+			personesDadescontacte.setPis(personesRDTO.getDadesContacte().getPis());
+			personesDadescontacte.setCodiPostal(personesRDTO.getDadesContacte().getCodiPostal());
+			personesDadescontacte.setMunicipi(personesRDTO.getDadesContacte().getMunicipi());
+			personesDadescontacte.setProvincia(personesRDTO.getDadesContacte().getProvincia());
+			personesDadescontacte.setComarca(personesRDTO.getDadesContacte().getComarca());
+			personesDadescontacte.setPais(personesRDTO.getDadesContacte().getPais());
+			personesDadescontacte.setMunicipiEstranger(personesRDTO.getDadesContacte().getMunicipiEstranger());
+			personesDadescontacte.setProvinciaEstranger(personesRDTO.getDadesContacte().getProvinciaEstranger());
+			persones.setPersonesDadescontacte(personesDadescontacte);
+			personesSollicitud.setPersones(persones);
+		}
+
+		return personesSollicitud;
 	}
 
 	/**

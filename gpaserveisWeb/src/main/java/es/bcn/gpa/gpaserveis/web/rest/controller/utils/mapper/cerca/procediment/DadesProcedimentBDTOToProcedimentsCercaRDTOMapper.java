@@ -13,10 +13,10 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.I
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.ProcedimentsCercaRDTO;
 
 /**
- * The Class RespostaDadesProcedimentBDTOToProcedimentsCercaRDTOMapper.
+ * The Class DadesProcedimentBDTOToProcedimentsCercaRDTOMapper.
  */
 @Component
-public class RespostaDadesProcedimentBDTOToProcedimentsCercaRDTOMapper extends PropertyMap<DadesProcedimentBDTO, ProcedimentsCercaRDTO> {
+public class DadesProcedimentBDTOToProcedimentsCercaRDTOMapper extends PropertyMap<DadesProcedimentBDTO, ProcedimentsCercaRDTO> {
 
 	/** The internal to estat converter. */
 	private InternalToEstatConverter internalToEstatConverter;
@@ -44,7 +44,7 @@ public class RespostaDadesProcedimentBDTOToProcedimentsCercaRDTOMapper extends P
 	 *            the internal to tramitador converter
 	 */
 	@Autowired
-	public RespostaDadesProcedimentBDTOToProcedimentsCercaRDTOMapper(
+	public DadesProcedimentBDTOToProcedimentsCercaRDTOMapper(
 	        @Qualifier("procedimentInternalToEstatConverter") InternalToEstatConverter internalToEstatConverter,
 	        @Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
 	        @Qualifier("internalToUnitatGestoraListConverter") InternalToUnitatGestoraListConverter internalToUnitatGestoraListConverter,

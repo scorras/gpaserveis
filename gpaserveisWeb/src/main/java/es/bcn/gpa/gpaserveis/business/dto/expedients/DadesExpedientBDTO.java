@@ -16,18 +16,21 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDT
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * The Class DadesExpedientBDTO.
+ */
 @Getter
 @Setter
 public class DadesExpedientBDTO {
 
 	/** The expedients RDTO. */
-	private ExpedientsRDTO expedientsRDTO = null;
+	private ExpedientsRDTO expedientsRDTO;
 
 	/** The unitats gestores RDTO. */
-	private UnitatsGestoresRDTO unitatsGestoresRDTO = null;
+	private UnitatsGestoresRDTO unitatsGestoresRDTO;
 
 	/** The historics estats. */
-	private List<EstatsRDTO> historicsEstats = null;
+	private List<EstatsRDTO> historicsEstats;
 
 	/** The sollicitant. */
 	private Persones sollicitant;
