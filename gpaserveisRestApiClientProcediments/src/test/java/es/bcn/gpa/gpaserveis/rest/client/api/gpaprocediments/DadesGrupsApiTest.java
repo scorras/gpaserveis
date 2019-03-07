@@ -54,17 +54,17 @@ public class DadesGrupsApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void cercaDadesOperacioAgrupatsTest() throws ApiException {
+	public void cercaDadesOperacioAgrupatsPerTramitOvtTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/procediments/1/grups"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		when(apiClient.invokeAPI(eq("/procediments/1/grups/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new PageDataOfDadesGrupsRDTO());
 
 		BigDecimal id = ONE;
 		BigDecimal idTramitOvt = ONE;
 		String dir = null;
 		String sort = null;
-		PageDataOfDadesGrupsRDTO response = api.cercaDadesOperacioAgrupats(id, idTramitOvt, dir, sort);
+		PageDataOfDadesGrupsRDTO response = api.cercaDadesOperacioAgrupatsPerTramitOvt(id, idTramitOvt, dir, sort);
 
 		assertTrue(response != null);
 	}
@@ -78,17 +78,16 @@ public class DadesGrupsApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void cercaDadesOperacioAgrupats1Test() throws ApiException {
+	public void cercaDadesOperacioTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/procediments/1/grups/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		when(apiClient.invokeAPI(eq("/procediments/1/grups"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
+		        isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new PageDataOfDadesGrupsRDTO());
 
 		BigDecimal id = ONE;
-		BigDecimal idTramitOvt = ONE;
 		String dir = null;
 		String sort = null;
-		PageDataOfDadesGrupsRDTO response = api.cercaDadesOperacioAgrupats1(id, idTramitOvt, dir, sort);
+		PageDataOfDadesGrupsRDTO response = api.cercaDadesOperacio(id, dir, sort);
 
 		assertTrue(response != null);
 	}

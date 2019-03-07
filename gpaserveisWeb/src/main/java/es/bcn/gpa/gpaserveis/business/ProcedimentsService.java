@@ -34,4 +34,14 @@ public interface ProcedimentsService {
 	 */
 	ProcedimentsRDTO consultarDadesProcediment(BigDecimal id) throws GPAServeisServiceException;
 
+	/**
+	 * Consultar dades procediment per codi.
+	 *
+	 * @param codiProcediment
+	 *            the codi procediment
+	 * @return the procediments RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	ProcedimentsRDTO consultarDadesProcedimentPerCodi(String codiProcediment) throws GPAServeisServiceException;
 }

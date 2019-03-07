@@ -18,6 +18,9 @@ public class GPAApiParamValidationException extends Exception {
 	/** The error principal. */
 	private ErrorPrincipal errorPrincipal;
 
+	/** The missatge addicional. */
+	private String missatgeAddicional;
+
 	/**
 	 * Instantiates a new GPA api param validation exception.
 	 *
@@ -46,6 +49,23 @@ public class GPAApiParamValidationException extends Exception {
 		super(throwable);
 		this.resultat = resultat;
 		this.errorPrincipal = errorPrincipal;
+	}
+
+	/**
+	 * Instantiates a new GPA api param validation exception.
+	 *
+	 * @param resultat
+	 *            the resultat
+	 * @param errorPrincipal
+	 *            the error principal
+	 * @param missatgeAddicional
+	 *            the missatge addicional
+	 */
+	public GPAApiParamValidationException(Resultat resultat, ErrorPrincipal errorPrincipal, String missatgeAddicional) {
+		super();
+		this.resultat = resultat;
+		this.errorPrincipal = errorPrincipal;
+		this.missatgeAddicional = missatgeAddicional;
 	}
 
 }

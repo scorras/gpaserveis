@@ -12,7 +12,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ProcedimentsClonarRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RestClientResponse;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-21T02:17:09.808+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-07T18:07:53.693+01:00")
 public class ConfiguracioDocumentacioApi {
   private ApiClient apiClient;
 
@@ -44,7 +43,6 @@ public class ConfiguracioDocumentacioApi {
    * Returns the requested entrada configuracio
    * 
    * @param id id (required)
-   * @param idTramitOvt idTramitOvt (required)
    * @param absoluteRowNumberOfFirstRowInCurrentPage  (optional)
    * @param absoluteRowNumberOfLastRowInCurrentPage  (optional)
    * @param currentPageHasNextPage  (optional)
@@ -62,7 +60,7 @@ public class ConfiguracioDocumentacioApi {
    * @return PageDataOfConfiguracioDocsEntradaRDTO
    * @throws ApiException if fails to make API call
    */
-  public PageDataOfConfiguracioDocsEntradaRDTO cercaConfiguracioDocumentacioEntrada(BigDecimal id, BigDecimal idTramitOvt, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
+  public PageDataOfConfiguracioDocsEntradaRDTO cercaConfiguracioDocumentacioEntrada(BigDecimal id, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -70,15 +68,9 @@ public class ConfiguracioDocumentacioApi {
       throw new ApiException(400, "Missing the required parameter 'id' when calling cercaConfiguracioDocumentacioEntrada");
     }
     
-    // verify the required parameter 'idTramitOvt' is set
-    if (idTramitOvt == null) {
-      throw new ApiException(400, "Missing the required parameter 'idTramitOvt' when calling cercaConfiguracioDocumentacioEntrada");
-    }
-    
     // create path and map variables
     String localVarPath = "/configuracioDocumentacio/entrada/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
-      .replaceAll("\\{" + "idTramitOvt" + "\\}", apiClient.escapeString(idTramitOvt.toString()));
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -139,17 +131,17 @@ public class ConfiguracioDocumentacioApi {
    * @return PageDataOfConfiguracioDocsEntradaRDTO
    * @throws ApiException if fails to make API call
    */
-  public PageDataOfConfiguracioDocsEntradaRDTO cercaConfiguracioDocumentacioEntrada1(BigDecimal id, BigDecimal idTramitOvt, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
+  public PageDataOfConfiguracioDocsEntradaRDTO cercaConfiguracioDocumentacioEntradaPerTramitOvt(BigDecimal id, BigDecimal idTramitOvt, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling cercaConfiguracioDocumentacioEntrada1");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling cercaConfiguracioDocumentacioEntradaPerTramitOvt");
     }
     
     // verify the required parameter 'idTramitOvt' is set
     if (idTramitOvt == null) {
-      throw new ApiException(400, "Missing the required parameter 'idTramitOvt' when calling cercaConfiguracioDocumentacioEntrada1");
+      throw new ApiException(400, "Missing the required parameter 'idTramitOvt' when calling cercaConfiguracioDocumentacioEntradaPerTramitOvt");
     }
     
     // create path and map variables
@@ -193,47 +185,6 @@ public class ConfiguracioDocumentacioApi {
 
     GenericType<PageDataOfConfiguracioDocsEntradaRDTO> localVarReturnType = new GenericType<PageDataOfConfiguracioDocsEntradaRDTO>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * create doc configuracio to the proc clon
-   * 
-   * @param procedimentsClonarBDTO procedimentsClonarBDTO (required)
-   * @return RestClientResponse
-   * @throws ApiException if fails to make API call
-   */
-  public RestClientResponse createConfiguracioDocToProcClonUsingPOST(ProcedimentsClonarRDTO procedimentsClonarBDTO) throws ApiException {
-    Object localVarPostBody = procedimentsClonarBDTO;
-    
-    // verify the required parameter 'procedimentsClonarBDTO' is set
-    if (procedimentsClonarBDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'procedimentsClonarBDTO' when calling createConfiguracioDocToProcClonUsingPOST");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/configuracioDocumentacio/newConfiguracioDoc";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<RestClientResponse> localVarReturnType = new GenericType<RestClientResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
    * Returns the requested entrada configuracio associada al requeriment
@@ -345,41 +296,6 @@ public class ConfiguracioDocumentacioApi {
     String[] localVarAuthNames = new String[] {  };
 
     GenericType<PageDataOfConfiguracioDocsTramitacioRDTO> localVarReturnType = new GenericType<PageDataOfConfiguracioDocsTramitacioRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * check if the tramits are being used
-   * 
-   * @return RestClientResponse
-   * @throws ApiException if fails to make API call
-   */
-  public RestClientResponse newConfiguracioDocUsingGET() throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/configuracioDocumentacio/newConfiguracioDoc";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<RestClientResponse> localVarReturnType = new GenericType<RestClientResponse>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**

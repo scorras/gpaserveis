@@ -13,14 +13,14 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 
 /**
- * The Class InternalToAccioListConverter.
+ * The Class InternalToAccioCiutadaListConverter.
  */
-@Component("expedientInternalToAccioListConverter")
-public class InternalToAccioListConverter extends AbstractConverter<List<AccionsEstatsRDTO>, List<String>> {
+@Component("expedientInternalToAccioCiutadaListConverter")
+public class InternalToAccioCiutadaListConverter extends AbstractConverter<List<AccionsEstatsRDTO>, List<String>> {
 
 	@Autowired
-	@Qualifier("expedientAccioApiParamValueTranslator")
-	private BaseApiParamValueTranslator accioApiParamValueTranslator;
+	@Qualifier("expedientAccioCiutadaApiParamValueTranslator")
+	private BaseApiParamValueTranslator accioCiutadaApiParamValueTranslator;
 
 	/*
 	 * (non-Javadoc)
@@ -32,7 +32,7 @@ public class InternalToAccioListConverter extends AbstractConverter<List<Accions
 		ArrayList<String> accioList = new ArrayList<String>();
 		if (CollectionUtils.isNotEmpty(source)) {
 			for (AccionsEstatsRDTO accionsEstatsRDTO : source) {
-				accioList.addAll(accioApiParamValueTranslator.getApiParamValueListByInternalValue(accionsEstatsRDTO.getAccio()));
+				accioList.addAll(accioCiutadaApiParamValueTranslator.getApiParamValueListByInternalValue(accionsEstatsRDTO.getAccio()));
 			}
 		}
 		return accioList;

@@ -41,6 +41,17 @@ public interface ExpedientsService {
 	ExpedientsRDTO consultarDadesExpedient(BigDecimal id) throws GPAServeisServiceException;
 
 	/**
+	 * Consultar dades expedient per codi.
+	 *
+	 * @param codi
+	 *            the codi
+	 * @return the expedients RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	ExpedientsRDTO consultarDadesExpedientPerCodi(String codi) throws GPAServeisServiceException;
+
+	/**
 	 * Cerca historics estats expedient.
 	 *
 	 * @param idExpedient

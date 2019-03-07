@@ -7,7 +7,11 @@ public enum Resultat {
 
 	OK_CREAR_EXPEDIENT("OK", "Expedient creat correctament"),
 
-	ERROR_CREAR_EXPEDIENT("ERROR", "No s'ha pogut crear l'expedient");
+	ERROR_CREAR_EXPEDIENT("ERROR", "No s'ha pogut crear l'expedient"),
+
+	OK_ACTUALITZAR_EXPEDIENT("OK", "Expedient actualitzat correctament"),
+
+	ERROR_ACTUALITZAR_EXPEDIENT("ERROR", "No s'ha pogut actualitzar l'expedient");
 
 	private String codi;
 

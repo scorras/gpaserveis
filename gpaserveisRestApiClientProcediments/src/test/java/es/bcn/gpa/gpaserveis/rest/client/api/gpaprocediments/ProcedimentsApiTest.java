@@ -41,6 +41,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.InfoDocProced
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfComentarisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfHistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfProcedimentsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentSerieDocRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsForTramitsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsForUnitatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
@@ -699,6 +700,50 @@ public class ProcedimentsApiTest extends ParentTest {
 	}
 
 	/**
+	 * Update the documentary version of the procedure
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void updateVersioDocumentalUsingPOSTTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/procediments/versioDocumental/1/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new RestClientResponse());
+
+		BigDecimal idProc = ONE;
+		BigDecimal versioDoc = ONE;
+		RestClientResponse response = api.updateVersioDocumentalUsingPOST(idProc, versioDoc);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Version the provided procediment
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void versionProcedimentProcUsingPOSTTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/procediments/versionar"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ProcedimentsResponse());
+
+		BigDecimal idProc = ONE;
+		ProcedimentSerieDocRDTO procedimentSerieDocRDTO = new ProcedimentSerieDocRDTO();
+		ProcedimentsResponse response = api.versionProcedimentProcUsingPOST(idProc, procedimentSerieDocRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
 	 * Version the provided procediment
 	 *
 	 * 
@@ -713,8 +758,49 @@ public class ProcedimentsApiTest extends ParentTest {
 		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new ProcedimentsResponse());
 
-		BigDecimal id = ONE;
-		ProcedimentsResponse response = api.versionProcedimentUsingPOST(id);
+		BigDecimal idProc = ONE;
+		ProcedimentSerieDocRDTO procedimentSerieDocRDTO = new ProcedimentSerieDocRDTO();
+		ProcedimentsResponse response = api.versionProcedimentUsingPOST(idProc, procedimentSerieDocRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Inserts new historic for documentacio
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void registrarHistoricDocumentacioUsingPOSTTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/procediments/historic/insertForDocumentacio"), eq("POST"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(ONE);
+
+		HistoricsRDTO historicsRDTO = new HistoricsRDTO();
+		BigDecimal response = api.registrarHistoricDocumentacioUsingPOST(historicsRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Inserts new historic
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void registrarHistoricSincronitzacioUnitatsGestoresUsingPOSTTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/procediments/historic/sincronitzarUnitatsGestores"), eq("POST"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<BigDecimal>());
+
+		List<UnitatsGestoresRDTO> unitatsGestoresRDTO = new ArrayList<UnitatsGestoresRDTO>();
+		List<BigDecimal> response = api.registrarHistoricSincronitzacioUnitatsGestoresUsingPOST(unitatsGestoresRDTO);
 
 		assertTrue(response != null);
 	}
@@ -736,6 +822,27 @@ public class ProcedimentsApiTest extends ParentTest {
 
 		String codi = "cod";
 		List<ProcedimentsRDTO> response = api.versionsByCodiUsingGET(codi);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested procediment
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void consultarDadesProcedimentPerCodiTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/procediments/perCodi/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ProcedimentsRDTO());
+
+		String codi = ONE.toString();
+		ProcedimentsRDTO response = api.consultarDadesProcedimentPerCodi(codi);
 
 		assertTrue(response != null);
 	}

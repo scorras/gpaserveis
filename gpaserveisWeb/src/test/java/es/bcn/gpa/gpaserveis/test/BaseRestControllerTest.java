@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-import es.bcn.gpa.gpaserveis.business.ProcedimentsService;
+import es.bcn.gpa.gpaserveis.business.ServeisPortalService;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisRuntimeException;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
@@ -41,9 +41,9 @@ public class BaseRestControllerTest extends RestServerParentTest {
 	@InjectMocks
 	private ServeisPortalRestController serveisPortalRestController;
 
-	/** The procediments service. */
+	/** The serveis portal service. */
 	@Mock
-	private ProcedimentsService procedimentsService;
+	private ServeisPortalService serveisPortalService;
 
 	/**
 	 * Setup.
@@ -73,7 +73,7 @@ public class BaseRestControllerTest extends RestServerParentTest {
 			log.debug("testStage01_HandleGPAServeisServiceException() - inici"); //$NON-NLS-1$
 		}
 
-		when(procedimentsService.cercaProcediments(any(ProcedimentsCercaBDTO.class)))
+		when(serveisPortalService.cercaProcediments(any(ProcedimentsCercaBDTO.class)))
 		        .thenThrow(new GPAServeisServiceException("Service Exception"));
 
 		String url = "/rest/serveis/portal/procediments";
@@ -97,7 +97,7 @@ public class BaseRestControllerTest extends RestServerParentTest {
 			log.debug("testStage02_HandleGPAServeisRuntimeException() - inici"); //$NON-NLS-1$
 		}
 
-		when(procedimentsService.cercaProcediments(any(ProcedimentsCercaBDTO.class)))
+		when(serveisPortalService.cercaProcediments(any(ProcedimentsCercaBDTO.class)))
 		        .thenThrow(new GPAServeisRuntimeException("Runtime Exception"));
 
 		String url = "/rest/serveis/portal/procediments";
@@ -121,7 +121,7 @@ public class BaseRestControllerTest extends RestServerParentTest {
 			log.debug("testStage03_HandleRuntimeException() - inici"); //$NON-NLS-1$
 		}
 
-		when(procedimentsService.cercaProcediments(any(ProcedimentsCercaBDTO.class))).thenThrow(new RuntimeException("Runtime Exception"));
+		when(serveisPortalService.cercaProcediments(any(ProcedimentsCercaBDTO.class))).thenThrow(new RuntimeException("Runtime Exception"));
 
 		String url = "/rest/serveis/portal/procediments";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isInternalServerError())
@@ -145,7 +145,7 @@ public class BaseRestControllerTest extends RestServerParentTest {
 			log.debug("testStage04_HandleResourceNotFoundException() - inici"); //$NON-NLS-1$
 		}
 
-		when(procedimentsService.cercaProcediments(any(ProcedimentsCercaBDTO.class)))
+		when(serveisPortalService.cercaProcediments(any(ProcedimentsCercaBDTO.class)))
 		        .thenThrow(new ResourceNotFoundException(new Throwable("Resource Not Exception")));
 
 		String url = "/rest/serveis/portal/procediments";
@@ -170,7 +170,7 @@ public class BaseRestControllerTest extends RestServerParentTest {
 			log.debug("testStage05_HandleThrowable() - inici"); //$NON-NLS-1$
 		}
 
-		when(procedimentsService.cercaProcediments(any(ProcedimentsCercaBDTO.class))).thenThrow(new Throwable("Throwable"));
+		when(serveisPortalService.cercaProcediments(any(ProcedimentsCercaBDTO.class))).thenThrow(new Throwable("Throwable"));
 
 		String url = "/rest/serveis/portal/procediments";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isInternalServerError())

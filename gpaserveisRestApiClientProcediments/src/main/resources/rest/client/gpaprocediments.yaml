@@ -1346,6 +1346,76 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /procediments/historic/insertForDocumentacio:
+    post:
+      tags:
+      - "Procediments"
+      summary: "Inserts new historic for documentacio"
+      operationId: "registrarHistoricDocumentacioUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "historicsRDTO"
+        description: "historicsRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/HistoricsRDTO"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "number"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/historic/sincronitzarUnitatsGestores:
+    post:
+      tags:
+      - "Procediments"
+      summary: "Inserts new historic"
+      operationId: "registrarHistoricSincronitzacioUnitatsGestoresUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "unitatsGestoresRDTO"
+        description: "unitatsGestoresRDTO"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/UnitatsGestoresRDTO"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              type: "number"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /procediments/historic/{id}:
     get:
       tags:
@@ -1515,6 +1585,34 @@ paths:
               $ref: "#/definitions/ProcedimentsRDTO"
         201:
           description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/perCodi/{codi}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns the requested procediment"
+      operationId: "consultarDadesProcedimentPerCodi"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codi"
+        in: "path"
+        description: "codi"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProcedimentsRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -2271,7 +2369,82 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /procediments/versionar/{id}:
+  /procediments/versioDocumental/{idProc}/{versioDoc}:
+    post:
+      tags:
+      - "Procediments"
+      summary: "Update the documentary version of the procedure"
+      operationId: "updateVersioDocumentalUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idProc"
+        in: "path"
+        description: "idProc"
+        required: true
+        type: "number"
+      - name: "versioDoc"
+        in: "path"
+        description: "versioDoc"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RestClientResponse"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/versionar:
+    post:
+      tags:
+      - "Procediments"
+      summary: "Version the provided procediment"
+      operationId: "versionProcedimentProcUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idProc"
+        in: "path"
+        description: "idProc"
+        required: false
+        type: "number"
+      - in: "body"
+        name: "procedimentSerieDocRDTO"
+        description: "procedimentSerieDocRDTO"
+        required: false
+        schema:
+          $ref: "#/definitions/ProcedimentSerieDocRDTO"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProcedimentsResponse"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /procediments/versionar/{idProc}:
     post:
       tags:
       - "Procediments"
@@ -2282,11 +2455,17 @@ paths:
       produces:
       - "*/*"
       parameters:
-      - name: "id"
+      - name: "idProc"
         in: "path"
-        description: "id"
+        description: "idProc"
         required: true
         type: "number"
+      - in: "body"
+        name: "procedimentSerieDocRDTO"
+        description: "procedimentSerieDocRDTO"
+        required: false
+        schema:
+          $ref: "#/definitions/ProcedimentSerieDocRDTO"
       responses:
         200:
           description: "OK"
@@ -2457,7 +2636,7 @@ paths:
       tags:
       - "Dades Grups"
       summary: "Returns all the grups entries for the procedure"
-      operationId: "cercaDadesOperacioAgrupats"
+      operationId: "cercaDadesOperacio"
       produces:
       - "*/*"
       parameters:
@@ -2469,11 +2648,6 @@ paths:
         in: "path"
         description: "id"
         required: true
-        type: "number"
-      - name: "idTramitOvt"
-        in: "path"
-        description: "idTramitOvt"
-        required: false
         type: "number"
       - name: "sort"
         in: "query"
@@ -2498,7 +2672,7 @@ paths:
       tags:
       - "Dades Grups"
       summary: "Returns all the grups entries for the procedure"
-      operationId: "cercaDadesOperacioAgrupats_1"
+      operationId: "cercaDadesOperacioAgrupatsPerTramitOvt"
       produces:
       - "*/*"
       parameters:
@@ -3449,6 +3623,21 @@ definitions:
         type: "integer"
         format: "int32"
     title: "PaginationAttributes"
+  ProcedimentSerieDocRDTO:
+    type: "object"
+    properties:
+      estatProcediment:
+        type: "string"
+      idConfDoc:
+        type: "number"
+      idProcediment:
+        type: "number"
+      serieDocumental:
+        type: "string"
+      versioDocumental:
+        type: "integer"
+        format: "int32"
+    title: "ProcedimentSerieDocRDTO"
   Procediments:
     type: "object"
     properties:
@@ -3539,6 +3728,8 @@ definitions:
         type: "string"
       versio:
         type: "string"
+      versioDocumental:
+        type: "number"
     title: "Procediments"
   ProcedimentsForTramitsRDTO:
     type: "object"
@@ -3655,6 +3846,8 @@ definitions:
         type: "string"
       versio:
         type: "string"
+      versioDocumental:
+        type: "number"
     title: "ProcedimentsRDTO"
   ProcedimentsRelacionats:
     type: "object"
@@ -3861,6 +4054,8 @@ definitions:
       descripcio:
         type: "string"
       id:
+        type: "number"
+      idUsuari:
         type: "number"
       nom:
         type: "string"

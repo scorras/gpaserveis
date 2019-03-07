@@ -709,7 +709,7 @@ paths:
       tags:
       - "Expedients "
       summary: "Updates the provided expedient"
-      operationId: "actualitzarDadesSollicitud"
+      operationId: "updateExpedientUsingPUT"
       consumes:
       - "application/json"
       produces:
@@ -1648,6 +1648,39 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/dadesSollicitud:
+    put:
+      tags:
+      - "Expedients "
+      summary: "Updates the provided expedient including specific data"
+      operationId: "actualitzarDadesSollicitud"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "actualitzarDadesSollicitudRDTO"
+        description: "actualitzarDadesSollicitudRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/ActualitzarDadesSollicitud"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ExpedientsRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/desbloquejar/{id}:
     post:
       tags:
@@ -2094,6 +2127,34 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/DropdownItemRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /expedients/perCodi/{codiBaseName}/**:
+    get:
+      tags:
+      - "Expedients "
+      summary: "Returns the requested expedient"
+      operationId: "consultarDadesExpedientPerCodi"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codiBaseName"
+        in: "path"
+        description: "codiBaseName"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ExpedientsRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -3092,6 +3153,18 @@ definitions:
       nomAccio:
         type: "string"
     title: "AccionsEstatsBDTO"
+  ActualitzarDadesSollicitud:
+    type: "object"
+    properties:
+      dadesEspecifiques:
+        type: "array"
+        description: "Valors d'atributs de l'expedient"
+        items:
+          $ref: "#/definitions/DadesEspecifiquesRDTO"
+      expedient:
+        description: "Dades de l'expedient"
+        $ref: "#/definitions/ExpedientsRDTO"
+    title: "ActualitzarDadesSollicitud"
   AcumularExpedientRDTO:
     type: "object"
     properties:

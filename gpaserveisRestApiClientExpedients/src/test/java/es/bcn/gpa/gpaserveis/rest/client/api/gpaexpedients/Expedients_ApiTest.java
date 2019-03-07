@@ -33,6 +33,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InputStreamResource;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
@@ -121,6 +122,27 @@ public class Expedients_ApiTest extends ParentTest {
 
 		BigDecimal id = ONE;
 		ExpedientsRDTO response = api.consultarDadesExpedient(id);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested expedient
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void consultarDadesExpedientPerCodiTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn("Codi%20%2F2018%2F000001");
+		when(apiClient.invokeAPI(eq("/expedients/perCodi/Codi%20%2F2018%2F000001"), eq("GET"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ExpedientsRDTO());
+
+		String codiBaseName = "Codi /2018/000001";
+		ExpedientsRDTO response = api.consultarDadesExpedientPerCodi(codiBaseName);
 
 		assertTrue(response != null);
 	}
@@ -324,11 +346,12 @@ public class Expedients_ApiTest extends ParentTest {
 	 */
 	@Test
 	public void actualitzarDadesSollicitudTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients"), eq("PUT"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(new ExpedientsRDTO());
+		when(apiClient.invokeAPI(eq("/expedients/dadesSollicitud"), eq("PUT"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ExpedientsRDTO());
 
-		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
-		ExpedientsRDTO response = api.actualitzarDadesSollicitud(expedientsRDTO);
+		ActualitzarDadesSollicitud actualitzarDadesSollicitud = new ActualitzarDadesSollicitud();
+		ExpedientsRDTO response = api.actualitzarDadesSollicitud(actualitzarDadesSollicitud);
 
 		assertTrue(response != null);
 	}
@@ -432,6 +455,25 @@ public class Expedients_ApiTest extends ParentTest {
 
 		BigDecimal idExpedient = ONE;
 		String response = api.obtenirXmlEvaluateUsingGET(idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Updates the provided expedient
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void updateExpedientUsingPUTTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/expedients"), eq("PUT"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
+		        isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(new ExpedientsRDTO());
+
+		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
+		ExpedientsRDTO response = api.updateExpedientUsingPUT(expedientsRDTO);
 
 		assertTrue(response != null);
 	}

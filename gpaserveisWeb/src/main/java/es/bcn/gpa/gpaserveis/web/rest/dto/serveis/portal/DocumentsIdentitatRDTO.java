@@ -16,11 +16,11 @@ import lombok.Setter;
 @Setter
 public class DocumentsIdentitatRDTO {
 
-	@ApiModelProperty(value = "Tipus de document d'identitat de la persona", allowableValues = TipusDocumentIdentitatApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
+	@ApiModelProperty(value = "Tipus de document d'identitat de la persona", allowableValues = TipusDocumentIdentitatApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true)
 	private String tipusDocument;
-	@ApiModelProperty(value = "Número de document d'identitat de la persona")
+	@ApiModelProperty(value = "Número de document d'identitat de la persona", required = true)
 	private String numeroDocument;
-	@ApiModelProperty(value = "Codi ISO del país del document d'identitat de la persona")
+	@ApiModelProperty(value = "Codi INE del país del document d'identitat de la persona", required = true)
 	private String pais;
 
 }

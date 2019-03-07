@@ -52,6 +52,28 @@ public class EstatsTramitacioApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
+	public void generaEstatsTramitacioPerProcedimentOrigenUsingPOSTTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/tramits/estatsTramitacio/1/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new RestClientResponse());
+
+		BigDecimal idProcediment = ONE;
+		BigDecimal idProcedimentOrigen = ONE;
+		RestClientResponse response = api.generaEstatsTramitacioPerProcedimentOrigenUsingPOST(idProcediment, idProcedimentOrigen);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Generar estats de tramitacio per al procediment sol licitat
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
 	public void generaEstatsTramitacioUsingPOSTTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/tramits/estatsTramitacio/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),

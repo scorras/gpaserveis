@@ -14,7 +14,6 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PaisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
@@ -40,10 +39,6 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	/** The expedients api. */
 	@Autowired
 	private Expedients_Api expedients_Api;
-
-	/** The expedients api. */
-	@Autowired
-	private ExpedientsApi expedientsApi;
 
 	/** The persones interessades api. */
 	@Autowired
@@ -175,6 +170,50 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	public ExpedientsRDTO fallbackConsultarDadesExpedient(BigDecimal id) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackConsultarDadesExpedient(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de expedients no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
+	 * consultarDadesExpedientPerCodi(java.lang.String)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesExpedientPerCodi")
+	public ExpedientsRDTO consultarDadesExpedientPerCodi(String codi) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarDadesExpedientPerCodi(String) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			ExpedientsRDTO expedientsRDTO = expedients_Api.consultarDadesExpedientPerCodi(codi);
+
+			if (log.isDebugEnabled()) {
+				log.debug("consultarDadesExpedientPerCodi(String) - fi"); //$NON-NLS-1$
+			}
+			return expedientsRDTO;
+		} catch (ApiException e) {
+			log.error("consultarDadesExpedientPerCodi(String)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback consultar dades expedient per codi.
+	 *
+	 * @param codi
+	 *            the codi
+	 * @return the expedients RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public ExpedientsRDTO fallbackConsultarDadesExpedientPerCodi(String codi) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackConsultarDadesExpedientPerCodi(String) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de expedients no està disponible");

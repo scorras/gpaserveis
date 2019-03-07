@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.5.0"
+  version: "1.0.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -269,11 +269,6 @@ paths:
         description: "id"
         required: true
         type: "number"
-      - name: "idTramitOvt"
-        in: "path"
-        description: "idTramitOvt"
-        required: false
-        type: "number"
       - name: "nextPageNumber"
         in: "query"
         required: false
@@ -322,7 +317,7 @@ paths:
       tags:
       - "Configuracio Documentacio"
       summary: "Returns the requested entrada configuracio"
-      operationId: "cercaConfiguracioDocumentacioEntrada_1"
+      operationId: "cercaConfiguracioDocumentacioEntradaPerTramitOvt"
       produces:
       - "*/*"
       parameters:
@@ -541,19 +536,21 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /configuracioDocumentacio/newConfiguracioDoc:
+  /configuracioDocumentacio/series:
     get:
       tags:
-      - "Configuracio Documentacio"
-      summary: "check if the tramits are being used"
-      operationId: "newConfiguracioDocUsingGET"
+      - "Series cataleg"
+      summary: "Returns the series"
+      operationId: "getSeriesUsingGET"
       produces:
       - "*/*"
       responses:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/RestClientResponse"
+            type: "array"
+            items:
+              $ref: "#/definitions/SerieDTO"
         401:
           description: "Unauthorized"
         403:
@@ -562,28 +559,29 @@ paths:
           description: "Not Found"
       deprecated: false
       x-imi-roles:
-        gestor: "Perfil usuari gestor"
+        consulta: "Perfil usuari consulta"
+  /configuracioDocumentacio/sincronitzar:
     post:
       tags:
-      - "Configuracio Documentacio"
-      summary: "create doc configuracio to the proc clon"
-      operationId: "createConfiguracioDocToProcClonUsingPOST"
+      - "Series cataleg"
+      summary: "Sincronitzar la configuració de la documentació del procediment"
+      operationId: "sincronitzarUsingPOST"
       consumes:
       - "application/json"
       produces:
       - "*/*"
       parameters:
       - in: "body"
-        name: "procedimentsClonarBDTO"
-        description: "procedimentsClonarBDTO"
+        name: "procedimentSerieDocRDTO"
+        description: "procedimentSerieDocRDTO"
         required: true
         schema:
-          $ref: "#/definitions/ProcedimentsClonarRDTO"
+          $ref: "#/definitions/ProcedimentSerieDocRDTO"
       responses:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/RestClientResponse"
+            $ref: "#/definitions/RespostaSincronitzarRDTO"
         201:
           description: "Created"
         401:
@@ -594,7 +592,40 @@ paths:
           description: "Not Found"
       deprecated: false
       x-imi-roles:
-        gestor: "Perfil usuari gestor"
+        consulta: "Perfil usuari consulta"
+  /configuracioDocumentacio/sincronitzarSeriesToProc:
+    post:
+      tags:
+      - "Series cataleg"
+      summary: "Sincronitzar la configuració de la documentació del procediment"
+      operationId: "sincronitzarSeriesToProcUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "procedimentSerieDocRDTO"
+        description: "procedimentSerieDocRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/ProcedimentSerieDocRDTO"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaSincronitzarRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /configuracioDocumentacio/tramitacio/{id}:
     get:
       tags:
@@ -1811,7 +1842,7 @@ definitions:
         type: "number"
       atributsDocs:
         $ref: "#/definitions/AtributsDocs"
-      categoriaNti:
+      codiNti:
         type: "string"
       confdocsentTramitsOvtList:
         type: "array"
@@ -1819,10 +1850,6 @@ definitions:
           $ref: "#/definitions/ConfdocsentTramitsOvt"
       configuracioDocumentacio:
         type: "number"
-      declaracioResponsableDoc:
-        type: "number"
-      declaracioResponsableDocs:
-        $ref: "#/definitions/DeclaracioResponsableDocs"
       descripcioAmpliada:
         type: "string"
       detallOrigen:
@@ -1841,11 +1868,11 @@ definitions:
         type: "string"
       nomCastella:
         type: "string"
+      nomNti:
+        type: "string"
       origen:
         type: "integer"
         format: "int32"
-      politicaSignatura:
-        type: "string"
       seleccionable:
         type: "boolean"
       suportConfeccio:
@@ -1865,7 +1892,7 @@ definitions:
         type: "number"
       atributsDocs:
         $ref: "#/definitions/AtributsDocs"
-      categoriaNti:
+      codiNti:
         type: "string"
       confdocsentTramitsOvtList:
         type: "array"
@@ -1873,10 +1900,6 @@ definitions:
           $ref: "#/definitions/ConfdocsentTramitsOvt"
       configuracioDocumentacio:
         type: "number"
-      declaracioResponsableDoc:
-        type: "number"
-      declaracioResponsableDocs:
-        $ref: "#/definitions/DeclaracioResponsableDocs"
       descripcioAmpliada:
         type: "string"
       detallOrigen:
@@ -1895,11 +1918,11 @@ definitions:
         type: "string"
       nomCastella:
         type: "string"
+      nomNti:
+        type: "string"
       origen:
         type: "integer"
         format: "int32"
-      politicaSignatura:
-        type: "string"
       seleccionable:
         type: "boolean"
       suportConfeccio:
@@ -1938,7 +1961,7 @@ definitions:
         type: "number"
       atributsDocs:
         $ref: "#/definitions/AtributsDocs"
-      categoriaNti:
+      codiNti:
         type: "string"
       confdocstramTramitsOvtList:
         type: "array"
@@ -1950,10 +1973,6 @@ definitions:
         type: "number"
       configuracioSignatura:
         type: "number"
-      declaracioResponsableDoc:
-        type: "number"
-      declaracioResponsableDocs:
-        $ref: "#/definitions/DeclaracioResponsableDocs"
       descripcio:
         type: "string"
       detallOrigen:
@@ -1970,9 +1989,13 @@ definitions:
         type: "string"
       nomCastella:
         type: "string"
+      nomNti:
+        type: "string"
       origen:
         type: "integer"
         format: "int32"
+      politicaSignatura:
+        type: "string"
       requereixSignatura:
         type: "integer"
         format: "int32"
@@ -1996,7 +2019,7 @@ definitions:
         type: "number"
       atributsDocs:
         $ref: "#/definitions/AtributsDocs"
-      categoriaNti:
+      codiNti:
         type: "string"
       confdocstramTramitsOvtList:
         type: "array"
@@ -2008,10 +2031,6 @@ definitions:
         type: "number"
       configuracioSignatura:
         type: "number"
-      declaracioResponsableDoc:
-        type: "number"
-      declaracioResponsableDocs:
-        $ref: "#/definitions/DeclaracioResponsableDocs"
       descripcio:
         type: "string"
       detallOrigen:
@@ -2028,9 +2047,13 @@ definitions:
         type: "string"
       nomCastella:
         type: "string"
+      nomNti:
+        type: "string"
       origen:
         type: "integer"
         format: "int32"
+      politicaSignatura:
+        type: "string"
       requereixSignatura:
         type: "integer"
         format: "int32"
@@ -2055,28 +2078,6 @@ definitions:
       id:
         type: "number"
     title: "ConfiguracioDocsTramitacioResponse"
-  DeclaracioResponsableDocs:
-    type: "object"
-    properties:
-      categoriaNti:
-        type: "integer"
-        format: "int32"
-      condicionsSustitucio:
-        type: "string"
-      descripcio:
-        type: "string"
-      id:
-        type: "number"
-      plantillaBase:
-        type: "string"
-      plantillaEspecifica:
-        type: "string"
-      sustituible:
-        type: "integer"
-        format: "int32"
-      tipusDocumental:
-        type: "string"
-    title: "DeclaracioResponsableDocs"
   DocsEntradaIdsAndEstatRevisioId:
     type: "object"
     properties:
@@ -2146,6 +2147,12 @@ definitions:
         type: "number"
       obligatoriEnEstat:
         type: "boolean"
+      openTextMetadata:
+        type: "object"
+        additionalProperties:
+          type: "array"
+          items:
+            type: "string"
       origen:
         type: "integer"
         format: "int32"
@@ -2298,6 +2305,12 @@ definitions:
         type: "number"
       obligatoriEnEstat:
         type: "boolean"
+      openTextMetadata:
+        type: "object"
+        additionalProperties:
+          type: "array"
+          items:
+            type: "string"
       origen:
         type: "integer"
         format: "int32"
@@ -2656,14 +2669,21 @@ definitions:
       tipusVia:
         type: "string"
     title: "PersonesDadescontacte"
-  ProcedimentsClonarRDTO:
+  ProcedimentSerieDocRDTO:
     type: "object"
     properties:
-      idConfDocProcOriginal:
+      estatProcediment:
+        type: "string"
+      idConfDoc:
         type: "number"
-      idProcClonado:
+      idProcediment:
         type: "number"
-    title: "ProcedimentsClonarRDTO"
+      serieDocumental:
+        type: "string"
+      versioDocumental:
+        type: "integer"
+        format: "int32"
+    title: "ProcedimentSerieDocRDTO"
   RegistreAssentament:
     type: "object"
     properties:
@@ -2691,6 +2711,19 @@ definitions:
       id:
         type: "number"
     title: "Requeriments"
+  RespostaSincronitzarRDTO:
+    type: "object"
+    properties:
+      idConfDoc:
+        type: "number"
+      idProcediment:
+        type: "number"
+      idProcedimentVersionat:
+        type: "number"
+      versioDocumental:
+        type: "integer"
+        format: "int32"
+    title: "RespostaSincronitzarRDTO"
   RestClientResponse:
     type: "object"
     properties:
@@ -2701,6 +2734,36 @@ definitions:
       result:
         type: "boolean"
     title: "RestClientResponse"
+  SerieDTO:
+    type: "object"
+    properties:
+      access:
+        type: "string"
+      adminProcess:
+        type: "string"
+      cipher:
+        type: "string"
+      code:
+        type: "string"
+      description:
+        type: "string"
+      endDate:
+        type: "string"
+      name:
+        type: "string"
+      processUnit:
+        type: "string"
+      reuseConditions:
+        type: "string"
+      ruleCode:
+        type: "string"
+      startDate:
+        type: "string"
+      superior:
+        type: "string"
+      version:
+        type: "string"
+    title: "SerieDTO"
   SortInfo:
     type: "object"
     properties:

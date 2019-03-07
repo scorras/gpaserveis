@@ -8,8 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.AccioApiParamValueTranslator;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatCiutadaApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.AccioCiutadaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.RegistreRDTO;
@@ -35,7 +34,7 @@ public class ExpedientConsultaRDTO {
 	private BigDecimal id;
 	@ApiModelProperty(value = "Codi de l'expedient")
 	private String codi;
-	@ApiModelProperty(value = "Accions disponibles", allowableValues = AccioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
+	@ApiModelProperty(value = "Accions disponibles", allowableValues = AccioCiutadaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private List<String> accionsDisponibles;
 	@ApiModelProperty(value = "Data de presentació de l'expedient")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_TIME_PATTERN)

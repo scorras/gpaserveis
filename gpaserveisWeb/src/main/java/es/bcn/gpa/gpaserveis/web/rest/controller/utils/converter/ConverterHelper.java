@@ -121,7 +121,7 @@ public class ConverterHelper {
 			documentsIdentitatRDTO.setTipusDocument(tipusDocumentIdentitatApiParamValueTranslator
 			        .getApiParamValueByInternalValue(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getId()));
 			documentsIdentitatRDTO.setNumeroDocument(persones.getDocumentsIdentitat().getNumeroDocument().toUpperCase());
-			documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPaisos().getCodiIso());
+			documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPaisos().getCodiIne());
 		}
 		personesRDTO.setDocumentIndentitat(documentsIdentitatRDTO);
 		return personesRDTO;
@@ -154,31 +154,31 @@ public class ConverterHelper {
 			        .getInternalValueByApiParamValue(personesRDTO.getDocumentIndentitat().getTipusDocument()));
 			documentsIdentitat.setNumeroDocument(personesRDTO.getDocumentIndentitat().getNumeroDocument());
 			Paisos paisos = new Paisos();
-			paisos.setCodiIso(personesRDTO.getDocumentIndentitat().getPais());
+			paisos.setCodiIne(personesRDTO.getDocumentIndentitat().getPais());
 			documentsIdentitat.setPaisos(paisos);
-			documentsIdentitat.setPais(paisos.getCodiIne());
+			documentsIdentitat.setPais(personesRDTO.getDocumentIndentitat().getPais());
 			persones.setDocumentsIdentitat(documentsIdentitat);
 			PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
 			personesDadescontacte.setSexe(tipusSexeApiParamValueTranslator.getInternalValueByApiParamValue(personesRDTO.getSexe()));
-			personesDadescontacte.setEmail(personesRDTO.getDadesContacte().getEmail());
-			personesDadescontacte.setTelefon(personesRDTO.getDadesContacte().getTelefon());
-			personesDadescontacte.setMobil(personesRDTO.getDadesContacte().getMobil());
-			personesDadescontacte.setFax(personesRDTO.getDadesContacte().getFax());
+			personesDadescontacte.setEmail(personesRDTO.getDadesNotificacio().getEmail());
+			personesDadescontacte.setTelefon(personesRDTO.getDadesNotificacio().getTelefon());
+			personesDadescontacte.setMobil(personesRDTO.getDadesNotificacio().getMobil());
+			personesDadescontacte.setFax(personesRDTO.getDadesNotificacio().getFax());
 			personesDadescontacte.setTipusVia(
-			        tipusViaApiParamValueTranslator.getInternalValueByApiParamValue(personesRDTO.getDadesContacte().getTipusVia()));
-			personesDadescontacte.setDireccioPostal(personesRDTO.getDadesContacte().getNomVia());
-			personesDadescontacte.setNumero(personesRDTO.getDadesContacte().getNumero());
-			personesDadescontacte.setEscala(personesRDTO.getDadesContacte().getEscala());
-			personesDadescontacte.setBloc(personesRDTO.getDadesContacte().getBloc());
-			personesDadescontacte.setPorta(personesRDTO.getDadesContacte().getPorta());
-			personesDadescontacte.setPis(personesRDTO.getDadesContacte().getPis());
-			personesDadescontacte.setCodiPostal(personesRDTO.getDadesContacte().getCodiPostal());
-			personesDadescontacte.setMunicipi(personesRDTO.getDadesContacte().getMunicipi());
-			personesDadescontacte.setProvincia(personesRDTO.getDadesContacte().getProvincia());
-			personesDadescontacte.setComarca(personesRDTO.getDadesContacte().getComarca());
-			personesDadescontacte.setPais(personesRDTO.getDadesContacte().getPais());
-			personesDadescontacte.setMunicipiEstranger(personesRDTO.getDadesContacte().getMunicipiEstranger());
-			personesDadescontacte.setProvinciaEstranger(personesRDTO.getDadesContacte().getProvinciaEstranger());
+			        tipusViaApiParamValueTranslator.getInternalValueByApiParamValue(personesRDTO.getDadesNotificacio().getTipusVia()));
+			personesDadescontacte.setDireccioPostal(personesRDTO.getDadesNotificacio().getNomVia());
+			personesDadescontacte.setNumero(personesRDTO.getDadesNotificacio().getNumero());
+			personesDadescontacte.setEscala(personesRDTO.getDadesNotificacio().getEscala());
+			personesDadescontacte.setBloc(personesRDTO.getDadesNotificacio().getBloc());
+			personesDadescontacte.setPorta(personesRDTO.getDadesNotificacio().getPorta());
+			personesDadescontacte.setPis(personesRDTO.getDadesNotificacio().getPis());
+			personesDadescontacte.setCodiPostal(personesRDTO.getDadesNotificacio().getCodiPostal());
+			personesDadescontacte.setMunicipi(personesRDTO.getDadesNotificacio().getMunicipi());
+			personesDadescontacte.setProvincia(personesRDTO.getDadesNotificacio().getProvincia());
+			personesDadescontacte.setComarca(personesRDTO.getDadesNotificacio().getComarca());
+			personesDadescontacte.setPais(personesRDTO.getDadesNotificacio().getPais());
+			personesDadescontacte.setMunicipiEstranger(personesRDTO.getDadesNotificacio().getMunicipiEstranger());
+			personesDadescontacte.setProvinciaEstranger(personesRDTO.getDadesNotificacio().getProvinciaEstranger());
 			persones.setPersonesDadescontacte(personesDadescontacte);
 			personesSollicitud.setPersones(persones);
 		}
@@ -222,7 +222,7 @@ public class ConverterHelper {
 			documentsIdentitatRDTO.setTipusDocument(tipusDocumentIdentitatApiParamValueTranslator
 			        .getApiParamValueByInternalValue(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getId()));
 			documentsIdentitatRDTO.setNumeroDocument(persones.getDocumentsIdentitat().getNumeroDocument().toUpperCase());
-			documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPaisos().getCodiIso());
+			documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPaisos().getCodiIne());
 		}
 		personesRDTO.setDocumentIndentitat(documentsIdentitatRDTO);
 		return personesRDTO;

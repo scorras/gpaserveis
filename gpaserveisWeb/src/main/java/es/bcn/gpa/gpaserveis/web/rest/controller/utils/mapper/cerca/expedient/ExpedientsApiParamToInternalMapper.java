@@ -7,11 +7,16 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatCiutadaApiParamValueTranslator;
 
@@ -84,6 +89,38 @@ public class ExpedientsApiParamToInternalMapper {
 	 */
 	public static String getSentitOrdenacioInternalValue(String sentitOrdenacio) {
 		return sentitOrdenacioApiParamValueTranslator.getInternalValueByApiParamValue(sentitOrdenacio);
+	}
+
+	/**
+	 * Gets the data presentacio inici internal value.
+	 *
+	 * @param dataPresentacioInici
+	 *            the data presentacio inici
+	 * @return the data presentacio inici internal value
+	 */
+	public static DateTime getDataPresentacioIniciInternalValue(String dataPresentacioInici) {
+		DateTime dataPresentacioIniciDateTime = null;
+		if (StringUtils.isNotEmpty(dataPresentacioInici)) {
+			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_PATTERN);
+			dataPresentacioIniciDateTime = DateTime.parse(dataPresentacioInici, dateTimeFormatter);
+		}
+		return dataPresentacioIniciDateTime;
+	}
+
+	/**
+	 * Gets the data presentacio fi internal value.
+	 *
+	 * @param dataPresentacioFi
+	 *            the data presentacio fi
+	 * @return the data presentacio fi internal value
+	 */
+	public static DateTime getDataPresentacioFiInternalValue(String dataPresentacioFi) {
+		DateTime dataPresentacioFiDateTime = null;
+		if (StringUtils.isNotEmpty(dataPresentacioFi)) {
+			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_PATTERN);
+			dataPresentacioFiDateTime = DateTime.parse(dataPresentacioFi, dateTimeFormatter);
+		}
+		return dataPresentacioFiDateTime;
 	}
 
 	/**

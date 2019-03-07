@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common;
 
+import org.apache.commons.lang.StringUtils;
 import org.modelmapper.AbstractConverter;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +28,8 @@ public class InternalToResultatRespostaConverter extends AbstractConverter<Respo
 		if (source.getErrorPrincipal() != null) {
 			ErrorDTO errorDTO = new ErrorDTO();
 			errorDTO.setCodi(source.getErrorPrincipal().getCodi());
-			errorDTO.setDescripcio(source.getErrorPrincipal().getDescripcio());
+			errorDTO.setDescripcio(source.getErrorPrincipal().getDescripcio()
+			        + (StringUtils.isEmpty(source.getMissatgeAddicional()) ? StringUtils.EMPTY : source.getMissatgeAddicional()));
 			resultatRespostaDTO.setDetallError(errorDTO);
 		}
 		return resultatRespostaDTO;

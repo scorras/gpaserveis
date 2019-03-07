@@ -124,6 +124,9 @@ public abstract class ParentTest {
 			when(procedimentsApi.consultarDadesProcediment(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesProcedimentResponse());
 
+			when(procedimentsApi.consultarDadesProcedimentPerCodi(any(String.class)))
+			        .thenReturn(TestsConfigHelper.consultarDadesProcedimentResponse());
+
 			when(unitatsGestoresApi.cercaUnitatsGestores(isNull(Integer.class), isNull(Integer.class), any(String.class),
 			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
 			        isNull(DateTime.class), isNull(DateTime.class), isNull(String.class), isNull(String.class), isNull(String.class),
@@ -153,6 +156,9 @@ public abstract class ParentTest {
 			when(expedients_Api.consultarDadesExpedient(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesExpedientResponse());
 
+			when(expedients_Api.consultarDadesExpedientPerCodi(any(String.class)))
+			        .thenReturn(TestsConfigHelper.consultarDadesExpedientResponse());
+
 			when(expedientsApi.cercaHistoricsExpedient(any(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
 			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
 			        isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class), isNull(String.class),
@@ -174,10 +180,13 @@ public abstract class ParentTest {
 			when(tramitsOvtApi.consultarDadesTramitOvt(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesTramitOvtResponse());
 
-			when(dadesGrupsApi.cercaDadesOperacioAgrupats1(any(BigDecimal.class), any(BigDecimal.class), isNull(String.class),
+			when(dadesGrupsApi.cercaDadesOperacioAgrupatsPerTramitOvt(any(BigDecimal.class), any(BigDecimal.class), isNull(String.class),
 			        isNull(String.class))).thenReturn(TestsConfigHelper.cercaDadesOperacioAgrupats1Response());
 
-			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioEntrada1(any(BigDecimal.class), any(BigDecimal.class),
+			when(dadesGrupsApi.cercaDadesOperacio(any(BigDecimal.class), isNull(String.class), isNull(String.class)))
+			        .thenReturn(TestsConfigHelper.cercaDadesOperacioAgrupats1Response());
+
+			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioEntradaPerTramitOvt(any(BigDecimal.class), any(BigDecimal.class),
 			        isNull(Integer.class), isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
 			        isNull(Boolean.class), isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class),
 			        isNull(Integer.class), isNull(String.class), isNull(Long.class), isNull(Integer.class)))
