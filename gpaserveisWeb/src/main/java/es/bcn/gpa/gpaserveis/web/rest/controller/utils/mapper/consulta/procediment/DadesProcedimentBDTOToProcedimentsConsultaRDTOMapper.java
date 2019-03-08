@@ -15,11 +15,10 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.I
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.ProcedimentsConsultaRDTO;
 
 /**
- * The Class RespostaDadesProcedimentBDTOToProcedimentsConsultaRDTOMapper.
+ * The Class DadesProcedimentBDTOToProcedimentsConsultaRDTOMapper.
  */
 @Component
-public class RespostaDadesProcedimentBDTOToProcedimentsConsultaRDTOMapper
-        extends PropertyMap<DadesProcedimentBDTO, ProcedimentsConsultaRDTO> {
+public class DadesProcedimentBDTOToProcedimentsConsultaRDTOMapper extends PropertyMap<DadesProcedimentBDTO, ProcedimentsConsultaRDTO> {
 
 	/** The internal to estat converter. */
 	private InternalToEstatConverter internalToEstatConverter;
@@ -57,7 +56,7 @@ public class RespostaDadesProcedimentBDTOToProcedimentsConsultaRDTOMapper
 	 *            the internal to identificacio converter
 	 */
 	@Autowired
-	public RespostaDadesProcedimentBDTOToProcedimentsConsultaRDTOMapper(
+	public DadesProcedimentBDTOToProcedimentsConsultaRDTOMapper(
 	        @Qualifier("procedimentInternalToEstatConverter") InternalToEstatConverter internalToEstatConverter,
 	        @Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
 	        @Qualifier("internalToUnitatGestoraListConverter") InternalToUnitatGestoraListConverter internalToUnitatGestoraListConverter,

@@ -15,6 +15,9 @@ public class Constants {
 	/** The Constant DATE_TIME_PATTERN. */
 	public static final String DATE_TIME_PATTERN = "dd/MM/yyyy HH:mm:ss";
 
+	/** The Constant DATE_TIME_PATTERN. */
+	public static final String TIME_PATTERN = "HH:mm:ss";
+
 	/** The Constant PERSONES_SOLLICITUD_RELACIO_NO_PRINCIPAL. */
 	public static final Integer PERSONES_SOLLICITUD_RELACIO_NO_PRINCIPAL = NumberUtils.INTEGER_ZERO;
 
@@ -32,5 +35,8 @@ public class Constants {
 
 	/** The Constant PERSONES_SOLLICITUD_RELACIO_ALTRES. */
 	public static final BigDecimal PERSONES_SOLLICITUD_RELACIO_ALTRES = new BigDecimal(4);
+
+	/** The Constant CODI_ISO_PAIS_PER_DEFECTE. */
+	public static final String CODI_ISO_PAIS_PER_DEFECTE = "ES";
 
 }

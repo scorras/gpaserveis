@@ -1231,6 +1231,43 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /tramits/estatsTramitacio/{idProcediment}/{idProcedimentOrigen}:
+    post:
+      tags:
+      - "EstatsTramitacio"
+      summary: "Generar estats de tramitacio per al procediment sol licitat"
+      operationId: "generaEstatsTramitacioPerProcedimentOrigenUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idProcediment"
+        in: "path"
+        description: "idProcediment"
+        required: true
+        type: "number"
+      - name: "idProcedimentOrigen"
+        in: "path"
+        description: "idProcedimentOrigen"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RestClientResponse"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /tramits/estatsTramitacioWithUgs/{idProc}:
     get:
       tags:

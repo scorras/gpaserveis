@@ -11,15 +11,15 @@ import lombok.Setter;
 
 @ApiModel(value = "RespostaDadesOperacio")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "dadesOperacio", "tramit" })
+@JsonPropertyOrder({ "tramit", "dadesOperacio" })
 @Getter
 @Setter
 public class RespostaConsultaDadesOperacioRDTO {
 
-	@ApiModelProperty(value = "Llista de dades d'operació")
-	private DadesOperacioConsultaRDTO dadesOperacio;
-
 	@ApiModelProperty(value = "Dades del tràmit")
 	private TramitsOvtRDTO tramit;
+
+	@ApiModelProperty(value = "Llista de dades d'operació")
+	private DadesOperacioConsultaRDTO dadesOperacio;
 
 }

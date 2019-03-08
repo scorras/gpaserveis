@@ -21,6 +21,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeri
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PaisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
@@ -29,6 +30,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.AccionsEstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.test.config.TestsConfigHelper;
 import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.configuration.context.ContextPropertySourcesInitializer;
@@ -97,6 +99,10 @@ public abstract class ParentTest {
 	@Autowired
 	protected DadesEspecifiquesApi dadesEspecifiquesApi;
 
+	/** The paisos api. */
+	@Autowired
+	protected PaisosApi paisosApi;
+
 	/**
 	 * Sets the up.
 	 */
@@ -116,6 +122,9 @@ public abstract class ParentTest {
 			        isNull(Integer.class), any(List.class))).thenReturn(TestsConfigHelper.cercaProcedimentsResponse());
 
 			when(procedimentsApi.consultarDadesProcediment(any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.consultarDadesProcedimentResponse());
+
+			when(procedimentsApi.consultarDadesProcedimentPerCodi(any(String.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesProcedimentResponse());
 
 			when(unitatsGestoresApi.cercaUnitatsGestores(isNull(Integer.class), isNull(Integer.class), any(String.class),
@@ -147,6 +156,9 @@ public abstract class ParentTest {
 			when(expedients_Api.consultarDadesExpedient(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesExpedientResponse());
 
+			when(expedients_Api.consultarDadesExpedientPerCodi(any(String.class)))
+			        .thenReturn(TestsConfigHelper.consultarDadesExpedientResponse());
+
 			when(expedientsApi.cercaHistoricsExpedient(any(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
 			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
 			        isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class), isNull(String.class),
@@ -168,10 +180,13 @@ public abstract class ParentTest {
 			when(tramitsOvtApi.consultarDadesTramitOvt(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesTramitOvtResponse());
 
-			when(dadesGrupsApi.cercaDadesOperacioAgrupats1(any(BigDecimal.class), any(BigDecimal.class), isNull(String.class),
+			when(dadesGrupsApi.cercaDadesOperacioAgrupatsPerTramitOvt(any(BigDecimal.class), any(BigDecimal.class), isNull(String.class),
 			        isNull(String.class))).thenReturn(TestsConfigHelper.cercaDadesOperacioAgrupats1Response());
 
-			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioEntrada1(any(BigDecimal.class), any(BigDecimal.class),
+			when(dadesGrupsApi.cercaDadesOperacio(any(BigDecimal.class), isNull(String.class), isNull(String.class)))
+			        .thenReturn(TestsConfigHelper.cercaDadesOperacioAgrupats1Response());
+
+			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioEntradaPerTramitOvt(any(BigDecimal.class), any(BigDecimal.class),
 			        isNull(Integer.class), isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
 			        isNull(Boolean.class), isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class),
 			        isNull(Integer.class), isNull(String.class), isNull(Long.class), isNull(Integer.class)))
@@ -188,6 +203,14 @@ public abstract class ParentTest {
 
 			when(dadesEspecifiquesApi.consultarDadesEspecifiquesExpedient(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesEspecifiquesExpedientResponse());
+
+			when(unitatsGestoresApi.consultarDadesUnitatGestoraPerCodi(any(String.class)))
+			        .thenReturn(TestsConfigHelper.consultarDadesUnitatGestoraResponse());
+
+			when(paisosApi.consultarDadesPaisPerCodiIso(any(String.class))).thenReturn(TestsConfigHelper.consultarDadesPaisResponse());
+
+			when(expedients_Api.crearSollicitudExpedient(any(ExpedientsRDTO.class)))
+			        .thenReturn(TestsConfigHelper.crearSollicitudExpedientResponse());
 
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$

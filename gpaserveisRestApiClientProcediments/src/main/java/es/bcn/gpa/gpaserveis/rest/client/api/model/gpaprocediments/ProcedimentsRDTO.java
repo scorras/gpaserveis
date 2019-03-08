@@ -38,7 +38,7 @@ import org.joda.time.DateTime;
 /**
  * ProcedimentsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-21T02:51:14.183+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-07T17:22:31.104+01:00")
 public class ProcedimentsRDTO {
   @JsonProperty("bloqueig")
   private BigDecimal bloqueig = null;
@@ -147,6 +147,9 @@ public class ProcedimentsRDTO {
 
   @JsonProperty("versio")
   private String versio = null;
+
+  @JsonProperty("versioDocumental")
+  private BigDecimal versioDocumental = null;
 
   public ProcedimentsRDTO bloqueig(BigDecimal bloqueig) {
     this.bloqueig = bloqueig;
@@ -852,6 +855,24 @@ public class ProcedimentsRDTO {
     this.versio = versio;
   }
 
+  public ProcedimentsRDTO versioDocumental(BigDecimal versioDocumental) {
+    this.versioDocumental = versioDocumental;
+    return this;
+  }
+
+   /**
+   * Get versioDocumental
+   * @return versioDocumental
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getVersioDocumental() {
+    return versioDocumental;
+  }
+
+  public void setVersioDocumental(BigDecimal versioDocumental) {
+    this.versioDocumental = versioDocumental;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -897,12 +918,13 @@ public class ProcedimentsRDTO {
         Objects.equals(this.ugrNom, procedimentsRDTO.ugrNom) &&
         Objects.equals(this.ultimaModificacio, procedimentsRDTO.ultimaModificacio) &&
         Objects.equals(this.unitat, procedimentsRDTO.unitat) &&
-        Objects.equals(this.versio, procedimentsRDTO.versio);
+        Objects.equals(this.versio, procedimentsRDTO.versio) &&
+        Objects.equals(this.versioDocumental, procedimentsRDTO.versioDocumental);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bloqueig, bloquejos, codi, codiNom, comentarisList, configuracioAvisos, configuracioDocumentacio, dadesGrupsList, darreraModificacio, descripcio, descripcioCastella, descripcioEstat, descripcioRelacio, estatProcediment, estatsProcediment, historicsList, id, identificacio, identificacions, iniciacionsList, nom, nomCastella, numerador, procedimentsAssociatsList, procedimentsRelacionatsList, reqOperatius, requerimentsOperatius, serieDocumental, tramitador, ugosList, ugosNoms, ugrIdext, ugrNom, ultimaModificacio, unitat, versio);
+    return Objects.hash(bloqueig, bloquejos, codi, codiNom, comentarisList, configuracioAvisos, configuracioDocumentacio, dadesGrupsList, darreraModificacio, descripcio, descripcioCastella, descripcioEstat, descripcioRelacio, estatProcediment, estatsProcediment, historicsList, id, identificacio, identificacions, iniciacionsList, nom, nomCastella, numerador, procedimentsAssociatsList, procedimentsRelacionatsList, reqOperatius, requerimentsOperatius, serieDocumental, tramitador, ugosList, ugosNoms, ugrIdext, ugrNom, ultimaModificacio, unitat, versio, versioDocumental);
   }
 
 
@@ -947,6 +969,7 @@ public class ProcedimentsRDTO {
     sb.append("    ultimaModificacio: ").append(toIndentedString(ultimaModificacio)).append("\n");
     sb.append("    unitat: ").append(toIndentedString(unitat)).append("\n");
     sb.append("    versio: ").append(toIndentedString(versio)).append("\n");
+    sb.append("    versioDocumental: ").append(toIndentedString(versioDocumental)).append("\n");
     sb.append("}");
     return sb.toString();
   }

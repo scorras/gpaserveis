@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-21T03:07:48.984+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-07T11:09:49.340+01:00")
 public class EstatsTramitacioApi {
   private ApiClient apiClient;
 
@@ -35,6 +35,55 @@ public class EstatsTramitacioApi {
     this.apiClient = apiClient;
   }
 
+  /**
+   * Generar estats de tramitacio per al procediment sol licitat
+   * 
+   * @param idProcediment idProcediment (required)
+   * @param idProcedimentOrigen idProcedimentOrigen (required)
+   * @return RestClientResponse
+   * @throws ApiException if fails to make API call
+   */
+  public RestClientResponse generaEstatsTramitacioPerProcedimentOrigenUsingPOST(BigDecimal idProcediment, BigDecimal idProcedimentOrigen) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'idProcediment' is set
+    if (idProcediment == null) {
+      throw new ApiException(400, "Missing the required parameter 'idProcediment' when calling generaEstatsTramitacioPerProcedimentOrigenUsingPOST");
+    }
+    
+    // verify the required parameter 'idProcedimentOrigen' is set
+    if (idProcedimentOrigen == null) {
+      throw new ApiException(400, "Missing the required parameter 'idProcedimentOrigen' when calling generaEstatsTramitacioPerProcedimentOrigenUsingPOST");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/tramits/estatsTramitacio/{idProcediment}/{idProcedimentOrigen}"
+      .replaceAll("\\{" + "idProcediment" + "\\}", apiClient.escapeString(idProcediment.toString()))
+      .replaceAll("\\{" + "idProcedimentOrigen" + "\\}", apiClient.escapeString(idProcedimentOrigen.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<RestClientResponse> localVarReturnType = new GenericType<RestClientResponse>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
   /**
    * Generar estats de tramitacio per al procediment sol licitat
    * 

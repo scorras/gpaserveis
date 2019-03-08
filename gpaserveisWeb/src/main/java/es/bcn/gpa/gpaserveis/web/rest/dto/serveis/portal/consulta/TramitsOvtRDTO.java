@@ -11,7 +11,7 @@ import lombok.Setter;
 
 @ApiModel(value = "TramitsOvt")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "codi", "nom", "documents" })
+@JsonPropertyOrder({ "codi", "nom" })
 @Getter
 @Setter
 public class TramitsOvtRDTO {

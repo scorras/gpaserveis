@@ -10,7 +10,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.modelmapper.AbstractConverter;
 import org.springframework.stereotype.Component;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.DadaEspecificaBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DadesAtributsExpedientsRDTO;
@@ -19,8 +19,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.Dad
  * The Class InternalToDadesOperacioListConverter.
  */
 @Component("expedientInternalToDadesOperacioListConverter")
-public class InternalToDadesOperacioListConverter
-        extends AbstractConverter<List<DadesEspecifiquesRDTO>, List<DadesAtributsExpedientsRDTO>> {
+public class InternalToDadesOperacioListConverter extends AbstractConverter<List<DadaEspecificaBDTO>, List<DadesAtributsExpedientsRDTO>> {
 
 	/*
 	 * (non-Javadoc)
@@ -28,7 +27,7 @@ public class InternalToDadesOperacioListConverter
 	 * @see org.modelmapper.AbstractConverter#convert(java.lang.Object)
 	 */
 	@Override
-	protected List<DadesAtributsExpedientsRDTO> convert(List<DadesEspecifiquesRDTO> source) {
+	protected List<DadesAtributsExpedientsRDTO> convert(List<DadaEspecificaBDTO> source) {
 		List<DadesAtributsExpedientsRDTO> dadesAtributsExpedientsRDTOList = null;
 		DadesAtributsExpedientsRDTO dadesAtributsExpedientsRDTO = null;
 		List<String> valorList = null;
@@ -37,13 +36,13 @@ public class InternalToDadesOperacioListConverter
 		if (CollectionUtils.isNotEmpty(source)) {
 			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
 			dadesAtributsExpedientsRDTOList = new ArrayList<DadesAtributsExpedientsRDTO>();
-			for (DadesEspecifiquesRDTO dadesEspecifiquesRDTO : source) {
+			for (DadaEspecificaBDTO dadaEspecificaBDTO : source) {
 				dadesAtributsExpedientsRDTO = new DadesAtributsExpedientsRDTO();
-				dadesAtributsExpedientsRDTO.setCodi(
-				        (dadesEspecifiquesRDTO.getCampIdext() != null) ? String.valueOf(dadesEspecifiquesRDTO.getCampIdext()) : null);
+				dadesAtributsExpedientsRDTO.setCodi(dadaEspecificaBDTO.getDadaOperacio().getCodi());
 				valorList = new ArrayList<String>();
-				if (CollectionUtils.isNotEmpty(dadesEspecifiquesRDTO.getDadesEspecifiquesValorsList())) {
-					for (DadesEspecifiquesValors dadesEspecifiquesValors : dadesEspecifiquesRDTO.getDadesEspecifiquesValorsList()) {
+				if (CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecifica().getDadesEspecifiquesValorsList())) {
+					for (DadesEspecifiquesValors dadesEspecifiquesValors : dadaEspecificaBDTO.getDadaEspecifica()
+					        .getDadesEspecifiquesValorsList()) {
 						// Transformación directa a String excepto para valores
 						// de tipo fecha o lista múltiple
 						if (CollectionUtils.isNotEmpty(dadesEspecifiquesValors.getValorListaMultipleList())) {

@@ -10,10 +10,10 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.Int
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.DadesOperacioConsultaRDTO;
 
 /**
- * The Class CercaDadesOperacioRDTOToDadesOperacioConsultaRDTO.
+ * The Class RespostaDadesOperacioCercaBDTOToDadesOperacioConsultaRDTO.
  */
 @Component
-public class CercaDadesOperacioRDTOToDadesOperacioConsultaRDTO
+public class RespostaDadesOperacioCercaBDTOToDadesOperacioConsultaRDTO
         extends PropertyMap<RespostaDadesOperacioCercaBDTO, DadesOperacioConsultaRDTO> {
 
 	/** The internal to dades grup list converter. */
@@ -27,7 +27,7 @@ public class CercaDadesOperacioRDTOToDadesOperacioConsultaRDTO
 	 *            the internal to dades grup list converter
 	 */
 	@Autowired
-	public CercaDadesOperacioRDTOToDadesOperacioConsultaRDTO(
+	public RespostaDadesOperacioCercaBDTOToDadesOperacioConsultaRDTO(
 	        @Qualifier("procedimentInternalToDadesGrupListConverter") InternalToDadesGrupListConverter internalToDadesGrupListConverter) {
 		this.internalToDadesGrupListConverter = internalToDadesGrupListConverter;
 	}

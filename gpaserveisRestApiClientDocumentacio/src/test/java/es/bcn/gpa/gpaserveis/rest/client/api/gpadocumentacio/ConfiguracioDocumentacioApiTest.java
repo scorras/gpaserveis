@@ -35,7 +35,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ProcedimentsClonarRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RestClientResponse;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 
@@ -48,26 +47,6 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 
 	@InjectMocks
 	private ConfiguracioDocumentacioApi api = new ConfiguracioDocumentacioApi();
-
-	/**
-	 * create doc configuracio to the proc clon
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void createConfiguracioDocToProcClonUsingPOSTTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/newConfiguracioDoc"), eq("POST"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new RestClientResponse());
-
-		ProcedimentsClonarRDTO procedimentsClonarBDTO = new ProcedimentsClonarRDTO();
-		RestClientResponse response = api.createConfiguracioDocToProcClonUsingPOST(procedimentsClonarBDTO);
-
-		assertTrue(response != null);
-	}
 
 	/**
 	 * Returns the requested entrada configuracio associada al requeriment
@@ -106,7 +85,6 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 		                .thenReturn(new PageDataOfConfiguracioDocsEntradaRDTO());
 
 		BigDecimal id = ONE;
-		BigDecimal idTramitOvt = ONE;
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
 		Boolean currentPageHasNextPage = null;
@@ -121,7 +99,7 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 		String sort = null;
 		Long totalElements = null;
 		Integer totalPages = null;
-		PageDataOfConfiguracioDocsEntradaRDTO response = api.cercaConfiguracioDocumentacioEntrada(id, idTramitOvt,
+		PageDataOfConfiguracioDocsEntradaRDTO response = api.cercaConfiguracioDocumentacioEntrada(id,
 		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
 		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
 		        previousPageNumber, sort, totalElements, totalPages);
@@ -138,7 +116,7 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void cercaConfiguracioDocumentacioEntrada1Test() throws ApiException {
+	public void cercaConfiguracioDocumentacioEntradaPerTramitOvtTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/entrada/1/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
@@ -160,7 +138,7 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 		String sort = null;
 		Long totalElements = null;
 		Integer totalPages = null;
-		PageDataOfConfiguracioDocsEntradaRDTO response = api.cercaConfiguracioDocumentacioEntrada1(id, idTramitOvt,
+		PageDataOfConfiguracioDocsEntradaRDTO response = api.cercaConfiguracioDocumentacioEntradaPerTramitOvt(id, idTramitOvt,
 		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
 		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
 		        previousPageNumber, sort, totalElements, totalPages);
@@ -202,25 +180,6 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
 		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
 		        previousPageNumber, sort, totalElements, totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * check if the tramits are being used
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void newConfiguracioDocUsingGETTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/newConfiguracioDoc"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new RestClientResponse());
-
-		RestClientResponse response = api.newConfiguracioDocUsingGET();
 
 		assertTrue(response != null);
 	}

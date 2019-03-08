@@ -24,13 +24,16 @@ import java.math.BigDecimal;
 /**
  * UnitatsGestoresRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-21T02:51:14.183+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-07T17:22:31.104+01:00")
 public class UnitatsGestoresRDTO {
   @JsonProperty("descripcio")
   private String descripcio = null;
 
   @JsonProperty("id")
   private BigDecimal id = null;
+
+  @JsonProperty("idUsuari")
+  private BigDecimal idUsuari = null;
 
   @JsonProperty("nom")
   private String nom = null;
@@ -72,6 +75,24 @@ public class UnitatsGestoresRDTO {
 
   public void setId(BigDecimal id) {
     this.id = id;
+  }
+
+  public UnitatsGestoresRDTO idUsuari(BigDecimal idUsuari) {
+    this.idUsuari = idUsuari;
+    return this;
+  }
+
+   /**
+   * Get idUsuari
+   * @return idUsuari
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getIdUsuari() {
+    return idUsuari;
+  }
+
+  public void setIdUsuari(BigDecimal idUsuari) {
+    this.idUsuari = idUsuari;
   }
 
   public UnitatsGestoresRDTO nom(String nom) {
@@ -122,13 +143,14 @@ public class UnitatsGestoresRDTO {
     UnitatsGestoresRDTO unitatsGestoresRDTO = (UnitatsGestoresRDTO) o;
     return Objects.equals(this.descripcio, unitatsGestoresRDTO.descripcio) &&
         Objects.equals(this.id, unitatsGestoresRDTO.id) &&
+        Objects.equals(this.idUsuari, unitatsGestoresRDTO.idUsuari) &&
         Objects.equals(this.nom, unitatsGestoresRDTO.nom) &&
         Objects.equals(this.vigent, unitatsGestoresRDTO.vigent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(descripcio, id, nom, vigent);
+    return Objects.hash(descripcio, id, idUsuari, nom, vigent);
   }
 
 
@@ -139,6 +161,7 @@ public class UnitatsGestoresRDTO {
     
     sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    idUsuari: ").append(toIndentedString(idUsuari)).append("\n");
     sb.append("    nom: ").append(toIndentedString(nom)).append("\n");
     sb.append("    vigent: ").append(toIndentedString(vigent)).append("\n");
     sb.append("}");

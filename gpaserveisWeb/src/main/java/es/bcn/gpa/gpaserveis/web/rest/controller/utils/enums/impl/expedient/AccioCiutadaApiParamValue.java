@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.BaseApiParamValue;
 
 /**
- * The Enum AccioApiParamValue.
+ * The Enum AccioCiutadaApiParamValue.
  */
-public enum AccioApiParamValue implements BaseApiParamValue {
+public enum AccioCiutadaApiParamValue implements BaseApiParamValue {
 
     /** The requeriment esmena. */
 	REQUERIMENT_ESMENA("REQUERIMENT_ESMENA", new BigDecimal(3)),
@@ -38,7 +38,7 @@ public enum AccioApiParamValue implements BaseApiParamValue {
 	 * @param internalValue
 	 *            the internal value
 	 */
-	AccioApiParamValue(String apiParamValue, BigDecimal internalValue) {
+	AccioCiutadaApiParamValue(String apiParamValue, BigDecimal internalValue) {
 		this.apiParamValue = apiParamValue;
 		this.internalValue = internalValue;
 	}

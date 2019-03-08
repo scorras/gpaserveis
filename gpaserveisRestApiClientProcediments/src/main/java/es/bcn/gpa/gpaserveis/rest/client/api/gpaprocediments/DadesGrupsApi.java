@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-21T02:51:14.183+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-07T17:22:31.104+01:00")
 public class DadesGrupsApi {
   private ApiClient apiClient;
 
@@ -40,29 +40,22 @@ public class DadesGrupsApi {
    * Returns all the grups entries for the procedure
    * 
    * @param id id (required)
-   * @param idTramitOvt idTramitOvt (required)
    * @param dir  (optional)
    * @param sort  (optional)
    * @return PageDataOfDadesGrupsRDTO
    * @throws ApiException if fails to make API call
    */
-  public PageDataOfDadesGrupsRDTO cercaDadesOperacioAgrupats(BigDecimal id, BigDecimal idTramitOvt, String dir, String sort) throws ApiException {
+  public PageDataOfDadesGrupsRDTO cercaDadesOperacio(BigDecimal id, String dir, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling cercaDadesOperacioAgrupats");
-    }
-    
-    // verify the required parameter 'idTramitOvt' is set
-    if (idTramitOvt == null) {
-      throw new ApiException(400, "Missing the required parameter 'idTramitOvt' when calling cercaDadesOperacioAgrupats");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling cercaDadesOperacio");
     }
     
     // create path and map variables
     String localVarPath = "/procediments/{id}/grups"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
-      .replaceAll("\\{" + "idTramitOvt" + "\\}", apiClient.escapeString(idTramitOvt.toString()));
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -99,17 +92,17 @@ public class DadesGrupsApi {
    * @return PageDataOfDadesGrupsRDTO
    * @throws ApiException if fails to make API call
    */
-  public PageDataOfDadesGrupsRDTO cercaDadesOperacioAgrupats1(BigDecimal id, BigDecimal idTramitOvt, String dir, String sort) throws ApiException {
+  public PageDataOfDadesGrupsRDTO cercaDadesOperacioAgrupatsPerTramitOvt(BigDecimal id, BigDecimal idTramitOvt, String dir, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling cercaDadesOperacioAgrupats1");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling cercaDadesOperacioAgrupatsPerTramitOvt");
     }
     
     // verify the required parameter 'idTramitOvt' is set
     if (idTramitOvt == null) {
-      throw new ApiException(400, "Missing the required parameter 'idTramitOvt' when calling cercaDadesOperacioAgrupats1");
+      throw new ApiException(400, "Missing the required parameter 'idTramitOvt' when calling cercaDadesOperacioAgrupatsPerTramitOvt");
     }
     
     // create path and map variables

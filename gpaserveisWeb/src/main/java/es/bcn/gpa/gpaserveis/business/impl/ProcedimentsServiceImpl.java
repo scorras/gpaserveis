@@ -123,4 +123,48 @@ public class ProcedimentsServiceImpl implements ProcedimentsService {
 
 		throw new GPAServeisServiceException("El servei de procediments no està disponible");
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ProcedimentsService#
+	 * consultarDadesProcedimentPerCodi(java.lang.String)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesProcedimentPerCodi")
+	public ProcedimentsRDTO consultarDadesProcedimentPerCodi(String codi) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarDadesProcedimentPerCodi(String) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			ProcedimentsRDTO procedimentsRDTO = procedimentsApi.consultarDadesProcedimentPerCodi(codi);
+
+			if (log.isDebugEnabled()) {
+				log.debug("consultarDadesProcedimentPerCodi(String) - fi"); //$NON-NLS-1$
+			}
+			return procedimentsRDTO;
+		} catch (ApiException e) {
+			log.error("consultarDadesProcedimentPerCodi(String)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback consultar dades procediment per codi.
+	 *
+	 * @param codi
+	 *            the codi
+	 * @return the procediments RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public ProcedimentsRDTO fallbackConsultarDadesProcedimentPerCodi(String codi) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackConsultarDadesProcedimentPerCodi(String) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de procediments no està disponible");
+	}
 }

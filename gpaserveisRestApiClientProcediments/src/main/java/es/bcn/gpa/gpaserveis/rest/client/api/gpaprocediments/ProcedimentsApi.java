@@ -16,6 +16,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.InfoDocProced
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfComentarisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfHistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfProcedimentsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentSerieDocRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsForTramitsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsForUnitatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
@@ -28,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-21T02:51:14.183+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-07T17:22:31.104+01:00")
 public class ProcedimentsApi {
   private ApiClient apiClient;
 
@@ -382,6 +383,48 @@ public class ProcedimentsApi {
     // create path and map variables
     String localVarPath = "/procediments/{id}"
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<ProcedimentsRDTO> localVarReturnType = new GenericType<ProcedimentsRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Returns the requested procediment
+   * 
+   * @param codi codi (required)
+   * @return ProcedimentsRDTO
+   * @throws ApiException if fails to make API call
+   */
+  public ProcedimentsRDTO consultarDadesProcedimentPerCodi(String codi) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'codi' is set
+    if (codi == null) {
+      throw new ApiException(400, "Missing the required parameter 'codi' when calling consultarDadesProcedimentPerCodi");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/procediments/perCodi/{codi}"
+      .replaceAll("\\{" + "codi" + "\\}", apiClient.escapeString(codi.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -950,6 +993,88 @@ public class ProcedimentsApi {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
+   * Inserts new historic for documentacio
+   * 
+   * @param historicsRDTO historicsRDTO (required)
+   * @return BigDecimal
+   * @throws ApiException if fails to make API call
+   */
+  public BigDecimal registrarHistoricDocumentacioUsingPOST(HistoricsRDTO historicsRDTO) throws ApiException {
+    Object localVarPostBody = historicsRDTO;
+    
+    // verify the required parameter 'historicsRDTO' is set
+    if (historicsRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'historicsRDTO' when calling registrarHistoricDocumentacioUsingPOST");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/procediments/historic/insertForDocumentacio";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<BigDecimal> localVarReturnType = new GenericType<BigDecimal>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Inserts new historic
+   * 
+   * @param unitatsGestoresRDTO unitatsGestoresRDTO (required)
+   * @return List&lt;BigDecimal&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<BigDecimal> registrarHistoricSincronitzacioUnitatsGestoresUsingPOST(List<UnitatsGestoresRDTO> unitatsGestoresRDTO) throws ApiException {
+    Object localVarPostBody = unitatsGestoresRDTO;
+    
+    // verify the required parameter 'unitatsGestoresRDTO' is set
+    if (unitatsGestoresRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'unitatsGestoresRDTO' when calling registrarHistoricSincronitzacioUnitatsGestoresUsingPOST");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/procediments/historic/sincronitzarUnitatsGestores";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<BigDecimal>> localVarReturnType = new GenericType<List<BigDecimal>>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
    * Inserts new historic
    * 
    * @param historicsRDTO historicsRDTO (required)
@@ -1289,23 +1414,116 @@ public class ProcedimentsApi {
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
-   * Version the provided procediment
+   * Update the documentary version of the procedure
    * 
-   * @param id id (required)
-   * @return ProcedimentsResponse
+   * @param idProc idProc (required)
+   * @param versioDoc versioDoc (required)
+   * @return RestClientResponse
    * @throws ApiException if fails to make API call
    */
-  public ProcedimentsResponse versionProcedimentUsingPOST(BigDecimal id) throws ApiException {
+  public RestClientResponse updateVersioDocumentalUsingPOST(BigDecimal idProc, BigDecimal versioDoc) throws ApiException {
     Object localVarPostBody = null;
     
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling versionProcedimentUsingPOST");
+    // verify the required parameter 'idProc' is set
+    if (idProc == null) {
+      throw new ApiException(400, "Missing the required parameter 'idProc' when calling updateVersioDocumentalUsingPOST");
+    }
+    
+    // verify the required parameter 'versioDoc' is set
+    if (versioDoc == null) {
+      throw new ApiException(400, "Missing the required parameter 'versioDoc' when calling updateVersioDocumentalUsingPOST");
     }
     
     // create path and map variables
-    String localVarPath = "/procediments/versionar/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+    String localVarPath = "/procediments/versioDocumental/{idProc}/{versioDoc}"
+      .replaceAll("\\{" + "idProc" + "\\}", apiClient.escapeString(idProc.toString()))
+      .replaceAll("\\{" + "versioDoc" + "\\}", apiClient.escapeString(versioDoc.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<RestClientResponse> localVarReturnType = new GenericType<RestClientResponse>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Version the provided procediment
+   * 
+   * @param idProc idProc (required)
+   * @param procedimentSerieDocRDTO procedimentSerieDocRDTO (optional)
+   * @return ProcedimentsResponse
+   * @throws ApiException if fails to make API call
+   */
+  public ProcedimentsResponse versionProcedimentProcUsingPOST(BigDecimal idProc, ProcedimentSerieDocRDTO procedimentSerieDocRDTO) throws ApiException {
+    Object localVarPostBody = procedimentSerieDocRDTO;
+    
+    // verify the required parameter 'idProc' is set
+    if (idProc == null) {
+      throw new ApiException(400, "Missing the required parameter 'idProc' when calling versionProcedimentProcUsingPOST");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/procediments/versionar"
+      .replaceAll("\\{" + "idProc" + "\\}", apiClient.escapeString(idProc.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<ProcedimentsResponse> localVarReturnType = new GenericType<ProcedimentsResponse>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Version the provided procediment
+   * 
+   * @param idProc idProc (required)
+   * @param procedimentSerieDocRDTO procedimentSerieDocRDTO (optional)
+   * @return ProcedimentsResponse
+   * @throws ApiException if fails to make API call
+   */
+  public ProcedimentsResponse versionProcedimentUsingPOST(BigDecimal idProc, ProcedimentSerieDocRDTO procedimentSerieDocRDTO) throws ApiException {
+    Object localVarPostBody = procedimentSerieDocRDTO;
+    
+    // verify the required parameter 'idProc' is set
+    if (idProc == null) {
+      throw new ApiException(400, "Missing the required parameter 'idProc' when calling versionProcedimentUsingPOST");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/procediments/versionar/{idProc}"
+      .replaceAll("\\{" + "idProc" + "\\}", apiClient.escapeString(idProc.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();

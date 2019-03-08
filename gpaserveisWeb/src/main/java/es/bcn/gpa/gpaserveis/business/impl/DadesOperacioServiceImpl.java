@@ -31,8 +31,13 @@ public class DadesOperacioServiceImpl implements DadesOperacioService {
 		}
 
 		try {
-			PageDataOfDadesGrupsRDTO pageDataOfDadesGrupsRDTO = dadesGrupsApi.cercaDadesOperacioAgrupats1(
-			        dadesOperacioCercaBDTO.getIdProcediment(), dadesOperacioCercaBDTO.getIdTramitOvt(), null, null);
+			PageDataOfDadesGrupsRDTO pageDataOfDadesGrupsRDTO = null;
+			if (dadesOperacioCercaBDTO.getIdTramitOvt() != null) {
+				pageDataOfDadesGrupsRDTO = dadesGrupsApi.cercaDadesOperacioAgrupatsPerTramitOvt(dadesOperacioCercaBDTO.getIdProcediment(),
+				        dadesOperacioCercaBDTO.getIdTramitOvt(), null, null);
+			} else {
+				pageDataOfDadesGrupsRDTO = dadesGrupsApi.cercaDadesOperacio(dadesOperacioCercaBDTO.getIdProcediment(), null, null);
+			}
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaDadesOperacio(DadesOperacioCercaBDTO) - fi"); //$NON-NLS-1$

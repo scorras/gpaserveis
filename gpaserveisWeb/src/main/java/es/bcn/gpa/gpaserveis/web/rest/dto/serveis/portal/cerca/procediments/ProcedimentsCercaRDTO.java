@@ -6,7 +6,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.EstatApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TramitadorApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
 import io.swagger.annotations.ApiModel;
@@ -36,7 +35,7 @@ public class ProcedimentsCercaRDTO {
 	private UnitatGestoraRDTO ugr;
 	@ApiModelProperty(value = "Llista d'unitats gestores operatives")
 	private List<UnitatGestoraRDTO> ugo;
-	@ApiModelProperty(value = "Estat actual del procediment", allowableValues = EstatApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
+	@ApiModelProperty(value = "Estat actual del procediment")
 	private String estat;
 	@ApiModelProperty(value = "Aplicació de tramitació", allowableValues = TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private String tramitador;

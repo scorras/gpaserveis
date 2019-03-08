@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @ApiModel(value = "ResultatResposta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "codi", "descripcio" })
+@JsonPropertyOrder({ "codi", "descripcio", "detallError" })
 @Getter
 @Setter
 public class ResultatRespostaDTO {
@@ -19,5 +19,7 @@ public class ResultatRespostaDTO {
 	private String codi;
 	@ApiModelProperty(value = "Descripció del resultat de l'operació")
 	private String descripcio;
+	@ApiModelProperty(value = "En cas d'ocórrer, detall de l'error")
+	private ErrorDTO detallError;
 
 }

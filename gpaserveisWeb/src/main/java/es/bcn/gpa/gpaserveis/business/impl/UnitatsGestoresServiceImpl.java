@@ -20,8 +20,6 @@ import lombok.extern.apachecommons.CommonsLog;
  * The Class UnitatsGestoresServiceImpl.
  */
 @Service
-
-/** The Constant log. */
 @CommonsLog
 public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 
@@ -115,6 +113,35 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 	public UnitatsGestoresRDTO fallbackConsultarDadesUnitatGestora(BigDecimal id) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackConsultarDadesUnitatGestora(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de unitats gestores no està disponible");
+	}
+
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesUnitatGestoraPerCodi")
+	public UnitatsGestoresRDTO consultarDadesUnitatGestoraPerCodi(String codi) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarDadesUnitatGestoraPerCodi(String) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			UnitatsGestoresRDTO unitatsGestoresRDTO = unitatsGestoresApi.consultarDadesUnitatGestoraPerCodi(codi);
+
+			if (log.isDebugEnabled()) {
+				log.debug("consultarDadesUnitatGestoraPerCodi(String) - fi"); //$NON-NLS-1$
+			}
+			return unitatsGestoresRDTO;
+		} catch (ApiException e) {
+			log.error("consultarDadesUnitatGestoraPerCodi(String)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	public UnitatsGestoresRDTO fallbackConsultarDadesUnitatGestoraPerCodi(String codi) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackConsultarDadesUnitatGestoraPerCodi(String) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de unitats gestores no està disponible");

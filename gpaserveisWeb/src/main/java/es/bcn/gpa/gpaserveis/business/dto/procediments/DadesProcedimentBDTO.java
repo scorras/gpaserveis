@@ -13,15 +13,15 @@ import lombok.Setter;
 public class DadesProcedimentBDTO {
 
 	/** The procediments RDTO. */
-	private ProcedimentsRDTO procedimentsRDTO = null;
+	private ProcedimentsRDTO procedimentsRDTO;
 
 	/** The tramits RDTO list. */
-	private List<TramitsRDTO> tramitsRDTOList = null;
+	private List<TramitsRDTO> tramitsRDTOList;
 
 	/** The ugr RDTO. */
-	private UnitatsGestoresRDTO ugrRDTO = null;
+	private UnitatsGestoresRDTO ugrRDTO;
 
 	/** The ugo RDTO list. */
-	private List<UnitatsGestoresRDTO> ugoRDTOList = null;
+	private List<UnitatsGestoresRDTO> ugoRDTOList;
 
 }

@@ -11,8 +11,13 @@ import org.joda.time.format.DateTimeFormatter;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Paisos;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesDadescontacte;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitud;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperTramitsOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperValidVal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
@@ -20,11 +25,17 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacio
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.BooleanApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.EstatTramitadorApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.RelacioPersonaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TipusValidacioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.common.BooleanApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusDocumentIdentitatApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusPersonaApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusSexeApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusViaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ConfiguracioDocumentacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValidacionsRDTO;
@@ -110,10 +121,69 @@ public class ConverterHelper {
 			documentsIdentitatRDTO.setTipusDocument(tipusDocumentIdentitatApiParamValueTranslator
 			        .getApiParamValueByInternalValue(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getId()));
 			documentsIdentitatRDTO.setNumeroDocument(persones.getDocumentsIdentitat().getNumeroDocument().toUpperCase());
-			documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPaisos().getCodiIso());
+			documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPaisos().getCodiIne());
 		}
 		personesRDTO.setDocumentIndentitat(documentsIdentitatRDTO);
 		return personesRDTO;
+	}
+
+	public static PersonesSollicitud buildPersonesSollicitudExpedient(PersonesRDTO personesRDTO,
+	        RelacioPersonaApiParamValue relacioPersonaApiParamValue,
+	        TipusPersonaApiParamValueTranslator tipusPersonaApiParamValueTranslator,
+	        TipusDocumentIdentitatApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
+	        TipusSexeApiParamValueTranslator tipusSexeApiParamValueTranslator,
+	        TipusViaApiParamValueTranslator tipusViaApiParamValueTranslator) {
+		PersonesSollicitud personesSollicitud = null;
+
+		if (personesRDTO != null) {
+			personesSollicitud = new PersonesSollicitud();
+			personesSollicitud.setEsInteressada(BooleanApiParamValue.TRUE.getInternalValue());
+			personesSollicitud.setRelacio(relacioPersonaApiParamValue.getInternalValue());
+			personesSollicitud.setRelacioPrincipal(BooleanApiParamValue.TRUE.getInternalValue());
+			Persones persones = new Persones();
+			persones.setTipusPersona(tipusPersonaApiParamValueTranslator.getInternalValueByApiParamValue(personesRDTO.getTipusPersona()));
+			persones.setNomRaoSocial(personesRDTO.getNomRaoSocial());
+			persones.setCognom1(personesRDTO.getCognom1());
+			persones.setCognom2(personesRDTO.getCognom2());
+			DocumentsIdentitat documentsIdentitat = new DocumentsIdentitat();
+			TipusDocumentIdentitat tipusDocumentIdentitat = new TipusDocumentIdentitat();
+			tipusDocumentIdentitat.setId(tipusDocumentIdentitatApiParamValueTranslator
+			        .getInternalValueByApiParamValue(personesRDTO.getDocumentIndentitat().getTipusDocument()));
+			documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
+			documentsIdentitat.setTipus(tipusDocumentIdentitatApiParamValueTranslator
+			        .getInternalValueByApiParamValue(personesRDTO.getDocumentIndentitat().getTipusDocument()));
+			documentsIdentitat.setNumeroDocument(personesRDTO.getDocumentIndentitat().getNumeroDocument());
+			Paisos paisos = new Paisos();
+			paisos.setCodiIne(personesRDTO.getDocumentIndentitat().getPais());
+			documentsIdentitat.setPaisos(paisos);
+			documentsIdentitat.setPais(personesRDTO.getDocumentIndentitat().getPais());
+			persones.setDocumentsIdentitat(documentsIdentitat);
+			PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
+			personesDadescontacte.setSexe(tipusSexeApiParamValueTranslator.getInternalValueByApiParamValue(personesRDTO.getSexe()));
+			personesDadescontacte.setEmail(personesRDTO.getDadesNotificacio().getEmail());
+			personesDadescontacte.setTelefon(personesRDTO.getDadesNotificacio().getTelefon());
+			personesDadescontacte.setMobil(personesRDTO.getDadesNotificacio().getMobil());
+			personesDadescontacte.setFax(personesRDTO.getDadesNotificacio().getFax());
+			personesDadescontacte.setTipusVia(
+			        tipusViaApiParamValueTranslator.getInternalValueByApiParamValue(personesRDTO.getDadesNotificacio().getTipusVia()));
+			personesDadescontacte.setDireccioPostal(personesRDTO.getDadesNotificacio().getNomVia());
+			personesDadescontacte.setNumero(personesRDTO.getDadesNotificacio().getNumero());
+			personesDadescontacte.setEscala(personesRDTO.getDadesNotificacio().getEscala());
+			personesDadescontacte.setBloc(personesRDTO.getDadesNotificacio().getBloc());
+			personesDadescontacte.setPorta(personesRDTO.getDadesNotificacio().getPorta());
+			personesDadescontacte.setPis(personesRDTO.getDadesNotificacio().getPis());
+			personesDadescontacte.setCodiPostal(personesRDTO.getDadesNotificacio().getCodiPostal());
+			personesDadescontacte.setMunicipi(personesRDTO.getDadesNotificacio().getMunicipi());
+			personesDadescontacte.setProvincia(personesRDTO.getDadesNotificacio().getProvincia());
+			personesDadescontacte.setComarca(personesRDTO.getDadesNotificacio().getComarca());
+			personesDadescontacte.setPais(personesRDTO.getDadesNotificacio().getPais());
+			personesDadescontacte.setMunicipiEstranger(personesRDTO.getDadesNotificacio().getMunicipiEstranger());
+			personesDadescontacte.setProvinciaEstranger(personesRDTO.getDadesNotificacio().getProvinciaEstranger());
+			persones.setPersonesDadescontacte(personesDadescontacte);
+			personesSollicitud.setPersones(persones);
+		}
+
+		return personesSollicitud;
 	}
 
 	/**
@@ -152,7 +222,7 @@ public class ConverterHelper {
 			documentsIdentitatRDTO.setTipusDocument(tipusDocumentIdentitatApiParamValueTranslator
 			        .getApiParamValueByInternalValue(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getId()));
 			documentsIdentitatRDTO.setNumeroDocument(persones.getDocumentsIdentitat().getNumeroDocument().toUpperCase());
-			documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPaisos().getCodiIso());
+			documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPaisos().getCodiIne());
 		}
 		personesRDTO.setDocumentIndentitat(documentsIdentitatRDTO);
 		return personesRDTO;

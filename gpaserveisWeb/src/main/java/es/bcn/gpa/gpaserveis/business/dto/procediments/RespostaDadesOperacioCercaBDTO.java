@@ -11,6 +11,6 @@ import lombok.Setter;
 public class RespostaDadesOperacioCercaBDTO {
 
 	/** The dades grups RDTO list. */
-	private List<DadesGrupsRDTO> dadesGrupsRDTOList = null;
+	private List<DadesGrupsRDTO> dadesGrupsRDTOList;
 
 }
