@@ -1,6 +1,6 @@
 package es.bcn.gpa.gpaserveis.business.dto.expedients;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +13,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ExpedientsActualitzarBDTO {
 
-	/** The expedients RDTO. */
-	private ExpedientsRDTO expedientsRDTO;
+	/** The actualitzar dades sollicitud. */
+	private ActualitzarDadesSollicitud actualitzarDadesSollicitud;
 }

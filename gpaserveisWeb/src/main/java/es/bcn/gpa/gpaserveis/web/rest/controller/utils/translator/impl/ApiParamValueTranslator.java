@@ -135,6 +135,36 @@ public class ApiParamValueTranslator<E extends Enum<E>, T extends Object> implem
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.
+	 * BaseApiParamValueTranslator#getEnumByInternalValue(java.lang.Object)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public E getEnumByInternalValue(Object internalValue) throws GPAServeisRuntimeException {
+		if (internalValue == null) {
+			return null;
+		}
+
+		try {
+			E[] enumList = getEnumValues(getEnumClass());
+
+			for (E e : enumList) {
+				Method getInternalValueMethod = e.getClass().getDeclaredMethod("getInternalValue");
+				Object internalValueObject = getInternalValueMethod.invoke(e);
+
+				if (ObjectUtils.equals(internalValueObject, internalValue)) {
+					return e;
+				}
+			}
+			throw new GPAServeisRuntimeException("El valor indicat no és vàlid");
+		} catch (Exception e) {
+			throw new GPAServeisRuntimeException("El valor indicat no és vàlid", e);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.
 	 * BaseApiParamValueTranslator#getApiParamValueByInternalValue(java.lang.
 	 * Object)
 	 */

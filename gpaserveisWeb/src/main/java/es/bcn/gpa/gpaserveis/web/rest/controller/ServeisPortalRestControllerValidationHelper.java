@@ -2,20 +2,36 @@ package es.bcn.gpa.gpaserveis.web.rest.controller;
 
 import static org.apache.commons.lang.math.NumberUtils.INTEGER_ZERO;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.math.NumberUtils;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsUgos;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.EstatApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TipusCampApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TipusCampApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.actualitzar.solicituds.AtributsActualitzarRDTO;
 
 /**
  * The Class ServeisPortalRestControllerValidationHelper.
@@ -171,5 +187,120 @@ public class ServeisPortalRestControllerValidationHelper {
 			throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
 			        ErrorPrincipal.ERROR_EXPEDIENTS_SOLLICITANT_REQUIRED);
 		}
+	}
+
+	/**
+	 * Validate dades operacio actualitzar solicitud expedient.
+	 *
+	 * @param dadesOperacio
+	 *            the dades operacio
+	 * @param dadesGrupsRDTOList
+	 *            the dades grups RDTO list
+	 * @param idExpedient
+	 *            the id expedient
+	 * @return the array list
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static ArrayList<DadesEspecifiquesRDTO> validateDadesOperacioActualitzarSolicitudExpedient(
+	        List<AtributsActualitzarRDTO> dadesOperacio, List<DadesGrupsRDTO> dadesGrupsRDTOList, BigDecimal idExpedient)
+	        throws GPAApiParamValidationException {
+		ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
+
+		HashMap<String, DadesOperacions> dadesOperacionsMap = new HashMap<String, DadesOperacions>();
+		if (CollectionUtils.isNotEmpty(dadesGrupsRDTOList)) {
+			for (DadesGrupsRDTO dadesGrupsRDTO : dadesGrupsRDTOList) {
+				if (CollectionUtils.isNotEmpty(dadesGrupsRDTO.getDadesOperacionsList())) {
+					for (DadesOperacions dadesOperacions : dadesGrupsRDTO.getDadesOperacionsList()) {
+						dadesOperacionsMap.put(dadesOperacions.getCodi(), dadesOperacions);
+					}
+				}
+			}
+		}
+		if (CollectionUtils.isNotEmpty(dadesOperacio)) {
+			dadesEspecifiquesRDTOList = new ArrayList<DadesEspecifiquesRDTO>();
+			DadesEspecifiquesRDTO dadesEspecifiquesRDTO = null;
+			DadesOperacions dadesOperacions = null;
+			ArrayList<DadesEspecifiquesValors> dadesEspecifiquesValorsList = null;
+			DadesEspecifiquesValors dadesEspecifiquesValors = null;
+			for (AtributsActualitzarRDTO atributsActualitzarRDTO : dadesOperacio) {
+				if (!dadesOperacionsMap.containsKey(atributsActualitzarRDTO.getCodi())) {
+					throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
+					        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_FOUND, atributsActualitzarRDTO.getCodi());
+				}
+				dadesOperacions = dadesOperacionsMap.get(atributsActualitzarRDTO.getCodi());
+				dadesEspecifiquesRDTO = new DadesEspecifiquesRDTO();
+				dadesEspecifiquesRDTO.setCampIdext(dadesOperacions.getId());
+				dadesEspecifiquesRDTO.setExpedient(idExpedient);
+				dadesEspecifiquesValorsList = new ArrayList<DadesEspecifiquesValors>();
+				dadesEspecifiquesValors = new DadesEspecifiquesValors();
+				// TODO Aplicar validaciones
+				// TODO Encapsular todo y pasar a un converter, independiente de
+				// la validación
+				TipusCampApiParamValueTranslator tipusCampApiParamValueTranslator = new TipusCampApiParamValueTranslator();
+				TipusCampApiParamValue tipusCampApiParamValue = tipusCampApiParamValueTranslator
+				        .getEnumByInternalValue(dadesOperacions.getTipus());
+				DateTimeFormatter dataFormatter = DateTimeFormat.forPattern(Constants.DATE_PATTERN);
+				DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
+				DateTimeFormatter horaFormatter = DateTimeFormat.forPattern(Constants.TIME_PATTERN);
+				switch (tipusCampApiParamValue) {
+				case NUMERIC:
+					dadesEspecifiquesValors.setValorInteger(Long.valueOf(atributsActualitzarRDTO.getValor()));
+					break;
+				case DECIMAL:
+					dadesEspecifiquesValors.setValorDouble(Double.valueOf(atributsActualitzarRDTO.getValor()));
+					break;
+				case MONEDA:
+					dadesEspecifiquesValors.setValorMoneda(Double.valueOf(atributsActualitzarRDTO.getValor()));
+					break;
+				case DATA:
+					dadesEspecifiquesValors.setValorCalendar(DateTime.parse(atributsActualitzarRDTO.getValor(), dataFormatter));
+					break;
+				case DATA_HORA:
+					dadesEspecifiquesValors.setValorCalendar(DateTime.parse(atributsActualitzarRDTO.getValor(), dataHoraFormatter));
+					break;
+				case HORA:
+					dadesEspecifiquesValors.setValorCalendar(DateTime.parse(atributsActualitzarRDTO.getValor(), horaFormatter));
+					break;
+				case TEXT:
+					dadesEspecifiquesValors.setValorString(atributsActualitzarRDTO.getValor());
+					break;
+				case TEXT_GRAN:
+					dadesEspecifiquesValors.setValorClob(atributsActualitzarRDTO.getValor());
+					break;
+				case LITERAL:
+					break;
+				case LLISTA_SIMPLE:
+					dadesEspecifiquesValors.setValorListaSimple(Integer.valueOf(atributsActualitzarRDTO.getValor()));
+					break;
+				case LLISTA_MULTIPLE:
+					ArrayList<Integer> integerList = new ArrayList<Integer>();
+					integerList.add(Integer.valueOf(atributsActualitzarRDTO.getValor()));
+					dadesEspecifiquesValors.setValorListaMultipleList(integerList);
+					break;
+				case MARCADOR:
+					dadesEspecifiquesValors.setValorBoolean(Integer.valueOf(atributsActualitzarRDTO.getValor()));
+					break;
+				case PAIS:
+					dadesEspecifiquesValors.setValorPais(atributsActualitzarRDTO.getValor());
+					break;
+				case PROVINCIA:
+					dadesEspecifiquesValors.setValorProvincia(atributsActualitzarRDTO.getValor());
+					break;
+				case COMARCA:
+					dadesEspecifiquesValors.setValorComarca(atributsActualitzarRDTO.getValor());
+					break;
+				case MUNICIPI:
+					dadesEspecifiquesValors.setValorMunicipi(atributsActualitzarRDTO.getValor());
+					break;
+				default:
+					break;
+				}
+				dadesEspecifiquesValorsList.add(dadesEspecifiquesValors);
+				dadesEspecifiquesRDTO.setDadesEspecifiquesValorsList(dadesEspecifiquesValorsList);
+			}
+		}
+
+		return dadesEspecifiquesRDTOList;
 	}
 }

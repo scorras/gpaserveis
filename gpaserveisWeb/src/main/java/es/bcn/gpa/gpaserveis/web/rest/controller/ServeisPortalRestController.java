@@ -1,5 +1,8 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
@@ -28,8 +31,10 @@ import es.bcn.gpa.gpaserveis.business.dto.RespostaResultatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
@@ -41,6 +46,8 @@ import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
@@ -574,7 +581,12 @@ public class ServeisPortalRestController extends BaseRestController {
 	public RespostaActualitzarSolicitudsRDTO actualitzarSolicitudExpedient(
 	        @ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient,
 	        @ApiParam(value = "Identificador de l'expedient") @RequestBody SolicitudsActualitzarRDTO solicitudExpedient) {
+		if (log.isDebugEnabled()) {
+			log.debug("actualitzarSolicitudExpedient(BigDecimal, SolicitudsActualitzarRDTO) - inici"); //$NON-NLS-1$
+		}
+
 		RespostaActualitzarSolicitudsRDTO respostaActualitzarSolicitudsRDTO = null;
+		ExpedientsRDTO returnExpedientsRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACTUALITZAR_EXPEDIENT);
 		try {
 			// El id del expediente debe existir
@@ -612,12 +624,49 @@ public class ServeisPortalRestController extends BaseRestController {
 				        AccioTramitadorApiParamValue.INFORMAR_DADES_EXPEDIENT);
 			}
 
+			// Se obtienen los Dades d'Operació del procedimiento y se valida
+			// que los códigos indicados existen. Se aprovecha para recuperar
+			// los identificadores de los campos
+			ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
+			if (CollectionUtils.isNotEmpty(solicitudExpedient.getDadesOperacio())) {
+				DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(
+				        dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
+				RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = serveisPortalService
+				        .cercaDadesOperacio(dadesOperacioCercaBDTO);
+				dadesEspecifiquesRDTOList = ServeisPortalRestControllerValidationHelper.validateDadesOperacioActualitzarSolicitudExpedient(
+				        solicitudExpedient.getDadesOperacio(), respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList(), idExpedient);
+			}
+
+			// Se construye el modelo para la llamada a la operación de
+			// actualización
+			ExpedientsRDTO expedientsRDTO = modelMapper.map(solicitudExpedient, ExpedientsRDTO.class);
+			// Se indica el id del Expediente recibido como path variable
+			expedientsRDTO.setId(idExpedient);
+			// Se debe indicar el id de la Unitat Gestora recuperada
+			expedientsRDTO.setUnitatGestoraIdext(idUnitatGestora);
+			ActualitzarDadesSollicitud actualitzarDadesSollicitud = new ActualitzarDadesSollicitud();
+			actualitzarDadesSollicitud.setExpedient(expedientsRDTO);
+			actualitzarDadesSollicitud.setDadesEspecifiques(dadesEspecifiquesRDTOList);
+			ExpedientsActualitzarBDTO expedientsActualitzarBDTO = new ExpedientsActualitzarBDTO(actualitzarDadesSollicitud);
+
+			returnExpedientsRDTO = serveisPortalService.actualitzarSolicitudExpedient(expedientsActualitzarBDTO);
 		} catch (GPAApiParamValidationException e) {
+			log.error("actualitzarSolicitudExpedient(BigDecimal, SolicitudsActualitzarRDTO)", e); //$NON-NLS-1$
+
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 		} catch (Exception e) {
+			log.error("actualitzarSolicitudExpedient(BigDecimal, SolicitudsActualitzarRDTO)", e); //$NON-NLS-1$
+
 			respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_ACTUALITZAR_EXPEDIENT, ErrorPrincipal.ERROR_GENERIC);
 		}
 
+		RespostaExpedientsActualitzarBDTO respostaExpedientsActualitzarBDTO = new RespostaExpedientsActualitzarBDTO(returnExpedientsRDTO,
+		        respostaResultatBDTO);
+		respostaActualitzarSolicitudsRDTO = modelMapper.map(respostaExpedientsActualitzarBDTO, RespostaActualitzarSolicitudsRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("actualitzarSolicitudExpedient(BigDecimal, SolicitudsActualitzarRDTO) - fi"); //$NON-NLS-1$
+		}
 		return respostaActualitzarSolicitudsRDTO;
 	}
 
