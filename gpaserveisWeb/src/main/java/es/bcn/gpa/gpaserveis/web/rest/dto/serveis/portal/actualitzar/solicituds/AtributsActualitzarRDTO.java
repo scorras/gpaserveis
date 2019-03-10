@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "SolicitudActualitzar")
+@ApiModel(value = "AtributsActualitzar")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "codi", "valor" })
 @Getter
