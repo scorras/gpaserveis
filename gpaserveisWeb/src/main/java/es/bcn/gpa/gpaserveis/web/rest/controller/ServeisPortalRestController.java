@@ -1,9 +1,6 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -235,23 +232,23 @@ public class ServeisPortalRestController extends BaseRestController {
 	/**
 	 * Consultar dades procediment.
 	 *
-	 * @param codiProcediment
-	 *            the codi procediment
+	 * @param idProcediment
+	 *            the id procediment
 	 * @return the resposta consulta procediments RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	@GetMapping("/procediments/{codiProcediment}")
+	@GetMapping("/procediments/{idProcediment}")
 	@ApiOperation(value = "Consultar les dades del procediment", tags = { "Serveis Portal API",
 	        "Funcions d'integració amb RPA" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaProcedimentsRDTO consultarDadesProcediment(
-	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable String codiProcediment)
+	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment)
 	        throws GPAServeisServiceException {
 
 		RespostaConsultaProcedimentsRDTO respostaConsultaProcedimentsRDTO = new RespostaConsultaProcedimentsRDTO();
 
-		DadesProcedimentBDTO dadesProcedimentBDTO = serveisPortalService.consultarDadesProcediment(codiProcediment);
+		DadesProcedimentBDTO dadesProcedimentBDTO = serveisPortalService.consultarDadesProcediment(idProcediment);
 		ProcedimentsConsultaRDTO procedimentsConsultaRDTO = modelMapper.map(dadesProcedimentBDTO, ProcedimentsConsultaRDTO.class);
 		respostaConsultaProcedimentsRDTO.setProcediment(procedimentsConsultaRDTO);
 
@@ -453,8 +450,8 @@ public class ServeisPortalRestController extends BaseRestController {
 	/**
 	 * Consultar dades expedient.
 	 *
-	 * @param codiExpedient
-	 *            the codi expedient
+	 * @param idExpedient
+	 *            the id expedient
 	 * @return the resposta consulta expedients RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
@@ -469,18 +466,8 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		RespostaConsultaExpedientsRDTO respostaConsultaExpedientsRDTO = new RespostaConsultaExpedientsRDTO();
 
-		// Decode codiExpedient. Puede contener espacios y barras
-		String codiExpedientDecoded = null;
-		try {
-			codiExpedientDecoded = URLDecoder.decode(idExpedient, StandardCharsets.UTF_8.name());
-		} catch (UnsupportedEncodingException e) {
-			log.error("getExpedientByCodi(String)", e); //$NON-NLS-1$
-
-			throw new GPAServeisServiceException(e);
-		}
-
 		// Datos principales del expedient
-		DadesExpedientBDTO dadesExpedientBDTO = serveisPortalService.consultarDadesExpedient(codiExpedientDecoded);
+		DadesExpedientBDTO dadesExpedientBDTO = serveisPortalService.consultarDadesExpedient(idExpedient);
 		ExpedientConsultaRDTO expedientConsultaRDTO = modelMapper.map(dadesExpedientBDTO, ExpedientConsultaRDTO.class);
 
 		// Datos de cada tràmit OVT asociado a los documents aportats
