@@ -1,8 +1,5 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
@@ -596,21 +593,23 @@ public class ServeisPortalRestController extends BaseRestController {
 			// Actualizar Unitat Gestora si se incluye en los datos de la
 			// petición, si existe y se encuentra vigente, y si la acción es
 			// permitida
-			BigDecimal idUnitatGestora = null;
-			if (solicitudExpedient.getUnitatGestora() != null) {
-				// Se necesita cargar la información del procedimiento
-				DadesProcedimentBDTO dadesProcedimentBDTO = serveisPortalService
-				        .consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
-				UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(
-				        solicitudExpedient.getUnitatGestora().getCodi());
-				UnitatsGestoresRDTO unitatsGestoresRDTO = serveisPortalService.consultaDadesUnitatGestora(unitatsGestoresCercaBDTO);
-				ServeisPortalRestControllerValidationHelper.validateUnitatGestoraActualitzarSolicitudExpedient(unitatsGestoresRDTO,
-				        dadesProcedimentBDTO);
-				idUnitatGestora = unitatsGestoresRDTO.getId();
-
-				ServeisPortalRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
-				        AccioTramitadorApiParamValue.CANVIAR_UNITAT_GESTORA);
-			}
+			// BigDecimal idUnitatGestora = null;
+			// if (solicitudExpedient.getUnitatGestora() != null) {
+			// // Se necesita cargar la información del procedimiento
+			// DadesProcedimentBDTO dadesProcedimentBDTO = serveisPortalService
+			// .consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
+			// UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new
+			// UnitatsGestoresCercaBDTO(
+			// solicitudExpedient.getUnitatGestora().getCodi());
+			// UnitatsGestoresRDTO unitatsGestoresRDTO =
+			// serveisPortalService.consultaDadesUnitatGestora(unitatsGestoresCercaBDTO);
+			// ServeisPortalRestControllerValidationHelper.validateUnitatGestoraActualitzarSolicitudExpedient(unitatsGestoresRDTO,
+			// dadesProcedimentBDTO);
+			// idUnitatGestora = unitatsGestoresRDTO.getId();
+			//
+			// ServeisPortalRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			// AccioTramitadorApiParamValue.CANVIAR_UNITAT_GESTORA);
+			// }
 
 			// Si se indica alguna persona al menos debe indicarse el
 			// Solicitante
@@ -643,7 +642,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			// Se indica el id del Expediente recibido como path variable
 			expedientsRDTO.setId(idExpedient);
 			// Se debe indicar el id de la Unitat Gestora recuperada
-			expedientsRDTO.setUnitatGestoraIdext(idUnitatGestora);
+			// expedientsRDTO.setUnitatGestoraIdext(idUnitatGestora);
 			ActualitzarDadesSollicitud actualitzarDadesSollicitud = new ActualitzarDadesSollicitud();
 			actualitzarDadesSollicitud.setExpedient(expedientsRDTO);
 			actualitzarDadesSollicitud.setDadesEspecifiques(dadesEspecifiquesRDTOList);
