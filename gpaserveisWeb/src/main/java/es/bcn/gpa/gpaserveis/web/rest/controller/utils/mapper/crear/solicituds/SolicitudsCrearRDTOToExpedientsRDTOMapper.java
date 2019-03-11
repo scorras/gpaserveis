@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.PersonaRepresentantToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.PersonaSollicitantToInternalConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.crear.solicituds.SolicitudsCrearRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.crear.ExpedientCrearRDTO;
 
 /**
  * The Class SolicitudsCrearRDTOToExpedientsRDTOMapper.
  */
 @Component("solicitudsCrearRDTOToExpedientsRDTOMapper")
-public class SolicitudsCrearRDTOToExpedientsRDTOMapper extends PropertyMap<SolicitudsCrearRDTO, ExpedientsRDTO> {
+public class SolicitudsCrearRDTOToExpedientsRDTOMapper extends PropertyMap<ExpedientCrearRDTO, ExpedientsRDTO> {
 
 	/** The persona sollicitant to internal converter. */
 	private PersonaSollicitantToInternalConverter personaSollicitantToInternalConverter;

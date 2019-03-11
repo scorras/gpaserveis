@@ -1,16 +1,17 @@
-package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.crear.solicituds;
+package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.abandonar;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ResultatRespostaDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.ExpedientAccioRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 
-@ApiModel(value="RespostaCrearSolicitud")
+@ApiModel(value="RespostaAbandonarExpedient")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "resultat",
@@ -18,12 +19,12 @@ import lombok.Setter;
 })
 @Getter
 @Setter
-public class RespostaCrearSolicitudsRDTO {
+public class RespostaAbandonarExpedientRDTO {
     
 	@ApiModelProperty("Resultat de l'operació")
 	private ResultatRespostaDTO resultat;
-	@ApiModelProperty("Expedient creat en estat inicial")
-	private RespostaCrearExpedientsRDTO expedient;
+	@ApiModelProperty("Expedient")
+	private ExpedientAccioRDTO expedient;
 
 }
 

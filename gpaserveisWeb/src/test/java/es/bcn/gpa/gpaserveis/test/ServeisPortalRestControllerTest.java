@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.test;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -90,5 +91,64 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(print());
 
 	}
+	
+	@Test
+	public void testStage10_PostAportarDocumentacioExpedient() throws Exception {
+		String url = BASE_URL + "/expedients/1/documentacio";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+				"[]"))
+		.andExpect(status().isOk()).andDo(print());
 
+	}
+	
+	@Test
+	public void testStage11_PostSubstituirDocumentExpedient() throws Exception {
+		String url = BASE_URL + "/expedients/1/documentacio/1/versionar";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+				"{}"))
+		.andExpect(status().isOk()).andDo(print());
+
+	}
+	
+	@Test
+	public void testStage12_DeleteEsborrarDocumentExpedient() throws Exception {
+		String url = BASE_URL + "/expedients/1/documentacio/1";
+		getMockMvc().perform(delete(url).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(print());
+
+	}
+	
+	@Test
+	public void testStage13_PostEsmenarExpedient() throws Exception {
+		String url = BASE_URL + "/expedients/1/esmena";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+				"{}"))
+		.andExpect(status().isOk()).andDo(print());
+
+	}
+	
+	@Test
+	public void testStage14_PostAbandonarExpedient() throws Exception {
+		String url = BASE_URL + "/expedients/1/desistir";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+				"{}"))
+		.andExpect(status().isOk()).andDo(print());
+
+	}
+	
+	@Test
+	public void testStage15_PostAccesExpedient() throws Exception {
+		String url = BASE_URL + "/expedients/1/acces";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(print());
+
+	}
+	
+	@Test
+	public void testStage15_PostRegistrarComunicacioExpedient() throws Exception {
+		String url = BASE_URL + "/expedients/1/comunicat";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+				"{}"))
+		.andExpect(status().isOk()).andDo(print());
+
+	}	
+	
 }

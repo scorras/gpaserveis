@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.actualitzar.solicituds;
+package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar;
 
 import java.util.List;
 
@@ -11,12 +11,12 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "SolicitudActualitzar")
+@ApiModel(value = "ExpedientActualitzar")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "sollicitant", "representant", "dadesOperacio" })
+@JsonPropertyOrder({ "sollicitant", "representant", "atributs" })
 @Getter
 @Setter
-public class SolicitudsActualitzarRDTO {
+public class ExpedientActualitzarRDTO {
 
 	// @ApiModelProperty(value = "Unitat Gestora que tramitarà inicialment la
 	// sol·licitud", required = false)
@@ -26,6 +26,6 @@ public class SolicitudsActualitzarRDTO {
 	@ApiModelProperty(value = "Persona representant", required = false)
 	private PersonesRDTO representant;
 	@ApiModelProperty(value = "Atributs", required = false)
-	private List<AtributsActualitzarRDTO> dadesOperacio;
+	private List<AtributsActualitzarRDTO> atributs;
 
 }

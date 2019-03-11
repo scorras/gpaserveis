@@ -31,7 +31,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.Es
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TipusCampApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TipusCampApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.actualitzar.solicituds.AtributsActualitzarRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar.AtributsActualitzarRDTO;
 
 /**
  * The Class ServeisPortalRestControllerValidationHelper.

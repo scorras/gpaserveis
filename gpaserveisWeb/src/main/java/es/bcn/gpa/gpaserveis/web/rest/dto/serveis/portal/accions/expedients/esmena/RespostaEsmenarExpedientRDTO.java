@@ -1,24 +1,31 @@
-package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.registrar.solicitud;
+package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ResultatRespostaDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.ExpedientAccioRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "RespostaRegistrarSolicitud")
+
+@ApiModel(value="RespostaEsmenarExpedient")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "resultat", "expedient" })
+@JsonPropertyOrder({
+    "resultat",
+    "expedient"
+})
 @Getter
 @Setter
-public class RespostaRegistrarSolicitudsRDTO {
-
+public class RespostaEsmenarExpedientRDTO {
+    
 	@ApiModelProperty("Resultat de l'operació")
 	private ResultatRespostaDTO resultat;
-	@ApiModelProperty("Resultat de l'operació")
-	private RespostaRegistrarExpedientsRDTO expedient;
-
+	@ApiModelProperty("Expedient")
+	private ExpedientAccioRDTO expedient;
+	
 }
+
+
