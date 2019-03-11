@@ -74,6 +74,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.ap
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.esborrar.RespostaEsborrarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.substituir.DocumentAportatSubstituirRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.substituir.RespostaSubstituirDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.ExpedientAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.abandonar.ExpedientAbandonamentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.abandonar.RespostaAbandonarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.acces.RespostaAccesExpedientRDTO;
@@ -460,12 +461,12 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	@GetMapping("/expedients/{codiExpedient}")
+	@GetMapping("/expedients/{idExpedient}")
 	@ApiOperation(value = "Consultar les dades de l'expedient", tags = { "Serveis Portal API",
 	        "Funcions de consulta al repositori de dades d'expedients" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaExpedientsRDTO consultarDadesExpedient(
-	        @ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable String codiExpedient)
+	        @ApiParam(value = "Identificador del codi de l'expedient", required = true) @PathVariable String idExpedient)
 	        throws GPAServeisServiceException {
 
 		RespostaConsultaExpedientsRDTO respostaConsultaExpedientsRDTO = new RespostaConsultaExpedientsRDTO();
@@ -473,7 +474,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		// Decode codiExpedient. Puede contener espacios y barras
 		String codiExpedientDecoded = null;
 		try {
-			codiExpedientDecoded = URLDecoder.decode(codiExpedient, StandardCharsets.UTF_8.name());
+			codiExpedientDecoded = URLDecoder.decode(idExpedient, StandardCharsets.UTF_8.name());
 		} catch (UnsupportedEncodingException e) {
 			log.error("getExpedientByCodi(String)", e); //$NON-NLS-1$
 
@@ -741,6 +742,10 @@ public class ServeisPortalRestController extends BaseRestController {
 		resultat.setCodi("OK");
 		resultat.setDescripcio("Operació finalitzada correctament");
 		resposta.setResultat(resultat);
+		ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
+		expedient.setId(idExpedient);
+		expedient.setCodi("CODI-EXP-0000001");
+		resposta.setExpedient(expedient);
 		return resposta;
 	}
 	
@@ -766,6 +771,10 @@ public class ServeisPortalRestController extends BaseRestController {
 		resultat.setCodi("OK");
 		resultat.setDescripcio("Operació finalitzada correctament");
 		resposta.setResultat(resultat);
+		ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
+		expedient.setId(idExpedient);
+		expedient.setCodi("CODI-EXP-0000001");
+		resposta.setExpedient(expedient);
 		return resposta;
 	}
 	
@@ -791,6 +800,10 @@ public class ServeisPortalRestController extends BaseRestController {
 		resultat.setCodi("OK");
 		resultat.setDescripcio("Operació finalitzada correctament");
 		resposta.setResultat(resultat);
+		ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
+		expedient.setId(idExpedient);
+		expedient.setCodi("CODI-EXP-0000001");
+		resposta.setExpedient(expedient);
 		return resposta;
 	}
 	
@@ -815,6 +828,10 @@ public class ServeisPortalRestController extends BaseRestController {
 		resultat.setCodi("OK");
 		resultat.setDescripcio("Operació finalitzada correctament");
 		resposta.setResultat(resultat);
+		ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
+		expedient.setId(idExpedient);
+		expedient.setCodi("CODI-EXP-0000001");
+		resposta.setExpedient(expedient);
 		return resposta;
 	}
 	
@@ -840,6 +857,10 @@ public class ServeisPortalRestController extends BaseRestController {
 		resultat.setCodi("OK");
 		resultat.setDescripcio("Operació finalitzada correctament");
 		resposta.setResultat(resultat);
+		ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
+		expedient.setId(idExpedient);
+		expedient.setCodi("CODI-EXP-0000001");
+		resposta.setExpedient(expedient);
 		return resposta;
 	}	
 	
@@ -863,6 +884,10 @@ public class ServeisPortalRestController extends BaseRestController {
 		resultat.setCodi("OK");
 		resultat.setDescripcio("Operació finalitzada correctament");
 		resposta.setResultat(resultat);
+		ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
+		expedient.setId(idExpedient);
+		expedient.setCodi("CODI-EXP-0000001");
+		resposta.setExpedient(expedient);
 		return resposta;
 	}	
 	
@@ -887,6 +912,10 @@ public class ServeisPortalRestController extends BaseRestController {
 		resultat.setCodi("OK");
 		resultat.setDescripcio("Operació finalitzada correctament");
 		resposta.setResultat(resultat);
+		ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
+		expedient.setId(idExpedient);
+		expedient.setCodi("CODI-EXP-0000001");
+		resposta.setExpedient(expedient);
 		return resposta;
 	}	
 	
