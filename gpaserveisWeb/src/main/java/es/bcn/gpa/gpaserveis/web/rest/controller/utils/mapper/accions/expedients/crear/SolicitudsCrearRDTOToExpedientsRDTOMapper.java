@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.crear.solicituds;
+package es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.accions.expedients.crear;
 
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
