@@ -4,13 +4,14 @@ import org.modelmapper.AbstractConverter;
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.crear.solicituds.RespostaCrearExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.ExpedientAccioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.crear.RespostaCrearExpedientRDTO;
 
 /**
  * The Class InternalToRespostaCrearExpedientConverter.
  */
 @Component("expedientInternalToRespostaCrearExpedientConverter")
-public class InternalToRespostaCrearExpedientConverter extends AbstractConverter<ExpedientsRDTO, RespostaCrearExpedientsRDTO> {
+public class InternalToRespostaCrearExpedientConverter extends AbstractConverter<ExpedientsRDTO, RespostaCrearExpedientRDTO> {
 
 	/*
 	 * (non-Javadoc)
@@ -18,12 +19,16 @@ public class InternalToRespostaCrearExpedientConverter extends AbstractConverter
 	 * @see org.modelmapper.AbstractConverter#convert(java.lang.Object)
 	 */
 	@Override
-	protected RespostaCrearExpedientsRDTO convert(ExpedientsRDTO source) {
-		RespostaCrearExpedientsRDTO respostaCrearExpedientsRDTO = null;
+	protected RespostaCrearExpedientRDTO convert(ExpedientsRDTO source) {
+		RespostaCrearExpedientRDTO respostaCrearExpedientsRDTO = null;
 		if (source != null) {
-			respostaCrearExpedientsRDTO = new RespostaCrearExpedientsRDTO();
-			respostaCrearExpedientsRDTO.setId(source.getId());
-			respostaCrearExpedientsRDTO.setCodi(source.getCodi());
+			respostaCrearExpedientsRDTO = new RespostaCrearExpedientRDTO();
+			
+			ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
+			expedient.setId(source.getId());
+			expedient.setCodi(source.getCodi());
+			
+			respostaCrearExpedientsRDTO.setExpedient(expedient);
 		}
 		return respostaCrearExpedientsRDTO;
 	}

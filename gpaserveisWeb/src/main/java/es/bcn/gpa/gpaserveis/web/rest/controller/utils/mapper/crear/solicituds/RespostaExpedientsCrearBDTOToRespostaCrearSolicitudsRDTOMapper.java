@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToResultatRespostaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToRespostaCrearExpedientConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.crear.solicituds.RespostaCrearSolicitudsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.crear.RespostaCrearExpedientRDTO;
 
 /**
  * The Class RespostaExpedientsCrearBDTOToRespostaCrearSolicitudsRDTOMapper.
  */
 @Component("respostaExpedientsCrearBDTOToRespostaCrearSolicitudsRDTOMapper")
 public class RespostaExpedientsCrearBDTOToRespostaCrearSolicitudsRDTOMapper
-        extends PropertyMap<RespostaExpedientsCrearBDTO, RespostaCrearSolicitudsRDTO> {
+        extends PropertyMap<RespostaExpedientsCrearBDTO, RespostaCrearExpedientRDTO> {
 
 	private InternalToRespostaCrearExpedientConverter internalToRespostaCrearExpedientConverter;
 

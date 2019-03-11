@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.crear.solicituds;
+package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.crear;
 
 import java.math.BigDecimal;
 
@@ -10,12 +10,12 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "ProcedimentSolicitudsCrear")
+@ApiModel(value = "ProcedimentExpedientCrear")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id" })
 @Getter
 @Setter
-public class ProcedimentSolicitudsCrearRDTO {
+public class ProcedimentExpedientCrearRDTO {
 
 	@ApiModelProperty(value = "Identificador del procediment", required = true)
 	private BigDecimal id;

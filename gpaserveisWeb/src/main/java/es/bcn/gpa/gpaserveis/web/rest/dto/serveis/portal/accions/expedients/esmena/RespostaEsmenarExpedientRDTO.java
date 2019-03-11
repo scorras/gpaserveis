@@ -23,7 +23,7 @@ public class RespostaEsmenarExpedientRDTO {
     
 	@ApiModelProperty("Resultat de l'operació")
 	private ResultatRespostaDTO resultat;
-
+	@ApiModelProperty("Expedient")
 	private ExpedientAccioRDTO expedient;
 	
 }

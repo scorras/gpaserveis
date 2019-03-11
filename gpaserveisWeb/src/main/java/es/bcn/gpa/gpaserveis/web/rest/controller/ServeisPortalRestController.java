@@ -51,7 +51,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
-import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaRegistrarSolicitudMockService;
+import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaAccionsMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
@@ -68,22 +68,23 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procedime
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.FamiliaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TramitOvtApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TramitadorApiParamValueTranslator;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ResultatRespostaDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.RespostaAportarDocumentacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.esborrar.RespostaEsborrarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.substituir.DocumentAportatSubstituirRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.substituir.RespostaSubstituirDocumentRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.ExpedientAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.abandonar.ExpedientAbandonamentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.abandonar.RespostaAbandonarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.acces.RespostaAccesExpedientRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar.ExpedientActualitzarRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar.RespostaActualitzarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.comunicacio.ExpedientComunicatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.comunicacio.RespostaRegistrarComunicacioExpedientRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.crear.ExpedientCrearRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.crear.RespostaCrearExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.ExpedientEsmenaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.RespostaEsmenarExpedientRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.actualitzar.solicituds.RespostaActualitzarSolicitudsRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.actualitzar.solicituds.SolicitudsActualitzarRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.registrar.RespostaRegistrarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.PaginacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.expedients.ExpedientsCercaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.expedients.RespostaCercaExpedientsRDTO;
@@ -98,9 +99,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.Exp
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.RespostaConsultaExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.ProcedimentsConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.RespostaConsultaProcedimentsRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.crear.solicituds.RespostaCrearSolicitudsRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.crear.solicituds.SolicitudsCrearRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.registrar.solicitud.RespostaRegistrarSolicitudsRDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -120,9 +118,9 @@ import net.opentrends.openframe.services.rest.http.ResponseEntity;
 @CommonsLog
 public class ServeisPortalRestController extends BaseRestController {
 
-	/** The resposta registrar solicitud mock service. */
+	/** The resposta accions mock service. */
 	@Autowired
-	private RespostaRegistrarSolicitudMockService respostaRegistrarSolicitudMockService;
+	private RespostaAccionsMockService respostaAccionsMockService;
 
 	/** The serveis portal service. */
 	@Autowired
@@ -516,7 +514,9 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *
 	 * @param idExpedient
 	 *            the id expedient
-	 * @return the resposta registrar solicituds RDTO
+	 * @param idDocument
+	 *            the id document            
+	 * @return the bytes[]
 	 */
 	@GetMapping("/expedients/{idExpedient}/documents/{idDocument}")
 	@ApiOperation(value = "Descarregar document de l'expedient", tags = { "Serveis Portal API",
@@ -546,7 +546,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *
 	 * @param solicitudExpedient
 	 *            the solicitud expedient
-	 * @return the resposta crear solicituds RDTO
+	 * @return the resposta crear expedient RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
@@ -554,14 +554,14 @@ public class ServeisPortalRestController extends BaseRestController {
 	@ApiOperation(value = "Crear una sol·licitud d'un expedient", tags = { "Serveis Portal API",
 	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
-	public RespostaCrearSolicitudsRDTO crearSolicitudExpedient(
-	        @ApiParam(value = "Dades de la creació de l'expedient") @RequestBody SolicitudsCrearRDTO solicitudExpedient)
+	public RespostaCrearExpedientRDTO crearSolicitudExpedient(
+	        @ApiParam(value = "Dades de la creació de l'expedient") @RequestBody ExpedientCrearRDTO solicitudExpedient)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("crearSolicitudExpedient(SolicitudsCrearRDTO) - inici"); //$NON-NLS-1$
+			log.debug("crearSolicitudExpedient(ExpedientCrearRDTO) - inici"); //$NON-NLS-1$
 		}
 
-		RespostaCrearSolicitudsRDTO respostaCrearSolicitudsRDTO = null;
+		RespostaCrearExpedientRDTO respostaCrearSolicitudsRDTO = null;
 		ExpedientsRDTO returnExpedientsRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_CREAR_EXPEDIENT);
 		try {
@@ -593,18 +593,18 @@ public class ServeisPortalRestController extends BaseRestController {
 
 			returnExpedientsRDTO = serveisPortalService.crearSollicitudExpedient(expedientsCrearBDTO);
 		} catch (GPAApiParamValidationException e) {
-			log.error("crearSolicitudExpedient(SolicitudsCrearRDTO)", e); //$NON-NLS-1$
+			log.error("crearSolicitudExpedient(ExpedientCrearRDTO)", e); //$NON-NLS-1$
 
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 		} catch (Exception e) {
-			log.error("crearSolicitudExpedient(SolicitudsCrearRDTO)", e); //$NON-NLS-1$
+			log.error("crearSolicitudExpedient(ExpedientCrearRDTO)", e); //$NON-NLS-1$
 
 			respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_CREAR_EXPEDIENT, ErrorPrincipal.ERROR_GENERIC);
 		}
 
 		RespostaExpedientsCrearBDTO respostaExpedientsCrearBDTO = new RespostaExpedientsCrearBDTO(returnExpedientsRDTO,
 		        respostaResultatBDTO);
-		respostaCrearSolicitudsRDTO = modelMapper.map(respostaExpedientsCrearBDTO, RespostaCrearSolicitudsRDTO.class);
+		respostaCrearSolicitudsRDTO = modelMapper.map(respostaExpedientsCrearBDTO, RespostaCrearExpedientRDTO.class);
 
 		if (log.isDebugEnabled()) {
 			log.debug("crearSolicitudExpedient(SolicitudsCrearRDTO) - fi"); //$NON-NLS-1$
@@ -619,20 +619,20 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *            the id expedient
 	 * @param solicitudExpedient
 	 *            the solicitud expedient
-	 * @return the resposta actualitzar solicituds RDTO
+	 * @return the resposta actualitzar expedient RDTO
 	 */
 	@PostMapping("/expedients/{idExpedient}")
 	@ApiOperation(value = "Actualitzar dades de la sol·licitud de l'expedient", tags = { "Serveis Portal API",
 	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	public RespostaActualitzarSolicitudsRDTO actualitzarSolicitudExpedient(
+	public RespostaActualitzarExpedientRDTO actualitzarSolicitudExpedient(
 	        @ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient,
-	        @ApiParam(value = "Dades de la actualització de l'expedient") @RequestBody SolicitudsActualitzarRDTO solicitudExpedient) {
+	        @ApiParam(value = "Dades de la actualització de l'expedient") @RequestBody ExpedientActualitzarRDTO solicitudExpedient) {
 		if (log.isDebugEnabled()) {
-			log.debug("actualitzarSolicitudExpedient(BigDecimal, SolicitudsActualitzarRDTO) - inici"); //$NON-NLS-1$
+			log.debug("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO) - inici"); //$NON-NLS-1$
 		}
 
-		RespostaActualitzarSolicitudsRDTO respostaActualitzarSolicitudsRDTO = null;
+		RespostaActualitzarExpedientRDTO respostaActualitzarSolicitudsRDTO = null;
 		ExpedientsRDTO returnExpedientsRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACTUALITZAR_EXPEDIENT);
 		try {
@@ -678,18 +678,18 @@ public class ServeisPortalRestController extends BaseRestController {
 
 			returnExpedientsRDTO = serveisPortalService.actualitzarSolicitudExpedient(expedientsActualitzarBDTO);
 		} catch (GPAApiParamValidationException e) {
-			log.error("actualitzarSolicitudExpedient(BigDecimal, SolicitudsActualitzarRDTO)", e); //$NON-NLS-1$
+			log.error("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO)", e); //$NON-NLS-1$
 
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 		} catch (Exception e) {
-			log.error("actualitzarSolicitudExpedient(BigDecimal, SolicitudsActualitzarRDTO)", e); //$NON-NLS-1$
+			log.error("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO)", e); //$NON-NLS-1$
 
 			respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_ACTUALITZAR_EXPEDIENT, ErrorPrincipal.ERROR_GENERIC);
 		}
 
 		RespostaExpedientsActualitzarBDTO respostaExpedientsActualitzarBDTO = new RespostaExpedientsActualitzarBDTO(returnExpedientsRDTO,
 		        respostaResultatBDTO);
-		respostaActualitzarSolicitudsRDTO = modelMapper.map(respostaExpedientsActualitzarBDTO, RespostaActualitzarSolicitudsRDTO.class);
+		respostaActualitzarSolicitudsRDTO = modelMapper.map(respostaExpedientsActualitzarBDTO, RespostaActualitzarExpedientRDTO.class);
 
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarSolicitudExpedient(BigDecimal, SolicitudsActualitzarRDTO) - fi"); //$NON-NLS-1$
@@ -702,16 +702,16 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *
 	 * @param idExpedient
 	 *            the id expedient
-	 * @return the resposta registrar solicituds RDTO
+	 * @return the resposta registrar expedient RDTO
 	 */
 	@PostMapping("/expedients/{idExpedient}/registre")
 	@ApiOperation(value = "Registrar la sol·licitud de l'expedient", tags = { "Serveis Portal API",
 	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	public RespostaRegistrarSolicitudsRDTO registrarSolicitudExpedient(
+	public RespostaRegistrarExpedientRDTO registrarSolicitudExpedient(
 	        @ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient) {
 
-		return respostaRegistrarSolicitudMockService.getRespostaRespostaRegistrarSolicituds(idExpedient);
+		return respostaAccionsMockService.getRespostaRegistrarExpedientRDTO(idExpedient);
 	}
 	
 	
@@ -727,6 +727,8 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *
 	 * @param idExpedient
 	 *            the id expedient
+	 * @param documentacioAportada
+	 *            the documentacio aportada           
 	 * @return the resposta aportar documentacio RDTO
 	 */
 	@PostMapping("/expedients/{idExpedient}/documentacio")
@@ -737,16 +739,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	        @ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient,
 	        @ApiParam(value = "Dades de la creació del document") @RequestBody List<DocumentAportatCrearRDTO> documentacioAportada) {
 
-		RespostaAportarDocumentacioRDTO resposta = new RespostaAportarDocumentacioRDTO();
-		ResultatRespostaDTO resultat = new ResultatRespostaDTO();
-		resultat.setCodi("OK");
-		resultat.setDescripcio("Operació finalitzada correctament");
-		resposta.setResultat(resultat);
-		ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
-		expedient.setId(idExpedient);
-		expedient.setCodi("CODI-EXP-0000001");
-		resposta.setExpedient(expedient);
-		return resposta;
+		return respostaAccionsMockService.getRespostaAportarDocumentacioRDTO(idExpedient);
 	}
 	
 	
@@ -755,6 +748,10 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *
 	 * @param idExpedient
 	 *            the id expedient
+	 * @param idDocument
+	 *            the id document   
+	 * @param documentSubstituir
+	 *            the document substituir           
 	 * @return the resposta substituir document RDTO
 	 */
 	@PostMapping("/expedients/{idExpedient}/documentacio/{idDocument}/versionar")
@@ -766,16 +763,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
 	        @ApiParam(value = "Dades de la versió del document") @RequestBody DocumentAportatSubstituirRDTO documentSubstituir) {
 		
-		RespostaSubstituirDocumentRDTO resposta = new RespostaSubstituirDocumentRDTO();
-		ResultatRespostaDTO resultat = new ResultatRespostaDTO();
-		resultat.setCodi("OK");
-		resultat.setDescripcio("Operació finalitzada correctament");
-		resposta.setResultat(resultat);
-		ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
-		expedient.setId(idExpedient);
-		expedient.setCodi("CODI-EXP-0000001");
-		resposta.setExpedient(expedient);
-		return resposta;
+		return respostaAccionsMockService.getRespostaSubstituirDocumentRDTO(idExpedient);
 	}
 	
 	
@@ -785,6 +773,8 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *
 	 * @param idExpedient
 	 *            the id expedient
+	 * @param idDocument
+	 *            the id document              
 	 * @return the resposta eliminar document RDTO
 	 */
 	@DeleteMapping("/expedients/{idExpedient}/documentacio/{idDocument}")
@@ -795,16 +785,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	        @ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient,
 	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument) {
 
-		RespostaEsborrarDocumentRDTO resposta = new RespostaEsborrarDocumentRDTO();
-		ResultatRespostaDTO resultat = new ResultatRespostaDTO();
-		resultat.setCodi("OK");
-		resultat.setDescripcio("Operació finalitzada correctament");
-		resposta.setResultat(resultat);
-		ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
-		expedient.setId(idExpedient);
-		expedient.setCodi("CODI-EXP-0000001");
-		resposta.setExpedient(expedient);
-		return resposta;
+		return respostaAccionsMockService.getRespostaEsborrarDocumentRDTO(idExpedient);
 	}
 	
 	
@@ -813,6 +794,8 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *
 	 * @param idExpedient
 	 *            the id expedient
+	 * @param expedientEsmena
+	 *            the expedient esmena            
 	 * @return the resposta esmenar expedient RDTO
 	 */
 	@PostMapping("/expedients/{idExpedient}/esmena")
@@ -823,16 +806,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	        @ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient,
 	        @ApiParam(value = "Dades de la esmena de l'expedient") @RequestBody ExpedientEsmenaRDTO expedientEsmena) {
 
-		RespostaEsmenarExpedientRDTO resposta = new RespostaEsmenarExpedientRDTO();
-		ResultatRespostaDTO resultat = new ResultatRespostaDTO();
-		resultat.setCodi("OK");
-		resultat.setDescripcio("Operació finalitzada correctament");
-		resposta.setResultat(resultat);
-		ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
-		expedient.setId(idExpedient);
-		expedient.setCodi("CODI-EXP-0000001");
-		resposta.setExpedient(expedient);
-		return resposta;
+		return respostaAccionsMockService.getRespostaEsmenarExpedientRDTO(idExpedient);
 	}
 	
 	
@@ -841,6 +815,10 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *
 	 * @param idExpedient
 	 *            the id expedient
+	 * @param accio
+	 *            the accio  
+	 * @param expedientAbandonament
+	 *            the expedient abandonament   
 	 * @return the resposta abandonar expedient RDTO
 	 */
 	@PostMapping("/expedients/{idExpedient}/{accio}")
@@ -852,16 +830,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	        @ApiParam(value = "Acció a realitzar amb l'expedient", required = true, allowableValues="desistir, renunciar") @PathVariable String accio,
 	        @ApiParam(value = "Dades del abandonament de l'expedient") @RequestBody ExpedientAbandonamentRDTO expedientAbandonament) {
 
-		RespostaAbandonarExpedientRDTO resposta = new RespostaAbandonarExpedientRDTO();
-		ResultatRespostaDTO resultat = new ResultatRespostaDTO();
-		resultat.setCodi("OK");
-		resultat.setDescripcio("Operació finalitzada correctament");
-		resposta.setResultat(resultat);
-		ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
-		expedient.setId(idExpedient);
-		expedient.setCodi("CODI-EXP-0000001");
-		resposta.setExpedient(expedient);
-		return resposta;
+		return respostaAccionsMockService.getRespostaAbandonarExpedientRDTO(idExpedient);
 	}	
 	
 	
@@ -879,16 +848,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	public RespostaAccesExpedientRDTO accesExpedient(
 	        @ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient) {
 
-		RespostaAccesExpedientRDTO resposta = new RespostaAccesExpedientRDTO();
-		ResultatRespostaDTO resultat = new ResultatRespostaDTO();
-		resultat.setCodi("OK");
-		resultat.setDescripcio("Operació finalitzada correctament");
-		resposta.setResultat(resultat);
-		ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
-		expedient.setId(idExpedient);
-		expedient.setCodi("CODI-EXP-0000001");
-		resposta.setExpedient(expedient);
-		return resposta;
+		return respostaAccionsMockService.getRespostaAccesExpedientRDTO(idExpedient);
 	}	
 	
 	
@@ -897,6 +857,8 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *
 	 * @param idExpedient
 	 *            the id expedient
+	 * @param expedientComunicat
+	 *            the expedient comunicat
 	 * @return the resposta registrar comunicacio expedient RDTO
 	 */
 	@PostMapping("/expedients/{idExpedient}/comunicat")
@@ -907,16 +869,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	        @ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient,
 	        @ApiParam(value = "Dades del comunicat de l'expedient") @RequestBody ExpedientComunicatRDTO expedientComunicat) {
 
-		RespostaRegistrarComunicacioExpedientRDTO resposta = new RespostaRegistrarComunicacioExpedientRDTO();
-		ResultatRespostaDTO resultat = new ResultatRespostaDTO();
-		resultat.setCodi("OK");
-		resultat.setDescripcio("Operació finalitzada correctament");
-		resposta.setResultat(resultat);
-		ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
-		expedient.setId(idExpedient);
-		expedient.setCodi("CODI-EXP-0000001");
-		resposta.setExpedient(expedient);
-		return resposta;
+		return respostaAccionsMockService.getRespostaRegistrarComunicacioExpedientRDTO(idExpedient);
 	}	
 	
 }

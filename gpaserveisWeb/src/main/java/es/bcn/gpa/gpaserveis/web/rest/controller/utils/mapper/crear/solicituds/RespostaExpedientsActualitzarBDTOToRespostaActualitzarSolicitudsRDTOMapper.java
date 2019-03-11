@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToResultatRespostaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToRespostaCrearExpedientConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.actualitzar.solicituds.RespostaActualitzarSolicitudsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar.RespostaActualitzarExpedientRDTO;
 
 /**
  * The Class
@@ -16,7 +16,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.actualitzar.solicituds.
  */
 @Component("RespostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDTOMapper")
 public class RespostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDTOMapper
-        extends PropertyMap<RespostaExpedientsActualitzarBDTO, RespostaActualitzarSolicitudsRDTO> {
+        extends PropertyMap<RespostaExpedientsActualitzarBDTO, RespostaActualitzarExpedientRDTO> {
 
 	private InternalToRespostaCrearExpedientConverter internalToRespostaCrearExpedientConverter;
 
