@@ -652,7 +652,7 @@ public class ServeisPortalRestController extends BaseRestController {
 
 			// Actualizar Solicitante / Representante / Dades d'Operació si se
 			// incluyen en los datos de la petición y si la acción es permitida
-			if (solicitudExpedient.getSollicitant() != null || CollectionUtils.isNotEmpty(solicitudExpedient.getAtributs())) {
+			if (solicitudExpedient.getSollicitant() != null || CollectionUtils.isNotEmpty(solicitudExpedient.getDadesOperacio())) {
 				ServeisPortalRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 				        AccioTramitadorApiParamValue.INFORMAR_DADES_EXPEDIENT);
 			}
@@ -661,13 +661,13 @@ public class ServeisPortalRestController extends BaseRestController {
 			// que los códigos indicados existen. Se aprovecha para recuperar
 			// los identificadores de los campos
 			ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
-			if (CollectionUtils.isNotEmpty(solicitudExpedient.getAtributs())) {
+			if (CollectionUtils.isNotEmpty(solicitudExpedient.getDadesOperacio())) {
 				DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(
 				        dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
 				RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = serveisPortalService
 				        .cercaDadesOperacio(dadesOperacioCercaBDTO);
 				dadesEspecifiquesRDTOList = ServeisPortalRestControllerValidationHelper.validateDadesOperacioActualitzarSolicitudExpedient(
-				        solicitudExpedient.getAtributs(), respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList(), idExpedient);
+				        solicitudExpedient.getDadesOperacio(), respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList(), idExpedient);
 			}
 
 			// Se construye el modelo para la llamada a la operación de
@@ -677,6 +677,13 @@ public class ServeisPortalRestController extends BaseRestController {
 			expedientsRDTO.setId(idExpedient);
 			// Se debe indicar el id de la Unitat Gestora recuperada
 			// expedientsRDTO.setUnitatGestoraIdext(idUnitatGestora);
+
+			// TODO map solicitudExpedient.getDadesOperacio() to
+			// actualitzarDadesSollicitud.getDadesEspecifiques()
+			// for (AtributsActualitzarRDTO atributsActualitzarRDTO :
+			// solicitudExpedient.getDadesOperacio()) {
+			//
+			// }
 
 			ActualitzarDadesSollicitud actualitzarDadesSollicitud = new ActualitzarDadesSollicitud();
 			actualitzarDadesSollicitud.setExpedient(expedientsRDTO);

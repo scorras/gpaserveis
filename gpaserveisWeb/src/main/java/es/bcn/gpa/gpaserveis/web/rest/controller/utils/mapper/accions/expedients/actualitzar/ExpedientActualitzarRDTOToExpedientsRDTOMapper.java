@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.accions.expedients.crear;
+package es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.accions.expedients.actualitzar;
 
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.PersonaRepresentantToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.PersonaSollicitantToInternalConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.crear.ExpedientCrearRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar.ExpedientActualitzarRDTO;
 
 /**
- * The Class SolicitudsCrearRDTOToExpedientsRDTOMapper.
+ * The Class ExpedientActualitzarRDTOToExpedientsRDTOMapper.
  */
-@Component("solicitudsCrearRDTOToExpedientsRDTOMapper")
-public class SolicitudsCrearRDTOToExpedientsRDTOMapper extends PropertyMap<ExpedientCrearRDTO, ExpedientsRDTO> {
+@Component("expedientActualitzarRDTOToExpedientsRDTOMapper")
+public class ExpedientActualitzarRDTOToExpedientsRDTOMapper extends PropertyMap<ExpedientActualitzarRDTO, ExpedientsRDTO> {
 
 	/** The persona sollicitant to internal converter. */
 	private PersonaSollicitantToInternalConverter personaSollicitantToInternalConverter;
@@ -31,7 +31,7 @@ public class SolicitudsCrearRDTOToExpedientsRDTOMapper extends PropertyMap<Exped
 	 *            the persona representant to internal converter
 	 */
 	@Autowired
-	public SolicitudsCrearRDTOToExpedientsRDTOMapper(
+	public ExpedientActualitzarRDTOToExpedientsRDTOMapper(
 	        @Qualifier("expedientPersonaSollicitantToInternalConverter") PersonaSollicitantToInternalConverter personaSollicitantToInternalConverter,
 	        @Qualifier("expedientPersonaRepresentantToInternalConverter") PersonaRepresentantToInternalConverter personaRepresentantToInternalConverter) {
 		this.personaSollicitantToInternalConverter = personaSollicitantToInternalConverter;
@@ -45,7 +45,6 @@ public class SolicitudsCrearRDTOToExpedientsRDTOMapper extends PropertyMap<Exped
 	 */
 	@Override
 	protected void configure() {
-		map().setProcedimentIdext(source.getProcediment().getId());
 		using(personaSollicitantToInternalConverter).map(source.getSollicitant()).setSollicitantPrincipal(null);
 		using(personaRepresentantToInternalConverter).map(source.getRepresentant()).setRepresentantPrincipal(null);
 	}
