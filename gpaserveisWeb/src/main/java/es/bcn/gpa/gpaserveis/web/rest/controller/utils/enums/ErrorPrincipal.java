@@ -27,7 +27,9 @@ public enum ErrorPrincipal {
 
 	ERROR_EXPEDIENTS_SOLLICITANT_REQUIRED("3003", "El sol·licitant és obligatori en cas d'indicar persones interessades"),
 
-	ERROR_EXPEDIENTS_ATRIBUT_NOT_FOUND("3004", "No s'ha trobat la dada d'operació: ");
+	ERROR_EXPEDIENTS_ATRIBUT_NOT_FOUND("3004", "No s'ha trobat la dada d'operació: "),
+
+	ERROR_EXPEDIENTS_ATRIBUT_INVALID_VALUE("3005", "Valor incorrecte per la dada d'operació: ");
 
 	private String codi;
 

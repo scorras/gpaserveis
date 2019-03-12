@@ -3,15 +3,18 @@ package es.bcn.gpa.gpaserveis.web.rest.controller;
 import static org.apache.commons.lang.math.NumberUtils.INTEGER_ZERO;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
@@ -223,6 +226,10 @@ public class ServeisPortalRestControllerValidationHelper {
 			DadesOperacions dadesOperacions = null;
 			ArrayList<DadesEspecifiquesValors> dadesEspecifiquesValorsList = null;
 			DadesEspecifiquesValors dadesEspecifiquesValors = null;
+			DateTimeFormatter dataFormatter = DateTimeFormat.forPattern(Constants.DATE_PATTERN);
+			DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
+			DateTimeFormatter horaFormatter = DateTimeFormat.forPattern(Constants.TIME_PATTERN);
+			NumberFormat numberFormat = NumberFormat.getInstance(LocaleContextHolder.getLocale());
 			for (AtributsActualitzarRDTO atributsActualitzarRDTO : dadesOperacio) {
 				if (!dadesOperacionsMap.containsKey(atributsActualitzarRDTO.getCodi())) {
 					throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
@@ -240,64 +247,90 @@ public class ServeisPortalRestControllerValidationHelper {
 				TipusCampApiParamValueTranslator tipusCampApiParamValueTranslator = new TipusCampApiParamValueTranslator();
 				TipusCampApiParamValue tipusCampApiParamValue = tipusCampApiParamValueTranslator
 				        .getEnumByInternalValue(dadesOperacions.getTipus());
-				DateTimeFormatter dataFormatter = DateTimeFormat.forPattern(Constants.DATE_PATTERN);
-				DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
-				DateTimeFormatter horaFormatter = DateTimeFormat.forPattern(Constants.TIME_PATTERN);
-				switch (tipusCampApiParamValue) {
-				case NUMERIC:
-					dadesEspecifiquesValors.setValorInteger(Long.valueOf(atributsActualitzarRDTO.getValor()));
-					break;
-				case DECIMAL:
-					dadesEspecifiquesValors.setValorDouble(Double.valueOf(atributsActualitzarRDTO.getValor()));
-					break;
-				case MONEDA:
-					dadesEspecifiquesValors.setValorMoneda(Double.valueOf(atributsActualitzarRDTO.getValor()));
-					break;
-				case DATA:
-					dadesEspecifiquesValors.setValorCalendar(DateTime.parse(atributsActualitzarRDTO.getValor(), dataFormatter));
-					break;
-				case DATA_HORA:
-					dadesEspecifiquesValors.setValorCalendar(DateTime.parse(atributsActualitzarRDTO.getValor(), dataHoraFormatter));
-					break;
-				case HORA:
-					dadesEspecifiquesValors.setValorCalendar(DateTime.parse(atributsActualitzarRDTO.getValor(), horaFormatter));
-					break;
-				case TEXT:
-					dadesEspecifiquesValors.setValorString(atributsActualitzarRDTO.getValor());
-					break;
-				case TEXT_GRAN:
-					dadesEspecifiquesValors.setValorClob(atributsActualitzarRDTO.getValor());
-					break;
-				case LITERAL:
-					break;
-				case LLISTA_SIMPLE:
-					dadesEspecifiquesValors.setValorListaSimple(Integer.valueOf(atributsActualitzarRDTO.getValor()));
-					break;
-				case LLISTA_MULTIPLE:
-					ArrayList<Integer> integerList = new ArrayList<Integer>();
-					integerList.add(Integer.valueOf(atributsActualitzarRDTO.getValor()));
-					dadesEspecifiquesValors.setValorListaMultipleList(integerList);
-					break;
-				case MARCADOR:
-					dadesEspecifiquesValors.setValorBoolean(Integer.valueOf(atributsActualitzarRDTO.getValor()));
-					break;
-				case PAIS:
-					dadesEspecifiquesValors.setValorPais(atributsActualitzarRDTO.getValor());
-					break;
-				case PROVINCIA:
-					dadesEspecifiquesValors.setValorProvincia(atributsActualitzarRDTO.getValor());
-					break;
-				case COMARCA:
-					dadesEspecifiquesValors.setValorComarca(atributsActualitzarRDTO.getValor());
-					break;
-				case MUNICIPI:
-					dadesEspecifiquesValors.setValorMunicipi(atributsActualitzarRDTO.getValor());
-					break;
-				default:
-					break;
+				try {
+					switch (tipusCampApiParamValue) {
+					case NUMERIC:
+						dadesEspecifiquesValors
+						        .setValorInteger(Long.valueOf(atributsActualitzarRDTO.getValor().get(NumberUtils.INTEGER_ZERO)));
+						break;
+					case DECIMAL:
+						dadesEspecifiquesValors.setValorDouble(
+						        numberFormat.parse(atributsActualitzarRDTO.getValor().get(NumberUtils.INTEGER_ZERO)).doubleValue());
+						break;
+					case MONEDA:
+						dadesEspecifiquesValors.setValorMoneda(
+						        numberFormat.parse(atributsActualitzarRDTO.getValor().get(NumberUtils.INTEGER_ZERO)).doubleValue());
+						break;
+					case DATA:
+						dadesEspecifiquesValors.setValorCalendar(
+						        DateTime.parse(atributsActualitzarRDTO.getValor().get(NumberUtils.INTEGER_ZERO), dataFormatter));
+						break;
+					case DATA_HORA:
+						dadesEspecifiquesValors.setValorCalendar(
+						        DateTime.parse(atributsActualitzarRDTO.getValor().get(NumberUtils.INTEGER_ZERO), dataHoraFormatter));
+						break;
+					case HORA:
+						dadesEspecifiquesValors.setValorCalendar(
+						        DateTime.parse(atributsActualitzarRDTO.getValor().get(NumberUtils.INTEGER_ZERO), horaFormatter));
+						break;
+					case TEXT:
+						dadesEspecifiquesValors.setValorString(atributsActualitzarRDTO.getValor().get(NumberUtils.INTEGER_ZERO));
+						break;
+					case TEXT_GRAN:
+						dadesEspecifiquesValors.setValorClob(atributsActualitzarRDTO.getValor().get(NumberUtils.INTEGER_ZERO));
+						break;
+					case LITERAL:
+						break;
+					case LLISTA_SIMPLE:
+						dadesEspecifiquesValors
+						        .setValorListaSimple(Integer.valueOf(atributsActualitzarRDTO.getValor().get(NumberUtils.INTEGER_ZERO)));
+						break;
+					case LLISTA_MULTIPLE:
+						ArrayList<Integer> integerList = new ArrayList<Integer>();
+						if (CollectionUtils.isNotEmpty(atributsActualitzarRDTO.getValor())) {
+							for (String valor : atributsActualitzarRDTO.getValor()) {
+								integerList.add(Integer.valueOf(valor));
+							}
+						}
+						dadesEspecifiquesValors.setValorListaMultipleList(integerList);
+						break;
+					case MARCADOR:
+						dadesEspecifiquesValors
+						        .setValorBoolean(Integer.valueOf(atributsActualitzarRDTO.getValor().get(NumberUtils.INTEGER_ZERO)));
+						break;
+					case PAIS:
+						dadesEspecifiquesValors.setValorPais(atributsActualitzarRDTO.getValor().get(NumberUtils.INTEGER_ZERO));
+						break;
+					case PROVINCIA:
+						dadesEspecifiquesValors.setValorProvincia(atributsActualitzarRDTO.getValor().get(NumberUtils.INTEGER_ZERO));
+						break;
+					case COMARCA:
+						dadesEspecifiquesValors.setValorComarca(atributsActualitzarRDTO.getValor().get(NumberUtils.INTEGER_ZERO));
+						break;
+					case MUNICIPI:
+						dadesEspecifiquesValors.setValorMunicipi(atributsActualitzarRDTO.getValor().get(NumberUtils.INTEGER_ZERO));
+						break;
+					default:
+						break;
+					}
+				} catch (Exception e) {
+					throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
+					        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_INVALID_VALUE,
+					        StringUtils.join(atributsActualitzarRDTO.getValor(), ", "), e);
 				}
-				dadesEspecifiquesValorsList.add(dadesEspecifiquesValors);
+
+				if (CollectionUtils.isNotEmpty(dadesEspecifiquesValors.getValorListaMultipleList())) {
+					DadesEspecifiquesValors dadesEspecifiquesValorsListaMultiple = null;
+					for (Integer valor : dadesEspecifiquesValors.getValorListaMultipleList()) {
+						dadesEspecifiquesValorsListaMultiple = new DadesEspecifiquesValors();
+						dadesEspecifiquesValorsListaMultiple.setValorListaMultiple(valor);
+						dadesEspecifiquesValorsList.add(dadesEspecifiquesValorsListaMultiple);
+					}
+				} else {
+					dadesEspecifiquesValorsList.add(dadesEspecifiquesValors);
+				}
 				dadesEspecifiquesRDTO.setDadesEspecifiquesValorsList(dadesEspecifiquesValorsList);
+				dadesEspecifiquesRDTOList.add(dadesEspecifiquesRDTO);
 			}
 		}
 

@@ -1,5 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -18,6 +20,6 @@ public class AtributsActualitzarRDTO {
 	@ApiModelProperty(value = "Codi identificador de l'atribut.", required = true)
 	private String codi;
 	@ApiModelProperty(value = "Valor de l'atribut", required = true)
-	private String valor;
+	private List<String> valor;
 
 }
