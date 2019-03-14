@@ -1,15 +1,18 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.mock;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ConfiguracioDocumentacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DocumentsIdentitatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.RegistreRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ResultatRespostaDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.DocumentAportatAccioRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.RespostaAportarDocumentacioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.RespostaAportarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.esborrar.RespostaEsborrarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.substituir.RespostaSubstituirDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.upload.RespostaUploadDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.ExpedientAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.abandonar.RespostaAbandonarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.acces.RespostaAccesExpedientRDTO;
@@ -29,21 +32,36 @@ public class RespostaAccionsMockService {
 	}
 	
 	
-	public RespostaAportarDocumentacioRDTO getRespostaAportarDocumentacioRDTO(BigDecimal idExpedient) {
-		RespostaAportarDocumentacioRDTO resposta = new RespostaAportarDocumentacioRDTO();
+	public RespostaAportarDocumentRDTO getRespostaAportarDocumentacioRDTO(BigDecimal idExpedient) {
+		RespostaAportarDocumentRDTO resposta = new RespostaAportarDocumentRDTO();
 		resposta.setResultat(getRespostaOK());
 		resposta.setExpedient(getExpedientAccioRDTO(idExpedient));
 		resposta.setRegistre(RegistreRDTOFactory.create("0801930008-1-2018-0002094-1", "01/10/2018 14:00:02", PersonesRDTOFactory
 		        .create(null, "FISICA", "Nom", "Cognom 1", "Cognom 2", DocumentIdentitatRDTOFactory.create("NIF", "00000000T", "ES"))));
+		resposta.setDocumentacioAportada(Arrays.asList(DocumentAportatAccioRDTOFactory.create(BigDecimal.ONE, "Nom document", 
+				ConfiguracioDocumentacioRDTOFactory.create("010", "Document solicitud"), "INTERN", "CORRECTE", "01/10/2018 14:00:02", "02/11/2018 16:34:24")));
 		return resposta;
 	}
 	
-	public RespostaSubstituirDocumentRDTO getRespostaSubstituirDocumentRDTO(BigDecimal idExpedient) {
+	public RespostaSubstituirDocumentRDTO getRespostaSubstituirDocumentRDTO(BigDecimal idExpedient, BigDecimal idDocument) {
 		RespostaSubstituirDocumentRDTO resposta = new RespostaSubstituirDocumentRDTO();
 		resposta.setResultat(getRespostaOK());
 		resposta.setExpedient(getExpedientAccioRDTO(idExpedient));
+		resposta.setRegistre(RegistreRDTOFactory.create("0801930008-1-2018-0002094-1", "01/10/2018 14:00:02", PersonesRDTOFactory
+		        .create(null, "FISICA", "Nom", "Cognom 1", "Cognom 2", DocumentIdentitatRDTOFactory.create("NIF", "00000000T", "ES"))));
+		resposta.setDocument(DocumentAportatAccioRDTOFactory.create(idDocument, "Nom document", 
+				ConfiguracioDocumentacioRDTOFactory.create("010", "Document solicitud"), "INTERN", "CORRECTE", "01/10/2018 14:00:02", "02/11/2018 16:34:24"));
 		return resposta;
 	}
+	
+	public RespostaUploadDocumentRDTO getRespostaUploadDocumentRDTO(BigDecimal idExpedient, BigDecimal idDocument) {
+		RespostaUploadDocumentRDTO resposta = new RespostaUploadDocumentRDTO();
+		resposta.setResultat(getRespostaOK());
+		resposta.setDocument(DocumentAportatAccioRDTOFactory.create(idDocument, "Nom document", 
+				ConfiguracioDocumentacioRDTOFactory.create("010", "Document solicitud"), "INTERN", "CORRECTE", "01/10/2018 14:00:02", "02/11/2018 16:34:24"));
+		resposta.setExpedient(getExpedientAccioRDTO(idExpedient));
+		return resposta;
+	}	
 	
 	public RespostaEsborrarDocumentRDTO getRespostaEsborrarDocumentRDTO(BigDecimal idExpedient) {
 		RespostaEsborrarDocumentRDTO resposta = new RespostaEsborrarDocumentRDTO();
@@ -141,16 +159,37 @@ public class RespostaAccionsMockService {
 		}
 	}
 	
-	private static class DocumentAportatAccioRDTODTOFactory {
+	private static class DocumentAportatAccioRDTOFactory {
 
-		private static DocumentAportatAccioRDTO create(BigDecimal id, String nom) {
+		private static DocumentAportatAccioRDTO create(BigDecimal id, String nom, ConfiguracioDocumentacioRDTO configuracio, String origen, 
+				String revisio, String dataPresentacio, String dataModificacio) {
 
 			DocumentAportatAccioRDTO documentAportatAccioRDTO = new DocumentAportatAccioRDTO();
 
 			documentAportatAccioRDTO.setId(id);
 			documentAportatAccioRDTO.setNom(nom);
+			documentAportatAccioRDTO.setConfiguracioDocumentacio(configuracio);
+
+			documentAportatAccioRDTO.setOrigen(origen);
+			documentAportatAccioRDTO.setRevisio(revisio);
+			
+			documentAportatAccioRDTO.setDataPresentacio(dataPresentacio);
+			documentAportatAccioRDTO.setDataModificacio(dataModificacio);
 
 			return documentAportatAccioRDTO;
+		}
+	}	
+
+	private static class ConfiguracioDocumentacioRDTOFactory {
+
+		private static ConfiguracioDocumentacioRDTO create(String codi, String descripcio) {
+
+			ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
+
+			configuracioDocumentacioRDTO.setCodi(codi);
+			configuracioDocumentacioRDTO.setDescripcio(descripcio);
+
+			return configuracioDocumentacioRDTO;
 		}
 	}	
 

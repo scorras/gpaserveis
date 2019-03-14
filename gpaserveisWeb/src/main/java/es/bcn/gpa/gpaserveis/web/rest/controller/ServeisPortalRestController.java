@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.bcn.gpa.gpaserveis.business.ServeisPortalService;
 import es.bcn.gpa.gpaserveis.business.dto.RespostaResultatBDTO;
@@ -65,11 +67,12 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procedime
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.FamiliaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TramitOvtApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TramitadorApiParamValueTranslator;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.RespostaAportarDocumentacioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentacioAportarRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.RespostaAportarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.esborrar.RespostaEsborrarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.substituir.DocumentAportatSubstituirRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.substituir.RespostaSubstituirDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.upload.RespostaUploadDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.abandonar.ExpedientAbandonamentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.abandonar.RespostaAbandonarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.acces.RespostaAccesExpedientRDTO;
@@ -747,9 +750,9 @@ public class ServeisPortalRestController extends BaseRestController {
 	@ApiOperation(value = "Aportar documentació a l'expedient", tags = { "Serveis Portal API",
 	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	public RespostaAportarDocumentacioRDTO aportarDocumentacioExpedient(
+	public RespostaAportarDocumentRDTO aportarDocumentacioExpedient(
 	        @ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient,
-	        @ApiParam(value = "Dades de la creació del document") @RequestBody List<DocumentAportatCrearRDTO> documentacioAportada) {
+	        @ApiParam(value = "Dades de la creació del document") @RequestBody DocumentacioAportarRDTO documentacioAportar) {
 
 		return respostaAccionsMockService.getRespostaAportarDocumentacioRDTO(idExpedient);
 	}
@@ -765,8 +768,8 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *            the document substituir
 	 * @return the resposta substituir document RDTO
 	 */
-	@PostMapping("/expedients/{idExpedient}/documentacio/{idDocument}/versionar")
-	@ApiOperation(value = "Substituir un document de l'expedient", tags = { "Serveis Portal API",
+	@PostMapping("/expedients/{idExpedient}/documentacio/{idDocument}/substituir")
+	@ApiOperation(value = "Substituir les dades d'un document de l'expedient", tags = { "Serveis Portal API",
 	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaSubstituirDocumentRDTO substituirDocumentExpedient(
@@ -774,8 +777,31 @@ public class ServeisPortalRestController extends BaseRestController {
 	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
 	        @ApiParam(value = "Dades de la versió del document") @RequestBody DocumentAportatSubstituirRDTO documentSubstituir) {
 
-		return respostaAccionsMockService.getRespostaSubstituirDocumentRDTO(idExpedient);
+		return respostaAccionsMockService.getRespostaSubstituirDocumentRDTO(idExpedient, idDocument);
 	}
+	
+	/**
+	 * Upload document.
+	 *
+	 * @param idExpedient
+	 *            the id expedient
+	 * @param idDocument
+	 *            the id document
+	 * @param documentSubstituir
+	 *            the document substituir
+	 * @return the resposta substituir document RDTO
+	 */
+	@PostMapping("/expedients/{idExpedient}/documentacio/{idDocument}/upload")
+	@ApiOperation(value = "Pujar el contingut d'un document de l'expedient al gestor documental", tags = { "Serveis Portal API",
+	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaUploadDocumentRDTO uploadDocumentExpedient(
+	        @ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient,
+	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
+	        @ApiParam(value = "Fitxer") @RequestPart("file") MultipartFile file) {
+
+		return respostaAccionsMockService.getRespostaUploadDocumentRDTO(idExpedient, idDocument);
+	}	
 
 	/**
 	 * Esborrar document.

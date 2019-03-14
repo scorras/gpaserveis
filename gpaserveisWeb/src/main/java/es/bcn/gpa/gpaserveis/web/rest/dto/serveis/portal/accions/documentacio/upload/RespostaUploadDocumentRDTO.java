@@ -1,11 +1,8 @@
-package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar;
-
-import java.util.List;
+package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.upload;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.RegistreRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ResultatRespostaDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.DocumentAportatAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.ExpedientAccioRDTO;
@@ -15,7 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-@ApiModel(value="RespostaAportarDocumentacio")
+@ApiModel(value="RespostaUploadDocument")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "resultat",
@@ -25,16 +22,13 @@ import lombok.Setter;
 })
 @Getter
 @Setter
-public class RespostaAportarDocumentacioRDTO {
+public class RespostaUploadDocumentRDTO {
     
 	@ApiModelProperty("Resultat de l'operació")
 	private ResultatRespostaDTO resultat;
 	
-	@ApiModelProperty(value = "Documentacio aportada a l'expedient")
-	private List<DocumentAportatAccioRDTO> documentacioAportada;
-	
-	@ApiModelProperty(value = "Registre de la documentació")
-	private RegistreRDTO registre;
+	@ApiModelProperty(value = "Upload document")
+	private DocumentAportatAccioRDTO document;
 	
 	@ApiModelProperty(value = "Expedient del document")
 	private ExpedientAccioRDTO expedient;

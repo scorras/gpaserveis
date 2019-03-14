@@ -13,8 +13,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "nom",
-    "format",
-    "ruta"
+    "format"
 })
 @Getter
 @Setter
@@ -24,8 +23,6 @@ public class FitxerRDTO {
 	String nom;
 	@ApiModelProperty(value = "format del fitxer", required = true, allowableValues = "PDF,DOC,DOCX,XLS,XLSX,ZIP,RAR,XML,TXT,PPT,PPTX,ODT,BMP,JPG,GIF,PNG,TIFF")
 	String format;
-	@ApiModelProperty(value = "Ruta relativa de la ubicació del fitxer", required = true)
-	String ruta;
 }
 
 
