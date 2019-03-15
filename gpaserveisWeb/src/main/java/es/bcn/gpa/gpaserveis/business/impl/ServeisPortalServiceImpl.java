@@ -13,7 +13,7 @@ import es.bcn.gpa.gpaserveis.business.ProcedimentsService;
 import es.bcn.gpa.gpaserveis.business.ServeisPortalService;
 import es.bcn.gpa.gpaserveis.business.TramitsService;
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
-import es.bcn.gpa.gpaserveis.business.dto.documents.AportarDocumentacioExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.AportarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
@@ -295,12 +295,12 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
 	 * aportarDocumentacioExpedient(es.bcn.gpa.gpaserveis.business.dto.documents
-	 * .AportarDocumentacioExpedientBDTO)
+	 * .AportarDocumentExpedientBDTO)
 	 */
 	@Override
-	public RespostaAportarDocumentacioExpedientRDTO aportarDocumentacioExpedient(
-	        AportarDocumentacioExpedientBDTO aportarDocumentacioExpedientBDTO) throws GPAServeisServiceException {
-		return documentsService.aportarDocumentacioExpedient(aportarDocumentacioExpedientBDTO);
+	public RespostaAportarDocumentacioExpedientRDTO aportarDocumentacioExpedient(AportarDocumentExpedientBDTO aportarDocumentExpedientBDTO)
+	        throws GPAServeisServiceException {
+		return documentsService.aportarDocumentacioExpedient(aportarDocumentExpedientBDTO);
 	}
 
 	/*

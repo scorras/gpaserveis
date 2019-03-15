@@ -19,7 +19,8 @@ import lombok.Setter;
 @JsonPropertyOrder({ "resultat", "documentacioAportada", "registre", "expedient" })
 @Getter
 @Setter
-public class RespostaAportarDocumentacioRDTO {
+
+public class RespostaAportarDocumentRDTO {
 
 	@ApiModelProperty("Resultat de l'operació")
 	private ResultatRespostaDTO resultat;

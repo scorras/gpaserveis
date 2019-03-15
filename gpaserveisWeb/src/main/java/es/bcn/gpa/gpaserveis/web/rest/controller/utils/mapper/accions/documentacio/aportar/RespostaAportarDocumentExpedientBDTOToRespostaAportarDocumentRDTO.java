@@ -5,20 +5,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaAportarDocumentacioExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaAportarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToResultatRespostaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToDocumentAportatAccioListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToRegistreConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalBasicToExpedientAccioConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.RespostaAportarDocumentacioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.RespostaAportarDocumentRDTO;
 
 /**
  * The Class
- * RespostaAportarDocumentacioExpedientBDTOToRespostaAportarDocumentacioRDTO.
+ * RespostaAportarDocumentacioExpedientBDTOToRespostaAportarDocumentRDTO.
  */
-@Component("respostaAportarDocumentacioExpedientBDTOToRespostaAportarDocumentacioRDTO")
-public class RespostaAportarDocumentacioExpedientBDTOToRespostaAportarDocumentacioRDTO
-        extends PropertyMap<RespostaAportarDocumentacioExpedientBDTO, RespostaAportarDocumentacioRDTO> {
+@Component("respostaAportarDocumentacioExpedientBDTOToRespostaAportarDocumentRDTO")
+public class RespostaAportarDocumentExpedientBDTOToRespostaAportarDocumentRDTO
+        extends PropertyMap<RespostaAportarDocumentExpedientBDTO, RespostaAportarDocumentRDTO> {
 
 	private InternalBasicToExpedientAccioConverter internalBasicToExpedientAccioConverter;
 
@@ -29,7 +29,7 @@ public class RespostaAportarDocumentacioExpedientBDTOToRespostaAportarDocumentac
 	private InternalToDocumentAportatAccioListConverter internalToDocumentAportatAccioListConverter;
 
 	@Autowired
-	public RespostaAportarDocumentacioExpedientBDTOToRespostaAportarDocumentacioRDTO(
+	public RespostaAportarDocumentExpedientBDTOToRespostaAportarDocumentRDTO(
 	        @Qualifier("expedientInternalBasicToExpedientAccioConverter") InternalBasicToExpedientAccioConverter internalBasicToExpedientAccioConverter,
 	        @Qualifier("documentInternalToRegistreConverter") InternalToRegistreConverter internalToRegistreConverter,
 	        @Qualifier("internalToDocumentAportatAccioListConverter") InternalToDocumentAportatAccioListConverter internalToDocumentAportatAccioListConverter,

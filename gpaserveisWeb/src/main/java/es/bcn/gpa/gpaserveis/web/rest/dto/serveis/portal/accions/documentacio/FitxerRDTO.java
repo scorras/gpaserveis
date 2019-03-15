@@ -11,7 +11,7 @@ import lombok.Setter;
 
 @ApiModel(value = "Fitxer")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "nom", "format", "ruta" })
+@JsonPropertyOrder({ "nom", "format" })
 @Getter
 @Setter
 public class FitxerRDTO {
@@ -20,6 +20,4 @@ public class FitxerRDTO {
 	String nom;
 	@ApiModelProperty(value = "format del fitxer", required = true, allowableValues = TipusMimeApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	String format;
-	@ApiModelProperty(value = "Ruta relativa de la ubicació del fitxer", required = true)
-	String ruta;
 }

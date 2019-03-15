@@ -11,9 +11,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = " DocumentAportatCrear")
+@ApiModel(value = "DocumentAportatCrear")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "configuracioDocumentacio", "origen", "registrar", "comentari", "idioma", "fitxer" })
+@JsonPropertyOrder({ "configuracioDocumentacio", "origen", "comentari", "idioma", "fitxer" })
 @Getter
 @Setter
 public class DocumentAportatCrearRDTO {
@@ -22,8 +22,6 @@ public class DocumentAportatCrearRDTO {
 	private String configuracioDocumentacio;
 	@ApiModelProperty(value = "Origen del tipus de documentació.", required = true, allowableValues = OrigenApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private String origen;
-	@ApiModelProperty(value = "Indicador per registrar el document aportat.", required = true)
-	private boolean registrar;
 	@ApiModelProperty(value = "Comentari del document.")
 	private String comentari;
 	@ApiModelProperty(value = "Idioma del document", allowableValues = IdiomaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)

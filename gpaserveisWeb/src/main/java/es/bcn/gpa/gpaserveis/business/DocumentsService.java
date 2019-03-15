@@ -3,7 +3,7 @@ package es.bcn.gpa.gpaserveis.business;
 import java.math.BigDecimal;
 import java.util.List;
 
-import es.bcn.gpa.gpaserveis.business.dto.documents.AportarDocumentacioExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.AportarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
@@ -55,13 +55,13 @@ public interface DocumentsService {
 	/**
 	 * Aportar documentacio expedient.
 	 *
-	 * @param aportarDocumentacioExpedientBDTO
-	 *            the aportar documentacio expedient BDTO
+	 * @param aportarDocumentExpedientBDTO
+	 *            the aportar document expedient BDTO
 	 * @return the resposta aportar documentacio expedient RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	RespostaAportarDocumentacioExpedientRDTO aportarDocumentacioExpedient(AportarDocumentacioExpedientBDTO aportarDocumentacioExpedientBDTO)
+	RespostaAportarDocumentacioExpedientRDTO aportarDocumentacioExpedient(AportarDocumentExpedientBDTO aportarDocumentExpedientBDTO)
 	        throws GPAServeisServiceException;
 
 	/**

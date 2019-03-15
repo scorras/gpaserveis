@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AportarDocumentacioExpedientBDTO {
+public class AportarDocumentExpedientBDTO {
 
 	/** The id expedient. */
 	private BigDecimal idExpedient;

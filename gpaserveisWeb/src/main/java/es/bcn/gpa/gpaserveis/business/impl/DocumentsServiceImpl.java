@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import es.bcn.gpa.gpaserveis.business.DocumentsService;
-import es.bcn.gpa.gpaserveis.business.dto.documents.AportarDocumentacioExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.AportarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
@@ -193,20 +193,20 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
 	 * aportarDocumentacioExpedient(es.bcn.gpa.gpaserveis.business.dto.documents
-	 * .AportarDocumentacioExpedientBDTO)
+	 * .AportarDocumentExpedientBDTO)
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackAportarDocumentacioExpedient")
-	public RespostaAportarDocumentacioExpedientRDTO aportarDocumentacioExpedient(
-	        AportarDocumentacioExpedientBDTO aportarDocumentacioExpedientBDTO) throws GPAServeisServiceException {
+	public RespostaAportarDocumentacioExpedientRDTO aportarDocumentacioExpedient(AportarDocumentExpedientBDTO aportarDocumentExpedientBDTO)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("aportarDocumentacioExpedient(AportarDocumentacioExpedientBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			RespostaAportarDocumentacioExpedientRDTO respostaAportarDocumentacioExpedientRDTO = documentacioApi
-			        .aportarDocumentacioExpedient(aportarDocumentacioExpedientBDTO.getAportarDocumentacioExpedient(),
-			                aportarDocumentacioExpedientBDTO.getIdExpedient());
+			        .aportarDocumentacioExpedient(aportarDocumentExpedientBDTO.getAportarDocumentacioExpedient(),
+			                aportarDocumentExpedientBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("aportarDocumentacioExpedient(AportarDocumentacioExpedientBDTO) - fi"); //$NON-NLS-1$
@@ -222,14 +222,14 @@ public class DocumentsServiceImpl implements DocumentsService {
 	/**
 	 * Fallback aportar documentacio expedient.
 	 *
-	 * @param aportarDocumentacioExpedientBDTO
-	 *            the aportar documentacio expedient BDTO
+	 * @param aportarDocumentExpedientBDTO
+	 *            the aportar document expedient BDTO
 	 * @return the resposta aportar documentacio expedient RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
 	public RespostaAportarDocumentacioExpedientRDTO fallbackAportarDocumentacioExpedient(
-	        AportarDocumentacioExpedientBDTO aportarDocumentacioExpedientBDTO) throws GPAServeisServiceException {
+	        AportarDocumentExpedientBDTO aportarDocumentExpedientBDTO) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackAportarDocumentacioExpedient(AportarDocumentacioExpedientBDTO) - inici"); //$NON-NLS-1$
 		}

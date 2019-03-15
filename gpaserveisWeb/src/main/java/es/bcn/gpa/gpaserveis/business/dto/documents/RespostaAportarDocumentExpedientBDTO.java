@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class RespostaAportarDocumentacioExpedientBDTO {
+public class RespostaAportarDocumentExpedientBDTO {
 
 	/** The resposta aportar documentacio expedient RDTO. */
 	private RespostaAportarDocumentacioExpedientRDTO respostaAportarDocumentacioExpedientRDTO;
