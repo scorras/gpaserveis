@@ -8,7 +8,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.RegistreRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ResultatRespostaDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.DocumentAportatAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.RespostaAportarDocumentacioRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.esborrar.RespostaEsborrarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.substituir.RespostaSubstituirDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.ExpedientAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.abandonar.RespostaAbandonarExpedientRDTO;
@@ -27,8 +26,7 @@ public class RespostaAccionsMockService {
 		        .create(null, "FISICA", "Nom", "Cognom 1", "Cognom 2", DocumentIdentitatRDTOFactory.create("NIF", "00000000T", "ES"))));
 		return resposta;
 	}
-	
-	
+
 	public RespostaAportarDocumentacioRDTO getRespostaAportarDocumentacioRDTO(BigDecimal idExpedient) {
 		RespostaAportarDocumentacioRDTO resposta = new RespostaAportarDocumentacioRDTO();
 		resposta.setResultat(getRespostaOK());
@@ -37,60 +35,59 @@ public class RespostaAccionsMockService {
 		        .create(null, "FISICA", "Nom", "Cognom 1", "Cognom 2", DocumentIdentitatRDTOFactory.create("NIF", "00000000T", "ES"))));
 		return resposta;
 	}
-	
+
 	public RespostaSubstituirDocumentRDTO getRespostaSubstituirDocumentRDTO(BigDecimal idExpedient) {
 		RespostaSubstituirDocumentRDTO resposta = new RespostaSubstituirDocumentRDTO();
 		resposta.setResultat(getRespostaOK());
 		resposta.setExpedient(getExpedientAccioRDTO(idExpedient));
 		return resposta;
 	}
-	
-	public RespostaEsborrarDocumentRDTO getRespostaEsborrarDocumentRDTO(BigDecimal idExpedient) {
-		RespostaEsborrarDocumentRDTO resposta = new RespostaEsborrarDocumentRDTO();
-		resposta.setResultat(getRespostaOK());
-		resposta.setExpedient(getExpedientAccioRDTO(idExpedient));
-		return resposta;
-	}
-	
-	
+
+	// public RespostaEsborrarDocumentRDTO
+	// getRespostaEsborrarDocumentRDTO(BigDecimal idExpedient) {
+	// RespostaEsborrarDocumentRDTO resposta = new
+	// RespostaEsborrarDocumentRDTO();
+	// resposta.setResultat(getRespostaOK());
+	// resposta.setExpedient(getExpedientAccioRDTO(idExpedient));
+	// return resposta;
+	// }
+
 	public RespostaEsmenarExpedientRDTO getRespostaEsmenarExpedientRDTO(BigDecimal idExpedient) {
 		RespostaEsmenarExpedientRDTO resposta = new RespostaEsmenarExpedientRDTO();
 		resposta.setResultat(getRespostaOK());
 		resposta.setExpedient(getExpedientAccioRDTO(idExpedient));
 		return resposta;
 	}
-	
+
 	public RespostaAbandonarExpedientRDTO getRespostaAbandonarExpedientRDTO(BigDecimal idExpedient) {
 		RespostaAbandonarExpedientRDTO resposta = new RespostaAbandonarExpedientRDTO();
 		resposta.setResultat(getRespostaOK());
 		resposta.setExpedient(getExpedientAccioRDTO(idExpedient));
 		return resposta;
 	}
-	
+
 	public RespostaAccesExpedientRDTO getRespostaAccesExpedientRDTO(BigDecimal idExpedient) {
 		RespostaAccesExpedientRDTO resposta = new RespostaAccesExpedientRDTO();
 		resposta.setResultat(getRespostaOK());
 		resposta.setExpedient(getExpedientAccioRDTO(idExpedient));
 		return resposta;
 	}
-	
+
 	public RespostaRegistrarComunicacioExpedientRDTO getRespostaRegistrarComunicacioExpedientRDTO(BigDecimal idExpedient) {
 		RespostaRegistrarComunicacioExpedientRDTO resposta = new RespostaRegistrarComunicacioExpedientRDTO();
 		resposta.setResultat(getRespostaOK());
 		resposta.setExpedient(getExpedientAccioRDTO(idExpedient));
 		return resposta;
 	}
-	
-	
-	private static ResultatRespostaDTO getRespostaOK(){
+
+	private static ResultatRespostaDTO getRespostaOK() {
 		ResultatRespostaDTO resultat = new ResultatRespostaDTO();
 		resultat.setCodi("OK");
 		resultat.setDescripcio("Operació finalitzada correctament");
 		return resultat;
 	}
-	
-	
-	private static ExpedientAccioRDTO getExpedientAccioRDTO(BigDecimal idExpedient){
+
+	private static ExpedientAccioRDTO getExpedientAccioRDTO(BigDecimal idExpedient) {
 		ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
 		expedient.setId(idExpedient);
 		expedient.setCodi("CODI-EXP-0000001");
@@ -140,7 +137,7 @@ public class RespostaAccionsMockService {
 			return registreRDTO;
 		}
 	}
-	
+
 	private static class DocumentAportatAccioRDTODTOFactory {
 
 		private static DocumentAportatAccioRDTO create(BigDecimal id, String nom) {
@@ -152,6 +149,6 @@ public class RespostaAccionsMockService {
 
 			return documentAportatAccioRDTO;
 		}
-	}	
+	}
 
 }
