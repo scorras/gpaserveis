@@ -12,6 +12,7 @@
 
 package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 
+import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -99,6 +100,27 @@ public class SeriesCatalegApiTest extends ParentTest {
 
 		ProcedimentSerieDocRDTO procedimentSerieDocRDTO = new ProcedimentSerieDocRDTO();
 		RespostaSincronitzarRDTO response = api.sincronitzarUsingPOST(procedimentSerieDocRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Sincronitzar la configuració de la documentació del procediment
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void checkSerieDocumentalUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/serie/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(Boolean.TRUE);
+
+		String serieDocumental = ONE.toString();
+		Boolean response = api.checkSerieDocumentalUsingGET(serieDocumental);
 
 		assertTrue(response != null);
 	}

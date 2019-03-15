@@ -11,7 +11,7 @@ public enum AccioTramitadorApiParamValue implements BaseApiParamValue {
 
 	CREAR_EXPEDIENT("CREAR_EXPEDIENT", new BigDecimal(1)),
 
-	APORTAR_DOCUMENTACIO("APORTAR_DOCUMENTACIO", new BigDecimal(2)),
+	APORTAR_DOCUMENTACIO("Aportar documentació", new BigDecimal(2)),
 
 	RESPONDRE_REQUERIMENT_O_TRAMIT_ALLEGACIONS_O_IP("RESPONDRE_REQUERIMENT_O_TRAMIT_ALLEGACIONS_O_IP", new BigDecimal(3)),
 
@@ -91,7 +91,7 @@ public enum AccioTramitadorApiParamValue implements BaseApiParamValue {
 
 	CANVIAR_UNITAT_GESTORA("Canviar d'unitat gestora", new BigDecimal(41)),
 
-	ESBORRAR_DOCUMENT("ESBORRAR_DOCUMENT", new BigDecimal(42)),
+	ESBORRAR_DOCUMENT("Esborrar document", new BigDecimal(42)),
 
 	EXPORTACIO_EVIDENCIES("EXPORTACIO_EVIDENCIES", new BigDecimal(43)),
 

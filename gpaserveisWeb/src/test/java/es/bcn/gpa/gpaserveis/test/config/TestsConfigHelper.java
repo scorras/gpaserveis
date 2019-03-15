@@ -212,8 +212,9 @@ public class TestsConfigHelper {
 		procedimentsRDTO.setIniciacionsList(procedimentsIniciacionsList);
 		EstatsProcediment estatsProcediment = new EstatsProcediment();
 		Estats estats = new Estats();
-		estats.setId(ONE);
+		estats.setId(new BigDecimal(3));
 		estatsProcediment.setEstats(estats);
+		estatsProcediment.setEstat(new BigDecimal(3));
 		procedimentsRDTO.setEstatsProcediment(estatsProcediment);
 
 		return procedimentsRDTO;
@@ -746,7 +747,7 @@ public class TestsConfigHelper {
 	 *
 	 * @return the page data of dades grups RDTO
 	 */
-	public static PageDataOfDadesGrupsRDTO cercaDadesOperacioAgrupats1Response() {
+	public static PageDataOfDadesGrupsRDTO cercaDadesOperacioResponse() {
 		PageDataOfDadesGrupsRDTO pageDataOfDadesGrupsRDTO = new PageDataOfDadesGrupsRDTO();
 
 		ArrayList<DadesGrupsRDTO> dadesGrupsRDTOList = new ArrayList<DadesGrupsRDTO>();
@@ -849,11 +850,17 @@ public class TestsConfigHelper {
 	public static List<AccionsEstatsRDTO> cercaAccionsPossiblesResponse() {
 		ArrayList<AccionsEstatsRDTO> accionsEstatsRDTOList = new ArrayList<AccionsEstatsRDTO>();
 
-		AccionsEstatsRDTO accionsEstatsRDTO = new AccionsEstatsRDTO();
-		accionsEstatsRDTO.setId(ONE);
-		accionsEstatsRDTO.setNomAccio("Aportar documentació");
-		accionsEstatsRDTO.setAccio(new BigDecimal(2));
-		accionsEstatsRDTOList.add(accionsEstatsRDTO);
+		AccionsEstatsRDTO accionsEstatsRDTO1 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO1.setId(ONE);
+		accionsEstatsRDTO1.setNomAccio("Aportar documentació");
+		accionsEstatsRDTO1.setAccio(new BigDecimal(2));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO1);
+
+		AccionsEstatsRDTO accionsEstatsRDTO2 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO2.setId(ONE);
+		accionsEstatsRDTO2.setNomAccio("Informar dades de l’expedient");
+		accionsEstatsRDTO2.setAccio(new BigDecimal(39));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO2);
 
 		return accionsEstatsRDTOList;
 	}

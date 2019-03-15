@@ -29,7 +29,12 @@ public enum ErrorPrincipal {
 
 	ERROR_EXPEDIENTS_ATRIBUT_NOT_FOUND("3004", "No s'ha trobat la dada d'operació: "),
 
-	ERROR_EXPEDIENTS_ATRIBUT_INVALID_VALUE("3005", "Valor incorrecte per la dada d'operació: ");
+	ERROR_EXPEDIENTS_ATRIBUT_INVALID_VALUE("3005", "Valor incorrecte per la dada d'operació: "),
+
+	/* Documents */
+	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document"),
+
+	ERROR_DOCUMENTS_NOT_IN_EXPEDIENT("4002", "El document indicat no està associat a l'expedient");
 
 	private String codi;
 

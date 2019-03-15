@@ -3,7 +3,7 @@ package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.RevisioApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.RevisioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ConfiguracioDocumentacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.RegistreRDTO;

@@ -15,10 +15,11 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamVa
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.DocumentAportatConsultaRDTO;
 
 /**
- * The Class InternalToDocumentAportatListConverter.
+ * The Class InternalToDocumentAportatConsultaListConverter.
  */
-@Component("internalToDocumentAportatListConverter")
-public class InternalToDocumentAportatListConverter extends AbstractConverter<List<DocsEntradaRDTO>, List<DocumentAportatConsultaRDTO>> {
+@Component("internalToDocumentAportatConsultaListConverter")
+public class InternalToDocumentAportatConsultaListConverter
+        extends AbstractConverter<List<DocsEntradaRDTO>, List<DocumentAportatConsultaRDTO>> {
 
 	/** The tramit ovt api param value translator. */
 	@Autowired
@@ -27,7 +28,7 @@ public class InternalToDocumentAportatListConverter extends AbstractConverter<Li
 
 	/** The revisio api param value translator. */
 	@Autowired
-	@Qualifier("expedientRevisioApiParamValueTranslator")
+	@Qualifier("documentRevisioApiParamValueTranslator")
 	private BaseApiParamValueTranslator revisioApiParamValueTranslator;
 
 	/** The tipus persona api param value translator. */
@@ -54,7 +55,7 @@ public class InternalToDocumentAportatListConverter extends AbstractConverter<Li
 	protected List<DocumentAportatConsultaRDTO> convert(List<DocsEntradaRDTO> docsEntradaRDTOList) {
 		ArrayList<DocumentAportatConsultaRDTO> documentAportatConsultaRDTOList = null;
 		if (CollectionUtils.isNotEmpty(docsEntradaRDTOList)) {
-			documentAportatConsultaRDTOList = ConverterHelper.buildDocumentsAportatsRDTOListExpedient(docsEntradaRDTOList,
+			documentAportatConsultaRDTOList = ConverterHelper.buildDocumentsAportatsConsultaRDTOListExpedient(docsEntradaRDTOList,
 			        tramitOvtApiParamValueTranslator, revisioApiParamValueTranslator, tipusPersonaApiParamValueTranslator,
 			        tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator);
 		}

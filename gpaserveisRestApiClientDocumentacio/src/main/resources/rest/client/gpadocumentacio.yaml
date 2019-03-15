@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.0.0"
+  version: "1.6.1"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -527,6 +527,34 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/ConfiguracioDocsEntradaRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /configuracioDocumentacio/serie/{serieDocumental}:
+    get:
+      tags:
+      - "Series cataleg"
+      summary: "Sincronitzar la configuració de la documentació del procediment"
+      operationId: "checkSerieDocumentalUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "serieDocumental"
+        in: "path"
+        description: "serieDocumental"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "boolean"
         401:
           description: "Unauthorized"
         403:
@@ -1105,12 +1133,50 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /documentacio/entrada/aportarDocumentacio/{idExpedient}:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "Stores the documentation provided"
+      operationId: "aportarDocumentacioExpedient"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "aportarDocumentacioExpedientRDTO"
+        description: "aportarDocumentacioExpedientRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/AportarDocumentacioExpedient"
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaAportarDocumentacioExpedientRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /documentacio/entrada/delete/{idExpedient}:
     post:
       tags:
       - "Documentacio"
       summary: "Delete all selected DocsEntrada"
-      operationId: "deleteDocumentacioEntradaUsingPOST"
+      operationId: "esborrarDocumentExpedient"
       consumes:
       - "application/json"
       produces:
@@ -1266,6 +1332,34 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/entrada/{id}:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Returns the requested document"
+      operationId: "consultarDadesDocumentAportat"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/DocsEntradaRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /documentacio/newDocumentacio:
     get:
       tags:
@@ -1754,6 +1848,15 @@ definitions:
       idExpAcumulador:
         type: "number"
     title: "AcumularDocumentacioRDTO"
+  AportarDocumentacioExpedient:
+    type: "object"
+    properties:
+      docsEntrada:
+        type: "array"
+        description: "Documents a aportar a l'expedient"
+        items:
+          $ref: "#/definitions/DocsEntradaRDTO"
+    title: "AportarDocumentacioExpedient"
   AtributsDocs:
     type: "object"
     properties:
@@ -2134,9 +2237,14 @@ definitions:
         type: "string"
       fileToUploadName:
         type: "string"
+      fileToUploadPath:
+        type: "string"
       fileToUploadSize:
         type: "integer"
         format: "int64"
+      fileToUploadTipus:
+        type: "integer"
+        format: "int32"
       fileToUploadType:
         type: "string"
       id:
@@ -2292,9 +2400,14 @@ definitions:
         type: "string"
       fileToUploadName:
         type: "string"
+      fileToUploadPath:
+        type: "string"
       fileToUploadSize:
         type: "integer"
         format: "int64"
+      fileToUploadTipus:
+        type: "integer"
+        format: "int32"
       fileToUploadType:
         type: "string"
       id:
@@ -2411,6 +2524,16 @@ definitions:
         items:
           $ref: "#/definitions/Throwable"
     title: "Exception"
+  ExpedientRDTO:
+    type: "object"
+    properties:
+      codi:
+        type: "string"
+        description: "Codi de l'expedient"
+      id:
+        type: "number"
+        description: "Identificador de l'expedient"
+    title: "ExpedientRDTO"
   FaseProcedimentRDTO:
     type: "object"
     properties:
@@ -2703,6 +2826,25 @@ definitions:
       usuari:
         type: "number"
     title: "RegistreAssentament"
+  RegistreAssentamentRDTO:
+    type: "object"
+    properties:
+      codi:
+        type: "string"
+      dataRegistre:
+        type: "string"
+        format: "date-time"
+      id:
+        type: "number"
+      persona:
+        type: "number"
+      persones:
+        $ref: "#/definitions/Persones"
+      tipus:
+        type: "number"
+      usuari:
+        type: "number"
+    title: "RegistreAssentamentRDTO"
   Requeriments:
     type: "object"
     properties:
@@ -2711,6 +2853,21 @@ definitions:
       id:
         type: "number"
     title: "Requeriments"
+  RespostaAportarDocumentacioExpedientRDTO:
+    type: "object"
+    properties:
+      docsEntrada:
+        type: "array"
+        description: "Documents aportats a l'expedient"
+        items:
+          $ref: "#/definitions/DocsEntradaRDTO"
+      expedient:
+        description: "Dades bàsiques de l'expedient"
+        $ref: "#/definitions/ExpedientRDTO"
+      registreAssentament:
+        description: "Dades del registre dels documents aportats"
+        $ref: "#/definitions/RegistreAssentamentRDTO"
+    title: "RespostaAportarDocumentacioExpedientRDTO"
   RespostaSincronitzarRDTO:
     type: "object"
     properties:

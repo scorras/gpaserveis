@@ -30,6 +30,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.AccionsEstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.test.config.TestsConfigHelper;
 import lombok.extern.apachecommons.CommonsLog;
@@ -181,10 +182,10 @@ public abstract class ParentTest {
 			        .thenReturn(TestsConfigHelper.consultarDadesTramitOvtResponse());
 
 			when(dadesGrupsApi.cercaDadesOperacioAgrupatsPerTramitOvt(any(BigDecimal.class), any(BigDecimal.class), isNull(String.class),
-			        isNull(String.class))).thenReturn(TestsConfigHelper.cercaDadesOperacioAgrupats1Response());
+			        isNull(String.class))).thenReturn(TestsConfigHelper.cercaDadesOperacioResponse());
 
 			when(dadesGrupsApi.cercaDadesOperacio(any(BigDecimal.class), isNull(String.class), isNull(String.class)))
-			        .thenReturn(TestsConfigHelper.cercaDadesOperacioAgrupats1Response());
+			        .thenReturn(TestsConfigHelper.cercaDadesOperacioResponse());
 
 			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioEntradaPerTramitOvt(any(BigDecimal.class), any(BigDecimal.class),
 			        isNull(Integer.class), isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
@@ -210,6 +211,9 @@ public abstract class ParentTest {
 			when(paisosApi.consultarDadesPaisPerCodiIso(any(String.class))).thenReturn(TestsConfigHelper.consultarDadesPaisResponse());
 
 			when(expedients_Api.crearSollicitudExpedient(any(ExpedientsRDTO.class)))
+			        .thenReturn(TestsConfigHelper.crearSollicitudExpedientResponse());
+
+			when(expedients_Api.actualitzarDadesSollicitud(any(ActualitzarDadesSollicitud.class)))
 			        .thenReturn(TestsConfigHelper.crearSollicitudExpedientResponse());
 
 		} catch (Exception e) {

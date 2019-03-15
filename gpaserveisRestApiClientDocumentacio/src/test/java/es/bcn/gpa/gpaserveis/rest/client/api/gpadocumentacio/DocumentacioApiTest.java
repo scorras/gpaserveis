@@ -33,6 +33,7 @@ import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AcumularDocumentacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AportarDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaIdsAndEstatRevisioId;
@@ -42,6 +43,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitaci
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatRevisioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RestClientResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TransicionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
@@ -104,14 +106,14 @@ public class DocumentacioApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void deleteDocumentacioEntradaUsingPOSTTest() throws ApiException {
+	public void esborrarDocumentExpedientTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/entrada/delete/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), any(String.class), any(String.class), any(String[].class), isNull(GenericType.class))).thenReturn(null);
 
 		List<BigDecimal> docsEntradaIds = Arrays.asList(ONE);
 		BigDecimal idExpedient = ONE;
-		api.deleteDocumentacioEntradaUsingPOST(docsEntradaIds, idExpedient);
+		api.esborrarDocumentExpedient(docsEntradaIds, idExpedient);
 
 		assertTrue(true);
 	}
@@ -444,4 +446,46 @@ public class DocumentacioApiTest extends ParentTest {
 		assertTrue(response != null);
 	}
 
+	/**
+	 * Stores the documentation provided
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void aportarDocumentacioExpedientTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/aportarDocumentacio/1"), eq("POST"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new RespostaAportarDocumentacioExpedientRDTO());
+
+		AportarDocumentacioExpedient aportarDocumentacioExpedientRDTO = new AportarDocumentacioExpedient();
+		BigDecimal idExpedient = ONE;
+		RespostaAportarDocumentacioExpedientRDTO response = api.aportarDocumentacioExpedient(aportarDocumentacioExpedientRDTO, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested document
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void consultarDadesDocumentAportatTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new DocsEntradaRDTO());
+
+		BigDecimal id = ONE;
+		DocsEntradaRDTO response = api.consultarDadesDocumentAportat(id);
+
+		assertTrue(response != null);
+	}
 }
