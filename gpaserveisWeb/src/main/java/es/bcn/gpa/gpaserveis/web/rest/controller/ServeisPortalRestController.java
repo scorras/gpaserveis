@@ -849,7 +849,7 @@ public class ServeisPortalRestController extends BaseRestController {
 
 			// El id del documento debe existir y pertenecer al expediente
 			// indicado
-			docsEntradaRDTO = serveisPortalService.consultarDadesDocumentAportat(idExpedient);
+			docsEntradaRDTO = serveisPortalService.consultarDadesDocumentAportat(idDocument);
 			ServeisPortalRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO.getExpedientsRDTO(),
 			        Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT);
 

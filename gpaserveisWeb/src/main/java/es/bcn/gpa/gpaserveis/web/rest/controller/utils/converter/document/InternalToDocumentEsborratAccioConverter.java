@@ -19,10 +19,14 @@ public class InternalToDocumentEsborratAccioConverter extends AbstractConverter<
 	 */
 	@Override
 	protected DocumentEsborratAccioRDTO convert(DocsEntradaRDTO docsEntradaRDTO) {
-		DocumentEsborratAccioRDTO documentEsborratAccioRDTO = new DocumentEsborratAccioRDTO();
+		DocumentEsborratAccioRDTO documentEsborratAccioRDTO = null;
 
-		documentEsborratAccioRDTO.setId(docsEntradaRDTO.getId());
-		documentEsborratAccioRDTO.setCodi(String.valueOf(docsEntradaRDTO.getConfigDocEntrada()));
+		if (docsEntradaRDTO != null) {
+			documentEsborratAccioRDTO = new DocumentEsborratAccioRDTO();
+
+			documentEsborratAccioRDTO.setId(docsEntradaRDTO.getId());
+			documentEsborratAccioRDTO.setCodi(String.valueOf(docsEntradaRDTO.getConfigDocEntrada()));
+		}
 
 		return documentEsborratAccioRDTO;
 	}
