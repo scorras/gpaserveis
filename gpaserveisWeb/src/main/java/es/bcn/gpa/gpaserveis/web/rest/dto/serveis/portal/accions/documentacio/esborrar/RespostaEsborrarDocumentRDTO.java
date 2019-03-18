@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ResultatRespostaDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.DocumentEsborratAccioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.ExpedientAccioRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -22,5 +23,8 @@ public class RespostaEsborrarDocumentRDTO {
 
 	@ApiModelProperty(value = "Document esborrat")
 	private DocumentEsborratAccioRDTO document;
+
+	@ApiModelProperty(value = "Expedient del document")
+	private ExpedientAccioRDTO expedient;
 
 }

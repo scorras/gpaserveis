@@ -6,11 +6,13 @@ import java.util.List;
 import es.bcn.gpa.gpaserveis.business.dto.documents.AportarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.SubstituirDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 
 /**
  * The Interface DocumentsService.
@@ -65,6 +67,18 @@ public interface DocumentsService {
 	        throws GPAServeisServiceException;
 
 	/**
+	 * Substituir document expedient.
+	 *
+	 * @param substituirDocumentExpedientBDTO
+	 *            the substituir document expedient BDTO
+	 * @return the resposta substituir document expedient RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	RespostaSubstituirDocumentExpedientRDTO substituirDocumentExpedient(SubstituirDocumentExpedientBDTO substituirDocumentExpedientBDTO)
+	        throws GPAServeisServiceException;
+
+	/**
 	 * Esborrar document expedient.
 	 *
 	 * @param esborrarDocumentExpedientBDTO
@@ -84,4 +98,5 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	DocsEntradaRDTO consultarDadesDocumentAportat(BigDecimal id) throws GPAServeisServiceException;
+
 }

@@ -22,16 +22,14 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ExpedientRDTO
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RegistreAssentamentRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * RespostaAportarDocumentacioExpedientRDTO
+ * RespostaSubstituirDocumentExpedientRDTO
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-18T10:38:37.495+01:00")
-public class RespostaAportarDocumentacioExpedientRDTO {
-  @JsonProperty("docsEntrada")
-  private List<DocsEntradaRDTO> docsEntrada = null;
+public class RespostaSubstituirDocumentExpedientRDTO {
+  @JsonProperty("docEntrada")
+  private DocsEntradaRDTO docEntrada = null;
 
   @JsonProperty("expedient")
   private ExpedientRDTO expedient = null;
@@ -39,33 +37,25 @@ public class RespostaAportarDocumentacioExpedientRDTO {
   @JsonProperty("registreAssentament")
   private RegistreAssentamentRDTO registreAssentament = null;
 
-  public RespostaAportarDocumentacioExpedientRDTO docsEntrada(List<DocsEntradaRDTO> docsEntrada) {
-    this.docsEntrada = docsEntrada;
-    return this;
-  }
-
-  public RespostaAportarDocumentacioExpedientRDTO addDocsEntradaItem(DocsEntradaRDTO docsEntradaItem) {
-    if (this.docsEntrada == null) {
-      this.docsEntrada = new ArrayList<DocsEntradaRDTO>();
-    }
-    this.docsEntrada.add(docsEntradaItem);
+  public RespostaSubstituirDocumentExpedientRDTO docEntrada(DocsEntradaRDTO docEntrada) {
+    this.docEntrada = docEntrada;
     return this;
   }
 
    /**
-   * Documents aportats a l&#39;expedient
-   * @return docsEntrada
+   * Document substituït en l&#39;expedient
+   * @return docEntrada
   **/
-  @ApiModelProperty(value = "Documents aportats a l'expedient")
-  public List<DocsEntradaRDTO> getDocsEntrada() {
-    return docsEntrada;
+  @ApiModelProperty(value = "Document substituït en l'expedient")
+  public DocsEntradaRDTO getDocEntrada() {
+    return docEntrada;
   }
 
-  public void setDocsEntrada(List<DocsEntradaRDTO> docsEntrada) {
-    this.docsEntrada = docsEntrada;
+  public void setDocEntrada(DocsEntradaRDTO docEntrada) {
+    this.docEntrada = docEntrada;
   }
 
-  public RespostaAportarDocumentacioExpedientRDTO expedient(ExpedientRDTO expedient) {
+  public RespostaSubstituirDocumentExpedientRDTO expedient(ExpedientRDTO expedient) {
     this.expedient = expedient;
     return this;
   }
@@ -83,7 +73,7 @@ public class RespostaAportarDocumentacioExpedientRDTO {
     this.expedient = expedient;
   }
 
-  public RespostaAportarDocumentacioExpedientRDTO registreAssentament(RegistreAssentamentRDTO registreAssentament) {
+  public RespostaSubstituirDocumentExpedientRDTO registreAssentament(RegistreAssentamentRDTO registreAssentament) {
     this.registreAssentament = registreAssentament;
     return this;
   }
@@ -110,24 +100,24 @@ public class RespostaAportarDocumentacioExpedientRDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RespostaAportarDocumentacioExpedientRDTO respostaAportarDocumentacioExpedientRDTO = (RespostaAportarDocumentacioExpedientRDTO) o;
-    return Objects.equals(this.docsEntrada, respostaAportarDocumentacioExpedientRDTO.docsEntrada) &&
-        Objects.equals(this.expedient, respostaAportarDocumentacioExpedientRDTO.expedient) &&
-        Objects.equals(this.registreAssentament, respostaAportarDocumentacioExpedientRDTO.registreAssentament);
+    RespostaSubstituirDocumentExpedientRDTO respostaSubstituirDocumentExpedientRDTO = (RespostaSubstituirDocumentExpedientRDTO) o;
+    return Objects.equals(this.docEntrada, respostaSubstituirDocumentExpedientRDTO.docEntrada) &&
+        Objects.equals(this.expedient, respostaSubstituirDocumentExpedientRDTO.expedient) &&
+        Objects.equals(this.registreAssentament, respostaSubstituirDocumentExpedientRDTO.registreAssentament);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(docsEntrada, expedient, registreAssentament);
+    return Objects.hash(docEntrada, expedient, registreAssentament);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RespostaAportarDocumentacioExpedientRDTO {\n");
+    sb.append("class RespostaSubstituirDocumentExpedientRDTO {\n");
     
-    sb.append("    docsEntrada: ").append(toIndentedString(docsEntrada)).append("\n");
+    sb.append("    docEntrada: ").append(toIndentedString(docEntrada)).append("\n");
     sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
     sb.append("    registreAssentament: ").append(toIndentedString(registreAssentament)).append("\n");
     sb.append("}");

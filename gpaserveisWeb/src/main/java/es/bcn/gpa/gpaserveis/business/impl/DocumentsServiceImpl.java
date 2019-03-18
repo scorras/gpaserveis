@@ -12,6 +12,7 @@ import es.bcn.gpa.gpaserveis.business.DocumentsService;
 import es.bcn.gpa.gpaserveis.business.dto.documents.AportarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.SubstituirDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
@@ -20,6 +21,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntrad
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 import lombok.extern.apachecommons.CommonsLog;
 
@@ -240,6 +242,54 @@ public class DocumentsServiceImpl implements DocumentsService {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * substituirDocumentExpedient(es.bcn.gpa.gpaserveis.business.dto.documents.
+	 * SubstituirDocumentExpedientBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackSubstituirDocumentExpedient")
+	public RespostaSubstituirDocumentExpedientRDTO substituirDocumentExpedient(
+	        SubstituirDocumentExpedientBDTO substituirDocumentExpedientBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("substituirDocumentExpedient(SubstituirDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			RespostaSubstituirDocumentExpedientRDTO respostaSubstituirDocumentExpedientRDTO = documentacioApi.substituirDocumentExpedient(
+			        substituirDocumentExpedientBDTO.getIdExpedient(), substituirDocumentExpedientBDTO.getSubstituirDocumentExpedient());
+
+			if (log.isDebugEnabled()) {
+				log.debug("substituirDocumentExpedient(SubstituirDocumentExpedientBDTO) - fi"); //$NON-NLS-1$
+			}
+			return respostaSubstituirDocumentExpedientRDTO;
+		} catch (ApiException e) {
+			log.error("substituirDocumentExpedient(SubstituirDocumentExpedientBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback substituir document expedient.
+	 *
+	 * @param substituirDocumentExpedientBDTO
+	 *            the substituir document expedient BDTO
+	 * @return the resposta substituir document expedient RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public RespostaSubstituirDocumentExpedientRDTO fallbackSubstituirDocumentExpedient(
+	        SubstituirDocumentExpedientBDTO substituirDocumentExpedientBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackSubstituirDocumentExpedient(SubstituirDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * es.bcn.gpa.gpaserveis.business.DocumentsService#esborrarDocumentExpedient
 	 * (es.bcn.gpa.gpaserveis.business.dto.documents.
@@ -326,4 +376,5 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
 	}
+
 }

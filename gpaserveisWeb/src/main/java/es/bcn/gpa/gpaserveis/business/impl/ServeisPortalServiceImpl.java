@@ -17,6 +17,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.AportarDocumentExpedientBDTO
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.SubstituirDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
@@ -33,6 +34,7 @@ import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.business.impl.helper.ServeisPortalServiceHelper;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
@@ -307,6 +309,19 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * substituirDocumentExpedient(es.bcn.gpa.gpaserveis.business.dto.documents.
+	 * SubstituirDocumentExpedientBDTO)
+	 */
+	@Override
+	public RespostaSubstituirDocumentExpedientRDTO substituirDocumentExpedient(
+	        SubstituirDocumentExpedientBDTO substituirDocumentExpedientBDTO) throws GPAServeisServiceException {
+		return documentsService.substituirDocumentExpedient(substituirDocumentExpedientBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
 	 * consultarDadesDocumentAportat(java.math.BigDecimal)
 	 */
 	@Override
@@ -325,4 +340,5 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	public void esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO) throws GPAServeisServiceException {
 		documentsService.esborrarDocumentExpedient(esborrarDocumentExpedientBDTO);
 	}
+
 }

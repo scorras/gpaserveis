@@ -21,50 +21,50 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * EstatRevisioRDTO
+ * RespostaSincronitzarCheckRDTO
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-18T10:38:37.495+01:00")
-public class EstatRevisioRDTO {
-  @JsonProperty("descripcio")
-  private String descripcio = null;
+public class RespostaSincronitzarCheckRDTO {
+  @JsonProperty("existSerieDoc")
+  private Boolean existSerieDoc = null;
 
-  @JsonProperty("id")
-  private Integer id = null;
+  @JsonProperty("serviceCatalegOK")
+  private Boolean serviceCatalegOK = null;
 
-  public EstatRevisioRDTO descripcio(String descripcio) {
-    this.descripcio = descripcio;
+  public RespostaSincronitzarCheckRDTO existSerieDoc(Boolean existSerieDoc) {
+    this.existSerieDoc = existSerieDoc;
     return this;
   }
 
    /**
-   * Get descripcio
-   * @return descripcio
+   * Get existSerieDoc
+   * @return existSerieDoc
   **/
   @ApiModelProperty(value = "")
-  public String getDescripcio() {
-    return descripcio;
+  public Boolean isExistSerieDoc() {
+    return existSerieDoc;
   }
 
-  public void setDescripcio(String descripcio) {
-    this.descripcio = descripcio;
+  public void setExistSerieDoc(Boolean existSerieDoc) {
+    this.existSerieDoc = existSerieDoc;
   }
 
-  public EstatRevisioRDTO id(Integer id) {
-    this.id = id;
+  public RespostaSincronitzarCheckRDTO serviceCatalegOK(Boolean serviceCatalegOK) {
+    this.serviceCatalegOK = serviceCatalegOK;
     return this;
   }
 
    /**
-   * Get id
-   * @return id
+   * Get serviceCatalegOK
+   * @return serviceCatalegOK
   **/
   @ApiModelProperty(value = "")
-  public Integer getId() {
-    return id;
+  public Boolean isServiceCatalegOK() {
+    return serviceCatalegOK;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
+  public void setServiceCatalegOK(Boolean serviceCatalegOK) {
+    this.serviceCatalegOK = serviceCatalegOK;
   }
 
 
@@ -76,24 +76,24 @@ public class EstatRevisioRDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    EstatRevisioRDTO estatRevisioRDTO = (EstatRevisioRDTO) o;
-    return Objects.equals(this.descripcio, estatRevisioRDTO.descripcio) &&
-        Objects.equals(this.id, estatRevisioRDTO.id);
+    RespostaSincronitzarCheckRDTO respostaSincronitzarCheckRDTO = (RespostaSincronitzarCheckRDTO) o;
+    return Objects.equals(this.existSerieDoc, respostaSincronitzarCheckRDTO.existSerieDoc) &&
+        Objects.equals(this.serviceCatalegOK, respostaSincronitzarCheckRDTO.serviceCatalegOK);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(descripcio, id);
+    return Objects.hash(existSerieDoc, serviceCatalegOK);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class EstatRevisioRDTO {\n");
+    sb.append("class RespostaSincronitzarCheckRDTO {\n");
     
-    sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    existSerieDoc: ").append(toIndentedString(existSerieDoc)).append("\n");
+    sb.append("    serviceCatalegOK: ").append(toIndentedString(serviceCatalegOK)).append("\n");
     sb.append("}");
     return sb.toString();
   }

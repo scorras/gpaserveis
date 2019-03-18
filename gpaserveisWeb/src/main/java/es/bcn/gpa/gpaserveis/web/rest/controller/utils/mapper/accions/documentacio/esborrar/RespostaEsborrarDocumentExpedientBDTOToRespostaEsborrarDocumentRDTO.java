@@ -57,7 +57,7 @@ public class RespostaEsborrarDocumentExpedientBDTOToRespostaEsborrarDocumentRDTO
 	@Override
 	protected void configure() {
 		using(internalToDocumentEsborratAccioConverter).map(source.getDocsEntradaRDTO()).setDocument(null);
-		using(internalToExpedientAccioConverter).map(source.getExpedientsRDTO()).getDocument().setExpedient(null);
+		using(internalToExpedientAccioConverter).map(source.getExpedientsRDTO()).setExpedient(null);
 		using(internalToResultatRespostaConverter).map(source.getRespostaResultatBDTO()).setResultat(null);
 	}
 

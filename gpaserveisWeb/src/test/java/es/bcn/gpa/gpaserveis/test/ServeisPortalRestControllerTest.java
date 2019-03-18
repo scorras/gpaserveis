@@ -93,7 +93,9 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	@Test
 	public void testStage10_PostAportarDocumentacioExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/1/documentacio";
-		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{\"documentacio\":[], \"registrar\":true}"))
+		getMockMvc()
+		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+		                "{ \"documentacio\": [ { \"configuracioDocumentacio\": \"42\",\t \"origen\": \"EXTERN\",\t \"comentari\": \"Document aportat des de portal de tramitació\",\t \"idioma\": \"CATALA\", \"fitxer\": {\t \"nom\": \"DNI.pdf\", \"format\": \"PDF\" } },\t{ \"configuracioDocumentacio\": \"43\",\t \"origen\": \"INTERN\",\t \"comentari\": \"Document aportat des de portal de tramitació\",\t \"idioma\": \"CASTELLA\", \"fitxer\": {\t \"nom\": \"DNI.pdf\", \"format\": \"PDF\" } } ], \"registrar\": true}"))
 		        .andExpect(status().isOk()).andDo(print());
 
 	}
@@ -101,7 +103,10 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	@Test
 	public void testStage11_PostSubstituirDocumentExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/1/documentacio/1/substituir";
-		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{}")).andExpect(status().isOk()).andDo(print());
+		getMockMvc()
+		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+		                "{ \"configuracioDocumentacio\": \"43\", \"origen\": \"EXTERN\", \"comentari\": \"Document substituït des de portal de tramitació\", \"idioma\": \"CASTELLA\", \"fitxer\": {\t\"nom\": \"DNI_H.pdf\",\t\"format\": \"PDF\" }}"))
+		        .andExpect(status().isOk()).andDo(print());
 
 	}
 

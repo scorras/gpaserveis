@@ -44,7 +44,9 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatRevisioR
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RestClientResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SubstituirDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TransicionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 
@@ -464,6 +466,28 @@ public class DocumentacioApiTest extends ParentTest {
 		AportarDocumentacioExpedient aportarDocumentacioExpedientRDTO = new AportarDocumentacioExpedient();
 		BigDecimal idExpedient = ONE;
 		RespostaAportarDocumentacioExpedientRDTO response = api.aportarDocumentacioExpedient(aportarDocumentacioExpedientRDTO, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Updates the document provided
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void substituirDocumentExpedientTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/substituirDocument/1"), eq("POST"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new RespostaSubstituirDocumentExpedientRDTO());
+
+		BigDecimal idExpedient = ONE;
+		SubstituirDocumentExpedient substituirDocumentExpedientRDTO = new SubstituirDocumentExpedient();
+		RespostaSubstituirDocumentExpedientRDTO response = api.substituirDocumentExpedient(idExpedient, substituirDocumentExpedientRDTO);
 
 		assertTrue(response != null);
 	}

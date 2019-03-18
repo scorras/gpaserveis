@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.6.1"
+  version: "1.6.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -554,7 +554,7 @@ paths:
         200:
           description: "OK"
           schema:
-            type: "boolean"
+            $ref: "#/definitions/RespostaSincronitzarCheckRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -1321,6 +1321,44 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/DocsEntradaRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /documentacio/entrada/substituirDocument/{idExpedient}:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "Updates the document provided"
+      operationId: "substituirDocumentExpedient"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      - in: "body"
+        name: "substituirDocumentExpedientRDTO"
+        description: "substituirDocumentExpedientRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/SubstituirDocumentExpedient"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaSubstituirDocumentExpedientRDTO"
         201:
           description: "Created"
         401:
@@ -2868,6 +2906,14 @@ definitions:
         description: "Dades del registre dels documents aportats"
         $ref: "#/definitions/RegistreAssentamentRDTO"
     title: "RespostaAportarDocumentacioExpedientRDTO"
+  RespostaSincronitzarCheckRDTO:
+    type: "object"
+    properties:
+      existSerieDoc:
+        type: "boolean"
+      serviceCatalegOK:
+        type: "boolean"
+    title: "RespostaSincronitzarCheckRDTO"
   RespostaSincronitzarRDTO:
     type: "object"
     properties:
@@ -2881,6 +2927,19 @@ definitions:
         type: "integer"
         format: "int32"
     title: "RespostaSincronitzarRDTO"
+  RespostaSubstituirDocumentExpedientRDTO:
+    type: "object"
+    properties:
+      docEntrada:
+        description: "Document substituït en l'expedient"
+        $ref: "#/definitions/DocsEntradaRDTO"
+      expedient:
+        description: "Dades bàsiques de l'expedient"
+        $ref: "#/definitions/ExpedientRDTO"
+      registreAssentament:
+        description: "Dades del registre dels documents aportats"
+        $ref: "#/definitions/RegistreAssentamentRDTO"
+    title: "RespostaSubstituirDocumentExpedientRDTO"
   RestClientResponse:
     type: "object"
     properties:
@@ -2944,6 +3003,13 @@ definitions:
       nativeMethod:
         type: "boolean"
     title: "StackTraceElement"
+  SubstituirDocumentExpedient:
+    type: "object"
+    properties:
+      docEntrada:
+        description: "Document a substituir en l'expedient"
+        $ref: "#/definitions/DocsEntradaRDTO"
+    title: "SubstituirDocumentExpedient"
   SuportConfeccioRDTO:
     type: "object"
     properties:

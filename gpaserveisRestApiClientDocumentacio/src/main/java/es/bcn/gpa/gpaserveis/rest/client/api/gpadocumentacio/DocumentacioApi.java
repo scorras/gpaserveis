@@ -20,7 +20,9 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatRevisioR
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RestClientResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SubstituirDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TransicionsEstatsRDTO;
 
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-14T13:42:45.795+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-18T10:38:37.495+01:00")
 public class DocumentacioApi {
   private ApiClient apiClient;
 
@@ -943,6 +945,54 @@ public class DocumentacioApi {
     String[] localVarAuthNames = new String[] {  };
 
     GenericType<DocsTramitacioRDTO> localVarReturnType = new GenericType<DocsTramitacioRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Updates the document provided
+   * 
+   * @param idExpedient idExpedient (required)
+   * @param substituirDocumentExpedientRDTO substituirDocumentExpedientRDTO (required)
+   * @return RespostaSubstituirDocumentExpedientRDTO
+   * @throws ApiException if fails to make API call
+   */
+  public RespostaSubstituirDocumentExpedientRDTO substituirDocumentExpedient(BigDecimal idExpedient, SubstituirDocumentExpedient substituirDocumentExpedientRDTO) throws ApiException {
+    Object localVarPostBody = substituirDocumentExpedientRDTO;
+    
+    // verify the required parameter 'idExpedient' is set
+    if (idExpedient == null) {
+      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling substituirDocumentExpedient");
+    }
+    
+    // verify the required parameter 'substituirDocumentExpedientRDTO' is set
+    if (substituirDocumentExpedientRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'substituirDocumentExpedientRDTO' when calling substituirDocumentExpedient");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/documentacio/entrada/substituirDocument/{idExpedient}"
+      .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<RespostaSubstituirDocumentExpedientRDTO> localVarReturnType = new GenericType<RespostaSubstituirDocumentExpedientRDTO>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
 }

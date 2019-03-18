@@ -17,54 +17,34 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * EstatRevisioRDTO
+ * SubstituirDocumentExpedient
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-18T10:38:37.495+01:00")
-public class EstatRevisioRDTO {
-  @JsonProperty("descripcio")
-  private String descripcio = null;
+public class SubstituirDocumentExpedient {
+  @JsonProperty("docEntrada")
+  private DocsEntradaRDTO docEntrada = null;
 
-  @JsonProperty("id")
-  private Integer id = null;
-
-  public EstatRevisioRDTO descripcio(String descripcio) {
-    this.descripcio = descripcio;
+  public SubstituirDocumentExpedient docEntrada(DocsEntradaRDTO docEntrada) {
+    this.docEntrada = docEntrada;
     return this;
   }
 
    /**
-   * Get descripcio
-   * @return descripcio
+   * Document a substituir en l&#39;expedient
+   * @return docEntrada
   **/
-  @ApiModelProperty(value = "")
-  public String getDescripcio() {
-    return descripcio;
+  @ApiModelProperty(value = "Document a substituir en l'expedient")
+  public DocsEntradaRDTO getDocEntrada() {
+    return docEntrada;
   }
 
-  public void setDescripcio(String descripcio) {
-    this.descripcio = descripcio;
-  }
-
-  public EstatRevisioRDTO id(Integer id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
+  public void setDocEntrada(DocsEntradaRDTO docEntrada) {
+    this.docEntrada = docEntrada;
   }
 
 
@@ -76,24 +56,22 @@ public class EstatRevisioRDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    EstatRevisioRDTO estatRevisioRDTO = (EstatRevisioRDTO) o;
-    return Objects.equals(this.descripcio, estatRevisioRDTO.descripcio) &&
-        Objects.equals(this.id, estatRevisioRDTO.id);
+    SubstituirDocumentExpedient substituirDocumentExpedient = (SubstituirDocumentExpedient) o;
+    return Objects.equals(this.docEntrada, substituirDocumentExpedient.docEntrada);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(descripcio, id);
+    return Objects.hash(docEntrada);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class EstatRevisioRDTO {\n");
+    sb.append("class SubstituirDocumentExpedient {\n");
     
-    sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    docEntrada: ").append(toIndentedString(docEntrada)).append("\n");
     sb.append("}");
     return sb.toString();
   }

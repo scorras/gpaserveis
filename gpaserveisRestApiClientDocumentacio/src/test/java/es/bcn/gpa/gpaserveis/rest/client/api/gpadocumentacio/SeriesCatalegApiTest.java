@@ -31,6 +31,7 @@ import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ProcedimentSerieDocRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSincronitzarCheckRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSincronitzarRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SerieDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
@@ -117,10 +118,10 @@ public class SeriesCatalegApiTest extends ParentTest {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/serie/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(Boolean.TRUE);
+		                .thenReturn(new RespostaSincronitzarCheckRDTO());
 
 		String serieDocumental = ONE.toString();
-		Boolean response = api.checkSerieDocumentalUsingGET(serieDocumental);
+		RespostaSincronitzarCheckRDTO response = api.checkSerieDocumentalUsingGET(serieDocumental);
 
 		assertTrue(response != null);
 	}

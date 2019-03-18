@@ -8,6 +8,7 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.Pair;
 import javax.ws.rs.core.GenericType;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ProcedimentSerieDocRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSincronitzarCheckRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSincronitzarRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SerieDTO;
 
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-14T13:42:45.795+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-18T10:38:37.495+01:00")
 public class SeriesCatalegApi {
   private ApiClient apiClient;
 
@@ -40,10 +41,10 @@ public class SeriesCatalegApi {
    * Sincronitzar la configuració de la documentació del procediment
    * 
    * @param serieDocumental serieDocumental (required)
-   * @return Boolean
+   * @return RespostaSincronitzarCheckRDTO
    * @throws ApiException if fails to make API call
    */
-  public Boolean checkSerieDocumentalUsingGET(String serieDocumental) throws ApiException {
+  public RespostaSincronitzarCheckRDTO checkSerieDocumentalUsingGET(String serieDocumental) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'serieDocumental' is set
@@ -75,7 +76,7 @@ public class SeriesCatalegApi {
 
     String[] localVarAuthNames = new String[] {  };
 
-    GenericType<Boolean> localVarReturnType = new GenericType<Boolean>() {};
+    GenericType<RespostaSincronitzarCheckRDTO> localVarReturnType = new GenericType<RespostaSincronitzarCheckRDTO>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
