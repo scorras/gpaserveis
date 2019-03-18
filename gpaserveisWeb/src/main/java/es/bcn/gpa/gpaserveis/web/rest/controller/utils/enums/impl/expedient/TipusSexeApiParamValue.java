@@ -9,11 +9,11 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.BaseApiParamValue;
  */
 public enum TipusSexeApiParamValue implements BaseApiParamValue {
 
-    /** The femeni. */
-	FEMENI("FEMENI", new BigDecimal(1)),
+    /** The dona. */
+	DONA("DONA", new BigDecimal(1)),
 
-	/** The masculi. */
-	MASCULI("MASCULI", new BigDecimal(2)),
+	/** The home. */
+	HOME("HOME", new BigDecimal(2)),
 
 	/** The no binari. */
 	NO_BINARI("NO_BINARI", new BigDecimal(3));

@@ -12,6 +12,7 @@
 
 package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 
+import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -30,6 +31,7 @@ import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ProcedimentSerieDocRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSincronitzarCheckRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSincronitzarRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SerieDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
@@ -99,6 +101,27 @@ public class SeriesCatalegApiTest extends ParentTest {
 
 		ProcedimentSerieDocRDTO procedimentSerieDocRDTO = new ProcedimentSerieDocRDTO();
 		RespostaSincronitzarRDTO response = api.sincronitzarUsingPOST(procedimentSerieDocRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Sincronitzar la configuració de la documentació del procediment
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void checkSerieDocumentalUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/serie/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new RespostaSincronitzarCheckRDTO());
+
+		String serieDocumental = ONE.toString();
+		RespostaSincronitzarCheckRDTO response = api.checkSerieDocumentalUsingGET(serieDocumental);
 
 		assertTrue(response != null);
 	}

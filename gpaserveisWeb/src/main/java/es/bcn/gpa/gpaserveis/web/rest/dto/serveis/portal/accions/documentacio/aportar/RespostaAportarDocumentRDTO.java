@@ -14,31 +14,24 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-
-@ApiModel(value="RespostaAportarDocumentacio")
+@ApiModel(value = "RespostaAportarDocumentacio")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "resultat",
-    "documentacioAportada",
-    "registre",
-    "expedient"
-})
+@JsonPropertyOrder({ "resultat", "documentacioAportada", "registre", "expedient" })
 @Getter
 @Setter
-public class RespostaAportarDocumentacioRDTO {
-    
+
+public class RespostaAportarDocumentRDTO {
+
 	@ApiModelProperty("Resultat de l'operació")
 	private ResultatRespostaDTO resultat;
-	
+
 	@ApiModelProperty(value = "Documentacio aportada a l'expedient")
 	private List<DocumentAportatAccioRDTO> documentacioAportada;
-	
+
 	@ApiModelProperty(value = "Registre de la documentació")
 	private RegistreRDTO registre;
-	
+
 	@ApiModelProperty(value = "Expedient del document")
 	private ExpedientAccioRDTO expedient;
 
 }
-
-

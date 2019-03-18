@@ -2,6 +2,7 @@ package es.bcn.gpa.gpaserveis.test.parent;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.isNull;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
@@ -30,6 +31,9 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.AccionsEstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AportarDocumentacioExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SubstituirDocumentExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.test.config.TestsConfigHelper;
 import lombok.extern.apachecommons.CommonsLog;
@@ -181,10 +185,10 @@ public abstract class ParentTest {
 			        .thenReturn(TestsConfigHelper.consultarDadesTramitOvtResponse());
 
 			when(dadesGrupsApi.cercaDadesOperacioAgrupatsPerTramitOvt(any(BigDecimal.class), any(BigDecimal.class), isNull(String.class),
-			        isNull(String.class))).thenReturn(TestsConfigHelper.cercaDadesOperacioAgrupats1Response());
+			        isNull(String.class))).thenReturn(TestsConfigHelper.cercaDadesOperacioResponse());
 
 			when(dadesGrupsApi.cercaDadesOperacio(any(BigDecimal.class), isNull(String.class), isNull(String.class)))
-			        .thenReturn(TestsConfigHelper.cercaDadesOperacioAgrupats1Response());
+			        .thenReturn(TestsConfigHelper.cercaDadesOperacioResponse());
 
 			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioEntradaPerTramitOvt(any(BigDecimal.class), any(BigDecimal.class),
 			        isNull(Integer.class), isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
@@ -211,6 +215,20 @@ public abstract class ParentTest {
 
 			when(expedients_Api.crearSollicitudExpedient(any(ExpedientsRDTO.class)))
 			        .thenReturn(TestsConfigHelper.crearSollicitudExpedientResponse());
+
+			when(expedients_Api.actualitzarDadesSollicitud(any(ActualitzarDadesSollicitud.class)))
+			        .thenReturn(TestsConfigHelper.crearSollicitudExpedientResponse());
+
+			when(documentacioApi.aportarDocumentacioExpedient(any(AportarDocumentacioExpedient.class), any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.aportarDocumentacioExpedientResponse());
+
+			when(documentacioApi.consultarDadesDocumentAportat(any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.consultarDadesDocumentAportat());
+
+			doNothing().when(documentacioApi).esborrarDocumentExpedient(any(List.class), any(BigDecimal.class));
+
+			when(documentacioApi.substituirDocumentExpedient(any(BigDecimal.class), any(SubstituirDocumentExpedient.class)))
+			        .thenReturn(TestsConfigHelper.substituirDocumentExpedientResponse());
 
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$

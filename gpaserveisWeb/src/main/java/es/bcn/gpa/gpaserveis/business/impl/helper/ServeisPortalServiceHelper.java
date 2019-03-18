@@ -248,15 +248,17 @@ public class ServeisPortalServiceHelper {
 		DadesExpedientBDTO dadesExpedientBDTO = new DadesExpedientBDTO();
 
 		loadExpedients(expedientsService, dadesExpedientBDTO, idExpedient);
-		loadUnitatGestora(unitatsGestoresService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
-		loadHistoricsList(expedientsService, dadesExpedientBDTO, idExpedient);
-		loadPersonesInteressades(expedientsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
-		loadAltresPersonesImplicades(expedientsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
-		loadAccionsPossibles(tramitsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
-		loadDocumentsAportats(documentsService, tramitsService, dadesExpedientBDTO,
-		        dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
-		loadDocumentsRequerits(documentsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
-		loadDadesEspecifiques(expedientsService, dadesOperacioService, dadesExpedientBDTO, idExpedient);
+		if (dadesExpedientBDTO.getExpedientsRDTO() != null) {
+			loadUnitatGestora(unitatsGestoresService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
+			loadHistoricsList(expedientsService, dadesExpedientBDTO, idExpedient);
+			loadPersonesInteressades(expedientsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
+			loadAltresPersonesImplicades(expedientsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
+			loadAccionsPossibles(tramitsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+			loadDocumentsAportats(documentsService, tramitsService, dadesExpedientBDTO,
+			        dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
+			loadDocumentsRequerits(documentsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
+			loadDadesEspecifiques(expedientsService, dadesOperacioService, dadesExpedientBDTO, idExpedient);
+		}
 
 		return dadesExpedientBDTO;
 	}
@@ -286,15 +288,18 @@ public class ServeisPortalServiceHelper {
 		DadesExpedientBDTO dadesExpedientBDTO = new DadesExpedientBDTO();
 
 		loadExpedients(expedientsService, dadesExpedientBDTO, codiExpedient);
-		loadUnitatGestora(unitatsGestoresService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
-		loadHistoricsList(expedientsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getId());
-		loadPersonesInteressades(expedientsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
-		loadAltresPersonesImplicades(expedientsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
-		loadAccionsPossibles(tramitsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
-		loadDocumentsAportats(documentsService, tramitsService, dadesExpedientBDTO,
-		        dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
-		loadDocumentsRequerits(documentsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
-		loadDadesEspecifiques(expedientsService, dadesOperacioService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getId());
+		if (dadesExpedientBDTO.getExpedientsRDTO() != null) {
+			loadUnitatGestora(unitatsGestoresService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
+			loadHistoricsList(expedientsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getId());
+			loadPersonesInteressades(expedientsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
+			loadAltresPersonesImplicades(expedientsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
+			loadAccionsPossibles(tramitsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+			loadDocumentsAportats(documentsService, tramitsService, dadesExpedientBDTO,
+			        dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
+			loadDocumentsRequerits(documentsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
+			loadDadesEspecifiques(expedientsService, dadesOperacioService, dadesExpedientBDTO,
+			        dadesExpedientBDTO.getExpedientsRDTO().getId());
+		}
 
 		return dadesExpedientBDTO;
 	}
@@ -317,7 +322,9 @@ public class ServeisPortalServiceHelper {
 		DadesExpedientBDTO dadesExpedientBDTO = new DadesExpedientBDTO();
 
 		loadExpedients(expedientsService, dadesExpedientBDTO, idExpedient);
-		loadAccionsPossibles(tramitsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+		if (dadesExpedientBDTO.getExpedientsRDTO() != null) {
+			loadAccionsPossibles(tramitsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+		}
 
 		return dadesExpedientBDTO;
 	}

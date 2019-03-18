@@ -43,6 +43,7 @@ import org.glassfish.jersey.media.multipart.MultiPart;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.auth.Authentication;
+import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.auth.impl.AuthenticationImpl;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-01-30T14:31:53.744+01:00")
 public class ApiClient {
@@ -871,11 +872,15 @@ public class ApiClient {
 	 *            The authentications to apply
 	 */
 	protected void updateParamsForAuth(String[] authNames, List<Pair> queryParams, Map<String, String> headerParams) {
-		for (String authName : authNames) {
-			Authentication auth = authentications.get(authName);
-			if (auth == null)
-				throw new ApiRuntimeException("Authentication undefined: " + authName);
-			auth.applyToParams(queryParams, headerParams);
-		}
+		// for (String authName : authNames) {
+		// Authentication auth = authentications.get(authName);
+		// if (auth == null)
+		// throw new ApiRuntimeException("Authentication undefined: " +
+		// authName);
+		// auth.applyToParams(queryParams, headerParams);
+		// }
+		// TODO Provisional Authentication
+		Authentication auth = new AuthenticationImpl();
+		auth.applyToParams(queryParams, headerParams);
 	}
 }

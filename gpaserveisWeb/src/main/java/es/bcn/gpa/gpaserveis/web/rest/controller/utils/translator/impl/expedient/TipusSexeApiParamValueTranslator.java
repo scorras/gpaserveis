@@ -15,6 +15,6 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.ApiParamV
 public class TipusSexeApiParamValueTranslator extends ApiParamValueTranslator<TipusSexeApiParamValue, BigDecimal> {
 
 	/** The Constant REQUEST_PARAM_ALLOWABLE_VALUES. */
-	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "FEMENI, MASCULI, NO_BINARI";
+	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "DONA, HOME, NO_BINARI";
 
 }

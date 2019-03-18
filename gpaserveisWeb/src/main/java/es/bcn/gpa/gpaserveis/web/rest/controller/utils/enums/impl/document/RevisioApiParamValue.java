@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient;
+package es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document;
 
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.BaseApiParamValue;
 

@@ -15,7 +15,6 @@ import lombok.Setter;
 @JsonPropertyOrder({
     "configuracioDocumentacio",
     "origen",
-    "registrar",
     "comentari",
     "idioma",
     "fitxer"
@@ -28,14 +27,10 @@ public class DocumentAportatSubstituirRDTO {
 	private String configuracioDocumentacio;
 	@ApiModelProperty(value = "Origen del tipus de documentació.", required = true, allowableValues = "INTERN, EXTERN")
 	private String origen;
-	@ApiModelProperty(value = "Indicador per registrar el document aportat.", required = true)
-	private boolean registrar;
 	@ApiModelProperty(value = "Comentari del document.")
 	private String comentari;
 	@ApiModelProperty(value = "Idioma del document")
 	private String idioma;
-	@ApiModelProperty(value = "Estat de revisió del document.", allowableValues = "CORRECTE, INCORRECTE, PENDENT")
-	private String revisio;
 	@ApiModelProperty(value = "Fitxer", required = true)
 	private FitxerRDTO fitxer;
 

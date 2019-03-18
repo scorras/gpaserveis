@@ -8,6 +8,7 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.Pair;
 import javax.ws.rs.core.GenericType;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ProcedimentSerieDocRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSincronitzarCheckRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSincronitzarRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SerieDTO;
 
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-07T18:07:53.693+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-18T10:38:37.495+01:00")
 public class SeriesCatalegApi {
   private ApiClient apiClient;
 
@@ -36,6 +37,48 @@ public class SeriesCatalegApi {
     this.apiClient = apiClient;
   }
 
+  /**
+   * Sincronitzar la configuració de la documentació del procediment
+   * 
+   * @param serieDocumental serieDocumental (required)
+   * @return RespostaSincronitzarCheckRDTO
+   * @throws ApiException if fails to make API call
+   */
+  public RespostaSincronitzarCheckRDTO checkSerieDocumentalUsingGET(String serieDocumental) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'serieDocumental' is set
+    if (serieDocumental == null) {
+      throw new ApiException(400, "Missing the required parameter 'serieDocumental' when calling checkSerieDocumentalUsingGET");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/configuracioDocumentacio/serie/{serieDocumental}"
+      .replaceAll("\\{" + "serieDocumental" + "\\}", apiClient.escapeString(serieDocumental.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<RespostaSincronitzarCheckRDTO> localVarReturnType = new GenericType<RespostaSincronitzarCheckRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
   /**
    * Returns the series
    * 

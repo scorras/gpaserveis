@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import es.bcn.gpa.gpaserveis.business.DocumentsService;
+import es.bcn.gpa.gpaserveis.business.dto.documents.AportarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.SubstituirDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
@@ -17,6 +20,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeri
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 import lombok.extern.apachecommons.CommonsLog;
 
@@ -184,4 +189,192 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * aportarDocumentacioExpedient(es.bcn.gpa.gpaserveis.business.dto.documents
+	 * .AportarDocumentExpedientBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackAportarDocumentacioExpedient")
+	public RespostaAportarDocumentacioExpedientRDTO aportarDocumentacioExpedient(AportarDocumentExpedientBDTO aportarDocumentExpedientBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("aportarDocumentacioExpedient(AportarDocumentacioExpedientBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			RespostaAportarDocumentacioExpedientRDTO respostaAportarDocumentacioExpedientRDTO = documentacioApi
+			        .aportarDocumentacioExpedient(aportarDocumentExpedientBDTO.getAportarDocumentacioExpedient(),
+			                aportarDocumentExpedientBDTO.getIdExpedient());
+
+			if (log.isDebugEnabled()) {
+				log.debug("aportarDocumentacioExpedient(AportarDocumentacioExpedientBDTO) - fi"); //$NON-NLS-1$
+			}
+			return respostaAportarDocumentacioExpedientRDTO;
+		} catch (ApiException e) {
+			log.error("aportarDocumentacioExpedient(AportarDocumentacioExpedientBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback aportar documentacio expedient.
+	 *
+	 * @param aportarDocumentExpedientBDTO
+	 *            the aportar document expedient BDTO
+	 * @return the resposta aportar documentacio expedient RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public RespostaAportarDocumentacioExpedientRDTO fallbackAportarDocumentacioExpedient(
+	        AportarDocumentExpedientBDTO aportarDocumentExpedientBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackAportarDocumentacioExpedient(AportarDocumentacioExpedientBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * substituirDocumentExpedient(es.bcn.gpa.gpaserveis.business.dto.documents.
+	 * SubstituirDocumentExpedientBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackSubstituirDocumentExpedient")
+	public RespostaSubstituirDocumentExpedientRDTO substituirDocumentExpedient(
+	        SubstituirDocumentExpedientBDTO substituirDocumentExpedientBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("substituirDocumentExpedient(SubstituirDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			RespostaSubstituirDocumentExpedientRDTO respostaSubstituirDocumentExpedientRDTO = documentacioApi.substituirDocumentExpedient(
+			        substituirDocumentExpedientBDTO.getIdExpedient(), substituirDocumentExpedientBDTO.getSubstituirDocumentExpedient());
+
+			if (log.isDebugEnabled()) {
+				log.debug("substituirDocumentExpedient(SubstituirDocumentExpedientBDTO) - fi"); //$NON-NLS-1$
+			}
+			return respostaSubstituirDocumentExpedientRDTO;
+		} catch (ApiException e) {
+			log.error("substituirDocumentExpedient(SubstituirDocumentExpedientBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback substituir document expedient.
+	 *
+	 * @param substituirDocumentExpedientBDTO
+	 *            the substituir document expedient BDTO
+	 * @return the resposta substituir document expedient RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public RespostaSubstituirDocumentExpedientRDTO fallbackSubstituirDocumentExpedient(
+	        SubstituirDocumentExpedientBDTO substituirDocumentExpedientBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackSubstituirDocumentExpedient(SubstituirDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#esborrarDocumentExpedient
+	 * (es.bcn.gpa.gpaserveis.business.dto.documents.
+	 * EsborrarDocumentExpedientBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackEsborrarDocumentExpedient")
+	public void esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			documentacioApi.esborrarDocumentExpedient(esborrarDocumentExpedientBDTO.getIdDocumentList(),
+			        esborrarDocumentExpedientBDTO.getIdExpedient());
+
+			if (log.isDebugEnabled()) {
+				log.debug("esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO) - fi"); //$NON-NLS-1$
+			}
+		} catch (ApiException e) {
+			log.error("esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback esborrar document expedient.
+	 *
+	 * @param esborrarDocumentExpedientBDTO
+	 *            the esborrar document expedient BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackEsborrarDocumentExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackEsborrarDocumentExpedient(EsborrarDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * consultarDadesDocumentAportat(java.math.BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesDocumentAportat")
+	public DocsEntradaRDTO consultarDadesDocumentAportat(BigDecimal id) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarDadesDocumentAportat(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.consultarDadesDocumentAportat(id);
+
+			if (log.isDebugEnabled()) {
+				log.debug("consultarDadesDocumentAportat(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			return docsEntradaRDTO;
+		} catch (ApiException e) {
+			log.error("consultarDadesDocumentAportat(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback consultar dades document aportat.
+	 *
+	 * @param id
+	 *            the id
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsEntradaRDTO fallbackConsultarDadesDocumentAportat(BigDecimal id) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackConsultarDadesDocumentAportat(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
 }
