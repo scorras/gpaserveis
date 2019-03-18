@@ -65,6 +65,7 @@ import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaAccionsMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.RevisioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.procediment.ProcedimentsApiParamToInternalMapper;
@@ -753,7 +754,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			if (CollectionUtils.isNotEmpty(documentacioAportar.getDocumentacio())) {
 				ArrayList<DocsEntradaRDTO> docsEntradaRDTOList = new ArrayList<DocsEntradaRDTO>();
 				for (DocumentAportatCrearRDTO documentAportatCrearRDTO : documentacioAportar.getDocumentacio()) {
-					docsEntradaRDTOList.add(modelMapper.map(documentAportatCrearRDTO, DocsEntradaRDTO.class));
+					DocsEntradaRDTO docsEntradaRDTO = modelMapper.map(documentAportatCrearRDTO, DocsEntradaRDTO.class);
+					docsEntradaRDTO.setRevisio(RevisioApiParamValue.PENDENT.getInternalValue());
+					docsEntradaRDTOList.add(docsEntradaRDTO);
 				}
 				AportarDocumentacioExpedient aportarDocumentacioExpedient = new AportarDocumentacioExpedient();
 				aportarDocumentacioExpedient.setDocsEntrada(docsEntradaRDTOList);
@@ -823,7 +826,10 @@ public class ServeisPortalRestController extends BaseRestController {
 			SubstituirDocumentExpedientBDTO substituirDocumentExpedientBDTO = new SubstituirDocumentExpedientBDTO();
 			substituirDocumentExpedientBDTO.setIdExpedient(idExpedient);
 			SubstituirDocumentExpedient substituirDocumentExpedient = new SubstituirDocumentExpedient();
-			substituirDocumentExpedient.setDocEntrada(modelMapper.map(documentSubstituir, DocsEntradaRDTO.class));
+			DocsEntradaRDTO docsEntradaRDTOSubstituir = modelMapper.map(documentSubstituir, DocsEntradaRDTO.class);
+			docsEntradaRDTOSubstituir.setId(idDocument);
+			docsEntradaRDTOSubstituir.setRevisio(RevisioApiParamValue.PENDENT.getInternalValue());
+			substituirDocumentExpedient.setDocEntrada(docsEntradaRDTOSubstituir);
 			substituirDocumentExpedientBDTO.setSubstituirDocumentExpedient(substituirDocumentExpedient);
 
 			respostaSubstituirDocumentExpedientRDTO = serveisPortalService.substituirDocumentExpedient(substituirDocumentExpedientBDTO);
