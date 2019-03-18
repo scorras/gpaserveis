@@ -517,11 +517,13 @@ public class ConverterHelper {
 			documentAportatAccioRDTO = new DocumentAportatAccioRDTO();
 			documentAportatAccioRDTO.setId(docsEntradaRDTO.getId());
 			documentAportatAccioRDTO.setNom(docsEntradaRDTO.getDocsFisics().getNom());
-			ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
-			configuracioDocumentacioRDTO.setCodi((docsEntradaRDTO.getConfiguracioDocsEntrada().getId() != null)
-			        ? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getId()) : null);
-			configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntradaNom());
-			documentAportatAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
+			if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null) {
+				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
+				configuracioDocumentacioRDTO.setCodi((docsEntradaRDTO.getConfiguracioDocsEntrada().getId() != null)
+				        ? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getId()) : null);
+				configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntradaNom());
+				documentAportatAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
+			}
 			documentAportatAccioRDTO.setOrigen(origenApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTO.getOrigen()));
 			documentAportatAccioRDTO
 			        .setRevisio(revisioApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTO.getRevisio()));
