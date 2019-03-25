@@ -25,7 +25,7 @@ public class InternalToDocumentEsborratAccioConverter extends AbstractConverter<
 			documentEsborratAccioRDTO = new DocumentEsborratAccioRDTO();
 
 			documentEsborratAccioRDTO.setId(docsEntradaRDTO.getId());
-			documentEsborratAccioRDTO.setCodi(String.valueOf(docsEntradaRDTO.getConfigDocEntrada()));
+			documentEsborratAccioRDTO.setNom(docsEntradaRDTO.getDocsFisics().getNom());
 		}
 
 		return documentEsborratAccioRDTO;

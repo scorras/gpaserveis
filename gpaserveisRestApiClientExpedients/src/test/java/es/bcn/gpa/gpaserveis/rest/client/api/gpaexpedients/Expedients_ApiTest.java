@@ -83,12 +83,14 @@ public class Expedients_ApiTest extends ParentTest {
 		List<BigDecimal> estatList = null;
 		BigDecimal id = null;
 		BigDecimal idUsuari = null;
+		Boolean isOge = null;
 		Integer nextPageNumber = null;
 		String numeroDocumentSollicitant = null;
 		String numeroDocumentSollicitantEstricte = null;
 		Integer pageSize = null;
 		Integer previousPageNumber = null;
 		List<String> procedimentCodisList = null;
+		BigDecimal procedimentId = null;
 		String procedimentVersio = null;
 		String sort = null;
 		Long totalElements = null;
@@ -99,9 +101,9 @@ public class Expedients_ApiTest extends ParentTest {
 		        absoluteRowNumberOfLastRowInCurrentPage, aplicacioNegoci, avisList, codi, criteriDeCercaDadesOperacioList0Id,
 		        criteriDeCercaDadesOperacioList0Tipus, criteriDeCercaDadesOperacioList0Valor, currentPageHasNextPage,
 		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dataPresentacioDes,
-		        dataPresentacioFinsA, dir, estatList, id, idUsuari, nextPageNumber, numeroDocumentSollicitant,
-		        numeroDocumentSollicitantEstricte, pageSize, previousPageNumber, procedimentCodisList, procedimentVersio, sort,
-		        totalElements, totalPages, tramitador, unitatsGestoresList);
+		        dataPresentacioFinsA, dir, estatList, id, idUsuari, isOge, nextPageNumber, numeroDocumentSollicitant,
+		        numeroDocumentSollicitantEstricte, pageSize, previousPageNumber, procedimentCodisList, procedimentId, procedimentVersio,
+		        sort, totalElements, totalPages, tramitador, unitatsGestoresList);
 
 		assertTrue(response != null);
 	}
@@ -424,16 +426,18 @@ public class Expedients_ApiTest extends ParentTest {
 		List<BigDecimal> estatList = null;
 		BigDecimal id = null;
 		BigDecimal idUsuari = null;
+		Boolean isOge = null;
 		String numeroDocumentSollicitant = null;
 		String numeroDocumentSollicitantEstricte = null;
 		List<String> procedimentCodisList = null;
+		BigDecimal procedimentId = null;
 		String procedimentVersio = null;
 		String tramitador = null;
 		List<BigDecimal> unitatsGestoresList = null;
 		InputStreamResource response = api.exportarCercaExpedientExcel(aplicacioNegoci, avisList, codi, criteriDeCercaDadesOperacioList0Id,
 		        criteriDeCercaDadesOperacioList0Tipus, criteriDeCercaDadesOperacioList0Valor, dataPresentacioDes, dataPresentacioFinsA,
-		        estatList, id, idUsuari, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, procedimentCodisList,
-		        procedimentVersio, tramitador, unitatsGestoresList);
+		        estatList, id, idUsuari, isOge, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, procedimentCodisList,
+		        procedimentId, procedimentVersio, tramitador, unitatsGestoresList);
 
 		assertTrue(response != null);
 	}

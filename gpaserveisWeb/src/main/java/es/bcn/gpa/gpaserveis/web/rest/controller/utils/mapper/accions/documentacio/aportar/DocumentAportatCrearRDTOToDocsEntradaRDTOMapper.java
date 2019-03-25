@@ -13,10 +13,10 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.TipusM
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
 
 /**
- * The Class DocumentAportatCrearRDTOToDocsEntradaRDTO.
+ * The Class DocumentAportatCrearRDTOToDocsEntradaRDTOMapper.
  */
-@Component("documentAportatCrearRDTOToDocsEntradaRDTO")
-public class DocumentAportatCrearRDTOToDocsEntradaRDTO extends PropertyMap<DocumentAportatCrearRDTO, DocsEntradaRDTO> {
+@Component("documentAportatCrearRDTOToDocsEntradaRDTOMapper")
+public class DocumentAportatCrearRDTOToDocsEntradaRDTOMapper extends PropertyMap<DocumentAportatCrearRDTO, DocsEntradaRDTO> {
 
 	private InternalToBigDecimalConverter internalToBigDecimalConverter;
 
@@ -27,7 +27,7 @@ public class DocumentAportatCrearRDTOToDocsEntradaRDTO extends PropertyMap<Docum
 	private TipusMimeToInternalConverter tipusMimeToInternalConverter;
 
 	@Autowired
-	public DocumentAportatCrearRDTOToDocsEntradaRDTO(
+	public DocumentAportatCrearRDTOToDocsEntradaRDTOMapper(
 	        @Qualifier("internalToBigDecimalConverter") InternalToBigDecimalConverter internalToBigDecimalConverter,
 	        @Qualifier("origenToInternalConverter") OrigenToInternalConverter origenToInternalConverter,
 	        @Qualifier("idiomaToInternalConverter") IdiomaToInternalConverter idiomaToInternalConverter,

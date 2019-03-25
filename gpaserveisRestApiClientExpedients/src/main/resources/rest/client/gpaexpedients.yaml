@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.5.0"
+  version: "1.7.0"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -1769,6 +1769,34 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/expedientBloquejatPerUnAltreUsuari/{id}:
+    get:
+      tags:
+      - "Expedients"
+      summary: "ExpedientBloquejatPerUnAltreUsuari"
+      operationId: "expedientBloquejatPerUnAltreUsuariUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "boolean"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/exportarCercaExpedientExcel:
     get:
       tags:
@@ -1841,6 +1869,11 @@ paths:
         description: "Identificador d'usuari pel qual es realitza la cerca"
         required: false
         type: "number"
+      - name: "isOge"
+        in: "query"
+        description: "Invocació des de OGE"
+        required: false
+        type: "boolean"
       - name: "numeroDocumentSollicitant"
         in: "query"
         description: "Numero de document d'identificació del sol·licitant"
@@ -1859,6 +1892,11 @@ paths:
         items:
           type: "string"
         collectionFormat: "multi"
+      - name: "procedimentId"
+        in: "query"
+        description: "Identificador del procediment"
+        required: false
+        type: "number"
       - name: "procedimentVersio"
         in: "query"
         description: "Versió del procediment"
@@ -2136,7 +2174,7 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/perCodi/{codiBaseName}/**:
+  /expedients/perCodi/{codi}:
     get:
       tags:
       - "Expedients "
@@ -2145,9 +2183,9 @@ paths:
       produces:
       - "*/*"
       parameters:
-      - name: "codiBaseName"
+      - name: "codi"
         in: "path"
-        description: "codiBaseName"
+        description: "codi"
         required: true
         type: "string"
       responses:
@@ -2905,6 +2943,11 @@ paths:
         description: "Identificador d'usuari pel qual es realitza la cerca"
         required: false
         type: "number"
+      - name: "isOge"
+        in: "query"
+        description: "Invocació des de OGE"
+        required: false
+        type: "boolean"
       - name: "nextPageNumber"
         in: "query"
         required: false
@@ -2938,6 +2981,11 @@ paths:
         items:
           type: "string"
         collectionFormat: "multi"
+      - name: "procedimentId"
+        in: "query"
+        description: "Identificador del procediment"
+        required: false
+        type: "number"
       - name: "procedimentVersio"
         in: "query"
         description: "Versió del procediment"
@@ -3156,11 +3204,17 @@ definitions:
   ActualitzarDadesSollicitud:
     type: "object"
     properties:
+      comentari:
+        type: "string"
+        description: "Comentari associat a l'operació"
       dadesEspecifiques:
         type: "array"
         description: "Valors d'atributs de l'expedient"
         items:
           $ref: "#/definitions/DadesEspecifiquesRDTO"
+      esmena:
+        type: "boolean"
+        description: "Indica si es tracta de la resposta a un requeriment"
       expedient:
         description: "Dades de l'expedient"
         $ref: "#/definitions/ExpedientsRDTO"
@@ -3230,6 +3284,8 @@ definitions:
   CanviEstatRDTO:
     type: "object"
     properties:
+      canviUnitatGestora:
+        $ref: "#/definitions/CanviUnitatGestoraBDTO"
       comentari:
         $ref: "#/definitions/Comentaris"
       estatActual:
@@ -3247,6 +3303,20 @@ definitions:
         items:
           $ref: "#/definitions/AccionsEstatsBDTO"
     title: "CanviEstatRDTO"
+  CanviUnitatGestoraBDTO:
+    type: "object"
+    properties:
+      comentari:
+        $ref: "#/definitions/Comentaris"
+      idExpedientList:
+        type: "array"
+        items:
+          type: "number"
+      unitatGestoraActual:
+        $ref: "#/definitions/DropdownItemBDTO"
+      unitatGestoraFutura:
+        $ref: "#/definitions/DropdownItemBDTO"
+    title: "CanviUnitatGestoraBDTO"
   CanviUnitatGestoraRDTO:
     type: "object"
     properties:
@@ -3567,6 +3637,8 @@ definitions:
         type: "number"
       idEstat:
         type: "number"
+      isOge:
+        type: "boolean"
       nomProcediment:
         type: "string"
       numeroDocumentSollicitant:

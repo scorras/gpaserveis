@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.6.0"
+  version: "1.7.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -1072,7 +1072,7 @@ paths:
       tags:
       - "DownloadEntrada"
       summary: "download the fileEntrada"
-      operationId: "downloadFileEntradaUsingGET"
+      operationId: "descarregarDocumentExpedient"
       produces:
       - "*/*"
       parameters:
@@ -1359,6 +1359,44 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/RespostaSubstituirDocumentExpedientRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /documentacio/entrada/uploadDocument/{idExpedient}:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "Upload the document provided"
+      operationId: "uploadDocumentExpedient"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      - in: "body"
+        name: "uploadDocumentExpedientRDTO"
+        description: "uploadDocumentExpedientRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/UploadDocumentExpedient"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaUploadDocumentExpedient"
         201:
           description: "Created"
         401:
@@ -1894,6 +1932,9 @@ definitions:
         description: "Documents a aportar a l'expedient"
         items:
           $ref: "#/definitions/DocsEntradaRDTO"
+      esmena:
+        type: "boolean"
+        description: "Indica si es tracta de la resposta a un requeriment"
     title: "AportarDocumentacioExpedient"
   AtributsDocs:
     type: "object"
@@ -2287,6 +2328,8 @@ definitions:
         type: "string"
       id:
         type: "number"
+      idIdiomaPlantilla:
+        type: "number"
       idioma:
         type: "number"
       numDocsConfiguracio:
@@ -2302,6 +2345,8 @@ definitions:
       origen:
         type: "integer"
         format: "int32"
+      plantillaPdf:
+        type: "boolean"
       registreAssentament:
         $ref: "#/definitions/RegistreAssentament"
       registreCodi:
@@ -2450,6 +2495,8 @@ definitions:
         type: "string"
       id:
         type: "number"
+      idIdiomaPlantilla:
+        type: "number"
       idioma:
         type: "number"
       numDocsConfiguracio:
@@ -2465,6 +2512,8 @@ definitions:
       origen:
         type: "integer"
         format: "int32"
+      plantillaPdf:
+        type: "boolean"
       registreAssentament:
         $ref: "#/definitions/RegistreAssentament"
       registreIdext:
@@ -2886,6 +2935,9 @@ definitions:
   Requeriments:
     type: "object"
     properties:
+      dataTancament:
+        type: "string"
+        format: "date-time"
       docsTramitacio:
         type: "number"
       id:
@@ -2940,6 +2992,19 @@ definitions:
         description: "Dades del registre dels documents aportats"
         $ref: "#/definitions/RegistreAssentamentRDTO"
     title: "RespostaSubstituirDocumentExpedientRDTO"
+  RespostaUploadDocumentExpedient:
+    type: "object"
+    properties:
+      docEntrada:
+        description: "Document substituït en l'expedient"
+        $ref: "#/definitions/DocsEntradaRDTO"
+      expedient:
+        description: "Dades bàsiques de l'expedient"
+        $ref: "#/definitions/ExpedientRDTO"
+      registreAssentament:
+        description: "Dades del registre dels documents aportats"
+        $ref: "#/definitions/RegistreAssentamentRDTO"
+    title: "RespostaUploadDocumentExpedient"
   RestClientResponse:
     type: "object"
     properties:
@@ -3154,3 +3219,10 @@ definitions:
       userInfo:
         type: "string"
     title: "URL"
+  UploadDocumentExpedient:
+    type: "object"
+    properties:
+      docEntrada:
+        description: "Document a upload en l'expedient"
+        $ref: "#/definitions/DocsEntradaRDTO"
+    title: "UploadDocumentExpedient"

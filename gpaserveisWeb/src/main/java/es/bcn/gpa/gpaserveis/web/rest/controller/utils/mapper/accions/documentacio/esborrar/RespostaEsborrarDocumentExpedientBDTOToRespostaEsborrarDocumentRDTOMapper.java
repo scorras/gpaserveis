@@ -13,10 +13,10 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.es
 
 /**
  * The Class
- * RespostaEsborrarDocumentExpedientBDTOToRespostaEsborrarDocumentRDTO.
+ * RespostaEsborrarDocumentExpedientBDTOToRespostaEsborrarDocumentRDTOMapper.
  */
-@Component("respostaEsborrarDocumentExpedientBDTOToRespostaEsborrarDocumentRDTO")
-public class RespostaEsborrarDocumentExpedientBDTOToRespostaEsborrarDocumentRDTO
+@Component("respostaEsborrarDocumentExpedientBDTOToRespostaEsborrarDocumentRDTOMapper")
+public class RespostaEsborrarDocumentExpedientBDTOToRespostaEsborrarDocumentRDTOMapper
         extends PropertyMap<RespostaEsborrarDocumentExpedientBDTO, RespostaEsborrarDocumentRDTO> {
 
 	/** The internal to expedient accio converter. */
@@ -40,7 +40,7 @@ public class RespostaEsborrarDocumentExpedientBDTOToRespostaEsborrarDocumentRDTO
 	 *            the internal to resultat resposta converter
 	 */
 	@Autowired
-	public RespostaEsborrarDocumentExpedientBDTOToRespostaEsborrarDocumentRDTO(
+	public RespostaEsborrarDocumentExpedientBDTOToRespostaEsborrarDocumentRDTOMapper(
 	        @Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
 	        @Qualifier("internalToDocumentEsborratAccioConverter") InternalToDocumentEsborratAccioConverter internalToDocumentEsborratAccioConverter,
 	        @Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {

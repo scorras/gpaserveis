@@ -730,7 +730,7 @@ public class ServeisPortalServiceHelper {
 	}
 
 	/**
-	 * Load cerca documents entrada.
+	 * Load cerca configuracio documentacio entrada.
 	 *
 	 * @param documentsService
 	 *            the documents service
@@ -740,11 +740,31 @@ public class ServeisPortalServiceHelper {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public static RespostaDocumentsEntradaCercaBDTO loadCercaDocumentsEntrada(DocumentsService documentsService,
+	public static RespostaDocumentsEntradaCercaBDTO loadCercaConfiguracioDocumentacioEntrada(DocumentsService documentsService,
 	        DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO) throws GPAServeisServiceException {
 		RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = new RespostaDocumentsEntradaCercaBDTO();
 		PageDataOfConfiguracioDocsEntradaRDTO pageDataOfConfiguracioDocsEntradaRDTO = documentsService
-		        .cercaDocumentsEntrada(documentsEntradaCercaBDTO);
+		        .cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);
+		respostaDocumentsEntradaCercaBDTO.setConfiguracioDocsEntradaRDTOList(pageDataOfConfiguracioDocsEntradaRDTO.getData());
+		return respostaDocumentsEntradaCercaBDTO;
+	}
+
+	/**
+	 * Load cerca configuracio documentacio entrada per tramit ovt.
+	 *
+	 * @param documentsService
+	 *            the documents service
+	 * @param documentsEntradaCercaBDTO
+	 *            the documents entrada cerca BDTO
+	 * @return the resposta documents entrada cerca BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public static RespostaDocumentsEntradaCercaBDTO loadCercaConfiguracioDocumentacioEntradaPerTramitOvt(DocumentsService documentsService,
+	        DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO) throws GPAServeisServiceException {
+		RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = new RespostaDocumentsEntradaCercaBDTO();
+		PageDataOfConfiguracioDocsEntradaRDTO pageDataOfConfiguracioDocsEntradaRDTO = documentsService
+		        .cercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsEntradaCercaBDTO);
 		respostaDocumentsEntradaCercaBDTO.setConfiguracioDocsEntradaRDTOList(pageDataOfConfiguracioDocsEntradaRDTO.getData());
 		return respostaDocumentsEntradaCercaBDTO;
 	}
