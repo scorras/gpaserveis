@@ -2488,6 +2488,9 @@ definitions:
       dataUltimaModificacio:
         type: "string"
         format: "date-time"
+      declaracioResponsable:
+        type: "integer"
+        format: "int32"
       digitalitzat:
         type: "integer"
         format: "int32"

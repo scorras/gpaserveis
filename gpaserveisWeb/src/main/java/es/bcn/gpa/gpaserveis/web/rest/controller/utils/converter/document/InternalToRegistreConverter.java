@@ -68,14 +68,14 @@ public class InternalToRegistreConverter extends AbstractConverter<RegistreAssen
 		///////////////////////////////////
 
 		RegistreRDTO registreRDTO = null;
-		if (source != null) {
-			registreRDTO = new RegistreRDTO();
-			registreRDTO.setNumRegistre(source.getCodi());
-			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
-			registreRDTO.setDataRegistre((source.getDataRegistre() != null) ? dateTimeFormatter.print(source.getDataRegistre()) : null);
-			registreRDTO.setPersona(ConverterHelper.buildPersonesRDTOExpedient(source.getPersones(), tipusPersonaApiParamValueTranslator,
-			        tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator));
-		}
+		// if (source != null) {
+		registreRDTO = new RegistreRDTO();
+		registreRDTO.setNumRegistre(source.getCodi());
+		DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
+		registreRDTO.setDataRegistre((source.getDataRegistre() != null) ? dateTimeFormatter.print(source.getDataRegistre()) : null);
+		registreRDTO.setPersona(ConverterHelper.buildPersonesRDTOExpedient(source.getPersones(), tipusPersonaApiParamValueTranslator,
+		        tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator));
+		// }
 		return registreRDTO;
 	}
 }

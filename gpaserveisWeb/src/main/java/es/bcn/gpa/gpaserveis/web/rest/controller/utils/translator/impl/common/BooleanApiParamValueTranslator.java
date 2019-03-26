@@ -15,4 +15,8 @@ public class BooleanApiParamValueTranslator extends ApiParamValueTranslator<Bool
 	public Boolean getApiParamValueAsBooleanByInternalValue(Object internalValue) {
 		return Boolean.valueOf(getApiParamValueByInternalValue(internalValue));
 	}
+
+	public Integer getInternalValueByApiParamValueAsBoolean(Boolean apiParamValue) {
+		return getInternalValueByApiParamValue(apiParamValue.toString());
+	}
 }

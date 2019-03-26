@@ -31,7 +31,7 @@ import org.joda.time.DateTime;
 /**
  * DocsEntradaRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-26T12:10:29.973+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-26T13:32:54.086+01:00")
 public class DocsEntradaRDTO {
   @JsonProperty("comentari")
   private String comentari = null;
@@ -56,6 +56,9 @@ public class DocsEntradaRDTO {
 
   @JsonProperty("dataUltimaModificacio")
   private DateTime dataUltimaModificacio = null;
+
+  @JsonProperty("declaracioResponsable")
+  private Integer declaracioResponsable = null;
 
   @JsonProperty("digitalitzat")
   private Integer digitalitzat = null;
@@ -295,6 +298,24 @@ public class DocsEntradaRDTO {
 
   public void setDataUltimaModificacio(DateTime dataUltimaModificacio) {
     this.dataUltimaModificacio = dataUltimaModificacio;
+  }
+
+  public DocsEntradaRDTO declaracioResponsable(Integer declaracioResponsable) {
+    this.declaracioResponsable = declaracioResponsable;
+    return this;
+  }
+
+   /**
+   * Get declaracioResponsable
+   * @return declaracioResponsable
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getDeclaracioResponsable() {
+    return declaracioResponsable;
+  }
+
+  public void setDeclaracioResponsable(Integer declaracioResponsable) {
+    this.declaracioResponsable = declaracioResponsable;
   }
 
   public DocsEntradaRDTO digitalitzat(Integer digitalitzat) {
@@ -899,6 +920,7 @@ public class DocsEntradaRDTO {
         Objects.equals(this.dataDigitalitzacio, docsEntradaRDTO.dataDigitalitzacio) &&
         Objects.equals(this.dataPresentacio, docsEntradaRDTO.dataPresentacio) &&
         Objects.equals(this.dataUltimaModificacio, docsEntradaRDTO.dataUltimaModificacio) &&
+        Objects.equals(this.declaracioResponsable, docsEntradaRDTO.declaracioResponsable) &&
         Objects.equals(this.digitalitzat, docsEntradaRDTO.digitalitzat) &&
         Objects.equals(this.docsFisics, docsEntradaRDTO.docsFisics) &&
         Objects.equals(this.docsFisicsNom, docsEntradaRDTO.docsFisicsNom) &&
@@ -935,7 +957,7 @@ public class DocsEntradaRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(comentari, configDocEntrada, configuracioDocsEntrada, configuracioDocsEntradaNom, dataCreacio, dataDigitalitzacio, dataPresentacio, dataUltimaModificacio, digitalitzat, docsFisics, docsFisicsNom, documentFisic, documentacio, editable, eliminat, fileToUploadContent, fileToUploadName, fileToUploadPath, fileToUploadSize, fileToUploadTipus, fileToUploadType, id, idIdiomaPlantilla, idioma, nou, numDocsConfiguracio, obligatoriEnEstat, openTextMetadata, origen, plantillaPdf, registreAssentament, registreCodi, registreIdext, requerit, revisio, seleccionable, tipusMimeDescripcio, tramitOvtIdext, ultimaModificacioIdext, usuariIdext);
+    return Objects.hash(comentari, configDocEntrada, configuracioDocsEntrada, configuracioDocsEntradaNom, dataCreacio, dataDigitalitzacio, dataPresentacio, dataUltimaModificacio, declaracioResponsable, digitalitzat, docsFisics, docsFisicsNom, documentFisic, documentacio, editable, eliminat, fileToUploadContent, fileToUploadName, fileToUploadPath, fileToUploadSize, fileToUploadTipus, fileToUploadType, id, idIdiomaPlantilla, idioma, nou, numDocsConfiguracio, obligatoriEnEstat, openTextMetadata, origen, plantillaPdf, registreAssentament, registreCodi, registreIdext, requerit, revisio, seleccionable, tipusMimeDescripcio, tramitOvtIdext, ultimaModificacioIdext, usuariIdext);
   }
 
 
@@ -952,6 +974,7 @@ public class DocsEntradaRDTO {
     sb.append("    dataDigitalitzacio: ").append(toIndentedString(dataDigitalitzacio)).append("\n");
     sb.append("    dataPresentacio: ").append(toIndentedString(dataPresentacio)).append("\n");
     sb.append("    dataUltimaModificacio: ").append(toIndentedString(dataUltimaModificacio)).append("\n");
+    sb.append("    declaracioResponsable: ").append(toIndentedString(declaracioResponsable)).append("\n");
     sb.append("    digitalitzat: ").append(toIndentedString(digitalitzat)).append("\n");
     sb.append("    docsFisics: ").append(toIndentedString(docsFisics)).append("\n");
     sb.append("    docsFisicsNom: ").append(toIndentedString(docsFisicsNom)).append("\n");

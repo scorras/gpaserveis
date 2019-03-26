@@ -1,7 +1,5 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document;
 
-import java.math.BigDecimal;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.modelmapper.AbstractConverter;
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfdocsentTramitsOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.EstatTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 
@@ -33,14 +30,20 @@ public class InternalToObligatoriConverter extends AbstractConverter<Configuraci
 	 */
 	@Override
 	protected Boolean convert(ConfiguracioDocsEntradaRDTO source) {
-		if (esTramitOvt(source, TramitOvtApiParamValue.SOL) && source.getIniciProcediment() != null
-		        && expedientEstatTramitadorApiParamValueTranslator
-		                .getApiParamValueByInternalValue(BigDecimal.valueOf(source.getIniciProcediment()))
-		                .equals(EstatTramitadorApiParamValue.SOL_LICITUD_EN_REVISIO.getApiParamValue())) {
-			return Boolean.TRUE;
-		} else {
-			return Boolean.FALSE;
-		}
+		// if (esTramitOvt(source, TramitOvtApiParamValue.SOL) &&
+		// source.getIniciProcediment() != null
+		// && expedientEstatTramitadorApiParamValueTranslator
+		// .getApiParamValueByInternalValue(BigDecimal.valueOf(source.getIniciProcediment()))
+		// .equals(EstatTramitadorApiParamValue.SOL_LICITUD_EN_REVISIO.getApiParamValue()))
+		// {
+		// return Boolean.TRUE;
+		// } else {
+		// return Boolean.FALSE;
+		// }
+
+		// TODO Arreglar para que el cálculo se realice con el conjunto de
+		// estados en los que es obligatorio
+		return Boolean.FALSE;
 	}
 
 	/**

@@ -13,7 +13,7 @@ import lombok.Setter;
 
 @ApiModel(value = "DocumentAportatCrear")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "configuracioDocumentacio", "origen", "comentari", "idioma", "fitxer" })
+@JsonPropertyOrder({ "configuracioDocumentacio", "origen", "comentari", "idioma", "declaracioResponsable", "fitxer" })
 @Getter
 @Setter
 public class DocumentAportatCrearRDTO {
@@ -26,7 +26,9 @@ public class DocumentAportatCrearRDTO {
 	private String comentari;
 	@ApiModelProperty(value = "Idioma del document", allowableValues = IdiomaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private String idioma;
-	@ApiModelProperty(value = "Fitxer", required = true)
+	@ApiModelProperty(value = "Declaració Responsable")
+	private Boolean declaracioResponsable;
+	@ApiModelProperty(value = "Fitxer")
 	private FitxerRDTO fitxer;
 
 }
