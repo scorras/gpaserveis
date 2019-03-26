@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AtributsDocs;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfdocsentEstatsExp;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfdocsentTramitsOvt;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -28,7 +29,7 @@ import java.util.List;
 /**
  * ConfiguracioDocsEntrada
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-21T23:39:17.954+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-26T12:10:29.973+01:00")
 public class ConfiguracioDocsEntrada {
   @JsonProperty("atributDoc")
   private BigDecimal atributDoc = null;
@@ -38,6 +39,9 @@ public class ConfiguracioDocsEntrada {
 
   @JsonProperty("codiNti")
   private String codiNti = null;
+
+  @JsonProperty("confdocsentEstatsExpList")
+  private List<ConfdocsentEstatsExp> confdocsentEstatsExpList = null;
 
   @JsonProperty("confdocsentTramitsOvtList")
   private List<ConfdocsentTramitsOvt> confdocsentTramitsOvtList = null;
@@ -59,9 +63,6 @@ public class ConfiguracioDocsEntrada {
 
   @JsonProperty("id")
   private BigDecimal id = null;
-
-  @JsonProperty("iniciProcediment")
-  private Integer iniciProcediment = null;
 
   @JsonProperty("nom")
   private String nom = null;
@@ -142,6 +143,32 @@ public class ConfiguracioDocsEntrada {
 
   public void setCodiNti(String codiNti) {
     this.codiNti = codiNti;
+  }
+
+  public ConfiguracioDocsEntrada confdocsentEstatsExpList(List<ConfdocsentEstatsExp> confdocsentEstatsExpList) {
+    this.confdocsentEstatsExpList = confdocsentEstatsExpList;
+    return this;
+  }
+
+  public ConfiguracioDocsEntrada addConfdocsentEstatsExpListItem(ConfdocsentEstatsExp confdocsentEstatsExpListItem) {
+    if (this.confdocsentEstatsExpList == null) {
+      this.confdocsentEstatsExpList = new ArrayList<ConfdocsentEstatsExp>();
+    }
+    this.confdocsentEstatsExpList.add(confdocsentEstatsExpListItem);
+    return this;
+  }
+
+   /**
+   * Get confdocsentEstatsExpList
+   * @return confdocsentEstatsExpList
+  **/
+  @ApiModelProperty(value = "")
+  public List<ConfdocsentEstatsExp> getConfdocsentEstatsExpList() {
+    return confdocsentEstatsExpList;
+  }
+
+  public void setConfdocsentEstatsExpList(List<ConfdocsentEstatsExp> confdocsentEstatsExpList) {
+    this.confdocsentEstatsExpList = confdocsentEstatsExpList;
   }
 
   public ConfiguracioDocsEntrada confdocsentTramitsOvtList(List<ConfdocsentTramitsOvt> confdocsentTramitsOvtList) {
@@ -276,24 +303,6 @@ public class ConfiguracioDocsEntrada {
 
   public void setId(BigDecimal id) {
     this.id = id;
-  }
-
-  public ConfiguracioDocsEntrada iniciProcediment(Integer iniciProcediment) {
-    this.iniciProcediment = iniciProcediment;
-    return this;
-  }
-
-   /**
-   * Get iniciProcediment
-   * @return iniciProcediment
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getIniciProcediment() {
-    return iniciProcediment;
-  }
-
-  public void setIniciProcediment(Integer iniciProcediment) {
-    this.iniciProcediment = iniciProcediment;
   }
 
   public ConfiguracioDocsEntrada nom(String nom) {
@@ -471,6 +480,7 @@ public class ConfiguracioDocsEntrada {
     return Objects.equals(this.atributDoc, configuracioDocsEntrada.atributDoc) &&
         Objects.equals(this.atributsDocs, configuracioDocsEntrada.atributsDocs) &&
         Objects.equals(this.codiNti, configuracioDocsEntrada.codiNti) &&
+        Objects.equals(this.confdocsentEstatsExpList, configuracioDocsEntrada.confdocsentEstatsExpList) &&
         Objects.equals(this.confdocsentTramitsOvtList, configuracioDocsEntrada.confdocsentTramitsOvtList) &&
         Objects.equals(this.configuracioDocumentacio, configuracioDocsEntrada.configuracioDocumentacio) &&
         Objects.equals(this.descripcioAmpliada, configuracioDocsEntrada.descripcioAmpliada) &&
@@ -478,7 +488,6 @@ public class ConfiguracioDocsEntrada {
         Objects.equals(this.editable, configuracioDocsEntrada.editable) &&
         Objects.equals(this.fase, configuracioDocsEntrada.fase) &&
         Objects.equals(this.id, configuracioDocsEntrada.id) &&
-        Objects.equals(this.iniciProcediment, configuracioDocsEntrada.iniciProcediment) &&
         Objects.equals(this.nom, configuracioDocsEntrada.nom) &&
         Objects.equals(this.nomCastella, configuracioDocsEntrada.nomCastella) &&
         Objects.equals(this.nomNti, configuracioDocsEntrada.nomNti) &&
@@ -492,7 +501,7 @@ public class ConfiguracioDocsEntrada {
 
   @Override
   public int hashCode() {
-    return Objects.hash(atributDoc, atributsDocs, codiNti, confdocsentTramitsOvtList, configuracioDocumentacio, descripcioAmpliada, detallOrigen, editable, fase, id, iniciProcediment, nom, nomCastella, nomNti, origen, seleccionable, suportConfeccio, suportEnllac, tipusDocumental, tractament);
+    return Objects.hash(atributDoc, atributsDocs, codiNti, confdocsentEstatsExpList, confdocsentTramitsOvtList, configuracioDocumentacio, descripcioAmpliada, detallOrigen, editable, fase, id, nom, nomCastella, nomNti, origen, seleccionable, suportConfeccio, suportEnllac, tipusDocumental, tractament);
   }
 
 
@@ -504,6 +513,7 @@ public class ConfiguracioDocsEntrada {
     sb.append("    atributDoc: ").append(toIndentedString(atributDoc)).append("\n");
     sb.append("    atributsDocs: ").append(toIndentedString(atributsDocs)).append("\n");
     sb.append("    codiNti: ").append(toIndentedString(codiNti)).append("\n");
+    sb.append("    confdocsentEstatsExpList: ").append(toIndentedString(confdocsentEstatsExpList)).append("\n");
     sb.append("    confdocsentTramitsOvtList: ").append(toIndentedString(confdocsentTramitsOvtList)).append("\n");
     sb.append("    configuracioDocumentacio: ").append(toIndentedString(configuracioDocumentacio)).append("\n");
     sb.append("    descripcioAmpliada: ").append(toIndentedString(descripcioAmpliada)).append("\n");
@@ -511,7 +521,6 @@ public class ConfiguracioDocsEntrada {
     sb.append("    editable: ").append(toIndentedString(editable)).append("\n");
     sb.append("    fase: ").append(toIndentedString(fase)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    iniciProcediment: ").append(toIndentedString(iniciProcediment)).append("\n");
     sb.append("    nom: ").append(toIndentedString(nom)).append("\n");
     sb.append("    nomCastella: ").append(toIndentedString(nomCastella)).append("\n");
     sb.append("    nomNti: ").append(toIndentedString(nomNti)).append("\n");

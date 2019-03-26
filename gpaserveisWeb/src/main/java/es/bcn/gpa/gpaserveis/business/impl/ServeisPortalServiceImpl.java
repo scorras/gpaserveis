@@ -37,7 +37,6 @@ import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBD
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.business.impl.helper.ServeisPortalServiceHelper;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.InputStreamResource;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaUploadDocumentExpedient;
@@ -374,11 +373,7 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	@Override
 	public byte[] descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
 	        throws GPAServeisServiceException {
-		InputStreamResource inputStreamResource = documentsService.descarregarDocumentExpedient(descarregarDocumentExpedientBDTO);
-		// TODO Cambiar el return type de downloadFileEntrada en
-		// DocumentacioRestController a ResponseEntity<byte[]>
-		// return IOUtils.toByteArray(inputStreamResource.getInputStream());
-		return "test".getBytes();
+		return documentsService.descarregarDocumentExpedient(descarregarDocumentExpedientBDTO);
 	}
 
 	/*

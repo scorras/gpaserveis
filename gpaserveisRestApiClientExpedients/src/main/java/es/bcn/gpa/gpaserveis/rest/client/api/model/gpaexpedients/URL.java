@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * URL
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-25T15:00:50.319+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-26T01:50:19.832+01:00")
 public class URL {
   @JsonProperty("authority")
   private String authority = null;

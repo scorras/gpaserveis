@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 /**
  * ComentarisRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-25T15:00:50.319+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-26T01:50:19.832+01:00")
 public class ComentarisRDTO {
   @JsonProperty("automatic")
   private Integer automatic = null;
@@ -50,6 +50,9 @@ public class ComentarisRDTO {
 
   @JsonProperty("nou")
   private Integer nou = null;
+
+  @JsonProperty("origen")
+  private BigDecimal origen = null;
 
   @JsonProperty("seleccionable")
   private Boolean seleccionable = null;
@@ -204,6 +207,24 @@ public class ComentarisRDTO {
     this.nou = nou;
   }
 
+  public ComentarisRDTO origen(BigDecimal origen) {
+    this.origen = origen;
+    return this;
+  }
+
+   /**
+   * Get origen
+   * @return origen
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getOrigen() {
+    return origen;
+  }
+
+  public void setOrigen(BigDecimal origen) {
+    this.origen = origen;
+  }
+
   public ComentarisRDTO seleccionable(Boolean seleccionable) {
     this.seleccionable = seleccionable;
     return this;
@@ -276,6 +297,7 @@ public class ComentarisRDTO {
         Objects.equals(this.expedient, comentarisRDTO.expedient) &&
         Objects.equals(this.id, comentarisRDTO.id) &&
         Objects.equals(this.nou, comentarisRDTO.nou) &&
+        Objects.equals(this.origen, comentarisRDTO.origen) &&
         Objects.equals(this.seleccionable, comentarisRDTO.seleccionable) &&
         Objects.equals(this.titol, comentarisRDTO.titol) &&
         Objects.equals(this.usuari, comentarisRDTO.usuari);
@@ -283,7 +305,7 @@ public class ComentarisRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(automatic, dataCreacio, descripcio, editable, eliminat, expedient, id, nou, seleccionable, titol, usuari);
+    return Objects.hash(automatic, dataCreacio, descripcio, editable, eliminat, expedient, id, nou, origen, seleccionable, titol, usuari);
   }
 
 
@@ -300,6 +322,7 @@ public class ComentarisRDTO {
     sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    nou: ").append(toIndentedString(nou)).append("\n");
+    sb.append("    origen: ").append(toIndentedString(origen)).append("\n");
     sb.append("    seleccionable: ").append(toIndentedString(seleccionable)).append("\n");
     sb.append("    titol: ").append(toIndentedString(titol)).append("\n");
     sb.append("    usuari: ").append(toIndentedString(usuari)).append("\n");

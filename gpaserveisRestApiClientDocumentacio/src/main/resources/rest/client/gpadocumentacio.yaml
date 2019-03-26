@@ -18,6 +18,72 @@ tags:
 - name: "documentacio-rest-controller"
   description: "Documentacio Rest Controller"
 paths:
+  /configuracioDocumentacio/comprovarDocumentacioConfDocsEntPerEstat/{confDocsEntrada}/{estatFuturo}:
+    get:
+      tags:
+      - "Configuracio Documentacio"
+      summary: "comprovarDocumentacioConfDocsEntPerEstat"
+      operationId: "comprovarDocumentacioConfDocsEntPerEstatUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "confDocsEntrada"
+        in: "path"
+        description: "confDocsEntrada"
+        required: true
+        type: "number"
+      - name: "estatFuturo"
+        in: "path"
+        description: "estatFuturo"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "boolean"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /configuracioDocumentacio/comprovarDocumentacioConfDocsTramPerEstat/{confDocsTramitacio}/{estatFuturo}:
+    get:
+      tags:
+      - "Configuracio Documentacio"
+      summary: "comprovarDocumentacioConfDocsEntPerEstat"
+      operationId: "comprovarDocumentacioConfDocsTramPerEstatUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "confDocsTramitacio"
+        in: "path"
+        description: "confDocsTramitacio"
+        required: true
+        type: "number"
+      - name: "estatFuturo"
+        in: "path"
+        description: "estatFuturo"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "boolean"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /configuracioDocumentacio/configuracioDocsTramitacio/{id}:
     get:
       tags:
@@ -536,6 +602,36 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /configuracioDocumentacio/getDadesOperAssociadaRequeriment/{idRequeriment}:
+    get:
+      tags:
+      - "Configuracio Documentacio"
+      summary: "Returns the requested dadas operacio associada al requeriment"
+      operationId: "getDadesOperAssociadaRequerimentUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idRequeriment"
+        in: "path"
+        description: "idRequeriment"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/DadesOperacioRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /configuracioDocumentacio/serie/{serieDocumental}:
     get:
       tags:
@@ -1043,6 +1139,70 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /documentacio/dadesOperRequerit/{idDoc}:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Returns the requested dades operacio requerit"
+      operationId: "obteneriDadesOperRequeritUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDoc"
+        in: "path"
+        description: "idDoc"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              type: "number"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /documentacio/descarregarDocument/{idExpedient}/{idDoc}:
+    get:
+      tags:
+      - "DownloadEntrada"
+      summary: "Downloads the document"
+      operationId: "descarregarDocumentExpedient"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDoc"
+        in: "path"
+        description: "idDoc"
+        required: true
+        type: "number"
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "string"
+            format: "byte"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /documentacio/documentacioEntradaEnRevisio:
     get:
       tags:
@@ -1072,7 +1232,7 @@ paths:
       tags:
       - "DownloadEntrada"
       summary: "download the fileEntrada"
-      operationId: "descarregarDocumentExpedient"
+      operationId: "downloadFileEntradaUsingGET"
       produces:
       - "*/*"
       parameters:
@@ -1458,7 +1618,7 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/saveRequeriment/{idExpedient}/{idsConfDocEntradaList}:
+  /documentacio/saveRequeriment/{idExpedient}/{idsConfDocEntradaList}/{idsDadesOperList}:
     post:
       tags:
       - "Documentacio"
@@ -1483,6 +1643,11 @@ paths:
       - name: "idsConfDocEntradaList"
         in: "path"
         description: "idsConfDocEntradaList"
+        required: true
+        type: "string"
+      - name: "idsDadesOperList"
+        in: "path"
+        description: "idsDadesOperList"
         required: true
         type: "string"
       responses:
@@ -1990,9 +2155,6 @@ definitions:
         type: "string"
       id:
         type: "number"
-      iniciProcediment:
-        type: "integer"
-        format: "int32"
       nom:
         type: "string"
       suportConfeccio:
@@ -2001,6 +2163,14 @@ definitions:
       suportEnllac:
         type: "string"
     title: "ConfDocEntradaRequeritRDTO"
+  ConfdocsentEstatsExp:
+    type: "object"
+    properties:
+      confDocsEntrada:
+        type: "number"
+      estatExpIdext:
+        type: "number"
+    title: "ConfdocsentEstatsExp"
   ConfdocsentTramitsOvt:
     type: "object"
     properties:
@@ -2009,6 +2179,14 @@ definitions:
       tramitOvtIdext:
         type: "number"
     title: "ConfdocsentTramitsOvt"
+  ConfdocstramEstatsExp:
+    type: "object"
+    properties:
+      confDocsTramitacio:
+        type: "number"
+      estatExpIdext:
+        type: "number"
+    title: "ConfdocstramEstatsExp"
   ConfdocstramTramitsOvt:
     type: "object"
     properties:
@@ -2026,6 +2204,10 @@ definitions:
         $ref: "#/definitions/AtributsDocs"
       codiNti:
         type: "string"
+      confdocsentEstatsExpList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocsentEstatsExp"
       confdocsentTramitsOvtList:
         type: "array"
         items:
@@ -2043,9 +2225,6 @@ definitions:
         format: "int32"
       id:
         type: "number"
-      iniciProcediment:
-        type: "integer"
-        format: "int32"
       nom:
         type: "string"
       nomCastella:
@@ -2076,6 +2255,10 @@ definitions:
         $ref: "#/definitions/AtributsDocs"
       codiNti:
         type: "string"
+      confdocsentEstatsExpList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocsentEstatsExp"
       confdocsentTramitsOvtList:
         type: "array"
         items:
@@ -2093,9 +2276,6 @@ definitions:
         format: "int32"
       id:
         type: "number"
-      iniciProcediment:
-        type: "integer"
-        format: "int32"
       nom:
         type: "string"
       nomCastella:
@@ -2145,6 +2325,10 @@ definitions:
         $ref: "#/definitions/AtributsDocs"
       codiNti:
         type: "string"
+      confdocstramEstatsExpList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocstramEstatsExp"
       confdocstramTramitsOvtList:
         type: "array"
         items:
@@ -2164,9 +2348,6 @@ definitions:
         format: "int32"
       id:
         type: "number"
-      iniciProcediment:
-        type: "integer"
-        format: "int32"
       nom:
         type: "string"
       nomCastella:
@@ -2203,6 +2384,10 @@ definitions:
         $ref: "#/definitions/AtributsDocs"
       codiNti:
         type: "string"
+      confdocstramEstatsExpList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocstramEstatsExp"
       confdocstramTramitsOvtList:
         type: "array"
         items:
@@ -2222,9 +2407,6 @@ definitions:
         format: "int32"
       id:
         type: "number"
-      iniciProcediment:
-        type: "integer"
-        format: "int32"
       nom:
         type: "string"
       nomCastella:
@@ -2260,6 +2442,16 @@ definitions:
       id:
         type: "number"
     title: "ConfiguracioDocsTramitacioResponse"
+  DadesOperacioRDTO:
+    type: "object"
+    properties:
+      codi:
+        type: "string"
+      id:
+        type: "number"
+      titol:
+        type: "string"
+    title: "DadesOperacioRDTO"
   DocsEntradaIdsAndEstatRevisioId:
     type: "object"
     properties:
@@ -2332,6 +2524,9 @@ definitions:
         type: "number"
       idioma:
         type: "number"
+      nou:
+        type: "integer"
+        format: "int32"
       numDocsConfiguracio:
         type: "number"
       obligatoriEnEstat:
@@ -2969,6 +3164,9 @@ definitions:
   RespostaSincronitzarRDTO:
     type: "object"
     properties:
+      darreraSincronitzacio:
+        type: "string"
+        format: "date-time"
       idConfDoc:
         type: "number"
       idProcediment:

@@ -31,7 +31,7 @@ import org.joda.time.DateTime;
 /**
  * DocsEntradaRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-21T23:39:17.954+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-26T12:10:29.973+01:00")
 public class DocsEntradaRDTO {
   @JsonProperty("comentari")
   private String comentari = null;
@@ -104,6 +104,9 @@ public class DocsEntradaRDTO {
 
   @JsonProperty("idioma")
   private BigDecimal idioma = null;
+
+  @JsonProperty("nou")
+  private Integer nou = null;
 
   @JsonProperty("numDocsConfiguracio")
   private BigDecimal numDocsConfiguracio = null;
@@ -582,6 +585,24 @@ public class DocsEntradaRDTO {
     this.idioma = idioma;
   }
 
+  public DocsEntradaRDTO nou(Integer nou) {
+    this.nou = nou;
+    return this;
+  }
+
+   /**
+   * Get nou
+   * @return nou
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getNou() {
+    return nou;
+  }
+
+  public void setNou(Integer nou) {
+    this.nou = nou;
+  }
+
   public DocsEntradaRDTO numDocsConfiguracio(BigDecimal numDocsConfiguracio) {
     this.numDocsConfiguracio = numDocsConfiguracio;
     return this;
@@ -894,6 +915,7 @@ public class DocsEntradaRDTO {
         Objects.equals(this.id, docsEntradaRDTO.id) &&
         Objects.equals(this.idIdiomaPlantilla, docsEntradaRDTO.idIdiomaPlantilla) &&
         Objects.equals(this.idioma, docsEntradaRDTO.idioma) &&
+        Objects.equals(this.nou, docsEntradaRDTO.nou) &&
         Objects.equals(this.numDocsConfiguracio, docsEntradaRDTO.numDocsConfiguracio) &&
         Objects.equals(this.obligatoriEnEstat, docsEntradaRDTO.obligatoriEnEstat) &&
         Objects.equals(this.openTextMetadata, docsEntradaRDTO.openTextMetadata) &&
@@ -913,7 +935,7 @@ public class DocsEntradaRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(comentari, configDocEntrada, configuracioDocsEntrada, configuracioDocsEntradaNom, dataCreacio, dataDigitalitzacio, dataPresentacio, dataUltimaModificacio, digitalitzat, docsFisics, docsFisicsNom, documentFisic, documentacio, editable, eliminat, fileToUploadContent, fileToUploadName, fileToUploadPath, fileToUploadSize, fileToUploadTipus, fileToUploadType, id, idIdiomaPlantilla, idioma, numDocsConfiguracio, obligatoriEnEstat, openTextMetadata, origen, plantillaPdf, registreAssentament, registreCodi, registreIdext, requerit, revisio, seleccionable, tipusMimeDescripcio, tramitOvtIdext, ultimaModificacioIdext, usuariIdext);
+    return Objects.hash(comentari, configDocEntrada, configuracioDocsEntrada, configuracioDocsEntradaNom, dataCreacio, dataDigitalitzacio, dataPresentacio, dataUltimaModificacio, digitalitzat, docsFisics, docsFisicsNom, documentFisic, documentacio, editable, eliminat, fileToUploadContent, fileToUploadName, fileToUploadPath, fileToUploadSize, fileToUploadTipus, fileToUploadType, id, idIdiomaPlantilla, idioma, nou, numDocsConfiguracio, obligatoriEnEstat, openTextMetadata, origen, plantillaPdf, registreAssentament, registreCodi, registreIdext, requerit, revisio, seleccionable, tipusMimeDescripcio, tramitOvtIdext, ultimaModificacioIdext, usuariIdext);
   }
 
 
@@ -946,6 +968,7 @@ public class DocsEntradaRDTO {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    idIdiomaPlantilla: ").append(toIndentedString(idIdiomaPlantilla)).append("\n");
     sb.append("    idioma: ").append(toIndentedString(idioma)).append("\n");
+    sb.append("    nou: ").append(toIndentedString(nou)).append("\n");
     sb.append("    numDocsConfiguracio: ").append(toIndentedString(numDocsConfiguracio)).append("\n");
     sb.append("    obligatoriEnEstat: ").append(toIndentedString(obligatoriEnEstat)).append("\n");
     sb.append("    openTextMetadata: ").append(toIndentedString(openTextMetadata)).append("\n");

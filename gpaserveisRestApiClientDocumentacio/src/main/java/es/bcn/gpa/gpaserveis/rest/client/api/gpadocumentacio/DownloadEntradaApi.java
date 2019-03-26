@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-21T23:39:17.954+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-26T12:10:29.973+01:00")
 public class DownloadEntradaApi {
   private ApiClient apiClient;
 
@@ -36,14 +36,14 @@ public class DownloadEntradaApi {
   }
 
   /**
-   * download the fileEntrada
+   * Downloads the document
    * 
    * @param idDoc idDoc (required)
    * @param idExpedient idExpedient (required)
-   * @return InputStreamResource
+   * @return byte[]
    * @throws ApiException if fails to make API call
    */
-  public InputStreamResource descarregarDocumentExpedient(BigDecimal idDoc, BigDecimal idExpedient) throws ApiException {
+  public byte[] descarregarDocumentExpedient(BigDecimal idDoc, BigDecimal idExpedient) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'idDoc' is set
@@ -54,6 +54,55 @@ public class DownloadEntradaApi {
     // verify the required parameter 'idExpedient' is set
     if (idExpedient == null) {
       throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling descarregarDocumentExpedient");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/documentacio/descarregarDocument/{idExpedient}/{idDoc}"
+      .replaceAll("\\{" + "idDoc" + "\\}", apiClient.escapeString(idDoc.toString()))
+      .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<byte[]> localVarReturnType = new GenericType<byte[]>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * download the fileEntrada
+   * 
+   * @param idDoc idDoc (required)
+   * @param idExpedient idExpedient (required)
+   * @return InputStreamResource
+   * @throws ApiException if fails to make API call
+   */
+  public InputStreamResource downloadFileEntradaUsingGET(BigDecimal idDoc, BigDecimal idExpedient) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'idDoc' is set
+    if (idDoc == null) {
+      throw new ApiException(400, "Missing the required parameter 'idDoc' when calling downloadFileEntradaUsingGET");
+    }
+    
+    // verify the required parameter 'idExpedient' is set
+    if (idExpedient == null) {
+      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling downloadFileEntradaUsingGET");
     }
     
     // create path and map variables

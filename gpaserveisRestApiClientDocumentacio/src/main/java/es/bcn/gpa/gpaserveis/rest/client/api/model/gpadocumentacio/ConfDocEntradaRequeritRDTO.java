@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * ConfDocEntradaRequeritRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-21T23:39:17.954+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-26T12:10:29.973+01:00")
 public class ConfDocEntradaRequeritRDTO {
   @JsonProperty("atributsDocs")
   private AtributsDocs atributsDocs = null;
@@ -44,9 +44,6 @@ public class ConfDocEntradaRequeritRDTO {
 
   @JsonProperty("id")
   private BigDecimal id = null;
-
-  @JsonProperty("iniciProcediment")
-  private Integer iniciProcediment = null;
 
   @JsonProperty("nom")
   private String nom = null;
@@ -155,24 +152,6 @@ public class ConfDocEntradaRequeritRDTO {
     this.id = id;
   }
 
-  public ConfDocEntradaRequeritRDTO iniciProcediment(Integer iniciProcediment) {
-    this.iniciProcediment = iniciProcediment;
-    return this;
-  }
-
-   /**
-   * Get iniciProcediment
-   * @return iniciProcediment
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getIniciProcediment() {
-    return iniciProcediment;
-  }
-
-  public void setIniciProcediment(Integer iniciProcediment) {
-    this.iniciProcediment = iniciProcediment;
-  }
-
   public ConfDocEntradaRequeritRDTO nom(String nom) {
     this.nom = nom;
     return this;
@@ -242,7 +221,6 @@ public class ConfDocEntradaRequeritRDTO {
         Objects.equals(this.confdocsentTramitsOvtList, confDocEntradaRequeritRDTO.confdocsentTramitsOvtList) &&
         Objects.equals(this.descripcioAmpliada, confDocEntradaRequeritRDTO.descripcioAmpliada) &&
         Objects.equals(this.id, confDocEntradaRequeritRDTO.id) &&
-        Objects.equals(this.iniciProcediment, confDocEntradaRequeritRDTO.iniciProcediment) &&
         Objects.equals(this.nom, confDocEntradaRequeritRDTO.nom) &&
         Objects.equals(this.suportConfeccio, confDocEntradaRequeritRDTO.suportConfeccio) &&
         Objects.equals(this.suportEnllac, confDocEntradaRequeritRDTO.suportEnllac);
@@ -250,7 +228,7 @@ public class ConfDocEntradaRequeritRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(atributsDocs, comentari, confdocsentTramitsOvtList, descripcioAmpliada, id, iniciProcediment, nom, suportConfeccio, suportEnllac);
+    return Objects.hash(atributsDocs, comentari, confdocsentTramitsOvtList, descripcioAmpliada, id, nom, suportConfeccio, suportEnllac);
   }
 
 
@@ -264,7 +242,6 @@ public class ConfDocEntradaRequeritRDTO {
     sb.append("    confdocsentTramitsOvtList: ").append(toIndentedString(confdocsentTramitsOvtList)).append("\n");
     sb.append("    descripcioAmpliada: ").append(toIndentedString(descripcioAmpliada)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    iniciProcediment: ").append(toIndentedString(iniciProcediment)).append("\n");
     sb.append("    nom: ").append(toIndentedString(nom)).append("\n");
     sb.append("    suportConfeccio: ").append(toIndentedString(suportConfeccio)).append("\n");
     sb.append("    suportEnllac: ").append(toIndentedString(suportEnllac)).append("\n");

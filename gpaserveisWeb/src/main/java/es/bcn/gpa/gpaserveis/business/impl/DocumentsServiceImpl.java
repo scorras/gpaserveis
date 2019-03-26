@@ -22,7 +22,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeri
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.InputStreamResource;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
@@ -444,20 +443,20 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackDescarregarDocumentExpedient")
-	public InputStreamResource descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
+	public byte[] descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("descarregarDocumentExpedient(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			InputStreamResource inputStreamResource = downloadEntradaApi.descarregarDocumentExpedient(
-			        descarregarDocumentExpedientBDTO.getIdDocument(), descarregarDocumentExpedientBDTO.getIdExpedient());
+			byte[] documentByteArray = downloadEntradaApi.descarregarDocumentExpedient(descarregarDocumentExpedientBDTO.getIdDocument(),
+			        descarregarDocumentExpedientBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("descarregarDocumentExpedient(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
 			}
-			return inputStreamResource;
+			return documentByteArray;
 		} catch (ApiException e) {
 			log.error("descarregarDocumentExpedient(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
 
@@ -470,11 +469,11 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *
 	 * @param descarregarDocumentExpedientBDTO
 	 *            the descarregar document expedient BDTO
-	 * @return the input stream resource
+	 * @return the byte[]
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public InputStreamResource fallbackDescarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
+	public byte[] fallbackDescarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackDescarregarDocumentExpedient(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$

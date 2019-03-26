@@ -20,12 +20,16 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
+import org.joda.time.DateTime;
 
 /**
  * RespostaSincronitzarRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-21T23:39:17.954+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-26T12:10:29.973+01:00")
 public class RespostaSincronitzarRDTO {
+  @JsonProperty("darreraSincronitzacio")
+  private DateTime darreraSincronitzacio = null;
+
   @JsonProperty("idConfDoc")
   private BigDecimal idConfDoc = null;
 
@@ -37,6 +41,24 @@ public class RespostaSincronitzarRDTO {
 
   @JsonProperty("versioDocumental")
   private Integer versioDocumental = null;
+
+  public RespostaSincronitzarRDTO darreraSincronitzacio(DateTime darreraSincronitzacio) {
+    this.darreraSincronitzacio = darreraSincronitzacio;
+    return this;
+  }
+
+   /**
+   * Get darreraSincronitzacio
+   * @return darreraSincronitzacio
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getDarreraSincronitzacio() {
+    return darreraSincronitzacio;
+  }
+
+  public void setDarreraSincronitzacio(DateTime darreraSincronitzacio) {
+    this.darreraSincronitzacio = darreraSincronitzacio;
+  }
 
   public RespostaSincronitzarRDTO idConfDoc(BigDecimal idConfDoc) {
     this.idConfDoc = idConfDoc;
@@ -120,7 +142,8 @@ public class RespostaSincronitzarRDTO {
       return false;
     }
     RespostaSincronitzarRDTO respostaSincronitzarRDTO = (RespostaSincronitzarRDTO) o;
-    return Objects.equals(this.idConfDoc, respostaSincronitzarRDTO.idConfDoc) &&
+    return Objects.equals(this.darreraSincronitzacio, respostaSincronitzarRDTO.darreraSincronitzacio) &&
+        Objects.equals(this.idConfDoc, respostaSincronitzarRDTO.idConfDoc) &&
         Objects.equals(this.idProcediment, respostaSincronitzarRDTO.idProcediment) &&
         Objects.equals(this.idProcedimentVersionat, respostaSincronitzarRDTO.idProcedimentVersionat) &&
         Objects.equals(this.versioDocumental, respostaSincronitzarRDTO.versioDocumental);
@@ -128,7 +151,7 @@ public class RespostaSincronitzarRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(idConfDoc, idProcediment, idProcedimentVersionat, versioDocumental);
+    return Objects.hash(darreraSincronitzacio, idConfDoc, idProcediment, idProcedimentVersionat, versioDocumental);
   }
 
 
@@ -137,6 +160,7 @@ public class RespostaSincronitzarRDTO {
     StringBuilder sb = new StringBuilder();
     sb.append("class RespostaSincronitzarRDTO {\n");
     
+    sb.append("    darreraSincronitzacio: ").append(toIndentedString(darreraSincronitzacio)).append("\n");
     sb.append("    idConfDoc: ").append(toIndentedString(idConfDoc)).append("\n");
     sb.append("    idProcediment: ").append(toIndentedString(idProcediment)).append("\n");
     sb.append("    idProcedimentVersionat: ").append(toIndentedString(idProcedimentVersionat)).append("\n");

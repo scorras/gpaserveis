@@ -274,6 +274,7 @@ public class ServeisPortalRestControllerValidationHelper {
 			dadesEspecifiquesRDTO = new DadesEspecifiquesRDTO();
 			dadesEspecifiquesRDTO.setCampIdext(dadesOperacions.getId());
 			dadesEspecifiquesRDTO.setExpedient(idExpedient);
+			dadesEspecifiquesRDTO.setNou(INTEGER_ONE);
 			dadesEspecifiquesValorsList = new ArrayList<DadesEspecifiquesValors>();
 			dadesEspecifiquesValors = new DadesEspecifiquesValors();
 			tipusCampApiParamValue = tipusCampApiParamValueTranslator.getEnumByInternalValue(dadesOperacions.getTipus());

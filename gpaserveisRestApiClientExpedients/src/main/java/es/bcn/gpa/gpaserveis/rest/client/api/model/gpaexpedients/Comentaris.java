@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 /**
  * Comentaris
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-25T15:00:50.319+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-26T01:50:19.832+01:00")
 public class Comentaris {
   @JsonProperty("automatic")
   private Integer automatic = null;
@@ -50,6 +50,9 @@ public class Comentaris {
 
   @JsonProperty("nou")
   private Integer nou = null;
+
+  @JsonProperty("origen")
+  private BigDecimal origen = null;
 
   @JsonProperty("seleccionable")
   private Boolean seleccionable = null;
@@ -204,6 +207,24 @@ public class Comentaris {
     this.nou = nou;
   }
 
+  public Comentaris origen(BigDecimal origen) {
+    this.origen = origen;
+    return this;
+  }
+
+   /**
+   * Get origen
+   * @return origen
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getOrigen() {
+    return origen;
+  }
+
+  public void setOrigen(BigDecimal origen) {
+    this.origen = origen;
+  }
+
   public Comentaris seleccionable(Boolean seleccionable) {
     this.seleccionable = seleccionable;
     return this;
@@ -276,6 +297,7 @@ public class Comentaris {
         Objects.equals(this.expedient, comentaris.expedient) &&
         Objects.equals(this.id, comentaris.id) &&
         Objects.equals(this.nou, comentaris.nou) &&
+        Objects.equals(this.origen, comentaris.origen) &&
         Objects.equals(this.seleccionable, comentaris.seleccionable) &&
         Objects.equals(this.titol, comentaris.titol) &&
         Objects.equals(this.usuari, comentaris.usuari);
@@ -283,7 +305,7 @@ public class Comentaris {
 
   @Override
   public int hashCode() {
-    return Objects.hash(automatic, dataCreacio, descripcio, editable, eliminat, expedient, id, nou, seleccionable, titol, usuari);
+    return Objects.hash(automatic, dataCreacio, descripcio, editable, eliminat, expedient, id, nou, origen, seleccionable, titol, usuari);
   }
 
 
@@ -300,6 +322,7 @@ public class Comentaris {
     sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    nou: ").append(toIndentedString(nou)).append("\n");
+    sb.append("    origen: ").append(toIndentedString(origen)).append("\n");
     sb.append("    seleccionable: ").append(toIndentedString(seleccionable)).append("\n");
     sb.append("    titol: ").append(toIndentedString(titol)).append("\n");
     sb.append("    usuari: ").append(toIndentedString(usuari)).append("\n");

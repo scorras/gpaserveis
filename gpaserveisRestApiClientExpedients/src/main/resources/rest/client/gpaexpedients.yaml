@@ -1021,6 +1021,30 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/catalog/origenComentaris:
+    get:
+      tags:
+      - "OrigenComentaris"
+      summary: "Returns all the OrigenComentaris"
+      operationId: "obtenirOrigenComentarisUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/OrigenComentarisRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /expedients/catalog/paisos:
     get:
       tags:
@@ -3614,6 +3638,8 @@ definitions:
       nou:
         type: "integer"
         format: "int32"
+      origen:
+        type: "number"
       seleccionable:
         type: "boolean"
       titol:
@@ -3643,6 +3669,8 @@ definitions:
       nou:
         type: "integer"
         format: "int32"
+      origen:
+        type: "number"
       seleccionable:
         type: "boolean"
       titol:
@@ -4072,6 +4100,14 @@ definitions:
       provincia:
         type: "string"
     title: "MunicipisRDTO"
+  OrigenComentarisRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "OrigenComentarisRDTO"
   PageDataOfAvisosRDTO:
     type: "object"
     properties:

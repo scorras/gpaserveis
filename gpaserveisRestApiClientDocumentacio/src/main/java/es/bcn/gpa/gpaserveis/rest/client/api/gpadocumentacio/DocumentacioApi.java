@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-21T23:39:17.954+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-26T12:10:29.973+01:00")
 public class DocumentacioApi {
   private ApiClient apiClient;
 
@@ -682,6 +682,48 @@ public class DocumentacioApi {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
+   * Returns the requested dades operacio requerit
+   * 
+   * @param idDoc idDoc (required)
+   * @return List&lt;BigDecimal&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<BigDecimal> obteneriDadesOperRequeritUsingGET(BigDecimal idDoc) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'idDoc' is set
+    if (idDoc == null) {
+      throw new ApiException(400, "Missing the required parameter 'idDoc' when calling obteneriDadesOperRequeritUsingGET");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/documentacio/dadesOperRequerit/{idDoc}"
+      .replaceAll("\\{" + "idDoc" + "\\}", apiClient.escapeString(idDoc.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<BigDecimal>> localVarReturnType = new GenericType<List<BigDecimal>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
    * Returns the requested documentacio entrada
    * 
    * @return List&lt;BigDecimal&gt;
@@ -900,10 +942,11 @@ public class DocumentacioApi {
    * @param docsTramitacioRDTO docsTramitacioRDTO (required)
    * @param idExpedient idExpedient (required)
    * @param idsConfDocEntradaList idsConfDocEntradaList (required)
+   * @param idsDadesOperList idsDadesOperList (required)
    * @return DocsTramitacioRDTO
    * @throws ApiException if fails to make API call
    */
-  public DocsTramitacioRDTO saveRequerimentUsingPOST(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient, String idsConfDocEntradaList) throws ApiException {
+  public DocsTramitacioRDTO saveRequerimentUsingPOST(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient, String idsConfDocEntradaList, String idsDadesOperList) throws ApiException {
     Object localVarPostBody = docsTramitacioRDTO;
     
     // verify the required parameter 'docsTramitacioRDTO' is set
@@ -921,10 +964,16 @@ public class DocumentacioApi {
       throw new ApiException(400, "Missing the required parameter 'idsConfDocEntradaList' when calling saveRequerimentUsingPOST");
     }
     
+    // verify the required parameter 'idsDadesOperList' is set
+    if (idsDadesOperList == null) {
+      throw new ApiException(400, "Missing the required parameter 'idsDadesOperList' when calling saveRequerimentUsingPOST");
+    }
+    
     // create path and map variables
-    String localVarPath = "/documentacio/saveRequeriment/{idExpedient}/{idsConfDocEntradaList}"
+    String localVarPath = "/documentacio/saveRequeriment/{idExpedient}/{idsConfDocEntradaList}/{idsDadesOperList}"
       .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()))
-      .replaceAll("\\{" + "idsConfDocEntradaList" + "\\}", apiClient.escapeString(idsConfDocEntradaList.toString()));
+      .replaceAll("\\{" + "idsConfDocEntradaList" + "\\}", apiClient.escapeString(idsConfDocEntradaList.toString()))
+      .replaceAll("\\{" + "idsDadesOperList" + "\\}", apiClient.escapeString(idsDadesOperList.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();

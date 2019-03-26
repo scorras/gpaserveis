@@ -33,6 +33,7 @@ import org.mockito.InjectMocks;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesOperacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RestClientResponse;
@@ -289,4 +290,68 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 		assertTrue(response != null);
 	}
 
+	/**
+	 * comprovarDocumentacioConfDocsEntPerEstat
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void comprovarDocumentacioConfDocsEntPerEstatUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/comprovarDocumentacioConfDocsEntPerEstat/1/1"), eq("GET"), any(List.class),
+		        any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
+		        any(GenericType.class))).thenReturn(Boolean.TRUE);
+
+		BigDecimal confDocsEntrada = ONE;
+		BigDecimal estatFuturo = ONE;
+		Boolean response = api.comprovarDocumentacioConfDocsEntPerEstatUsingGET(confDocsEntrada, estatFuturo);
+
+		assertTrue(response);
+	}
+
+	/**
+	 * comprovarDocumentacioConfDocsEntPerEstat
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void comprovarDocumentacioConfDocsTramPerEstatUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/comprovarDocumentacioConfDocsTramPerEstat/1/1"), eq("GET"), any(List.class),
+		        any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
+		        any(GenericType.class))).thenReturn(Boolean.TRUE);
+
+		BigDecimal confDocsTramitacio = ONE;
+		BigDecimal estatFuturo = ONE;
+		Boolean response = api.comprovarDocumentacioConfDocsTramPerEstatUsingGET(confDocsTramitacio, estatFuturo);
+
+		assertTrue(response);
+	}
+
+	/**
+	 * Returns the requested dadas operacio associada al requeriment
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void getDadesOperAssociadaRequerimentUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/getDadesOperAssociadaRequeriment/1"), eq("GET"), any(List.class),
+		        any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
+		        any(GenericType.class))).thenReturn(new ArrayList<DadesOperacioRDTO>());
+
+		BigDecimal idRequeriment = ONE;
+		List<DadesOperacioRDTO> response = api.getDadesOperAssociadaRequerimentUsingGET(idRequeriment);
+
+		assertTrue(response != null);
+	}
 }

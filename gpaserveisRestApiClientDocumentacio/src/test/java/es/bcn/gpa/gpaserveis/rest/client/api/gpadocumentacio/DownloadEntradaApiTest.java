@@ -43,7 +43,7 @@ public class DownloadEntradaApiTest extends ParentTest {
 	private DownloadEntradaApi api = new DownloadEntradaApi();
 
 	/**
-	 * download the fileEntrada
+	 * Downloads the document
 	 *
 	 * 
 	 *
@@ -53,13 +53,35 @@ public class DownloadEntradaApiTest extends ParentTest {
 	@Test
 	public void descarregarDocumentExpedientTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/descarregarDocument/1/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn("prova".getBytes());
+
+		BigDecimal idDoc = ONE;
+		BigDecimal idExpedient = ONE;
+		byte[] response = api.descarregarDocumentExpedient(idDoc, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * download the fileEntrada
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void downloadFileEntradaUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/downloadFileEntrada/1/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new InputStreamResource());
 
 		BigDecimal idDoc = ONE;
 		BigDecimal idExpedient = ONE;
-		InputStreamResource response = api.descarregarDocumentExpedient(idDoc, idExpedient);
+		InputStreamResource response = api.downloadFileEntradaUsingGET(idDoc, idExpedient);
 
 		assertTrue(response != null);
 	}

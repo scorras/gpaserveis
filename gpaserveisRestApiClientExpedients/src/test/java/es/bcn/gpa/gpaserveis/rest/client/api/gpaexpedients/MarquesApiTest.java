@@ -17,6 +17,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -71,6 +72,47 @@ public class MarquesApiTest extends ParentTest {
 		PageDataOfMarquesRDTO response = api.marquesAdministrador(absoluteRowNumberOfFirstRowInCurrentPage,
 		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
 		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
+		        totalPages);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns all the marques that meet the search criteria
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void cercaMarquesTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/marques/search"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
+		        any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(new PageDataOfMarquesRDTO());
+
+		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
+		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
+		String codi = null;
+		Boolean currentPageHasNextPage = null;
+		Boolean currentPageHasPreviousPage = null;
+		Boolean currentPageIsFirstPage = null;
+		Boolean currentPageIsLastPage = null;
+		Integer currentPageNumber = null;
+		String descripcio = null;
+		String dir = null;
+		String example = null;
+		String expressio = null;
+		BigDecimal id = null;
+		Integer nextPageNumber = null;
+		Integer pageSize = null;
+		Integer previousPageNumber = null;
+		String referencia = null;
+		String sort = null;
+		Long totalElements = null;
+		Integer totalPages = null;
+		PageDataOfMarquesRDTO response = api.cercaMarques(absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage,
+		        codi, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber,
+		        descripcio, dir, example, expressio, id, nextPageNumber, pageSize, previousPageNumber, referencia, sort, totalElements,
 		        totalPages);
 
 		assertTrue(response != null);

@@ -438,14 +438,16 @@ public class DocumentacioApiTest extends ParentTest {
 	@Test
 	public void saveRequerimentUsingPOSTTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/documentacio/saveRequeriment/1/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		when(apiClient.invokeAPI(eq("/documentacio/saveRequeriment/1/1/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new DocsTramitacioRDTO());
 
 		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
 		BigDecimal idExpedient = ONE;
 		String idsConfDocEntradaList = ONE.toString();
-		DocsTramitacioRDTO response = api.saveRequerimentUsingPOST(docsTramitacioRDTO, idExpedient, idsConfDocEntradaList);
+		String idsDadesOperList = ONE.toString();
+		DocsTramitacioRDTO response = api.saveRequerimentUsingPOST(docsTramitacioRDTO, idExpedient, idsConfDocEntradaList,
+		        idsDadesOperList);
 
 		assertTrue(response != null);
 	}
@@ -533,6 +535,27 @@ public class DocumentacioApiTest extends ParentTest {
 		BigDecimal idExpedient = ONE;
 		UploadDocumentExpedient uploadDocumentExpedientRDTO = new UploadDocumentExpedient();
 		RespostaUploadDocumentExpedient response = api.uploadDocumentExpedient(idExpedient, uploadDocumentExpedientRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested dades operacio requerit
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obteneriDadesOperRequeritUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/dadesOperRequerit/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<BigDecimal>());
+
+		BigDecimal idDoc = ONE;
+		List<BigDecimal> response = api.obteneriDadesOperRequeritUsingGET(idDoc);
 
 		assertTrue(response != null);
 	}

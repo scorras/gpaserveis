@@ -10,6 +10,7 @@ import javax.ws.rs.core.GenericType;
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesOperacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RestClientResponse;
@@ -19,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-21T23:39:17.954+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-26T12:10:29.973+01:00")
 public class ConfiguracioDocumentacioApi {
   private ApiClient apiClient;
 
@@ -187,6 +188,104 @@ public class ConfiguracioDocumentacioApi {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
+   * comprovarDocumentacioConfDocsEntPerEstat
+   * 
+   * @param confDocsEntrada confDocsEntrada (required)
+   * @param estatFuturo estatFuturo (required)
+   * @return Boolean
+   * @throws ApiException if fails to make API call
+   */
+  public Boolean comprovarDocumentacioConfDocsEntPerEstatUsingGET(BigDecimal confDocsEntrada, BigDecimal estatFuturo) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'confDocsEntrada' is set
+    if (confDocsEntrada == null) {
+      throw new ApiException(400, "Missing the required parameter 'confDocsEntrada' when calling comprovarDocumentacioConfDocsEntPerEstatUsingGET");
+    }
+    
+    // verify the required parameter 'estatFuturo' is set
+    if (estatFuturo == null) {
+      throw new ApiException(400, "Missing the required parameter 'estatFuturo' when calling comprovarDocumentacioConfDocsEntPerEstatUsingGET");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/configuracioDocumentacio/comprovarDocumentacioConfDocsEntPerEstat/{confDocsEntrada}/{estatFuturo}"
+      .replaceAll("\\{" + "confDocsEntrada" + "\\}", apiClient.escapeString(confDocsEntrada.toString()))
+      .replaceAll("\\{" + "estatFuturo" + "\\}", apiClient.escapeString(estatFuturo.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<Boolean> localVarReturnType = new GenericType<Boolean>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * comprovarDocumentacioConfDocsEntPerEstat
+   * 
+   * @param confDocsTramitacio confDocsTramitacio (required)
+   * @param estatFuturo estatFuturo (required)
+   * @return Boolean
+   * @throws ApiException if fails to make API call
+   */
+  public Boolean comprovarDocumentacioConfDocsTramPerEstatUsingGET(BigDecimal confDocsTramitacio, BigDecimal estatFuturo) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'confDocsTramitacio' is set
+    if (confDocsTramitacio == null) {
+      throw new ApiException(400, "Missing the required parameter 'confDocsTramitacio' when calling comprovarDocumentacioConfDocsTramPerEstatUsingGET");
+    }
+    
+    // verify the required parameter 'estatFuturo' is set
+    if (estatFuturo == null) {
+      throw new ApiException(400, "Missing the required parameter 'estatFuturo' when calling comprovarDocumentacioConfDocsTramPerEstatUsingGET");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/configuracioDocumentacio/comprovarDocumentacioConfDocsTramPerEstat/{confDocsTramitacio}/{estatFuturo}"
+      .replaceAll("\\{" + "confDocsTramitacio" + "\\}", apiClient.escapeString(confDocsTramitacio.toString()))
+      .replaceAll("\\{" + "estatFuturo" + "\\}", apiClient.escapeString(estatFuturo.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<Boolean> localVarReturnType = new GenericType<Boolean>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
    * Returns the requested entrada configuracio associada al requeriment
    * 
    * @param idRequeriment idRequeriment (required)
@@ -296,6 +395,48 @@ public class ConfiguracioDocumentacioApi {
     String[] localVarAuthNames = new String[] {  };
 
     GenericType<PageDataOfConfiguracioDocsTramitacioRDTO> localVarReturnType = new GenericType<PageDataOfConfiguracioDocsTramitacioRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Returns the requested dadas operacio associada al requeriment
+   * 
+   * @param idRequeriment idRequeriment (required)
+   * @return List&lt;DadesOperacioRDTO&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<DadesOperacioRDTO> getDadesOperAssociadaRequerimentUsingGET(BigDecimal idRequeriment) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'idRequeriment' is set
+    if (idRequeriment == null) {
+      throw new ApiException(400, "Missing the required parameter 'idRequeriment' when calling getDadesOperAssociadaRequerimentUsingGET");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/configuracioDocumentacio/getDadesOperAssociadaRequeriment/{idRequeriment}"
+      .replaceAll("\\{" + "idRequeriment" + "\\}", apiClient.escapeString(idRequeriment.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<DadesOperacioRDTO>> localVarReturnType = new GenericType<List<DadesOperacioRDTO>>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**

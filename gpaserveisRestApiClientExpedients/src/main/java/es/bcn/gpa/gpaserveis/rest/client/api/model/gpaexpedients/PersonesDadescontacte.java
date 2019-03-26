@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * PersonesDadescontacte
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-25T15:00:50.319+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-26T01:50:19.832+01:00")
 public class PersonesDadescontacte {
   @JsonProperty("bloc")
   private String bloc = null;
