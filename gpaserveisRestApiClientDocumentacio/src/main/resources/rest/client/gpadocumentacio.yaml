@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.6.0"
+  version: "1.7.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -18,6 +18,72 @@ tags:
 - name: "documentacio-rest-controller"
   description: "Documentacio Rest Controller"
 paths:
+  /configuracioDocumentacio/comprovarDocumentacioConfDocsEntPerEstat/{confDocsEntrada}/{estatFuturo}:
+    get:
+      tags:
+      - "Configuracio Documentacio"
+      summary: "comprovarDocumentacioConfDocsEntPerEstat"
+      operationId: "comprovarDocumentacioConfDocsEntPerEstatUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "confDocsEntrada"
+        in: "path"
+        description: "confDocsEntrada"
+        required: true
+        type: "number"
+      - name: "estatFuturo"
+        in: "path"
+        description: "estatFuturo"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "boolean"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /configuracioDocumentacio/comprovarDocumentacioConfDocsTramPerEstat/{confDocsTramitacio}/{estatFuturo}:
+    get:
+      tags:
+      - "Configuracio Documentacio"
+      summary: "comprovarDocumentacioConfDocsEntPerEstat"
+      operationId: "comprovarDocumentacioConfDocsTramPerEstatUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "confDocsTramitacio"
+        in: "path"
+        description: "confDocsTramitacio"
+        required: true
+        type: "number"
+      - name: "estatFuturo"
+        in: "path"
+        description: "estatFuturo"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "boolean"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /configuracioDocumentacio/configuracioDocsTramitacio/{id}:
     get:
       tags:
@@ -536,6 +602,36 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /configuracioDocumentacio/getDadesOperAssociadaRequeriment/{idRequeriment}:
+    get:
+      tags:
+      - "Configuracio Documentacio"
+      summary: "Returns the requested dadas operacio associada al requeriment"
+      operationId: "getDadesOperAssociadaRequerimentUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idRequeriment"
+        in: "path"
+        description: "idRequeriment"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/DadesOperacioRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /configuracioDocumentacio/serie/{serieDocumental}:
     get:
       tags:
@@ -1043,6 +1139,70 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /documentacio/dadesOperRequerit/{idDoc}:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Returns the requested dades operacio requerit"
+      operationId: "obteneriDadesOperRequeritUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDoc"
+        in: "path"
+        description: "idDoc"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              type: "number"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /documentacio/descarregarDocument/{idExpedient}/{idDoc}:
+    get:
+      tags:
+      - "DownloadEntrada"
+      summary: "Downloads the document"
+      operationId: "descarregarDocumentExpedient"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDoc"
+        in: "path"
+        description: "idDoc"
+        required: true
+        type: "number"
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "string"
+            format: "byte"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /documentacio/documentacioEntradaEnRevisio:
     get:
       tags:
@@ -1370,6 +1530,44 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/entrada/uploadDocument/{idExpedient}:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "Upload the document provided"
+      operationId: "uploadDocumentExpedient"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      - in: "body"
+        name: "uploadDocumentExpedientRDTO"
+        description: "uploadDocumentExpedientRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/UploadDocumentExpedient"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaUploadDocumentExpedient"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /documentacio/entrada/{id}:
     get:
       tags:
@@ -1420,7 +1618,7 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/saveRequeriment/{idExpedient}/{idsConfDocEntradaList}:
+  /documentacio/saveRequeriment/{idExpedient}/{idsConfDocEntradaList}/{idsDadesOperList}:
     post:
       tags:
       - "Documentacio"
@@ -1445,6 +1643,11 @@ paths:
       - name: "idsConfDocEntradaList"
         in: "path"
         description: "idsConfDocEntradaList"
+        required: true
+        type: "string"
+      - name: "idsDadesOperList"
+        in: "path"
+        description: "idsDadesOperList"
         required: true
         type: "string"
       responses:
@@ -1894,6 +2097,9 @@ definitions:
         description: "Documents a aportar a l'expedient"
         items:
           $ref: "#/definitions/DocsEntradaRDTO"
+      esmena:
+        type: "boolean"
+        description: "Indica si es tracta de la resposta a un requeriment"
     title: "AportarDocumentacioExpedient"
   AtributsDocs:
     type: "object"
@@ -1949,9 +2155,6 @@ definitions:
         type: "string"
       id:
         type: "number"
-      iniciProcediment:
-        type: "integer"
-        format: "int32"
       nom:
         type: "string"
       suportConfeccio:
@@ -1960,6 +2163,14 @@ definitions:
       suportEnllac:
         type: "string"
     title: "ConfDocEntradaRequeritRDTO"
+  ConfdocsentEstatsExp:
+    type: "object"
+    properties:
+      confDocsEntrada:
+        type: "number"
+      estatExpIdext:
+        type: "number"
+    title: "ConfdocsentEstatsExp"
   ConfdocsentTramitsOvt:
     type: "object"
     properties:
@@ -1968,6 +2179,14 @@ definitions:
       tramitOvtIdext:
         type: "number"
     title: "ConfdocsentTramitsOvt"
+  ConfdocstramEstatsExp:
+    type: "object"
+    properties:
+      confDocsTramitacio:
+        type: "number"
+      estatExpIdext:
+        type: "number"
+    title: "ConfdocstramEstatsExp"
   ConfdocstramTramitsOvt:
     type: "object"
     properties:
@@ -1985,6 +2204,10 @@ definitions:
         $ref: "#/definitions/AtributsDocs"
       codiNti:
         type: "string"
+      confdocsentEstatsExpList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocsentEstatsExp"
       confdocsentTramitsOvtList:
         type: "array"
         items:
@@ -2002,9 +2225,6 @@ definitions:
         format: "int32"
       id:
         type: "number"
-      iniciProcediment:
-        type: "integer"
-        format: "int32"
       nom:
         type: "string"
       nomCastella:
@@ -2035,6 +2255,10 @@ definitions:
         $ref: "#/definitions/AtributsDocs"
       codiNti:
         type: "string"
+      confdocsentEstatsExpList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocsentEstatsExp"
       confdocsentTramitsOvtList:
         type: "array"
         items:
@@ -2052,9 +2276,6 @@ definitions:
         format: "int32"
       id:
         type: "number"
-      iniciProcediment:
-        type: "integer"
-        format: "int32"
       nom:
         type: "string"
       nomCastella:
@@ -2104,6 +2325,10 @@ definitions:
         $ref: "#/definitions/AtributsDocs"
       codiNti:
         type: "string"
+      confdocstramEstatsExpList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocstramEstatsExp"
       confdocstramTramitsOvtList:
         type: "array"
         items:
@@ -2123,9 +2348,6 @@ definitions:
         format: "int32"
       id:
         type: "number"
-      iniciProcediment:
-        type: "integer"
-        format: "int32"
       nom:
         type: "string"
       nomCastella:
@@ -2162,6 +2384,10 @@ definitions:
         $ref: "#/definitions/AtributsDocs"
       codiNti:
         type: "string"
+      confdocstramEstatsExpList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocstramEstatsExp"
       confdocstramTramitsOvtList:
         type: "array"
         items:
@@ -2181,9 +2407,6 @@ definitions:
         format: "int32"
       id:
         type: "number"
-      iniciProcediment:
-        type: "integer"
-        format: "int32"
       nom:
         type: "string"
       nomCastella:
@@ -2219,6 +2442,16 @@ definitions:
       id:
         type: "number"
     title: "ConfiguracioDocsTramitacioResponse"
+  DadesOperacioRDTO:
+    type: "object"
+    properties:
+      codi:
+        type: "string"
+      id:
+        type: "number"
+      titol:
+        type: "string"
+    title: "DadesOperacioRDTO"
   DocsEntradaIdsAndEstatRevisioId:
     type: "object"
     properties:
@@ -2255,6 +2488,9 @@ definitions:
       dataUltimaModificacio:
         type: "string"
         format: "date-time"
+      declaracioResponsable:
+        type: "integer"
+        format: "int32"
       digitalitzat:
         type: "integer"
         format: "int32"
@@ -2287,8 +2523,13 @@ definitions:
         type: "string"
       id:
         type: "number"
+      idIdiomaPlantilla:
+        type: "number"
       idioma:
         type: "number"
+      nou:
+        type: "integer"
+        format: "int32"
       numDocsConfiguracio:
         type: "number"
       obligatoriEnEstat:
@@ -2302,6 +2543,8 @@ definitions:
       origen:
         type: "integer"
         format: "int32"
+      plantillaPdf:
+        type: "boolean"
       registreAssentament:
         $ref: "#/definitions/RegistreAssentament"
       registreCodi:
@@ -2450,6 +2693,8 @@ definitions:
         type: "string"
       id:
         type: "number"
+      idIdiomaPlantilla:
+        type: "number"
       idioma:
         type: "number"
       numDocsConfiguracio:
@@ -2465,6 +2710,8 @@ definitions:
       origen:
         type: "integer"
         format: "int32"
+      plantillaPdf:
+        type: "boolean"
       registreAssentament:
         $ref: "#/definitions/RegistreAssentament"
       registreIdext:
@@ -2886,6 +3133,9 @@ definitions:
   Requeriments:
     type: "object"
     properties:
+      dataTancament:
+        type: "string"
+        format: "date-time"
       docsTramitacio:
         type: "number"
       id:
@@ -2917,6 +3167,9 @@ definitions:
   RespostaSincronitzarRDTO:
     type: "object"
     properties:
+      darreraSincronitzacio:
+        type: "string"
+        format: "date-time"
       idConfDoc:
         type: "number"
       idProcediment:
@@ -2940,6 +3193,19 @@ definitions:
         description: "Dades del registre dels documents aportats"
         $ref: "#/definitions/RegistreAssentamentRDTO"
     title: "RespostaSubstituirDocumentExpedientRDTO"
+  RespostaUploadDocumentExpedient:
+    type: "object"
+    properties:
+      docEntrada:
+        description: "Document substituït en l'expedient"
+        $ref: "#/definitions/DocsEntradaRDTO"
+      expedient:
+        description: "Dades bàsiques de l'expedient"
+        $ref: "#/definitions/ExpedientRDTO"
+      registreAssentament:
+        description: "Dades del registre dels documents aportats"
+        $ref: "#/definitions/RegistreAssentamentRDTO"
+    title: "RespostaUploadDocumentExpedient"
   RestClientResponse:
     type: "object"
     properties:
@@ -3154,3 +3420,10 @@ definitions:
       userInfo:
         type: "string"
     title: "URL"
+  UploadDocumentExpedient:
+    type: "object"
+    properties:
+      docEntrada:
+        description: "Document a upload en l'expedient"
+        $ref: "#/definitions/DocsEntradaRDTO"
+    title: "UploadDocumentExpedient"

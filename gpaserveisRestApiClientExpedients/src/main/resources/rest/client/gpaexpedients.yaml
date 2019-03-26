@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.5.0"
+  version: "1.7.0"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -1021,6 +1021,30 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/catalog/origenComentaris:
+    get:
+      tags:
+      - "OrigenComentaris"
+      summary: "Returns all the OrigenComentaris"
+      operationId: "obtenirOrigenComentarisUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/OrigenComentarisRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /expedients/catalog/paisos:
     get:
       tags:
@@ -1711,6 +1735,39 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /expedients/desistir:
+    post:
+      tags:
+      - "Expedients "
+      summary: "Desist the provided expedient"
+      operationId: "abandonarDesistirExpedient"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "abandonarExpedientRDTO"
+        description: "abandonarExpedientRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/AbandonarExpedient"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaAbandonarExpedient"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/estats/{idExpedient}:
     get:
       tags:
@@ -1769,6 +1826,34 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/expedientBloquejatPerUnAltreUsuari/{id}:
+    get:
+      tags:
+      - "Expedients"
+      summary: "ExpedientBloquejatPerUnAltreUsuari"
+      operationId: "expedientBloquejatPerUnAltreUsuariUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "boolean"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/exportarCercaExpedientExcel:
     get:
       tags:
@@ -1841,6 +1926,11 @@ paths:
         description: "Identificador d'usuari pel qual es realitza la cerca"
         required: false
         type: "number"
+      - name: "isOge"
+        in: "query"
+        description: "Invocació des de OGE"
+        required: false
+        type: "boolean"
       - name: "numeroDocumentSollicitant"
         in: "query"
         description: "Numero de document d'identificació del sol·licitant"
@@ -1859,6 +1949,11 @@ paths:
         items:
           type: "string"
         collectionFormat: "multi"
+      - name: "procedimentId"
+        in: "query"
+        description: "Identificador del procediment"
+        required: false
+        type: "number"
       - name: "procedimentVersio"
         in: "query"
         description: "Versió del procediment"
@@ -2136,7 +2231,7 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/perCodi/{codiBaseName}/**:
+  /expedients/perCodi/{codi}:
     get:
       tags:
       - "Expedients "
@@ -2145,9 +2240,9 @@ paths:
       produces:
       - "*/*"
       parameters:
-      - name: "codiBaseName"
+      - name: "codi"
         in: "path"
-        description: "codiBaseName"
+        description: "codi"
         required: true
         type: "string"
       responses:
@@ -2740,6 +2835,39 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/registrar:
+    post:
+      tags:
+      - "Expedients "
+      summary: "Register the provided expedient"
+      operationId: "registrarSolicitudExpedient"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "registrarSolicitudExpedientRDTO"
+        description: "registrarSolicitudExpedientRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/RegistrarSolicitudExpedient"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaRegistrarSolicitudExpedient"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/registre:
     get:
       tags:
@@ -2798,6 +2926,39 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/renunciar:
+    post:
+      tags:
+      - "Expedients "
+      summary: "Renounce the provided expedient"
+      operationId: "abandonarRenunciarExpedient"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "abandonarExpedientRDTO"
+        description: "abandonarExpedientRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/AbandonarExpedient"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaAbandonarExpedient"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/search:
     get:
       tags:
@@ -2905,6 +3066,11 @@ paths:
         description: "Identificador d'usuari pel qual es realitza la cerca"
         required: false
         type: "number"
+      - name: "isOge"
+        in: "query"
+        description: "Invocació des de OGE"
+        required: false
+        type: "boolean"
       - name: "nextPageNumber"
         in: "query"
         required: false
@@ -2938,6 +3104,11 @@ paths:
         items:
           type: "string"
         collectionFormat: "multi"
+      - name: "procedimentId"
+        in: "query"
+        description: "Identificador del procediment"
+        required: false
+        type: "number"
       - name: "procedimentVersio"
         in: "query"
         description: "Versió del procediment"
@@ -3043,6 +3214,39 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /marques:
+    post:
+      tags:
+      - "Marques"
+      summary: "Insert  marques"
+      operationId: "saveTramitUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "tramitsRDTO"
+        description: "tramitsRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/MarquesRDTO"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/MarquesRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /marques/marquesAdministrador:
     get:
       tags:
@@ -3130,7 +3334,128 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /marques/search:
+    get:
+      tags:
+      - "Marques"
+      summary: "Returns all the marques that meet the search criteria"
+      operationId: "cercaMarques"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "codi"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "descripcio"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "example"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "expressio"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "query"
+        required: false
+        type: "number"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "referencia"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfMarquesRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
 definitions:
+  AbandonarExpedient:
+    type: "object"
+    properties:
+      comentari:
+        type: "string"
+        description: "Comentari associat al desistiment o renuncia."
+      expedient:
+        description: "Dades de l'expedient"
+        $ref: "#/definitions/ExpedientsRDTO"
+    title: "AbandonarExpedient"
   AccionsEstatsBDTO:
     type: "object"
     properties:
@@ -3156,11 +3481,17 @@ definitions:
   ActualitzarDadesSollicitud:
     type: "object"
     properties:
+      comentari:
+        type: "string"
+        description: "Comentari associat a l'operació"
       dadesEspecifiques:
         type: "array"
         description: "Valors d'atributs de l'expedient"
         items:
           $ref: "#/definitions/DadesEspecifiquesRDTO"
+      esmena:
+        type: "boolean"
+        description: "Indica si es tracta de la resposta a un requeriment"
       expedient:
         description: "Dades de l'expedient"
         $ref: "#/definitions/ExpedientsRDTO"
@@ -3230,6 +3561,8 @@ definitions:
   CanviEstatRDTO:
     type: "object"
     properties:
+      canviUnitatGestora:
+        $ref: "#/definitions/CanviUnitatGestoraBDTO"
       comentari:
         $ref: "#/definitions/Comentaris"
       estatActual:
@@ -3247,6 +3580,20 @@ definitions:
         items:
           $ref: "#/definitions/AccionsEstatsBDTO"
     title: "CanviEstatRDTO"
+  CanviUnitatGestoraBDTO:
+    type: "object"
+    properties:
+      comentari:
+        $ref: "#/definitions/Comentaris"
+      idExpedientList:
+        type: "array"
+        items:
+          type: "number"
+      unitatGestoraActual:
+        $ref: "#/definitions/DropdownItemBDTO"
+      unitatGestoraFutura:
+        $ref: "#/definitions/DropdownItemBDTO"
+    title: "CanviUnitatGestoraBDTO"
   CanviUnitatGestoraRDTO:
     type: "object"
     properties:
@@ -3288,6 +3635,11 @@ definitions:
         type: "number"
       id:
         type: "number"
+      nou:
+        type: "integer"
+        format: "int32"
+      origen:
+        type: "number"
       seleccionable:
         type: "boolean"
       titol:
@@ -3313,6 +3665,11 @@ definitions:
       expedient:
         type: "number"
       id:
+        type: "number"
+      nou:
+        type: "integer"
+        format: "int32"
+      origen:
         type: "number"
       seleccionable:
         type: "boolean"
@@ -3381,6 +3738,12 @@ definitions:
         type: "number"
       id:
         type: "number"
+      nou:
+        type: "integer"
+        format: "int32"
+      requerit:
+        type: "integer"
+        format: "int32"
       tipus:
         type: "number"
     title: "DadesEspecifiquesRDTO"
@@ -3567,6 +3930,8 @@ definitions:
         type: "number"
       idEstat:
         type: "number"
+      isOge:
+        type: "boolean"
       nomProcediment:
         type: "string"
       numeroDocumentSollicitant:
@@ -3735,6 +4100,14 @@ definitions:
       provincia:
         type: "string"
     title: "MunicipisRDTO"
+  OrigenComentarisRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "OrigenComentarisRDTO"
   PageDataOfAvisosRDTO:
     type: "object"
     properties:
@@ -4015,6 +4388,13 @@ definitions:
       pais:
         type: "string"
     title: "ProvinciesRDTO"
+  RegistrarSolicitudExpedient:
+    type: "object"
+    properties:
+      expedient:
+        description: "Dades de l'expedient"
+        $ref: "#/definitions/ExpedientsRDTO"
+    title: "RegistrarSolicitudExpedient"
   RegistreAssentament:
     type: "object"
     properties:
@@ -4064,6 +4444,27 @@ definitions:
       id:
         type: "number"
     title: "RelacioPersonaRDTO"
+  RespostaAbandonarExpedient:
+    type: "object"
+    properties:
+      expedient:
+        description: "Dades bàsiques de l'expedient"
+        $ref: "#/definitions/ExpedientsRDTO"
+    title: "RespostaAbandonarExpedient"
+  RespostaRegistrarSolicitudExpedient:
+    type: "object"
+    properties:
+      comprovant:
+        type: "string"
+        format: "byte"
+        description: "Comprovant del registre"
+      expedient:
+        description: "Dades bàsiques de l'expedient"
+        $ref: "#/definitions/ExpedientsRDTO"
+      registreAssentament:
+        description: "Dades del registre de l'expedient"
+        $ref: "#/definitions/RegistreAssentamentRDTO"
+    title: "RespostaRegistrarSolicitudExpedient"
   Sollicituds:
     type: "object"
     properties:

@@ -20,7 +20,9 @@ public class InternalToProcedimentCercaConverter extends AbstractConverter<Exped
 	@Override
 	protected ProcedimentsCercaRDTO convert(ExpedientsRDTO source) {
 		ProcedimentsCercaRDTO procedimentsCercaRDTO = new ProcedimentsCercaRDTO();
+		procedimentsCercaRDTO.setId(source.getProcedimentIdext());
 		procedimentsCercaRDTO.setCodi(source.getProcedimentCodi());
+		procedimentsCercaRDTO.setVersio(source.getProcedimentVersio());
 		procedimentsCercaRDTO.setNom(source.getNomProcediment());
 		return procedimentsCercaRDTO;
 	}

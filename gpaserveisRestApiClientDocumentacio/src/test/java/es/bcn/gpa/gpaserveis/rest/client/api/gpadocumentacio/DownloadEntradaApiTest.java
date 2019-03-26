@@ -43,6 +43,28 @@ public class DownloadEntradaApiTest extends ParentTest {
 	private DownloadEntradaApi api = new DownloadEntradaApi();
 
 	/**
+	 * Downloads the document
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void descarregarDocumentExpedientTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/descarregarDocument/1/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn("prova".getBytes());
+
+		BigDecimal idDoc = ONE;
+		BigDecimal idExpedient = ONE;
+		byte[] response = api.descarregarDocumentExpedient(idDoc, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
 	 * download the fileEntrada
 	 *
 	 * 

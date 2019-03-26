@@ -20,7 +20,7 @@ public class InternalToProcedimentConsultaConverter extends AbstractConverter<Ex
 	@Override
 	protected ProcedimentsConsultaRDTO convert(ExpedientsRDTO source) {
 		ProcedimentsConsultaRDTO procedimentsConsultaRDTO = new ProcedimentsConsultaRDTO();
-		procedimentsConsultaRDTO.setId(source.getId());
+		procedimentsConsultaRDTO.setId(source.getProcedimentIdext());
 		procedimentsConsultaRDTO.setCodi(source.getProcedimentCodi());
 		procedimentsConsultaRDTO.setVersio(source.getProcedimentVersio());
 		procedimentsConsultaRDTO.setNom(source.getNomProcediment());

@@ -4,14 +4,18 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import es.bcn.gpa.gpaserveis.business.dto.documents.AportarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.DescarregarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.SubstituirDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.UploadDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAbandonarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
@@ -24,7 +28,10 @@ import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaUploadDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaAbandonarExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 
@@ -124,7 +131,7 @@ public interface ServeisPortalService {
 	RespostaDadesOperacioCercaBDTO cercaDadesOperacio(DadesOperacioCercaBDTO dadesOperacioCercaBDTO) throws GPAServeisServiceException;
 
 	/**
-	 * Cerca documents entrada.
+	 * Cerca configuracio documentacio entrada.
 	 *
 	 * @param documentsEntradaCercaBDTO
 	 *            the documents entrada cerca BDTO
@@ -132,7 +139,19 @@ public interface ServeisPortalService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	RespostaDocumentsEntradaCercaBDTO cercaDocumentsEntrada(DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO)
+	RespostaDocumentsEntradaCercaBDTO cercaConfiguracioDocumentacioEntrada(DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO)
+	        throws GPAServeisServiceException;
+
+	/**
+	 * Cerca configuracio documentacio entrada per tramit ovt.
+	 *
+	 * @param documentsEntradaCercaBDTO
+	 *            the documents entrada cerca BDTO
+	 * @return the resposta documents entrada cerca BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	RespostaDocumentsEntradaCercaBDTO cercaConfiguracioDocumentacioEntradaPerTramitOvt(DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO)
 	        throws GPAServeisServiceException;
 
 	/**
@@ -256,5 +275,52 @@ public interface ServeisPortalService {
 	 *             the GPA serveis service exception
 	 */
 	void esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Descarregar document expedient.
+	 *
+	 * @param descarregarDocumentExpedientBDTO
+	 *            the descarregar document expedient BDTO
+	 * @return the byte[]
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	byte[] descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
+	        throws GPAServeisServiceException;
+
+	/**
+	 * Upload document expedient.
+	 *
+	 * @param uploadDocumentExpedientBDTO
+	 *            the upload document expedient BDTO
+	 * @return the resposta upload document expedient
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	RespostaUploadDocumentExpedient uploadDocumentExpedient(UploadDocumentExpedientBDTO uploadDocumentExpedientBDTO)
+	        throws GPAServeisServiceException;
+
+	/**
+	 * Registrar solicitud expedient.
+	 *
+	 * @param expedientsRegistrarBDTO
+	 *            the expedients registrar BDTO
+	 * @return the resposta registrar solicitud expedient
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	RespostaRegistrarSolicitudExpedient registrarSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
+	        throws GPAServeisServiceException;
+
+	/**
+	 * Abandonar expedient.
+	 *
+	 * @param expedientsAbandonarBDTO
+	 *            the expedients abandonar BDTO
+	 * @return the resposta abandonar expedient
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	RespostaAbandonarExpedient abandonarExpedient(ExpedientsAbandonarBDTO expedientsAbandonarBDTO) throws GPAServeisServiceException;
 
 }

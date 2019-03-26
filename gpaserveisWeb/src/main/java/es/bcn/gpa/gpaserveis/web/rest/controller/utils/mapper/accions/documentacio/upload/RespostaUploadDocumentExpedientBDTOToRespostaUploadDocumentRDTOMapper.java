@@ -1,24 +1,24 @@
-package es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.accions.documentacio.substituir;
+package es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.accions.documentacio.upload;
 
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaSubstituirDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaUploadDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToResultatRespostaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToDocumentAportatAccioConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToRegistreConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalBasicToExpedientAccioConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.substituir.RespostaSubstituirDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.upload.RespostaUploadDocumentRDTO;
 
 /**
  * The Class
- * RespostaSubstituirDocumentExpedientBDTOToRespostaSubstituirDocumentRDTO.
+ * RespostaUploadDocumentExpedientBDTOToRespostaUploadDocumentRDTOMapper.
  */
-@Component("respostaSubstituirDocumentExpedientBDTOToRespostaSubstituirDocumentRDTO")
-public class RespostaSubstituirDocumentExpedientBDTOToRespostaSubstituirDocumentRDTO
-        extends PropertyMap<RespostaSubstituirDocumentExpedientBDTO, RespostaSubstituirDocumentRDTO> {
+@Component("respostaUploadDocumentExpedientBDTOToRespostaUploadDocumentRDTOMapper")
+public class RespostaUploadDocumentExpedientBDTOToRespostaUploadDocumentRDTOMapper
+        extends PropertyMap<RespostaUploadDocumentExpedientBDTO, RespostaUploadDocumentRDTO> {
 
 	private InternalBasicToExpedientAccioConverter internalBasicToExpedientAccioConverter;
 
@@ -29,7 +29,7 @@ public class RespostaSubstituirDocumentExpedientBDTOToRespostaSubstituirDocument
 	private InternalToDocumentAportatAccioConverter internalToDocumentAportatAccioConverter;
 
 	@Autowired
-	public RespostaSubstituirDocumentExpedientBDTOToRespostaSubstituirDocumentRDTO(
+	public RespostaUploadDocumentExpedientBDTOToRespostaUploadDocumentRDTOMapper(
 	        @Qualifier("expedientInternalBasicToExpedientAccioConverter") InternalBasicToExpedientAccioConverter internalBasicToExpedientAccioConverter,
 	        @Qualifier("documentInternalToRegistreConverter") InternalToRegistreConverter internalToRegistreConverter,
 	        @Qualifier("internalToDocumentAportatAccioConverter") InternalToDocumentAportatAccioConverter internalToDocumentAportatAccioConverter,
@@ -48,12 +48,9 @@ public class RespostaSubstituirDocumentExpedientBDTOToRespostaSubstituirDocument
 	@Override
 	protected void configure() {
 		using(internalToResultatRespostaConverter).map(source.getRespostaResultatBDTO()).setResultat(null);
-		using(internalBasicToExpedientAccioConverter).map(source.getRespostaSubstituirDocumentExpedientRDTO().getExpedient())
-		        .setExpedient(null);
-		using(internalToRegistreConverter).map(source.getRespostaSubstituirDocumentExpedientRDTO().getRegistreAssentament())
-		        .setRegistre(null);
-		using(internalToDocumentAportatAccioConverter).map(source.getRespostaSubstituirDocumentExpedientRDTO().getDocEntrada())
-		        .setDocument(null);
+		using(internalBasicToExpedientAccioConverter).map(source.getRespostaUploadDocumentExpedient().getExpedient()).setExpedient(null);
+		using(internalToRegistreConverter).map(source.getRespostaUploadDocumentExpedient().getRegistreAssentament()).setRegistre(null);
+		using(internalToDocumentAportatAccioConverter).map(source.getRespostaUploadDocumentExpedient().getDocEntrada()).setDocument(null);
 	}
 
 }

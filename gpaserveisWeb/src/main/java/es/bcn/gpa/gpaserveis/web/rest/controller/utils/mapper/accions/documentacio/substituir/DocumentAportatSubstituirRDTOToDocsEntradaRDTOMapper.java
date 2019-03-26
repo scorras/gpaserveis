@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.accions.documentacio.aportar;
+package es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.accions.documentacio.substituir;
 
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +10,13 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.Internal
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.IdiomaToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.OrigenToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.TipusMimeToInternalConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.substituir.DocumentAportatSubstituirRDTO;
 
 /**
- * The Class DocumentAportatCrearRDTOToDocsEntradaRDTO.
+ * The Class DocumentAportatSubstituirRDTOToDocsEntradaRDTOMapper.
  */
-@Component("documentAportatCrearRDTOToDocsEntradaRDTO")
-public class DocumentAportatCrearRDTOToDocsEntradaRDTO extends PropertyMap<DocumentAportatCrearRDTO, DocsEntradaRDTO> {
+@Component("documentAportatSubstituirRDTOToDocsEntradaRDTOMapper")
+public class DocumentAportatSubstituirRDTOToDocsEntradaRDTOMapper extends PropertyMap<DocumentAportatSubstituirRDTO, DocsEntradaRDTO> {
 
 	private InternalToBigDecimalConverter internalToBigDecimalConverter;
 
@@ -27,7 +27,7 @@ public class DocumentAportatCrearRDTOToDocsEntradaRDTO extends PropertyMap<Docum
 	private TipusMimeToInternalConverter tipusMimeToInternalConverter;
 
 	@Autowired
-	public DocumentAportatCrearRDTOToDocsEntradaRDTO(
+	public DocumentAportatSubstituirRDTOToDocsEntradaRDTOMapper(
 	        @Qualifier("internalToBigDecimalConverter") InternalToBigDecimalConverter internalToBigDecimalConverter,
 	        @Qualifier("origenToInternalConverter") OrigenToInternalConverter origenToInternalConverter,
 	        @Qualifier("idiomaToInternalConverter") IdiomaToInternalConverter idiomaToInternalConverter,

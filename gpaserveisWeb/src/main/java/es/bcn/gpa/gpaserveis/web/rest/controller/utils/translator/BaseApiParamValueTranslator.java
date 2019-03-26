@@ -19,6 +19,19 @@ public interface BaseApiParamValueTranslator {
 	public String getApiParamAllowableValues() throws GPAServeisRuntimeException;
 
 	/**
+	 * Gets the enum by api param value.
+	 *
+	 * @param <E>
+	 *            the element type
+	 * @param apiParamValue
+	 *            the api param value
+	 * @return the enum by api param value
+	 * @throws GPAServeisRuntimeException
+	 *             the GPA serveis runtime exception
+	 */
+	public <E extends Enum<E>> E getEnumByApiParamValue(String apiParamValue) throws GPAServeisRuntimeException;
+
+	/**
 	 * Gets the internal value by api param value.
 	 *
 	 * @param <T>

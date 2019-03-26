@@ -119,8 +119,10 @@ public class ConverterHelper {
 		}
 		DocumentsIdentitatRDTO documentsIdentitatRDTO = new DocumentsIdentitatRDTO();
 		if (persones.getDocumentsIdentitat() != null) {
-			documentsIdentitatRDTO.setTipusDocument(tipusDocumentIdentitatApiParamValueTranslator
-			        .getApiParamValueByInternalValue(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getId()));
+			if (persones.getDocumentsIdentitat().getTipusDocumentIdentitat() != null) {
+				documentsIdentitatRDTO.setTipusDocument(tipusDocumentIdentitatApiParamValueTranslator
+				        .getApiParamValueByInternalValue(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getId()));
+			}
 			documentsIdentitatRDTO.setNumeroDocument(persones.getDocumentsIdentitat().getNumeroDocument().toUpperCase());
 			documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPaisos().getCodiIne());
 		}
@@ -222,8 +224,10 @@ public class ConverterHelper {
 		}
 		DocumentsIdentitatRDTO documentsIdentitatRDTO = new DocumentsIdentitatRDTO();
 		if (persones.getDocumentsIdentitat() != null) {
-			documentsIdentitatRDTO.setTipusDocument(tipusDocumentIdentitatApiParamValueTranslator
-			        .getApiParamValueByInternalValue(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getId()));
+			if (persones.getDocumentsIdentitat().getTipusDocumentIdentitat() != null) {
+				documentsIdentitatRDTO.setTipusDocument(tipusDocumentIdentitatApiParamValueTranslator
+				        .getApiParamValueByInternalValue(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getId()));
+			}
 			documentsIdentitatRDTO.setNumeroDocument(persones.getDocumentsIdentitat().getNumeroDocument().toUpperCase());
 			documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPaisos().getCodiIne());
 		}
@@ -516,12 +520,14 @@ public class ConverterHelper {
 			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
 			documentAportatAccioRDTO = new DocumentAportatAccioRDTO();
 			documentAportatAccioRDTO.setId(docsEntradaRDTO.getId());
-			documentAportatAccioRDTO.setNom(docsEntradaRDTO.getDocsFisics().getNom());
+			if (docsEntradaRDTO.getDocsFisics() != null) {
+				documentAportatAccioRDTO.setNom(docsEntradaRDTO.getDocsFisics().getNom());
+			}
 			if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null) {
 				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
 				configuracioDocumentacioRDTO.setCodi((docsEntradaRDTO.getConfiguracioDocsEntrada().getId() != null)
 				        ? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getId()) : null);
-				configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntradaNom());
+				configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntrada().getNom());
 				documentAportatAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
 			}
 			documentAportatAccioRDTO.setOrigen(origenApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTO.getOrigen()));

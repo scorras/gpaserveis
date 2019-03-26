@@ -229,4 +229,25 @@ public class ExpedientsApiTest extends ParentTest {
 		assertTrue(response != null);
 	}
 
+	/**
+	 * ExpedientBloquejatPerUnAltreUsuari
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void expedientBloquejatPerUnAltreUsuariUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/expedients/expedientBloquejatPerUnAltreUsuari/1"), eq("GET"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(Boolean.TRUE);
+
+		BigDecimal id = ONE;
+		Boolean response = api.expedientBloquejatPerUnAltreUsuariUsingGET(id);
+
+		assertTrue(response != null);
+	}
+
 }

@@ -23,7 +23,27 @@ public enum Resultat {
 
 	OK_ESBORRAR_DOCUMENT_EXPEDIENT("OK", "Document donat de baixa correctament"),
 
-	ERROR_ESBORRAR_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut donar de baixa el document");
+	ERROR_ESBORRAR_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut donar de baixa el document"),
+
+	OK_UPLOAD_DOCUMENT_EXPEDIENT("OK", "Document actualitzat correctament"),
+
+	ERROR_UPLOAD_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut actualitzar el document"),
+
+	OK_DESCARREGAR_DOCUMENT_EXPEDIENT("OK", "Document descarregat correctament"),
+
+	ERROR_DESCARREGAR_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut descarregar el document"),
+
+	OK_ESMENAR_EXPEDIENT("OK", "Requeriments de l’expedient incorporats correctament"),
+
+	ERROR_ESMENAR_EXPEDIENT("ERROR", "No s'han pogut incorporar els requeriments a l'expedient"),
+
+	OK_DESISTIR_RENUNCIAR_EXPEDIENT("OK", "Expedient desistit/renunciat correctament"),
+
+	ERROR_DESISTIR_RENUNCIAR_EXPEDIENT("ERROR", "No s'ha pogut desistit/renunciat l'expedient"),
+
+	OK_REGISTRAR_EXPEDIENT("OK", "Expedient registrat correctament"),
+
+	ERROR_REGISTRAR_EXPEDIENT("ERROR", "No s'ha pogut registrar l'expedient");
 
 	private String codi;
 
