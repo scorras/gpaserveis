@@ -520,7 +520,9 @@ public class ConverterHelper {
 			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
 			documentAportatAccioRDTO = new DocumentAportatAccioRDTO();
 			documentAportatAccioRDTO.setId(docsEntradaRDTO.getId());
-			documentAportatAccioRDTO.setNom(docsEntradaRDTO.getDocsFisics().getNom());
+			if (docsEntradaRDTO.getDocsFisics() != null) {
+				documentAportatAccioRDTO.setNom(docsEntradaRDTO.getDocsFisics().getNom());
+			}
 			if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null) {
 				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
 				configuracioDocumentacioRDTO.setCodi((docsEntradaRDTO.getConfiguracioDocsEntrada().getId() != null)
