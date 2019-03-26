@@ -39,12 +39,17 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaUploadDocumentExpedi
 import es.bcn.gpa.gpaserveis.business.dto.documents.SubstituirDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.UploadDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAbandonarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsAbandonarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCrearBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsEsmenarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsRegistrarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
@@ -61,9 +66,13 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubst
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaUploadDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SubstituirDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.UploadDocumentExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AbandonarExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistrarSolicitudExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaAbandonarExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
@@ -76,6 +85,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.Ex
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.procediment.ProcedimentsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.consulta.atributs.DadesOperacioApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.consulta.documents.DocumentsApiParamToInternalMapper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.AccioAbandonarApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatCiutadaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.VersioProcedimentApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.ActivableEnFormatElectronicApiParamValueTranslator;
@@ -745,14 +755,28 @@ public class ServeisPortalRestController extends BaseRestController {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaRegistrarExpedientRDTO registrarSolicitudExpedient(
 	        @ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient) {
+		if (log.isDebugEnabled()) {
+			log.debug("registrarSolicitudExpedient(BigDecimal) - inici"); //$NON-NLS-1$
+		}
 
 		RespostaRegistrarExpedientRDTO respostaRegistrarExpedientRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
+		RespostaRegistrarSolicitudExpedient respostaRegistrarSolicitudExpedient = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_REGISTRAR_EXPEDIENT);
 		try {
 			// El id del expediente debe existir
 			dadesExpedientBDTO = serveisPortalService.consultarDadesBasiquesExpedient(idExpedient);
 			ServeisPortalRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_REGISTRAR_EXPEDIENT);
+
+			// Registrar expediente si la acción es permitida
+			ServeisPortalRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			        AccioTramitadorApiParamValue.REGISTRAR_SOLLICITUD, Resultat.ERROR_REGISTRAR_EXPEDIENT);
+
+			// Se construye el modelo para la llamada a la operación de registro
+			RegistrarSolicitudExpedient registrarSolicitudExpedient = new RegistrarSolicitudExpedient();
+			registrarSolicitudExpedient.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
+			ExpedientsRegistrarBDTO expedientsRegistrarBDTO = new ExpedientsRegistrarBDTO(registrarSolicitudExpedient);
+			respostaRegistrarSolicitudExpedient = serveisPortalService.registrarSolicitudExpedient(expedientsRegistrarBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("registrarSolicitudExpedient(BigDecimal)", e);
@@ -766,10 +790,15 @@ public class ServeisPortalRestController extends BaseRestController {
 			respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_REGISTRAR_EXPEDIENT, ErrorPrincipal.ERROR_GENERIC);
 		}
 
-		return respostaRegistrarExpedientRDTO;
+		RespostaExpedientsRegistrarBDTO respostaExpedientsRegistrarBDTO = new RespostaExpedientsRegistrarBDTO(
+		        respostaRegistrarSolicitudExpedient, respostaResultatBDTO);
+		respostaRegistrarExpedientRDTO = modelMapper.map(respostaExpedientsRegistrarBDTO, RespostaRegistrarExpedientRDTO.class);
 
-		// return
-		// respostaAccionsMockService.getRespostaRegistrarExpedientRDTO(idExpedient);
+		if (log.isDebugEnabled()) {
+			log.debug("registrarSolicitudExpedient(BigDecimal) - fi"); //$NON-NLS-1$
+		}
+
+		return respostaRegistrarExpedientRDTO;
 	}
 
 	/**
@@ -1061,6 +1090,10 @@ public class ServeisPortalRestController extends BaseRestController {
 	        @ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient,
 	        @ApiParam(value = "Dades de la esmena de l'expedient") @RequestBody ExpedientEsmenaRDTO expedientEsmena) {
 
+		if (log.isDebugEnabled()) {
+			log.debug("esmenarExpedient(BigDecimal, ExpedientEsmenaRDTO) - inici"); //$NON-NLS-1$
+		}
+
 		RespostaEsmenarExpedientRDTO respostaEsmenarExpedientRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ESMENAR_EXPEDIENT);
@@ -1124,6 +1157,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				        expedientEsmena.getDadesOperacio(), respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList(), idExpedient);
 			}
 			ActualitzarDadesSollicitud actualitzarDadesSollicitud = new ActualitzarDadesSollicitud();
+			actualitzarDadesSollicitud.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
 			actualitzarDadesSollicitud.setEsmena(Boolean.TRUE);
 			actualitzarDadesSollicitud.setComentari(expedientEsmena.getComentari());
 			actualitzarDadesSollicitud.setDadesEspecifiques(dadesEspecifiquesRDTOList);
@@ -1142,9 +1176,15 @@ public class ServeisPortalRestController extends BaseRestController {
 			respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_ESMENAR_EXPEDIENT, ErrorPrincipal.ERROR_GENERIC);
 		}
 
+		RespostaExpedientsEsmenarBDTO respostaExpedientsEsmenarBDTO = new RespostaExpedientsEsmenarBDTO(
+		        dadesExpedientBDTO.getExpedientsRDTO(), respostaResultatBDTO);
+		respostaEsmenarExpedientRDTO = modelMapper.map(respostaExpedientsEsmenarBDTO, RespostaEsmenarExpedientRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("esmenarExpedient(BigDecimal, ExpedientEsmenaRDTO) - fi"); //$NON-NLS-1$
+		}
+
 		return respostaEsmenarExpedientRDTO;
-		// return
-		// respostaAccionsMockService.getRespostaEsmenarExpedientRDTO(idExpedient);
 	}
 
 	/**
@@ -1163,16 +1203,35 @@ public class ServeisPortalRestController extends BaseRestController {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaAbandonarExpedientRDTO abandonarExpedient(
 	        @ApiParam(value = "Identificador de l'expedient", required = true) @PathVariable BigDecimal idExpedient,
-	        @ApiParam(value = "Acció a realitzar amb l'expedient", required = true, allowableValues = "desistir, renunciar") @PathVariable String accio,
+	        @ApiParam(value = "Acció a realitzar amb l'expedient", required = true, allowableValues = AccioAbandonarApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @PathVariable String accio,
 	        @ApiParam(value = "Dades del abandonament de l'expedient") @RequestBody ExpedientAbandonamentRDTO expedientAbandonament) {
+
+		if (log.isDebugEnabled()) {
+			log.debug("abandonarExpedient(BigDecimal, String, ExpedientAbandonamentRDTO) - inici"); //$NON-NLS-1$
+		}
 
 		RespostaAbandonarExpedientRDTO respostaAbandonarExpedientRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
+		RespostaAbandonarExpedient respostaAbandonarExpedient = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_DESISTIR_RENUNCIAR_EXPEDIENT);
 		try {
 			// El id del expediente debe existir
 			dadesExpedientBDTO = serveisPortalService.consultarDadesBasiquesExpedient(idExpedient);
 			ServeisPortalRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_DESISTIR_RENUNCIAR_EXPEDIENT);
+
+			// Registrar expediente si la acción es permitida
+			ServeisPortalRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			        AccioTramitadorApiParamValue.DESISTIR_RENUNCIAR, Resultat.ERROR_DESISTIR_RENUNCIAR_EXPEDIENT);
+
+			// Se construye el modelo para la llamada a la operación de
+			// abandonar
+			AbandonarExpedient abandonarExpedient = new AbandonarExpedient();
+			abandonarExpedient.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
+			abandonarExpedient.setComentari(expedientAbandonament.getComentari());
+			AccioAbandonarApiParamValueTranslator accioAbandonarApiParamValueTranslator = new AccioAbandonarApiParamValueTranslator();
+			ExpedientsAbandonarBDTO expedientsAbandonarBDTO = new ExpedientsAbandonarBDTO(abandonarExpedient,
+			        accioAbandonarApiParamValueTranslator.getEnumByApiParamValue(accio));
+			respostaAbandonarExpedient = serveisPortalService.abandonarExpedient(expedientsAbandonarBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("abandonarExpedient(BigDecimal, String, ExpedientAbandonamentRDTO)", e);
@@ -1186,10 +1245,15 @@ public class ServeisPortalRestController extends BaseRestController {
 			respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_DESISTIR_RENUNCIAR_EXPEDIENT, ErrorPrincipal.ERROR_GENERIC);
 		}
 
-		return respostaAbandonarExpedientRDTO;
+		RespostaExpedientsAbandonarBDTO respostaExpedientsAbandonarBDTO = new RespostaExpedientsAbandonarBDTO(respostaAbandonarExpedient,
+		        respostaResultatBDTO);
+		respostaAbandonarExpedientRDTO = modelMapper.map(respostaExpedientsAbandonarBDTO, RespostaAbandonarExpedientRDTO.class);
 
-		// return
-		// respostaAccionsMockService.getRespostaAbandonarExpedientRDTO(idExpedient);
+		if (log.isDebugEnabled()) {
+			log.debug("abandonarExpedient(BigDecimal, String, ExpedientAbandonamentRDTO) - fi"); //$NON-NLS-1$
+		}
+
+		return respostaAbandonarExpedientRDTO;
 	}
 
 	/**

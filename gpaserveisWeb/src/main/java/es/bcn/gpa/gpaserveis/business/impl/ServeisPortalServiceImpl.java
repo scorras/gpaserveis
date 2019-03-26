@@ -21,9 +21,11 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCerc
 import es.bcn.gpa.gpaserveis.business.dto.documents.SubstituirDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.UploadDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAbandonarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
@@ -40,6 +42,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAport
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaUploadDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaAbandonarExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
@@ -388,6 +392,42 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	public RespostaUploadDocumentExpedient uploadDocumentExpedient(UploadDocumentExpedientBDTO uploadDocumentExpedientBDTO)
 	        throws GPAServeisServiceException {
 		return documentsService.uploadDocumentExpedient(uploadDocumentExpedientBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * registrarSolicitudExpedient(es.bcn.gpa.gpaserveis.business.dto.expedients
+	 * .ExpedientsRegistrarBDTO)
+	 */
+	@Override
+	public RespostaRegistrarSolicitudExpedient registrarSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
+	        throws GPAServeisServiceException {
+		return expedientsService.registrarSolicitudExpedient(expedientsRegistrarBDTO);
+	}
+
+	@Override
+	public RespostaAbandonarExpedient abandonarExpedient(ExpedientsAbandonarBDTO expedientsAbandonarBDTO)
+	        throws GPAServeisServiceException {
+
+		RespostaAbandonarExpedient respostaAbandonarExpedient = null;
+
+		switch (expedientsAbandonarBDTO.getAbandonarApiParamValue()) {
+		case DESISTIR:
+			respostaAbandonarExpedient = expedientsService.abandonarDesistirExpedient(expedientsAbandonarBDTO);
+			break;
+
+		case RENUNCIAR:
+			respostaAbandonarExpedient = expedientsService.abandonarRenunciarExpedient(expedientsAbandonarBDTO);
+			break;
+
+		default:
+			break;
+
+		}
+
+		return respostaAbandonarExpedient;
 	}
 
 }

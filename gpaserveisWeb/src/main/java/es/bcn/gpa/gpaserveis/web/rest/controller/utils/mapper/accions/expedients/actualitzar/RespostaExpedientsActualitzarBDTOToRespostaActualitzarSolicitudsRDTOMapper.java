@@ -14,7 +14,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actu
  * The Class
  * RespostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDTOMapper.
  */
-@Component("RespostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDTOMapper")
+@Component("respostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDTOMapper")
 public class RespostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDTOMapper
         extends PropertyMap<RespostaExpedientsActualitzarBDTO, RespostaActualitzarExpedientRDTO> {
 

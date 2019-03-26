@@ -7,20 +7,24 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AbandonarExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import java.math.BigDecimal;
 import org.joda.time.DateTime;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InputStreamResource;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistrarSolicitudExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaAbandonarExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-22T09:38:21.671+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-25T15:00:50.319+01:00")
 public class Expedients_Api {
   private ApiClient apiClient;
 
@@ -40,6 +44,88 @@ public class Expedients_Api {
     this.apiClient = apiClient;
   }
 
+  /**
+   * Desist the provided expedient
+   * 
+   * @param abandonarExpedientRDTO abandonarExpedientRDTO (required)
+   * @return RespostaAbandonarExpedient
+   * @throws ApiException if fails to make API call
+   */
+  public RespostaAbandonarExpedient abandonarDesistirExpedient(AbandonarExpedient abandonarExpedientRDTO) throws ApiException {
+    Object localVarPostBody = abandonarExpedientRDTO;
+    
+    // verify the required parameter 'abandonarExpedientRDTO' is set
+    if (abandonarExpedientRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'abandonarExpedientRDTO' when calling abandonarDesistirExpedient");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/expedients/desistir";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<RespostaAbandonarExpedient> localVarReturnType = new GenericType<RespostaAbandonarExpedient>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Renounce the provided expedient
+   * 
+   * @param abandonarExpedientRDTO abandonarExpedientRDTO (required)
+   * @return RespostaAbandonarExpedient
+   * @throws ApiException if fails to make API call
+   */
+  public RespostaAbandonarExpedient abandonarRenunciarExpedient(AbandonarExpedient abandonarExpedientRDTO) throws ApiException {
+    Object localVarPostBody = abandonarExpedientRDTO;
+    
+    // verify the required parameter 'abandonarExpedientRDTO' is set
+    if (abandonarExpedientRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'abandonarExpedientRDTO' when calling abandonarRenunciarExpedient");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/expedients/renunciar";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<RespostaAbandonarExpedient> localVarReturnType = new GenericType<RespostaAbandonarExpedient>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
   /**
    * Updates the provided expedient including specific data
    * 
@@ -736,6 +822,47 @@ public class Expedients_Api {
 
     GenericType<String> localVarReturnType = new GenericType<String>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Register the provided expedient
+   * 
+   * @param registrarSolicitudExpedientRDTO registrarSolicitudExpedientRDTO (required)
+   * @return RespostaRegistrarSolicitudExpedient
+   * @throws ApiException if fails to make API call
+   */
+  public RespostaRegistrarSolicitudExpedient registrarSolicitudExpedient(RegistrarSolicitudExpedient registrarSolicitudExpedientRDTO) throws ApiException {
+    Object localVarPostBody = registrarSolicitudExpedientRDTO;
+    
+    // verify the required parameter 'registrarSolicitudExpedientRDTO' is set
+    if (registrarSolicitudExpedientRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'registrarSolicitudExpedientRDTO' when calling registrarSolicitudExpedient");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/expedients/registrar";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<RespostaRegistrarSolicitudExpedient> localVarReturnType = new GenericType<RespostaRegistrarSolicitudExpedient>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
    * Returns all the expedients that meet the search criteria
