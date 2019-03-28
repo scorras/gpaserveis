@@ -24,6 +24,7 @@ public class InternalToProcedimentConsultaConverter extends AbstractConverter<Ex
 		procedimentsConsultaRDTO.setCodi(source.getProcedimentCodi());
 		procedimentsConsultaRDTO.setVersio(source.getProcedimentVersio());
 		procedimentsConsultaRDTO.setNom(source.getNomProcediment());
+		procedimentsConsultaRDTO.setNomCastella(source.getNomProcedimentCastella());
 		return procedimentsConsultaRDTO;
 	}
 }

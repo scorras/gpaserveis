@@ -49,6 +49,7 @@ public class ConfiguracioDocsEntradaRDTOToConfiguracioDocumentacioAportadaConsul
 	protected void configure() {
 		using(internalToStringConverter).map(source.getId()).setCodi(null);
 		map().setDescripcio(source.getNom());
+		map().setDescripcioCastella(source.getNomCastella());
 		map().setDescripcioAmpliada(source.getDescripcioAmpliada());
 		using(internalToObligatoriConverter).map(source).setObligatori(null);
 		using(internalToBooleanConverter).map(source.getAtributsDocs().getRepetible()).setRepetible(null);

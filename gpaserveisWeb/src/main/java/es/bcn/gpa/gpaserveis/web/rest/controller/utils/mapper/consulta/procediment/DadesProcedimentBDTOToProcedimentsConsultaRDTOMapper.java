@@ -82,7 +82,9 @@ public class DadesProcedimentBDTOToProcedimentsConsultaRDTOMapper extends Proper
 		map().setCodi(source.getProcedimentsRDTO().getCodi());
 		map().setVersio(source.getProcedimentsRDTO().getVersio());
 		map().setNom(source.getProcedimentsRDTO().getNom());
+		map().setNomCastella(source.getProcedimentsRDTO().getNomCastella());
 		map().setDescripcio(source.getProcedimentsRDTO().getDescripcio());
+		map().setDescripcioCastella(source.getProcedimentsRDTO().getDescripcioCastella());
 		using(internalToUnitatGestoraConverter).map(source.getUgrRDTO()).setUgr(null);
 		using(internalToUnitatGestoraListConverter).map(source.getUgoRDTOList()).setUgo(null);
 		map().setOrganResolutori(source.getProcedimentsRDTO().getIdentificacions().getOrganResolutori());

@@ -15,6 +15,7 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
@@ -28,6 +29,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MarquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfMarquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
@@ -118,4 +120,22 @@ public class MarquesApiTest extends ParentTest {
 		assertTrue(response != null);
 	}
 
+	/**
+	 * Insert marques
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void saveTramitUsingPOSTTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/marques"), eq("POST"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
+		        isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(new MarquesRDTO());
+
+		MarquesRDTO tramitsRDTO = new MarquesRDTO();
+		MarquesRDTO response = api.saveTramitUsingPOST(tramitsRDTO);
+
+		assertTrue(response != null);
+	}
 }

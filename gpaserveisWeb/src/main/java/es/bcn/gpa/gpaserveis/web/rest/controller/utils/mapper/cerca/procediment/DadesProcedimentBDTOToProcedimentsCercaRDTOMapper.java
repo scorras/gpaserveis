@@ -69,6 +69,7 @@ public class DadesProcedimentBDTOToProcedimentsCercaRDTOMapper extends PropertyM
 		map().setCodi(source.getProcedimentsRDTO().getCodi());
 		map().setVersio(source.getProcedimentsRDTO().getVersio());
 		map().setNom(source.getProcedimentsRDTO().getNom());
+		map().setNomCastella(source.getProcedimentsRDTO().getNomCastella());
 		map().setDescripcio(source.getProcedimentsRDTO().getDescripcio());
 		using(internalToUnitatGestoraConverter).map(source.getUgrRDTO()).setUgr(null);
 		using(internalToUnitatGestoraListConverter).map(source.getUgoRDTOList()).setUgo(null);
