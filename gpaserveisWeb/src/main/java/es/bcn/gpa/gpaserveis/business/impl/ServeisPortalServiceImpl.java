@@ -254,6 +254,19 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * consultarDadesBasiquesExpedient(java.lang.String)
+	 */
+	@Override
+	public DadesExpedientBDTO consultarDadesBasiquesExpedient(String codiExpedient) throws GPAServeisServiceException {
+		DadesExpedientBDTO dadesExpedientBDTO = ServeisPortalServiceHelper.loadDadesBasiquesExpedient(expedientsService, tramitsService,
+		        codiExpedient);
+		return dadesExpedientBDTO;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
 	 * consultarDadesExpedient(java.math.BigDecimal)
 	 */
 	@Override

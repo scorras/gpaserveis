@@ -248,17 +248,8 @@ public class ServeisPortalServiceHelper {
 		DadesExpedientBDTO dadesExpedientBDTO = new DadesExpedientBDTO();
 
 		loadExpedients(expedientsService, dadesExpedientBDTO, idExpedient);
-		if (dadesExpedientBDTO.getExpedientsRDTO() != null) {
-			loadUnitatGestora(unitatsGestoresService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
-			loadHistoricsList(expedientsService, dadesExpedientBDTO, idExpedient);
-			loadPersonesInteressades(expedientsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
-			loadAltresPersonesImplicades(expedientsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
-			loadAccionsPossibles(tramitsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
-			loadDocumentsAportats(documentsService, tramitsService, dadesExpedientBDTO,
-			        dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
-			loadDocumentsRequerits(documentsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
-			loadDadesEspecifiques(expedientsService, dadesOperacioService, dadesExpedientBDTO, idExpedient);
-		}
+		loadDadesExpedient(expedientsService, unitatsGestoresService, tramitsService, documentsService, dadesOperacioService,
+		        dadesExpedientBDTO);
 
 		return dadesExpedientBDTO;
 	}
@@ -288,6 +279,34 @@ public class ServeisPortalServiceHelper {
 		DadesExpedientBDTO dadesExpedientBDTO = new DadesExpedientBDTO();
 
 		loadExpedients(expedientsService, dadesExpedientBDTO, codiExpedient);
+		loadDadesExpedient(expedientsService, unitatsGestoresService, tramitsService, documentsService, dadesOperacioService,
+		        dadesExpedientBDTO);
+
+		return dadesExpedientBDTO;
+	}
+
+	/**
+	 * Load dades expedient.
+	 *
+	 * @param expedientsService
+	 *            the expedients service
+	 * @param unitatsGestoresService
+	 *            the unitats gestores service
+	 * @param tramitsService
+	 *            the tramits service
+	 * @param documentsService
+	 *            the documents service
+	 * @param dadesOperacioService
+	 *            the dades operacio service
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	private static void loadDadesExpedient(ExpedientsService expedientsService, UnitatsGestoresService unitatsGestoresService,
+	        TramitsService tramitsService, DocumentsService documentsService, DadesOperacioService dadesOperacioService,
+	        DadesExpedientBDTO dadesExpedientBDTO) throws GPAServeisServiceException {
+
 		if (dadesExpedientBDTO.getExpedientsRDTO() != null) {
 			loadUnitatGestora(unitatsGestoresService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
 			loadHistoricsList(expedientsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getId());
@@ -300,8 +319,6 @@ public class ServeisPortalServiceHelper {
 			loadDadesEspecifiques(expedientsService, dadesOperacioService, dadesExpedientBDTO,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId());
 		}
-
-		return dadesExpedientBDTO;
 	}
 
 	/**
@@ -322,11 +339,51 @@ public class ServeisPortalServiceHelper {
 		DadesExpedientBDTO dadesExpedientBDTO = new DadesExpedientBDTO();
 
 		loadExpedients(expedientsService, dadesExpedientBDTO, idExpedient);
+		loadDadesBasiquesExpedient(expedientsService, tramitsService, dadesExpedientBDTO);
+
+		return dadesExpedientBDTO;
+	}
+
+	/**
+	 * Load dades basiques expedient.
+	 *
+	 * @param expedientsService
+	 *            the expedients service
+	 * @param tramitsService
+	 *            the tramits service
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @return the dades expedient BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public static DadesExpedientBDTO loadDadesBasiquesExpedient(ExpedientsService expedientsService, TramitsService tramitsService,
+	        String codiExpedient) throws GPAServeisServiceException {
+		DadesExpedientBDTO dadesExpedientBDTO = new DadesExpedientBDTO();
+
+		loadExpedients(expedientsService, dadesExpedientBDTO, codiExpedient);
+		loadDadesBasiquesExpedient(expedientsService, tramitsService, dadesExpedientBDTO);
+
+		return dadesExpedientBDTO;
+	}
+
+	/**
+	 * Load dades basiques expedient.
+	 *
+	 * @param expedientsService
+	 *            the expedients service
+	 * @param tramitsService
+	 *            the tramits service
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	private static void loadDadesBasiquesExpedient(ExpedientsService expedientsService, TramitsService tramitsService,
+	        DadesExpedientBDTO dadesExpedientBDTO) throws GPAServeisServiceException {
 		if (dadesExpedientBDTO.getExpedientsRDTO() != null) {
 			loadAccionsPossibles(tramitsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
 		}
-
-		return dadesExpedientBDTO;
 	}
 
 	/**

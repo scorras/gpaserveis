@@ -24,6 +24,7 @@ public class InternalToProcedimentCercaConverter extends AbstractConverter<Exped
 		procedimentsCercaRDTO.setCodi(source.getProcedimentCodi());
 		procedimentsCercaRDTO.setVersio(source.getProcedimentVersio());
 		procedimentsCercaRDTO.setNom(source.getNomProcediment());
+		procedimentsCercaRDTO.setNomCastella(source.getNomProcedimentCastella());
 		return procedimentsCercaRDTO;
 	}
 }

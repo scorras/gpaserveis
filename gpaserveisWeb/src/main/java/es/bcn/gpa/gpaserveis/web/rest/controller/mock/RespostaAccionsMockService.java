@@ -86,17 +86,17 @@ public class RespostaAccionsMockService {
 		return resposta;
 	}
 
-	public RespostaAccesExpedientRDTO getRespostaAccesExpedientRDTO(BigDecimal idExpedient) {
+	public RespostaAccesExpedientRDTO getRespostaAccesExpedientRDTO(String codiExpedient) {
 		RespostaAccesExpedientRDTO resposta = new RespostaAccesExpedientRDTO();
 		resposta.setResultat(getRespostaOK());
-		resposta.setExpedient(getExpedientAccioRDTO(idExpedient));
+		resposta.setExpedient(getExpedientAccioRDTO(codiExpedient));
 		return resposta;
 	}
 
-	public RespostaRegistrarComunicacioExpedientRDTO getRespostaRegistrarComunicacioExpedientRDTO(BigDecimal idExpedient) {
+	public RespostaRegistrarComunicacioExpedientRDTO getRespostaRegistrarComunicacioExpedientRDTO(String codiExpedient) {
 		RespostaRegistrarComunicacioExpedientRDTO resposta = new RespostaRegistrarComunicacioExpedientRDTO();
 		resposta.setResultat(getRespostaOK());
-		resposta.setExpedient(getExpedientAccioRDTO(idExpedient));
+		resposta.setExpedient(getExpedientAccioRDTO(codiExpedient));
 		return resposta;
 	}
 
@@ -111,6 +111,13 @@ public class RespostaAccionsMockService {
 		ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
 		expedient.setId(idExpedient);
 		expedient.setCodi("CODI-EXP-0000001");
+		return expedient;
+	}
+
+	private static ExpedientAccioRDTO getExpedientAccioRDTO(String codiExpedient) {
+		ExpedientAccioRDTO expedient = new ExpedientAccioRDTO();
+		expedient.setId(BigDecimal.ONE);
+		expedient.setCodi(codiExpedient);
 		return expedient;
 	}
 
