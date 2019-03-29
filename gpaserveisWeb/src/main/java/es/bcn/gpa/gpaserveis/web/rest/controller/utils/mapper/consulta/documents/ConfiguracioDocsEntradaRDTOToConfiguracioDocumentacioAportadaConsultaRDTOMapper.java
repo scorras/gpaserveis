@@ -19,6 +19,9 @@ public class ConfiguracioDocsEntradaRDTOToConfiguracioDocumentacioAportadaConsul
 	/** The internal to boolean converter. */
 	private InternalToBooleanConverter internalToBooleanConverter;
 
+	/** The internal to string converter. */
+	private InternalToStringConverter internalToStringConverter;
+
 	/** The internal to suport confeccio converter. */
 	private InternalToSuportConfeccioConverter internalToSuportConfeccioConverter;
 
@@ -34,6 +37,7 @@ public class ConfiguracioDocsEntradaRDTOToConfiguracioDocumentacioAportadaConsul
 		this.internalToBooleanConverter = internalToBooleanConverter;
 		this.internalToSuportConfeccioConverter = internalToSuportConfeccioConverter;
 		this.internalToObligatoriConverter = internalToObligatoriConverter;
+		this.internalToStringConverter = internalToStringConverter;
 	}
 
 	/*
@@ -43,7 +47,7 @@ public class ConfiguracioDocsEntradaRDTOToConfiguracioDocumentacioAportadaConsul
 	 */
 	@Override
 	protected void configure() {
-		map().setCodi(source.getUniqueId());
+		using(internalToStringConverter).map(source.getUniqueId()).setCodi(null);
 		map().setDescripcio(source.getNom());
 		map().setDescripcioCastella(source.getNomCastella());
 		map().setDescripcioAmpliada(source.getDescripcioAmpliada());
