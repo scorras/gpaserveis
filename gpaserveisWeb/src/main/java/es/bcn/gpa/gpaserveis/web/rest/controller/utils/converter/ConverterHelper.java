@@ -41,6 +41,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValidacionsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValorsLlistaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValorsValidacionsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesContacteRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DocumentsIdentitatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
@@ -102,7 +103,8 @@ public class ConverterHelper {
 	public static PersonesRDTO buildPersonesRDTOExpedient(Persones persones,
 			BaseApiParamValueTranslator tipusPersonaApiParamValueTranslator,
 			BaseApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
-			BaseApiParamValueTranslator tipusSexeApiParamValueTranslator) {
+	        BaseApiParamValueTranslator tipusSexeApiParamValueTranslator,
+	        BaseApiParamValueTranslator tipusViaApiParamValueTranslator) {
 
 		if (persones == null) {
 			return null;
@@ -116,6 +118,28 @@ public class ConverterHelper {
 		if (persones.getPersonesDadescontacte() != null) {
 			personesRDTO.setSexe(
 					tipusSexeApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getSexe()));
+			DadesContacteRDTO dadesContacte = new DadesContacteRDTO();
+			dadesContacte.setEmail(persones.getPersonesDadescontacte().getEmail());
+			dadesContacte.setTelefon(persones.getPersonesDadescontacte().getTelefon());
+			dadesContacte.setMobil(persones.getPersonesDadescontacte().getMobil());
+			dadesContacte.setFax(persones.getPersonesDadescontacte().getFax());
+			dadesContacte.setTipusVia(
+					tipusViaApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getTipusVia()));
+			dadesContacte.setNomVia(persones.getPersonesDadescontacte().getDireccioPostal());
+			dadesContacte.setNumero(persones.getPersonesDadescontacte().getNumero());
+			dadesContacte.setEscala(persones.getPersonesDadescontacte().getEscala());
+			dadesContacte.setBloc(persones.getPersonesDadescontacte().getBloc());
+			dadesContacte.setPorta(persones.getPersonesDadescontacte().getPorta());
+			dadesContacte.setPis(persones.getPersonesDadescontacte().getPis());
+			dadesContacte.setCodiPostal(persones.getPersonesDadescontacte().getCodiPostal());
+			dadesContacte.setMunicipi(persones.getPersonesDadescontacte().getMunicipi());
+			dadesContacte.setProvincia(persones.getPersonesDadescontacte().getProvincia());
+			dadesContacte.setComarca(persones.getPersonesDadescontacte().getComarca());
+			dadesContacte.setPais(persones.getPersonesDadescontacte().getPais());
+			dadesContacte.setMunicipiEstranger(persones.getPersonesDadescontacte().getMunicipiEstranger());
+			dadesContacte.setProvinciaEstranger(persones.getPersonesDadescontacte().getProvinciaEstranger());
+			
+			personesRDTO.setDadesNotificacio(dadesContacte);
 		}
 		DocumentsIdentitatRDTO documentsIdentitatRDTO = new DocumentsIdentitatRDTO();
 		if (persones.getDocumentsIdentitat() != null) {
@@ -207,7 +231,8 @@ public class ConverterHelper {
 	public static PersonesRDTO buildPersonesRDTOExpedient(es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones persones,
 			BaseApiParamValueTranslator tipusPersonaApiParamValueTranslator,
 			BaseApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
-			BaseApiParamValueTranslator tipusSexeApiParamValueTranslator) {
+	        BaseApiParamValueTranslator tipusSexeApiParamValueTranslator,
+	        BaseApiParamValueTranslator tipusViaApiParamValueTranslator) {
 
 		if (persones == null) {
 			return null;
@@ -221,6 +246,29 @@ public class ConverterHelper {
 		if (persones.getPersonesDadescontacte() != null) {
 			personesRDTO.setSexe(
 					tipusSexeApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getSexe()));
+			
+			DadesContacteRDTO dadesContacte = new DadesContacteRDTO();
+			dadesContacte.setEmail(persones.getPersonesDadescontacte().getEmail());
+			dadesContacte.setTelefon(persones.getPersonesDadescontacte().getTelefon());
+			dadesContacte.setMobil(persones.getPersonesDadescontacte().getMobil());
+			dadesContacte.setFax(persones.getPersonesDadescontacte().getFax());
+			dadesContacte.setTipusVia(
+					tipusViaApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getTipusVia()));
+			dadesContacte.setNomVia(persones.getPersonesDadescontacte().getDireccioPostal());
+			dadesContacte.setNumero(persones.getPersonesDadescontacte().getNumero());
+			dadesContacte.setEscala(persones.getPersonesDadescontacte().getEscala());
+			dadesContacte.setBloc(persones.getPersonesDadescontacte().getBloc());
+			dadesContacte.setPorta(persones.getPersonesDadescontacte().getPorta());
+			dadesContacte.setPis(persones.getPersonesDadescontacte().getPis());
+			dadesContacte.setCodiPostal(persones.getPersonesDadescontacte().getCodiPostal());
+			dadesContacte.setMunicipi(persones.getPersonesDadescontacte().getMunicipi());
+			dadesContacte.setProvincia(persones.getPersonesDadescontacte().getProvincia());
+			dadesContacte.setComarca(persones.getPersonesDadescontacte().getComarca());
+			dadesContacte.setPais(persones.getPersonesDadescontacte().getPais());
+			dadesContacte.setMunicipiEstranger(persones.getPersonesDadescontacte().getMunicipiEstranger());
+			dadesContacte.setProvinciaEstranger(persones.getPersonesDadescontacte().getProvinciaEstranger());
+			
+			personesRDTO.setDadesNotificacio(dadesContacte);
 		}
 		DocumentsIdentitatRDTO documentsIdentitatRDTO = new DocumentsIdentitatRDTO();
 		if (persones.getDocumentsIdentitat() != null) {
@@ -435,7 +483,8 @@ public class ConverterHelper {
 			List<DocsEntradaRDTO> docsEntradaRDTOList, BaseApiParamValueTranslator tramitOvtApiParamValueTranslator,
 			BaseApiParamValueTranslator revisioApiParamValueTranslator, BaseApiParamValueTranslator tipusPersonaApiParamValueTranslator,
 			BaseApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
-			BaseApiParamValueTranslator tipusSexeApiParamValueTranslator) {
+	        BaseApiParamValueTranslator tipusSexeApiParamValueTranslator,
+	        BaseApiParamValueTranslator tipusViaApiParamValueTranslator) {
 		ArrayList<DocumentAportatConsultaRDTO> documentAportatConsultaRDTOList = null;
 		DocumentAportatConsultaRDTO documentAportatConsultaRDTO = null;
 		ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = null;
@@ -465,7 +514,7 @@ public class ConverterHelper {
 							? dateTimeFormatter.print(docsEntradaRDTO.getRegistreAssentament().getDataRegistre()) : null);
 					registreRDTO.setPersona(buildPersonesRDTOExpedient(docsEntradaRDTO.getRegistreAssentament().getPersones(),
 							tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator,
-							tipusSexeApiParamValueTranslator));
+					        tipusSexeApiParamValueTranslator, tipusViaApiParamValueTranslator));
 					documentAportatConsultaRDTO.setRegistre(registreRDTO);
 				}
 				if (docsEntradaRDTO.getTramitOvtIdext() != null) {
