@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
-import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaAccionsMockService;
 import net.opentrends.openframe.services.rest.apidocs.config.RestServiceDefaultSwaggerConfiguration;
 import net.opentrends.openframe.services.rest.http.ResponseEntity;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -21,11 +20,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 @EnableWebMvc
 @Lazy(true)
 public class RestServerConfig extends RestServiceDefaultSwaggerConfiguration {
-
-	@Bean(name = "respostaRegistrarAccionsMock")
-	public RespostaAccionsMockService respostaRegistrarAccionsMock() {
-		return new RespostaAccionsMockService();
-	}
 
 	@Bean(name = "apiDocumentedByRestService")
 	public Docket apiDocumentedByRestService() {

@@ -78,7 +78,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistr
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
-import es.bcn.gpa.gpaserveis.web.rest.controller.mock.RespostaAccionsMockService;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.OrigenApiParamValue;
@@ -108,11 +107,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.su
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.upload.RespostaUploadDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.abandonar.ExpedientAbandonamentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.abandonar.RespostaAbandonarExpedientRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.acces.RespostaAccesExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar.ExpedientActualitzarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar.RespostaActualitzarExpedientRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.comunicacio.ExpedientComunicatRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.comunicacio.RespostaRegistrarComunicacioExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.crear.ExpedientCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.crear.RespostaCrearExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.DocumentRequeritCrearRDTO;
@@ -151,10 +147,6 @@ import net.opentrends.openframe.services.rest.http.ResponseEntity;
 @Api(value = "Serveis Portal API", tags = "Serveis Portal API")
 @CommonsLog
 public class ServeisPortalRestController extends BaseRestController {
-
-	/** The resposta accions mock service. */
-	@Autowired
-	private RespostaAccionsMockService respostaAccionsMockService;
 
 	/** The serveis portal service. */
 	@Autowired
@@ -1299,43 +1291,6 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		return respostaAbandonarExpedientRDTO;
-	}
-
-	/**
-	 * Acces expedient.
-	 *
-	 * @param codiExpedient
-	 *            the codi expedient
-	 * @return the resposta acces expedient RDTO
-	 */
-	@PostMapping("/expedients/{codiExpedient}/acces")
-	@ApiOperation(value = "Accés a l'expedient (funcionari dona accés)", tags = { "Serveis Portal API",
-			"Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
-					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	public RespostaAccesExpedientRDTO accesExpedient(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient) {
-
-		return respostaAccionsMockService.getRespostaAccesExpedientRDTO(codiExpedient);
-	}
-
-	/**
-	 * Registrar comunicacio expedient.
-	 *
-	 * @param codiExpedient
-	 *            the codi expedient
-	 * @param expedientComunicat
-	 *            the expedient comunicat
-	 * @return the resposta registrar comunicacio expedient RDTO
-	 */
-	@PostMapping("/expedients/{codiExpedient}/comunicat")
-	@ApiOperation(value = "Registrar comunicació a l'expedient", tags = { "Serveis Portal API",
-			"Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
-					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	public RespostaRegistrarComunicacioExpedientRDTO registrarComunicacioExpedient(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades del comunicat de l'expedient") @RequestBody ExpedientComunicatRDTO expedientComunicat) {
-
-		return respostaAccionsMockService.getRespostaRegistrarComunicacioExpedientRDTO(codiExpedient);
 	}
 
 }
