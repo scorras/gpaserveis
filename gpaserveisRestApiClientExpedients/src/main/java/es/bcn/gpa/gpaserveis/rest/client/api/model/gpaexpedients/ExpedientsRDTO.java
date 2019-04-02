@@ -29,7 +29,7 @@ import org.joda.time.DateTime;
 /**
  * ExpedientsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-28T09:29:38.619+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-02T11:40:28.073+02:00")
 public class ExpedientsRDTO {
   @JsonProperty("accioEstatIdext")
   private BigDecimal accioEstatIdext = null;
@@ -58,6 +58,9 @@ public class ExpedientsRDTO {
   @JsonProperty("darreraModificacio")
   private DateTime darreraModificacio = null;
 
+  @JsonProperty("dataAllegacio")
+  private DateTime dataAllegacio = null;
+
   @JsonProperty("dataPresentacio")
   private DateTime dataPresentacio = null;
 
@@ -70,8 +73,20 @@ public class ExpedientsRDTO {
   @JsonProperty("descEstat")
   private String descEstat = null;
 
+  @JsonProperty("descEstatCastella")
+  private String descEstatCastella = null;
+
+  @JsonProperty("descEstatCatala")
+  private String descEstatCatala = null;
+
   @JsonProperty("descEstatCiutada")
   private String descEstatCiutada = null;
+
+  @JsonProperty("descEstatCiutadaCastella")
+  private String descEstatCiutadaCastella = null;
+
+  @JsonProperty("descEstatCiutadaCatala")
+  private String descEstatCiutadaCatala = null;
 
   @JsonProperty("descUnitatGestora")
   private String descUnitatGestora = null;
@@ -310,6 +325,24 @@ public class ExpedientsRDTO {
     this.darreraModificacio = darreraModificacio;
   }
 
+  public ExpedientsRDTO dataAllegacio(DateTime dataAllegacio) {
+    this.dataAllegacio = dataAllegacio;
+    return this;
+  }
+
+   /**
+   * Get dataAllegacio
+   * @return dataAllegacio
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getDataAllegacio() {
+    return dataAllegacio;
+  }
+
+  public void setDataAllegacio(DateTime dataAllegacio) {
+    this.dataAllegacio = dataAllegacio;
+  }
+
   public ExpedientsRDTO dataPresentacio(DateTime dataPresentacio) {
     this.dataPresentacio = dataPresentacio;
     return this;
@@ -382,6 +415,42 @@ public class ExpedientsRDTO {
     this.descEstat = descEstat;
   }
 
+  public ExpedientsRDTO descEstatCastella(String descEstatCastella) {
+    this.descEstatCastella = descEstatCastella;
+    return this;
+  }
+
+   /**
+   * Get descEstatCastella
+   * @return descEstatCastella
+  **/
+  @ApiModelProperty(value = "")
+  public String getDescEstatCastella() {
+    return descEstatCastella;
+  }
+
+  public void setDescEstatCastella(String descEstatCastella) {
+    this.descEstatCastella = descEstatCastella;
+  }
+
+  public ExpedientsRDTO descEstatCatala(String descEstatCatala) {
+    this.descEstatCatala = descEstatCatala;
+    return this;
+  }
+
+   /**
+   * Get descEstatCatala
+   * @return descEstatCatala
+  **/
+  @ApiModelProperty(value = "")
+  public String getDescEstatCatala() {
+    return descEstatCatala;
+  }
+
+  public void setDescEstatCatala(String descEstatCatala) {
+    this.descEstatCatala = descEstatCatala;
+  }
+
   public ExpedientsRDTO descEstatCiutada(String descEstatCiutada) {
     this.descEstatCiutada = descEstatCiutada;
     return this;
@@ -398,6 +467,42 @@ public class ExpedientsRDTO {
 
   public void setDescEstatCiutada(String descEstatCiutada) {
     this.descEstatCiutada = descEstatCiutada;
+  }
+
+  public ExpedientsRDTO descEstatCiutadaCastella(String descEstatCiutadaCastella) {
+    this.descEstatCiutadaCastella = descEstatCiutadaCastella;
+    return this;
+  }
+
+   /**
+   * Get descEstatCiutadaCastella
+   * @return descEstatCiutadaCastella
+  **/
+  @ApiModelProperty(value = "")
+  public String getDescEstatCiutadaCastella() {
+    return descEstatCiutadaCastella;
+  }
+
+  public void setDescEstatCiutadaCastella(String descEstatCiutadaCastella) {
+    this.descEstatCiutadaCastella = descEstatCiutadaCastella;
+  }
+
+  public ExpedientsRDTO descEstatCiutadaCatala(String descEstatCiutadaCatala) {
+    this.descEstatCiutadaCatala = descEstatCiutadaCatala;
+    return this;
+  }
+
+   /**
+   * Get descEstatCiutadaCatala
+   * @return descEstatCiutadaCatala
+  **/
+  @ApiModelProperty(value = "")
+  public String getDescEstatCiutadaCatala() {
+    return descEstatCiutadaCatala;
+  }
+
+  public void setDescEstatCiutadaCatala(String descEstatCiutadaCatala) {
+    this.descEstatCiutadaCatala = descEstatCiutadaCatala;
   }
 
   public ExpedientsRDTO descUnitatGestora(String descUnitatGestora) {
@@ -869,11 +974,16 @@ public class ExpedientsRDTO {
         Objects.equals(this.configuracioDocumentacioProc, expedientsRDTO.configuracioDocumentacioProc) &&
         Objects.equals(this.criticitatAvis, expedientsRDTO.criticitatAvis) &&
         Objects.equals(this.darreraModificacio, expedientsRDTO.darreraModificacio) &&
+        Objects.equals(this.dataAllegacio, expedientsRDTO.dataAllegacio) &&
         Objects.equals(this.dataPresentacio, expedientsRDTO.dataPresentacio) &&
         Objects.equals(this.dataPresentacioDes, expedientsRDTO.dataPresentacioDes) &&
         Objects.equals(this.dataPresentacioFinsA, expedientsRDTO.dataPresentacioFinsA) &&
         Objects.equals(this.descEstat, expedientsRDTO.descEstat) &&
+        Objects.equals(this.descEstatCastella, expedientsRDTO.descEstatCastella) &&
+        Objects.equals(this.descEstatCatala, expedientsRDTO.descEstatCatala) &&
         Objects.equals(this.descEstatCiutada, expedientsRDTO.descEstatCiutada) &&
+        Objects.equals(this.descEstatCiutadaCastella, expedientsRDTO.descEstatCiutadaCastella) &&
+        Objects.equals(this.descEstatCiutadaCatala, expedientsRDTO.descEstatCiutadaCatala) &&
         Objects.equals(this.descUnitatGestora, expedientsRDTO.descUnitatGestora) &&
         Objects.equals(this.documentacioIdext, expedientsRDTO.documentacioIdext) &&
         Objects.equals(this.editable, expedientsRDTO.editable) &&
@@ -903,7 +1013,7 @@ public class ExpedientsRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accioEstatIdext, acumulador, aplicacioNegoci, bloqueig, bloquejos, codi, configuracioDocumentacioProc, criticitatAvis, darreraModificacio, dataPresentacio, dataPresentacioDes, dataPresentacioFinsA, descEstat, descEstatCiutada, descUnitatGestora, documentacioIdext, editable, estat, estatActual, id, idEstat, isOge, nomProcediment, nomProcedimentCastella, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, procedimentCodi, procedimentIdext, procedimentVersio, representantPrincipal, seleccionable, sollicitant, sollicitantPrincipal, sollicitud, sollicituds, tipusAvis, tramitador, ultimaModificacio, unitatGestoraIdext);
+    return Objects.hash(accioEstatIdext, acumulador, aplicacioNegoci, bloqueig, bloquejos, codi, configuracioDocumentacioProc, criticitatAvis, darreraModificacio, dataAllegacio, dataPresentacio, dataPresentacioDes, dataPresentacioFinsA, descEstat, descEstatCastella, descEstatCatala, descEstatCiutada, descEstatCiutadaCastella, descEstatCiutadaCatala, descUnitatGestora, documentacioIdext, editable, estat, estatActual, id, idEstat, isOge, nomProcediment, nomProcedimentCastella, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, procedimentCodi, procedimentIdext, procedimentVersio, representantPrincipal, seleccionable, sollicitant, sollicitantPrincipal, sollicitud, sollicituds, tipusAvis, tramitador, ultimaModificacio, unitatGestoraIdext);
   }
 
 
@@ -921,11 +1031,16 @@ public class ExpedientsRDTO {
     sb.append("    configuracioDocumentacioProc: ").append(toIndentedString(configuracioDocumentacioProc)).append("\n");
     sb.append("    criticitatAvis: ").append(toIndentedString(criticitatAvis)).append("\n");
     sb.append("    darreraModificacio: ").append(toIndentedString(darreraModificacio)).append("\n");
+    sb.append("    dataAllegacio: ").append(toIndentedString(dataAllegacio)).append("\n");
     sb.append("    dataPresentacio: ").append(toIndentedString(dataPresentacio)).append("\n");
     sb.append("    dataPresentacioDes: ").append(toIndentedString(dataPresentacioDes)).append("\n");
     sb.append("    dataPresentacioFinsA: ").append(toIndentedString(dataPresentacioFinsA)).append("\n");
     sb.append("    descEstat: ").append(toIndentedString(descEstat)).append("\n");
+    sb.append("    descEstatCastella: ").append(toIndentedString(descEstatCastella)).append("\n");
+    sb.append("    descEstatCatala: ").append(toIndentedString(descEstatCatala)).append("\n");
     sb.append("    descEstatCiutada: ").append(toIndentedString(descEstatCiutada)).append("\n");
+    sb.append("    descEstatCiutadaCastella: ").append(toIndentedString(descEstatCiutadaCastella)).append("\n");
+    sb.append("    descEstatCiutadaCatala: ").append(toIndentedString(descEstatCiutadaCatala)).append("\n");
     sb.append("    descUnitatGestora: ").append(toIndentedString(descUnitatGestora)).append("\n");
     sb.append("    documentacioIdext: ").append(toIndentedString(documentacioIdext)).append("\n");
     sb.append("    editable: ").append(toIndentedString(editable)).append("\n");

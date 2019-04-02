@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 /**
  * EstatsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-28T09:29:38.619+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-02T11:40:28.073+02:00")
 public class EstatsRDTO {
   @JsonProperty("dataCreacio")
   private DateTime dataCreacio = null;
@@ -33,8 +33,20 @@ public class EstatsRDTO {
   @JsonProperty("descripcioEstatActualCiutada")
   private String descripcioEstatActualCiutada = null;
 
+  @JsonProperty("descripcioEstatActualCiutadaCastella")
+  private String descripcioEstatActualCiutadaCastella = null;
+
+  @JsonProperty("descripcioEstatActualCiutadaCatala")
+  private String descripcioEstatActualCiutadaCatala = null;
+
   @JsonProperty("descripcioEstatActualTramitador")
   private String descripcioEstatActualTramitador = null;
+
+  @JsonProperty("descripcioEstatActualTramitadorCastella")
+  private String descripcioEstatActualTramitadorCastella = null;
+
+  @JsonProperty("descripcioEstatActualTramitadorCatala")
+  private String descripcioEstatActualTramitadorCatala = null;
 
   @JsonProperty("descripcioEstatAnteriorCiutada")
   private String descripcioEstatAnteriorCiutada = null;
@@ -84,6 +96,42 @@ public class EstatsRDTO {
     this.descripcioEstatActualCiutada = descripcioEstatActualCiutada;
   }
 
+  public EstatsRDTO descripcioEstatActualCiutadaCastella(String descripcioEstatActualCiutadaCastella) {
+    this.descripcioEstatActualCiutadaCastella = descripcioEstatActualCiutadaCastella;
+    return this;
+  }
+
+   /**
+   * Get descripcioEstatActualCiutadaCastella
+   * @return descripcioEstatActualCiutadaCastella
+  **/
+  @ApiModelProperty(value = "")
+  public String getDescripcioEstatActualCiutadaCastella() {
+    return descripcioEstatActualCiutadaCastella;
+  }
+
+  public void setDescripcioEstatActualCiutadaCastella(String descripcioEstatActualCiutadaCastella) {
+    this.descripcioEstatActualCiutadaCastella = descripcioEstatActualCiutadaCastella;
+  }
+
+  public EstatsRDTO descripcioEstatActualCiutadaCatala(String descripcioEstatActualCiutadaCatala) {
+    this.descripcioEstatActualCiutadaCatala = descripcioEstatActualCiutadaCatala;
+    return this;
+  }
+
+   /**
+   * Get descripcioEstatActualCiutadaCatala
+   * @return descripcioEstatActualCiutadaCatala
+  **/
+  @ApiModelProperty(value = "")
+  public String getDescripcioEstatActualCiutadaCatala() {
+    return descripcioEstatActualCiutadaCatala;
+  }
+
+  public void setDescripcioEstatActualCiutadaCatala(String descripcioEstatActualCiutadaCatala) {
+    this.descripcioEstatActualCiutadaCatala = descripcioEstatActualCiutadaCatala;
+  }
+
   public EstatsRDTO descripcioEstatActualTramitador(String descripcioEstatActualTramitador) {
     this.descripcioEstatActualTramitador = descripcioEstatActualTramitador;
     return this;
@@ -100,6 +148,42 @@ public class EstatsRDTO {
 
   public void setDescripcioEstatActualTramitador(String descripcioEstatActualTramitador) {
     this.descripcioEstatActualTramitador = descripcioEstatActualTramitador;
+  }
+
+  public EstatsRDTO descripcioEstatActualTramitadorCastella(String descripcioEstatActualTramitadorCastella) {
+    this.descripcioEstatActualTramitadorCastella = descripcioEstatActualTramitadorCastella;
+    return this;
+  }
+
+   /**
+   * Get descripcioEstatActualTramitadorCastella
+   * @return descripcioEstatActualTramitadorCastella
+  **/
+  @ApiModelProperty(value = "")
+  public String getDescripcioEstatActualTramitadorCastella() {
+    return descripcioEstatActualTramitadorCastella;
+  }
+
+  public void setDescripcioEstatActualTramitadorCastella(String descripcioEstatActualTramitadorCastella) {
+    this.descripcioEstatActualTramitadorCastella = descripcioEstatActualTramitadorCastella;
+  }
+
+  public EstatsRDTO descripcioEstatActualTramitadorCatala(String descripcioEstatActualTramitadorCatala) {
+    this.descripcioEstatActualTramitadorCatala = descripcioEstatActualTramitadorCatala;
+    return this;
+  }
+
+   /**
+   * Get descripcioEstatActualTramitadorCatala
+   * @return descripcioEstatActualTramitadorCatala
+  **/
+  @ApiModelProperty(value = "")
+  public String getDescripcioEstatActualTramitadorCatala() {
+    return descripcioEstatActualTramitadorCatala;
+  }
+
+  public void setDescripcioEstatActualTramitadorCatala(String descripcioEstatActualTramitadorCatala) {
+    this.descripcioEstatActualTramitadorCatala = descripcioEstatActualTramitadorCatala;
   }
 
   public EstatsRDTO descripcioEstatAnteriorCiutada(String descripcioEstatAnteriorCiutada) {
@@ -186,7 +270,11 @@ public class EstatsRDTO {
     EstatsRDTO estatsRDTO = (EstatsRDTO) o;
     return Objects.equals(this.dataCreacio, estatsRDTO.dataCreacio) &&
         Objects.equals(this.descripcioEstatActualCiutada, estatsRDTO.descripcioEstatActualCiutada) &&
+        Objects.equals(this.descripcioEstatActualCiutadaCastella, estatsRDTO.descripcioEstatActualCiutadaCastella) &&
+        Objects.equals(this.descripcioEstatActualCiutadaCatala, estatsRDTO.descripcioEstatActualCiutadaCatala) &&
         Objects.equals(this.descripcioEstatActualTramitador, estatsRDTO.descripcioEstatActualTramitador) &&
+        Objects.equals(this.descripcioEstatActualTramitadorCastella, estatsRDTO.descripcioEstatActualTramitadorCastella) &&
+        Objects.equals(this.descripcioEstatActualTramitadorCatala, estatsRDTO.descripcioEstatActualTramitadorCatala) &&
         Objects.equals(this.descripcioEstatAnteriorCiutada, estatsRDTO.descripcioEstatAnteriorCiutada) &&
         Objects.equals(this.descripcioEstatAnteriorTramitador, estatsRDTO.descripcioEstatAnteriorTramitador) &&
         Objects.equals(this.idEstatActual, estatsRDTO.idEstatActual) &&
@@ -195,7 +283,7 @@ public class EstatsRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(dataCreacio, descripcioEstatActualCiutada, descripcioEstatActualTramitador, descripcioEstatAnteriorCiutada, descripcioEstatAnteriorTramitador, idEstatActual, idEstatAnterior);
+    return Objects.hash(dataCreacio, descripcioEstatActualCiutada, descripcioEstatActualCiutadaCastella, descripcioEstatActualCiutadaCatala, descripcioEstatActualTramitador, descripcioEstatActualTramitadorCastella, descripcioEstatActualTramitadorCatala, descripcioEstatAnteriorCiutada, descripcioEstatAnteriorTramitador, idEstatActual, idEstatAnterior);
   }
 
 
@@ -206,7 +294,11 @@ public class EstatsRDTO {
     
     sb.append("    dataCreacio: ").append(toIndentedString(dataCreacio)).append("\n");
     sb.append("    descripcioEstatActualCiutada: ").append(toIndentedString(descripcioEstatActualCiutada)).append("\n");
+    sb.append("    descripcioEstatActualCiutadaCastella: ").append(toIndentedString(descripcioEstatActualCiutadaCastella)).append("\n");
+    sb.append("    descripcioEstatActualCiutadaCatala: ").append(toIndentedString(descripcioEstatActualCiutadaCatala)).append("\n");
     sb.append("    descripcioEstatActualTramitador: ").append(toIndentedString(descripcioEstatActualTramitador)).append("\n");
+    sb.append("    descripcioEstatActualTramitadorCastella: ").append(toIndentedString(descripcioEstatActualTramitadorCastella)).append("\n");
+    sb.append("    descripcioEstatActualTramitadorCatala: ").append(toIndentedString(descripcioEstatActualTramitadorCatala)).append("\n");
     sb.append("    descripcioEstatAnteriorCiutada: ").append(toIndentedString(descripcioEstatAnteriorCiutada)).append("\n");
     sb.append("    descripcioEstatAnteriorTramitador: ").append(toIndentedString(descripcioEstatAnteriorTramitador)).append("\n");
     sb.append("    idEstatActual: ").append(toIndentedString(idEstatActual)).append("\n");

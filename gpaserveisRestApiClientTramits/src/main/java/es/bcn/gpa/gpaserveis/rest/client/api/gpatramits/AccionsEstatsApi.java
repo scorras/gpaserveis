@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-07T11:09:49.340+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-02T03:58:39.261+02:00")
 public class AccionsEstatsApi {
   private ApiClient apiClient;
 
@@ -53,6 +53,55 @@ public class AccionsEstatsApi {
     // create path and map variables
     String localVarPath = "/tramits/accionsPermesesForEstatActual/{estatId}"
       .replaceAll("\\{" + "estatId" + "\\}", apiClient.escapeString(estatId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<AccionsEstatsRDTO>> localVarReturnType = new GenericType<List<AccionsEstatsRDTO>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Returns the transition for the current expedient&#39;s status and action execution
+   * 
+   * @param idAccio idAccio (required)
+   * @param idEstatActual idEstatActual (required)
+   * @return List&lt;AccionsEstatsRDTO&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<AccionsEstatsRDTO> cercaTransicioCanviEstat(BigDecimal idAccio, BigDecimal idEstatActual) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'idAccio' is set
+    if (idAccio == null) {
+      throw new ApiException(400, "Missing the required parameter 'idAccio' when calling cercaTransicioCanviEstat");
+    }
+    
+    // verify the required parameter 'idEstatActual' is set
+    if (idEstatActual == null) {
+      throw new ApiException(400, "Missing the required parameter 'idEstatActual' when calling cercaTransicioCanviEstat");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/tramits/accionsEstatsForEstatActualAndAccio/{idEstatActual}/{idAccio}"
+      .replaceAll("\\{" + "idAccio" + "\\}", apiClient.escapeString(idAccio.toString()))
+      .replaceAll("\\{" + "idEstatActual" + "\\}", apiClient.escapeString(idEstatActual.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -403,5 +452,40 @@ public class AccionsEstatsApi {
 
     GenericType<List<AccionsEstatsRDTO>> localVarReturnType = new GenericType<List<AccionsEstatsRDTO>>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * AccioEstatsEnPreparacio
+   * 
+   * @return List&lt;BigDecimal&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<BigDecimal> obtenirIdAccioEstatsEnPreparacioUsingGET() throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/tramits/accioEstatsEnPreparacio";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<BigDecimal>> localVarReturnType = new GenericType<List<BigDecimal>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
 }

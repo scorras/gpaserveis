@@ -90,7 +90,8 @@ public class DadesProcedimentBDTOToProcedimentsConsultaRDTOMapper extends Proper
 		map().setOrganResolutori(source.getProcedimentsRDTO().getIdentificacions().getOrganResolutori());
 		using(internalToIniciacioConverter).map(source.getProcedimentsRDTO().getIniciacionsList()).setInici(null);
 		// using(internalToEstatConverter).map(source.getProcedimentsRDTO().getEstatsProcediment().getEstats().getId()).setEstat(null);
-		map().setEstat(source.getProcedimentsRDTO().getDescripcioEstat());
+		map().setEstat(source.getProcedimentsRDTO().getDescripcioEstatCatala());
+		map().setEstatCastella(source.getProcedimentsRDTO().getDescripcioEstatCastella());
 		// using(internalToTramitProcedimentListConverter).map(source.getTramitsRDTOList()).setTramits(null);
 		using(internalToIdentificacioConverter).map(source.getProcedimentsRDTO().getIdentificacions()).setDadesIdentificacio(null);
 	}

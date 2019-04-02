@@ -17,7 +17,7 @@ import lombok.Setter;
 @ApiModel(value = "ProcedimentConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id", "codi", "versio", "nom", "nomCastella", "descripcio", "descripcioCastella", "ugr", "ugo", "organResolutori",
-        "inici", "estat", "dadesIdentificacio" })
+        "inici", "estat", "estatCastella", "dadesIdentificacio" })
 @Getter
 @Setter
 public class ProcedimentsConsultaRDTO {
@@ -46,6 +46,8 @@ public class ProcedimentsConsultaRDTO {
 	private List<String> inici;
 	@ApiModelProperty(value = "Estat actual del procediment")
 	private String estat;
+	@ApiModelProperty(value = "Estat actual del procediment en castellà")
+	private String estatCastella;
 	// @ApiModelProperty(value = "Llista de tràmits del procediment")
 	// private List<TramitsRDTO> tramits;
 	@ApiModelProperty(value = "Dades d'identificació del procediment")

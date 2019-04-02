@@ -3575,6 +3575,8 @@ definitions:
         type: "array"
         items:
           type: "number"
+      respostaAllegacion:
+        type: "number"
       transicionsPosibles:
         type: "array"
         items:
@@ -3874,7 +3876,15 @@ definitions:
         format: "date-time"
       descripcioEstatActualCiutada:
         type: "string"
+      descripcioEstatActualCiutadaCastella:
+        type: "string"
+      descripcioEstatActualCiutadaCatala:
+        type: "string"
       descripcioEstatActualTramitador:
+        type: "string"
+      descripcioEstatActualTramitadorCastella:
+        type: "string"
+      descripcioEstatActualTramitadorCatala:
         type: "string"
       descripcioEstatAnteriorCiutada:
         type: "string"
@@ -3907,6 +3917,9 @@ definitions:
       darreraModificacio:
         type: "string"
         format: "date-time"
+      dataAllegacio:
+        type: "string"
+        format: "date-time"
       dataPresentacio:
         type: "string"
         format: "date-time"
@@ -3918,7 +3931,15 @@ definitions:
         format: "date-time"
       descEstat:
         type: "string"
+      descEstatCastella:
+        type: "string"
+      descEstatCatala:
+        type: "string"
       descEstatCiutada:
+        type: "string"
+      descEstatCiutadaCastella:
+        type: "string"
+      descEstatCiutadaCatala:
         type: "string"
       descUnitatGestora:
         type: "string"

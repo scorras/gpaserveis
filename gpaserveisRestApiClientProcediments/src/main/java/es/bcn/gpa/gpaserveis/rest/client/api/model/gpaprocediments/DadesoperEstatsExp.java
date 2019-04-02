@@ -22,50 +22,50 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 
 /**
- * ProcedimentsIniciacions
+ * DadesoperEstatsExp
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-02T01:20:30.818+02:00")
-public class ProcedimentsIniciacions {
-  @JsonProperty("iniciacio")
-  private Integer iniciacio = null;
+public class DadesoperEstatsExp {
+  @JsonProperty("dadesOperacio")
+  private BigDecimal dadesOperacio = null;
 
-  @JsonProperty("procediment")
-  private BigDecimal procediment = null;
+  @JsonProperty("estatExpIdext")
+  private BigDecimal estatExpIdext = null;
 
-  public ProcedimentsIniciacions iniciacio(Integer iniciacio) {
-    this.iniciacio = iniciacio;
+  public DadesoperEstatsExp dadesOperacio(BigDecimal dadesOperacio) {
+    this.dadesOperacio = dadesOperacio;
     return this;
   }
 
    /**
-   * Get iniciacio
-   * @return iniciacio
+   * Get dadesOperacio
+   * @return dadesOperacio
   **/
   @ApiModelProperty(value = "")
-  public Integer getIniciacio() {
-    return iniciacio;
+  public BigDecimal getDadesOperacio() {
+    return dadesOperacio;
   }
 
-  public void setIniciacio(Integer iniciacio) {
-    this.iniciacio = iniciacio;
+  public void setDadesOperacio(BigDecimal dadesOperacio) {
+    this.dadesOperacio = dadesOperacio;
   }
 
-  public ProcedimentsIniciacions procediment(BigDecimal procediment) {
-    this.procediment = procediment;
+  public DadesoperEstatsExp estatExpIdext(BigDecimal estatExpIdext) {
+    this.estatExpIdext = estatExpIdext;
     return this;
   }
 
    /**
-   * Get procediment
-   * @return procediment
+   * Get estatExpIdext
+   * @return estatExpIdext
   **/
   @ApiModelProperty(value = "")
-  public BigDecimal getProcediment() {
-    return procediment;
+  public BigDecimal getEstatExpIdext() {
+    return estatExpIdext;
   }
 
-  public void setProcediment(BigDecimal procediment) {
-    this.procediment = procediment;
+  public void setEstatExpIdext(BigDecimal estatExpIdext) {
+    this.estatExpIdext = estatExpIdext;
   }
 
 
@@ -77,24 +77,24 @@ public class ProcedimentsIniciacions {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ProcedimentsIniciacions procedimentsIniciacions = (ProcedimentsIniciacions) o;
-    return Objects.equals(this.iniciacio, procedimentsIniciacions.iniciacio) &&
-        Objects.equals(this.procediment, procedimentsIniciacions.procediment);
+    DadesoperEstatsExp dadesoperEstatsExp = (DadesoperEstatsExp) o;
+    return Objects.equals(this.dadesOperacio, dadesoperEstatsExp.dadesOperacio) &&
+        Objects.equals(this.estatExpIdext, dadesoperEstatsExp.estatExpIdext);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(iniciacio, procediment);
+    return Objects.hash(dadesOperacio, estatExpIdext);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ProcedimentsIniciacions {\n");
+    sb.append("class DadesoperEstatsExp {\n");
     
-    sb.append("    iniciacio: ").append(toIndentedString(iniciacio)).append("\n");
-    sb.append("    procediment: ").append(toIndentedString(procediment)).append("\n");
+    sb.append("    dadesOperacio: ").append(toIndentedString(dadesOperacio)).append("\n");
+    sb.append("    estatExpIdext: ").append(toIndentedString(estatExpIdext)).append("\n");
     sb.append("}");
     return sb.toString();
   }

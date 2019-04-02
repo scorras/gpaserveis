@@ -162,12 +162,12 @@ public class ProcedimentsApiTest extends ParentTest {
 	 */
 	@Test
 	public void checkExpedientsUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn("cod");
-		when(apiClient.invokeAPI(eq("/procediments/checkExpedients/cod"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/procediments/checkExpedients/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(TRUE);
 
-		String codProcediment = "cod";
-		Boolean response = api.checkExpedientsUsingGET(codProcediment);
+		BigDecimal idProcediment = ONE;
+		Boolean response = api.checkExpedientsUsingGET(idProcediment);
 
 		assertTrue(response != null);
 	}
@@ -736,9 +736,8 @@ public class ProcedimentsApiTest extends ParentTest {
 		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new ProcedimentsResponse());
 
-		BigDecimal idProc = ONE;
 		ProcedimentSerieDocRDTO procedimentSerieDocRDTO = new ProcedimentSerieDocRDTO();
-		ProcedimentsResponse response = api.versionProcedimentProcUsingPOST(idProc, procedimentSerieDocRDTO);
+		ProcedimentsResponse response = api.versionProcedimentProcUsingPOST(procedimentSerieDocRDTO);
 
 		assertTrue(response != null);
 	}
@@ -754,13 +753,12 @@ public class ProcedimentsApiTest extends ParentTest {
 	@Test
 	public void versionProcedimentUsingPOSTTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/procediments/versionar/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		when(apiClient.invokeAPI(eq("/procediments/versionarProcediment/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new ProcedimentsResponse());
 
 		BigDecimal idProc = ONE;
-		ProcedimentSerieDocRDTO procedimentSerieDocRDTO = new ProcedimentSerieDocRDTO();
-		ProcedimentsResponse response = api.versionProcedimentUsingPOST(idProc, procedimentSerieDocRDTO);
+		ProcedimentsResponse response = api.versionProcedimentUsingPOST(idProc);
 
 		assertTrue(response != null);
 	}

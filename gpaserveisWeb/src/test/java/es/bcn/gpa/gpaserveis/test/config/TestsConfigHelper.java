@@ -11,6 +11,7 @@ import static org.joda.time.DateTime.now;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AtributsDocs;
@@ -46,6 +47,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperTram
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperValidVal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsValidacio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesoperEstatsExp;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Estats;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.EstatsProcediment;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Identificacions;
@@ -773,7 +775,10 @@ public class TestsConfigHelper {
 		dadesOperacions.setDescripcio("Descripció DO");
 		dadesOperacions.setDesTipusCamp("Numèric");
 		dadesOperacions.setDetallValidacio("Detall validació 1");
-		dadesOperacions.setEstatIdext(ONE);
+		DadesoperEstatsExp dadesoperEstatsExp = new DadesoperEstatsExp();
+		dadesoperEstatsExp.setDadesOperacio(ONE);
+		dadesoperEstatsExp.setEstatExpIdext(ONE);
+		dadesOperacions.setDadesoperEstatsExpList(Arrays.asList(dadesoperEstatsExp));
 		dadesOperacions.setGrup(ONE);
 		dadesOperacions.setId(ONE);
 		dadesOperacions.setOrdre(INTEGER_ONE);

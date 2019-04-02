@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpatramits"
-  version: "1.5.0"
+  version: "1.8.0"
   title: "API gpatramits"
   contact:
     name: "Sergio Corras"
@@ -437,6 +437,30 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /tramits/accioEstatsEnPreparacio:
+    get:
+      tags:
+      - "AccionsEstats"
+      summary: "AccioEstatsEnPreparacio"
+      operationId: "obtenirIdAccioEstatsEnPreparacioUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              type: "number"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /tramits/accionsEstatsForDocumentacioAportada/{accioEstatId}:
     get:
       tags:
@@ -509,6 +533,42 @@ paths:
       - name: "accioEstatId"
         in: "path"
         description: "accioEstatId"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/AccionsEstatsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /tramits/accionsEstatsForEstatActualAndAccio/{idEstatActual}/{idAccio}:
+    get:
+      tags:
+      - "AccionsEstats"
+      summary: "Returns the transition for the current expedient's status and action\
+        \ execution"
+      operationId: "cercaTransicioCanviEstat"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idAccio"
+        in: "path"
+        description: "idAccio"
+        required: true
+        type: "number"
+      - name: "idEstatActual"
+        in: "path"
+        description: "idEstatActual"
         required: true
         type: "number"
       responses:
@@ -1499,6 +1559,39 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /tramits/obtenirUGPerIdEstatIdProc/{idEstat}/{idProcediment}:
+    get:
+      tags:
+      - "ObtenirUGPerIdEstatIdProc"
+      summary: "ObtenirUGPerIdEstatIdProc"
+      operationId: "obtenirUGPerIdEstatIdProcUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idEstat"
+        in: "path"
+        description: "idEstat"
+        required: true
+        type: "number"
+      - name: "idProcediment"
+        in: "path"
+        description: "idProcediment"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "number"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /tramits/search:
     get:
       tags:
@@ -2089,6 +2182,8 @@ definitions:
         type: "number"
       usuari:
         type: "number"
+      usuariNom:
+        type: "string"
     title: "ComentarisRDTO"
   EstatsProcUgRDTO:
     type: "object"
@@ -2114,7 +2209,15 @@ definitions:
     properties:
       estatCiutada:
         type: "string"
+      estatCiutadaCastella:
+        type: "string"
+      estatCiutadaCatala:
+        type: "string"
       estatTramitador:
+        type: "string"
+      estatTramitadorCastella:
+        type: "string"
+      estatTramitadorCatala:
         type: "string"
       id:
         type: "number"
@@ -2153,6 +2256,8 @@ definitions:
         type: "number"
       usuari:
         type: "number"
+      usuariNom:
+        type: "string"
     title: "HistoricsRDTO"
   PageDataOfAccionsRDTO:
     type: "object"

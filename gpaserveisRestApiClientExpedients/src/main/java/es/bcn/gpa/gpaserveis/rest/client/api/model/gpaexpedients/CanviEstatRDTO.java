@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * CanviEstatRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-28T09:29:38.619+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-02T11:40:28.073+02:00")
 public class CanviEstatRDTO {
   @JsonProperty("canviUnitatGestora")
   private CanviUnitatGestoraBDTO canviUnitatGestora = null;
@@ -49,6 +49,9 @@ public class CanviEstatRDTO {
 
   @JsonProperty("idExpedientsList")
   private List<BigDecimal> idExpedientsList = null;
+
+  @JsonProperty("respostaAllegacion")
+  private BigDecimal respostaAllegacion = null;
 
   @JsonProperty("transicionsPosibles")
   private List<AccionsEstatsBDTO> transicionsPosibles = null;
@@ -169,6 +172,24 @@ public class CanviEstatRDTO {
     this.idExpedientsList = idExpedientsList;
   }
 
+  public CanviEstatRDTO respostaAllegacion(BigDecimal respostaAllegacion) {
+    this.respostaAllegacion = respostaAllegacion;
+    return this;
+  }
+
+   /**
+   * Get respostaAllegacion
+   * @return respostaAllegacion
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getRespostaAllegacion() {
+    return respostaAllegacion;
+  }
+
+  public void setRespostaAllegacion(BigDecimal respostaAllegacion) {
+    this.respostaAllegacion = respostaAllegacion;
+  }
+
   public CanviEstatRDTO transicionsPosibles(List<AccionsEstatsBDTO> transicionsPosibles) {
     this.transicionsPosibles = transicionsPosibles;
     return this;
@@ -211,12 +232,13 @@ public class CanviEstatRDTO {
         Objects.equals(this.estatAnterior, canviEstatRDTO.estatAnterior) &&
         Objects.equals(this.estatFuturo, canviEstatRDTO.estatFuturo) &&
         Objects.equals(this.idExpedientsList, canviEstatRDTO.idExpedientsList) &&
+        Objects.equals(this.respostaAllegacion, canviEstatRDTO.respostaAllegacion) &&
         Objects.equals(this.transicionsPosibles, canviEstatRDTO.transicionsPosibles);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(canviUnitatGestora, comentari, estatActual, estatAnterior, estatFuturo, idExpedientsList, transicionsPosibles);
+    return Objects.hash(canviUnitatGestora, comentari, estatActual, estatAnterior, estatFuturo, idExpedientsList, respostaAllegacion, transicionsPosibles);
   }
 
 
@@ -231,6 +253,7 @@ public class CanviEstatRDTO {
     sb.append("    estatAnterior: ").append(toIndentedString(estatAnterior)).append("\n");
     sb.append("    estatFuturo: ").append(toIndentedString(estatFuturo)).append("\n");
     sb.append("    idExpedientsList: ").append(toIndentedString(idExpedientsList)).append("\n");
+    sb.append("    respostaAllegacion: ").append(toIndentedString(respostaAllegacion)).append("\n");
     sb.append("    transicionsPosibles: ").append(toIndentedString(transicionsPosibles)).append("\n");
     sb.append("}");
     return sb.toString();

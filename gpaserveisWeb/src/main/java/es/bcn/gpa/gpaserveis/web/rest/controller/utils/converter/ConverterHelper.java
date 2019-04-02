@@ -22,6 +22,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperTram
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperValidVal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsValidacio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesoperEstatsExp;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
@@ -83,7 +84,8 @@ public class ConverterHelper {
 		HistoricsRDTO historicsRDTO = new HistoricsRDTO();
 		DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
 		historicsRDTO.setDataCreacio((estatsRDTO.getDataCreacio() != null) ? dateTimeFormatter.print(estatsRDTO.getDataCreacio()) : null);
-		historicsRDTO.setEstat(estatsRDTO.getDescripcioEstatActualCiutada());
+		historicsRDTO.setEstat(estatsRDTO.getDescripcioEstatActualCiutadaCatala());
+		historicsRDTO.setEstatCastella(estatsRDTO.getDescripcioEstatActualCiutadaCastella());
 		return historicsRDTO;
 	}
 
@@ -101,10 +103,9 @@ public class ConverterHelper {
 	 * @return the persones RDTO
 	 */
 	public static PersonesRDTO buildPersonesRDTOExpedient(Persones persones,
-			BaseApiParamValueTranslator tipusPersonaApiParamValueTranslator,
-			BaseApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
-	        BaseApiParamValueTranslator tipusSexeApiParamValueTranslator,
-	        BaseApiParamValueTranslator tipusViaApiParamValueTranslator) {
+	        BaseApiParamValueTranslator tipusPersonaApiParamValueTranslator,
+	        BaseApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
+	        BaseApiParamValueTranslator tipusSexeApiParamValueTranslator, BaseApiParamValueTranslator tipusViaApiParamValueTranslator) {
 
 		if (persones == null) {
 			return null;
@@ -117,14 +118,14 @@ public class ConverterHelper {
 		personesRDTO.setCognom2(persones.getCognom2());
 		if (persones.getPersonesDadescontacte() != null) {
 			personesRDTO.setSexe(
-					tipusSexeApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getSexe()));
+			        tipusSexeApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getSexe()));
 			DadesContacteRDTO dadesContacte = new DadesContacteRDTO();
 			dadesContacte.setEmail(persones.getPersonesDadescontacte().getEmail());
 			dadesContacte.setTelefon(persones.getPersonesDadescontacte().getTelefon());
 			dadesContacte.setMobil(persones.getPersonesDadescontacte().getMobil());
 			dadesContacte.setFax(persones.getPersonesDadescontacte().getFax());
 			dadesContacte.setTipusVia(
-					tipusViaApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getTipusVia()));
+			        tipusViaApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getTipusVia()));
 			dadesContacte.setNomVia(persones.getPersonesDadescontacte().getDireccioPostal());
 			dadesContacte.setNumero(persones.getPersonesDadescontacte().getNumero());
 			dadesContacte.setEscala(persones.getPersonesDadescontacte().getEscala());
@@ -138,14 +139,14 @@ public class ConverterHelper {
 			dadesContacte.setPais(persones.getPersonesDadescontacte().getPais());
 			dadesContacte.setMunicipiEstranger(persones.getPersonesDadescontacte().getMunicipiEstranger());
 			dadesContacte.setProvinciaEstranger(persones.getPersonesDadescontacte().getProvinciaEstranger());
-			
+
 			personesRDTO.setDadesNotificacio(dadesContacte);
 		}
 		DocumentsIdentitatRDTO documentsIdentitatRDTO = new DocumentsIdentitatRDTO();
 		if (persones.getDocumentsIdentitat() != null) {
 			if (persones.getDocumentsIdentitat().getTipusDocumentIdentitat() != null) {
 				documentsIdentitatRDTO.setTipusDocument(tipusDocumentIdentitatApiParamValueTranslator
-						.getApiParamValueByInternalValue(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getId()));
+				        .getApiParamValueByInternalValue(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getId()));
 			}
 			documentsIdentitatRDTO.setNumeroDocument(persones.getDocumentsIdentitat().getNumeroDocument().toUpperCase());
 			documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPaisos().getCodiIne());
@@ -155,11 +156,11 @@ public class ConverterHelper {
 	}
 
 	public static PersonesSollicitud buildPersonesSollicitudExpedient(PersonesRDTO personesRDTO,
-			RelacioPersonaApiParamValue relacioPersonaApiParamValue,
-			TipusPersonaApiParamValueTranslator tipusPersonaApiParamValueTranslator,
-			TipusDocumentIdentitatApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
-			TipusSexeApiParamValueTranslator tipusSexeApiParamValueTranslator,
-			TipusViaApiParamValueTranslator tipusViaApiParamValueTranslator) {
+	        RelacioPersonaApiParamValue relacioPersonaApiParamValue,
+	        TipusPersonaApiParamValueTranslator tipusPersonaApiParamValueTranslator,
+	        TipusDocumentIdentitatApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
+	        TipusSexeApiParamValueTranslator tipusSexeApiParamValueTranslator,
+	        TipusViaApiParamValueTranslator tipusViaApiParamValueTranslator) {
 		PersonesSollicitud personesSollicitud = null;
 
 		if (personesRDTO != null) {
@@ -175,10 +176,10 @@ public class ConverterHelper {
 			DocumentsIdentitat documentsIdentitat = new DocumentsIdentitat();
 			TipusDocumentIdentitat tipusDocumentIdentitat = new TipusDocumentIdentitat();
 			tipusDocumentIdentitat.setId(tipusDocumentIdentitatApiParamValueTranslator
-					.getInternalValueByApiParamValue(personesRDTO.getDocumentIndentitat().getTipusDocument()));
+			        .getInternalValueByApiParamValue(personesRDTO.getDocumentIndentitat().getTipusDocument()));
 			documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
 			documentsIdentitat.setTipus(tipusDocumentIdentitatApiParamValueTranslator
-					.getInternalValueByApiParamValue(personesRDTO.getDocumentIndentitat().getTipusDocument()));
+			        .getInternalValueByApiParamValue(personesRDTO.getDocumentIndentitat().getTipusDocument()));
 			documentsIdentitat.setNumeroDocument(personesRDTO.getDocumentIndentitat().getNumeroDocument());
 			Paisos paisos = new Paisos();
 			paisos.setCodiIne(personesRDTO.getDocumentIndentitat().getPais());
@@ -193,7 +194,7 @@ public class ConverterHelper {
 				personesDadescontacte.setMobil(personesRDTO.getDadesNotificacio().getMobil());
 				personesDadescontacte.setFax(personesRDTO.getDadesNotificacio().getFax());
 				personesDadescontacte.setTipusVia(
-						tipusViaApiParamValueTranslator.getInternalValueByApiParamValue(personesRDTO.getDadesNotificacio().getTipusVia()));
+				        tipusViaApiParamValueTranslator.getInternalValueByApiParamValue(personesRDTO.getDadesNotificacio().getTipusVia()));
 				personesDadescontacte.setDireccioPostal(personesRDTO.getDadesNotificacio().getNomVia());
 				personesDadescontacte.setNumero(personesRDTO.getDadesNotificacio().getNumero());
 				personesDadescontacte.setEscala(personesRDTO.getDadesNotificacio().getEscala());
@@ -229,10 +230,9 @@ public class ConverterHelper {
 	 * @return the persones RDTO
 	 */
 	public static PersonesRDTO buildPersonesRDTOExpedient(es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones persones,
-			BaseApiParamValueTranslator tipusPersonaApiParamValueTranslator,
-			BaseApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
-	        BaseApiParamValueTranslator tipusSexeApiParamValueTranslator,
-	        BaseApiParamValueTranslator tipusViaApiParamValueTranslator) {
+	        BaseApiParamValueTranslator tipusPersonaApiParamValueTranslator,
+	        BaseApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
+	        BaseApiParamValueTranslator tipusSexeApiParamValueTranslator, BaseApiParamValueTranslator tipusViaApiParamValueTranslator) {
 
 		if (persones == null) {
 			return null;
@@ -245,15 +245,15 @@ public class ConverterHelper {
 		personesRDTO.setCognom2(persones.getCognom2());
 		if (persones.getPersonesDadescontacte() != null) {
 			personesRDTO.setSexe(
-					tipusSexeApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getSexe()));
-			
+			        tipusSexeApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getSexe()));
+
 			DadesContacteRDTO dadesContacte = new DadesContacteRDTO();
 			dadesContacte.setEmail(persones.getPersonesDadescontacte().getEmail());
 			dadesContacte.setTelefon(persones.getPersonesDadescontacte().getTelefon());
 			dadesContacte.setMobil(persones.getPersonesDadescontacte().getMobil());
 			dadesContacte.setFax(persones.getPersonesDadescontacte().getFax());
 			dadesContacte.setTipusVia(
-					tipusViaApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getTipusVia()));
+			        tipusViaApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getTipusVia()));
 			dadesContacte.setNomVia(persones.getPersonesDadescontacte().getDireccioPostal());
 			dadesContacte.setNumero(persones.getPersonesDadescontacte().getNumero());
 			dadesContacte.setEscala(persones.getPersonesDadescontacte().getEscala());
@@ -267,14 +267,14 @@ public class ConverterHelper {
 			dadesContacte.setPais(persones.getPersonesDadescontacte().getPais());
 			dadesContacte.setMunicipiEstranger(persones.getPersonesDadescontacte().getMunicipiEstranger());
 			dadesContacte.setProvinciaEstranger(persones.getPersonesDadescontacte().getProvinciaEstranger());
-			
+
 			personesRDTO.setDadesNotificacio(dadesContacte);
 		}
 		DocumentsIdentitatRDTO documentsIdentitatRDTO = new DocumentsIdentitatRDTO();
 		if (persones.getDocumentsIdentitat() != null) {
 			if (persones.getDocumentsIdentitat().getTipusDocumentIdentitat() != null) {
 				documentsIdentitatRDTO.setTipusDocument(tipusDocumentIdentitatApiParamValueTranslator
-						.getApiParamValueByInternalValue(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getId()));
+				        .getApiParamValueByInternalValue(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getId()));
 			}
 			documentsIdentitatRDTO.setNumeroDocument(persones.getDocumentsIdentitat().getNumeroDocument().toUpperCase());
 			documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPaisos().getCodiIne());
@@ -298,9 +298,9 @@ public class ConverterHelper {
 	 *         grups RDTO
 	 */
 	public static es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO buildDadesGrupsRDTOProcediment(
-			es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO internalDadesGrupsRDTO,
-			BaseApiParamValueTranslator tipusCampApiParamValueTranslator, BaseApiParamValueTranslator tipusValidacioApiParamValueTranslator,
-			BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator) {
+	        es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO internalDadesGrupsRDTO,
+	        BaseApiParamValueTranslator tipusCampApiParamValueTranslator, BaseApiParamValueTranslator tipusValidacioApiParamValueTranslator,
+	        BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator) {
 
 		if (internalDadesGrupsRDTO == null) {
 			return null;
@@ -312,15 +312,15 @@ public class ConverterHelper {
 		dadesGrupsRDTO.setDescripcio(internalDadesGrupsRDTO.getDescripcio());
 		dadesGrupsRDTO.setDescripcioCastella(internalDadesGrupsRDTO.getDescripcioCastella());
 		dadesGrupsRDTO.setColumnes(
-				(internalDadesGrupsRDTO.getNomColumnes() != null) ? String.valueOf(internalDadesGrupsRDTO.getNomColumnes()) : null);
+		        (internalDadesGrupsRDTO.getNomColumnes() != null) ? String.valueOf(internalDadesGrupsRDTO.getNomColumnes()) : null);
 		dadesGrupsRDTO.setUrlValidacio(internalDadesGrupsRDTO.getUrlValidacio());
 		dadesGrupsRDTO.setOrdre((internalDadesGrupsRDTO.getOrdre() != null) ? String.valueOf(internalDadesGrupsRDTO.getOrdre()) : null);
 		ArrayList<DadesAtributsRDTO> dadesAtributsRDTOList = new ArrayList<DadesAtributsRDTO>();
 		if (CollectionUtils.isNotEmpty(internalDadesGrupsRDTO.getDadesOperacionsList())) {
 			for (DadesOperacions dadesOperacions : internalDadesGrupsRDTO.getDadesOperacionsList()) {
 				dadesAtributsRDTOList
-						.add(ConverterHelper.buildDadesAtributsRDTOProcediment(dadesOperacions, tipusCampApiParamValueTranslator,
-								tipusValidacioApiParamValueTranslator, expedientEstatTramitadorApiParamValueTranslator));
+				        .add(ConverterHelper.buildDadesAtributsRDTOProcediment(dadesOperacions, tipusCampApiParamValueTranslator,
+				                tipusValidacioApiParamValueTranslator, expedientEstatTramitadorApiParamValueTranslator));
 			}
 		}
 		dadesGrupsRDTO.setAtributs(dadesAtributsRDTOList);
@@ -341,8 +341,8 @@ public class ConverterHelper {
 	 * @return the dades atributs RDTO
 	 */
 	public static DadesAtributsRDTO buildDadesAtributsRDTOProcediment(DadesOperacions dadesOperacions,
-			BaseApiParamValueTranslator tipusCampApiParamValueTranslator, BaseApiParamValueTranslator tipusValidacioApiParamValueTranslator,
-			BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator) {
+	        BaseApiParamValueTranslator tipusCampApiParamValueTranslator, BaseApiParamValueTranslator tipusValidacioApiParamValueTranslator,
+	        BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator) {
 		DadesAtributsRDTO dadesAtributsRDTO = new DadesAtributsRDTO();
 		dadesAtributsRDTO.setCodi(dadesOperacions.getCodi());
 		dadesAtributsRDTO.setDescripcio(dadesOperacions.getDescripcio());
@@ -363,9 +363,8 @@ public class ConverterHelper {
 			Collections.sort(dadesAtributsValorsLlistaRDTOList);
 			dadesAtributsRDTO.setValorsLlista(dadesAtributsValorsLlistaRDTOList);
 		}
-		if (esTramitOvt(dadesOperacions, TramitOvtApiParamValue.SOL) && dadesOperacions.getEstatIdext() != null
-				&& expedientEstatTramitadorApiParamValueTranslator.getApiParamValueByInternalValue(dadesOperacions.getEstatIdext())
-						.equals(EstatTramitadorApiParamValue.SOL_LICITUD_EN_REVISIO.getApiParamValue())) {
+		if (esTramitOvt(dadesOperacions, TramitOvtApiParamValue.SOL)
+		        && esObligatoriPerEstat(dadesOperacions, expedientEstatTramitadorApiParamValueTranslator)) {
 			DadesOperacionsValidacio dadesOperacionsValidacio = new DadesOperacionsValidacio();
 			dadesOperacionsValidacio.setTipusValidacio(TipusValidacioApiParamValue.OBLIGATORI.getInternalValue());
 			if (dadesOperacions.getDadesOperacionsValidacio() == null) {
@@ -379,7 +378,7 @@ public class ConverterHelper {
 			for (DadesOperacionsValidacio dadesOperacionsValidacio : dadesOperacions.getDadesOperacionsValidacio()) {
 				dadesAtributsValidacionsRDTO = new DadesAtributsValidacionsRDTO();
 				dadesAtributsValidacionsRDTO.setTipus(tipusValidacioApiParamValueTranslator
-						.getApiParamValueByInternalValue(dadesOperacionsValidacio.getTipusValidacio()));
+				        .getApiParamValueByInternalValue(dadesOperacionsValidacio.getTipusValidacio()));
 				if (CollectionUtils.isNotEmpty(dadesOperacionsValidacio.getDadesOperacionsValidValors())) {
 					ArrayList<DadesAtributsValorsValidacionsRDTO> dadesAtributsValorsValidacionsRDTOList = new ArrayList<DadesAtributsValorsValidacionsRDTO>();
 					DadesAtributsValorsValidacionsRDTO dadesAtributsValorsValidacionsRDTO = null;
@@ -387,7 +386,7 @@ public class ConverterHelper {
 						dadesAtributsValorsValidacionsRDTO = new DadesAtributsValorsValidacionsRDTO();
 						dadesAtributsValorsValidacionsRDTO.setValor(dadesOperValidVal.getValor());
 						dadesAtributsValorsValidacionsRDTO
-								.setOrdre((dadesOperValidVal.getOrdre() != null) ? String.valueOf(dadesOperValidVal.getOrdre()) : null);
+						        .setOrdre((dadesOperValidVal.getOrdre() != null) ? String.valueOf(dadesOperValidVal.getOrdre()) : null);
 						dadesAtributsValorsValidacionsRDTOList.add(dadesAtributsValorsValidacionsRDTO);
 					}
 					Collections.sort(dadesAtributsValorsValidacionsRDTOList);
@@ -414,12 +413,34 @@ public class ConverterHelper {
 		if (CollectionUtils.isNotEmpty(dadesOperacions.getDadesOperTramitsOvtList())) {
 			for (DadesOperTramitsOvt dadesOperTramitsOvt : dadesOperacions.getDadesOperTramitsOvtList()) {
 				if (dadesOperTramitsOvt.getTramitOvtIdext()
-						.compareTo(tramitOvtApiParamValue.getInternalValue()) == NumberUtils.INTEGER_ZERO) {
+				        .compareTo(tramitOvtApiParamValue.getInternalValue()) == NumberUtils.INTEGER_ZERO) {
 					return true;
 				}
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Es obligatori per estat.
+	 *
+	 * @param dadesOperacions
+	 *            the dades operacions
+	 * @param expedientEstatTramitadorApiParamValueTranslator
+	 *            the expedient estat tramitador api param value translator
+	 * @return the boolean
+	 */
+	private static Boolean esObligatoriPerEstat(DadesOperacions dadesOperacions,
+	        BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator) {
+		if (CollectionUtils.isNotEmpty(dadesOperacions.getDadesoperEstatsExpList())) {
+			for (DadesoperEstatsExp dadesoperEstatsExp : dadesOperacions.getDadesoperEstatsExpList()) {
+				if (expedientEstatTramitadorApiParamValueTranslator.getApiParamValueByInternalValue(dadesoperEstatsExp.getEstatExpIdext())
+				        .equals(EstatTramitadorApiParamValue.SOL_LICITUD_EN_REVISIO.getApiParamValue())) {
+					return Boolean.TRUE;
+				}
+			}
+		}
+		return Boolean.FALSE;
 	}
 
 	/**
@@ -436,9 +457,9 @@ public class ConverterHelper {
 	 * @return the array list
 	 */
 	public static ArrayList<ConfiguracioDocumentacioRequeridaConsultaRDTO> buildDocumentsRequeritsRDTOExpedient(
-			List<ConfDocEntradaRequeritRDTO> confDocEntradaRequeritRDTOList, BooleanApiParamValueTranslator booleanApiParamValueTranslator,
-			BaseApiParamValueTranslator suportConfeccioApiParamValueTranslator,
-			BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator) {
+	        List<ConfDocEntradaRequeritRDTO> confDocEntradaRequeritRDTOList, BooleanApiParamValueTranslator booleanApiParamValueTranslator,
+	        BaseApiParamValueTranslator suportConfeccioApiParamValueTranslator,
+	        BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator) {
 		ArrayList<ConfiguracioDocumentacioRequeridaConsultaRDTO> configuracioDocumentacioRequeridaConsultaRDTOList = null;
 
 		if (CollectionUtils.isNotEmpty(confDocEntradaRequeritRDTOList)) {
@@ -448,12 +469,12 @@ public class ConverterHelper {
 			for (ConfDocEntradaRequeritRDTO confDocEntradaRequeritRDTO : confDocEntradaRequeritRDTOList) {
 				configuracioDocumentacioRequeridaConsultaRDTO = new ConfiguracioDocumentacioRequeridaConsultaRDTO();
 				configuracioDocumentacioRequeridaConsultaRDTO
-						.setCodi((confDocEntradaRequeritRDTO.getUniqueId() != null) ? confDocEntradaRequeritRDTO.getUniqueId() : null);
+				        .setCodi((confDocEntradaRequeritRDTO.getUniqueId() != null) ? confDocEntradaRequeritRDTO.getUniqueId() : null);
 				configuracioDocumentacioRequeridaConsultaRDTO.setDescripcio(confDocEntradaRequeritRDTO.getNom());
 				configuracioDocumentacioRequeridaConsultaRDTO.setDescripcioCastella(confDocEntradaRequeritRDTO.getNomCastella());
 				configuracioDocumentacioRequeridaConsultaRDTO.setDescripcioAmpliada(confDocEntradaRequeritRDTO.getDescripcioAmpliada());
 				configuracioDocumentacioRequeridaConsultaRDTO.setSuportConfeccio(suportConfeccioApiParamValueTranslator
-						.getApiParamValueByInternalValue(confDocEntradaRequeritRDTO.getSuportConfeccio()));
+				        .getApiParamValueByInternalValue(confDocEntradaRequeritRDTO.getSuportConfeccio()));
 				configuracioDocumentacioRequeridaConsultaRDTO.setSuportEnllac(confDocEntradaRequeritRDTO.getSuportEnllac());
 				configuracioDocumentacioRequeridaConsultaRDTOList.add(configuracioDocumentacioRequeridaConsultaRDTO);
 			}
@@ -480,11 +501,10 @@ public class ConverterHelper {
 	 * @return the array list
 	 */
 	public static ArrayList<DocumentAportatConsultaRDTO> buildDocumentsAportatsConsultaRDTOListExpedient(
-			List<DocsEntradaRDTO> docsEntradaRDTOList, BaseApiParamValueTranslator tramitOvtApiParamValueTranslator,
-			BaseApiParamValueTranslator revisioApiParamValueTranslator, BaseApiParamValueTranslator tipusPersonaApiParamValueTranslator,
-			BaseApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
-	        BaseApiParamValueTranslator tipusSexeApiParamValueTranslator,
-	        BaseApiParamValueTranslator tipusViaApiParamValueTranslator) {
+	        List<DocsEntradaRDTO> docsEntradaRDTOList, BaseApiParamValueTranslator tramitOvtApiParamValueTranslator,
+	        BaseApiParamValueTranslator revisioApiParamValueTranslator, BaseApiParamValueTranslator tipusPersonaApiParamValueTranslator,
+	        BaseApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
+	        BaseApiParamValueTranslator tipusSexeApiParamValueTranslator, BaseApiParamValueTranslator tipusViaApiParamValueTranslator) {
 		ArrayList<DocumentAportatConsultaRDTO> documentAportatConsultaRDTOList = null;
 		DocumentAportatConsultaRDTO documentAportatConsultaRDTO = null;
 		ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = null;
@@ -498,12 +518,12 @@ public class ConverterHelper {
 				documentAportatConsultaRDTO.setId(docsEntradaRDTO.getId());
 				documentAportatConsultaRDTO.setNom(docsEntradaRDTO.getDocsFisicsNom());
 				documentAportatConsultaRDTO.setDataPresentacio((docsEntradaRDTO.getDataPresentacio() != null)
-						? dateTimeFormatter.print(docsEntradaRDTO.getDataPresentacio()) : null);
+				        ? dateTimeFormatter.print(docsEntradaRDTO.getDataPresentacio()) : null);
 				documentAportatConsultaRDTO
-						.setRevisio(revisioApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTO.getRevisio()));
+				        .setRevisio(revisioApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTO.getRevisio()));
 				configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
 				configuracioDocumentacioRDTO.setCodi((docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId() != null)
-						? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId()) : null);
+				        ? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId()) : null);
 				configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntradaNom());
 				configuracioDocumentacioRDTO.setDescripcioCastella(docsEntradaRDTO.getConfiguracioDocsEntradaNomCastella());
 				documentAportatConsultaRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
@@ -511,16 +531,16 @@ public class ConverterHelper {
 					registreRDTO = new RegistreRDTO();
 					registreRDTO.setNumRegistre(docsEntradaRDTO.getRegistreAssentament().getCodi());
 					registreRDTO.setDataRegistre((docsEntradaRDTO.getRegistreAssentament().getDataRegistre() != null)
-							? dateTimeFormatter.print(docsEntradaRDTO.getRegistreAssentament().getDataRegistre()) : null);
+					        ? dateTimeFormatter.print(docsEntradaRDTO.getRegistreAssentament().getDataRegistre()) : null);
 					registreRDTO.setPersona(buildPersonesRDTOExpedient(docsEntradaRDTO.getRegistreAssentament().getPersones(),
-							tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator,
+					        tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator,
 					        tipusSexeApiParamValueTranslator, tipusViaApiParamValueTranslator));
 					documentAportatConsultaRDTO.setRegistre(registreRDTO);
 				}
 				if (docsEntradaRDTO.getTramitOvtIdext() != null) {
 					tramitsOvtRDTO = new TramitsOvtRDTO();
 					tramitsOvtRDTO
-							.setCodi(tramitOvtApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTO.getTramitOvtIdext()));
+					        .setCodi(tramitOvtApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTO.getTramitOvtIdext()));
 					// La descripción se seteará con la información obtenida del
 					// servicio de trámites
 					documentAportatConsultaRDTO.setTramit(tramitsOvtRDTO);
@@ -543,14 +563,14 @@ public class ConverterHelper {
 	 * @return the array list
 	 */
 	public static ArrayList<DocumentAportatAccioRDTO> buildDocumentsAportatsAccioRDTOListExpedient(
-			List<DocsEntradaRDTO> docsEntradaRDTOList, BaseApiParamValueTranslator origenApiParamValueTranslator,
-			BaseApiParamValueTranslator revisioApiParamValueTranslator) {
+	        List<DocsEntradaRDTO> docsEntradaRDTOList, BaseApiParamValueTranslator origenApiParamValueTranslator,
+	        BaseApiParamValueTranslator revisioApiParamValueTranslator) {
 		ArrayList<DocumentAportatAccioRDTO> documentAportatAccioRDTOList = null;
 		if (CollectionUtils.isNotEmpty(docsEntradaRDTOList)) {
 			documentAportatAccioRDTOList = new ArrayList<DocumentAportatAccioRDTO>();
 			for (DocsEntradaRDTO docsEntradaRDTO : docsEntradaRDTOList) {
 				documentAportatAccioRDTOList.add(buildDocumentsAportatsAccioRDTOExpedient(docsEntradaRDTO, origenApiParamValueTranslator,
-						revisioApiParamValueTranslator));
+				        revisioApiParamValueTranslator));
 			}
 		}
 		return documentAportatAccioRDTOList;
@@ -568,7 +588,7 @@ public class ConverterHelper {
 	 * @return the document aportat accio RDTO
 	 */
 	public static DocumentAportatAccioRDTO buildDocumentsAportatsAccioRDTOExpedient(DocsEntradaRDTO docsEntradaRDTO,
-			BaseApiParamValueTranslator origenApiParamValueTranslator, BaseApiParamValueTranslator revisioApiParamValueTranslator) {
+	        BaseApiParamValueTranslator origenApiParamValueTranslator, BaseApiParamValueTranslator revisioApiParamValueTranslator) {
 		DocumentAportatAccioRDTO documentAportatAccioRDTO = null;
 
 		if (docsEntradaRDTO != null) {
@@ -581,18 +601,18 @@ public class ConverterHelper {
 			if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null) {
 				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
 				configuracioDocumentacioRDTO.setCodi(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId() != null
-						? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId()) : null);
+				        ? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId()) : null);
 				configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntrada().getNom());
 				configuracioDocumentacioRDTO.setDescripcioCastella(docsEntradaRDTO.getConfiguracioDocsEntrada().getNomCastella());
 				documentAportatAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
 			}
 			documentAportatAccioRDTO.setOrigen(origenApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTO.getOrigen()));
 			documentAportatAccioRDTO
-					.setRevisio(revisioApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTO.getRevisio()));
+			        .setRevisio(revisioApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTO.getRevisio()));
 			documentAportatAccioRDTO.setDataPresentacio(
-					(docsEntradaRDTO.getDataPresentacio() != null) ? dateTimeFormatter.print(docsEntradaRDTO.getDataPresentacio()) : null);
+			        (docsEntradaRDTO.getDataPresentacio() != null) ? dateTimeFormatter.print(docsEntradaRDTO.getDataPresentacio()) : null);
 			documentAportatAccioRDTO.setDataModificacio((docsEntradaRDTO.getDataUltimaModificacio() != null)
-					? dateTimeFormatter.print(docsEntradaRDTO.getDataUltimaModificacio()) : null);
+			        ? dateTimeFormatter.print(docsEntradaRDTO.getDataUltimaModificacio()) : null);
 		}
 
 		return documentAportatAccioRDTO;

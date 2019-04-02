@@ -7,7 +7,7 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.EstatsProcUgRDTO;
+import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,14 +15,14 @@ import java.util.List;
 import java.util.Map;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-02T03:58:39.261+02:00")
-public class AssociarEstatsTramitacioUgApi {
+public class ObtenirUgPerIdEstatIdProcApi {
   private ApiClient apiClient;
 
-  public AssociarEstatsTramitacioUgApi() {
+  public ObtenirUgPerIdEstatIdProcApi() {
     this(Configuration.getDefaultApiClient());
   }
 
-  public AssociarEstatsTramitacioUgApi(ApiClient apiClient) {
+  public ObtenirUgPerIdEstatIdProcApi(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
@@ -35,21 +35,30 @@ public class AssociarEstatsTramitacioUgApi {
   }
 
   /**
-   * Associar unitat gestora a estats de tramitació d&#39;un procediment
+   * ObtenirUGPerIdEstatIdProc
    * 
-   * @param estatsProcUgRDTOList estatsProcUgRDTOList (required)
+   * @param idEstat idEstat (required)
+   * @param idProcediment idProcediment (required)
+   * @return BigDecimal
    * @throws ApiException if fails to make API call
    */
-  public void associarEstatTramProcUgUsingPOST(List<EstatsProcUgRDTO> estatsProcUgRDTOList) throws ApiException {
-    Object localVarPostBody = estatsProcUgRDTOList;
+  public BigDecimal obtenirUGPerIdEstatIdProcUsingGET(BigDecimal idEstat, BigDecimal idProcediment) throws ApiException {
+    Object localVarPostBody = null;
     
-    // verify the required parameter 'estatsProcUgRDTOList' is set
-    if (estatsProcUgRDTOList == null) {
-      throw new ApiException(400, "Missing the required parameter 'estatsProcUgRDTOList' when calling associarEstatTramProcUgUsingPOST");
+    // verify the required parameter 'idEstat' is set
+    if (idEstat == null) {
+      throw new ApiException(400, "Missing the required parameter 'idEstat' when calling obtenirUGPerIdEstatIdProcUsingGET");
+    }
+    
+    // verify the required parameter 'idProcediment' is set
+    if (idProcediment == null) {
+      throw new ApiException(400, "Missing the required parameter 'idProcediment' when calling obtenirUGPerIdEstatIdProcUsingGET");
     }
     
     // create path and map variables
-    String localVarPath = "/tramits/associarEstatTramProcUg";
+    String localVarPath = "/tramits/obtenirUGPerIdEstatIdProc/{idEstat}/{idProcediment}"
+      .replaceAll("\\{" + "idEstat" + "\\}", apiClient.escapeString(idEstat.toString()))
+      .replaceAll("\\{" + "idProcediment" + "\\}", apiClient.escapeString(idProcediment.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -65,13 +74,13 @@ public class AssociarEstatsTramitacioUgApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
     String[] localVarAuthNames = new String[] {  };
 
-
-    apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
-  }
+    GenericType<BigDecimal> localVarReturnType = new GenericType<BigDecimal>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
 }

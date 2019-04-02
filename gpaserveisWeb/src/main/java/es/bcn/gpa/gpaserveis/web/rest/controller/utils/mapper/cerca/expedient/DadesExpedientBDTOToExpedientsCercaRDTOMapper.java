@@ -70,7 +70,9 @@ public class DadesExpedientBDTOToExpedientsCercaRDTOMapper extends PropertyMap<D
 		using(internalToDataHoraConverter).map(source.getExpedientsRDTO().getDarreraModificacio()).setDataModificacio(null);
 		using(internalToPersonaConverter).map(source.getExpedientsRDTO().getSollicitantPrincipal().getPersones()).setSollicitant(null);
 		// using(internalToEstatTramitadorConverter).map(source.getExpedientsRDTO().getIdEstat()).setEstat(null);
-		map().setEstat(source.getExpedientsRDTO().getDescEstatCiutada());
+		// map().setEstat(source.getExpedientsRDTO().getDescEstatCiutada());
+		map().setEstat(source.getExpedientsRDTO().getDescEstatCiutadaCatala());
+		map().setEstatCastella(source.getExpedientsRDTO().getDescEstatCiutadaCastella());
 		using(internalToTramitadorConverter).map(source.getExpedientsRDTO().getTramitador()).setTramitador(null);
 		map().setAplicacioNegoci(source.getExpedientsRDTO().getAplicacioNegoci());
 		using(internalToUnitatGestoraConverter).map(source.getUnitatsGestoresRDTO()).setUnitatGestora(null);
