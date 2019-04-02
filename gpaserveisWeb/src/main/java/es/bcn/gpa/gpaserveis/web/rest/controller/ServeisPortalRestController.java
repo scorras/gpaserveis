@@ -897,6 +897,11 @@ public class ServeisPortalRestController extends BaseRestController {
 		        respostaAportarDocumentacioExpedientRDTO, respostaResultatBDTO);
 		respostaAportarDocumentRDTO = modelMapper.map(respostaAportarDocumentExpedientBDTO, RespostaAportarDocumentRDTO.class);
 
+		// TODO Pendiente integración con Registro
+		if (!documentacioAportar.isRegistrar()) {
+			respostaAportarDocumentRDTO.setRegistre(null);
+		}
+
 		return respostaAportarDocumentRDTO;
 	}
 

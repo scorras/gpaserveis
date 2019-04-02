@@ -28,6 +28,7 @@ import java.util.Map;
 
 import javax.ws.rs.core.GenericType;
 
+import org.joda.time.DateTime;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -841,6 +842,89 @@ public class ProcedimentsApiTest extends ParentTest {
 
 		String codi = ONE.toString();
 		ProcedimentsRDTO response = api.consultarDadesProcedimentPerCodi(codi);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * ProcedimentsForOgeForDropdown
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void getProcedimentsForOgeForDropdownUsingGETTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/procediments/procedimentsForOgeForDropdown"), eq("GET"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<ProcedimentsRDTO>());
+
+		List<ProcedimentsRDTO> response = api.getProcedimentsForOgeForDropdownUsingGET();
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * ProcedimentBloquejatPerUnAltreUsuari
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void procedimentBloquejatPerUnAltreUsuariUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/procediments/procedimentBloquejatPerUnAltreUsuari/1"), eq("GET"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(Boolean.TRUE);
+
+		BigDecimal id = ONE;
+		Boolean response = api.procedimentBloquejatPerUnAltreUsuariUsingGET(id);
+
+		assertTrue(response);
+	}
+
+	/**
+	 * updates the requested conf doc
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void updateConfDocUsingPOSTTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/procediments/updateConfDoc/1/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ProcedimentsResponse());
+
+		BigDecimal idConfDoc = ONE;
+		BigDecimal idProc = ONE;
+		api.updateConfDocUsingPOST(idConfDoc, idProc);
+
+		assertTrue(true);
+	}
+
+	/**
+	 * updates de requested darrera sincronitzacio
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void updateDarreraSincronitzacioUsingPOSTTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/procediments/darreraSincronitzacio/1"), eq("POST"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(DateTime.now());
+
+		BigDecimal idProc = ONE;
+		DateTime response = api.updateDarreraSincronitzacioUsingPOST(idProc);
 
 		assertTrue(response != null);
 	}

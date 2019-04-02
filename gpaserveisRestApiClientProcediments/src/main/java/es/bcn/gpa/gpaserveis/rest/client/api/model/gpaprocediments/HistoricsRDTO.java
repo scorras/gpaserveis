@@ -28,7 +28,7 @@ import org.joda.time.DateTime;
 /**
  * HistoricsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-02T01:20:30.818+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-02T16:38:17.843+02:00")
 public class HistoricsRDTO {
   @JsonProperty("clauMissatge")
   private String clauMissatge = null;
