@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.7.0"
+  version: "1.8.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -2157,6 +2157,8 @@ definitions:
         type: "number"
       nom:
         type: "string"
+      nomCastella:
+        type: "string"
       suportConfeccio:
         type: "integer"
         format: "int32"
@@ -2245,6 +2247,8 @@ definitions:
         type: "string"
       tractament:
         type: "string"
+      uniqueId:
+        type: "number"
     title: "ConfiguracioDocsEntrada"
   ConfiguracioDocsEntradaRDTO:
     type: "object"
@@ -2296,6 +2300,8 @@ definitions:
         type: "string"
       tractament:
         type: "string"
+      uniqueId:
+        type: "number"
     title: "ConfiguracioDocsEntradaRDTO"
   ConfiguracioDocsEntradaResponse:
     type: "object"
@@ -2371,6 +2377,8 @@ definitions:
         type: "string"
       tractament:
         type: "string"
+      uniqueId:
+        type: "number"
       vinculadaEsmena:
         type: "integer"
         format: "int32"
@@ -2430,6 +2438,8 @@ definitions:
         type: "string"
       tractament:
         type: "string"
+      uniqueId:
+        type: "number"
       vinculadaEsmena:
         type: "integer"
         format: "int32"
@@ -2475,6 +2485,8 @@ definitions:
       configuracioDocsEntrada:
         $ref: "#/definitions/ConfiguracioDocsEntrada"
       configuracioDocsEntradaNom:
+        type: "string"
+      configuracioDocsEntradaNomCastella:
         type: "string"
       dataCreacio:
         type: "string"

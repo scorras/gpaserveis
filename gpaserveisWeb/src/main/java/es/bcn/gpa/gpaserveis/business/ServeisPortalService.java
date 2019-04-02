@@ -177,6 +177,17 @@ public interface ServeisPortalService {
 	DadesExpedientBDTO consultarDadesBasiquesExpedient(BigDecimal idExpedient) throws GPAServeisServiceException;
 
 	/**
+	 * Consultar dades basiques expedient.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @return the dades expedient BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DadesExpedientBDTO consultarDadesBasiquesExpedient(String codiExpedient) throws GPAServeisServiceException;
+
+	/**
 	 * Consultar dades expedient.
 	 *
 	 * @param idExpedient

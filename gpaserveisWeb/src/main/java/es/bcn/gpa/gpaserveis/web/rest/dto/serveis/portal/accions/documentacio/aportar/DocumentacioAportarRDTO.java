@@ -10,17 +10,13 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-
-@ApiModel(value="DocumentacioAportarRDTO")
+@ApiModel(value = "DocumentacioAportar")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "documentacio",
-    "registrar"
-})
+@JsonPropertyOrder({ "documentacio", "registrar" })
 @Getter
 @Setter
 public class DocumentacioAportarRDTO {
-    
+
 	@ApiModelProperty(value = "Llista de documentació", required = true)
 	private List<DocumentAportatCrearRDTO> documentacio;
 

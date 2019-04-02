@@ -14,13 +14,13 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.Conf
 
 @Component
 public class ConfiguracioDocsEntradaRDTOToConfiguracioDocumentacioAportadaConsultaRDTOMapper
-        extends PropertyMap<ConfiguracioDocsEntradaRDTO, ConfiguracioDocumentacioAportadaConsultaRDTO> {
-
-	/** The internal to string converter. */
-	private InternalToStringConverter internalToStringConverter;
+		extends PropertyMap<ConfiguracioDocsEntradaRDTO, ConfiguracioDocumentacioAportadaConsultaRDTO> {
 
 	/** The internal to boolean converter. */
 	private InternalToBooleanConverter internalToBooleanConverter;
+
+	/** The internal to string converter. */
+	private InternalToStringConverter internalToStringConverter;
 
 	/** The internal to suport confeccio converter. */
 	private InternalToSuportConfeccioConverter internalToSuportConfeccioConverter;
@@ -30,10 +30,10 @@ public class ConfiguracioDocsEntradaRDTOToConfiguracioDocumentacioAportadaConsul
 
 	@Autowired
 	public ConfiguracioDocsEntradaRDTOToConfiguracioDocumentacioAportadaConsultaRDTOMapper(
-	        @Qualifier("internalToBooleanConverter") InternalToBooleanConverter internalToBooleanConverter,
-	        @Qualifier("internalToSuportConfeccioConverter") InternalToSuportConfeccioConverter internalToSuportConfeccioConverter,
-	        @Qualifier("internalToObligatoriConverter") InternalToObligatoriConverter internalToObligatoriConverter,
-	        @Qualifier("internalToStringConverter") InternalToStringConverter internalToStringConverter) {
+			@Qualifier("internalToBooleanConverter") InternalToBooleanConverter internalToBooleanConverter,
+			@Qualifier("internalToSuportConfeccioConverter") InternalToSuportConfeccioConverter internalToSuportConfeccioConverter,
+			@Qualifier("internalToObligatoriConverter") InternalToObligatoriConverter internalToObligatoriConverter,
+			@Qualifier("internalToStringConverter") InternalToStringConverter internalToStringConverter) {
 		this.internalToBooleanConverter = internalToBooleanConverter;
 		this.internalToSuportConfeccioConverter = internalToSuportConfeccioConverter;
 		this.internalToObligatoriConverter = internalToObligatoriConverter;
@@ -47,8 +47,9 @@ public class ConfiguracioDocsEntradaRDTOToConfiguracioDocumentacioAportadaConsul
 	 */
 	@Override
 	protected void configure() {
-		using(internalToStringConverter).map(source.getId()).setCodi(null);
+		using(internalToStringConverter).map(source.getUniqueId()).setCodi(null);
 		map().setDescripcio(source.getNom());
+		map().setDescripcioCastella(source.getNomCastella());
 		map().setDescripcioAmpliada(source.getDescripcioAmpliada());
 		using(internalToObligatoriConverter).map(source).setObligatori(null);
 		using(internalToBooleanConverter).map(source.getAtributsDocs().getRepetible()).setRepetible(null);

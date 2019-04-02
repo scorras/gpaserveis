@@ -20,6 +20,7 @@ import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -224,6 +225,48 @@ public class AccionsEstatsApiTest extends ParentTest {
 
 		BigDecimal accioEstatId = ONE;
 		List<AccionsEstatsRDTO> response = api.cercaAccionsPossibles(accioEstatId);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the transition for the current expedient&#39;s status and action
+	 * execution
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void cercaTransicioCanviEstatTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/tramits/accionsEstatsForEstatActualAndAccio/1/1"), eq("GET"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(Arrays.asList(new ArrayList<AccionsEstatsRDTO>()));
+
+		BigDecimal idAccio = ONE;
+		BigDecimal idEstatActual = ONE;
+		List<AccionsEstatsRDTO> response = api.cercaTransicioCanviEstat(idAccio, idEstatActual);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * AccioEstatsEnPreparacio
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirIdAccioEstatsEnPreparacioUsingGETTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/tramits/accioEstatsEnPreparacio"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(Arrays.asList(new ArrayList<BigDecimal>()));
+
+		List<BigDecimal> response = api.obtenirIdAccioEstatsEnPreparacioUsingGET();
 
 		assertTrue(response != null);
 	}

@@ -135,7 +135,9 @@ public class DadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 		using(internalToDataHoraConverter).map(source.getExpedientsRDTO().getDarreraModificacio()).setDataModificacio(null);
 		using(internalToUnitatGestoraConverter).map(source.getUnitatsGestoresRDTO()).setUnitatGestora(null);
 		// using(internalToEstatCiutadaConverter).map(source.getExpedientsRDTO().getIdEstat()).setEstat(null);
-		map().setEstat(source.getExpedientsRDTO().getDescEstatCiutada());
+		// map().setEstat(source.getExpedientsRDTO().getDescEstatCiutada());
+		map().setEstat(source.getExpedientsRDTO().getDescEstatCiutadaCatala());
+		map().setEstatCastella(source.getExpedientsRDTO().getDescEstatCiutadaCastella());
 		using(internalToHistoricEstatCiutadaListConverter).map(source.getHistoricsEstats()).setHistorics(null);
 		using(internalToProcedimentConsultaConverter).map(source.getExpedientsRDTO()).setProcediment(null);
 		using(internalToRegistreConverter).map(source.getExpedientsRDTO().getSollicituds().getRegistreAssentament()).setRegistre(null);

@@ -65,13 +65,13 @@ public class ServeisPortalRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static void validateProcedimentCrearSolicitudExpedient(DadesProcedimentBDTO dadesProcedimentBDTO)
-	        throws GPAApiParamValidationException {
+			throws GPAApiParamValidationException {
 		if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
 			throw new GPAApiParamValidationException(Resultat.ERROR_CREAR_EXPEDIENT, ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND);
 		}
 
 		if (dadesProcedimentBDTO.getProcedimentsRDTO().getEstatsProcediment().getEstat()
-		        .compareTo(EstatApiParamValue.PUBLICAT.getInternalValue()) != INTEGER_ZERO) {
+				.compareTo(EstatApiParamValue.PUBLICAT.getInternalValue()) != INTEGER_ZERO) {
 			throw new GPAApiParamValidationException(Resultat.ERROR_CREAR_EXPEDIENT, ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_PUBLICAT);
 		}
 	}
@@ -89,7 +89,7 @@ public class ServeisPortalRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static void validateUnitatGestora(UnitatsGestoresRDTO unitatsGestoresRDTO, DadesProcedimentBDTO dadesProcedimentBDTO,
-	        Resultat resultatError) throws GPAApiParamValidationException {
+			Resultat resultatError) throws GPAApiParamValidationException {
 		// La Unitat Gestora debe existir, estar vigente y estar asociada al
 		// procedimiento
 		if (unitatsGestoresRDTO == null) {
@@ -102,7 +102,7 @@ public class ServeisPortalRestControllerValidationHelper {
 
 		boolean unitatAssociadaProcediment = false;
 		unitatAssociadaProcediment = unitatsGestoresRDTO.getId()
-		        .compareTo(dadesProcedimentBDTO.getProcedimentsRDTO().getUgrIdext()) == INTEGER_ZERO;
+				.compareTo(dadesProcedimentBDTO.getProcedimentsRDTO().getUgrIdext()) == INTEGER_ZERO;
 		if (!unitatAssociadaProcediment && CollectionUtils.isNotEmpty(dadesProcedimentBDTO.getProcedimentsRDTO().getUgosList())) {
 			for (ProcedimentsUgos ugo : dadesProcedimentBDTO.getProcedimentsRDTO().getUgosList()) {
 				if (unitatsGestoresRDTO.getId().compareTo(ugo.getUgoIdext()) == INTEGER_ZERO) {
@@ -127,7 +127,7 @@ public class ServeisPortalRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static void validateExpedient(DadesExpedientBDTO dadesExpedientBDTO, Resultat resultatError)
-	        throws GPAApiParamValidationException {
+			throws GPAApiParamValidationException {
 		if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND);
 		}
@@ -146,14 +146,14 @@ public class ServeisPortalRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static void validateAccioDisponibleExpedient(DadesExpedientBDTO dadesExpedientBDTO,
-	        AccioTramitadorApiParamValue accioTramitadorApiParamValue, Resultat resultatError) throws GPAApiParamValidationException {
+			AccioTramitadorApiParamValue accioTramitadorApiParamValue, Resultat resultatError) throws GPAApiParamValidationException {
 		for (AccionsEstatsRDTO accionsEstatsRDTO : dadesExpedientBDTO.getAccionsDisponibles()) {
 			if (accionsEstatsRDTO.getAccio().compareTo(accioTramitadorApiParamValue.getInternalValue()) == INTEGER_ZERO) {
 				return;
 			}
 		}
 		throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACCIO_NOT_AVAILABLE,
-		        accioTramitadorApiParamValue.getApiParamValue());
+				accioTramitadorApiParamValue.getApiParamValue());
 	}
 
 	/**
@@ -167,10 +167,10 @@ public class ServeisPortalRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static void validateSollicitantActualitzarSolicitudExpedient(PersonesRDTO sollicitant, PersonesRDTO representant)
-	        throws GPAApiParamValidationException {
+			throws GPAApiParamValidationException {
 		if (representant != null && sollicitant == null) {
 			throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
-			        ErrorPrincipal.ERROR_EXPEDIENTS_SOLLICITANT_REQUIRED);
+					ErrorPrincipal.ERROR_EXPEDIENTS_SOLLICITANT_REQUIRED);
 		}
 	}
 
@@ -188,8 +188,8 @@ public class ServeisPortalRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static ArrayList<DadesEspecifiquesRDTO> validateDadesOperacioActualitzarSolicitudExpedient(
-	        List<AtributsActualitzarRDTO> dadesOperacio, List<DadesGrupsRDTO> dadesGrupsRDTOList, BigDecimal idExpedient)
-	        throws GPAApiParamValidationException {
+			List<AtributsActualitzarRDTO> dadesOperacio, List<DadesGrupsRDTO> dadesGrupsRDTOList, BigDecimal idExpedient)
+			throws GPAApiParamValidationException {
 		ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
 		HashMap<String, List<String>> atributsMap = new HashMap<String, List<String>>();
 		if (CollectionUtils.isNotEmpty(dadesOperacio)) {
@@ -215,7 +215,7 @@ public class ServeisPortalRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static ArrayList<DadesEspecifiquesRDTO> validateDadesOperacioEsmenarExpedient(List<AtributRequeritRDTO> dadesOperacio,
-	        List<DadesGrupsRDTO> dadesGrupsRDTOList, BigDecimal idExpedient) throws GPAApiParamValidationException {
+			List<DadesGrupsRDTO> dadesGrupsRDTOList, BigDecimal idExpedient) throws GPAApiParamValidationException {
 		ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
 		HashMap<String, List<String>> atributsMap = new HashMap<String, List<String>>();
 		if (CollectionUtils.isNotEmpty(dadesOperacio)) {
@@ -241,7 +241,7 @@ public class ServeisPortalRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	private static ArrayList<DadesEspecifiquesRDTO> validateDadesOperacio(Map<String, List<String>> atributsMap,
-	        List<DadesGrupsRDTO> dadesGrupsRDTOList, BigDecimal idExpedient) throws GPAApiParamValidationException {
+			List<DadesGrupsRDTO> dadesGrupsRDTOList, BigDecimal idExpedient) throws GPAApiParamValidationException {
 		ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
 
 		HashMap<String, DadesOperacions> dadesOperacionsMap = new HashMap<String, DadesOperacions>();
@@ -268,7 +268,7 @@ public class ServeisPortalRestControllerValidationHelper {
 		for (Entry<String, List<String>> atributEntry : atributsMap.entrySet()) {
 			if (!dadesOperacionsMap.containsKey(atributEntry.getKey())) {
 				throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
-				        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_FOUND, atributEntry.getKey());
+						ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_FOUND, atributEntry.getKey());
 			}
 			dadesOperacions = dadesOperacionsMap.get(atributEntry.getKey());
 			dadesEspecifiquesRDTO = new DadesEspecifiquesRDTO();
@@ -366,7 +366,7 @@ public class ServeisPortalRestControllerValidationHelper {
 				throw e;
 			} catch (Exception e) {
 				throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
-				        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_CORRECT_VALUE, StringUtils.join(atributEntry.getValue(), ", "), e);
+						ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_CORRECT_VALUE, StringUtils.join(atributEntry.getValue(), ", "), e);
 			}
 
 			if (CollectionUtils.isNotEmpty(dadesEspecifiquesValors.getValorListaMultipleList())) {
@@ -399,14 +399,14 @@ public class ServeisPortalRestControllerValidationHelper {
 	 *             the parse exception
 	 */
 	private static void validateDadesOperacioNumericGeneral(DadesOperacions dadesOperacions, BigDecimal valor)
-	        throws GPAApiParamValidationException, ParseException {
+			throws GPAApiParamValidationException, ParseException {
 		NumberFormat numberFormat = NumberFormat.getInstance(LocaleContextHolder.getLocale());
 		TipusValidacioApiParamValueTranslator tipusValidacioApiParamValueTranslator = new TipusValidacioApiParamValueTranslator();
 		TipusValidacioApiParamValue tipusValidacioApiParamValue = null;
 		boolean valid = true;
 		for (DadesOperacionsValidacio dadesOperacionsValidacio : dadesOperacions.getDadesOperacionsValidacio()) {
 			tipusValidacioApiParamValue = tipusValidacioApiParamValueTranslator
-			        .getEnumByInternalValue(dadesOperacionsValidacio.getTipusValidacio());
+					.getEnumByInternalValue(dadesOperacionsValidacio.getTipusValidacio());
 			DadesOperValidVal dadesOperValidVal0 = dadesOperacionsValidacio.getDadesOperacionsValidValors().get(INTEGER_ZERO);
 			BigDecimal validVal0 = new BigDecimal(numberFormat.parse(dadesOperValidVal0.getValor()).toString());
 			DadesOperValidVal dadesOperValidVal1 = null;
@@ -456,7 +456,7 @@ public class ServeisPortalRestControllerValidationHelper {
 
 			if (!valid) {
 				throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
-				        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_VALID_VALUE, String.valueOf(valor));
+						ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_VALID_VALUE, String.valueOf(valor));
 			}
 		}
 	}
@@ -474,7 +474,7 @@ public class ServeisPortalRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	private static void validateDadesOperacioDataGeneral(DadesOperacions dadesOperacions, DateTime valor,
-	        TipusCampApiParamValue tipusCampApiParamValue) throws GPAApiParamValidationException {
+			TipusCampApiParamValue tipusCampApiParamValue) throws GPAApiParamValidationException {
 		TipusValidacioApiParamValueTranslator tipusValidacioApiParamValueTranslator = new TipusValidacioApiParamValueTranslator();
 		TipusValidacioApiParamValue tipusValidacioApiParamValue = null;
 		DateTimeFormatter formatter = null;
@@ -496,7 +496,7 @@ public class ServeisPortalRestControllerValidationHelper {
 		boolean valid = true;
 		for (DadesOperacionsValidacio dadesOperacionsValidacio : dadesOperacions.getDadesOperacionsValidacio()) {
 			tipusValidacioApiParamValue = tipusValidacioApiParamValueTranslator
-			        .getEnumByInternalValue(dadesOperacionsValidacio.getTipusValidacio());
+					.getEnumByInternalValue(dadesOperacionsValidacio.getTipusValidacio());
 			DadesOperValidVal dadesOperValidVal0 = dadesOperacionsValidacio.getDadesOperacionsValidValors().get(INTEGER_ZERO);
 			DateTime validVal0 = dataHoraFormatter.parseDateTime(dadesOperValidVal0.getValor().split(",")[0]);
 			validVal0 = formatter.parseDateTime(formatter.print(validVal0));
@@ -535,7 +535,7 @@ public class ServeisPortalRestControllerValidationHelper {
 				break;
 			case INTERVAL_TANCAT:
 				valid = (valor.isAfter(validValArray[0]) || valor.isEqual(validValArray[0]))
-				        && (valor.isBefore(validValArray[1]) || valor.isEqual(validValArray[1]));
+						&& (valor.isBefore(validValArray[1]) || valor.isEqual(validValArray[1]));
 				break;
 			case INTERVAL_OBERT:
 				valid = (valor.isAfter(validValArray[0]) && valor.isBefore(validValArray[1]));
@@ -549,7 +549,7 @@ public class ServeisPortalRestControllerValidationHelper {
 
 			if (!valid) {
 				throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
-				        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_VALID_VALUE, formatter.print(valor));
+						ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_VALID_VALUE, formatter.print(valor));
 			}
 		}
 	}
@@ -565,13 +565,13 @@ public class ServeisPortalRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	private static void validateDadesOperacioCadenaGeneral(DadesOperacions dadesOperacions, String valor)
-	        throws GPAApiParamValidationException {
+			throws GPAApiParamValidationException {
 		TipusValidacioApiParamValueTranslator tipusValidacioApiParamValueTranslator = new TipusValidacioApiParamValueTranslator();
 		TipusValidacioApiParamValue tipusValidacioApiParamValue = null;
 		boolean valid = true;
 		for (DadesOperacionsValidacio dadesOperacionsValidacio : dadesOperacions.getDadesOperacionsValidacio()) {
 			tipusValidacioApiParamValue = tipusValidacioApiParamValueTranslator
-			        .getEnumByInternalValue(dadesOperacionsValidacio.getTipusValidacio());
+					.getEnumByInternalValue(dadesOperacionsValidacio.getTipusValidacio());
 			DadesOperValidVal dadesOperValidVal = dadesOperacionsValidacio.getDadesOperacionsValidValors().get(INTEGER_ZERO);
 			String validVal = dadesOperValidVal.getValor();
 			switch (tipusValidacioApiParamValue) {
@@ -596,7 +596,7 @@ public class ServeisPortalRestControllerValidationHelper {
 
 			if (!valid) {
 				throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
-				        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_VALID_VALUE, String.valueOf(valor));
+						ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_VALID_VALUE, String.valueOf(valor));
 			}
 		}
 	}
@@ -614,7 +614,7 @@ public class ServeisPortalRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static void validateDocumentAportat(DocsEntradaRDTO docsEntradaRDTO, ExpedientsRDTO expedientsRDTO, Resultat resultatError)
-	        throws GPAApiParamValidationException {
+			throws GPAApiParamValidationException {
 		if (docsEntradaRDTO == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND);
 		}
@@ -633,18 +633,23 @@ public class ServeisPortalRestControllerValidationHelper {
 	 *            the document aportat crear RDTO list
 	 * @param resultatError
 	 *            the resultat error
+	 * @return
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
-	public static void validateConfiguracioDocumentacioAportada(List<ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOList,
-	        List<DocumentAportatCrearRDTO> documentAportatCrearRDTOList, Resultat resultatError) throws GPAApiParamValidationException {
+	public static HashMap<String, ConfiguracioDocsEntradaRDTO> validateConfiguracioDocumentacioAportada(
+			List<ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOList, List<DocumentAportatCrearRDTO> documentAportatCrearRDTOList,
+			Resultat resultatError) throws GPAApiParamValidationException {
+		HashMap<String, ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOMap = new HashMap<>();
 		if (CollectionUtils.isNotEmpty(documentAportatCrearRDTOList)) {
-			ArrayList<String> idConfiguracioDocumentacioList = new ArrayList<String>();
+			ArrayList<String> uniqueIdConfiguracioDocumentacioList = new ArrayList<String>();
 			for (DocumentAportatCrearRDTO documentAportatCrearRDTO : documentAportatCrearRDTOList) {
-				idConfiguracioDocumentacioList.add(documentAportatCrearRDTO.getConfiguracioDocumentacio());
+				uniqueIdConfiguracioDocumentacioList.add(documentAportatCrearRDTO.getConfiguracioDocumentacio());
 			}
-			validateConfiguracioDocumentacio(configuracioDocsEntradaRDTOList, idConfiguracioDocumentacioList, resultatError);
+			configuracioDocsEntradaRDTOMap = validateConfiguracioDocumentacio(configuracioDocsEntradaRDTOList,
+					uniqueIdConfiguracioDocumentacioList, resultatError);
 		}
+		return configuracioDocsEntradaRDTOMap;
 	}
 
 	/**
@@ -656,14 +661,15 @@ public class ServeisPortalRestControllerValidationHelper {
 	 *            the document aportat substituir RDTO
 	 * @param resultatError
 	 *            the resultat error
+	 * @return
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
 	public static void validateConfiguracioDocumentacioSubstituir(List<ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOList,
-	        DocumentAportatSubstituirRDTO documentAportatSubstituirRDTO, Resultat resultatError) throws GPAApiParamValidationException {
+			DocumentAportatSubstituirRDTO documentAportatSubstituirRDTO, Resultat resultatError) throws GPAApiParamValidationException {
 		if (documentAportatSubstituirRDTO != null) {
 			validateConfiguracioDocumentacio(configuracioDocsEntradaRDTOList,
-			        Arrays.asList(documentAportatSubstituirRDTO.getConfiguracioDocumentacio()), resultatError);
+					Arrays.asList(documentAportatSubstituirRDTO.getConfiguracioDocumentacio()), resultatError);
 		}
 	}
 
@@ -676,18 +682,23 @@ public class ServeisPortalRestControllerValidationHelper {
 	 *            the document requerit crear RDTO list
 	 * @param resultatError
 	 *            the resultat error
+	 * @return
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
-	public static void validateConfiguracioDocumentacioEsmenar(List<ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOList,
-	        List<DocumentRequeritCrearRDTO> documentRequeritCrearRDTOList, Resultat resultatError) throws GPAApiParamValidationException {
+	public static HashMap<String, ConfiguracioDocsEntradaRDTO> validateConfiguracioDocumentacioEsmenar(
+			List<ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOList,
+			List<DocumentRequeritCrearRDTO> documentRequeritCrearRDTOList, Resultat resultatError) throws GPAApiParamValidationException {
+		HashMap<String, ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOMap = new HashMap<>();
 		if (CollectionUtils.isNotEmpty(documentRequeritCrearRDTOList)) {
 			ArrayList<String> idConfiguracioDocumentacioList = new ArrayList<String>();
 			for (DocumentRequeritCrearRDTO documentRequeritCrearRDTO : documentRequeritCrearRDTOList) {
 				idConfiguracioDocumentacioList.add(documentRequeritCrearRDTO.getConfiguracioDocumentacio());
 			}
-			validateConfiguracioDocumentacio(configuracioDocsEntradaRDTOList, idConfiguracioDocumentacioList, resultatError);
+			configuracioDocsEntradaRDTOMap = validateConfiguracioDocumentacio(configuracioDocsEntradaRDTOList,
+					idConfiguracioDocumentacioList, resultatError);
 		}
+		return configuracioDocsEntradaRDTOMap;
 	}
 
 	/**
@@ -699,21 +710,25 @@ public class ServeisPortalRestControllerValidationHelper {
 	 *            the id configuracio documentacio list
 	 * @param resultatError
 	 *            the resultat error
+	 * @return
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
-	private static void validateConfiguracioDocumentacio(List<ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOList,
-	        List<String> idConfiguracioDocumentacioList, Resultat resultatError) throws GPAApiParamValidationException {
+	private static HashMap<String, ConfiguracioDocsEntradaRDTO> validateConfiguracioDocumentacio(
+			List<ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOList, List<String> uniqueIdConfiguracioDocumentacioList,
+			Resultat resultatError) throws GPAApiParamValidationException {
 		HashMap<String, ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOMap = new HashMap<String, ConfiguracioDocsEntradaRDTO>();
 		for (ConfiguracioDocsEntradaRDTO configuracioDocsEntradaRDTO : configuracioDocsEntradaRDTOList) {
-			configuracioDocsEntradaRDTOMap.put(String.valueOf(configuracioDocsEntradaRDTO.getId()), configuracioDocsEntradaRDTO);
+			configuracioDocsEntradaRDTOMap.put(String.valueOf(configuracioDocsEntradaRDTO.getUniqueId()), configuracioDocsEntradaRDTO);
 		}
 
-		for (String idConfiguracioDocumentacio : idConfiguracioDocumentacioList) {
+		for (String idConfiguracioDocumentacio : uniqueIdConfiguracioDocumentacioList) {
 			if (!configuracioDocsEntradaRDTOMap.containsKey(idConfiguracioDocumentacio)) {
 				throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_CONFIGURACIO_DOCUMENTACIO_NOT_IN_EXPEDIENT,
-				        idConfiguracioDocumentacio);
+						idConfiguracioDocumentacio);
 			}
 		}
+
+		return configuracioDocsEntradaRDTOMap;
 	}
 }

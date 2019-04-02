@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.7.0"
+  version: "1.8.0"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -3575,6 +3575,8 @@ definitions:
         type: "array"
         items:
           type: "number"
+      respostaAllegacion:
+        type: "number"
       transicionsPosibles:
         type: "array"
         items:
@@ -3646,6 +3648,8 @@ definitions:
         type: "string"
       usuari:
         type: "number"
+      usuariNom:
+        type: "string"
     title: "Comentaris"
   ComentarisRDTO:
     type: "object"
@@ -3677,6 +3681,8 @@ definitions:
         type: "string"
       usuari:
         type: "number"
+      usuariNom:
+        type: "string"
     title: "ComentarisRDTO"
   CrearAvisDocEntradaPendentRevisio:
     type: "object"
@@ -3870,7 +3876,15 @@ definitions:
         format: "date-time"
       descripcioEstatActualCiutada:
         type: "string"
+      descripcioEstatActualCiutadaCastella:
+        type: "string"
+      descripcioEstatActualCiutadaCatala:
+        type: "string"
       descripcioEstatActualTramitador:
+        type: "string"
+      descripcioEstatActualTramitadorCastella:
+        type: "string"
+      descripcioEstatActualTramitadorCatala:
         type: "string"
       descripcioEstatAnteriorCiutada:
         type: "string"
@@ -3903,6 +3917,9 @@ definitions:
       darreraModificacio:
         type: "string"
         format: "date-time"
+      dataAllegacio:
+        type: "string"
+        format: "date-time"
       dataPresentacio:
         type: "string"
         format: "date-time"
@@ -3914,7 +3931,15 @@ definitions:
         format: "date-time"
       descEstat:
         type: "string"
+      descEstatCastella:
+        type: "string"
+      descEstatCatala:
+        type: "string"
       descEstatCiutada:
+        type: "string"
+      descEstatCiutadaCastella:
+        type: "string"
+      descEstatCiutadaCatala:
         type: "string"
       descUnitatGestora:
         type: "string"
@@ -3933,6 +3958,8 @@ definitions:
       isOge:
         type: "boolean"
       nomProcediment:
+        type: "string"
+      nomProcedimentCastella:
         type: "string"
       numeroDocumentSollicitant:
         type: "string"
@@ -4046,6 +4073,8 @@ definitions:
         format: "int32"
       usuari:
         type: "number"
+      usuariNom:
+        type: "string"
     title: "HistoricsRDTO"
   InputStream:
     type: "object"

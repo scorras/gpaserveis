@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaprocediments"
-  version: "1.5.0"
+  version: "1.8.0"
   title: "API gpaprocediments"
   contact:
     name: "Sergio Corras"
@@ -518,7 +518,7 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /procediments/checkExpedients/{codProcediment}:
+  /procediments/checkExpedients/{idProcediment}:
     get:
       tags:
       - "Procediments"
@@ -527,11 +527,11 @@ paths:
       produces:
       - "*/*"
       parameters:
-      - name: "codProcediment"
+      - name: "idProcediment"
         in: "path"
-        description: "codProcediment"
+        description: "idProcediment"
         required: true
-        type: "string"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -1002,6 +1002,36 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /procediments/dadesOperacio/{idsDadesOperList}:
+    get:
+      tags:
+      - "Dades Operacions"
+      summary: "Returns all the dades operacions entries for the procedure"
+      operationId: "getDadesOperacionsListUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idsDadesOperList"
+        in: "path"
+        description: "idsDadesOperList"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/DadesOperacionsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /procediments/dadesOperacioForCercaExpedient/{codi}:
     get:
       tags:
@@ -1095,6 +1125,39 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /procediments/darreraSincronitzacio/{idProc}:
+    post:
+      tags:
+      - "Procediments"
+      summary: "updates de requested darrera sincronitzacio"
+      operationId: "updateDarreraSincronitzacioUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idProc"
+        in: "path"
+        description: "idProc"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "string"
+            format: "date-time"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /procediments/delete:
     post:
       tags:
@@ -1622,6 +1685,34 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /procediments/procedimentBloquejatPerUnAltreUsuari/{id}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "ProcedimentBloquejatPerUnAltreUsuari"
+      operationId: "procedimentBloquejatPerUnAltreUsuariUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "boolean"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /procediments/procedimentIdsByCodiAndTramitador:
     get:
       tags:
@@ -1676,6 +1767,30 @@ paths:
       - "Procediments"
       summary: "Returns all the procediments for OGE"
       operationId: "getProcedimentsForOgeUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ProcedimentsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/procedimentsForOgeForDropdown:
+    get:
+      tags:
+      - "Procediments"
+      summary: "ProcedimentsForOgeForDropdown"
+      operationId: "getProcedimentsForOgeForDropdownUsingGET"
       produces:
       - "*/*"
       responses:
@@ -2336,6 +2451,41 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /procediments/updateConfDoc/{idProc}/{idConfDoc}:
+    post:
+      tags:
+      - "Procediments"
+      summary: "updates the requested conf doc"
+      operationId: "updateConfDocUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idConfDoc"
+        in: "path"
+        description: "idConfDoc"
+        required: true
+        type: "number"
+      - name: "idProc"
+        in: "path"
+        description: "idProc"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /procediments/updateDoc:
     post:
       tags:
@@ -2417,15 +2567,10 @@ paths:
       produces:
       - "*/*"
       parameters:
-      - name: "idProc"
-        in: "path"
-        description: "idProc"
-        required: false
-        type: "number"
       - in: "body"
         name: "procedimentSerieDocRDTO"
         description: "procedimentSerieDocRDTO"
-        required: false
+        required: true
         schema:
           $ref: "#/definitions/ProcedimentSerieDocRDTO"
       responses:
@@ -2444,7 +2589,7 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /procediments/versionar/{idProc}:
+  /procediments/versionarProcediment/{idProc}:
     post:
       tags:
       - "Procediments"
@@ -2460,12 +2605,6 @@ paths:
         description: "idProc"
         required: true
         type: "number"
-      - in: "body"
-        name: "procedimentSerieDocRDTO"
-        description: "procedimentSerieDocRDTO"
-        required: false
-        schema:
-          $ref: "#/definitions/ProcedimentSerieDocRDTO"
       responses:
         200:
           description: "OK"
@@ -2631,6 +2770,195 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /procediments/{id}/dadesOperRequerit:
+    get:
+      tags:
+      - "Dades Operacions"
+      summary: "Returns all the dades operacions entries for the procedure"
+      operationId: "getDadesOperacionsRequeritUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfDadesOperacionsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/{id}/dadesOperRequerit/{idsJaExisteix}:
+    get:
+      tags:
+      - "Dades Operacions"
+      summary: "Returns all the dades operacions entries for the procedure"
+      operationId: "getDadesOperacionsRequeritWithIdsUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      - name: "idsJaExisteix"
+        in: "path"
+        description: "idsJaExisteix"
+        required: true
+        type: "string"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfDadesOperacionsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /procediments/{id}/grups:
     get:
       tags:
@@ -2758,6 +3086,8 @@ definitions:
         type: "number"
       usuari:
         type: "number"
+      usuariNom:
+        type: "string"
     title: "Comentaris"
   ComentarisRDTO:
     type: "object"
@@ -2782,6 +3112,8 @@ definitions:
         type: "number"
       usuari:
         type: "number"
+      usuariNom:
+        type: "string"
     title: "ComentarisRDTO"
   CompetenciesRDTO:
     type: "object"
@@ -2925,6 +3257,10 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/DadesOperacionsValidacio"
+      dadesoperEstatsExpList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesoperEstatsExp"
       desTipusCamp:
         type: "string"
       descripcio:
@@ -2933,8 +3269,8 @@ definitions:
         type: "string"
       detallValidacio:
         type: "string"
-      estatIdext:
-        type: "number"
+      editable:
+        type: "boolean"
       grup:
         type: "number"
       id:
@@ -2948,6 +3284,8 @@ definitions:
         format: "int32"
       procediment:
         type: "number"
+      seleccionable:
+        type: "boolean"
       tipus:
         type: "integer"
         format: "int32"
@@ -2984,6 +3322,10 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/DadesOperacionsValidacio"
+      dadesoperEstatsExpList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesoperEstatsExp"
       desTipusCamp:
         type: "string"
       descripcio:
@@ -2992,8 +3334,8 @@ definitions:
         type: "string"
       detallValidacio:
         type: "string"
-      estatIdext:
-        type: "number"
+      editable:
+        type: "boolean"
       grup:
         type: "number"
       id:
@@ -3007,6 +3349,8 @@ definitions:
         format: "int32"
       procediment:
         type: "number"
+      seleccionable:
+        type: "boolean"
       tipus:
         type: "integer"
         format: "int32"
@@ -3043,6 +3387,10 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/DadesOperacionsValidacio"
+      dadesoperEstatsExpList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesoperEstatsExp"
       desTipusCamp:
         type: "string"
       descripcio:
@@ -3051,8 +3399,8 @@ definitions:
         type: "string"
       detallValidacio:
         type: "string"
-      estatIdext:
-        type: "number"
+      editable:
+        type: "boolean"
       grup:
         type: "number"
       id:
@@ -3066,6 +3414,8 @@ definitions:
         format: "int32"
       procediment:
         type: "number"
+      seleccionable:
+        type: "boolean"
       tipus:
         type: "integer"
         format: "int32"
@@ -3098,10 +3448,22 @@ definitions:
       tipusValidacio:
         type: "number"
     title: "DadesOperacionsValidacio"
+  DadesoperEstatsExp:
+    type: "object"
+    properties:
+      dadesOperacio:
+        type: "number"
+      estatExpIdext:
+        type: "number"
+    title: "DadesoperEstatsExp"
   Estats:
     type: "object"
     properties:
       descripcio:
+        type: "string"
+      descripcioCastella:
+        type: "string"
+      descripcioCatala:
         type: "string"
       id:
         type: "number"
@@ -3154,6 +3516,10 @@ definitions:
     type: "object"
     properties:
       descripcio:
+        type: "string"
+      descripcioCastella:
+        type: "string"
+      descripcioCatala:
         type: "string"
       id:
         type: "number"
@@ -3230,6 +3596,8 @@ definitions:
         format: "int32"
       usuari:
         type: "number"
+      usuariNom:
+        type: "string"
     title: "Historics"
   HistoricsRDTO:
     type: "object"
@@ -3256,6 +3624,8 @@ definitions:
         format: "int32"
       usuari:
         type: "number"
+      usuariNom:
+        type: "string"
     title: "HistoricsRDTO"
   Identificacions:
     type: "object"
@@ -3425,6 +3795,8 @@ definitions:
       terminiMaxim:
         type: "integer"
         format: "int32"
+      tractamentGdpr:
+        type: "string"
       tramitacioAmbGpa:
         type: "integer"
         format: "int32"
@@ -3664,11 +4036,18 @@ definitions:
       darreraModificacio:
         type: "string"
         format: "date-time"
+      darreraSincronitzacio:
+        type: "string"
+        format: "date-time"
       descripcio:
         type: "string"
       descripcioCastella:
         type: "string"
       descripcioEstat:
+        type: "string"
+      descripcioEstatCastella:
+        type: "string"
+      descripcioEstatCatala:
         type: "string"
       descripcioRelacio:
         type: "string"
@@ -3782,11 +4161,18 @@ definitions:
       darreraModificacio:
         type: "string"
         format: "date-time"
+      darreraSincronitzacio:
+        type: "string"
+        format: "date-time"
       descripcio:
         type: "string"
       descripcioCastella:
         type: "string"
       descripcioEstat:
+        type: "string"
+      descripcioEstatCastella:
+        type: "string"
+      descripcioEstatCatala:
         type: "string"
       descripcioRelacio:
         type: "string"
@@ -3880,6 +4266,8 @@ definitions:
         $ref: "#/definitions/Exception"
       id:
         type: "number"
+      missatge:
+        type: "string"
     title: "ProcedimentsResponse"
   ProcedimentsTramitsRDTO:
     type: "object"

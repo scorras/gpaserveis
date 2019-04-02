@@ -131,18 +131,4 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 
 	}
 
-	@Test
-	public void testStage15_PostAccesExpedient() throws Exception {
-		String url = BASE_URL + "/expedients/1/acces";
-		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(print());
-
-	}
-
-	@Test
-	public void testStage15_PostRegistrarComunicacioExpedient() throws Exception {
-		String url = BASE_URL + "/expedients/1/comunicat";
-		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{}")).andExpect(status().isOk()).andDo(print());
-
-	}
-
 }

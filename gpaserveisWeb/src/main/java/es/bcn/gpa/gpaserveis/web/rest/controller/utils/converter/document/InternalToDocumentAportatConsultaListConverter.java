@@ -46,6 +46,11 @@ public class InternalToDocumentAportatConsultaListConverter
 	@Qualifier("expedientTipusSexeApiParamValueTranslator")
 	private BaseApiParamValueTranslator tipusSexeApiParamValueTranslator;
 
+	/** The tipus via api param value translator. */
+	@Autowired
+	@Qualifier("expedientTipusViaApiParamValueTranslator")
+	private BaseApiParamValueTranslator tipusViaApiParamValueTranslator;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -57,7 +62,7 @@ public class InternalToDocumentAportatConsultaListConverter
 		if (CollectionUtils.isNotEmpty(docsEntradaRDTOList)) {
 			documentAportatConsultaRDTOList = ConverterHelper.buildDocumentsAportatsConsultaRDTOListExpedient(docsEntradaRDTOList,
 			        tramitOvtApiParamValueTranslator, revisioApiParamValueTranslator, tipusPersonaApiParamValueTranslator,
-			        tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator);
+			        tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator, tipusViaApiParamValueTranslator);
 		}
 
 		return documentAportatConsultaRDTOList;

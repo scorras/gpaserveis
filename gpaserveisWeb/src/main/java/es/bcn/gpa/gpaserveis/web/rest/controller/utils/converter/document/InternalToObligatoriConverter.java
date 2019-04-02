@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfdocsentEstatsExp;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfdocsentTramitsOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.EstatTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 
@@ -30,20 +32,13 @@ public class InternalToObligatoriConverter extends AbstractConverter<Configuraci
 	 */
 	@Override
 	protected Boolean convert(ConfiguracioDocsEntradaRDTO source) {
-		// if (esTramitOvt(source, TramitOvtApiParamValue.SOL) &&
-		// source.getIniciProcediment() != null
-		// && expedientEstatTramitadorApiParamValueTranslator
-		// .getApiParamValueByInternalValue(BigDecimal.valueOf(source.getIniciProcediment()))
-		// .equals(EstatTramitadorApiParamValue.SOL_LICITUD_EN_REVISIO.getApiParamValue()))
-		// {
-		// return Boolean.TRUE;
-		// } else {
-		// return Boolean.FALSE;
-		// }
-
-		// TODO Arreglar para que el cálculo se realice con el conjunto de
-		// estados en los que es obligatorio
-		return Boolean.FALSE;
+		source.getConfdocsentEstatsExpList();
+		if (esTramitOvt(source, TramitOvtApiParamValue.SOL)
+		        && esObligatoriPerEstat(source, expedientEstatTramitadorApiParamValueTranslator)) {
+			return Boolean.TRUE;
+		} else {
+			return Boolean.FALSE;
+		}
 	}
 
 	/**
@@ -66,5 +61,27 @@ public class InternalToObligatoriConverter extends AbstractConverter<Configuraci
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Es obligatori per estat.
+	 *
+	 * @param configuracioDocsEntradaRDTO
+	 *            the configuracio docs entrada RDTO
+	 * @param expedientEstatTramitadorApiParamValueTranslator
+	 *            the expedient estat tramitador api param value translator
+	 * @return the boolean
+	 */
+	private static Boolean esObligatoriPerEstat(ConfiguracioDocsEntradaRDTO configuracioDocsEntradaRDTO,
+	        BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator) {
+		if (CollectionUtils.isNotEmpty(configuracioDocsEntradaRDTO.getConfdocsentEstatsExpList())) {
+			for (ConfdocsentEstatsExp confdocsentEstatsExp : configuracioDocsEntradaRDTO.getConfdocsentEstatsExpList()) {
+				if (expedientEstatTramitadorApiParamValueTranslator.getApiParamValueByInternalValue(confdocsentEstatsExp.getEstatExpIdext())
+				        .equals(EstatTramitadorApiParamValue.SOL_LICITUD_EN_REVISIO.getApiParamValue())) {
+					return Boolean.TRUE;
+				}
+			}
+		}
+		return Boolean.FALSE;
 	}
 }

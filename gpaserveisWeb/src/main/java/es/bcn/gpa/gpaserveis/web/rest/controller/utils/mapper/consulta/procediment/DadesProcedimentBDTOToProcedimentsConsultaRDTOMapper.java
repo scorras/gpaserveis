@@ -82,13 +82,16 @@ public class DadesProcedimentBDTOToProcedimentsConsultaRDTOMapper extends Proper
 		map().setCodi(source.getProcedimentsRDTO().getCodi());
 		map().setVersio(source.getProcedimentsRDTO().getVersio());
 		map().setNom(source.getProcedimentsRDTO().getNom());
+		map().setNomCastella(source.getProcedimentsRDTO().getNomCastella());
 		map().setDescripcio(source.getProcedimentsRDTO().getDescripcio());
+		map().setDescripcioCastella(source.getProcedimentsRDTO().getDescripcioCastella());
 		using(internalToUnitatGestoraConverter).map(source.getUgrRDTO()).setUgr(null);
 		using(internalToUnitatGestoraListConverter).map(source.getUgoRDTOList()).setUgo(null);
 		map().setOrganResolutori(source.getProcedimentsRDTO().getIdentificacions().getOrganResolutori());
 		using(internalToIniciacioConverter).map(source.getProcedimentsRDTO().getIniciacionsList()).setInici(null);
 		// using(internalToEstatConverter).map(source.getProcedimentsRDTO().getEstatsProcediment().getEstats().getId()).setEstat(null);
-		map().setEstat(source.getProcedimentsRDTO().getDescripcioEstat());
+		map().setEstat(source.getProcedimentsRDTO().getDescripcioEstatCatala());
+		map().setEstatCastella(source.getProcedimentsRDTO().getDescripcioEstatCastella());
 		// using(internalToTramitProcedimentListConverter).map(source.getTramitsRDTOList()).setTramits(null);
 		using(internalToIdentificacioConverter).map(source.getProcedimentsRDTO().getIdentificacions()).setDadesIdentificacio(null);
 	}

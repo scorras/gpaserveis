@@ -28,6 +28,11 @@ public class InternalToPersonaConverter extends AbstractConverter<Persones, Pers
 	@Qualifier("expedientTipusSexeApiParamValueTranslator")
 	private BaseApiParamValueTranslator tipusSexeApiParamValueTranslator;
 
+	/** The tipus via api param value translator. */
+	@Autowired
+	@Qualifier("expedientTipusViaApiParamValueTranslator")
+	private BaseApiParamValueTranslator tipusViaApiParamValueTranslator;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -36,6 +41,6 @@ public class InternalToPersonaConverter extends AbstractConverter<Persones, Pers
 	@Override
 	protected PersonesRDTO convert(Persones source) {
 		return ConverterHelper.buildPersonesRDTOExpedient(source, tipusPersonaApiParamValueTranslator,
-		        tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator);
+		        tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator, tipusViaApiParamValueTranslator);
 	}
 }
