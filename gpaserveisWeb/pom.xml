@@ -82,6 +82,22 @@
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+    			<directory>src/main/resources</directory>
+    			<filtering>true</filtering>
+    			<includes>
+        			<include>**/rest-apidocs.properties</include>
+    			</includes>
+			</resource>
+			<resource>
+    			<directory>src/main/resources</directory>
+    			<filtering>false</filtering>
+    			<includes>
+        			<include>**/*</include>
+    			</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
