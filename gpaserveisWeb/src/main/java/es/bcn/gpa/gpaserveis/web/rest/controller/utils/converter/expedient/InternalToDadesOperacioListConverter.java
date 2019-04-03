@@ -57,8 +57,6 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 							        ? dateTimeFormatter.print(dadesEspecifiquesValors.getValorCalendar()) : StringUtils.EMPTY);
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorClob() != null)
 							        ? dadesEspecifiquesValors.getValorClob() : StringUtils.EMPTY);
-							valorStringBuffer.append((dadesEspecifiquesValors.getValorComarca() != null)
-							        ? dadesEspecifiquesValors.getValorComarca() : StringUtils.EMPTY);
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorDouble() != null)
 							        ? dadesEspecifiquesValors.getValorDouble() : StringUtils.EMPTY);
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorInteger() != null)

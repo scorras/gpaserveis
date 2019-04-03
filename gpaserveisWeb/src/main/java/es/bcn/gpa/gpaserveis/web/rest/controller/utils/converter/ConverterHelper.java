@@ -135,7 +135,6 @@ public class ConverterHelper {
 			dadesContacte.setCodiPostal(persones.getPersonesDadescontacte().getCodiPostal());
 			dadesContacte.setMunicipi(persones.getPersonesDadescontacte().getMunicipi());
 			dadesContacte.setProvincia(persones.getPersonesDadescontacte().getProvincia());
-			dadesContacte.setComarca(persones.getPersonesDadescontacte().getComarca());
 			dadesContacte.setPais(persones.getPersonesDadescontacte().getPais());
 			dadesContacte.setMunicipiEstranger(persones.getPersonesDadescontacte().getMunicipiEstranger());
 			dadesContacte.setProvinciaEstranger(persones.getPersonesDadescontacte().getProvinciaEstranger());
@@ -204,7 +203,6 @@ public class ConverterHelper {
 				personesDadescontacte.setCodiPostal(personesRDTO.getDadesNotificacio().getCodiPostal());
 				personesDadescontacte.setMunicipi(personesRDTO.getDadesNotificacio().getMunicipi());
 				personesDadescontacte.setProvincia(personesRDTO.getDadesNotificacio().getProvincia());
-				personesDadescontacte.setComarca(personesRDTO.getDadesNotificacio().getComarca());
 				personesDadescontacte.setPais(personesRDTO.getDadesNotificacio().getPais());
 				personesDadescontacte.setMunicipiEstranger(personesRDTO.getDadesNotificacio().getMunicipiEstranger());
 				personesDadescontacte.setProvinciaEstranger(personesRDTO.getDadesNotificacio().getProvinciaEstranger());
@@ -263,7 +261,6 @@ public class ConverterHelper {
 			dadesContacte.setCodiPostal(persones.getPersonesDadescontacte().getCodiPostal());
 			dadesContacte.setMunicipi(persones.getPersonesDadescontacte().getMunicipi());
 			dadesContacte.setProvincia(persones.getPersonesDadescontacte().getProvincia());
-			dadesContacte.setComarca(persones.getPersonesDadescontacte().getComarca());
 			dadesContacte.setPais(persones.getPersonesDadescontacte().getPais());
 			dadesContacte.setMunicipiEstranger(persones.getPersonesDadescontacte().getMunicipiEstranger());
 			dadesContacte.setProvinciaEstranger(persones.getPersonesDadescontacte().getProvinciaEstranger());

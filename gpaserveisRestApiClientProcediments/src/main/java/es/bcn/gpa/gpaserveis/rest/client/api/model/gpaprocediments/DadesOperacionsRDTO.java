@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * DadesOperacionsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-03T13:09:40.385+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-03T18:17:51.243+02:00")
 public class DadesOperacionsRDTO {
   @JsonProperty("cercable")
   private Integer cercable = null;
