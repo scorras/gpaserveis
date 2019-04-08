@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * CrearAvisDocEntradaPendentRevisio
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:12:02.441+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:53:33.268+02:00")
 public class CrearAvisDocEntradaPendentRevisio {
   @JsonProperty("criticitat")
   private BigDecimal criticitat = null;
