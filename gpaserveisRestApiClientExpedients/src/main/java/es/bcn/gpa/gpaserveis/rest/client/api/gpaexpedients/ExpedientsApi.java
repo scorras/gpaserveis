@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-02T11:40:28.073+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T17:17:56.150+02:00")
 public class ExpedientsApi {
   private ApiClient apiClient;
 
@@ -203,10 +203,10 @@ public class ExpedientsApi {
    * ExpedientBloquejatPerUnAltreUsuari
    * 
    * @param id id (required)
-   * @return Boolean
+   * @return BloquejosRDTO
    * @throws ApiException if fails to make API call
    */
-  public Boolean expedientBloquejatPerUnAltreUsuariUsingGET(BigDecimal id) throws ApiException {
+  public BloquejosRDTO expedientBloquejatPerUnAltreUsuariUsingGET(BigDecimal id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -238,7 +238,7 @@ public class ExpedientsApi {
 
     String[] localVarAuthNames = new String[] {  };
 
-    GenericType<Boolean> localVarReturnType = new GenericType<Boolean>() {};
+    GenericType<BloquejosRDTO> localVarReturnType = new GenericType<BloquejosRDTO>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**

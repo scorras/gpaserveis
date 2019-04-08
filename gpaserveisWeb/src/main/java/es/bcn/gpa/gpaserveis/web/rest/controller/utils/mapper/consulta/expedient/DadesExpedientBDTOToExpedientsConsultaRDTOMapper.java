@@ -133,6 +133,8 @@ public class DadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 		map().setCodi(source.getExpedientsRDTO().getCodi());
 		using(internalToDataHoraConverter).map(source.getExpedientsRDTO().getDataPresentacio()).setDataPresentacio(null);
 		using(internalToDataHoraConverter).map(source.getExpedientsRDTO().getDarreraModificacio()).setDataModificacio(null);
+		using(internalToDataHoraConverter).map(source.getExpedientsRDTO().getDataAllegacio()).setDataLimitAllegacions(null);
+		using(internalToDataHoraConverter).map(source.getExpedientsRDTO().getDarreraModificacio()).setDataLimitEsmena(null);
 		using(internalToUnitatGestoraConverter).map(source.getUnitatsGestoresRDTO()).setUnitatGestora(null);
 		// using(internalToEstatCiutadaConverter).map(source.getExpedientsRDTO().getIdEstat()).setEstat(null);
 		// map().setEstat(source.getExpedientsRDTO().getDescEstatCiutada());

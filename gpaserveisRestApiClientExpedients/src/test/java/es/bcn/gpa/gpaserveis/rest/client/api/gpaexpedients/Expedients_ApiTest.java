@@ -38,8 +38,10 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDade
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InputStreamResource;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistrarSolicitudExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaAbandonarExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
@@ -520,6 +522,26 @@ public class Expedients_ApiTest extends ParentTest {
 
 		AbandonarExpedient abandonarExpedientRDTO = new AbandonarExpedient();
 		RespostaAbandonarExpedient response = api.abandonarRenunciarExpedient(abandonarExpedientRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Register the provided expedient
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void registrarSolicitudExpedientTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/expedients/registrar"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new RespostaRegistrarSolicitudExpedient());
+
+		RegistrarSolicitudExpedient registrarSolicitudExpedientRDTO = new RegistrarSolicitudExpedient();
+		RespostaRegistrarSolicitudExpedient response = api.registrarSolicitudExpedient(registrarSolicitudExpedientRDTO);
 
 		assertTrue(response != null);
 	}

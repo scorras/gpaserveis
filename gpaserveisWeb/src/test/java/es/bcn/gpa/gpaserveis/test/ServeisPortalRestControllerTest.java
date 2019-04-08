@@ -131,4 +131,11 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 
 	}
 
+	@Test
+	public void testStage15_GetDescarregarDocumentExpedient() throws Exception {
+		String url = BASE_URL + "/expedients/1/documents/1";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+
+	}
+
 }

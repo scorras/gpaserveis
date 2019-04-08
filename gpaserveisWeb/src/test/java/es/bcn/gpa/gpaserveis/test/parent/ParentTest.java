@@ -19,6 +19,7 @@ import es.bcn.gpa.gpaserveis.business.exception.GPAServeisRuntimeException;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
@@ -107,6 +108,10 @@ public abstract class ParentTest {
 	@Autowired
 	protected PaisosApi paisosApi;
 
+	/** The download entrada api. */
+	@Autowired
+	protected DownloadEntradaApi downloadEntradaApi;
+
 	/**
 	 * Sets the up.
 	 */
@@ -131,12 +136,12 @@ public abstract class ParentTest {
 			when(procedimentsApi.consultarDadesProcedimentPerCodi(any(String.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesProcedimentResponse());
 
-			when(unitatsGestoresApi.cercaUnitatsGestores(isNull(Integer.class), isNull(Integer.class), any(String.class),
-			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
+			when(unitatsGestoresApi.cercaUnitatsGestores(isNull(Integer.class), isNull(Integer.class), isNull(Boolean.class),
+			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class), isNull(DateTime.class),
 			        isNull(DateTime.class), isNull(DateTime.class), isNull(String.class), isNull(String.class), isNull(String.class),
-			        isNull(BigDecimal.class), isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class),
-			        isNull(String.class), isNull(Long.class), isNull(Integer.class), isNull(BigDecimal.class), isNull(Integer.class)))
-			                .thenReturn(TestsConfigHelper.cercaUnitatsGestoresResponse());
+			        isNull(BigDecimal.class), isNull(Integer.class), any(String.class), isNull(Integer.class), isNull(Integer.class),
+			        isNull(String.class), isNull(Long.class), isNull(Integer.class), isNull(BigDecimal.class), any(List.class),
+			        isNull(Integer.class))).thenReturn(TestsConfigHelper.cercaUnitatsGestoresResponse());
 
 			when(unitatsGestoresApi.consultarDadesUnitatGestora(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesUnitatGestoraResponse());
@@ -208,7 +213,7 @@ public abstract class ParentTest {
 			when(dadesEspecifiquesApi.consultarDadesEspecifiquesExpedient(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesEspecifiquesExpedientResponse());
 
-			when(unitatsGestoresApi.consultarDadesUnitatGestoraPerCodi(any(String.class)))
+			when(unitatsGestoresApi.consultarDadesUnitatGestoraPerNom(any(String.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesUnitatGestoraResponse());
 
 			when(paisosApi.consultarDadesPaisPerCodiIso(any(String.class))).thenReturn(TestsConfigHelper.consultarDadesPaisResponse());
@@ -229,6 +234,9 @@ public abstract class ParentTest {
 
 			when(documentacioApi.substituirDocumentExpedient(any(BigDecimal.class), any(SubstituirDocumentExpedient.class)))
 			        .thenReturn(TestsConfigHelper.substituirDocumentExpedientResponse());
+
+			when(downloadEntradaApi.descarregarDocumentExpedient(any(BigDecimal.class), any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.descarregarDocumentExpedientResponse());
 
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$

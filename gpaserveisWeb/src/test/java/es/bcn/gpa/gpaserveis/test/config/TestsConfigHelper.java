@@ -1170,4 +1170,8 @@ public class TestsConfigHelper {
 
 		return respostaSubstituirDocumentExpedientRDTO;
 	}
+
+	public static byte[] descarregarDocumentExpedientResponse() {
+		return "prova".getBytes();
+	}
 }

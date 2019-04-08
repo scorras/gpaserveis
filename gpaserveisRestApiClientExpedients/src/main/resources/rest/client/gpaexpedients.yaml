@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.8.0"
+  version: "1.9.1"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -1844,7 +1844,7 @@ paths:
         200:
           description: "OK"
           schema:
-            type: "boolean"
+            $ref: "#/definitions/BloquejosRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -3226,8 +3226,8 @@ paths:
       - "*/*"
       parameters:
       - in: "body"
-        name: "tramitsRDTO"
-        description: "tramitsRDTO"
+        name: "marquesRDTO"
+        description: "marquesRDTO"
         required: true
         schema:
           $ref: "#/definitions/MarquesRDTO"
@@ -3535,6 +3535,10 @@ definitions:
   Bloquejos:
     type: "object"
     properties:
+      expedientBloquejatPerAltreUsuari:
+        type: "boolean"
+      expedientEditable:
+        type: "boolean"
       id:
         type: "number"
       momentBloqueig:
@@ -3548,6 +3552,10 @@ definitions:
   BloquejosRDTO:
     type: "object"
     properties:
+      expedientBloquejatPerAltreUsuari:
+        type: "boolean"
+      expedientEditable:
+        type: "boolean"
       id:
         type: "number"
       momentBloqueig:
@@ -3576,6 +3584,8 @@ definitions:
         items:
           type: "number"
       respostaAllegacion:
+        type: "number"
+      respostaRequeriment:
         type: "number"
       transicionsPosibles:
         type: "array"
@@ -3920,6 +3930,9 @@ definitions:
       dataAllegacio:
         type: "string"
         format: "date-time"
+      dataEsmena:
+        type: "string"
+        format: "date-time"
       dataPresentacio:
         type: "string"
         format: "date-time"
@@ -3943,6 +3956,10 @@ definitions:
         type: "string"
       descUnitatGestora:
         type: "string"
+      diesTerminiAllegacio:
+        type: "number"
+      diesTerminiRequeriment:
+        type: "number"
       documentacioIdext:
         type: "number"
       editable:

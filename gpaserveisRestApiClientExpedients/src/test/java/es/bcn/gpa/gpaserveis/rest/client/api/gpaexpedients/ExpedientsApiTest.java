@@ -242,10 +242,10 @@ public class ExpedientsApiTest extends ParentTest {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/expedients/expedientBloquejatPerUnAltreUsuari/1"), eq("GET"), any(List.class), any(Object.class),
 		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(Boolean.TRUE);
+		                .thenReturn(new BloquejosRDTO());
 
 		BigDecimal id = ONE;
-		Boolean response = api.expedientBloquejatPerUnAltreUsuariUsingGET(id);
+		BloquejosRDTO response = api.expedientBloquejatPerUnAltreUsuariUsingGET(id);
 
 		assertTrue(response != null);
 	}

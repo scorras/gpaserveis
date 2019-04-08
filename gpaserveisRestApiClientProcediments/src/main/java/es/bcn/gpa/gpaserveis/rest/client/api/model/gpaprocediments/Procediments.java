@@ -38,7 +38,7 @@ import org.joda.time.DateTime;
 /**
  * Procediments
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-03T18:17:51.243+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T17:18:13.226+02:00")
 public class Procediments {
   @JsonProperty("bloqueig")
   private BigDecimal bloqueig = null;

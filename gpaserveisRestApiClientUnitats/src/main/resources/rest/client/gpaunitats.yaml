@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaunitats"
-  version: "1.5.0"
+  version: "1.9.1"
   title: "API gpaunitats"
   contact:
     name: "Sergio Corras"
@@ -13,11 +13,35 @@ basePath: "/services/gpaunitats/rest"
 tags:
 - name: "catalog-rest-controller"
   description: "Catalog Rest Controller"
+- name: "contexte-seguretat-rest-controller"
+  description: "Contexte Seguretat Rest Controller"
 - name: "unitats-rest-controller"
   description: "Unitats Rest Controller"
 - name: "usuaris-rest-controller"
   description: "Usuaris Rest Controller"
 paths:
+  /autenticacioUsuaris/autenticat:
+    get:
+      tags:
+      - "Usuaris"
+      summary: "Returns the requested usuari"
+      operationId: "obtenirUsuariAutenticat"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/UsuarisRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /unitats:
     get:
       tags:
@@ -136,7 +160,7 @@ paths:
           description: "Not Found"
       deprecated: false
       x-imi-roles:
-        administrador: "Perfil usuari administrador"
+        gestor: "Perfil usuari gestor"
   /unitats/all:
     get:
       tags:
@@ -185,6 +209,29 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /unitats/darreraSincronitzacio:
+    get:
+      tags:
+      - "Unitats Gestores"
+      summary: "Returns the requested unitat"
+      operationId: "return darrera sincronitzacio"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "string"
+            format: "date-time"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /unitats/delete:
     post:
       tags:
@@ -217,7 +264,7 @@ paths:
           description: "Not Found"
       deprecated: false
       x-imi-roles:
-        administrador: "Perfil usuari administrador"
+        gestor: "Perfil usuari gestor"
   /unitats/list:
     post:
       tags:
@@ -255,18 +302,18 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /unitats/perCodi/{codi}:
+  /unitats/perNom/{nom}:
     get:
       tags:
       - "Unitats Gestores"
       summary: "Returns the requested unitat"
-      operationId: "consultarDadesUnitatGestoraPerCodi"
+      operationId: "consultarDadesUnitatGestoraPerNom"
       produces:
       - "*/*"
       parameters:
-      - name: "codi"
+      - name: "nom"
         in: "path"
-        description: "codi"
+        description: "nom"
         required: true
         type: "string"
       responses:
@@ -302,10 +349,6 @@ paths:
         required: false
         type: "integer"
         format: "int32"
-      - name: "codi"
-        in: "query"
-        required: false
-        type: "string"
       - name: "currentPageHasNextPage"
         in: "query"
         required: false
@@ -327,6 +370,11 @@ paths:
         required: false
         type: "integer"
         format: "int32"
+      - name: "darreraSincronitzacio"
+        in: "query"
+        required: false
+        type: "string"
+        format: "date-time"
       - name: "dataCreacio"
         in: "query"
         required: false
@@ -390,6 +438,13 @@ paths:
         in: "query"
         required: false
         type: "number"
+      - name: "unitatOrganigramaList"
+        in: "query"
+        required: false
+        type: "array"
+        items:
+          type: "number"
+        collectionFormat: "multi"
       - name: "vigent"
         in: "query"
         required: false
@@ -400,6 +455,54 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/PageDataOfUnitatsGestoresRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /unitats/sincronitzarUnitatsGestores:
+    post:
+      tags:
+      - "Unitats Gestores"
+      summary: "Sincronitzar Unitats Gestores"
+      operationId: "sincronitzarUnitatsGestoresUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /unitats/vigents:
+    get:
+      tags:
+      - "Unitats Gestores"
+      summary: "Returns all the unitats gestores vigents"
+      operationId: "obtenirUnitatsGestoresVigentsUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UnitatsGestoresRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -437,7 +540,37 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /usuaris/{matricula}:
+  /usuaris/list/{idsUsuaris}:
+    get:
+      tags:
+      - "Usuaris"
+      summary: "Returns the requested usuaris"
+      operationId: "obtenirUsuarisPorIds"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idsUsuaris"
+        in: "path"
+        description: "idsUsuaris"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UsuarisRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /usuaris/matricula/{matricula}:
     get:
       tags:
       - "Usuaris"
@@ -451,6 +584,34 @@ paths:
         description: "matricula"
         required: true
         type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/UsuarisRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /usuaris/{idUsuari}:
+    get:
+      tags:
+      - "Usuaris"
+      summary: "Returns the requested usuari"
+      operationId: "obtenirUsuariPorId"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idUsuari"
+        in: "path"
+        description: "idUsuari"
+        required: true
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -525,8 +686,9 @@ definitions:
   UnitatsGestoresRDTO:
     type: "object"
     properties:
-      codi:
+      darreraSincronitzacio:
         type: "string"
+        format: "date-time"
       dataCreacio:
         type: "string"
         format: "date-time"
@@ -543,6 +705,10 @@ definitions:
         type: "string"
       unitatOrganigrama:
         type: "number"
+      unitatOrganigramaList:
+        type: "array"
+        items:
+          type: "number"
       vigent:
         type: "integer"
         format: "int32"
@@ -565,6 +731,8 @@ definitions:
       cognom1:
         type: "string"
       cognom2:
+        type: "string"
+      documentIdentitat:
         type: "string"
       email:
         type: "string"

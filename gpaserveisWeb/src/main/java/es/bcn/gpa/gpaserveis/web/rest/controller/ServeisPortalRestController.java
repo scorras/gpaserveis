@@ -552,7 +552,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *            the id document
 	 * @return the response entity
 	 */
-	@GetMapping("/expedients/{codiExpedient}/documents/{idDocument}")
+	@GetMapping(value = "/expedients/{codiExpedient}/documents/{idDocument}", produces = "*/*")
 	@ApiOperation(value = "Descarregar document de l'expedient", tags = { "Serveis Portal API",
 	        "Funcions de consulta al repositori de dades d'expedients" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
