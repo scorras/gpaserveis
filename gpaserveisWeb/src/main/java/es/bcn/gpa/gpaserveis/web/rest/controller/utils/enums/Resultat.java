@@ -25,9 +25,9 @@ public enum Resultat {
 
 	ERROR_ESBORRAR_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut donar de baixa el document"),
 
-	OK_UPLOAD_DOCUMENT_EXPEDIENT("OK", "Document actualitzat correctament"),
+	OK_UPLOAD_DOCUMENT_EXPEDIENT("OK", "Document pujat correctament"),
 
-	ERROR_UPLOAD_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut actualitzar el document"),
+	ERROR_UPLOAD_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut pujar el document"),
 
 	OK_DESCARREGAR_DOCUMENT_EXPEDIENT("OK", "Document descarregat correctament"),
 

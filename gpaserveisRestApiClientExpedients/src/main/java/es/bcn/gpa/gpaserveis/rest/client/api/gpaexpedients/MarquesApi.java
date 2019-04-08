@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-02T11:40:28.073+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:53:33.268+02:00")
 public class MarquesApi {
   private ApiClient apiClient;
 
@@ -177,16 +177,16 @@ public class MarquesApi {
   /**
    * Insert  marques
    * 
-   * @param tramitsRDTO tramitsRDTO (required)
+   * @param marquesRDTO marquesRDTO (required)
    * @return MarquesRDTO
    * @throws ApiException if fails to make API call
    */
-  public MarquesRDTO saveTramitUsingPOST(MarquesRDTO tramitsRDTO) throws ApiException {
-    Object localVarPostBody = tramitsRDTO;
+  public MarquesRDTO saveTramitUsingPOST(MarquesRDTO marquesRDTO) throws ApiException {
+    Object localVarPostBody = marquesRDTO;
     
-    // verify the required parameter 'tramitsRDTO' is set
-    if (tramitsRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'tramitsRDTO' when calling saveTramitUsingPOST");
+    // verify the required parameter 'marquesRDTO' is set
+    if (marquesRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'marquesRDTO' when calling saveTramitUsingPOST");
     }
     
     // create path and map variables

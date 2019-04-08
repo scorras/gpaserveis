@@ -12,7 +12,7 @@ import lombok.Setter;
 @ApiModel(value = "DadesContacte")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "email", "telefon", "mobil", "fax", "tipusVia", "nomVia", "numero", "escala", "bloc", "porta", "pis", "codiPostal",
-        "municipi", "provincia", "comarca", "pais", "municipiEstranger", "provinciaEstranger" })
+        "municipi", "provincia", "pais", "municipiEstranger", "provinciaEstranger" })
 @Getter
 @Setter
 public class DadesContacteRDTO {
@@ -47,8 +47,6 @@ public class DadesContacteRDTO {
 	private String municipi;
 	@ApiModelProperty(value = "Codi INE de la Província")
 	private String provincia;
-	@ApiModelProperty(value = "Codi INE de la Comarca")
-	private String comarca;
 	@ApiModelProperty(value = "Codi INE del Pais")
 	private String pais;
 

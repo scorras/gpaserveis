@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 /**
  * DadesOperValidVal
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-03T13:09:40.385+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:54:04.705+02:00")
 public class DadesOperValidVal {
   @JsonProperty("dadesOperValid")
   private BigDecimal dadesOperValid = null;

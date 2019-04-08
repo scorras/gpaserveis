@@ -884,6 +884,12 @@ public class TestsConfigHelper {
 		accionsEstatsRDTO4.setAccio(new BigDecimal(17));
 		accionsEstatsRDTOList.add(accionsEstatsRDTO4);
 
+		AccionsEstatsRDTO accionsEstatsRDTO5 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO5.setId(ONE);
+		accionsEstatsRDTO5.setNomAccio("Substituir document");
+		accionsEstatsRDTO5.setAccio(new BigDecimal(40));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO5);
+
 		return accionsEstatsRDTOList;
 	}
 
@@ -1169,5 +1175,9 @@ public class TestsConfigHelper {
 		respostaSubstituirDocumentExpedientRDTO.setRegistreAssentament(registreAssentamentRDTO);
 
 		return respostaSubstituirDocumentExpedientRDTO;
+	}
+
+	public static byte[] descarregarDocumentExpedientResponse() {
+		return "prova".getBytes();
 	}
 }

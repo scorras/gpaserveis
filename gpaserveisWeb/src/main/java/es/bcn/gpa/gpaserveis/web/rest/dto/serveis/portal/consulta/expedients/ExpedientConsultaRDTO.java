@@ -42,6 +42,12 @@ public class ExpedientConsultaRDTO {
 	@ApiModelProperty(value = "Data de l'última modificació de l'expedient")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_TIME_PATTERN)
 	private String dataModificacio;
+	@ApiModelProperty(value = "Data límit per presentar les al·legacions")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_TIME_PATTERN)
+	private String dataLimitAllegacions;
+	@ApiModelProperty(value = "Data límit per presentar els requeriments")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_TIME_PATTERN)
+	private String dataLimitEsmena;
 	@ApiModelProperty(value = "Unitat gestora")
 	private UnitatGestoraRDTO unitatGestora;
 	@ApiModelProperty(value = "Estat actual del expedient")

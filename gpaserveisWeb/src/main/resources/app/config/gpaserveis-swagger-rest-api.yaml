@@ -702,7 +702,6 @@
             "LARGE",
             "CHECK",
             "PAIS",
-            "COMARCA",
             "PROVINCIA",
             "MUNICIPI"
           ]
@@ -750,10 +749,6 @@
         "codiPostal": {
           "type": "string",
           "description": "Codi Postal"
-        },
-        "comarca": {
-          "type": "string",
-          "description": "Comarca"
         },
         "email": {
           "type": "string",

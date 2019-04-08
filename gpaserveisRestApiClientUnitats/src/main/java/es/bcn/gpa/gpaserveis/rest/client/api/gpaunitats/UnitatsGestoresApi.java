@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-02-28T11:16:14.422+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:54:39.764+02:00")
 public class UnitatsGestoresApi {
   private ApiClient apiClient;
 
@@ -82,12 +82,12 @@ public class UnitatsGestoresApi {
    * 
    * @param absoluteRowNumberOfFirstRowInCurrentPage  (optional)
    * @param absoluteRowNumberOfLastRowInCurrentPage  (optional)
-   * @param codi  (optional)
    * @param currentPageHasNextPage  (optional)
    * @param currentPageHasPreviousPage  (optional)
    * @param currentPageIsFirstPage  (optional)
    * @param currentPageIsLastPage  (optional)
    * @param currentPageNumber  (optional)
+   * @param darreraSincronitzacio  (optional)
    * @param dataCreacio  (optional)
    * @param dataModificacio  (optional)
    * @param descUnitatOrganigrama  (optional)
@@ -102,11 +102,12 @@ public class UnitatsGestoresApi {
    * @param totalElements  (optional)
    * @param totalPages  (optional)
    * @param unitatOrganigrama  (optional)
+   * @param unitatOrganigramaList  (optional)
    * @param vigent  (optional)
    * @return PageDataOfUnitatsGestoresRDTO
    * @throws ApiException if fails to make API call
    */
-  public PageDataOfUnitatsGestoresRDTO cercaUnitatsGestores(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, String codi, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, DateTime dataCreacio, DateTime dataModificacio, String descUnitatOrganigrama, String descripcio, String dir, BigDecimal id, Integer nextPageNumber, String nom, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages, BigDecimal unitatOrganigrama, Integer vigent) throws ApiException {
+  public PageDataOfUnitatsGestoresRDTO cercaUnitatsGestores(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, DateTime darreraSincronitzacio, DateTime dataCreacio, DateTime dataModificacio, String descUnitatOrganigrama, String descripcio, String dir, BigDecimal id, Integer nextPageNumber, String nom, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages, BigDecimal unitatOrganigrama, List<BigDecimal> unitatOrganigramaList, Integer vigent) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -119,12 +120,12 @@ public class UnitatsGestoresApi {
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "codi", codi));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasNextPage", currentPageHasNextPage));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasPreviousPage", currentPageHasPreviousPage));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsFirstPage", currentPageIsFirstPage));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsLastPage", currentPageIsLastPage));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "darreraSincronitzacio", darreraSincronitzacio));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "dataCreacio", dataCreacio));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "dataModificacio", dataModificacio));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "descUnitatOrganigrama", descUnitatOrganigrama));
@@ -139,6 +140,7 @@ public class UnitatsGestoresApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "unitatOrganigrama", unitatOrganigrama));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "unitatOrganigramaList", unitatOrganigramaList));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "vigent", vigent));
 
     
@@ -203,21 +205,21 @@ public class UnitatsGestoresApi {
   /**
    * Returns the requested unitat
    * 
-   * @param codi codi (required)
+   * @param nom nom (required)
    * @return UnitatsGestoresRDTO
    * @throws ApiException if fails to make API call
    */
-  public UnitatsGestoresRDTO consultarDadesUnitatGestoraPerCodi(String codi) throws ApiException {
+  public UnitatsGestoresRDTO consultarDadesUnitatGestoraPerNom(String nom) throws ApiException {
     Object localVarPostBody = null;
     
-    // verify the required parameter 'codi' is set
-    if (codi == null) {
-      throw new ApiException(400, "Missing the required parameter 'codi' when calling consultarDadesUnitatGestoraPerCodi");
+    // verify the required parameter 'nom' is set
+    if (nom == null) {
+      throw new ApiException(400, "Missing the required parameter 'nom' when calling consultarDadesUnitatGestoraPerNom");
     }
     
     // create path and map variables
-    String localVarPath = "/unitats/perCodi/{codi}"
-      .replaceAll("\\{" + "codi" + "\\}", apiClient.escapeString(codi.toString()));
+    String localVarPath = "/unitats/perNom/{nom}"
+      .replaceAll("\\{" + "nom" + "\\}", apiClient.escapeString(nom.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -341,6 +343,76 @@ public class UnitatsGestoresApi {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
+   * Returns all the unitats gestores vigents
+   * 
+   * @return List&lt;UnitatsGestoresRDTO&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<UnitatsGestoresRDTO> obtenirUnitatsGestoresVigentsUsingGET() throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/unitats/vigents";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<UnitatsGestoresRDTO>> localVarReturnType = new GenericType<List<UnitatsGestoresRDTO>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Returns the requested unitat
+   * 
+   * @return DateTime
+   * @throws ApiException if fails to make API call
+   */
+  public DateTime returnDarreraSincronitzacio() throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/unitats/darreraSincronitzacio";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<DateTime> localVarReturnType = new GenericType<DateTime>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
    * Insert  or updates the provided unitat
    * 
    * @param unitatsGestoresRDTO unitatsGestoresRDTO (required)
@@ -422,4 +494,38 @@ public class UnitatsGestoresApi {
     GenericType<List<UnitatsGestoresRDTO>> localVarReturnType = new GenericType<List<UnitatsGestoresRDTO>>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
+  /**
+   * Sincronitzar Unitats Gestores
+   * 
+   * @throws ApiException if fails to make API call
+   */
+  public void sincronitzarUnitatsGestoresUsingPOST() throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/unitats/sincronitzarUnitatsGestores";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+
+    apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
 }

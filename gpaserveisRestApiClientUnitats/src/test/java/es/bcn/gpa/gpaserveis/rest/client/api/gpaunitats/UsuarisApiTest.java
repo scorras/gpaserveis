@@ -18,6 +18,8 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -52,11 +54,71 @@ public class UsuarisApiTest extends ParentTest {
 	@Test
 	public void obtenirUsuariPorMatriculaTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/usuaris/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
+		when(apiClient.invokeAPI(eq("/usuaris/matricula/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
 		        any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(new UsuarisRDTO());
 
 		String matricula = ONE.toString();
 		UsuarisRDTO response = api.obtenirUsuariPorMatricula(matricula);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested usuari
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirUsuariAutenticatTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/autenticacioUsuaris/autenticat"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new UsuarisRDTO());
+
+		UsuarisRDTO response = api.obtenirUsuariAutenticat();
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested usuari
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirUsuariPorIdTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/usuaris/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
+		        any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(new UsuarisRDTO());
+
+		BigDecimal idUsuari = ONE;
+		UsuarisRDTO response = api.obtenirUsuariPorId(idUsuari);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested usuaris
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirUsuarisPorIdsTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/usuaris/list/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
+		        any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<UsuarisRDTO>());
+
+		String idsUsuaris = ONE.toString();
+		List<UsuarisRDTO> response = api.obtenirUsuarisPorIds(idsUsuaris);
 
 		assertTrue(response != null);
 	}

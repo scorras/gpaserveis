@@ -82,12 +82,12 @@ public class UnitatsGestoresApiTest extends ParentTest {
 
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
-		String codi = null;
 		Boolean currentPageHasNextPage = null;
 		Boolean currentPageHasPreviousPage = null;
 		Boolean currentPageIsFirstPage = null;
 		Boolean currentPageIsLastPage = null;
 		Integer currentPageNumber = null;
+		DateTime darreraSincronitzacio = null;
 		DateTime dataCreacio = null;
 		DateTime dataModificacio = null;
 		String descUnitatOrganigrama = null;
@@ -102,11 +102,13 @@ public class UnitatsGestoresApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		BigDecimal unitatOrganigrama = null;
+		List<BigDecimal> unitatOrganigramaList = null;
 		Integer vigent = null;
 		PageDataOfUnitatsGestoresRDTO response = api.cercaUnitatsGestores(absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, codi, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dataCreacio, dataModificacio, descUnitatOrganigrama, descripcio, dir, id,
-		        nextPageNumber, nom, pageSize, previousPageNumber, sort, totalElements, totalPages, unitatOrganigrama, vigent);
+		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
+		        currentPageIsLastPage, currentPageNumber, darreraSincronitzacio, dataCreacio, dataModificacio, descUnitatOrganigrama,
+		        descripcio, dir, id, nextPageNumber, nom, pageSize, previousPageNumber, sort, totalElements, totalPages, unitatOrganigrama,
+		        unitatOrganigramaList, vigent);
 
 		assertTrue(response != null);
 	}
@@ -235,15 +237,72 @@ public class UnitatsGestoresApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void consultarDadesUnitatGestoraPerCodiTest() throws ApiException {
+	public void consultarDadesUnitatGestoraPerNomTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/unitats/perCodi/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
+		when(apiClient.invokeAPI(eq("/unitats/perNom/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
 		        any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(new UnitatsGestoresRDTO());
 
-		String codi = ONE.toString();
-		UnitatsGestoresRDTO response = api.consultarDadesUnitatGestoraPerCodi(codi);
+		String nom = ONE.toString();
+		UnitatsGestoresRDTO response = api.consultarDadesUnitatGestoraPerNom(nom);
 
 		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns all the unitats gestores vigents
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirUnitatsGestoresVigentsUsingGETTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/unitats/vigents"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
+		        any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<UnitatsGestoresRDTO>());
+
+		List<UnitatsGestoresRDTO> response = api.obtenirUnitatsGestoresVigentsUsingGET();
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested unitat
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void returnDarreraSincronitzacioTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/unitats/darreraSincronitzacio"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(DateTime.now());
+
+		DateTime response = api.returnDarreraSincronitzacio();
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Sincronitzar Unitats Gestores
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void sincronitzarUnitatsGestoresUsingPOSTTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/unitats/sincronitzarUnitatsGestores"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<UnitatsGestoresRDTO>());
+
+		api.sincronitzarUnitatsGestoresUsingPOST();
+
+		assertTrue(true);
 	}
 
 }

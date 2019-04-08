@@ -49,9 +49,6 @@ public enum TipusCampApiParamValue implements BaseApiParamValue {
 	/** The provincia. */
 	PROVINCIA("PROVINCIA", new Integer(14)),
 
-	/** The comarca. */
-	COMARCA("COMARCA", new Integer(15)),
-
 	/** The municipi. */
 	MUNICIPI("MUNICIPI", new Integer(16));
 
