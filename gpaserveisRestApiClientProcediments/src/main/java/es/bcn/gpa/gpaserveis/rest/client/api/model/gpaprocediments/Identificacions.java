@@ -34,7 +34,7 @@ import org.joda.time.DateTime;
 /**
  * Identificacions
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:12:32.660+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:54:04.705+02:00")
 public class Identificacions {
   @JsonProperty("accesMobil")
   private String accesMobil = null;

@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * UnitatsOrganigramaRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:13:25.801+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:54:39.764+02:00")
 public class UnitatsOrganigramaRDTO {
   @JsonProperty("codi")
   private String codi = null;
