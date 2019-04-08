@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * ProcedimentSerieDocRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T17:18:13.226+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:12:32.660+02:00")
 public class ProcedimentSerieDocRDTO {
   @JsonProperty("estatProcediment")
   private String estatProcediment = null;

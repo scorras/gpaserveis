@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * StackTraceElement
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T17:18:13.226+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:12:32.660+02:00")
 public class StackTraceElement {
   @JsonProperty("className")
   private String className = null;
