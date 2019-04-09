@@ -1,5 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.registrar;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -28,6 +30,6 @@ public class RespostaRegistrarExpedientRDTO {
 	private RegistreRDTO registre;
 
 	@ApiModelProperty("Array de bytes amb el comprovant en PDF del registre del document incorporat")
-	private byte[] comprovant;
+	private BigDecimal comprovant;
 
 }
