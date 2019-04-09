@@ -23,9 +23,9 @@ import lombok.Setter;
 
 @ApiModel(value = "ExpedientConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "codi", "accionsDisponibles", "dataPresentacio", "dataModificacio", "unitatGestora", "estat", "estatCastella",
-        "historics", "procediment", "registre", "sollicitant", "representant", "personesInteressades", "personesImplicades",
-        "documentsAportats", "configuracioDocumentacioRequerida", "dadesOperacio" })
+@JsonPropertyOrder({ "id", "codi", "accionsDisponibles", "dataPresentacio", "dataModificacio", "dataLimitAllegacions", "dataLimitEsmena",
+        "unitatGestora", "estat", "estatCastella", "historics", "procediment", "registre", "sollicitant", "representant",
+        "personesInteressades", "personesImplicades", "documentsAportats", "configuracioDocumentacioRequerida", "dadesOperacio" })
 @Getter
 @Setter
 public class ExpedientConsultaRDTO {
