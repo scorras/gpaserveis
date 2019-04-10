@@ -23,7 +23,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PaisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
@@ -104,10 +103,6 @@ public abstract class ParentTest {
 	/** The dades especifiques api. */
 	@Autowired
 	protected DadesEspecifiquesApi dadesEspecifiquesApi;
-
-	/** The paisos api. */
-	@Autowired
-	protected PaisosApi paisosApi;
 
 	/** The download entrada api. */
 	@Autowired
@@ -222,8 +217,6 @@ public abstract class ParentTest {
 
 			when(unitatsGestoresApi.consultarDadesUnitatGestoraPerNom(any(String.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesUnitatGestoraResponse());
-
-			when(paisosApi.consultarDadesPaisPerCodiIso(any(String.class))).thenReturn(TestsConfigHelper.consultarDadesPaisResponse());
 
 			when(expedients_Api.crearSollicitudExpedient(any(ExpedientsRDTO.class)))
 			        .thenReturn(TestsConfigHelper.crearSollicitudExpedientResponse());

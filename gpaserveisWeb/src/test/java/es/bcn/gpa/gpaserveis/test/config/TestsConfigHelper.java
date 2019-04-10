@@ -415,7 +415,6 @@ public class TestsConfigHelper {
 		paisos.setCodiIso("ES");
 		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
 		personesDadescontacte.setId(ONE);
-		personesDadescontacte.setSexe(ONE);
 		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
 		documentsIdentitat.setPaisos(paisos);
 		persones.setDocumentsIdentitat(documentsIdentitat);
@@ -511,7 +510,6 @@ public class TestsConfigHelper {
 
 		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
 		personesDadescontacte.setId(ONE);
-		personesDadescontacte.setSexe(ONE);
 
 		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Estats estats = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Estats();
 		estats.setId(ONE);
@@ -729,7 +727,6 @@ public class TestsConfigHelper {
 		paisos.setCodiIso("ES");
 		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
 		personesDadescontacte.setId(ONE);
-		personesDadescontacte.setSexe(ONE);
 		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
 		documentsIdentitat.setPaisos(paisos);
 		persones.setDocumentsIdentitat(documentsIdentitat);
@@ -952,7 +949,6 @@ public class TestsConfigHelper {
 		persones.setDocumentsIdentitat(documentsIdentitat);
 		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PersonesDadescontacte personesDadescontacte = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PersonesDadescontacte();
 		personesDadescontacte.setId(ONE);
-		personesDadescontacte.setSexe(ONE);
 		persones.setPersonesDadescontacte(personesDadescontacte);
 
 		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RegistreAssentament registreAssentament = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RegistreAssentament();

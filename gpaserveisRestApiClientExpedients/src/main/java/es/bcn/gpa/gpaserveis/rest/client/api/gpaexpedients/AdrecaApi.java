@@ -7,22 +7,22 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusSexeRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AdrecaNormalitzadaRDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:53:33.268+02:00")
-public class TipusSexeApi {
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-10T18:52:55.179+02:00")
+public class AdrecaApi {
   private ApiClient apiClient;
 
-  public TipusSexeApi() {
+  public AdrecaApi() {
     this(Configuration.getDefaultApiClient());
   }
 
-  public TipusSexeApi(ApiClient apiClient) {
+  public AdrecaApi(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
@@ -35,16 +35,30 @@ public class TipusSexeApi {
   }
 
   /**
-   * Returns all the TipusSexe
+   * Returns the normalitzada adreca
    * 
-   * @return List&lt;TipusSexeRDTO&gt;
+   * @param nomVia nomVia (required)
+   * @param numero numero (required)
+   * @return AdrecaNormalitzadaRDTO
    * @throws ApiException if fails to make API call
    */
-  public List<TipusSexeRDTO> obtenirTipusSexeUsingGET() throws ApiException {
+  public AdrecaNormalitzadaRDTO normalitzarAdrecaPostalUsingGET(String nomVia, String numero) throws ApiException {
     Object localVarPostBody = null;
     
+    // verify the required parameter 'nomVia' is set
+    if (nomVia == null) {
+      throw new ApiException(400, "Missing the required parameter 'nomVia' when calling normalitzarAdrecaPostalUsingGET");
+    }
+    
+    // verify the required parameter 'numero' is set
+    if (numero == null) {
+      throw new ApiException(400, "Missing the required parameter 'numero' when calling normalitzarAdrecaPostalUsingGET");
+    }
+    
     // create path and map variables
-    String localVarPath = "/expedients/catalog/tipusSexe";
+    String localVarPath = "/expedients/catalog/normalitzarAdrecaPostal/{nomVia}/{numero}"
+      .replaceAll("\\{" + "nomVia" + "\\}", apiClient.escapeString(nomVia.toString()))
+      .replaceAll("\\{" + "numero" + "\\}", apiClient.escapeString(numero.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -66,7 +80,7 @@ public class TipusSexeApi {
 
     String[] localVarAuthNames = new String[] {  };
 
-    GenericType<List<TipusSexeRDTO>> localVarReturnType = new GenericType<List<TipusSexeRDTO>>() {};
+    GenericType<AdrecaNormalitzadaRDTO> localVarReturnType = new GenericType<AdrecaNormalitzadaRDTO>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
 }

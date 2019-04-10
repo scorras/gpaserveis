@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.9.1"
+  version: "1.10.0"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -859,60 +859,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /expedients/catalog/comarques:
-    get:
-      tags:
-      - "Comarques"
-      summary: "Returns all the comarques"
-      operationId: "getComarquesUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/ComarquesRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /expedients/catalog/comarques/{idProvincia}:
-    get:
-      tags:
-      - "Comarques"
-      summary: "Returns all the comarquesProvincia"
-      operationId: "getComarquesProvinciaUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idProvincia"
-        in: "path"
-        description: "idProvincia"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/RelacioPersonaRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
   /expedients/catalog/criticitatAvis:
     get:
       tags:
@@ -961,18 +907,18 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/catalog/municipis/{idProvincia}:
+  /expedients/catalog/municipis/{codiProvincia}:
     get:
       tags:
       - "Municipis"
-      summary: "Returns all the municipis"
+      summary: "Returns all the municipis by codiProvincia"
       operationId: "getMunicipisByProvinciaUsingGET"
       produces:
       - "*/*"
       parameters:
-      - name: "idProvincia"
+      - name: "codiProvincia"
         in: "path"
-        description: "idProvincia"
+        description: "codiProvincia"
         required: true
         type: "string"
       responses:
@@ -991,20 +937,14 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/catalog/municipisComarca/{idComarca}:
+  /expedients/catalog/municipisCatalans:
     get:
       tags:
       - "Municipis"
-      summary: "Returns all the municipis"
-      operationId: "getMunicipisByComarcaUsingGET"
+      summary: "Returns all the municipis catalans"
+      operationId: "getMunicipisCatalansUsingGET"
       produces:
       - "*/*"
-      parameters:
-      - name: "idComarca"
-        in: "path"
-        description: "idComarca"
-        required: true
-        type: "string"
       responses:
         200:
           description: "OK"
@@ -1012,6 +952,39 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/MunicipisRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /expedients/catalog/normalitzarAdrecaPostal/{nomVia}/{numero}:
+    get:
+      tags:
+      - "Adreca"
+      summary: "Returns the normalitzada adreca"
+      operationId: "normalitzarAdrecaPostalUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "nomVia"
+        in: "path"
+        description: "nomVia"
+        required: true
+        type: "string"
+      - name: "numero"
+        in: "path"
+        description: "numero"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/AdrecaNormalitzadaRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -1069,18 +1042,18 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/catalog/paisos/perCodiIso/{codiIso}:
+  /expedients/catalog/paisos/{codi}:
     get:
       tags:
       - "Paisos"
-      summary: "Returns the requested pais"
-      operationId: "consultarDadesPaisPerCodiIso"
+      summary: "Returns the request paiso"
+      operationId: "getPaisosByCodiUsingGET"
       produces:
       - "*/*"
       parameters:
-      - name: "codiIso"
+      - name: "codi"
         in: "path"
-        description: "codiIso"
+        description: "codi"
         required: true
         type: "string"
       responses:
@@ -1112,6 +1085,34 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/ProvinciesRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /expedients/catalog/provincies/{codi}:
+    get:
+      tags:
+      - "Provincies"
+      summary: "Returns the request provincie"
+      operationId: "getProvinciesByCodiUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codi"
+        in: "path"
+        description: "codi"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProvinciesRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -1272,35 +1273,11 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/catalog/tipusSexe:
-    get:
-      tags:
-      - "TipusSexe"
-      summary: "Returns all the TipusSexe"
-      operationId: "obtenirTipusSexeUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/TipusSexeRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
   /expedients/catalog/tipusVies:
     get:
       tags:
       - "TipusVies"
-      summary: "Returns all the TipusViess"
+      summary: "Returns all the TipusVies"
       operationId: "getTipusViesUsingGET"
       produces:
       - "*/*"
@@ -3510,6 +3487,12 @@ definitions:
       idExpedientAcumulador:
         type: "number"
     title: "AcumularExpedientRDTO"
+  AdrecaNormalitzadaRDTO:
+    type: "object"
+    properties:
+      adreca:
+        type: "string"
+    title: "AdrecaNormalitzadaRDTO"
   AvisosRDTO:
     type: "object"
     properties:
@@ -3541,6 +3524,8 @@ definitions:
         type: "boolean"
       id:
         type: "number"
+      matricula:
+        type: "string"
       momentBloqueig:
         type: "string"
         format: "date-time"
@@ -3558,6 +3543,8 @@ definitions:
         type: "boolean"
       id:
         type: "number"
+      matricula:
+        type: "string"
       momentBloqueig:
         type: "string"
         format: "date-time"
@@ -3620,14 +3607,6 @@ definitions:
       unitatGestoraFutura:
         $ref: "#/definitions/DropdownItemBDTO"
     title: "CanviUnitatGestoraRDTO"
-  ComarquesRDTO:
-    type: "object"
-    properties:
-      codiIne:
-        type: "string"
-      nom:
-        type: "string"
-    title: "ComarquesRDTO"
   Comentaris:
     type: "object"
     properties:
@@ -3779,8 +3758,6 @@ definitions:
         type: "string"
         format: "date-time"
       valorClob:
-        type: "string"
-      valorComarca:
         type: "string"
       valorDouble:
         type: "number"
@@ -4139,9 +4116,11 @@ definitions:
         type: "string"
       codiMunicipi:
         type: "string"
-      comarca:
-        type: "string"
       nom:
+        type: "string"
+      nomCastella:
+        type: "string"
+      nomCatala:
         type: "string"
       provincia:
         type: "string"
@@ -4271,6 +4250,10 @@ definitions:
         type: "string"
       nom:
         type: "string"
+      nomCastella:
+        type: "string"
+      nomCatala:
+        type: "string"
     title: "Paisos"
   PaisosRDTO:
     type: "object"
@@ -4280,6 +4263,10 @@ definitions:
       codiIso:
         type: "string"
       nom:
+        type: "string"
+      nomCastella:
+        type: "string"
+      nomCatala:
         type: "string"
     title: "PaisosRDTO"
   Persones:
@@ -4312,10 +4299,6 @@ definitions:
       bloc:
         type: "string"
       codiPostal:
-        type: "string"
-      comarca:
-        type: "string"
-      comarcaValor:
         type: "string"
       direccioPostal:
         type: "string"
@@ -4351,8 +4334,6 @@ definitions:
         type: "string"
       provinciaValor:
         type: "string"
-      sexe:
-        type: "number"
       telefon:
         type: "string"
       tipusVia:
@@ -4430,6 +4411,10 @@ definitions:
       codiIne:
         type: "string"
       nom:
+        type: "string"
+      nomCastella:
+        type: "string"
+      nomCatala:
         type: "string"
       pais:
         type: "string"
@@ -4591,14 +4576,6 @@ definitions:
       id:
         type: "number"
     title: "TipusRegistreAssentamentRDTO"
-  TipusSexeRDTO:
-    type: "object"
-    properties:
-      descripcio:
-        type: "string"
-      id:
-        type: "number"
-    title: "TipusSexeRDTO"
   TipusViesRDTO:
     type: "object"
     properties:

@@ -18,7 +18,6 @@ import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PaisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
@@ -26,7 +25,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaAbandonarExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
@@ -60,10 +58,6 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	/** The dades especifiques api. */
 	@Autowired
 	private DadesEspecifiquesApi dadesEspecifiquesApi;
-
-	/** The paisos api. */
-	@Autowired
-	private PaisosApi paisosApi;
 
 	/**
 	 * Cerca expedients.
@@ -485,53 +479,6 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	public ExpedientsRDTO fallbackCrearSollicitudExpedient(ExpedientsCrearBDTO expedientsCrearBDTO) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearSollicitudExpedient(ExpedientsCrearBDTO) - inici"); //$NON-NLS-1$
-		}
-
-		throw new GPAServeisServiceException("El servei de expedients no està disponible");
-	}
-
-	/**
-	 * Consultar dades pais per codi iso.
-	 *
-	 * @param codiIso
-	 *            the codi iso
-	 * @return the paisos RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	@Override
-	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesPaisPerCodiIso")
-	public PaisosRDTO consultarDadesPaisPerCodiIso(String codiIso) throws GPAServeisServiceException {
-		if (log.isDebugEnabled()) {
-			log.debug("consultarDadespaisPerCodiIso(String) - inici"); //$NON-NLS-1$
-		}
-
-		try {
-			PaisosRDTO paisosRDTO = paisosApi.consultarDadesPaisPerCodiIso(codiIso);
-
-			if (log.isDebugEnabled()) {
-				log.debug("consultarDadespaisPerCodiIso(String) - fi"); //$NON-NLS-1$
-			}
-			return paisosRDTO;
-		} catch (ApiException e) {
-			log.error("consultarDadespaisPerCodiIso(String)", e); //$NON-NLS-1$
-
-			throw new GPAServeisServiceException("S'ha produït una incidència", e);
-		}
-	}
-
-	/**
-	 * Fallback consultar dades pais per codi iso.
-	 *
-	 * @param codiIso
-	 *            the codi iso
-	 * @return the paisos RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	public PaisosRDTO fallbackConsultarDadesPaisPerCodiIso(String codiIso) throws GPAServeisServiceException {
-		if (log.isDebugEnabled()) {
-			log.debug("fallbackConsultarDadespaisPerCodiIso(String) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de expedients no està disponible");

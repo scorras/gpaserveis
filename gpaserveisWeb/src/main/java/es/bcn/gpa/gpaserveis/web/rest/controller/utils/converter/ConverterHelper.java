@@ -117,8 +117,6 @@ public class ConverterHelper {
 		personesRDTO.setCognom1(persones.getCognom1());
 		personesRDTO.setCognom2(persones.getCognom2());
 		if (persones.getPersonesDadescontacte() != null) {
-			personesRDTO.setSexe(
-			        tipusSexeApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getSexe()));
 			DadesContacteRDTO dadesContacte = new DadesContacteRDTO();
 			dadesContacte.setEmail(persones.getPersonesDadescontacte().getEmail());
 			dadesContacte.setTelefon(persones.getPersonesDadescontacte().getTelefon());
@@ -186,7 +184,6 @@ public class ConverterHelper {
 			documentsIdentitat.setPais(personesRDTO.getDocumentIndentitat().getPais());
 			persones.setDocumentsIdentitat(documentsIdentitat);
 			PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
-			personesDadescontacte.setSexe(tipusSexeApiParamValueTranslator.getInternalValueByApiParamValue(personesRDTO.getSexe()));
 			if (personesRDTO.getDadesNotificacio() != null) {
 				personesDadescontacte.setEmail(personesRDTO.getDadesNotificacio().getEmail());
 				personesDadescontacte.setTelefon(personesRDTO.getDadesNotificacio().getTelefon());
@@ -242,9 +239,6 @@ public class ConverterHelper {
 		personesRDTO.setCognom1(persones.getCognom1());
 		personesRDTO.setCognom2(persones.getCognom2());
 		if (persones.getPersonesDadescontacte() != null) {
-			personesRDTO.setSexe(
-			        tipusSexeApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getSexe()));
-
 			DadesContacteRDTO dadesContacte = new DadesContacteRDTO();
 			dadesContacte.setEmail(persones.getPersonesDadescontacte().getEmail());
 			dadesContacte.setTelefon(persones.getPersonesDadescontacte().getTelefon());

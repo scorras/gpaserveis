@@ -38,7 +38,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
@@ -522,22 +521,6 @@ public class ServeisPortalServiceHelper {
 		UnitatsGestoresRDTO unitatsGestoresRDTO = unitatsGestoresService
 		        .consultarDadesUnitatGestoraPerCodi(unitatsGestoresCercaBDTO.getCodi());
 		return unitatsGestoresRDTO;
-	}
-
-	/**
-	 * Load pais.
-	 *
-	 * @param expedientsService
-	 *            the expedients service
-	 * @param codiIso
-	 *            the codi iso
-	 * @return the paisos RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	public static PaisosRDTO loadPais(ExpedientsService expedientsService, String codiIso) throws GPAServeisServiceException {
-		PaisosRDTO paisosRDTO = expedientsService.consultarDadesPaisPerCodiIso(codiIso);
-		return paisosRDTO;
 	}
 
 	/**

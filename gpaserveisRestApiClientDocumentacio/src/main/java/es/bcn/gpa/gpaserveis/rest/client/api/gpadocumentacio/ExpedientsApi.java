@@ -7,8 +7,7 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import java.math.BigDecimal;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.InputStreamResource;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ExpedientOpenTextRDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,14 +15,14 @@ import java.util.List;
 import java.util.Map;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-10T18:52:44.239+02:00")
-public class DownloadTramitacioApi {
+public class ExpedientsApi {
   private ApiClient apiClient;
 
-  public DownloadTramitacioApi() {
+  public ExpedientsApi() {
     this(Configuration.getDefaultApiClient());
   }
 
-  public DownloadTramitacioApi(ApiClient apiClient) {
+  public ExpedientsApi(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
@@ -36,30 +35,22 @@ public class DownloadTramitacioApi {
   }
 
   /**
-   * download the fileTramitacio
+   * donar d&#39;alta un expedient en Opentext
    * 
-   * @param idDoc idDoc (required)
-   * @param idExpedient idExpedient (required)
-   * @return InputStreamResource
+   * @param expedientOpenTextRDTO expedientOpenTextRDTO (required)
+   * @return String
    * @throws ApiException if fails to make API call
    */
-  public InputStreamResource downloadFileTramitacioUsingGET(BigDecimal idDoc, BigDecimal idExpedient) throws ApiException {
-    Object localVarPostBody = null;
+  public String altaExpedientOpentextUsingPOST(ExpedientOpenTextRDTO expedientOpenTextRDTO) throws ApiException {
+    Object localVarPostBody = expedientOpenTextRDTO;
     
-    // verify the required parameter 'idDoc' is set
-    if (idDoc == null) {
-      throw new ApiException(400, "Missing the required parameter 'idDoc' when calling downloadFileTramitacioUsingGET");
-    }
-    
-    // verify the required parameter 'idExpedient' is set
-    if (idExpedient == null) {
-      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling downloadFileTramitacioUsingGET");
+    // verify the required parameter 'expedientOpenTextRDTO' is set
+    if (expedientOpenTextRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'expedientOpenTextRDTO' when calling altaExpedientOpentextUsingPOST");
     }
     
     // create path and map variables
-    String localVarPath = "/documentacio/downloadFileTramitacio/{idExpedient}/{idDoc}"
-      .replaceAll("\\{" + "idDoc" + "\\}", apiClient.escapeString(idDoc.toString()))
-      .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()));
+    String localVarPath = "/documentacio/altaExpedientOpentext";
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -75,13 +66,13 @@ public class DownloadTramitacioApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      
+      "application/json"
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
     String[] localVarAuthNames = new String[] {  };
 
-    GenericType<InputStreamResource> localVarReturnType = new GenericType<InputStreamResource>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    GenericType<String> localVarReturnType = new GenericType<String>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
 }
