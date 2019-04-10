@@ -36,6 +36,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AportarDocume
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SubstituirDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistrarSolicitudExpedient;
 import es.bcn.gpa.gpaserveis.test.config.TestsConfigHelper;
 import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.configuration.context.ContextPropertySourcesInitializer;
@@ -199,7 +200,13 @@ public abstract class ParentTest {
 			        isNull(Integer.class), isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
 			        isNull(Boolean.class), isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class),
 			        isNull(Integer.class), isNull(String.class), isNull(Long.class), isNull(Integer.class)))
-			                .thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntrada1Response());
+			                .thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntradaResponse());
+
+			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioEntrada(any(BigDecimal.class), isNull(Integer.class),
+			        isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
+			        isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class),
+			        isNull(String.class), isNull(Long.class), isNull(Integer.class)))
+			                .thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntradaResponse());
 
 			when(accionsEstatsApi.cercaAccionsPossibles(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.cercaAccionsPossiblesResponse());
@@ -223,6 +230,9 @@ public abstract class ParentTest {
 
 			when(expedients_Api.actualitzarDadesSollicitud(any(ActualitzarDadesSollicitud.class)))
 			        .thenReturn(TestsConfigHelper.crearSollicitudExpedientResponse());
+
+			when(expedients_Api.registrarSolicitudExpedient(any(RegistrarSolicitudExpedient.class)))
+			        .thenReturn(TestsConfigHelper.registrarSolicitudExpedientResponse());
 
 			when(documentacioApi.aportarDocumentacioExpedient(any(AportarDocumentacioExpedient.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.aportarDocumentacioExpedientResponse());

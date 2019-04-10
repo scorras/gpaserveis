@@ -548,14 +548,14 @@ public class DocumentacioApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void obteneriDadesOperRequeritUsingGETTest() throws ApiException {
+	public void cercaDadesOperacioRequeritsTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/dadesOperRequerit/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new ArrayList<BigDecimal>());
 
 		BigDecimal idDoc = ONE;
-		List<BigDecimal> response = api.obteneriDadesOperRequeritUsingGET(idDoc);
+		List<BigDecimal> response = api.cercaDadesOperacioRequerits(idDoc);
 
 		assertTrue(response != null);
 	}

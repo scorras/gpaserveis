@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package es.bcn.gpa.gpaserveis.business.impl.helper;
 
 import java.math.BigDecimal;
@@ -318,6 +321,8 @@ public class ServeisPortalServiceHelper {
 			loadDocumentsRequerits(documentsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
 			loadDadesEspecifiques(expedientsService, dadesOperacioService, dadesExpedientBDTO,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId());
+			loadDadesOperacioRequerits(documentsService, dadesOperacioService, dadesExpedientBDTO,
+			        dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
 		}
 	}
 
@@ -685,6 +690,39 @@ public class ServeisPortalServiceHelper {
 		List<ConfDocEntradaRequeritRDTO> confDocEntradaRequeritRDTOList = documentsService
 		        .cercaConfiguracioDocumentacioEntradaRequerida(documentacioIdext);
 		dadesExpedientBDTO.setConfiguracioDocumentacioRequerida(confDocEntradaRequeritRDTOList);
+	}
+
+	/**
+	 * Load dades operacio requerits.
+	 *
+	 * @param documentsService
+	 *            the documents service
+	 * @param dadesOperacioService
+	 *            the dades operacio service
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param documentacioIdext
+	 *            the documentacio idext
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	private static void loadDadesOperacioRequerits(DocumentsService documentsService, DadesOperacioService dadesOperacioService,
+	        DadesExpedientBDTO dadesExpedientBDTO, BigDecimal documentacioIdext) throws GPAServeisServiceException {
+		List<BigDecimal> dadesOperacioRequeritsIdList = documentsService.cercaDadesOperacioRequerits(documentacioIdext);
+		if (CollectionUtils.isNotEmpty(dadesOperacioRequeritsIdList)) {
+			ArrayList<DadesOperacions> dadesOperacioRequerits = new ArrayList<DadesOperacions>();
+			DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(
+			        dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
+			PageDataOfDadesGrupsRDTO pageDataOfDadesGrupsRDTO = dadesOperacioService.cercaDadesOperacio(dadesOperacioCercaBDTO);
+			for (DadesGrupsRDTO dadesGrupsRDTO : pageDataOfDadesGrupsRDTO.getData()) {
+				for (DadesOperacions dadesOperacions : dadesGrupsRDTO.getDadesOperacionsList()) {
+					if (dadesOperacioRequeritsIdList.contains(dadesOperacions.getId())) {
+						dadesOperacioRequerits.add(dadesOperacions);
+					}
+				}
+			}
+			dadesExpedientBDTO.setDadesOperacioRequerits(dadesOperacioRequerits);
+		}
 	}
 
 	/**

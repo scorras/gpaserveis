@@ -9,6 +9,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToDataHoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToDocumentAportatConsultaListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToAccioCiutadaListConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToDadesAtributsRequeritsListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToDadesOperacioListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToDocumentsEntradaRequeritsListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToEstatCiutadaConverter;
@@ -62,6 +63,9 @@ public class DadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 	/** The internal to dades operacio list converter. */
 	public InternalToDadesOperacioListConverter internalToDadesOperacioListConverter;
 
+	/** The internal to dades atributs requerits list converter. */
+	public InternalToDadesAtributsRequeritsListConverter internalToDadesAtributsRequeritsListConverter;
+
 	/**
 	 * Instantiates a new dades expedient BDTO to expedients consulta RDTO
 	 * mapper.
@@ -104,7 +108,8 @@ public class DadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 	        @Qualifier("expedientInternalToAccioCiutadaListConverter") InternalToAccioCiutadaListConverter internalToAccioCiutadaListConverter,
 	        @Qualifier("internalToDocumentAportatConsultaListConverter") InternalToDocumentAportatConsultaListConverter internalToDocumentAportatConsultaListConverter,
 	        @Qualifier("expedientInternalToDocumentsEntradaRequeritsListConverter") InternalToDocumentsEntradaRequeritsListConverter internalToDocumentsEntradaRequeritsListConverter,
-	        @Qualifier("expedientInternalToDadesOperacioListConverter") InternalToDadesOperacioListConverter internalToDadesOperacioListConverter) {
+	        @Qualifier("expedientInternalToDadesOperacioListConverter") InternalToDadesOperacioListConverter internalToDadesOperacioListConverter,
+	        @Qualifier("expedientInternalToDadesAtributsRequeritsListConverter") InternalToDadesAtributsRequeritsListConverter internalToDadesAtributsRequeritsListConverter) {
 		this.internalToDataHoraConverter = internalToDataHoraConverter;
 		this.internalToUnitatGestoraConverter = internalToUnitatGestoraConverter;
 		this.internalToEstatCiutadaConverter = internalToEstatCiutadaConverter;
@@ -117,6 +122,7 @@ public class DadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 		this.internalToDocumentAportatConsultaListConverter = internalToDocumentAportatConsultaListConverter;
 		this.internalToDocumentsEntradaRequeritsListConverter = internalToDocumentsEntradaRequeritsListConverter;
 		this.internalToDadesOperacioListConverter = internalToDadesOperacioListConverter;
+		this.internalToDadesAtributsRequeritsListConverter = internalToDadesAtributsRequeritsListConverter;
 	}
 
 	/**
@@ -134,7 +140,7 @@ public class DadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 		using(internalToDataHoraConverter).map(source.getExpedientsRDTO().getDataPresentacio()).setDataPresentacio(null);
 		using(internalToDataHoraConverter).map(source.getExpedientsRDTO().getDarreraModificacio()).setDataModificacio(null);
 		using(internalToDataHoraConverter).map(source.getExpedientsRDTO().getDataAllegacio()).setDataLimitAllegacions(null);
-		using(internalToDataHoraConverter).map(source.getExpedientsRDTO().getDarreraModificacio()).setDataLimitEsmena(null);
+		using(internalToDataHoraConverter).map(source.getExpedientsRDTO().getDataEsmena()).setDataLimitEsmena(null);
 		using(internalToUnitatGestoraConverter).map(source.getUnitatsGestoresRDTO()).setUnitatGestora(null);
 		// using(internalToEstatCiutadaConverter).map(source.getExpedientsRDTO().getIdEstat()).setEstat(null);
 		// map().setEstat(source.getExpedientsRDTO().getDescEstatCiutada());
@@ -152,6 +158,7 @@ public class DadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 		using(internalToDocumentsEntradaRequeritsListConverter).map(source.getConfiguracioDocumentacioRequerida())
 		        .setConfiguracioDocumentacioRequerida(null);
 		using(internalToDadesOperacioListConverter).map(source.getDadesOperacio()).setDadesOperacio(null);
+		using(internalToDadesAtributsRequeritsListConverter).map(source.getDadesOperacioRequerits()).setAtributsRequerits(null);
 	}
 
 }

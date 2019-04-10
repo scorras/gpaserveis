@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.8.0"
+  version: "1.10.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -1144,7 +1144,7 @@ paths:
       tags:
       - "Documentacio"
       summary: "Returns the requested dades operacio requerit"
-      operationId: "obteneriDadesOperRequeritUsingGET"
+      operationId: "cercaDadesOperacioRequerits"
       produces:
       - "*/*"
       parameters:
@@ -2164,6 +2164,8 @@ definitions:
         format: "int32"
       suportEnllac:
         type: "string"
+      uniqueId:
+        type: "string"
     title: "ConfDocEntradaRequeritRDTO"
   ConfdocsentEstatsExp:
     type: "object"
@@ -2588,6 +2590,9 @@ definitions:
         type: "string"
       path:
         type: "string"
+      plantilla:
+        type: "integer"
+        format: "int32"
       tamany:
         type: "integer"
         format: "int64"
@@ -3051,8 +3056,6 @@ definitions:
       bloc:
         type: "string"
       codiPostal:
-        type: "string"
-      comarca:
         type: "string"
       direccioPostal:
         type: "string"

@@ -138,4 +138,15 @@ public interface DocumentsService {
 	RespostaUploadDocumentExpedient uploadDocumentExpedient(UploadDocumentExpedientBDTO uploadDocumentExpedientRDTO)
 	        throws GPAServeisServiceException;
 
+	/**
+	 * Cerca dades operacio requerits.
+	 *
+	 * @param documentacioIdext
+	 *            the documentacio idext
+	 * @return the list
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	List<BigDecimal> cercaDadesOperacioRequerits(BigDecimal documentacioIdext) throws GPAServeisServiceException;
+
 }

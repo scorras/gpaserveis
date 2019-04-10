@@ -7,9 +7,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import es.bcn.gpa.gpaserveis.test.parent.RestServerParentTest;
 
@@ -67,7 +69,7 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 		String url = BASE_URL + "/expedients";
 		getMockMvc()
 		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-		                "{ \"procediment\": { \"id\": 1 }, \"unitatGestora\": { \"codi\": \"CODI UG2\" }, \"sollicitant\": {\t\"tipusPersona\": \"FISICA\",\t\"nomRaoSocial\": \"Carmen\", \"cognom1\": \"Rodrigo\", \"cognom2\": \"Díaz\",\t\"sexe\": \"FEMENI\", \"dadesNotificacio\": { \"bloc\": \"4\", \"codiPostal\": \"13004\", \"email\": \"email@email.com\", \"escala\": \"9\", \"fax\": \"926354637\", \"mobil\": \"578239506\", \"municipi\": \"13034\", \"municipiEstranger\": \"M6\", \"nomVia\": \"Gran Vía\", \"numero\": \"15\", \"pais\": \"108\", \"pis\": \"2\", \"porta\": \"B\", \"provincia\": \"13\", \"provinciaEstranger\": \"P102\", \"telefon\": \"235466356\", \"tipusVia\": \"CARRER\" }, \"documentIndentitat\": { \"numeroDocument\": \"35278573T\", \"pais\": \"108\", \"tipusDocument\": \"NIF\" } }, \"representant\": {\t\"tipusPersona\": \"FISICA\",\t\"nomRaoSocial\": \"Ronald\", \"cognom1\": \"Pérez\", \"cognom2\": \"Sánchez\",\t\"sexe\": \"FEMENI\", \"dadesNotificacio\": { \"bloc\": \"4\", \"codiPostal\": \"13004\", \"email\": \"email@email.com\", \"escala\": \"9\", \"fax\": \"926354637\", \"mobil\": \"578239506\", \"municipi\": \"13034\", \"municipiEstranger\": \"M6\", \"nomVia\": \"Gran Vía\", \"numero\": \"15\", \"pais\": \"108\", \"pis\": \"2\", \"porta\": \"B\", \"provincia\": \"13\", \"provinciaEstranger\": \"P102\", \"telefon\": \"235466356\", \"tipusVia\": \"TRAVESSIA\" }, \"documentIndentitat\": { \"numeroDocument\": \"96442832Z\", \"pais\": \"108\", \"tipusDocument\": \"NIF\" } }}"))
+		                "{ \"procediment\": { \"id\": 1 }, \"unitatGestora\": { \"codi\": \"CODI UG2\" }, \"sollicitant\": {\t\"tipusPersona\": \"FISICA\",\t\"nomRaoSocial\": \"Carmen\", \"cognom1\": \"Rodrigo\", \"cognom2\": \"Díaz\",\t\"sexe\": \"DONA\", \"dadesNotificacio\": { \"bloc\": \"4\", \"codiPostal\": \"13004\", \"email\": \"email@email.com\", \"escala\": \"9\", \"fax\": \"926354637\", \"mobil\": \"578239506\", \"municipi\": \"13034\", \"municipiEstranger\": \"M6\", \"nomVia\": \"Gran Vía\", \"numero\": \"15\", \"pais\": \"108\", \"pis\": \"2\", \"porta\": \"B\", \"provincia\": \"13\", \"provinciaEstranger\": \"P102\", \"telefon\": \"235466356\", \"tipusVia\": \"CARRER\" }, \"documentIndentitat\": { \"numeroDocument\": \"35278573T\", \"pais\": \"108\", \"tipusDocument\": \"NIF\" } }, \"representant\": {\t\"tipusPersona\": \"FISICA\",\t\"nomRaoSocial\": \"Ronald\", \"cognom1\": \"Pérez\", \"cognom2\": \"Sánchez\",\t\"sexe\": \"HOME\", \"dadesNotificacio\": { \"bloc\": \"4\", \"codiPostal\": \"13004\", \"email\": \"email@email.com\", \"escala\": \"9\", \"fax\": \"926354637\", \"mobil\": \"578239506\", \"municipi\": \"13034\", \"municipiEstranger\": \"M6\", \"nomVia\": \"Gran Vía\", \"numero\": \"15\", \"pais\": \"108\", \"pis\": \"2\", \"porta\": \"B\", \"provincia\": \"13\", \"provinciaEstranger\": \"P102\", \"telefon\": \"235466356\", \"tipusVia\": \"TRAVESSIA\" }, \"documentIndentitat\": { \"numeroDocument\": \"96442832Z\", \"pais\": \"108\", \"tipusDocument\": \"NIF\" } }}"))
 		        .andExpect(status().isOk()).andDo(print());
 
 	}
@@ -77,13 +79,12 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 		String url = BASE_URL + "/expedients/1";
 		getMockMvc()
 		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-		                "{ \"sollicitant\": {\t\"tipusPersona\": \"FISICA\",\t\"nomRaoSocial\": \"Carmen\", \"cognom1\": \"Rodrigo\", \"cognom2\": \"Díaz\",\t\"sexe\": \"FEMENI\", \"dadesNotificacio\": { \"bloc\": \"4\", \"codiPostal\": \"13004\", \"email\": \"email@email.com\", \"escala\": \"9\", \"fax\": \"926354637\", \"mobil\": \"578239506\", \"municipi\": \"13034\", \"municipiEstranger\": \"M6\", \"nomVia\": \"Gran Vía\", \"numero\": \"15\", \"pais\": \"108\", \"pis\": \"2\", \"porta\": \"B\", \"provincia\": \"13\", \"provinciaEstranger\": \"P102\", \"telefon\": \"235466356\", \"tipusVia\": \"CARRER\" }, \"documentIndentitat\": { \"numeroDocument\": \"35278573T\", \"pais\": \"108\", \"tipusDocument\": \"NIF\" } }, \"representant\": {\t\"tipusPersona\": \"FISICA\",\t\"nomRaoSocial\": \"Ronald\", \"cognom1\": \"Pérez\", \"cognom2\": \"Sánchez\",\t\"sexe\": \"FEMENI\", \"dadesNotificacio\": { \"bloc\": \"4\", \"codiPostal\": \"13004\", \"email\": \"email@email.com\", \"escala\": \"9\", \"fax\": \"926354637\", \"mobil\": \"578239506\", \"municipi\": \"13034\", \"municipiEstranger\": \"M6\", \"nomVia\": \"Gran Vía\", \"numero\": \"15\", \"pais\": \"108\", \"pis\": \"2\", \"porta\": \"B\", \"provincia\": \"13\", \"provinciaEstranger\": \"P102\", \"telefon\": \"235466356\", \"tipusVia\": \"TRAVESSIA\" }, \"documentIndentitat\": { \"numeroDocument\": \"96442832Z\", \"pais\": \"108\", \"tipusDocument\": \"NIF\" } }, \"dadesOperacio\": [\t{\t\t\"codi\": \"DO\",\t\t\"valor\": [\t\t\t\"1234\"\t\t]\t}]}"))
+		                "{ \"sollicitant\": {\t\"tipusPersona\": \"FISICA\",\t\"nomRaoSocial\": \"Carmen\", \"cognom1\": \"Rodrigo\", \"cognom2\": \"Díaz\",\t\"sexe\": \"DONA\", \"dadesNotificacio\": { \"bloc\": \"4\", \"codiPostal\": \"13004\", \"email\": \"email@email.com\", \"escala\": \"9\", \"fax\": \"926354637\", \"mobil\": \"578239506\", \"municipi\": \"13034\", \"municipiEstranger\": \"M6\", \"nomVia\": \"Gran Vía\", \"numero\": \"15\", \"pais\": \"108\", \"pis\": \"2\", \"porta\": \"B\", \"provincia\": \"13\", \"provinciaEstranger\": \"P102\", \"telefon\": \"235466356\", \"tipusVia\": \"CARRER\" }, \"documentIndentitat\": { \"numeroDocument\": \"35278573T\", \"pais\": \"108\", \"tipusDocument\": \"NIF\" } }, \"representant\": {\t\"tipusPersona\": \"FISICA\",\t\"nomRaoSocial\": \"Ronald\", \"cognom1\": \"Pérez\", \"cognom2\": \"Sánchez\",\t\"sexe\": \"HOME\", \"dadesNotificacio\": { \"bloc\": \"4\", \"codiPostal\": \"13004\", \"email\": \"email@email.com\", \"escala\": \"9\", \"fax\": \"926354637\", \"mobil\": \"578239506\", \"municipi\": \"13034\", \"municipiEstranger\": \"M6\", \"nomVia\": \"Gran Vía\", \"numero\": \"15\", \"pais\": \"108\", \"pis\": \"2\", \"porta\": \"B\", \"provincia\": \"13\", \"provinciaEstranger\": \"P102\", \"telefon\": \"235466356\", \"tipusVia\": \"TRAVESSIA\" }, \"documentIndentitat\": { \"numeroDocument\": \"96442832Z\", \"pais\": \"108\", \"tipusDocument\": \"NIF\" } }, \"dadesOperacio\": [\t{\t\t\"codi\": \"DO\",\t\t\"valor\": [\t\t\t\"1234\"\t\t]\t}]}"))
 		        .andExpect(status().isOk()).andDo(print());
 
 	}
 
 	@Test
-	@Ignore
 	public void testStage09_PostRegistrarSolicitud() throws Exception {
 		String url = BASE_URL + "/expedients/1/registre";
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(print());
@@ -120,7 +121,10 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	@Test
 	public void testStage13_PostEsmenarExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/1/esmena";
-		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{}")).andExpect(status().isOk()).andDo(print());
+		getMockMvc()
+		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+		                "{ \"comentari\":\"S'adjunten els documents i les dades d'operació requerides.\", \"documentacio\": [ { \"configuracioDocumentacio\": \"42\",\t \"origen\": \"EXTERN\",\t \"comentari\": \"Document aportat des de portal de tramitació\",\t \"idioma\": \"CATALA\", \"fitxer\": {\t \"nom\": \"DNI.pdf\", \"format\": \"PDF\" } },\t{ \"configuracioDocumentacio\": \"43\",\t \"origen\": \"INTERN\",\t \"comentari\": \"Document aportat des de portal de tramitació\",\t \"idioma\": \"CASTELLA\", \"fitxer\": {\t \"nom\": \"DNI.pdf\", \"format\": \"PDF\" } } ], \"dadesOperacio\": [\t{\t\t\"codi\": \"DO\",\t\t\"valor\": [\t\t\t\"1234\"\t\t]\t}]}"))
+		        .andExpect(status().isOk()).andDo(print());
 
 	}
 
@@ -132,7 +136,16 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	}
 
 	@Test
-	public void testStage15_GetDescarregarDocumentExpedient() throws Exception {
+	public void testStage15_PostUploadDocumentExpedient() throws Exception {
+		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
+		String url = BASE_URL + "/expedients/1/documentacio/1/upload";
+		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile).contentType(MediaType.MULTIPART_FORM_DATA))
+		        .andExpect(status().isOk()).andDo(print());
+
+	}
+
+	@Test
+	public void testStage16_GetDescarregarDocumentExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/1/documents/1";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 
