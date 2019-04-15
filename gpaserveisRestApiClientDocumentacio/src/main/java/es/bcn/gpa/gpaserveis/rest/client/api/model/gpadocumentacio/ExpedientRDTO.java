@@ -24,13 +24,16 @@ import java.math.BigDecimal;
 /**
  * ExpedientRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-10T18:52:44.239+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-12T13:22:18.286+02:00")
 public class ExpedientRDTO {
   @JsonProperty("codi")
   private String codi = null;
 
   @JsonProperty("id")
   private BigDecimal id = null;
+
+  @JsonProperty("idEstat")
+  private BigDecimal idEstat = null;
 
   public ExpedientRDTO codi(String codi) {
     this.codi = codi;
@@ -68,6 +71,24 @@ public class ExpedientRDTO {
     this.id = id;
   }
 
+  public ExpedientRDTO idEstat(BigDecimal idEstat) {
+    this.idEstat = idEstat;
+    return this;
+  }
+
+   /**
+   * Estat de l&#39;expedient
+   * @return idEstat
+  **/
+  @ApiModelProperty(value = "Estat de l'expedient")
+  public BigDecimal getIdEstat() {
+    return idEstat;
+  }
+
+  public void setIdEstat(BigDecimal idEstat) {
+    this.idEstat = idEstat;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -79,12 +100,13 @@ public class ExpedientRDTO {
     }
     ExpedientRDTO expedientRDTO = (ExpedientRDTO) o;
     return Objects.equals(this.codi, expedientRDTO.codi) &&
-        Objects.equals(this.id, expedientRDTO.id);
+        Objects.equals(this.id, expedientRDTO.id) &&
+        Objects.equals(this.idEstat, expedientRDTO.idEstat);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(codi, id);
+    return Objects.hash(codi, id, idEstat);
   }
 
 
@@ -95,6 +117,7 @@ public class ExpedientRDTO {
     
     sb.append("    codi: ").append(toIndentedString(codi)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    idEstat: ").append(toIndentedString(idEstat)).append("\n");
     sb.append("}");
     return sb.toString();
   }

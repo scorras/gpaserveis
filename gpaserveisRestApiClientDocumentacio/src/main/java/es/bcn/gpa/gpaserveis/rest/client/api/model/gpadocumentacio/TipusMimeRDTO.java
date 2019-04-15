@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * TipusMimeRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-10T18:52:44.239+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-12T13:22:18.286+02:00")
 public class TipusMimeRDTO {
   @JsonProperty("descripcio")
   private String descripcio = null;

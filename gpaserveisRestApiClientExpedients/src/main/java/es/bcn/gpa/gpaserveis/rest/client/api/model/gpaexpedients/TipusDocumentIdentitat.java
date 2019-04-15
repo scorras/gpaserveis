@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * TipusDocumentIdentitat
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-10T18:52:55.179+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-12T13:12:30.658+02:00")
 public class TipusDocumentIdentitat {
   @JsonProperty("descripcio")
   private String descripcio = null;

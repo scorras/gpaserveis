@@ -2880,6 +2880,9 @@ definitions:
       id:
         type: "number"
         description: "Identificador de l'expedient"
+      idEstat:
+        type: "number"
+        description: "Estat de l'expedient"
     title: "ExpedientRDTO"
   FaseProcedimentRDTO:
     type: "object"

@@ -464,7 +464,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = serveisPortalService.cercaUnitatsGestores(unitatsGestoresCercaBDTO);
 
 		// Expedients que cumplen los criterios de búsqueda
-		ExpedientsCercaBDTO expedientsCercaBDTO = new ExpedientsCercaBDTO(codiExpedient, nifSollicitant,
+		ExpedientsCercaBDTO expedientsCercaBDTO = new ExpedientsCercaBDTO(
+		        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient), nifSollicitant,
 		        ExpedientsApiParamToInternalMapper.getDataPresentacioIniciInternalValue(dataPresentacioInici),
 		        ExpedientsApiParamToInternalMapper.getDataPresentacioFiInternalValue(dataPresentacioFi),
 		        ExpedientsApiParamToInternalMapper.getCodiProcedimentInternalValueList(codiProcediment),
@@ -512,7 +513,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaConsultaExpedientsRDTO respostaConsultaExpedientsRDTO = new RespostaConsultaExpedientsRDTO();
 
 		// Datos principales del expedient
-		DadesExpedientBDTO dadesExpedientBDTO = serveisPortalService.consultarDadesExpedient(codiExpedient);
+		DadesExpedientBDTO dadesExpedientBDTO = serveisPortalService
+		        .consultarDadesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient));
 		// El código del expediente debe ser válido
 		if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
 			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
@@ -562,7 +564,8 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		try {
 			// El id del expediente debe existir
-			DadesExpedientBDTO dadesExpedientBDTO = serveisPortalService.consultarDadesBasiquesExpedient(codiExpedient);
+			DadesExpedientBDTO dadesExpedientBDTO = serveisPortalService
+			        .consultarDadesBasiquesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient));
 			ServeisPortalRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO,
 			        Resultat.ERROR_DESCARREGAR_DOCUMENT_EXPEDIENT);
 
@@ -696,7 +699,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACTUALITZAR_EXPEDIENT);
 		try {
 			// El id del expediente debe existir
-			DadesExpedientBDTO dadesExpedientBDTO = serveisPortalService.consultarDadesBasiquesExpedient(codiExpedient);
+			DadesExpedientBDTO dadesExpedientBDTO = serveisPortalService
+			        .consultarDadesBasiquesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient));
 			ServeisPortalRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
 
 			// Si se indica alguna persona al menos debe indicarse el
@@ -782,7 +786,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_REGISTRAR_EXPEDIENT);
 		try {
 			// El id del expediente debe existir
-			dadesExpedientBDTO = serveisPortalService.consultarDadesBasiquesExpedient(codiExpedient);
+			dadesExpedientBDTO = serveisPortalService
+			        .consultarDadesBasiquesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient));
 			ServeisPortalRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_REGISTRAR_EXPEDIENT);
 
 			// Registrar expediente si la acción es permitida
@@ -840,7 +845,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_APORTAR_DOCUMENTACIO_EXPEDIENT);
 		try {
 			// El id del expediente debe existir
-			DadesExpedientBDTO dadesExpedientBDTO = serveisPortalService.consultarDadesBasiquesExpedient(codiExpedient);
+			DadesExpedientBDTO dadesExpedientBDTO = serveisPortalService
+			        .consultarDadesBasiquesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient));
 			ServeisPortalRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO,
 			        Resultat.ERROR_APORTAR_DOCUMENTACIO_EXPEDIENT);
 
@@ -931,7 +937,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_SUBSTITUIR_DOCUMENT_EXPEDIENT);
 		try {
 			// El id del expediente debe existir
-			DadesExpedientBDTO dadesExpedientBDTO = serveisPortalService.consultarDadesBasiquesExpedient(codiExpedient);
+			DadesExpedientBDTO dadesExpedientBDTO = serveisPortalService
+			        .consultarDadesBasiquesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient));
 			ServeisPortalRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_SUBSTITUIR_DOCUMENT_EXPEDIENT);
 
 			// El id del documento debe existir y pertenecer al expediente
@@ -1011,7 +1018,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_UPLOAD_DOCUMENT_EXPEDIENT);
 		try {
 			// El id del expediente debe existir
-			DadesExpedientBDTO dadesExpedientBDTO = serveisPortalService.consultarDadesBasiquesExpedient(codiExpedient);
+			DadesExpedientBDTO dadesExpedientBDTO = serveisPortalService
+			        .consultarDadesBasiquesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient));
 			ServeisPortalRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_UPLOAD_DOCUMENT_EXPEDIENT);
 
 			// El id del documento debe existir y pertenecer al expediente
@@ -1075,7 +1083,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ESBORRAR_DOCUMENT_EXPEDIENT);
 		try {
 			// El id del expediente debe existir
-			dadesExpedientBDTO = serveisPortalService.consultarDadesBasiquesExpedient(codiExpedient);
+			dadesExpedientBDTO = serveisPortalService
+			        .consultarDadesBasiquesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient));
 			ServeisPortalRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT);
 
 			// El id del documento debe existir y pertenecer al expediente
@@ -1137,7 +1146,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ESMENAR_EXPEDIENT);
 		try {
 			// El id del expediente debe existir
-			dadesExpedientBDTO = serveisPortalService.consultarDadesBasiquesExpedient(codiExpedient);
+			dadesExpedientBDTO = serveisPortalService
+			        .consultarDadesBasiquesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient));
 			ServeisPortalRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_ESMENAR_EXPEDIENT);
 
 			// Las configuraciones de documentación indicadas deben estar
@@ -1258,7 +1268,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_DESISTIR_RENUNCIAR_EXPEDIENT);
 		try {
 			// El id del expediente debe existir
-			dadesExpedientBDTO = serveisPortalService.consultarDadesBasiquesExpedient(codiExpedient);
+			dadesExpedientBDTO = serveisPortalService
+			        .consultarDadesBasiquesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient));
 			ServeisPortalRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_DESISTIR_RENUNCIAR_EXPEDIENT);
 
 			// Registrar expediente si la acción es permitida

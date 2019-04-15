@@ -4,6 +4,7 @@ import org.modelmapper.AbstractConverter;
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.ExpedientAccioRDTO;
 
 /**
@@ -24,7 +25,7 @@ public class InternalToExpedientAccioConverter extends AbstractConverter<Expedie
 			expedientAccioRDTO = new ExpedientAccioRDTO();
 
 			expedientAccioRDTO.setId(source.getId());
-			expedientAccioRDTO.setCodi(source.getCodi());
+			expedientAccioRDTO.setCodi(ConverterHelper.buildCodiExpedient(source.getCodi(), source.getIdEstat()));
 		}
 		return expedientAccioRDTO;
 	}
