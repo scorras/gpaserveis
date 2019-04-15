@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * RespostaAportarDocumentacioExpedientRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-12T13:22:18.286+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-15T14:49:46.095+02:00")
 public class RespostaAportarDocumentacioExpedientRDTO {
   @JsonProperty("docsEntrada")
   private List<DocsEntradaRDTO> docsEntrada = null;

@@ -42,6 +42,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistrarSolici
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaAbandonarExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaValidarExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ValidarExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
@@ -542,6 +544,26 @@ public class Expedients_ApiTest extends ParentTest {
 
 		RegistrarSolicitudExpedient registrarSolicitudExpedientRDTO = new RegistrarSolicitudExpedient();
 		RespostaRegistrarSolicitudExpedient response = api.registrarSolicitudExpedient(registrarSolicitudExpedientRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Validates the provided expedient
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void validarExpedientTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/expedients/validar"), eq("POST"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
+		        isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new RespostaValidarExpedient());
+
+		ValidarExpedient validarExpedientRDTO = new ValidarExpedient();
+		RespostaValidarExpedient response = api.validarExpedient(validarExpedientRDTO);
 
 		assertTrue(response != null);
 	}

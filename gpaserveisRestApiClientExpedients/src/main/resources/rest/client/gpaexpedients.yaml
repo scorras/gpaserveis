@@ -1831,6 +1831,34 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /expedients/expedientDataOpenText/{id}:
+    get:
+      tags:
+      - "Expedients"
+      summary: "Return expedient data for OpenText"
+      operationId: "getExpedientDataOpenTextUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ExpedientOpenTextRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/exportarCercaExpedientExcel:
     get:
       tags:
@@ -3163,6 +3191,39 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /expedients/validar:
+    post:
+      tags:
+      - "Expedients "
+      summary: "Validates the provided expedient"
+      operationId: "validarExpedient"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "validarExpedientRDTO"
+        description: "validarExpedientRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/ValidarExpedient"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaValidarExpedient"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/{id}:
     get:
       tags:
@@ -3882,6 +3943,22 @@ definitions:
       idEstatAnterior:
         type: "number"
     title: "EstatsRDTO"
+  ExpedientOpenTextRDTO:
+    type: "object"
+    properties:
+      codiExpedient:
+        type: "string"
+      codiUnitatOrganigrama:
+        type: "string"
+      documentacioIdext:
+        type: "number"
+      nomProc:
+        type: "string"
+      numRegistre:
+        type: "string"
+      serieDoc:
+        type: "string"
+    title: "ExpedientOpenTextRDTO"
   ExpedientsRDTO:
     type: "object"
     properties:
@@ -4496,6 +4573,13 @@ definitions:
         description: "Dades del registre de l'expedient"
         $ref: "#/definitions/RegistreAssentamentRDTO"
     title: "RespostaRegistrarSolicitudExpedient"
+  RespostaValidarExpedient:
+    type: "object"
+    properties:
+      expedient:
+        description: "Dades bàsiques de l'expedient"
+        $ref: "#/definitions/ExpedientsRDTO"
+    title: "RespostaValidarExpedient"
   Sollicituds:
     type: "object"
     properties:
@@ -4651,3 +4735,13 @@ definitions:
       userInfo:
         type: "string"
     title: "URL"
+  ValidarExpedient:
+    type: "object"
+    properties:
+      comentari:
+        type: "string"
+        description: "Comentari associat a la validació de l'expedient."
+      expedient:
+        description: "Dades de l'expedient"
+        $ref: "#/definitions/ExpedientsRDTO"
+    title: "ValidarExpedient"

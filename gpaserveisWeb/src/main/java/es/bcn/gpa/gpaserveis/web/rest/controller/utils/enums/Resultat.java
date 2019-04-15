@@ -43,7 +43,11 @@ public enum Resultat {
 
 	OK_REGISTRAR_EXPEDIENT("OK", "Expedient registrat correctament"),
 
-	ERROR_REGISTRAR_EXPEDIENT("ERROR", "No s'ha pogut registrar l'expedient");
+	ERROR_REGISTRAR_EXPEDIENT("ERROR", "No s'ha pogut registrar l'expedient"),
+
+	OK_VALIDAR_EXPEDIENT("OK", "Expedient validat correctament"),
+
+	ERROR_VALIDAR_EXPEDIENT("ERROR", "No s'ha pogut validar l'expedient");
 
 	private String codi;
 

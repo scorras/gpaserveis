@@ -5,8 +5,8 @@ import org.modelmapper.AbstractConverter;
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.business.dto.RespostaResultatBDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ErrorDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ResultatRespostaDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ErrorDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ResultatRespostaDTO;
 
 /**
  * The Class InternalToResultatRespostaConverter.

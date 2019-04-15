@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-import es.bcn.gpa.gpaserveis.business.ServeisPortalService;
+import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisRuntimeException;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
@@ -41,9 +41,9 @@ public class BaseRestControllerTest extends RestServerParentTest {
 	@InjectMocks
 	private ServeisPortalRestController serveisPortalRestController;
 
-	/** The serveis portal service. */
+	/** The serveis service. */
 	@Mock
-	private ServeisPortalService serveisPortalService;
+	private ServeisService serveisPortalService;
 
 	/**
 	 * Setup.

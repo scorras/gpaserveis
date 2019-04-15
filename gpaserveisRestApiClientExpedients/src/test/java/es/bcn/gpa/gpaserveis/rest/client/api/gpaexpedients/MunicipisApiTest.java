@@ -29,7 +29,6 @@ import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MunicipisRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
@@ -75,9 +74,28 @@ public class MunicipisApiTest extends ParentTest {
 	public void getMunicipisUsingGETTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/expedients/catalog/municipis"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<PaisosRDTO>());
+		                .thenReturn(new ArrayList<MunicipisRDTO>());
 
 		List<MunicipisRDTO> response = api.getMunicipisUsingGET();
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns all the municipis catalans
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void getMunicipisCatalansUsingGETTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/expedients/catalog/municipisCatalans"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<MunicipisRDTO>());
+
+		List<MunicipisRDTO> response = api.getMunicipisCatalansUsingGET();
 
 		assertTrue(response != null);
 	}

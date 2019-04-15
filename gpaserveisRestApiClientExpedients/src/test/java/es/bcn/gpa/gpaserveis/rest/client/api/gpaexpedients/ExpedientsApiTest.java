@@ -32,6 +32,7 @@ import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.BloquejosRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientOpenTextRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfComentarisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfHistoricsRDTO;
@@ -246,6 +247,27 @@ public class ExpedientsApiTest extends ParentTest {
 
 		BigDecimal id = ONE;
 		BloquejosRDTO response = api.expedientBloquejatPerUnAltreUsuariUsingGET(id);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Return expedient data for OpenText
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void getExpedientDataOpenTextUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/expedients/expedientDataOpenText/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ExpedientOpenTextRDTO());
+
+		BigDecimal id = ONE;
+		ExpedientOpenTextRDTO response = api.getExpedientDataOpenTextUsingGET(id);
 
 		assertTrue(response != null);
 	}

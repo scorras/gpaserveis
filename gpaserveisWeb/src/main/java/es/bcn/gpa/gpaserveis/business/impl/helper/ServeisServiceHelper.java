@@ -54,9 +54,9 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDT
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 
 /**
- * The Class ServeisPortalRestControllerHelper.
+ * The Class ServeisServiceHelper.
  */
-public class ServeisPortalServiceHelper {
+public class ServeisServiceHelper {
 
 	/**
 	 * Load unitats gestores list.

@@ -10,7 +10,7 @@ import es.bcn.gpa.gpaserveis.business.DadesOperacioService;
 import es.bcn.gpa.gpaserveis.business.DocumentsService;
 import es.bcn.gpa.gpaserveis.business.ExpedientsService;
 import es.bcn.gpa.gpaserveis.business.ProcedimentsService;
-import es.bcn.gpa.gpaserveis.business.ServeisPortalService;
+import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.business.TramitsService;
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
 import es.bcn.gpa.gpaserveis.business.dto.documents.AportarDocumentExpedientBDTO;
@@ -26,6 +26,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
@@ -35,7 +36,7 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaProcedimentsCerca
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
-import es.bcn.gpa.gpaserveis.business.impl.helper.ServeisPortalServiceHelper;
+import es.bcn.gpa.gpaserveis.business.impl.helper.ServeisServiceHelper;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
@@ -43,17 +44,18 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaUploa
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaAbandonarExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaValidarExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import lombok.extern.apachecommons.CommonsLog;
 
 /**
- * The Class ServeisPortalServiceImpl.
+ * The Class ServeisServiceImpl.
  */
 @Service
 @CommonsLog
-public class ServeisPortalServiceImpl implements ServeisPortalService {
+public class ServeisServiceImpl implements ServeisService {
 
 	/** The procediments service. */
 	@Autowired
@@ -82,13 +84,12 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ServeisPortalService#cercaProcediments(es.
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#cercaProcediments(es.
 	 * bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO)
 	 */
 	@Override
 	public RespostaProcedimentsCercaBDTO cercaProcediments(ProcedimentsCercaBDTO procedimentsCercaBDTO) throws GPAServeisServiceException {
-		RespostaProcedimentsCercaBDTO respostaProcedimentsCercaBDTO = ServeisPortalServiceHelper.loadCercaProcediments(procedimentsService,
+		RespostaProcedimentsCercaBDTO respostaProcedimentsCercaBDTO = ServeisServiceHelper.loadCercaProcediments(procedimentsService,
 		        unitatsGestoresService, procedimentsCercaBDTO);
 		return respostaProcedimentsCercaBDTO;
 	}
@@ -96,15 +97,14 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ServeisPortalService#cercaUnitatsGestores(
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#cercaUnitatsGestores(
 	 * es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.
 	 * UnitatsGestoresCercaBDTO)
 	 */
 	@Override
 	public List<UnitatsGestoresRDTO> cercaUnitatsGestores(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO)
 	        throws GPAServeisServiceException {
-		List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = ServeisPortalServiceHelper.loadUnitatsGestoresList(unitatsGestoresService,
+		List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = ServeisServiceHelper.loadUnitatsGestoresList(unitatsGestoresService,
 		        unitatsGestoresCercaBDTO);
 
 		return unitatsGestoresRDTOList;
@@ -113,27 +113,38 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * consultaDadesUnitatGestora(es.bcn.gpa.gpaserveis.business.dto.
 	 * unitatsgestores.UnitatsGestoresCercaBDTO)
 	 */
 	@Override
 	public UnitatsGestoresRDTO consultaDadesUnitatGestora(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO)
 	        throws GPAServeisServiceException {
-		UnitatsGestoresRDTO unitatsGestoresRDTO = ServeisPortalServiceHelper.loadUnitatGestora(unitatsGestoresService,
-		        unitatsGestoresCercaBDTO);
+		UnitatsGestoresRDTO unitatsGestoresRDTO = ServeisServiceHelper.loadUnitatGestora(unitatsGestoresService, unitatsGestoresCercaBDTO);
 		return unitatsGestoresRDTO;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * consultarDadesBasiquesProcediment(java.math.BigDecimal)
 	 */
 	@Override
 	public DadesProcedimentBDTO consultarDadesBasiquesProcediment(BigDecimal idProcediment) throws GPAServeisServiceException {
-		DadesProcedimentBDTO dadesProcedimentBDTO = ServeisPortalServiceHelper.loadDadesBasiquesProcediment(procedimentsService,
+		DadesProcedimentBDTO dadesProcedimentBDTO = ServeisServiceHelper.loadDadesBasiquesProcediment(procedimentsService, idProcediment);
+		return dadesProcedimentBDTO;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * consultarDadesProcediment(java.math.BigDecimal)
+	 */
+	@Override
+	public DadesProcedimentBDTO consultarDadesProcediment(BigDecimal idProcediment) throws GPAServeisServiceException {
+		DadesProcedimentBDTO dadesProcedimentBDTO = ServeisServiceHelper.loadDadesProcediment(procedimentsService, unitatsGestoresService,
 		        idProcediment);
 		return dadesProcedimentBDTO;
 	}
@@ -141,39 +152,26 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
-	 * consultarDadesProcediment(java.math.BigDecimal)
-	 */
-	@Override
-	public DadesProcedimentBDTO consultarDadesProcediment(BigDecimal idProcediment) throws GPAServeisServiceException {
-		DadesProcedimentBDTO dadesProcedimentBDTO = ServeisPortalServiceHelper.loadDadesProcediment(procedimentsService,
-		        unitatsGestoresService, idProcediment);
-		return dadesProcedimentBDTO;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * consultarDadesProcediment(java.lang.String)
 	 */
 	@Override
 	public DadesProcedimentBDTO consultarDadesProcediment(String codiProcediment) throws GPAServeisServiceException {
-		DadesProcedimentBDTO dadesProcedimentBDTO = ServeisPortalServiceHelper.loadDadesProcediment(procedimentsService,
-		        unitatsGestoresService, codiProcediment);
+		DadesProcedimentBDTO dadesProcedimentBDTO = ServeisServiceHelper.loadDadesProcediment(procedimentsService, unitatsGestoresService,
+		        codiProcediment);
 		return dadesProcedimentBDTO;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * consultarDadesTramitOvt(es.bcn.gpa.gpaserveis.business.dto.tramits.
 	 * TramitsOvtCercaBDTO)
 	 */
 	@Override
 	public TramitsOvtRDTO consultarDadesTramitOvt(TramitsOvtCercaBDTO tramitsOvtCercaBDTO) throws GPAServeisServiceException {
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO internalTramitsOvtRDTO = ServeisPortalServiceHelper
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO internalTramitsOvtRDTO = ServeisServiceHelper
 		        .loadTramitsOvtRDTO(tramitsService, tramitsOvtCercaBDTO);
 		return internalTramitsOvtRDTO;
 	}
@@ -181,29 +179,28 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ServeisPortalService#cercaDadesOperacio(es
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#cercaDadesOperacio(es
 	 * .bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO)
 	 */
 	@Override
 	public RespostaDadesOperacioCercaBDTO cercaDadesOperacio(DadesOperacioCercaBDTO dadesOperacioCercaBDTO)
 	        throws GPAServeisServiceException {
-		RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = ServeisPortalServiceHelper
-		        .loadCercaDadesOperacio(dadesOperacioService, dadesOperacioCercaBDTO);
+		RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = ServeisServiceHelper.loadCercaDadesOperacio(dadesOperacioService,
+		        dadesOperacioCercaBDTO);
 		return respostaDadesOperacioCercaBDTO;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * cercaConfiguracioDocumentacioEntrada(es.bcn.gpa.gpaserveis.business.dto.
 	 * documents.DocumentsEntradaCercaBDTO)
 	 */
 	@Override
 	public RespostaDocumentsEntradaCercaBDTO cercaConfiguracioDocumentacioEntrada(DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO)
 	        throws GPAServeisServiceException {
-		RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = ServeisPortalServiceHelper
+		RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = ServeisServiceHelper
 		        .loadCercaConfiguracioDocumentacioEntrada(documentsService, documentsEntradaCercaBDTO);
 		return respostaDocumentsEntradaCercaBDTO;
 	}
@@ -211,14 +208,14 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * cercaConfiguracioDocumentacioEntradaPerTramitOvt(es.bcn.gpa.gpaserveis.
 	 * business.dto.documents.DocumentsEntradaCercaBDTO)
 	 */
 	@Override
 	public RespostaDocumentsEntradaCercaBDTO cercaConfiguracioDocumentacioEntradaPerTramitOvt(
 	        DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO) throws GPAServeisServiceException {
-		RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = ServeisPortalServiceHelper
+		RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = ServeisServiceHelper
 		        .loadCercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsService, documentsEntradaCercaBDTO);
 		return respostaDocumentsEntradaCercaBDTO;
 	}
@@ -226,13 +223,12 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ServeisPortalService#cercaExpedients(es.
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#cercaExpedients(es.
 	 * bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO)
 	 */
 	@Override
 	public RespostaExpedientsCercaBDTO cercaExpedients(ExpedientsCercaBDTO expedientsCercaBDTO) throws GPAServeisServiceException {
-		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = ServeisPortalServiceHelper.loadCercaExpedients(expedientsService,
+		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = ServeisServiceHelper.loadCercaExpedients(expedientsService,
 		        unitatsGestoresService, expedientsCercaBDTO);
 		return respostaExpedientsCercaBDTO;
 	}
@@ -240,12 +236,12 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * consultarDadesBasiquesExpedient(java.math.BigDecimal)
 	 */
 	@Override
 	public DadesExpedientBDTO consultarDadesBasiquesExpedient(BigDecimal idExpedient) throws GPAServeisServiceException {
-		DadesExpedientBDTO dadesExpedientBDTO = ServeisPortalServiceHelper.loadDadesBasiquesExpedient(expedientsService, tramitsService,
+		DadesExpedientBDTO dadesExpedientBDTO = ServeisServiceHelper.loadDadesBasiquesExpedient(expedientsService, tramitsService,
 		        idExpedient);
 		return dadesExpedientBDTO;
 	}
@@ -253,12 +249,12 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * consultarDadesBasiquesExpedient(java.lang.String)
 	 */
 	@Override
 	public DadesExpedientBDTO consultarDadesBasiquesExpedient(String codiExpedient) throws GPAServeisServiceException {
-		DadesExpedientBDTO dadesExpedientBDTO = ServeisPortalServiceHelper.loadDadesBasiquesExpedient(expedientsService, tramitsService,
+		DadesExpedientBDTO dadesExpedientBDTO = ServeisServiceHelper.loadDadesBasiquesExpedient(expedientsService, tramitsService,
 		        codiExpedient);
 		return dadesExpedientBDTO;
 	}
@@ -266,12 +262,12 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * consultarDadesExpedient(java.math.BigDecimal)
 	 */
 	@Override
 	public DadesExpedientBDTO consultarDadesExpedient(BigDecimal idExpedient) throws GPAServeisServiceException {
-		DadesExpedientBDTO dadesExpedientBDTO = ServeisPortalServiceHelper.loadDadesExpedient(expedientsService, unitatsGestoresService,
+		DadesExpedientBDTO dadesExpedientBDTO = ServeisServiceHelper.loadDadesExpedient(expedientsService, unitatsGestoresService,
 		        tramitsService, documentsService, dadesOperacioService, idExpedient);
 		return dadesExpedientBDTO;
 	}
@@ -279,12 +275,12 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * consultarDadesExpedient(java.lang.String)
 	 */
 	@Override
 	public DadesExpedientBDTO consultarDadesExpedient(String codiExpedient) throws GPAServeisServiceException {
-		DadesExpedientBDTO dadesExpedientBDTO = ServeisPortalServiceHelper.loadDadesExpedient(expedientsService, unitatsGestoresService,
+		DadesExpedientBDTO dadesExpedientBDTO = ServeisServiceHelper.loadDadesExpedient(expedientsService, unitatsGestoresService,
 		        tramitsService, documentsService, dadesOperacioService, codiExpedient);
 		return dadesExpedientBDTO;
 	}
@@ -292,7 +288,7 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * crearSollicitudExpedient(es.bcn.gpa.gpaserveis.business.dto.expedients.
 	 * ExpedientsCrearBDTO)
 	 */
@@ -304,8 +300,7 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ServeisPortalService#cercaAccionsPossibles
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#cercaAccionsPossibles
 	 * (java.math.BigDecimal)
 	 */
 	@Override
@@ -317,7 +312,7 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * actualitzarSolicitudExpedient(es.bcn.gpa.gpaserveis.business.dto.
 	 * expedients.ExpedientsActualitzarBDTO)
 	 */
@@ -330,7 +325,7 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * aportarDocumentacioExpedient(es.bcn.gpa.gpaserveis.business.dto.documents
 	 * .AportarDocumentExpedientBDTO)
 	 */
@@ -343,7 +338,7 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * substituirDocumentExpedient(es.bcn.gpa.gpaserveis.business.dto.documents.
 	 * SubstituirDocumentExpedientBDTO)
 	 */
@@ -356,7 +351,7 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * consultarDadesDocumentAportat(java.math.BigDecimal)
 	 */
 	@Override
@@ -367,7 +362,7 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * esborrarDocumentExpedient(es.bcn.gpa.gpaserveis.business.dto.documents.
 	 * EsborrarDocumentExpedientBDTO)
 	 */
@@ -379,7 +374,7 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * descarregarDocumentExpedient(es.bcn.gpa.gpaserveis.business.dto.documents
 	 * .DescarregarDocumentExpedientBDTO)
 	 */
@@ -392,7 +387,7 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * uploadDocumentExpedient(es.bcn.gpa.gpaserveis.business.dto.documents.
 	 * UploadDocumentExpedientBDTO)
 	 */
@@ -405,7 +400,7 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisPortalService#
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * registrarSolicitudExpedient(es.bcn.gpa.gpaserveis.business.dto.expedients
 	 * .ExpedientsRegistrarBDTO)
 	 */
@@ -436,6 +431,19 @@ public class ServeisPortalServiceImpl implements ServeisPortalService {
 		}
 
 		return respostaAbandonarExpedient;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#validarSolicitudExpedient(
+	 * es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsValidarBDTO)
+	 */
+	@Override
+	public RespostaValidarExpedient validarSolicitudExpedient(ExpedientsValidarBDTO expedientsValidarBDTO)
+	        throws GPAServeisServiceException {
+		return expedientsService.validarSolicitudExpedient(expedientsValidarBDTO);
 	}
 
 }

@@ -41,6 +41,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollici
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentament;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaValidarExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Sollicituds;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
@@ -71,6 +72,8 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
  * The Class TestsConfigHelper.
  */
 public class TestsConfigHelper {
+
+	// TODO Meter Factory y limpiar
 
 	/**
 	 * Cerca procediments response.
@@ -910,6 +913,12 @@ public class TestsConfigHelper {
 		accionsEstatsRDTO7.setAccio(new BigDecimal(3));
 		accionsEstatsRDTOList.add(accionsEstatsRDTO7);
 
+		AccionsEstatsRDTO accionsEstatsRDTO8 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO8.setId(ONE);
+		accionsEstatsRDTO8.setNomAccio("Validar sol·licitud");
+		accionsEstatsRDTO8.setAccio(new BigDecimal(24));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO8);
+
 		return accionsEstatsRDTOList;
 	}
 
@@ -1231,5 +1240,16 @@ public class TestsConfigHelper {
 		respostaRegistrarSolicitudExpedient.setRegistreAssentament(registreAssentamentRDTO);
 
 		return respostaRegistrarSolicitudExpedient;
+	}
+
+	public static RespostaValidarExpedient validarSolicitudExpedientResponse() {
+		RespostaValidarExpedient respostaValidarExpedient = new RespostaValidarExpedient();
+
+		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
+		expedientsRDTO.setId(ONE);
+		expedientsRDTO.setCodi("Codi");
+		respostaValidarExpedient.setExpedient(expedientsRDTO);
+
+		return respostaValidarExpedient;
 	}
 }

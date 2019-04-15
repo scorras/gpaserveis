@@ -36,6 +36,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SubstituirDoc
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistrarSolicitudExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ValidarExpedient;
 import es.bcn.gpa.gpaserveis.test.config.TestsConfigHelper;
 import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.configuration.context.ContextPropertySourcesInitializer;
@@ -240,6 +241,11 @@ public abstract class ParentTest {
 
 			when(downloadEntradaApi.descarregarDocumentExpedient(any(BigDecimal.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.descarregarDocumentExpedientResponse());
+
+			// TODO ¿Abandonar?
+
+			when(expedients_Api.validarExpedient(any(ValidarExpedient.class)))
+			        .thenReturn(TestsConfigHelper.validarSolicitudExpedientResponse());
 
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$

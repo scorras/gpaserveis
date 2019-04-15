@@ -18,13 +18,15 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistrarSolici
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaAbandonarExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaValidarExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ValidarExpedient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-12T13:12:30.658+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-15T18:01:19.219+02:00")
 public class Expedients_Api {
   private ApiClient apiClient;
 
@@ -981,5 +983,46 @@ public class Expedients_Api {
 
     GenericType<ExpedientsRDTO> localVarReturnType = new GenericType<ExpedientsRDTO>() {};
     return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Validates the provided expedient
+   * 
+   * @param validarExpedientRDTO validarExpedientRDTO (required)
+   * @return RespostaValidarExpedient
+   * @throws ApiException if fails to make API call
+   */
+  public RespostaValidarExpedient validarExpedient(ValidarExpedient validarExpedientRDTO) throws ApiException {
+    Object localVarPostBody = validarExpedientRDTO;
+    
+    // verify the required parameter 'validarExpedientRDTO' is set
+    if (validarExpedientRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'validarExpedientRDTO' when calling validarExpedient");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/expedients/validar";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<RespostaValidarExpedient> localVarReturnType = new GenericType<RespostaValidarExpedient>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
 }

@@ -14,6 +14,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
@@ -27,6 +28,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExped
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaAbandonarExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaValidarExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 import lombok.extern.apachecommons.CommonsLog;
 
@@ -675,6 +677,56 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackAbandonarRenunciarExpedient(ExpedientsAbandonarBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de expedients no està disponible");
+	}
+
+	/**
+	 * Validar solicitud expedient.
+	 *
+	 * @param expedientsValidarBDTO
+	 *            the expedients validar BDTO
+	 * @return the resposta validar expedient
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackValidarSolicitudExpedient")
+	public RespostaValidarExpedient validarSolicitudExpedient(ExpedientsValidarBDTO expedientsValidarBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("validarSolicitudExpedient(ExpedientsValidarBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			RespostaValidarExpedient respostaValidarExpedient = expedients_Api
+			        .validarExpedient(expedientsValidarBDTO.getValidarExpedient());
+
+			if (log.isDebugEnabled()) {
+				log.debug("validarSolicitudExpedient(ExpedientsValidarBDTO) - fi"); //$NON-NLS-1$
+			}
+			return respostaValidarExpedient;
+		} catch (ApiException e) {
+			log.error("validarSolicitudExpedient(ExpedientsValidarBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback validar solicitud expedient.
+	 *
+	 * @param expedientsValidarBDTO
+	 *            the expedients validar BDTO
+	 * @return the resposta validar expedient
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public RespostaValidarExpedient fallbackValidarSolicitudExpedient(ExpedientsValidarBDTO expedientsValidarBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackValidarSolicitudExpedient(ExpedientsValidarBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de expedients no està disponible");

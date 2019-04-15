@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * ActualitzarDadesSollicitud
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-12T13:12:30.658+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-15T18:01:19.219+02:00")
 public class ActualitzarDadesSollicitud {
   @JsonProperty("comentari")
   private String comentari = null;

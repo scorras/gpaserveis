@@ -12,6 +12,7 @@
 
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
+import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -56,6 +57,27 @@ public class PaisosApiTest extends ParentTest {
 		                .thenReturn(new ArrayList<PaisosRDTO>());
 
 		List<PaisosRDTO> response = api.getPaisosUsingGET();
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the request paiso
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void getPaisosByCodiUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/expedients/catalog/paisos/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new PaisosRDTO());
+
+		String codi = ONE.toString();
+		PaisosRDTO response = api.getPaisosByCodiUsingGET(codi);
 
 		assertTrue(response != null);
 	}
