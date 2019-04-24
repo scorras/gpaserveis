@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
@@ -22,6 +23,7 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 	private final static String BASE_URL = "/rest/serveis/tramitadors";
 
 	@Test
+	@Ignore
 	public void testStage01_PostValidarSolicitudExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/1/validacio";
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{}")).andExpect(status().isOk()).andDo(print());

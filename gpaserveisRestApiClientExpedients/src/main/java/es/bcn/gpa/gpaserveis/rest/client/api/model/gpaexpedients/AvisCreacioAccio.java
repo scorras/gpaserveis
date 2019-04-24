@@ -17,34 +17,33 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * RespostaValidarExpedient
+ * AvisCreacioAccio
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-15T18:01:19.219+02:00")
-public class RespostaValidarExpedient {
-  @JsonProperty("expedient")
-  private ExpedientsRDTO expedient = null;
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-24T02:28:48.974+02:00")
+public class AvisCreacioAccio {
+  @JsonProperty("operacio")
+  private String operacio = null;
 
-  public RespostaValidarExpedient expedient(ExpedientsRDTO expedient) {
-    this.expedient = expedient;
+  public AvisCreacioAccio operacio(String operacio) {
+    this.operacio = operacio;
     return this;
   }
 
    /**
-   * Dades bàsiques de l&#39;expedient
-   * @return expedient
+   * Operació concreta en l&#39;execució de l&#39;acció
+   * @return operacio
   **/
-  @ApiModelProperty(value = "Dades bàsiques de l'expedient")
-  public ExpedientsRDTO getExpedient() {
-    return expedient;
+  @ApiModelProperty(value = "Operació concreta en l'execució de l'acció")
+  public String getOperacio() {
+    return operacio;
   }
 
-  public void setExpedient(ExpedientsRDTO expedient) {
-    this.expedient = expedient;
+  public void setOperacio(String operacio) {
+    this.operacio = operacio;
   }
 
 
@@ -56,22 +55,22 @@ public class RespostaValidarExpedient {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RespostaValidarExpedient respostaValidarExpedient = (RespostaValidarExpedient) o;
-    return Objects.equals(this.expedient, respostaValidarExpedient.expedient);
+    AvisCreacioAccio avisCreacioAccio = (AvisCreacioAccio) o;
+    return Objects.equals(this.operacio, avisCreacioAccio.operacio);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(expedient);
+    return Objects.hash(operacio);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RespostaValidarExpedient {\n");
+    sb.append("class AvisCreacioAccio {\n");
     
-    sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
+    sb.append("    operacio: ").append(toIndentedString(operacio)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -9,18 +9,20 @@ import javax.ws.rs.core.GenericType;
 
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.BloquejosRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientOpenTextRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfComentarisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfHistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-15T18:01:19.219+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-24T02:28:48.974+02:00")
 public class ExpedientsApi {
   private ApiClient apiClient;
 
@@ -87,6 +89,56 @@ public class ExpedientsApi {
 
     apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
   }
+  /**
+   * Canvia l&#39;estat d&#39;un expedient en funció de l&#39;acció executada
+   * 
+   * @param idAccio Identificador de l&#39;acció (required)
+   * @param idExpedient Identificador de l&#39;expedient (required)
+   * @param expedientCanviEstatAccioRDTO Dades del canvi d&#39;estat (optional)
+   * @return RespostaCanviarEstatAccioExpedient
+   * @throws ApiException if fails to make API call
+   */
+  public RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedient(BigDecimal idAccio, BigDecimal idExpedient, ExpedientCanviEstatAccio expedientCanviEstatAccioRDTO) throws ApiException {
+    Object localVarPostBody = expedientCanviEstatAccioRDTO;
+    
+    // verify the required parameter 'idAccio' is set
+    if (idAccio == null) {
+      throw new ApiException(400, "Missing the required parameter 'idAccio' when calling canviarEstatAccioExpedient");
+    }
+    
+    // verify the required parameter 'idExpedient' is set
+    if (idExpedient == null) {
+      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling canviarEstatAccioExpedient");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/expedients/{idExpedient}/accions/{idAccio}/canviEstat"
+      .replaceAll("\\{" + "idAccio" + "\\}", apiClient.escapeString(idAccio.toString()))
+      .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<RespostaCanviarEstatAccioExpedient> localVarReturnType = new GenericType<RespostaCanviarEstatAccioExpedient>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
   /**
    * Returns all the historic entries for the procedure that meet the search criteria
    * 

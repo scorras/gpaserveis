@@ -17,33 +17,33 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * RegistrarSolicitudExpedient
+ * RespostaCanviarEstatAccioExpedient
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-15T18:01:19.219+02:00")
-public class RegistrarSolicitudExpedient {
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-24T02:28:48.974+02:00")
+public class RespostaCanviarEstatAccioExpedient {
   @JsonProperty("expedient")
-  private ExpedientsRDTO expedient = null;
+  private ExpedientCanviEstat expedient = null;
 
-  public RegistrarSolicitudExpedient expedient(ExpedientsRDTO expedient) {
+  public RespostaCanviarEstatAccioExpedient expedient(ExpedientCanviEstat expedient) {
     this.expedient = expedient;
     return this;
   }
 
    /**
-   * Dades de l&#39;expedient
+   * Dades bàsiques de l&#39;expedient
    * @return expedient
   **/
-  @ApiModelProperty(value = "Dades de l'expedient")
-  public ExpedientsRDTO getExpedient() {
+  @ApiModelProperty(value = "Dades bàsiques de l'expedient")
+  public ExpedientCanviEstat getExpedient() {
     return expedient;
   }
 
-  public void setExpedient(ExpedientsRDTO expedient) {
+  public void setExpedient(ExpedientCanviEstat expedient) {
     this.expedient = expedient;
   }
 
@@ -56,8 +56,8 @@ public class RegistrarSolicitudExpedient {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RegistrarSolicitudExpedient registrarSolicitudExpedient = (RegistrarSolicitudExpedient) o;
-    return Objects.equals(this.expedient, registrarSolicitudExpedient.expedient);
+    RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccioExpedient = (RespostaCanviarEstatAccioExpedient) o;
+    return Objects.equals(this.expedient, respostaCanviarEstatAccioExpedient.expedient);
   }
 
   @Override
@@ -69,7 +69,7 @@ public class RegistrarSolicitudExpedient {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RegistrarSolicitudExpedient {\n");
+    sb.append("class RespostaCanviarEstatAccioExpedient {\n");
     
     sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
     sb.append("}");

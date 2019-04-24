@@ -17,31 +17,30 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * ValidarExpedient
+ * ComentariCreacioAccio
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-15T18:01:19.219+02:00")
-public class ValidarExpedient {
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-24T02:28:48.974+02:00")
+public class ComentariCreacioAccio {
   @JsonProperty("comentari")
   private String comentari = null;
 
-  @JsonProperty("expedient")
-  private ExpedientsRDTO expedient = null;
+  @JsonProperty("operacio")
+  private String operacio = null;
 
-  public ValidarExpedient comentari(String comentari) {
+  public ComentariCreacioAccio comentari(String comentari) {
     this.comentari = comentari;
     return this;
   }
 
    /**
-   * Comentari associat a la validació de l&#39;expedient.
+   * Comentari associat a l&#39;execució de l&#39;acció.
    * @return comentari
   **/
-  @ApiModelProperty(value = "Comentari associat a la validació de l'expedient.")
+  @ApiModelProperty(value = "Comentari associat a l'execució de l'acció.")
   public String getComentari() {
     return comentari;
   }
@@ -50,22 +49,22 @@ public class ValidarExpedient {
     this.comentari = comentari;
   }
 
-  public ValidarExpedient expedient(ExpedientsRDTO expedient) {
-    this.expedient = expedient;
+  public ComentariCreacioAccio operacio(String operacio) {
+    this.operacio = operacio;
     return this;
   }
 
    /**
-   * Dades de l&#39;expedient
-   * @return expedient
+   * Operació concreta en l&#39;execució de l&#39;acció
+   * @return operacio
   **/
-  @ApiModelProperty(value = "Dades de l'expedient")
-  public ExpedientsRDTO getExpedient() {
-    return expedient;
+  @ApiModelProperty(value = "Operació concreta en l'execució de l'acció")
+  public String getOperacio() {
+    return operacio;
   }
 
-  public void setExpedient(ExpedientsRDTO expedient) {
-    this.expedient = expedient;
+  public void setOperacio(String operacio) {
+    this.operacio = operacio;
   }
 
 
@@ -77,24 +76,24 @@ public class ValidarExpedient {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ValidarExpedient validarExpedient = (ValidarExpedient) o;
-    return Objects.equals(this.comentari, validarExpedient.comentari) &&
-        Objects.equals(this.expedient, validarExpedient.expedient);
+    ComentariCreacioAccio comentariCreacioAccio = (ComentariCreacioAccio) o;
+    return Objects.equals(this.comentari, comentariCreacioAccio.comentari) &&
+        Objects.equals(this.operacio, comentariCreacioAccio.operacio);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comentari, expedient);
+    return Objects.hash(comentari, operacio);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ValidarExpedient {\n");
+    sb.append("class ComentariCreacioAccio {\n");
     
     sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
-    sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
+    sb.append("    operacio: ").append(toIndentedString(operacio)).append("\n");
     sb.append("}");
     return sb.toString();
   }

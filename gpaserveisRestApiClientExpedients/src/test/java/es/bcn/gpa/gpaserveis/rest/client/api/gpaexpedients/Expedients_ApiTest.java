@@ -33,17 +33,11 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AbandonarExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InputStreamResource;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistrarSolicitudExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaAbandonarExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaValidarExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ValidarExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
@@ -484,86 +478,6 @@ public class Expedients_ApiTest extends ParentTest {
 
 		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
 		ExpedientsRDTO response = api.updateExpedientUsingPUT(expedientsRDTO);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Desist the provided expedient
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void abandonarDesistirExpedientTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/desistir"), eq("POST"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new RespostaAbandonarExpedient());
-
-		AbandonarExpedient abandonarExpedientRDTO = new AbandonarExpedient();
-		RespostaAbandonarExpedient response = api.abandonarDesistirExpedient(abandonarExpedientRDTO);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Renounce the provided expedient
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void abandonarRenunciarExpedientTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/renunciar"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new RespostaAbandonarExpedient());
-
-		AbandonarExpedient abandonarExpedientRDTO = new AbandonarExpedient();
-		RespostaAbandonarExpedient response = api.abandonarRenunciarExpedient(abandonarExpedientRDTO);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Register the provided expedient
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void registrarSolicitudExpedientTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/registrar"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new RespostaRegistrarSolicitudExpedient());
-
-		RegistrarSolicitudExpedient registrarSolicitudExpedientRDTO = new RegistrarSolicitudExpedient();
-		RespostaRegistrarSolicitudExpedient response = api.registrarSolicitudExpedient(registrarSolicitudExpedientRDTO);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Validates the provided expedient
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void validarExpedientTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/validar"), eq("POST"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new RespostaValidarExpedient());
-
-		ValidarExpedient validarExpedientRDTO = new ValidarExpedient();
-		RespostaValidarExpedient response = api.validarExpedient(validarExpedientRDTO);
 
 		assertTrue(response != null);
 	}

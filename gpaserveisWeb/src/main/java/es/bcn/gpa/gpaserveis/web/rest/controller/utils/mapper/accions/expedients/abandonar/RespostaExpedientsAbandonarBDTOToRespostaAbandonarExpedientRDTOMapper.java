@@ -18,10 +18,21 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.aban
 public class RespostaExpedientsAbandonarBDTOToRespostaAbandonarExpedientRDTOMapper
         extends PropertyMap<RespostaExpedientsAbandonarBDTO, RespostaAbandonarExpedientRDTO> {
 
+	/** The internal to expedient accio converter. */
 	private InternalToExpedientAccioConverter internalToExpedientAccioConverter;
 
+	/** The internal to resultat resposta converter. */
 	private InternalToResultatRespostaConverter internalToResultatRespostaConverter;
 
+	/**
+	 * Instantiates a new resposta expedients abandonar BDTO to resposta
+	 * abandonar expedient RDTO mapper.
+	 *
+	 * @param internalToExpedientAccioConverter
+	 *            the internal to expedient accio converter
+	 * @param internalToResultatRespostaConverter
+	 *            the internal to resultat resposta converter
+	 */
 	@Autowired
 	public RespostaExpedientsAbandonarBDTOToRespostaAbandonarExpedientRDTOMapper(
 	        @Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
@@ -38,7 +49,7 @@ public class RespostaExpedientsAbandonarBDTOToRespostaAbandonarExpedientRDTOMapp
 	@Override
 	protected void configure() {
 		using(internalToResultatRespostaConverter).map(source.getRespostaResultatBDTO()).setResultat(null);
-		using(internalToExpedientAccioConverter).map(source.getRespostaAbandonarExpedient().getExpedient()).setExpedient(null);
+		using(internalToExpedientAccioConverter).map(source.getExpedientsRDTO()).setExpedient(null);
 	}
 
 }

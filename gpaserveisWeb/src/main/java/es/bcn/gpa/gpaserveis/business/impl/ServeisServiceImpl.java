@@ -20,13 +20,14 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDT
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.SubstituirDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.UploadDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAbandonarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
@@ -42,9 +43,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAport
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaUploadDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaAbandonarExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaValidarExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreSolicitudExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
@@ -401,49 +401,95 @@ public class ServeisServiceImpl implements ServeisService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
-	 * registrarSolicitudExpedient(es.bcn.gpa.gpaserveis.business.dto.expedients
-	 * .ExpedientsRegistrarBDTO)
+	 * crearRegistreSolicitudExpedient(es.bcn.gpa.gpaserveis.business.dto.
+	 * expedients.ExpedientsRegistrarBDTO)
 	 */
 	@Override
-	public RespostaRegistrarSolicitudExpedient registrarSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
+	public RespostaCrearRegistreSolicitudExpedient crearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
 	        throws GPAServeisServiceException {
-		return expedientsService.registrarSolicitudExpedient(expedientsRegistrarBDTO);
-	}
-
-	@Override
-	public RespostaAbandonarExpedient abandonarExpedient(ExpedientsAbandonarBDTO expedientsAbandonarBDTO)
-	        throws GPAServeisServiceException {
-
-		RespostaAbandonarExpedient respostaAbandonarExpedient = null;
-
-		switch (expedientsAbandonarBDTO.getAbandonarApiParamValue()) {
-		case DESISTIR:
-			respostaAbandonarExpedient = expedientsService.abandonarDesistirExpedient(expedientsAbandonarBDTO);
-			break;
-
-		case RENUNCIAR:
-			respostaAbandonarExpedient = expedientsService.abandonarRenunciarExpedient(expedientsAbandonarBDTO);
-			break;
-
-		default:
-			break;
-
-		}
-
-		return respostaAbandonarExpedient;
+		return expedientsService.crearRegistreSolicitudExpedient(expedientsRegistrarBDTO);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ServeisService#validarSolicitudExpedient(
-	 * es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsValidarBDTO)
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#canviarEstatAccioExpedient(
+	 * es.bcn.gpa.gpaserveis.business.dto.expedients.
+	 * ExpedientsCanviarEstatAccioBDTO)
 	 */
 	@Override
-	public RespostaValidarExpedient validarSolicitudExpedient(ExpedientsValidarBDTO expedientsValidarBDTO)
+	public RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO)
 	        throws GPAServeisServiceException {
-		return expedientsService.validarSolicitudExpedient(expedientsValidarBDTO);
+		return expedientsService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#crearComentariAccio(es.bcn.
+	 * gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO)
+	 */
+	@Override
+	public void crearComentariAccio(ComentarisCrearAccioBDTO comentarisCrearAccioBDTO) throws GPAServeisServiceException {
+		expedientsService.crearComentariAccio(comentarisCrearAccioBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#crearAvisAccio(es.bcn.gpa.
+	 * gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO)
+	 */
+	@Override
+	public void crearAvisAccio(AvisosCrearAccioBDTO avisosCrearAccioBDTO) throws GPAServeisServiceException {
+		expedientsService.crearAvisAccio(avisosCrearAccioBDTO);
+	}
+
+	// TODO Peticiones ligeras
+	// @Override
+	// public RespostaAbandonarExpedient
+	// abandonarExpedient(ExpedientsAbandonarBDTO expedientsAbandonarBDTO)
+	// throws GPAServeisServiceException {
+	//
+	// RespostaAbandonarExpedient respostaAbandonarExpedient = null;
+	//
+	// switch (expedientsAbandonarBDTO.getAbandonarApiParamValue()) {
+	// case DESISTIR:
+	// respostaAbandonarExpedient =
+	// expedientsService.abandonarDesistirExpedient(expedientsAbandonarBDTO);
+	// break;
+	//
+	// case RENUNCIAR:
+	// respostaAbandonarExpedient =
+	// expedientsService.abandonarRenunciarExpedient(expedientsAbandonarBDTO);
+	// break;
+	//
+	// default:
+	// break;
+	//
+	// }
+	//
+	// return respostaAbandonarExpedient;
+	// }
+	//
+	// TODO Peticiones ligeras
+	// /*
+	// * (non-Javadoc)
+	// *
+	// * @see
+	// *
+	// es.bcn.gpa.gpaserveis.business.ServeisService#validarSolicitudExpedient(
+	// * es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsValidarBDTO)
+	// */
+	// @Override
+	// public RespostaValidarExpedient
+	// validarSolicitudExpedient(ExpedientsValidarBDTO expedientsValidarBDTO)
+	// throws GPAServeisServiceException {
+	// return
+	// expedientsService.validarSolicitudExpedient(expedientsValidarBDTO);
+	// }
 
 }

@@ -40,8 +40,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesDadesco
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentament;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaValidarExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Sollicituds;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
@@ -1208,48 +1206,61 @@ public class TestsConfigHelper {
 	public static byte[] descarregarDocumentExpedientResponse() {
 		return "prova".getBytes();
 	}
-
-	public static RespostaRegistrarSolicitudExpedient registrarSolicitudExpedientResponse() {
-		RespostaRegistrarSolicitudExpedient respostaRegistrarSolicitudExpedient = new RespostaRegistrarSolicitudExpedient();
-
-		respostaRegistrarSolicitudExpedient.setComprovant("prova".getBytes());
-		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
-		expedientsRDTO.setId(ONE);
-		expedientsRDTO.setCodi("Codi");
-		respostaRegistrarSolicitudExpedient.setExpedient(expedientsRDTO);
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO registreAssentamentRDTO = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO();
-		registreAssentamentRDTO.setCodi("Codi");
-		registreAssentamentRDTO.setDataRegistre(now());
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones persones = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones();
-		persones.setTipusPersona(ONE);
-		persones.setNomRaoSocial("Nom");
-		persones.setCognom1("Cognom 1");
-		persones.setCognom2("Cognom 2");
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat documentsIdentitat = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat();
-		documentsIdentitat.setTipus(ONE);
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat tipusDocumentIdentitat = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat();
-		tipusDocumentIdentitat.setId(ONE);
-		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
-		documentsIdentitat.setNumeroDocument("00000000T");
-		documentsIdentitat.setPais("108");
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Paisos paisos = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Paisos();
-		paisos.setCodiIne("108");
-		documentsIdentitat.setPaisos(paisos);
-		persones.setDocumentsIdentitat(documentsIdentitat);
-		registreAssentamentRDTO.setPersones(persones);
-		respostaRegistrarSolicitudExpedient.setRegistreAssentament(registreAssentamentRDTO);
-
-		return respostaRegistrarSolicitudExpedient;
-	}
-
-	public static RespostaValidarExpedient validarSolicitudExpedientResponse() {
-		RespostaValidarExpedient respostaValidarExpedient = new RespostaValidarExpedient();
-
-		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
-		expedientsRDTO.setId(ONE);
-		expedientsRDTO.setCodi("Codi");
-		respostaValidarExpedient.setExpedient(expedientsRDTO);
-
-		return respostaValidarExpedient;
-	}
+	// TODO Peticiones ligeras
+	// public static RespostaRegistrarSolicitudExpedient
+	// registrarSolicitudExpedientResponse() {
+	// RespostaRegistrarSolicitudExpedient respostaRegistrarSolicitudExpedient =
+	// new RespostaRegistrarSolicitudExpedient();
+	//
+	// respostaRegistrarSolicitudExpedient.setComprovant("prova".getBytes());
+	// ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
+	// expedientsRDTO.setId(ONE);
+	// expedientsRDTO.setCodi("Codi");
+	// respostaRegistrarSolicitudExpedient.setExpedient(expedientsRDTO);
+	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO
+	// registreAssentamentRDTO = new
+	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO();
+	// registreAssentamentRDTO.setCodi("Codi");
+	// registreAssentamentRDTO.setDataRegistre(now());
+	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones
+	// persones = new
+	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones();
+	// persones.setTipusPersona(ONE);
+	// persones.setNomRaoSocial("Nom");
+	// persones.setCognom1("Cognom 1");
+	// persones.setCognom2("Cognom 2");
+	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat
+	// documentsIdentitat = new
+	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat();
+	// documentsIdentitat.setTipus(ONE);
+	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat
+	// tipusDocumentIdentitat = new
+	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat();
+	// tipusDocumentIdentitat.setId(ONE);
+	// documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
+	// documentsIdentitat.setNumeroDocument("00000000T");
+	// documentsIdentitat.setPais("108");
+	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Paisos paisos =
+	// new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Paisos();
+	// paisos.setCodiIne("108");
+	// documentsIdentitat.setPaisos(paisos);
+	// persones.setDocumentsIdentitat(documentsIdentitat);
+	// registreAssentamentRDTO.setPersones(persones);
+	// respostaRegistrarSolicitudExpedient.setRegistreAssentament(registreAssentamentRDTO);
+	//
+	// return respostaRegistrarSolicitudExpedient;
+	// }
+	//
+	// public static RespostaValidarExpedient
+	// validarSolicitudExpedientResponse() {
+	// RespostaValidarExpedient respostaValidarExpedient = new
+	// RespostaValidarExpedient();
+	//
+	// ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
+	// expedientsRDTO.setId(ONE);
+	// expedientsRDTO.setCodi("Codi");
+	// respostaValidarExpedient.setExpedient(expedientsRDTO);
+	//
+	// return respostaValidarExpedient;
+	// }
 }

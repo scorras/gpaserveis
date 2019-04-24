@@ -10,13 +10,14 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDT
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.SubstituirDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.UploadDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAbandonarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
@@ -31,9 +32,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAport
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaUploadDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaAbandonarExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaValidarExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreSolicitudExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 
@@ -314,37 +314,72 @@ public interface ServeisService {
 	        throws GPAServeisServiceException;
 
 	/**
-	 * Registrar solicitud expedient.
+	 * Crear registre solicitud expedient.
 	 *
 	 * @param expedientsRegistrarBDTO
 	 *            the expedients registrar BDTO
-	 * @return the resposta registrar solicitud expedient
+	 * @return the resposta crear registre solicitud expedient
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	RespostaRegistrarSolicitudExpedient registrarSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
+	RespostaCrearRegistreSolicitudExpedient crearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
 	        throws GPAServeisServiceException;
 
 	/**
-	 * Abandonar expedient.
+	 * Canviar estat accio expedient.
 	 *
-	 * @param expedientsAbandonarBDTO
-	 *            the expedients abandonar BDTO
-	 * @return the resposta abandonar expedient
+	 * @param expedientsCanviarEstatAccioBDTO
+	 *            the expedients canviar estat accio BDTO
+	 * @return the resposta canviar estat accio expedient
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	RespostaAbandonarExpedient abandonarExpedient(ExpedientsAbandonarBDTO expedientsAbandonarBDTO) throws GPAServeisServiceException;
+	RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO)
+	        throws GPAServeisServiceException;
 
 	/**
-	 * Validar solicitud expedient.
+	 * Crear comentari accio.
 	 *
-	 * @param expedientsValidarBDTO
-	 *            the expedients validar BDTO
-	 * @return the resposta validar expedient
+	 * @param comentarisCrearAccioBDTO
+	 *            the comentaris crear accio BDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	RespostaValidarExpedient validarSolicitudExpedient(ExpedientsValidarBDTO expedientsValidarBDTO) throws GPAServeisServiceException;
+	void crearComentariAccio(ComentarisCrearAccioBDTO comentarisCrearAccioBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Crear avis accio.
+	 *
+	 * @param avisosCrearAccioBDTO
+	 *            the avisos crear accio BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void crearAvisAccio(AvisosCrearAccioBDTO avisosCrearAccioBDTO) throws GPAServeisServiceException;
+
+	// TODO Peticiones ligeras
+	// /**
+	// * Abandonar expedient.
+	// *
+	// * @param expedientsAbandonarBDTO
+	// * the expedients abandonar BDTO
+	// * @return the resposta abandonar expedient
+	// * @throws GPAServeisServiceException
+	// * the GPA serveis service exception
+	// */
+	// RespostaAbandonarExpedient abandonarExpedient(ExpedientsAbandonarBDTO
+	// expedientsAbandonarBDTO) throws GPAServeisServiceException;
+	// TODO Peticiones ligeras
+	// /**
+	// * Validar solicitud expedient.
+	// *
+	// * @param expedientsValidarBDTO
+	// * the expedients validar BDTO
+	// * @return the resposta validar expedient
+	// * @throws GPAServeisServiceException
+	// * the GPA serveis service exception
+	// */
+	// RespostaValidarExpedient validarSolicitudExpedient(ExpedientsValidarBDTO
+	// expedientsValidarBDTO) throws GPAServeisServiceException;
 
 }

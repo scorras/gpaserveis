@@ -43,8 +43,8 @@ public class RespostaExpedientsRegistrarBDTOToRespostaRegistrarExpedientRDTOMapp
 	@Override
 	protected void configure() {
 		using(internalToResultatRespostaConverter).map(source.getRespostaResultatBDTO()).setResultat(null);
-		using(internalToExpedientAccioConverter).map(source.getRespostaRegistrarSolicitudExpedient().getExpedient()).setExpedient(null);
-		using(internalRDTOToRegistreConverter).map(source.getRespostaRegistrarSolicitudExpedient().getRegistreAssentament())
+		using(internalToExpedientAccioConverter).map(source.getExpedientsRDTO()).setExpedient(null);
+		using(internalRDTOToRegistreConverter).map(source.getRespostaCrearRegistreSolicitudExpedient().getRegistreAssentament())
 		        .setRegistre(null);
 		// map().setComprovant(source.getRespostaRegistrarSolicitudExpedient().getComprovant());
 	}

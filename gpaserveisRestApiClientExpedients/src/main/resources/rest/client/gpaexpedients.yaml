@@ -494,6 +494,47 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /avisos/{idExpedient}/accions/{idAccio}/crear:
+    post:
+      tags:
+      - "Avisos"
+      summary: "Crea un nou avís per a l'expedient en funció de l'acció executada"
+      operationId: "crearAvisAccio"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "avisCreacioAccioRDTO"
+        description: "Dades del avís"
+        required: false
+        schema:
+          $ref: "#/definitions/AvisCreacioAccio"
+      - name: "idAccio"
+        in: "path"
+        description: "Identificador de l'acció"
+        required: true
+        type: "number"
+      - name: "idExpedient"
+        in: "path"
+        description: "Identificador de l'expedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /avisos/{id}:
     get:
       tags:
@@ -1493,6 +1534,47 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /expedients/comentaris/{idExpedient}/accions/{idAccio}/crear:
+    post:
+      tags:
+      - "Comentaris"
+      summary: "Crea un nou comentari per a l'expedient en funció de l'acció executada"
+      operationId: "crearComentariAccio"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "comentariCreacioAccioRDTO"
+        description: "Dades del comentari"
+        required: false
+        schema:
+          $ref: "#/definitions/ComentariCreacioAccio"
+      - name: "idAccio"
+        in: "path"
+        description: "Identificador de l'acció"
+        required: true
+        type: "number"
+      - name: "idExpedient"
+        in: "path"
+        description: "Identificador de l'expedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/comentaris/{id}:
     get:
       tags:
@@ -1701,39 +1783,6 @@ paths:
       responses:
         200:
           description: "OK"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /expedients/desistir:
-    post:
-      tags:
-      - "Expedients "
-      summary: "Desist the provided expedient"
-      operationId: "abandonarDesistirExpedient"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "abandonarExpedientRDTO"
-        description: "abandonarExpedientRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/AbandonarExpedient"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaAbandonarExpedient"
         201:
           description: "Created"
         401:
@@ -2840,39 +2889,6 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/registrar:
-    post:
-      tags:
-      - "Expedients "
-      summary: "Register the provided expedient"
-      operationId: "registrarSolicitudExpedient"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "registrarSolicitudExpedientRDTO"
-        description: "registrarSolicitudExpedientRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/RegistrarSolicitudExpedient"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaRegistrarSolicitudExpedient"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /expedients/registre:
     get:
       tags:
@@ -2901,6 +2917,39 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/registre/crear:
+    post:
+      tags:
+      - "Expedients "
+      summary: "Register the provided expedient"
+      operationId: "crearRegistreSolicitudExpedient"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "registrarSolicitudExpedientRDTO"
+        description: "registrarSolicitudExpedientRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/RegistreCreacioSolicitudExpedient"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaCrearRegistreSolicitudExpedient"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/registre/list/{ids}:
     get:
       tags:
@@ -2931,39 +2980,6 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/renunciar:
-    post:
-      tags:
-      - "Expedients "
-      summary: "Renounce the provided expedient"
-      operationId: "abandonarRenunciarExpedient"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "abandonarExpedientRDTO"
-        description: "abandonarExpedientRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/AbandonarExpedient"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaAbandonarExpedient"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /expedients/search:
     get:
       tags:
@@ -3191,28 +3207,38 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /expedients/validar:
+  /expedients/{idExpedient}/accions/{idAccio}/canviEstat:
     post:
       tags:
-      - "Expedients "
-      summary: "Validates the provided expedient"
-      operationId: "validarExpedient"
+      - "Expedients"
+      summary: "Canvia l'estat d'un expedient en funció de l'acció executada"
+      operationId: "canviarEstatAccioExpedient"
       consumes:
       - "application/json"
       produces:
       - "*/*"
       parameters:
       - in: "body"
-        name: "validarExpedientRDTO"
-        description: "validarExpedientRDTO"
-        required: true
+        name: "expedientCanviEstatAccioRDTO"
+        description: "Dades del canvi d'estat"
+        required: false
         schema:
-          $ref: "#/definitions/ValidarExpedient"
+          $ref: "#/definitions/ExpedientCanviEstatAccio"
+      - name: "idAccio"
+        in: "path"
+        description: "Identificador de l'acció"
+        required: true
+        type: "number"
+      - name: "idExpedient"
+        in: "path"
+        description: "Identificador de l'expedient"
+        required: true
+        type: "number"
       responses:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/RespostaValidarExpedient"
+            $ref: "#/definitions/RespostaCanviarEstatAccioExpedient"
         201:
           description: "Created"
         401:
@@ -3484,16 +3510,6 @@ paths:
       x-imi-roles:
         consulta: "Perfil usuari consulta"
 definitions:
-  AbandonarExpedient:
-    type: "object"
-    properties:
-      comentari:
-        type: "string"
-        description: "Comentari associat al desistiment o renuncia."
-      expedient:
-        description: "Dades de l'expedient"
-        $ref: "#/definitions/ExpedientsRDTO"
-    title: "AbandonarExpedient"
   AccionsEstatsBDTO:
     type: "object"
     properties:
@@ -3554,6 +3570,13 @@ definitions:
       adreca:
         type: "string"
     title: "AdrecaNormalitzadaRDTO"
+  AvisCreacioAccio:
+    type: "object"
+    properties:
+      operacio:
+        type: "string"
+        description: "Operació concreta en l'execució de l'acció"
+    title: "AvisCreacioAccio"
   AvisosRDTO:
     type: "object"
     properties:
@@ -3668,6 +3691,16 @@ definitions:
       unitatGestoraFutura:
         $ref: "#/definitions/DropdownItemBDTO"
     title: "CanviUnitatGestoraRDTO"
+  ComentariCreacioAccio:
+    type: "object"
+    properties:
+      comentari:
+        type: "string"
+        description: "Comentari associat a l'execució de l'acció."
+      operacio:
+        type: "string"
+        description: "Operació concreta en l'execució de l'acció"
+    title: "ComentariCreacioAccio"
   Comentaris:
     type: "object"
     properties:
@@ -3943,6 +3976,41 @@ definitions:
       idEstatAnterior:
         type: "number"
     title: "EstatsRDTO"
+  ExpedientCanviEstat:
+    type: "object"
+    properties:
+      codi:
+        type: "string"
+        description: "Codi identificador de l'expedient"
+      estat:
+        type: "string"
+        description: "Estat actual del expedient"
+      estatCastella:
+        type: "string"
+        description: "Estat actual del expedient en castellà"
+      id:
+        type: "number"
+        description: "Identificador de l'expedient"
+    title: "ExpedientCanviEstat"
+  ExpedientCanviEstatAccio:
+    type: "object"
+    properties:
+      descEstat:
+        type: "string"
+        description: "Descripció de l'estat actual"
+      diesTerminiAllegacio:
+        type: "number"
+        description: "Dies de termini per respondre a les al·legacions"
+      diesTerminiRequeriment:
+        type: "number"
+        description: "Dies de termini per respondre al requeriment"
+      idEstat:
+        type: "number"
+        description: "Identificador de l'estat actual"
+      idProcediment:
+        type: "number"
+        description: "Identificador del procediment"
+    title: "ExpedientCanviEstatAccio"
   ExpedientOpenTextRDTO:
     type: "object"
     properties:
@@ -4496,13 +4564,6 @@ definitions:
       pais:
         type: "string"
     title: "ProvinciesRDTO"
-  RegistrarSolicitudExpedient:
-    type: "object"
-    properties:
-      expedient:
-        description: "Dades de l'expedient"
-        $ref: "#/definitions/ExpedientsRDTO"
-    title: "RegistrarSolicitudExpedient"
   RegistreAssentament:
     type: "object"
     properties:
@@ -4541,6 +4602,13 @@ definitions:
       usuari:
         type: "number"
     title: "RegistreAssentamentRDTO"
+  RegistreCreacioSolicitudExpedient:
+    type: "object"
+    properties:
+      expedient:
+        description: "Dades de l'expedient"
+        $ref: "#/definitions/ExpedientsRDTO"
+    title: "RegistreCreacioSolicitudExpedient"
   RelacioPersonaRDTO:
     type: "object"
     properties:
@@ -4552,34 +4620,24 @@ definitions:
       id:
         type: "number"
     title: "RelacioPersonaRDTO"
-  RespostaAbandonarExpedient:
+  RespostaCanviarEstatAccioExpedient:
     type: "object"
     properties:
       expedient:
         description: "Dades bàsiques de l'expedient"
-        $ref: "#/definitions/ExpedientsRDTO"
-    title: "RespostaAbandonarExpedient"
-  RespostaRegistrarSolicitudExpedient:
+        $ref: "#/definitions/ExpedientCanviEstat"
+    title: "RespostaCanviarEstatAccioExpedient"
+  RespostaCrearRegistreSolicitudExpedient:
     type: "object"
     properties:
       comprovant:
         type: "string"
         format: "byte"
         description: "Comprovant del registre"
-      expedient:
-        description: "Dades bàsiques de l'expedient"
-        $ref: "#/definitions/ExpedientsRDTO"
       registreAssentament:
         description: "Dades del registre de l'expedient"
         $ref: "#/definitions/RegistreAssentamentRDTO"
-    title: "RespostaRegistrarSolicitudExpedient"
-  RespostaValidarExpedient:
-    type: "object"
-    properties:
-      expedient:
-        description: "Dades bàsiques de l'expedient"
-        $ref: "#/definitions/ExpedientsRDTO"
-    title: "RespostaValidarExpedient"
+    title: "RespostaCrearRegistreSolicitudExpedient"
   Sollicituds:
     type: "object"
     properties:
@@ -4735,13 +4793,3 @@ definitions:
       userInfo:
         type: "string"
     title: "URL"
-  ValidarExpedient:
-    type: "object"
-    properties:
-      comentari:
-        type: "string"
-        description: "Comentari associat a la validació de l'expedient."
-      expedient:
-        description: "Dades de l'expedient"
-        $ref: "#/definitions/ExpedientsRDTO"
-    title: "ValidarExpedient"

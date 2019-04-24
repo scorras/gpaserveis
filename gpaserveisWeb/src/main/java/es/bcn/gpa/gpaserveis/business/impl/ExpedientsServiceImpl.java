@@ -9,15 +9,19 @@ import org.springframework.stereotype.Service;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import es.bcn.gpa.gpaserveis.business.ExpedientsService;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAbandonarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
@@ -26,9 +30,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaAbandonarExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaValidarExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreSolicitudExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 import lombok.extern.apachecommons.CommonsLog;
 
@@ -38,12 +41,18 @@ import lombok.extern.apachecommons.CommonsLog;
 @Service
 
 /** The Constant log. */
+
+/** The Constant log. */
 @CommonsLog
 public class ExpedientsServiceImpl implements ExpedientsService {
 
 	/** The expedients api. */
 	@Autowired
 	private Expedients_Api expedients_Api;
+
+	/** The expedients api. */
+	@Autowired
+	private ExpedientsApi expedientsApi;
 
 	/** The persones interessades api. */
 	@Autowired
@@ -60,6 +69,14 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	/** The dades especifiques api. */
 	@Autowired
 	private DadesEspecifiquesApi dadesEspecifiquesApi;
+
+	/** The comentaris api. */
+	@Autowired
+	private ComentarisApi comentarisApi;
+
+	/** The avisos api. */
+	@Autowired
+	private AvisosApi avisosApi;
 
 	/**
 	 * Cerca expedients.
@@ -539,27 +556,27 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
-	 * registrarSolicitudExpedient(es.bcn.gpa.gpaserveis.business.dto.expedients
-	 * .ExpedientsRegistrarBDTO)
+	 * crearRegistreSolicitudExpedient(es.bcn.gpa.gpaserveis.business.dto.
+	 * expedients.ExpedientsRegistrarBDTO)
 	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackRegistrarSolicitudExpedient")
-	public RespostaRegistrarSolicitudExpedient registrarSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
+	@HystrixCommand(fallbackMethod = "fallbackCrearRegistreSolicitudExpedient")
+	public RespostaCrearRegistreSolicitudExpedient crearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("registrarSolicitudExpedient(ExpedientsRegistrarBDTO) - inici"); //$NON-NLS-1$
+			log.debug("crearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			RespostaRegistrarSolicitudExpedient respostaRegistrarSolicitudExpedient = expedients_Api
-			        .registrarSolicitudExpedient(expedientsRegistrarBDTO.getRegistrarSolicitudExpedient());
+			RespostaCrearRegistreSolicitudExpedient respostaCrearRegistreSolicitudExpedient = expedients_Api
+			        .crearRegistreSolicitudExpedient(expedientsRegistrarBDTO.getRegistreCreacioSolicitudExpedient());
 
 			if (log.isDebugEnabled()) {
-				log.debug("registrarSolicitudExpedient(ExpedientsRegistrarBDTO) - fi"); //$NON-NLS-1$
+				log.debug("crearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO) - fi"); //$NON-NLS-1$
 			}
-			return respostaRegistrarSolicitudExpedient;
+			return respostaCrearRegistreSolicitudExpedient;
 		} catch (ApiException e) {
-			log.error("registrarSolicitudExpedient(ExpedientsRegistrarBDTO)", e); //$NON-NLS-1$
+			log.error("crearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
@@ -567,18 +584,238 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	}
 
 	/**
-	 * Fallback registrar solicitud expedient.
+	 * Fallback crear registre solicitud expedient.
 	 *
 	 * @param expedientsRegistrarBDTO
 	 *            the expedients registrar BDTO
-	 * @return the resposta registrar solicitud expedient
+	 * @return the resposta crear registre solicitud expedient
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public RespostaRegistrarSolicitudExpedient fallbackRegistrarSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
+	public RespostaCrearRegistreSolicitudExpedient fallbackCrearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackRegistrarSolicitudExpedient(ExpedientsRegistrarBDTO) - inici"); //$NON-NLS-1$
+			log.debug("fallbackCrearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de expedients no està disponible");
+	}
+
+	// TODO Peticiones ligeras
+	// /*
+	// * (non-Javadoc)
+	// *
+	// * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
+	// *
+	// abandonarDesistirExpedient(es.bcn.gpa.gpaserveis.business.dto.expedients.
+	// * ExpedientsAbandonarBDTO)
+	// */
+	// @Override
+	// @HystrixCommand(fallbackMethod = "fallbackAbandonarDesistirExpedient")
+	// public RespostaAbandonarExpedient
+	// abandonarDesistirExpedient(ExpedientsAbandonarBDTO
+	// expedientsAbandonarBDTO)
+	// throws GPAServeisServiceException {
+	// if (log.isDebugEnabled()) {
+	// log.debug("abandonarDesistirExpedient(ExpedientsAbandonarBDTO) - inici");
+	// //$NON-NLS-1$
+	// }
+	//
+	// try {
+	// RespostaAbandonarExpedient respostaAbandonarExpedient = expedients_Api
+	// .abandonarDesistirExpedient(expedientsAbandonarBDTO.getAbandonarExpedient());
+	//
+	// if (log.isDebugEnabled()) {
+	// log.debug("abandonarDesistirExpedient(ExpedientsAbandonarBDTO) - fi");
+	// //$NON-NLS-1$
+	// }
+	// return respostaAbandonarExpedient;
+	// } catch (ApiException e) {
+	// log.error("abandonarDesistirExpedient(ExpedientsAbandonarBDTO)", e);
+	// //$NON-NLS-1$
+	//
+	// throw new GPAServeisServiceException("S'ha produït una incidència", e);
+	// }
+	//
+	// }
+	//
+	// /**
+	// * Fallback abandonar desistir expedient.
+	// *
+	// * @param expedientsAbandonarBDTO
+	// * the expedients abandonar BDTO
+	// * @return the resposta abandonar expedient
+	// * @throws GPAServeisServiceException
+	// * the GPA serveis service exception
+	// */
+	// public RespostaAbandonarExpedient
+	// fallbackAbandonarDesistirExpedient(ExpedientsAbandonarBDTO
+	// expedientsAbandonarBDTO)
+	// throws GPAServeisServiceException {
+	// if (log.isDebugEnabled()) {
+	// log.debug("fallbackAbandonarDesistirExpedient(ExpedientsAbandonarBDTO) -
+	// inici"); //$NON-NLS-1$
+	// }
+	//
+	// throw new GPAServeisServiceException("El servei de expedients no està
+	// disponible");
+	// }
+	// TODO Peticiones ligeras
+	// /*
+	// * (non-Javadoc)
+	// *
+	// * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
+	// *
+	// abandonarRenunciarExpedient(es.bcn.gpa.gpaserveis.business.dto.expedients
+	// * .ExpedientsAbandonarBDTO)
+	// */
+	// @Override
+	// @HystrixCommand(fallbackMethod = "fallbackAbandonarRenunciarExpedient")
+	// public RespostaAbandonarExpedient
+	// abandonarRenunciarExpedient(ExpedientsAbandonarBDTO
+	// expedientsAbandonarBDTO)
+	// throws GPAServeisServiceException {
+	// if (log.isDebugEnabled()) {
+	// log.debug("abandonarRenunciarExpedient(ExpedientsAbandonarBDTO) -
+	// inici"); //$NON-NLS-1$
+	// }
+	//
+	// try {
+	// RespostaAbandonarExpedient respostaAbandonarExpedient = expedients_Api
+	// .abandonarRenunciarExpedient(expedientsAbandonarBDTO.getAbandonarExpedient());
+	//
+	// if (log.isDebugEnabled()) {
+	// log.debug("abandonarRenunciarExpedient(ExpedientsAbandonarBDTO) - fi");
+	// //$NON-NLS-1$
+	// }
+	// return respostaAbandonarExpedient;
+	// } catch (ApiException e) {
+	// log.error("abandonarRenunciarExpedient(ExpedientsAbandonarBDTO)", e);
+	// //$NON-NLS-1$
+	//
+	// throw new GPAServeisServiceException("S'ha produït una incidència", e);
+	// }
+	//
+	// }
+	//
+	// /**
+	// * Fallback abandonar renunciar expedient.
+	// *
+	// * @param expedientsAbandonarBDTO
+	// * the expedients abandonar BDTO
+	// * @return the resposta abandonar expedient
+	// * @throws GPAServeisServiceException
+	// * the GPA serveis service exception
+	// */
+	// public RespostaAbandonarExpedient
+	// fallbackAbandonarRenunciarExpedient(ExpedientsAbandonarBDTO
+	// expedientsAbandonarBDTO)
+	// throws GPAServeisServiceException {
+	// if (log.isDebugEnabled()) {
+	// log.debug("fallbackAbandonarRenunciarExpedient(ExpedientsAbandonarBDTO) -
+	// inici"); //$NON-NLS-1$
+	// }
+	//
+	// throw new GPAServeisServiceException("El servei de expedients no està
+	// disponible");
+	// }
+	// TODO Peticiones ligeras
+	// /**
+	// * Validar solicitud expedient.
+	// *
+	// * @param expedientsValidarBDTO
+	// * the expedients validar BDTO
+	// * @return the resposta validar expedient
+	// * @throws GPAServeisServiceException
+	// * the GPA serveis service exception
+	// */
+	// @Override
+	// @HystrixCommand(fallbackMethod = "fallbackValidarSolicitudExpedient")
+	// public RespostaValidarExpedient
+	// validarSolicitudExpedient(ExpedientsValidarBDTO expedientsValidarBDTO)
+	// throws GPAServeisServiceException {
+	// if (log.isDebugEnabled()) {
+	// log.debug("validarSolicitudExpedient(ExpedientsValidarBDTO) - inici");
+	// //$NON-NLS-1$
+	// }
+	//
+	// try {
+	// RespostaValidarExpedient respostaValidarExpedient = expedients_Api
+	// .validarExpedient(expedientsValidarBDTO.getValidarExpedient());
+	//
+	// if (log.isDebugEnabled()) {
+	// log.debug("validarSolicitudExpedient(ExpedientsValidarBDTO) - fi");
+	// //$NON-NLS-1$
+	// }
+	// return respostaValidarExpedient;
+	// } catch (ApiException e) {
+	// log.error("validarSolicitudExpedient(ExpedientsValidarBDTO)", e);
+	// //$NON-NLS-1$
+	//
+	// throw new GPAServeisServiceException("S'ha produït una incidència", e);
+	// }
+	// }
+	//
+	// /**
+	// * Fallback validar solicitud expedient.
+	// *
+	// * @param expedientsValidarBDTO
+	// * the expedients validar BDTO
+	// * @return the resposta validar expedient
+	// * @throws GPAServeisServiceException
+	// * the GPA serveis service exception
+	// */
+	// public RespostaValidarExpedient
+	// fallbackValidarSolicitudExpedient(ExpedientsValidarBDTO
+	// expedientsValidarBDTO)
+	// throws GPAServeisServiceException {
+	// if (log.isDebugEnabled()) {
+	// log.debug("fallbackValidarSolicitudExpedient(ExpedientsValidarBDTO) -
+	// inici"); //$NON-NLS-1$
+	// }
+	//
+	// throw new GPAServeisServiceException("El servei de expedients no està
+	// disponible");
+	// }
+
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackCanviarEstatAccioExpedient")
+	public RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccioExpedient = expedientsApi.canviarEstatAccioExpedient(
+			        expedientsCanviarEstatAccioBDTO.getIdAccio(), expedientsCanviarEstatAccioBDTO.getIdExpedient(),
+			        expedientsCanviarEstatAccioBDTO.getExpedientCanviEstatAccio());
+
+			if (log.isDebugEnabled()) {
+				log.debug("canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO) - fi"); //$NON-NLS-1$
+			}
+			return respostaCanviarEstatAccioExpedient;
+		} catch (ApiException e) {
+			log.error("canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+
+	}
+
+	/**
+	 * Fallback canviar estat accio expedient.
+	 *
+	 * @param expedientsCanviarEstatAccioBDTO
+	 *            the expedients canviar estat accio BDTO
+	 * @return the resposta canviar estat accio expedient
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public RespostaCanviarEstatAccioExpedient fallbackCanviarEstatAccioExpedient(
+	        ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCanviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de expedients no està disponible");
@@ -587,28 +824,26 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
-	 * abandonarDesistirExpedient(es.bcn.gpa.gpaserveis.business.dto.expedients.
-	 * ExpedientsAbandonarBDTO)
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#crearComentariAccio(es.
+	 * bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO)
 	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackAbandonarDesistirExpedient")
-	public RespostaAbandonarExpedient abandonarDesistirExpedient(ExpedientsAbandonarBDTO expedientsAbandonarBDTO)
-	        throws GPAServeisServiceException {
+	@HystrixCommand(fallbackMethod = "fallbackCrearComentariAccio")
+	public void crearComentariAccio(ComentarisCrearAccioBDTO comentarisCrearAccioBDTO) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("abandonarDesistirExpedient(ExpedientsAbandonarBDTO) - inici"); //$NON-NLS-1$
+			log.debug("crearComentariAccio(ComentarisCrearAccioBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			RespostaAbandonarExpedient respostaAbandonarExpedient = expedients_Api
-			        .abandonarDesistirExpedient(expedientsAbandonarBDTO.getAbandonarExpedient());
+			comentarisApi.crearComentariAccio(comentarisCrearAccioBDTO.getIdAccio(), comentarisCrearAccioBDTO.getIdExpedient(),
+			        comentarisCrearAccioBDTO.getComentariCreacioAccio());
 
 			if (log.isDebugEnabled()) {
-				log.debug("abandonarDesistirExpedient(ExpedientsAbandonarBDTO) - fi"); //$NON-NLS-1$
+				log.debug("crearComentariAccio(ComentarisCrearAccioBDTO) - fi"); //$NON-NLS-1$
 			}
-			return respostaAbandonarExpedient;
 		} catch (ApiException e) {
-			log.error("abandonarDesistirExpedient(ExpedientsAbandonarBDTO)", e); //$NON-NLS-1$
+			log.error("crearComentariAccio(ComentarisCrearAccioBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
@@ -616,18 +851,16 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	}
 
 	/**
-	 * Fallback abandonar desistir expedient.
+	 * Fallback crear comentari accio.
 	 *
-	 * @param expedientsAbandonarBDTO
-	 *            the expedients abandonar BDTO
-	 * @return the resposta abandonar expedient
+	 * @param comentarisCrearAccioBDTO
+	 *            the comentaris crear accio BDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public RespostaAbandonarExpedient fallbackAbandonarDesistirExpedient(ExpedientsAbandonarBDTO expedientsAbandonarBDTO)
-	        throws GPAServeisServiceException {
+	public void fallbackCrearComentariAccio(ComentarisCrearAccioBDTO comentarisCrearAccioBDTO) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackAbandonarDesistirExpedient(ExpedientsAbandonarBDTO) - inici"); //$NON-NLS-1$
+			log.debug("fallbackCrearComentariAccio(ComentarisCrearAccioBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de expedients no està disponible");
@@ -636,28 +869,26 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
-	 * abandonarRenunciarExpedient(es.bcn.gpa.gpaserveis.business.dto.expedients
-	 * .ExpedientsAbandonarBDTO)
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#crearAvisAccio(es.bcn.
+	 * gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO)
 	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackAbandonarRenunciarExpedient")
-	public RespostaAbandonarExpedient abandonarRenunciarExpedient(ExpedientsAbandonarBDTO expedientsAbandonarBDTO)
-	        throws GPAServeisServiceException {
+	@HystrixCommand(fallbackMethod = "fallbackCrearAvisAccio")
+	public void crearAvisAccio(AvisosCrearAccioBDTO avisosCrearAccioBDTO) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("abandonarRenunciarExpedient(ExpedientsAbandonarBDTO) - inici"); //$NON-NLS-1$
+			log.debug("crearAvisAccio(AvisosCrearAccioBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			RespostaAbandonarExpedient respostaAbandonarExpedient = expedients_Api
-			        .abandonarRenunciarExpedient(expedientsAbandonarBDTO.getAbandonarExpedient());
+			avisosApi.crearAvisAccio(avisosCrearAccioBDTO.getIdAccio(), avisosCrearAccioBDTO.getIdExpedient(),
+			        avisosCrearAccioBDTO.getAvisCreacioAccio());
 
 			if (log.isDebugEnabled()) {
-				log.debug("abandonarRenunciarExpedient(ExpedientsAbandonarBDTO) - fi"); //$NON-NLS-1$
+				log.debug("crearAvisAccio(AvisosCrearAccioBDTO) - fi"); //$NON-NLS-1$
 			}
-			return respostaAbandonarExpedient;
 		} catch (ApiException e) {
-			log.error("abandonarRenunciarExpedient(ExpedientsAbandonarBDTO)", e); //$NON-NLS-1$
+			log.error("crearAvisAccio(AvisosCrearAccioBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
@@ -665,68 +896,16 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	}
 
 	/**
-	 * Fallback abandonar renunciar expedient.
+	 * Fallback crear avis accio.
 	 *
-	 * @param expedientsAbandonarBDTO
-	 *            the expedients abandonar BDTO
-	 * @return the resposta abandonar expedient
+	 * @param avisosCrearAccioBDTO
+	 *            the avisos crear accio BDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public RespostaAbandonarExpedient fallbackAbandonarRenunciarExpedient(ExpedientsAbandonarBDTO expedientsAbandonarBDTO)
-	        throws GPAServeisServiceException {
+	public void fallbackCrearAvisAccio(AvisosCrearAccioBDTO avisosCrearAccioBDTO) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackAbandonarRenunciarExpedient(ExpedientsAbandonarBDTO) - inici"); //$NON-NLS-1$
-		}
-
-		throw new GPAServeisServiceException("El servei de expedients no està disponible");
-	}
-
-	/**
-	 * Validar solicitud expedient.
-	 *
-	 * @param expedientsValidarBDTO
-	 *            the expedients validar BDTO
-	 * @return the resposta validar expedient
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	@Override
-	@HystrixCommand(fallbackMethod = "fallbackValidarSolicitudExpedient")
-	public RespostaValidarExpedient validarSolicitudExpedient(ExpedientsValidarBDTO expedientsValidarBDTO)
-	        throws GPAServeisServiceException {
-		if (log.isDebugEnabled()) {
-			log.debug("validarSolicitudExpedient(ExpedientsValidarBDTO) - inici"); //$NON-NLS-1$
-		}
-
-		try {
-			RespostaValidarExpedient respostaValidarExpedient = expedients_Api
-			        .validarExpedient(expedientsValidarBDTO.getValidarExpedient());
-
-			if (log.isDebugEnabled()) {
-				log.debug("validarSolicitudExpedient(ExpedientsValidarBDTO) - fi"); //$NON-NLS-1$
-			}
-			return respostaValidarExpedient;
-		} catch (ApiException e) {
-			log.error("validarSolicitudExpedient(ExpedientsValidarBDTO)", e); //$NON-NLS-1$
-
-			throw new GPAServeisServiceException("S'ha produït una incidència", e);
-		}
-	}
-
-	/**
-	 * Fallback validar solicitud expedient.
-	 *
-	 * @param expedientsValidarBDTO
-	 *            the expedients validar BDTO
-	 * @return the resposta validar expedient
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	public RespostaValidarExpedient fallbackValidarSolicitudExpedient(ExpedientsValidarBDTO expedientsValidarBDTO)
-	        throws GPAServeisServiceException {
-		if (log.isDebugEnabled()) {
-			log.debug("fallbackValidarSolicitudExpedient(ExpedientsValidarBDTO) - inici"); //$NON-NLS-1$
+			log.debug("fallbackCrearAvisAccio(AvisosCrearAccioBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de expedients no està disponible");

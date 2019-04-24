@@ -7,6 +7,7 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AvisCreacioAccio;
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfAvisosRDTO;
 
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-15T18:01:19.219+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-24T02:28:48.974+02:00")
 public class AvisosApi {
   private ApiClient apiClient;
 
@@ -35,6 +36,55 @@ public class AvisosApi {
     this.apiClient = apiClient;
   }
 
+  /**
+   * Crea un nou avís per a l&#39;expedient en funció de l&#39;acció executada
+   * 
+   * @param idAccio Identificador de l&#39;acció (required)
+   * @param idExpedient Identificador de l&#39;expedient (required)
+   * @param avisCreacioAccioRDTO Dades del avís (optional)
+   * @throws ApiException if fails to make API call
+   */
+  public void crearAvisAccio(BigDecimal idAccio, BigDecimal idExpedient, AvisCreacioAccio avisCreacioAccioRDTO) throws ApiException {
+    Object localVarPostBody = avisCreacioAccioRDTO;
+    
+    // verify the required parameter 'idAccio' is set
+    if (idAccio == null) {
+      throw new ApiException(400, "Missing the required parameter 'idAccio' when calling crearAvisAccio");
+    }
+    
+    // verify the required parameter 'idExpedient' is set
+    if (idExpedient == null) {
+      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling crearAvisAccio");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/avisos/{idExpedient}/accions/{idAccio}/crear"
+      .replaceAll("\\{" + "idAccio" + "\\}", apiClient.escapeString(idAccio.toString()))
+      .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+
+    apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
   /**
    * Returns all avisos 
    * 

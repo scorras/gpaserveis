@@ -3,21 +3,21 @@ package es.bcn.gpa.gpaserveis.business;
 import java.math.BigDecimal;
 import java.util.List;
 
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAbandonarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaAbandonarExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaValidarExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreSolicitudExpedient;
 
 /**
  * The Interface ExpedientsService.
@@ -124,49 +124,87 @@ public interface ExpedientsService {
 	ExpedientsRDTO actualitzarSolicitudExpedient(ExpedientsActualitzarBDTO expedientsActualitzarBDTO) throws GPAServeisServiceException;
 
 	/**
-	 * Registrar solicitud expedient.
+	 * Crear registre solicitud expedient.
 	 *
 	 * @param expedientsRegistrarBDTO
 	 *            the expedients registrar BDTO
-	 * @return the resposta registrar solicitud expedient
+	 * @return the resposta crear registre solicitud expedient
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	RespostaRegistrarSolicitudExpedient registrarSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
+	RespostaCrearRegistreSolicitudExpedient crearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
+	        throws GPAServeisServiceException;
+	// TODO Peticiones ligeras
+	// /**
+	// * Abandonar desistir expedient.
+	// *
+	// * @param expedientsAbandonarBDTO
+	// * the expedients abandonar BDTO
+	// * @return the resposta abandonar expedient
+	// * @throws GPAServeisServiceException
+	// * the GPA serveis service exception
+	// */
+	// RespostaAbandonarExpedient
+	// abandonarDesistirExpedient(ExpedientsAbandonarBDTO
+	// expedientsAbandonarBDTO)
+	// throws GPAServeisServiceException;
+	// TODO Peticiones ligeras
+	// /**
+	// * Abandonar renunciar expedient.
+	// *
+	// * @param expedientsAbandonarBDTO
+	// * the expedients abandonar BDTO
+	// * @return the resposta abandonar expedient
+	// * @throws GPAServeisServiceException
+	// * the GPA serveis service exception
+	// */
+	// RespostaAbandonarExpedient
+	// abandonarRenunciarExpedient(ExpedientsAbandonarBDTO
+	// expedientsAbandonarBDTO)
+	// throws GPAServeisServiceException;
+	// TODO Peticiones ligeras
+	// /**
+	// * Validar solicitud expedient.
+	// *
+	// * @param expedientsCanviarEstatAccioBDTO
+	// * the expedients canviar estat accio BDTO
+	// * @return the resposta validar expedient
+	// * @throws GPAServeisServiceException
+	// * the GPA serveis service exception
+	// */
+	// TODO Peticiones ligeras
+	// RespostaValidarExpedient validarSolicitudExpedient(ExpedientsValidarBDTO
+	// expedientsValidarBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Canviar estat accio expedient.
+	 *
+	 * @param expedientsCanviarEstatAccioBDTO
+	 *            the expedients canviar estat accio BDTO
+	 * @return the resposta canviar estat accio expedient
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO)
 	        throws GPAServeisServiceException;
 
 	/**
-	 * Abandonar desistir expedient.
+	 * Crear comentari accio.
 	 *
-	 * @param expedientsAbandonarBDTO
-	 *            the expedients abandonar BDTO
-	 * @return the resposta abandonar expedient
+	 * @param comentarisCrearAccioBDTO
+	 *            the comentaris crear accio BDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	RespostaAbandonarExpedient abandonarDesistirExpedient(ExpedientsAbandonarBDTO expedientsAbandonarBDTO)
-	        throws GPAServeisServiceException;
+	void crearComentariAccio(ComentarisCrearAccioBDTO comentarisCrearAccioBDTO) throws GPAServeisServiceException;
 
 	/**
-	 * Abandonar renunciar expedient.
+	 * Crear avis accio.
 	 *
-	 * @param expedientsAbandonarBDTO
-	 *            the expedients abandonar BDTO
-	 * @return the resposta abandonar expedient
+	 * @param avisosCrearAccioBDTO
+	 *            the avisos crear accio BDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	RespostaAbandonarExpedient abandonarRenunciarExpedient(ExpedientsAbandonarBDTO expedientsAbandonarBDTO)
-	        throws GPAServeisServiceException;
-
-	/**
-	 * Validar solicitud expedient.
-	 *
-	 * @param expedientsValidarBDTO
-	 *            the expedients validar BDTO
-	 * @return the resposta validar expedient
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	RespostaValidarExpedient validarSolicitudExpedient(ExpedientsValidarBDTO expedientsValidarBDTO) throws GPAServeisServiceException;
+	void crearAvisAccio(AvisosCrearAccioBDTO avisosCrearAccioBDTO) throws GPAServeisServiceException;
 }

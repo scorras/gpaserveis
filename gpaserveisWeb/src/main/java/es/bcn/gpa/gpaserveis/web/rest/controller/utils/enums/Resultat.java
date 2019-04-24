@@ -47,7 +47,35 @@ public enum Resultat {
 
 	OK_VALIDAR_EXPEDIENT("OK", "Expedient validat correctament"),
 
-	ERROR_VALIDAR_EXPEDIENT("ERROR", "No s'ha pogut validar l'expedient");
+	ERROR_VALIDAR_EXPEDIENT("ERROR", "No s'ha pogut validar l'expedient"),
+
+	OK_PAUSAR_EXPEDIENT("OK", "Expedient pausat correctament"),
+
+	ERROR_PAUSAR_EXPEDIENT("ERROR", "No s'ha pogut pausar l'expedient"),
+
+	OK_REACTIVAR_EXPEDIENT("OK", "Expedient reactivat correctament"),
+
+	ERROR_REACTIVAR_EXPEDIENT("ERROR", "No s'ha pogut reactivar l'expedient"),
+
+	OK_ARXIVAR_EXPEDIENT("OK", "Expedient arxivat correctament"),
+
+	ERROR_ARXIVAR_EXPEDIENT("ERROR", "No s'ha pogut arxivar l'expedient"),
+
+	OK_RETORNAR_TRAMITACIO_EXPEDIENT("OK", "Expedient retornat a tramitació correctament"),
+
+	ERROR_RETORNAR_TRAMITACIO_EXPEDIENT("ERROR", "No s'ha pogut retornar a tramitació l'expedient"),
+
+	OK_PROPOSAR_RESOLUCIO_EXPEDIENT("OK", "Expedient proposat a resolució correctament"),
+
+	ERROR_PROPOSAR_RESOLUCIO_EXPEDIENT("ERROR", "No s'ha pogut proposar a resolució l'expedient"),
+
+	OK_TANCAR_EXPEDIENT("OK", "Expedient tancat correctament"),
+
+	ERROR_TANCAR_EXPEDIENT("ERROR", "No s'ha pogut tancar l'expedient"),
+
+	OK_TORNAR_ENRERE_EXPEDIENT("OK", "Expedient tornat enrere correctament"),
+
+	ERROR_TORNAR_ENRERE_EXPEDIENT("ERROR", "No s'ha pogut tornar enrere l'expedient");
 
 	private String codi;
 

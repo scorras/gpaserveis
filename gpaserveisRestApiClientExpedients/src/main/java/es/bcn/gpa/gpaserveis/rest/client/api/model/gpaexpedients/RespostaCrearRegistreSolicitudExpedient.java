@@ -17,26 +17,22 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * RespostaRegistrarSolicitudExpedient
+ * RespostaCrearRegistreSolicitudExpedient
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-15T18:01:19.219+02:00")
-public class RespostaRegistrarSolicitudExpedient {
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-24T02:28:48.974+02:00")
+public class RespostaCrearRegistreSolicitudExpedient {
   @JsonProperty("comprovant")
   private byte[] comprovant = null;
-
-  @JsonProperty("expedient")
-  private ExpedientsRDTO expedient = null;
 
   @JsonProperty("registreAssentament")
   private RegistreAssentamentRDTO registreAssentament = null;
 
-  public RespostaRegistrarSolicitudExpedient comprovant(byte[] comprovant) {
+  public RespostaCrearRegistreSolicitudExpedient comprovant(byte[] comprovant) {
     this.comprovant = comprovant;
     return this;
   }
@@ -54,25 +50,7 @@ public class RespostaRegistrarSolicitudExpedient {
     this.comprovant = comprovant;
   }
 
-  public RespostaRegistrarSolicitudExpedient expedient(ExpedientsRDTO expedient) {
-    this.expedient = expedient;
-    return this;
-  }
-
-   /**
-   * Dades bàsiques de l&#39;expedient
-   * @return expedient
-  **/
-  @ApiModelProperty(value = "Dades bàsiques de l'expedient")
-  public ExpedientsRDTO getExpedient() {
-    return expedient;
-  }
-
-  public void setExpedient(ExpedientsRDTO expedient) {
-    this.expedient = expedient;
-  }
-
-  public RespostaRegistrarSolicitudExpedient registreAssentament(RegistreAssentamentRDTO registreAssentament) {
+  public RespostaCrearRegistreSolicitudExpedient registreAssentament(RegistreAssentamentRDTO registreAssentament) {
     this.registreAssentament = registreAssentament;
     return this;
   }
@@ -99,25 +77,23 @@ public class RespostaRegistrarSolicitudExpedient {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RespostaRegistrarSolicitudExpedient respostaRegistrarSolicitudExpedient = (RespostaRegistrarSolicitudExpedient) o;
-    return Objects.equals(this.comprovant, respostaRegistrarSolicitudExpedient.comprovant) &&
-        Objects.equals(this.expedient, respostaRegistrarSolicitudExpedient.expedient) &&
-        Objects.equals(this.registreAssentament, respostaRegistrarSolicitudExpedient.registreAssentament);
+    RespostaCrearRegistreSolicitudExpedient respostaCrearRegistreSolicitudExpedient = (RespostaCrearRegistreSolicitudExpedient) o;
+    return Objects.equals(this.comprovant, respostaCrearRegistreSolicitudExpedient.comprovant) &&
+        Objects.equals(this.registreAssentament, respostaCrearRegistreSolicitudExpedient.registreAssentament);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comprovant, expedient, registreAssentament);
+    return Objects.hash(comprovant, registreAssentament);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RespostaRegistrarSolicitudExpedient {\n");
+    sb.append("class RespostaCrearRegistreSolicitudExpedient {\n");
     
     sb.append("    comprovant: ").append(toIndentedString(comprovant)).append("\n");
-    sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
     sb.append("    registreAssentament: ").append(toIndentedString(registreAssentament)).append("\n");
     sb.append("}");
     return sb.toString();

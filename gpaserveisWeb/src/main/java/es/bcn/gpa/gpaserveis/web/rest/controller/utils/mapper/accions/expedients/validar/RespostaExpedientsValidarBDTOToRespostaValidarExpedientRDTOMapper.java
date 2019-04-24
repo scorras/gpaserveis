@@ -17,10 +17,21 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients
 public class RespostaExpedientsValidarBDTOToRespostaValidarExpedientRDTOMapper
         extends PropertyMap<RespostaExpedientsValidarBDTO, RespostaValidarExpedientRDTO> {
 
+	/** The internal to expedient accio converter. */
 	private InternalToExpedientAccioConverter internalToExpedientAccioConverter;
 
+	/** The internal to resultat resposta converter. */
 	private InternalToResultatRespostaConverter internalToResultatRespostaConverter;
 
+	/**
+	 * Instantiates a new resposta expedients validar BDTO to resposta validar
+	 * expedient RDTO mapper.
+	 *
+	 * @param internalToExpedientAccioConverter
+	 *            the internal to expedient accio converter
+	 * @param internalToResultatRespostaConverter
+	 *            the internal to resultat resposta converter
+	 */
 	@Autowired
 	public RespostaExpedientsValidarBDTOToRespostaValidarExpedientRDTOMapper(
 	        @Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
@@ -37,7 +48,7 @@ public class RespostaExpedientsValidarBDTOToRespostaValidarExpedientRDTOMapper
 	@Override
 	protected void configure() {
 		using(internalToResultatRespostaConverter).map(source.getRespostaResultatBDTO()).setResultat(null);
-		using(internalToExpedientAccioConverter).map(source.getRespostaValidarExpedient().getExpedient()).setExpedient(null);
+		using(internalToExpedientAccioConverter).map(source.getExpedientsRDTO()).setExpedient(null);
 	}
 
 }
