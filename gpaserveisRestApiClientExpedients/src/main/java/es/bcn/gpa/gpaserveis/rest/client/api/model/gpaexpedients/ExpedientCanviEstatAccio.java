@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * ExpedientCanviEstatAccio
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-24T02:28:48.974+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T19:08:33.527+02:00")
 public class ExpedientCanviEstatAccio {
   @JsonProperty("descEstat")
   private String descEstat = null;
@@ -40,6 +40,9 @@ public class ExpedientCanviEstatAccio {
 
   @JsonProperty("idProcediment")
   private BigDecimal idProcediment = null;
+
+  @JsonProperty("operacio")
+  private String operacio = null;
 
   public ExpedientCanviEstatAccio descEstat(String descEstat) {
     this.descEstat = descEstat;
@@ -131,6 +134,24 @@ public class ExpedientCanviEstatAccio {
     this.idProcediment = idProcediment;
   }
 
+  public ExpedientCanviEstatAccio operacio(String operacio) {
+    this.operacio = operacio;
+    return this;
+  }
+
+   /**
+   * Operació concreta en l&#39;execució de l&#39;acció
+   * @return operacio
+  **/
+  @ApiModelProperty(value = "Operació concreta en l'execució de l'acció")
+  public String getOperacio() {
+    return operacio;
+  }
+
+  public void setOperacio(String operacio) {
+    this.operacio = operacio;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -145,12 +166,13 @@ public class ExpedientCanviEstatAccio {
         Objects.equals(this.diesTerminiAllegacio, expedientCanviEstatAccio.diesTerminiAllegacio) &&
         Objects.equals(this.diesTerminiRequeriment, expedientCanviEstatAccio.diesTerminiRequeriment) &&
         Objects.equals(this.idEstat, expedientCanviEstatAccio.idEstat) &&
-        Objects.equals(this.idProcediment, expedientCanviEstatAccio.idProcediment);
+        Objects.equals(this.idProcediment, expedientCanviEstatAccio.idProcediment) &&
+        Objects.equals(this.operacio, expedientCanviEstatAccio.operacio);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(descEstat, diesTerminiAllegacio, diesTerminiRequeriment, idEstat, idProcediment);
+    return Objects.hash(descEstat, diesTerminiAllegacio, diesTerminiRequeriment, idEstat, idProcediment, operacio);
   }
 
 
@@ -164,6 +186,7 @@ public class ExpedientCanviEstatAccio {
     sb.append("    diesTerminiRequeriment: ").append(toIndentedString(diesTerminiRequeriment)).append("\n");
     sb.append("    idEstat: ").append(toIndentedString(idEstat)).append("\n");
     sb.append("    idProcediment: ").append(toIndentedString(idProcediment)).append("\n");
+    sb.append("    operacio: ").append(toIndentedString(operacio)).append("\n");
     sb.append("}");
     return sb.toString();
   }

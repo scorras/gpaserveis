@@ -1668,6 +1668,37 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/convidarATramitar:
+    post:
+      tags:
+      - "ConvidarATramitart"
+      summary: "ConvidarATramitart"
+      operationId: "convidarATramitarUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "convidarTramitarRDTO"
+        description: "convidarTramitarRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/ConvidarTramitarRDTO"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/dadesEspecifiques:
     post:
       tags:
@@ -2980,6 +3011,37 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/retornarLaTramitacio:
+    post:
+      tags:
+      - "RetornarLaTramitacio"
+      summary: "RetornarLaTramitacio"
+      operationId: "retornarLaTramitacioUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "retornarLaTramitacioRDTO"
+        description: "retornarLaTramitacioRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/RetornarLaTramitacioRDTO"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/search:
     get:
       tags:
@@ -3644,6 +3706,8 @@ definitions:
         $ref: "#/definitions/CanviUnitatGestoraBDTO"
       comentari:
         $ref: "#/definitions/Comentaris"
+      convidarTramitar:
+        $ref: "#/definitions/ConvidarTramitarBDTO"
       estatActual:
         $ref: "#/definitions/DropdownItemBDTO"
       estatAnterior:
@@ -3767,6 +3831,30 @@ definitions:
       usuariNom:
         type: "string"
     title: "ComentarisRDTO"
+  ConvidarTramitarBDTO:
+    type: "object"
+    properties:
+      comentari:
+        $ref: "#/definitions/Comentaris"
+      idExpedientList:
+        type: "array"
+        items:
+          type: "number"
+      unitatGestoraConvidada:
+        $ref: "#/definitions/DropdownItemBDTO"
+    title: "ConvidarTramitarBDTO"
+  ConvidarTramitarRDTO:
+    type: "object"
+    properties:
+      comentari:
+        $ref: "#/definitions/Comentaris"
+      idExpedientList:
+        type: "array"
+        items:
+          type: "number"
+      unitatGestoraConvidada:
+        $ref: "#/definitions/DropdownItemBDTO"
+    title: "ConvidarTramitarRDTO"
   CrearAvisDocEntradaPendentRevisio:
     type: "object"
     properties:
@@ -3828,9 +3916,6 @@ definitions:
       id:
         type: "number"
       nou:
-        type: "integer"
-        format: "int32"
-      requerit:
         type: "integer"
         format: "int32"
       tipus:
@@ -3944,6 +4029,8 @@ definitions:
         type: "number"
       id:
         type: "number"
+      ugConvidadaIdext:
+        type: "number"
       unitatGestoraIdext:
         type: "number"
       usuari:
@@ -4010,6 +4097,9 @@ definitions:
       idProcediment:
         type: "number"
         description: "Identificador del procediment"
+      operacio:
+        type: "string"
+        description: "Operació concreta en l'execució de l'acció"
     title: "ExpedientCanviEstatAccio"
   ExpedientOpenTextRDTO:
     type: "object"
@@ -4076,6 +4166,8 @@ definitions:
         type: "string"
       descEstatCiutadaCatala:
         type: "string"
+      descUGConvidada:
+        type: "string"
       descUnitatGestora:
         type: "string"
       diesTerminiAllegacio:
@@ -4096,6 +4188,10 @@ definitions:
         type: "number"
       isOge:
         type: "boolean"
+      nomDescUGConvidada:
+        type: "string"
+      nomDescUnitatGestora:
+        type: "string"
       nomProcediment:
         type: "string"
       nomProcedimentCastella:
@@ -4126,6 +4222,8 @@ definitions:
         type: "number"
       tramitador:
         type: "string"
+      ugConvidadaIdext:
+        type: "number"
       ultimaModificacio:
         type: "number"
       unitatGestoraIdext:
@@ -4638,6 +4736,16 @@ definitions:
         description: "Dades del registre de l'expedient"
         $ref: "#/definitions/RegistreAssentamentRDTO"
     title: "RespostaCrearRegistreSolicitudExpedient"
+  RetornarLaTramitacioRDTO:
+    type: "object"
+    properties:
+      idExpedientList:
+        type: "array"
+        items:
+          type: "number"
+      unitatGestoraConvidada:
+        $ref: "#/definitions/DropdownItemBDTO"
+    title: "RetornarLaTramitacioRDTO"
   Sollicituds:
     type: "object"
     properties:

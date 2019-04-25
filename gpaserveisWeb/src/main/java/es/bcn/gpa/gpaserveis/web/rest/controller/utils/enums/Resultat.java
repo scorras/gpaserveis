@@ -75,7 +75,15 @@ public enum Resultat {
 
 	OK_TORNAR_ENRERE_EXPEDIENT("OK", "Expedient tornat enrere correctament"),
 
-	ERROR_TORNAR_ENRERE_EXPEDIENT("ERROR", "No s'ha pogut tornar enrere l'expedient");
+	ERROR_TORNAR_ENRERE_EXPEDIENT("ERROR", "No s'ha pogut tornar enrere l'expedient"),
+
+	OK_VALIDAR_DOCUMENT_EXPEDIENT("OK", "Document validat correctament"),
+
+	ERROR_VALIDAR_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut validar el document"),
+
+	OK_REBUTJAR_DOCUMENT_EXPEDIENT("OK", "Document rebutjat correctament"),
+
+	ERROR_REBUTJAR_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut rebutjar el document");
 
 	private String codi;
 

@@ -23,6 +23,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.UploadDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
@@ -448,48 +449,16 @@ public class ServeisServiceImpl implements ServeisService {
 		expedientsService.crearAvisAccio(avisosCrearAccioBDTO);
 	}
 
-	// TODO Peticiones ligeras
-	// @Override
-	// public RespostaAbandonarExpedient
-	// abandonarExpedient(ExpedientsAbandonarBDTO expedientsAbandonarBDTO)
-	// throws GPAServeisServiceException {
-	//
-	// RespostaAbandonarExpedient respostaAbandonarExpedient = null;
-	//
-	// switch (expedientsAbandonarBDTO.getAbandonarApiParamValue()) {
-	// case DESISTIR:
-	// respostaAbandonarExpedient =
-	// expedientsService.abandonarDesistirExpedient(expedientsAbandonarBDTO);
-	// break;
-	//
-	// case RENUNCIAR:
-	// respostaAbandonarExpedient =
-	// expedientsService.abandonarRenunciarExpedient(expedientsAbandonarBDTO);
-	// break;
-	//
-	// default:
-	// break;
-	//
-	// }
-	//
-	// return respostaAbandonarExpedient;
-	// }
-	//
-	// TODO Peticiones ligeras
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see
-	// *
-	// es.bcn.gpa.gpaserveis.business.ServeisService#validarSolicitudExpedient(
-	// * es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsValidarBDTO)
-	// */
-	// @Override
-	// public RespostaValidarExpedient
-	// validarSolicitudExpedient(ExpedientsValidarBDTO expedientsValidarBDTO)
-	// throws GPAServeisServiceException {
-	// return
-	// expedientsService.validarSolicitudExpedient(expedientsValidarBDTO);
-	// }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#revisarDocumentacioEntrada(
+	 * es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO)
+	 */
+	@Override
+	public void revisarDocumentacioEntrada(DocumentAportatValidarBDTO documentAportatValidarBDTO) throws GPAServeisServiceException {
+		documentsService.revisarDocumentacioEntrada(documentAportatValidarBDTO);
+	}
 
 }

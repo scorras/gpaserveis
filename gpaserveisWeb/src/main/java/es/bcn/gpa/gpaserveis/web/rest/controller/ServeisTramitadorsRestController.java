@@ -1,5 +1,9 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller;
 
+import java.math.BigDecimal;
+import java.util.Arrays;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -12,8 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.business.dto.RespostaResultatBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaRebutjarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaValidarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsArxivarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsPausarBDTO;
@@ -24,13 +31,20 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsTancarBDT
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.RevisioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.rebutjar.DocumentAportatRebutjarRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.rebutjar.RespostaRebutjarDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.validar.DocumentAportatValidarRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.validar.RespostaValidarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.arxivar.ExpedientArxiuRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.arxivar.RespostaArxivarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.pausar.ExpedientPausaRDTO;
@@ -185,10 +199,11 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        AccioTramitadorApiParamValue.PAUSAR_EXPEDIENT, Resultat.ERROR_PAUSAR_EXPEDIENT);
 
 			// Cambio de estado del expediente
-			// TODO Desde el estado 4 se puede transicionar al 5 o 6 en función
-			// del motivo
 			ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
 			        ExpedientCanviEstatAccio.class);
+			// Desde el estado 4 se puede transicionar al 5 o 6 en función del
+			// motivo
+			expedientCanviEstatAccio.setOperacio(expedientPausa.getMotiu());
 			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.PAUSAR_EXPEDIENT.getInternalValue());
 			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
@@ -392,16 +407,11 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        AccioTramitadorApiParamValue.RETORNAR_TRAMITACIO, Resultat.ERROR_RETORNAR_TRAMITACIO_EXPEDIENT);
 
 			// Cambio de estado del expediente
-			// TODO Controlar que hay estados a partir de los cuales no hay
-			// transición
 			ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
 			        ExpedientCanviEstatAccio.class);
 			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.RETORNAR_TRAMITACIO.getInternalValue());
 			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
-
-			// TODO Generar tarea en la bandeja de entrada del tramitador
-			// principal
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("retornarExpedient(String, ExpedientRetornRDTO)", e);
@@ -469,10 +479,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.PROPOSAR_RESOLUCIO.getInternalValue());
 			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
-
-			// TODO Redactar propuesta de resolución
-
-			// TODO Firmar
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("proposarResolucioExpedient(String, ExpedientPropostaResolucioRDTO)", e);
@@ -596,7 +602,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService
-			        .consultarDadesBasiquesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient));
+			        .consultarDadesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient));
 			ServeisPortalRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_TORNAR_ENRERE_EXPEDIENT);
 
 			// Archivar solicitud de expediente si la acción es permitida
@@ -604,13 +610,19 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        AccioTramitadorApiParamValue.TORNAR_ENRERE, Resultat.ERROR_TORNAR_ENRERE_EXPEDIENT);
 
 			// Cambio de estado del expediente
-			// TODO Problema cuando hay varias opciones de vuelta atrás.
-			// ¿Consultar el histórico?
-			ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
-			        ExpedientCanviEstatAccio.class);
-			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
-			        dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.TORNAR_ENRERE.getInternalValue());
-			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+			// Es necesario consultar el histórico para determinar el cambio de
+			// estado que debe hacerse
+			if (CollectionUtils.isNotEmpty(dadesExpedientBDTO.getHistoricsEstats())) {
+				ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
+				        ExpedientCanviEstatAccio.class);
+				String operacio = dadesExpedientBDTO.getHistoricsEstats().get(0).getIdEstatActual() + "_"
+				        + dadesExpedientBDTO.getHistoricsEstats().get(0).getIdEstatAnterior();
+				expedientCanviEstatAccio.setOperacio(operacio);
+				ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(
+				        expedientCanviEstatAccio, dadesExpedientBDTO.getExpedientsRDTO().getId(),
+				        AccioTramitadorApiParamValue.TORNAR_ENRERE.getInternalValue());
+				serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+			}
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("tornarEnrereExpedient(String, ExpedientTornadaEnrereRDTO)", e);
@@ -633,5 +645,175 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		return respostaTornarEnrereExpedientRDTO;
+	}
+
+	/**
+	 * Validar document expedient.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param idDocument
+	 *            the id document
+	 * @param documentAportatValidar
+	 *            the document aportat validar
+	 * @return the resposta validar document RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@PostMapping("/expedients/{codiExpedient}/documentacio/{idDocument}/validar")
+	@ApiOperation(value = "Validar document de l'expedient", tags = { "Serveis Tramitadors API",
+	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaValidarDocumentRDTO validarDocumentExpedient(
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
+	        @ApiParam(value = "Dades de la versió del document") @RequestBody DocumentAportatValidarRDTO documentAportatValidar)
+	        throws GPAServeisServiceException {
+
+		if (log.isDebugEnabled()) {
+			log.debug("validarDocumentExpedient(String, BigDecimal, DocumentAportatValidarRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		RespostaValidarDocumentRDTO respostaValidarDocumentRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+		DocsEntradaRDTO docsEntradaRDTO = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_VALIDAR_DOCUMENT_EXPEDIENT);
+		try {
+			// El codi del expediente debe existir
+			dadesExpedientBDTO = serveisService
+			        .consultarDadesBasiquesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient));
+			ServeisPortalRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_VALIDAR_DOCUMENT_EXPEDIENT);
+
+			// El id del documento debe existir y pertenecer al expediente
+			// indicado
+			docsEntradaRDTO = serveisService.consultarDadesDocumentAportat(idDocument);
+			ServeisPortalRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO.getExpedientsRDTO(),
+			        Resultat.ERROR_VALIDAR_DOCUMENT_EXPEDIENT);
+
+			// Validar documento si la acción es permitida
+			ServeisPortalRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			        AccioTramitadorApiParamValue.VALIDAR_DOCUMENT, Resultat.ERROR_VALIDAR_DOCUMENT_EXPEDIENT);
+
+			// Estado de revisión del documento a Correcte
+			DocumentRevisio documentRevisio = new DocumentRevisio();
+			documentRevisio.setDocsEntradaIds(Arrays.asList(idDocument));
+			documentRevisio.setExpedientId(dadesExpedientBDTO.getExpedientsRDTO().getId());
+			documentRevisio.setEstatRevisioId(RevisioApiParamValue.CORRECTE.getInternalValue());
+			DocumentAportatValidarBDTO documentAportatValidarBDTO = new DocumentAportatValidarBDTO(documentRevisio);
+			serveisService.revisarDocumentacioEntrada(documentAportatValidarBDTO);
+
+			// Crear comentario
+			ComentariCreacioAccio comentariCreacioAccio = new ComentariCreacioAccio();
+			comentariCreacioAccio.setComentari(documentAportatValidar.getComentari());
+			ComentarisCrearAccioBDTO comentarisCrearAccioBDTO = new ComentarisCrearAccioBDTO(comentariCreacioAccio,
+			        dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.VALIDAR_DOCUMENT.getInternalValue());
+			serveisService.crearComentariAccio(comentarisCrearAccioBDTO);
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("validarDocumentExpedient(String, BigDecimal, DocumentAportatValidarRDTO)", e);
+			// $NON-NLS-1$
+
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("validarDocumentExpedient(String, BigDecimal, DocumentAportatValidarRDTO)", e);
+			// $NON-NLS-1$
+
+			respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_VALIDAR_DOCUMENT_EXPEDIENT, ErrorPrincipal.ERROR_GENERIC);
+		}
+
+		RespostaValidarDocumentExpedientBDTO respostaValidarDocumentExpedientBDTO = new RespostaValidarDocumentExpedientBDTO(
+		        docsEntradaRDTO, respostaResultatBDTO);
+		respostaValidarDocumentRDTO = modelMapper.map(respostaValidarDocumentExpedientBDTO, RespostaValidarDocumentRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("validarDocumentExpedient(String, BigDecimal, DocumentAportatValidarRDTO) - fi"); //$NON-NLS-1$
+		}
+
+		return respostaValidarDocumentRDTO;
+	}
+
+	/**
+	 * Rebutjar document expedient.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param idDocument
+	 *            the id document
+	 * @param documentAportatRebutjar
+	 *            the document aportat rebutjar
+	 * @return the resposta rebutjar document RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@PostMapping("/expedients/{codiExpedient}/documentacio/{idDocument}/rebutjar")
+	@ApiOperation(value = "Rebutjar document de l'expedient", tags = { "Serveis Tramitadors API",
+	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaRebutjarDocumentRDTO rebutjarDocumentExpedient(
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
+	        @ApiParam(value = "Dades de la versió del document") @RequestBody DocumentAportatRebutjarRDTO documentAportatRebutjar)
+	        throws GPAServeisServiceException {
+
+		if (log.isDebugEnabled()) {
+			log.debug("rebutjarDocumentExpedient(String, BigDecimal, DocumentAportatRebutjarRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		RespostaRebutjarDocumentRDTO respostaRebutjarDocumentRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+		DocsEntradaRDTO docsEntradaRDTO = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_REBUTJAR_DOCUMENT_EXPEDIENT);
+		try {
+			// El codi del expediente debe existir
+			dadesExpedientBDTO = serveisService
+			        .consultarDadesBasiquesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient));
+			ServeisPortalRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_REBUTJAR_DOCUMENT_EXPEDIENT);
+
+			// El id del documento debe existir y pertenecer al expediente
+			// indicado
+			docsEntradaRDTO = serveisService.consultarDadesDocumentAportat(idDocument);
+			ServeisPortalRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO.getExpedientsRDTO(),
+			        Resultat.ERROR_REBUTJAR_DOCUMENT_EXPEDIENT);
+
+			// Validar documento si la acción es permitida
+			ServeisPortalRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			        AccioTramitadorApiParamValue.REBUTJAR_DOCUMENT, Resultat.ERROR_REBUTJAR_DOCUMENT_EXPEDIENT);
+
+			// Estado de revisión del documento a Incorrecte
+			DocumentRevisio documentRevisio = new DocumentRevisio();
+			documentRevisio.setDocsEntradaIds(Arrays.asList(idDocument));
+			documentRevisio.setExpedientId(dadesExpedientBDTO.getExpedientsRDTO().getId());
+			documentRevisio.setEstatRevisioId(RevisioApiParamValue.INCORRECTE.getInternalValue());
+			DocumentAportatValidarBDTO documentAportatValidarBDTO = new DocumentAportatValidarBDTO(documentRevisio);
+			serveisService.revisarDocumentacioEntrada(documentAportatValidarBDTO);
+
+			// Crear comentario
+			ComentariCreacioAccio comentariCreacioAccio = new ComentariCreacioAccio();
+			comentariCreacioAccio.setComentari(documentAportatRebutjar.getComentari());
+			ComentarisCrearAccioBDTO comentarisCrearAccioBDTO = new ComentarisCrearAccioBDTO(comentariCreacioAccio,
+			        dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.REBUTJAR_DOCUMENT.getInternalValue());
+			serveisService.crearComentariAccio(comentarisCrearAccioBDTO);
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("rebutjarDocumentExpedient(String, BigDecimal, DocumentAportatRebutjarRDTO)", e);
+			// $NON-NLS-1$
+
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("rebutjarDocumentExpedient(String, BigDecimal, DocumentAportatRebutjarRDTO)", e);
+			// $NON-NLS-1$
+
+			respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_REBUTJAR_DOCUMENT_EXPEDIENT, ErrorPrincipal.ERROR_GENERIC);
+		}
+
+		RespostaRebutjarDocumentExpedientBDTO respostaRebutjarDocumentExpedientBDTO = new RespostaRebutjarDocumentExpedientBDTO(
+		        docsEntradaRDTO, respostaResultatBDTO);
+		respostaRebutjarDocumentRDTO = modelMapper.map(respostaRebutjarDocumentExpedientBDTO, RespostaRebutjarDocumentRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("rebutjarDocumentExpedient(String, BigDecimal, DocumentAportatRebutjarRDTO) - fi"); //$NON-NLS-1$
+		}
+
+		return respostaRebutjarDocumentRDTO;
 	}
 }

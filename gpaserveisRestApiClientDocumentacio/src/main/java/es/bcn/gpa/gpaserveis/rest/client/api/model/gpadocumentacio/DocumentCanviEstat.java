@@ -24,10 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DocsTramitacioIdsAndEstatFinalId
+ * DocumentCanviEstat
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-24T15:03:39.598+02:00")
-public class DocsTramitacioIdsAndEstatFinalId {
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T11:59:46.009+02:00")
+public class DocumentCanviEstat {
   @JsonProperty("docsTramitacioIds")
   private List<BigDecimal> docsTramitacioIds = null;
 
@@ -46,12 +46,12 @@ public class DocsTramitacioIdsAndEstatFinalId {
   @JsonProperty("expedientId")
   private BigDecimal expedientId = null;
 
-  public DocsTramitacioIdsAndEstatFinalId docsTramitacioIds(List<BigDecimal> docsTramitacioIds) {
+  public DocumentCanviEstat docsTramitacioIds(List<BigDecimal> docsTramitacioIds) {
     this.docsTramitacioIds = docsTramitacioIds;
     return this;
   }
 
-  public DocsTramitacioIdsAndEstatFinalId addDocsTramitacioIdsItem(BigDecimal docsTramitacioIdsItem) {
+  public DocumentCanviEstat addDocsTramitacioIdsItem(BigDecimal docsTramitacioIdsItem) {
     if (this.docsTramitacioIds == null) {
       this.docsTramitacioIds = new ArrayList<BigDecimal>();
     }
@@ -60,10 +60,10 @@ public class DocsTramitacioIdsAndEstatFinalId {
   }
 
    /**
-   * Get docsTramitacioIds
+   * Llista d&#39;identificadors de document
    * @return docsTramitacioIds
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Llista d'identificadors de document")
   public List<BigDecimal> getDocsTramitacioIds() {
     return docsTramitacioIds;
   }
@@ -72,16 +72,16 @@ public class DocsTramitacioIdsAndEstatFinalId {
     this.docsTramitacioIds = docsTramitacioIds;
   }
 
-  public DocsTramitacioIdsAndEstatFinalId estatActualDesc(String estatActualDesc) {
+  public DocumentCanviEstat estatActualDesc(String estatActualDesc) {
     this.estatActualDesc = estatActualDesc;
     return this;
   }
 
    /**
-   * Get estatActualDesc
+   * Descripció de l&#39;estat actual del document
    * @return estatActualDesc
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Descripció de l'estat actual del document")
   public String getEstatActualDesc() {
     return estatActualDesc;
   }
@@ -90,16 +90,16 @@ public class DocsTramitacioIdsAndEstatFinalId {
     this.estatActualDesc = estatActualDesc;
   }
 
-  public DocsTramitacioIdsAndEstatFinalId estatActualId(BigDecimal estatActualId) {
+  public DocumentCanviEstat estatActualId(BigDecimal estatActualId) {
     this.estatActualId = estatActualId;
     return this;
   }
 
    /**
-   * Get estatActualId
+   * Identificador de l&#39;estat actual del document
    * @return estatActualId
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Identificador de l'estat actual del document")
   public BigDecimal getEstatActualId() {
     return estatActualId;
   }
@@ -108,16 +108,16 @@ public class DocsTramitacioIdsAndEstatFinalId {
     this.estatActualId = estatActualId;
   }
 
-  public DocsTramitacioIdsAndEstatFinalId estatFinalDesc(String estatFinalDesc) {
+  public DocumentCanviEstat estatFinalDesc(String estatFinalDesc) {
     this.estatFinalDesc = estatFinalDesc;
     return this;
   }
 
    /**
-   * Get estatFinalDesc
+   * Descripció de l&#39;estat final del document
    * @return estatFinalDesc
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Descripció de l'estat final del document")
   public String getEstatFinalDesc() {
     return estatFinalDesc;
   }
@@ -126,16 +126,16 @@ public class DocsTramitacioIdsAndEstatFinalId {
     this.estatFinalDesc = estatFinalDesc;
   }
 
-  public DocsTramitacioIdsAndEstatFinalId estatFinalId(BigDecimal estatFinalId) {
+  public DocumentCanviEstat estatFinalId(BigDecimal estatFinalId) {
     this.estatFinalId = estatFinalId;
     return this;
   }
 
    /**
-   * Get estatFinalId
+   * Identificador de l&#39;estat final del document
    * @return estatFinalId
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Identificador de l'estat final del document")
   public BigDecimal getEstatFinalId() {
     return estatFinalId;
   }
@@ -144,16 +144,16 @@ public class DocsTramitacioIdsAndEstatFinalId {
     this.estatFinalId = estatFinalId;
   }
 
-  public DocsTramitacioIdsAndEstatFinalId expedientId(BigDecimal expedientId) {
+  public DocumentCanviEstat expedientId(BigDecimal expedientId) {
     this.expedientId = expedientId;
     return this;
   }
 
    /**
-   * Get expedientId
+   * Identificador de l&#39;expedient
    * @return expedientId
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Identificador de l'expedient")
   public BigDecimal getExpedientId() {
     return expedientId;
   }
@@ -171,13 +171,13 @@ public class DocsTramitacioIdsAndEstatFinalId {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DocsTramitacioIdsAndEstatFinalId docsTramitacioIdsAndEstatFinalId = (DocsTramitacioIdsAndEstatFinalId) o;
-    return Objects.equals(this.docsTramitacioIds, docsTramitacioIdsAndEstatFinalId.docsTramitacioIds) &&
-        Objects.equals(this.estatActualDesc, docsTramitacioIdsAndEstatFinalId.estatActualDesc) &&
-        Objects.equals(this.estatActualId, docsTramitacioIdsAndEstatFinalId.estatActualId) &&
-        Objects.equals(this.estatFinalDesc, docsTramitacioIdsAndEstatFinalId.estatFinalDesc) &&
-        Objects.equals(this.estatFinalId, docsTramitacioIdsAndEstatFinalId.estatFinalId) &&
-        Objects.equals(this.expedientId, docsTramitacioIdsAndEstatFinalId.expedientId);
+    DocumentCanviEstat documentCanviEstat = (DocumentCanviEstat) o;
+    return Objects.equals(this.docsTramitacioIds, documentCanviEstat.docsTramitacioIds) &&
+        Objects.equals(this.estatActualDesc, documentCanviEstat.estatActualDesc) &&
+        Objects.equals(this.estatActualId, documentCanviEstat.estatActualId) &&
+        Objects.equals(this.estatFinalDesc, documentCanviEstat.estatFinalDesc) &&
+        Objects.equals(this.estatFinalId, documentCanviEstat.estatFinalId) &&
+        Objects.equals(this.expedientId, documentCanviEstat.expedientId);
   }
 
   @Override
@@ -189,7 +189,7 @@ public class DocsTramitacioIdsAndEstatFinalId {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DocsTramitacioIdsAndEstatFinalId {\n");
+    sb.append("class DocumentCanviEstat {\n");
     
     sb.append("    docsTramitacioIds: ").append(toIndentedString(docsTramitacioIds)).append("\n");
     sb.append("    estatActualDesc: ").append(toIndentedString(estatActualDesc)).append("\n");

@@ -15,6 +15,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.SubstituirDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.UploadDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
@@ -565,6 +566,50 @@ public class DocumentsServiceImpl implements DocumentsService {
 	public List<BigDecimal> fallbackCercaDadesOperacioRequerits(BigDecimal documentacioIdext) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaDadesOperacioRequerits(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * revisarDocumentacioEntrada(es.bcn.gpa.gpaserveis.business.dto.expedients.
+	 * DocumentAportatValidarBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackRevisarDocumentacioEntrada")
+	public void revisarDocumentacioEntrada(DocumentAportatValidarBDTO documentAportatValidarBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("revisarDocumentacioEntrada(DocumentAportatValidarBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			documentacioApi.revisarDocumentacioEntrada(documentAportatValidarBDTO.getDocumentRevisio());
+
+			if (log.isDebugEnabled()) {
+				log.debug("revisarDocumentacioEntrada(DocumentAportatValidarBDTO) - fi"); //$NON-NLS-1$
+			}
+		} catch (ApiException e) {
+			log.error("revisarDocumentacioEntrada(DocumentAportatValidarBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback revisar documentacio entrada.
+	 *
+	 * @param documentAportatValidarBDTO
+	 *            the document aportat validar BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackRevisarDocumentacioEntrada(DocumentAportatValidarBDTO documentAportatValidarBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackRevisarDocumentacioEntrada(DocumentAportatValidarBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de documentacio no està disponible");

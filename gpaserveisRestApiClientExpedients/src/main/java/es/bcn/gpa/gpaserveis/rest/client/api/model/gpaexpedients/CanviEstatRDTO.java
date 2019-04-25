@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AccionsEstatsBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Comentaris;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownItemBDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -30,13 +31,16 @@ import java.util.List;
 /**
  * CanviEstatRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-24T02:28:48.974+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T19:08:33.527+02:00")
 public class CanviEstatRDTO {
   @JsonProperty("canviUnitatGestora")
   private CanviUnitatGestoraBDTO canviUnitatGestora = null;
 
   @JsonProperty("comentari")
   private Comentaris comentari = null;
+
+  @JsonProperty("convidarTramitar")
+  private ConvidarTramitarBDTO convidarTramitar = null;
 
   @JsonProperty("estatActual")
   private DropdownItemBDTO estatActual = null;
@@ -93,6 +97,24 @@ public class CanviEstatRDTO {
 
   public void setComentari(Comentaris comentari) {
     this.comentari = comentari;
+  }
+
+  public CanviEstatRDTO convidarTramitar(ConvidarTramitarBDTO convidarTramitar) {
+    this.convidarTramitar = convidarTramitar;
+    return this;
+  }
+
+   /**
+   * Get convidarTramitar
+   * @return convidarTramitar
+  **/
+  @ApiModelProperty(value = "")
+  public ConvidarTramitarBDTO getConvidarTramitar() {
+    return convidarTramitar;
+  }
+
+  public void setConvidarTramitar(ConvidarTramitarBDTO convidarTramitar) {
+    this.convidarTramitar = convidarTramitar;
   }
 
   public CanviEstatRDTO estatActual(DropdownItemBDTO estatActual) {
@@ -249,6 +271,7 @@ public class CanviEstatRDTO {
     CanviEstatRDTO canviEstatRDTO = (CanviEstatRDTO) o;
     return Objects.equals(this.canviUnitatGestora, canviEstatRDTO.canviUnitatGestora) &&
         Objects.equals(this.comentari, canviEstatRDTO.comentari) &&
+        Objects.equals(this.convidarTramitar, canviEstatRDTO.convidarTramitar) &&
         Objects.equals(this.estatActual, canviEstatRDTO.estatActual) &&
         Objects.equals(this.estatAnterior, canviEstatRDTO.estatAnterior) &&
         Objects.equals(this.estatFuturo, canviEstatRDTO.estatFuturo) &&
@@ -260,7 +283,7 @@ public class CanviEstatRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(canviUnitatGestora, comentari, estatActual, estatAnterior, estatFuturo, idExpedientsList, respostaAllegacion, respostaRequeriment, transicionsPosibles);
+    return Objects.hash(canviUnitatGestora, comentari, convidarTramitar, estatActual, estatAnterior, estatFuturo, idExpedientsList, respostaAllegacion, respostaRequeriment, transicionsPosibles);
   }
 
 
@@ -271,6 +294,7 @@ public class CanviEstatRDTO {
     
     sb.append("    canviUnitatGestora: ").append(toIndentedString(canviUnitatGestora)).append("\n");
     sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
+    sb.append("    convidarTramitar: ").append(toIndentedString(convidarTramitar)).append("\n");
     sb.append("    estatActual: ").append(toIndentedString(estatActual)).append("\n");
     sb.append("    estatAnterior: ").append(toIndentedString(estatAnterior)).append("\n");
     sb.append("    estatFuturo: ").append(toIndentedString(estatFuturo)).append("\n");

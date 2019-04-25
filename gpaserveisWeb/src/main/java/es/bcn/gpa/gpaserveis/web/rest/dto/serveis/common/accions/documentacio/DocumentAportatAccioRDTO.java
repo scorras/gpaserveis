@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio;
+package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio;
 
 import java.math.BigDecimal;
 

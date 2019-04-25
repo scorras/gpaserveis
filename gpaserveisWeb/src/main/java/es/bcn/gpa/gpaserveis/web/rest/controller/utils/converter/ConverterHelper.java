@@ -40,6 +40,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusPersonaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusSexeApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusViaApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.DocumentAportatAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ConfiguracioDocumentacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValidacionsRDTO;
@@ -51,7 +52,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.RegistreRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.DocumentAportatAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.ConfiguracioDocumentacioRequeridaConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.DocumentAportatConsultaRDTO;

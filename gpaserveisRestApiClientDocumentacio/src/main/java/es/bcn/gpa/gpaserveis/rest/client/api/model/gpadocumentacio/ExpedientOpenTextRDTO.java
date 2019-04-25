@@ -19,14 +19,24 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 
 /**
  * ExpedientOpenTextRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-24T15:03:39.598+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T11:59:46.009+02:00")
 public class ExpedientOpenTextRDTO {
+  @JsonProperty("codiExpedient")
+  private String codiExpedient = null;
+
   @JsonProperty("codiUnitatOrganigrama")
   private String codiUnitatOrganigrama = null;
+
+  @JsonProperty("documentacioIdext")
+  private BigDecimal documentacioIdext = null;
+
+  @JsonProperty("idEstat")
+  private BigDecimal idEstat = null;
 
   @JsonProperty("nomProc")
   private String nomProc = null;
@@ -36,6 +46,24 @@ public class ExpedientOpenTextRDTO {
 
   @JsonProperty("serieDoc")
   private String serieDoc = null;
+
+  public ExpedientOpenTextRDTO codiExpedient(String codiExpedient) {
+    this.codiExpedient = codiExpedient;
+    return this;
+  }
+
+   /**
+   * Get codiExpedient
+   * @return codiExpedient
+  **/
+  @ApiModelProperty(value = "")
+  public String getCodiExpedient() {
+    return codiExpedient;
+  }
+
+  public void setCodiExpedient(String codiExpedient) {
+    this.codiExpedient = codiExpedient;
+  }
 
   public ExpedientOpenTextRDTO codiUnitatOrganigrama(String codiUnitatOrganigrama) {
     this.codiUnitatOrganigrama = codiUnitatOrganigrama;
@@ -53,6 +81,42 @@ public class ExpedientOpenTextRDTO {
 
   public void setCodiUnitatOrganigrama(String codiUnitatOrganigrama) {
     this.codiUnitatOrganigrama = codiUnitatOrganigrama;
+  }
+
+  public ExpedientOpenTextRDTO documentacioIdext(BigDecimal documentacioIdext) {
+    this.documentacioIdext = documentacioIdext;
+    return this;
+  }
+
+   /**
+   * Get documentacioIdext
+   * @return documentacioIdext
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getDocumentacioIdext() {
+    return documentacioIdext;
+  }
+
+  public void setDocumentacioIdext(BigDecimal documentacioIdext) {
+    this.documentacioIdext = documentacioIdext;
+  }
+
+  public ExpedientOpenTextRDTO idEstat(BigDecimal idEstat) {
+    this.idEstat = idEstat;
+    return this;
+  }
+
+   /**
+   * Get idEstat
+   * @return idEstat
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getIdEstat() {
+    return idEstat;
+  }
+
+  public void setIdEstat(BigDecimal idEstat) {
+    this.idEstat = idEstat;
   }
 
   public ExpedientOpenTextRDTO nomProc(String nomProc) {
@@ -119,7 +183,10 @@ public class ExpedientOpenTextRDTO {
       return false;
     }
     ExpedientOpenTextRDTO expedientOpenTextRDTO = (ExpedientOpenTextRDTO) o;
-    return Objects.equals(this.codiUnitatOrganigrama, expedientOpenTextRDTO.codiUnitatOrganigrama) &&
+    return Objects.equals(this.codiExpedient, expedientOpenTextRDTO.codiExpedient) &&
+        Objects.equals(this.codiUnitatOrganigrama, expedientOpenTextRDTO.codiUnitatOrganigrama) &&
+        Objects.equals(this.documentacioIdext, expedientOpenTextRDTO.documentacioIdext) &&
+        Objects.equals(this.idEstat, expedientOpenTextRDTO.idEstat) &&
         Objects.equals(this.nomProc, expedientOpenTextRDTO.nomProc) &&
         Objects.equals(this.numRegistre, expedientOpenTextRDTO.numRegistre) &&
         Objects.equals(this.serieDoc, expedientOpenTextRDTO.serieDoc);
@@ -127,7 +194,7 @@ public class ExpedientOpenTextRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(codiUnitatOrganigrama, nomProc, numRegistre, serieDoc);
+    return Objects.hash(codiExpedient, codiUnitatOrganigrama, documentacioIdext, idEstat, nomProc, numRegistre, serieDoc);
   }
 
 
@@ -136,7 +203,10 @@ public class ExpedientOpenTextRDTO {
     StringBuilder sb = new StringBuilder();
     sb.append("class ExpedientOpenTextRDTO {\n");
     
+    sb.append("    codiExpedient: ").append(toIndentedString(codiExpedient)).append("\n");
     sb.append("    codiUnitatOrganigrama: ").append(toIndentedString(codiUnitatOrganigrama)).append("\n");
+    sb.append("    documentacioIdext: ").append(toIndentedString(documentacioIdext)).append("\n");
+    sb.append("    idEstat: ").append(toIndentedString(idEstat)).append("\n");
     sb.append("    nomProc: ").append(toIndentedString(nomProc)).append("\n");
     sb.append("    numRegistre: ").append(toIndentedString(numRegistre)).append("\n");
     sb.append("    serieDoc: ").append(toIndentedString(serieDoc)).append("\n");

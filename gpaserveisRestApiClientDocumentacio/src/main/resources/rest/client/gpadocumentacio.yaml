@@ -1461,18 +1461,18 @@ paths:
       tags:
       - "Documentacio"
       summary: "Updates all selected DocsEntrada with the EstatRevisio specified"
-      operationId: "revisarDocumentacioEntradaUsingPOST"
+      operationId: "revisarDocumentacioEntrada"
       consumes:
       - "application/json"
       produces:
       - "*/*"
       parameters:
       - in: "body"
-        name: "docsEntradaIdsAndEstatRevisioId"
-        description: "docsEntradaIdsAndEstatRevisioId"
+        name: "documentRevisioRDTO"
+        description: "documentRevisioRDTO"
         required: true
         schema:
-          $ref: "#/definitions/DocsEntradaIdsAndEstatRevisioId"
+          $ref: "#/definitions/DocumentRevisio"
       responses:
         200:
           description: "OK"
@@ -1711,11 +1711,11 @@ paths:
       - "*/*"
       parameters:
       - in: "body"
-        name: "docsEntradaIdsAndEstatRevisioId"
-        description: "docsEntradaIdsAndEstatRevisioId"
+        name: "documentCanviEstatRDTO"
+        description: "documentCanviEstatRDTO"
         required: true
         schema:
-          $ref: "#/definitions/DocsTramitacioIdsAndEstatFinalId"
+          $ref: "#/definitions/DocumentCanviEstat"
       responses:
         200:
           description: "OK"
@@ -2492,24 +2492,25 @@ definitions:
     properties:
       codi:
         type: "string"
+      desTipusCamp:
+        type: "string"
+      grup:
+        type: "number"
       id:
         type: "number"
-      titol:
-        type: "string"
-    title: "DadesOperacioRDTO"
-  DocsEntradaIdsAndEstatRevisioId:
-    type: "object"
-    properties:
-      docsEntradaIds:
-        type: "array"
-        items:
-          type: "number"
-      estatRevisioId:
+      ordre:
         type: "integer"
         format: "int32"
-      expedientId:
+      procediment:
         type: "number"
-    title: "DocsEntradaIdsAndEstatRevisioId"
+      tipus:
+        type: "integer"
+        format: "int32"
+      titol:
+        type: "string"
+      titolGrup:
+        type: "string"
+    title: "DadesOperacioRDTO"
   DocsEntradaRDTO:
     type: "object"
     properties:
@@ -2574,6 +2575,12 @@ definitions:
         type: "number"
       idioma:
         type: "number"
+      metadata:
+        type: "object"
+        additionalProperties:
+          type: "array"
+          items:
+            type: "string"
       nou:
         type: "integer"
         format: "int32"
@@ -2581,12 +2588,6 @@ definitions:
         type: "number"
       obligatoriEnEstat:
         type: "boolean"
-      openTextMetadata:
-        type: "object"
-        additionalProperties:
-          type: "array"
-          items:
-            type: "string"
       origen:
         type: "integer"
         format: "int32"
@@ -2658,24 +2659,6 @@ definitions:
       usuariSignaturaIdext:
         type: "number"
     title: "DocsSignatures"
-  DocsTramitacioIdsAndEstatFinalId:
-    type: "object"
-    properties:
-      docsTramitacioIds:
-        type: "array"
-        items:
-          type: "number"
-      estatActualDesc:
-        type: "string"
-      estatActualId:
-        type: "number"
-      estatFinalDesc:
-        type: "string"
-      estatFinalId:
-        type: "number"
-      expedientId:
-        type: "number"
-    title: "DocsTramitacioIdsAndEstatFinalId"
   DocsTramitacioRDTO:
     type: "object"
     properties:
@@ -2747,16 +2730,16 @@ definitions:
         type: "number"
       idioma:
         type: "number"
-      numDocsConfiguracio:
-        type: "number"
-      obligatoriEnEstat:
-        type: "boolean"
-      openTextMetadata:
+      metadata:
         type: "object"
         additionalProperties:
           type: "array"
           items:
             type: "string"
+      numDocsConfiguracio:
+        type: "number"
+      obligatoriEnEstat:
+        type: "boolean"
       origen:
         type: "integer"
         format: "int32"
@@ -2782,6 +2765,46 @@ definitions:
       usuariIdext:
         type: "number"
     title: "DocsTramitacioRDTO"
+  DocumentCanviEstat:
+    type: "object"
+    properties:
+      docsTramitacioIds:
+        type: "array"
+        description: "Llista d'identificadors de document"
+        items:
+          type: "number"
+      estatActualDesc:
+        type: "string"
+        description: "Descripció de l'estat actual del document"
+      estatActualId:
+        type: "number"
+        description: "Identificador de l'estat actual del document"
+      estatFinalDesc:
+        type: "string"
+        description: "Descripció de l'estat final del document"
+      estatFinalId:
+        type: "number"
+        description: "Identificador de l'estat final del document"
+      expedientId:
+        type: "number"
+        description: "Identificador de l'expedient"
+    title: "DocumentCanviEstat"
+  DocumentRevisio:
+    type: "object"
+    properties:
+      docsEntradaIds:
+        type: "array"
+        description: "Llista d'identificadors de document"
+        items:
+          type: "number"
+      estatRevisioId:
+        type: "integer"
+        format: "int32"
+        description: "Identificador de l'estat de revisió"
+      expedientId:
+        type: "number"
+        description: "Identificador de l'expedient"
+    title: "DocumentRevisio"
   DocumentsIdentitat:
     type: "object"
     properties:
@@ -2862,8 +2885,14 @@ definitions:
   ExpedientOpenTextRDTO:
     type: "object"
     properties:
+      codiExpedient:
+        type: "string"
       codiUnitatOrganigrama:
         type: "string"
+      documentacioIdext:
+        type: "number"
+      idEstat:
+        type: "number"
       nomProc:
         type: "string"
       numRegistre:

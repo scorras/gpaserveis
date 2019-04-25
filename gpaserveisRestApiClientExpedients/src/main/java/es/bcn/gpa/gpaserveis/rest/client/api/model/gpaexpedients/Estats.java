@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 /**
  * Estats
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-24T02:28:48.974+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T19:08:33.527+02:00")
 public class Estats {
   @JsonProperty("accioEstatIdext")
   private BigDecimal accioEstatIdext = null;
@@ -44,6 +44,9 @@ public class Estats {
 
   @JsonProperty("id")
   private BigDecimal id = null;
+
+  @JsonProperty("ugConvidadaIdext")
+  private BigDecimal ugConvidadaIdext = null;
 
   @JsonProperty("unitatGestoraIdext")
   private BigDecimal unitatGestoraIdext = null;
@@ -159,6 +162,24 @@ public class Estats {
     this.id = id;
   }
 
+  public Estats ugConvidadaIdext(BigDecimal ugConvidadaIdext) {
+    this.ugConvidadaIdext = ugConvidadaIdext;
+    return this;
+  }
+
+   /**
+   * Get ugConvidadaIdext
+   * @return ugConvidadaIdext
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getUgConvidadaIdext() {
+    return ugConvidadaIdext;
+  }
+
+  public void setUgConvidadaIdext(BigDecimal ugConvidadaIdext) {
+    this.ugConvidadaIdext = ugConvidadaIdext;
+  }
+
   public Estats unitatGestoraIdext(BigDecimal unitatGestoraIdext) {
     this.unitatGestoraIdext = unitatGestoraIdext;
     return this;
@@ -211,13 +232,14 @@ public class Estats {
         Objects.equals(this.estatAnterior, estats.estatAnterior) &&
         Objects.equals(this.expedient, estats.expedient) &&
         Objects.equals(this.id, estats.id) &&
+        Objects.equals(this.ugConvidadaIdext, estats.ugConvidadaIdext) &&
         Objects.equals(this.unitatGestoraIdext, estats.unitatGestoraIdext) &&
         Objects.equals(this.usuari, estats.usuari);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accioEstatIdext, comentari, dataCreacio, estatAnterior, expedient, id, unitatGestoraIdext, usuari);
+    return Objects.hash(accioEstatIdext, comentari, dataCreacio, estatAnterior, expedient, id, ugConvidadaIdext, unitatGestoraIdext, usuari);
   }
 
 
@@ -232,6 +254,7 @@ public class Estats {
     sb.append("    estatAnterior: ").append(toIndentedString(estatAnterior)).append("\n");
     sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    ugConvidadaIdext: ").append(toIndentedString(ugConvidadaIdext)).append("\n");
     sb.append("    unitatGestoraIdext: ").append(toIndentedString(unitatGestoraIdext)).append("\n");
     sb.append("    usuari: ").append(toIndentedString(usuari)).append("\n");
     sb.append("}");

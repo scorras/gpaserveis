@@ -12,10 +12,10 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AportarDocume
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaIdsAndEstatRevisioId;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioIdsAndEstatFinalId;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentCanviEstat;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatRevisioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsTramitacioRDTO;
@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-24T15:03:39.598+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T11:59:46.009+02:00")
 public class DocumentacioApi {
   private ApiClient apiClient;
 
@@ -144,15 +144,15 @@ public class DocumentacioApi {
   /**
    * Updates all selected DocsTramitacio with the EstatsDocument specified
    * 
-   * @param docsEntradaIdsAndEstatRevisioId docsEntradaIdsAndEstatRevisioId (required)
+   * @param documentCanviEstatRDTO documentCanviEstatRDTO (required)
    * @throws ApiException if fails to make API call
    */
-  public void canviEstatDocumentacioTramitacioUsingPOST(DocsTramitacioIdsAndEstatFinalId docsEntradaIdsAndEstatRevisioId) throws ApiException {
-    Object localVarPostBody = docsEntradaIdsAndEstatRevisioId;
+  public void canviEstatDocumentacioTramitacioUsingPOST(DocumentCanviEstat documentCanviEstatRDTO) throws ApiException {
+    Object localVarPostBody = documentCanviEstatRDTO;
     
-    // verify the required parameter 'docsEntradaIdsAndEstatRevisioId' is set
-    if (docsEntradaIdsAndEstatRevisioId == null) {
-      throw new ApiException(400, "Missing the required parameter 'docsEntradaIdsAndEstatRevisioId' when calling canviEstatDocumentacioTramitacioUsingPOST");
+    // verify the required parameter 'documentCanviEstatRDTO' is set
+    if (documentCanviEstatRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'documentCanviEstatRDTO' when calling canviEstatDocumentacioTramitacioUsingPOST");
     }
     
     // create path and map variables
@@ -803,15 +803,15 @@ public class DocumentacioApi {
   /**
    * Updates all selected DocsEntrada with the EstatRevisio specified
    * 
-   * @param docsEntradaIdsAndEstatRevisioId docsEntradaIdsAndEstatRevisioId (required)
+   * @param documentRevisioRDTO documentRevisioRDTO (required)
    * @throws ApiException if fails to make API call
    */
-  public void revisarDocumentacioEntradaUsingPOST(DocsEntradaIdsAndEstatRevisioId docsEntradaIdsAndEstatRevisioId) throws ApiException {
-    Object localVarPostBody = docsEntradaIdsAndEstatRevisioId;
+  public void revisarDocumentacioEntrada(DocumentRevisio documentRevisioRDTO) throws ApiException {
+    Object localVarPostBody = documentRevisioRDTO;
     
-    // verify the required parameter 'docsEntradaIdsAndEstatRevisioId' is set
-    if (docsEntradaIdsAndEstatRevisioId == null) {
-      throw new ApiException(400, "Missing the required parameter 'docsEntradaIdsAndEstatRevisioId' when calling revisarDocumentacioEntradaUsingPOST");
+    // verify the required parameter 'documentRevisioRDTO' is set
+    if (documentRevisioRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'documentRevisioRDTO' when calling revisarDocumentacioEntrada");
     }
     
     // create path and map variables

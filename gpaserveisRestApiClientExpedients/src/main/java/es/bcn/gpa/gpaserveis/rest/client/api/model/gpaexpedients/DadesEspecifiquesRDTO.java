@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * DadesEspecifiquesRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-24T02:28:48.974+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T19:08:33.527+02:00")
 public class DadesEspecifiquesRDTO {
   @JsonProperty("campIdext")
   private BigDecimal campIdext = null;
@@ -43,9 +43,6 @@ public class DadesEspecifiquesRDTO {
 
   @JsonProperty("nou")
   private Integer nou = null;
-
-  @JsonProperty("requerit")
-  private Integer requerit = null;
 
   @JsonProperty("tipus")
   private BigDecimal tipus = null;
@@ -148,24 +145,6 @@ public class DadesEspecifiquesRDTO {
     this.nou = nou;
   }
 
-  public DadesEspecifiquesRDTO requerit(Integer requerit) {
-    this.requerit = requerit;
-    return this;
-  }
-
-   /**
-   * Get requerit
-   * @return requerit
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getRequerit() {
-    return requerit;
-  }
-
-  public void setRequerit(Integer requerit) {
-    this.requerit = requerit;
-  }
-
   public DadesEspecifiquesRDTO tipus(BigDecimal tipus) {
     this.tipus = tipus;
     return this;
@@ -199,13 +178,12 @@ public class DadesEspecifiquesRDTO {
         Objects.equals(this.expedient, dadesEspecifiquesRDTO.expedient) &&
         Objects.equals(this.id, dadesEspecifiquesRDTO.id) &&
         Objects.equals(this.nou, dadesEspecifiquesRDTO.nou) &&
-        Objects.equals(this.requerit, dadesEspecifiquesRDTO.requerit) &&
         Objects.equals(this.tipus, dadesEspecifiquesRDTO.tipus);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(campIdext, dadesEspecifiquesValorsList, expedient, id, nou, requerit, tipus);
+    return Objects.hash(campIdext, dadesEspecifiquesValorsList, expedient, id, nou, tipus);
   }
 
 
@@ -219,7 +197,6 @@ public class DadesEspecifiquesRDTO {
     sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    nou: ").append(toIndentedString(nou)).append("\n");
-    sb.append("    requerit: ").append(toIndentedString(requerit)).append("\n");
     sb.append("    tipus: ").append(toIndentedString(tipus)).append("\n");
     sb.append("}");
     return sb.toString();

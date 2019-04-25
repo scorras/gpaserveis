@@ -24,10 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DocsEntradaIdsAndEstatRevisioId
+ * DocumentRevisio
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-24T15:03:39.598+02:00")
-public class DocsEntradaIdsAndEstatRevisioId {
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T11:59:46.009+02:00")
+public class DocumentRevisio {
   @JsonProperty("docsEntradaIds")
   private List<BigDecimal> docsEntradaIds = null;
 
@@ -37,12 +37,12 @@ public class DocsEntradaIdsAndEstatRevisioId {
   @JsonProperty("expedientId")
   private BigDecimal expedientId = null;
 
-  public DocsEntradaIdsAndEstatRevisioId docsEntradaIds(List<BigDecimal> docsEntradaIds) {
+  public DocumentRevisio docsEntradaIds(List<BigDecimal> docsEntradaIds) {
     this.docsEntradaIds = docsEntradaIds;
     return this;
   }
 
-  public DocsEntradaIdsAndEstatRevisioId addDocsEntradaIdsItem(BigDecimal docsEntradaIdsItem) {
+  public DocumentRevisio addDocsEntradaIdsItem(BigDecimal docsEntradaIdsItem) {
     if (this.docsEntradaIds == null) {
       this.docsEntradaIds = new ArrayList<BigDecimal>();
     }
@@ -51,10 +51,10 @@ public class DocsEntradaIdsAndEstatRevisioId {
   }
 
    /**
-   * Get docsEntradaIds
+   * Llista d&#39;identificadors de document
    * @return docsEntradaIds
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Llista d'identificadors de document")
   public List<BigDecimal> getDocsEntradaIds() {
     return docsEntradaIds;
   }
@@ -63,16 +63,16 @@ public class DocsEntradaIdsAndEstatRevisioId {
     this.docsEntradaIds = docsEntradaIds;
   }
 
-  public DocsEntradaIdsAndEstatRevisioId estatRevisioId(Integer estatRevisioId) {
+  public DocumentRevisio estatRevisioId(Integer estatRevisioId) {
     this.estatRevisioId = estatRevisioId;
     return this;
   }
 
    /**
-   * Get estatRevisioId
+   * Identificador de l&#39;estat de revisió
    * @return estatRevisioId
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Identificador de l'estat de revisió")
   public Integer getEstatRevisioId() {
     return estatRevisioId;
   }
@@ -81,16 +81,16 @@ public class DocsEntradaIdsAndEstatRevisioId {
     this.estatRevisioId = estatRevisioId;
   }
 
-  public DocsEntradaIdsAndEstatRevisioId expedientId(BigDecimal expedientId) {
+  public DocumentRevisio expedientId(BigDecimal expedientId) {
     this.expedientId = expedientId;
     return this;
   }
 
    /**
-   * Get expedientId
+   * Identificador de l&#39;expedient
    * @return expedientId
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Identificador de l'expedient")
   public BigDecimal getExpedientId() {
     return expedientId;
   }
@@ -108,10 +108,10 @@ public class DocsEntradaIdsAndEstatRevisioId {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DocsEntradaIdsAndEstatRevisioId docsEntradaIdsAndEstatRevisioId = (DocsEntradaIdsAndEstatRevisioId) o;
-    return Objects.equals(this.docsEntradaIds, docsEntradaIdsAndEstatRevisioId.docsEntradaIds) &&
-        Objects.equals(this.estatRevisioId, docsEntradaIdsAndEstatRevisioId.estatRevisioId) &&
-        Objects.equals(this.expedientId, docsEntradaIdsAndEstatRevisioId.expedientId);
+    DocumentRevisio documentRevisio = (DocumentRevisio) o;
+    return Objects.equals(this.docsEntradaIds, documentRevisio.docsEntradaIds) &&
+        Objects.equals(this.estatRevisioId, documentRevisio.estatRevisioId) &&
+        Objects.equals(this.expedientId, documentRevisio.expedientId);
   }
 
   @Override
@@ -123,7 +123,7 @@ public class DocsEntradaIdsAndEstatRevisioId {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DocsEntradaIdsAndEstatRevisioId {\n");
+    sb.append("class DocumentRevisio {\n");
     
     sb.append("    docsEntradaIds: ").append(toIndentedString(docsEntradaIds)).append("\n");
     sb.append("    estatRevisioId: ").append(toIndentedString(estatRevisioId)).append("\n");

@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * SubstituirDocumentExpedient
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-24T15:03:39.598+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T11:59:46.009+02:00")
 public class SubstituirDocumentExpedient {
   @JsonProperty("docEntrada")
   private DocsEntradaRDTO docEntrada = null;
