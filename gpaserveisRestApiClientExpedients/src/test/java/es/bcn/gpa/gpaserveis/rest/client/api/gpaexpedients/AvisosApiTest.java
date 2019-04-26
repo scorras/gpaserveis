@@ -16,6 +16,7 @@ import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
@@ -29,6 +30,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AvisCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfAvisosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
@@ -77,6 +79,28 @@ public class AvisosApiTest extends ParentTest {
 		        totalPages);
 
 		assertTrue(response != null);
+	}
+
+	/**
+	 * Crea un nou avís per a l&#39;expedient en funció de l&#39;acció executada
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void crearAvisAccioTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/avisos/1/accions/1/crear"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
+
+		BigDecimal idAccio = ONE;
+		BigDecimal idExpedient = ONE;
+		AvisCreacioAccio avisCreacioAccioRDTO = new AvisCreacioAccio();
+		api.crearAvisAccio(idAccio, idExpedient, avisCreacioAccioRDTO);
+
+		assertTrue(true);
 	}
 
 }

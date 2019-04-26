@@ -38,6 +38,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InputStreamResource;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreCreacioSolicitudExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreSolicitudExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
@@ -478,6 +480,26 @@ public class Expedients_ApiTest extends ParentTest {
 
 		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
 		ExpedientsRDTO response = api.updateExpedientUsingPUT(expedientsRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Register the provided expedient
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void crearRegistreSolicitudExpedientTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/expedients/registre/crear"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new RespostaCrearRegistreSolicitudExpedient());
+
+		RegistreCreacioSolicitudExpedient registrarSolicitudExpedientRDTO = new RegistreCreacioSolicitudExpedient();
+		RespostaCrearRegistreSolicitudExpedient response = api.crearRegistreSolicitudExpedient(registrarSolicitudExpedientRDTO);
 
 		assertTrue(response != null);
 	}

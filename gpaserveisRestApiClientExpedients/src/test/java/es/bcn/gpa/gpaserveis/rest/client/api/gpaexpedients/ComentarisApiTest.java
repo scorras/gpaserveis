@@ -12,12 +12,14 @@
 
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
+import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentarisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfComentarisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
@@ -117,4 +120,27 @@ public class ComentarisApiTest extends ParentTest {
 		assertTrue(response != null);
 	}
 
+	/**
+	 * Crea un nou comentari per a l&#39;expedient en funció de l&#39;acció
+	 * executada
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void crearComentariAccioTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/expedients/comentaris/1/accions/1/crear"), eq("POST"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(null);
+
+		BigDecimal idAccio = ONE;
+		BigDecimal idExpedient = ONE;
+		ComentariCreacioAccio comentariCreacioAccioRDTO = new ComentariCreacioAccio();
+		api.crearComentariAccio(idAccio, idExpedient, comentariCreacioAccioRDTO);
+
+		assertTrue(true);
+	}
 }

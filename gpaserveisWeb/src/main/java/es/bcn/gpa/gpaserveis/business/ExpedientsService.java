@@ -134,47 +134,6 @@ public interface ExpedientsService {
 	 */
 	RespostaCrearRegistreSolicitudExpedient crearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
 	        throws GPAServeisServiceException;
-	// TODO Peticiones ligeras
-	// /**
-	// * Abandonar desistir expedient.
-	// *
-	// * @param expedientsAbandonarBDTO
-	// * the expedients abandonar BDTO
-	// * @return the resposta abandonar expedient
-	// * @throws GPAServeisServiceException
-	// * the GPA serveis service exception
-	// */
-	// RespostaAbandonarExpedient
-	// abandonarDesistirExpedient(ExpedientsAbandonarBDTO
-	// expedientsAbandonarBDTO)
-	// throws GPAServeisServiceException;
-	// TODO Peticiones ligeras
-	// /**
-	// * Abandonar renunciar expedient.
-	// *
-	// * @param expedientsAbandonarBDTO
-	// * the expedients abandonar BDTO
-	// * @return the resposta abandonar expedient
-	// * @throws GPAServeisServiceException
-	// * the GPA serveis service exception
-	// */
-	// RespostaAbandonarExpedient
-	// abandonarRenunciarExpedient(ExpedientsAbandonarBDTO
-	// expedientsAbandonarBDTO)
-	// throws GPAServeisServiceException;
-	// TODO Peticiones ligeras
-	// /**
-	// * Validar solicitud expedient.
-	// *
-	// * @param expedientsCanviarEstatAccioBDTO
-	// * the expedients canviar estat accio BDTO
-	// * @return the resposta validar expedient
-	// * @throws GPAServeisServiceException
-	// * the GPA serveis service exception
-	// */
-	// TODO Peticiones ligeras
-	// RespostaValidarExpedient validarSolicitudExpedient(ExpedientsValidarBDTO
-	// expedientsValidarBDTO) throws GPAServeisServiceException;
 
 	/**
 	 * Canviar estat accio expedient.

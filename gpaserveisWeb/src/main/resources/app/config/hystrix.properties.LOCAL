@@ -1,1 +1,1 @@
-execution.isolation.thread.timeoutInMilliseconds=10000
+execution.isolation.thread.timeoutInMilliseconds=100000

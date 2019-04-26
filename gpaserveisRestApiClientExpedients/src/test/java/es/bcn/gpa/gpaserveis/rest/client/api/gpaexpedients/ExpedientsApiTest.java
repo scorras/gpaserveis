@@ -32,11 +32,13 @@ import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.BloquejosRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientOpenTextRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfComentarisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfHistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
@@ -268,6 +270,29 @@ public class ExpedientsApiTest extends ParentTest {
 
 		BigDecimal id = ONE;
 		ExpedientOpenTextRDTO response = api.getExpedientDataOpenTextUsingGET(id);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Canvia l&#39;estat d&#39;un expedient en funció de l&#39;acció executada
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void canviarEstatAccioExpedientTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/expedients/1/accions/1/canviEstat"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new RespostaCanviarEstatAccioExpedient());
+
+		BigDecimal idAccio = ONE;
+		BigDecimal idExpedient = ONE;
+		ExpedientCanviEstatAccio expedientCanviEstatAccioRDTO = new ExpedientCanviEstatAccio();
+		RespostaCanviarEstatAccioExpedient response = api.canviarEstatAccioExpedient(idAccio, idExpedient, expedientCanviEstatAccioRDTO);
 
 		assertTrue(response != null);
 	}

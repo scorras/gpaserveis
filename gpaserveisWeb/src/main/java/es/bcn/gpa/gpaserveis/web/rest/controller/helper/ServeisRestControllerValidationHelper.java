@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.controller;
+package es.bcn.gpa.gpaserveis.web.rest.controller.helper;
 
 import static org.apache.commons.lang.math.NumberUtils.INTEGER_ONE;
 import static org.apache.commons.lang.math.NumberUtils.INTEGER_ZERO;
@@ -26,7 +26,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperValidVal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
@@ -52,9 +51,9 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esme
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.DocumentRequeritCrearRDTO;
 
 /**
- * The Class ServeisPortalRestControllerValidationHelper.
+ * The Class ServeisRestControllerValidationHelper.
  */
-public class ServeisPortalRestControllerValidationHelper {
+public class ServeisRestControllerValidationHelper {
 
 	/**
 	 * Validate procediment crear solicitud expedient.
@@ -601,20 +600,20 @@ public class ServeisPortalRestControllerValidationHelper {
 	 *
 	 * @param docsEntradaRDTO
 	 *            the docs entrada RDTO
-	 * @param expedientsRDTO
-	 *            the expedients RDTO
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
 	 * @param resultatError
 	 *            the resultat error
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
-	public static void validateDocumentAportat(DocsEntradaRDTO docsEntradaRDTO, ExpedientsRDTO expedientsRDTO, Resultat resultatError)
-	        throws GPAApiParamValidationException {
+	public static void validateDocumentAportat(DocsEntradaRDTO docsEntradaRDTO, DadesExpedientBDTO dadesExpedientBDTO,
+	        Resultat resultatError) throws GPAApiParamValidationException {
 		if (docsEntradaRDTO == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND);
 		}
 
-		if (!docsEntradaRDTO.getDocumentacio().equals(expedientsRDTO.getDocumentacioIdext())) {
+		if (!docsEntradaRDTO.getDocumentacio().equals(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext())) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_EXPEDIENT);
 		}
 	}

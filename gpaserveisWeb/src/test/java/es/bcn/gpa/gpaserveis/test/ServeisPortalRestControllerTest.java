@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import es.bcn.gpa.gpaserveis.test.parent.RestServerParentTest;
 
 /**
- * The Class ExpedientsRestControllerTest.
+ * The Class ServeisPortalRestControllerTest.
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ServeisPortalRestControllerTest extends RestServerParentTest {

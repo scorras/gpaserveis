@@ -15,20 +15,17 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatCiutadaApiParamValueTranslator;
-import net.opentrends.openframe.services.configuration.annotation.EntornPropertySource;
 
 /**
  * The Class ExpedientsApiParamToInternalMapper.
  */
 @Component
-@EntornPropertySource(value = { "classpath:/app/config/gpaserveis.properties" })
 public class ExpedientsApiParamToInternalMapper {
 
 	/** The Constant CODI_EXPEDIENT_FORMATTED_PATTERN. */
@@ -36,20 +33,6 @@ public class ExpedientsApiParamToInternalMapper {
 
 	/** The Constant CODI_EXPEDIENT_ORIGINAL_FORMAT. */
 	private static final String CODI_EXPEDIENT_ORIGINAL_FORMAT = "ES_%s_%s_EXP_%s";
-
-	/** The expedients id organ. */
-	public static String EXPEDIENTS_ID_ORGAN;
-
-	/**
-	 * Sets the expedients id organ.
-	 *
-	 * @param expedientsIdOrgan
-	 *            the new expedients id organ
-	 */
-	@Value("${expedients.id.organ}")
-	public void setExpedientsIdOrgan(String expedientsIdOrgan) {
-		EXPEDIENTS_ID_ORGAN = expedientsIdOrgan;
-	}
 
 	/** The ordenar per api param value translator. */
 	private static BaseApiParamValueTranslator ordenarPerApiParamValueTranslator;
@@ -121,13 +104,15 @@ public class ExpedientsApiParamToInternalMapper {
 	 *
 	 * @param codi
 	 *            the codi
+	 * @param expedientsIdOrgan
+	 *            the expedients id organ
 	 * @return the codi internal value
 	 */
-	public static String getCodiInternalValue(String codi) {
+	public static String getCodiInternalValue(String codi, String expedientsIdOrgan) {
 		Pattern codiExpedientFormattedPattern = Pattern.compile(CODI_EXPEDIENT_FORMATTED_PATTERN);
 		Matcher codiExpedientFormattedMatcher = codiExpedientFormattedPattern.matcher(codi);
 		if (codiExpedientFormattedMatcher.matches()) {
-			return String.format(CODI_EXPEDIENT_ORIGINAL_FORMAT, EXPEDIENTS_ID_ORGAN, codiExpedientFormattedMatcher.group(1),
+			return String.format(CODI_EXPEDIENT_ORIGINAL_FORMAT, expedientsIdOrgan, codiExpedientFormattedMatcher.group(1),
 			        StringUtils.leftPad(codiExpedientFormattedMatcher.group(3), 30, "0"));
 		} else {
 			return codi;

@@ -28,6 +28,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubst
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
@@ -40,6 +42,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesDadesco
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentament;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Sollicituds;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
@@ -917,6 +920,60 @@ public class TestsConfigHelper {
 		accionsEstatsRDTO8.setAccio(new BigDecimal(24));
 		accionsEstatsRDTOList.add(accionsEstatsRDTO8);
 
+		AccionsEstatsRDTO accionsEstatsRDTO9 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO9.setId(ONE);
+		accionsEstatsRDTO9.setNomAccio("Pausar l'expedient");
+		accionsEstatsRDTO9.setAccio(new BigDecimal(20));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO9);
+
+		AccionsEstatsRDTO accionsEstatsRDTO10 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO10.setId(ONE);
+		accionsEstatsRDTO10.setNomAccio("Reactivar expedient");
+		accionsEstatsRDTO10.setAccio(new BigDecimal(21));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO10);
+
+		AccionsEstatsRDTO accionsEstatsRDTO11 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO11.setId(ONE);
+		accionsEstatsRDTO11.setNomAccio("Arxivar sol·licitud incomplerta");
+		accionsEstatsRDTO11.setAccio(new BigDecimal(23));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO11);
+
+		AccionsEstatsRDTO accionsEstatsRDTO12 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO12.setId(ONE);
+		accionsEstatsRDTO12.setNomAccio("Retornar la tramitació");
+		accionsEstatsRDTO12.setAccio(new BigDecimal(26));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO12);
+
+		AccionsEstatsRDTO accionsEstatsRDTO13 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO13.setId(ONE);
+		accionsEstatsRDTO13.setNomAccio("Proposar resolució");
+		accionsEstatsRDTO13.setAccio(new BigDecimal(27));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO13);
+
+		AccionsEstatsRDTO accionsEstatsRDTO14 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO14.setId(ONE);
+		accionsEstatsRDTO14.setNomAccio("Tancar expedient");
+		accionsEstatsRDTO14.setAccio(new BigDecimal(9));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO14);
+
+		AccionsEstatsRDTO accionsEstatsRDTO15 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO15.setId(ONE);
+		accionsEstatsRDTO15.setNomAccio("Tornar enrere");
+		accionsEstatsRDTO15.setAccio(new BigDecimal(43));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO15);
+
+		AccionsEstatsRDTO accionsEstatsRDTO16 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO16.setId(ONE);
+		accionsEstatsRDTO16.setNomAccio("Validar un document");
+		accionsEstatsRDTO16.setAccio(new BigDecimal(15));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO16);
+
+		AccionsEstatsRDTO accionsEstatsRDTO17 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO17.setId(ONE);
+		accionsEstatsRDTO17.setNomAccio("Rebutjar un document");
+		accionsEstatsRDTO17.setAccio(new BigDecimal(16));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO17);
+
 		return accionsEstatsRDTOList;
 	}
 
@@ -1263,4 +1320,43 @@ public class TestsConfigHelper {
 	//
 	// return respostaValidarExpedient;
 	// }
+
+	/**
+	 * Canviar estat accio expedient response.
+	 *
+	 * @return the resposta canviar estat accio expedient
+	 */
+	public static RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedientResponse() {
+		RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccioExpedient = new RespostaCanviarEstatAccioExpedient();
+		ExpedientCanviEstat expedientCanviEstat = new ExpedientCanviEstat();
+		expedientCanviEstat.setId(ONE);
+		expedientCanviEstat.setCodi("Codi");
+		expedientCanviEstat.setEstat("Estat");
+		expedientCanviEstat.setEstatCastella("Estat Castellá");
+		respostaCanviarEstatAccioExpedient.setExpedient(expedientCanviEstat);
+		return respostaCanviarEstatAccioExpedient;
+	}
+
+	/**
+	 * Cerca historics estats response.
+	 *
+	 * @return the list
+	 */
+	public static List<EstatsRDTO> cercaHistoricsEstatsResponse() {
+		ArrayList<EstatsRDTO> estatsRDTOList = new ArrayList<EstatsRDTO>();
+		EstatsRDTO estatsRDTO = new EstatsRDTO();
+		estatsRDTO.setDataCreacio(now());
+		estatsRDTO.setDescripcioEstatActualCiutada("Descripció Estat Actual Ciutada");
+		estatsRDTO.setDescripcioEstatActualCiutadaCastella("Descripció Estat Actual Ciutada Castellá");
+		estatsRDTO.setDescripcioEstatActualCiutadaCatala("Descripció Estat Actual Ciutada Catalá");
+		estatsRDTO.setDescripcioEstatActualTramitador("Descripció Estat Actual Tramitador");
+		estatsRDTO.setDescripcioEstatActualTramitadorCastella("Descripció Estat Actual Tramitador Castellá");
+		estatsRDTO.setDescripcioEstatActualTramitadorCatala("Descripció Estat Actual Tramitador Catalá");
+		estatsRDTO.setDescripcioEstatAnteriorCiutada("Descripció Estat Anterior Ciutada");
+		estatsRDTO.setDescripcioEstatAnteriorTramitador("Descripció Estat Anterior Tramitador");
+		estatsRDTO.setIdEstatActual(ONE);
+		estatsRDTO.setIdEstatAnterior(ONE);
+		estatsRDTOList.add(estatsRDTO);
+		return estatsRDTOList;
+	}
 }

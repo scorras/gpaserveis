@@ -11,6 +11,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
@@ -287,6 +289,34 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("downloadEntradaApi() - fi"); //$NON-NLS-1$
 		}
 		return downloadEntradaApi;
+	}
+
+	@Bean
+	public ComentarisApi comentarisApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("comentarisApi() - inici"); //$NON-NLS-1$
+		}
+
+		ComentarisApi comentarisApi = Mockito.mock(ComentarisApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("comentarisApi() - fi"); //$NON-NLS-1$
+		}
+		return comentarisApi;
+	}
+
+	@Bean
+	public AvisosApi avisosApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("avisosApi() - inici"); //$NON-NLS-1$
+		}
+
+		AvisosApi avisosApi = Mockito.mock(AvisosApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("avisosApi() - fi"); //$NON-NLS-1$
+		}
+		return avisosApi;
 	}
 
 }

@@ -20,7 +20,10 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
@@ -32,8 +35,12 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AportarDocumentacioExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SubstituirDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AvisCreacioAccio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.test.config.TestsConfigHelper;
 import lombok.extern.apachecommons.CommonsLog;
@@ -106,6 +113,18 @@ public abstract class ParentTest {
 	/** The download entrada api. */
 	@Autowired
 	protected DownloadEntradaApi downloadEntradaApi;
+
+	/** The comentaris api. */
+	@Autowired
+	protected ComentarisApi comentarisApi;
+
+	/** The avisos api. */
+	@Autowired
+	protected AvisosApi avisosApi;
+
+	/** The estats api. */
+	@Autowired
+	protected EstatsApi estatsApi;
 
 	/**
 	 * Sets the up.
@@ -222,9 +241,6 @@ public abstract class ParentTest {
 
 			when(expedients_Api.actualitzarDadesSollicitud(any(ActualitzarDadesSollicitud.class)))
 			        .thenReturn(TestsConfigHelper.crearSollicitudExpedientResponse());
-			// TODO Peticiones ligeras
-			// when(expedients_Api.registrarSolicitudExpedient(any(RegistrarSolicitudExpedient.class)))
-			// .thenReturn(TestsConfigHelper.registrarSolicitudExpedientResponse());
 
 			when(documentacioApi.aportarDocumentacioExpedient(any(AportarDocumentacioExpedient.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.aportarDocumentacioExpedientResponse());
@@ -240,10 +256,17 @@ public abstract class ParentTest {
 			when(downloadEntradaApi.descarregarDocumentExpedient(any(BigDecimal.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.descarregarDocumentExpedientResponse());
 
-			// TODO ¿Abandonar?
-			// TODO Peticiones ligeras
-			// when(expedients_Api.validarExpedient(any(ValidarExpedient.class)))
-			// .thenReturn(TestsConfigHelper.validarSolicitudExpedientResponse());
+			doNothing().when(comentarisApi).crearComentariAccio(any(BigDecimal.class), any(BigDecimal.class),
+			        any(ComentariCreacioAccio.class));
+
+			doNothing().when(avisosApi).crearAvisAccio(any(BigDecimal.class), any(BigDecimal.class), any(AvisCreacioAccio.class));
+
+			when(expedientsApi.canviarEstatAccioExpedient(any(BigDecimal.class), any(BigDecimal.class),
+			        any(ExpedientCanviEstatAccio.class))).thenReturn(TestsConfigHelper.canviarEstatAccioExpedientResponse());
+
+			when(estatsApi.cercaHistoricsEstats(any(BigDecimal.class))).thenReturn(TestsConfigHelper.cercaHistoricsEstatsResponse());
+
+			doNothing().when(documentacioApi).revisarDocumentacioEntrada(any(DocumentRevisio.class));
 
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$
