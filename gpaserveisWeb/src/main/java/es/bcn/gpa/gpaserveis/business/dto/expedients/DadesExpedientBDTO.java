@@ -9,6 +9,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
@@ -54,6 +55,9 @@ public class DadesExpedientBDTO {
 
 	/** The dades operacio. */
 	private List<DadaEspecificaBDTO> dadesOperacio;
+
+	/** The dades operacio. */
+	private List<DadesOperacions> dadesOperacioRequerits;
 
 	/** The tramits ovt map. */
 	private Map<BigDecimal, TramitsOvtRDTO> tramitsOvtMap;

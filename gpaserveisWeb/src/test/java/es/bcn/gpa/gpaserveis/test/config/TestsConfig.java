@@ -11,11 +11,12 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PaisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
@@ -277,20 +278,6 @@ public class TestsConfig implements EnvironmentAware {
 	}
 
 	@Bean
-	public PaisosApi paisosApi() {
-		if (log.isDebugEnabled()) {
-			log.debug("paisosApi() - inici"); //$NON-NLS-1$
-		}
-
-		PaisosApi paisosApi = Mockito.mock(PaisosApi.class);
-
-		if (log.isDebugEnabled()) {
-			log.debug("paisosApi() - fi"); //$NON-NLS-1$
-		}
-		return paisosApi;
-	}
-
-	@Bean
 	public DownloadEntradaApi downloadEntradaApi() {
 		if (log.isDebugEnabled()) {
 			log.debug("downloadEntradaApi() - inici"); //$NON-NLS-1$
@@ -302,6 +289,34 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("downloadEntradaApi() - fi"); //$NON-NLS-1$
 		}
 		return downloadEntradaApi;
+	}
+
+	@Bean
+	public ComentarisApi comentarisApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("comentarisApi() - inici"); //$NON-NLS-1$
+		}
+
+		ComentarisApi comentarisApi = Mockito.mock(ComentarisApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("comentarisApi() - fi"); //$NON-NLS-1$
+		}
+		return comentarisApi;
+	}
+
+	@Bean
+	public AvisosApi avisosApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("avisosApi() - inici"); //$NON-NLS-1$
+		}
+
+		AvisosApi avisosApi = Mockito.mock(AvisosApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("avisosApi() - fi"); //$NON-NLS-1$
+		}
+		return avisosApi;
 	}
 
 }

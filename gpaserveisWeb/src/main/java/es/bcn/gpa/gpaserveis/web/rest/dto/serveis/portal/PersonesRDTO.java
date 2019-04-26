@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusPersonaApiParamValueTranslator;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusSexeApiParamValueTranslator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -12,7 +11,7 @@ import lombok.Setter;
 
 @ApiModel(value = "Persona")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "tipusPersona", "nomRaoSocial", "cognom1", "cognom2", "sexe", "documentIndentitat", "dadesNotificacio" })
+@JsonPropertyOrder({ "tipusPersona", "nomRaoSocial", "cognom1", "cognom2", "documentIndentitat", "dadesNotificacio" })
 @Getter
 @Setter
 public class PersonesRDTO {
@@ -25,8 +24,6 @@ public class PersonesRDTO {
 	private String cognom1;
 	@ApiModelProperty(value = "Cognom 2 de la persona", required = false)
 	private String cognom2;
-	@ApiModelProperty(value = "Sexe de la persona", allowableValues = TipusSexeApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = false)
-	private String sexe;
 	@ApiModelProperty(value = "Document d'identitat de la persona", required = false)
 	private DocumentsIdentitatRDTO documentIndentitat;
 	@ApiModelProperty(value = "Dades de notificació de la persona", required = false)

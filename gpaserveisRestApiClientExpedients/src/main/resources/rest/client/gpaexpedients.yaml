@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.9.1"
+  version: "1.10.0"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -494,6 +494,47 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /avisos/{idExpedient}/accions/{idAccio}/crear:
+    post:
+      tags:
+      - "Avisos"
+      summary: "Crea un nou avís per a l'expedient en funció de l'acció executada"
+      operationId: "crearAvisAccio"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "avisCreacioAccioRDTO"
+        description: "Dades del avís"
+        required: false
+        schema:
+          $ref: "#/definitions/AvisCreacioAccio"
+      - name: "idAccio"
+        in: "path"
+        description: "Identificador de l'acció"
+        required: true
+        type: "number"
+      - name: "idExpedient"
+        in: "path"
+        description: "Identificador de l'expedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /avisos/{id}:
     get:
       tags:
@@ -859,60 +900,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /expedients/catalog/comarques:
-    get:
-      tags:
-      - "Comarques"
-      summary: "Returns all the comarques"
-      operationId: "getComarquesUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/ComarquesRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /expedients/catalog/comarques/{idProvincia}:
-    get:
-      tags:
-      - "Comarques"
-      summary: "Returns all the comarquesProvincia"
-      operationId: "getComarquesProvinciaUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idProvincia"
-        in: "path"
-        description: "idProvincia"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/RelacioPersonaRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
   /expedients/catalog/criticitatAvis:
     get:
       tags:
@@ -961,18 +948,18 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/catalog/municipis/{idProvincia}:
+  /expedients/catalog/municipis/{codiProvincia}:
     get:
       tags:
       - "Municipis"
-      summary: "Returns all the municipis"
+      summary: "Returns all the municipis by codiProvincia"
       operationId: "getMunicipisByProvinciaUsingGET"
       produces:
       - "*/*"
       parameters:
-      - name: "idProvincia"
+      - name: "codiProvincia"
         in: "path"
-        description: "idProvincia"
+        description: "codiProvincia"
         required: true
         type: "string"
       responses:
@@ -991,20 +978,14 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/catalog/municipisComarca/{idComarca}:
+  /expedients/catalog/municipisCatalans:
     get:
       tags:
       - "Municipis"
-      summary: "Returns all the municipis"
-      operationId: "getMunicipisByComarcaUsingGET"
+      summary: "Returns all the municipis catalans"
+      operationId: "getMunicipisCatalansUsingGET"
       produces:
       - "*/*"
-      parameters:
-      - name: "idComarca"
-        in: "path"
-        description: "idComarca"
-        required: true
-        type: "string"
       responses:
         200:
           description: "OK"
@@ -1012,6 +993,39 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/MunicipisRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /expedients/catalog/normalitzarAdrecaPostal/{nomVia}/{numero}:
+    get:
+      tags:
+      - "Adreca"
+      summary: "Returns the normalitzada adreca"
+      operationId: "normalitzarAdrecaPostalUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "nomVia"
+        in: "path"
+        description: "nomVia"
+        required: true
+        type: "string"
+      - name: "numero"
+        in: "path"
+        description: "numero"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/AdrecaNormalitzadaRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -1069,18 +1083,18 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/catalog/paisos/perCodiIso/{codiIso}:
+  /expedients/catalog/paisos/{codi}:
     get:
       tags:
       - "Paisos"
-      summary: "Returns the requested pais"
-      operationId: "consultarDadesPaisPerCodiIso"
+      summary: "Returns the request paiso"
+      operationId: "getPaisosByCodiUsingGET"
       produces:
       - "*/*"
       parameters:
-      - name: "codiIso"
+      - name: "codi"
         in: "path"
-        description: "codiIso"
+        description: "codi"
         required: true
         type: "string"
       responses:
@@ -1112,6 +1126,34 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/ProvinciesRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /expedients/catalog/provincies/{codi}:
+    get:
+      tags:
+      - "Provincies"
+      summary: "Returns the request provincie"
+      operationId: "getProvinciesByCodiUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codi"
+        in: "path"
+        description: "codi"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProvinciesRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -1272,35 +1314,11 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/catalog/tipusSexe:
-    get:
-      tags:
-      - "TipusSexe"
-      summary: "Returns all the TipusSexe"
-      operationId: "obtenirTipusSexeUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/TipusSexeRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
   /expedients/catalog/tipusVies:
     get:
       tags:
       - "TipusVies"
-      summary: "Returns all the TipusViess"
+      summary: "Returns all the TipusVies"
       operationId: "getTipusViesUsingGET"
       produces:
       - "*/*"
@@ -1516,6 +1534,47 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /expedients/comentaris/{idExpedient}/accions/{idAccio}/crear:
+    post:
+      tags:
+      - "Comentaris"
+      summary: "Crea un nou comentari per a l'expedient en funció de l'acció executada"
+      operationId: "crearComentariAccio"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "comentariCreacioAccioRDTO"
+        description: "Dades del comentari"
+        required: false
+        schema:
+          $ref: "#/definitions/ComentariCreacioAccio"
+      - name: "idAccio"
+        in: "path"
+        description: "Identificador de l'acció"
+        required: true
+        type: "number"
+      - name: "idExpedient"
+        in: "path"
+        description: "Identificador de l'expedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/comentaris/{id}:
     get:
       tags:
@@ -1609,6 +1668,37 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/convidarATramitar:
+    post:
+      tags:
+      - "ConvidarATramitart"
+      summary: "ConvidarATramitart"
+      operationId: "convidarATramitarUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "convidarTramitarRDTO"
+        description: "convidarTramitarRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/ConvidarTramitarRDTO"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/dadesEspecifiques:
     post:
       tags:
@@ -1735,39 +1825,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /expedients/desistir:
-    post:
-      tags:
-      - "Expedients "
-      summary: "Desist the provided expedient"
-      operationId: "abandonarDesistirExpedient"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "abandonarExpedientRDTO"
-        description: "abandonarExpedientRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/AbandonarExpedient"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaAbandonarExpedient"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /expedients/estats/{idExpedient}:
     get:
       tags:
@@ -1845,6 +1902,34 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/BloquejosRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /expedients/expedientDataOpenText/{id}:
+    get:
+      tags:
+      - "Expedients"
+      summary: "Return expedient data for OpenText"
+      operationId: "getExpedientDataOpenTextUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ExpedientOpenTextRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -2835,39 +2920,6 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/registrar:
-    post:
-      tags:
-      - "Expedients "
-      summary: "Register the provided expedient"
-      operationId: "registrarSolicitudExpedient"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "registrarSolicitudExpedientRDTO"
-        description: "registrarSolicitudExpedientRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/RegistrarSolicitudExpedient"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaRegistrarSolicitudExpedient"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /expedients/registre:
     get:
       tags:
@@ -2896,6 +2948,39 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/registre/crear:
+    post:
+      tags:
+      - "Expedients "
+      summary: "Register the provided expedient"
+      operationId: "crearRegistreSolicitudExpedient"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "registrarSolicitudExpedientRDTO"
+        description: "registrarSolicitudExpedientRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/RegistreCreacioSolicitudExpedient"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaCrearRegistreSolicitudExpedient"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/registre/list/{ids}:
     get:
       tags:
@@ -2926,28 +3011,26 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/renunciar:
+  /expedients/retornarLaTramitacio:
     post:
       tags:
-      - "Expedients "
-      summary: "Renounce the provided expedient"
-      operationId: "abandonarRenunciarExpedient"
+      - "RetornarLaTramitacio"
+      summary: "RetornarLaTramitacio"
+      operationId: "retornarLaTramitacioUsingPOST"
       consumes:
       - "application/json"
       produces:
       - "*/*"
       parameters:
       - in: "body"
-        name: "abandonarExpedientRDTO"
-        description: "abandonarExpedientRDTO"
+        name: "retornarLaTramitacioRDTO"
+        description: "retornarLaTramitacioRDTO"
         required: true
         schema:
-          $ref: "#/definitions/AbandonarExpedient"
+          $ref: "#/definitions/RetornarLaTramitacioRDTO"
       responses:
         200:
           description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaAbandonarExpedient"
         201:
           description: "Created"
         401:
@@ -3175,6 +3258,49 @@ paths:
       responses:
         200:
           description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /expedients/{idExpedient}/accions/{idAccio}/canviEstat:
+    post:
+      tags:
+      - "Expedients"
+      summary: "Canvia l'estat d'un expedient en funció de l'acció executada"
+      operationId: "canviarEstatAccioExpedient"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "expedientCanviEstatAccioRDTO"
+        description: "Dades del canvi d'estat"
+        required: false
+        schema:
+          $ref: "#/definitions/ExpedientCanviEstatAccio"
+      - name: "idAccio"
+        in: "path"
+        description: "Identificador de l'acció"
+        required: true
+        type: "number"
+      - name: "idExpedient"
+        in: "path"
+        description: "Identificador de l'expedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaCanviarEstatAccioExpedient"
         201:
           description: "Created"
         401:
@@ -3446,16 +3572,6 @@ paths:
       x-imi-roles:
         consulta: "Perfil usuari consulta"
 definitions:
-  AbandonarExpedient:
-    type: "object"
-    properties:
-      comentari:
-        type: "string"
-        description: "Comentari associat al desistiment o renuncia."
-      expedient:
-        description: "Dades de l'expedient"
-        $ref: "#/definitions/ExpedientsRDTO"
-    title: "AbandonarExpedient"
   AccionsEstatsBDTO:
     type: "object"
     properties:
@@ -3510,6 +3626,19 @@ definitions:
       idExpedientAcumulador:
         type: "number"
     title: "AcumularExpedientRDTO"
+  AdrecaNormalitzadaRDTO:
+    type: "object"
+    properties:
+      adreca:
+        type: "string"
+    title: "AdrecaNormalitzadaRDTO"
+  AvisCreacioAccio:
+    type: "object"
+    properties:
+      operacio:
+        type: "string"
+        description: "Operació concreta en l'execució de l'acció"
+    title: "AvisCreacioAccio"
   AvisosRDTO:
     type: "object"
     properties:
@@ -3541,6 +3670,8 @@ definitions:
         type: "boolean"
       id:
         type: "number"
+      matricula:
+        type: "string"
       momentBloqueig:
         type: "string"
         format: "date-time"
@@ -3558,6 +3689,8 @@ definitions:
         type: "boolean"
       id:
         type: "number"
+      matricula:
+        type: "string"
       momentBloqueig:
         type: "string"
         format: "date-time"
@@ -3573,6 +3706,8 @@ definitions:
         $ref: "#/definitions/CanviUnitatGestoraBDTO"
       comentari:
         $ref: "#/definitions/Comentaris"
+      convidarTramitar:
+        $ref: "#/definitions/ConvidarTramitarBDTO"
       estatActual:
         $ref: "#/definitions/DropdownItemBDTO"
       estatAnterior:
@@ -3620,14 +3755,16 @@ definitions:
       unitatGestoraFutura:
         $ref: "#/definitions/DropdownItemBDTO"
     title: "CanviUnitatGestoraRDTO"
-  ComarquesRDTO:
+  ComentariCreacioAccio:
     type: "object"
     properties:
-      codiIne:
+      comentari:
         type: "string"
-      nom:
+        description: "Comentari associat a l'execució de l'acció."
+      operacio:
         type: "string"
-    title: "ComarquesRDTO"
+        description: "Operació concreta en l'execució de l'acció"
+    title: "ComentariCreacioAccio"
   Comentaris:
     type: "object"
     properties:
@@ -3694,6 +3831,30 @@ definitions:
       usuariNom:
         type: "string"
     title: "ComentarisRDTO"
+  ConvidarTramitarBDTO:
+    type: "object"
+    properties:
+      comentari:
+        $ref: "#/definitions/Comentaris"
+      idExpedientList:
+        type: "array"
+        items:
+          type: "number"
+      unitatGestoraConvidada:
+        $ref: "#/definitions/DropdownItemBDTO"
+    title: "ConvidarTramitarBDTO"
+  ConvidarTramitarRDTO:
+    type: "object"
+    properties:
+      comentari:
+        $ref: "#/definitions/Comentaris"
+      idExpedientList:
+        type: "array"
+        items:
+          type: "number"
+      unitatGestoraConvidada:
+        $ref: "#/definitions/DropdownItemBDTO"
+    title: "ConvidarTramitarRDTO"
   CrearAvisDocEntradaPendentRevisio:
     type: "object"
     properties:
@@ -3757,9 +3918,6 @@ definitions:
       nou:
         type: "integer"
         format: "int32"
-      requerit:
-        type: "integer"
-        format: "int32"
       tipus:
         type: "number"
     title: "DadesEspecifiquesRDTO"
@@ -3779,8 +3937,6 @@ definitions:
         type: "string"
         format: "date-time"
       valorClob:
-        type: "string"
-      valorComarca:
         type: "string"
       valorDouble:
         type: "number"
@@ -3873,6 +4029,8 @@ definitions:
         type: "number"
       id:
         type: "number"
+      ugConvidadaIdext:
+        type: "number"
       unitatGestoraIdext:
         type: "number"
       usuari:
@@ -3905,6 +4063,60 @@ definitions:
       idEstatAnterior:
         type: "number"
     title: "EstatsRDTO"
+  ExpedientCanviEstat:
+    type: "object"
+    properties:
+      codi:
+        type: "string"
+        description: "Codi identificador de l'expedient"
+      estat:
+        type: "string"
+        description: "Estat actual del expedient"
+      estatCastella:
+        type: "string"
+        description: "Estat actual del expedient en castellà"
+      id:
+        type: "number"
+        description: "Identificador de l'expedient"
+    title: "ExpedientCanviEstat"
+  ExpedientCanviEstatAccio:
+    type: "object"
+    properties:
+      descEstat:
+        type: "string"
+        description: "Descripció de l'estat actual"
+      diesTerminiAllegacio:
+        type: "number"
+        description: "Dies de termini per respondre a les al·legacions"
+      diesTerminiRequeriment:
+        type: "number"
+        description: "Dies de termini per respondre al requeriment"
+      idEstat:
+        type: "number"
+        description: "Identificador de l'estat actual"
+      idProcediment:
+        type: "number"
+        description: "Identificador del procediment"
+      operacio:
+        type: "string"
+        description: "Operació concreta en l'execució de l'acció"
+    title: "ExpedientCanviEstatAccio"
+  ExpedientOpenTextRDTO:
+    type: "object"
+    properties:
+      codiExpedient:
+        type: "string"
+      codiUnitatOrganigrama:
+        type: "string"
+      documentacioIdext:
+        type: "number"
+      nomProc:
+        type: "string"
+      numRegistre:
+        type: "string"
+      serieDoc:
+        type: "string"
+    title: "ExpedientOpenTextRDTO"
   ExpedientsRDTO:
     type: "object"
     properties:
@@ -3954,6 +4166,8 @@ definitions:
         type: "string"
       descEstatCiutadaCatala:
         type: "string"
+      descUGConvidada:
+        type: "string"
       descUnitatGestora:
         type: "string"
       diesTerminiAllegacio:
@@ -3974,6 +4188,10 @@ definitions:
         type: "number"
       isOge:
         type: "boolean"
+      nomDescUGConvidada:
+        type: "string"
+      nomDescUnitatGestora:
+        type: "string"
       nomProcediment:
         type: "string"
       nomProcedimentCastella:
@@ -4004,6 +4222,8 @@ definitions:
         type: "number"
       tramitador:
         type: "string"
+      ugConvidadaIdext:
+        type: "number"
       ultimaModificacio:
         type: "number"
       unitatGestoraIdext:
@@ -4139,9 +4359,11 @@ definitions:
         type: "string"
       codiMunicipi:
         type: "string"
-      comarca:
-        type: "string"
       nom:
+        type: "string"
+      nomCastella:
+        type: "string"
+      nomCatala:
         type: "string"
       provincia:
         type: "string"
@@ -4271,6 +4493,10 @@ definitions:
         type: "string"
       nom:
         type: "string"
+      nomCastella:
+        type: "string"
+      nomCatala:
+        type: "string"
     title: "Paisos"
   PaisosRDTO:
     type: "object"
@@ -4280,6 +4506,10 @@ definitions:
       codiIso:
         type: "string"
       nom:
+        type: "string"
+      nomCastella:
+        type: "string"
+      nomCatala:
         type: "string"
     title: "PaisosRDTO"
   Persones:
@@ -4312,10 +4542,6 @@ definitions:
       bloc:
         type: "string"
       codiPostal:
-        type: "string"
-      comarca:
-        type: "string"
-      comarcaValor:
         type: "string"
       direccioPostal:
         type: "string"
@@ -4351,8 +4577,6 @@ definitions:
         type: "string"
       provinciaValor:
         type: "string"
-      sexe:
-        type: "number"
       telefon:
         type: "string"
       tipusVia:
@@ -4431,16 +4655,13 @@ definitions:
         type: "string"
       nom:
         type: "string"
+      nomCastella:
+        type: "string"
+      nomCatala:
+        type: "string"
       pais:
         type: "string"
     title: "ProvinciesRDTO"
-  RegistrarSolicitudExpedient:
-    type: "object"
-    properties:
-      expedient:
-        description: "Dades de l'expedient"
-        $ref: "#/definitions/ExpedientsRDTO"
-    title: "RegistrarSolicitudExpedient"
   RegistreAssentament:
     type: "object"
     properties:
@@ -4479,6 +4700,13 @@ definitions:
       usuari:
         type: "number"
     title: "RegistreAssentamentRDTO"
+  RegistreCreacioSolicitudExpedient:
+    type: "object"
+    properties:
+      expedient:
+        description: "Dades de l'expedient"
+        $ref: "#/definitions/ExpedientsRDTO"
+    title: "RegistreCreacioSolicitudExpedient"
   RelacioPersonaRDTO:
     type: "object"
     properties:
@@ -4490,27 +4718,34 @@ definitions:
       id:
         type: "number"
     title: "RelacioPersonaRDTO"
-  RespostaAbandonarExpedient:
+  RespostaCanviarEstatAccioExpedient:
     type: "object"
     properties:
       expedient:
         description: "Dades bàsiques de l'expedient"
-        $ref: "#/definitions/ExpedientsRDTO"
-    title: "RespostaAbandonarExpedient"
-  RespostaRegistrarSolicitudExpedient:
+        $ref: "#/definitions/ExpedientCanviEstat"
+    title: "RespostaCanviarEstatAccioExpedient"
+  RespostaCrearRegistreSolicitudExpedient:
     type: "object"
     properties:
       comprovant:
         type: "string"
         format: "byte"
         description: "Comprovant del registre"
-      expedient:
-        description: "Dades bàsiques de l'expedient"
-        $ref: "#/definitions/ExpedientsRDTO"
       registreAssentament:
         description: "Dades del registre de l'expedient"
         $ref: "#/definitions/RegistreAssentamentRDTO"
-    title: "RespostaRegistrarSolicitudExpedient"
+    title: "RespostaCrearRegistreSolicitudExpedient"
+  RetornarLaTramitacioRDTO:
+    type: "object"
+    properties:
+      idExpedientList:
+        type: "array"
+        items:
+          type: "number"
+      unitatGestoraConvidada:
+        $ref: "#/definitions/DropdownItemBDTO"
+    title: "RetornarLaTramitacioRDTO"
   Sollicituds:
     type: "object"
     properties:
@@ -4591,14 +4826,6 @@ definitions:
       id:
         type: "number"
     title: "TipusRegistreAssentamentRDTO"
-  TipusSexeRDTO:
-    type: "object"
-    properties:
-      descripcio:
-        type: "string"
-      id:
-        type: "number"
-    title: "TipusSexeRDTO"
   TipusViesRDTO:
     type: "object"
     properties:

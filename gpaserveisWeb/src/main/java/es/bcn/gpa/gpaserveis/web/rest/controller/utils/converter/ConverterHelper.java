@@ -1,8 +1,11 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.math.NumberUtils;
@@ -37,6 +40,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusPersonaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusSexeApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusViaApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.DocumentAportatAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ConfiguracioDocumentacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValidacionsRDTO;
@@ -48,7 +52,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.RegistreRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.DocumentAportatAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.ConfiguracioDocumentacioRequeridaConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.DocumentAportatConsultaRDTO;
@@ -57,6 +60,15 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.Docu
  * The Class ConverterHelper.
  */
 public class ConverterHelper {
+
+	/** The Constant CODI_EXPEDIENT_FORMATTED_PATTERN. */
+	private static final String CODI_EXPEDIENT_FORMATTED_PATTERN = "(\\d{4}_)(EXP_)?(\\d+)";
+
+	/** The Constant CODI_EXPEDIENT_EN_PREPARACIO_FORMAT. */
+	private static final String CODI_EXPEDIENT_EN_PREPARACIO_FORMAT = "%s%s";
+
+	/** The Constant CODI_EXPEDIENT_ALTRES_ESTATS_FORMAT. */
+	private static final String CODI_EXPEDIENT_ALTRES_ESTATS_FORMAT = "%sEXP_%s";
 
 	/**
 	 * Builds the unitat gestora RDTO unitats.
@@ -117,8 +129,6 @@ public class ConverterHelper {
 		personesRDTO.setCognom1(persones.getCognom1());
 		personesRDTO.setCognom2(persones.getCognom2());
 		if (persones.getPersonesDadescontacte() != null) {
-			personesRDTO.setSexe(
-			        tipusSexeApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getSexe()));
 			DadesContacteRDTO dadesContacte = new DadesContacteRDTO();
 			dadesContacte.setEmail(persones.getPersonesDadescontacte().getEmail());
 			dadesContacte.setTelefon(persones.getPersonesDadescontacte().getTelefon());
@@ -148,7 +158,9 @@ public class ConverterHelper {
 				        .getApiParamValueByInternalValue(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getId()));
 			}
 			documentsIdentitatRDTO.setNumeroDocument(persones.getDocumentsIdentitat().getNumeroDocument().toUpperCase());
-			documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPaisos().getCodiIne());
+			if (persones.getDocumentsIdentitat().getPaisos() != null) {
+				documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPaisos().getCodiIne());
+			}
 		}
 		personesRDTO.setDocumentIndentitat(documentsIdentitatRDTO);
 		return personesRDTO;
@@ -186,7 +198,6 @@ public class ConverterHelper {
 			documentsIdentitat.setPais(personesRDTO.getDocumentIndentitat().getPais());
 			persones.setDocumentsIdentitat(documentsIdentitat);
 			PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
-			personesDadescontacte.setSexe(tipusSexeApiParamValueTranslator.getInternalValueByApiParamValue(personesRDTO.getSexe()));
 			if (personesRDTO.getDadesNotificacio() != null) {
 				personesDadescontacte.setEmail(personesRDTO.getDadesNotificacio().getEmail());
 				personesDadescontacte.setTelefon(personesRDTO.getDadesNotificacio().getTelefon());
@@ -242,9 +253,6 @@ public class ConverterHelper {
 		personesRDTO.setCognom1(persones.getCognom1());
 		personesRDTO.setCognom2(persones.getCognom2());
 		if (persones.getPersonesDadescontacte() != null) {
-			personesRDTO.setSexe(
-			        tipusSexeApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getSexe()));
-
 			DadesContacteRDTO dadesContacte = new DadesContacteRDTO();
 			dadesContacte.setEmail(persones.getPersonesDadescontacte().getEmail());
 			dadesContacte.setTelefon(persones.getPersonesDadescontacte().getTelefon());
@@ -613,6 +621,36 @@ public class ConverterHelper {
 		}
 
 		return documentAportatAccioRDTO;
+	}
+
+	/**
+	 * Builds the codi expedient.
+	 *
+	 * @param codi
+	 *            the codi
+	 * @param idEstat
+	 *            the id estat
+	 * @return the string
+	 */
+	public static String buildCodiExpedient(String codi, BigDecimal idEstat) {
+		// Formato en función del estado
+		// Si el estado es En Preparació, <AAAA>_<ID_Específic sin ceros a la
+		// izquierda>
+		// En cualquier otro caso, <AAAA>_EXP_<ID_Específic sin ceros a la
+		// izquierda>
+		Pattern codiExpedientFormattedPattern = Pattern.compile(CODI_EXPEDIENT_FORMATTED_PATTERN);
+		Matcher codiExpedientFormattedMatcher = codiExpedientFormattedPattern.matcher(codi);
+		if (codiExpedientFormattedMatcher.matches()) {
+			if (idEstat.compareTo(EstatTramitadorApiParamValue.EN_PREPARACIO.getInternalValue()) == NumberUtils.INTEGER_ZERO) {
+				return String.format(CODI_EXPEDIENT_EN_PREPARACIO_FORMAT, codiExpedientFormattedMatcher.group(1),
+				        codiExpedientFormattedMatcher.group(3));
+			} else {
+				return String.format(CODI_EXPEDIENT_ALTRES_ESTATS_FORMAT, codiExpedientFormattedMatcher.group(1),
+				        codiExpedientFormattedMatcher.group(3));
+			}
+		} else {
+			return codi;
+		}
 	}
 
 }

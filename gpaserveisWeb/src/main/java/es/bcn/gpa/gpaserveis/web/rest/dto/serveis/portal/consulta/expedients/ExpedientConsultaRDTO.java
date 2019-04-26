@@ -74,4 +74,6 @@ public class ExpedientConsultaRDTO {
 	private List<ConfiguracioDocumentacioRequeridaConsultaRDTO> configuracioDocumentacioRequerida;
 	@ApiModelProperty(value = "Dades d'operació de l'expedient")
 	private List<DadesAtributsExpedientsRDTO> dadesOperacio;
+	@ApiModelProperty(value = "Atributs requerits per l'expedient")
+	private List<DadesAtributsRequeritsRDTO> atributsRequerits;
 }

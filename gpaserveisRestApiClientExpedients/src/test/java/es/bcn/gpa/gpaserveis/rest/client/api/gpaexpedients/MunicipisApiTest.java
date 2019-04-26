@@ -29,7 +29,6 @@ import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MunicipisRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
@@ -41,27 +40,6 @@ public class MunicipisApiTest extends ParentTest {
 
 	@InjectMocks
 	private MunicipisApi api = new MunicipisApi();
-
-	/**
-	 * Returns all the municipis
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getMunicipisByComarcaUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn("C1");
-		when(apiClient.invokeAPI(eq("/expedients/catalog/municipisComarca/C1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<MunicipisRDTO>());
-
-		String idComarca = "C1";
-		List<MunicipisRDTO> response = api.getMunicipisByComarcaUsingGET(idComarca);
-
-		assertTrue(response != null);
-	}
 
 	/**
 	 * Returns all the municipis
@@ -96,9 +74,28 @@ public class MunicipisApiTest extends ParentTest {
 	public void getMunicipisUsingGETTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/expedients/catalog/municipis"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<PaisosRDTO>());
+		                .thenReturn(new ArrayList<MunicipisRDTO>());
 
 		List<MunicipisRDTO> response = api.getMunicipisUsingGET();
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns all the municipis catalans
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void getMunicipisCatalansUsingGETTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/expedients/catalog/municipisCatalans"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<MunicipisRDTO>());
+
+		List<MunicipisRDTO> response = api.getMunicipisCatalansUsingGET();
 
 		assertTrue(response != null);
 	}

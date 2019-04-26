@@ -1,7 +1,8 @@
 package es.bcn.gpa.gpaserveis.business.dto.expedients;
 
 import es.bcn.gpa.gpaserveis.business.dto.RespostaResultatBDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaRegistrarSolicitudExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreSolicitudExpedient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,8 +12,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RespostaExpedientsRegistrarBDTO {
 
-	/** The resposta registrar solicitud expedient. */
-	private RespostaRegistrarSolicitudExpedient respostaRegistrarSolicitudExpedient;
+	/** The resposta crear registre solicitud expedient. */
+	private RespostaCrearRegistreSolicitudExpedient respostaCrearRegistreSolicitudExpedient;
+
+	/** The expedients RDTO. */
+	private ExpedientsRDTO expedientsRDTO;
 
 	/** The resposta resultat BDTO. */
 	private RespostaResultatBDTO respostaResultatBDTO;

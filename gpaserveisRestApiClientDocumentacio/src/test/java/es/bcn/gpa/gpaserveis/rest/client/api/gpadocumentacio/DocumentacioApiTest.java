@@ -36,10 +36,10 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AcumularDocum
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AportarDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaIdsAndEstatRevisioId;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioIdsAndEstatFinalId;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentCanviEstat;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatRevisioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsTramitacioRDTO;
@@ -95,8 +95,8 @@ public class DocumentacioApiTest extends ParentTest {
 		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/canviEstat"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
 
-		DocsTramitacioIdsAndEstatFinalId docsEntradaIdsAndEstatRevisioId = new DocsTramitacioIdsAndEstatFinalId();
-		api.canviEstatDocumentacioTramitacioUsingPOST(docsEntradaIdsAndEstatRevisioId);
+		DocumentCanviEstat documentCanviEstatRDTO = new DocumentCanviEstat();
+		api.canviEstatDocumentacioTramitacioUsingPOST(documentCanviEstatRDTO);
 
 		assertTrue(true);
 	}
@@ -377,8 +377,8 @@ public class DocumentacioApiTest extends ParentTest {
 		when(apiClient.invokeAPI(eq("/documentacio/entrada/revisar"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
 
-		DocsEntradaIdsAndEstatRevisioId docsEntradaIdsAndEstatRevisioId = new DocsEntradaIdsAndEstatRevisioId();
-		api.revisarDocumentacioEntradaUsingPOST(docsEntradaIdsAndEstatRevisioId);
+		DocumentRevisio documentRevisioRDTO = new DocumentRevisio();
+		api.revisarDocumentacioEntrada(documentRevisioRDTO);
 
 		assertTrue(true);
 	}
@@ -548,14 +548,14 @@ public class DocumentacioApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void obteneriDadesOperRequeritUsingGETTest() throws ApiException {
+	public void cercaDadesOperacioRequeritsTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/dadesOperRequerit/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new ArrayList<BigDecimal>());
 
 		BigDecimal idDoc = ONE;
-		List<BigDecimal> response = api.obteneriDadesOperRequeritUsingGET(idDoc);
+		List<BigDecimal> response = api.cercaDadesOperacioRequerits(idDoc);
 
 		assertTrue(response != null);
 	}

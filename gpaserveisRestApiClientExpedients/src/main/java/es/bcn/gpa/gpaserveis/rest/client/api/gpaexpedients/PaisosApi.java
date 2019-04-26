@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:53:33.268+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T19:08:33.527+02:00")
 public class PaisosApi {
   private ApiClient apiClient;
 
@@ -35,23 +35,23 @@ public class PaisosApi {
   }
 
   /**
-   * Returns the requested pais
+   * Returns the request paiso
    * 
-   * @param codiIso codiIso (required)
+   * @param codi codi (required)
    * @return PaisosRDTO
    * @throws ApiException if fails to make API call
    */
-  public PaisosRDTO consultarDadesPaisPerCodiIso(String codiIso) throws ApiException {
+  public PaisosRDTO getPaisosByCodiUsingGET(String codi) throws ApiException {
     Object localVarPostBody = null;
     
-    // verify the required parameter 'codiIso' is set
-    if (codiIso == null) {
-      throw new ApiException(400, "Missing the required parameter 'codiIso' when calling consultarDadesPaisPerCodiIso");
+    // verify the required parameter 'codi' is set
+    if (codi == null) {
+      throw new ApiException(400, "Missing the required parameter 'codi' when calling getPaisosByCodiUsingGET");
     }
     
     // create path and map variables
-    String localVarPath = "/expedients/catalog/paisos/perCodiIso/{codiIso}"
-      .replaceAll("\\{" + "codiIso" + "\\}", apiClient.escapeString(codiIso.toString()));
+    String localVarPath = "/expedients/catalog/paisos/{codi}"
+      .replaceAll("\\{" + "codi" + "\\}", apiClient.escapeString(codi.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToDataHoraConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToCodiConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToEstatTramitadorConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToPersonaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToProcedimentCercaConverter;
@@ -38,6 +39,9 @@ public class DadesExpedientBDTOToExpedientsCercaRDTOMapper extends PropertyMap<D
 	/** The internal to procediment converter. */
 	private InternalToProcedimentCercaConverter internalToProcedimentCercaConverter;
 
+	/** The internal to codi converter. */
+	private InternalToCodiConverter internalToCodiConverter;
+
 	@Autowired
 	public DadesExpedientBDTOToExpedientsCercaRDTOMapper(
 	        @Qualifier("internalToDataHoraConverter") InternalToDataHoraConverter internalToDataHoraConverter,
@@ -45,13 +49,15 @@ public class DadesExpedientBDTOToExpedientsCercaRDTOMapper extends PropertyMap<D
 	        @Qualifier("expedientInternalToEstatTramitadorConverter") InternalToEstatTramitadorConverter internalToEstatTramitadorConverter,
 	        @Qualifier("expedientInternalToTramitadorConverter") InternalToTramitadorConverter internalToTramitadorConverter,
 	        @Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
-	        @Qualifier("expedientInternalToProcedimentCercaConverter") InternalToProcedimentCercaConverter internalToProcedimentCercaConverter) {
+	        @Qualifier("expedientInternalToProcedimentCercaConverter") InternalToProcedimentCercaConverter internalToProcedimentCercaConverter,
+	        @Qualifier("expedientInternalToCodiConverter") InternalToCodiConverter internalToCodiConverter) {
 		this.internalToDataHoraConverter = internalToDataHoraConverter;
 		this.internalToPersonaConverter = internalToPersonaConverter;
 		this.internalToEstatTramitadorConverter = internalToEstatTramitadorConverter;
 		this.internalToTramitadorConverter = internalToTramitadorConverter;
 		this.internalToUnitatGestoraConverter = internalToUnitatGestoraConverter;
 		this.internalToProcedimentCercaConverter = internalToProcedimentCercaConverter;
+		this.internalToCodiConverter = internalToCodiConverter;
 	}
 
 	/**
@@ -65,12 +71,10 @@ public class DadesExpedientBDTOToExpedientsCercaRDTOMapper extends PropertyMap<D
 	@Override
 	protected void configure() {
 		map().setId(source.getExpedientsRDTO().getId());
-		map().setCodi(source.getExpedientsRDTO().getCodi());
+		using(internalToCodiConverter).map(source.getExpedientsRDTO()).setCodi(null);
 		using(internalToDataHoraConverter).map(source.getExpedientsRDTO().getDataPresentacio()).setDataPresentacio(null);
 		using(internalToDataHoraConverter).map(source.getExpedientsRDTO().getDarreraModificacio()).setDataModificacio(null);
 		using(internalToPersonaConverter).map(source.getExpedientsRDTO().getSollicitantPrincipal().getPersones()).setSollicitant(null);
-		// using(internalToEstatTramitadorConverter).map(source.getExpedientsRDTO().getIdEstat()).setEstat(null);
-		// map().setEstat(source.getExpedientsRDTO().getDescEstatCiutada());
 		map().setEstat(source.getExpedientsRDTO().getDescEstatCiutadaCatala());
 		map().setEstatCastella(source.getExpedientsRDTO().getDescEstatCiutadaCastella());
 		using(internalToTramitadorConverter).map(source.getExpedientsRDTO().getTramitador()).setTramitador(null);

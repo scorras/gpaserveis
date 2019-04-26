@@ -93,11 +93,11 @@ public enum AccioTramitadorApiParamValue implements BaseApiParamValue {
 
 	ESBORRAR_DOCUMENT("Esborrar document", new BigDecimal(42)),
 
-	EXPORTACIO_EVIDENCIES("Exportació evidències", new BigDecimal(43)),
+	TORNAR_ENRERE("Tornar enrere", new BigDecimal(43)),
 
 	ASSIGNAR_EXPEDIENT("Assignar expedient", new BigDecimal(44)),
 
-	TORNAR_ENRERE("Tornar enrere", new BigDecimal(45));
+	EXPORTACIO_EVIDENCIES("Exportació evidències", new BigDecimal(45));
 
 	/** The api param value. */
 	private String apiParamValue;

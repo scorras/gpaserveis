@@ -12,10 +12,10 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AportarDocume
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaIdsAndEstatRevisioId;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioIdsAndEstatFinalId;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentCanviEstat;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatRevisioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsTramitacioRDTO;
@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-03-28T12:34:53.129+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T11:59:46.009+02:00")
 public class DocumentacioApi {
   private ApiClient apiClient;
 
@@ -144,15 +144,15 @@ public class DocumentacioApi {
   /**
    * Updates all selected DocsTramitacio with the EstatsDocument specified
    * 
-   * @param docsEntradaIdsAndEstatRevisioId docsEntradaIdsAndEstatRevisioId (required)
+   * @param documentCanviEstatRDTO documentCanviEstatRDTO (required)
    * @throws ApiException if fails to make API call
    */
-  public void canviEstatDocumentacioTramitacioUsingPOST(DocsTramitacioIdsAndEstatFinalId docsEntradaIdsAndEstatRevisioId) throws ApiException {
-    Object localVarPostBody = docsEntradaIdsAndEstatRevisioId;
+  public void canviEstatDocumentacioTramitacioUsingPOST(DocumentCanviEstat documentCanviEstatRDTO) throws ApiException {
+    Object localVarPostBody = documentCanviEstatRDTO;
     
-    // verify the required parameter 'docsEntradaIdsAndEstatRevisioId' is set
-    if (docsEntradaIdsAndEstatRevisioId == null) {
-      throw new ApiException(400, "Missing the required parameter 'docsEntradaIdsAndEstatRevisioId' when calling canviEstatDocumentacioTramitacioUsingPOST");
+    // verify the required parameter 'documentCanviEstatRDTO' is set
+    if (documentCanviEstatRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'documentCanviEstatRDTO' when calling canviEstatDocumentacioTramitacioUsingPOST");
     }
     
     // create path and map variables
@@ -181,6 +181,48 @@ public class DocumentacioApi {
 
     apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
   }
+  /**
+   * Returns the requested dades operacio requerit
+   * 
+   * @param idDoc idDoc (required)
+   * @return List&lt;BigDecimal&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<BigDecimal> cercaDadesOperacioRequerits(BigDecimal idDoc) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'idDoc' is set
+    if (idDoc == null) {
+      throw new ApiException(400, "Missing the required parameter 'idDoc' when calling cercaDadesOperacioRequerits");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/documentacio/dadesOperRequerit/{idDoc}"
+      .replaceAll("\\{" + "idDoc" + "\\}", apiClient.escapeString(idDoc.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<BigDecimal>> localVarReturnType = new GenericType<List<BigDecimal>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
   /**
    * Returns the requested documentacio entrada grouped by tràmit OVT
    * 
@@ -682,48 +724,6 @@ public class DocumentacioApi {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
-   * Returns the requested dades operacio requerit
-   * 
-   * @param idDoc idDoc (required)
-   * @return List&lt;BigDecimal&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<BigDecimal> obteneriDadesOperRequeritUsingGET(BigDecimal idDoc) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'idDoc' is set
-    if (idDoc == null) {
-      throw new ApiException(400, "Missing the required parameter 'idDoc' when calling obteneriDadesOperRequeritUsingGET");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/documentacio/dadesOperRequerit/{idDoc}"
-      .replaceAll("\\{" + "idDoc" + "\\}", apiClient.escapeString(idDoc.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<List<BigDecimal>> localVarReturnType = new GenericType<List<BigDecimal>>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
    * Returns the requested documentacio entrada
    * 
    * @return List&lt;BigDecimal&gt;
@@ -803,15 +803,15 @@ public class DocumentacioApi {
   /**
    * Updates all selected DocsEntrada with the EstatRevisio specified
    * 
-   * @param docsEntradaIdsAndEstatRevisioId docsEntradaIdsAndEstatRevisioId (required)
+   * @param documentRevisioRDTO documentRevisioRDTO (required)
    * @throws ApiException if fails to make API call
    */
-  public void revisarDocumentacioEntradaUsingPOST(DocsEntradaIdsAndEstatRevisioId docsEntradaIdsAndEstatRevisioId) throws ApiException {
-    Object localVarPostBody = docsEntradaIdsAndEstatRevisioId;
+  public void revisarDocumentacioEntrada(DocumentRevisio documentRevisioRDTO) throws ApiException {
+    Object localVarPostBody = documentRevisioRDTO;
     
-    // verify the required parameter 'docsEntradaIdsAndEstatRevisioId' is set
-    if (docsEntradaIdsAndEstatRevisioId == null) {
-      throw new ApiException(400, "Missing the required parameter 'docsEntradaIdsAndEstatRevisioId' when calling revisarDocumentacioEntradaUsingPOST");
+    // verify the required parameter 'documentRevisioRDTO' is set
+    if (documentRevisioRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'documentRevisioRDTO' when calling revisarDocumentacioEntrada");
     }
     
     // create path and map variables

@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:53:33.268+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T19:08:33.527+02:00")
 public class ProvinciesApi {
   private ApiClient apiClient;
 
@@ -34,6 +34,48 @@ public class ProvinciesApi {
     this.apiClient = apiClient;
   }
 
+  /**
+   * Returns the request provincie
+   * 
+   * @param codi codi (required)
+   * @return ProvinciesRDTO
+   * @throws ApiException if fails to make API call
+   */
+  public ProvinciesRDTO getProvinciesByCodiUsingGET(String codi) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'codi' is set
+    if (codi == null) {
+      throw new ApiException(400, "Missing the required parameter 'codi' when calling getProvinciesByCodiUsingGET");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/expedients/catalog/provincies/{codi}"
+      .replaceAll("\\{" + "codi" + "\\}", apiClient.escapeString(codi.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<ProvinciesRDTO> localVarReturnType = new GenericType<ProvinciesRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
   /**
    * Returns all the provincies
    * 

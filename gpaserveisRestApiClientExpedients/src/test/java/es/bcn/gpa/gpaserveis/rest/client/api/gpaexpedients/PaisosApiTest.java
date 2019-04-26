@@ -62,7 +62,7 @@ public class PaisosApiTest extends ParentTest {
 	}
 
 	/**
-	 * Returns the requested pais
+	 * Returns the request paiso
 	 *
 	 * 
 	 *
@@ -70,14 +70,14 @@ public class PaisosApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void consultarDadesPaisPerCodiIsoTest() throws ApiException {
+	public void getPaisosByCodiUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/catalog/paisos/perCodiIso/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		when(apiClient.invokeAPI(eq("/expedients/catalog/paisos/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new PaisosRDTO());
 
-		String codiIso = ONE.toString();
-		PaisosRDTO response = api.consultarDadesPaisPerCodiIso(codiIso);
+		String codi = ONE.toString();
+		PaisosRDTO response = api.getPaisosByCodiUsingGET(codi);
 
 		assertTrue(response != null);
 	}

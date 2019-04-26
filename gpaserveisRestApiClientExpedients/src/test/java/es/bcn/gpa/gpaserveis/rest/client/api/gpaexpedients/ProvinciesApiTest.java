@@ -12,6 +12,7 @@
 
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
+import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -56,6 +57,27 @@ public class ProvinciesApiTest extends ParentTest {
 		                .thenReturn(new ArrayList<ProvinciesRDTO>());
 
 		List<ProvinciesRDTO> response = api.getProvinciesUsingGET();
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the request provincie
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void getProvinciesByCodiUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/expedients/catalog/provincies/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ProvinciesRDTO());
+
+		String codi = ONE.toString();
+		ProvinciesRDTO response = api.getProvinciesByCodiUsingGET(codi);
 
 		assertTrue(response != null);
 	}

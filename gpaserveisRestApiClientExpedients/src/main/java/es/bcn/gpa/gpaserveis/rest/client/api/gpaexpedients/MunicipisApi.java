@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:53:33.268+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T19:08:33.527+02:00")
 public class MunicipisApi {
   private ApiClient apiClient;
 
@@ -35,23 +35,23 @@ public class MunicipisApi {
   }
 
   /**
-   * Returns all the municipis
+   * Returns all the municipis by codiProvincia
    * 
-   * @param idComarca idComarca (required)
+   * @param codiProvincia codiProvincia (required)
    * @return List&lt;MunicipisRDTO&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<MunicipisRDTO> getMunicipisByComarcaUsingGET(String idComarca) throws ApiException {
+  public List<MunicipisRDTO> getMunicipisByProvinciaUsingGET(String codiProvincia) throws ApiException {
     Object localVarPostBody = null;
     
-    // verify the required parameter 'idComarca' is set
-    if (idComarca == null) {
-      throw new ApiException(400, "Missing the required parameter 'idComarca' when calling getMunicipisByComarcaUsingGET");
+    // verify the required parameter 'codiProvincia' is set
+    if (codiProvincia == null) {
+      throw new ApiException(400, "Missing the required parameter 'codiProvincia' when calling getMunicipisByProvinciaUsingGET");
     }
     
     // create path and map variables
-    String localVarPath = "/expedients/catalog/municipisComarca/{idComarca}"
-      .replaceAll("\\{" + "idComarca" + "\\}", apiClient.escapeString(idComarca.toString()));
+    String localVarPath = "/expedients/catalog/municipis/{codiProvincia}"
+      .replaceAll("\\{" + "codiProvincia" + "\\}", apiClient.escapeString(codiProvincia.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -77,23 +77,16 @@ public class MunicipisApi {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
-   * Returns all the municipis
+   * Returns all the municipis catalans
    * 
-   * @param idProvincia idProvincia (required)
    * @return List&lt;MunicipisRDTO&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<MunicipisRDTO> getMunicipisByProvinciaUsingGET(String idProvincia) throws ApiException {
+  public List<MunicipisRDTO> getMunicipisCatalansUsingGET() throws ApiException {
     Object localVarPostBody = null;
     
-    // verify the required parameter 'idProvincia' is set
-    if (idProvincia == null) {
-      throw new ApiException(400, "Missing the required parameter 'idProvincia' when calling getMunicipisByProvinciaUsingGET");
-    }
-    
     // create path and map variables
-    String localVarPath = "/expedients/catalog/municipis/{idProvincia}"
-      .replaceAll("\\{" + "idProvincia" + "\\}", apiClient.escapeString(idProvincia.toString()));
+    String localVarPath = "/expedients/catalog/municipisCatalans";
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
