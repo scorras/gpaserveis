@@ -5,6 +5,7 @@ import java.util.List;
 
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientDadesXmlBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
@@ -133,7 +134,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaCrearRegistreSolicitudExpedient crearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Canviar estat accio expedient.
@@ -145,7 +146,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Crear comentari accio.
@@ -166,4 +167,15 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	void crearAvisAccio(AvisosCrearAccioBDTO avisosCrearAccioBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Crear data xml expedient.
+	 *
+	 * @param idExpedient
+	 *            the id expedient
+	 * @return the string
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	ExpedientDadesXmlBDTO crearDataXmlExpedient(BigDecimal idExpedient) throws GPAServeisServiceException;
 }

@@ -11,6 +11,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import es.bcn.gpa.gpaserveis.business.ExpedientsService;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientDadesXmlBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
@@ -103,13 +104,13 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		try {
 			PageDataOfExpedientsRDTO pageDataOfExpedientsRDTO = expedients_Api.cercaExpedients(null, null,
-			        expedientsCercaBDTO.getAplicacioNegoci(), null, expedientsCercaBDTO.getCodi(), null, null, null, null, null, null, null,
-			        expedientsCercaBDTO.getCurrentPageNumber(), expedientsCercaBDTO.getDataPresentacioDes(),
-			        expedientsCercaBDTO.getDataPresentacioFinsA(), expedientsCercaBDTO.getDir(), expedientsCercaBDTO.getEstatList(), null,
-			        null, null, null, null, expedientsCercaBDTO.getNifSollicitant(), expedientsCercaBDTO.getPageSize(), null,
-			        expedientsCercaBDTO.getProcedimentCodisList(), null, expedientsCercaBDTO.getProcedimentVersio(),
-			        expedientsCercaBDTO.getSort(), null, null, expedientsCercaBDTO.getTramitador(),
-			        expedientsCercaBDTO.getUnitatsGestoresList());
+					expedientsCercaBDTO.getAplicacioNegoci(), null, expedientsCercaBDTO.getCodi(), null, null, null, null, null, null, null,
+					expedientsCercaBDTO.getCurrentPageNumber(), expedientsCercaBDTO.getDataPresentacioDes(),
+					expedientsCercaBDTO.getDataPresentacioFinsA(), expedientsCercaBDTO.getDir(), expedientsCercaBDTO.getEstatList(), null,
+					null, null, null, null, expedientsCercaBDTO.getNifSollicitant(), expedientsCercaBDTO.getPageSize(), null,
+					expedientsCercaBDTO.getProcedimentCodisList(), null, expedientsCercaBDTO.getProcedimentVersio(),
+					expedientsCercaBDTO.getSort(), null, null, expedientsCercaBDTO.getTramitador(),
+					expedientsCercaBDTO.getUnitatsGestoresList());
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaExpedients(ExpedientsCercaBDTO) - fi"); //$NON-NLS-1$
@@ -314,7 +315,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		try {
 			PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = personesInteressades_Api.cercaPersonesInteresadesExpedient(
-			        idSolicitud, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+					idSolicitud, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaPersonesInteresadesExpedient(BigDecimal) - fi"); //$NON-NLS-1$
@@ -337,7 +338,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	public PageDataOfPersonesSollicitudRDTO fallbackCercaPersonesInteresadesExpedient(BigDecimal idSolicitud)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaPersonesInteresadesExpedient(BigDecimal) - inici"); //$NON-NLS-1$
 		}
@@ -363,14 +364,14 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCercaAltresPersonesImplicadesExpedient")
 	public PageDataOfPersonesSollicitudRDTO cercaAltresPersonesImplicadesExpedient(BigDecimal idSolicitud)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("cercaAltresPersonesImplicadesExpedient(BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = persones_Api.cercaAltresPersonesImplicadesExpedient(
-			        idSolicitud, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+					idSolicitud, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaAltresPersonesImplicadesExpedient(BigDecimal) - fi"); //$NON-NLS-1$
@@ -393,7 +394,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	public PageDataOfPersonesSollicitudRDTO fallbackCercaAltresPersonesImplicadesExpedient(BigDecimal idSolicitud)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaAltresPersonesImplicadesExpedient(BigDecimal) - inici"); //$NON-NLS-1$
 		}
@@ -513,14 +514,14 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackActualitzarSolicitudExpedient")
 	public ExpedientsRDTO actualitzarSolicitudExpedient(ExpedientsActualitzarBDTO expedientsActualitzarBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarSolicitudExpedient(ExpedientsActualitzarBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			ExpedientsRDTO returnExpedientsRDTO = expedients_Api
-			        .actualitzarDadesSollicitud(expedientsActualitzarBDTO.getActualitzarDadesSollicitud());
+					.actualitzarDadesSollicitud(expedientsActualitzarBDTO.getActualitzarDadesSollicitud());
 
 			if (log.isDebugEnabled()) {
 				log.debug("actualitzarSolicitudExpedient(ExpedientsActualitzarBDTO) - fi"); //$NON-NLS-1$
@@ -544,7 +545,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	public ExpedientsRDTO fallbackActualitzarSolicitudExpedient(ExpedientsActualitzarBDTO expedientsActualitzarBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackActualitzarSolicitudExpedient(ExpedientsActualitzarBDTO) - inici"); //$NON-NLS-1$
 		}
@@ -562,14 +563,14 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCrearRegistreSolicitudExpedient")
 	public RespostaCrearRegistreSolicitudExpedient crearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("crearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			RespostaCrearRegistreSolicitudExpedient respostaCrearRegistreSolicitudExpedient = expedients_Api
-			        .crearRegistreSolicitudExpedient(expedientsRegistrarBDTO.getRegistreCreacioSolicitudExpedient());
+					.crearRegistreSolicitudExpedient(expedientsRegistrarBDTO.getRegistreCreacioSolicitudExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO) - fi"); //$NON-NLS-1$
@@ -593,7 +594,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	public RespostaCrearRegistreSolicitudExpedient fallbackCrearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO) - inici"); //$NON-NLS-1$
 		}
@@ -611,15 +612,15 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCanviarEstatAccioExpedient")
 	public RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccioExpedient = expedientsApi.canviarEstatAccioExpedient(
-			        expedientsCanviarEstatAccioBDTO.getIdAccio(), expedientsCanviarEstatAccioBDTO.getIdExpedient(),
-			        expedientsCanviarEstatAccioBDTO.getExpedientCanviEstatAccio());
+					expedientsCanviarEstatAccioBDTO.getIdAccio(), expedientsCanviarEstatAccioBDTO.getIdExpedient(),
+					expedientsCanviarEstatAccioBDTO.getExpedientCanviEstatAccio());
 
 			if (log.isDebugEnabled()) {
 				log.debug("canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO) - fi"); //$NON-NLS-1$
@@ -643,7 +644,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	public RespostaCanviarEstatAccioExpedient fallbackCanviarEstatAccioExpedient(
-	        ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO) throws GPAServeisServiceException {
+			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCanviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO) - inici"); //$NON-NLS-1$
 		}
@@ -667,7 +668,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		try {
 			comentarisApi.crearComentariAccio(comentarisCrearAccioBDTO.getIdAccio(), comentarisCrearAccioBDTO.getIdExpedient(),
-			        comentarisCrearAccioBDTO.getComentariCreacioAccio());
+					comentarisCrearAccioBDTO.getComentariCreacioAccio());
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearComentariAccio(ComentarisCrearAccioBDTO) - fi"); //$NON-NLS-1$
@@ -712,7 +713,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		try {
 			avisosApi.crearAvisAccio(avisosCrearAccioBDTO.getIdAccio(), avisosCrearAccioBDTO.getIdExpedient(),
-			        avisosCrearAccioBDTO.getAvisCreacioAccio());
+					avisosCrearAccioBDTO.getAvisCreacioAccio());
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearAvisAccio(AvisosCrearAccioBDTO) - fi"); //$NON-NLS-1$
@@ -736,6 +737,44 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	public void fallbackCrearAvisAccio(AvisosCrearAccioBDTO avisosCrearAccioBDTO) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearAvisAccio(AvisosCrearAccioBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de expedients no està disponible");
+	}
+
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackCrearDataXmlExpedient")
+	public ExpedientDadesXmlBDTO crearDataXmlExpedient(BigDecimal idExpedient) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("crearDataXmlExpedient(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			String xmlDataExpedient = expedients_Api.obtenirXmlEvaluateUsingGET(idExpedient);
+
+			if (log.isDebugEnabled()) {
+				log.debug("crearDataXmlExpedient(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			// return xmlDataExpedient;
+			return null;
+		} catch (ApiException e) {
+			log.error("crearDataXmlExpedient(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback crear data xml expedient.
+	 *
+	 * @param idExpedient
+	 *            the id expedient
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackCrearDataXmlExpedient(BigDecimal idExpedient) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCrearDataXmlExpedient(BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de expedients no està disponible");
