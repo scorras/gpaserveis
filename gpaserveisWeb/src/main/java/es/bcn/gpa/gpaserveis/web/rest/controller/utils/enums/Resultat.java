@@ -83,7 +83,11 @@ public enum Resultat {
 
 	OK_REBUTJAR_DOCUMENT_EXPEDIENT("OK", "Document rebutjat correctament"),
 
-	ERROR_REBUTJAR_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut rebutjar el document");
+	ERROR_REBUTJAR_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut rebutjar el document"),
+
+	OK_CONVIDAR_TRAMITAR_EXPEDIENT("OK", "Expedient convidat a tramitar correctament"),
+
+	ERROR_CONVIDAR_TRAMITAR_EXPEDIENT("ERROR", "No s'ha pogut convidar a tramitar l'expedient");
 
 	private String codi;
 

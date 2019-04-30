@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "ExpedientValidacio")
+@ApiModel(value = "ExpedientPausa")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "motiu", "dataLimit" })
 @Getter

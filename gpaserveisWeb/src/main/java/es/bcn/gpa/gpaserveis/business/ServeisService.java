@@ -367,5 +367,4 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	void revisarDocumentacioEntrada(DocumentAportatValidarBDTO documentAportatValidarBDTO) throws GPAServeisServiceException;
-
 }

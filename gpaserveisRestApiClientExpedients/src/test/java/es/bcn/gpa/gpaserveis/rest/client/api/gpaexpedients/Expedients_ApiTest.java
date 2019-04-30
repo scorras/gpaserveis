@@ -40,6 +40,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExped
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreCreacioSolicitudExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreSolicitudExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
@@ -445,7 +446,7 @@ public class Expedients_ApiTest extends ParentTest {
 	}
 
 	/**
-	 * jexl
+	 * Retorna el xml de la informació de l&#39;expedient
 	 *
 	 * 
 	 *
@@ -453,14 +454,14 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void obtenirXmlEvaluateUsingGETTest() throws ApiException {
+	public void obtenirXmlExpedientTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/expedients/obtenirXmlEvaluate/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new String());
+		                .thenReturn(new RespostaObtenirXmlExpedient());
 
 		BigDecimal idExpedient = ONE;
-		String response = api.obtenirXmlEvaluateUsingGET(idExpedient);
+		RespostaObtenirXmlExpedient response = api.obtenirXmlExpedient(idExpedient);
 
 		assertTrue(response != null);
 	}

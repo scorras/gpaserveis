@@ -8,13 +8,14 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "ExpedientValidacio")
+@ApiModel(value = "ExpedientPropostaResolucio")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "comentari" })
 @Getter
 @Setter
 public class ExpedientPropostaResolucioRDTO {
-	@ApiModelProperty(value = "comentari associat a la validació.")
+
+	@ApiModelProperty(value = "Comentari associat a la proposta de resolució.")
 	private String comentari;
 
 }

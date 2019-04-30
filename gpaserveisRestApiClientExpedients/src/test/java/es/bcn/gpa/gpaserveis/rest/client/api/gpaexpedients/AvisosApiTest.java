@@ -103,4 +103,24 @@ public class AvisosApiTest extends ParentTest {
 		assertTrue(true);
 	}
 
+	/**
+	 * Returns criticitat avis
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirCriticitatAvisPorIdExpedientUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/avisos/criticitatAvis/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(ONE);
+
+		BigDecimal id = ONE;
+		BigDecimal response = api.obtenirCriticitatAvisPorIdExpedientUsingGET(id);
+
+		assertTrue(response != null);
+	}
+
 }

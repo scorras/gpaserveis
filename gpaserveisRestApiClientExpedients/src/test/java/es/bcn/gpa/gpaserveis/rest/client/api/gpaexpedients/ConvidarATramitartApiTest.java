@@ -50,12 +50,12 @@ public class ConvidarATramitartApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void convidarATramitarUsingPOSTTest() throws ApiException {
+	public void convidarTramitarExpedientTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/expedients/convidarATramitar"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
 
 		ConvidarTramitarRDTO convidarTramitarRDTO = new ConvidarTramitarRDTO();
-		api.convidarATramitarUsingPOST(convidarTramitarRDTO);
+		api.convidarTramitarExpedient(convidarTramitarRDTO);
 
 		assertTrue(true);
 	}
