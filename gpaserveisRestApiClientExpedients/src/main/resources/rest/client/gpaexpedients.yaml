@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.10.0"
+  version: "1.11.0"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -463,6 +463,34 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /avisos/criticitatAvis/{id}:
+    get:
+      tags:
+      - "Avisos"
+      summary: "Returns criticitat avis "
+      operationId: "obtenirCriticitatAvisPorIdExpedientUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "number"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /avisos/esborrarAvisDocEntradaPendentRevisio:
     post:
       tags:
@@ -1673,7 +1701,7 @@ paths:
       tags:
       - "ConvidarATramitart"
       summary: "ConvidarATramitart"
-      operationId: "convidarATramitarUsingPOST"
+      operationId: "convidarTramitarExpedient"
       consumes:
       - "application/json"
       produces:
@@ -2262,8 +2290,8 @@ paths:
     get:
       tags:
       - "Expedients "
-      summary: "jexl"
-      operationId: "obtenirXmlEvaluateUsingGET"
+      summary: "Retorna el xml de la informació de l'expedient"
+      operationId: "obtenirXmlExpedient"
       produces:
       - "*/*"
       parameters:
@@ -2276,7 +2304,7 @@ paths:
         200:
           description: "OK"
           schema:
-            type: "string"
+            $ref: "#/definitions/RespostaObtenirXmlExpedient"
         401:
           description: "Unauthorized"
         403:
@@ -3016,7 +3044,7 @@ paths:
       tags:
       - "RetornarLaTramitacio"
       summary: "RetornarLaTramitacio"
-      operationId: "retornarLaTramitacioUsingPOST"
+      operationId: "retornarTramitacioExpedient"
       consumes:
       - "application/json"
       produces:
@@ -3670,8 +3698,6 @@ definitions:
         type: "boolean"
       id:
         type: "number"
-      matricula:
-        type: "string"
       momentBloqueig:
         type: "string"
         format: "date-time"
@@ -3679,6 +3705,8 @@ definitions:
         type: "string"
       usuari:
         type: "number"
+      usuariBloquejo:
+        $ref: "#/definitions/Usuaris"
     title: "Bloquejos"
   BloquejosRDTO:
     type: "object"
@@ -3689,8 +3717,6 @@ definitions:
         type: "boolean"
       id:
         type: "number"
-      matricula:
-        type: "string"
       momentBloqueig:
         type: "string"
         format: "date-time"
@@ -3698,6 +3724,8 @@ definitions:
         type: "string"
       usuari:
         type: "number"
+      usuariBloquejo:
+        $ref: "#/definitions/Usuaris"
     title: "BloquejosRDTO"
   CanviEstatRDTO:
     type: "object"
@@ -4728,14 +4756,20 @@ definitions:
   RespostaCrearRegistreSolicitudExpedient:
     type: "object"
     properties:
-      comprovant:
-        type: "string"
-        format: "byte"
-        description: "Comprovant del registre"
       registreAssentament:
         description: "Dades del registre de l'expedient"
         $ref: "#/definitions/RegistreAssentamentRDTO"
     title: "RespostaCrearRegistreSolicitudExpedient"
+  RespostaObtenirXmlExpedient:
+    type: "object"
+    properties:
+      dadesXml:
+        type: "string"
+        description: "Informació de l'expedient en format xml"
+      id:
+        type: "number"
+        description: "Identificador de l'expedient"
+    title: "RespostaObtenirXmlExpedient"
   RetornarLaTramitacioRDTO:
     type: "object"
     properties:
@@ -4759,6 +4793,8 @@ definitions:
         type: "number"
       iniciacio:
         type: "number"
+      iniciacioNom:
+        type: "string"
       personesSollicitudList:
         type: "array"
         items:
@@ -4901,3 +4937,25 @@ definitions:
       userInfo:
         type: "string"
     title: "URL"
+  Usuaris:
+    type: "object"
+    properties:
+      carrec:
+        type: "string"
+      cognom1:
+        type: "string"
+      cognom2:
+        type: "string"
+      documentIdentitat:
+        type: "string"
+      email:
+        type: "string"
+      id:
+        type: "number"
+      matricula:
+        type: "string"
+      nom:
+        type: "string"
+      user:
+        type: "string"
+    title: "Usuaris"

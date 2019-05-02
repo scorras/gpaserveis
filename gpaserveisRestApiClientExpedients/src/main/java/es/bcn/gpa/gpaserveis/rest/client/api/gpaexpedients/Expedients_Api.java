@@ -16,13 +16,14 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExped
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreCreacioSolicitudExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreSolicitudExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T19:08:33.527+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-30T17:09:19.233+02:00")
 public class Expedients_Api {
   private ApiClient apiClient;
 
@@ -739,18 +740,18 @@ public class Expedients_Api {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
-   * jexl
+   * Retorna el xml de la informació de l&#39;expedient
    * 
    * @param idExpedient idExpedient (required)
-   * @return String
+   * @return RespostaObtenirXmlExpedient
    * @throws ApiException if fails to make API call
    */
-  public String obtenirXmlEvaluateUsingGET(BigDecimal idExpedient) throws ApiException {
+  public RespostaObtenirXmlExpedient obtenirXmlExpedient(BigDecimal idExpedient) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'idExpedient' is set
     if (idExpedient == null) {
-      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling obtenirXmlEvaluateUsingGET");
+      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling obtenirXmlExpedient");
     }
     
     // create path and map variables
@@ -777,7 +778,7 @@ public class Expedients_Api {
 
     String[] localVarAuthNames = new String[] {  };
 
-    GenericType<String> localVarReturnType = new GenericType<String>() {};
+    GenericType<RespostaObtenirXmlExpedient> localVarReturnType = new GenericType<RespostaObtenirXmlExpedient>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**

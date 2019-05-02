@@ -14,6 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ExpedientValidacioRDTO {
+
 	@ApiModelProperty(value = "comentari associat a la validació.")
 	private String comentari;
 

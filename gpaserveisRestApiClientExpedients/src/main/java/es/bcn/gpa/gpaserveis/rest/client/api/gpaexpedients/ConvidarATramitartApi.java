@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T19:08:33.527+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-30T17:09:19.233+02:00")
 public class ConvidarATramitartApi {
   private ApiClient apiClient;
 
@@ -40,12 +40,12 @@ public class ConvidarATramitartApi {
    * @param convidarTramitarRDTO convidarTramitarRDTO (required)
    * @throws ApiException if fails to make API call
    */
-  public void convidarATramitarUsingPOST(ConvidarTramitarRDTO convidarTramitarRDTO) throws ApiException {
+  public void convidarTramitarExpedient(ConvidarTramitarRDTO convidarTramitarRDTO) throws ApiException {
     Object localVarPostBody = convidarTramitarRDTO;
     
     // verify the required parameter 'convidarTramitarRDTO' is set
     if (convidarTramitarRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'convidarTramitarRDTO' when calling convidarATramitarUsingPOST");
+      throw new ApiException(400, "Missing the required parameter 'convidarTramitarRDTO' when calling convidarTramitarExpedient");
     }
     
     // create path and map variables

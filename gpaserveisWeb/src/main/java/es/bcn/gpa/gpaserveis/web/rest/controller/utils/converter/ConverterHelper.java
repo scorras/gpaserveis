@@ -282,7 +282,9 @@ public class ConverterHelper {
 				        .getApiParamValueByInternalValue(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getId()));
 			}
 			documentsIdentitatRDTO.setNumeroDocument(persones.getDocumentsIdentitat().getNumeroDocument().toUpperCase());
-			documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPaisos().getCodiIne());
+			if (persones.getDocumentsIdentitat().getPaisos() != null) {
+				documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPaisos().getCodiIne());
+			}
 		}
 		personesRDTO.setDocumentIndentitat(documentsIdentitatRDTO);
 		return personesRDTO;
