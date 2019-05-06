@@ -29,7 +29,7 @@ public class RespostaRegistrarExpedientRDTO {
 	@ApiModelProperty("Dades del registre de l'expedient")
 	private RegistreRDTO registre;
 
-	@ApiModelProperty("Array de bytes amb el comprovant en PDF del registre del document incorporat")
+	@ApiModelProperty("Identificador del comprovant en PDF del registre del document incorporat")
 	private BigDecimal comprovant;
 
 }

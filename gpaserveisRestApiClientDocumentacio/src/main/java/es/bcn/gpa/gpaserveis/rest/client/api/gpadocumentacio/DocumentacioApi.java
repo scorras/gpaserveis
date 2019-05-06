@@ -12,14 +12,17 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AportarDocume
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatRevisioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaCrearJustificant;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaUploadDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RestClientResponse;
@@ -32,7 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T11:59:46.009+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-06T11:28:11.327+02:00")
 public class DocumentacioApi {
   private ApiClient apiClient;
 
@@ -141,6 +144,86 @@ public class DocumentacioApi {
     GenericType<RespostaAportarDocumentacioExpedientRDTO> localVarReturnType = new GenericType<RespostaAportarDocumentacioExpedientRDTO>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
+  /**
+   * associa el registre a la llista de documentació
+   * 
+   * @param docsEntActualizarRegistreRDTO docsEntActualizarRegistreRDTO (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void associarRegistreDocsEnt(DocsEntActualizarRegistre docsEntActualizarRegistreRDTO) throws ApiException {
+    Object localVarPostBody = docsEntActualizarRegistreRDTO;
+    
+    // verify the required parameter 'docsEntActualizarRegistreRDTO' is set
+    if (docsEntActualizarRegistreRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'docsEntActualizarRegistreRDTO' when calling associarRegistreDocsEnt");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/documentacio/associarRegistreDocsEnt";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+
+    apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
+  /**
+   * associa el registre a la documentació de l&#39;expedient
+   * 
+   * @param documentActualizarRegistreRDTO documentActualizarRegistreRDTO (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void associarRegistreDocumentacio(DocumentActualizarRegistre documentActualizarRegistreRDTO) throws ApiException {
+    Object localVarPostBody = documentActualizarRegistreRDTO;
+    
+    // verify the required parameter 'documentActualizarRegistreRDTO' is set
+    if (documentActualizarRegistreRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'documentActualizarRegistreRDTO' when calling associarRegistreDocumentacio");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/documentacio/associarRegistreDocumentacio";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+
+    apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
   /**
    * Updates all selected DocsTramitacio with the EstatsDocument specified
    * 
@@ -893,20 +976,20 @@ public class DocumentacioApi {
    * 
    * @param docsTramitacioRDTO docsTramitacioRDTO (required)
    * @param idExpedient idExpedient (required)
-   * @return DocsTramitacioRDTO
+   * @return RespostaCrearJustificant
    * @throws ApiException if fails to make API call
    */
-  public DocsTramitacioRDTO saveDocumentacioTramitacioUsingPOST(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient) throws ApiException {
+  public RespostaCrearJustificant saveDocumentacioTramitacio(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient) throws ApiException {
     Object localVarPostBody = docsTramitacioRDTO;
     
     // verify the required parameter 'docsTramitacioRDTO' is set
     if (docsTramitacioRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'docsTramitacioRDTO' when calling saveDocumentacioTramitacioUsingPOST");
+      throw new ApiException(400, "Missing the required parameter 'docsTramitacioRDTO' when calling saveDocumentacioTramitacio");
     }
     
     // verify the required parameter 'idExpedient' is set
     if (idExpedient == null) {
-      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling saveDocumentacioTramitacioUsingPOST");
+      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling saveDocumentacioTramitacio");
     }
     
     // create path and map variables
@@ -933,7 +1016,7 @@ public class DocumentacioApi {
 
     String[] localVarAuthNames = new String[] {  };
 
-    GenericType<DocsTramitacioRDTO> localVarReturnType = new GenericType<DocsTramitacioRDTO>() {};
+    GenericType<RespostaCrearJustificant> localVarReturnType = new GenericType<RespostaCrearJustificant>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**

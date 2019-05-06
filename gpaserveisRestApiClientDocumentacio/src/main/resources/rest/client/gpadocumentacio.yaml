@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.10.0"
+  version: "1.11.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -172,8 +172,6 @@ paths:
       responses:
         200:
           description: "OK"
-          schema:
-            $ref: "#/definitions/RestClientResponse"
         201:
           description: "Created"
         401:
@@ -243,8 +241,6 @@ paths:
       responses:
         200:
           description: "OK"
-          schema:
-            $ref: "#/definitions/RestClientResponse"
         201:
           description: "Created"
         401:
@@ -632,6 +628,39 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /configuracioDocumentacio/plantillaDocVinculada/{idConfDoc}/{idDocVinculada}:
+    get:
+      tags:
+      - "Configuracio Documentacio"
+      summary: "Returns the requested plantilla for the documentacio Vinculada"
+      operationId: "getPlantillaDocVinculada"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idConfDoc"
+        in: "path"
+        description: "idConfDoc"
+        required: true
+        type: "number"
+      - name: "idDocVinculada"
+        in: "path"
+        description: "idDocVinculada"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaPlantillaDocVinculada"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /configuracioDocumentacio/serie/{serieDocumental}:
     get:
       tags:
@@ -908,6 +937,68 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/associarRegistreDocsEnt:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "associa el registre a la llista de documentació"
+      operationId: "associarRegistreDocsEnt"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "docsEntActualizarRegistreRDTO"
+        description: "docsEntActualizarRegistreRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/DocsEntActualizarRegistre"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /documentacio/associarRegistreDocumentacio:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "associa el registre a la documentació de l'expedient"
+      operationId: "associarRegistreDocumentacio"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "documentActualizarRegistreRDTO"
+        description: "documentActualizarRegistreRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/DocumentActualizarRegistre"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /documentacio/catalog/accessRestringut:
     get:
       tags:
@@ -1139,6 +1230,30 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/TipusAutenticacioRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /documentacio/catalog/tipusDocumentacioVinculada:
+    get:
+      tags:
+      - "TipusDocumentacioVinculada"
+      summary: "Returns all the TipusDocumentacioVinculada"
+      operationId: "obtenirTipusDocumentacioVinculadaUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/TipusDocumentacioVinculadaRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -1833,7 +1948,7 @@ paths:
       tags:
       - "Documentacio"
       summary: "updates the doc tramitacio"
-      operationId: "saveDocumentacioTramitacioUsingPOST"
+      operationId: "saveDocumentacioTramitacio"
       consumes:
       - "application/json"
       produces:
@@ -1854,7 +1969,7 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/DocsTramitacioRDTO"
+            $ref: "#/definitions/RespostaCrearJustificant"
         201:
           description: "Created"
         401:
@@ -2384,6 +2499,8 @@ definitions:
         type: "string"
       detallOrigen:
         type: "string"
+      documentacioVinculada:
+        type: "number"
       fase:
         type: "integer"
         format: "int32"
@@ -2414,9 +2531,6 @@ definitions:
         type: "string"
       uniqueId:
         type: "number"
-      vinculadaEsmena:
-        type: "integer"
-        format: "int32"
     title: "ConfiguracioDocsTramitacio"
   ConfiguracioDocsTramitacioRDTO:
     type: "object"
@@ -2445,6 +2559,8 @@ definitions:
         type: "string"
       detallOrigen:
         type: "string"
+      documentacioVinculada:
+        type: "number"
       fase:
         type: "integer"
         format: "int32"
@@ -2475,9 +2591,6 @@ definitions:
         type: "string"
       uniqueId:
         type: "number"
-      vinculadaEsmena:
-        type: "integer"
-        format: "int32"
     title: "ConfiguracioDocsTramitacioRDTO"
   ConfiguracioDocsTramitacioResponse:
     type: "object"
@@ -2511,9 +2624,23 @@ definitions:
       titolGrup:
         type: "string"
     title: "DadesOperacioRDTO"
+  DocsEntActualizarRegistre:
+    type: "object"
+    properties:
+      idRegistre:
+        type: "number"
+        description: "Identificador del registre"
+      listIdsDocsEnt:
+        type: "array"
+        description: "Llista de documents d'entrada"
+        items:
+          type: "number"
+    title: "DocsEntActualizarRegistre"
   DocsEntradaRDTO:
     type: "object"
     properties:
+      codi:
+        type: "string"
       comentari:
         type: "string"
       configDocEntrada:
@@ -2581,6 +2708,8 @@ definitions:
           type: "array"
           items:
             type: "string"
+      migracioIdOrigen:
+        type: "string"
       nou:
         type: "integer"
         format: "int32"
@@ -2662,6 +2791,8 @@ definitions:
   DocsTramitacioRDTO:
     type: "object"
     properties:
+      codi:
+        type: "string"
       comentari:
         type: "string"
       configDocTramitacio:
@@ -2736,6 +2867,8 @@ definitions:
           type: "array"
           items:
             type: "string"
+      migracioIdOrigen:
+        type: "string"
       numDocsConfiguracio:
         type: "number"
       obligatoriEnEstat:
@@ -2765,6 +2898,16 @@ definitions:
       usuariIdext:
         type: "number"
     title: "DocsTramitacioRDTO"
+  DocumentActualizarRegistre:
+    type: "object"
+    properties:
+      idDoc:
+        type: "number"
+        description: "Identificador de la documentació de l'expedient"
+      idRegistre:
+        type: "number"
+        description: "Identificador del registre"
+    title: "DocumentActualizarRegistre"
   DocumentCanviEstat:
     type: "object"
     properties:
@@ -3246,6 +3389,23 @@ definitions:
         description: "Dades del registre dels documents aportats"
         $ref: "#/definitions/RegistreAssentamentRDTO"
     title: "RespostaAportarDocumentacioExpedientRDTO"
+  RespostaCrearJustificant:
+    type: "object"
+    properties:
+      docsTramitacio:
+        description: "Documentació tramitació"
+        $ref: "#/definitions/DocsTramitacioRDTO"
+    title: "RespostaCrearJustificant"
+  RespostaPlantillaDocVinculada:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+        description: "Identificador de la configuració documentació tramitació"
+      plantilla:
+        type: "string"
+        description: "Plantilla de la documentació vinculada"
+    title: "RespostaPlantillaDocVinculada"
   RespostaSincronitzarCheckRDTO:
     type: "object"
     properties:
@@ -3410,6 +3570,14 @@ definitions:
       id:
         type: "number"
     title: "TipusDocumentIdentitat"
+  TipusDocumentacioVinculadaRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "TipusDocumentacioVinculadaRDTO"
   TipusMime:
     type: "object"
     properties:

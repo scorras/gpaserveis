@@ -5,7 +5,7 @@ package es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums;
  */
 public enum ErrorPrincipal {
 
-    /* Generic */
+	/* Generic */
 	ERROR_GENERIC("9999", "S'ha produit una incidencia"),
 
 	/* Unitats */
@@ -38,7 +38,9 @@ public enum ErrorPrincipal {
 
 	ERROR_DOCUMENTS_NOT_IN_EXPEDIENT("4002", "El document indicat no està associat a l'expedient"),
 
-	ERROR_CONFIGURACIO_DOCUMENTACIO_NOT_IN_EXPEDIENT("4003", "La configuració de documentació indicada no està associada a l'expedient: ");
+	ERROR_CONFIGURACIO_DOCUMENTACIO_NOT_IN_EXPEDIENT("4003", "La configuració de documentació indicada no està associada a l'expedient: "),
+
+	ERROR_DOCUMENTS_OPENTEXT("4004", "");
 
 	private String codi;
 

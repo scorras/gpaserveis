@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * MarquesRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-30T17:09:19.233+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-06T09:02:05.732+02:00")
 public class MarquesRDTO {
   @JsonProperty("codi")
   private String codi = null;

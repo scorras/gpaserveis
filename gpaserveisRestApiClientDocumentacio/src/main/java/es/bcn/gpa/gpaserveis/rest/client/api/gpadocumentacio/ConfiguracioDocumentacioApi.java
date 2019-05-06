@@ -13,14 +13,14 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesOperacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RestClientResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T11:59:46.009+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-06T11:28:11.327+02:00")
 public class ConfiguracioDocumentacioApi {
   private ApiClient apiClient;
 
@@ -440,6 +440,55 @@ public class ConfiguracioDocumentacioApi {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
+   * Returns the requested plantilla for the documentacio Vinculada
+   * 
+   * @param idConfDoc idConfDoc (required)
+   * @param idDocVinculada idDocVinculada (required)
+   * @return RespostaPlantillaDocVinculada
+   * @throws ApiException if fails to make API call
+   */
+  public RespostaPlantillaDocVinculada getPlantillaDocVinculada(BigDecimal idConfDoc, BigDecimal idDocVinculada) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'idConfDoc' is set
+    if (idConfDoc == null) {
+      throw new ApiException(400, "Missing the required parameter 'idConfDoc' when calling getPlantillaDocVinculada");
+    }
+    
+    // verify the required parameter 'idDocVinculada' is set
+    if (idDocVinculada == null) {
+      throw new ApiException(400, "Missing the required parameter 'idDocVinculada' when calling getPlantillaDocVinculada");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/configuracioDocumentacio/plantillaDocVinculada/{idConfDoc}/{idDocVinculada}"
+      .replaceAll("\\{" + "idConfDoc" + "\\}", apiClient.escapeString(idConfDoc.toString()))
+      .replaceAll("\\{" + "idDocVinculada" + "\\}", apiClient.escapeString(idDocVinculada.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<RespostaPlantillaDocVinculada> localVarReturnType = new GenericType<RespostaPlantillaDocVinculada>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
    * Returns the requested entrada configuracio
    * 
    * @param idConfiguracioDocumentacio idConfiguracioDocumentacio (required)
@@ -563,10 +612,9 @@ public class ConfiguracioDocumentacioApi {
    * 
    * @param docEntrada docEntrada (required)
    * @param procId procId (required)
-   * @return RestClientResponse
    * @throws ApiException if fails to make API call
    */
-  public RestClientResponse updateDocumentacioEntradaUsingPUT(ConfiguracioDocsEntradaRDTO docEntrada, BigDecimal procId) throws ApiException {
+  public void updateDocumentacioEntradaUsingPUT(ConfiguracioDocsEntradaRDTO docEntrada, BigDecimal procId) throws ApiException {
     Object localVarPostBody = docEntrada;
     
     // verify the required parameter 'docEntrada' is set
@@ -603,18 +651,17 @@ public class ConfiguracioDocumentacioApi {
 
     String[] localVarAuthNames = new String[] {  };
 
-    GenericType<RestClientResponse> localVarReturnType = new GenericType<RestClientResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
+
+    apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
   /**
    * updates the doc config
    * 
    * @param docTramitacio docTramitacio (required)
    * @param procId procId (required)
-   * @return RestClientResponse
    * @throws ApiException if fails to make API call
    */
-  public RestClientResponse updateDocumentacioTramitacioUsingPUT(ConfiguracioDocsTramitacioRDTO docTramitacio, BigDecimal procId) throws ApiException {
+  public void updateDocumentacioTramitacioUsingPUT(ConfiguracioDocsTramitacioRDTO docTramitacio, BigDecimal procId) throws ApiException {
     Object localVarPostBody = docTramitacio;
     
     // verify the required parameter 'docTramitacio' is set
@@ -651,7 +698,7 @@ public class ConfiguracioDocumentacioApi {
 
     String[] localVarAuthNames = new String[] {  };
 
-    GenericType<RestClientResponse> localVarReturnType = new GenericType<RestClientResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
+
+    apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
 }

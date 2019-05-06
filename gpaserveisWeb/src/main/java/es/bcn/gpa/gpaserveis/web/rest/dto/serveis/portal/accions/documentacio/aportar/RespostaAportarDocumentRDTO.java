@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -16,7 +17,7 @@ import lombok.Setter;
 
 @ApiModel(value = "RespostaAportarDocumentacio")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "resultat", "documentacioAportada", "registre", "expedient" })
+@JsonPropertyOrder({ "resultat", "documentacioAportada", "registre", "expedient", "comprovant" })
 @Getter
 @Setter
 
@@ -33,5 +34,8 @@ public class RespostaAportarDocumentRDTO {
 
 	@ApiModelProperty(value = "Expedient del document")
 	private ExpedientAccioRDTO expedient;
+
+	@ApiModelProperty("Identificador del comprovant en PDF del registre del document incorporat")
+	private BigDecimal comprovant;
 
 }

@@ -22,14 +22,14 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * RegistreCreacioSolicitudExpedient
+ * CrearRegistre
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-30T17:09:19.233+02:00")
-public class RegistreCreacioSolicitudExpedient {
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-06T09:02:05.732+02:00")
+public class CrearRegistre {
   @JsonProperty("expedient")
   private ExpedientsRDTO expedient = null;
 
-  public RegistreCreacioSolicitudExpedient expedient(ExpedientsRDTO expedient) {
+  public CrearRegistre expedient(ExpedientsRDTO expedient) {
     this.expedient = expedient;
     return this;
   }
@@ -56,8 +56,8 @@ public class RegistreCreacioSolicitudExpedient {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RegistreCreacioSolicitudExpedient registreCreacioSolicitudExpedient = (RegistreCreacioSolicitudExpedient) o;
-    return Objects.equals(this.expedient, registreCreacioSolicitudExpedient.expedient);
+    CrearRegistre crearRegistre = (CrearRegistre) o;
+    return Objects.equals(this.expedient, crearRegistre.expedient);
   }
 
   @Override
@@ -69,7 +69,7 @@ public class RegistreCreacioSolicitudExpedient {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RegistreCreacioSolicitudExpedient {\n");
+    sb.append("class CrearRegistre {\n");
     
     sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
     sb.append("}");

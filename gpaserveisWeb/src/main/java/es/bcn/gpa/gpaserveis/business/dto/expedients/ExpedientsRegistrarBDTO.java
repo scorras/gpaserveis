@@ -1,6 +1,6 @@
 package es.bcn.gpa.gpaserveis.business.dto.expedients;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreCreacioSolicitudExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,5 +14,5 @@ import lombok.Setter;
 public class ExpedientsRegistrarBDTO {
 
 	/** The registrar solicitud expedient. */
-	private RegistreCreacioSolicitudExpedient registreCreacioSolicitudExpedient;
+	private CrearRegistre crearRegistre;
 }
