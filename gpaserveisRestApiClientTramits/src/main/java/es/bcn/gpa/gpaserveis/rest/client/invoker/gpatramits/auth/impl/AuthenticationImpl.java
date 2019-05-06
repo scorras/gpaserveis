@@ -10,6 +10,6 @@ public class AuthenticationImpl implements Authentication {
 
 	@Override
 	public void applyToParams(List<Pair> queryParams, Map<String, String> headerParams) {
-		headerParams.put("x-imi-authorization", "{\"user\": \"T000000\" }");
+		headerParams.put("x-imi-authorization", "{\"user\": \"T000000\", \"grp\" : null}");
 	}
 }

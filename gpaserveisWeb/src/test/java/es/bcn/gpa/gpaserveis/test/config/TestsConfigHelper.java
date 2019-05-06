@@ -20,10 +20,13 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaCrearJustificant;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
@@ -43,6 +46,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollici
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentament;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Sollicituds;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
@@ -1358,5 +1362,30 @@ public class TestsConfigHelper {
 		estatsRDTO.setIdEstatAnterior(ONE);
 		estatsRDTOList.add(estatsRDTO);
 		return estatsRDTOList;
+	}
+
+	public static RespostaCrearRegistreExpedient crearRegistreSolicitudExpedientResponse() {
+		RespostaCrearRegistreExpedient respostaCrearRegistreExpedient = new RespostaCrearRegistreExpedient();
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO registreAssentament = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO();
+		;
+		registreAssentament.setId(ONE);
+		respostaCrearRegistreExpedient.setRegistreAssentament(registreAssentament);
+
+		return respostaCrearRegistreExpedient;
+	}
+
+	public static RespostaPlantillaDocVinculada getPlantillaDocVinculadaResponse() {
+		RespostaPlantillaDocVinculada respostaPlantillaDocVinculada = new RespostaPlantillaDocVinculada();
+		respostaPlantillaDocVinculada.setId(ONE);
+		respostaPlantillaDocVinculada.setPlantilla("PLANTILLA_GPA");
+		return respostaPlantillaDocVinculada;
+	}
+
+	public static RespostaCrearJustificant saveDocumentacioTramitacioResponse() {
+		RespostaCrearJustificant respostaCrearJustificant = new RespostaCrearJustificant();
+		DocsTramitacioRDTO docsTramitacio = new DocsTramitacioRDTO();
+		docsTramitacio.setId(ONE);
+		respostaCrearJustificant.setDocsTramitacio(docsTramitacio);
+		return respostaCrearJustificant;
 	}
 }

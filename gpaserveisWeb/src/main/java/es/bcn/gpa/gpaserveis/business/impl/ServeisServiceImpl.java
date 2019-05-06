@@ -24,7 +24,6 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientDadesXmlBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
@@ -40,13 +39,20 @@ import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.business.impl.helper.ServeisServiceHelper;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaCrearJustificant;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaUploadDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreSolicitudExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
@@ -56,6 +62,14 @@ import lombok.extern.apachecommons.CommonsLog;
  * The Class ServeisServiceImpl.
  */
 @Service
+
+/** The Constant log. */
+
+/** The Constant log. */
+
+/** The Constant log. */
+
+/** The Constant log. */
 @CommonsLog
 public class ServeisServiceImpl implements ServeisService {
 
@@ -407,9 +421,9 @@ public class ServeisServiceImpl implements ServeisService {
 	 * expedients.ExpedientsRegistrarBDTO)
 	 */
 	@Override
-	public RespostaCrearRegistreSolicitudExpedient crearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
+	public RespostaCrearRegistreExpedient crearRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO, BigDecimal tipusDocVinculada)
 			throws GPAServeisServiceException {
-		return expedientsService.crearRegistreSolicitudExpedient(expedientsRegistrarBDTO);
+		return expedientsService.crearRegistre(expedientsRegistrarBDTO, tipusDocVinculada);
 	}
 
 	/*
@@ -462,9 +476,82 @@ public class ServeisServiceImpl implements ServeisService {
 		documentsService.revisarDocumentacioEntrada(documentAportatValidarBDTO);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#crearDataXmlExpedient(java.
+	 * math.BigDecimal)
+	 */
 	@Override
-	public ExpedientDadesXmlBDTO crearDataXmlExpedient(BigDecimal idExpedient) throws GPAServeisServiceException {
+	public RespostaObtenirXmlExpedient crearDataXmlExpedient(BigDecimal idExpedient) throws GPAServeisServiceException {
 		return expedientsService.crearDataXmlExpedient(idExpedient);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#getPlantillaDocVinculada(
+	 * java.math.BigDecimal, java.math.BigDecimal)
+	 */
+	@Override
+	public RespostaPlantillaDocVinculada getPlantillaDocVinculada(BigDecimal idConfDoc, BigDecimal idDocVinculada)
+			throws GPAServeisServiceException {
+		return documentsService.getPlantillaDocVinculada(idConfDoc, idDocVinculada);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#saveDocumentacioTramitacio(
+	 * es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.
+	 * DocsTramitacioRDTO, java.math.BigDecimal)
+	 */
+	@Override
+	public RespostaCrearJustificant saveDocumentacioTramitacio(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal id)
+			throws GPAServeisServiceException {
+		return documentsService.saveDocumentacioTramitacio(docsTramitacioRDTO, id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * associarRegistreDocumentacioExpedient(es.bcn.gpa.gpaserveis.rest.client.
+	 * api.model.gpadocumentacio.DocumentActualizarRegistre)
+	 */
+	@Override
+	public void associarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
+			throws GPAServeisServiceException {
+		documentsService.associarRegistreDocumentacioExpedient(documentActualizarRegistreRDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#associarRegistreDocsEnt(es.
+	 * bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.
+	 * DocsEntActualizarRegistre)
+	 */
+	@Override
+	public void associarRegistreDocsEnt(DocsEntActualizarRegistre docsEntActualizarRegistreRDTO) throws GPAServeisServiceException {
+		documentsService.associarRegistreDocsEnt(docsEntActualizarRegistreRDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#registreDocumentacioAriadna
+	 * (es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.
+	 * RegistreDocumentacioExpedient)
+	 */
+	@Override
+	public void registreDocumentacioAriadna(RegistreDocumentacioExpedient registreDocumentacioExpedient) throws GPAServeisServiceException {
+		expedientsService.registreDocumentacioAriadna(registreDocumentacioExpedient);
 	}
 
 }

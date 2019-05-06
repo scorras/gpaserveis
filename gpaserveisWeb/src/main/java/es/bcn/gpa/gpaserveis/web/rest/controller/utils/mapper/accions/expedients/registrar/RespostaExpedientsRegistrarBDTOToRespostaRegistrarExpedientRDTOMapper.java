@@ -17,7 +17,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.regi
  */
 @Component("respostaExpedientsRegistrarBDTOToRespostaRegistrarExpedientRDTOMapper")
 public class RespostaExpedientsRegistrarBDTOToRespostaRegistrarExpedientRDTOMapper
-        extends PropertyMap<RespostaExpedientsRegistrarBDTO, RespostaRegistrarExpedientRDTO> {
+		extends PropertyMap<RespostaExpedientsRegistrarBDTO, RespostaRegistrarExpedientRDTO> {
 
 	private InternalToExpedientAccioConverter internalToExpedientAccioConverter;
 
@@ -27,9 +27,9 @@ public class RespostaExpedientsRegistrarBDTOToRespostaRegistrarExpedientRDTOMapp
 
 	@Autowired
 	public RespostaExpedientsRegistrarBDTOToRespostaRegistrarExpedientRDTOMapper(
-	        @Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
-	        @Qualifier("expedientInternalRDTOToRegistreConverter") InternalRDTOToRegistreConverter internalRDTOToRegistreConverter,
-	        @Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
+			@Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
+			@Qualifier("expedientInternalRDTOToRegistreConverter") InternalRDTOToRegistreConverter internalRDTOToRegistreConverter,
+			@Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
 		this.internalToExpedientAccioConverter = internalToExpedientAccioConverter;
 		this.internalRDTOToRegistreConverter = internalRDTOToRegistreConverter;
 		this.internalToResultatRespostaConverter = internalToResultatRespostaConverter;
@@ -44,9 +44,8 @@ public class RespostaExpedientsRegistrarBDTOToRespostaRegistrarExpedientRDTOMapp
 	protected void configure() {
 		using(internalToResultatRespostaConverter).map(source.getRespostaResultatBDTO()).setResultat(null);
 		using(internalToExpedientAccioConverter).map(source.getExpedientsRDTO()).setExpedient(null);
-		using(internalRDTOToRegistreConverter).map(source.getRespostaCrearRegistreSolicitudExpedient().getRegistreAssentament())
-		        .setRegistre(null);
-		// map().setComprovant(source.getRespostaRegistrarSolicitudExpedient().getComprovant());
+		using(internalRDTOToRegistreConverter).map(source.getRespostaCrearRegistreExpedient().getRegistreAssentament()).setRegistre(null);
+		map().setComprovant(source.getRespostaCrearJustificantSolicitud().getDocsTramitacio().getId());
 	}
 
 }

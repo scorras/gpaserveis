@@ -11,7 +11,6 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import es.bcn.gpa.gpaserveis.business.ExpedientsService;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientDadesXmlBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
@@ -33,8 +32,10 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreSolicitudExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 import lombok.extern.apachecommons.CommonsLog;
 
@@ -42,6 +43,8 @@ import lombok.extern.apachecommons.CommonsLog;
  * The Class ExpedientsServiceImpl.
  */
 @Service
+
+/** The Constant log. */
 
 /** The Constant log. */
 
@@ -563,23 +566,23 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 * expedients.ExpedientsRegistrarBDTO)
 	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackCrearRegistreSolicitudExpedient")
-	public RespostaCrearRegistreSolicitudExpedient crearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
+	@HystrixCommand(fallbackMethod = "fallbackCrearRegistre")
+	public RespostaCrearRegistreExpedient crearRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO, BigDecimal tipusDocVinculada)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("crearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO) - inici"); //$NON-NLS-1$
+			log.debug("crearRegistre(ExpedientsRegistrarBDTO, BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			RespostaCrearRegistreSolicitudExpedient respostaCrearRegistreSolicitudExpedient = expedients_Api
-					.crearRegistreSolicitudExpedient(expedientsRegistrarBDTO.getRegistreCreacioSolicitudExpedient());
+			RespostaCrearRegistreExpedient respostaCrearRegistreSolicitudExpedient = expedients_Api
+					.crearRegistreSolicitudExpedient(tipusDocVinculada, expedientsRegistrarBDTO.getCrearRegistre());
 
 			if (log.isDebugEnabled()) {
-				log.debug("crearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO) - fi"); //$NON-NLS-1$
+				log.debug("crearRegistre(ExpedientsRegistrarBDTO, BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return respostaCrearRegistreSolicitudExpedient;
 		} catch (ApiException e) {
-			log.error("crearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO)", e); //$NON-NLS-1$
+			log.error("crearRegistre(ExpedientsRegistrarBDTO, BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
@@ -591,14 +594,16 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 *
 	 * @param expedientsRegistrarBDTO
 	 *            the expedients registrar BDTO
+	 * @param tipusDocVinculada
+	 *            the tipus doc vinculada
 	 * @return the resposta crear registre solicitud expedient
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public RespostaCrearRegistreSolicitudExpedient fallbackCrearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO expedientsRegistrarBDTO)
-			throws GPAServeisServiceException {
+	public RespostaCrearRegistreExpedient fallbackCrearRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO,
+			BigDecimal tipusDocVinculada) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackCrearRegistreSolicitudExpedient(ExpedientsRegistrarBDTO) - inici"); //$NON-NLS-1$
+			log.debug("fallbackCrearRegistre(ExpedientsRegistrarBDTO, BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de expedients no està disponible");
@@ -744,21 +749,27 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		throw new GPAServeisServiceException("El servei de expedients no està disponible");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#crearDataXmlExpedient(
+	 * java.math.BigDecimal)
+	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCrearDataXmlExpedient")
-	public ExpedientDadesXmlBDTO crearDataXmlExpedient(BigDecimal idExpedient) throws GPAServeisServiceException {
+	public RespostaObtenirXmlExpedient crearDataXmlExpedient(BigDecimal idExpedient) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("crearDataXmlExpedient(BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			String xmlDataExpedient = expedients_Api.obtenirXmlEvaluateUsingGET(idExpedient);
+			RespostaObtenirXmlExpedient xmlDataExpedient = expedients_Api.obtenirXmlExpedient(idExpedient);
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearDataXmlExpedient(BigDecimal) - fi"); //$NON-NLS-1$
 			}
-			// return xmlDataExpedient;
-			return null;
+			return xmlDataExpedient;
 		} catch (ApiException e) {
 			log.error("crearDataXmlExpedient(BigDecimal)", e); //$NON-NLS-1$
 
@@ -782,6 +793,13 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		throw new GPAServeisServiceException("El servei de expedients no està disponible");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
+	 * convidarTramitarExpedient(es.bcn.gpa.gpaserveis.business.dto.expedients.
+	 * ExpedientsConvidarTramitarBDTO)
+	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackConvidarTramitarExpedient")
 	public void convidarTramitarExpedient(ExpedientsConvidarTramitarBDTO expedientsConvidarTramitarBDTO) throws GPAServeisServiceException {
@@ -789,8 +807,16 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 	}
 
+	/**
+	 * Fallback convidar tramitar expedient.
+	 *
+	 * @param expedientsConvidarTramitarBDTO
+	 *            the expedients convidar tramitar BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	public void fallbackConvidarTramitarExpedient(ExpedientsConvidarTramitarBDTO expedientsConvidarTramitarBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearAvisAccio(AvisosCrearAccioBDTO) - inici"); //$NON-NLS-1$
 		}
@@ -798,16 +824,76 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		throw new GPAServeisServiceException("El servei de expedients no està disponible");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
+	 * retornarTramitacioExpedient(es.bcn.gpa.gpaserveis.business.dto.expedients
+	 * .ExpedientsRetornarTramitacioBDTO)
+	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackRetornarTramitacioExpedient")
 	public void retornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Fallback retornar tramitacio expedient.
+	 *
+	 * @param expedientsRetornarTramitacioBDTO
+	 *            the expedients retornar tramitacio BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	public void fallbackRetornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCrearAvisAccio(AvisosCrearAccioBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de expedients no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
+	 * registreDocumentacioAriadna(es.bcn.gpa.gpaserveis.rest.client.api.model.
+	 * gpaexpedients.RegistreDocumentacioExpedient)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackRegistreDocumentacioAriadna")
+	public void registreDocumentacioAriadna(RegistreDocumentacioExpedient registreDocumentacioExpedient) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("registreDocumentacioAriadna(RegistreDocumentacioExpedient) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			expedients_Api.registreDocumentacioAriadna(registreDocumentacioExpedient);
+
+			if (log.isDebugEnabled()) {
+				log.debug("registreDocumentacioAriadna(RegistreDocumentacioExpedient) - fi"); //$NON-NLS-1$
+			}
+		} catch (ApiException e) {
+			log.error("registreDocumentacioAriadna(RegistreDocumentacioExpedient)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+
+	}
+
+	/**
+	 * Fallback registre documentacio ariadna.
+	 *
+	 * @param registreDocumentacioExpedient
+	 *            the registre documentacio expedient
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackRegistreDocumentacioAriadna(RegistreDocumentacioExpedient registreDocumentacioExpedient)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearAvisAccio(AvisosCrearAccioBDTO) - inici"); //$NON-NLS-1$
 		}
