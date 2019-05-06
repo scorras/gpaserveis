@@ -902,7 +902,7 @@ paths:
       tags:
       - "Canvi Unitat Gestora"
       summary: "Changes the unitat gestora of the provided expedient"
-      operationId: "canviUnitatGestoraUsingPOST"
+      operationId: "canviarUnitatGestoraExpedient"
       consumes:
       - "application/json"
       produces:
@@ -2952,7 +2952,7 @@ paths:
     get:
       tags:
       - "Expedients "
-      summary: "Returns the requested unitat"
+      summary: "Returns the requested registre"
       operationId: "getRegistreAssentamentUsingGET"
       produces:
       - "*/*"
@@ -2976,7 +2976,7 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/registre/crear:
+  /expedients/registre/crear/{accio}:
     post:
       tags:
       - "Expedients "
@@ -2987,17 +2987,22 @@ paths:
       produces:
       - "*/*"
       parameters:
+      - name: "accio"
+        in: "path"
+        description: "accio"
+        required: true
+        type: "number"
       - in: "body"
         name: "registrarSolicitudExpedientRDTO"
         description: "registrarSolicitudExpedientRDTO"
         required: true
         schema:
-          $ref: "#/definitions/RegistreCreacioSolicitudExpedient"
+          $ref: "#/definitions/CrearRegistre"
       responses:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/RespostaCrearRegistreSolicitudExpedient"
+            $ref: "#/definitions/RespostaCrearRegistreExpedient"
         201:
           description: "Created"
         401:
@@ -3039,6 +3044,37 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/registre/registreDoc:
+    post:
+      tags:
+      - "Expedients "
+      summary: "Register the provided documentacio"
+      operationId: "registreDocumentacioAriadna"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "registreDocumentacioExpedientRDTO"
+        description: "registreDocumentacioExpedientRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/RegistreDocumentacioExpedient"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/retornarLaTramitacio:
     post:
       tags:
@@ -3922,6 +3958,13 @@ definitions:
         type: "number"
         description: "Tipus de l'avís"
     title: "CrearAvisRequeriment"
+  CrearRegistre:
+    type: "object"
+    properties:
+      expedient:
+        description: "Dades de l'expedient"
+        $ref: "#/definitions/ExpedientsRDTO"
+    title: "CrearRegistre"
   CriticitatAvisRDTO:
     type: "object"
     properties:
@@ -4728,13 +4771,18 @@ definitions:
       usuari:
         type: "number"
     title: "RegistreAssentamentRDTO"
-  RegistreCreacioSolicitudExpedient:
+  RegistreDocumentacioExpedient:
     type: "object"
     properties:
-      expedient:
-        description: "Dades de l'expedient"
-        $ref: "#/definitions/ExpedientsRDTO"
-    title: "RegistreCreacioSolicitudExpedient"
+      codisDocument:
+        type: "array"
+        description: "List codis documents"
+        items:
+          type: "string"
+      numAss:
+        type: "string"
+        description: "Número d'assentament"
+    title: "RegistreDocumentacioExpedient"
   RelacioPersonaRDTO:
     type: "object"
     properties:
@@ -4753,13 +4801,13 @@ definitions:
         description: "Dades bàsiques de l'expedient"
         $ref: "#/definitions/ExpedientCanviEstat"
     title: "RespostaCanviarEstatAccioExpedient"
-  RespostaCrearRegistreSolicitudExpedient:
+  RespostaCrearRegistreExpedient:
     type: "object"
     properties:
       registreAssentament:
         description: "Dades del registre de l'expedient"
         $ref: "#/definitions/RegistreAssentamentRDTO"
-    title: "RespostaCrearRegistreSolicitudExpedient"
+    title: "RespostaCrearRegistreExpedient"
   RespostaObtenirXmlExpedient:
     type: "object"
     properties:

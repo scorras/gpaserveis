@@ -9,13 +9,14 @@ import javax.ws.rs.core.GenericType;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import java.math.BigDecimal;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import org.joda.time.DateTime;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InputStreamResource;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreCreacioSolicitudExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreSolicitudExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-30T17:09:19.233+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-06T09:02:05.732+02:00")
 public class Expedients_Api {
   private ApiClient apiClient;
 
@@ -272,12 +273,18 @@ public class Expedients_Api {
   /**
    * Register the provided expedient
    * 
+   * @param accio accio (required)
    * @param registrarSolicitudExpedientRDTO registrarSolicitudExpedientRDTO (required)
-   * @return RespostaCrearRegistreSolicitudExpedient
+   * @return RespostaCrearRegistreExpedient
    * @throws ApiException if fails to make API call
    */
-  public RespostaCrearRegistreSolicitudExpedient crearRegistreSolicitudExpedient(RegistreCreacioSolicitudExpedient registrarSolicitudExpedientRDTO) throws ApiException {
+  public RespostaCrearRegistreExpedient crearRegistreSolicitudExpedient(BigDecimal accio, CrearRegistre registrarSolicitudExpedientRDTO) throws ApiException {
     Object localVarPostBody = registrarSolicitudExpedientRDTO;
+    
+    // verify the required parameter 'accio' is set
+    if (accio == null) {
+      throw new ApiException(400, "Missing the required parameter 'accio' when calling crearRegistreSolicitudExpedient");
+    }
     
     // verify the required parameter 'registrarSolicitudExpedientRDTO' is set
     if (registrarSolicitudExpedientRDTO == null) {
@@ -285,7 +292,8 @@ public class Expedients_Api {
     }
     
     // create path and map variables
-    String localVarPath = "/expedients/registre/crear";
+    String localVarPath = "/expedients/registre/crear/{accio}"
+      .replaceAll("\\{" + "accio" + "\\}", apiClient.escapeString(accio.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -307,7 +315,7 @@ public class Expedients_Api {
 
     String[] localVarAuthNames = new String[] {  };
 
-    GenericType<RespostaCrearRegistreSolicitudExpedient> localVarReturnType = new GenericType<RespostaCrearRegistreSolicitudExpedient>() {};
+    GenericType<RespostaCrearRegistreExpedient> localVarReturnType = new GenericType<RespostaCrearRegistreExpedient>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
@@ -663,7 +671,7 @@ public class Expedients_Api {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
-   * Returns the requested unitat
+   * Returns the requested registre
    * 
    * @param codi codi (required)
    * @return RegistreAssentamentRDTO
@@ -781,6 +789,46 @@ public class Expedients_Api {
     GenericType<RespostaObtenirXmlExpedient> localVarReturnType = new GenericType<RespostaObtenirXmlExpedient>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
+  /**
+   * Register the provided documentacio
+   * 
+   * @param registreDocumentacioExpedientRDTO registreDocumentacioExpedientRDTO (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void registreDocumentacioAriadna(RegistreDocumentacioExpedient registreDocumentacioExpedientRDTO) throws ApiException {
+    Object localVarPostBody = registreDocumentacioExpedientRDTO;
+    
+    // verify the required parameter 'registreDocumentacioExpedientRDTO' is set
+    if (registreDocumentacioExpedientRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'registreDocumentacioExpedientRDTO' when calling registreDocumentacioAriadna");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/expedients/registre/registreDoc";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+
+    apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
   /**
    * Returns all the expedients that meet the search criteria
    * 

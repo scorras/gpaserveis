@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-30T17:09:19.233+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-06T09:02:05.732+02:00")
 public class CanviUnitatGestoraApi {
   private ApiClient apiClient;
 
@@ -40,12 +40,12 @@ public class CanviUnitatGestoraApi {
    * @param canviUnitatGestoraRDTO canviUnitatGestoraRDTO (required)
    * @throws ApiException if fails to make API call
    */
-  public void canviUnitatGestoraUsingPOST(CanviUnitatGestoraRDTO canviUnitatGestoraRDTO) throws ApiException {
+  public void canviarUnitatGestoraExpedient(CanviUnitatGestoraRDTO canviUnitatGestoraRDTO) throws ApiException {
     Object localVarPostBody = canviUnitatGestoraRDTO;
     
     // verify the required parameter 'canviUnitatGestoraRDTO' is set
     if (canviUnitatGestoraRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'canviUnitatGestoraRDTO' when calling canviUnitatGestoraUsingPOST");
+      throw new ApiException(400, "Missing the required parameter 'canviUnitatGestoraRDTO' when calling canviarUnitatGestoraExpedient");
     }
     
     // create path and map variables
