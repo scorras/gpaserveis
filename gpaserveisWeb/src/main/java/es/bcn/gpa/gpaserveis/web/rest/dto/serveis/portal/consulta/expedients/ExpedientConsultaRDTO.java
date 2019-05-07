@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.AccioCiutadaApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.PersonesRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.RegistreRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.HistoricsRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.RegistreRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.ConfiguracioDocumentacioRequeridaConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.DocumentAportatConsultaRDTO;

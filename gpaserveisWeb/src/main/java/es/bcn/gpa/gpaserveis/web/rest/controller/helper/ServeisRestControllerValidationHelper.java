@@ -23,9 +23,11 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperValidVal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
@@ -43,12 +45,13 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.Ti
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TipusValidacioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TipusCampApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TipusValidacioApiParamValueTranslator;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.substituir.DocumentAportatSubstituirRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar.AtributsActualitzarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.AtributRequeritRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.DocumentRequeritCrearRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.DocumentIncorporatNouRDTO;
 
 /**
  * The Class ServeisRestControllerValidationHelper.
@@ -640,7 +643,7 @@ public class ServeisRestControllerValidationHelper {
 			for (DocumentAportatCrearRDTO documentAportatCrearRDTO : documentAportatCrearRDTOList) {
 				uniqueIdConfiguracioDocumentacioList.add(documentAportatCrearRDTO.getConfiguracioDocumentacio());
 			}
-			configuracioDocsEntradaRDTOMap = validateConfiguracioDocumentacio(configuracioDocsEntradaRDTOList,
+			configuracioDocsEntradaRDTOMap = validateConfiguracioDocumentacioEntrada(configuracioDocsEntradaRDTOList,
 			        uniqueIdConfiguracioDocumentacioList, resultatError);
 		}
 		return configuracioDocsEntradaRDTOMap;
@@ -662,7 +665,7 @@ public class ServeisRestControllerValidationHelper {
 	public static void validateConfiguracioDocumentacioSubstituir(List<ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOList,
 	        DocumentAportatSubstituirRDTO documentAportatSubstituirRDTO, Resultat resultatError) throws GPAApiParamValidationException {
 		if (documentAportatSubstituirRDTO != null) {
-			validateConfiguracioDocumentacio(configuracioDocsEntradaRDTOList,
+			validateConfiguracioDocumentacioEntrada(configuracioDocsEntradaRDTOList,
 			        Arrays.asList(documentAportatSubstituirRDTO.getConfiguracioDocumentacio()), resultatError);
 		}
 	}
@@ -689,14 +692,62 @@ public class ServeisRestControllerValidationHelper {
 			for (DocumentRequeritCrearRDTO documentRequeritCrearRDTO : documentRequeritCrearRDTOList) {
 				idConfiguracioDocumentacioList.add(documentRequeritCrearRDTO.getConfiguracioDocumentacio());
 			}
-			configuracioDocsEntradaRDTOMap = validateConfiguracioDocumentacio(configuracioDocsEntradaRDTOList,
+			configuracioDocsEntradaRDTOMap = validateConfiguracioDocumentacioEntrada(configuracioDocsEntradaRDTOList,
 			        idConfiguracioDocumentacioList, resultatError);
 		}
 		return configuracioDocsEntradaRDTOMap;
 	}
 
 	/**
-	 * Validate configuracio documentacio.
+	 * Validate configuracio documentacio entrada incorporat nou.
+	 *
+	 * @param configuracioDocsEntradaRDTOList
+	 *            the configuracio docs entrada RDTO list
+	 * @param documentIncorporatNouRDTO
+	 *            the document incorporat nou RDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @return the hash map
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static HashMap<String, ConfiguracioDocsEntradaRDTO> validateConfiguracioDocumentacioEntradaIncorporatNou(
+	        List<ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOList, DocumentIncorporatNouRDTO documentIncorporatNouRDTO,
+	        Resultat resultatError) throws GPAApiParamValidationException {
+		HashMap<String, ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOMap = new HashMap<>();
+		if (documentIncorporatNouRDTO != null) {
+			configuracioDocsEntradaRDTOMap = validateConfiguracioDocumentacioEntrada(configuracioDocsEntradaRDTOList,
+			        Arrays.asList(documentIncorporatNouRDTO.getConfiguracioDocumentacio()), resultatError);
+		}
+		return configuracioDocsEntradaRDTOMap;
+	}
+
+	/**
+	 * Validate configuracio documentacio tramitacio incorporat nou.
+	 *
+	 * @param configuracioDocsTramitacioRDTOList
+	 *            the configuracio docs tramitacio RDTO list
+	 * @param documentIncorporatNouRDTO
+	 *            the document incorporat nou RDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @return the hash map
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static HashMap<String, ConfiguracioDocsTramitacioRDTO> validateConfiguracioDocumentacioTramitacioIncorporatNou(
+	        List<ConfiguracioDocsTramitacioRDTO> configuracioDocsTramitacioRDTOList, DocumentIncorporatNouRDTO documentIncorporatNouRDTO,
+	        Resultat resultatError) throws GPAApiParamValidationException {
+		HashMap<String, ConfiguracioDocsTramitacioRDTO> configuracioDocsTramitacioRDTOMap = new HashMap<>();
+		if (documentIncorporatNouRDTO != null) {
+			configuracioDocsTramitacioRDTOMap = validateConfiguracioDocumentacioTramitacio(configuracioDocsTramitacioRDTOList,
+			        Arrays.asList(documentIncorporatNouRDTO.getConfiguracioDocumentacio()), resultatError);
+		}
+		return configuracioDocsTramitacioRDTOMap;
+	}
+
+	/**
+	 * Validate configuracio documentacio entrada.
 	 *
 	 * @param configuracioDocsEntradaRDTOList
 	 *            the configuracio docs entrada RDTO list
@@ -708,7 +759,7 @@ public class ServeisRestControllerValidationHelper {
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
-	private static HashMap<String, ConfiguracioDocsEntradaRDTO> validateConfiguracioDocumentacio(
+	private static HashMap<String, ConfiguracioDocsEntradaRDTO> validateConfiguracioDocumentacioEntrada(
 	        List<ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOList, List<String> uniqueIdConfiguracioDocumentacioList,
 	        Resultat resultatError) throws GPAApiParamValidationException {
 		HashMap<String, ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOMap = new HashMap<String, ConfiguracioDocsEntradaRDTO>();
@@ -724,5 +775,54 @@ public class ServeisRestControllerValidationHelper {
 		}
 
 		return configuracioDocsEntradaRDTOMap;
+	}
+
+	/**
+	 * Validate configuracio documentacio tramitacio.
+	 *
+	 * @param configuracioDocsTramitacioRDTOList
+	 *            the configuracio docs tramitacio RDTO list
+	 * @param uniqueIdConfiguracioDocumentacioList
+	 *            the unique id configuracio documentacio list
+	 * @param resultatError
+	 *            the resultat error
+	 * @return the hash map
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	private static HashMap<String, ConfiguracioDocsTramitacioRDTO> validateConfiguracioDocumentacioTramitacio(
+	        List<ConfiguracioDocsTramitacioRDTO> configuracioDocsTramitacioRDTOList, List<String> uniqueIdConfiguracioDocumentacioList,
+	        Resultat resultatError) throws GPAApiParamValidationException {
+		HashMap<String, ConfiguracioDocsTramitacioRDTO> configuracioDocsTramitacioRDTOMap = new HashMap<String, ConfiguracioDocsTramitacioRDTO>();
+		for (ConfiguracioDocsTramitacioRDTO configuracioDocsTramitacioRDTO : configuracioDocsTramitacioRDTOList) {
+			configuracioDocsTramitacioRDTOMap.put(String.valueOf(configuracioDocsTramitacioRDTO.getUniqueId()),
+			        configuracioDocsTramitacioRDTO);
+		}
+
+		for (String idConfiguracioDocumentacio : uniqueIdConfiguracioDocumentacioList) {
+			if (!configuracioDocsTramitacioRDTOMap.containsKey(idConfiguracioDocumentacio)) {
+				throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_CONFIGURACIO_DOCUMENTACIO_NOT_IN_EXPEDIENT,
+				        idConfiguracioDocumentacio);
+			}
+		}
+
+		return configuracioDocsTramitacioRDTOMap;
+	}
+
+	/**
+	 * Validate registre assentament.
+	 *
+	 * @param registreAssentamentRDTO
+	 *            the registre assentament RDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateRegistreAssentament(RegistreAssentamentRDTO registreAssentamentRDTO, Resultat resultatError)
+	        throws GPAApiParamValidationException {
+		if (registreAssentamentRDTO == null) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_REGISTRE_ASSENTAMENT_NOT_FOUND);
+		}
 	}
 }

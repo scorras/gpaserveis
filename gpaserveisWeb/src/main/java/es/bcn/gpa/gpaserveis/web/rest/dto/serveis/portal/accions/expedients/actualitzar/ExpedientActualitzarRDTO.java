@@ -5,7 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.PersonesRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

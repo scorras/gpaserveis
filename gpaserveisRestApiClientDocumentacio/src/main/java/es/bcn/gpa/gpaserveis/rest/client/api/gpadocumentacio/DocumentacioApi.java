@@ -22,7 +22,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatRevisioR
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaCrearJustificant;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaUploadDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RestClientResponse;
@@ -35,7 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-06T11:28:11.327+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-07T17:29:21.076+02:00")
 public class DocumentacioApi {
   private ApiClient apiClient;
 
@@ -772,6 +771,102 @@ public class DocumentacioApi {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
+   * updates the doc entrada
+   * 
+   * @param docsEntradaRDTO docsEntradaRDTO (required)
+   * @param idExpedient idExpedient (required)
+   * @return DocsEntradaRDTO
+   * @throws ApiException if fails to make API call
+   */
+  public DocsEntradaRDTO guardarDocumentEntrada(DocsEntradaRDTO docsEntradaRDTO, BigDecimal idExpedient) throws ApiException {
+    Object localVarPostBody = docsEntradaRDTO;
+    
+    // verify the required parameter 'docsEntradaRDTO' is set
+    if (docsEntradaRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'docsEntradaRDTO' when calling guardarDocumentEntrada");
+    }
+    
+    // verify the required parameter 'idExpedient' is set
+    if (idExpedient == null) {
+      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling guardarDocumentEntrada");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/documentacio/entrada/saveDocEntrada/{idExpedient}"
+      .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<DocsEntradaRDTO> localVarReturnType = new GenericType<DocsEntradaRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * updates the doc tramitacio
+   * 
+   * @param docsTramitacioRDTO docsTramitacioRDTO (required)
+   * @param idExpedient idExpedient (required)
+   * @return DocsTramitacioRDTO
+   * @throws ApiException if fails to make API call
+   */
+  public DocsTramitacioRDTO guardarDocumentTramitacio(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient) throws ApiException {
+    Object localVarPostBody = docsTramitacioRDTO;
+    
+    // verify the required parameter 'docsTramitacioRDTO' is set
+    if (docsTramitacioRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'docsTramitacioRDTO' when calling guardarDocumentTramitacio");
+    }
+    
+    // verify the required parameter 'idExpedient' is set
+    if (idExpedient == null) {
+      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling guardarDocumentTramitacio");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/documentacio/tramitacio/saveDocTramitacio/{idExpedient}"
+      .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<DocsTramitacioRDTO> localVarReturnType = new GenericType<DocsTramitacioRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
    * create new documentacio
    * 
    * @return RestClientResponse
@@ -923,102 +1018,6 @@ public class DocumentacioApi {
 
     apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
   }
-  /**
-   * updates the doc entrada
-   * 
-   * @param docsEntradaRDTO docsEntradaRDTO (required)
-   * @param idExpedient idExpedient (required)
-   * @return DocsEntradaRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public DocsEntradaRDTO saveDocumentacioEntradaUsingPOST(DocsEntradaRDTO docsEntradaRDTO, BigDecimal idExpedient) throws ApiException {
-    Object localVarPostBody = docsEntradaRDTO;
-    
-    // verify the required parameter 'docsEntradaRDTO' is set
-    if (docsEntradaRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'docsEntradaRDTO' when calling saveDocumentacioEntradaUsingPOST");
-    }
-    
-    // verify the required parameter 'idExpedient' is set
-    if (idExpedient == null) {
-      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling saveDocumentacioEntradaUsingPOST");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/documentacio/entrada/saveDocEntrada/{idExpedient}"
-      .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<DocsEntradaRDTO> localVarReturnType = new GenericType<DocsEntradaRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * updates the doc tramitacio
-   * 
-   * @param docsTramitacioRDTO docsTramitacioRDTO (required)
-   * @param idExpedient idExpedient (required)
-   * @return RespostaCrearJustificant
-   * @throws ApiException if fails to make API call
-   */
-  public RespostaCrearJustificant saveDocumentacioTramitacio(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient) throws ApiException {
-    Object localVarPostBody = docsTramitacioRDTO;
-    
-    // verify the required parameter 'docsTramitacioRDTO' is set
-    if (docsTramitacioRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'docsTramitacioRDTO' when calling saveDocumentacioTramitacio");
-    }
-    
-    // verify the required parameter 'idExpedient' is set
-    if (idExpedient == null) {
-      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling saveDocumentacioTramitacio");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/documentacio/tramitacio/saveDocTramitacio/{idExpedient}"
-      .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<RespostaCrearJustificant> localVarReturnType = new GenericType<RespostaCrearJustificant>() {};
-    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
   /**
    * updates the requeriment
    * 

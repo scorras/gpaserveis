@@ -6,8 +6,12 @@ import java.util.List;
 import es.bcn.gpa.gpaserveis.business.dto.documents.AportarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DescarregarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.IncorporarNouDocumentEntradaExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.IncorporarNouDocumentTramitacioExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.SubstituirDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.UploadDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
@@ -16,9 +20,12 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarUnitatGestoraBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
@@ -33,11 +40,11 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaCrearJustificant;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaUploadDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
@@ -73,7 +80,18 @@ public interface ServeisService {
 	List<UnitatsGestoresRDTO> cercaUnitatsGestores(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO) throws GPAServeisServiceException;
 
 	/**
-	 * Consulta dades unitat gestora.
+	 * Consultar dades unitat gestora.
+	 *
+	 * @param idUnitatGestora
+	 *            the id unitat gestora
+	 * @return the unitats gestores RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	UnitatsGestoresRDTO consultarDadesUnitatGestora(BigDecimal idUnitatGestora) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar dades unitat gestora.
 	 *
 	 * @param unitatsGestoresCercaBDTO
 	 *            the unitats gestores cerca BDTO
@@ -81,7 +99,7 @@ public interface ServeisService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	UnitatsGestoresRDTO consultaDadesUnitatGestora(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO) throws GPAServeisServiceException;
+	UnitatsGestoresRDTO consultarDadesUnitatGestora(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO) throws GPAServeisServiceException;
 
 	/**
 	 * Consultar dades basiques procediment.
@@ -127,7 +145,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO consultarDadesTramitOvt(TramitsOvtCercaBDTO tramitsOvtCercaBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Cerca dades operacio.
@@ -150,7 +168,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaDocumentsEntradaCercaBDTO cercaConfiguracioDocumentacioEntrada(DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Cerca configuracio documentacio entrada per tramit ovt.
@@ -162,7 +180,19 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaDocumentsEntradaCercaBDTO cercaConfiguracioDocumentacioEntradaPerTramitOvt(DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
+
+	/**
+	 * Cerca configuracio documentacio tramitacio.
+	 *
+	 * @param documentsTramitacioCercaBDTO
+	 *            the documents tramitacio cerca BDTO
+	 * @return the resposta documents tramitacio cerca BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	RespostaDocumentsTramitacioCercaBDTO cercaConfiguracioDocumentacioTramitacio(DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO)
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Cerca expedients.
@@ -262,7 +292,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaAportarDocumentacioExpedientRDTO aportarDocumentacioExpedient(AportarDocumentExpedientBDTO aportarDocumentExpedientBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Substituir document expedient.
@@ -274,7 +304,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaSubstituirDocumentExpedientRDTO substituirDocumentExpedient(SubstituirDocumentExpedientBDTO substituirDocumentExpedientBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Consultar dades document aportat.
@@ -307,7 +337,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	byte[] descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Upload document expedient.
@@ -319,7 +349,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaUploadDocumentExpedient uploadDocumentExpedient(UploadDocumentExpedientBDTO uploadDocumentExpedientBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Crear registre solicitud expedient.
@@ -333,7 +363,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaCrearRegistreExpedient crearRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO, BigDecimal tipusDocVinculada)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Canviar estat accio expedient.
@@ -345,7 +375,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Crear comentari accio.
@@ -400,21 +430,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaPlantillaDocVinculada getPlantillaDocVinculada(BigDecimal idConfDoc, BigDecimal idDocVinculada)
-			throws GPAServeisServiceException;
-
-	/**
-	 * Save documentacio tramitacio.
-	 *
-	 * @param docsTramitacioRDTO
-	 *            the docs tramitacio RDTO
-	 * @param id
-	 *            the id
-	 * @return the resposta crear justificant solicitud
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	RespostaCrearJustificant saveDocumentacioTramitacio(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal id)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Associar registre documentacio expedient.
@@ -445,5 +461,71 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	void registreDocumentacioAriadna(RegistreDocumentacioExpedient registreDocumentacioExpedient) throws GPAServeisServiceException;
+
+	/**
+	 * Convidar tramitar expedient.
+	 *
+	 * @param expedientsConvidarTramitarBDTO
+	 *            the expedients convidar tramitar BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void convidarTramitarExpedient(ExpedientsConvidarTramitarBDTO expedientsConvidarTramitarBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Retornar tramitacio expedient.
+	 *
+	 * @param expedientsRetornarTramitacioBDTO
+	 *            the expedients retornar tramitacio BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void retornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Canviar unitat gestora expedient.
+	 *
+	 * @param expedientsCanviarUnitatGestoraBDTO
+	 *            the expedients canviar unitat gestora BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void canviarUnitatGestoraExpedient(ExpedientsCanviarUnitatGestoraBDTO expedientsCanviarUnitatGestoraBDTO)
+	        throws GPAServeisServiceException;
+
+	/**
+	 * Consultar dades registre assentament.
+	 *
+	 * @param codi
+	 *            the codi
+	 * @return the registre assentament RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	RegistreAssentamentRDTO consultarDadesRegistreAssentament(String codi) throws GPAServeisServiceException;
+
+	/**
+	 * Guardar document entrada.
+	 *
+	 * @param incorporarNouDocumentEntradaExpedientBDTO
+	 *            the incorporar nou document entrada expedient BDTO
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsEntradaRDTO guardarDocumentEntrada(IncorporarNouDocumentEntradaExpedientBDTO incorporarNouDocumentEntradaExpedientBDTO)
+	        throws GPAServeisServiceException;
+
+	/**
+	 * Guardar document tramitacio.
+	 *
+	 * @param incorporarNouDocumentTramitacioExpedientBDTO
+	 *            the incorporar nou document tramitacio expedient BDTO
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsTramitacioRDTO guardarDocumentTramitacio(IncorporarNouDocumentTramitacioExpedientBDTO incorporarNouDocumentTramitacioExpedientBDTO)
+	        throws GPAServeisServiceException;
 
 }

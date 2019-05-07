@@ -17,7 +17,9 @@ import es.bcn.gpa.gpaserveis.business.ProcedimentsService;
 import es.bcn.gpa.gpaserveis.business.TramitsService;
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadaEspecificaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
@@ -33,6 +35,7 @@ import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
@@ -510,6 +513,23 @@ public class ServeisServiceHelper {
 	 *
 	 * @param unitatsGestoresService
 	 *            the unitats gestores service
+	 * @param idUnitatGestora
+	 *            the id unitat gestora
+	 * @return the unitats gestores RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public static UnitatsGestoresRDTO loadUnitatGestora(UnitatsGestoresService unitatsGestoresService, BigDecimal idUnitatGestora)
+	        throws GPAServeisServiceException {
+		UnitatsGestoresRDTO unitatsGestoresRDTO = unitatsGestoresService.consultarDadesUnitatGestora(idUnitatGestora);
+		return unitatsGestoresRDTO;
+	}
+
+	/**
+	 * Load unitat gestora.
+	 *
+	 * @param unitatsGestoresService
+	 *            the unitats gestores service
 	 * @param unitatsGestoresCercaBDTO
 	 *            the unitats gestores cerca BDTO
 	 * @return the unitats gestores RDTO
@@ -845,6 +865,26 @@ public class ServeisServiceHelper {
 		        .cercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsEntradaCercaBDTO);
 		respostaDocumentsEntradaCercaBDTO.setConfiguracioDocsEntradaRDTOList(pageDataOfConfiguracioDocsEntradaRDTO.getData());
 		return respostaDocumentsEntradaCercaBDTO;
+	}
+
+	/**
+	 * Load cerca configuracio documentacio tramitacio.
+	 *
+	 * @param documentsService
+	 *            the documents service
+	 * @param documentsTramitacioCercaBDTO
+	 *            the documents tramitacio cerca BDTO
+	 * @return the resposta documents tramitacio cerca BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public static RespostaDocumentsTramitacioCercaBDTO loadCercaConfiguracioDocumentacioTramitacio(DocumentsService documentsService,
+	        DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO) throws GPAServeisServiceException {
+		RespostaDocumentsTramitacioCercaBDTO respostaDocumentsTramitacioCercaBDTO = new RespostaDocumentsTramitacioCercaBDTO();
+		PageDataOfConfiguracioDocsTramitacioRDTO pageDataOfConfiguracioDocsTramitacioRDTO = documentsService
+		        .cercaConfiguracioDocumentacioTramitacio(documentsTramitacioCercaBDTO);
+		respostaDocumentsTramitacioCercaBDTO.setConfiguracioDocsTramitacioRDTOList(pageDataOfConfiguracioDocsTramitacioRDTO.getData());
+		return respostaDocumentsTramitacioCercaBDTO;
 	}
 
 	/**

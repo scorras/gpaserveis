@@ -32,6 +32,7 @@ public class RestServerConfig extends RestServiceDefaultSwaggerConfiguration {
 	public ModelMapper modelMapper(List<PropertyMap> propertyMapList) {
 		final ModelMapper modelMapper = new ModelMapper();
 		// modelMapper.getConfiguration().setFieldMatchingEnabled(false).setImplicitMappingEnabled(false);
+		// modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
 		for (PropertyMap propertyMap : propertyMapList) {
 			if (propertyMap != null) {
 				modelMapper.addMappings(propertyMap);

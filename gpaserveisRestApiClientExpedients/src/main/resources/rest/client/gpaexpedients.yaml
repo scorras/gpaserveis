@@ -2952,8 +2952,8 @@ paths:
     get:
       tags:
       - "Expedients "
-      summary: "Returns the requested registre"
-      operationId: "getRegistreAssentamentUsingGET"
+      summary: "Returns the requested unitat"
+      operationId: "consultarDadesRegistreAssentament"
       produces:
       - "*/*"
       parameters:
@@ -4998,6 +4998,10 @@ definitions:
         type: "string"
       email:
         type: "string"
+      grp:
+        type: "array"
+        items:
+          type: "string"
       id:
         type: "number"
       matricula:

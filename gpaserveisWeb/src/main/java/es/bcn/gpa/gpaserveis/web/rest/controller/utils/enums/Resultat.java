@@ -87,7 +87,15 @@ public enum Resultat {
 
 	OK_CONVIDAR_TRAMITAR_EXPEDIENT("OK", "Expedient convidat a tramitar correctament"),
 
-	ERROR_CONVIDAR_TRAMITAR_EXPEDIENT("ERROR", "No s'ha pogut convidar a tramitar l'expedient");
+	ERROR_CONVIDAR_TRAMITAR_EXPEDIENT("ERROR", "No s'ha pogut convidar a tramitar l'expedient"),
+
+	OK_CANVIAR_UNITAT_GESTORA_EXPEDIENT("OK", "Unitat gestora de l'expedient canviada correctament"),
+
+	ERROR_CANVIAR_UNITAT_GESTORA_EXPEDIENT("ERROR", "No s'ha pogut canviar la unitat gestora de l'expedient"),
+
+	OK_INCORPORAR_NOU_DOCUMENT_EXPEDIENT("OK", "Nou document incorporat a l'expedient correctament"),
+
+	ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut incorporar el nou document a l'expedient");
 
 	private String codi;
 

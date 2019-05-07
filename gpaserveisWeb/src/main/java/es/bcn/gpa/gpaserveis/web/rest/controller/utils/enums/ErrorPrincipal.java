@@ -33,6 +33,8 @@ public enum ErrorPrincipal {
 
 	ERROR_EXPEDIENTS_ATRIBUT_NOT_VALID_VALUE("3006", "El valor de la Dada d'operació no compleix amb les validacions: "),
 
+	ERROR_EXPEDIENTS_REGISTRE_ASSENTAMENT_NOT_FOUND("3007", "No es troba l'assentament de registre"),
+
 	/* Documents */
 	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document"),
 

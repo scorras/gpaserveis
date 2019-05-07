@@ -12,6 +12,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.CanviUnitatGestoraApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
@@ -221,6 +222,15 @@ public class BusinessConfig {
 		AvisosApi avisosApi = new AvisosApi(apiClient);
 
 		return avisosApi;
+	}
+
+	@Bean
+	public CanviUnitatGestoraApi clientApiCanviUnitatGestora() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_EXPEDIENTS);
+		CanviUnitatGestoraApi canviUnitatGestoraApi = new CanviUnitatGestoraApi(apiClient);
+
+		return canviUnitatGestoraApi;
 	}
 
 }
