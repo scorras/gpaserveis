@@ -54,6 +54,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esme
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.DocumentRequeritCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.completar.DocumentCompletatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.DocumentIncorporatNouRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.presentar.declaracio.responsable.DeclaracioResponsablePresentadaRDTO;
 
 /**
  * The Class ServeisRestControllerValidationHelper.
@@ -817,6 +818,32 @@ public class ServeisRestControllerValidationHelper {
 			        Arrays.asList(documentCompletatRDTO.getConfiguracioDocumentacio()), resultatError);
 		}
 		return configuracioDocsTramitacioRDTOMap;
+	}
+
+	/**
+	 * Validate configuracio documentacio entrada declaracio responsable
+	 * presentada.
+	 *
+	 * @param configuracioDocsEntradaRDTOList
+	 *            the configuracio docs entrada RDTO list
+	 * @param declaracioResponsablePresentadaRDTO
+	 *            the declaracio responsable presentada RDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @return the hash map
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static HashMap<String, ConfiguracioDocsEntradaRDTO> validateConfiguracioDocumentacioEntradaDeclaracioResponsablePresentada(
+	        List<ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOList,
+	        DeclaracioResponsablePresentadaRDTO declaracioResponsablePresentadaRDTO, Resultat resultatError)
+	        throws GPAApiParamValidationException {
+		HashMap<String, ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOMap = new HashMap<>();
+		if (declaracioResponsablePresentadaRDTO != null) {
+			configuracioDocsEntradaRDTOMap = validateConfiguracioDocumentacioEntrada(configuracioDocsEntradaRDTOList,
+			        Arrays.asList(declaracioResponsablePresentadaRDTO.getConfiguracioDocumentacio()), resultatError);
+		}
+		return configuracioDocsEntradaRDTOMap;
 	}
 
 	/**

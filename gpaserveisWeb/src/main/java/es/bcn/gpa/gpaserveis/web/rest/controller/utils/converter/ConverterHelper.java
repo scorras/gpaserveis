@@ -47,6 +47,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.DadesContacteRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.DocumentsIdentitatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.RegistreRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.DeclaracioResponsablePresentadaAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.DocumentAportatAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.DocumentCompletatAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.DocumentIncorporatNouAccioRDTO;
@@ -771,6 +772,40 @@ public class ConverterHelper {
 		}
 
 		return documentCompletatAccioRDTO;
+	}
+
+	/**
+	 * Builds the declaracio responsable presentada accio RDTO expedient.
+	 *
+	 * @param docsEntradaRDTO
+	 *            the docs entrada RDTO
+	 * @param origenApiParamValueTranslator
+	 *            the origen api param value translator
+	 * @return the declaracio responsable presentada accio RDTO
+	 */
+	public static DeclaracioResponsablePresentadaAccioRDTO buildDeclaracioResponsablePresentadaAccioRDTOExpedient(
+	        DocsEntradaRDTO docsEntradaRDTO, BaseApiParamValueTranslator origenApiParamValueTranslator) {
+		DeclaracioResponsablePresentadaAccioRDTO declaracioResponsablePresentadaAccioRDTO = null;
+
+		if (docsEntradaRDTO != null) {
+			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
+			declaracioResponsablePresentadaAccioRDTO = new DeclaracioResponsablePresentadaAccioRDTO();
+			declaracioResponsablePresentadaAccioRDTO.setId(docsEntradaRDTO.getId());
+			if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null) {
+				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
+				configuracioDocumentacioRDTO.setCodi(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId() != null
+				        ? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId()) : null);
+				configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntrada().getNom());
+				configuracioDocumentacioRDTO.setDescripcioCastella(docsEntradaRDTO.getConfiguracioDocsEntrada().getNomCastella());
+				declaracioResponsablePresentadaAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
+			}
+			declaracioResponsablePresentadaAccioRDTO
+			        .setOrigen(origenApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTO.getOrigen()));
+			declaracioResponsablePresentadaAccioRDTO.setDataCreacio(
+			        (docsEntradaRDTO.getDataCreacio() != null) ? dateTimeFormatter.print(docsEntradaRDTO.getDataCreacio()) : null);
+		}
+
+		return declaracioResponsablePresentadaAccioRDTO;
 	}
 
 	/**
