@@ -4774,11 +4774,9 @@ definitions:
   RegistreDocumentacioExpedient:
     type: "object"
     properties:
-      codisDocument:
-        type: "array"
-        description: "List codis documents"
-        items:
-          type: "string"
+      idJustificant:
+        type: "number"
+        description: "Identificador del justificant a vincular"
       numAss:
         type: "string"
         description: "Número d'assentament"
@@ -4998,6 +4996,10 @@ definitions:
         type: "string"
       email:
         type: "string"
+      grp:
+        type: "array"
+        items:
+          type: "string"
       id:
         type: "number"
       matricula:

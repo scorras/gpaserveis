@@ -20,11 +20,13 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Usuaris
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-06T09:02:05.732+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-08T10:50:26.954+02:00")
 public class Usuaris {
   @JsonProperty("carrec")
   private String carrec = null;
@@ -40,6 +42,9 @@ public class Usuaris {
 
   @JsonProperty("email")
   private String email = null;
+
+  @JsonProperty("grp")
+  private List<String> grp = null;
 
   @JsonProperty("id")
   private BigDecimal id = null;
@@ -143,6 +148,32 @@ public class Usuaris {
     this.email = email;
   }
 
+  public Usuaris grp(List<String> grp) {
+    this.grp = grp;
+    return this;
+  }
+
+  public Usuaris addGrpItem(String grpItem) {
+    if (this.grp == null) {
+      this.grp = new ArrayList<String>();
+    }
+    this.grp.add(grpItem);
+    return this;
+  }
+
+   /**
+   * Get grp
+   * @return grp
+  **/
+  @ApiModelProperty(value = "")
+  public List<String> getGrp() {
+    return grp;
+  }
+
+  public void setGrp(List<String> grp) {
+    this.grp = grp;
+  }
+
   public Usuaris id(BigDecimal id) {
     this.id = id;
     return this;
@@ -230,6 +261,7 @@ public class Usuaris {
         Objects.equals(this.cognom2, usuaris.cognom2) &&
         Objects.equals(this.documentIdentitat, usuaris.documentIdentitat) &&
         Objects.equals(this.email, usuaris.email) &&
+        Objects.equals(this.grp, usuaris.grp) &&
         Objects.equals(this.id, usuaris.id) &&
         Objects.equals(this.matricula, usuaris.matricula) &&
         Objects.equals(this.nom, usuaris.nom) &&
@@ -238,7 +270,7 @@ public class Usuaris {
 
   @Override
   public int hashCode() {
-    return Objects.hash(carrec, cognom1, cognom2, documentIdentitat, email, id, matricula, nom, user);
+    return Objects.hash(carrec, cognom1, cognom2, documentIdentitat, email, grp, id, matricula, nom, user);
   }
 
 
@@ -252,6 +284,7 @@ public class Usuaris {
     sb.append("    cognom2: ").append(toIndentedString(cognom2)).append("\n");
     sb.append("    documentIdentitat: ").append(toIndentedString(documentIdentitat)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    grp: ").append(toIndentedString(grp)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    matricula: ").append(toIndentedString(matricula)).append("\n");
     sb.append("    nom: ").append(toIndentedString(nom)).append("\n");

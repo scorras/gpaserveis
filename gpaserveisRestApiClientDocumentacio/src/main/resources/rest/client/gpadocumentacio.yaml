@@ -282,6 +282,34 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /configuracioDocumentacio/documentacioVinculadaCompleta/{idConfiguracioDocumentacio}:
+    get:
+      tags:
+      - "DocumentacioVinculadaCompleta"
+      summary: "Returns DocumentacioVinculadaCompleta"
+      operationId: "obtenirDocumentacioVinculadaCompletaUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idConfiguracioDocumentacio"
+        in: "path"
+        description: "idConfiguracioDocumentacio"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaDocumentacioVinculadaCompletaRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /configuracioDocumentacio/entrada/{id}:
     get:
       tags:
@@ -1607,7 +1635,7 @@ paths:
       tags:
       - "Documentacio"
       summary: "updates the doc entrada"
-      operationId: "saveDocumentacioEntradaUsingPOST"
+      operationId: "guardarDocumentEntrada"
       consumes:
       - "application/json"
       produces:
@@ -1948,7 +1976,7 @@ paths:
       tags:
       - "Documentacio"
       summary: "updates the doc tramitacio"
-      operationId: "saveDocumentacioTramitacio"
+      operationId: "guardarDocumentTramitacio"
       consumes:
       - "application/json"
       produces:
@@ -1969,7 +1997,7 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/RespostaCrearJustificant"
+            $ref: "#/definitions/DocsTramitacioRDTO"
         201:
           description: "Created"
         401:
@@ -3389,13 +3417,16 @@ definitions:
         description: "Dades del registre dels documents aportats"
         $ref: "#/definitions/RegistreAssentamentRDTO"
     title: "RespostaAportarDocumentacioExpedientRDTO"
-  RespostaCrearJustificant:
+  RespostaDocumentacioVinculadaCompletaRDTO:
     type: "object"
     properties:
-      docsTramitacio:
-        description: "Documentació tramitació"
-        $ref: "#/definitions/DocsTramitacioRDTO"
-    title: "RespostaCrearJustificant"
+      completa:
+        type: "boolean"
+      documentacioVinculadaNoExistentList:
+        type: "array"
+        items:
+          type: "string"
+    title: "RespostaDocumentacioVinculadaCompletaRDTO"
   RespostaPlantillaDocVinculada:
     type: "object"
     properties:

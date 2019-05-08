@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.ProcedimentsCercaRDTO;
 import io.swagger.annotations.ApiModel;

@@ -34,6 +34,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.AportarDocumentExpedientBDTO
 import es.bcn.gpa.gpaserveis.business.dto.documents.DescarregarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.IncorporarNouDocumentTramitacioExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaAportarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaEsborrarDocumentExpedientBDTO;
@@ -71,7 +72,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaCrearJustificant;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaUploadDocumentExpedient;
@@ -110,7 +110,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procedime
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.FamiliaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TramitOvtApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TramitadorApiParamValueTranslator;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.FitxerRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.FitxerRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentacioAportarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.RespostaAportarDocumentRDTO;
@@ -657,7 +657,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			if (solicitudExpedient.getUnitatGestora() != null) {
 				UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(
 						solicitudExpedient.getUnitatGestora().getCodi());
-				UnitatsGestoresRDTO unitatsGestoresRDTO = serveisService.consultaDadesUnitatGestora(unitatsGestoresCercaBDTO);
+				UnitatsGestoresRDTO unitatsGestoresRDTO = serveisService.consultarDadesUnitatGestora(unitatsGestoresCercaBDTO);
 				ServeisRestControllerValidationHelper.validateUnitatGestora(unitatsGestoresRDTO, dadesProcedimentBDTO,
 						Resultat.ERROR_CREAR_EXPEDIENT);
 				idUnitatGestora = unitatsGestoresRDTO.getId();
@@ -796,9 +796,9 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		RespostaRegistrarExpedientRDTO respostaRegistrarExpedientRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
-		RespostaCrearRegistreExpedient respostaCrearRegistreSolicitudExpedient = null;
+		RespostaCrearRegistreExpedient respostaCrearRegistreExpedient = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_REGISTRAR_EXPEDIENT);
-		RespostaCrearJustificant respostaCrearJustificant = null;
+		DocsTramitacioRDTO respostaCrearJustificant = null;
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
@@ -813,13 +813,13 @@ public class ServeisPortalRestController extends BaseRestController {
 			CrearRegistre registreCreacioSolicitudExpedient = new CrearRegistre();
 			registreCreacioSolicitudExpedient.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
 			ExpedientsRegistrarBDTO expedientsRegistrarBDTO = new ExpedientsRegistrarBDTO(registreCreacioSolicitudExpedient);
-			respostaCrearRegistreSolicitudExpedient = serveisService.crearRegistre(expedientsRegistrarBDTO,
+			respostaCrearRegistreExpedient = serveisService.crearRegistre(expedientsRegistrarBDTO,
 					TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_SOLLICITUD.getInternalValue());
 
 			// Asociar registre del expediente a la documentacio
 			DocumentActualizarRegistre documentActualizarRegistreRDTO = new DocumentActualizarRegistre();
 			documentActualizarRegistreRDTO.setIdDoc(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
-			documentActualizarRegistreRDTO.setIdRegistre(respostaCrearRegistreSolicitudExpedient.getRegistreAssentament().getId());
+			documentActualizarRegistreRDTO.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
 			serveisService.associarRegistreDocumentacioExpedient(documentActualizarRegistreRDTO);
 
 			// Recoger plantilla de la conf
@@ -835,8 +835,16 @@ public class ServeisPortalRestController extends BaseRestController {
 			docsTramitacioRDTO.setIdIdiomaPlantilla(BigDecimal.ZERO);
 			docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 			docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
-			respostaCrearJustificant = serveisService.saveDocumentacioTramitacio(docsTramitacioRDTO,
-					dadesExpedientBDTO.getExpedientsRDTO().getId());
+			IncorporarNouDocumentTramitacioExpedientBDTO incorporarNouDocumentTramitacioExpedientBDTO = new IncorporarNouDocumentTramitacioExpedientBDTO();
+			incorporarNouDocumentTramitacioExpedientBDTO.setDocsTramitacioRDTO(docsTramitacioRDTO);
+			incorporarNouDocumentTramitacioExpedientBDTO.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
+			respostaCrearJustificant = serveisService.guardarDocumentTramitacio(incorporarNouDocumentTramitacioExpedientBDTO);
+
+			// Vincular Justificante en Ariadna
+			RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
+			registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
+			registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
+			serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
 
 			// Cambiar el estado del expediente
 			ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
@@ -858,7 +866,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		RespostaExpedientsRegistrarBDTO respostaExpedientsRegistrarBDTO = new RespostaExpedientsRegistrarBDTO(
-				respostaCrearRegistreSolicitudExpedient, respostaCrearJustificant,
+				respostaCrearRegistreExpedient, respostaCrearJustificant,
 				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
 		respostaRegistrarExpedientRDTO = modelMapper.map(respostaExpedientsRegistrarBDTO, RespostaRegistrarExpedientRDTO.class);
 
@@ -890,8 +898,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaAportarDocumentacioExpedientRDTO respostaAportarDocumentacioExpedientRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_APORTAR_DOCUMENTACIO_EXPEDIENT);
 		DadesExpedientBDTO dadesExpedientBDTO = null;
-		RespostaCrearJustificant respostaCrearJustificant = null;
-		RespostaCrearRegistreExpedient respostaCrearRegistreSolicitudExpedient = null;
+		DocsTramitacioRDTO respostaCrearJustificant = null;
+		RespostaCrearRegistreExpedient respostaCrearRegistreExpedient = null;
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
@@ -938,29 +946,20 @@ public class ServeisPortalRestController extends BaseRestController {
 
 			respostaAportarDocumentacioExpedientRDTO = serveisService.aportarDocumentacioExpedient(aportarDocumentExpedientBDTO);
 
-			if (documentacioAportar.isRegistrar()) {
+			if (documentacioAportar.isRegistrar()
+					&& CollectionUtils.isNotEmpty(respostaAportarDocumentacioExpedientRDTO.getDocsEntrada())) {
 				List<BigDecimal> idsDocsEnt = new ArrayList<>();
-				List<String> codisDocsEnt = new ArrayList<>();
 				List<DocsEntradaRDTO> documentacioList = respostaAportarDocumentacioExpedientRDTO.getDocsEntrada();
-				if (CollectionUtils.isNotEmpty(documentacioList)) {
-					for (DocsEntradaRDTO docsEntrada : documentacioList) {
-						idsDocsEnt.add(docsEntrada.getId());
-						codisDocsEnt.add(docsEntrada.getCodi());
-					}
+				for (DocsEntradaRDTO docsEntrada : documentacioList) {
+					idsDocsEnt.add(docsEntrada.getId());
 				}
 
 				// Registrar en Ariadna y coger el ID
 				CrearRegistre registreCreacioSolicitudExpedient = new CrearRegistre();
 				registreCreacioSolicitudExpedient.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
 				ExpedientsRegistrarBDTO expedientsRegistrarBDTO = new ExpedientsRegistrarBDTO(registreCreacioSolicitudExpedient);
-				respostaCrearRegistreSolicitudExpedient = serveisService.crearRegistre(expedientsRegistrarBDTO,
+				respostaCrearRegistreExpedient = serveisService.crearRegistre(expedientsRegistrarBDTO,
 						TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_APORTACIO.getInternalValue());
-
-				// TODO: Vincular Docs Ariadna
-				RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
-				registreDocumentacioExpedient.setCodisDocument(codisDocsEnt);
-				registreDocumentacioExpedient.setNumAss(respostaCrearRegistreSolicitudExpedient.getRegistreAssentament().getCodi());
-				serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
 
 				// Actualizar la lista de documentos
 				DocsEntActualizarRegistre docsEntActualizarRegistre = new DocsEntActualizarRegistre();
@@ -981,11 +980,20 @@ public class ServeisPortalRestController extends BaseRestController {
 				docsTramitacioRDTO.setIdIdiomaPlantilla(BigDecimal.ZERO);
 				docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 				docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
-				respostaCrearJustificant = serveisService.saveDocumentacioTramitacio(docsTramitacioRDTO,
-						dadesExpedientBDTO.getExpedientsRDTO().getId());
+				IncorporarNouDocumentTramitacioExpedientBDTO incorporarNouDocumentTramitacioExpedientBDTO = new IncorporarNouDocumentTramitacioExpedientBDTO();
+				incorporarNouDocumentTramitacioExpedientBDTO.setDocsTramitacioRDTO(docsTramitacioRDTO);
+				incorporarNouDocumentTramitacioExpedientBDTO.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
+				respostaCrearJustificant = serveisService.guardarDocumentTramitacio(incorporarNouDocumentTramitacioExpedientBDTO);
 
+				// Vincular Justificante en Ariadna
+				RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
+				registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
+				registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
+				serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
 			}
-		} catch (GPAApiParamValidationException e) {
+		} catch (
+
+		GPAApiParamValidationException e) {
 			log.error("aportarDocumentacioExpedient(BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
 
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
@@ -1005,9 +1013,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		respostaAportarDocumentRDTO = modelMapper.map(respostaAportarDocumentExpedientBDTO, RespostaAportarDocumentRDTO.class);
 
 		respostaAportarDocumentRDTO.setRegistre(null);
-		if (respostaCrearJustificant != null && respostaCrearJustificant.getDocsTramitacio() != null) {
-			respostaAportarDocumentRDTO.setComprovant(respostaCrearJustificant.getDocsTramitacio().getId());
-		}
+		respostaAportarDocumentRDTO.setComprovant(respostaCrearJustificant != null ? respostaCrearJustificant.getId() : null);
 
 		return respostaAportarDocumentRDTO;
 	}
@@ -1245,8 +1251,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaEsmenarExpedientRDTO respostaEsmenarExpedientRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ESMENAR_EXPEDIENT);
-		RespostaCrearRegistreExpedient respostaCrearRegistreSolicitudExpedient = null;
-		RespostaCrearJustificant respostaCrearJustificant = null;
+		RespostaCrearRegistreExpedient respostaCrearRegistreExpedient = null;
+		DocsTramitacioRDTO respostaCrearJustificant = null;
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
@@ -1295,58 +1301,59 @@ public class ServeisPortalRestController extends BaseRestController {
 					.aportarDocumentacioExpedient(aportarDocumentExpedientBDTO);
 
 			List<BigDecimal> idsDocsEnt = new ArrayList<>();
-			List<String> codisDocsEnt = new ArrayList<>();
 			List<DocsEntradaRDTO> documentacioList = aportarDocumentacioExpedient.getDocsEntrada();
 			if (CollectionUtils.isNotEmpty(documentacioList)) {
 				for (DocsEntradaRDTO docsEntrada : documentacioList) {
 					idsDocsEnt.add(docsEntrada.getId());
-					codisDocsEnt.add(docsEntrada.getCodi());
 				}
+
+				BigDecimal idAccio = null;
+
+				// Registrar en Ariadna y coger el ID
+				CrearRegistre registreCreacioSolicitudExpedient = new CrearRegistre();
+				registreCreacioSolicitudExpedient.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
+				ExpedientsRegistrarBDTO expedientsRegistrarBDTO = new ExpedientsRegistrarBDTO(registreCreacioSolicitudExpedient);
+				if (dadesExpedientBDTO.getExpedientsRDTO().getIdEstat()
+						.compareTo(TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_ESMENA.getInternalValue()) == 0) {
+					idAccio = TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_ESMENA.getInternalValue();
+				} else {
+					idAccio = TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_ALLEGACIO.getInternalValue();
+				}
+
+				respostaCrearRegistreExpedient = serveisService.crearRegistre(expedientsRegistrarBDTO, idAccio);
+
+				// Actualizar la lista de documentos
+				DocsEntActualizarRegistre docsEntActualizarRegistreRDTO = new DocsEntActualizarRegistre();
+				docsEntActualizarRegistreRDTO.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
+				docsEntActualizarRegistreRDTO.setListIdsDocsEnt(idsDocsEnt);
+				serveisService.associarRegistreDocsEnt(docsEntActualizarRegistreRDTO);
+
+				// Recoger Plantilla
+				RespostaPlantillaDocVinculada respostaPlantillaDocVinculada = serveisService
+						.getPlantillaDocVinculada(dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc(), idAccio);
+
+				// Generar Justificant
+				DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
+				ConfiguracioDocsTramitacio configuracioDocsTramitacio = new ConfiguracioDocsTramitacio();
+				configuracioDocsTramitacio.setSuportEnllac(respostaPlantillaDocVinculada.getPlantilla());
+				configuracioDocsTramitacio.setId(respostaPlantillaDocVinculada.getId());
+				docsTramitacioRDTO.setIdIdiomaPlantilla(BigDecimal.ZERO);
+				docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
+				docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
+				IncorporarNouDocumentTramitacioExpedientBDTO incorporarNouDocumentTramitacioExpedientBDTO = new IncorporarNouDocumentTramitacioExpedientBDTO();
+				incorporarNouDocumentTramitacioExpedientBDTO.setDocsTramitacioRDTO(docsTramitacioRDTO);
+				incorporarNouDocumentTramitacioExpedientBDTO.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
+				respostaCrearJustificant = serveisService.guardarDocumentTramitacio(incorporarNouDocumentTramitacioExpedientBDTO);
+
+				// Vincular Justificante en Ariadna
+				RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
+				registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
+				registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
+				serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
 			}
 
-			BigDecimal idAccio = null;
-			// TODO CAMBIAR OBJETOS PARA QUE NO LLEVEN SOLLICITUD, MAS GENERICO
-
-			// Registrar en Ariadna y coger el ID
-			CrearRegistre registreCreacioSolicitudExpedient = new CrearRegistre();
-			registreCreacioSolicitudExpedient.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
-			ExpedientsRegistrarBDTO expedientsRegistrarBDTO = new ExpedientsRegistrarBDTO(registreCreacioSolicitudExpedient);
-			if (dadesExpedientBDTO.getExpedientsRDTO().getIdEstat()
-					.compareTo(TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_ESMENA.getInternalValue()) == 0) {
-				idAccio = TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_ESMENA.getInternalValue();
-			} else {
-				idAccio = TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_ALLEGACIO.getInternalValue();
-			}
-
-			respostaCrearRegistreSolicitudExpedient = serveisService.crearRegistre(expedientsRegistrarBDTO, idAccio);
-
-			// TODO: Vincular Docs Ariadna
-			RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
-			registreDocumentacioExpedient.setCodisDocument(codisDocsEnt);
-			registreDocumentacioExpedient.setNumAss(respostaCrearRegistreSolicitudExpedient.getRegistreAssentament().getCodi());
-			serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
-
-			// Actualizar la lista de documentos
-			DocsEntActualizarRegistre docsEntActualizarRegistreRDTO = new DocsEntActualizarRegistre();
-			docsEntActualizarRegistreRDTO.setIdRegistre(respostaCrearRegistreSolicitudExpedient.getRegistreAssentament().getId());
-			docsEntActualizarRegistreRDTO.setListIdsDocsEnt(idsDocsEnt);
-			serveisService.associarRegistreDocsEnt(docsEntActualizarRegistreRDTO);
-
-			// Recoger Plantilla
-			RespostaPlantillaDocVinculada respostaPlantillaDocVinculada = serveisService
-					.getPlantillaDocVinculada(dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc(), idAccio);
-
-			// Generar Justificant
-			DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
-			ConfiguracioDocsTramitacio configuracioDocsTramitacio = new ConfiguracioDocsTramitacio();
-			configuracioDocsTramitacio.setSuportEnllac(respostaPlantillaDocVinculada.getPlantilla());
-			configuracioDocsTramitacio.setId(respostaPlantillaDocVinculada.getId());
-			docsTramitacioRDTO.setIdIdiomaPlantilla(BigDecimal.ZERO);
-			docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
-			docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
-			respostaCrearJustificant = serveisService.saveDocumentacioTramitacio(docsTramitacioRDTO,
-					dadesExpedientBDTO.getExpedientsRDTO().getId());
-
+			// TODO CAMBIAR OBJETOS PARA QUE NO LLEVEN SOLLICITUD, MAS
+			// GENERICO
 			// 3. Aportar valores de dades d'operació
 			// Se obtienen los Dades d'Operació del procedimiento y se valida
 			// que los códigos indicados existen. Se aprovecha para recuperar
@@ -1399,9 +1406,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaExpedientsEsmenarBDTO respostaExpedientsEsmenarBDTO = new RespostaExpedientsEsmenarBDTO(
 				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
 		respostaEsmenarExpedientRDTO = modelMapper.map(respostaExpedientsEsmenarBDTO, RespostaEsmenarExpedientRDTO.class);
-		if (respostaCrearJustificant != null && respostaCrearJustificant.getDocsTramitacio() != null) {
-			respostaEsmenarExpedientRDTO.setComprovant(respostaCrearJustificant.getDocsTramitacio().getId());
-		}
+		respostaEsmenarExpedientRDTO.setComprovant(respostaCrearJustificant != null ? respostaCrearJustificant.getId() : null);
 
 		if (log.isDebugEnabled()) {
 			log.debug("esmenarExpedient(BigDecimal, ExpedientEsmenaRDTO) - fi"); //$NON-NLS-1$

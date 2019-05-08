@@ -25,7 +25,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ExpedientRDTO
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaCrearJustificant;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
@@ -1381,11 +1380,9 @@ public class TestsConfigHelper {
 		return respostaPlantillaDocVinculada;
 	}
 
-	public static RespostaCrearJustificant saveDocumentacioTramitacioResponse() {
-		RespostaCrearJustificant respostaCrearJustificant = new RespostaCrearJustificant();
-		DocsTramitacioRDTO docsTramitacio = new DocsTramitacioRDTO();
-		docsTramitacio.setId(ONE);
-		respostaCrearJustificant.setDocsTramitacio(docsTramitacio);
+	public static DocsTramitacioRDTO guardarDocumentTramitacioResponse() {
+		DocsTramitacioRDTO respostaCrearJustificant = new DocsTramitacioRDTO();
+		respostaCrearJustificant.setId(ONE);
 		return respostaCrearJustificant;
 	}
 }

@@ -26,7 +26,7 @@ import org.joda.time.DateTime;
 /**
  * Bloquejos
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-06T09:02:05.732+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-08T10:50:26.954+02:00")
 public class Bloquejos {
   @JsonProperty("expedientBloquejatPerAltreUsuari")
   private Boolean expedientBloquejatPerAltreUsuari = null;
