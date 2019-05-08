@@ -53,6 +53,8 @@ import lombok.extern.apachecommons.CommonsLog;
 /** The Constant log. */
 
 /** The Constant log. */
+
+/** The Constant log. */
 @CommonsLog
 public class DocumentsServiceImpl implements DocumentsService {
 
@@ -533,11 +535,15 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *
 	 * @param uploadDocumentExpedientRDTO
 	 *            the upload document expedient RDTO
+	 * @param e
+	 *            the e
 	 * @return the resposta upload document expedient
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
-	 * @throws IOException
 	 * @throws JsonParseException
+	 *             the json parse exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	public RespostaUploadDocumentExpedient fallbackUploadDocumentExpedient(UploadDocumentExpedientBDTO uploadDocumentExpedientRDTO,
 			Throwable e) throws GPAServeisServiceException, JsonParseException, IOException {
@@ -733,11 +739,15 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *            the docs tramitacio RDTO
 	 * @param idExpedient
 	 *            the id expedient
+	 * @param e
+	 *            the e
 	 * @return the resposta crear justificant solicitud
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
-	 * @throws IOException
 	 * @throws JsonParseException
+	 *             the json parse exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	public RespostaCrearJustificant fallbackSaveDocumentacioTramitacio(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient,
 			Throwable e) throws GPAServeisServiceException, JsonParseException, IOException {
@@ -843,6 +853,43 @@ public class DocumentsServiceImpl implements DocumentsService {
 	public void fallbackAssociarRegistreDocsEnt(DocsEntActualizarRegistre docsEntActualizarRegistre) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackaAssociarRegistreDocsEnt(DocsEntActualizarRegistre) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#signarDocument(java.math.
+	 * BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackSignarDocument")
+	public void signarDocument(BigDecimal idDocument) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("signarDocument(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		// TODO: IMPLEMENTAR LLAMADA A DOCUMENTS
+
+		if (log.isDebugEnabled()) {
+			log.debug("signarDocument(BigDecimal) - fi"); //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * Fallback signar document.
+	 *
+	 * @param idDocument
+	 *            the id document
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackSignarDocument(BigDecimal idDocument) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackSignarDocument(BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de documentacio no està disponible");

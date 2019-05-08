@@ -554,4 +554,16 @@ public class ServeisServiceImpl implements ServeisService {
 		expedientsService.registreDocumentacioAriadna(registreDocumentacioExpedient);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#signarDocument(java.math.
+	 * BigDecimal)
+	 */
+	@Override
+	public void signarDocument(BigDecimal idDocument) throws GPAServeisServiceException {
+		documentsService.signarDocument(idDocument);
+	}
+
 }

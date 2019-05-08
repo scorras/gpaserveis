@@ -446,4 +446,14 @@ public interface ServeisService {
 	 */
 	void registreDocumentacioAriadna(RegistreDocumentacioExpedient registreDocumentacioExpedient) throws GPAServeisServiceException;
 
+	/**
+	 * Signar document.
+	 *
+	 * @param idDocument
+	 *            the id document
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void signarDocument(BigDecimal idDocument) throws GPAServeisServiceException;
+
 }

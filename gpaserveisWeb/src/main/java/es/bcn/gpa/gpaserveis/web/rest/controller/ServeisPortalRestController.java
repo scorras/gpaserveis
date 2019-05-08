@@ -963,10 +963,10 @@ public class ServeisPortalRestController extends BaseRestController {
 				serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
 
 				// Actualizar la lista de documentos
-				DocsEntActualizarRegistre docsEntActualizarRegistreRDTO = new DocsEntActualizarRegistre();
-				docsEntActualizarRegistreRDTO.setIdRegistre(respostaCrearRegistreSolicitudExpedient.getRegistreAssentament().getId());
-				docsEntActualizarRegistreRDTO.setListIdsDocsEnt(idsDocsEnt);
-				serveisService.associarRegistreDocsEnt(docsEntActualizarRegistreRDTO);
+				DocsEntActualizarRegistre docsEntActualizarRegistre = new DocsEntActualizarRegistre();
+				docsEntActualizarRegistre.setIdRegistre(respostaCrearRegistreSolicitudExpedient.getRegistreAssentament().getId());
+				docsEntActualizarRegistre.setListIdsDocsEnt(idsDocsEnt);
+				serveisService.associarRegistreDocsEnt(docsEntActualizarRegistre);
 
 				// Recoger Plantilla
 				RespostaPlantillaDocVinculada respostaPlantillaDocVinculada = serveisService.getPlantillaDocVinculada(

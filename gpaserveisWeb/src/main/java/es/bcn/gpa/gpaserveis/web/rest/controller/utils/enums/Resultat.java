@@ -87,7 +87,11 @@ public enum Resultat {
 
 	OK_CONVIDAR_TRAMITAR_EXPEDIENT("OK", "Expedient convidat a tramitar correctament"),
 
-	ERROR_CONVIDAR_TRAMITAR_EXPEDIENT("ERROR", "No s'ha pogut convidar a tramitar l'expedient");
+	ERROR_CONVIDAR_TRAMITAR_EXPEDIENT("ERROR", "No s'ha pogut convidar a tramitar l'expedient"),
+
+	OK_SIGNAR_DOCUMENT("OK", "Acció realitzada correctament"),
+
+	ERROR_SIGNAR_DOCUMENT("OK", "No s'ha pogut signar el document");
 
 	private String codi;
 
