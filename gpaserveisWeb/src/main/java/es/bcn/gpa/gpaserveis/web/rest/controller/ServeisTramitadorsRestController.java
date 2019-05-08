@@ -72,7 +72,10 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.Confi
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.RevisioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.ConfiguracioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.RespostaSignarDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.DocumentIncorporacioNouRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.RespostaIncorporarNouDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.rebutjar.DocumentAportatRebutjarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.rebutjar.RespostaRebutjarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.validar.DocumentAportatValidarRDTO;
@@ -450,7 +453,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Desasociar de la UG invitada a tramitar
 			UnitatsGestoresRDTO unitatsGestoresRDTO = serveisService
-			        .consultarDadesUnitatGestora(dadesExpedientBDTO.getExpedientsRDTO().getUgConvidadaIdext());
+					.consultarDadesUnitatGestora(dadesExpedientBDTO.getExpedientsRDTO().getUgConvidadaIdext());
 			RetornarLaTramitacioRDTO retornarLaTramitacioRDTO = new RetornarLaTramitacioRDTO();
 			retornarLaTramitacioRDTO.setIdExpedientList(Arrays.asList(dadesExpedientBDTO.getExpedientsRDTO().getId()));
 			DropdownItemBDTO dropdownItemBDTO = new DropdownItemBDTO();
@@ -458,7 +461,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			dropdownItemBDTO.setDescripcio(unitatsGestoresRDTO.getDescripcio());
 			retornarLaTramitacioRDTO.setUnitatGestoraConvidada(dropdownItemBDTO);
 			ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO = new ExpedientsRetornarTramitacioBDTO(
-			        retornarLaTramitacioRDTO);
+					retornarLaTramitacioRDTO);
 			serveisService.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO);
 
 			// Cambio de estado del expediente
@@ -888,9 +891,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			"Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaConvidarTramitarExpedientRDTO convidarTramitarExpedient(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Dades de la invitació a tramitar l'expedient") @RequestBody ExpedientConvidarTramitarRDTO expedientConvidarTramitar)
-	        throws GPAServeisServiceException {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Dades de la invitació a tramitar l'expedient") @RequestBody ExpedientConvidarTramitarRDTO expedientConvidarTramitar)
+			throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
 			log.debug("convidarTramitarExpedient(String, ExpedientConvidarTramitarRDTO) - inici"); //$NON-NLS-1$
@@ -912,10 +915,10 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// El codi de la unitat gestora debe existir y estar vigente
 			UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(
-			        expedientConvidarTramitar.getCodiUnitatGestora());
+					expedientConvidarTramitar.getCodiUnitatGestora());
 			UnitatsGestoresRDTO unitatsGestoresRDTO = serveisService.consultarDadesUnitatGestora(unitatsGestoresCercaBDTO);
 			ServeisRestControllerValidationHelper.validateUnitatGestora(unitatsGestoresRDTO, dadesProcedimentBDTO,
-			        Resultat.ERROR_CONVIDAR_TRAMITAR_EXPEDIENT);
+					Resultat.ERROR_CONVIDAR_TRAMITAR_EXPEDIENT);
 
 			// Invitar a tramitar el expediente si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
@@ -975,12 +978,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 */
 	@PostMapping("/expedients/{codiExpedient}/unitat")
 	@ApiOperation(value = "Canviar la unitat gestora de l’expedient", tags = { "Serveis Tramitadors API",
-	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
-	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+			"Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaCanviarUnitatGestoraExpedientRDTO canviarUnitatGestoraExpedient(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Dades de la versió del document") @RequestBody ExpedientCanviUnitatGestoraRDTO expedientCanviUnitatGestora)
-	        throws GPAServeisServiceException {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Dades de la versió del document") @RequestBody ExpedientCanviUnitatGestoraRDTO expedientCanviUnitatGestora)
+			throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
 			log.debug("canviarUnitatGestoraExpedient(String, ExpedientCanviUnitatGestoraRDTO) - inici"); //$NON-NLS-1$
@@ -993,28 +996,28 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
-			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_CANVIAR_UNITAT_GESTORA_EXPEDIENT);
 
 			// Se obtiene la información del procedimiento asociado al
 			// expediente
 			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
-			        .consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
+					.consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
 
 			// El codi de la nueva unitat gestora debe existir, estar vigente y
 			// asociada al Procedimiento del Expediente
 			UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(
-			        expedientCanviUnitatGestora.getCodiUnitatGestora());
+					expedientCanviUnitatGestora.getCodiUnitatGestora());
 			unitatsGestoresRDTO = serveisService.consultarDadesUnitatGestora(unitatsGestoresCercaBDTO);
 			ServeisRestControllerValidationHelper.validateUnitatGestora(unitatsGestoresRDTO, dadesProcedimentBDTO,
-			        Resultat.ERROR_CANVIAR_UNITAT_GESTORA_EXPEDIENT);
+					Resultat.ERROR_CANVIAR_UNITAT_GESTORA_EXPEDIENT);
 			// Se setea la nueva unidad gestora en la información del expediente
 			dadesExpedientBDTO.setUnitatsGestoresRDTO(unitatsGestoresRDTO);
 
 			// Cambiar la Unidad Gestora del expediente si la acción es
 			// permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
-			        AccioTramitadorApiParamValue.CANVIAR_UNITAT_GESTORA, Resultat.ERROR_CANVIAR_UNITAT_GESTORA_EXPEDIENT);
+					AccioTramitadorApiParamValue.CANVIAR_UNITAT_GESTORA, Resultat.ERROR_CANVIAR_UNITAT_GESTORA_EXPEDIENT);
 
 			// Asociación de la nueva UG
 			CanviUnitatGestoraRDTO canviUnitatGestoraRDTO = new CanviUnitatGestoraRDTO();
@@ -1031,7 +1034,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			comentaris.setDescripcio(expedientCanviUnitatGestora.getComentari());
 			canviUnitatGestoraRDTO.setComentari(comentaris);
 			ExpedientsCanviarUnitatGestoraBDTO expedientsCanviarUnitatGestoraBDTO = new ExpedientsCanviarUnitatGestoraBDTO(
-			        canviUnitatGestoraRDTO);
+					canviUnitatGestoraRDTO);
 			serveisService.canviarUnitatGestoraExpedient(expedientsCanviarUnitatGestoraBDTO);
 
 		} catch (GPAApiParamValidationException e) {
@@ -1047,9 +1050,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		RespostaExpedientsCanviarUnitatGestoraBDTO respostaExpedientsCanviarUnitatGestoraBDTO = new RespostaExpedientsCanviarUnitatGestoraBDTO(
-		        dadesExpedientBDTO, respostaResultatBDTO);
+				dadesExpedientBDTO, respostaResultatBDTO);
 		respostaCanviarUnitatGestoraExpedientRDTO = modelMapper.map(respostaExpedientsCanviarUnitatGestoraBDTO,
-		        RespostaCanviarUnitatGestoraExpedientRDTO.class);
+				RespostaCanviarUnitatGestoraExpedientRDTO.class);
 
 		if (log.isDebugEnabled()) {
 			log.debug("canviarUnitatGestoraExpedient(String, ExpedientCanviUnitatGestoraRDTO) - fi"); //$NON-NLS-1$
@@ -1071,12 +1074,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 */
 	@PostMapping("/expedients/{codiExpedient}/documentacio")
 	@ApiOperation(value = "Incorporar un nou document electrònic", tags = { "Serveis Tramitadors API",
-	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
-	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+			"Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaIncorporarNouDocumentRDTO incorporarNouDocumentExpedientExpedient(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Dades del document a incorporar") @RequestBody DocumentIncorporacioNouRDTO documentIncorporacioNou)
-	        throws GPAServeisServiceException {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Dades del document a incorporar") @RequestBody DocumentIncorporacioNouRDTO documentIncorporacioNou)
+			throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
 			log.debug("incorporarNouDocumentExpedientExpedient(String, DocumentIncorporacioNouRDTO) - inici"); //$NON-NLS-1$
@@ -1092,7 +1095,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		try {
 			ConfiguracioApiParamValueTranslator configuracioApiParamValueTranslator = new ConfiguracioApiParamValueTranslator();
 			ConfiguracioApiParamValue configuracioApiParamValue = configuracioApiParamValueTranslator
-			        .getEnumByApiParamValue(documentIncorporacioNou.getDocument().getConfiguracio());
+					.getEnumByApiParamValue(documentIncorporacioNou.getDocument().getConfiguracio());
 			switch (configuracioApiParamValue) {
 			case APORTADA:
 				esAportada = Boolean.TRUE;
@@ -1108,19 +1111,19 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
-			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
 
 			// El número de registro indicado debe existir
 			registreAssentamentRDTO = serveisService
-			        .consultarDadesRegistreAssentament(documentIncorporacioNou.getDocument().getNumeroRegistre());
+					.consultarDadesRegistreAssentament(documentIncorporacioNou.getDocument().getNumeroRegistre());
 			ServeisRestControllerValidationHelper.validateRegistreAssentament(registreAssentamentRDTO,
-			        Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
+					Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
 
 			// Incorporar un nuevo documento electrónico al expediente si la
 			// acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
-			        AccioTramitadorApiParamValue.INCORPORAR_NOU_DOCUMENT_ELECTRONIC, Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
+					AccioTramitadorApiParamValue.INCORPORAR_NOU_DOCUMENT_ELECTRONIC, Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
 
 			// Incorporar un nuevo documento, pudiéndose tratar de entrada o
 			// tramitación
@@ -1130,35 +1133,35 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// documento de entrada o de tramitación
 			if (BooleanUtils.isTrue(esAportada)) {
 				DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(
-				        dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc(), null);
+						dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc(), null);
 				RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = serveisService
-				        .cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);
+						.cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);
 				HashMap<String, ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaMap = ServeisRestControllerValidationHelper
-				        .validateConfiguracioDocumentacioEntradaIncorporatNou(
-				                respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList(),
-				                documentIncorporacioNou.getDocument(), Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
+						.validateConfiguracioDocumentacioEntradaIncorporatNou(
+								respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList(),
+								documentIncorporacioNou.getDocument(), Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
 
 				IncorporarNouDocumentEntradaExpedientBDTO incorporarNouDocumentEntradaExpedientBDTO = new IncorporarNouDocumentEntradaExpedientBDTO();
 				DocsEntradaRDTO docsEntradaRDTO = modelMapper.map(documentIncorporacioNou, DocsEntradaRDTO.class);
 				docsEntradaRDTO
-				        .setConfigDocEntrada(configuracioDocsEntradaMap.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
+						.setConfigDocEntrada(configuracioDocsEntradaMap.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
 				incorporarNouDocumentEntradaExpedientBDTO.setDocsEntradaRDTO(docsEntradaRDTO);
 				incorporarNouDocumentEntradaExpedientBDTO.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
 				docsEntradaRDTOResult = serveisService.guardarDocumentEntrada(incorporarNouDocumentEntradaExpedientBDTO);
 			} else {
 				DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO = new DocumentsTramitacioCercaBDTO(
-				        dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc());
+						dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc());
 				RespostaDocumentsTramitacioCercaBDTO respostaDocumentsTramitacioCercaBDTO = serveisService
-				        .cercaConfiguracioDocumentacioTramitacio(documentsTramitacioCercaBDTO);
+						.cercaConfiguracioDocumentacioTramitacio(documentsTramitacioCercaBDTO);
 				HashMap<String, ConfiguracioDocsTramitacioRDTO> configuracioDocsTramitacioMap = ServeisRestControllerValidationHelper
-				        .validateConfiguracioDocumentacioTramitacioIncorporatNou(
-				                respostaDocumentsTramitacioCercaBDTO.getConfiguracioDocsTramitacioRDTOList(),
-				                documentIncorporacioNou.getDocument(), Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
+						.validateConfiguracioDocumentacioTramitacioIncorporatNou(
+								respostaDocumentsTramitacioCercaBDTO.getConfiguracioDocsTramitacioRDTOList(),
+								documentIncorporacioNou.getDocument(), Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
 
 				IncorporarNouDocumentTramitacioExpedientBDTO incorporarNouDocumentTramitacioExpedientBDTO = new IncorporarNouDocumentTramitacioExpedientBDTO();
 				DocsTramitacioRDTO docsTramitacioRDTO = modelMapper.map(documentIncorporacioNou, DocsTramitacioRDTO.class);
 				docsTramitacioRDTO.setConfigDocTramitacio(
-				        configuracioDocsTramitacioMap.get(String.valueOf(docsTramitacioRDTO.getConfigDocTramitacio())).getId());
+						configuracioDocsTramitacioMap.get(String.valueOf(docsTramitacioRDTO.getConfigDocTramitacio())).getId());
 				incorporarNouDocumentTramitacioExpedientBDTO.setDocsTramitacioRDTO(docsTramitacioRDTO);
 				incorporarNouDocumentTramitacioExpedientBDTO.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
 				docsTramitacioRDTOResult = serveisService.guardarDocumentTramitacio(incorporarNouDocumentTramitacioExpedientBDTO);
@@ -1178,16 +1181,16 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 		if (BooleanUtils.isTrue(esAportada)) {
 			RespostaIncorporarNouDocumentEntradaExpedientBDTO respostaIncorporarNouDocumentEntradaExpedientBDTO = new RespostaIncorporarNouDocumentEntradaExpedientBDTO(
-			        docsEntradaRDTOResult, dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null,
-			        registreAssentamentRDTO, respostaResultatBDTO);
+					docsEntradaRDTOResult, dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null,
+					registreAssentamentRDTO, respostaResultatBDTO);
 			respostaIncorporarNouDocumentRDTO = modelMapper.map(respostaIncorporarNouDocumentEntradaExpedientBDTO,
-			        RespostaIncorporarNouDocumentRDTO.class);
+					RespostaIncorporarNouDocumentRDTO.class);
 		} else {
 			RespostaIncorporarNouDocumentTramitacioExpedientBDTO respostaIncorporarNouDocumentTramitacioExpedientBDTO = new RespostaIncorporarNouDocumentTramitacioExpedientBDTO(
-			        docsTramitacioRDTOResult, dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null,
-			        registreAssentamentRDTO, respostaResultatBDTO);
+					docsTramitacioRDTOResult, dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null,
+					registreAssentamentRDTO, respostaResultatBDTO);
 			respostaIncorporarNouDocumentRDTO = modelMapper.map(respostaIncorporarNouDocumentTramitacioExpedientBDTO,
-			        RespostaIncorporarNouDocumentRDTO.class);
+					RespostaIncorporarNouDocumentRDTO.class);
 		}
 
 		if (log.isDebugEnabled()) {
@@ -1197,7 +1200,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		return respostaIncorporarNouDocumentRDTO;
 	}
 
-/**
+	/**
 	 * Signar document.
 	 *
 	 * @param codiExpedient

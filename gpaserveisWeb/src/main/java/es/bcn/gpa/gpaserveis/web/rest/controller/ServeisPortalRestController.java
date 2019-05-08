@@ -963,7 +963,7 @@ public class ServeisPortalRestController extends BaseRestController {
 
 				// Actualizar la lista de documentos
 				DocsEntActualizarRegistre docsEntActualizarRegistre = new DocsEntActualizarRegistre();
-				docsEntActualizarRegistre.setIdRegistre(respostaCrearRegistreSolicitudExpedient.getRegistreAssentament().getId());
+				docsEntActualizarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
 				docsEntActualizarRegistre.setListIdsDocsEnt(idsDocsEnt);
 				serveisService.associarRegistreDocsEnt(docsEntActualizarRegistre);
 
