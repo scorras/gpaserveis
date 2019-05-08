@@ -644,6 +644,18 @@ public class ServeisServiceImpl implements ServeisService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#signarDocument(java.math.
+	 * BigDecimal)
+	 */
+	@Override
+	public void signarDocument(BigDecimal idDocument) throws GPAServeisServiceException {
+		documentsService.signarDocument(idDocument);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
 	 * es.bcn.gpa.gpaserveis.business.ServeisService#guardarDocumentTramitacio(
 	 * es.bcn.gpa.gpaserveis.business.dto.documents.
 	 * IncorporarNouDocumentTramitacioExpedientBDTO)

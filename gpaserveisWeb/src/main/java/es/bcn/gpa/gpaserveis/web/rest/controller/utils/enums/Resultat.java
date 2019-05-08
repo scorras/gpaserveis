@@ -95,7 +95,11 @@ public enum Resultat {
 
 	OK_INCORPORAR_NOU_DOCUMENT_EXPEDIENT("OK", "Nou document incorporat a l'expedient correctament"),
 
-	ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut incorporar el nou document a l'expedient");
+	ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut incorporar el nou document a l'expedient"),
+
+	OK_SIGNAR_DOCUMENT("OK", "Acció realitzada correctament"),
+
+	ERROR_SIGNAR_DOCUMENT("OK", "No s'ha pogut signar el document");
 
 	private String codi;
 
