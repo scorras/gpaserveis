@@ -22,7 +22,7 @@ public class RespostaIncorporarNouDocumentRDTO {
 	@ApiModelProperty("Resultat de l'operació")
 	private ResultatRespostaDTO resultat;
 
-	@ApiModelProperty(value = "Document rebutjat")
+	@ApiModelProperty(value = "Document incorporat")
 	private DocumentIncorporatNouAccioRDTO document;
 
 	@ApiModelProperty(value = "Registre de la documentació")

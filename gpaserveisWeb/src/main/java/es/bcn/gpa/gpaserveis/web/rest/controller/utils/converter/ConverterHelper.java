@@ -48,6 +48,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.DocumentsIdentitatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.RegistreRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.DocumentAportatAccioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.DocumentCompletatAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.DocumentIncorporatNouAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValidacionsRDTO;
@@ -706,6 +707,70 @@ public class ConverterHelper {
 		}
 
 		return documentIncorporatNouAccioRDTO;
+	}
+
+	/**
+	 * Builds the document completat accio RDTO expedient.
+	 *
+	 * @param docsEntradaRDTO
+	 *            the docs entrada RDTO
+	 * @return the document completat accio RDTO
+	 */
+	public static DocumentCompletatAccioRDTO buildDocumentCompletatAccioRDTOExpedient(DocsEntradaRDTO docsEntradaRDTO) {
+		DocumentCompletatAccioRDTO documentCompletatAccioRDTO = null;
+
+		if (docsEntradaRDTO != null) {
+			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
+			documentCompletatAccioRDTO = new DocumentCompletatAccioRDTO();
+			documentCompletatAccioRDTO.setId(docsEntradaRDTO.getId());
+			documentCompletatAccioRDTO.setConfiguracio(ConfiguracioApiParamValue.APORTADA.getApiParamValue());
+			if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null) {
+				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
+				configuracioDocumentacioRDTO.setCodi(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId() != null
+				        ? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId()) : null);
+				configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntrada().getNom());
+				configuracioDocumentacioRDTO.setDescripcioCastella(docsEntradaRDTO.getConfiguracioDocsEntrada().getNomCastella());
+				documentCompletatAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
+			}
+			documentCompletatAccioRDTO.setDataCreacio(
+			        (docsEntradaRDTO.getDataCreacio() != null) ? dateTimeFormatter.print(docsEntradaRDTO.getDataCreacio()) : null);
+			documentCompletatAccioRDTO.setDataModificacio((docsEntradaRDTO.getDataUltimaModificacio() != null)
+			        ? dateTimeFormatter.print(docsEntradaRDTO.getDataUltimaModificacio()) : null);
+		}
+
+		return documentCompletatAccioRDTO;
+	}
+
+	/**
+	 * Builds the document completat accio RDTO expedient.
+	 *
+	 * @param docsTramitacioRDTO
+	 *            the docs tramitacio RDTO
+	 * @return the document completat accio RDTO
+	 */
+	public static DocumentCompletatAccioRDTO buildDocumentCompletatAccioRDTOExpedient(DocsTramitacioRDTO docsTramitacioRDTO) {
+		DocumentCompletatAccioRDTO documentCompletatAccioRDTO = null;
+
+		if (docsTramitacioRDTO != null) {
+			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
+			documentCompletatAccioRDTO = new DocumentCompletatAccioRDTO();
+			documentCompletatAccioRDTO.setId(docsTramitacioRDTO.getId());
+			documentCompletatAccioRDTO.setConfiguracio(ConfiguracioApiParamValue.APORTADA.getApiParamValue());
+			if (docsTramitacioRDTO.getConfiguracioDocsTramitacio() != null) {
+				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
+				configuracioDocumentacioRDTO.setCodi(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getUniqueId() != null
+				        ? String.valueOf(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getUniqueId()) : null);
+				configuracioDocumentacioRDTO.setDescripcio(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getNom());
+				configuracioDocumentacioRDTO.setDescripcioCastella(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getNomCastella());
+				documentCompletatAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
+			}
+			documentCompletatAccioRDTO.setDataCreacio(
+			        (docsTramitacioRDTO.getDataCreacio() != null) ? dateTimeFormatter.print(docsTramitacioRDTO.getDataCreacio()) : null);
+			documentCompletatAccioRDTO.setDataModificacio((docsTramitacioRDTO.getDataUltimaModificacio() != null)
+			        ? dateTimeFormatter.print(docsTramitacioRDTO.getDataUltimaModificacio()) : null);
+		}
+
+		return documentCompletatAccioRDTO;
 	}
 
 	/**

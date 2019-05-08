@@ -11,7 +11,6 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.DataHora
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToBigDecimalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.IdiomaToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.OrigenToInternalConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.RevisioToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.TipusMimeToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.DocumentIncorporatNouRDTO;
 
@@ -31,8 +30,6 @@ public class DocumentIncorporatNouRDTOToDocsTramitacioRDTOMapper extends Propert
 
 	private BooleanToInternalConverter booleanToInternalConverter;
 
-	private RevisioToInternalConverter revisioToInternalConverter;
-
 	private DataHoraToInternalConverter dataHoraToInternalConverter;
 
 	@Autowired
@@ -42,14 +39,12 @@ public class DocumentIncorporatNouRDTOToDocsTramitacioRDTOMapper extends Propert
 	        @Qualifier("idiomaToInternalConverter") IdiomaToInternalConverter idiomaToInternalConverter,
 	        @Qualifier("tipusMimeToInternalConverter") TipusMimeToInternalConverter tipusMimeToInternalConverter,
 	        @Qualifier("booleanToInternalConverter") BooleanToInternalConverter booleanToInternalConverter,
-	        @Qualifier("revisioToInternalConverter") RevisioToInternalConverter revisioToInternalConverter,
 	        @Qualifier("dataHoraToInternalConverter") DataHoraToInternalConverter dataHoraToInternalConverter) {
 		this.internalToBigDecimalConverter = internalToBigDecimalConverter;
 		this.origenToInternalConverter = origenToInternalConverter;
 		this.idiomaToInternalConverter = idiomaToInternalConverter;
 		this.tipusMimeToInternalConverter = tipusMimeToInternalConverter;
 		this.booleanToInternalConverter = booleanToInternalConverter;
-		this.revisioToInternalConverter = revisioToInternalConverter;
 		this.dataHoraToInternalConverter = dataHoraToInternalConverter;
 	}
 

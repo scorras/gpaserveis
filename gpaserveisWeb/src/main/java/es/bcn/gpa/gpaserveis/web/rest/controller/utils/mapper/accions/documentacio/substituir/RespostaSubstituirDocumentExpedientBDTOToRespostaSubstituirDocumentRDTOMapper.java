@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaSubstituirDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToResultatRespostaConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalRDTOToRegistreConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToDocumentAportatAccioConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToRegistreConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalBasicToExpedientAccioConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.substituir.RespostaSubstituirDocumentRDTO;
 
@@ -22,7 +22,7 @@ public class RespostaSubstituirDocumentExpedientBDTOToRespostaSubstituirDocument
 
 	private InternalBasicToExpedientAccioConverter internalBasicToExpedientAccioConverter;
 
-	private InternalToRegistreConverter internalToRegistreConverter;
+	private InternalRDTOToRegistreConverter internalRDTOToRegistreConverter;
 
 	private InternalToResultatRespostaConverter internalToResultatRespostaConverter;
 
@@ -31,11 +31,11 @@ public class RespostaSubstituirDocumentExpedientBDTOToRespostaSubstituirDocument
 	@Autowired
 	public RespostaSubstituirDocumentExpedientBDTOToRespostaSubstituirDocumentRDTOMapper(
 	        @Qualifier("expedientInternalBasicToExpedientAccioConverter") InternalBasicToExpedientAccioConverter internalBasicToExpedientAccioConverter,
-	        @Qualifier("documentInternalToRegistreConverter") InternalToRegistreConverter internalToRegistreConverter,
+	        @Qualifier("documentInternalRDTOToRegistreConverter") InternalRDTOToRegistreConverter internalRDTOToRegistreConverter,
 	        @Qualifier("internalToDocumentAportatAccioConverter") InternalToDocumentAportatAccioConverter internalToDocumentAportatAccioConverter,
 	        @Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
 		this.internalBasicToExpedientAccioConverter = internalBasicToExpedientAccioConverter;
-		this.internalToRegistreConverter = internalToRegistreConverter;
+		this.internalRDTOToRegistreConverter = internalRDTOToRegistreConverter;
 		this.internalToDocumentAportatAccioConverter = internalToDocumentAportatAccioConverter;
 		this.internalToResultatRespostaConverter = internalToResultatRespostaConverter;
 	}
@@ -50,7 +50,7 @@ public class RespostaSubstituirDocumentExpedientBDTOToRespostaSubstituirDocument
 		using(internalToResultatRespostaConverter).map(source.getRespostaResultatBDTO()).setResultat(null);
 		using(internalBasicToExpedientAccioConverter).map(source.getRespostaSubstituirDocumentExpedientRDTO().getExpedient())
 		        .setExpedient(null);
-		using(internalToRegistreConverter).map(source.getRespostaSubstituirDocumentExpedientRDTO().getRegistreAssentament())
+		using(internalRDTOToRegistreConverter).map(source.getRespostaSubstituirDocumentExpedientRDTO().getRegistreAssentament())
 		        .setRegistre(null);
 		using(internalToDocumentAportatAccioConverter).map(source.getRespostaSubstituirDocumentExpedientRDTO().getDocEntrada())
 		        .setDocument(null);

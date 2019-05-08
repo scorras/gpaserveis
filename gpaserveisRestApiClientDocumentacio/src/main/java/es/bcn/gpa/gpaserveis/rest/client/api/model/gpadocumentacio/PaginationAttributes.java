@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * PaginationAttributes
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-07T17:29:21.076+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-08T10:20:12.289+02:00")
 public class PaginationAttributes {
   @JsonProperty("absoluteRowNumberOfFirstRowInCurrentPage")
   private Integer absoluteRowNumberOfFirstRowInCurrentPage = null;

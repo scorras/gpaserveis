@@ -136,6 +136,17 @@ public interface DocumentsService {
 	DocsEntradaRDTO consultarDadesDocumentAportat(BigDecimal id) throws GPAServeisServiceException;
 
 	/**
+	 * Consultar dades document generat.
+	 *
+	 * @param id
+	 *            the id
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsTramitacioRDTO consultarDadesDocumentGenerat(BigDecimal id) throws GPAServeisServiceException;
+
+	/**
 	 * Descarregar document expedient.
 	 *
 	 * @param descarregarDocumentExpedientBDTO

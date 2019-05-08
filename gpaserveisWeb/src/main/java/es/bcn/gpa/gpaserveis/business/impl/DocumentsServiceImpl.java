@@ -508,6 +508,50 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * consultarDadesDocumentGenerat(java.math.BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesDocumentGenerat")
+	public DocsTramitacioRDTO consultarDadesDocumentGenerat(BigDecimal id) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarDadesDocumentGenerat(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.consultarDadesDocumentGenerat(id);
+
+			if (log.isDebugEnabled()) {
+				log.debug("consultarDadesDocumentGenerat(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			return docsTramitacioRDTO;
+		} catch (ApiException e) {
+			log.error("consultarDadesDocumentGenerat(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback consultar dades document generat.
+	 *
+	 * @param id
+	 *            the id
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsTramitacioRDTO fallbackConsultarDadesDocumentGenerat(BigDecimal id) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackConsultarDadesDocumentGenerat(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
 	 * descarregarDocumentExpedient(es.bcn.gpa.gpaserveis.business.dto.documents
 	 * .DescarregarDocumentExpedientBDTO)
 	 */

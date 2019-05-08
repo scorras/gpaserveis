@@ -26,7 +26,7 @@ import java.math.BigDecimal;
 /**
  * DocumentsIdentitat
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-07T17:29:21.076+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-08T10:20:12.289+02:00")
 public class DocumentsIdentitat {
   @JsonProperty("id")
   private BigDecimal id = null;

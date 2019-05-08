@@ -414,6 +414,17 @@ public class ServeisServiceImpl implements ServeisService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * consultarDadesDocumentGenerat(java.math.BigDecimal)
+	 */
+	@Override
+	public DocsTramitacioRDTO consultarDadesDocumentGenerat(BigDecimal idExpedient) throws GPAServeisServiceException {
+		return documentsService.consultarDadesDocumentGenerat(idExpedient);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
 	 * esborrarDocumentExpedient(es.bcn.gpa.gpaserveis.business.dto.documents.
 	 * EsborrarDocumentExpedientBDTO)
 	 */

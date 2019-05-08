@@ -16,7 +16,7 @@ import lombok.Setter;
 
 @ApiModel(value = "DocumentIncorporatNouAccio")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "nom", "configuracio", "configuracioDocumentacio", "origen", "revisio", "dataPresentacio", "dataModificacio" })
+@JsonPropertyOrder({ "id", "nom", "configuracio", "configuracioDocumentacio", "origen", "revisio", "dataCreacio" })
 @Getter
 @Setter
 public class DocumentIncorporatNouAccioRDTO {

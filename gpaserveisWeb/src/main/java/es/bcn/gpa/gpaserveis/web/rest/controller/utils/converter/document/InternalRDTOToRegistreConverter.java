@@ -14,10 +14,10 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamVa
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.RegistreRDTO;
 
 /**
- * The Class InternalToRegistreConverter.
+ * The Class InternalRDTOToRegistreConverter.
  */
-@Component("documentInternalToRegistreConverter")
-public class InternalToRegistreConverter extends AbstractConverter<RegistreAssentamentRDTO, RegistreRDTO> {
+@Component("documentInternalRDTOToRegistreConverter")
+public class InternalRDTOToRegistreConverter extends AbstractConverter<RegistreAssentamentRDTO, RegistreRDTO> {
 
 	/** The tipus persona api param value translator. */
 	@Autowired
@@ -54,7 +54,7 @@ public class InternalToRegistreConverter extends AbstractConverter<RegistreAssen
 			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
 			registreRDTO.setDataRegistre((source.getDataRegistre() != null) ? dateTimeFormatter.print(source.getDataRegistre()) : null);
 			registreRDTO.setPersona(ConverterHelper.buildPersonesRDTOExpedient(source.getPersones(), tipusPersonaApiParamValueTranslator,
-					tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator, tipusViaApiParamValueTranslator));
+			        tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator, tipusViaApiParamValueTranslator));
 		}
 		return registreRDTO;
 	}

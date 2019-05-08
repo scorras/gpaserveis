@@ -1131,6 +1131,8 @@ public class ServeisPortalRestController extends BaseRestController {
 
 			// El id del documento debe existir y pertenecer al expediente
 			// indicado
+			// TODO De cara a los tramitadores, considerar también los
+			// documentos de tramitación (agregar información de Configuración)
 			docsEntradaRDTO = serveisService.consultarDadesDocumentAportat(idDocument);
 			ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO,
 					Resultat.ERROR_UPLOAD_DOCUMENT_EXPEDIENT);
