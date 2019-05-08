@@ -19,35 +19,44 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * RegistreDocumentacioExpedient
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-08T10:50:26.954+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-08T13:33:09.050+02:00")
 public class RegistreDocumentacioExpedient {
-  @JsonProperty("idJustificant")
-  private BigDecimal idJustificant = null;
+  @JsonProperty("codisDocument")
+  private List<String> codisDocument = null;
 
   @JsonProperty("numAss")
   private String numAss = null;
 
-  public RegistreDocumentacioExpedient idJustificant(BigDecimal idJustificant) {
-    this.idJustificant = idJustificant;
+  public RegistreDocumentacioExpedient codisDocument(List<String> codisDocument) {
+    this.codisDocument = codisDocument;
+    return this;
+  }
+
+  public RegistreDocumentacioExpedient addCodisDocumentItem(String codisDocumentItem) {
+    if (this.codisDocument == null) {
+      this.codisDocument = new ArrayList<String>();
+    }
+    this.codisDocument.add(codisDocumentItem);
     return this;
   }
 
    /**
-   * Identificador del justificant a vincular
-   * @return idJustificant
+   * List codis documents
+   * @return codisDocument
   **/
-  @ApiModelProperty(value = "Identificador del justificant a vincular")
-  public BigDecimal getIdJustificant() {
-    return idJustificant;
+  @ApiModelProperty(value = "List codis documents")
+  public List<String> getCodisDocument() {
+    return codisDocument;
   }
 
-  public void setIdJustificant(BigDecimal idJustificant) {
-    this.idJustificant = idJustificant;
+  public void setCodisDocument(List<String> codisDocument) {
+    this.codisDocument = codisDocument;
   }
 
   public RegistreDocumentacioExpedient numAss(String numAss) {
@@ -78,13 +87,13 @@ public class RegistreDocumentacioExpedient {
       return false;
     }
     RegistreDocumentacioExpedient registreDocumentacioExpedient = (RegistreDocumentacioExpedient) o;
-    return Objects.equals(this.idJustificant, registreDocumentacioExpedient.idJustificant) &&
+    return Objects.equals(this.codisDocument, registreDocumentacioExpedient.codisDocument) &&
         Objects.equals(this.numAss, registreDocumentacioExpedient.numAss);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(idJustificant, numAss);
+    return Objects.hash(codisDocument, numAss);
   }
 
 
@@ -93,7 +102,7 @@ public class RegistreDocumentacioExpedient {
     StringBuilder sb = new StringBuilder();
     sb.append("class RegistreDocumentacioExpedient {\n");
     
-    sb.append("    idJustificant: ").append(toIndentedString(idJustificant)).append("\n");
+    sb.append("    codisDocument: ").append(toIndentedString(codisDocument)).append("\n");
     sb.append("    numAss: ").append(toIndentedString(numAss)).append("\n");
     sb.append("}");
     return sb.toString();

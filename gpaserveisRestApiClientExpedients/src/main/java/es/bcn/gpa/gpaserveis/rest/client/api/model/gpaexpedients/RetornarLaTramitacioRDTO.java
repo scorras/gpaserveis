@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * RetornarLaTramitacioRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-08T10:50:26.954+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-08T13:33:09.050+02:00")
 public class RetornarLaTramitacioRDTO {
   @JsonProperty("idExpedientList")
   private List<BigDecimal> idExpedientList = null;
