@@ -2952,8 +2952,8 @@ paths:
     get:
       tags:
       - "Expedients "
-      summary: "Returns the requested unitat"
-      operationId: "consultarDadesRegistreAssentament"
+      summary: "Returns the requested registre"
+      operationId: "getRegistreAssentamentUsingGET"
       produces:
       - "*/*"
       parameters:
@@ -4774,11 +4774,9 @@ definitions:
   RegistreDocumentacioExpedient:
     type: "object"
     properties:
-      codisDocument:
-        type: "array"
-        description: "List codis documents"
-        items:
-          type: "string"
+      idJustificant:
+        type: "number"
+        description: "Identificador del justificant a vincular"
       numAss:
         type: "string"
         description: "Número d'assentament"
