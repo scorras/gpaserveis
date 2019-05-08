@@ -842,8 +842,7 @@ public class ServeisPortalRestController extends BaseRestController {
 
 			// Vincular Justificante en Ariadna
 			RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
-			// TODO setear codisDocument
-			// registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
+			registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
 			registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
 			serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
 
@@ -988,8 +987,7 @@ public class ServeisPortalRestController extends BaseRestController {
 
 				// Vincular Justificante en Ariadna
 				RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
-				// TODO setear codisDocument
-				// registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
+				registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
 				registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
 				serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
 			}
@@ -1351,8 +1349,7 @@ public class ServeisPortalRestController extends BaseRestController {
 
 				// Vincular Justificante en Ariadna
 				RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
-				// TODO setear codisDocument
-				// registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
+				registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
 				registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
 				serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
 			}
