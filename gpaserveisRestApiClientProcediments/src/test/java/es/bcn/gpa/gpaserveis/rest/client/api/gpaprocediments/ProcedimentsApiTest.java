@@ -878,12 +878,12 @@ public class ProcedimentsApiTest extends ParentTest {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/procediments/procedimentBloquejatPerUnAltreUsuari/1"), eq("GET"), any(List.class), any(Object.class),
 		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(Boolean.TRUE);
+		                .thenReturn(new BloquejosRDTO());
 
 		BigDecimal id = ONE;
-		Boolean response = api.procedimentBloquejatPerUnAltreUsuariUsingGET(id);
+		BloquejosRDTO response = api.procedimentBloquejatPerUnAltreUsuariUsingGET(id);
 
-		assertTrue(response);
+		assertTrue(response != null);
 	}
 
 	/**

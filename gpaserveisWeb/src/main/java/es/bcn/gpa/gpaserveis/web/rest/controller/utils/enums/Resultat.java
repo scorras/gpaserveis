@@ -107,7 +107,11 @@ public enum Resultat {
 
 	OK_PRESENTAR_DECLARACIO_RESPONSABLE_EXPEDIENT("OK", "Declaració responsable presentada per l'expedient correctament"),
 
-	ERROR_PRESENTAR_DECLARACIO_RESPONSABLE_EXPEDIENT("ERROR", "No s'ha pogut presentar la declaració responsable per a l'expedient");
+	ERROR_PRESENTAR_DECLARACIO_RESPONSABLE_EXPEDIENT("ERROR", "No s'ha pogut presentar la declaració responsable per a l'expedient"),
+
+	OK_PREPARAR_REQUERIMENT_EXPEDIENT("OK", "Requeriment preparat per a l'expedient correctament"),
+
+	ERROR_PREPARAR_REQUERIMENT_EXPEDIENT("ERROR", "No s'ha pogut preparar el requeriment per a l'expedient");
 
 	private String codi;
 

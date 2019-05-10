@@ -97,7 +97,7 @@ public class DadesOperacionsApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void getDadesOperacionsRequeritUsingGETTest() throws ApiException {
+	public void cercaDadesOperacioRequeritsTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/procediments/1/dadesOperRequerit"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
@@ -118,7 +118,7 @@ public class DadesOperacionsApiTest extends ParentTest {
 		String sort = null;
 		Long totalElements = null;
 		Integer totalPages = null;
-		PageDataOfDadesOperacionsRDTO response = api.getDadesOperacionsRequeritUsingGET(id, absoluteRowNumberOfFirstRowInCurrentPage,
+		PageDataOfDadesOperacionsRDTO response = api.cercaDadesOperacioRequerits(id, absoluteRowNumberOfFirstRowInCurrentPage,
 		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
 		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
 		        totalPages);

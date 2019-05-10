@@ -1,6 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -23,12 +24,14 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.IncorporarNouDocumentEntradaExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.IncorporarNouDocumentTramitacioExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.PrepararRequerimentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaCompletarDocumentEntradaExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaCompletarDocumentTramitacioExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaIncorporarNouDocumentEntradaExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaIncorporarNouDocumentTramitacioExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaPrepararRequerimentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaPresentarDeclaracioResponsableExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaRebutjarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaValidarDocumentExpedientBDTO;
@@ -50,7 +53,9 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsTancarBDT
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaSignarDocumentBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioRequeritsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
@@ -58,6 +63,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequerimentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Comentaris;
@@ -75,6 +81,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.Boolean
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.ConfiguracioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.RevisioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.ConfiguracioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.RespostaSignarDocumentRDTO;
@@ -82,6 +89,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentac
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.completar.RespostaCompletarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.DocumentIncorporacioNouRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.RespostaIncorporarNouDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.preparar.requeriment.RequerimentPreparacioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.preparar.requeriment.RespostaPrepararRequerimentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.presentar.declaracio.responsable.DeclaracioResponsablePresentacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.presentar.declaracio.responsable.RespostaPresentarDeclaracioResponsableRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.rebutjar.DocumentAportatRebutjarRDTO;
@@ -1193,7 +1202,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		} else {
 			RespostaIncorporarNouDocumentTramitacioExpedientBDTO respostaIncorporarNouDocumentTramitacioExpedientBDTO = new RespostaIncorporarNouDocumentTramitacioExpedientBDTO(
 			        docsTramitacioRDTOResult, dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null,
-			        registreAssentamentRDTO, respostaResultatBDTO);
+			        respostaResultatBDTO);
 			respostaIncorporarNouDocumentRDTO = modelMapper.map(respostaIncorporarNouDocumentTramitacioExpedientBDTO,
 			        RespostaIncorporarNouDocumentRDTO.class);
 		}
@@ -1484,4 +1493,119 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 		return respostaPresentarDeclaracioResponsableRDTO;
 	}
+
+	/**
+	 * Preparar requeriment expedient.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param requerimentPreparacio
+	 *            the requeriment preparacio
+	 * @return the resposta preparar requeriment RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@PostMapping("/expedients/{codiExpedient}/documentacio/requeriment")
+	@ApiOperation(value = "Preparar un requeriment a l’interessat", tags = { "Serveis Tramitadors API",
+	        "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaPrepararRequerimentRDTO prepararRequerimentExpedient(
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Dades del requeriment a preparar") @RequestBody RequerimentPreparacioRDTO requerimentPreparacio)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("prepararRequerimentExpedient(String, RequerimentPreparacioRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		RespostaPrepararRequerimentRDTO respostaPrepararRequerimentRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+		DocsTramitacioRDTO docsTramitacioRDTOResult = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_PREPARAR_REQUERIMENT_EXPEDIENT);
+		try {
+			// El codi del expediente debe existir
+			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
+			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_PREPARAR_REQUERIMENT_EXPEDIENT);
+
+			// Preparar un requerimiento para el expediente si la acción es
+			// permitida
+			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			        AccioTramitadorApiParamValue.PREPARAR_REQUERIMENT_INTERESSAT, Resultat.ERROR_PREPARAR_REQUERIMENT_EXPEDIENT);
+
+			// Los Datos de Operación deben existir, estar asociados al
+			// procedimiento y tener asociado el trámite OVT de Esmena. Se
+			// aprovecha para recuperar los identificadores de los campos
+			ArrayList<BigDecimal> idDadesOperacionsList = null;
+			if (CollectionUtils.isNotEmpty(requerimentPreparacio.getDadesOperacioRequerits())) {
+				DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(
+				        dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
+				RespostaDadesOperacioRequeritsCercaBDTO respostaDadesOperacioRequeritsCercaBDTO = serveisService
+				        .cercaDadesOperacioRequerits(dadesOperacioCercaBDTO);
+				idDadesOperacionsList = ServeisRestControllerValidationHelper.validateDadesOperacioPrepararRequerimentExpedient(
+				        requerimentPreparacio.getDadesOperacioRequerits(),
+				        respostaDadesOperacioRequeritsCercaBDTO.getDadesOperacionsRDTOList());
+			}
+
+			// Las Configuraciones de Documentación deben existir, estar
+			// asociados al procedimiento y tener asociado el trámite OVT de
+			// Esmena
+			ArrayList<BigDecimal> idConfiguracioDocsEntradaList = null;
+			if (CollectionUtils.isNotEmpty(requerimentPreparacio.getDocumentacioRequerida())) {
+				DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(
+				        dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc(),
+				        TramitOvtApiParamValue.REQ.getInternalValue());
+				RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = serveisService
+				        .cercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsEntradaCercaBDTO);
+				idConfiguracioDocsEntradaList = ServeisRestControllerValidationHelper
+				        .validateConfiguracioDocumentacioPrepararRequerimentExpedient(requerimentPreparacio.getDocumentacioRequerida(),
+				                respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList());
+			}
+
+			// Preparar el requerimiento
+			// La configuración de documentación indicada debe estar asociada al
+			// procedimiento del expediente
+			DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO = new DocumentsTramitacioCercaBDTO(
+			        dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc());
+			RespostaDocumentsTramitacioCercaBDTO respostaDocumentsTramitacioCercaBDTO = serveisService
+			        .cercaConfiguracioDocumentacioTramitacio(documentsTramitacioCercaBDTO);
+			HashMap<String, ConfiguracioDocsTramitacioRDTO> configuracioDocsTramitacioMap = ServeisRestControllerValidationHelper
+			        .validateConfiguracioDocumentacioTramitacioRequerimentPreparat(
+			                respostaDocumentsTramitacioCercaBDTO.getConfiguracioDocsTramitacioRDTOList(),
+			                requerimentPreparacio.getDocument(), Resultat.ERROR_PREPARAR_REQUERIMENT_EXPEDIENT);
+
+			PrepararRequerimentExpedientBDTO prepararRequerimentExpedientBDTO = new PrepararRequerimentExpedientBDTO();
+			DocsTramitacioRDTO docsTramitacioRDTO = modelMapper.map(requerimentPreparacio.getDocument(), DocsTramitacioRDTO.class);
+			docsTramitacioRDTO.setConfigDocTramitacio(
+			        configuracioDocsTramitacioMap.get(String.valueOf(docsTramitacioRDTO.getConfigDocTramitacio())).getId());
+			GuardarRequerimentExpedient guardarRequerimentExpedient = new GuardarRequerimentExpedient();
+			guardarRequerimentExpedient.setDocsTramitacio(docsTramitacioRDTO);
+			guardarRequerimentExpedient.setIdsDadesOperList(idDadesOperacionsList);
+			guardarRequerimentExpedient.setIdsConfDocEntradaList(idConfiguracioDocsEntradaList);
+			prepararRequerimentExpedientBDTO.setGuardarRequerimentExpedient(guardarRequerimentExpedient);
+			prepararRequerimentExpedientBDTO.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
+			docsTramitacioRDTOResult = serveisService.guardarRequeriment(prepararRequerimentExpedientBDTO);
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("prepararRequerimentExpedient(String, RequerimentPreparacioRDTO)", e);
+			// $NON-NLS-1$
+
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("prepararRequerimentExpedient(String, RequerimentPreparacioRDTO)", e);
+			// $NON-NLS-1$
+
+			respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_PREPARAR_REQUERIMENT_EXPEDIENT, ErrorPrincipal.ERROR_GENERIC);
+		}
+
+		RespostaPrepararRequerimentExpedientBDTO respostaPrepararRequerimentExpedientBDTO = new RespostaPrepararRequerimentExpedientBDTO(
+		        docsTramitacioRDTOResult, dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
+		respostaPrepararRequerimentRDTO = modelMapper.map(respostaPrepararRequerimentExpedientBDTO, RespostaPrepararRequerimentRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("prepararRequerimentExpedient(String, RequerimentPreparacioRDTO) - fi"); //$NON-NLS-1$
+		}
+
+		return respostaPrepararRequerimentRDTO;
+	}
+
 }

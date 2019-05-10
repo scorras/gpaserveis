@@ -20,6 +20,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.IncorporarNouDocumentEntradaExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.IncorporarNouDocumentTramitacioExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.PrepararRequerimentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.SubstituirDocumentExpedientBDTO;
@@ -41,6 +42,7 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioRequeritsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
@@ -224,6 +226,21 @@ public class ServeisServiceImpl implements ServeisService {
 		RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = ServeisServiceHelper.loadCercaDadesOperacio(dadesOperacioService,
 		        dadesOperacioCercaBDTO);
 		return respostaDadesOperacioCercaBDTO;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#cercaDadesOperacioRequerits
+	 * (es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO)
+	 */
+	@Override
+	public RespostaDadesOperacioRequeritsCercaBDTO cercaDadesOperacioRequerits(DadesOperacioCercaBDTO dadesOperacioCercaBDTO)
+	        throws GPAServeisServiceException {
+		RespostaDadesOperacioRequeritsCercaBDTO respostaDadesOperacioRequeritsCercaBDTO = ServeisServiceHelper
+		        .loadCercaDadesOperacioRequerits(dadesOperacioService, dadesOperacioCercaBDTO);
+		return respostaDadesOperacioRequeritsCercaBDTO;
 	}
 
 	/*
@@ -675,6 +692,19 @@ public class ServeisServiceImpl implements ServeisService {
 	public DocsTramitacioRDTO guardarDocumentTramitacio(
 	        IncorporarNouDocumentTramitacioExpedientBDTO incorporarNouDocumentTramitacioExpedientBDTO) throws GPAServeisServiceException {
 		return documentsService.guardarDocumentTramitacio(incorporarNouDocumentTramitacioExpedientBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#guardarRequeriment(es.bcn.
+	 * gpa.gpaserveis.business.dto.documents.PrepararRequerimentExpedientBDTO)
+	 */
+	@Override
+	public DocsTramitacioRDTO guardarRequeriment(PrepararRequerimentExpedientBDTO prepararRequerimentExpedientBDTO)
+	        throws GPAServeisServiceException {
+		return documentsService.guardarRequeriment(prepararRequerimentExpedientBDTO);
 	}
 
 }

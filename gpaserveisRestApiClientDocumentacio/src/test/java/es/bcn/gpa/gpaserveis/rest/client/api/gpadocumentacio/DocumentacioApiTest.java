@@ -43,6 +43,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActua
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatRevisioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequerimentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
@@ -438,18 +439,15 @@ public class DocumentacioApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void saveRequerimentUsingPOSTTest() throws ApiException {
+	public void guardarRequerimentTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/documentacio/saveRequeriment/1/1/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		when(apiClient.invokeAPI(eq("/documentacio/saveRequeriment/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new DocsTramitacioRDTO());
 
-		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
+		GuardarRequerimentExpedient guardarRequerimentExpedientRDTO = new GuardarRequerimentExpedient();
 		BigDecimal idExpedient = ONE;
-		String idsConfDocEntradaList = ONE.toString();
-		String idsDadesOperList = ONE.toString();
-		DocsTramitacioRDTO response = api.saveRequerimentUsingPOST(docsTramitacioRDTO, idExpedient, idsConfDocEntradaList,
-		        idsDadesOperList);
+		DocsTramitacioRDTO response = api.guardarRequeriment(guardarRequerimentExpedientRDTO, idExpedient);
 
 		assertTrue(response != null);
 	}

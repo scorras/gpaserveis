@@ -8,13 +8,14 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.Pair;
 import javax.ws.rs.core.GenericType;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.RestClientResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:54:04.705+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-10T10:06:44.423+02:00")
 public class ProcedimentsRequerimentsOperatiusApi {
   private ApiClient apiClient;
 
@@ -38,10 +39,10 @@ public class ProcedimentsRequerimentsOperatiusApi {
    * Inserts the provided Requeriments Operatius to the procediment
    * 
    * @param procedimentsRDTO procedimentsRDTO (required)
-   * @return ProcedimentsRDTO
+   * @return RestClientResponse
    * @throws ApiException if fails to make API call
    */
-  public ProcedimentsRDTO updateRequerimentsOperatiusUsingPOST(ProcedimentsRDTO procedimentsRDTO) throws ApiException {
+  public RestClientResponse updateRequerimentsOperatiusUsingPOST(ProcedimentsRDTO procedimentsRDTO) throws ApiException {
     Object localVarPostBody = procedimentsRDTO;
     
     // verify the required parameter 'procedimentsRDTO' is set
@@ -72,7 +73,7 @@ public class ProcedimentsRequerimentsOperatiusApi {
 
     String[] localVarAuthNames = new String[] {  };
 
-    GenericType<ProcedimentsRDTO> localVarReturnType = new GenericType<ProcedimentsRDTO>() {};
+    GenericType<RestClientResponse> localVarReturnType = new GenericType<RestClientResponse>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
 }

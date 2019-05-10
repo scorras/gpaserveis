@@ -24,6 +24,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.IncorporarNouDocumentEntradaExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.IncorporarNouDocumentTramitacioExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.PrepararRequerimentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.SubstituirDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.UploadDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
@@ -976,7 +977,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
 	}
 
-/*
+	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see
@@ -1033,5 +1034,53 @@ public class DocumentsServiceImpl implements DocumentsService {
 		String message = String.valueOf(reader.readValue(actualObj.get("errorMessage")));
 
 		throw new GPAServeisServiceException(message);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#guardarRequeriment(es.bcn
+	 * .gpa.gpaserveis.business.dto.documents.PrepararRequerimentExpedientBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackGuardarRequeriment")
+	public DocsTramitacioRDTO guardarRequeriment(PrepararRequerimentExpedientBDTO prepararRequerimentExpedientBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("guardarRequeriment(PrepararRequerimentExpedientBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarRequeriment(
+			        prepararRequerimentExpedientBDTO.getGuardarRequerimentExpedient(), prepararRequerimentExpedientBDTO.getIdExpedient());
+
+			if (log.isDebugEnabled()) {
+				log.debug("guardarRequeriment(PrepararRequerimentExpedientBDTO) - fi"); //$NON-NLS-1$
+			}
+			return docsTramitacioRDTO;
+		} catch (ApiException e) {
+			log.error("guardarRequeriment(PrepararRequerimentExpedientBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback guardar requeriment.
+	 *
+	 * @param prepararRequerimentExpedientBDTO
+	 *            the preparar requeriment expedient BDTO
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsTramitacioRDTO fallbackGuardarRequeriment(PrepararRequerimentExpedientBDTO prepararRequerimentExpedientBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackGuardarRequeriment(PrepararRequerimentExpedientBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
 	}
 }

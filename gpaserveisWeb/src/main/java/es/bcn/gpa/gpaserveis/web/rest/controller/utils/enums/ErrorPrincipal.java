@@ -5,7 +5,7 @@ package es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums;
  */
 public enum ErrorPrincipal {
 
-	/* Generic */
+    /* Generic */
 	ERROR_GENERIC("9999", "S'ha produit una incidencia"),
 
 	/* Unitats */
@@ -35,6 +35,9 @@ public enum ErrorPrincipal {
 
 	ERROR_EXPEDIENTS_REGISTRE_ASSENTAMENT_NOT_FOUND("3007", "No es troba l'assentament de registre"),
 
+	ERROR_EXPEDIENTS_DADA_OPERACIO_REQUERIMENT_NOT_AVAILABLE("3008",
+	        "La dada d'operació no està disponible per a ser afegit al requeriment: "),
+
 	/* Documents */
 	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document"),
 
@@ -42,7 +45,10 @@ public enum ErrorPrincipal {
 
 	ERROR_CONFIGURACIO_DOCUMENTACIO_NOT_IN_EXPEDIENT("4003", "La configuració de documentació indicada no està associada a l'expedient: "),
 
-	ERROR_DOCUMENTS_OPENTEXT("4004", "");
+	ERROR_CONFIGURACIO_DOCUMENTACIO_REQUERIMENT_NOT_AVAILABLE("4004",
+	        "La configuració de documentació no està disponible per a ser afegida al requeriment: "),
+
+	ERROR_DOCUMENTS_OPENTEXT("4005", "");
 
 	private String codi;
 

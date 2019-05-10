@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:54:04.705+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-10T10:06:44.423+02:00")
 public class DadesOperacionsApi {
   private ApiClient apiClient;
 
@@ -39,48 +39,6 @@ public class DadesOperacionsApi {
   /**
    * Returns all the dades operacions entries for the procedure
    * 
-   * @param idsDadesOperList idsDadesOperList (required)
-   * @return List&lt;DadesOperacionsRDTO&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<DadesOperacionsRDTO> getDadesOperacionsListUsingGET(String idsDadesOperList) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'idsDadesOperList' is set
-    if (idsDadesOperList == null) {
-      throw new ApiException(400, "Missing the required parameter 'idsDadesOperList' when calling getDadesOperacionsListUsingGET");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/procediments/dadesOperacio/{idsDadesOperList}"
-      .replaceAll("\\{" + "idsDadesOperList" + "\\}", apiClient.escapeString(idsDadesOperList.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<List<DadesOperacionsRDTO>> localVarReturnType = new GenericType<List<DadesOperacionsRDTO>>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns all the dades operacions entries for the procedure
-   * 
    * @param id id (required)
    * @param absoluteRowNumberOfFirstRowInCurrentPage  (optional)
    * @param absoluteRowNumberOfLastRowInCurrentPage  (optional)
@@ -99,12 +57,12 @@ public class DadesOperacionsApi {
    * @return PageDataOfDadesOperacionsRDTO
    * @throws ApiException if fails to make API call
    */
-  public PageDataOfDadesOperacionsRDTO getDadesOperacionsRequeritUsingGET(BigDecimal id, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
+  public PageDataOfDadesOperacionsRDTO cercaDadesOperacioRequerits(BigDecimal id, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getDadesOperacionsRequeritUsingGET");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling cercaDadesOperacioRequerits");
     }
     
     // create path and map variables
@@ -146,6 +104,48 @@ public class DadesOperacionsApi {
     String[] localVarAuthNames = new String[] {  };
 
     GenericType<PageDataOfDadesOperacionsRDTO> localVarReturnType = new GenericType<PageDataOfDadesOperacionsRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Returns all the dades operacions entries for the procedure
+   * 
+   * @param idsDadesOperList idsDadesOperList (required)
+   * @return List&lt;DadesOperacionsRDTO&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<DadesOperacionsRDTO> getDadesOperacionsListUsingGET(String idsDadesOperList) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'idsDadesOperList' is set
+    if (idsDadesOperList == null) {
+      throw new ApiException(400, "Missing the required parameter 'idsDadesOperList' when calling getDadesOperacionsListUsingGET");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/procediments/dadesOperacio/{idsDadesOperList}"
+      .replaceAll("\\{" + "idsDadesOperList" + "\\}", apiClient.escapeString(idsDadesOperList.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<DadesOperacionsRDTO>> localVarReturnType = new GenericType<List<DadesOperacionsRDTO>>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**

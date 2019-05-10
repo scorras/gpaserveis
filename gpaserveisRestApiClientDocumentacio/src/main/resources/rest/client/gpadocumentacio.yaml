@@ -1794,38 +1794,28 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/saveRequeriment/{idExpedient}/{idsConfDocEntradaList}/{idsDadesOperList}:
+  /documentacio/saveRequeriment/{idExpedient}:
     post:
       tags:
       - "Documentacio"
       summary: "updates the requeriment"
-      operationId: "saveRequerimentUsingPOST"
+      operationId: "guardarRequeriment"
       consumes:
       - "application/json"
       produces:
       - "*/*"
       parameters:
       - in: "body"
-        name: "docsTramitacioRDTO"
-        description: "docsTramitacioRDTO"
+        name: "guardarRequerimentExpedientRDTO"
+        description: "guardarRequerimentExpedientRDTO"
         required: true
         schema:
-          $ref: "#/definitions/DocsTramitacioRDTO"
+          $ref: "#/definitions/GuardarRequerimentExpedient"
       - name: "idExpedient"
         in: "path"
         description: "idExpedient"
         required: true
         type: "number"
-      - name: "idsConfDocEntradaList"
-        in: "path"
-        description: "idsConfDocEntradaList"
-        required: true
-        type: "string"
-      - name: "idsDadesOperList"
-        in: "path"
-        description: "idsDadesOperList"
-        required: true
-        type: "string"
       responses:
         200:
           description: "OK"
@@ -3158,6 +3148,25 @@ definitions:
         type: "integer"
         format: "int64"
     title: "File"
+  GuardarRequerimentExpedient:
+    type: "object"
+    properties:
+      docsTramitacio:
+        description: "Document del requeriment"
+        $ref: "#/definitions/DocsTramitacioRDTO"
+      idsConfDocEntradaList:
+        type: "array"
+        description: "Llista d'identificadors de configuració de documentació que\
+          \ s'afegeixen al requeriment"
+        items:
+          type: "number"
+      idsDadesOperList:
+        type: "array"
+        description: "Llista d'identificadors de dades d'operació que s'afegeixen\
+          \ al requeriment"
+        items:
+          type: "number"
+    title: "GuardarRequerimentExpedient"
   IdiomesRDTO:
     type: "object"
     properties:

@@ -28,6 +28,7 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioRequeritsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
@@ -46,6 +47,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollici
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesGrupsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesOperacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsUgos;
@@ -825,6 +827,26 @@ public class ServeisServiceHelper {
 		PageDataOfDadesGrupsRDTO pageDataOfDadesGrupsRDTO = dadesOperacioService.cercaDadesOperacio(dadesOperacioCercaBDTO);
 		respostaDadesOperacioCercaBDTO.setDadesGrupsRDTOList(pageDataOfDadesGrupsRDTO.getData());
 		return respostaDadesOperacioCercaBDTO;
+	}
+
+	/**
+	 * Load cerca dades operacio requerits.
+	 *
+	 * @param dadesOperacioService
+	 *            the dades operacio service
+	 * @param dadesOperacioCercaBDTO
+	 *            the dades operacio cerca BDTO
+	 * @return the resposta dades operacio requerits cerca BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public static RespostaDadesOperacioRequeritsCercaBDTO loadCercaDadesOperacioRequerits(DadesOperacioService dadesOperacioService,
+	        DadesOperacioCercaBDTO dadesOperacioCercaBDTO) throws GPAServeisServiceException {
+		RespostaDadesOperacioRequeritsCercaBDTO respostaDadesOperacioRequeritsCercaBDTO = new RespostaDadesOperacioRequeritsCercaBDTO();
+		PageDataOfDadesOperacionsRDTO pageDataOfDadesOperacionsRDTO = dadesOperacioService
+		        .cercaDadesOperacioRequerits(dadesOperacioCercaBDTO);
+		respostaDadesOperacioRequeritsCercaBDTO.setDadesOperacionsRDTOList(pageDataOfDadesOperacionsRDTO.getData());
+		return respostaDadesOperacioRequeritsCercaBDTO;
 	}
 
 	/**
