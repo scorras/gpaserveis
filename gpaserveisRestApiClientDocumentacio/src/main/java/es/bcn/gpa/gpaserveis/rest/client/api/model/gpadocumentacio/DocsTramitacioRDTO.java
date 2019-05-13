@@ -34,7 +34,7 @@ import org.joda.time.DateTime;
 /**
  * DocsTramitacioRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-10T10:06:30.608+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-13T13:50:42.299+02:00")
 public class DocsTramitacioRDTO {
   @JsonProperty("codi")
   private String codi = null;
@@ -57,11 +57,20 @@ public class DocsTramitacioRDTO {
   @JsonProperty("dataDigitalitzacio")
   private DateTime dataDigitalitzacio = null;
 
+  @JsonProperty("dataDiposit")
+  private DateTime dataDiposit = null;
+
   @JsonProperty("dataNotificacio")
   private DateTime dataNotificacio = null;
 
+  @JsonProperty("dataRegistre")
+  private DateTime dataRegistre = null;
+
   @JsonProperty("dataUltimaModificacio")
   private DateTime dataUltimaModificacio = null;
+
+  @JsonProperty("dataVisualitzacio")
+  private DateTime dataVisualitzacio = null;
 
   @JsonProperty("descripcioEstat")
   private String descripcioEstat = null;
@@ -300,6 +309,24 @@ public class DocsTramitacioRDTO {
     this.dataDigitalitzacio = dataDigitalitzacio;
   }
 
+  public DocsTramitacioRDTO dataDiposit(DateTime dataDiposit) {
+    this.dataDiposit = dataDiposit;
+    return this;
+  }
+
+   /**
+   * Get dataDiposit
+   * @return dataDiposit
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getDataDiposit() {
+    return dataDiposit;
+  }
+
+  public void setDataDiposit(DateTime dataDiposit) {
+    this.dataDiposit = dataDiposit;
+  }
+
   public DocsTramitacioRDTO dataNotificacio(DateTime dataNotificacio) {
     this.dataNotificacio = dataNotificacio;
     return this;
@@ -318,6 +345,24 @@ public class DocsTramitacioRDTO {
     this.dataNotificacio = dataNotificacio;
   }
 
+  public DocsTramitacioRDTO dataRegistre(DateTime dataRegistre) {
+    this.dataRegistre = dataRegistre;
+    return this;
+  }
+
+   /**
+   * Get dataRegistre
+   * @return dataRegistre
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getDataRegistre() {
+    return dataRegistre;
+  }
+
+  public void setDataRegistre(DateTime dataRegistre) {
+    this.dataRegistre = dataRegistre;
+  }
+
   public DocsTramitacioRDTO dataUltimaModificacio(DateTime dataUltimaModificacio) {
     this.dataUltimaModificacio = dataUltimaModificacio;
     return this;
@@ -334,6 +379,24 @@ public class DocsTramitacioRDTO {
 
   public void setDataUltimaModificacio(DateTime dataUltimaModificacio) {
     this.dataUltimaModificacio = dataUltimaModificacio;
+  }
+
+  public DocsTramitacioRDTO dataVisualitzacio(DateTime dataVisualitzacio) {
+    this.dataVisualitzacio = dataVisualitzacio;
+    return this;
+  }
+
+   /**
+   * Get dataVisualitzacio
+   * @return dataVisualitzacio
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getDataVisualitzacio() {
+    return dataVisualitzacio;
+  }
+
+  public void setDataVisualitzacio(DateTime dataVisualitzacio) {
+    this.dataVisualitzacio = dataVisualitzacio;
   }
 
   public DocsTramitacioRDTO descripcioEstat(String descripcioEstat) {
@@ -1027,8 +1090,11 @@ public class DocsTramitacioRDTO {
         Objects.equals(this.configuracioDocsTramitacioNom, docsTramitacioRDTO.configuracioDocsTramitacioNom) &&
         Objects.equals(this.dataCreacio, docsTramitacioRDTO.dataCreacio) &&
         Objects.equals(this.dataDigitalitzacio, docsTramitacioRDTO.dataDigitalitzacio) &&
+        Objects.equals(this.dataDiposit, docsTramitacioRDTO.dataDiposit) &&
         Objects.equals(this.dataNotificacio, docsTramitacioRDTO.dataNotificacio) &&
+        Objects.equals(this.dataRegistre, docsTramitacioRDTO.dataRegistre) &&
         Objects.equals(this.dataUltimaModificacio, docsTramitacioRDTO.dataUltimaModificacio) &&
+        Objects.equals(this.dataVisualitzacio, docsTramitacioRDTO.dataVisualitzacio) &&
         Objects.equals(this.descripcioEstat, docsTramitacioRDTO.descripcioEstat) &&
         Objects.equals(this.digitalitzat, docsTramitacioRDTO.digitalitzat) &&
         Objects.equals(this.docsFisics, docsTramitacioRDTO.docsFisics) &&
@@ -1070,7 +1136,7 @@ public class DocsTramitacioRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(codi, comentari, configDocTramitacio, configuracioDocsTramitacio, configuracioDocsTramitacioNom, dataCreacio, dataDigitalitzacio, dataNotificacio, dataUltimaModificacio, descripcioEstat, digitalitzat, docsFisics, docsFisicsNom, docsSignatures, documentFisic, documentacio, editable, eliminat, estat, estatAnterior, estatDocsTramitacio, estatsDocsTramitacio, fileToUploadContent, fileToUploadName, fileToUploadPath, fileToUploadSize, fileToUploadTipus, fileToUploadType, id, idIdiomaPlantilla, idioma, metadata, migracioIdOrigen, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreIdext, requereixSignatura, requeriments, seleccionable, tipusMimeDescripcio, ultimaModificacioIdext, ultimaSignatura, usuariIdext);
+    return Objects.hash(codi, comentari, configDocTramitacio, configuracioDocsTramitacio, configuracioDocsTramitacioNom, dataCreacio, dataDigitalitzacio, dataDiposit, dataNotificacio, dataRegistre, dataUltimaModificacio, dataVisualitzacio, descripcioEstat, digitalitzat, docsFisics, docsFisicsNom, docsSignatures, documentFisic, documentacio, editable, eliminat, estat, estatAnterior, estatDocsTramitacio, estatsDocsTramitacio, fileToUploadContent, fileToUploadName, fileToUploadPath, fileToUploadSize, fileToUploadTipus, fileToUploadType, id, idIdiomaPlantilla, idioma, metadata, migracioIdOrigen, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreIdext, requereixSignatura, requeriments, seleccionable, tipusMimeDescripcio, ultimaModificacioIdext, ultimaSignatura, usuariIdext);
   }
 
 
@@ -1086,8 +1152,11 @@ public class DocsTramitacioRDTO {
     sb.append("    configuracioDocsTramitacioNom: ").append(toIndentedString(configuracioDocsTramitacioNom)).append("\n");
     sb.append("    dataCreacio: ").append(toIndentedString(dataCreacio)).append("\n");
     sb.append("    dataDigitalitzacio: ").append(toIndentedString(dataDigitalitzacio)).append("\n");
+    sb.append("    dataDiposit: ").append(toIndentedString(dataDiposit)).append("\n");
     sb.append("    dataNotificacio: ").append(toIndentedString(dataNotificacio)).append("\n");
+    sb.append("    dataRegistre: ").append(toIndentedString(dataRegistre)).append("\n");
     sb.append("    dataUltimaModificacio: ").append(toIndentedString(dataUltimaModificacio)).append("\n");
+    sb.append("    dataVisualitzacio: ").append(toIndentedString(dataVisualitzacio)).append("\n");
     sb.append("    descripcioEstat: ").append(toIndentedString(descripcioEstat)).append("\n");
     sb.append("    digitalitzat: ").append(toIndentedString(digitalitzat)).append("\n");
     sb.append("    docsFisics: ").append(toIndentedString(docsFisics)).append("\n");

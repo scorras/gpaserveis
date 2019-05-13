@@ -26,6 +26,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAport
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaUploadDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RestClientResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SubstituirDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TransicionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.UploadDocumentExpedient;
@@ -35,7 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-10T10:06:30.608+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-13T13:50:42.299+02:00")
 public class DocumentacioApi {
   private ApiClient apiClient;
 
@@ -200,6 +201,47 @@ public class DocumentacioApi {
     
     // create path and map variables
     String localVarPath = "/documentacio/associarRegistreDocumentacio";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+
+    apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
+  /**
+   * Cancel·lar una petició per signar o validar un document
+   * 
+   * @param idDocument idDocument (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void cancelarSignarDocumentUsingPOST(BigDecimal idDocument) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'idDocument' is set
+    if (idDocument == null) {
+      throw new ApiException(400, "Missing the required parameter 'idDocument' when calling cancelarSignarDocumentUsingPOST");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/documentacio/cancelarPeticioPortaSig/{idDocument}"
+      .replaceAll("\\{" + "idDocument" + "\\}", apiClient.escapeString(idDocument.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -432,6 +474,46 @@ public class DocumentacioApi {
     GenericType<DocsTramitacioRDTO> localVarReturnType = new GenericType<DocsTramitacioRDTO>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
+  /**
+   * Crear una petició per signar o validar un document
+   * 
+   * @param signarDocumentRDTO signarDocumentRDTO (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void crearPeticioPortaSig(SignarDocument signarDocumentRDTO) throws ApiException {
+    Object localVarPostBody = signarDocumentRDTO;
+    
+    // verify the required parameter 'signarDocumentRDTO' is set
+    if (signarDocumentRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'signarDocumentRDTO' when calling crearPeticioPortaSig");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/documentacio/crearPeticioPortaSig";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+
+    apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
   /**
    * Delete all selected DocsEntrada
    * 

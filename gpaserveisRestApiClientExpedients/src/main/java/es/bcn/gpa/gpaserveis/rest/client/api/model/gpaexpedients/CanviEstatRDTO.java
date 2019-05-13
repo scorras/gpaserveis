@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * CanviEstatRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-08T14:08:13.234+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-13T13:46:33.011+02:00")
 public class CanviEstatRDTO {
   @JsonProperty("canviUnitatGestora")
   private CanviUnitatGestoraBDTO canviUnitatGestora = null;

@@ -3333,6 +3333,34 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /expedients/unitasExpedient/{idExpedient}:
+    get:
+      tags:
+      - "Expedients"
+      summary: "Retorna les unitats gestores de l'expedient"
+      operationId: "getUnitasGestoresExpedientUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaUnitatsExpedient"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/{idExpedient}/accions/{idAccio}/canviEstat:
     post:
       tags:
@@ -4816,6 +4844,16 @@ definitions:
         type: "number"
         description: "Identificador de l'expedient"
     title: "RespostaObtenirXmlExpedient"
+  RespostaUnitatsExpedient:
+    type: "object"
+    properties:
+      idUnitatGestora:
+        type: "number"
+        description: "Unitat gestora de l'expedient"
+      idUnitatGestoraConvidada:
+        type: "number"
+        description: "Unitat gestora convidada de l'expedient"
+    title: "RespostaUnitatsExpedient"
   RetornarLaTramitacioRDTO:
     type: "object"
     properties:
