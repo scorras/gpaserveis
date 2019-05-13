@@ -1027,6 +1027,36 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/cancelarPeticioPortaSig/{idDocument}:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "Cancel·lar una petició per signar o validar un document"
+      operationId: "cancelarSignarDocumentUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDocument"
+        in: "path"
+        description: "idDocument"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /documentacio/catalog/accessRestringut:
     get:
       tags:
@@ -1315,6 +1345,37 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /documentacio/crearPeticioPortaSig:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "Crear una petició per signar o validar un document"
+      operationId: "crearPeticioPortaSig"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "signarDocumentRDTO"
+        description: "signarDocumentRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/SignarDocument"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /documentacio/dadesOperRequerit/{idDoc}:
     get:
       tags:
@@ -2853,10 +2914,19 @@ definitions:
       dataDigitalitzacio:
         type: "string"
         format: "date-time"
+      dataDiposit:
+        type: "string"
+        format: "date-time"
       dataNotificacio:
         type: "string"
         format: "date-time"
+      dataRegistre:
+        type: "string"
+        format: "date-time"
       dataUltimaModificacio:
+        type: "string"
+        format: "date-time"
+      dataVisualitzacio:
         type: "string"
         format: "date-time"
       descripcioEstat:
@@ -3564,6 +3634,19 @@ definitions:
       version:
         type: "string"
     title: "SerieDTO"
+  SignarDocument:
+    type: "object"
+    properties:
+      accio:
+        type: "number"
+        description: "Acció a realitzar per l'portafirmas"
+      idDocument:
+        type: "number"
+        description: "Identificador del document"
+      usuariPortaSig:
+        description: "Usuari que va realitzar l'acció"
+        $ref: "#/definitions/UsuariPortaSig"
+    title: "SignarDocument"
   SortInfo:
     type: "object"
     properties:
@@ -3753,3 +3836,13 @@ definitions:
         description: "Document a upload en l'expedient"
         $ref: "#/definitions/DocsEntradaRDTO"
     title: "UploadDocumentExpedient"
+  UsuariPortaSig:
+    type: "object"
+    properties:
+      matricula:
+        type: "string"
+        description: "Matrícula de l'usuari"
+      nif:
+        type: "string"
+        description: "DNI de l'usuari"
+    title: "UsuariPortaSig"

@@ -111,7 +111,11 @@ public enum Resultat {
 
 	OK_PREPARAR_REQUERIMENT_EXPEDIENT("OK", "Requeriment preparat per a l'expedient correctament"),
 
-	ERROR_PREPARAR_REQUERIMENT_EXPEDIENT("ERROR", "No s'ha pogut preparar el requeriment per a l'expedient");
+	ERROR_PREPARAR_REQUERIMENT_EXPEDIENT("ERROR", "No s'ha pogut preparar el requeriment per a l'expedient"),
+
+	OK_VALIDAR_DOCUMENT("OK", "Acció realitzada correctament"),
+
+	ERROR_VALIDAR_DOCUMENT("OK", "No s'ha pogut validar el document");
 
 	private String codi;
 

@@ -36,6 +36,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesOperacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 
 /**
@@ -352,5 +353,24 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 		List<DadesOperacioRDTO> response = api.getDadesOperAssociadaRequerimentUsingGET(idRequeriment);
 
 		assertTrue(response != null);
+	}
+
+	/**
+	 * Gets the plantilla doc vinculada test.
+	 *
+	 * @return the plantilla doc vinculada test
+	 * @throws ApiException
+	 *             the api exception
+	 */
+	@Test
+	public void getPlantillaDocVinculadaTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/plantillaDocVinculada/1/1"), eq("GET"), any(List.class), any(Object.class),
+				any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new RespostaPlantillaDocVinculada());
+
+		RespostaPlantillaDocVinculada plantillaDocVinculada = api.getPlantillaDocVinculada(ONE, ONE);
+
+		assertTrue(plantillaDocVinculada != null);
 	}
 }
