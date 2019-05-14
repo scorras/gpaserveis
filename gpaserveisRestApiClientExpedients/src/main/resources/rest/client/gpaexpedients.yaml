@@ -35,7 +35,7 @@ paths:
       tags:
       - "Acumulació Expedients"
       summary: "Acumulació d'expedients"
-      operationId: "acumularExpedientUsingPOST"
+      operationId: "acumularExpedient"
       consumes:
       - "application/json"
       produces:
@@ -66,7 +66,7 @@ paths:
       tags:
       - "Expedients "
       summary: "Returns all the expedients that meet the search criteria"
-      operationId: "searchExpedientsAcumuladorsUsingGET"
+      operationId: "cercaExpedientsAcumular"
       produces:
       - "*/*"
       parameters:
@@ -125,14 +125,6 @@ paths:
         description: "Identificador d'usuari pel qual es realitza la cerca"
         required: false
         type: "number"
-      - name: "idsExpedientAcumulatList"
-        in: "query"
-        description: "Identificador de l'expedient a acumular"
-        required: false
-        type: "array"
-        items:
-          type: "number"
-        collectionFormat: "multi"
       - name: "nextPageNumber"
         in: "query"
         required: false
@@ -191,7 +183,7 @@ paths:
       tags:
       - "Expedients "
       summary: "Returns the requested child expedients"
-      operationId: "getChildExpedientsUsingGET"
+      operationId: "cercaExpedientsAcumulats"
       produces:
       - "*/*"
       parameters:

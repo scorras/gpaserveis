@@ -12,14 +12,17 @@ import es.bcn.gpa.gpaserveis.business.ExpedientsService;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAcumularBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarUnitatGestoraBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaAcumularBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.CanviUnitatGestoraApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
@@ -99,7 +102,11 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 	/** The Canvi unitat gestora api. */
 	@Autowired
-	private CanviUnitatGestoraApi CanviUnitatGestoraApi;
+	private CanviUnitatGestoraApi canviUnitatGestoraApi;
+
+	/** The acumulaci expedients api. */
+	@Autowired
+	private AcumulaciExpedientsApi acumulaciExpedientsApi;
 
 	/**
 	 * Cerca expedients.
@@ -960,7 +967,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			CanviUnitatGestoraApi.canviarUnitatGestoraExpedient(expedientsCanviarUnitatGestoraBDTO.getCanviUnitatGestoraRDTO());
+			canviUnitatGestoraApi.canviarUnitatGestoraExpedient(expedientsCanviarUnitatGestoraBDTO.getCanviUnitatGestoraRDTO());
 
 			if (log.isDebugEnabled()) {
 				log.debug("canviarUnitatGestoraExpedient(ExpedientsCanviarUnitatGestoraBDTO) - fi"); //$NON-NLS-1$
@@ -1028,6 +1035,145 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	public RegistreAssentamentRDTO fallbackConsultarDadesRegistreAssentament(String codi) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackConsultarDadesRegistreAssentament(String) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de expedients no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#cercaExpedientsAcumular(
+	 * es.bcn.gpa.gpaserveis.business.dto.expedients.
+	 * ExpedientsCercaAcumularBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackCercaExpedientsAcumular")
+	public PageDataOfExpedientsRDTO cercaExpedientsAcumular(ExpedientsCercaAcumularBDTO expedientsCercaAcumularBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("cercaExpedientsAcumular(ExpedientsCercaAcumularBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			PageDataOfExpedientsRDTO pageDataOfExpedientsRDTO = expedients_Api.cercaExpedientsAcumular(null, null, null, null, null, null,
+			        null, null, null, null, expedientsCercaAcumularBDTO.getIdProcediment(), null, null, null, null, null, null, null, null,
+			        null);
+
+			if (log.isDebugEnabled()) {
+				log.debug("cercaExpedientsAcumular(ExpedientsCercaAcumularBDTO) - fi"); //$NON-NLS-1$
+			}
+			return pageDataOfExpedientsRDTO;
+		} catch (ApiException e) {
+			log.error("cercaExpedientsAcumular(ExpedientsCercaAcumularBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback cerca expedients acumular.
+	 *
+	 * @param expedientsCercaAcumularBDTO
+	 *            the expedients cerca acumular BDTO
+	 * @return the page data of expedients RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public PageDataOfExpedientsRDTO fallbackCercaExpedientsAcumular(ExpedientsCercaAcumularBDTO expedientsCercaAcumularBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCercaExpedientsAcumular(ExpedientsCercaAcumularBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de expedients no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#acumularExpedient(es.bcn
+	 * .gpa.gpaserveis.business.dto.expedients.ExpedientsAcumularBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackAcumularExpedient")
+	public void acumularExpedient(ExpedientsAcumularBDTO expedientsAcumularBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("acumularExpedient(ExpedientsAcumularBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			acumulaciExpedientsApi.acumularExpedient(expedientsAcumularBDTO.getAcumularExpedientRDTO());
+
+			if (log.isDebugEnabled()) {
+				log.debug("acumularExpedient(ExpedientsAcumularBDTO) - fi"); //$NON-NLS-1$
+			}
+		} catch (ApiException e) {
+			log.error("acumularExpedient(ExpedientsAcumularBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback acumular expedient.
+	 *
+	 * @param expedientsAcumularBDTO
+	 *            the expedients acumular BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackAcumularExpedient(ExpedientsAcumularBDTO expedientsAcumularBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackAcumularExpedient(ExpedientsAcumularBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de expedients no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#cercaExpedientsAcumulats
+	 * (java.math.BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackCercaExpedientsAcumulats")
+	public PageDataOfExpedientsRDTO cercaExpedientsAcumulats(BigDecimal idExpedient) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("cercaExpedientsAcumulats(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			PageDataOfExpedientsRDTO pageDataOfExpedientsRDTO = expedients_Api.cercaExpedientsAcumulats(idExpedient, null, null, null, null,
+			        null, null, null, null, null, null, null, null, null, null);
+
+			if (log.isDebugEnabled()) {
+				log.debug("cercaExpedientsAcumulats(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			return pageDataOfExpedientsRDTO;
+		} catch (ApiException e) {
+			log.error("cercaExpedientsAcumulats(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback cerca expedients acumulats.
+	 *
+	 * @param idExpedient
+	 *            the id expedient
+	 * @return the page data of expedients RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public PageDataOfExpedientsRDTO fallbackCercaExpedientsAcumulats(BigDecimal idExpedient) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCercaExpedientsAcumulats(BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de expedients no està disponible");

@@ -38,6 +38,20 @@ public enum ErrorPrincipal {
 	ERROR_EXPEDIENTS_DADA_OPERACIO_REQUERIMENT_NOT_AVAILABLE("3008",
 	        "La dada d'operació no està disponible per a ser afegit al requeriment: "),
 
+	ERROR_EXPEDIENTS_ACUMULADOR_NOT_FOUND("3009", "No s'ha trobat l'expedient acumulador"),
+
+	ERROR_EXPEDIENTS_ACUMULADOR_NOT_VALID_JA_ACUMULAT("3010", "L'expedient acumulador no és vàlid perquè ja ha estat acumulat"),
+
+	ERROR_EXPEDIENTS_ACUMULAT_NOT_FOUND("3011", "No s'ha trobat l'expedient a acumular"),
+
+	ERROR_EXPEDIENTS_ACUMULAT_NOT_VALID_MATEIX_EXPEDIENT("3012", "No és possible acumular un expedient a si mateix"),
+
+	ERROR_EXPEDIENTS_ACUMULAT_NOT_VALID_MATEIX_PROCEDIMENT("3013",
+	        "Els expedients acumulador i acumulat han d'estar associats al mateix procediment"),
+
+	ERROR_EXPEDIENTS_ACUMULAT_NOT_VALID_JA_ACUMULAT("3014",
+	        "L'expedient a acumular no és vàlid perquè ja ha estat acumulat a un altre expedient"),
+
 	/* Documents */
 	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document"),
 

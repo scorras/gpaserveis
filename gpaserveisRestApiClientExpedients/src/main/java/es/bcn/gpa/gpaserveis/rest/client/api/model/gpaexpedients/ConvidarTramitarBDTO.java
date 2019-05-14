@@ -10,140 +10,136 @@
  * Do not edit the class manually.
  */
 
-
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Comentaris;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownItemBDTO;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * ConvidarTramitarBDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-13T13:46:33.011+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-14T14:36:36.923+02:00")
 public class ConvidarTramitarBDTO {
-  @JsonProperty("comentari")
-  private Comentaris comentari = null;
+	@JsonProperty("comentari")
+	private Comentaris comentari = null;
 
-  @JsonProperty("idExpedientList")
-  private List<BigDecimal> idExpedientList = null;
+	@JsonProperty("idExpedientList")
+	private List<BigDecimal> idExpedientList = null;
 
-  @JsonProperty("unitatGestoraConvidada")
-  private DropdownItemBDTO unitatGestoraConvidada = null;
+	@JsonProperty("unitatGestoraConvidada")
+	private DropdownItemBDTO unitatGestoraConvidada = null;
 
-  public ConvidarTramitarBDTO comentari(Comentaris comentari) {
-    this.comentari = comentari;
-    return this;
-  }
+	public ConvidarTramitarBDTO comentari(Comentaris comentari) {
+		this.comentari = comentari;
+		return this;
+	}
 
-   /**
-   * Get comentari
-   * @return comentari
-  **/
-  @ApiModelProperty(value = "")
-  public Comentaris getComentari() {
-    return comentari;
-  }
+	/**
+	 * Get comentari
+	 * 
+	 * @return comentari
+	 **/
+	@ApiModelProperty(value = "")
+	public Comentaris getComentari() {
+		return comentari;
+	}
 
-  public void setComentari(Comentaris comentari) {
-    this.comentari = comentari;
-  }
+	public void setComentari(Comentaris comentari) {
+		this.comentari = comentari;
+	}
 
-  public ConvidarTramitarBDTO idExpedientList(List<BigDecimal> idExpedientList) {
-    this.idExpedientList = idExpedientList;
-    return this;
-  }
+	public ConvidarTramitarBDTO idExpedientList(List<BigDecimal> idExpedientList) {
+		this.idExpedientList = idExpedientList;
+		return this;
+	}
 
-  public ConvidarTramitarBDTO addIdExpedientListItem(BigDecimal idExpedientListItem) {
-    if (this.idExpedientList == null) {
-      this.idExpedientList = new ArrayList<BigDecimal>();
-    }
-    this.idExpedientList.add(idExpedientListItem);
-    return this;
-  }
+	public ConvidarTramitarBDTO addIdExpedientListItem(BigDecimal idExpedientListItem) {
+		if (this.idExpedientList == null) {
+			this.idExpedientList = new ArrayList<BigDecimal>();
+		}
+		this.idExpedientList.add(idExpedientListItem);
+		return this;
+	}
 
-   /**
-   * Get idExpedientList
-   * @return idExpedientList
-  **/
-  @ApiModelProperty(value = "")
-  public List<BigDecimal> getIdExpedientList() {
-    return idExpedientList;
-  }
+	/**
+	 * Get idExpedientList
+	 * 
+	 * @return idExpedientList
+	 **/
+	@ApiModelProperty(value = "")
+	public List<BigDecimal> getIdExpedientList() {
+		return idExpedientList;
+	}
 
-  public void setIdExpedientList(List<BigDecimal> idExpedientList) {
-    this.idExpedientList = idExpedientList;
-  }
+	public void setIdExpedientList(List<BigDecimal> idExpedientList) {
+		this.idExpedientList = idExpedientList;
+	}
 
-  public ConvidarTramitarBDTO unitatGestoraConvidada(DropdownItemBDTO unitatGestoraConvidada) {
-    this.unitatGestoraConvidada = unitatGestoraConvidada;
-    return this;
-  }
+	public ConvidarTramitarBDTO unitatGestoraConvidada(DropdownItemBDTO unitatGestoraConvidada) {
+		this.unitatGestoraConvidada = unitatGestoraConvidada;
+		return this;
+	}
 
-   /**
-   * Get unitatGestoraConvidada
-   * @return unitatGestoraConvidada
-  **/
-  @ApiModelProperty(value = "")
-  public DropdownItemBDTO getUnitatGestoraConvidada() {
-    return unitatGestoraConvidada;
-  }
+	/**
+	 * Get unitatGestoraConvidada
+	 * 
+	 * @return unitatGestoraConvidada
+	 **/
+	@ApiModelProperty(value = "")
+	public DropdownItemBDTO getUnitatGestoraConvidada() {
+		return unitatGestoraConvidada;
+	}
 
-  public void setUnitatGestoraConvidada(DropdownItemBDTO unitatGestoraConvidada) {
-    this.unitatGestoraConvidada = unitatGestoraConvidada;
-  }
+	public void setUnitatGestoraConvidada(DropdownItemBDTO unitatGestoraConvidada) {
+		this.unitatGestoraConvidada = unitatGestoraConvidada;
+	}
 
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		ConvidarTramitarBDTO convidarTramitarBDTO = (ConvidarTramitarBDTO) o;
+		return Objects.equals(this.comentari, convidarTramitarBDTO.comentari)
+		        && Objects.equals(this.idExpedientList, convidarTramitarBDTO.idExpedientList)
+		        && Objects.equals(this.unitatGestoraConvidada, convidarTramitarBDTO.unitatGestoraConvidada);
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ConvidarTramitarBDTO convidarTramitarBDTO = (ConvidarTramitarBDTO) o;
-    return Objects.equals(this.comentari, convidarTramitarBDTO.comentari) &&
-        Objects.equals(this.idExpedientList, convidarTramitarBDTO.idExpedientList) &&
-        Objects.equals(this.unitatGestoraConvidada, convidarTramitarBDTO.unitatGestoraConvidada);
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(comentari, idExpedientList, unitatGestoraConvidada);
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(comentari, idExpedientList, unitatGestoraConvidada);
-  }
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class ConvidarTramitarBDTO {\n");
 
+		sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
+		sb.append("    idExpedientList: ").append(toIndentedString(idExpedientList)).append("\n");
+		sb.append("    unitatGestoraConvidada: ").append(toIndentedString(unitatGestoraConvidada)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ConvidarTramitarBDTO {\n");
-    
-    sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
-    sb.append("    idExpedientList: ").append(toIndentedString(idExpedientList)).append("\n");
-    sb.append("    unitatGestoraConvidada: ").append(toIndentedString(unitatGestoraConvidada)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
 }
-

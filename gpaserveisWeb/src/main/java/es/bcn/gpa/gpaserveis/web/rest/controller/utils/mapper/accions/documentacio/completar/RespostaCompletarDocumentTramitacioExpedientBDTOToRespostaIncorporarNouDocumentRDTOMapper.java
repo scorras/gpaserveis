@@ -14,9 +14,9 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentac
 
 /**
  * The Class
- * RespostaIncorporarNouDocumentTramitacioExpedientBDTOToRespostaIncorporarNouDocumentRDTOMapper.
+ * RespostaCompletarDocumentTramitacioExpedientBDTOToRespostaIncorporarNouDocumentRDTOMapper.
  */
-@Component("respostaIncorporarNouDocumentTramitacioExpedientBDTOToRespostaIncorporarNouDocumentRDTOMapper")
+@Component("respostaCompletarDocumentTramitacioExpedientBDTOToRespostaIncorporarNouDocumentRDTOMapper")
 public class RespostaCompletarDocumentTramitacioExpedientBDTOToRespostaIncorporarNouDocumentRDTOMapper
         extends PropertyMap<RespostaCompletarDocumentTramitacioExpedientBDTO, RespostaIncorporarNouDocumentRDTO> {
 
