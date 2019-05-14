@@ -161,7 +161,7 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void getChildExpedientsUsingGETTest() throws ApiException {
+	public void cercaExpedientsAcumulatsTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/acumulacioExpedients/1/acumulacio/children"), eq("GET"), any(List.class), any(Object.class),
 		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
@@ -182,7 +182,7 @@ public class Expedients_ApiTest extends ParentTest {
 		String sort = null;
 		Long totalElements = null;
 		Integer totalPages = null;
-		PageDataOfExpedientsRDTO response = api.getChildExpedientsUsingGET(idExpedient, absoluteRowNumberOfFirstRowInCurrentPage,
+		PageDataOfExpedientsRDTO response = api.cercaExpedientsAcumulats(idExpedient, absoluteRowNumberOfFirstRowInCurrentPage,
 		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
 		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
 		        totalPages);
@@ -370,7 +370,7 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void searchExpedientsAcumuladorsUsingGETTest() throws ApiException {
+	public void cercaExpedientsAcumularTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/acumulacioExpedients/searchExpedientsAcumuladors"), eq("GET"), any(List.class), any(Object.class),
 		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new PageDataOfExpedientsRDTO());
@@ -387,7 +387,6 @@ public class Expedients_ApiTest extends ParentTest {
 		BigDecimal id = null;
 		BigDecimal idProcedimentAcumulat = null;
 		BigDecimal idUsuari = null;
-		List<BigDecimal> idsExpedientAcumulatList = null;
 		Integer nextPageNumber = null;
 		String nombreDocument = null;
 		Integer pageSize = null;
@@ -396,10 +395,10 @@ public class Expedients_ApiTest extends ParentTest {
 		String sort = null;
 		Long totalElements = null;
 		Integer totalPages = null;
-		PageDataOfExpedientsRDTO response = api.searchExpedientsAcumuladorsUsingGET(absoluteRowNumberOfFirstRowInCurrentPage,
+		PageDataOfExpedientsRDTO response = api.cercaExpedientsAcumular(absoluteRowNumberOfFirstRowInCurrentPage,
 		        absoluteRowNumberOfLastRowInCurrentPage, codi, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dir, id, idProcedimentAcumulat, idUsuari, idsExpedientAcumulatList,
-		        nextPageNumber, nombreDocument, pageSize, previousPageNumber, sollicitant, sort, totalElements, totalPages);
+		        currentPageIsLastPage, currentPageNumber, dir, id, idProcedimentAcumulat, idUsuari, nextPageNumber, nombreDocument,
+		        pageSize, previousPageNumber, sollicitant, sort, totalElements, totalPages);
 
 		assertTrue(response != null);
 	}

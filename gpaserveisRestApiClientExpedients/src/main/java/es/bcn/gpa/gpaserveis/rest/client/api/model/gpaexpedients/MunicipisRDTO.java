@@ -10,196 +10,194 @@
  * Do not edit the class manually.
  */
 
-
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients;
 
 import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
+
 import io.swagger.annotations.ApiModelProperty;
 
 /**
  * MunicipisRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-13T13:46:33.011+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-14T14:36:36.923+02:00")
 public class MunicipisRDTO {
-  @JsonProperty("codiIne")
-  private String codiIne = null;
+	@JsonProperty("codiIne")
+	private String codiIne = null;
 
-  @JsonProperty("codiMunicipi")
-  private String codiMunicipi = null;
+	@JsonProperty("codiMunicipi")
+	private String codiMunicipi = null;
 
-  @JsonProperty("nom")
-  private String nom = null;
+	@JsonProperty("nom")
+	private String nom = null;
 
-  @JsonProperty("nomCastella")
-  private String nomCastella = null;
+	@JsonProperty("nomCastella")
+	private String nomCastella = null;
 
-  @JsonProperty("nomCatala")
-  private String nomCatala = null;
+	@JsonProperty("nomCatala")
+	private String nomCatala = null;
 
-  @JsonProperty("provincia")
-  private String provincia = null;
+	@JsonProperty("provincia")
+	private String provincia = null;
 
-  public MunicipisRDTO codiIne(String codiIne) {
-    this.codiIne = codiIne;
-    return this;
-  }
+	public MunicipisRDTO codiIne(String codiIne) {
+		this.codiIne = codiIne;
+		return this;
+	}
 
-   /**
-   * Get codiIne
-   * @return codiIne
-  **/
-  @ApiModelProperty(value = "")
-  public String getCodiIne() {
-    return codiIne;
-  }
+	/**
+	 * Get codiIne
+	 * 
+	 * @return codiIne
+	 **/
+	@ApiModelProperty(value = "")
+	public String getCodiIne() {
+		return codiIne;
+	}
 
-  public void setCodiIne(String codiIne) {
-    this.codiIne = codiIne;
-  }
+	public void setCodiIne(String codiIne) {
+		this.codiIne = codiIne;
+	}
 
-  public MunicipisRDTO codiMunicipi(String codiMunicipi) {
-    this.codiMunicipi = codiMunicipi;
-    return this;
-  }
+	public MunicipisRDTO codiMunicipi(String codiMunicipi) {
+		this.codiMunicipi = codiMunicipi;
+		return this;
+	}
 
-   /**
-   * Get codiMunicipi
-   * @return codiMunicipi
-  **/
-  @ApiModelProperty(value = "")
-  public String getCodiMunicipi() {
-    return codiMunicipi;
-  }
+	/**
+	 * Get codiMunicipi
+	 * 
+	 * @return codiMunicipi
+	 **/
+	@ApiModelProperty(value = "")
+	public String getCodiMunicipi() {
+		return codiMunicipi;
+	}
 
-  public void setCodiMunicipi(String codiMunicipi) {
-    this.codiMunicipi = codiMunicipi;
-  }
+	public void setCodiMunicipi(String codiMunicipi) {
+		this.codiMunicipi = codiMunicipi;
+	}
 
-  public MunicipisRDTO nom(String nom) {
-    this.nom = nom;
-    return this;
-  }
+	public MunicipisRDTO nom(String nom) {
+		this.nom = nom;
+		return this;
+	}
 
-   /**
-   * Get nom
-   * @return nom
-  **/
-  @ApiModelProperty(value = "")
-  public String getNom() {
-    return nom;
-  }
+	/**
+	 * Get nom
+	 * 
+	 * @return nom
+	 **/
+	@ApiModelProperty(value = "")
+	public String getNom() {
+		return nom;
+	}
 
-  public void setNom(String nom) {
-    this.nom = nom;
-  }
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
 
-  public MunicipisRDTO nomCastella(String nomCastella) {
-    this.nomCastella = nomCastella;
-    return this;
-  }
+	public MunicipisRDTO nomCastella(String nomCastella) {
+		this.nomCastella = nomCastella;
+		return this;
+	}
 
-   /**
-   * Get nomCastella
-   * @return nomCastella
-  **/
-  @ApiModelProperty(value = "")
-  public String getNomCastella() {
-    return nomCastella;
-  }
+	/**
+	 * Get nomCastella
+	 * 
+	 * @return nomCastella
+	 **/
+	@ApiModelProperty(value = "")
+	public String getNomCastella() {
+		return nomCastella;
+	}
 
-  public void setNomCastella(String nomCastella) {
-    this.nomCastella = nomCastella;
-  }
+	public void setNomCastella(String nomCastella) {
+		this.nomCastella = nomCastella;
+	}
 
-  public MunicipisRDTO nomCatala(String nomCatala) {
-    this.nomCatala = nomCatala;
-    return this;
-  }
+	public MunicipisRDTO nomCatala(String nomCatala) {
+		this.nomCatala = nomCatala;
+		return this;
+	}
 
-   /**
-   * Get nomCatala
-   * @return nomCatala
-  **/
-  @ApiModelProperty(value = "")
-  public String getNomCatala() {
-    return nomCatala;
-  }
+	/**
+	 * Get nomCatala
+	 * 
+	 * @return nomCatala
+	 **/
+	@ApiModelProperty(value = "")
+	public String getNomCatala() {
+		return nomCatala;
+	}
 
-  public void setNomCatala(String nomCatala) {
-    this.nomCatala = nomCatala;
-  }
+	public void setNomCatala(String nomCatala) {
+		this.nomCatala = nomCatala;
+	}
 
-  public MunicipisRDTO provincia(String provincia) {
-    this.provincia = provincia;
-    return this;
-  }
+	public MunicipisRDTO provincia(String provincia) {
+		this.provincia = provincia;
+		return this;
+	}
 
-   /**
-   * Get provincia
-   * @return provincia
-  **/
-  @ApiModelProperty(value = "")
-  public String getProvincia() {
-    return provincia;
-  }
+	/**
+	 * Get provincia
+	 * 
+	 * @return provincia
+	 **/
+	@ApiModelProperty(value = "")
+	public String getProvincia() {
+		return provincia;
+	}
 
-  public void setProvincia(String provincia) {
-    this.provincia = provincia;
-  }
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
 
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		MunicipisRDTO municipisRDTO = (MunicipisRDTO) o;
+		return Objects.equals(this.codiIne, municipisRDTO.codiIne) && Objects.equals(this.codiMunicipi, municipisRDTO.codiMunicipi)
+		        && Objects.equals(this.nom, municipisRDTO.nom) && Objects.equals(this.nomCastella, municipisRDTO.nomCastella)
+		        && Objects.equals(this.nomCatala, municipisRDTO.nomCatala) && Objects.equals(this.provincia, municipisRDTO.provincia);
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    MunicipisRDTO municipisRDTO = (MunicipisRDTO) o;
-    return Objects.equals(this.codiIne, municipisRDTO.codiIne) &&
-        Objects.equals(this.codiMunicipi, municipisRDTO.codiMunicipi) &&
-        Objects.equals(this.nom, municipisRDTO.nom) &&
-        Objects.equals(this.nomCastella, municipisRDTO.nomCastella) &&
-        Objects.equals(this.nomCatala, municipisRDTO.nomCatala) &&
-        Objects.equals(this.provincia, municipisRDTO.provincia);
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(codiIne, codiMunicipi, nom, nomCastella, nomCatala, provincia);
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(codiIne, codiMunicipi, nom, nomCastella, nomCatala, provincia);
-  }
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class MunicipisRDTO {\n");
 
+		sb.append("    codiIne: ").append(toIndentedString(codiIne)).append("\n");
+		sb.append("    codiMunicipi: ").append(toIndentedString(codiMunicipi)).append("\n");
+		sb.append("    nom: ").append(toIndentedString(nom)).append("\n");
+		sb.append("    nomCastella: ").append(toIndentedString(nomCastella)).append("\n");
+		sb.append("    nomCatala: ").append(toIndentedString(nomCatala)).append("\n");
+		sb.append("    provincia: ").append(toIndentedString(provincia)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class MunicipisRDTO {\n");
-    
-    sb.append("    codiIne: ").append(toIndentedString(codiIne)).append("\n");
-    sb.append("    codiMunicipi: ").append(toIndentedString(codiMunicipi)).append("\n");
-    sb.append("    nom: ").append(toIndentedString(nom)).append("\n");
-    sb.append("    nomCastella: ").append(toIndentedString(nomCastella)).append("\n");
-    sb.append("    nomCatala: ").append(toIndentedString(nomCatala)).append("\n");
-    sb.append("    provincia: ").append(toIndentedString(provincia)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
 }
-

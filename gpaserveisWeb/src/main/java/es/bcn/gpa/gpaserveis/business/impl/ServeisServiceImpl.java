@@ -30,8 +30,10 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAcumularBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarUnitatGestoraBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaAcumularBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
@@ -710,6 +712,47 @@ public class ServeisServiceImpl implements ServeisService {
 	public DocsTramitacioRDTO guardarRequeriment(PrepararRequerimentExpedientBDTO prepararRequerimentExpedientBDTO)
 			throws GPAServeisServiceException {
 		return documentsService.guardarRequeriment(prepararRequerimentExpedientBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#cercaExpedientsAcumular(es.
+	 * bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaAcumularBDTO)
+	 */
+	@Override
+	public RespostaExpedientsCercaBDTO cercaExpedientsAcumular(ExpedientsCercaAcumularBDTO expedientsCercaAcumularBDTO)
+	        throws GPAServeisServiceException {
+		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = ServeisServiceHelper.loadCercaExpedientsAcumular(expedientsService,
+		        expedientsCercaAcumularBDTO);
+		return respostaExpedientsCercaBDTO;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#acumularExpedient(es.bcn.
+	 * gpa.gpaserveis.business.dto.expedients.ExpedientsAcumularBDTO)
+	 */
+	@Override
+	public void acumularExpedient(ExpedientsAcumularBDTO expedientsAcumularBDTO) throws GPAServeisServiceException {
+		expedientsService.acumularExpedient(expedientsAcumularBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#cercaExpedientsAcumulats(
+	 * java.math.BigDecimal)
+	 */
+	@Override
+	public RespostaExpedientsCercaBDTO cercaExpedientsAcumulats(BigDecimal idExpedient) throws GPAServeisServiceException {
+		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = ServeisServiceHelper.loadCercaExpedientsAcumulats(expedientsService,
+		        idExpedient);
+		return respostaExpedientsCercaBDTO;
 	}
 
 	/*

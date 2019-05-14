@@ -6,8 +6,10 @@ import java.util.List;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAcumularBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarUnitatGestoraBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaAcumularBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
@@ -236,6 +238,39 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	RegistreAssentamentRDTO consultarDadesRegistreAssentament(String codi) throws GPAServeisServiceException;
+
+	/**
+	 * Cerca expedients acumular.
+	 *
+	 * @param expedientsCercaAcumularBDTO
+	 *            the expedients cerca acumular BDTO
+	 * @return the page data of expedients RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	PageDataOfExpedientsRDTO cercaExpedientsAcumular(ExpedientsCercaAcumularBDTO expedientsCercaAcumularBDTO)
+	        throws GPAServeisServiceException;
+
+	/**
+	 * Acumular expedient.
+	 *
+	 * @param expedientsAcumularBDTO
+	 *            the expedients acumular BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void acumularExpedient(ExpedientsAcumularBDTO expedientsAcumularBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Cerca expedients acumulats.
+	 *
+	 * @param idExpedient
+	 *            the id expedient
+	 * @return the page data of expedients RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	PageDataOfExpedientsRDTO cercaExpedientsAcumulats(BigDecimal idExpedient) throws GPAServeisServiceException;
 
 	/**
 	 * Gets the id expedient by documentacio id ext.

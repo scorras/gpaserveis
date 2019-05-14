@@ -15,6 +15,7 @@ import java.util.Map.Entry;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -140,6 +141,72 @@ public class ServeisRestControllerValidationHelper {
 		if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND);
 		}
+	}
+
+	/**
+	 * Validate expedient acumulador.
+	 *
+	 * @param dadesExpedientBDTOAcumulador
+	 *            the dades expedient BDTO acumulador
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateExpedientAcumulador(DadesExpedientBDTO dadesExpedientBDTOAcumulador, Resultat resultatError)
+	        throws GPAApiParamValidationException {
+		if (dadesExpedientBDTOAcumulador.getExpedientsRDTO() == null) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULADOR_NOT_FOUND);
+		}
+
+		if (dadesExpedientBDTOAcumulador.getExpedientsRDTO().getAcumulador() != null) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULADOR_NOT_VALID_JA_ACUMULAT);
+		}
+	}
+
+	/**
+	 * Validate expedient acumular.
+	 *
+	 * @param dadesExpedientBDTOAcumulador
+	 *            the dades expedient BDTO acumulador
+	 * @param dadesExpedientBDTOAcumular
+	 *            the dades expedient BDTO acumular
+	 * @param dadesExpedientAcumularCercaBDTOList
+	 *            the dades expedient acumular cerca BDTO list
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateExpedientAcumular(DadesExpedientBDTO dadesExpedientBDTOAcumulador,
+	        DadesExpedientBDTO dadesExpedientBDTOAcumular, List<DadesExpedientBDTO> dadesExpedientAcumularCercaBDTOList,
+	        Resultat resultatError) throws GPAApiParamValidationException {
+		if (dadesExpedientBDTOAcumular.getExpedientsRDTO() == null) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULAT_NOT_FOUND);
+		}
+
+		if (dadesExpedientBDTOAcumulador.getExpedientsRDTO().getId()
+		        .compareTo(dadesExpedientBDTOAcumular.getExpedientsRDTO().getId()) == NumberUtils.INTEGER_ZERO) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULAT_NOT_VALID_MATEIX_EXPEDIENT);
+		}
+
+		if (dadesExpedientBDTOAcumulador.getExpedientsRDTO().getProcedimentIdext()
+		        .compareTo(dadesExpedientBDTOAcumular.getExpedientsRDTO().getProcedimentIdext()) != NumberUtils.INTEGER_ZERO) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULAT_NOT_VALID_MATEIX_PROCEDIMENT);
+		}
+
+		Boolean esAcumulable = Boolean.FALSE;
+		for (DadesExpedientBDTO dadesExpedientBDTO : dadesExpedientAcumularCercaBDTOList) {
+			if (dadesExpedientBDTOAcumular.getExpedientsRDTO().getId()
+			        .compareTo(dadesExpedientBDTO.getExpedientsRDTO().getId()) == NumberUtils.INTEGER_ZERO) {
+				esAcumulable = Boolean.TRUE;
+				break;
+			}
+		}
+		if (!esAcumulable) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULAT_NOT_VALID_JA_ACUMULAT);
+		}
+
 	}
 
 	/**

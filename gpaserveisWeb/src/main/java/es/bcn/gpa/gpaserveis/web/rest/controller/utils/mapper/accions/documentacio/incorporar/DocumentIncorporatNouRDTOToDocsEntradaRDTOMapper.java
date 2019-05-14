@@ -67,7 +67,7 @@ public class DocumentIncorporatNouRDTOToDocsEntradaRDTOMapper extends PropertyMa
 		using(revisioToInternalConverter).map(source.getRevisio()).setRevisio(null);
 		using(booleanToInternalConverter).map(source.getDigitalitzat()).setDigitalitzat(null);
 		// TODO ¿Dónde se almacena el idioma de digitalización?
-		using(idiomaToInternalConverter).map(source.getDigitalitzacio().getIdioma()).setIdioma(null);
+		// using(idiomaToInternalConverter).map(source.getDigitalitzacio().getIdioma()).setIdioma(null);
 		using(dataHoraToInternalConverter).map(source.getDigitalitzacio().getDataDigitalitzacio()).setDataDigitalitzacio(null);
 		map().setFileToUploadName(source.getFitxer().getNom());
 		using(tipusMimeToInternalConverter).map(source.getFitxer().getFormat()).setFileToUploadTipus(null);

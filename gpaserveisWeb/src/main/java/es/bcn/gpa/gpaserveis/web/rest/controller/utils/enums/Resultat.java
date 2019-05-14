@@ -115,7 +115,11 @@ public enum Resultat {
 
 	OK_VALIDAR_DOCUMENT("OK", "Acció realitzada correctament"),
 
-	ERROR_VALIDAR_DOCUMENT("OK", "No s'ha pogut validar el document");
+	ERROR_VALIDAR_DOCUMENT("OK", "No s'ha pogut validar el document"),
+
+	OK_ACUMULAR_EXPEDIENT("OK", "Expedient acumulat correctament"),
+
+	ERROR_ACUMULAR_EXPEDIENT("ERROR", "No s'ha pogut acumular l'expedient");
 
 	private String codi;
 
