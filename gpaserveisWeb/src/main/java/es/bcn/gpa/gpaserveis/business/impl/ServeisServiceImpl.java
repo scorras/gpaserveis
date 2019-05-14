@@ -82,6 +82,8 @@ import lombok.extern.apachecommons.CommonsLog;
 /** The Constant log. */
 
 /** The Constant log. */
+
+/** The Constant log. */
 @CommonsLog
 public class ServeisServiceImpl implements ServeisService {
 
@@ -708,6 +710,28 @@ public class ServeisServiceImpl implements ServeisService {
 	public DocsTramitacioRDTO guardarRequeriment(PrepararRequerimentExpedientBDTO prepararRequerimentExpedientBDTO)
 			throws GPAServeisServiceException {
 		return documentsService.guardarRequeriment(prepararRequerimentExpedientBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * getDocsTramitacioByNotificationId(java.lang.Long)
+	 */
+	@Override
+	public DocsTramitacioRDTO getDocsTramitacioByNotificationId(Long notificacioId) throws GPAServeisServiceException {
+		return documentsService.getDocsTramitacioByNotificationId(notificacioId);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * getIdExpedientByDocumentacioIdExt(java.math.BigDecimal)
+	 */
+	@Override
+	public BigDecimal getIdExpedientByDocumentacioIdExt(BigDecimal documentacio) throws GPAServeisServiceException {
+		return expedientsService.getIdExpedientByDocumentacioIdExt(documentacio);
 	}
 
 }

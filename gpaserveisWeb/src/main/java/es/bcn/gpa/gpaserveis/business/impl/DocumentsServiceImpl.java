@@ -64,6 +64,8 @@ import lombok.extern.apachecommons.CommonsLog;
 /** The Constant log. */
 
 /** The Constant log. */
+
+/** The Constant log. */
 @CommonsLog
 public class DocumentsServiceImpl implements DocumentsService {
 
@@ -1101,6 +1103,50 @@ public class DocumentsServiceImpl implements DocumentsService {
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackGuardarRequeriment(PrepararRequerimentExpedientBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * getDocsTramitacioByNotificationId(java.lang.Long)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackGetDocsTramitacioByNotificationId")
+	public DocsTramitacioRDTO getDocsTramitacioByNotificationId(Long notificacioId) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("getDocsTramitacioByNotificationId(Long) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.getDocsTramitacioByNotificationId(notificacioId);
+
+			if (log.isDebugEnabled()) {
+				log.debug("getDocsTramitacioByNotificationId(Long) - fi"); //$NON-NLS-1$
+			}
+			return docsTramitacioRDTO;
+		} catch (ApiException e) {
+			log.error("getDocsTramitacioByNotificationId(Long)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback get docs tramitacio by notification id.
+	 *
+	 * @param notificacioId
+	 *            the notificacio id
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsTramitacioRDTO fallbackGetDocsTramitacioByNotificationId(Long notificacioId) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackGetDocsTramitacioByNotificationId(Long) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de documentacio no està disponible");

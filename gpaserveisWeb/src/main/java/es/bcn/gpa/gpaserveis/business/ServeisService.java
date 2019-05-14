@@ -576,4 +576,26 @@ public interface ServeisService {
 	DocsTramitacioRDTO guardarRequeriment(PrepararRequerimentExpedientBDTO prepararRequerimentExpedientBDTO)
 			throws GPAServeisServiceException;
 
+	/**
+	 * Gets the docs tramitacio by notification id.
+	 *
+	 * @param notificacioId
+	 *            the notificacio id
+	 * @return the docs tramitacio by notification id
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsTramitacioRDTO getDocsTramitacioByNotificationId(Long notificacioId) throws GPAServeisServiceException;
+
+	/**
+	 * Gets the id expedient by documentacio id ext.
+	 *
+	 * @param documentacio
+	 *            the documentacio
+	 * @return the id expedient by documentacio id ext
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	BigDecimal getIdExpedientByDocumentacioIdExt(BigDecimal documentacio) throws GPAServeisServiceException;
+
 }
