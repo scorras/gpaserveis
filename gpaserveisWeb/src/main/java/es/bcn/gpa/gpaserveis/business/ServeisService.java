@@ -588,7 +588,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaExpedientsCercaBDTO cercaExpedientsAcumular(ExpedientsCercaAcumularBDTO expedientsCercaAcumularBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Acumular expedient.
@@ -632,5 +632,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	BigDecimal getIdExpedientByDocumentacioIdExt(BigDecimal documentacio) throws GPAServeisServiceException;
+
+	void actualitzarNotificacion() throws GPAServeisServiceException;
 
 }

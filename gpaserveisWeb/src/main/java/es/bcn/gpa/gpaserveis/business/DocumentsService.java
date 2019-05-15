@@ -284,4 +284,6 @@ public interface DocumentsService {
 	 */
 	DocsTramitacioRDTO getDocsTramitacioByNotificationId(Long notificacioId) throws GPAServeisServiceException;
 
+	void actualitzarNotificacion() throws GPAServeisServiceException;
+
 }

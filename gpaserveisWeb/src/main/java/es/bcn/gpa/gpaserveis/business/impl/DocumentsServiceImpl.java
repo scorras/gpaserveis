@@ -1151,4 +1151,10 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
 	}
+
+	@Override
+	public void actualitzarNotificacion() throws GPAServeisServiceException {
+		// TODO Auto-generated method stub
+
+	}
 }

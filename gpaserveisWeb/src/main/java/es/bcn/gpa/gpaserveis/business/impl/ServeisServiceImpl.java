@@ -723,9 +723,9 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public RespostaExpedientsCercaBDTO cercaExpedientsAcumular(ExpedientsCercaAcumularBDTO expedientsCercaAcumularBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = ServeisServiceHelper.loadCercaExpedientsAcumular(expedientsService,
-		        expedientsCercaAcumularBDTO);
+				expedientsCercaAcumularBDTO);
 		return respostaExpedientsCercaBDTO;
 	}
 
@@ -751,7 +751,7 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public RespostaExpedientsCercaBDTO cercaExpedientsAcumulats(BigDecimal idExpedient) throws GPAServeisServiceException {
 		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = ServeisServiceHelper.loadCercaExpedientsAcumulats(expedientsService,
-		        idExpedient);
+				idExpedient);
 		return respostaExpedientsCercaBDTO;
 	}
 
@@ -775,6 +775,12 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public BigDecimal getIdExpedientByDocumentacioIdExt(BigDecimal documentacio) throws GPAServeisServiceException {
 		return expedientsService.getIdExpedientByDocumentacioIdExt(documentacio);
+	}
+
+	@Override
+	public void actualitzarNotificacion() throws GPAServeisServiceException {
+		documentsService.actualitzarNotificacion();
+
 	}
 
 }
