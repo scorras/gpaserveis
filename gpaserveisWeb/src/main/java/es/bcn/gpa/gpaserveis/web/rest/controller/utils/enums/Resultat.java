@@ -123,7 +123,11 @@ public enum Resultat {
 
 	OK_ACCES_EXPEDIENT("OK", "Accés a l'expedient donat correctament"),
 
-	ERROR_ACCES_EXPEDIENT("ERROR", "No s'ha pogut donar accés a l'expedient");
+	ERROR_ACCES_EXPEDIENT("ERROR", "No s'ha pogut donar accés a l'expedient"),
+
+	OK_REGISTRAR_COMUNICACIO_EXPEDIENT("OK", "Comunicació de l'expedient registrada correctament"),
+
+	ERROR_REGISTRAR_COMUNICACIO_EXPEDIENT("ERROR", "No s'ha pogut registrar la comunicació de l'expedient");
 
 	private String codi;
 
