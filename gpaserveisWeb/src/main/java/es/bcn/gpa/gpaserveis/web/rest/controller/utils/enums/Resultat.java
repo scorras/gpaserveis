@@ -119,7 +119,11 @@ public enum Resultat {
 
 	OK_ACUMULAR_EXPEDIENT("OK", "Expedient acumulat correctament"),
 
-	ERROR_ACUMULAR_EXPEDIENT("ERROR", "No s'ha pogut acumular l'expedient");
+	ERROR_ACUMULAR_EXPEDIENT("ERROR", "No s'ha pogut acumular l'expedient"),
+
+	OK_ACCES_EXPEDIENT("OK", "Accés a l'expedient donat correctament"),
+
+	ERROR_ACCES_EXPEDIENT("ERROR", "No s'ha pogut donar accés a l'expedient");
 
 	private String codi;
 
