@@ -127,7 +127,11 @@ public enum Resultat {
 
 	OK_REGISTRAR_COMUNICACIO_EXPEDIENT("OK", "Comunicació de l'expedient registrada correctament"),
 
-	ERROR_REGISTRAR_COMUNICACIO_EXPEDIENT("ERROR", "No s'ha pogut registrar la comunicació de l'expedient");
+	ERROR_REGISTRAR_COMUNICACIO_EXPEDIENT("ERROR", "No s'ha pogut registrar la comunicació de l'expedient"),
+
+	OK_NOTIFICAR_EXPEDIENT("OK", "Notificació enviada correctament"),
+
+	ERROR_NOTIFICAR_EXPEDIENT("ERROR", "No s'ha pogut enviar la notificació de l'expedient");
 
 	private String codi;
 
