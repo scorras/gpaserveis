@@ -126,7 +126,7 @@ public class PersonesSollicitudApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void saveAltresImplicadesUsingPOSTTest() throws ApiException {
+	public void actualitzarDadesAltraPersonaImplicadaTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/expedients/personesSollicitud/altresImplidades"), eq("POST"), any(List.class), any(Object.class),
 		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new PageDataOfPersonesSollicitudRDTO());
@@ -146,7 +146,7 @@ public class PersonesSollicitudApiTest extends ParentTest {
 		String sort = null;
 		Long totalElements = null;
 		Integer totalPages = null;
-		PageDataOfPersonesSollicitudRDTO response = api.saveAltresImplicadesUsingPOST(personesSollicitudRDTO,
+		PageDataOfPersonesSollicitudRDTO response = api.actualitzarDadesAltraPersonaImplicada(personesSollicitudRDTO,
 		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
 		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
 		        previousPageNumber, sort, totalElements, totalPages);

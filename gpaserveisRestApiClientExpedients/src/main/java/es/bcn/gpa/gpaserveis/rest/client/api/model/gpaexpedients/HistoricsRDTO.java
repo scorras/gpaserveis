@@ -10,398 +10,416 @@
  * Do not edit the class manually.
  */
 
+
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients;
 
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.HistoricValors;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 import org.joda.time.DateTime;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * HistoricsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-14T14:36:36.923+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-20T19:08:55.520+02:00")
 public class HistoricsRDTO {
-	@JsonProperty("clauMissatge")
-	private String clauMissatge = null;
+  @JsonProperty("clauMissatge")
+  private String clauMissatge = null;
 
-	@JsonProperty("dataCreacio")
-	private DateTime dataCreacio = null;
+  @JsonProperty("dataCreacio")
+  private DateTime dataCreacio = null;
 
-	@JsonProperty("descTipus")
-	private String descTipus = null;
+  @JsonProperty("descTipus")
+  private String descTipus = null;
 
-	@JsonProperty("descripcio")
-	private String descripcio = null;
+  @JsonProperty("descripcio")
+  private String descripcio = null;
 
-	@JsonProperty("estatActualDesc")
-	private String estatActualDesc = null;
+  @JsonProperty("estatActualDesc")
+  private String estatActualDesc = null;
 
-	@JsonProperty("estatFinalDesc")
-	private String estatFinalDesc = null;
+  @JsonProperty("estatFinalDesc")
+  private String estatFinalDesc = null;
 
-	@JsonProperty("expedient")
-	private BigDecimal expedient = null;
+  @JsonProperty("expedient")
+  private BigDecimal expedient = null;
 
-	@JsonProperty("historicValorsList")
-	private List<HistoricValors> historicValorsList = null;
+  @JsonProperty("historicValorsList")
+  private List<HistoricValors> historicValorsList = null;
 
-	@JsonProperty("id")
-	private BigDecimal id = null;
+  @JsonProperty("id")
+  private BigDecimal id = null;
 
-	@JsonProperty("nomDocs")
-	private String nomDocs = null;
+  @JsonProperty("nomDocs")
+  private String nomDocs = null;
 
-	@JsonProperty("tipus")
-	private BigDecimal tipus = null;
+  @JsonProperty("notificacioId")
+  private BigDecimal notificacioId = null;
 
-	@JsonProperty("tipusOperacio")
-	private Integer tipusOperacio = null;
+  @JsonProperty("tipus")
+  private BigDecimal tipus = null;
 
-	@JsonProperty("usuari")
-	private BigDecimal usuari = null;
+  @JsonProperty("tipusOperacio")
+  private Integer tipusOperacio = null;
 
-	@JsonProperty("usuariNom")
-	private String usuariNom = null;
+  @JsonProperty("usuari")
+  private BigDecimal usuari = null;
 
-	public HistoricsRDTO clauMissatge(String clauMissatge) {
-		this.clauMissatge = clauMissatge;
-		return this;
-	}
+  @JsonProperty("usuariNom")
+  private String usuariNom = null;
 
-	/**
-	 * Get clauMissatge
-	 * 
-	 * @return clauMissatge
-	 **/
-	@ApiModelProperty(value = "")
-	public String getClauMissatge() {
-		return clauMissatge;
-	}
+  public HistoricsRDTO clauMissatge(String clauMissatge) {
+    this.clauMissatge = clauMissatge;
+    return this;
+  }
 
-	public void setClauMissatge(String clauMissatge) {
-		this.clauMissatge = clauMissatge;
-	}
+   /**
+   * Get clauMissatge
+   * @return clauMissatge
+  **/
+  @ApiModelProperty(value = "")
+  public String getClauMissatge() {
+    return clauMissatge;
+  }
 
-	public HistoricsRDTO dataCreacio(DateTime dataCreacio) {
-		this.dataCreacio = dataCreacio;
-		return this;
-	}
+  public void setClauMissatge(String clauMissatge) {
+    this.clauMissatge = clauMissatge;
+  }
 
-	/**
-	 * Get dataCreacio
-	 * 
-	 * @return dataCreacio
-	 **/
-	@ApiModelProperty(value = "")
-	public DateTime getDataCreacio() {
-		return dataCreacio;
-	}
+  public HistoricsRDTO dataCreacio(DateTime dataCreacio) {
+    this.dataCreacio = dataCreacio;
+    return this;
+  }
 
-	public void setDataCreacio(DateTime dataCreacio) {
-		this.dataCreacio = dataCreacio;
-	}
+   /**
+   * Get dataCreacio
+   * @return dataCreacio
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getDataCreacio() {
+    return dataCreacio;
+  }
 
-	public HistoricsRDTO descTipus(String descTipus) {
-		this.descTipus = descTipus;
-		return this;
-	}
+  public void setDataCreacio(DateTime dataCreacio) {
+    this.dataCreacio = dataCreacio;
+  }
 
-	/**
-	 * Get descTipus
-	 * 
-	 * @return descTipus
-	 **/
-	@ApiModelProperty(value = "")
-	public String getDescTipus() {
-		return descTipus;
-	}
+  public HistoricsRDTO descTipus(String descTipus) {
+    this.descTipus = descTipus;
+    return this;
+  }
 
-	public void setDescTipus(String descTipus) {
-		this.descTipus = descTipus;
-	}
+   /**
+   * Get descTipus
+   * @return descTipus
+  **/
+  @ApiModelProperty(value = "")
+  public String getDescTipus() {
+    return descTipus;
+  }
 
-	public HistoricsRDTO descripcio(String descripcio) {
-		this.descripcio = descripcio;
-		return this;
-	}
+  public void setDescTipus(String descTipus) {
+    this.descTipus = descTipus;
+  }
 
-	/**
-	 * Get descripcio
-	 * 
-	 * @return descripcio
-	 **/
-	@ApiModelProperty(value = "")
-	public String getDescripcio() {
-		return descripcio;
-	}
+  public HistoricsRDTO descripcio(String descripcio) {
+    this.descripcio = descripcio;
+    return this;
+  }
 
-	public void setDescripcio(String descripcio) {
-		this.descripcio = descripcio;
-	}
+   /**
+   * Get descripcio
+   * @return descripcio
+  **/
+  @ApiModelProperty(value = "")
+  public String getDescripcio() {
+    return descripcio;
+  }
 
-	public HistoricsRDTO estatActualDesc(String estatActualDesc) {
-		this.estatActualDesc = estatActualDesc;
-		return this;
-	}
+  public void setDescripcio(String descripcio) {
+    this.descripcio = descripcio;
+  }
 
-	/**
-	 * Get estatActualDesc
-	 * 
-	 * @return estatActualDesc
-	 **/
-	@ApiModelProperty(value = "")
-	public String getEstatActualDesc() {
-		return estatActualDesc;
-	}
+  public HistoricsRDTO estatActualDesc(String estatActualDesc) {
+    this.estatActualDesc = estatActualDesc;
+    return this;
+  }
 
-	public void setEstatActualDesc(String estatActualDesc) {
-		this.estatActualDesc = estatActualDesc;
-	}
+   /**
+   * Get estatActualDesc
+   * @return estatActualDesc
+  **/
+  @ApiModelProperty(value = "")
+  public String getEstatActualDesc() {
+    return estatActualDesc;
+  }
 
-	public HistoricsRDTO estatFinalDesc(String estatFinalDesc) {
-		this.estatFinalDesc = estatFinalDesc;
-		return this;
-	}
+  public void setEstatActualDesc(String estatActualDesc) {
+    this.estatActualDesc = estatActualDesc;
+  }
 
-	/**
-	 * Get estatFinalDesc
-	 * 
-	 * @return estatFinalDesc
-	 **/
-	@ApiModelProperty(value = "")
-	public String getEstatFinalDesc() {
-		return estatFinalDesc;
-	}
+  public HistoricsRDTO estatFinalDesc(String estatFinalDesc) {
+    this.estatFinalDesc = estatFinalDesc;
+    return this;
+  }
 
-	public void setEstatFinalDesc(String estatFinalDesc) {
-		this.estatFinalDesc = estatFinalDesc;
-	}
+   /**
+   * Get estatFinalDesc
+   * @return estatFinalDesc
+  **/
+  @ApiModelProperty(value = "")
+  public String getEstatFinalDesc() {
+    return estatFinalDesc;
+  }
 
-	public HistoricsRDTO expedient(BigDecimal expedient) {
-		this.expedient = expedient;
-		return this;
-	}
+  public void setEstatFinalDesc(String estatFinalDesc) {
+    this.estatFinalDesc = estatFinalDesc;
+  }
 
-	/**
-	 * Get expedient
-	 * 
-	 * @return expedient
-	 **/
-	@ApiModelProperty(value = "")
-	public BigDecimal getExpedient() {
-		return expedient;
-	}
+  public HistoricsRDTO expedient(BigDecimal expedient) {
+    this.expedient = expedient;
+    return this;
+  }
 
-	public void setExpedient(BigDecimal expedient) {
-		this.expedient = expedient;
-	}
+   /**
+   * Get expedient
+   * @return expedient
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getExpedient() {
+    return expedient;
+  }
 
-	public HistoricsRDTO historicValorsList(List<HistoricValors> historicValorsList) {
-		this.historicValorsList = historicValorsList;
-		return this;
-	}
+  public void setExpedient(BigDecimal expedient) {
+    this.expedient = expedient;
+  }
 
-	public HistoricsRDTO addHistoricValorsListItem(HistoricValors historicValorsListItem) {
-		if (this.historicValorsList == null) {
-			this.historicValorsList = new ArrayList<HistoricValors>();
-		}
-		this.historicValorsList.add(historicValorsListItem);
-		return this;
-	}
+  public HistoricsRDTO historicValorsList(List<HistoricValors> historicValorsList) {
+    this.historicValorsList = historicValorsList;
+    return this;
+  }
 
-	/**
-	 * Get historicValorsList
-	 * 
-	 * @return historicValorsList
-	 **/
-	@ApiModelProperty(value = "")
-	public List<HistoricValors> getHistoricValorsList() {
-		return historicValorsList;
-	}
+  public HistoricsRDTO addHistoricValorsListItem(HistoricValors historicValorsListItem) {
+    if (this.historicValorsList == null) {
+      this.historicValorsList = new ArrayList<HistoricValors>();
+    }
+    this.historicValorsList.add(historicValorsListItem);
+    return this;
+  }
 
-	public void setHistoricValorsList(List<HistoricValors> historicValorsList) {
-		this.historicValorsList = historicValorsList;
-	}
+   /**
+   * Get historicValorsList
+   * @return historicValorsList
+  **/
+  @ApiModelProperty(value = "")
+  public List<HistoricValors> getHistoricValorsList() {
+    return historicValorsList;
+  }
 
-	public HistoricsRDTO id(BigDecimal id) {
-		this.id = id;
-		return this;
-	}
+  public void setHistoricValorsList(List<HistoricValors> historicValorsList) {
+    this.historicValorsList = historicValorsList;
+  }
 
-	/**
-	 * Get id
-	 * 
-	 * @return id
-	 **/
-	@ApiModelProperty(value = "")
-	public BigDecimal getId() {
-		return id;
-	}
+  public HistoricsRDTO id(BigDecimal id) {
+    this.id = id;
+    return this;
+  }
 
-	public void setId(BigDecimal id) {
-		this.id = id;
-	}
+   /**
+   * Get id
+   * @return id
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getId() {
+    return id;
+  }
 
-	public HistoricsRDTO nomDocs(String nomDocs) {
-		this.nomDocs = nomDocs;
-		return this;
-	}
+  public void setId(BigDecimal id) {
+    this.id = id;
+  }
 
-	/**
-	 * Get nomDocs
-	 * 
-	 * @return nomDocs
-	 **/
-	@ApiModelProperty(value = "")
-	public String getNomDocs() {
-		return nomDocs;
-	}
+  public HistoricsRDTO nomDocs(String nomDocs) {
+    this.nomDocs = nomDocs;
+    return this;
+  }
 
-	public void setNomDocs(String nomDocs) {
-		this.nomDocs = nomDocs;
-	}
+   /**
+   * Get nomDocs
+   * @return nomDocs
+  **/
+  @ApiModelProperty(value = "")
+  public String getNomDocs() {
+    return nomDocs;
+  }
 
-	public HistoricsRDTO tipus(BigDecimal tipus) {
-		this.tipus = tipus;
-		return this;
-	}
+  public void setNomDocs(String nomDocs) {
+    this.nomDocs = nomDocs;
+  }
 
-	/**
-	 * Get tipus
-	 * 
-	 * @return tipus
-	 **/
-	@ApiModelProperty(value = "")
-	public BigDecimal getTipus() {
-		return tipus;
-	}
+  public HistoricsRDTO notificacioId(BigDecimal notificacioId) {
+    this.notificacioId = notificacioId;
+    return this;
+  }
 
-	public void setTipus(BigDecimal tipus) {
-		this.tipus = tipus;
-	}
+   /**
+   * Get notificacioId
+   * @return notificacioId
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getNotificacioId() {
+    return notificacioId;
+  }
 
-	public HistoricsRDTO tipusOperacio(Integer tipusOperacio) {
-		this.tipusOperacio = tipusOperacio;
-		return this;
-	}
+  public void setNotificacioId(BigDecimal notificacioId) {
+    this.notificacioId = notificacioId;
+  }
 
-	/**
-	 * Get tipusOperacio
-	 * 
-	 * @return tipusOperacio
-	 **/
-	@ApiModelProperty(value = "")
-	public Integer getTipusOperacio() {
-		return tipusOperacio;
-	}
+  public HistoricsRDTO tipus(BigDecimal tipus) {
+    this.tipus = tipus;
+    return this;
+  }
 
-	public void setTipusOperacio(Integer tipusOperacio) {
-		this.tipusOperacio = tipusOperacio;
-	}
+   /**
+   * Get tipus
+   * @return tipus
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getTipus() {
+    return tipus;
+  }
 
-	public HistoricsRDTO usuari(BigDecimal usuari) {
-		this.usuari = usuari;
-		return this;
-	}
+  public void setTipus(BigDecimal tipus) {
+    this.tipus = tipus;
+  }
 
-	/**
-	 * Get usuari
-	 * 
-	 * @return usuari
-	 **/
-	@ApiModelProperty(value = "")
-	public BigDecimal getUsuari() {
-		return usuari;
-	}
+  public HistoricsRDTO tipusOperacio(Integer tipusOperacio) {
+    this.tipusOperacio = tipusOperacio;
+    return this;
+  }
 
-	public void setUsuari(BigDecimal usuari) {
-		this.usuari = usuari;
-	}
+   /**
+   * Get tipusOperacio
+   * @return tipusOperacio
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getTipusOperacio() {
+    return tipusOperacio;
+  }
 
-	public HistoricsRDTO usuariNom(String usuariNom) {
-		this.usuariNom = usuariNom;
-		return this;
-	}
+  public void setTipusOperacio(Integer tipusOperacio) {
+    this.tipusOperacio = tipusOperacio;
+  }
 
-	/**
-	 * Get usuariNom
-	 * 
-	 * @return usuariNom
-	 **/
-	@ApiModelProperty(value = "")
-	public String getUsuariNom() {
-		return usuariNom;
-	}
+  public HistoricsRDTO usuari(BigDecimal usuari) {
+    this.usuari = usuari;
+    return this;
+  }
 
-	public void setUsuariNom(String usuariNom) {
-		this.usuariNom = usuariNom;
-	}
+   /**
+   * Get usuari
+   * @return usuari
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getUsuari() {
+    return usuari;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		HistoricsRDTO historicsRDTO = (HistoricsRDTO) o;
-		return Objects.equals(this.clauMissatge, historicsRDTO.clauMissatge) && Objects.equals(this.dataCreacio, historicsRDTO.dataCreacio)
-		        && Objects.equals(this.descTipus, historicsRDTO.descTipus) && Objects.equals(this.descripcio, historicsRDTO.descripcio)
-		        && Objects.equals(this.estatActualDesc, historicsRDTO.estatActualDesc)
-		        && Objects.equals(this.estatFinalDesc, historicsRDTO.estatFinalDesc)
-		        && Objects.equals(this.expedient, historicsRDTO.expedient)
-		        && Objects.equals(this.historicValorsList, historicsRDTO.historicValorsList) && Objects.equals(this.id, historicsRDTO.id)
-		        && Objects.equals(this.nomDocs, historicsRDTO.nomDocs) && Objects.equals(this.tipus, historicsRDTO.tipus)
-		        && Objects.equals(this.tipusOperacio, historicsRDTO.tipusOperacio) && Objects.equals(this.usuari, historicsRDTO.usuari)
-		        && Objects.equals(this.usuariNom, historicsRDTO.usuariNom);
-	}
+  public void setUsuari(BigDecimal usuari) {
+    this.usuari = usuari;
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(clauMissatge, dataCreacio, descTipus, descripcio, estatActualDesc, estatFinalDesc, expedient,
-		        historicValorsList, id, nomDocs, tipus, tipusOperacio, usuari, usuariNom);
-	}
+  public HistoricsRDTO usuariNom(String usuariNom) {
+    this.usuariNom = usuariNom;
+    return this;
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class HistoricsRDTO {\n");
+   /**
+   * Get usuariNom
+   * @return usuariNom
+  **/
+  @ApiModelProperty(value = "")
+  public String getUsuariNom() {
+    return usuariNom;
+  }
 
-		sb.append("    clauMissatge: ").append(toIndentedString(clauMissatge)).append("\n");
-		sb.append("    dataCreacio: ").append(toIndentedString(dataCreacio)).append("\n");
-		sb.append("    descTipus: ").append(toIndentedString(descTipus)).append("\n");
-		sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
-		sb.append("    estatActualDesc: ").append(toIndentedString(estatActualDesc)).append("\n");
-		sb.append("    estatFinalDesc: ").append(toIndentedString(estatFinalDesc)).append("\n");
-		sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
-		sb.append("    historicValorsList: ").append(toIndentedString(historicValorsList)).append("\n");
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    nomDocs: ").append(toIndentedString(nomDocs)).append("\n");
-		sb.append("    tipus: ").append(toIndentedString(tipus)).append("\n");
-		sb.append("    tipusOperacio: ").append(toIndentedString(tipusOperacio)).append("\n");
-		sb.append("    usuari: ").append(toIndentedString(usuari)).append("\n");
-		sb.append("    usuariNom: ").append(toIndentedString(usuariNom)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+  public void setUsuariNom(String usuariNom) {
+    this.usuariNom = usuariNom;
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    HistoricsRDTO historicsRDTO = (HistoricsRDTO) o;
+    return Objects.equals(this.clauMissatge, historicsRDTO.clauMissatge) &&
+        Objects.equals(this.dataCreacio, historicsRDTO.dataCreacio) &&
+        Objects.equals(this.descTipus, historicsRDTO.descTipus) &&
+        Objects.equals(this.descripcio, historicsRDTO.descripcio) &&
+        Objects.equals(this.estatActualDesc, historicsRDTO.estatActualDesc) &&
+        Objects.equals(this.estatFinalDesc, historicsRDTO.estatFinalDesc) &&
+        Objects.equals(this.expedient, historicsRDTO.expedient) &&
+        Objects.equals(this.historicValorsList, historicsRDTO.historicValorsList) &&
+        Objects.equals(this.id, historicsRDTO.id) &&
+        Objects.equals(this.nomDocs, historicsRDTO.nomDocs) &&
+        Objects.equals(this.notificacioId, historicsRDTO.notificacioId) &&
+        Objects.equals(this.tipus, historicsRDTO.tipus) &&
+        Objects.equals(this.tipusOperacio, historicsRDTO.tipusOperacio) &&
+        Objects.equals(this.usuari, historicsRDTO.usuari) &&
+        Objects.equals(this.usuariNom, historicsRDTO.usuariNom);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(clauMissatge, dataCreacio, descTipus, descripcio, estatActualDesc, estatFinalDesc, expedient, historicValorsList, id, nomDocs, notificacioId, tipus, tipusOperacio, usuari, usuariNom);
+  }
+
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class HistoricsRDTO {\n");
+    
+    sb.append("    clauMissatge: ").append(toIndentedString(clauMissatge)).append("\n");
+    sb.append("    dataCreacio: ").append(toIndentedString(dataCreacio)).append("\n");
+    sb.append("    descTipus: ").append(toIndentedString(descTipus)).append("\n");
+    sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
+    sb.append("    estatActualDesc: ").append(toIndentedString(estatActualDesc)).append("\n");
+    sb.append("    estatFinalDesc: ").append(toIndentedString(estatFinalDesc)).append("\n");
+    sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
+    sb.append("    historicValorsList: ").append(toIndentedString(historicValorsList)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    nomDocs: ").append(toIndentedString(nomDocs)).append("\n");
+    sb.append("    notificacioId: ").append(toIndentedString(notificacioId)).append("\n");
+    sb.append("    tipus: ").append(toIndentedString(tipus)).append("\n");
+    sb.append("    tipusOperacio: ").append(toIndentedString(tipusOperacio)).append("\n");
+    sb.append("    usuari: ").append(toIndentedString(usuari)).append("\n");
+    sb.append("    usuariNom: ").append(toIndentedString(usuariNom)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
 }
+

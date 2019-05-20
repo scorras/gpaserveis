@@ -29,6 +29,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperValidVal;
@@ -48,6 +49,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.Ti
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TipusValidacioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TipusCampApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TipusValidacioApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.DocumentsIdentitatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.substituir.DocumentAportatSubstituirRDTO;
@@ -1089,6 +1091,31 @@ public class ServeisRestControllerValidationHelper {
 		if (registreAssentamentRDTO == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_REGISTRE_ASSENTAMENT_NOT_FOUND);
 		}
+	}
+
+	/**
+	 * Validate persona implicada expedient.
+	 *
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param documentIdentitat
+	 *            the document identitat
+	 * @param resultatError
+	 *            the resultat error
+	 * @return the persones sollicitud RDTO
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static PersonesSollicitudRDTO validatePersonaImplicadaExpedient(DadesExpedientBDTO dadesExpedientBDTO,
+	        DocumentsIdentitatRDTO documentIdentitat, Resultat resultatError) throws GPAApiParamValidationException {
+		for (PersonesSollicitudRDTO personesSollicitudRDTO : dadesExpedientBDTO.getPersonesImplicades()) {
+			if (personesSollicitudRDTO.getPersones().getDocumentsIdentitat() != null
+			        && StringUtils.equals(personesSollicitudRDTO.getPersones().getDocumentsIdentitat().getNumeroDocument(),
+			                documentIdentitat.getNumeroDocument())) {
+				return personesSollicitudRDTO;
+			}
+		}
+		throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_IMPLICADA_NOT_FOUND);
 	}
 
 }

@@ -32,6 +32,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.RetornarLaTramitacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
@@ -39,6 +40,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
@@ -107,6 +109,10 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	/** The acumulaci expedients api. */
 	@Autowired
 	private AcumulaciExpedientsApi acumulaciExpedientsApi;
+
+	/** The Persones sollicitud api. */
+	@Autowired
+	private PersonesSollicitudApi personesSollicitudApi;
 
 	/**
 	 * Cerca expedients.
@@ -426,6 +432,54 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaAltresPersonesImplicadesExpedient(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de expedients no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
+	 * actualitzarDadesAltraPersonaImplicada(es.bcn.gpa.gpaserveis.rest.client.
+	 * api.model.gpaexpedients.PersonesSollicitudRDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackActualitzarDadesAltraPersonaImplicada")
+	public PageDataOfPersonesSollicitudRDTO actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = personesSollicitudApi.actualitzarDadesAltraPersonaImplicada(
+			        personesSollicitudRDTO, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+			if (log.isDebugEnabled()) {
+				log.debug("actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO) - fi"); //$NON-NLS-1$
+			}
+			return pageDataOfPersonesSollicitudRDTO;
+		} catch (ApiException e) {
+			log.error("actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback actualitzar dades altra persona implicada.
+	 *
+	 * @param personesSollicitudRDTO
+	 *            the persones sollicitud RDTO
+	 * @return the page data of persones sollicitud RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public PageDataOfPersonesSollicitudRDTO fallbackActualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de expedients no està disponible");

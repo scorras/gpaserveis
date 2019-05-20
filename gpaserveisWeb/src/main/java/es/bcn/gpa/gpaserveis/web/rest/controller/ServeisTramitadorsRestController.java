@@ -82,6 +82,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Comentaris;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownItemBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarLaTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
@@ -1848,18 +1849,27 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 		RespostaAccesExpedientRDTO respostaAccesExpedientRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
+		PersonesSollicitudRDTO personesSollicitudRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACCES_EXPEDIENT);
 		try {
 			// El codi del expediente debe existir
-			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
-			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			dadesExpedientBDTO = serveisService
+			        .consultarDadesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_ACCES_EXPEDIENT);
+
+			// El documento de identidad debe corresponderse con el de una
+			// persona implicada en el expediente
+			personesSollicitudRDTO = ServeisRestControllerValidationHelper.validatePersonaImplicadaExpedient(dadesExpedientBDTO,
+			        expedientAcces.getDocumentIdentitat(), Resultat.ERROR_ACCES_EXPEDIENT);
 
 			// Dar acceso al expediente si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.ACCES_EXPEDIENT, Resultat.ERROR_ACCES_EXPEDIENT);
 
-			// TODO Negocio de la acción
+			// Se actualiza la persona indicada estableciendo el flag
+			// VISIBILITAT_OVT a true
+			personesSollicitudRDTO.setVisibilitatOvt(BooleanApiParamValue.TRUE.getInternalValue());
+			serveisService.actualitzarDadesAltraPersonaImplicada(personesSollicitudRDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("accesExpedient(String, ExpedientAccesRDTO)", e);

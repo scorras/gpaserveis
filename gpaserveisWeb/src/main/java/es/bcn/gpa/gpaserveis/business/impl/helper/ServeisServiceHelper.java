@@ -646,7 +646,7 @@ public class ServeisServiceHelper {
 		// resto de personas interesadas
 		Persones sollicitantPrincipal = null;
 		Persones representantPrincipal = null;
-		ArrayList<Persones> personesInteressadesList = new ArrayList<Persones>();
+		ArrayList<PersonesSollicitudRDTO> personesInteressadesList = new ArrayList<PersonesSollicitudRDTO>();
 		for (PersonesSollicitudRDTO personesSollicitudRDTO : pageDataOfPersonesSollicitudRDTO.getData()) {
 			if (personesSollicitudRDTO.getRelacioPrincipal().equals(Constants.PERSONES_SOLLICITUD_RELACIO_PRINCIPAL)) {
 				if (personesSollicitudRDTO.getRelacio().equals(Constants.PERSONES_SOLLICITUD_RELACIO_SOLLICITANT)) {
@@ -655,7 +655,7 @@ public class ServeisServiceHelper {
 					representantPrincipal = personesSollicitudRDTO.getPersones();
 				}
 			} else {
-				personesInteressadesList.add(personesSollicitudRDTO.getPersones());
+				personesInteressadesList.add(personesSollicitudRDTO);
 			}
 		}
 		dadesExpedientBDTO.setSollicitant(sollicitantPrincipal);
@@ -679,11 +679,7 @@ public class ServeisServiceHelper {
 	        BigDecimal idSolicitud) throws GPAServeisServiceException {
 		PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = expedientsService
 		        .cercaAltresPersonesImplicadesExpedient(idSolicitud);
-		ArrayList<Persones> altresPersonesImplicadesList = new ArrayList<Persones>();
-		for (PersonesSollicitudRDTO personesSollicitudRDTO : pageDataOfPersonesSollicitudRDTO.getData()) {
-			altresPersonesImplicadesList.add(personesSollicitudRDTO.getPersones());
-		}
-		dadesExpedientBDTO.setPersonesImplicades(altresPersonesImplicadesList);
+		dadesExpedientBDTO.setPersonesImplicades(pageDataOfPersonesSollicitudRDTO.getData());
 	}
 
 	/**

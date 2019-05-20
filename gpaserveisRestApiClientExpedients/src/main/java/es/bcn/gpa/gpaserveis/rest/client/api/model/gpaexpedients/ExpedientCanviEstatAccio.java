@@ -10,198 +10,197 @@
  * Do not edit the class manually.
  */
 
+
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients;
 
-import java.math.BigDecimal;
 import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 
 /**
  * ExpedientCanviEstatAccio
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-14T14:36:36.923+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-20T19:08:55.520+02:00")
 public class ExpedientCanviEstatAccio {
-	@JsonProperty("descEstat")
-	private String descEstat = null;
+  @JsonProperty("descEstat")
+  private String descEstat = null;
 
-	@JsonProperty("diesTerminiAllegacio")
-	private BigDecimal diesTerminiAllegacio = null;
+  @JsonProperty("diesTerminiAllegacio")
+  private BigDecimal diesTerminiAllegacio = null;
 
-	@JsonProperty("diesTerminiRequeriment")
-	private BigDecimal diesTerminiRequeriment = null;
+  @JsonProperty("diesTerminiRequeriment")
+  private BigDecimal diesTerminiRequeriment = null;
 
-	@JsonProperty("idEstat")
-	private BigDecimal idEstat = null;
+  @JsonProperty("idEstat")
+  private BigDecimal idEstat = null;
 
-	@JsonProperty("idProcediment")
-	private BigDecimal idProcediment = null;
+  @JsonProperty("idProcediment")
+  private BigDecimal idProcediment = null;
 
-	@JsonProperty("operacio")
-	private String operacio = null;
+  @JsonProperty("operacio")
+  private String operacio = null;
 
-	public ExpedientCanviEstatAccio descEstat(String descEstat) {
-		this.descEstat = descEstat;
-		return this;
-	}
+  public ExpedientCanviEstatAccio descEstat(String descEstat) {
+    this.descEstat = descEstat;
+    return this;
+  }
 
-	/**
-	 * Descripció de l&#39;estat actual
-	 * 
-	 * @return descEstat
-	 **/
-	@ApiModelProperty(value = "Descripció de l'estat actual")
-	public String getDescEstat() {
-		return descEstat;
-	}
+   /**
+   * Descripció de l&#39;estat actual
+   * @return descEstat
+  **/
+  @ApiModelProperty(value = "Descripció de l'estat actual")
+  public String getDescEstat() {
+    return descEstat;
+  }
 
-	public void setDescEstat(String descEstat) {
-		this.descEstat = descEstat;
-	}
+  public void setDescEstat(String descEstat) {
+    this.descEstat = descEstat;
+  }
 
-	public ExpedientCanviEstatAccio diesTerminiAllegacio(BigDecimal diesTerminiAllegacio) {
-		this.diesTerminiAllegacio = diesTerminiAllegacio;
-		return this;
-	}
+  public ExpedientCanviEstatAccio diesTerminiAllegacio(BigDecimal diesTerminiAllegacio) {
+    this.diesTerminiAllegacio = diesTerminiAllegacio;
+    return this;
+  }
 
-	/**
-	 * Dies de termini per respondre a les al·legacions
-	 * 
-	 * @return diesTerminiAllegacio
-	 **/
-	@ApiModelProperty(value = "Dies de termini per respondre a les al·legacions")
-	public BigDecimal getDiesTerminiAllegacio() {
-		return diesTerminiAllegacio;
-	}
+   /**
+   * Dies de termini per respondre a les al·legacions
+   * @return diesTerminiAllegacio
+  **/
+  @ApiModelProperty(value = "Dies de termini per respondre a les al·legacions")
+  public BigDecimal getDiesTerminiAllegacio() {
+    return diesTerminiAllegacio;
+  }
 
-	public void setDiesTerminiAllegacio(BigDecimal diesTerminiAllegacio) {
-		this.diesTerminiAllegacio = diesTerminiAllegacio;
-	}
+  public void setDiesTerminiAllegacio(BigDecimal diesTerminiAllegacio) {
+    this.diesTerminiAllegacio = diesTerminiAllegacio;
+  }
 
-	public ExpedientCanviEstatAccio diesTerminiRequeriment(BigDecimal diesTerminiRequeriment) {
-		this.diesTerminiRequeriment = diesTerminiRequeriment;
-		return this;
-	}
+  public ExpedientCanviEstatAccio diesTerminiRequeriment(BigDecimal diesTerminiRequeriment) {
+    this.diesTerminiRequeriment = diesTerminiRequeriment;
+    return this;
+  }
 
-	/**
-	 * Dies de termini per respondre al requeriment
-	 * 
-	 * @return diesTerminiRequeriment
-	 **/
-	@ApiModelProperty(value = "Dies de termini per respondre al requeriment")
-	public BigDecimal getDiesTerminiRequeriment() {
-		return diesTerminiRequeriment;
-	}
+   /**
+   * Dies de termini per respondre al requeriment
+   * @return diesTerminiRequeriment
+  **/
+  @ApiModelProperty(value = "Dies de termini per respondre al requeriment")
+  public BigDecimal getDiesTerminiRequeriment() {
+    return diesTerminiRequeriment;
+  }
 
-	public void setDiesTerminiRequeriment(BigDecimal diesTerminiRequeriment) {
-		this.diesTerminiRequeriment = diesTerminiRequeriment;
-	}
+  public void setDiesTerminiRequeriment(BigDecimal diesTerminiRequeriment) {
+    this.diesTerminiRequeriment = diesTerminiRequeriment;
+  }
 
-	public ExpedientCanviEstatAccio idEstat(BigDecimal idEstat) {
-		this.idEstat = idEstat;
-		return this;
-	}
+  public ExpedientCanviEstatAccio idEstat(BigDecimal idEstat) {
+    this.idEstat = idEstat;
+    return this;
+  }
 
-	/**
-	 * Identificador de l&#39;estat actual
-	 * 
-	 * @return idEstat
-	 **/
-	@ApiModelProperty(value = "Identificador de l'estat actual")
-	public BigDecimal getIdEstat() {
-		return idEstat;
-	}
+   /**
+   * Identificador de l&#39;estat actual
+   * @return idEstat
+  **/
+  @ApiModelProperty(value = "Identificador de l'estat actual")
+  public BigDecimal getIdEstat() {
+    return idEstat;
+  }
 
-	public void setIdEstat(BigDecimal idEstat) {
-		this.idEstat = idEstat;
-	}
+  public void setIdEstat(BigDecimal idEstat) {
+    this.idEstat = idEstat;
+  }
 
-	public ExpedientCanviEstatAccio idProcediment(BigDecimal idProcediment) {
-		this.idProcediment = idProcediment;
-		return this;
-	}
+  public ExpedientCanviEstatAccio idProcediment(BigDecimal idProcediment) {
+    this.idProcediment = idProcediment;
+    return this;
+  }
 
-	/**
-	 * Identificador del procediment
-	 * 
-	 * @return idProcediment
-	 **/
-	@ApiModelProperty(value = "Identificador del procediment")
-	public BigDecimal getIdProcediment() {
-		return idProcediment;
-	}
+   /**
+   * Identificador del procediment
+   * @return idProcediment
+  **/
+  @ApiModelProperty(value = "Identificador del procediment")
+  public BigDecimal getIdProcediment() {
+    return idProcediment;
+  }
 
-	public void setIdProcediment(BigDecimal idProcediment) {
-		this.idProcediment = idProcediment;
-	}
+  public void setIdProcediment(BigDecimal idProcediment) {
+    this.idProcediment = idProcediment;
+  }
 
-	public ExpedientCanviEstatAccio operacio(String operacio) {
-		this.operacio = operacio;
-		return this;
-	}
+  public ExpedientCanviEstatAccio operacio(String operacio) {
+    this.operacio = operacio;
+    return this;
+  }
 
-	/**
-	 * Operació concreta en l&#39;execució de l&#39;acció
-	 * 
-	 * @return operacio
-	 **/
-	@ApiModelProperty(value = "Operació concreta en l'execució de l'acció")
-	public String getOperacio() {
-		return operacio;
-	}
+   /**
+   * Operació concreta en l&#39;execució de l&#39;acció
+   * @return operacio
+  **/
+  @ApiModelProperty(value = "Operació concreta en l'execució de l'acció")
+  public String getOperacio() {
+    return operacio;
+  }
 
-	public void setOperacio(String operacio) {
-		this.operacio = operacio;
-	}
+  public void setOperacio(String operacio) {
+    this.operacio = operacio;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ExpedientCanviEstatAccio expedientCanviEstatAccio = (ExpedientCanviEstatAccio) o;
-		return Objects.equals(this.descEstat, expedientCanviEstatAccio.descEstat)
-		        && Objects.equals(this.diesTerminiAllegacio, expedientCanviEstatAccio.diesTerminiAllegacio)
-		        && Objects.equals(this.diesTerminiRequeriment, expedientCanviEstatAccio.diesTerminiRequeriment)
-		        && Objects.equals(this.idEstat, expedientCanviEstatAccio.idEstat)
-		        && Objects.equals(this.idProcediment, expedientCanviEstatAccio.idProcediment)
-		        && Objects.equals(this.operacio, expedientCanviEstatAccio.operacio);
-	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(descEstat, diesTerminiAllegacio, diesTerminiRequeriment, idEstat, idProcediment, operacio);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ExpedientCanviEstatAccio expedientCanviEstatAccio = (ExpedientCanviEstatAccio) o;
+    return Objects.equals(this.descEstat, expedientCanviEstatAccio.descEstat) &&
+        Objects.equals(this.diesTerminiAllegacio, expedientCanviEstatAccio.diesTerminiAllegacio) &&
+        Objects.equals(this.diesTerminiRequeriment, expedientCanviEstatAccio.diesTerminiRequeriment) &&
+        Objects.equals(this.idEstat, expedientCanviEstatAccio.idEstat) &&
+        Objects.equals(this.idProcediment, expedientCanviEstatAccio.idProcediment) &&
+        Objects.equals(this.operacio, expedientCanviEstatAccio.operacio);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ExpedientCanviEstatAccio {\n");
+  @Override
+  public int hashCode() {
+    return Objects.hash(descEstat, diesTerminiAllegacio, diesTerminiRequeriment, idEstat, idProcediment, operacio);
+  }
 
-		sb.append("    descEstat: ").append(toIndentedString(descEstat)).append("\n");
-		sb.append("    diesTerminiAllegacio: ").append(toIndentedString(diesTerminiAllegacio)).append("\n");
-		sb.append("    diesTerminiRequeriment: ").append(toIndentedString(diesTerminiRequeriment)).append("\n");
-		sb.append("    idEstat: ").append(toIndentedString(idEstat)).append("\n");
-		sb.append("    idProcediment: ").append(toIndentedString(idProcediment)).append("\n");
-		sb.append("    operacio: ").append(toIndentedString(operacio)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ExpedientCanviEstatAccio {\n");
+    
+    sb.append("    descEstat: ").append(toIndentedString(descEstat)).append("\n");
+    sb.append("    diesTerminiAllegacio: ").append(toIndentedString(diesTerminiAllegacio)).append("\n");
+    sb.append("    diesTerminiRequeriment: ").append(toIndentedString(diesTerminiRequeriment)).append("\n");
+    sb.append("    idEstat: ").append(toIndentedString(idEstat)).append("\n");
+    sb.append("    idProcediment: ").append(toIndentedString(idProcediment)).append("\n");
+    sb.append("    operacio: ").append(toIndentedString(operacio)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
 }
+

@@ -22,6 +22,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PaisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.RetornarLaTramitacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
@@ -271,6 +272,15 @@ public class BusinessConfig {
 		RetornarLaTramitacioApi retornarLaTramitacioApi = new RetornarLaTramitacioApi(apiClient);
 
 		return retornarLaTramitacioApi;
+	}
+
+	@Bean
+	public PersonesSollicitudApi clientApiPersonesSollicitud() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_EXPEDIENTS);
+		PersonesSollicitudApi personesSollicitudApi = new PersonesSollicitudApi(apiClient);
+
+		return personesSollicitudApi;
 	}
 
 }

@@ -52,6 +52,8 @@ public enum ErrorPrincipal {
 	ERROR_EXPEDIENTS_ACUMULAT_NOT_VALID_JA_ACUMULAT("3014",
 	        "L'expedient a acumular no és vàlid perquè ja ha estat acumulat a un altre expedient"),
 
+	ERROR_EXPEDIENTS_PERSONA_IMPLICADA_NOT_FOUND("3015", "No s'ha trobat la persona implicada en l'expedient"),
+
 	/* Documents */
 	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document"),
 
