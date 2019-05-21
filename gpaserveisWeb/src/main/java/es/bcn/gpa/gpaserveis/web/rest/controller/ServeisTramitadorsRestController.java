@@ -28,6 +28,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.IncorporarNouDocumentTramita
 import es.bcn.gpa.gpaserveis.business.dto.documents.PrepararRequerimentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaCompletarDocumentEntradaExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaCompletarDocumentTramitacioExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDigitalitzarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaIncorporarNouDocumentEntradaExpedientBDTO;
@@ -105,6 +106,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.si
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.RespostaSignarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.completar.DocumentComplecioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.completar.RespostaCompletarDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.digitalitzar.DocumentDigitalitzacioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.digitalitzar.RespostaDigitalitzarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.DocumentIncorporacioNouRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.RespostaIncorporarNouDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.preparar.requeriment.RequerimentPreparacioRDTO;
@@ -2099,6 +2102,58 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		return respostaDocumentSignatExpedientRDTO;
+	}
+
+	@PostMapping("/expedients/{codiExpedient}/documentacio/digitalitzar")
+	@ApiOperation(value = "Força el canvi d'estat de l'expedient a Finzalizado i Comunicat després de la signatura dels documents", tags = {
+	        "Serveis Tramitadors API", "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaDigitalitzarDocumentRDTO digitalitzarDocumentExpedient(
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Dades de la digitalització del document de l'expedient") @RequestBody DocumentDigitalitzacioRDTO documentDigitalitzacio)
+	        throws GPAServeisServiceException {
+
+		if (log.isDebugEnabled()) {
+			log.debug("digitalitzarDocumentExpedient(String, DocumentDigitalitzacioRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		RespostaDigitalitzarDocumentRDTO respostaDigitalitzarDocumentRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_DOCUMENT_DIGITALITZAT_EXPEDIENT);
+		try {
+			// El codi del expediente debe existir
+			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
+			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT);
+
+			// Reactivar expediente si la acción es permitida
+			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			        AccioTramitadorApiParamValue.DIGITALITZAR_DOCUMENT, Resultat.ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT);
+
+			// TODO Integración con Digitalización
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("digitalitzarDocumentExpedient(String, DocumentDigitalitzacioRDTO)", e);
+			// $NON-NLS-1$
+
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("digitalitzarDocumentExpedient(String, DocumentDigitalitzacioRDTO)", e);
+			// $NON-NLS-1$
+
+			respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT, ErrorPrincipal.ERROR_GENERIC);
+		}
+
+		RespostaDigitalitzarDocumentExpedientBDTO respostaDigitalitzarDocumentExpedientBDTO = new RespostaDigitalitzarDocumentExpedientBDTO(
+		        dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
+		respostaDigitalitzarDocumentRDTO = modelMapper.map(respostaDigitalitzarDocumentExpedientBDTO,
+		        RespostaDigitalitzarDocumentRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("digitalitzarDocumentExpedient(String, DocumentDigitalitzacioRDTO) - fi"); //$NON-NLS-1$
+		}
+
+		return respostaDigitalitzarDocumentRDTO;
 	}
 
 }

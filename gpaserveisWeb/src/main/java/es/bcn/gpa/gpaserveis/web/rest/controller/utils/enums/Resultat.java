@@ -135,7 +135,11 @@ public enum Resultat {
 
 	OK_DOCUMENT_SIGNAT_EXPEDIENT("OK", "Documentació de l'expedient signada correctament"),
 
-	ERROR_DOCUMENT_SIGNAT_EXPEDIENT("ERROR", "No s'ha pogut donar per bona la signatura de la documentació de l'expedient");
+	ERROR_DOCUMENT_SIGNAT_EXPEDIENT("ERROR", "No s'ha pogut donar per bona la signatura de la documentació de l'expedient"),
+
+	OK_DOCUMENT_DIGITALITZAT_EXPEDIENT("OK", "Document digitalitzat correctament"),
+
+	ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT("ERROR", "No s'ha pogut digitalitzar el document");
 
 	private String codi;
 
