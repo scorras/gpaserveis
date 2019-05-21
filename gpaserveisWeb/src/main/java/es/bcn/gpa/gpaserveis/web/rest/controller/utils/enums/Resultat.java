@@ -131,7 +131,11 @@ public enum Resultat {
 
 	OK_NOTIFICAR_EXPEDIENT("OK", "Notificació enviada correctament"),
 
-	ERROR_NOTIFICAR_EXPEDIENT("ERROR", "No s'ha pogut enviar la notificació de l'expedient");
+	ERROR_NOTIFICAR_EXPEDIENT("ERROR", "No s'ha pogut enviar la notificació de l'expedient"),
+
+	OK_DOCUMENT_SIGNAT_EXPEDIENT("OK", "Documentació de l'expedient signada correctament"),
+
+	ERROR_DOCUMENT_SIGNAT_EXPEDIENT("ERROR", "No s'ha pogut donar per bona la signatura de la documentació de l'expedient");
 
 	private String codi;
 
