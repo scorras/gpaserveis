@@ -1122,7 +1122,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.getDocsTramitacioByNotificationId(notificacioId);
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.getDocsTramitacioByNotificationId(BigDecimal.valueOf(notificacioId));
 
 			if (log.isDebugEnabled()) {
 				log.debug("getDocsTramitacioByNotificationId(Long) - fi"); //$NON-NLS-1$
