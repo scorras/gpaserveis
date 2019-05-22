@@ -273,4 +273,17 @@ public interface DocumentsService {
 	DocsTramitacioRDTO guardarRequeriment(PrepararRequerimentExpedientBDTO prepararRequerimentExpedientBDTO)
 			throws GPAServeisServiceException;
 
+	/**
+	 * Gets the docs tramitacio by notification id.
+	 *
+	 * @param notificacioId
+	 *            the notificacio id
+	 * @return the docs tramitacio by notification id
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsTramitacioRDTO getDocsTramitacioByNotificationId(Long notificacioId) throws GPAServeisServiceException;
+
+	void actualitzarNotificacion() throws GPAServeisServiceException;
+
 }
