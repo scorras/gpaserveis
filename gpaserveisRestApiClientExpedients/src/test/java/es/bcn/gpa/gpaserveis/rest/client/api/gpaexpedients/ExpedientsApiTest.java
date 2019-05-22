@@ -64,7 +64,7 @@ public class ExpedientsApiTest extends ParentTest {
 	public void bloquejarExpedientUsingPOSTTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/expedients/bloquejar/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
 
 		BloquejosRDTO bloquejosRDTO = new BloquejosRDTO();
 		BigDecimal id = ONE;
@@ -86,8 +86,8 @@ public class ExpedientsApiTest extends ParentTest {
 	public void cercaHistoricsExpedientTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/expedients/historic/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(new PageDataOfHistoricsRDTO());
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new PageDataOfHistoricsRDTO());
 
 		BigDecimal id = ONE;
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
@@ -106,9 +106,9 @@ public class ExpedientsApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		PageDataOfHistoricsRDTO response = api.cercaHistoricsExpedient(id, absoluteRowNumberOfFirstRowInCurrentPage,
-				absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-				currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, tipus, totalElements,
-				totalPages);
+		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
+		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, tipus, totalElements,
+		        totalPages);
 
 		assertTrue(response != null);
 	}
@@ -125,7 +125,7 @@ public class ExpedientsApiTest extends ParentTest {
 	public void desbloquejarExpedientUsingPOSTTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/expedients/desbloquejar/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
 
 		BigDecimal id = ONE;
 		api.desbloquejarExpedientUsingPOST(id);
@@ -145,8 +145,8 @@ public class ExpedientsApiTest extends ParentTest {
 	public void getHistoricsListUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/expedients/historic/list/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(new ArrayList<HistoricsRDTO>());
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<HistoricsRDTO>());
 
 		String ids = ONE.toString();
 		List<HistoricsRDTO> response = api.getHistoricsListUsingGET(ids);
@@ -166,8 +166,8 @@ public class ExpedientsApiTest extends ParentTest {
 	public void getRegistresAssentamentListUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/expedients/registre/list/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(new ArrayList<RegistreAssentamentRDTO>());
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<RegistreAssentamentRDTO>());
 
 		String ids = ONE.toString();
 		List<RegistreAssentamentRDTO> response = api.getRegistresAssentamentListUsingGET(ids);
@@ -186,7 +186,7 @@ public class ExpedientsApiTest extends ParentTest {
 	@Test
 	public void registrarHistoricDocumentacioUsingPOSTTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/expedients/historic/insert"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(ONE);
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(ONE);
 
 		HistoricsRDTO historicsRDTO = new HistoricsRDTO();
 		BigDecimal response = api.registrarHistoricDocumentacioUsingPOST(historicsRDTO);
@@ -207,8 +207,8 @@ public class ExpedientsApiTest extends ParentTest {
 	public void searchComentarisUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/expedients/comentaris/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(new PageDataOfComentarisRDTO());
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new PageDataOfComentarisRDTO());
 
 		BigDecimal id = ONE;
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
@@ -226,9 +226,9 @@ public class ExpedientsApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		PageDataOfComentarisRDTO response = api.searchComentarisUsingGET(id, absoluteRowNumberOfFirstRowInCurrentPage,
-				absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-				currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
-				totalPages);
+		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
+		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
+		        totalPages);
 
 		assertTrue(response != null);
 	}
@@ -245,8 +245,8 @@ public class ExpedientsApiTest extends ParentTest {
 	public void expedientBloquejatPerUnAltreUsuariUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/expedients/expedientBloquejatPerUnAltreUsuari/1"), eq("GET"), any(List.class), any(Object.class),
-				any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(new BloquejosRDTO());
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new BloquejosRDTO());
 
 		BigDecimal id = ONE;
 		BloquejosRDTO response = api.expedientBloquejatPerUnAltreUsuariUsingGET(id);
@@ -266,8 +266,8 @@ public class ExpedientsApiTest extends ParentTest {
 	public void getExpedientDataOpenTextUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/expedients/expedientDataOpenText/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(new ExpedientOpenTextRDTO());
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ExpedientOpenTextRDTO());
 
 		BigDecimal id = ONE;
 		ExpedientOpenTextRDTO response = api.getExpedientDataOpenTextUsingGET(id);
@@ -287,8 +287,8 @@ public class ExpedientsApiTest extends ParentTest {
 	public void canviarEstatAccioExpedientTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/expedients/1/accions/1/canviEstat"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(new RespostaCanviarEstatAccioExpedient());
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new RespostaCanviarEstatAccioExpedient());
 
 		BigDecimal idAccio = ONE;
 		BigDecimal idExpedient = ONE;
@@ -310,10 +310,11 @@ public class ExpedientsApiTest extends ParentTest {
 	public void getUnitasGestoresExpedientUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/expedients/unitasExpedient/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(new RespostaUnitatsExpedient());
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new RespostaUnitatsExpedient());
 
-		RespostaUnitatsExpedient response = api.getUnitasGestoresExpedientUsingGET(ONE);
+		BigDecimal idExpedient = ONE;
+		RespostaUnitatsExpedient response = api.getUnitasGestoresExpedientUsingGET(idExpedient);
 
 		assertTrue(response != null);
 	}

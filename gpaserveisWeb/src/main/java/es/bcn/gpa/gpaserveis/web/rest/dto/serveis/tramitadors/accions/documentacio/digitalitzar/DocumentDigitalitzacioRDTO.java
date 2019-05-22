@@ -16,6 +16,6 @@ import lombok.Setter;
 public class DocumentDigitalitzacioRDTO {
 
 	@ApiModelProperty(value = "Document", required = true)
-	private DocumentDigitalitzacioRDTO document;
+	private DocumentDigitalitzatRDTO document;
 
 }

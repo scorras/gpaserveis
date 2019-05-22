@@ -1,6 +1,7 @@
 package es.bcn.gpa.gpaserveis.test.parent;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
@@ -20,31 +21,43 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.CanviUnitatGestoraApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ConvidarATramitartApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.RetornarLaTramitacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesOperacionsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.AccionsEstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AportarDocumentacioExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SubstituirDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AvisCreacioAccio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarLaTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.test.config.TestsConfigHelper;
 import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.configuration.context.ContextPropertySourcesInitializer;
@@ -129,6 +142,30 @@ public abstract class ParentTest {
 	@Autowired
 	protected EstatsApi estatsApi;
 
+	/** The retornar la tramitacio api. */
+	@Autowired
+	protected RetornarLaTramitacioApi retornarLaTramitacioApi;
+
+	/** The convidar A tramitart api. */
+	@Autowired
+	protected ConvidarATramitartApi convidarATramitartApi;
+
+	/** The canvi unitat gestora api. */
+	@Autowired
+	protected CanviUnitatGestoraApi canviUnitatGestoraApi;
+
+	/** The dades operacions api. */
+	@Autowired
+	protected DadesOperacionsApi dadesOperacionsApi;
+
+	/** The acumulaci expedients api. */
+	@Autowired
+	protected AcumulaciExpedientsApi acumulaciExpedientsApi;
+
+	/** The persones sollicitud api. */
+	@Autowired
+	protected PersonesSollicitudApi personesSollicitudApi;
+
 	/**
 	 * Sets the up.
 	 */
@@ -141,146 +178,196 @@ public abstract class ParentTest {
 
 		try {
 			when(procedimentsApi.cercaProcediments(isNull(Integer.class), isNull(Integer.class), any(List.class), any(String.class),
-					any(String.class), any(String.class), any(List.class), isNull(Boolean.class), isNull(Boolean.class),
-					isNull(Boolean.class), isNull(Boolean.class), any(Integer.class), any(String.class), any(List.class), any(List.class),
-					isNull(BigDecimal.class), isNull(BigDecimal.class), any(Integer.class), isNull(Integer.class), any(String.class),
-					any(Integer.class), any(String.class), any(Integer.class), isNull(Integer.class), any(String.class), isNull(Long.class),
-					isNull(Integer.class), any(List.class))).thenReturn(TestsConfigHelper.cercaProcedimentsResponse());
+			        any(String.class), any(String.class), any(List.class), isNull(Boolean.class), isNull(Boolean.class),
+			        isNull(Boolean.class), isNull(Boolean.class), any(Integer.class), any(String.class), any(List.class), any(List.class),
+			        isNull(BigDecimal.class), isNull(BigDecimal.class), any(Integer.class), isNull(Integer.class), any(String.class),
+			        any(Integer.class), any(String.class), any(Integer.class), isNull(Integer.class), any(String.class), isNull(Long.class),
+			        isNull(Integer.class), any(List.class))).thenReturn(TestsConfigHelper.cercaProcedimentsResponse());
 
 			when(procedimentsApi.consultarDadesProcediment(any(BigDecimal.class)))
-					.thenReturn(TestsConfigHelper.consultarDadesProcedimentResponse());
+			        .thenReturn(TestsConfigHelper.consultarDadesProcedimentResponse());
 
 			when(procedimentsApi.consultarDadesProcedimentPerCodi(any(String.class)))
-					.thenReturn(TestsConfigHelper.consultarDadesProcedimentResponse());
+			        .thenReturn(TestsConfigHelper.consultarDadesProcedimentResponse());
 
 			when(unitatsGestoresApi.cercaUnitatsGestores(isNull(Integer.class), isNull(Integer.class), isNull(Boolean.class),
-					isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class), isNull(DateTime.class),
-					isNull(DateTime.class), isNull(DateTime.class), isNull(String.class), isNull(String.class), isNull(String.class),
-					isNull(BigDecimal.class), isNull(Integer.class), any(String.class), isNull(Integer.class), isNull(Integer.class),
-					isNull(String.class), isNull(Long.class), isNull(Integer.class), isNull(BigDecimal.class), any(List.class),
-					isNull(Integer.class))).thenReturn(TestsConfigHelper.cercaUnitatsGestoresResponse());
+			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class), isNull(DateTime.class),
+			        isNull(DateTime.class), isNull(DateTime.class), isNull(String.class), isNull(String.class), isNull(String.class),
+			        isNull(BigDecimal.class), isNull(Integer.class), any(String.class), isNull(Integer.class), isNull(Integer.class),
+			        isNull(String.class), isNull(Long.class), isNull(Integer.class), isNull(BigDecimal.class), any(List.class),
+			        isNull(Integer.class))).thenReturn(TestsConfigHelper.cercaUnitatsGestoresResponse());
 
 			when(unitatsGestoresApi.consultarDadesUnitatGestora(any(BigDecimal.class)))
-					.thenReturn(TestsConfigHelper.consultarDadesUnitatGestoraResponse());
+			        .thenReturn(TestsConfigHelper.consultarDadesUnitatGestoraResponse());
 
 			when(tramitsApi.cercaTramitsProcediment(any(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
-					isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
-					isNull(DateTime.class), isNull(DateTime.class), isNull(String.class), isNull(String.class), isNull(Integer.class),
-					isNull(Integer.class), isNull(String.class), isNull(BigDecimal.class), isNull(String.class), isNull(Integer.class),
-					isNull(String.class), isNull(String.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class),
-					isNull(String.class), isNull(String.class), isNull(Long.class), isNull(Integer.class), isNull(BigDecimal.class)))
-							.thenReturn(TestsConfigHelper.cercaTramitsProcedimentResponse());
+			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
+			        isNull(DateTime.class), isNull(DateTime.class), isNull(String.class), isNull(String.class), isNull(Integer.class),
+			        isNull(Integer.class), isNull(String.class), isNull(BigDecimal.class), isNull(String.class), isNull(Integer.class),
+			        isNull(String.class), isNull(String.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class),
+			        isNull(String.class), isNull(String.class), isNull(Long.class), isNull(Integer.class), isNull(BigDecimal.class)))
+			                .thenReturn(TestsConfigHelper.cercaTramitsProcedimentResponse());
 
 			when(expedients_Api.cercaExpedients(isNull(Integer.class), isNull(Integer.class), any(String.class), isNull(List.class),
-					any(String.class), isNull(BigDecimal.class), isNull(BigDecimal.class), isNull(String.class), isNull(Boolean.class),
-					isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), any(Integer.class), any(DateTime.class),
-					any(DateTime.class), any(String.class), any(List.class), isNull(BigDecimal.class), isNull(BigDecimal.class),
-					isNull(Boolean.class), isNull(Integer.class), isNull(String.class), any(String.class), any(Integer.class),
-					isNull(Integer.class), any(List.class), any(BigDecimal.class), any(String.class), any(String.class), isNull(Long.class),
-					isNull(Integer.class), any(String.class), any(List.class))).thenReturn(TestsConfigHelper.cercaExpedientsResponse());
+			        any(String.class), isNull(BigDecimal.class), isNull(BigDecimal.class), isNull(String.class), isNull(Boolean.class),
+			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), any(Integer.class), any(DateTime.class),
+			        any(DateTime.class), any(String.class), any(List.class), isNull(BigDecimal.class), isNull(BigDecimal.class),
+			        isNull(Boolean.class), isNull(Integer.class), isNull(String.class), any(String.class), any(Integer.class),
+			        isNull(Integer.class), any(List.class), any(BigDecimal.class), any(String.class), any(String.class), isNull(Long.class),
+			        isNull(Integer.class), any(String.class), any(List.class))).thenReturn(TestsConfigHelper.cercaExpedientsResponse());
 
-			when(expedients_Api.consultarDadesExpedient(any(BigDecimal.class)))
-					.thenReturn(TestsConfigHelper.consultarDadesExpedientResponse());
+			when(expedients_Api.consultarDadesExpedient(eq(BigDecimal.ONE)))
+			        .thenReturn(TestsConfigHelper.consultarDadesExpedientResponse());
 
-			when(expedients_Api.consultarDadesExpedientPerCodi(any(String.class)))
-					.thenReturn(TestsConfigHelper.consultarDadesExpedientResponse());
+			when(expedients_Api.consultarDadesExpedientPerCodi(eq("1"))).thenReturn(TestsConfigHelper.consultarDadesExpedientResponse());
+
+			when(expedients_Api.consultarDadesExpedient(eq(new BigDecimal(2))))
+			        .thenReturn(TestsConfigHelper.consultarDadesExpedientAcumularResponse());
+
+			when(expedients_Api.consultarDadesExpedientPerCodi(eq("2")))
+			        .thenReturn(TestsConfigHelper.consultarDadesExpedientAcumularResponse());
+
+			when(expedients_Api.cercaExpedientsAcumular(isNull(Integer.class), isNull(Integer.class), isNull(String.class),
+			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
+			        isNull(String.class), isNull(BigDecimal.class), any(BigDecimal.class), isNull(BigDecimal.class), isNull(Integer.class),
+			        isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(String.class), isNull(String.class),
+			        isNull(Long.class), isNull(Integer.class))).thenReturn(TestsConfigHelper.cercaExpedientsAcumularResponse());
+
+			when(expedients_Api.cercaExpedientsAcumulats(any(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
+			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
+			        isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class), isNull(String.class),
+			        isNull(Long.class), isNull(Integer.class))).thenReturn(TestsConfigHelper.cercaExpedientsAcumularResponse());
 
 			when(expedientsApi.cercaHistoricsExpedient(any(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
-					isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
-					isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class), isNull(String.class),
-					any(List.class), isNull(Long.class), isNull(Integer.class)))
-							.thenReturn(TestsConfigHelper.cercaHistoricsExpedientResponse());
+			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
+			        isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class), isNull(String.class),
+			        any(List.class), isNull(Long.class), isNull(Integer.class)))
+			                .thenReturn(TestsConfigHelper.cercaHistoricsExpedientResponse());
 
 			when(personesInteressades_Api.cercaPersonesInteresadesExpedient(any(BigDecimal.class), isNull(Integer.class),
-					isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
-					isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class),
-					isNull(String.class), isNull(Long.class), isNull(Integer.class)))
-							.thenReturn(TestsConfigHelper.cercaPersonesInteresadesExpedientResponse());
+			        isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
+			        isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class),
+			        isNull(String.class), isNull(Long.class), isNull(Integer.class)))
+			                .thenReturn(TestsConfigHelper.cercaPersonesInteresadesExpedientResponse());
 
 			when(persones_Api.cercaAltresPersonesImplicadesExpedient(any(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
-					isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
-					isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class), isNull(String.class),
-					isNull(Long.class), isNull(Integer.class)))
-							.thenReturn(TestsConfigHelper.cercaAltresPersonesImplicadesExpedientResponse());
+			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
+			        isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class), isNull(String.class),
+			        isNull(Long.class), isNull(Integer.class)))
+			                .thenReturn(TestsConfigHelper.cercaAltresPersonesImplicadesExpedientResponse());
 
 			when(tramitsOvtApi.consultarDadesTramitOvt(any(BigDecimal.class)))
-					.thenReturn(TestsConfigHelper.consultarDadesTramitOvtResponse());
+			        .thenReturn(TestsConfigHelper.consultarDadesTramitOvtResponse());
 
 			when(dadesGrupsApi.cercaDadesOperacioAgrupatsPerTramitOvt(any(BigDecimal.class), any(BigDecimal.class), isNull(String.class),
-					isNull(String.class))).thenReturn(TestsConfigHelper.cercaDadesOperacioResponse());
+			        isNull(String.class))).thenReturn(TestsConfigHelper.cercaDadesOperacioResponse());
 
 			when(dadesGrupsApi.cercaDadesOperacio(any(BigDecimal.class), isNull(String.class), isNull(String.class)))
-					.thenReturn(TestsConfigHelper.cercaDadesOperacioResponse());
+			        .thenReturn(TestsConfigHelper.cercaDadesOperacioResponse());
 
 			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioEntradaPerTramitOvt(any(BigDecimal.class), any(BigDecimal.class),
-					isNull(Integer.class), isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
-					isNull(Boolean.class), isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class),
-					isNull(Integer.class), isNull(String.class), isNull(Long.class), isNull(Integer.class)))
-							.thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntradaResponse());
+			        isNull(Integer.class), isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
+			        isNull(Boolean.class), isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class),
+			        isNull(Integer.class), isNull(String.class), isNull(Long.class), isNull(Integer.class)))
+			                .thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntradaResponse());
 
 			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioEntrada(any(BigDecimal.class), isNull(Integer.class),
-					isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
-					isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class),
-					isNull(String.class), isNull(Long.class), isNull(Integer.class)))
-							.thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntradaResponse());
+			        isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
+			        isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class),
+			        isNull(String.class), isNull(Long.class), isNull(Integer.class)))
+			                .thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntradaResponse());
+
+			when(configuracioDocumentacioApi.getConfiguracioDocumentacioTramitacioUsingGET(any(BigDecimal.class), isNull(Integer.class),
+			        isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
+			        isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class),
+			        isNull(String.class), isNull(Long.class), isNull(Integer.class)))
+			                .thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioTramitacioResponse());
 
 			when(accionsEstatsApi.cercaAccionsPossibles(any(BigDecimal.class)))
-					.thenReturn(TestsConfigHelper.cercaAccionsPossiblesResponse());
+			        .thenReturn(TestsConfigHelper.cercaAccionsPossiblesResponse());
 
 			when(documentacioApi.cercaDocumentsEntradaAgrupatsPerTramitOvt(any(BigDecimal.class)))
-					.thenReturn(TestsConfigHelper.cercaDocumentsEntradaAgrupatsPerTramitOvtResponse());
+			        .thenReturn(TestsConfigHelper.cercaDocumentsEntradaAgrupatsPerTramitOvtResponse());
 
 			when(documentacioRequeritApi.cercaConfiguracioDocumentacioEntradaRequerida(any(BigDecimal.class)))
-					.thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntradaRequeridaResponse());
+			        .thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntradaRequeridaResponse());
 
 			when(dadesEspecifiquesApi.consultarDadesEspecifiquesExpedient(any(BigDecimal.class)))
-					.thenReturn(TestsConfigHelper.consultarDadesEspecifiquesExpedientResponse());
+			        .thenReturn(TestsConfigHelper.consultarDadesEspecifiquesExpedientResponse());
 
 			when(unitatsGestoresApi.consultarDadesUnitatGestoraPerNom(any(String.class)))
-					.thenReturn(TestsConfigHelper.consultarDadesUnitatGestoraResponse());
+			        .thenReturn(TestsConfigHelper.consultarDadesUnitatGestoraResponse());
 
 			when(expedients_Api.crearSollicitudExpedient(any(ExpedientsRDTO.class)))
-					.thenReturn(TestsConfigHelper.crearSollicitudExpedientResponse());
+			        .thenReturn(TestsConfigHelper.crearSollicitudExpedientResponse());
 
 			when(expedients_Api.actualitzarDadesSollicitud(any(ActualitzarDadesSollicitud.class)))
-					.thenReturn(TestsConfigHelper.crearSollicitudExpedientResponse());
+			        .thenReturn(TestsConfigHelper.crearSollicitudExpedientResponse());
 
 			when(documentacioApi.aportarDocumentacioExpedient(any(AportarDocumentacioExpedient.class), any(BigDecimal.class)))
-					.thenReturn(TestsConfigHelper.aportarDocumentacioExpedientResponse());
+			        .thenReturn(TestsConfigHelper.aportarDocumentacioExpedientResponse());
 
 			when(documentacioApi.consultarDadesDocumentAportat(any(BigDecimal.class)))
-					.thenReturn(TestsConfigHelper.consultarDadesDocumentAportat());
+			        .thenReturn(TestsConfigHelper.consultarDadesDocumentAportatResponse());
+
+			when(documentacioApi.consultarDadesDocumentGenerat(any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.consultarDadesDocumentGeneratResponse());
 
 			doNothing().when(documentacioApi).esborrarDocumentExpedient(any(List.class), any(BigDecimal.class));
 
 			when(documentacioApi.substituirDocumentExpedient(any(BigDecimal.class), any(SubstituirDocumentExpedient.class)))
-					.thenReturn(TestsConfigHelper.substituirDocumentExpedientResponse());
+			        .thenReturn(TestsConfigHelper.substituirDocumentExpedientResponse());
 
 			when(downloadEntradaApi.descarregarDocumentExpedient(any(BigDecimal.class), any(BigDecimal.class)))
-					.thenReturn(TestsConfigHelper.descarregarDocumentExpedientResponse());
+			        .thenReturn(TestsConfigHelper.descarregarDocumentExpedientResponse());
 
 			doNothing().when(comentarisApi).crearComentariAccio(any(BigDecimal.class), any(BigDecimal.class),
-					any(ComentariCreacioAccio.class));
+			        any(ComentariCreacioAccio.class));
 
 			doNothing().when(avisosApi).crearAvisAccio(any(BigDecimal.class), any(BigDecimal.class), any(AvisCreacioAccio.class));
 
 			when(expedientsApi.canviarEstatAccioExpedient(any(BigDecimal.class), any(BigDecimal.class),
-					any(ExpedientCanviEstatAccio.class))).thenReturn(TestsConfigHelper.canviarEstatAccioExpedientResponse());
+			        any(ExpedientCanviEstatAccio.class))).thenReturn(TestsConfigHelper.canviarEstatAccioExpedientResponse());
 
 			when(estatsApi.cercaHistoricsEstats(any(BigDecimal.class))).thenReturn(TestsConfigHelper.cercaHistoricsEstatsResponse());
 
 			doNothing().when(documentacioApi).revisarDocumentacioEntrada(any(DocumentRevisio.class));
 
 			when(expedients_Api.crearRegistreSolicitudExpedient(any(BigDecimal.class), any(CrearRegistre.class)))
-					.thenReturn(TestsConfigHelper.crearRegistreSolicitudExpedientResponse());
+			        .thenReturn(TestsConfigHelper.crearRegistreSolicitudExpedientResponse());
 
 			when(configuracioDocumentacioApi.getPlantillaDocVinculada(any(BigDecimal.class), any(BigDecimal.class)))
-					.thenReturn(TestsConfigHelper.getPlantillaDocVinculadaResponse());
+			        .thenReturn(TestsConfigHelper.getPlantillaDocVinculadaResponse());
+
+			when(documentacioApi.guardarDocumentEntrada(any(DocsEntradaRDTO.class), any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.guardarDocumentEntradaResponse());
 
 			when(documentacioApi.guardarDocumentTramitacio(any(DocsTramitacioRDTO.class), any(BigDecimal.class)))
-					.thenReturn(TestsConfigHelper.guardarDocumentTramitacioResponse());
+			        .thenReturn(TestsConfigHelper.guardarDocumentTramitacioResponse());
 
 			doNothing().when(documentacioApi).crearPeticioPortaSig(any(SignarDocument.class));
+
+			doNothing().when(retornarLaTramitacioApi).retornarTramitacioExpedient(any(RetornarLaTramitacioRDTO.class));
+
+			doNothing().when(convidarATramitartApi).convidarTramitarExpedient(any(ConvidarTramitarRDTO.class));
+
+			doNothing().when(canviUnitatGestoraApi).canviarUnitatGestoraExpedient(any(CanviUnitatGestoraRDTO.class));
+
+			when(expedients_Api.consultarDadesRegistreAssentament(any(String.class)))
+			        .thenReturn(TestsConfigHelper.consultarDadesRegistreAssentamentResponse());
+
+			when(dadesOperacionsApi.cercaDadesOperacioRequerits(any(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
+			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
+			        isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class), isNull(String.class),
+			        isNull(Long.class), isNull(Integer.class))).thenReturn(TestsConfigHelper.cercaDadesOperacioRequeritsResponse());
+
+			doNothing().when(acumulaciExpedientsApi).acumularExpedient(any(AcumularExpedientRDTO.class));
+
+			when(personesSollicitudApi.actualitzarDadesAltraPersonaImplicada(any(PersonesSollicitudRDTO.class), isNull(Integer.class),
+			        isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
+			        isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class),
+			        isNull(String.class), isNull(Long.class), isNull(Integer.class)))
+			                .thenReturn(TestsConfigHelper.cercaAltresPersonesImplicadesExpedientResponse());
 
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$

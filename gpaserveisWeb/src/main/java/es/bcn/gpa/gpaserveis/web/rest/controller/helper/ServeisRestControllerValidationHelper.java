@@ -970,10 +970,10 @@ public class ServeisRestControllerValidationHelper {
 		ArrayList<BigDecimal> idConfiguracioDocsEntradaList = null;
 		if (CollectionUtils.isNotEmpty(documentacioRequerida)) {
 			idConfiguracioDocsEntradaList = new ArrayList<BigDecimal>();
-			HashMap<BigDecimal, ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOMap = new HashMap<BigDecimal, ConfiguracioDocsEntradaRDTO>();
+			HashMap<String, ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOMap = new HashMap<String, ConfiguracioDocsEntradaRDTO>();
 			if (CollectionUtils.isNotEmpty(configuracioDocsEntradaRDTOList)) {
 				for (ConfiguracioDocsEntradaRDTO configuracioDocsEntradaRDTO : configuracioDocsEntradaRDTOList) {
-					configuracioDocsEntradaRDTOMap.put(configuracioDocsEntradaRDTO.getUniqueId(), configuracioDocsEntradaRDTO);
+					configuracioDocsEntradaRDTOMap.put(configuracioDocsEntradaRDTO.getUniqueId().toString(), configuracioDocsEntradaRDTO);
 				}
 			}
 			for (ConfiguracioDocumentacioRequeridaRDTO configuracioDocumentacioRequeridaRDTO : documentacioRequerida) {

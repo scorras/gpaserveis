@@ -163,8 +163,6 @@ import net.opentrends.openframe.services.configuration.annotation.EntornProperty
 @RequestMapping(value = "/serveis/tramitadors", produces = MediaType.APPLICATION_JSON_VALUE)
 @Lazy(true)
 @Api(value = "Serveis Tramitadors API", tags = "Serveis Tramitadors API")
-
-/** The Constant log. */
 @CommonsLog
 @EntornPropertySource(value = { "classpath:/app/config/gpaserveis.properties" })
 public class ServeisTramitadorsRestController extends BaseRestController {
@@ -2004,7 +2002,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_NOTIFICAR_EXPEDIENT);
 
-			// Registrar comunicación del expediente si la acción es permitida
+			// Notificar si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.NOTIFICAR, Resultat.ERROR_NOTIFICAR_EXPEDIENT);
 
@@ -2067,7 +2065,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_DOCUMENT_SIGNAT_EXPEDIENT);
 
-			// Reactivar expediente si la acción es permitida
+			// Documento firmado si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.DOCUMENT_SIGNAT, Resultat.ERROR_DOCUMENT_SIGNAT_EXPEDIENT);
 
@@ -2104,6 +2102,17 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		return respostaDocumentSignatExpedientRDTO;
 	}
 
+	/**
+	 * Digitalitzar document expedient.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param documentDigitalitzacio
+	 *            the document digitalitzacio
+	 * @return the resposta digitalitzar document RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	@PostMapping("/expedients/{codiExpedient}/documentacio/digitalitzar")
 	@ApiOperation(value = "Força el canvi d'estat de l'expedient a Finzalizado i Comunicat després de la signatura dels documents", tags = {
 	        "Serveis Tramitadors API", "Funcions d'execució d'accions" }, extensions = { @Extension(name = "x-imi-roles", properties = {
@@ -2126,7 +2135,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT);
 
-			// Reactivar expediente si la acción es permitida
+			// Digitalizar documento si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.DIGITALITZAR_DOCUMENT, Resultat.ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT);
 

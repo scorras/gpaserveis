@@ -43,7 +43,7 @@ public enum AccioTramitadorApiParamValue implements BaseApiParamValue {
 
 	SUBSTITUIR_DOCUMENT("Substituir un document", new BigDecimal(17)),
 
-	PREPARAR_REQUERIMENT_INTERESSAT("Preparar un requeriment a l’interessat", new BigDecimal(18)),
+	PREPARAR_REQUERIMENT_INTERESSAT("Preparar un requeriment a l'interessat", new BigDecimal(18)),
 
 	NOTIFICAR("Notificar", new BigDecimal(19)),
 

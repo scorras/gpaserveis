@@ -22,8 +22,8 @@ public class ExpedientNotificacioRDTO {
 	@ApiModelProperty(value = "Text de la notificació.", required = true)
 	private String textNotificacio;
 	@ApiModelProperty(value = "Destinataris de la notificació.", required = true)
-	private List<Object> destinataris;
+	private List<String> destinataris;
 	@ApiModelProperty(value = "Documents de la notificació.", required = true)
-	private List<Object> documents;
+	private List<String> documents;
 
 }
