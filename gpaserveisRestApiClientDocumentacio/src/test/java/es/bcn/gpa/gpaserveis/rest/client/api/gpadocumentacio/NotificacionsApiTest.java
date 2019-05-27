@@ -54,8 +54,8 @@ public class NotificacionsApiTest extends ParentTest {
 	@Test
 	public void actualitzarNotificacioTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/notificacions/actualitzarNotificacio"), eq("POST"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), isNull(GenericType.class)))
-		                .thenReturn(null);
+				any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), isNull(GenericType.class)))
+						.thenReturn(null);
 
 		ActualitzarNotificacionDocument actualitzarNotificacionDocumentRDTO = new ActualitzarNotificacionDocument();
 		api.actualitzarNotificacio(actualitzarNotificacionDocumentRDTO);
@@ -74,8 +74,8 @@ public class NotificacionsApiTest extends ParentTest {
 	@Test
 	public void crearNotificacioTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/notificacions/crearNotificacio"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), isNull(GenericType.class)))
-		                .thenReturn(new NotificacionsRDTO());
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new NotificacionsRDTO());
 
 		CrearNotificacio crearNotificacioRDTO = new CrearNotificacio();
 		NotificacionsRDTO response = api.crearNotificacio(crearNotificacioRDTO);

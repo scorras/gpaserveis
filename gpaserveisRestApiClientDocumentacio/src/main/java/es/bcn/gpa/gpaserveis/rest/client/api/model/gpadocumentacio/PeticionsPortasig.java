@@ -25,13 +25,16 @@ import org.joda.time.DateTime;
 /**
  * PeticionsPortasig
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T11:58:05.753+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T18:14:43.653+02:00")
 public class PeticionsPortasig {
   @JsonProperty("codiError")
   private String codiError = null;
 
   @JsonProperty("codiPeticio")
   private String codiPeticio = null;
+
+  @JsonProperty("dataCaducitat")
+  private DateTime dataCaducitat = null;
 
   @JsonProperty("dataSignatura")
   private DateTime dataSignatura = null;
@@ -85,6 +88,24 @@ public class PeticionsPortasig {
 
   public void setCodiPeticio(String codiPeticio) {
     this.codiPeticio = codiPeticio;
+  }
+
+  public PeticionsPortasig dataCaducitat(DateTime dataCaducitat) {
+    this.dataCaducitat = dataCaducitat;
+    return this;
+  }
+
+   /**
+   * Get dataCaducitat
+   * @return dataCaducitat
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getDataCaducitat() {
+    return dataCaducitat;
+  }
+
+  public void setDataCaducitat(DateTime dataCaducitat) {
+    this.dataCaducitat = dataCaducitat;
   }
 
   public PeticionsPortasig dataSignatura(DateTime dataSignatura) {
@@ -207,6 +228,7 @@ public class PeticionsPortasig {
     PeticionsPortasig peticionsPortasig = (PeticionsPortasig) o;
     return Objects.equals(this.codiError, peticionsPortasig.codiError) &&
         Objects.equals(this.codiPeticio, peticionsPortasig.codiPeticio) &&
+        Objects.equals(this.dataCaducitat, peticionsPortasig.dataCaducitat) &&
         Objects.equals(this.dataSignatura, peticionsPortasig.dataSignatura) &&
         Objects.equals(this.dataVistiplau, peticionsPortasig.dataVistiplau) &&
         Objects.equals(this.estatPeticio, peticionsPortasig.estatPeticio) &&
@@ -217,7 +239,7 @@ public class PeticionsPortasig {
 
   @Override
   public int hashCode() {
-    return Objects.hash(codiError, codiPeticio, dataSignatura, dataVistiplau, estatPeticio, id, missatgeError, tipusPeticio);
+    return Objects.hash(codiError, codiPeticio, dataCaducitat, dataSignatura, dataVistiplau, estatPeticio, id, missatgeError, tipusPeticio);
   }
 
 
@@ -228,6 +250,7 @@ public class PeticionsPortasig {
     
     sb.append("    codiError: ").append(toIndentedString(codiError)).append("\n");
     sb.append("    codiPeticio: ").append(toIndentedString(codiPeticio)).append("\n");
+    sb.append("    dataCaducitat: ").append(toIndentedString(dataCaducitat)).append("\n");
     sb.append("    dataSignatura: ").append(toIndentedString(dataSignatura)).append("\n");
     sb.append("    dataVistiplau: ").append(toIndentedString(dataVistiplau)).append("\n");
     sb.append("    estatPeticio: ").append(toIndentedString(estatPeticio)).append("\n");

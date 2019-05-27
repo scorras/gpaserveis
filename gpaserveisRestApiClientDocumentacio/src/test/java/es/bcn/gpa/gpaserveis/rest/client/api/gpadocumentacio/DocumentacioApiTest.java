@@ -37,6 +37,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AcumularDocumentacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
@@ -75,8 +76,8 @@ public class DocumentacioApiTest extends ParentTest {
 	@Test
 	public void acumularDocumentacioUsingPOSTTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/documentacio/acumularDocumentacio"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new RestClientResponse());
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new RestClientResponse());
 
 		AcumularDocumentacioRDTO acumularDocumentacioRDTO = new AcumularDocumentacioRDTO();
 		RestClientResponse response = api.acumularDocumentacioUsingPOST(acumularDocumentacioRDTO);
@@ -95,7 +96,7 @@ public class DocumentacioApiTest extends ParentTest {
 	@Test
 	public void canviEstatDocumentacioTramitacioUsingPOSTTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/canviEstat"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
 
 		DocumentCanviEstat documentCanviEstatRDTO = new DocumentCanviEstat();
 		api.canviEstatDocumentacioTramitacioUsingPOST(documentCanviEstatRDTO);
@@ -115,7 +116,7 @@ public class DocumentacioApiTest extends ParentTest {
 	public void esborrarDocumentExpedientTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/entrada/delete/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), isNull(GenericType.class))).thenReturn(null);
+				any(Map.class), any(String.class), any(String.class), any(String[].class), isNull(GenericType.class))).thenReturn(null);
 
 		List<BigDecimal> docsEntradaIds = Arrays.asList(ONE);
 		BigDecimal idExpedient = ONE;
@@ -136,7 +137,7 @@ public class DocumentacioApiTest extends ParentTest {
 	public void deleteDocumentacioTramitacioUsingPOSTTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/delete/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), isNull(GenericType.class))).thenReturn(null);
+				any(Map.class), any(String.class), any(String.class), any(String[].class), isNull(GenericType.class))).thenReturn(null);
 
 		List<BigDecimal> docsTramitacioIds = Arrays.asList(ONE);
 		BigDecimal idExpedient = ONE;
@@ -157,8 +158,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void getDocumentacioEntradaUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/1/entrada/1/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfDocsEntradaRDTO());
+				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new PageDataOfDocsEntradaRDTO());
 
 		String estatsFutursList = ONE.toString();
 		BigDecimal idConfiguracioDocumentacio = ONE;
@@ -178,9 +179,9 @@ public class DocumentacioApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		PageDataOfDocsEntradaRDTO response = api.getDocumentacioEntradaUsingGET(estatsFutursList, idConfiguracioDocumentacio,
-		        idDocumentacio, absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
-		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
-		        previousPageNumber, sort, totalElements, totalPages);
+				idDocumentacio, absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
+				currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
+				previousPageNumber, sort, totalElements, totalPages);
 
 		assertTrue(response != null);
 	}
@@ -197,8 +198,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void cercaDocumentsEntradaAgrupatsPerTramitOvtTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/1/entrada/agrupatPerTramitOvt"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<DocsEntradaRDTO>());
+				any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new ArrayList<DocsEntradaRDTO>());
 
 		BigDecimal idDocumentacio = ONE;
 		List<DocsEntradaRDTO> response = api.cercaDocumentsEntradaAgrupatsPerTramitOvt(idDocumentacio);
@@ -218,8 +219,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void getDocumentacioTramitacioUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/1/tramitacio/1/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfDocsTramitacioRDTO());
+				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new PageDataOfDocsTramitacioRDTO());
 
 		String estatsFutursList = ONE.toString();
 		BigDecimal idConfiguracioDocumentacio = ONE;
@@ -239,9 +240,9 @@ public class DocumentacioApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		PageDataOfDocsTramitacioRDTO response = api.getDocumentacioTramitacioUsingGET(estatsFutursList, idConfiguracioDocumentacio,
-		        idDocumentacio, absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
-		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
-		        previousPageNumber, sort, totalElements, totalPages);
+				idDocumentacio, absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
+				currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
+				previousPageNumber, sort, totalElements, totalPages);
 
 		assertTrue(response != null);
 	}
@@ -257,8 +258,8 @@ public class DocumentacioApiTest extends ParentTest {
 	@Test
 	public void getEstatsRevisioDocumentacioEntradaUsingGETTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/documentacio/entrada/estatsRevisio"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<EstatRevisioRDTO>());
+				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new ArrayList<EstatRevisioRDTO>());
 
 		List<EstatRevisioRDTO> response = api.getEstatsRevisioDocumentacioEntradaUsingGET();
 
@@ -277,8 +278,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void getTipusGrupEntradaUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/entrada/listTipusGrup/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<ConfiguracioDocsEntradaRDTO>());
+				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new ArrayList<ConfiguracioDocsEntradaRDTO>());
 
 		BigDecimal idConfigDoc = ONE;
 		List<ConfiguracioDocsEntradaRDTO> response = api.getTipusGrupEntradaUsingGET(idConfigDoc);
@@ -298,8 +299,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void getTipusGrupTramitacioUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/listTipusGrup/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<ConfiguracioDocsTramitacioRDTO>());
+				any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new ArrayList<ConfiguracioDocsTramitacioRDTO>());
 
 		BigDecimal idConfigDoc = ONE;
 		List<ConfiguracioDocsTramitacioRDTO> response = api.getTipusGrupTramitacioUsingGET(idConfigDoc);
@@ -318,8 +319,8 @@ public class DocumentacioApiTest extends ParentTest {
 	@Test
 	public void newDocumentacioUsingGETTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/documentacio/newDocumentacio"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new RestClientResponse());
+				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new RestClientResponse());
 
 		RestClientResponse response = api.newDocumentacioUsingGET();
 
@@ -337,8 +338,8 @@ public class DocumentacioApiTest extends ParentTest {
 	@Test
 	public void obteneriDocumentacioEntradaEnRevisioUsingGETTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/documentacio/documentacioEntradaEnRevisio"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<BigDecimal>());
+				any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new ArrayList<BigDecimal>());
 
 		List<BigDecimal> response = api.obteneriDocumentacioEntradaEnRevisioUsingGET();
 
@@ -357,8 +358,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void obtenirTransicionsEstatsByEstatDocTramUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/estatsDocTramCanviEstat/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<TransicionsEstatsRDTO>());
+				any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new ArrayList<TransicionsEstatsRDTO>());
 
 		BigDecimal estatDocTramitacio = ONE;
 		List<TransicionsEstatsRDTO> response = api.obtenirTransicionsEstatsByEstatDocTramUsingGET(estatDocTramitacio);
@@ -377,7 +378,7 @@ public class DocumentacioApiTest extends ParentTest {
 	@Test
 	public void revisarDocumentacioEntradaUsingPOSTTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/documentacio/entrada/revisar"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
 
 		DocumentRevisio documentRevisioRDTO = new DocumentRevisio();
 		api.revisarDocumentacioEntrada(documentRevisioRDTO);
@@ -473,8 +474,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void consultarDadesDocumentAportatTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/entrada/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new DocsEntradaRDTO());
+				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new DocsEntradaRDTO());
 
 		BigDecimal id = ONE;
 		DocsEntradaRDTO response = api.consultarDadesDocumentAportat(id);
@@ -494,8 +495,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void cercaDadesOperacioRequeritsTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/dadesOperRequerit/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<BigDecimal>());
+				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new ArrayList<BigDecimal>());
 
 		BigDecimal idDoc = ONE;
 		List<BigDecimal> response = api.cercaDadesOperacioRequerits(idDoc);
@@ -515,8 +516,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void associarRegistreDocsEntTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/associarRegistreDocsEnt"), eq("POST"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(null);
+				any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(null);
 
 		DocsEntActualizarRegistre docsEntActualizarRegistreRDTO = new DocsEntActualizarRegistre();
 		api.associarRegistreDocsEnt(docsEntActualizarRegistreRDTO);
@@ -536,8 +537,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void associarRegistreDocumentacioTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/associarRegistreDocsEnt"), eq("POST"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(null);
+				any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(null);
 
 		DocumentActualizarRegistre documentActualizarRegistreRDTO = new DocumentActualizarRegistre();
 		api.associarRegistreDocumentacio(documentActualizarRegistreRDTO);
@@ -554,7 +555,7 @@ public class DocumentacioApiTest extends ParentTest {
 	@Test
 	public void crearPeticioPortaSigTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/documentacio/crearPeticioPortaSig"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
 
 		SignarDocument signarDocumentRDTO = new SignarDocument();
 		api.crearPeticioPortaSig(signarDocumentRDTO);
@@ -572,8 +573,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void cancelarSignarDocumentUsingPOSTTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/cancelarPeticioPortaSig/1"), eq("POST"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(null);
+				any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(null);
 
 		api.cancelarSignarDocumentUsingPOST(ONE);
 
@@ -592,8 +593,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void consultarDadesDocumentGeneratTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new DocsTramitacioRDTO());
+				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new DocsTramitacioRDTO());
 
 		BigDecimal id = ONE;
 		DocsTramitacioRDTO response = api.consultarDadesDocumentGenerat(id);
@@ -613,8 +614,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void comprovarDocumentsSignatsUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/comprovarDocumentsSignats/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(Boolean.TRUE);
+				any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(Boolean.TRUE);
 
 		BigDecimal idDocumentacio = ONE;
 		Boolean response = api.comprovarDocumentsSignatsUsingGET(idDocumentacio);
@@ -634,8 +635,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void crearDeclaracioResponsableTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/entrada/responsable/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new DocsEntradaRDTO());
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new DocsEntradaRDTO());
 
 		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
 		BigDecimal idExpedient = ONE;
@@ -656,8 +657,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void crearDocumentEntradaTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/entrada/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new DocsEntradaRDTO());
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new DocsEntradaRDTO());
 
 		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
 		BigDecimal idExpedient = ONE;
@@ -679,8 +680,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void guardarRequerimentFitxerTest() throws ApiException, IOException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/requeriment/fitxer/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new DocsTramitacioRDTO());
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new DocsTramitacioRDTO());
 
 		MultipartFile file = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
 		BigDecimal idExpedient = ONE;
@@ -702,8 +703,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void guardarRequerimentPlantillaTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/requeriment/plantilla/1"), eq("POST"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new DocsTramitacioRDTO());
+				any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new DocsTramitacioRDTO());
 
 		GuardarRequerimentExpedient guardarRequerimentExpedientRDTO = new GuardarRequerimentExpedient();
 		BigDecimal idExpedient = ONE;
@@ -724,8 +725,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void obtenirDocsTramitacioByNotificationIdTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/docsTramitacioByNotificationId/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new DocsTramitacioRDTO());
+				any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new DocsTramitacioRDTO());
 
 		BigDecimal idNotificacio = ONE;
 		DocsTramitacioRDTO response = api.obtenirDocsTramitacioByNotificationId(idNotificacio);
@@ -746,8 +747,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void guardarDocumentEntradaFitxerTest() throws ApiException, IOException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/entrada/fitxer/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new DocsEntradaRDTO());
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new DocsEntradaRDTO());
 
 		String docsEntrada = StringUtils.EMPTY;
 		MultipartFile file = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
@@ -770,8 +771,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void guardarDocumentTramitacioFitxerTest() throws ApiException, IOException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/fitxer/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new DocsTramitacioRDTO());
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new DocsTramitacioRDTO());
 
 		String docsTramitacio = StringUtils.EMPTY;
 		MultipartFile file = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
@@ -793,8 +794,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void guardarDocumentTramitacioPlantillaTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/plantilla/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new DocsTramitacioRDTO());
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new DocsTramitacioRDTO());
 
 		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
 		BigDecimal idExpedient = ONE;
@@ -815,8 +816,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void actualitzarDeclaracioResponsableTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/entrada/responsable/1"), eq("PUT"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new DocsEntradaRDTO());
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new DocsEntradaRDTO());
 
 		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
 		BigDecimal idExpedient = ONE;
@@ -836,9 +837,9 @@ public class DocumentacioApiTest extends ParentTest {
 	@Test
 	public void actualitzarDocumentEntradaTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/documentacio/entrada/responsable/1"), eq("PUT"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new DocsEntradaRDTO());
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/1"), eq("PUT"), any(List.class), any(Object.class), any(Map.class),
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new DocsEntradaRDTO());
 
 		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
 		BigDecimal idExpedient = ONE;
@@ -859,8 +860,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void actualitzarDocumentTramitacioTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/1"), eq("PUT"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new DocsTramitacioRDTO());
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new DocsTramitacioRDTO());
 
 		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
 		BigDecimal idExpedient = ONE;
@@ -881,12 +882,70 @@ public class DocumentacioApiTest extends ParentTest {
 	public void actualitzarRequerimentTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/documentacio/requeriment/1"), eq("PUT"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new DocsTramitacioRDTO());
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new DocsTramitacioRDTO());
 
 		GuardarRequerimentExpedient guardarRequerimentExpedientRDTO = new GuardarRequerimentExpedient();
 		BigDecimal idExpedient = ONE;
 		DocsTramitacioRDTO response = api.actualitzarRequeriment(guardarRequerimentExpedientRDTO, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Callback per actualitzar l&#39;estat dels documents enviats a portasig
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void callbackPortaSigTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/documentacio/callbackPortaSig"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
+		CallbackPortaSig callbackPortaSigRDTO = new CallbackPortaSig();
+		api.callbackPortaSig(callbackPortaSigRDTO);
+		assertTrue(true);
+	}
+
+	/**
+	 * Closes the expedient&#39;s requirements
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void tancarRequerimentsExpedientTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/tancarRequeriments/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
+
+		BigDecimal idDocumentacio = ONE;
+		api.tancarRequerimentsExpedient(idDocumentacio);
+		assertTrue(true);
+	}
+
+	/**
+	 * crea el document de tramitació
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void crearDocumentTramitacioTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new DocsTramitacioRDTO());
+
+		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
+		BigDecimal idExpedient = ONE;
+		DocsTramitacioRDTO response = api.crearDocumentTramitacio(docsTramitacioRDTO, idExpedient);
 
 		assertTrue(response != null);
 	}

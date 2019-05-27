@@ -26,10 +26,19 @@ import org.joda.time.DateTime;
 /**
  * DocsSignatures
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T11:58:05.753+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T18:14:43.653+02:00")
 public class DocsSignatures {
+  @JsonProperty("codiPeticio")
+  private String codiPeticio = null;
+
+  @JsonProperty("dataCaducitat")
+  private DateTime dataCaducitat = null;
+
   @JsonProperty("dataSignatura")
   private DateTime dataSignatura = null;
+
+  @JsonProperty("dataVistiplau")
+  private DateTime dataVistiplau = null;
 
   @JsonProperty("docFisicSignat")
   private BigDecimal docFisicSignat = null;
@@ -49,8 +58,47 @@ public class DocsSignatures {
   @JsonProperty("signatManualment")
   private Integer signatManualment = null;
 
+  @JsonProperty("ticketSignatura")
+  private String ticketSignatura = null;
+
   @JsonProperty("usuariSignaturaIdext")
   private BigDecimal usuariSignaturaIdext = null;
+
+  public DocsSignatures codiPeticio(String codiPeticio) {
+    this.codiPeticio = codiPeticio;
+    return this;
+  }
+
+   /**
+   * Get codiPeticio
+   * @return codiPeticio
+  **/
+  @ApiModelProperty(value = "")
+  public String getCodiPeticio() {
+    return codiPeticio;
+  }
+
+  public void setCodiPeticio(String codiPeticio) {
+    this.codiPeticio = codiPeticio;
+  }
+
+  public DocsSignatures dataCaducitat(DateTime dataCaducitat) {
+    this.dataCaducitat = dataCaducitat;
+    return this;
+  }
+
+   /**
+   * Get dataCaducitat
+   * @return dataCaducitat
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getDataCaducitat() {
+    return dataCaducitat;
+  }
+
+  public void setDataCaducitat(DateTime dataCaducitat) {
+    this.dataCaducitat = dataCaducitat;
+  }
 
   public DocsSignatures dataSignatura(DateTime dataSignatura) {
     this.dataSignatura = dataSignatura;
@@ -68,6 +116,24 @@ public class DocsSignatures {
 
   public void setDataSignatura(DateTime dataSignatura) {
     this.dataSignatura = dataSignatura;
+  }
+
+  public DocsSignatures dataVistiplau(DateTime dataVistiplau) {
+    this.dataVistiplau = dataVistiplau;
+    return this;
+  }
+
+   /**
+   * Get dataVistiplau
+   * @return dataVistiplau
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getDataVistiplau() {
+    return dataVistiplau;
+  }
+
+  public void setDataVistiplau(DateTime dataVistiplau) {
+    this.dataVistiplau = dataVistiplau;
   }
 
   public DocsSignatures docFisicSignat(BigDecimal docFisicSignat) {
@@ -178,6 +244,24 @@ public class DocsSignatures {
     this.signatManualment = signatManualment;
   }
 
+  public DocsSignatures ticketSignatura(String ticketSignatura) {
+    this.ticketSignatura = ticketSignatura;
+    return this;
+  }
+
+   /**
+   * Get ticketSignatura
+   * @return ticketSignatura
+  **/
+  @ApiModelProperty(value = "")
+  public String getTicketSignatura() {
+    return ticketSignatura;
+  }
+
+  public void setTicketSignatura(String ticketSignatura) {
+    this.ticketSignatura = ticketSignatura;
+  }
+
   public DocsSignatures usuariSignaturaIdext(BigDecimal usuariSignaturaIdext) {
     this.usuariSignaturaIdext = usuariSignaturaIdext;
     return this;
@@ -206,19 +290,23 @@ public class DocsSignatures {
       return false;
     }
     DocsSignatures docsSignatures = (DocsSignatures) o;
-    return Objects.equals(this.dataSignatura, docsSignatures.dataSignatura) &&
+    return Objects.equals(this.codiPeticio, docsSignatures.codiPeticio) &&
+        Objects.equals(this.dataCaducitat, docsSignatures.dataCaducitat) &&
+        Objects.equals(this.dataSignatura, docsSignatures.dataSignatura) &&
+        Objects.equals(this.dataVistiplau, docsSignatures.dataVistiplau) &&
         Objects.equals(this.docFisicSignat, docsSignatures.docFisicSignat) &&
         Objects.equals(this.docsFisics, docsSignatures.docsFisics) &&
         Objects.equals(this.documentTramitacio, docsSignatures.documentTramitacio) &&
         Objects.equals(this.id, docsSignatures.id) &&
         Objects.equals(this.signat, docsSignatures.signat) &&
         Objects.equals(this.signatManualment, docsSignatures.signatManualment) &&
+        Objects.equals(this.ticketSignatura, docsSignatures.ticketSignatura) &&
         Objects.equals(this.usuariSignaturaIdext, docsSignatures.usuariSignaturaIdext);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dataSignatura, docFisicSignat, docsFisics, documentTramitacio, id, signat, signatManualment, usuariSignaturaIdext);
+    return Objects.hash(codiPeticio, dataCaducitat, dataSignatura, dataVistiplau, docFisicSignat, docsFisics, documentTramitacio, id, signat, signatManualment, ticketSignatura, usuariSignaturaIdext);
   }
 
 
@@ -227,13 +315,17 @@ public class DocsSignatures {
     StringBuilder sb = new StringBuilder();
     sb.append("class DocsSignatures {\n");
     
+    sb.append("    codiPeticio: ").append(toIndentedString(codiPeticio)).append("\n");
+    sb.append("    dataCaducitat: ").append(toIndentedString(dataCaducitat)).append("\n");
     sb.append("    dataSignatura: ").append(toIndentedString(dataSignatura)).append("\n");
+    sb.append("    dataVistiplau: ").append(toIndentedString(dataVistiplau)).append("\n");
     sb.append("    docFisicSignat: ").append(toIndentedString(docFisicSignat)).append("\n");
     sb.append("    docsFisics: ").append(toIndentedString(docsFisics)).append("\n");
     sb.append("    documentTramitacio: ").append(toIndentedString(documentTramitacio)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    signat: ").append(toIndentedString(signat)).append("\n");
     sb.append("    signatManualment: ").append(toIndentedString(signatManualment)).append("\n");
+    sb.append("    ticketSignatura: ").append(toIndentedString(ticketSignatura)).append("\n");
     sb.append("    usuariSignaturaIdext: ").append(toIndentedString(usuariSignaturaIdext)).append("\n");
     sb.append("}");
     return sb.toString();
