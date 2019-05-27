@@ -1029,6 +1029,37 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/callbackPortaSig:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "Callback per actualitzar l'estat dels documents enviats a portasig"
+      operationId: "callbackPortaSig"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "callbackPortaSigRDTO"
+        description: "callbackPortaSigRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/CallbackPortaSig"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /documentacio/cancelarPeticioPortaSig/{idDocument}:
     post:
       tags:
@@ -2802,6 +2833,52 @@ definitions:
         type: "integer"
         format: "int32"
     title: "AtributsDocs"
+  CallbackPortaSig:
+    type: "object"
+    properties:
+      codiEstat:
+        type: "string"
+        description: "Indicador de l'estat global de la petició, o buit en cas que\
+          \ es produeixi un error"
+      codiPeticio:
+        type: "string"
+        description: "Identificador assignat pel Portasignatures en el moment d'acceptar\
+          \ la petició"
+      codiUsuari:
+        type: "string"
+        description: "Identificador ControlUser de l'usuari que ha de signar/validar\
+          \ el document"
+      dataCaducitat:
+        type: "string"
+        format: "date-time"
+        description: "Data, hora i minut límit abans de considerar aquest pas de la\
+          \ petició global com caducada i no permetre a l'usuari d'aquest pas signar\
+          \ el document. Si es supera la dataCaducitat en un pas, tota la petició\
+          \ global és considerada caducada, i l'aplicació origen és notificada"
+      instantSignatura:
+        type: "string"
+        format: "date-time"
+        description: "Instant (data i hora) en que l'usuari va signar el document.\
+          \ No més es retorna si al demanar el alta de la petició es va indicar un\
+          \ valor de versioIntegracio igual o major que 2. Aquest camp pot no estar\
+          \ informat o estar buit, depenent de l'estat d'aquest pas."
+      nifUsuari:
+        type: "string"
+        description: "NIF del usuari"
+      nomCompletUsuari:
+        type: "string"
+        description: "Nom i cognoms del usuari"
+      ticketSignatura:
+        type: "string"
+        description: "Si el document ja ha sigut signat/vist-i-plau, en aquest camp\
+          \ s'informa el id assignat pel Mòdul de Signatura a aquesta signatura/ vist-i-plau.\
+          \ La aplicació client pot fer servir APIs del Mòdul de Signatura per a obtindre\
+          \ les dades de la signatura (timestamp, common name del certificat del signatari...)"
+      tipusPeticio:
+        type: "string"
+        description: "Amb 2 valors possibles: SIGNATURA i VIST_I_PLAU, indicant si\
+          \ es demana de l'usuari que signi o que validi el document"
+    title: "CallbackPortaSig"
   CategoriaNtiRDTO:
     type: "object"
     properties:
@@ -3290,7 +3367,15 @@ definitions:
   DocsSignatures:
     type: "object"
     properties:
+      codiPeticio:
+        type: "string"
+      dataCaducitat:
+        type: "string"
+        format: "date-time"
       dataSignatura:
+        type: "string"
+        format: "date-time"
+      dataVistiplau:
         type: "string"
         format: "date-time"
       docFisicSignat:
@@ -3307,6 +3392,8 @@ definitions:
       signatManualment:
         type: "integer"
         format: "int32"
+      ticketSignatura:
+        type: "string"
       usuariSignaturaIdext:
         type: "number"
     title: "DocsSignatures"
@@ -3900,6 +3987,9 @@ definitions:
         type: "string"
       codiPeticio:
         type: "string"
+      dataCaducitat:
+        type: "string"
+        format: "date-time"
       dataSignatura:
         type: "string"
         format: "date-time"

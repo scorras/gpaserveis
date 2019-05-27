@@ -9,6 +9,7 @@ import javax.ws.rs.core.GenericType;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AcumularDocumentacioRDTO;
 import java.math.BigDecimal;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
@@ -31,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T11:58:05.753+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T18:14:43.653+02:00")
 public class DocumentacioApi {
   private ApiClient apiClient;
 
@@ -340,6 +341,46 @@ public class DocumentacioApi {
     
     // create path and map variables
     String localVarPath = "/documentacio/associarRegistreDocumentacio";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+
+    apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
+  /**
+   * Callback per actualitzar l&#39;estat dels documents enviats a portasig
+   * 
+   * @param callbackPortaSigRDTO callbackPortaSigRDTO (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void callbackPortaSig(CallbackPortaSig callbackPortaSigRDTO) throws ApiException {
+    Object localVarPostBody = callbackPortaSigRDTO;
+    
+    // verify the required parameter 'callbackPortaSigRDTO' is set
+    if (callbackPortaSigRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'callbackPortaSigRDTO' when calling callbackPortaSig");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/documentacio/callbackPortaSig";
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();

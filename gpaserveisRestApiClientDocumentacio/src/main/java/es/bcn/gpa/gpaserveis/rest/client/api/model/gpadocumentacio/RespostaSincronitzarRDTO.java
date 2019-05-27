@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 /**
  * RespostaSincronitzarRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T11:58:05.753+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T18:14:43.653+02:00")
 public class RespostaSincronitzarRDTO {
   @JsonProperty("darreraSincronitzacio")
   private DateTime darreraSincronitzacio = null;

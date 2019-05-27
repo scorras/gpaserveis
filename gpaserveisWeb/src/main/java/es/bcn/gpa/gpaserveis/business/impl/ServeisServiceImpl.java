@@ -846,6 +846,13 @@ public class ServeisServiceImpl implements ServeisService {
 		documentsService.tancarRequerimentsExpedient(idDocumentacio);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#callbackPortaSig(es.bcn.gpa
+	 * .gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig)
+	 */
 	@Override
 	public void callbackPortaSig(CallbackPortaSig callbackPortaSig) throws GPAServeisServiceException {
 		documentsService.callbackPortaSig(callbackPortaSig);
