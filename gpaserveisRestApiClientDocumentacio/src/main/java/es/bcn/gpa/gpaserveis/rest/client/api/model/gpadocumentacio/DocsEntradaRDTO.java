@@ -31,7 +31,7 @@ import org.joda.time.DateTime;
 /**
  * DocsEntradaRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-13T13:50:42.299+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T11:58:05.753+02:00")
 public class DocsEntradaRDTO {
   @JsonProperty("codi")
   private String codi = null;
@@ -87,24 +87,6 @@ public class DocsEntradaRDTO {
   @JsonProperty("eliminat")
   private Integer eliminat = null;
 
-  @JsonProperty("fileToUploadContent")
-  private String fileToUploadContent = null;
-
-  @JsonProperty("fileToUploadName")
-  private String fileToUploadName = null;
-
-  @JsonProperty("fileToUploadPath")
-  private String fileToUploadPath = null;
-
-  @JsonProperty("fileToUploadSize")
-  private Long fileToUploadSize = null;
-
-  @JsonProperty("fileToUploadTipus")
-  private Integer fileToUploadTipus = null;
-
-  @JsonProperty("fileToUploadType")
-  private String fileToUploadType = null;
-
   @JsonProperty("id")
   private BigDecimal id = null;
 
@@ -113,6 +95,9 @@ public class DocsEntradaRDTO {
 
   @JsonProperty("idioma")
   private BigDecimal idioma = null;
+
+  @JsonProperty("idiomaDigitalitzacio")
+  private BigDecimal idiomaDigitalitzacio = null;
 
   @JsonProperty("metadata")
   private Map<String, List<String>> metadata = null;
@@ -489,114 +474,6 @@ public class DocsEntradaRDTO {
     this.eliminat = eliminat;
   }
 
-  public DocsEntradaRDTO fileToUploadContent(String fileToUploadContent) {
-    this.fileToUploadContent = fileToUploadContent;
-    return this;
-  }
-
-   /**
-   * Get fileToUploadContent
-   * @return fileToUploadContent
-  **/
-  @ApiModelProperty(value = "")
-  public String getFileToUploadContent() {
-    return fileToUploadContent;
-  }
-
-  public void setFileToUploadContent(String fileToUploadContent) {
-    this.fileToUploadContent = fileToUploadContent;
-  }
-
-  public DocsEntradaRDTO fileToUploadName(String fileToUploadName) {
-    this.fileToUploadName = fileToUploadName;
-    return this;
-  }
-
-   /**
-   * Get fileToUploadName
-   * @return fileToUploadName
-  **/
-  @ApiModelProperty(value = "")
-  public String getFileToUploadName() {
-    return fileToUploadName;
-  }
-
-  public void setFileToUploadName(String fileToUploadName) {
-    this.fileToUploadName = fileToUploadName;
-  }
-
-  public DocsEntradaRDTO fileToUploadPath(String fileToUploadPath) {
-    this.fileToUploadPath = fileToUploadPath;
-    return this;
-  }
-
-   /**
-   * Get fileToUploadPath
-   * @return fileToUploadPath
-  **/
-  @ApiModelProperty(value = "")
-  public String getFileToUploadPath() {
-    return fileToUploadPath;
-  }
-
-  public void setFileToUploadPath(String fileToUploadPath) {
-    this.fileToUploadPath = fileToUploadPath;
-  }
-
-  public DocsEntradaRDTO fileToUploadSize(Long fileToUploadSize) {
-    this.fileToUploadSize = fileToUploadSize;
-    return this;
-  }
-
-   /**
-   * Get fileToUploadSize
-   * @return fileToUploadSize
-  **/
-  @ApiModelProperty(value = "")
-  public Long getFileToUploadSize() {
-    return fileToUploadSize;
-  }
-
-  public void setFileToUploadSize(Long fileToUploadSize) {
-    this.fileToUploadSize = fileToUploadSize;
-  }
-
-  public DocsEntradaRDTO fileToUploadTipus(Integer fileToUploadTipus) {
-    this.fileToUploadTipus = fileToUploadTipus;
-    return this;
-  }
-
-   /**
-   * Get fileToUploadTipus
-   * @return fileToUploadTipus
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getFileToUploadTipus() {
-    return fileToUploadTipus;
-  }
-
-  public void setFileToUploadTipus(Integer fileToUploadTipus) {
-    this.fileToUploadTipus = fileToUploadTipus;
-  }
-
-  public DocsEntradaRDTO fileToUploadType(String fileToUploadType) {
-    this.fileToUploadType = fileToUploadType;
-    return this;
-  }
-
-   /**
-   * Get fileToUploadType
-   * @return fileToUploadType
-  **/
-  @ApiModelProperty(value = "")
-  public String getFileToUploadType() {
-    return fileToUploadType;
-  }
-
-  public void setFileToUploadType(String fileToUploadType) {
-    this.fileToUploadType = fileToUploadType;
-  }
-
   public DocsEntradaRDTO id(BigDecimal id) {
     this.id = id;
     return this;
@@ -649,6 +526,24 @@ public class DocsEntradaRDTO {
 
   public void setIdioma(BigDecimal idioma) {
     this.idioma = idioma;
+  }
+
+  public DocsEntradaRDTO idiomaDigitalitzacio(BigDecimal idiomaDigitalitzacio) {
+    this.idiomaDigitalitzacio = idiomaDigitalitzacio;
+    return this;
+  }
+
+   /**
+   * Get idiomaDigitalitzacio
+   * @return idiomaDigitalitzacio
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getIdiomaDigitalitzacio() {
+    return idiomaDigitalitzacio;
+  }
+
+  public void setIdiomaDigitalitzacio(BigDecimal idiomaDigitalitzacio) {
+    this.idiomaDigitalitzacio = idiomaDigitalitzacio;
   }
 
   public DocsEntradaRDTO metadata(Map<String, List<String>> metadata) {
@@ -993,15 +888,10 @@ public class DocsEntradaRDTO {
         Objects.equals(this.documentacio, docsEntradaRDTO.documentacio) &&
         Objects.equals(this.editable, docsEntradaRDTO.editable) &&
         Objects.equals(this.eliminat, docsEntradaRDTO.eliminat) &&
-        Objects.equals(this.fileToUploadContent, docsEntradaRDTO.fileToUploadContent) &&
-        Objects.equals(this.fileToUploadName, docsEntradaRDTO.fileToUploadName) &&
-        Objects.equals(this.fileToUploadPath, docsEntradaRDTO.fileToUploadPath) &&
-        Objects.equals(this.fileToUploadSize, docsEntradaRDTO.fileToUploadSize) &&
-        Objects.equals(this.fileToUploadTipus, docsEntradaRDTO.fileToUploadTipus) &&
-        Objects.equals(this.fileToUploadType, docsEntradaRDTO.fileToUploadType) &&
         Objects.equals(this.id, docsEntradaRDTO.id) &&
         Objects.equals(this.idIdiomaPlantilla, docsEntradaRDTO.idIdiomaPlantilla) &&
         Objects.equals(this.idioma, docsEntradaRDTO.idioma) &&
+        Objects.equals(this.idiomaDigitalitzacio, docsEntradaRDTO.idiomaDigitalitzacio) &&
         Objects.equals(this.metadata, docsEntradaRDTO.metadata) &&
         Objects.equals(this.migracioIdOrigen, docsEntradaRDTO.migracioIdOrigen) &&
         Objects.equals(this.nou, docsEntradaRDTO.nou) &&
@@ -1023,7 +913,7 @@ public class DocsEntradaRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(codi, comentari, configDocEntrada, configuracioDocsEntrada, configuracioDocsEntradaNom, configuracioDocsEntradaNomCastella, dataCreacio, dataDigitalitzacio, dataPresentacio, dataUltimaModificacio, declaracioResponsable, digitalitzat, docsFisics, docsFisicsNom, documentFisic, documentacio, editable, eliminat, fileToUploadContent, fileToUploadName, fileToUploadPath, fileToUploadSize, fileToUploadTipus, fileToUploadType, id, idIdiomaPlantilla, idioma, metadata, migracioIdOrigen, nou, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreCodi, registreIdext, requerit, revisio, seleccionable, tipusMimeDescripcio, tramitOvtIdext, ultimaModificacioIdext, usuariIdext);
+    return Objects.hash(codi, comentari, configDocEntrada, configuracioDocsEntrada, configuracioDocsEntradaNom, configuracioDocsEntradaNomCastella, dataCreacio, dataDigitalitzacio, dataPresentacio, dataUltimaModificacio, declaracioResponsable, digitalitzat, docsFisics, docsFisicsNom, documentFisic, documentacio, editable, eliminat, id, idIdiomaPlantilla, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, nou, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreCodi, registreIdext, requerit, revisio, seleccionable, tipusMimeDescripcio, tramitOvtIdext, ultimaModificacioIdext, usuariIdext);
   }
 
 
@@ -1050,15 +940,10 @@ public class DocsEntradaRDTO {
     sb.append("    documentacio: ").append(toIndentedString(documentacio)).append("\n");
     sb.append("    editable: ").append(toIndentedString(editable)).append("\n");
     sb.append("    eliminat: ").append(toIndentedString(eliminat)).append("\n");
-    sb.append("    fileToUploadContent: ").append(toIndentedString(fileToUploadContent)).append("\n");
-    sb.append("    fileToUploadName: ").append(toIndentedString(fileToUploadName)).append("\n");
-    sb.append("    fileToUploadPath: ").append(toIndentedString(fileToUploadPath)).append("\n");
-    sb.append("    fileToUploadSize: ").append(toIndentedString(fileToUploadSize)).append("\n");
-    sb.append("    fileToUploadTipus: ").append(toIndentedString(fileToUploadTipus)).append("\n");
-    sb.append("    fileToUploadType: ").append(toIndentedString(fileToUploadType)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    idIdiomaPlantilla: ").append(toIndentedString(idIdiomaPlantilla)).append("\n");
     sb.append("    idioma: ").append(toIndentedString(idioma)).append("\n");
+    sb.append("    idiomaDigitalitzacio: ").append(toIndentedString(idiomaDigitalitzacio)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
     sb.append("    migracioIdOrigen: ").append(toIndentedString(migracioIdOrigen)).append("\n");
     sb.append("    nou: ").append(toIndentedString(nou)).append("\n");

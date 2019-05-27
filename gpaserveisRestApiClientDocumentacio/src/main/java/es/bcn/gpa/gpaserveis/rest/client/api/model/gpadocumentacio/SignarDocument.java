@@ -25,13 +25,16 @@ import java.math.BigDecimal;
 /**
  * SignarDocument
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-13T13:50:42.299+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T11:58:05.753+02:00")
 public class SignarDocument {
   @JsonProperty("accio")
   private BigDecimal accio = null;
 
   @JsonProperty("idDocument")
   private BigDecimal idDocument = null;
+
+  @JsonProperty("unitatGestoraIdext")
+  private BigDecimal unitatGestoraIdext = null;
 
   @JsonProperty("usuariPortaSig")
   private UsuariPortaSig usuariPortaSig = null;
@@ -72,6 +75,24 @@ public class SignarDocument {
     this.idDocument = idDocument;
   }
 
+  public SignarDocument unitatGestoraIdext(BigDecimal unitatGestoraIdext) {
+    this.unitatGestoraIdext = unitatGestoraIdext;
+    return this;
+  }
+
+   /**
+   * Identificador de la unitat gestora
+   * @return unitatGestoraIdext
+  **/
+  @ApiModelProperty(value = "Identificador de la unitat gestora")
+  public BigDecimal getUnitatGestoraIdext() {
+    return unitatGestoraIdext;
+  }
+
+  public void setUnitatGestoraIdext(BigDecimal unitatGestoraIdext) {
+    this.unitatGestoraIdext = unitatGestoraIdext;
+  }
+
   public SignarDocument usuariPortaSig(UsuariPortaSig usuariPortaSig) {
     this.usuariPortaSig = usuariPortaSig;
     return this;
@@ -102,12 +123,13 @@ public class SignarDocument {
     SignarDocument signarDocument = (SignarDocument) o;
     return Objects.equals(this.accio, signarDocument.accio) &&
         Objects.equals(this.idDocument, signarDocument.idDocument) &&
+        Objects.equals(this.unitatGestoraIdext, signarDocument.unitatGestoraIdext) &&
         Objects.equals(this.usuariPortaSig, signarDocument.usuariPortaSig);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accio, idDocument, usuariPortaSig);
+    return Objects.hash(accio, idDocument, unitatGestoraIdext, usuariPortaSig);
   }
 
 
@@ -118,6 +140,7 @@ public class SignarDocument {
     
     sb.append("    accio: ").append(toIndentedString(accio)).append("\n");
     sb.append("    idDocument: ").append(toIndentedString(idDocument)).append("\n");
+    sb.append("    unitatGestoraIdext: ").append(toIndentedString(unitatGestoraIdext)).append("\n");
     sb.append("    usuariPortaSig: ").append(toIndentedString(usuariPortaSig)).append("\n");
     sb.append("}");
     return sb.toString();

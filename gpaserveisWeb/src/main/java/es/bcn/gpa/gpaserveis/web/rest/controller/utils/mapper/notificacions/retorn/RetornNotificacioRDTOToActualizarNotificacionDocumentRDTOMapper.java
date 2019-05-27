@@ -14,15 +14,15 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.notificacions.estat.RetornNoti
  */
 @Component("notificacioRetornNotificacioRDTOToActualizarNotificacionDocumentRDTOMapper")
 public class RetornNotificacioRDTOToActualizarNotificacionDocumentRDTOMapper
-		extends PropertyMap<RetornNotificacioRDTO, ActualizarNotificacionDocumentRDTO> {
+        extends PropertyMap<RetornNotificacioRDTO, /* ActualizarNotificacionDocumentRDTO */ String> {
 
 	private DataToInternalConverter dataToInternalConverter;
 	private DataHoraToInternalConverter dataHoraToInternalConverter;
 
 	@Autowired
 	public RetornNotificacioRDTOToActualizarNotificacionDocumentRDTOMapper(
-			@Qualifier("dataHoraToInternalConverter") DataHoraToInternalConverter dataHoraToInternalConverter,
-			@Qualifier("dataToInternalConverter") DataToInternalConverter dataToInternalConverter) {
+	        @Qualifier("dataHoraToInternalConverter") DataHoraToInternalConverter dataHoraToInternalConverter,
+	        @Qualifier("dataToInternalConverter") DataToInternalConverter dataToInternalConverter) {
 
 		this.dataHoraToInternalConverter = dataHoraToInternalConverter;
 		this.dataToInternalConverter = dataToInternalConverter;

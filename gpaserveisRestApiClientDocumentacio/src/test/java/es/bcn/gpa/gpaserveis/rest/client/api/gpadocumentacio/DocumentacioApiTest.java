@@ -19,6 +19,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,13 +28,15 @@ import java.util.Map;
 
 import javax.ws.rs.core.GenericType;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AcumularDocumentacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AportarDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
@@ -46,14 +49,9 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatRevisioR
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequerimentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsTramitacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaUploadDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RestClientResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SubstituirDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TransicionsEstatsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.UploadDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 
 /**
@@ -386,116 +384,82 @@ public class DocumentacioApiTest extends ParentTest {
 
 		assertTrue(true);
 	}
-
-	/**
-	 * updates the doc entrada
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void guardarDocumentEntradaTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/documentacio/entrada/saveDocEntrada/1"), eq("POST"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new DocsEntradaRDTO());
-
-		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
-		BigDecimal idExpedient = ONE;
-		DocsEntradaRDTO response = api.guardarDocumentEntrada(docsEntradaRDTO, idExpedient);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * updates the doc tramitacio
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void guardarDocumentTramitacioTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/saveDocTramitacio/1"), eq("POST"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new DocsTramitacioRDTO());
-
-		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
-		BigDecimal idExpedient = ONE;
-		DocsTramitacioRDTO response = api.guardarDocumentTramitacio(docsTramitacioRDTO, idExpedient);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * updates the requeriment
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void guardarRequerimentTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/documentacio/saveRequeriment/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new DocsTramitacioRDTO());
-
-		GuardarRequerimentExpedient guardarRequerimentExpedientRDTO = new GuardarRequerimentExpedient();
-		BigDecimal idExpedient = ONE;
-		DocsTramitacioRDTO response = api.guardarRequeriment(guardarRequerimentExpedientRDTO, idExpedient);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Stores the documentation provided
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void aportarDocumentacioExpedientTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/documentacio/entrada/aportarDocumentacio/1"), eq("POST"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new RespostaAportarDocumentacioExpedientRDTO());
-
-		AportarDocumentacioExpedient aportarDocumentacioExpedientRDTO = new AportarDocumentacioExpedient();
-		BigDecimal idExpedient = ONE;
-		RespostaAportarDocumentacioExpedientRDTO response = api.aportarDocumentacioExpedient(aportarDocumentacioExpedientRDTO, idExpedient);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Updates the document provided
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void substituirDocumentExpedientTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/documentacio/entrada/substituirDocument/1"), eq("POST"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new RespostaSubstituirDocumentExpedientRDTO());
-
-		BigDecimal idExpedient = ONE;
-		SubstituirDocumentExpedient substituirDocumentExpedientRDTO = new SubstituirDocumentExpedient();
-		RespostaSubstituirDocumentExpedientRDTO response = api.substituirDocumentExpedient(idExpedient, substituirDocumentExpedientRDTO);
-
-		assertTrue(response != null);
-	}
+	//
+	// /**
+	// * updates the doc entrada
+	// *
+	// *
+	// *
+	// * @throws ApiException
+	// * if the Api call fails
+	// */
+	// @Test
+	// public void guardarDocumentEntradaTest() throws ApiException {
+	// when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+	// when(apiClient.invokeAPI(eq("/documentacio/entrada/saveDocEntrada/1"),
+	// eq("POST"), any(List.class), any(Object.class),
+	// any(Map.class), any(Map.class), isNull(String.class),
+	// isNull(String.class), any(String[].class), any(GenericType.class)))
+	// .thenReturn(new DocsEntradaRDTO());
+	//
+	// DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
+	// BigDecimal idExpedient = ONE;
+	// DocsEntradaRDTO response = api.guardarDocumentEntrada(docsEntradaRDTO,
+	// idExpedient);
+	//
+	// assertTrue(response != null);
+	// }
+	//
+	// /**
+	// * updates the doc tramitacio
+	// *
+	// *
+	// *
+	// * @throws ApiException
+	// * if the Api call fails
+	// */
+	// @Test
+	// public void guardarDocumentTramitacioTest() throws ApiException {
+	// when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+	// when(apiClient.invokeAPI(eq("/documentacio/tramitacio/saveDocTramitacio/1"),
+	// eq("POST"), any(List.class), any(Object.class),
+	// any(Map.class), any(Map.class), isNull(String.class),
+	// isNull(String.class), any(String[].class), any(GenericType.class)))
+	// .thenReturn(new DocsTramitacioRDTO());
+	//
+	// DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
+	// BigDecimal idExpedient = ONE;
+	// DocsTramitacioRDTO response =
+	// api.guardarDocumentTramitacio(docsTramitacioRDTO, idExpedient);
+	//
+	// assertTrue(response != null);
+	// }
+	//
+	// /**
+	// * updates the requeriment
+	// *
+	// *
+	// *
+	// * @throws ApiException
+	// * if the Api call fails
+	// */
+	// @Test
+	// public void guardarRequerimentTest() throws ApiException {
+	// when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+	// when(apiClient.invokeAPI(eq("/documentacio/saveRequeriment/1"),
+	// eq("POST"), any(List.class), any(Object.class), any(Map.class),
+	// any(Map.class), isNull(String.class), isNull(String.class),
+	// any(String[].class), any(GenericType.class)))
+	// .thenReturn(new DocsTramitacioRDTO());
+	//
+	// GuardarRequerimentExpedient guardarRequerimentExpedientRDTO = new
+	// GuardarRequerimentExpedient();
+	// BigDecimal idExpedient = ONE;
+	// DocsTramitacioRDTO response =
+	// api.guardarRequeriment(guardarRequerimentExpedientRDTO, idExpedient);
+	//
+	// assertTrue(response != null);
+	// }
 
 	/**
 	 * Returns the requested document
@@ -514,28 +478,6 @@ public class DocumentacioApiTest extends ParentTest {
 
 		BigDecimal id = ONE;
 		DocsEntradaRDTO response = api.consultarDadesDocumentAportat(id);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Upload the document provided
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void uploadDocumentExpedientTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/documentacio/entrada/uploadDocument/1"), eq("POST"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new RespostaUploadDocumentExpedient());
-
-		BigDecimal idExpedient = ONE;
-		UploadDocumentExpedient uploadDocumentExpedientRDTO = new UploadDocumentExpedient();
-		RespostaUploadDocumentExpedient response = api.uploadDocumentExpedient(idExpedient, uploadDocumentExpedientRDTO);
 
 		assertTrue(response != null);
 	}
@@ -655,6 +597,296 @@ public class DocumentacioApiTest extends ParentTest {
 
 		BigDecimal id = ONE;
 		DocsTramitacioRDTO response = api.consultarDadesDocumentGenerat(id);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * ComprovarDocumentsSignats
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void comprovarDocumentsSignatsUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/comprovarDocumentsSignats/1"), eq("GET"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(Boolean.TRUE);
+
+		BigDecimal idDocumentacio = ONE;
+		Boolean response = api.comprovarDocumentsSignatsUsingGET(idDocumentacio);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * updates the doc entrada responsable
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void crearDeclaracioResponsableTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/responsable/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new DocsEntradaRDTO());
+
+		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
+		BigDecimal idExpedient = ONE;
+		DocsEntradaRDTO response = api.crearDeclaracioResponsable(docsEntradaRDTO, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * crea el document d&#39;entrada
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void crearDocumentEntradaTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new DocsEntradaRDTO());
+
+		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
+		BigDecimal idExpedient = ONE;
+		DocsEntradaRDTO response = api.crearDocumentEntrada(docsEntradaRDTO, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * crea o actualitza el requeriment i desa el document
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 * @throws IOException
+	 */
+	@Test
+	public void guardarRequerimentFitxerTest() throws ApiException, IOException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/requeriment/fitxer/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new DocsTramitacioRDTO());
+
+		MultipartFile file = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
+		BigDecimal idExpedient = ONE;
+		String requerimentExpedient = StringUtils.EMPTY;
+		DocsTramitacioRDTO response = api.guardarRequerimentFitxer(file, idExpedient, requerimentExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * crea o actualitza el requeriment i desa la plantilla
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void guardarRequerimentPlantillaTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/requeriment/plantilla/1"), eq("POST"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new DocsTramitacioRDTO());
+
+		GuardarRequerimentExpedient guardarRequerimentExpedientRDTO = new GuardarRequerimentExpedient();
+		BigDecimal idExpedient = ONE;
+		DocsTramitacioRDTO response = api.guardarRequerimentPlantilla(guardarRequerimentExpedientRDTO, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested documentacio tramitacio
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirDocsTramitacioByNotificationIdTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/docsTramitacioByNotificationId/1"), eq("GET"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new DocsTramitacioRDTO());
+
+		BigDecimal idNotificacio = ONE;
+		DocsTramitacioRDTO response = api.obtenirDocsTramitacioByNotificationId(idNotificacio);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * updates the doc entrada
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 * @throws IOException
+	 */
+	@Test
+	public void guardarDocumentEntradaFitxerTest() throws ApiException, IOException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/fitxer/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new DocsEntradaRDTO());
+
+		String docsEntrada = StringUtils.EMPTY;
+		MultipartFile file = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
+		BigDecimal idExpedient = ONE;
+		DocsEntradaRDTO response = api.guardarDocumentEntradaFitxer(docsEntrada, file, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * save the doc tramitacio i fitxer
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 * @throws IOException
+	 */
+	@Test
+	public void guardarDocumentTramitacioFitxerTest() throws ApiException, IOException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/fitxer/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new DocsTramitacioRDTO());
+
+		String docsTramitacio = StringUtils.EMPTY;
+		MultipartFile file = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
+		BigDecimal idExpedient = ONE;
+		DocsTramitacioRDTO response = api.guardarDocumentTramitacioFitxer(docsTramitacio, file, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * save the doc tramitacio i plantilla
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void guardarDocumentTramitacioPlantillaTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/plantilla/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new DocsTramitacioRDTO());
+
+		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
+		BigDecimal idExpedient = ONE;
+		DocsTramitacioRDTO response = api.guardarDocumentTramitacioPlantilla(docsTramitacioRDTO, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * updates the doc entrada responsable
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void actualitzarDeclaracioResponsableTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/responsable/1"), eq("PUT"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new DocsEntradaRDTO());
+
+		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
+		BigDecimal idExpedient = ONE;
+		DocsEntradaRDTO response = api.actualitzarDeclaracioResponsable(docsEntradaRDTO, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * actualitzar el document d&#39;entrada
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void actualitzarDocumentEntradaTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/responsable/1"), eq("PUT"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new DocsEntradaRDTO());
+
+		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
+		BigDecimal idExpedient = ONE;
+		DocsEntradaRDTO response = api.actualitzarDocumentEntrada(docsEntradaRDTO, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * actualitzar document tramitacio
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void actualitzarDocumentTramitacioTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/1"), eq("PUT"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new DocsTramitacioRDTO());
+
+		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
+		BigDecimal idExpedient = ONE;
+		DocsTramitacioRDTO response = api.actualitzarDocumentTramitacio(docsTramitacioRDTO, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * updates the requeriment
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void actualitzarRequerimentTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/documentacio/requeriment/1"), eq("PUT"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new DocsTramitacioRDTO());
+
+		GuardarRequerimentExpedient guardarRequerimentExpedientRDTO = new GuardarRequerimentExpedient();
+		BigDecimal idExpedient = ONE;
+		DocsTramitacioRDTO response = api.actualitzarRequeriment(guardarRequerimentExpedientRDTO, idExpedient);
 
 		assertTrue(response != null);
 	}

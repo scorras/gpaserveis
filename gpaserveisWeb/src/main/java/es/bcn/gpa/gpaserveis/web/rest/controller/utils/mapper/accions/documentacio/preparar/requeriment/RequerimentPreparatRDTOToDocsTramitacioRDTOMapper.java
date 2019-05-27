@@ -9,9 +9,9 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitaci
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.BooleanToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.DataHoraToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToBigDecimalConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.FitxerToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.IdiomaToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.OrigenToInternalConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.TipusMimeToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.preparar.requeriment.RequerimentPreparatRDTO;
 
 /**
@@ -26,7 +26,7 @@ public class RequerimentPreparatRDTOToDocsTramitacioRDTOMapper extends PropertyM
 
 	private IdiomaToInternalConverter idiomaToInternalConverter;
 
-	private TipusMimeToInternalConverter tipusMimeToInternalConverter;
+	private FitxerToInternalConverter fitxerToInternalConverter;
 
 	private BooleanToInternalConverter booleanToInternalConverter;
 
@@ -37,13 +37,13 @@ public class RequerimentPreparatRDTOToDocsTramitacioRDTOMapper extends PropertyM
 	        @Qualifier("internalToBigDecimalConverter") InternalToBigDecimalConverter internalToBigDecimalConverter,
 	        @Qualifier("origenToInternalConverter") OrigenToInternalConverter origenToInternalConverter,
 	        @Qualifier("idiomaToInternalConverter") IdiomaToInternalConverter idiomaToInternalConverter,
-	        @Qualifier("tipusMimeToInternalConverter") TipusMimeToInternalConverter tipusMimeToInternalConverter,
+	        @Qualifier("documentFitxerToInternalConverter") FitxerToInternalConverter fitxerToInternalConverter,
 	        @Qualifier("booleanToInternalConverter") BooleanToInternalConverter booleanToInternalConverter,
 	        @Qualifier("dataHoraToInternalConverter") DataHoraToInternalConverter dataHoraToInternalConverter) {
 		this.internalToBigDecimalConverter = internalToBigDecimalConverter;
 		this.origenToInternalConverter = origenToInternalConverter;
 		this.idiomaToInternalConverter = idiomaToInternalConverter;
-		this.tipusMimeToInternalConverter = tipusMimeToInternalConverter;
+		this.fitxerToInternalConverter = fitxerToInternalConverter;
 		this.booleanToInternalConverter = booleanToInternalConverter;
 		this.dataHoraToInternalConverter = dataHoraToInternalConverter;
 	}
@@ -60,11 +60,9 @@ public class RequerimentPreparatRDTOToDocsTramitacioRDTOMapper extends PropertyM
 		map().setComentari(source.getComentari());
 		using(idiomaToInternalConverter).map(source.getIdioma()).setIdioma(null);
 		using(booleanToInternalConverter).map(source.getDigitalitzat()).setDigitalitzat(null);
-		// TODO ¿Dónde se almacena el idioma de digitalización?
-		// using(idiomaToInternalConverter).map(source.getDigitalitzacio().getIdioma()).setIdioma(null);
+		using(idiomaToInternalConverter).map(source.getDigitalitzacio().getIdioma()).setIdiomaDigitalitzacio(null);
 		using(dataHoraToInternalConverter).map(source.getDigitalitzacio().getDataDigitalitzacio()).setDataDigitalitzacio(null);
-		map().setFileToUploadName(source.getFitxer().getNom());
-		using(tipusMimeToInternalConverter).map(source.getFitxer().getFormat()).setFileToUploadTipus(null);
+		using(fitxerToInternalConverter).map(source.getFitxer()).setDocsFisics(null);
 	}
 
 }

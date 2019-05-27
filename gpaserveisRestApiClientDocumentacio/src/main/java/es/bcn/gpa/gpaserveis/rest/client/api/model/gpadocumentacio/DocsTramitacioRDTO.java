@@ -21,6 +21,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsSignatures;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatsDocsTramitacio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Notificacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RegistreAssentament;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Requeriments;
 import io.swagger.annotations.ApiModel;
@@ -34,7 +35,7 @@ import org.joda.time.DateTime;
 /**
  * DocsTramitacioRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-13T13:50:42.299+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T11:58:05.753+02:00")
 public class DocsTramitacioRDTO {
   @JsonProperty("codi")
   private String codi = null;
@@ -57,20 +58,8 @@ public class DocsTramitacioRDTO {
   @JsonProperty("dataDigitalitzacio")
   private DateTime dataDigitalitzacio = null;
 
-  @JsonProperty("dataDiposit")
-  private DateTime dataDiposit = null;
-
-  @JsonProperty("dataNotificacio")
-  private DateTime dataNotificacio = null;
-
-  @JsonProperty("dataRegistre")
-  private DateTime dataRegistre = null;
-
   @JsonProperty("dataUltimaModificacio")
   private DateTime dataUltimaModificacio = null;
-
-  @JsonProperty("dataVisualitzacio")
-  private DateTime dataVisualitzacio = null;
 
   @JsonProperty("descripcioEstat")
   private String descripcioEstat = null;
@@ -111,38 +100,26 @@ public class DocsTramitacioRDTO {
   @JsonProperty("estatsDocsTramitacio")
   private EstatsDocsTramitacio estatsDocsTramitacio = null;
 
-  @JsonProperty("fileToUploadContent")
-  private String fileToUploadContent = null;
-
-  @JsonProperty("fileToUploadName")
-  private String fileToUploadName = null;
-
-  @JsonProperty("fileToUploadPath")
-  private String fileToUploadPath = null;
-
-  @JsonProperty("fileToUploadSize")
-  private Long fileToUploadSize = null;
-
-  @JsonProperty("fileToUploadTipus")
-  private Integer fileToUploadTipus = null;
-
-  @JsonProperty("fileToUploadType")
-  private String fileToUploadType = null;
-
   @JsonProperty("id")
   private BigDecimal id = null;
 
-  @JsonProperty("idIdiomaPlantilla")
-  private BigDecimal idIdiomaPlantilla = null;
-
   @JsonProperty("idioma")
   private BigDecimal idioma = null;
+
+  @JsonProperty("idiomaDigitalitzacio")
+  private BigDecimal idiomaDigitalitzacio = null;
 
   @JsonProperty("metadata")
   private Map<String, List<String>> metadata = null;
 
   @JsonProperty("migracioIdOrigen")
   private String migracioIdOrigen = null;
+
+  @JsonProperty("notificacio")
+  private BigDecimal notificacio = null;
+
+  @JsonProperty("notificacions")
+  private Notificacions notificacions = null;
 
   @JsonProperty("numDocsConfiguracio")
   private BigDecimal numDocsConfiguracio = null;
@@ -309,60 +286,6 @@ public class DocsTramitacioRDTO {
     this.dataDigitalitzacio = dataDigitalitzacio;
   }
 
-  public DocsTramitacioRDTO dataDiposit(DateTime dataDiposit) {
-    this.dataDiposit = dataDiposit;
-    return this;
-  }
-
-   /**
-   * Get dataDiposit
-   * @return dataDiposit
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getDataDiposit() {
-    return dataDiposit;
-  }
-
-  public void setDataDiposit(DateTime dataDiposit) {
-    this.dataDiposit = dataDiposit;
-  }
-
-  public DocsTramitacioRDTO dataNotificacio(DateTime dataNotificacio) {
-    this.dataNotificacio = dataNotificacio;
-    return this;
-  }
-
-   /**
-   * Get dataNotificacio
-   * @return dataNotificacio
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getDataNotificacio() {
-    return dataNotificacio;
-  }
-
-  public void setDataNotificacio(DateTime dataNotificacio) {
-    this.dataNotificacio = dataNotificacio;
-  }
-
-  public DocsTramitacioRDTO dataRegistre(DateTime dataRegistre) {
-    this.dataRegistre = dataRegistre;
-    return this;
-  }
-
-   /**
-   * Get dataRegistre
-   * @return dataRegistre
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getDataRegistre() {
-    return dataRegistre;
-  }
-
-  public void setDataRegistre(DateTime dataRegistre) {
-    this.dataRegistre = dataRegistre;
-  }
-
   public DocsTramitacioRDTO dataUltimaModificacio(DateTime dataUltimaModificacio) {
     this.dataUltimaModificacio = dataUltimaModificacio;
     return this;
@@ -379,24 +302,6 @@ public class DocsTramitacioRDTO {
 
   public void setDataUltimaModificacio(DateTime dataUltimaModificacio) {
     this.dataUltimaModificacio = dataUltimaModificacio;
-  }
-
-  public DocsTramitacioRDTO dataVisualitzacio(DateTime dataVisualitzacio) {
-    this.dataVisualitzacio = dataVisualitzacio;
-    return this;
-  }
-
-   /**
-   * Get dataVisualitzacio
-   * @return dataVisualitzacio
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getDataVisualitzacio() {
-    return dataVisualitzacio;
-  }
-
-  public void setDataVisualitzacio(DateTime dataVisualitzacio) {
-    this.dataVisualitzacio = dataVisualitzacio;
   }
 
   public DocsTramitacioRDTO descripcioEstat(String descripcioEstat) {
@@ -633,114 +538,6 @@ public class DocsTramitacioRDTO {
     this.estatsDocsTramitacio = estatsDocsTramitacio;
   }
 
-  public DocsTramitacioRDTO fileToUploadContent(String fileToUploadContent) {
-    this.fileToUploadContent = fileToUploadContent;
-    return this;
-  }
-
-   /**
-   * Get fileToUploadContent
-   * @return fileToUploadContent
-  **/
-  @ApiModelProperty(value = "")
-  public String getFileToUploadContent() {
-    return fileToUploadContent;
-  }
-
-  public void setFileToUploadContent(String fileToUploadContent) {
-    this.fileToUploadContent = fileToUploadContent;
-  }
-
-  public DocsTramitacioRDTO fileToUploadName(String fileToUploadName) {
-    this.fileToUploadName = fileToUploadName;
-    return this;
-  }
-
-   /**
-   * Get fileToUploadName
-   * @return fileToUploadName
-  **/
-  @ApiModelProperty(value = "")
-  public String getFileToUploadName() {
-    return fileToUploadName;
-  }
-
-  public void setFileToUploadName(String fileToUploadName) {
-    this.fileToUploadName = fileToUploadName;
-  }
-
-  public DocsTramitacioRDTO fileToUploadPath(String fileToUploadPath) {
-    this.fileToUploadPath = fileToUploadPath;
-    return this;
-  }
-
-   /**
-   * Get fileToUploadPath
-   * @return fileToUploadPath
-  **/
-  @ApiModelProperty(value = "")
-  public String getFileToUploadPath() {
-    return fileToUploadPath;
-  }
-
-  public void setFileToUploadPath(String fileToUploadPath) {
-    this.fileToUploadPath = fileToUploadPath;
-  }
-
-  public DocsTramitacioRDTO fileToUploadSize(Long fileToUploadSize) {
-    this.fileToUploadSize = fileToUploadSize;
-    return this;
-  }
-
-   /**
-   * Get fileToUploadSize
-   * @return fileToUploadSize
-  **/
-  @ApiModelProperty(value = "")
-  public Long getFileToUploadSize() {
-    return fileToUploadSize;
-  }
-
-  public void setFileToUploadSize(Long fileToUploadSize) {
-    this.fileToUploadSize = fileToUploadSize;
-  }
-
-  public DocsTramitacioRDTO fileToUploadTipus(Integer fileToUploadTipus) {
-    this.fileToUploadTipus = fileToUploadTipus;
-    return this;
-  }
-
-   /**
-   * Get fileToUploadTipus
-   * @return fileToUploadTipus
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getFileToUploadTipus() {
-    return fileToUploadTipus;
-  }
-
-  public void setFileToUploadTipus(Integer fileToUploadTipus) {
-    this.fileToUploadTipus = fileToUploadTipus;
-  }
-
-  public DocsTramitacioRDTO fileToUploadType(String fileToUploadType) {
-    this.fileToUploadType = fileToUploadType;
-    return this;
-  }
-
-   /**
-   * Get fileToUploadType
-   * @return fileToUploadType
-  **/
-  @ApiModelProperty(value = "")
-  public String getFileToUploadType() {
-    return fileToUploadType;
-  }
-
-  public void setFileToUploadType(String fileToUploadType) {
-    this.fileToUploadType = fileToUploadType;
-  }
-
   public DocsTramitacioRDTO id(BigDecimal id) {
     this.id = id;
     return this;
@@ -759,24 +556,6 @@ public class DocsTramitacioRDTO {
     this.id = id;
   }
 
-  public DocsTramitacioRDTO idIdiomaPlantilla(BigDecimal idIdiomaPlantilla) {
-    this.idIdiomaPlantilla = idIdiomaPlantilla;
-    return this;
-  }
-
-   /**
-   * Get idIdiomaPlantilla
-   * @return idIdiomaPlantilla
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getIdIdiomaPlantilla() {
-    return idIdiomaPlantilla;
-  }
-
-  public void setIdIdiomaPlantilla(BigDecimal idIdiomaPlantilla) {
-    this.idIdiomaPlantilla = idIdiomaPlantilla;
-  }
-
   public DocsTramitacioRDTO idioma(BigDecimal idioma) {
     this.idioma = idioma;
     return this;
@@ -793,6 +572,24 @@ public class DocsTramitacioRDTO {
 
   public void setIdioma(BigDecimal idioma) {
     this.idioma = idioma;
+  }
+
+  public DocsTramitacioRDTO idiomaDigitalitzacio(BigDecimal idiomaDigitalitzacio) {
+    this.idiomaDigitalitzacio = idiomaDigitalitzacio;
+    return this;
+  }
+
+   /**
+   * Get idiomaDigitalitzacio
+   * @return idiomaDigitalitzacio
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getIdiomaDigitalitzacio() {
+    return idiomaDigitalitzacio;
+  }
+
+  public void setIdiomaDigitalitzacio(BigDecimal idiomaDigitalitzacio) {
+    this.idiomaDigitalitzacio = idiomaDigitalitzacio;
   }
 
   public DocsTramitacioRDTO metadata(Map<String, List<String>> metadata) {
@@ -837,6 +634,42 @@ public class DocsTramitacioRDTO {
 
   public void setMigracioIdOrigen(String migracioIdOrigen) {
     this.migracioIdOrigen = migracioIdOrigen;
+  }
+
+  public DocsTramitacioRDTO notificacio(BigDecimal notificacio) {
+    this.notificacio = notificacio;
+    return this;
+  }
+
+   /**
+   * Get notificacio
+   * @return notificacio
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getNotificacio() {
+    return notificacio;
+  }
+
+  public void setNotificacio(BigDecimal notificacio) {
+    this.notificacio = notificacio;
+  }
+
+  public DocsTramitacioRDTO notificacions(Notificacions notificacions) {
+    this.notificacions = notificacions;
+    return this;
+  }
+
+   /**
+   * Get notificacions
+   * @return notificacions
+  **/
+  @ApiModelProperty(value = "")
+  public Notificacions getNotificacions() {
+    return notificacions;
+  }
+
+  public void setNotificacions(Notificacions notificacions) {
+    this.notificacions = notificacions;
   }
 
   public DocsTramitacioRDTO numDocsConfiguracio(BigDecimal numDocsConfiguracio) {
@@ -1090,11 +923,7 @@ public class DocsTramitacioRDTO {
         Objects.equals(this.configuracioDocsTramitacioNom, docsTramitacioRDTO.configuracioDocsTramitacioNom) &&
         Objects.equals(this.dataCreacio, docsTramitacioRDTO.dataCreacio) &&
         Objects.equals(this.dataDigitalitzacio, docsTramitacioRDTO.dataDigitalitzacio) &&
-        Objects.equals(this.dataDiposit, docsTramitacioRDTO.dataDiposit) &&
-        Objects.equals(this.dataNotificacio, docsTramitacioRDTO.dataNotificacio) &&
-        Objects.equals(this.dataRegistre, docsTramitacioRDTO.dataRegistre) &&
         Objects.equals(this.dataUltimaModificacio, docsTramitacioRDTO.dataUltimaModificacio) &&
-        Objects.equals(this.dataVisualitzacio, docsTramitacioRDTO.dataVisualitzacio) &&
         Objects.equals(this.descripcioEstat, docsTramitacioRDTO.descripcioEstat) &&
         Objects.equals(this.digitalitzat, docsTramitacioRDTO.digitalitzat) &&
         Objects.equals(this.docsFisics, docsTramitacioRDTO.docsFisics) &&
@@ -1108,17 +937,13 @@ public class DocsTramitacioRDTO {
         Objects.equals(this.estatAnterior, docsTramitacioRDTO.estatAnterior) &&
         Objects.equals(this.estatDocsTramitacio, docsTramitacioRDTO.estatDocsTramitacio) &&
         Objects.equals(this.estatsDocsTramitacio, docsTramitacioRDTO.estatsDocsTramitacio) &&
-        Objects.equals(this.fileToUploadContent, docsTramitacioRDTO.fileToUploadContent) &&
-        Objects.equals(this.fileToUploadName, docsTramitacioRDTO.fileToUploadName) &&
-        Objects.equals(this.fileToUploadPath, docsTramitacioRDTO.fileToUploadPath) &&
-        Objects.equals(this.fileToUploadSize, docsTramitacioRDTO.fileToUploadSize) &&
-        Objects.equals(this.fileToUploadTipus, docsTramitacioRDTO.fileToUploadTipus) &&
-        Objects.equals(this.fileToUploadType, docsTramitacioRDTO.fileToUploadType) &&
         Objects.equals(this.id, docsTramitacioRDTO.id) &&
-        Objects.equals(this.idIdiomaPlantilla, docsTramitacioRDTO.idIdiomaPlantilla) &&
         Objects.equals(this.idioma, docsTramitacioRDTO.idioma) &&
+        Objects.equals(this.idiomaDigitalitzacio, docsTramitacioRDTO.idiomaDigitalitzacio) &&
         Objects.equals(this.metadata, docsTramitacioRDTO.metadata) &&
         Objects.equals(this.migracioIdOrigen, docsTramitacioRDTO.migracioIdOrigen) &&
+        Objects.equals(this.notificacio, docsTramitacioRDTO.notificacio) &&
+        Objects.equals(this.notificacions, docsTramitacioRDTO.notificacions) &&
         Objects.equals(this.numDocsConfiguracio, docsTramitacioRDTO.numDocsConfiguracio) &&
         Objects.equals(this.obligatoriEnEstat, docsTramitacioRDTO.obligatoriEnEstat) &&
         Objects.equals(this.origen, docsTramitacioRDTO.origen) &&
@@ -1136,7 +961,7 @@ public class DocsTramitacioRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(codi, comentari, configDocTramitacio, configuracioDocsTramitacio, configuracioDocsTramitacioNom, dataCreacio, dataDigitalitzacio, dataDiposit, dataNotificacio, dataRegistre, dataUltimaModificacio, dataVisualitzacio, descripcioEstat, digitalitzat, docsFisics, docsFisicsNom, docsSignatures, documentFisic, documentacio, editable, eliminat, estat, estatAnterior, estatDocsTramitacio, estatsDocsTramitacio, fileToUploadContent, fileToUploadName, fileToUploadPath, fileToUploadSize, fileToUploadTipus, fileToUploadType, id, idIdiomaPlantilla, idioma, metadata, migracioIdOrigen, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreIdext, requereixSignatura, requeriments, seleccionable, tipusMimeDescripcio, ultimaModificacioIdext, ultimaSignatura, usuariIdext);
+    return Objects.hash(codi, comentari, configDocTramitacio, configuracioDocsTramitacio, configuracioDocsTramitacioNom, dataCreacio, dataDigitalitzacio, dataUltimaModificacio, descripcioEstat, digitalitzat, docsFisics, docsFisicsNom, docsSignatures, documentFisic, documentacio, editable, eliminat, estat, estatAnterior, estatDocsTramitacio, estatsDocsTramitacio, id, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, notificacio, notificacions, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreIdext, requereixSignatura, requeriments, seleccionable, tipusMimeDescripcio, ultimaModificacioIdext, ultimaSignatura, usuariIdext);
   }
 
 
@@ -1152,11 +977,7 @@ public class DocsTramitacioRDTO {
     sb.append("    configuracioDocsTramitacioNom: ").append(toIndentedString(configuracioDocsTramitacioNom)).append("\n");
     sb.append("    dataCreacio: ").append(toIndentedString(dataCreacio)).append("\n");
     sb.append("    dataDigitalitzacio: ").append(toIndentedString(dataDigitalitzacio)).append("\n");
-    sb.append("    dataDiposit: ").append(toIndentedString(dataDiposit)).append("\n");
-    sb.append("    dataNotificacio: ").append(toIndentedString(dataNotificacio)).append("\n");
-    sb.append("    dataRegistre: ").append(toIndentedString(dataRegistre)).append("\n");
     sb.append("    dataUltimaModificacio: ").append(toIndentedString(dataUltimaModificacio)).append("\n");
-    sb.append("    dataVisualitzacio: ").append(toIndentedString(dataVisualitzacio)).append("\n");
     sb.append("    descripcioEstat: ").append(toIndentedString(descripcioEstat)).append("\n");
     sb.append("    digitalitzat: ").append(toIndentedString(digitalitzat)).append("\n");
     sb.append("    docsFisics: ").append(toIndentedString(docsFisics)).append("\n");
@@ -1170,17 +991,13 @@ public class DocsTramitacioRDTO {
     sb.append("    estatAnterior: ").append(toIndentedString(estatAnterior)).append("\n");
     sb.append("    estatDocsTramitacio: ").append(toIndentedString(estatDocsTramitacio)).append("\n");
     sb.append("    estatsDocsTramitacio: ").append(toIndentedString(estatsDocsTramitacio)).append("\n");
-    sb.append("    fileToUploadContent: ").append(toIndentedString(fileToUploadContent)).append("\n");
-    sb.append("    fileToUploadName: ").append(toIndentedString(fileToUploadName)).append("\n");
-    sb.append("    fileToUploadPath: ").append(toIndentedString(fileToUploadPath)).append("\n");
-    sb.append("    fileToUploadSize: ").append(toIndentedString(fileToUploadSize)).append("\n");
-    sb.append("    fileToUploadTipus: ").append(toIndentedString(fileToUploadTipus)).append("\n");
-    sb.append("    fileToUploadType: ").append(toIndentedString(fileToUploadType)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    idIdiomaPlantilla: ").append(toIndentedString(idIdiomaPlantilla)).append("\n");
     sb.append("    idioma: ").append(toIndentedString(idioma)).append("\n");
+    sb.append("    idiomaDigitalitzacio: ").append(toIndentedString(idiomaDigitalitzacio)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
     sb.append("    migracioIdOrigen: ").append(toIndentedString(migracioIdOrigen)).append("\n");
+    sb.append("    notificacio: ").append(toIndentedString(notificacio)).append("\n");
+    sb.append("    notificacions: ").append(toIndentedString(notificacions)).append("\n");
     sb.append("    numDocsConfiguracio: ").append(toIndentedString(numDocsConfiguracio)).append("\n");
     sb.append("    obligatoriEnEstat: ").append(toIndentedString(obligatoriEnEstat)).append("\n");
     sb.append("    origen: ").append(toIndentedString(origen)).append("\n");

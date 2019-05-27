@@ -50,8 +50,8 @@ public class ServeisNotificacionsRestController extends BaseRestController {
 	@PostMapping("/retorn_notificacio")
 	@ApiOperation(value = "Retorn de l'estat de les notificacions", tags = { "Serveis Notificacions API" })
 	public ResponseEntity<Void> retornEstatNotificacio(
-			@ApiParam(value = "Resposta del MDS a una peticion d'escaneig", required = true) @RequestBody RetornNotificacioRDTO retornNotificacioRDTO)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Resposta del MDS a una peticion d'escaneig", required = true) @RequestBody RetornNotificacioRDTO retornNotificacioRDTO)
+	        throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
 			log.debug("retornEstatNotificacio(RetornNotificacioRDTO) - inici"); //$NON-NLS-1$
@@ -60,20 +60,21 @@ public class ServeisNotificacionsRestController extends BaseRestController {
 		TipusEstatsNotificacionsApiParamValueTranslator tipusEstatsNotificacionsApiParamValueTranslator = new TipusEstatsNotificacionsApiParamValueTranslator();
 		TipusEstatsNotificacionsApiParamValue tipusEstatsDocumentsApiParamValue = null;
 		tipusEstatsDocumentsApiParamValue = tipusEstatsNotificacionsApiParamValueTranslator
-				.getEnumByInternalValue(retornNotificacioRDTO.getEstat());
+		        .getEnumByInternalValue(retornNotificacioRDTO.getEstat());
 
 		TipusEstatsDocumentsApiParamValueTranslator tipusEstatsDocumentsApiParamValueTranslator = new TipusEstatsDocumentsApiParamValueTranslator();
 
-		DocsTramitacioRDTO docsTramitacioRDTO = serveisService.getDocsTramitacioByNotificationId(retornNotificacioRDTO.getNotificacioId());
+		DocsTramitacioRDTO docsTramitacioRDTO = serveisService
+		        .obtenirDocsTramitacioByNotificationId(retornNotificacioRDTO.getNotificacioId());
 		BigDecimal expedientId = serveisService.getIdExpedientByDocumentacioIdExt(docsTramitacioRDTO.getDocumentacio());
 		DocumentCanviEstat documentCanviEstat = new DocumentCanviEstat();
 		documentCanviEstat.setDocsTramitacioIds(Arrays.asList(docsTramitacioRDTO.getId()));
 		documentCanviEstat.setEstatActualId(docsTramitacioRDTO.getEstat());
 		documentCanviEstat.setEstatFinalId(tipusEstatsDocumentsApiParamValue.getInternalValue());
 		documentCanviEstat.setEstatActualDesc(
-				String.valueOf(tipusEstatsDocumentsApiParamValueTranslator.getEnumByInternalValue(docsTramitacioRDTO.getEstat())));
+		        String.valueOf(tipusEstatsDocumentsApiParamValueTranslator.getEnumByInternalValue(docsTramitacioRDTO.getEstat())));
 		documentCanviEstat.setEstatFinalDesc(String.valueOf(
-				tipusEstatsDocumentsApiParamValueTranslator.getEnumByInternalValue(tipusEstatsDocumentsApiParamValue.getInternalValue())));
+		        tipusEstatsDocumentsApiParamValueTranslator.getEnumByInternalValue(tipusEstatsDocumentsApiParamValue.getInternalValue())));
 		documentCanviEstat.setExpedientId(expedientId);
 
 		switch (tipusEstatsDocumentsApiParamValue) {

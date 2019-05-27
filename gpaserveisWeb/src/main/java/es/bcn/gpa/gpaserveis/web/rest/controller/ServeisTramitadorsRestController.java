@@ -17,15 +17,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.business.dto.RespostaResultatBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentEntradaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentTramitacioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDeclaracioResponsableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.IncorporarNouDocumentEntradaExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.IncorporarNouDocumentTramitacioExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.PrepararRequerimentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentEntradaFitxerBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentTramitacioFitxerBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarRequerimentFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaCompletarDocumentEntradaExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaCompletarDocumentTramitacioExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDigitalitzarDocumentExpedientBDTO;
@@ -1110,10 +1115,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	}
 
 	/**
-	 * Incorporar nou document expedient expedient.
+	 * Incorporar nou document expedient.
 	 *
 	 * @param codiExpedient
 	 *            the codi expedient
+	 * @param file
+	 *            the file
 	 * @param documentIncorporacioNou
 	 *            the document incorporacio nou
 	 * @return the resposta incorporar nou document RDTO
@@ -1126,7 +1133,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaIncorporarNouDocumentRDTO incorporarNouDocumentExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Dades del document a incorporar") @RequestBody DocumentIncorporacioNouRDTO documentIncorporacioNou)
+	        @ApiParam(value = "Fitxer") @RequestPart("file") MultipartFile file,
+	        @ApiParam(value = "Dades del document a incorporar") @RequestPart DocumentIncorporacioNouRDTO documentIncorporacioNou)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("incorporarNouDocumentExpedientExpedient(String, DocumentIncorporacioNouRDTO) - inici"); //$NON-NLS-1$
@@ -1186,13 +1194,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				                respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList(),
 				                documentIncorporacioNou.getDocument(), Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
 
-				IncorporarNouDocumentEntradaExpedientBDTO incorporarNouDocumentEntradaExpedientBDTO = new IncorporarNouDocumentEntradaExpedientBDTO();
 				DocsEntradaRDTO docsEntradaRDTO = modelMapper.map(documentIncorporacioNou.getDocument(), DocsEntradaRDTO.class);
 				docsEntradaRDTO
 				        .setConfigDocEntrada(configuracioDocsEntradaMap.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
-				incorporarNouDocumentEntradaExpedientBDTO.setDocsEntradaRDTO(docsEntradaRDTO);
-				incorporarNouDocumentEntradaExpedientBDTO.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
-				docsEntradaRDTOResult = serveisService.guardarDocumentEntrada(incorporarNouDocumentEntradaExpedientBDTO);
+				GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(
+				        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, file);
+				docsEntradaRDTOResult = serveisService.guardarDocumentEntradaFitxer(guardarDocumentEntradaFitxerBDTO);
 			} else {
 				DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO = new DocumentsTramitacioCercaBDTO(
 				        dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc());
@@ -1203,13 +1210,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				                respostaDocumentsTramitacioCercaBDTO.getConfiguracioDocsTramitacioRDTOList(),
 				                documentIncorporacioNou.getDocument(), Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
 
-				IncorporarNouDocumentTramitacioExpedientBDTO incorporarNouDocumentTramitacioExpedientBDTO = new IncorporarNouDocumentTramitacioExpedientBDTO();
 				DocsTramitacioRDTO docsTramitacioRDTO = modelMapper.map(documentIncorporacioNou.getDocument(), DocsTramitacioRDTO.class);
 				docsTramitacioRDTO.setConfigDocTramitacio(
 				        configuracioDocsTramitacioMap.get(String.valueOf(docsTramitacioRDTO.getConfigDocTramitacio())).getId());
-				incorporarNouDocumentTramitacioExpedientBDTO.setDocsTramitacioRDTO(docsTramitacioRDTO);
-				incorporarNouDocumentTramitacioExpedientBDTO.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
-				docsTramitacioRDTOResult = serveisService.guardarDocumentTramitacio(incorporarNouDocumentTramitacioExpedientBDTO);
+				GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO = new GuardarDocumentTramitacioFitxerBDTO(
+				        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO, file);
+				docsTramitacioRDTOResult = serveisService.guardarDocumentTramitacioFitxer(guardarDocumentTramitacioFitxerBDTO);
 			}
 
 		} catch (GPAApiParamValidationException e) {
@@ -1475,13 +1481,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				                respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList(), documentComplecio.getDocument(),
 				                Resultat.ERROR_COMPLETAR_DOCUMENT_EXPEDIENT);
 
-				IncorporarNouDocumentEntradaExpedientBDTO incorporarNouDocumentEntradaExpedientBDTO = new IncorporarNouDocumentEntradaExpedientBDTO();
 				DocsEntradaRDTO docsEntradaRDTO = modelMapper.map(documentComplecio.getDocument(), DocsEntradaRDTO.class);
 				docsEntradaRDTO
 				        .setConfigDocEntrada(configuracioDocsEntradaMap.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
-				incorporarNouDocumentEntradaExpedientBDTO.setDocsEntradaRDTO(docsEntradaRDTO);
-				incorporarNouDocumentEntradaExpedientBDTO.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
-				docsEntradaRDTOResult = serveisService.guardarDocumentEntrada(incorporarNouDocumentEntradaExpedientBDTO);
+				ActualitzarDocumentEntradaBDTO actualitzarDocumentEntradaBDTO = new ActualitzarDocumentEntradaBDTO(
+				        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
+				docsEntradaRDTOResult = serveisService.actualitzarDocumentEntrada(actualitzarDocumentEntradaBDTO);
 			} else {
 				DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO = new DocumentsTramitacioCercaBDTO(
 				        dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc());
@@ -1492,13 +1497,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				                respostaDocumentsTramitacioCercaBDTO.getConfiguracioDocsTramitacioRDTOList(),
 				                documentComplecio.getDocument(), Resultat.ERROR_COMPLETAR_DOCUMENT_EXPEDIENT);
 
-				IncorporarNouDocumentTramitacioExpedientBDTO incorporarNouDocumentTramitacioExpedientBDTO = new IncorporarNouDocumentTramitacioExpedientBDTO();
 				DocsTramitacioRDTO docsTramitacioRDTO = modelMapper.map(documentComplecio.getDocument(), DocsTramitacioRDTO.class);
 				docsTramitacioRDTO.setConfigDocTramitacio(
 				        configuracioDocsTramitacioMap.get(String.valueOf(docsTramitacioRDTO.getConfigDocTramitacio())).getId());
-				incorporarNouDocumentTramitacioExpedientBDTO.setDocsTramitacioRDTO(docsTramitacioRDTO);
-				incorporarNouDocumentTramitacioExpedientBDTO.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
-				docsTramitacioRDTOResult = serveisService.guardarDocumentTramitacio(incorporarNouDocumentTramitacioExpedientBDTO);
+				ActualitzarDocumentTramitacioBDTO actualitzarDocumentTramitacioBDTO = new ActualitzarDocumentTramitacioBDTO(
+				        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
+				docsTramitacioRDTOResult = serveisService.actualitzarDocumentTramitacio(actualitzarDocumentTramitacioBDTO);
 			}
 
 		} catch (GPAApiParamValidationException e) {
@@ -1586,14 +1590,13 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			                respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList(),
 			                declaracioResponsablePresentacio.getDocument(), Resultat.ERROR_PRESENTAR_DECLARACIO_RESPONSABLE_EXPEDIENT);
 
-			IncorporarNouDocumentEntradaExpedientBDTO incorporarNouDocumentEntradaExpedientBDTO = new IncorporarNouDocumentEntradaExpedientBDTO();
 			DocsEntradaRDTO docsEntradaRDTO = modelMapper.map(declaracioResponsablePresentacio.getDocument(), DocsEntradaRDTO.class);
 			docsEntradaRDTO
 			        .setConfigDocEntrada(configuracioDocsEntradaMap.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
 			docsEntradaRDTO.setDeclaracioResponsable(BooleanApiParamValue.TRUE.getInternalValue());
-			incorporarNouDocumentEntradaExpedientBDTO.setDocsEntradaRDTO(docsEntradaRDTO);
-			incorporarNouDocumentEntradaExpedientBDTO.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
-			docsEntradaRDTOResult = serveisService.guardarDocumentEntrada(incorporarNouDocumentEntradaExpedientBDTO);
+			CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO = new CrearDeclaracioResponsableBDTO(
+			        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
+			docsEntradaRDTOResult = serveisService.crearDeclaracioResponsable(crearDeclaracioResponsableBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("presentarDeclaracioResponsableExpedient(String, DeclaracioResponsablePresentacioRDTO)", e);
@@ -1636,7 +1639,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaPrepararRequerimentRDTO prepararRequerimentExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Dades del requeriment a preparar") @RequestBody RequerimentPreparacioRDTO requerimentPreparacio)
+	        @ApiParam(value = "Fitxer") @RequestPart("file") MultipartFile file,
+	        @ApiParam(value = "Dades del requeriment a preparar") @RequestPart RequerimentPreparacioRDTO requerimentPreparacio)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("prepararRequerimentExpedient(String, RequerimentPreparacioRDTO) - inici"); //$NON-NLS-1$
@@ -1698,7 +1702,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			                respostaDocumentsTramitacioCercaBDTO.getConfiguracioDocsTramitacioRDTOList(),
 			                requerimentPreparacio.getDocument(), Resultat.ERROR_PREPARAR_REQUERIMENT_EXPEDIENT);
 
-			PrepararRequerimentExpedientBDTO prepararRequerimentExpedientBDTO = new PrepararRequerimentExpedientBDTO();
 			DocsTramitacioRDTO docsTramitacioRDTO = modelMapper.map(requerimentPreparacio.getDocument(), DocsTramitacioRDTO.class);
 			docsTramitacioRDTO.setConfigDocTramitacio(
 			        configuracioDocsTramitacioMap.get(String.valueOf(docsTramitacioRDTO.getConfigDocTramitacio())).getId());
@@ -1706,9 +1709,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			guardarRequerimentExpedient.setDocsTramitacio(docsTramitacioRDTO);
 			guardarRequerimentExpedient.setIdsDadesOperList(idDadesOperacionsList);
 			guardarRequerimentExpedient.setIdsConfDocEntradaList(idConfiguracioDocsEntradaList);
-			prepararRequerimentExpedientBDTO.setGuardarRequerimentExpedient(guardarRequerimentExpedient);
-			prepararRequerimentExpedientBDTO.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
-			docsTramitacioRDTOResult = serveisService.guardarRequeriment(prepararRequerimentExpedientBDTO);
+			GuardarRequerimentFitxerBDTO guardarRequerimentFitxerBDTO = new GuardarRequerimentFitxerBDTO(
+			        dadesExpedientBDTO.getExpedientsRDTO().getId(), guardarRequerimentExpedient, file);
+			docsTramitacioRDTOResult = serveisService.guardarRequerimentFitxer(guardarRequerimentFitxerBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("prepararRequerimentExpedient(String, RequerimentPreparacioRDTO)", e);

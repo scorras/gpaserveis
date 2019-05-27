@@ -13,18 +13,21 @@ import es.bcn.gpa.gpaserveis.business.ProcedimentsService;
 import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.business.TramitsService;
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
-import es.bcn.gpa.gpaserveis.business.dto.documents.AportarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDeclaracioResponsableBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentEntradaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentTramitacioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDeclaracioResponsableBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DescarregarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.IncorporarNouDocumentEntradaExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.IncorporarNouDocumentTramitacioExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.PrepararRequerimentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentEntradaFitxerBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentTramitacioFitxerBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarRequerimentFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsTramitacioCercaBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.SubstituirDocumentExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.UploadDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
@@ -54,10 +57,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActual
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaUploadDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
@@ -402,27 +402,119 @@ public class ServeisServiceImpl implements ServeisService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
-	 * aportarDocumentacioExpedient(es.bcn.gpa.gpaserveis.business.dto.documents
-	 * .AportarDocumentExpedientBDTO)
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#crearDocumentEntrada(es.bcn
+	 * .gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaBDTO)
 	 */
 	@Override
-	public RespostaAportarDocumentacioExpedientRDTO aportarDocumentacioExpedient(AportarDocumentExpedientBDTO aportarDocumentExpedientBDTO)
+	public DocsEntradaRDTO crearDocumentEntrada(CrearDocumentEntradaBDTO crearDocumentEntradaBDTO) throws GPAServeisServiceException {
+		return documentsService.crearDocumentEntrada(crearDocumentEntradaBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#crearDeclaracioResponsable(
+	 * es.bcn.gpa.gpaserveis.business.dto.documents.
+	 * CrearDeclaracioResponsableBDTO)
+	 */
+	@Override
+	public DocsEntradaRDTO crearDeclaracioResponsable(CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO)
 	        throws GPAServeisServiceException {
-		return documentsService.aportarDocumentacioExpedient(aportarDocumentExpedientBDTO);
+		return documentsService.crearDeclaracioResponsable(crearDeclaracioResponsableBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#crearDocumentTramitacio(es.
+	 * bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioBDTO)
+	 */
+	@Override
+	public DocsTramitacioRDTO crearDocumentTramitacio(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
+	        throws GPAServeisServiceException {
+		return documentsService.crearDocumentTramitacio(crearDocumentTramitacioBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#actualitzarDocumentEntrada(
+	 * es.bcn.gpa.gpaserveis.business.dto.documents.
+	 * ActualitzarDocumentEntradaBDTO)
+	 */
+	@Override
+	public DocsEntradaRDTO actualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO actualitzarDocumentEntradaBDTO)
+	        throws GPAServeisServiceException {
+		return documentsService.actualitzarDocumentEntrada(actualitzarDocumentEntradaBDTO);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
-	 * substituirDocumentExpedient(es.bcn.gpa.gpaserveis.business.dto.documents.
-	 * SubstituirDocumentExpedientBDTO)
+	 * actualitzarDeclaracioResponsable(es.bcn.gpa.gpaserveis.business.dto.
+	 * documents.ActualitzarDeclaracioResponsableBDTO)
 	 */
 	@Override
-	public RespostaSubstituirDocumentExpedientRDTO substituirDocumentExpedient(
-	        SubstituirDocumentExpedientBDTO substituirDocumentExpedientBDTO) throws GPAServeisServiceException {
-		return documentsService.substituirDocumentExpedient(substituirDocumentExpedientBDTO);
+	public DocsEntradaRDTO actualitzarDeclaracioResponsable(ActualitzarDeclaracioResponsableBDTO actualitzarDeclaracioResponsableBDTO)
+	        throws GPAServeisServiceException {
+		return documentsService.actualitzarDeclaracioResponsable(actualitzarDeclaracioResponsableBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * actualitzarDocumentTramitacio(es.bcn.gpa.gpaserveis.business.dto.
+	 * documents.ActualitzarDocumentTramitacioBDTO)
+	 */
+	@Override
+	public DocsTramitacioRDTO actualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO actualitzarDocumentTramitacioBDTO)
+	        throws GPAServeisServiceException {
+		return documentsService.actualitzarDocumentTramitacio(actualitzarDocumentTramitacioBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * guardarDocumentEntradaFitxer(es.bcn.gpa.gpaserveis.business.dto.documents
+	 * .GuardarDocumentEntradaFitxerBDTO)
+	 */
+	@Override
+	public DocsEntradaRDTO guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO)
+	        throws GPAServeisServiceException {
+		return documentsService.guardarDocumentEntradaFitxer(guardarDocumentEntradaFitxerBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * guardarDocumentTramitacioFitxer(es.bcn.gpa.gpaserveis.business.dto.
+	 * documents.GuardarDocumentTramitacioFitxerBDTO)
+	 */
+	@Override
+	public DocsTramitacioRDTO guardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO)
+	        throws GPAServeisServiceException {
+		return documentsService.guardarDocumentTramitacioFitxer(guardarDocumentTramitacioFitxerBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#guardarRequerimentFitxer(es
+	 * .bcn.gpa.gpaserveis.business.dto.documents.GuardarRequerimentFitxerBDTO)
+	 */
+	@Override
+	public DocsTramitacioRDTO guardarRequerimentFitxer(GuardarRequerimentFitxerBDTO guardarRequerimentFitxerBDTO)
+	        throws GPAServeisServiceException {
+		return documentsService.guardarRequerimentFitxer(guardarRequerimentFitxerBDTO);
 	}
 
 	/*
@@ -463,26 +555,13 @@ public class ServeisServiceImpl implements ServeisService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
-	 * descarregarDocumentExpedient(es.bcn.gpa.gpaserveis.business.dto.documents
-	 * .DescarregarDocumentExpedientBDTO)
+	 * descarregarDocumentEntradaExpedient(es.bcn.gpa.gpaserveis.business.dto.
+	 * documents.DescarregarDocumentExpedientBDTO)
 	 */
 	@Override
-	public byte[] descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
+	public byte[] descarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
 	        throws GPAServeisServiceException {
-		return documentsService.descarregarDocumentExpedient(descarregarDocumentExpedientBDTO);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
-	 * uploadDocumentExpedient(es.bcn.gpa.gpaserveis.business.dto.documents.
-	 * UploadDocumentExpedientBDTO)
-	 */
-	@Override
-	public RespostaUploadDocumentExpedient uploadDocumentExpedient(UploadDocumentExpedientBDTO uploadDocumentExpedientBDTO)
-	        throws GPAServeisServiceException {
-		return documentsService.uploadDocumentExpedient(uploadDocumentExpedientBDTO);
+		return documentsService.descarregarDocumentEntradaExpedient(descarregarDocumentExpedientBDTO);
 	}
 
 	/*
@@ -654,20 +733,6 @@ public class ServeisServiceImpl implements ServeisService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ServeisService#guardarDocumentEntrada(es.
-	 * bcn.gpa.gpaserveis.business.dto.documents.
-	 * IncorporarNouDocumentEntradaExpedientBDTO)
-	 */
-	@Override
-	public DocsEntradaRDTO guardarDocumentEntrada(IncorporarNouDocumentEntradaExpedientBDTO incorporarNouDocumentEntradaExpedientBDTO)
-	        throws GPAServeisServiceException {
-		return documentsService.guardarDocumentEntrada(incorporarNouDocumentEntradaExpedientBDTO);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
 	 * es.bcn.gpa.gpaserveis.business.ServeisService#registreDocumentacioAriadna
 	 * (es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.
 	 * RegistreDocumentacioExpedient)
@@ -693,41 +758,14 @@ public class ServeisServiceImpl implements ServeisService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ServeisService#guardarDocumentTramitacio(
-	 * es.bcn.gpa.gpaserveis.business.dto.documents.
-	 * IncorporarNouDocumentTramitacioExpedientBDTO)
-	 */
-	@Override
-	public DocsTramitacioRDTO guardarDocumentTramitacio(
-	        IncorporarNouDocumentTramitacioExpedientBDTO incorporarNouDocumentTramitacioExpedientBDTO) throws GPAServeisServiceException {
-		return documentsService.guardarDocumentTramitacio(incorporarNouDocumentTramitacioExpedientBDTO);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ServeisService#guardarRequeriment(es.bcn.
-	 * gpa.gpaserveis.business.dto.documents.PrepararRequerimentExpedientBDTO)
-	 */
-	@Override
-	public DocsTramitacioRDTO guardarRequeriment(PrepararRequerimentExpedientBDTO prepararRequerimentExpedientBDTO)
-	        throws GPAServeisServiceException {
-		return documentsService.guardarRequeriment(prepararRequerimentExpedientBDTO);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
 	 * es.bcn.gpa.gpaserveis.business.ServeisService#cercaExpedientsAcumular(es.
 	 * bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaAcumularBDTO)
 	 */
 	@Override
 	public RespostaExpedientsCercaBDTO cercaExpedientsAcumular(ExpedientsCercaAcumularBDTO expedientsCercaAcumularBDTO)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = ServeisServiceHelper.loadCercaExpedientsAcumular(expedientsService,
-				expedientsCercaAcumularBDTO);
+		        expedientsCercaAcumularBDTO);
 		return respostaExpedientsCercaBDTO;
 	}
 
@@ -776,11 +814,11 @@ public class ServeisServiceImpl implements ServeisService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
-	 * getDocsTramitacioByNotificationId(java.lang.Long)
+	 * obtenirDocsTramitacioByNotificationId(java.lang.Long)
 	 */
 	@Override
-	public DocsTramitacioRDTO getDocsTramitacioByNotificationId(Long notificacioId) throws GPAServeisServiceException {
-		return documentsService.getDocsTramitacioByNotificationId(notificacioId);
+	public DocsTramitacioRDTO obtenirDocsTramitacioByNotificationId(Long notificacioId) throws GPAServeisServiceException {
+		return documentsService.obtenirDocsTramitacioByNotificationId(notificacioId);
 	}
 
 	/*
@@ -794,10 +832,28 @@ public class ServeisServiceImpl implements ServeisService {
 		return expedientsService.getIdExpedientByDocumentacioIdExt(documentacio);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#actualitzarNotificacion()
+	 */
 	@Override
 	public void actualitzarNotificacion() throws GPAServeisServiceException {
 		documentsService.actualitzarNotificacion();
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#tancarRequerimentsExpedient
+	 * (java.math.BigDecimal)
+	 */
+	@Override
+	public void tancarRequerimentsExpedient(BigDecimal idDocumentacio) throws GPAServeisServiceException {
+		documentsService.tancarRequerimentsExpedient(idDocumentacio);
 	}
 
 }
