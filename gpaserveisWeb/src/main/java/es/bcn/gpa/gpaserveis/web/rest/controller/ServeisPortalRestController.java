@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -928,7 +929,7 @@ public class ServeisPortalRestController extends BaseRestController {
 					docsEntradaRDTO.setNou(NumberUtils.INTEGER_ONE);
 					docsEntradaRDTO.setConfigDocEntrada(map.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
 
-					if (documentAportatCrearRDTO.getDeclaracioResponsable()) {
+					if (BooleanUtils.isTrue(documentAportatCrearRDTO.getDeclaracioResponsable())) {
 						CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO = new CrearDeclaracioResponsableBDTO(
 						        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
 						docsEntradaRDTOResposta = serveisService.crearDeclaracioResponsable(crearDeclaracioResponsableBDTO);
@@ -1002,13 +1003,10 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		RespostaAportarDocumentExpedientBDTO respostaAportarDocumentExpedientBDTO = new RespostaAportarDocumentExpedientBDTO(
 		        docsEntradaRDTORespostaList, dadesExpedientBDTO.getExpedientsRDTO() != null ? dadesExpedientBDTO.getExpedientsRDTO() : null,
-		        respostaCrearRegistreExpedient.getRegistreAssentament() != null ? respostaCrearRegistreExpedient.getRegistreAssentament()
-		                : null,
-		        respostaResultatBDTO);
+		        (respostaCrearRegistreExpedient != null && respostaCrearRegistreExpedient.getRegistreAssentament() != null)
+		                ? respostaCrearRegistreExpedient.getRegistreAssentament() : null,
+		        respostaCrearJustificant != null ? respostaCrearJustificant.getId() : null, respostaResultatBDTO);
 		respostaAportarDocumentRDTO = modelMapper.map(respostaAportarDocumentExpedientBDTO, RespostaAportarDocumentRDTO.class);
-
-		respostaAportarDocumentRDTO.setRegistre(null);
-		respostaAportarDocumentRDTO.setComprovant(respostaCrearJustificant != null ? respostaCrearJustificant.getId() : null);
 
 		return respostaAportarDocumentRDTO;
 	}

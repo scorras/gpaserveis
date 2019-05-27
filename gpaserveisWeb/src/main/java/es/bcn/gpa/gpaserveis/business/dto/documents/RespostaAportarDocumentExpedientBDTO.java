@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.business.dto.documents;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import es.bcn.gpa.gpaserveis.business.dto.RespostaResultatBDTO;
@@ -26,6 +27,9 @@ public class RespostaAportarDocumentExpedientBDTO {
 
 	/** The registre assentament RDTO. */
 	private RegistreAssentamentRDTO registreAssentamentRDTO = null;
+
+	/** The id resposta crear justificant. */
+	private BigDecimal idRespostaCrearJustificant = null;
 
 	/** The resposta resultat BDTO. */
 	private RespostaResultatBDTO respostaResultatBDTO;

@@ -51,6 +51,7 @@ public class RespostaAportarDocumentExpedientBDTOToRespostaAportarDocumentRDTOMa
 		using(internalToExpedientAccioConverter).map(source.getExpedientsRDTO()).setExpedient(null);
 		using(internalRDTOToRegistreConverter).map(source.getRegistreAssentamentRDTO()).setRegistre(null);
 		using(internalToDocumentAportatAccioListConverter).map(source.getDocsEntradaRDTOList()).setDocumentacioAportada(null);
+		map().setComprovant(source.getIdRespostaCrearJustificant());
 	}
 
 }
