@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisRuntimeException;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
@@ -41,12 +42,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.AccionsEstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AportarDocumentacioExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SubstituirDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AvisCreacioAccio;
@@ -277,7 +274,7 @@ public abstract class ParentTest {
 			        isNull(String.class), isNull(Long.class), isNull(Integer.class)))
 			                .thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntradaResponse());
 
-			when(configuracioDocumentacioApi.getConfiguracioDocumentacioTramitacioUsingGET(any(BigDecimal.class), isNull(Integer.class),
+			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioTramitacio(any(BigDecimal.class), isNull(Integer.class),
 			        isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
 			        isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class),
 			        isNull(String.class), isNull(Long.class), isNull(Integer.class)))
@@ -304,9 +301,6 @@ public abstract class ParentTest {
 			when(expedients_Api.actualitzarDadesSollicitud(any(ActualitzarDadesSollicitud.class)))
 			        .thenReturn(TestsConfigHelper.crearSollicitudExpedientResponse());
 
-			when(documentacioApi.aportarDocumentacioExpedient(any(AportarDocumentacioExpedient.class), any(BigDecimal.class)))
-			        .thenReturn(TestsConfigHelper.aportarDocumentacioExpedientResponse());
-
 			when(documentacioApi.consultarDadesDocumentAportat(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesDocumentAportatResponse());
 
@@ -315,10 +309,7 @@ public abstract class ParentTest {
 
 			doNothing().when(documentacioApi).esborrarDocumentExpedient(any(List.class), any(BigDecimal.class));
 
-			when(documentacioApi.substituirDocumentExpedient(any(BigDecimal.class), any(SubstituirDocumentExpedient.class)))
-			        .thenReturn(TestsConfigHelper.substituirDocumentExpedientResponse());
-
-			when(downloadEntradaApi.descarregarDocumentExpedient(any(BigDecimal.class), any(BigDecimal.class)))
+			when(downloadEntradaApi.descarregarDocumentEntradaExpedient(any(BigDecimal.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.descarregarDocumentExpedientResponse());
 
 			doNothing().when(comentarisApi).crearComentariAccio(any(BigDecimal.class), any(BigDecimal.class),
@@ -339,10 +330,10 @@ public abstract class ParentTest {
 			when(configuracioDocumentacioApi.getPlantillaDocVinculada(any(BigDecimal.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.getPlantillaDocVinculadaResponse());
 
-			when(documentacioApi.guardarDocumentEntrada(any(DocsEntradaRDTO.class), any(BigDecimal.class)))
+			when(documentacioApi.guardarDocumentEntradaFitxer(any(String.class), any(MultipartFile.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.guardarDocumentEntradaResponse());
 
-			when(documentacioApi.guardarDocumentTramitacio(any(DocsTramitacioRDTO.class), any(BigDecimal.class)))
+			when(documentacioApi.guardarDocumentTramitacioFitxer(any(String.class), any(MultipartFile.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.guardarDocumentTramitacioResponse());
 
 			doNothing().when(documentacioApi).crearPeticioPortaSig(any(SignarDocument.class));

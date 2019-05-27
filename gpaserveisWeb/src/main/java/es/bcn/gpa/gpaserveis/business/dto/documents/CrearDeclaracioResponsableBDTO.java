@@ -3,12 +3,14 @@ package es.bcn.gpa.gpaserveis.business.dto.documents;
 import java.math.BigDecimal;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class IncorporarNouDocumentEntradaExpedientBDTO {
+@AllArgsConstructor
+public class CrearDeclaracioResponsableBDTO {
 
 	/** The id expedient. */
 	private BigDecimal idExpedient;

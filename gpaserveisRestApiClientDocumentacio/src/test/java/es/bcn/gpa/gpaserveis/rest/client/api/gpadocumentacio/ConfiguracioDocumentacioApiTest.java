@@ -61,8 +61,8 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	public void getConfDocAssociadaRequerimentUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/getConfDocAssociadaRequeriment/1"), eq("GET"), any(List.class),
-				any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
-				any(GenericType.class))).thenReturn(new ArrayList<ConfiguracioDocsEntradaRDTO>());
+		        any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
+		        any(GenericType.class))).thenReturn(new ArrayList<ConfiguracioDocsEntradaRDTO>());
 
 		BigDecimal idRequeriment = ONE;
 		List<ConfiguracioDocsEntradaRDTO> response = api.getConfDocAssociadaRequerimentUsingGET(idRequeriment);
@@ -82,8 +82,8 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	public void cercaConfiguracioDocumentacioEntradaTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/entrada/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(new PageDataOfConfiguracioDocsEntradaRDTO());
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new PageDataOfConfiguracioDocsEntradaRDTO());
 
 		BigDecimal id = ONE;
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
@@ -101,9 +101,9 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		PageDataOfConfiguracioDocsEntradaRDTO response = api.cercaConfiguracioDocumentacioEntrada(id,
-				absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
-				currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
-				previousPageNumber, sort, totalElements, totalPages);
+		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
+		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
+		        previousPageNumber, sort, totalElements, totalPages);
 
 		assertTrue(response != null);
 	}
@@ -120,8 +120,8 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	public void cercaConfiguracioDocumentacioEntradaPerTramitOvtTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/entrada/1/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(new PageDataOfConfiguracioDocsEntradaRDTO());
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new PageDataOfConfiguracioDocsEntradaRDTO());
 
 		BigDecimal id = ONE;
 		BigDecimal idTramitOvt = ONE;
@@ -140,9 +140,9 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		PageDataOfConfiguracioDocsEntradaRDTO response = api.cercaConfiguracioDocumentacioEntradaPerTramitOvt(id, idTramitOvt,
-				absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
-				currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
-				previousPageNumber, sort, totalElements, totalPages);
+		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
+		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
+		        previousPageNumber, sort, totalElements, totalPages);
 
 		assertTrue(response != null);
 	}
@@ -156,11 +156,11 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void getConfiguracioDocumentacioTramitacioUsingGETTest() throws ApiException {
+	public void cercaConfiguracioDocumentacioTramitacioTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/tramitacio/1"), eq("GET"), any(List.class), any(Object.class),
-				any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(new PageDataOfConfiguracioDocsTramitacioRDTO());
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new PageDataOfConfiguracioDocsTramitacioRDTO());
 
 		BigDecimal id = ONE;
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
@@ -177,10 +177,10 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 		String sort = null;
 		Long totalElements = null;
 		Integer totalPages = null;
-		PageDataOfConfiguracioDocsTramitacioRDTO response = api.getConfiguracioDocumentacioTramitacioUsingGET(id,
-				absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
-				currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
-				previousPageNumber, sort, totalElements, totalPages);
+		PageDataOfConfiguracioDocsTramitacioRDTO response = api.cercaConfiguracioDocumentacioTramitacio(id,
+		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
+		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
+		        previousPageNumber, sort, totalElements, totalPages);
 
 		assertTrue(response != null);
 	}
@@ -197,8 +197,8 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	public void obtenirConfiguracioDocEntAssociarRequerimentUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/entradaAssociarRequeriment/1/1"), eq("GET"), any(List.class),
-				any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
-				any(GenericType.class))).thenReturn(new PageDataOfConfiguracioDocsEntradaRDTO());
+		        any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
+		        any(GenericType.class))).thenReturn(new PageDataOfConfiguracioDocsEntradaRDTO());
 
 		BigDecimal idConfiguracioDocumentacio = ONE;
 		String idsConfEntrAssociarReq = ONE.toString();
@@ -217,10 +217,10 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		PageDataOfConfiguracioDocsEntradaRDTO response = api.obtenirConfiguracioDocEntAssociarRequerimentUsingGET(
-				idConfiguracioDocumentacio, idsConfEntrAssociarReq, absoluteRowNumberOfFirstRowInCurrentPage,
-				absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-				currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
-				totalPages);
+		        idConfiguracioDocumentacio, idsConfEntrAssociarReq, absoluteRowNumberOfFirstRowInCurrentPage,
+		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
+		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
+		        totalPages);
 
 		assertTrue(response != null);
 	}
@@ -237,8 +237,8 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	public void obtenirConfiguracioDocumentacioTramitacioUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/configuracioDocsTramitacio/1"), eq("GET"), any(List.class),
-				any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
-				any(GenericType.class))).thenReturn(new ArrayList<ConfiguracioDocsTramitacioRDTO>());
+		        any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
+		        any(GenericType.class))).thenReturn(new ArrayList<ConfiguracioDocsTramitacioRDTO>());
 
 		BigDecimal id = ONE;
 		List<ConfiguracioDocsTramitacioRDTO> response = api.obtenirConfiguracioDocumentacioTramitacioUsingGET(id);
@@ -258,8 +258,8 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	public void updateDocumentacioEntradaUsingPUTTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/docEntrada/1"), eq("PUT"), any(List.class), any(Object.class),
-				any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(Void.class);
+		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(Void.class);
 
 		ConfiguracioDocsEntradaRDTO docEntrada = new ConfiguracioDocsEntradaRDTO();
 		BigDecimal procId = ONE;
@@ -280,8 +280,8 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	public void updateDocumentacioTramitacioUsingPUTTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/docTramitacio/1"), eq("PUT"), any(List.class), any(Object.class),
-				any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(Void.class);
+		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(Void.class);
 
 		ConfiguracioDocsTramitacioRDTO docTramitacio = new ConfiguracioDocsTramitacioRDTO();
 		BigDecimal procId = ONE;
@@ -302,8 +302,8 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	public void comprovarDocumentacioConfDocsEntPerEstatUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/comprovarDocumentacioConfDocsEntPerEstat/1/1"), eq("GET"), any(List.class),
-				any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
-				any(GenericType.class))).thenReturn(Boolean.TRUE);
+		        any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
+		        any(GenericType.class))).thenReturn(Boolean.TRUE);
 
 		BigDecimal confDocsEntrada = ONE;
 		BigDecimal estatFuturo = ONE;
@@ -324,8 +324,8 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	public void comprovarDocumentacioConfDocsTramPerEstatUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/comprovarDocumentacioConfDocsTramPerEstat/1/1"), eq("GET"), any(List.class),
-				any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
-				any(GenericType.class))).thenReturn(Boolean.TRUE);
+		        any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
+		        any(GenericType.class))).thenReturn(Boolean.TRUE);
 
 		BigDecimal confDocsTramitacio = ONE;
 		BigDecimal estatFuturo = ONE;
@@ -346,8 +346,8 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	public void getDadesOperAssociadaRequerimentUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/getDadesOperAssociadaRequeriment/1"), eq("GET"), any(List.class),
-				any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
-				any(GenericType.class))).thenReturn(new ArrayList<DadesOperacioRDTO>());
+		        any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
+		        any(GenericType.class))).thenReturn(new ArrayList<DadesOperacioRDTO>());
 
 		BigDecimal idRequeriment = ONE;
 		List<DadesOperacioRDTO> response = api.getDadesOperAssociadaRequerimentUsingGET(idRequeriment);
@@ -366,8 +366,8 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	public void getPlantillaDocVinculadaTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/plantillaDocVinculada/1/1"), eq("GET"), any(List.class), any(Object.class),
-				any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(new RespostaPlantillaDocVinculada());
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new RespostaPlantillaDocVinculada());
 
 		RespostaPlantillaDocVinculada plantillaDocVinculada = api.getPlantillaDocVinculada(ONE, ONE);
 

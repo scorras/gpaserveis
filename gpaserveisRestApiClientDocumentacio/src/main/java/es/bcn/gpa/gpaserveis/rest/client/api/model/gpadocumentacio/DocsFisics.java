@@ -25,16 +25,13 @@ import java.math.BigDecimal;
 /**
  * DocsFisics
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-13T13:50:42.299+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T11:58:05.753+02:00")
 public class DocsFisics {
   @JsonProperty("id")
   private BigDecimal id = null;
 
   @JsonProperty("nom")
   private String nom = null;
-
-  @JsonProperty("path")
-  private String path = null;
 
   @JsonProperty("plantilla")
   private Integer plantilla = null;
@@ -82,24 +79,6 @@ public class DocsFisics {
 
   public void setNom(String nom) {
     this.nom = nom;
-  }
-
-  public DocsFisics path(String path) {
-    this.path = path;
-    return this;
-  }
-
-   /**
-   * Get path
-   * @return path
-  **/
-  @ApiModelProperty(value = "")
-  public String getPath() {
-    return path;
-  }
-
-  public void setPath(String path) {
-    this.path = path;
   }
 
   public DocsFisics plantilla(Integer plantilla) {
@@ -186,7 +165,6 @@ public class DocsFisics {
     DocsFisics docsFisics = (DocsFisics) o;
     return Objects.equals(this.id, docsFisics.id) &&
         Objects.equals(this.nom, docsFisics.nom) &&
-        Objects.equals(this.path, docsFisics.path) &&
         Objects.equals(this.plantilla, docsFisics.plantilla) &&
         Objects.equals(this.tamany, docsFisics.tamany) &&
         Objects.equals(this.tipus, docsFisics.tipus) &&
@@ -195,7 +173,7 @@ public class DocsFisics {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, nom, path, plantilla, tamany, tipus, tipusMime);
+    return Objects.hash(id, nom, plantilla, tamany, tipus, tipusMime);
   }
 
 
@@ -206,7 +184,6 @@ public class DocsFisics {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    nom: ").append(toIndentedString(nom)).append("\n");
-    sb.append("    path: ").append(toIndentedString(path)).append("\n");
     sb.append("    plantilla: ").append(toIndentedString(plantilla)).append("\n");
     sb.append("    tamany: ").append(toIndentedString(tamany)).append("\n");
     sb.append("    tipus: ").append(toIndentedString(tipus)).append("\n");

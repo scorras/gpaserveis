@@ -55,8 +55,7 @@ public class DocumentCompletatRDTOToDocsTramitacioRDTOMapper extends PropertyMap
 		map().setComentari(source.getComentari());
 		using(idiomaToInternalConverter).map(source.getIdioma()).setIdioma(null);
 		using(booleanToInternalConverter).map(source.getDigitalitzat()).setDigitalitzat(null);
-		// TODO ¿Dónde se almacena el idioma de digitalización?
-		// using(idiomaToInternalConverter).map(source.getDigitalitzacio().getIdioma()).setIdioma(null);
+		using(idiomaToInternalConverter).map(source.getDigitalitzacio().getIdioma()).setIdiomaDigitalitzacio(null);
 		using(dataHoraToInternalConverter).map(source.getDigitalitzacio().getDataDigitalitzacio()).setDataDigitalitzacio(null);
 	}
 

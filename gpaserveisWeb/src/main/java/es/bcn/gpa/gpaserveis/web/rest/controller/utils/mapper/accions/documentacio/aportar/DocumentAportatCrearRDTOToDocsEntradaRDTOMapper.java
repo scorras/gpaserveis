@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.BooleanToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToBigDecimalConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.FitxerToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.IdiomaToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.OrigenToInternalConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.TipusMimeToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
 
 /**
@@ -25,7 +25,7 @@ public class DocumentAportatCrearRDTOToDocsEntradaRDTOMapper extends PropertyMap
 
 	private IdiomaToInternalConverter idiomaToInternalConverter;
 
-	private TipusMimeToInternalConverter tipusMimeToInternalConverter;
+	private FitxerToInternalConverter fitxerToInternalConverter;
 
 	private BooleanToInternalConverter booleanToInternalConverter;
 
@@ -34,12 +34,12 @@ public class DocumentAportatCrearRDTOToDocsEntradaRDTOMapper extends PropertyMap
 	        @Qualifier("internalToBigDecimalConverter") InternalToBigDecimalConverter internalToBigDecimalConverter,
 	        @Qualifier("origenToInternalConverter") OrigenToInternalConverter origenToInternalConverter,
 	        @Qualifier("idiomaToInternalConverter") IdiomaToInternalConverter idiomaToInternalConverter,
-	        @Qualifier("tipusMimeToInternalConverter") TipusMimeToInternalConverter tipusMimeToInternalConverter,
+	        @Qualifier("documentFitxerToInternalConverter") FitxerToInternalConverter fitxerToInternalConverter,
 	        @Qualifier("booleanToInternalConverter") BooleanToInternalConverter booleanToInternalConverter) {
 		this.internalToBigDecimalConverter = internalToBigDecimalConverter;
 		this.origenToInternalConverter = origenToInternalConverter;
 		this.idiomaToInternalConverter = idiomaToInternalConverter;
-		this.tipusMimeToInternalConverter = tipusMimeToInternalConverter;
+		this.fitxerToInternalConverter = fitxerToInternalConverter;
 		this.booleanToInternalConverter = booleanToInternalConverter;
 	}
 
@@ -55,8 +55,7 @@ public class DocumentAportatCrearRDTOToDocsEntradaRDTOMapper extends PropertyMap
 		map().setComentari(source.getComentari());
 		using(idiomaToInternalConverter).map(source.getIdioma()).setIdioma(null);
 		using(booleanToInternalConverter).map(source.getDeclaracioResponsable()).setDeclaracioResponsable(null);
-		map().setFileToUploadName(source.getFitxer().getNom());
-		using(tipusMimeToInternalConverter).map(source.getFitxer().getFormat()).setFileToUploadTipus(null);
+		using(fitxerToInternalConverter).map(source.getFitxer()).setDocsFisics(null);
 	}
 
 }

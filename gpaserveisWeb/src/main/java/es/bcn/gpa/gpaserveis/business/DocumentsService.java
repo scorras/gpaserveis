@@ -1,18 +1,24 @@
+/*
+ * 
+ */
 package es.bcn.gpa.gpaserveis.business;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import es.bcn.gpa.gpaserveis.business.dto.documents.AportarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDeclaracioResponsableBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentEntradaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentTramitacioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDeclaracioResponsableBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DescarregarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.IncorporarNouDocumentEntradaExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.IncorporarNouDocumentTramitacioExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.PrepararRequerimentExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.SubstituirDocumentExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.UploadDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentEntradaFitxerBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentTramitacioFitxerBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarRequerimentFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
@@ -23,10 +29,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitaci
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaUploadDocumentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 
 /**
@@ -94,27 +98,108 @@ public interface DocumentsService {
 			throws GPAServeisServiceException;
 
 	/**
-	 * Aportar documentacio expedient.
+	 * Crear document entrada.
 	 *
-	 * @param aportarDocumentExpedientBDTO
-	 *            the aportar document expedient BDTO
-	 * @return the resposta aportar documentacio expedient RDTO
+	 * @param crearDocumentEntradaBDTO
+	 *            the crear document entrada BDTO
+	 * @return the docs entrada RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	RespostaAportarDocumentacioExpedientRDTO aportarDocumentacioExpedient(AportarDocumentExpedientBDTO aportarDocumentExpedientBDTO)
+	DocsEntradaRDTO crearDocumentEntrada(CrearDocumentEntradaBDTO crearDocumentEntradaBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Crear declaracio responsable.
+	 *
+	 * @param crearDocumentEntradaBDTO
+	 *            the crear document entrada BDTO
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsEntradaRDTO crearDeclaracioResponsable(CrearDeclaracioResponsableBDTO crearDocumentEntradaBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Crear document tramitacio.
+	 *
+	 * @param crearDocumentTramitacioBDTO
+	 *            the crear document tramitacio BDTO
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsTramitacioRDTO crearDocumentTramitacio(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Actualitzar document entrada.
+	 *
+	 * @param actualitzarDocumentEntradaBDTO
+	 *            the actualitzar document entrada BDTO
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsEntradaRDTO actualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO actualitzarDocumentEntradaBDTO)
 			throws GPAServeisServiceException;
 
 	/**
-	 * Substituir document expedient.
+	 * Actualitzar declaracio responsable.
 	 *
-	 * @param substituirDocumentExpedientBDTO
-	 *            the substituir document expedient BDTO
-	 * @return the resposta substituir document expedient RDTO
+	 * @param actualitzarDeclaracioResponsableBDTO
+	 *            the actualitzar declaracio responsable BDTO
+	 * @return the docs entrada RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	RespostaSubstituirDocumentExpedientRDTO substituirDocumentExpedient(SubstituirDocumentExpedientBDTO substituirDocumentExpedientBDTO)
+	DocsEntradaRDTO actualitzarDeclaracioResponsable(ActualitzarDeclaracioResponsableBDTO actualitzarDeclaracioResponsableBDTO)
+			throws GPAServeisServiceException;
+
+	/**
+	 * Actualitzar document tramitacio.
+	 *
+	 * @param actualitzarDocumentTramitacioBDTO
+	 *            the actualitzar document tramitacio BDTO
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsTramitacioRDTO actualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO actualitzarDocumentTramitacioBDTO)
+			throws GPAServeisServiceException;
+
+	/**
+	 * Guardar document entrada fitxer.
+	 *
+	 * @param guardarDocumentEntradaFitxerBDTO
+	 *            the guardar document entrada fitxer BDTO
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsEntradaRDTO guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO)
+			throws GPAServeisServiceException;
+
+	/**
+	 * Guardar requeriment fitxer.
+	 *
+	 * @param guardarRequerimentFitxerBDTO
+	 *            the guardar requeriment fitxer BDTO
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsTramitacioRDTO guardarRequerimentFitxer(GuardarRequerimentFitxerBDTO guardarRequerimentFitxerBDTO)
+			throws GPAServeisServiceException;
+
+	/**
+	 * Guardar document tramitacio fitxer.
+	 *
+	 * @param guardarDocumentTramitacioFitxerBDTO
+	 *            the guardar document tramitacio fitxer BDTO
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsTramitacioRDTO guardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO)
 			throws GPAServeisServiceException;
 
 	/**
@@ -150,7 +235,7 @@ public interface DocumentsService {
 	DocsTramitacioRDTO consultarDadesDocumentGenerat(BigDecimal id) throws GPAServeisServiceException;
 
 	/**
-	 * Descarregar document expedient.
+	 * Descarregar document entrada expedient.
 	 *
 	 * @param descarregarDocumentExpedientBDTO
 	 *            the descarregar document expedient BDTO
@@ -158,19 +243,7 @@ public interface DocumentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	byte[] descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
-			throws GPAServeisServiceException;
-
-	/**
-	 * Upload document expedient.
-	 *
-	 * @param uploadDocumentExpedientRDTO
-	 *            the upload document expedient RDTO
-	 * @return the resposta upload document expedient
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	RespostaUploadDocumentExpedient uploadDocumentExpedient(UploadDocumentExpedientBDTO uploadDocumentExpedientRDTO)
+	byte[] descarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
 			throws GPAServeisServiceException;
 
 	/**
@@ -233,59 +306,40 @@ public interface DocumentsService {
 	 *
 	 * @param signarDocument
 	 *            the signar document
+	 * @return
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	void signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException;
+	PeticionsPortasig signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException;
 
 	/**
-	 * Guardar document entrada.
-	 *
-	 * @param incorporarNouDocumentEntradaExpedientBDTO
-	 *            the incorporar nou document entrada expedient BDTO
-	 * @return the docs entrada RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	DocsEntradaRDTO guardarDocumentEntrada(IncorporarNouDocumentEntradaExpedientBDTO incorporarNouDocumentEntradaExpedientBDTO)
-			throws GPAServeisServiceException;
-
-	/**
-	 * Guardar document tramitacio.
-	 *
-	 * @param incorporarNouDocumentTramitacioExpedientBDTO
-	 *            the incorporar nou document tramitacio expedient BDTO
-	 * @return the docs tramitacio RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	DocsTramitacioRDTO guardarDocumentTramitacio(IncorporarNouDocumentTramitacioExpedientBDTO incorporarNouDocumentTramitacioExpedientBDTO)
-			throws GPAServeisServiceException;
-
-	/**
-	 * Guardar requeriment.
-	 *
-	 * @param prepararRequerimentExpedientBDTO
-	 *            the preparar requeriment expedient BDTO
-	 * @return the docs tramitacio RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	DocsTramitacioRDTO guardarRequeriment(PrepararRequerimentExpedientBDTO prepararRequerimentExpedientBDTO)
-			throws GPAServeisServiceException;
-
-	/**
-	 * Gets the docs tramitacio by notification id.
+	 * Obtenir docs tramitacio by notification id.
 	 *
 	 * @param notificacioId
 	 *            the notificacio id
-	 * @return the docs tramitacio by notification id
+	 * @return the docs tramitacio RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	DocsTramitacioRDTO getDocsTramitacioByNotificationId(Long notificacioId) throws GPAServeisServiceException;
+	DocsTramitacioRDTO obtenirDocsTramitacioByNotificationId(Long notificacioId) throws GPAServeisServiceException;
 
+	/**
+	 * Actualitzar notificacion.
+	 *
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	void actualitzarNotificacion() throws GPAServeisServiceException;
+
+	/**
+	 * Tancar requeriments expedient.
+	 *
+	 * @param idDocumentacio
+	 *            the id documentacio
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void tancarRequerimentsExpedient(BigDecimal idDocumentacio) throws GPAServeisServiceException;
 
 	void callbackPortaSig(CallbackPortaSig callbackPortaSig) throws GPAServeisServiceException;
 

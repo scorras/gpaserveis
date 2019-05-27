@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-13T13:50:42.299+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T11:58:05.753+02:00")
 public class DownloadEntradaApi {
   private ApiClient apiClient;
 
@@ -43,17 +43,17 @@ public class DownloadEntradaApi {
    * @return byte[]
    * @throws ApiException if fails to make API call
    */
-  public byte[] descarregarDocumentExpedient(BigDecimal idDoc, BigDecimal idExpedient) throws ApiException {
+  public byte[] descarregarDocumentEntradaExpedient(BigDecimal idDoc, BigDecimal idExpedient) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'idDoc' is set
     if (idDoc == null) {
-      throw new ApiException(400, "Missing the required parameter 'idDoc' when calling descarregarDocumentExpedient");
+      throw new ApiException(400, "Missing the required parameter 'idDoc' when calling descarregarDocumentEntradaExpedient");
     }
     
     // verify the required parameter 'idExpedient' is set
     if (idExpedient == null) {
-      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling descarregarDocumentExpedient");
+      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling descarregarDocumentEntradaExpedient");
     }
     
     // create path and map variables

@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * PageDataOfConfiguracioDocsTramitacioRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-13T13:50:42.299+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T11:58:05.753+02:00")
 public class PageDataOfConfiguracioDocsTramitacioRDTO {
   @JsonProperty("data")
   private List<ConfiguracioDocsTramitacioRDTO> data = null;
