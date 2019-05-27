@@ -15,6 +15,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.SubstituirDocumentExpedientB
 import es.bcn.gpa.gpaserveis.business.dto.documents.UploadDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
@@ -285,5 +286,7 @@ public interface DocumentsService {
 	DocsTramitacioRDTO getDocsTramitacioByNotificationId(Long notificacioId) throws GPAServeisServiceException;
 
 	void actualitzarNotificacion() throws GPAServeisServiceException;
+
+	void callbackPortaSig(CallbackPortaSig callbackPortaSig) throws GPAServeisServiceException;
 
 }

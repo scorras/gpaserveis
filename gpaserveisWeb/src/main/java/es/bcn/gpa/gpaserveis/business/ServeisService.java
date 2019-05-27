@@ -39,6 +39,7 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaProcedimentsCerca
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
@@ -151,7 +152,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO consultarDadesTramitOvt(TramitsOvtCercaBDTO tramitsOvtCercaBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Cerca dades operacio.
@@ -174,7 +175,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaDadesOperacioRequeritsCercaBDTO cercaDadesOperacioRequerits(DadesOperacioCercaBDTO dadesOperacioCercaBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Cerca configuracio documentacio entrada.
@@ -186,7 +187,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaDocumentsEntradaCercaBDTO cercaConfiguracioDocumentacioEntrada(DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Cerca configuracio documentacio entrada per tramit ovt.
@@ -198,7 +199,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaDocumentsEntradaCercaBDTO cercaConfiguracioDocumentacioEntradaPerTramitOvt(DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Cerca configuracio documentacio tramitacio.
@@ -210,7 +211,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaDocumentsTramitacioCercaBDTO cercaConfiguracioDocumentacioTramitacio(DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Cerca expedients.
@@ -310,7 +311,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaAportarDocumentacioExpedientRDTO aportarDocumentacioExpedient(AportarDocumentExpedientBDTO aportarDocumentExpedientBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Substituir document expedient.
@@ -322,7 +323,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaSubstituirDocumentExpedientRDTO substituirDocumentExpedient(SubstituirDocumentExpedientBDTO substituirDocumentExpedientBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Consultar dades document aportat.
@@ -366,7 +367,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	byte[] descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Upload document expedient.
@@ -378,7 +379,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaUploadDocumentExpedient uploadDocumentExpedient(UploadDocumentExpedientBDTO uploadDocumentExpedientBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Crear registre solicitud expedient.
@@ -392,7 +393,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaCrearRegistreExpedient crearRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO, BigDecimal tipusDocVinculada)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Canviar estat accio expedient.
@@ -404,7 +405,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Crear comentari accio.
@@ -459,7 +460,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaPlantillaDocVinculada getPlantillaDocVinculada(BigDecimal idConfDoc, BigDecimal idDocVinculada)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Associar registre documentacio expedient.
@@ -530,7 +531,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	void canviarUnitatGestoraExpedient(ExpedientsCanviarUnitatGestoraBDTO expedientsCanviarUnitatGestoraBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Consultar dades registre assentament.
@@ -553,7 +554,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	DocsEntradaRDTO guardarDocumentEntrada(IncorporarNouDocumentEntradaExpedientBDTO incorporarNouDocumentEntradaExpedientBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Guardar document tramitacio.
@@ -565,7 +566,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	DocsTramitacioRDTO guardarDocumentTramitacio(IncorporarNouDocumentTramitacioExpedientBDTO incorporarNouDocumentTramitacioExpedientBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Guardar requeriment.
@@ -577,7 +578,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	DocsTramitacioRDTO guardarRequeriment(PrepararRequerimentExpedientBDTO prepararRequerimentExpedientBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Cerca expedients acumular.
@@ -622,7 +623,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	List<PersonesSollicitudRDTO> actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Gets the docs tramitacio by notification id.
@@ -647,5 +648,7 @@ public interface ServeisService {
 	BigDecimal getIdExpedientByDocumentacioIdExt(BigDecimal documentacio) throws GPAServeisServiceException;
 
 	void actualitzarNotificacion() throws GPAServeisServiceException;
+
+	void callbackPortaSig(CallbackPortaSig callbackPortaSig) throws GPAServeisServiceException;
 
 }
