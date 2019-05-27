@@ -1054,9 +1054,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			        dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc(), null);
 			RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = serveisService
 			        .cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);
-			ServeisRestControllerValidationHelper.validateConfiguracioDocumentacioSubstituir(
-			        respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList(), documentSubstituir,
-			        Resultat.ERROR_SUBSTITUIR_DOCUMENT_EXPEDIENT);
+			HashMap<String, ConfiguracioDocsEntradaRDTO> map = ServeisRestControllerValidationHelper
+			        .validateConfiguracioDocumentacioSubstituir(respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList(),
+			                documentSubstituir, Resultat.ERROR_SUBSTITUIR_DOCUMENT_EXPEDIENT);
 
 			// Substituir el document si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
@@ -1065,22 +1065,26 @@ public class ServeisPortalRestController extends BaseRestController {
 			// Se construye el modelo para la llamada a la operación de aportar
 			// documentació
 			DocsEntradaRDTO docsEntradaRDTOSubstituir = modelMapper.map(documentSubstituir, DocsEntradaRDTO.class);
-			docsEntradaRDTOSubstituir.setId(idDocument);
+			docsEntradaRDTO.setConfigDocEntrada(map.get(String.valueOf(docsEntradaRDTOSubstituir.getConfigDocEntrada())).getId());
 			docsEntradaRDTO.setOrigen(
-			        docsEntradaRDTO.getOrigen() == null ? OrigenApiParamValue.EXTERN.getInternalValue() : docsEntradaRDTO.getOrigen());
-			docsEntradaRDTOSubstituir.setRevisio(RevisioApiParamValue.PENDENT.getInternalValue());
-			docsEntradaRDTOSubstituir.setConfigDocEntrada(docsEntradaRDTO.getConfigDocEntrada());
-			if (docsEntradaRDTO.getDocsFisics() != null && documentSubstituir.getFitxer() != null) {
-				docsEntradaRDTOSubstituir.getDocsFisics().setId(docsEntradaRDTO.getDocsFisics().getId());
+			        docsEntradaRDTOSubstituir.getOrigen() != null ? docsEntradaRDTOSubstituir.getOrigen() : docsEntradaRDTO.getOrigen());
+			docsEntradaRDTO.setComentari(docsEntradaRDTOSubstituir.getComentari() != null ? docsEntradaRDTOSubstituir.getComentari()
+			        : docsEntradaRDTO.getComentari());
+			docsEntradaRDTO.setIdioma(
+			        docsEntradaRDTOSubstituir.getIdioma() != null ? docsEntradaRDTOSubstituir.getIdioma() : docsEntradaRDTO.getIdioma());
+			if (docsEntradaRDTOSubstituir.getDocsFisics() != null) {
+				docsEntradaRDTO.getDocsFisics().setNom(docsEntradaRDTOSubstituir.getDocsFisics().getNom());
+				docsEntradaRDTO.getDocsFisics().setTipusMime(docsEntradaRDTOSubstituir.getDocsFisics().getTipusMime());
 			}
+
 			if (docsEntradaRDTO.getDeclaracioResponsable()
 			        .compareTo(BooleanApiParamValue.TRUE.getInternalValue()) == NumberUtils.INTEGER_ZERO) {
 				ActualitzarDeclaracioResponsableBDTO actualitzarDeclaracioResponsableBDTO = new ActualitzarDeclaracioResponsableBDTO(
-				        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTOSubstituir);
+				        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
 				docsEntradaRDTOResposta = serveisService.actualitzarDeclaracioResponsable(actualitzarDeclaracioResponsableBDTO);
 			} else {
 				ActualitzarDocumentEntradaBDTO actualitzarDocumentEntradaBDTO = new ActualitzarDocumentEntradaBDTO(
-				        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTOSubstituir);
+				        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
 				docsEntradaRDTOResposta = serveisService.actualitzarDocumentEntrada(actualitzarDocumentEntradaBDTO);
 			}
 

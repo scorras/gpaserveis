@@ -791,16 +791,19 @@ public class ServeisRestControllerValidationHelper {
 	 *            the document aportat substituir RDTO
 	 * @param resultatError
 	 *            the resultat error
-	 * @return
+	 * @return the hash map
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
-	public static void validateConfiguracioDocumentacioSubstituir(List<ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOList,
-	        DocumentAportatSubstituirRDTO documentAportatSubstituirRDTO, Resultat resultatError) throws GPAApiParamValidationException {
+	public static HashMap<String, ConfiguracioDocsEntradaRDTO> validateConfiguracioDocumentacioSubstituir(
+	        List<ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOList, DocumentAportatSubstituirRDTO documentAportatSubstituirRDTO,
+	        Resultat resultatError) throws GPAApiParamValidationException {
+		HashMap<String, ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaRDTOMap = new HashMap<>();
 		if (documentAportatSubstituirRDTO != null) {
-			validateConfiguracioDocumentacioEntrada(configuracioDocsEntradaRDTOList,
+			configuracioDocsEntradaRDTOMap = validateConfiguracioDocumentacioEntrada(configuracioDocsEntradaRDTOList,
 			        Arrays.asList(documentAportatSubstituirRDTO.getConfiguracioDocumentacio()), resultatError);
 		}
+		return configuracioDocsEntradaRDTOMap;
 	}
 
 	/**
