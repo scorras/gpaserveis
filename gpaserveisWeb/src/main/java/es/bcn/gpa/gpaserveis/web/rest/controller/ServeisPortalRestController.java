@@ -1065,26 +1065,22 @@ public class ServeisPortalRestController extends BaseRestController {
 			// Se construye el modelo para la llamada a la operación de aportar
 			// documentació
 			DocsEntradaRDTO docsEntradaRDTOSubstituir = modelMapper.map(documentSubstituir, DocsEntradaRDTO.class);
-			docsEntradaRDTO.setConfigDocEntrada(map.get(String.valueOf(docsEntradaRDTOSubstituir.getConfigDocEntrada())).getId());
-			docsEntradaRDTO.setOrigen(
-			        docsEntradaRDTOSubstituir.getOrigen() != null ? docsEntradaRDTOSubstituir.getOrigen() : docsEntradaRDTO.getOrigen());
-			docsEntradaRDTO.setComentari(docsEntradaRDTOSubstituir.getComentari() != null ? docsEntradaRDTOSubstituir.getComentari()
-			        : docsEntradaRDTO.getComentari());
-			docsEntradaRDTO.setIdioma(
-			        docsEntradaRDTOSubstituir.getIdioma() != null ? docsEntradaRDTOSubstituir.getIdioma() : docsEntradaRDTO.getIdioma());
-			if (docsEntradaRDTOSubstituir.getDocsFisics() != null) {
-				docsEntradaRDTO.getDocsFisics().setNom(docsEntradaRDTOSubstituir.getDocsFisics().getNom());
-				docsEntradaRDTO.getDocsFisics().setTipusMime(docsEntradaRDTOSubstituir.getDocsFisics().getTipusMime());
+			docsEntradaRDTOSubstituir.setId(docsEntradaRDTO.getId());
+			docsEntradaRDTOSubstituir.setDocumentacio(docsEntradaRDTO.getDocumentacio());
+			docsEntradaRDTOSubstituir.setRevisio(docsEntradaRDTO.getRevisio());
+			docsEntradaRDTOSubstituir.setConfigDocEntrada(map.get(String.valueOf(docsEntradaRDTOSubstituir.getConfigDocEntrada())).getId());
+			if (docsEntradaRDTO.getDocsFisics() != null && docsEntradaRDTOSubstituir.getDocsFisics() != null) {
+				docsEntradaRDTOSubstituir.getDocsFisics().setId(docsEntradaRDTO.getDocsFisics().getId());
 			}
 
 			if (docsEntradaRDTO.getDeclaracioResponsable()
 			        .compareTo(BooleanApiParamValue.TRUE.getInternalValue()) == NumberUtils.INTEGER_ZERO) {
 				ActualitzarDeclaracioResponsableBDTO actualitzarDeclaracioResponsableBDTO = new ActualitzarDeclaracioResponsableBDTO(
-				        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
+				        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTOSubstituir);
 				docsEntradaRDTOResposta = serveisService.actualitzarDeclaracioResponsable(actualitzarDeclaracioResponsableBDTO);
 			} else {
 				ActualitzarDocumentEntradaBDTO actualitzarDocumentEntradaBDTO = new ActualitzarDocumentEntradaBDTO(
-				        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
+				        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTOSubstituir);
 				docsEntradaRDTOResposta = serveisService.actualitzarDocumentEntrada(actualitzarDocumentEntradaBDTO);
 			}
 
@@ -1142,6 +1138,10 @@ public class ServeisPortalRestController extends BaseRestController {
 			docsEntradaRDTO = serveisService.consultarDadesDocumentAportat(idDocument);
 			ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO,
 			        Resultat.ERROR_UPLOAD_DOCUMENT_EXPEDIENT);
+
+			// No se debe permitir subir un fichero a una Declaración
+			// Responsable
+			ServeisRestControllerValidationHelper.validateDocumentUpload(docsEntradaRDTO, Resultat.ERROR_UPLOAD_DOCUMENT_EXPEDIENT);
 
 			// No hay una acción asociada al upload
 
@@ -1408,9 +1408,9 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		RespostaExpedientsEsmenarBDTO respostaExpedientsEsmenarBDTO = new RespostaExpedientsEsmenarBDTO(
-		        dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
+		        dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null,
+		        respostaCrearJustificant != null ? respostaCrearJustificant.getId() : null, respostaResultatBDTO);
 		respostaEsmenarExpedientRDTO = modelMapper.map(respostaExpedientsEsmenarBDTO, RespostaEsmenarExpedientRDTO.class);
-		respostaEsmenarExpedientRDTO.setComprovant(respostaCrearJustificant != null ? respostaCrearJustificant.getId() : null);
 
 		if (log.isDebugEnabled()) {
 			log.debug("esmenarExpedient(BigDecimal, ExpedientEsmenaRDTO) - fi"); //$NON-NLS-1$

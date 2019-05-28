@@ -64,6 +64,8 @@ public enum ErrorPrincipal {
 	ERROR_CONFIGURACIO_DOCUMENTACIO_REQUERIMENT_NOT_AVAILABLE("4004",
 	        "La configuració de documentació no està disponible per a ser afegida al requeriment: "),
 
+	ERROR_DOCUMENTS_UPLOAD_DECLARACIO_RESPONSABLE_NOT_AVAILABLE("4005", "No és possible pujar un fitxer a una declaració responsable"),
+
 	ERROR_DOCUMENTS_OPENTEXT("4005", "");
 
 	private String codi;
