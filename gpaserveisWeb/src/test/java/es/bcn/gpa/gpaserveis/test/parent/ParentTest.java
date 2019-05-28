@@ -347,6 +347,9 @@ public abstract class ParentTest {
 			when(documentacioApi.guardarDocumentTramitacioFitxer(any(String.class), any(File.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.guardarDocumentTramitacioResponse());
 
+			when(documentacioApi.guardarDocumentTramitacioPlantilla(any(DocsTramitacioRDTO.class), any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.guardarDocumentTramitacioResponse());
+
 			when(documentacioApi.crearPeticioPortaSig(any(SignarDocument.class)))
 			        .thenReturn(TestsConfigHelper.crearPeticioPortaSigResponse());
 

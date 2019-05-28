@@ -53,6 +53,10 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.auth.OAuth;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-28T10:22:59.533+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient")
 public class ApiClient {
+
+	/** Logger for this class. */
+	private static final Log LOGGER = LogFactory.getLog(ApiClient.class);
+
 	public enum CollectionFormat {
 		CSV(","), TSV("\t"), SSV(" "), PIPES("|"), MULTI(null);
 
@@ -183,7 +187,7 @@ public class ApiClient {
 				return;
 			}
 		}
-		throw new RuntimeException("No HTTP basic authentication configured!");
+		throw new RestClientException("No HTTP basic authentication configured!");
 	}
 
 	/**
@@ -199,7 +203,7 @@ public class ApiClient {
 				return;
 			}
 		}
-		throw new RuntimeException("No HTTP basic authentication configured!");
+		throw new RestClientException("No HTTP basic authentication configured!");
 	}
 
 	/**
@@ -215,7 +219,7 @@ public class ApiClient {
 				return;
 			}
 		}
-		throw new RuntimeException("No API key authentication configured!");
+		throw new RestClientException("No API key authentication configured!");
 	}
 
 	/**
@@ -231,7 +235,7 @@ public class ApiClient {
 				return;
 			}
 		}
-		throw new RuntimeException("No API key authentication configured!");
+		throw new RestClientException("No API key authentication configured!");
 	}
 
 	/**
@@ -247,7 +251,7 @@ public class ApiClient {
 				return;
 			}
 		}
-		throw new RuntimeException("No OAuth2 authentication configured!");
+		throw new RestClientException("No OAuth2 authentication configured!");
 	}
 
 	/**
@@ -341,7 +345,7 @@ public class ApiClient {
 		try {
 			return dateFormat.parse(str);
 		} catch (ParseException e) {
-			throw new RuntimeException(e);
+			throw new RestClientException("Error parsing date", e);
 		}
 	}
 
@@ -444,6 +448,7 @@ public class ApiClient {
 		try {
 			return isJsonMime(MediaType.parseMediaType(mediaType));
 		} catch (InvalidMediaTypeException e) {
+			LOGGER.error("Invalid media type: " + mediaType, e);
 		}
 		return false;
 	}
