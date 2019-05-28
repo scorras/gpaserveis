@@ -10,40 +10,56 @@
  * Do not edit the class manually.
  */
 
-
 package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TipusDocumentacioVinculadaRDTO;
-import org.junit.Test;
-import org.junit.Ignore;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
+
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TipusDocumentacioVinculadaRDTO;
 
 /**
  * API tests for TipusDocumentacioVinculadaApi
  */
-@Ignore
-public class TipusDocumentacioVinculadaApiTest {
+@SuppressWarnings("unchecked")
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class TipusDocumentacioVinculadaApiTest extends ParentTest {
 
-    private final TipusDocumentacioVinculadaApi api = new TipusDocumentacioVinculadaApi();
+	@InjectMocks
+	private TipusDocumentacioVinculadaApi api = new TipusDocumentacioVinculadaApi();
 
-    
-    /**
-     * Returns all the TipusDocumentacioVinculada
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void obtenirTipusDocumentacioVinculadaUsingGETTest() {
-        List<TipusDocumentacioVinculadaRDTO> response = api.obtenirTipusDocumentacioVinculadaUsingGET();
+	/**
+	 * Returns all the TipusDocumentacioVinculada
+	 *
+	 * 
+	 *
+	 * @throws RestClientException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirTipusDocumentacioVinculadaUsingGETTest() throws RestClientException {
+		when(apiClient.invokeAPI(eq("/documentacio/catalog/tipusDocumentacioVinculada"), eq(HttpMethod.GET), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<TipusDocumentacioVinculadaRDTO>());
 
-        // TODO: test validations
-    }
-    
+		List<TipusDocumentacioVinculadaRDTO> response = api.obtenirTipusDocumentacioVinculadaUsingGET();
+
+		assertTrue(response != null);
+	}
+
 }

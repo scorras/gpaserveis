@@ -1275,7 +1275,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public void fallbackSignarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException {
+	public PeticionsPortasig fallbackSignarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackSignarValidarDocument(SignarDocument) - inici"); //$NON-NLS-1$
 		}

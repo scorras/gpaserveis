@@ -984,9 +984,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
 				serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
 			}
-		} catch (
-
-		GPAApiParamValidationException e) {
+		} catch (GPAApiParamValidationException e) {
 			log.error("aportarDocumentacioExpedient(BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
 
 			respostaResultatBDTO = new RespostaResultatBDTO(e);

@@ -60,7 +60,7 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 
 	@Test
 	public void testStage06_GetConsultarDadesExpedient() throws Exception {
-		String url = BASE_URL + "/expedients/Codi%20%2F2018%2F000001";
+		String url = BASE_URL + "/expedients/2019_EXP_00001";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 

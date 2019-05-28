@@ -7,6 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import es.bcn.gpa.gpaserveis.test.parent.RestServerParentTest;
 
@@ -104,7 +107,7 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 
 	@Test
 	public void testStage12_PostSignarDocument() throws Exception {
-		String url = BASE_URL + "/expedients/1/resolucio/1/signar";
+		String url = BASE_URL + "/expedients/1/documentacio/1/signar";
 		getMockMvc()
 		        .perform(post(url).contentType(APPLICATION_JSON_UTF8)
 		                .content("{ \"matricula\":\"123456A\", \"documentIdentitat\":\"789456L\" }"))
@@ -131,20 +134,22 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 
 	@Test
 	public void testStage15_PostIncorporarNouDocumentAportadaExpedient() throws Exception {
+		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
 		String url = BASE_URL + "/expedients/1/documentacio";
-		getMockMvc()
-		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-		                "{ \"document\": { \"configuracio\": \"APORTADA\", \"configuracioDocumentacio\": \"42\", \"origen\": \"INTERN\", \"comentari\": \"comentari\", \"idioma\": \"CATALA\", \"revisio\": \"CORRECTE\", \"digitalitzat\": true, \"digitalitzacio\": {\"idioma\": \"CASTELLA\", \"dataDigitalitzacio\": \"19/05/2019 18:45:22\"}, \"fitxer\": {\"nom\": \"prova.txt\", \"format\": \"TXT\"}, \"numeroRegistre\": \"123456\" }}"))
-		        .andExpect(status().isOk()).andDo(print());
+		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile)
+		        .param("document",
+		                "{ \"document\": { \"configuracio\": \"APORTADA\", \"configuracioDocumentacio\": \"42\", \"origen\": \"INTERN\", \"comentari\": \"comentari\", \"idioma\": \"CATALA\", \"revisio\": \"CORRECTE\", \"digitalitzat\": true, \"digitalitzacio\": {\"idioma\": \"CASTELLA\", \"dataDigitalitzacio\": \"19/05/2019 18:45:22\"}, \"fitxer\": {\"nom\": \"prova.txt\", \"format\": \"TXT\"}, \"numeroRegistre\": \"123456\" }}")
+		        .contentType(MediaType.MULTIPART_FORM_DATA)).andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test
 	public void testStage16_PostIncorporarNouDocumentGeneradaExpedient() throws Exception {
+		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
 		String url = BASE_URL + "/expedients/1/documentacio";
-		getMockMvc()
-		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-		                "{ \"document\": { \"configuracio\": \"GENERADA\", \"configuracioDocumentacio\": \"42\", \"origen\": \"INTERN\", \"comentari\": \"comentari\", \"idioma\": \"CATALA\", \"digitalitzat\": true, \"digitalitzacio\": {\"idioma\": \"CASTELLA\", \"dataDigitalitzacio\": \"19/05/2019 18:45:22\"}, \"fitxer\": {\"nom\": \"prova.txt\", \"format\": \"TXT\"}, \"numeroRegistre\": \"123456\" }}"))
-		        .andExpect(status().isOk()).andDo(print());
+		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile)
+		        .param("document",
+		                "{ \"document\": { \"configuracio\": \"GENERADA\", \"configuracioDocumentacio\": \"42\", \"origen\": \"INTERN\", \"comentari\": \"comentari\", \"idioma\": \"CATALA\", \"digitalitzat\": true, \"digitalitzacio\": {\"idioma\": \"CASTELLA\", \"dataDigitalitzacio\": \"19/05/2019 18:45:22\"}, \"fitxer\": {\"nom\": \"prova.txt\", \"format\": \"TXT\"}, \"numeroRegistre\": \"123456\" }}")
+		        .contentType(MediaType.MULTIPART_FORM_DATA)).andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test
@@ -185,11 +190,12 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 
 	@Test
 	public void testStage21_PostPrepararRequerimentExpedient() throws Exception {
+		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
 		String url = BASE_URL + "/expedients/1/documentacio/requeriment";
-		getMockMvc()
-		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-		                "{ \"document\": { \"configuracioDocumentacio\": \"42\", \"origen\": \"INTERN\", \"comentari\": \"comentari\", \"idioma\": \"CATALA\", \"digitalitzat\": true, \"digitalitzacio\": {\"idioma\": \"CASTELLA\", \"dataDigitalitzacio\": \"19/05/2019 18:45:22\"}, \"fitxer\": {\"nom\": \"prova.txt\", \"format\": \"TXT\"} }, \"dadesOperacioRequerits\": [{\"codi\": \"DO1\"}, {\"codi\": \"DO2\"}], \"documentacioRequerida\": [{\"configuracioDocumentacio\": \"42\"}, {\"configuracioDocumentacio\": \"43\"}]}"))
-		        .andExpect(status().isOk()).andDo(print());
+		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile)
+		        .param("requeriment",
+		                "{ \"document\": { \"configuracioDocumentacio\": \"42\", \"origen\": \"INTERN\", \"comentari\": \"comentari\", \"idioma\": \"CATALA\", \"digitalitzat\": true, \"digitalitzacio\": {\"idioma\": \"CASTELLA\", \"dataDigitalitzacio\": \"19/05/2019 18:45:22\"}, \"fitxer\": {\"nom\": \"prova.txt\", \"format\": \"TXT\"} }, \"dadesOperacioRequerits\": [{\"codi\": \"DO1\"}, {\"codi\": \"DO2\"}], \"documentacioRequerida\": [{\"configuracioDocumentacio\": \"42\"}, {\"configuracioDocumentacio\": \"43\"}]}")
+		        .contentType(MediaType.MULTIPART_FORM_DATA)).andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test

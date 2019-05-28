@@ -10,42 +10,59 @@
  * Do not edit the class manually.
  */
 
-
 package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 
-import java.math.BigDecimal;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaDocumentacioVinculadaCompletaRDTO;
-import org.junit.Test;
-import org.junit.Ignore;
+import static java.math.BigDecimal.ONE;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
+
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
+
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaDocumentacioVinculadaCompletaRDTO;
 
 /**
  * API tests for DocumentacioVinculadaCompletaApi
  */
-@Ignore
-public class DocumentacioVinculadaCompletaApiTest {
+@SuppressWarnings("unchecked")
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class DocumentacioVinculadaCompletaApiTest extends ParentTest {
 
-    private final DocumentacioVinculadaCompletaApi api = new DocumentacioVinculadaCompletaApi();
+	@InjectMocks
+	private DocumentacioVinculadaCompletaApi api = new DocumentacioVinculadaCompletaApi();
 
-    
-    /**
-     * Returns DocumentacioVinculadaCompleta
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void obtenirDocumentacioVinculadaCompletaUsingGETTest() {
-        BigDecimal idConfiguracioDocumentacio = null;
-        RespostaDocumentacioVinculadaCompletaRDTO response = api.obtenirDocumentacioVinculadaCompletaUsingGET(idConfiguracioDocumentacio);
+	/**
+	 * Returns DocumentacioVinculadaCompleta
+	 *
+	 * 
+	 *
+	 * @throws RestClientException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirDocumentacioVinculadaCompletaUsingGETTest() throws RestClientException {
+		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/documentacioVinculadaCompleta/1"), eq(HttpMethod.GET),
+		        any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class),
+		        any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
+		                .thenReturn(new RespostaDocumentacioVinculadaCompletaRDTO());
 
-        // TODO: test validations
-    }
-    
+		BigDecimal idConfiguracioDocumentacio = ONE;
+		RespostaDocumentacioVinculadaCompletaRDTO response = api.obtenirDocumentacioVinculadaCompletaUsingGET(idConfiguracioDocumentacio);
+
+		assertTrue(response != null);
+	}
+
 }
