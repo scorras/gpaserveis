@@ -34,12 +34,13 @@ import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InputStreamResource;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreCreacioSolicitudExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreSolicitudExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
@@ -160,7 +161,7 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void getChildExpedientsUsingGETTest() throws ApiException {
+	public void cercaExpedientsAcumulatsTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/acumulacioExpedients/1/acumulacio/children"), eq("GET"), any(List.class), any(Object.class),
 		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
@@ -181,7 +182,7 @@ public class Expedients_ApiTest extends ParentTest {
 		String sort = null;
 		Long totalElements = null;
 		Integer totalPages = null;
-		PageDataOfExpedientsRDTO response = api.getChildExpedientsUsingGET(idExpedient, absoluteRowNumberOfFirstRowInCurrentPage,
+		PageDataOfExpedientsRDTO response = api.cercaExpedientsAcumulats(idExpedient, absoluteRowNumberOfFirstRowInCurrentPage,
 		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
 		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
 		        totalPages);
@@ -291,13 +292,13 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void getRegistreAssentamentUsingGETTest() throws ApiException {
+	public void consultarDadesRegistreAssentamentTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/expedients/registre"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
 		        any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new RegistreAssentamentRDTO());
 
-		String codi = "Reg";
-		RegistreAssentamentRDTO response = api.getRegistreAssentamentUsingGET(codi);
+		String codi = ONE.toString();
+		RegistreAssentamentRDTO response = api.consultarDadesRegistreAssentament(codi);
 
 		assertTrue(response != null);
 	}
@@ -369,7 +370,7 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void searchExpedientsAcumuladorsUsingGETTest() throws ApiException {
+	public void cercaExpedientsAcumularTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/acumulacioExpedients/searchExpedientsAcumuladors"), eq("GET"), any(List.class), any(Object.class),
 		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new PageDataOfExpedientsRDTO());
@@ -386,7 +387,6 @@ public class Expedients_ApiTest extends ParentTest {
 		BigDecimal id = null;
 		BigDecimal idProcedimentAcumulat = null;
 		BigDecimal idUsuari = null;
-		List<BigDecimal> idsExpedientAcumulatList = null;
 		Integer nextPageNumber = null;
 		String nombreDocument = null;
 		Integer pageSize = null;
@@ -395,10 +395,10 @@ public class Expedients_ApiTest extends ParentTest {
 		String sort = null;
 		Long totalElements = null;
 		Integer totalPages = null;
-		PageDataOfExpedientsRDTO response = api.searchExpedientsAcumuladorsUsingGET(absoluteRowNumberOfFirstRowInCurrentPage,
+		PageDataOfExpedientsRDTO response = api.cercaExpedientsAcumular(absoluteRowNumberOfFirstRowInCurrentPage,
 		        absoluteRowNumberOfLastRowInCurrentPage, codi, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dir, id, idProcedimentAcumulat, idUsuari, idsExpedientAcumulatList,
-		        nextPageNumber, nombreDocument, pageSize, previousPageNumber, sollicitant, sort, totalElements, totalPages);
+		        currentPageIsLastPage, currentPageNumber, dir, id, idProcedimentAcumulat, idUsuari, nextPageNumber, nombreDocument,
+		        pageSize, previousPageNumber, sollicitant, sort, totalElements, totalPages);
 
 		assertTrue(response != null);
 	}
@@ -445,7 +445,7 @@ public class Expedients_ApiTest extends ParentTest {
 	}
 
 	/**
-	 * jexl
+	 * Retorna el xml de la informació de l&#39;expedient
 	 *
 	 * 
 	 *
@@ -453,14 +453,14 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void obtenirXmlEvaluateUsingGETTest() throws ApiException {
+	public void obtenirXmlExpedientTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/expedients/obtenirXmlEvaluate/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new String());
+		                .thenReturn(new RespostaObtenirXmlExpedient());
 
 		BigDecimal idExpedient = ONE;
-		String response = api.obtenirXmlEvaluateUsingGET(idExpedient);
+		RespostaObtenirXmlExpedient response = api.obtenirXmlExpedient(idExpedient);
 
 		assertTrue(response != null);
 	}
@@ -494,12 +494,33 @@ public class Expedients_ApiTest extends ParentTest {
 	 */
 	@Test
 	public void crearRegistreSolicitudExpedientTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/registre/crear"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/expedients/registre/crear/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new RespostaCrearRegistreSolicitudExpedient());
+		                .thenReturn(new RespostaCrearRegistreExpedient());
 
-		RegistreCreacioSolicitudExpedient registrarSolicitudExpedientRDTO = new RegistreCreacioSolicitudExpedient();
-		RespostaCrearRegistreSolicitudExpedient response = api.crearRegistreSolicitudExpedient(registrarSolicitudExpedientRDTO);
+		CrearRegistre registrarSolicitudExpedientRDTO = new CrearRegistre();
+		RespostaCrearRegistreExpedient response = api.crearRegistreSolicitudExpedient(BigDecimal.ONE, registrarSolicitudExpedientRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested id expedient
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void getIdExpedientByDocumentacioIdExtTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/expedients/expedientByIdDoc/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(ONE);
+
+		BigDecimal idDocumentacio = ONE;
+		BigDecimal response = api.getIdExpedientByDocumentacioIdExt(idDocumentacio);
 
 		assertTrue(response != null);
 	}

@@ -19,17 +19,19 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.LopdRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 
 /**
  * API tests for LopdApi
@@ -46,14 +48,14 @@ public class LopdApiTest extends ParentTest {
 	 *
 	 * 
 	 *
-	 * @throws ApiException
+	 * @throws RestClientException
 	 *             if the Api call fails
 	 */
 	@Test
-	public void getLopdUsingGETTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/documentacio/catalog/lopd"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<LopdRDTO>());
+	public void getLopdUsingGETTest() throws RestClientException {
+		when(apiClient.invokeAPI(eq("/documentacio/catalog/lopd"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<LopdRDTO>());
 
 		List<LopdRDTO> response = api.getLopdUsingGET();
 

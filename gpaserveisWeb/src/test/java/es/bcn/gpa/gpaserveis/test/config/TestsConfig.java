@@ -11,15 +11,21 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.CanviUnitatGestoraApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ConvidarATramitartApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.RetornarLaTramitacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesOperacionsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.AccionsEstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
@@ -317,6 +323,90 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("avisosApi() - fi"); //$NON-NLS-1$
 		}
 		return avisosApi;
+	}
+
+	@Bean
+	public RetornarLaTramitacioApi retornarLaTramitacioApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("retornarLaTramitacioApi() - inici"); //$NON-NLS-1$
+		}
+
+		RetornarLaTramitacioApi retornarLaTramitacioApi = Mockito.mock(RetornarLaTramitacioApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("retornarLaTramitacioApi() - fi"); //$NON-NLS-1$
+		}
+		return retornarLaTramitacioApi;
+	}
+
+	@Bean
+	public ConvidarATramitartApi convidarATramitartApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("convidarATramitartApi() - inici"); //$NON-NLS-1$
+		}
+
+		ConvidarATramitartApi convidarATramitartApi = Mockito.mock(ConvidarATramitartApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("convidarATramitartApi() - fi"); //$NON-NLS-1$
+		}
+		return convidarATramitartApi;
+	}
+
+	@Bean
+	public CanviUnitatGestoraApi canviUnitatGestoraApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("canviUnitatGestoraApi() - inici"); //$NON-NLS-1$
+		}
+
+		CanviUnitatGestoraApi canviUnitatGestoraApi = Mockito.mock(CanviUnitatGestoraApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("canviUnitatGestoraApi() - fi"); //$NON-NLS-1$
+		}
+		return canviUnitatGestoraApi;
+	}
+
+	@Bean
+	public DadesOperacionsApi dadesOperacionsApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("dadesOperacionsApi() - inici"); //$NON-NLS-1$
+		}
+
+		DadesOperacionsApi dadesOperacionsApi = Mockito.mock(DadesOperacionsApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("dadesOperacionsApi() - fi"); //$NON-NLS-1$
+		}
+		return dadesOperacionsApi;
+	}
+
+	@Bean
+	public AcumulaciExpedientsApi acumulaciExpedientsApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("acumulaciExpedientsApi() - inici"); //$NON-NLS-1$
+		}
+
+		AcumulaciExpedientsApi acumulaciExpedientsApi = Mockito.mock(AcumulaciExpedientsApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("acumulaciExpedientsApi() - fi"); //$NON-NLS-1$
+		}
+		return acumulaciExpedientsApi;
+	}
+
+	@Bean
+	public PersonesSollicitudApi personesSollicitudApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("personesSollicitudApi() - inici"); //$NON-NLS-1$
+		}
+
+		PersonesSollicitudApi personesSollicitudApi = Mockito.mock(PersonesSollicitudApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("personesSollicitudApi() - fi"); //$NON-NLS-1$
+		}
+		return personesSollicitudApi;
 	}
 
 }

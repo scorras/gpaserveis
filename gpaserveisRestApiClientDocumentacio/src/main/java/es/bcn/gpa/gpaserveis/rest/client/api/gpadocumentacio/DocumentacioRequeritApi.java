@@ -1,11 +1,6 @@
 package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.Configuration;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.Pair;
-
-import javax.ws.rs.core.GenericType;
 
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
@@ -15,66 +10,80 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T11:59:46.009+02:00")
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-28T16:24:07.324+02:00")
+@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi")
 public class DocumentacioRequeritApi {
-  private ApiClient apiClient;
+    private ApiClient apiClient;
 
-  public DocumentacioRequeritApi() {
-    this(Configuration.getDefaultApiClient());
-  }
-
-  public DocumentacioRequeritApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
-
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  /**
-   * returns the required documentation for the documentation of a expedient
-   * 
-   * @param idDoc idDoc (required)
-   * @return List&lt;ConfDocEntradaRequeritRDTO&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<ConfDocEntradaRequeritRDTO> cercaConfiguracioDocumentacioEntradaRequerida(BigDecimal idDoc) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'idDoc' is set
-    if (idDoc == null) {
-      throw new ApiException(400, "Missing the required parameter 'idDoc' when calling cercaConfiguracioDocumentacioEntradaRequerida");
+    public DocumentacioRequeritApi() {
+        this(new ApiClient());
     }
-    
-    // create path and map variables
-    String localVarPath = "/configuracioDocumentacio/docsEntradaRequerit/{idDoc}"
-      .replaceAll("\\{" + "idDoc" + "\\}", apiClient.escapeString(idDoc.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    @Autowired
+    public DocumentacioRequeritApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    /**
+     * returns the required documentation for the documentation of a expedient
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param idDoc idDoc
+     * @return List&lt;ConfDocEntradaRequeritRDTO&gt;
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public List<ConfDocEntradaRequeritRDTO> cercaConfiguracioDocumentacioEntradaRequerida(BigDecimal idDoc) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'idDoc' is set
+        if (idDoc == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idDoc' when calling cercaConfiguracioDocumentacioEntradaRequerida");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("idDoc", idDoc);
+        String path = UriComponentsBuilder.fromPath("/configuracioDocumentacio/docsEntradaRequerit/{idDoc}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-    String[] localVarAuthNames = new String[] {  };
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
-    GenericType<List<ConfDocEntradaRequeritRDTO>> localVarReturnType = new GenericType<List<ConfDocEntradaRequeritRDTO>>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<List<ConfDocEntradaRequeritRDTO>> returnType = new ParameterizedTypeReference<List<ConfDocEntradaRequeritRDTO>>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
 }

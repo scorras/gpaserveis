@@ -18,13 +18,15 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AtributsDocs;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntrada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ExpedientRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RegistreAssentamentRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat;
@@ -43,12 +45,14 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollici
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentament;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Sollicituds;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperTramitsOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperValidVal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsValidacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesoperEstatsExp;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Estats;
@@ -56,6 +60,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.EstatsProcedi
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Identificacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesGrupsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesOperacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsIniciacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
@@ -536,6 +541,171 @@ public class TestsConfigHelper {
 	}
 
 	/**
+	 * Consultar dades expedient acumular response.
+	 *
+	 * @return the expedients RDTO
+	 */
+	public static ExpedientsRDTO consultarDadesExpedientAcumularResponse() {
+		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
+
+		expedientsRDTO.setId(new BigDecimal(2));
+		expedientsRDTO.setCodi("Codi/2019/000002");
+		expedientsRDTO.setSollicitud(ONE);
+		expedientsRDTO.setProcedimentIdext(ONE);
+		expedientsRDTO.setDocumentacioIdext(ONE);
+		expedientsRDTO.setEstatActual(ONE);
+		expedientsRDTO.setUltimaModificacio(ONE);
+		expedientsRDTO.setDarreraModificacio(now());
+		expedientsRDTO.setDataPresentacio(now());
+		expedientsRDTO.setNomProcediment("Nom PROC01");
+		expedientsRDTO.setSollicitant("Sol·licitant");
+		expedientsRDTO.setAccioEstatIdext(ONE);
+		expedientsRDTO.setUnitatGestoraIdext(ONE);
+		expedientsRDTO.setDescUnitatGestora("UG1");
+		expedientsRDTO.setTramitador("quiosc");
+		expedientsRDTO.setDescEstat("En preparació");
+		expedientsRDTO.setIdEstat(ONE);
+		expedientsRDTO.setProcedimentCodi("PROC01");
+
+		Sollicituds sollicituds = new Sollicituds();
+		sollicituds.setId(ONE);
+		sollicituds.setDataSollicitud(now());
+		sollicituds.setDataPresentacio(now());
+		sollicituds.setRegistre(ONE);
+
+		RegistreAssentament registreAssentament = new RegistreAssentament();
+		registreAssentament.setId(ONE);
+		registreAssentament.setCodi("REG01");
+		registreAssentament.setUsuari(ONE);
+		registreAssentament.setTipus(ONE);
+		registreAssentament.setDataRegistre(now());
+
+		Persones persones = new Persones();
+		persones.setId(ONE);
+		persones.setTipusPersona(ONE);
+		persones.setNomRaoSocial("NomRaoSocial");
+		persones.setCognom1("Cognom1");
+		persones.setCognom2("Cognom2");
+
+		DocumentsIdentitat documentsIdentitat = new DocumentsIdentitat();
+		documentsIdentitat.setId(ONE);
+		documentsIdentitat.setNumeroDocument("12345678H");
+
+		TipusDocumentIdentitat tipusDocumentIdentitat = new TipusDocumentIdentitat();
+		tipusDocumentIdentitat.setId(ONE);
+		tipusDocumentIdentitat.setDescripcio("NIF");
+
+		Paisos paisos = new Paisos();
+		paisos.setCodiIne("108");
+		paisos.setCodiIso("ES");
+
+		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
+		personesDadescontacte.setId(ONE);
+
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Estats estats = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Estats();
+		estats.setId(ONE);
+		estats.setDataCreacio(now());
+		estats.setAccioEstatIdext(ONE);
+		estats.setEstatAnterior(ONE);
+		estats.setUsuari(ONE);
+		estats.setUnitatGestoraIdext(ONE);
+
+		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
+		documentsIdentitat.setPaisos(paisos);
+		persones.setDocumentsIdentitat(documentsIdentitat);
+		persones.setPersonesDadescontacte(personesDadescontacte);
+		registreAssentament.setPersones(persones);
+		sollicituds.setRegistreAssentament(registreAssentament);
+		expedientsRDTO.setSollicituds(sollicituds);
+		expedientsRDTO.setEstat(estats);
+
+		return expedientsRDTO;
+	}
+
+	public static PageDataOfExpedientsRDTO cercaExpedientsAcumularResponse() {
+		PageDataOfExpedientsRDTO pageDataOfExpedientsRDTO = new PageDataOfExpedientsRDTO();
+		ArrayList<ExpedientsRDTO> expedientsRDTOList = new ArrayList<ExpedientsRDTO>();
+
+		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
+
+		expedientsRDTO.setId(new BigDecimal(2));
+		expedientsRDTO.setCodi("Codi/2019/000002");
+		expedientsRDTO.setSollicitud(ONE);
+		expedientsRDTO.setProcedimentIdext(ONE);
+		expedientsRDTO.setDocumentacioIdext(ONE);
+		expedientsRDTO.setEstatActual(ONE);
+		expedientsRDTO.setUltimaModificacio(ONE);
+		expedientsRDTO.setDarreraModificacio(now());
+		expedientsRDTO.setDataPresentacio(now());
+		expedientsRDTO.setNomProcediment("Nom PROC01");
+		expedientsRDTO.setSollicitant("Sol·licitant");
+		expedientsRDTO.setAccioEstatIdext(ONE);
+		expedientsRDTO.setUnitatGestoraIdext(ONE);
+		expedientsRDTO.setDescUnitatGestora("UG1");
+		expedientsRDTO.setTramitador("quiosc");
+		expedientsRDTO.setDescEstat("En preparació");
+		expedientsRDTO.setIdEstat(ONE);
+		expedientsRDTO.setProcedimentCodi("PROC01");
+
+		Sollicituds sollicituds = new Sollicituds();
+		sollicituds.setId(ONE);
+		sollicituds.setDataSollicitud(now());
+		sollicituds.setDataPresentacio(now());
+		sollicituds.setRegistre(ONE);
+
+		RegistreAssentament registreAssentament = new RegistreAssentament();
+		registreAssentament.setId(ONE);
+		registreAssentament.setCodi("REG01");
+		registreAssentament.setUsuari(ONE);
+		registreAssentament.setTipus(ONE);
+		registreAssentament.setDataRegistre(now());
+
+		Persones persones = new Persones();
+		persones.setId(ONE);
+		persones.setTipusPersona(ONE);
+		persones.setNomRaoSocial("NomRaoSocial");
+		persones.setCognom1("Cognom1");
+		persones.setCognom2("Cognom2");
+
+		DocumentsIdentitat documentsIdentitat = new DocumentsIdentitat();
+		documentsIdentitat.setId(ONE);
+		documentsIdentitat.setNumeroDocument("12345678H");
+
+		TipusDocumentIdentitat tipusDocumentIdentitat = new TipusDocumentIdentitat();
+		tipusDocumentIdentitat.setId(ONE);
+		tipusDocumentIdentitat.setDescripcio("NIF");
+
+		Paisos paisos = new Paisos();
+		paisos.setCodiIne("108");
+		paisos.setCodiIso("ES");
+
+		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
+		personesDadescontacte.setId(ONE);
+
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Estats estats = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Estats();
+		estats.setId(ONE);
+		estats.setDataCreacio(now());
+		estats.setAccioEstatIdext(ONE);
+		estats.setEstatAnterior(ONE);
+		estats.setUsuari(ONE);
+		estats.setUnitatGestoraIdext(ONE);
+
+		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
+		documentsIdentitat.setPaisos(paisos);
+		persones.setDocumentsIdentitat(documentsIdentitat);
+		persones.setPersonesDadescontacte(personesDadescontacte);
+		registreAssentament.setPersones(persones);
+		sollicituds.setRegistreAssentament(registreAssentament);
+		expedientsRDTO.setSollicituds(sollicituds);
+		expedientsRDTO.setEstat(estats);
+
+		expedientsRDTOList.add(expedientsRDTO);
+		pageDataOfExpedientsRDTO.setData(expedientsRDTOList);
+
+		return pageDataOfExpedientsRDTO;
+	}
+
+	/**
 	 * Cerca historics expedient response.
 	 *
 	 * @return the page data of historics RDTO
@@ -865,6 +1035,39 @@ public class TestsConfigHelper {
 	}
 
 	/**
+	 * Cerca configuracio documentacio tramitacio response.
+	 *
+	 * @return the page data of configuracio docs tramitacio RDTO
+	 */
+	public static PageDataOfConfiguracioDocsTramitacioRDTO cercaConfiguracioDocumentacioTramitacioResponse() {
+		PageDataOfConfiguracioDocsTramitacioRDTO pageDataOfConfiguracioDocsTramitacioRDTO = new PageDataOfConfiguracioDocsTramitacioRDTO();
+
+		ArrayList<ConfiguracioDocsTramitacioRDTO> configuracioDocsTramitacioRDTOList = new ArrayList<ConfiguracioDocsTramitacioRDTO>();
+		AtributsDocs atributsDocs = new AtributsDocs();
+		atributsDocs.setObligatori(INTEGER_ONE);
+		atributsDocs.setRepetible(INTEGER_ONE);
+		ConfiguracioDocsTramitacioRDTO configuracioDocsTramitacioRDTO1 = new ConfiguracioDocsTramitacioRDTO();
+		configuracioDocsTramitacioRDTO1.setId(ONE);
+		configuracioDocsTramitacioRDTO1.setNom("Nom Doc");
+		configuracioDocsTramitacioRDTO1.setAtributsDocs(atributsDocs);
+		configuracioDocsTramitacioRDTO1.setSuportConfeccio(INTEGER_ONE);
+		configuracioDocsTramitacioRDTO1.setSuportEnllac("Suport Enllac Doc");
+		configuracioDocsTramitacioRDTO1.setUniqueId(new BigDecimal(42));
+		configuracioDocsTramitacioRDTOList.add(configuracioDocsTramitacioRDTO1);
+		ConfiguracioDocsTramitacioRDTO configuracioDocsTramitacioRDTO2 = new ConfiguracioDocsTramitacioRDTO();
+		configuracioDocsTramitacioRDTO2.setId(ONE);
+		configuracioDocsTramitacioRDTO2.setNom("Nom Doc");
+		configuracioDocsTramitacioRDTO2.setAtributsDocs(atributsDocs);
+		configuracioDocsTramitacioRDTO2.setSuportConfeccio(INTEGER_ONE);
+		configuracioDocsTramitacioRDTO2.setSuportEnllac("Suport Enllac Doc");
+		configuracioDocsTramitacioRDTO2.setUniqueId(new BigDecimal(43));
+		configuracioDocsTramitacioRDTOList.add(configuracioDocsTramitacioRDTO2);
+		pageDataOfConfiguracioDocsTramitacioRDTO.setData(configuracioDocsTramitacioRDTOList);
+
+		return pageDataOfConfiguracioDocsTramitacioRDTO;
+	}
+
+	/**
 	 * Cerca accions possibles response.
 	 *
 	 * @return the list
@@ -973,6 +1176,84 @@ public class TestsConfigHelper {
 		accionsEstatsRDTO17.setNomAccio("Rebutjar un document");
 		accionsEstatsRDTO17.setAccio(new BigDecimal(16));
 		accionsEstatsRDTOList.add(accionsEstatsRDTO17);
+
+		AccionsEstatsRDTO accionsEstatsRDTO18 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO18.setId(ONE);
+		accionsEstatsRDTO18.setNomAccio("Convidar a tramitar");
+		accionsEstatsRDTO18.setAccio(new BigDecimal(25));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO18);
+
+		AccionsEstatsRDTO accionsEstatsRDTO19 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO19.setId(ONE);
+		accionsEstatsRDTO19.setNomAccio("Canviar d'unitat gestora");
+		accionsEstatsRDTO19.setAccio(new BigDecimal(41));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO19);
+
+		AccionsEstatsRDTO accionsEstatsRDTO20 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO20.setId(ONE);
+		accionsEstatsRDTO20.setNomAccio("Incorporar un nou document electrònic");
+		accionsEstatsRDTO20.setAccio(new BigDecimal(11));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO20);
+
+		AccionsEstatsRDTO accionsEstatsRDTO21 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO21.setId(ONE);
+		accionsEstatsRDTO21.setNomAccio("Signar document");
+		accionsEstatsRDTO21.setAccio(new BigDecimal(29));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO21);
+
+		AccionsEstatsRDTO accionsEstatsRDTO22 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO22.setId(ONE);
+		accionsEstatsRDTO22.setNomAccio("Completar un document");
+		accionsEstatsRDTO22.setAccio(new BigDecimal(14));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO22);
+
+		AccionsEstatsRDTO accionsEstatsRDTO23 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO23.setId(ONE);
+		accionsEstatsRDTO23.setNomAccio("Presentar declaració responsable");
+		accionsEstatsRDTO23.setAccio(new BigDecimal(5));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO23);
+
+		AccionsEstatsRDTO accionsEstatsRDTO24 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO24.setId(ONE);
+		accionsEstatsRDTO24.setNomAccio("Preparar un requeriment a l'interessat");
+		accionsEstatsRDTO24.setAccio(new BigDecimal(18));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO24);
+
+		AccionsEstatsRDTO accionsEstatsRDTO25 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO25.setId(ONE);
+		accionsEstatsRDTO25.setNomAccio("Acumular expedients");
+		accionsEstatsRDTO25.setAccio(new BigDecimal(37));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO25);
+
+		AccionsEstatsRDTO accionsEstatsRDTO26 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO26.setId(ONE);
+		accionsEstatsRDTO26.setNomAccio("Accés a l'expedient (funcionari dóna accés)");
+		accionsEstatsRDTO26.setAccio(new BigDecimal(35));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO26);
+
+		AccionsEstatsRDTO accionsEstatsRDTO27 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO27.setId(ONE);
+		accionsEstatsRDTO27.setNomAccio("Registrar comunicació");
+		accionsEstatsRDTO27.setAccio(new BigDecimal(22));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO27);
+
+		AccionsEstatsRDTO accionsEstatsRDTO28 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO28.setId(ONE);
+		accionsEstatsRDTO28.setNomAccio("Notificar");
+		accionsEstatsRDTO28.setAccio(new BigDecimal(19));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO28);
+
+		AccionsEstatsRDTO accionsEstatsRDTO29 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO29.setId(ONE);
+		accionsEstatsRDTO29.setNomAccio("Document signat");
+		accionsEstatsRDTO29.setAccio(new BigDecimal(44));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO29);
+
+		AccionsEstatsRDTO accionsEstatsRDTO30 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO30.setId(ONE);
+		accionsEstatsRDTO30.setNomAccio("Digitalitzar un document");
+		accionsEstatsRDTO30.setAccio(new BigDecimal(13));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO30);
 
 		return accionsEstatsRDTOList;
 	}
@@ -1136,65 +1417,12 @@ public class TestsConfigHelper {
 		return expedientsRDTO;
 	}
 
-	public static RespostaAportarDocumentacioExpedientRDTO aportarDocumentacioExpedientResponse() {
-		RespostaAportarDocumentacioExpedientRDTO respostaAportarDocumentacioExpedientRDTO = new RespostaAportarDocumentacioExpedientRDTO();
-		DocsFisics docsFisics = new DocsFisics();
-		docsFisics.setNom("prova.txt");
-		ConfiguracioDocsEntrada configuracioDocsEntrada = new ConfiguracioDocsEntrada();
-		configuracioDocsEntrada.setId(ONE);
-		configuracioDocsEntrada.setNom("Nom");
-		ArrayList<DocsEntradaRDTO> docsEntradaRDTOList = new ArrayList<DocsEntradaRDTO>();
-		DocsEntradaRDTO docsEntradaRDTO1 = new DocsEntradaRDTO();
-		docsEntradaRDTO1.setId(ONE);
-		docsEntradaRDTO1.setDocsFisics(docsFisics);
-		docsEntradaRDTO1.setConfiguracioDocsEntrada(configuracioDocsEntrada);
-		docsEntradaRDTO1.setConfiguracioDocsEntradaNom("Nom");
-		docsEntradaRDTO1.setOrigen(INTEGER_ONE);
-		docsEntradaRDTO1.setRevisio(INTEGER_ONE);
-		docsEntradaRDTO1.setDataPresentacio(now());
-		docsEntradaRDTO1.setDataUltimaModificacio(now());
-		docsEntradaRDTOList.add(docsEntradaRDTO1);
-		DocsEntradaRDTO docsEntradaRDTO2 = new DocsEntradaRDTO();
-		docsEntradaRDTO2.setId(ONE);
-		docsEntradaRDTO2.setDocsFisics(docsFisics);
-		docsEntradaRDTO2.setConfiguracioDocsEntrada(configuracioDocsEntrada);
-		docsEntradaRDTO2.setConfiguracioDocsEntradaNom("Nom");
-		docsEntradaRDTO2.setOrigen(INTEGER_ONE);
-		docsEntradaRDTO2.setRevisio(INTEGER_ONE);
-		docsEntradaRDTO2.setDataPresentacio(now());
-		docsEntradaRDTO2.setDataUltimaModificacio(now());
-		docsEntradaRDTOList.add(docsEntradaRDTO2);
-		respostaAportarDocumentacioExpedientRDTO.setDocsEntrada(docsEntradaRDTOList);
-		ExpedientRDTO expedientRDTO = new ExpedientRDTO();
-		expedientRDTO.setId(ONE);
-		expedientRDTO.setCodi("Codi");
-		respostaAportarDocumentacioExpedientRDTO.setExpedient(expedientRDTO);
-		RegistreAssentamentRDTO registreAssentamentRDTO = new RegistreAssentamentRDTO();
-		registreAssentamentRDTO.setCodi("Codi");
-		registreAssentamentRDTO.setDataRegistre(now());
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones persones = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones();
-		persones.setTipusPersona(ONE);
-		persones.setNomRaoSocial("Nom");
-		persones.setCognom1("Cognom 1");
-		persones.setCognom2("Cognom 2");
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentsIdentitat documentsIdentitat = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentsIdentitat();
-		documentsIdentitat.setTipus(ONE);
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TipusDocumentIdentitat tipusDocumentIdentitat = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TipusDocumentIdentitat();
-		tipusDocumentIdentitat.setId(ONE);
-		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
-		documentsIdentitat.setNumeroDocument("00000000T");
-		documentsIdentitat.setPais("108");
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Paisos paisos = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Paisos();
-		paisos.setCodiIne("108");
-		documentsIdentitat.setPaisos(paisos);
-		persones.setDocumentsIdentitat(documentsIdentitat);
-		registreAssentamentRDTO.setPersones(persones);
-		respostaAportarDocumentacioExpedientRDTO.setRegistreAssentament(registreAssentamentRDTO);
-
-		return respostaAportarDocumentacioExpedientRDTO;
-	}
-
-	public static DocsEntradaRDTO consultarDadesDocumentAportat() {
+	/**
+	 * Consultar dades document aportat response.
+	 *
+	 * @return the docs entrada RDTO
+	 */
+	public static DocsEntradaRDTO consultarDadesDocumentAportatResponse() {
 		DocsFisics docsFisics = new DocsFisics();
 		docsFisics.setNom("prova.txt");
 		ConfiguracioDocsEntrada configuracioDocsEntrada = new ConfiguracioDocsEntrada();
@@ -1214,112 +1442,39 @@ public class TestsConfigHelper {
 		return docsEntradaRDTO;
 	}
 
-	public static RespostaSubstituirDocumentExpedientRDTO substituirDocumentExpedientResponse() {
-		RespostaSubstituirDocumentExpedientRDTO respostaSubstituirDocumentExpedientRDTO = new RespostaSubstituirDocumentExpedientRDTO();
+	/**
+	 * Consultar dades document generat response.
+	 *
+	 * @return the docs tramitacio RDTO
+	 */
+	public static DocsTramitacioRDTO consultarDadesDocumentGeneratResponse() {
 		DocsFisics docsFisics = new DocsFisics();
 		docsFisics.setNom("prova.txt");
-		ConfiguracioDocsEntrada configuracioDocsEntrada = new ConfiguracioDocsEntrada();
-		configuracioDocsEntrada.setId(ONE);
-		configuracioDocsEntrada.setNom("Nom");
-		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
-		docsEntradaRDTO.setId(ONE);
-		docsEntradaRDTO.setDocsFisics(docsFisics);
-		docsEntradaRDTO.setConfiguracioDocsEntrada(configuracioDocsEntrada);
-		docsEntradaRDTO.setConfiguracioDocsEntradaNom("Nom");
-		docsEntradaRDTO.setOrigen(INTEGER_ONE);
-		docsEntradaRDTO.setRevisio(INTEGER_ONE);
-		docsEntradaRDTO.setDataPresentacio(now());
-		docsEntradaRDTO.setDataUltimaModificacio(now());
-		respostaSubstituirDocumentExpedientRDTO.setDocEntrada(docsEntradaRDTO);
-		ExpedientRDTO expedientRDTO = new ExpedientRDTO();
-		expedientRDTO.setId(ONE);
-		expedientRDTO.setCodi("Codi");
-		respostaSubstituirDocumentExpedientRDTO.setExpedient(expedientRDTO);
-		RegistreAssentamentRDTO registreAssentamentRDTO = new RegistreAssentamentRDTO();
-		registreAssentamentRDTO.setCodi("Codi");
-		registreAssentamentRDTO.setDataRegistre(now());
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones persones = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones();
-		persones.setTipusPersona(ONE);
-		persones.setNomRaoSocial("Nom");
-		persones.setCognom1("Cognom 1");
-		persones.setCognom2("Cognom 2");
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentsIdentitat documentsIdentitat = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentsIdentitat();
-		documentsIdentitat.setTipus(ONE);
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TipusDocumentIdentitat tipusDocumentIdentitat = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TipusDocumentIdentitat();
-		tipusDocumentIdentitat.setId(ONE);
-		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
-		documentsIdentitat.setNumeroDocument("00000000T");
-		documentsIdentitat.setPais("108");
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Paisos paisos = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Paisos();
-		paisos.setCodiIne("108");
-		documentsIdentitat.setPaisos(paisos);
-		persones.setDocumentsIdentitat(documentsIdentitat);
-		registreAssentamentRDTO.setPersones(persones);
-		respostaSubstituirDocumentExpedientRDTO.setRegistreAssentament(registreAssentamentRDTO);
+		ConfiguracioDocsTramitacio configuracioDocsTramitacio = new ConfiguracioDocsTramitacio();
+		configuracioDocsTramitacio.setId(ONE);
+		configuracioDocsTramitacio.setNom("Nom");
+		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
+		docsTramitacioRDTO.setId(ONE);
+		docsTramitacioRDTO.setDocsFisics(docsFisics);
+		docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
+		docsTramitacioRDTO.setConfiguracioDocsTramitacioNom("Nom");
+		docsTramitacioRDTO.setOrigen(INTEGER_ONE);
+		docsTramitacioRDTO.setDataCreacio(now());
+		docsTramitacioRDTO.setDataDigitalitzacio(now());
+		docsTramitacioRDTO.setDataUltimaModificacio(now());
+		docsTramitacioRDTO.setDocumentacio(ONE);
 
-		return respostaSubstituirDocumentExpedientRDTO;
+		return docsTramitacioRDTO;
 	}
 
+	/**
+	 * Descarregar document expedient response.
+	 *
+	 * @return the byte[]
+	 */
 	public static byte[] descarregarDocumentExpedientResponse() {
 		return "prova".getBytes();
 	}
-	// TODO Peticiones ligeras
-	// public static RespostaRegistrarSolicitudExpedient
-	// registrarSolicitudExpedientResponse() {
-	// RespostaRegistrarSolicitudExpedient respostaRegistrarSolicitudExpedient =
-	// new RespostaRegistrarSolicitudExpedient();
-	//
-	// respostaRegistrarSolicitudExpedient.setComprovant("prova".getBytes());
-	// ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
-	// expedientsRDTO.setId(ONE);
-	// expedientsRDTO.setCodi("Codi");
-	// respostaRegistrarSolicitudExpedient.setExpedient(expedientsRDTO);
-	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO
-	// registreAssentamentRDTO = new
-	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO();
-	// registreAssentamentRDTO.setCodi("Codi");
-	// registreAssentamentRDTO.setDataRegistre(now());
-	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones
-	// persones = new
-	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones();
-	// persones.setTipusPersona(ONE);
-	// persones.setNomRaoSocial("Nom");
-	// persones.setCognom1("Cognom 1");
-	// persones.setCognom2("Cognom 2");
-	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat
-	// documentsIdentitat = new
-	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat();
-	// documentsIdentitat.setTipus(ONE);
-	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat
-	// tipusDocumentIdentitat = new
-	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat();
-	// tipusDocumentIdentitat.setId(ONE);
-	// documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
-	// documentsIdentitat.setNumeroDocument("00000000T");
-	// documentsIdentitat.setPais("108");
-	// es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Paisos paisos =
-	// new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Paisos();
-	// paisos.setCodiIne("108");
-	// documentsIdentitat.setPaisos(paisos);
-	// persones.setDocumentsIdentitat(documentsIdentitat);
-	// registreAssentamentRDTO.setPersones(persones);
-	// respostaRegistrarSolicitudExpedient.setRegistreAssentament(registreAssentamentRDTO);
-	//
-	// return respostaRegistrarSolicitudExpedient;
-	// }
-	//
-	// public static RespostaValidarExpedient
-	// validarSolicitudExpedientResponse() {
-	// RespostaValidarExpedient respostaValidarExpedient = new
-	// RespostaValidarExpedient();
-	//
-	// ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
-	// expedientsRDTO.setId(ONE);
-	// expedientsRDTO.setCodi("Codi");
-	// respostaValidarExpedient.setExpedient(expedientsRDTO);
-	//
-	// return respostaValidarExpedient;
-	// }
 
 	/**
 	 * Canviar estat accio expedient response.
@@ -1344,19 +1499,200 @@ public class TestsConfigHelper {
 	 */
 	public static List<EstatsRDTO> cercaHistoricsEstatsResponse() {
 		ArrayList<EstatsRDTO> estatsRDTOList = new ArrayList<EstatsRDTO>();
-		EstatsRDTO estatsRDTO = new EstatsRDTO();
-		estatsRDTO.setDataCreacio(now());
-		estatsRDTO.setDescripcioEstatActualCiutada("Descripció Estat Actual Ciutada");
-		estatsRDTO.setDescripcioEstatActualCiutadaCastella("Descripció Estat Actual Ciutada Castellá");
-		estatsRDTO.setDescripcioEstatActualCiutadaCatala("Descripció Estat Actual Ciutada Catalá");
-		estatsRDTO.setDescripcioEstatActualTramitador("Descripció Estat Actual Tramitador");
-		estatsRDTO.setDescripcioEstatActualTramitadorCastella("Descripció Estat Actual Tramitador Castellá");
-		estatsRDTO.setDescripcioEstatActualTramitadorCatala("Descripció Estat Actual Tramitador Catalá");
-		estatsRDTO.setDescripcioEstatAnteriorCiutada("Descripció Estat Anterior Ciutada");
-		estatsRDTO.setDescripcioEstatAnteriorTramitador("Descripció Estat Anterior Tramitador");
-		estatsRDTO.setIdEstatActual(ONE);
-		estatsRDTO.setIdEstatAnterior(ONE);
-		estatsRDTOList.add(estatsRDTO);
+		EstatsRDTO estatsRDTO1 = new EstatsRDTO();
+		estatsRDTO1.setDataCreacio(now());
+		estatsRDTO1.setDescripcioEstatActualCiutada("Descripció Estat Actual Ciutada");
+		estatsRDTO1.setDescripcioEstatActualCiutadaCastella("Descripció Estat Actual Ciutada Castellá");
+		estatsRDTO1.setDescripcioEstatActualCiutadaCatala("Descripció Estat Actual Ciutada Catalá");
+		estatsRDTO1.setDescripcioEstatActualTramitador("Descripció Estat Actual Tramitador");
+		estatsRDTO1.setDescripcioEstatActualTramitadorCastella("Descripció Estat Actual Tramitador Castellá");
+		estatsRDTO1.setDescripcioEstatActualTramitadorCatala("Descripció Estat Actual Tramitador Catalá");
+		estatsRDTO1.setDescripcioEstatAnteriorCiutada("Descripció Estat Anterior Ciutada");
+		estatsRDTO1.setDescripcioEstatAnteriorTramitador("Descripció Estat Anterior Tramitador");
+		estatsRDTO1.setIdEstatActual(ONE);
+		estatsRDTO1.setIdEstatAnterior(ONE);
+		estatsRDTOList.add(estatsRDTO1);
+		EstatsRDTO estatsRDTO2 = new EstatsRDTO();
+		estatsRDTO2.setDataCreacio(now());
+		estatsRDTO2.setDescripcioEstatActualCiutada("Descripció Estat Actual Ciutada");
+		estatsRDTO2.setDescripcioEstatActualCiutadaCastella("Descripció Estat Actual Ciutada Castellá");
+		estatsRDTO2.setDescripcioEstatActualCiutadaCatala("Descripció Estat Actual Ciutada Catalá");
+		estatsRDTO2.setDescripcioEstatActualTramitador("Descripció Estat Actual Tramitador");
+		estatsRDTO2.setDescripcioEstatActualTramitadorCastella("Descripció Estat Actual Tramitador Castellá");
+		estatsRDTO2.setDescripcioEstatActualTramitadorCatala("Descripció Estat Actual Tramitador Catalá");
+		estatsRDTO2.setDescripcioEstatAnteriorCiutada("Descripció Estat Anterior Ciutada");
+		estatsRDTO2.setDescripcioEstatAnteriorTramitador("Descripció Estat Anterior Tramitador");
+		estatsRDTO2.setIdEstatActual(ONE);
+		estatsRDTO2.setIdEstatAnterior(ONE);
+		estatsRDTOList.add(estatsRDTO2);
 		return estatsRDTOList;
 	}
+
+	/**
+	 * Crear registre solicitud expedient response.
+	 *
+	 * @return the resposta crear registre expedient
+	 */
+	public static RespostaCrearRegistreExpedient crearRegistreSolicitudExpedientResponse() {
+		RespostaCrearRegistreExpedient respostaCrearRegistreExpedient = new RespostaCrearRegistreExpedient();
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO registreAssentament = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO();
+
+		registreAssentament.setId(ONE);
+		respostaCrearRegistreExpedient.setRegistreAssentament(registreAssentament);
+
+		return respostaCrearRegistreExpedient;
+	}
+
+	/**
+	 * Gets the plantilla doc vinculada response.
+	 *
+	 * @return the plantilla doc vinculada response
+	 */
+	public static RespostaPlantillaDocVinculada getPlantillaDocVinculadaResponse() {
+		RespostaPlantillaDocVinculada respostaPlantillaDocVinculada = new RespostaPlantillaDocVinculada();
+		respostaPlantillaDocVinculada.setId(ONE);
+		respostaPlantillaDocVinculada.setPlantilla("PLANTILLA_GPA");
+		return respostaPlantillaDocVinculada;
+	}
+
+	/**
+	 * Guardar document tramitacio response.
+	 *
+	 * @return the docs tramitacio RDTO
+	 */
+	public static DocsTramitacioRDTO guardarDocumentTramitacioResponse() {
+		DocsTramitacioRDTO respostaCrearJustificant = new DocsTramitacioRDTO();
+		respostaCrearJustificant.setId(ONE);
+		return respostaCrearJustificant;
+	}
+
+	/**
+	 * Guardar document entrada response.
+	 *
+	 * @return the docs entrada RDTO
+	 */
+	public static DocsEntradaRDTO guardarDocumentEntradaResponse() {
+		DocsFisics docsFisics = new DocsFisics();
+		docsFisics.setNom("prova.txt");
+		ConfiguracioDocsEntrada configuracioDocsEntrada = new ConfiguracioDocsEntrada();
+		configuracioDocsEntrada.setId(ONE);
+		configuracioDocsEntrada.setNom("Nom");
+		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
+		docsEntradaRDTO.setId(ONE);
+		docsEntradaRDTO.setDocsFisics(docsFisics);
+		docsEntradaRDTO.setConfiguracioDocsEntrada(configuracioDocsEntrada);
+		docsEntradaRDTO.setConfiguracioDocsEntradaNom("Nom");
+		docsEntradaRDTO.setOrigen(INTEGER_ONE);
+		docsEntradaRDTO.setRevisio(INTEGER_ONE);
+		docsEntradaRDTO.setDataPresentacio(now());
+		docsEntradaRDTO.setDataUltimaModificacio(now());
+
+		return docsEntradaRDTO;
+	}
+
+	/**
+	 * Consultar dades registre assentament response.
+	 *
+	 * @return the es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.
+	 *         registre assentament RDTO
+	 */
+	public static es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO consultarDadesRegistreAssentamentResponse() {
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO registreAssentament = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO();
+		registreAssentament.setId(ONE);
+		return registreAssentament;
+	}
+
+	/**
+	 * Cerca dades operacio requerits response.
+	 *
+	 * @return the page data of dades operacions RDTO
+	 */
+	public static PageDataOfDadesOperacionsRDTO cercaDadesOperacioRequeritsResponse() {
+		PageDataOfDadesOperacionsRDTO pageDataOfDadesOperacionsRDTO = new PageDataOfDadesOperacionsRDTO();
+		ArrayList<DadesOperacionsRDTO> dadesOperacionsRDTOList = new ArrayList<DadesOperacionsRDTO>();
+		DadesoperEstatsExp dadesoperEstatsExp = new DadesoperEstatsExp();
+		dadesoperEstatsExp.setDadesOperacio(ONE);
+		dadesoperEstatsExp.setEstatExpIdext(ONE);
+		ArrayList<DadesOperacionsValidacio> dadesOperacionsValidacioList = new ArrayList<DadesOperacionsValidacio>();
+		DadesOperacionsValidacio dadesOperacionsValidacio = new DadesOperacionsValidacio();
+		dadesOperacionsValidacio.setDadesOperacions(ONE);
+		dadesOperacionsValidacio.setId(ONE);
+		dadesOperacionsValidacio.setTipusValidacio(ONE);
+		ArrayList<DadesOperValidVal> DadesOperValidValList = new ArrayList<DadesOperValidVal>();
+		DadesOperValidVal dadesOperValidVal = new DadesOperValidVal();
+		dadesOperValidVal.setDadesOperValid(ONE);
+		dadesOperValidVal.setId(ONE);
+		dadesOperValidVal.setOrdre(LONG_ONE);
+		dadesOperValidVal.setValor("10000");
+		DadesOperValidValList.add(dadesOperValidVal);
+		dadesOperacionsValidacio.setDadesOperacionsValidValors(DadesOperValidValList);
+		dadesOperacionsValidacioList.add(dadesOperacionsValidacio);
+		ArrayList<DadesOperTramitsOvt> dadesOperTramitsOvtList = new ArrayList<DadesOperTramitsOvt>();
+		DadesOperTramitsOvt dadesOperTramitsOvt = new DadesOperTramitsOvt();
+		dadesOperTramitsOvt.setDadaOper(ONE);
+		dadesOperTramitsOvt.setTramitOvtIdext(ONE);
+		dadesOperTramitsOvtList.add(dadesOperTramitsOvt);
+		ArrayList<Items> itemsList = new ArrayList<Items>();
+		Items items = new Items();
+		items.setDadesOperacions(ONE);
+		items.setId(ONE);
+		items.setItemDescripcio("Descripció Item");
+		items.setItemId(INTEGER_ONE);
+		items.setItemOrdre(INTEGER_ONE);
+		itemsList.add(items);
+
+		DadesOperacionsRDTO dadesOperacionsRDTO1 = new DadesOperacionsRDTO();
+		dadesOperacionsRDTO1.setCercable(INTEGER_ONE);
+		dadesOperacionsRDTO1.setCodi("DO1");
+		dadesOperacionsRDTO1.setComentari("Comentari DO");
+		dadesOperacionsRDTO1.setDescripcio("Descripció DO");
+		dadesOperacionsRDTO1.setDesTipusCamp("Numèric");
+		dadesOperacionsRDTO1.setDetallValidacio("Detall validació 1");
+		dadesOperacionsRDTO1.setDadesoperEstatsExpList(Arrays.asList(dadesoperEstatsExp));
+		dadesOperacionsRDTO1.setGrup(ONE);
+		dadesOperacionsRDTO1.setId(ONE);
+		dadesOperacionsRDTO1.setOrdre(INTEGER_ONE);
+		dadesOperacionsRDTO1.setProcediment(ONE);
+		dadesOperacionsRDTO1.setTipus(INTEGER_ONE);
+		dadesOperacionsRDTO1.setTitol("Tìtol DO");
+		dadesOperacionsRDTO1.setTitolGrup("Tìtol G1");
+		dadesOperacionsRDTO1.setUrlOrigen("URL Origen DO");
+		dadesOperacionsRDTO1.setValidacio(INTEGER_ONE);
+		dadesOperacionsRDTO1.setVigent(INTEGER_ONE);
+		dadesOperacionsRDTO1.setDadesOperacionsValidacio(dadesOperacionsValidacioList);
+		dadesOperacionsRDTO1.setDadesOperTramitsOvtList(dadesOperTramitsOvtList);
+		dadesOperacionsRDTO1.setItemsList(itemsList);
+		dadesOperacionsRDTOList.add(dadesOperacionsRDTO1);
+		DadesOperacionsRDTO dadesOperacionsRDTO2 = new DadesOperacionsRDTO();
+		dadesOperacionsRDTO2.setCercable(INTEGER_ONE);
+		dadesOperacionsRDTO2.setCodi("DO2");
+		dadesOperacionsRDTO2.setComentari("Comentari DO");
+		dadesOperacionsRDTO2.setDescripcio("Descripció DO");
+		dadesOperacionsRDTO2.setDesTipusCamp("Numèric");
+		dadesOperacionsRDTO2.setDetallValidacio("Detall validació 1");
+		dadesOperacionsRDTO2.setDadesoperEstatsExpList(Arrays.asList(dadesoperEstatsExp));
+		dadesOperacionsRDTO2.setGrup(ONE);
+		dadesOperacionsRDTO2.setId(ONE);
+		dadesOperacionsRDTO2.setOrdre(INTEGER_ONE);
+		dadesOperacionsRDTO2.setProcediment(ONE);
+		dadesOperacionsRDTO2.setTipus(INTEGER_ONE);
+		dadesOperacionsRDTO2.setTitol("Tìtol DO");
+		dadesOperacionsRDTO2.setTitolGrup("Tìtol G1");
+		dadesOperacionsRDTO2.setUrlOrigen("URL Origen DO");
+		dadesOperacionsRDTO2.setValidacio(INTEGER_ONE);
+		dadesOperacionsRDTO2.setVigent(INTEGER_ONE);
+		dadesOperacionsRDTO2.setDadesOperacionsValidacio(dadesOperacionsValidacioList);
+		dadesOperacionsRDTO2.setDadesOperTramitsOvtList(dadesOperTramitsOvtList);
+		dadesOperacionsRDTO2.setItemsList(itemsList);
+		dadesOperacionsRDTOList.add(dadesOperacionsRDTO2);
+		pageDataOfDadesOperacionsRDTO.setData(dadesOperacionsRDTOList);
+
+		return pageDataOfDadesOperacionsRDTO;
+	}
+
+	public static PeticionsPortasig crearPeticioPortaSigResponse() {
+		PeticionsPortasig peticionsPortasig = new PeticionsPortasig();
+		return peticionsPortasig;
+	}
+
 }

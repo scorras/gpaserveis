@@ -44,9 +44,8 @@ public class RespostaExpedientsRegistrarBDTOToRespostaRegistrarExpedientRDTOMapp
 	protected void configure() {
 		using(internalToResultatRespostaConverter).map(source.getRespostaResultatBDTO()).setResultat(null);
 		using(internalToExpedientAccioConverter).map(source.getExpedientsRDTO()).setExpedient(null);
-		using(internalRDTOToRegistreConverter).map(source.getRespostaCrearRegistreSolicitudExpedient().getRegistreAssentament())
-		        .setRegistre(null);
-		// map().setComprovant(source.getRespostaRegistrarSolicitudExpedient().getComprovant());
+		using(internalRDTOToRegistreConverter).map(source.getRespostaCrearRegistreExpedient().getRegistreAssentament()).setRegistre(null);
+		map().setComprovant(source.getDocsTramitacioRDTO().getId());
 	}
 
 }

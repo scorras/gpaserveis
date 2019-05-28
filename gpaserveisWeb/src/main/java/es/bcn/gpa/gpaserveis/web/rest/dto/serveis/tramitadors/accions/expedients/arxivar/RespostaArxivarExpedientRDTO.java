@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "RespostaValidarExpedient")
+@ApiModel(value = "RespostaArxivarExpedient")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "resultat", "expedient" })
 @Getter

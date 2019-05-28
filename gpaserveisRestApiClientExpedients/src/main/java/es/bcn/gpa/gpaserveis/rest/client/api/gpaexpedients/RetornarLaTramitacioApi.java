@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T19:08:33.527+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-20T19:08:55.520+02:00")
 public class RetornarLaTramitacioApi {
   private ApiClient apiClient;
 
@@ -40,12 +40,12 @@ public class RetornarLaTramitacioApi {
    * @param retornarLaTramitacioRDTO retornarLaTramitacioRDTO (required)
    * @throws ApiException if fails to make API call
    */
-  public void retornarLaTramitacioUsingPOST(RetornarLaTramitacioRDTO retornarLaTramitacioRDTO) throws ApiException {
+  public void retornarTramitacioExpedient(RetornarLaTramitacioRDTO retornarLaTramitacioRDTO) throws ApiException {
     Object localVarPostBody = retornarLaTramitacioRDTO;
     
     // verify the required parameter 'retornarLaTramitacioRDTO' is set
     if (retornarLaTramitacioRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'retornarLaTramitacioRDTO' when calling retornarLaTramitacioUsingPOST");
+      throw new ApiException(400, "Missing the required parameter 'retornarLaTramitacioRDTO' when calling retornarTramitacioExpedient");
     }
     
     // create path and map variables

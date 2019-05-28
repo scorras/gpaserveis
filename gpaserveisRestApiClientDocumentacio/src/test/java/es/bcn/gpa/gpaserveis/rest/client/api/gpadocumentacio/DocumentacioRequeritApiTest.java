@@ -21,18 +21,20 @@ import static org.mockito.Mockito.when;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 
 /**
  * API tests for DocumentacioRequeritApi
@@ -49,15 +51,14 @@ public class DocumentacioRequeritApiTest extends ParentTest {
 	 *
 	 * 
 	 *
-	 * @throws ApiException
+	 * @throws RestClientException
 	 *             if the Api call fails
 	 */
 	@Test
-	public void cercaConfiguracioDocumentacioEntradaRequeridaTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/docsEntradaRequerit/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<ConfiguracioDocsEntradaRDTO>());
+	public void cercaConfiguracioDocumentacioEntradaRequeridaTest() throws RestClientException {
+		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/docsEntradaRequerit/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<ConfiguracioDocsEntradaRDTO>());
 
 		BigDecimal idDoc = ONE;
 		List<ConfDocEntradaRequeritRDTO> response = api.cercaConfiguracioDocumentacioEntradaRequerida(idDoc);

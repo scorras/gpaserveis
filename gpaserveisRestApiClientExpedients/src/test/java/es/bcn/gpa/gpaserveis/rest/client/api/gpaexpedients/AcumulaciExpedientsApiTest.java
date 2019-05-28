@@ -50,13 +50,13 @@ public class AcumulaciExpedientsApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void acumularExpedientUsingPOSTTest() throws ApiException {
+	public void acumularExpedientTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/acumulacioExpedients/acumularExpedient"), eq("POST"), any(List.class), any(Object.class),
 		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(null);
 
 		AcumularExpedientRDTO acumularExpedientRDTO = new AcumularExpedientRDTO();
-		api.acumularExpedientUsingPOST(acumularExpedientRDTO);
+		api.acumularExpedient(acumularExpedientRDTO);
 
 		assertTrue(true);
 	}

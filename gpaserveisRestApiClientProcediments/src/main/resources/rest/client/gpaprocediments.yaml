@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaprocediments"
-  version: "1.8.0"
+  version: "1.11.0"
   title: "API gpaprocediments"
   contact:
     name: "Sergio Corras"
@@ -1254,6 +1254,126 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /procediments/detallVersionsProcediment/{codi}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns all the procediments with detail version"
+      operationId: "obtenirDetallVersionsProcedimentUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "codi"
+        in: "path"
+        description: "codi"
+        required: true
+        type: "string"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfProcedimentsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/downloadXml/{idProcediment}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns xml for the procedure"
+      operationId: "downloadXmlUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idProcediment"
+        in: "path"
+        description: "idProcediment"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/InputStreamResource"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /procediments/estatsAnteriorProcediment/{id}:
     get:
       tags:
@@ -1657,6 +1777,34 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /procediments/iniciacio/{idIniciacio}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns iniciacio"
+      operationId: "getIniciacioByIdUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idIniciacio"
+        in: "path"
+        description: "idIniciacio"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /procediments/perCodi/{codi}:
     get:
       tags:
@@ -1703,7 +1851,7 @@ paths:
         200:
           description: "OK"
           schema:
-            type: "boolean"
+            $ref: "#/definitions/BloquejosRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -1922,7 +2070,7 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/ProcedimentsRDTO"
+            $ref: "#/definitions/RestClientResponse"
         201:
           description: "Created"
         401:
@@ -1934,6 +2082,34 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /procediments/requerimentsOperatius/{idProcediment}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns iniciacio"
+      operationId: "getRequerimentsByIdProcUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idProcediment"
+        in: "path"
+        description: "idProcediment"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RequerimentsOperatiusRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /procediments/saveDadesGrup:
     post:
       tags:
@@ -2651,6 +2827,36 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /procediments/versionsPublicat/{codi}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Get all versions of procediments publicats of the provided codi"
+      operationId: "getVersionsPublicatByCodiUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codi"
+        in: "path"
+        description: "codi"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ProcedimentsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /procediments/{id}:
     get:
       tags:
@@ -2740,7 +2946,7 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /procediments/{id}/dadesGrupsWithDadesOperacio:
+  /procediments/{id}/dadesGrupsWithDadesOperacio/{estatsFutursList}:
     get:
       tags:
       - "Dades Grups"
@@ -2749,6 +2955,11 @@ paths:
       produces:
       - "*/*"
       parameters:
+      - name: "estatsFutursList"
+        in: "path"
+        description: "estatsFutursList"
+        required: true
+        type: "string"
       - name: "id"
         in: "path"
         description: "id"
@@ -2775,7 +2986,7 @@ paths:
       tags:
       - "Dades Operacions"
       summary: "Returns all the dades operacions entries for the procedure"
-      operationId: "getDadesOperacionsRequeritUsingGET"
+      operationId: "cercaDadesOperacioRequerits"
       produces:
       - "*/*"
       parameters:
@@ -3045,10 +3256,16 @@ definitions:
       momentBloqueig:
         type: "string"
         format: "date-time"
+      procedimentBloquejatPerAltreUsuari:
+        type: "boolean"
+      procedimentEditable:
+        type: "boolean"
       tipus:
         type: "string"
       usuari:
         type: "number"
+      usuariBloquejo:
+        $ref: "#/definitions/Usuaris"
     title: "Bloquejos"
   BloquejosRDTO:
     type: "object"
@@ -3058,10 +3275,16 @@ definitions:
       momentBloqueig:
         type: "string"
         format: "date-time"
+      procedimentBloquejatPerAltreUsuari:
+        type: "boolean"
+      procedimentEditable:
+        type: "boolean"
       tipus:
         type: "string"
       usuari:
         type: "number"
+      usuariBloquejo:
+        $ref: "#/definitions/Usuaris"
     title: "BloquejosRDTO"
   Comentaris:
     type: "object"
@@ -3213,8 +3436,6 @@ definitions:
         format: "date-time"
       valorClob:
         type: "string"
-      valorComarca:
-        type: "string"
       valorDouble:
         type: "number"
         format: "double"
@@ -3279,6 +3500,8 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Items"
+      obligatoriEnEstat:
+        type: "boolean"
       ordre:
         type: "integer"
         format: "int32"
@@ -3344,6 +3567,8 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Items"
+      obligatoriEnEstat:
+        type: "boolean"
       ordre:
         type: "integer"
         format: "int32"
@@ -3409,6 +3634,8 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Items"
+      obligatoriEnEstat:
+        type: "boolean"
       ordre:
         type: "integer"
         format: "int32"
@@ -3550,6 +3777,43 @@ definitions:
       id:
         type: "number"
     title: "FamiliesRDTO"
+  File:
+    type: "object"
+    properties:
+      absolute:
+        type: "boolean"
+      absoluteFile:
+        $ref: "#/definitions/File"
+      absolutePath:
+        type: "string"
+      canonicalFile:
+        $ref: "#/definitions/File"
+      canonicalPath:
+        type: "string"
+      directory:
+        type: "boolean"
+      file:
+        type: "boolean"
+      freeSpace:
+        type: "integer"
+        format: "int64"
+      hidden:
+        type: "boolean"
+      name:
+        type: "string"
+      parent:
+        type: "string"
+      parentFile:
+        $ref: "#/definitions/File"
+      path:
+        type: "string"
+      totalSpace:
+        type: "integer"
+        format: "int64"
+      usableSpace:
+        type: "integer"
+        format: "int64"
+    title: "File"
   Fitxers:
     type: "object"
     properties:
@@ -3781,6 +4045,8 @@ definitions:
         format: "int32"
       responActuacions:
         type: "string"
+      respostaAllegacion:
+        type: "number"
       respostaRequeriment:
         type: "number"
       serveisList:
@@ -3852,6 +4118,29 @@ definitions:
       id:
         type: "number"
     title: "IniciacionsRDTO"
+  InputStream:
+    type: "object"
+    title: "InputStream"
+  InputStreamResource:
+    type: "object"
+    properties:
+      description:
+        type: "string"
+      file:
+        $ref: "#/definitions/File"
+      filename:
+        type: "string"
+      inputStream:
+        $ref: "#/definitions/InputStream"
+      open:
+        type: "boolean"
+      readable:
+        type: "boolean"
+      uri:
+        $ref: "#/definitions/URI"
+      url:
+        $ref: "#/definitions/URL"
+    title: "InputStreamResource"
   Items:
     type: "object"
     properties:
@@ -4087,9 +4376,15 @@ definitions:
         $ref: "#/definitions/RequerimentsOperatius"
       requerimentsOperatius:
         type: "number"
+      respostaAllegacion:
+        type: "number"
+      respostaRequeriment:
+        type: "number"
       serieDocumental:
         type: "string"
       tramitador:
+        type: "string"
+      ugosDescripcions:
         type: "string"
       ugosList:
         type: "array"
@@ -4097,9 +4392,15 @@ definitions:
           $ref: "#/definitions/ProcedimentsUgos"
       ugosNoms:
         type: "string"
+      ugosNomsDescripcions:
+        type: "string"
+      ugrDescripcio:
+        type: "string"
       ugrIdext:
         type: "number"
       ugrNom:
+        type: "string"
+      ugrNomDescripcio:
         type: "string"
       ultimaModificacio:
         type: "number"
@@ -4212,9 +4513,15 @@ definitions:
         $ref: "#/definitions/RequerimentsOperatius"
       requerimentsOperatius:
         type: "number"
+      respostaAllegacion:
+        type: "number"
+      respostaRequeriment:
+        type: "number"
       serieDocumental:
         type: "string"
       tramitador:
+        type: "string"
+      ugosDescripcions:
         type: "string"
       ugosList:
         type: "array"
@@ -4222,9 +4529,15 @@ definitions:
           $ref: "#/definitions/ProcedimentsUgos"
       ugosNoms:
         type: "string"
+      ugosNomsDescripcions:
+        type: "string"
+      ugrDescripcio:
+        type: "string"
       ugrIdext:
         type: "number"
       ugrNom:
+        type: "string"
+      ugrNomDescripcio:
         type: "string"
       ultimaModificacio:
         type: "number"
@@ -4304,6 +4617,9 @@ definitions:
   RequerimentsOperatius:
     type: "object"
     properties:
+      allegacio:
+        type: "integer"
+        format: "int32"
       ambDocumentSuport:
         type: "integer"
         format: "int32"
@@ -4312,11 +4628,25 @@ definitions:
         format: "int32"
       aplicacioNegoci:
         type: "string"
+      aportacio:
+        type: "integer"
+        format: "int32"
       detallActivador:
+        type: "string"
+      detallAllegacio:
+        type: "string"
+      detallAportacio:
         type: "string"
       detallDestinatari:
         type: "string"
+      detallEsmena:
+        type: "string"
+      detallSollicitud:
+        type: "string"
       diagramaProcediment:
+        type: "integer"
+        format: "int32"
+      esmena:
         type: "integer"
         format: "int32"
       id:
@@ -4337,7 +4667,67 @@ definitions:
       procedimentExecutable:
         type: "integer"
         format: "int32"
+      sollicitud:
+        type: "integer"
+        format: "int32"
     title: "RequerimentsOperatius"
+  RequerimentsOperatiusRDTO:
+    type: "object"
+    properties:
+      allegacio:
+        type: "integer"
+        format: "int32"
+      ambDocumentSuport:
+        type: "integer"
+        format: "int32"
+      aplicaProcediment:
+        type: "integer"
+        format: "int32"
+      aplicacioNegoci:
+        type: "string"
+      aportacio:
+        type: "integer"
+        format: "int32"
+      detallActivador:
+        type: "string"
+      detallAllegacio:
+        type: "string"
+      detallAportacio:
+        type: "string"
+      detallDestinatari:
+        type: "string"
+      detallEsmena:
+        type: "string"
+      detallSollicitud:
+        type: "string"
+      diagramaProcediment:
+        type: "integer"
+        format: "int32"
+      esmena:
+        type: "integer"
+        format: "int32"
+      id:
+        type: "number"
+      informacioTramitacio:
+        type: "string"
+      instruccionsArxiu:
+        type: "string"
+      linkDocumentSuport:
+        type: "string"
+      nivellIntegracio:
+        type: "number"
+      nomDocument:
+        type: "string"
+      plantillaDadesNegoci:
+        type: "integer"
+        format: "int32"
+      procedimentExecutable:
+        type: "integer"
+        format: "int32"
+      sollicitud:
+        type: "integer"
+        format: "int32"
+    title: "RequerimentsOperatiusRDTO"
   RestClientResponse:
     type: "object"
     properties:
@@ -4436,6 +4826,73 @@ definitions:
       id:
         type: "number"
     title: "TransicionsEstatsRDTO"
+  URI:
+    type: "object"
+    properties:
+      absolute:
+        type: "boolean"
+      authority:
+        type: "string"
+      fragment:
+        type: "string"
+      host:
+        type: "string"
+      opaque:
+        type: "boolean"
+      path:
+        type: "string"
+      port:
+        type: "integer"
+        format: "int32"
+      query:
+        type: "string"
+      rawAuthority:
+        type: "string"
+      rawFragment:
+        type: "string"
+      rawPath:
+        type: "string"
+      rawQuery:
+        type: "string"
+      rawSchemeSpecificPart:
+        type: "string"
+      rawUserInfo:
+        type: "string"
+      scheme:
+        type: "string"
+      schemeSpecificPart:
+        type: "string"
+      userInfo:
+        type: "string"
+    title: "URI"
+  URL:
+    type: "object"
+    properties:
+      authority:
+        type: "string"
+      content:
+        type: "object"
+      defaultPort:
+        type: "integer"
+        format: "int32"
+      file:
+        type: "string"
+      host:
+        type: "string"
+      path:
+        type: "string"
+      port:
+        type: "integer"
+        format: "int32"
+      protocol:
+        type: "string"
+      query:
+        type: "string"
+      ref:
+        type: "string"
+      userInfo:
+        type: "string"
+    title: "URL"
   UnitatsGestoresRDTO:
     type: "object"
     properties:
@@ -4451,3 +4908,29 @@ definitions:
         type: "integer"
         format: "int32"
     title: "UnitatsGestoresRDTO"
+  Usuaris:
+    type: "object"
+    properties:
+      carrec:
+        type: "string"
+      cognom1:
+        type: "string"
+      cognom2:
+        type: "string"
+      documentIdentitat:
+        type: "string"
+      email:
+        type: "string"
+      grp:
+        type: "array"
+        items:
+          type: "string"
+      id:
+        type: "number"
+      matricula:
+        type: "string"
+      nom:
+        type: "string"
+      user:
+        type: "string"
+    title: "Usuaris"

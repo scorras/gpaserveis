@@ -15,21 +15,22 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ExpedientOpenTextRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 
 /**
  * API tests for ExpedientsApi
@@ -46,14 +47,15 @@ public class ExpedientsApiTest extends ParentTest {
 	 *
 	 * 
 	 *
-	 * @throws ApiException
+	 * @throws RestClientException
 	 *             if the Api call fails
 	 */
 	@Test
-	public void altaExpedientOpentextUsingPOSTTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/documentacio/altaExpedientOpentext"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new String());
+	public void altaExpedientOpentextUsingPOSTTest() throws RestClientException {
+		when(apiClient.invokeAPI(eq("/documentacio/altaExpedientOpentext"), eq(HttpMethod.POST), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new String());
+
 		ExpedientOpenTextRDTO expedientOpenTextRDTO = new ExpedientOpenTextRDTO();
 		String response = api.altaExpedientOpentextUsingPOST(expedientOpenTextRDTO);
 

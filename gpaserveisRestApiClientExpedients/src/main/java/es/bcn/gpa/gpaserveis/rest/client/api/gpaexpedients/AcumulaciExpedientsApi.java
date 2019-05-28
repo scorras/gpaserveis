@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T19:08:33.527+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-20T19:08:55.520+02:00")
 public class AcumulaciExpedientsApi {
   private ApiClient apiClient;
 
@@ -40,12 +40,12 @@ public class AcumulaciExpedientsApi {
    * @param acumularExpedientRDTO acumularExpedientRDTO (required)
    * @throws ApiException if fails to make API call
    */
-  public void acumularExpedientUsingPOST(AcumularExpedientRDTO acumularExpedientRDTO) throws ApiException {
+  public void acumularExpedient(AcumularExpedientRDTO acumularExpedientRDTO) throws ApiException {
     Object localVarPostBody = acumularExpedientRDTO;
     
     // verify the required parameter 'acumularExpedientRDTO' is set
     if (acumularExpedientRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'acumularExpedientRDTO' when calling acumularExpedientUsingPOST");
+      throw new ApiException(400, "Missing the required parameter 'acumularExpedientRDTO' when calling acumularExpedient");
     }
     
     // create path and map variables

@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToBigDecimalConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.FitxerToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.IdiomaToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.OrigenToInternalConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.TipusMimeToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.DocumentRequeritCrearRDTO;
 
 /**
@@ -24,18 +24,18 @@ public class DocumentRequeritCrearRDTOToDocsEntradaRDTOMapper extends PropertyMa
 
 	private IdiomaToInternalConverter idiomaToInternalConverter;
 
-	private TipusMimeToInternalConverter tipusMimeToInternalConverter;
+	private FitxerToInternalConverter fitxerToInternalConverter;
 
 	@Autowired
 	public DocumentRequeritCrearRDTOToDocsEntradaRDTOMapper(
 	        @Qualifier("internalToBigDecimalConverter") InternalToBigDecimalConverter internalToBigDecimalConverter,
 	        @Qualifier("origenToInternalConverter") OrigenToInternalConverter origenToInternalConverter,
 	        @Qualifier("idiomaToInternalConverter") IdiomaToInternalConverter idiomaToInternalConverter,
-	        @Qualifier("tipusMimeToInternalConverter") TipusMimeToInternalConverter tipusMimeToInternalConverter) {
+	        @Qualifier("documentFitxerToInternalConverter") FitxerToInternalConverter fitxerToInternalConverter) {
 		this.internalToBigDecimalConverter = internalToBigDecimalConverter;
 		this.origenToInternalConverter = origenToInternalConverter;
 		this.idiomaToInternalConverter = idiomaToInternalConverter;
-		this.tipusMimeToInternalConverter = tipusMimeToInternalConverter;
+		this.fitxerToInternalConverter = fitxerToInternalConverter;
 	}
 
 	/*
@@ -49,8 +49,7 @@ public class DocumentRequeritCrearRDTOToDocsEntradaRDTOMapper extends PropertyMa
 		using(origenToInternalConverter).map(source.getOrigen()).setOrigen(null);
 		map().setComentari(source.getComentari());
 		using(idiomaToInternalConverter).map(source.getIdioma()).setIdioma(null);
-		map().setFileToUploadName(source.getFitxer().getNom());
-		using(tipusMimeToInternalConverter).map(source.getFitxer().getFormat()).setFileToUploadTipus(null);
+		using(fitxerToInternalConverter).map(source.getFitxer()).setDocsFisics(null);
 	}
 
 }

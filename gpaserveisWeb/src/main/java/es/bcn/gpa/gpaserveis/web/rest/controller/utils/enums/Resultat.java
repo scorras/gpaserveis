@@ -83,7 +83,63 @@ public enum Resultat {
 
 	OK_REBUTJAR_DOCUMENT_EXPEDIENT("OK", "Document rebutjat correctament"),
 
-	ERROR_REBUTJAR_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut rebutjar el document");
+	ERROR_REBUTJAR_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut rebutjar el document"),
+
+	OK_CONVIDAR_TRAMITAR_EXPEDIENT("OK", "Expedient convidat a tramitar correctament"),
+
+	ERROR_CONVIDAR_TRAMITAR_EXPEDIENT("ERROR", "No s'ha pogut convidar a tramitar l'expedient"),
+
+	OK_CANVIAR_UNITAT_GESTORA_EXPEDIENT("OK", "Unitat gestora de l'expedient canviada correctament"),
+
+	ERROR_CANVIAR_UNITAT_GESTORA_EXPEDIENT("ERROR", "No s'ha pogut canviar la unitat gestora de l'expedient"),
+
+	OK_INCORPORAR_NOU_DOCUMENT_EXPEDIENT("OK", "Nou document incorporat a l'expedient correctament"),
+
+	ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut incorporar el nou document a l'expedient"),
+
+	OK_SIGNAR_DOCUMENT("OK", "Acció realitzada correctament"),
+
+	ERROR_SIGNAR_DOCUMENT("OK", "No s'ha pogut signar el document"),
+
+	OK_COMPLETAR_DOCUMENT_EXPEDIENT("OK", "Nou document completat correctament"),
+
+	ERROR_COMPLETAR_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut completar el document"),
+
+	OK_PRESENTAR_DECLARACIO_RESPONSABLE_EXPEDIENT("OK", "Declaració responsable presentada per l'expedient correctament"),
+
+	ERROR_PRESENTAR_DECLARACIO_RESPONSABLE_EXPEDIENT("ERROR", "No s'ha pogut presentar la declaració responsable per a l'expedient"),
+
+	OK_PREPARAR_REQUERIMENT_EXPEDIENT("OK", "Requeriment preparat per a l'expedient correctament"),
+
+	ERROR_PREPARAR_REQUERIMENT_EXPEDIENT("ERROR", "No s'ha pogut preparar el requeriment per a l'expedient"),
+
+	OK_VALIDAR_DOCUMENT("OK", "Acció realitzada correctament"),
+
+	ERROR_VALIDAR_DOCUMENT("OK", "No s'ha pogut validar el document"),
+
+	OK_ACUMULAR_EXPEDIENT("OK", "Expedient acumulat correctament"),
+
+	ERROR_ACUMULAR_EXPEDIENT("ERROR", "No s'ha pogut acumular l'expedient"),
+
+	OK_ACCES_EXPEDIENT("OK", "Accés a l'expedient donat correctament"),
+
+	ERROR_ACCES_EXPEDIENT("ERROR", "No s'ha pogut donar accés a l'expedient"),
+
+	OK_REGISTRAR_COMUNICACIO_EXPEDIENT("OK", "Comunicació de l'expedient registrada correctament"),
+
+	ERROR_REGISTRAR_COMUNICACIO_EXPEDIENT("ERROR", "No s'ha pogut registrar la comunicació de l'expedient"),
+
+	OK_NOTIFICAR_EXPEDIENT("OK", "Notificació enviada correctament"),
+
+	ERROR_NOTIFICAR_EXPEDIENT("ERROR", "No s'ha pogut enviar la notificació de l'expedient"),
+
+	OK_DOCUMENT_SIGNAT_EXPEDIENT("OK", "Documentació de l'expedient signada correctament"),
+
+	ERROR_DOCUMENT_SIGNAT_EXPEDIENT("ERROR", "No s'ha pogut donar per bona la signatura de la documentació de l'expedient"),
+
+	OK_DOCUMENT_DIGITALITZAT_EXPEDIENT("OK", "Document digitalitzat correctament"),
+
+	ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT("ERROR", "No s'ha pogut digitalitzar el document");
 
 	private String codi;
 

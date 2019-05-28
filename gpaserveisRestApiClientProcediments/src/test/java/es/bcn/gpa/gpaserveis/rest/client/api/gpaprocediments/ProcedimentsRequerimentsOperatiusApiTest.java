@@ -29,6 +29,7 @@ import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.RestClientResponse;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiException;
 
 /**
@@ -53,10 +54,10 @@ public class ProcedimentsRequerimentsOperatiusApiTest extends ParentTest {
 	public void updateRequerimentsOperatiusUsingPOSTTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/procediments/requerimentsOperatius"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ProcedimentsRDTO());
+		                .thenReturn(new RestClientResponse());
 
 		ProcedimentsRDTO procedimentsRDTO = new ProcedimentsRDTO();
-		ProcedimentsRDTO response = api.updateRequerimentsOperatiusUsingPOST(procedimentsRDTO);
+		RestClientResponse response = api.updateRequerimentsOperatiusUsingPOST(procedimentsRDTO);
 
 		assertTrue(response != null);
 	}

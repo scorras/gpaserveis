@@ -9,16 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.PersonesRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.PersonesRDTO;
 
 /**
  * The Class InternalToPersonaListConverter.
  */
 @Component("expedientInternalToPersonaListConverter")
-public class InternalToPersonaListConverter extends AbstractConverter<List<Persones>, List<PersonesRDTO>> {
+public class InternalToPersonaListConverter extends AbstractConverter<List<PersonesSollicitudRDTO>, List<PersonesRDTO>> {
 
 	@Autowired
 	@Qualifier("expedientTipusPersonaApiParamValueTranslator")
@@ -43,13 +43,14 @@ public class InternalToPersonaListConverter extends AbstractConverter<List<Perso
 	 * @see org.modelmapper.AbstractConverter#convert(java.lang.Object)
 	 */
 	@Override
-	protected List<PersonesRDTO> convert(List<Persones> source) {
+	protected List<PersonesRDTO> convert(List<PersonesSollicitudRDTO> source) {
 		ArrayList<PersonesRDTO> personesRDTOList = null;
 		if (CollectionUtils.isNotEmpty(source)) {
 			personesRDTOList = new ArrayList<PersonesRDTO>();
-			for (Persones persones : source) {
-				personesRDTOList.add(ConverterHelper.buildPersonesRDTOExpedient(persones, tipusPersonaApiParamValueTranslator,
-				        tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator, tipusViaApiParamValueTranslator));
+			for (PersonesSollicitudRDTO personesSollicitudRDTO : source) {
+				personesRDTOList.add(ConverterHelper.buildPersonesRDTOExpedient(personesSollicitudRDTO.getPersones(),
+				        tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator,
+				        tipusSexeApiParamValueTranslator, tipusViaApiParamValueTranslator));
 			}
 		}
 		return personesRDTOList;

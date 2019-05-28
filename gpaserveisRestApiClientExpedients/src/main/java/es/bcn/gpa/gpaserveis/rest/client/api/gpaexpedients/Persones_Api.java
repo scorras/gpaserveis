@@ -9,13 +9,14 @@ import javax.ws.rs.core.GenericType;
 
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T19:08:33.527+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-20T19:08:55.520+02:00")
 public class Persones_Api {
   private ApiClient apiClient;
 
@@ -103,6 +104,48 @@ public class Persones_Api {
     String[] localVarAuthNames = new String[] {  };
 
     GenericType<PageDataOfPersonesSollicitudRDTO> localVarReturnType = new GenericType<PageDataOfPersonesSollicitudRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Returns all persons
+   * 
+   * @param idSolicitud idSolicitud (required)
+   * @return List&lt;PersonesSollicitudRDTO&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<PersonesSollicitudRDTO> obtenirTotesPersonesExpedientUsingGET(BigDecimal idSolicitud) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'idSolicitud' is set
+    if (idSolicitud == null) {
+      throw new ApiException(400, "Missing the required parameter 'idSolicitud' when calling obtenirTotesPersonesExpedientUsingGET");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/expedients/personesSollicitud/totesPersones/{idSolicitud}"
+      .replaceAll("\\{" + "idSolicitud" + "\\}", apiClient.escapeString(idSolicitud.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<PersonesSollicitudRDTO>> localVarReturnType = new GenericType<List<PersonesSollicitudRDTO>>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
 }

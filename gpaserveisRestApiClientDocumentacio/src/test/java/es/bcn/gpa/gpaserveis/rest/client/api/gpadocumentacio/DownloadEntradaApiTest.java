@@ -20,17 +20,19 @@ import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.InputStreamResource;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 
 /**
  * API tests for DownloadEntradaApi
@@ -47,19 +49,18 @@ public class DownloadEntradaApiTest extends ParentTest {
 	 *
 	 * 
 	 *
-	 * @throws ApiException
+	 * @throws RestClientException
 	 *             if the Api call fails
 	 */
 	@Test
-	public void descarregarDocumentExpedientTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/documentacio/descarregarDocument/1/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn("prova".getBytes());
+	public void descarregarDocumentEntradaExpedient() throws RestClientException {
+		when(apiClient.invokeAPI(eq("/documentacio/descarregarDocument/1/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn("prova".getBytes());
 
 		BigDecimal idDoc = ONE;
 		BigDecimal idExpedient = ONE;
-		byte[] response = api.descarregarDocumentExpedient(idDoc, idExpedient);
+		byte[] response = api.descarregarDocumentEntradaExpedient(idDoc, idExpedient);
 
 		assertTrue(response != null);
 	}
@@ -69,15 +70,14 @@ public class DownloadEntradaApiTest extends ParentTest {
 	 *
 	 * 
 	 *
-	 * @throws ApiException
+	 * @throws RestClientException
 	 *             if the Api call fails
 	 */
 	@Test
-	public void downloadFileEntradaUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/documentacio/downloadFileEntrada/1/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new InputStreamResource());
+	public void downloadFileEntradaUsingGETTest() throws RestClientException {
+		when(apiClient.invokeAPI(eq("/documentacio/downloadFileEntrada/1/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new InputStreamResource());
 
 		BigDecimal idDoc = ONE;
 		BigDecimal idExpedient = ONE;

@@ -39,6 +39,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfComen
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfHistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaUnitatsExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
@@ -293,6 +294,27 @@ public class ExpedientsApiTest extends ParentTest {
 		BigDecimal idExpedient = ONE;
 		ExpedientCanviEstatAccio expedientCanviEstatAccioRDTO = new ExpedientCanviEstatAccio();
 		RespostaCanviarEstatAccioExpedient response = api.canviarEstatAccioExpedient(idAccio, idExpedient, expedientCanviEstatAccioRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Retorna les unitats gestores de l&#39;expedient
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void getUnitasGestoresExpedientUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/expedients/unitasExpedient/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new RespostaUnitatsExpedient());
+
+		BigDecimal idExpedient = ONE;
+		RespostaUnitatsExpedient response = api.getUnitasGestoresExpedientUsingGET(idExpedient);
 
 		assertTrue(response != null);
 	}

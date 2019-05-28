@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-08T18:54:04.705+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-10T10:06:44.423+02:00")
 public class DadesGrupsApi {
   private ApiClient apiClient;
 
@@ -138,12 +138,18 @@ public class DadesGrupsApi {
   /**
    * Returns all the dades operacions entries for the procedure
    * 
+   * @param estatsFutursList estatsFutursList (required)
    * @param id id (required)
    * @return List&lt;DadesGrupsRDTO&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<DadesGrupsRDTO> getDadesGrupsWithDadesOperacioUsingGET(BigDecimal id) throws ApiException {
+  public List<DadesGrupsRDTO> getDadesGrupsWithDadesOperacioUsingGET(String estatsFutursList, BigDecimal id) throws ApiException {
     Object localVarPostBody = null;
+    
+    // verify the required parameter 'estatsFutursList' is set
+    if (estatsFutursList == null) {
+      throw new ApiException(400, "Missing the required parameter 'estatsFutursList' when calling getDadesGrupsWithDadesOperacioUsingGET");
+    }
     
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -151,7 +157,8 @@ public class DadesGrupsApi {
     }
     
     // create path and map variables
-    String localVarPath = "/procediments/{id}/dadesGrupsWithDadesOperacio"
+    String localVarPath = "/procediments/{id}/dadesGrupsWithDadesOperacio/{estatsFutursList}"
+      .replaceAll("\\{" + "estatsFutursList" + "\\}", apiClient.escapeString(estatsFutursList.toString()))
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
     // query params

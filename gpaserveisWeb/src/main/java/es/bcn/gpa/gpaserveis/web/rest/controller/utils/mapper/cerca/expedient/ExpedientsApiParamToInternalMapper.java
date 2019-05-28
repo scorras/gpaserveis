@@ -109,6 +109,10 @@ public class ExpedientsApiParamToInternalMapper {
 	 * @return the codi internal value
 	 */
 	public static String getCodiInternalValue(String codi, String expedientsIdOrgan) {
+		if (StringUtils.isEmpty(codi)) {
+			return codi;
+		}
+
 		Pattern codiExpedientFormattedPattern = Pattern.compile(CODI_EXPEDIENT_FORMATTED_PATTERN);
 		Matcher codiExpedientFormattedMatcher = codiExpedientFormattedPattern.matcher(codi);
 		if (codiExpedientFormattedMatcher.matches()) {

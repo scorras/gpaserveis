@@ -43,7 +43,7 @@ public enum AccioTramitadorApiParamValue implements BaseApiParamValue {
 
 	SUBSTITUIR_DOCUMENT("Substituir un document", new BigDecimal(17)),
 
-	PREPARAR_REQUERIMENT_INTERESSAT("Preparar un requeriment a l’interessat", new BigDecimal(18)),
+	PREPARAR_REQUERIMENT_INTERESSAT("Preparar un requeriment a l'interessat", new BigDecimal(18)),
 
 	NOTIFICAR("Notificar", new BigDecimal(19)),
 
@@ -95,9 +95,11 @@ public enum AccioTramitadorApiParamValue implements BaseApiParamValue {
 
 	TORNAR_ENRERE("Tornar enrere", new BigDecimal(43)),
 
-	ASSIGNAR_EXPEDIENT("Assignar expedient", new BigDecimal(44)),
+	DOCUMENT_SIGNAT("Document signat", new BigDecimal(44)),
 
-	EXPORTACIO_EVIDENCIES("Exportació evidències", new BigDecimal(45));
+	EXPORTACIO_EVIDENCIES("Exportació evidències", new BigDecimal(45)),
+
+	ASSIGNAR_EXPEDIENT("Assignar expedient", new BigDecimal(46));
 
 	/** The api param value. */
 	private String apiParamValue;

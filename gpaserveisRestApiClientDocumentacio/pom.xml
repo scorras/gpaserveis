@@ -99,7 +99,7 @@
 						<configuration>
 							<inputSpec>${yaml.file}</inputSpec>
 							<language>java</language>
-							<library>jersey2</library>
+							<library>resttemplate</library>
 							<modelPackage>es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio</modelPackage>
 							<apiPackage>es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio</apiPackage>
 							<invokerPackage>es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio</invokerPackage>
@@ -113,6 +113,9 @@
 							<generateModelTests>true</generateModelTests>
 							<generateModelDocumentation>false</generateModelDocumentation>
 							<generateSupportingFiles>false</generateSupportingFiles>
+<!-- 							<typeMappings> -->
+<!-- 								<typeMapping>file=org.springframework.web.multipart.MultipartFile</typeMapping> -->
+<!-- 							</typeMappings> -->
 							<skip>true</skip>
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>

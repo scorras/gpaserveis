@@ -103,12 +103,13 @@ public class DadesGrupsApiTest extends ParentTest {
 	@Test
 	public void getDadesGrupsWithDadesOperacioUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/procediments/1/dadesGrupsWithDadesOperacio"), eq("GET"), any(List.class), any(Object.class),
+		when(apiClient.invokeAPI(eq("/procediments/1/dadesGrupsWithDadesOperacio/1"), eq("GET"), any(List.class), any(Object.class),
 		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
 		                .thenReturn(new ArrayList<DadesGrupsRDTO>());
 
+		String estatsFutursList = ONE.toString();
 		BigDecimal id = ONE;
-		List<DadesGrupsRDTO> response = api.getDadesGrupsWithDadesOperacioUsingGET(id);
+		List<DadesGrupsRDTO> response = api.getDadesGrupsWithDadesOperacioUsingGET(estatsFutursList, id);
 
 		assertTrue(response != null);
 	}

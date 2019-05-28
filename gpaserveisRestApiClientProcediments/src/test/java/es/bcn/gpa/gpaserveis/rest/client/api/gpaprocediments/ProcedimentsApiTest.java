@@ -28,6 +28,7 @@ import java.util.Map;
 
 import javax.ws.rs.core.GenericType;
 
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -39,6 +40,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacio
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.InfoDocProcedimentRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.InputStreamResource;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfComentarisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfHistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfProcedimentsRDTO;
@@ -47,6 +49,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsF
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsForUnitatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.RequerimentsOperatiusRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.RestClientResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiException;
@@ -878,12 +881,12 @@ public class ProcedimentsApiTest extends ParentTest {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/procediments/procedimentBloquejatPerUnAltreUsuari/1"), eq("GET"), any(List.class), any(Object.class),
 		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(Boolean.TRUE);
+		                .thenReturn(new BloquejosRDTO());
 
 		BigDecimal id = ONE;
-		Boolean response = api.procedimentBloquejatPerUnAltreUsuariUsingGET(id);
+		BloquejosRDTO response = api.procedimentBloquejatPerUnAltreUsuariUsingGET(id);
 
-		assertTrue(response);
+		assertTrue(response != null);
 	}
 
 	/**
@@ -925,6 +928,128 @@ public class ProcedimentsApiTest extends ParentTest {
 
 		BigDecimal idProc = ONE;
 		DateTime response = api.updateDarreraSincronitzacioUsingPOST(idProc);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns xml for the procedure
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void downloadXmlUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/procediments/downloadXml/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new InputStreamResource());
+
+		BigDecimal idProcediment = ONE;
+		InputStreamResource response = api.downloadXmlUsingGET(idProcediment);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns iniciacio
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void getIniciacioByIdUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/procediments/iniciacio/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(StringUtils.EMPTY);
+
+		BigDecimal idIniciacio = ONE;
+		String response = api.getIniciacioByIdUsingGET(idIniciacio);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns iniciacio
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void getRequerimentsByIdProcUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/procediments/requerimentsOperatius/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new RequerimentsOperatiusRDTO());
+
+		BigDecimal idProcediment = ONE;
+		RequerimentsOperatiusRDTO response = api.getRequerimentsByIdProcUsingGET(idProcediment);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Get all versions of procediments publicats of the provided codi
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void getVersionsPublicatByCodiUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/procediments/versionsPublicat/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<ProcedimentsRDTO>());
+
+		String codi = ONE.toString();
+		List<ProcedimentsRDTO> response = api.getVersionsPublicatByCodiUsingGET(codi);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns all the procediments with detail version
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirDetallVersionsProcedimentUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/procediments/detallVersionsProcediment/1"), eq("GET"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new PageDataOfProcedimentsRDTO());
+
+		String codi = ONE.toString();
+		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
+		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
+		Boolean currentPageHasNextPage = null;
+		Boolean currentPageHasPreviousPage = null;
+		Boolean currentPageIsFirstPage = null;
+		Boolean currentPageIsLastPage = null;
+		Integer currentPageNumber = null;
+		String dir = null;
+		Integer nextPageNumber = null;
+		Integer pageSize = null;
+		Integer previousPageNumber = null;
+		String sort = null;
+		Long totalElements = null;
+		Integer totalPages = null;
+		PageDataOfProcedimentsRDTO response = api.obtenirDetallVersionsProcedimentUsingGET(codi, absoluteRowNumberOfFirstRowInCurrentPage,
+		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
+		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
+		        totalPages);
 
 		assertTrue(response != null);
 	}

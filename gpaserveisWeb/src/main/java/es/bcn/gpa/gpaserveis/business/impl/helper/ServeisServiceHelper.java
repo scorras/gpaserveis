@@ -17,15 +17,19 @@ import es.bcn.gpa.gpaserveis.business.ProcedimentsService;
 import es.bcn.gpa.gpaserveis.business.TramitsService;
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadaEspecificaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaAcumularBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioRequeritsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
@@ -33,6 +37,7 @@ import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
@@ -43,6 +48,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollici
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesGrupsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesOperacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsUgos;
@@ -216,6 +222,68 @@ public class ServeisServiceHelper {
 
 			loadUnitatGestora(unitatsGestoresService, dadesExpedientBDTO, expedientsRDTO.getUnitatGestoraIdext());
 
+			dadesExpedientBDTOList.add(dadesExpedientBDTO);
+		}
+
+		respostaExpedientsCercaBDTO.setDadesExpedientBDTOList(dadesExpedientBDTOList);
+		respostaExpedientsCercaBDTO.setPaginationAttributes(pageDataOfExpedientsRDTO.getPage());
+
+		return respostaExpedientsCercaBDTO;
+	}
+
+	/**
+	 * Load cerca expedients acumular.
+	 *
+	 * @param expedientsService
+	 *            the expedients service
+	 * @param expedientsCercaAcumularBDTO
+	 *            the expedients cerca acumular BDTO
+	 * @return the resposta expedients cerca BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public static RespostaExpedientsCercaBDTO loadCercaExpedientsAcumular(ExpedientsService expedientsService,
+	        ExpedientsCercaAcumularBDTO expedientsCercaAcumularBDTO) throws GPAServeisServiceException {
+		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = new RespostaExpedientsCercaBDTO();
+		ArrayList<DadesExpedientBDTO> dadesExpedientBDTOList = new ArrayList<DadesExpedientBDTO>();
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+
+		PageDataOfExpedientsRDTO pageDataOfExpedientsRDTO = expedientsService.cercaExpedientsAcumular(expedientsCercaAcumularBDTO);
+
+		for (ExpedientsRDTO expedientsRDTO : pageDataOfExpedientsRDTO.getData()) {
+			dadesExpedientBDTO = new DadesExpedientBDTO();
+			dadesExpedientBDTO.setExpedientsRDTO(expedientsRDTO);
+			dadesExpedientBDTOList.add(dadesExpedientBDTO);
+		}
+
+		respostaExpedientsCercaBDTO.setDadesExpedientBDTOList(dadesExpedientBDTOList);
+		respostaExpedientsCercaBDTO.setPaginationAttributes(pageDataOfExpedientsRDTO.getPage());
+
+		return respostaExpedientsCercaBDTO;
+	}
+
+	/**
+	 * Load cerca expedients acumulats.
+	 *
+	 * @param expedientsService
+	 *            the expedients service
+	 * @param idExpedient
+	 *            the id expedient
+	 * @return the resposta expedients cerca BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public static RespostaExpedientsCercaBDTO loadCercaExpedientsAcumulats(ExpedientsService expedientsService, BigDecimal idExpedient)
+	        throws GPAServeisServiceException {
+		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = new RespostaExpedientsCercaBDTO();
+		ArrayList<DadesExpedientBDTO> dadesExpedientBDTOList = new ArrayList<DadesExpedientBDTO>();
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+
+		PageDataOfExpedientsRDTO pageDataOfExpedientsRDTO = expedientsService.cercaExpedientsAcumulats(idExpedient);
+
+		for (ExpedientsRDTO expedientsRDTO : pageDataOfExpedientsRDTO.getData()) {
+			dadesExpedientBDTO = new DadesExpedientBDTO();
+			dadesExpedientBDTO.setExpedientsRDTO(expedientsRDTO);
 			dadesExpedientBDTOList.add(dadesExpedientBDTO);
 		}
 
@@ -510,6 +578,23 @@ public class ServeisServiceHelper {
 	 *
 	 * @param unitatsGestoresService
 	 *            the unitats gestores service
+	 * @param idUnitatGestora
+	 *            the id unitat gestora
+	 * @return the unitats gestores RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public static UnitatsGestoresRDTO loadUnitatGestora(UnitatsGestoresService unitatsGestoresService, BigDecimal idUnitatGestora)
+	        throws GPAServeisServiceException {
+		UnitatsGestoresRDTO unitatsGestoresRDTO = unitatsGestoresService.consultarDadesUnitatGestora(idUnitatGestora);
+		return unitatsGestoresRDTO;
+	}
+
+	/**
+	 * Load unitat gestora.
+	 *
+	 * @param unitatsGestoresService
+	 *            the unitats gestores service
 	 * @param unitatsGestoresCercaBDTO
 	 *            the unitats gestores cerca BDTO
 	 * @return the unitats gestores RDTO
@@ -561,7 +646,7 @@ public class ServeisServiceHelper {
 		// resto de personas interesadas
 		Persones sollicitantPrincipal = null;
 		Persones representantPrincipal = null;
-		ArrayList<Persones> personesInteressadesList = new ArrayList<Persones>();
+		ArrayList<PersonesSollicitudRDTO> personesInteressadesList = new ArrayList<PersonesSollicitudRDTO>();
 		for (PersonesSollicitudRDTO personesSollicitudRDTO : pageDataOfPersonesSollicitudRDTO.getData()) {
 			if (personesSollicitudRDTO.getRelacioPrincipal().equals(Constants.PERSONES_SOLLICITUD_RELACIO_PRINCIPAL)) {
 				if (personesSollicitudRDTO.getRelacio().equals(Constants.PERSONES_SOLLICITUD_RELACIO_SOLLICITANT)) {
@@ -570,7 +655,7 @@ public class ServeisServiceHelper {
 					representantPrincipal = personesSollicitudRDTO.getPersones();
 				}
 			} else {
-				personesInteressadesList.add(personesSollicitudRDTO.getPersones());
+				personesInteressadesList.add(personesSollicitudRDTO);
 			}
 		}
 		dadesExpedientBDTO.setSollicitant(sollicitantPrincipal);
@@ -594,11 +679,7 @@ public class ServeisServiceHelper {
 	        BigDecimal idSolicitud) throws GPAServeisServiceException {
 		PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = expedientsService
 		        .cercaAltresPersonesImplicadesExpedient(idSolicitud);
-		ArrayList<Persones> altresPersonesImplicadesList = new ArrayList<Persones>();
-		for (PersonesSollicitudRDTO personesSollicitudRDTO : pageDataOfPersonesSollicitudRDTO.getData()) {
-			altresPersonesImplicadesList.add(personesSollicitudRDTO.getPersones());
-		}
-		dadesExpedientBDTO.setPersonesImplicades(altresPersonesImplicadesList);
+		dadesExpedientBDTO.setPersonesImplicades(pageDataOfPersonesSollicitudRDTO.getData());
 	}
 
 	/**
@@ -808,6 +889,26 @@ public class ServeisServiceHelper {
 	}
 
 	/**
+	 * Load cerca dades operacio requerits.
+	 *
+	 * @param dadesOperacioService
+	 *            the dades operacio service
+	 * @param dadesOperacioCercaBDTO
+	 *            the dades operacio cerca BDTO
+	 * @return the resposta dades operacio requerits cerca BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public static RespostaDadesOperacioRequeritsCercaBDTO loadCercaDadesOperacioRequerits(DadesOperacioService dadesOperacioService,
+	        DadesOperacioCercaBDTO dadesOperacioCercaBDTO) throws GPAServeisServiceException {
+		RespostaDadesOperacioRequeritsCercaBDTO respostaDadesOperacioRequeritsCercaBDTO = new RespostaDadesOperacioRequeritsCercaBDTO();
+		PageDataOfDadesOperacionsRDTO pageDataOfDadesOperacionsRDTO = dadesOperacioService
+		        .cercaDadesOperacioRequerits(dadesOperacioCercaBDTO);
+		respostaDadesOperacioRequeritsCercaBDTO.setDadesOperacionsRDTOList(pageDataOfDadesOperacionsRDTO.getData());
+		return respostaDadesOperacioRequeritsCercaBDTO;
+	}
+
+	/**
 	 * Load cerca configuracio documentacio entrada.
 	 *
 	 * @param documentsService
@@ -845,6 +946,26 @@ public class ServeisServiceHelper {
 		        .cercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsEntradaCercaBDTO);
 		respostaDocumentsEntradaCercaBDTO.setConfiguracioDocsEntradaRDTOList(pageDataOfConfiguracioDocsEntradaRDTO.getData());
 		return respostaDocumentsEntradaCercaBDTO;
+	}
+
+	/**
+	 * Load cerca configuracio documentacio tramitacio.
+	 *
+	 * @param documentsService
+	 *            the documents service
+	 * @param documentsTramitacioCercaBDTO
+	 *            the documents tramitacio cerca BDTO
+	 * @return the resposta documents tramitacio cerca BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public static RespostaDocumentsTramitacioCercaBDTO loadCercaConfiguracioDocumentacioTramitacio(DocumentsService documentsService,
+	        DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO) throws GPAServeisServiceException {
+		RespostaDocumentsTramitacioCercaBDTO respostaDocumentsTramitacioCercaBDTO = new RespostaDocumentsTramitacioCercaBDTO();
+		PageDataOfConfiguracioDocsTramitacioRDTO pageDataOfConfiguracioDocsTramitacioRDTO = documentsService
+		        .cercaConfiguracioDocumentacioTramitacio(documentsTramitacioCercaBDTO);
+		respostaDocumentsTramitacioCercaBDTO.setConfiguracioDocsTramitacioRDTOList(pageDataOfConfiguracioDocsTramitacioRDTO.getData());
+		return respostaDocumentsTramitacioCercaBDTO;
 	}
 
 	/**

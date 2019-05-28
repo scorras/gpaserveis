@@ -50,12 +50,12 @@ public class CanviUnitatGestoraApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void canviUnitatGestoraUsingPOSTTest() throws ApiException {
+	public void canviarUnitatGestoraExpedientTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/expedients/canviUnitatGestora"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
+				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
 
 		CanviUnitatGestoraRDTO canviUnitatGestoraRDTO = new CanviUnitatGestoraRDTO();
-		api.canviUnitatGestoraUsingPOST(canviUnitatGestoraRDTO);
+		api.canviarUnitatGestoraExpedient(canviUnitatGestoraRDTO);
 
 		assertTrue(true);
 	}

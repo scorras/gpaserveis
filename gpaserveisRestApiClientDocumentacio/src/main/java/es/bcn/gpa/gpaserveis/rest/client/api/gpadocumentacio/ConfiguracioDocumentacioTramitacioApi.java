@@ -1,11 +1,6 @@
 package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.Configuration;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.Pair;
-
-import javax.ws.rs.core.GenericType;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioResponse;
@@ -15,65 +10,80 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-25T11:59:46.009+02:00")
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-28T16:24:07.324+02:00")
+@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioTramitacioApi")
 public class ConfiguracioDocumentacioTramitacioApi {
-  private ApiClient apiClient;
+    private ApiClient apiClient;
 
-  public ConfiguracioDocumentacioTramitacioApi() {
-    this(Configuration.getDefaultApiClient());
-  }
-
-  public ConfiguracioDocumentacioTramitacioApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
-
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  /**
-   * create the doc config
-   * 
-   * @param docTramitacio docTramitacio (required)
-   * @return ConfiguracioDocsTramitacioResponse
-   * @throws ApiException if fails to make API call
-   */
-  public ConfiguracioDocsTramitacioResponse createDocumentacioTramitacioUsingPOST(ConfiguracioDocsTramitacioRDTO docTramitacio) throws ApiException {
-    Object localVarPostBody = docTramitacio;
-    
-    // verify the required parameter 'docTramitacio' is set
-    if (docTramitacio == null) {
-      throw new ApiException(400, "Missing the required parameter 'docTramitacio' when calling createDocumentacioTramitacioUsingPOST");
+    public ConfiguracioDocumentacioTramitacioApi() {
+        this(new ApiClient());
     }
-    
-    // create path and map variables
-    String localVarPath = "/configuracioDocumentacio/docTramitacio";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    @Autowired
+    public ConfiguracioDocumentacioTramitacioApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    /**
+     * create the doc config
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>201</b> - Created
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param docTramitacio docTramitacio
+     * @return ConfiguracioDocsTramitacioResponse
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public ConfiguracioDocsTramitacioResponse createDocumentacioTramitacioUsingPOST(ConfiguracioDocsTramitacioRDTO docTramitacio) throws RestClientException {
+        Object postBody = docTramitacio;
+        
+        // verify the required parameter 'docTramitacio' is set
+        if (docTramitacio == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'docTramitacio' when calling createDocumentacioTramitacioUsingPOST");
+        }
+        
+        String path = UriComponentsBuilder.fromPath("/configuracioDocumentacio/docTramitacio").build().toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-    String[] localVarAuthNames = new String[] {  };
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { 
+            "application/json"
+        };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
-    GenericType<ConfiguracioDocsTramitacioResponse> localVarReturnType = new GenericType<ConfiguracioDocsTramitacioResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<ConfiguracioDocsTramitacioResponse> returnType = new ParameterizedTypeReference<ConfiguracioDocsTramitacioResponse>() {};
+        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
 }

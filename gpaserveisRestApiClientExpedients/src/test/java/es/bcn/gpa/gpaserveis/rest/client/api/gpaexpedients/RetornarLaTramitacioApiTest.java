@@ -50,12 +50,12 @@ public class RetornarLaTramitacioApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void retornarLaTramitacioUsingPOSTTest() throws ApiException {
+	public void retornarTramitacioExpedientTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/expedients/retornarLaTramitacio"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
 
 		RetornarLaTramitacioRDTO retornarLaTramitacioRDTO = new RetornarLaTramitacioRDTO();
-		api.retornarLaTramitacioUsingPOST(retornarLaTramitacioRDTO);
+		api.retornarTramitacioExpedient(retornarLaTramitacioRDTO);
 
 		assertTrue(true);
 	}

@@ -19,17 +19,19 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AccessRestringutRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 
 /**
  * API tests for AccessRestringutApi
@@ -42,18 +44,17 @@ public class AccessRestringutApiTest extends ParentTest {
 	private AccessRestringutApi api = new AccessRestringutApi();
 
 	/**
-	 * Returns all the access restringut
+	 * Gets the access restringut using GET test.
 	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
+	 * @return the access restringut using GET test
+	 * @throws RestClientException
+	 *             the rest client exception
 	 */
 	@Test
-	public void getAccessRestringutUsingGETTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/documentacio/catalog/accessRestringut"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<AccessRestringutRDTO>());
+	public void getAccessRestringutUsingGETTest() throws RestClientException {
+		when(apiClient.invokeAPI(eq("/documentacio/catalog/accessRestringut"), eq(HttpMethod.GET), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<AccessRestringutRDTO>());
 
 		List<AccessRestringutRDTO> response = api.getAccessRestringutUsingGET();
 

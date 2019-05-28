@@ -1,33 +1,54 @@
 package es.bcn.gpa.gpaserveis.business.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import es.bcn.gpa.gpaserveis.business.DocumentsService;
-import es.bcn.gpa.gpaserveis.business.dto.documents.AportarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDeclaracioResponsableBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentEntradaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentTramitacioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDeclaracioResponsableBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DescarregarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.SubstituirDocumentExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.UploadDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentEntradaFitxerBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentTramitacioFitxerBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarRequerimentFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaAportarDocumentacioExpedientRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaSubstituirDocumentExpedientRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaUploadDocumentExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import lombok.extern.apachecommons.CommonsLog;
 
 /**
@@ -77,7 +98,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("cercaConfiguracioDocumentacioEntrada(DocumentsEntradaCercaBDTO) - fi"); //$NON-NLS-1$
 			}
 			return pageDataOfConfiguracioDocsEntradaRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("cercaConfiguracioDocumentacioEntrada(DocumentsEntradaCercaBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -127,7 +148,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("cercaConfiguracioDocumentacioEntradaPerTramitOvt(DocumentsEntradaCercaBDTO) - fi"); //$NON-NLS-1$
 			}
 			return pageDataOfConfiguracioDocsEntradaRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("cercaConfiguracioDocumentacioEntradaPerTramitOvt(DocumentsEntradaCercaBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -156,6 +177,55 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * cercaConfiguracioDocumentacioTramitacio(es.bcn.gpa.gpaserveis.business.
+	 * dto.documents.DocumentsTramitacioCercaBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackCercaConfiguracioDocumentacioTramitacio")
+	public PageDataOfConfiguracioDocsTramitacioRDTO cercaConfiguracioDocumentacioTramitacio(
+	        DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("cercaConfiguracioDocumentacioTramitacio(DocumentsTramitacioCercaBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			PageDataOfConfiguracioDocsTramitacioRDTO pageDataOfConfiguracioDocsTramitacioRDTO = configuracioDocumentacioApi
+			        .cercaConfiguracioDocumentacioTramitacio(documentsTramitacioCercaBDTO.getIdConfiguracioDocumentacio(), null, null, null,
+			                null, null, null, null, null, null, null, null, null, null, null);
+
+			if (log.isDebugEnabled()) {
+				log.debug("cercaConfiguracioDocumentacioTramitacio(DocumentsTramitacioCercaBDTO) - fi"); //$NON-NLS-1$
+			}
+			return pageDataOfConfiguracioDocsTramitacioRDTO;
+		} catch (RestClientException e) {
+			log.error("cercaConfiguracioDocumentacioTramitacio(DocumentsTramitacioCercaBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback cerca configuracio documentacio tramitacio.
+	 *
+	 * @param documentsTramitacioCercaBDTO
+	 *            the documents tramitacio cerca BDTO
+	 * @return the page data of configuracio docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public PageDataOfConfiguracioDocsTramitacioRDTO fallbackCercaConfiguracioDocumentacioTramitacio(
+	        DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCercaConfiguracioDocumentacioTramitacio(DocumentsTramitacioCercaBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
 	 * cercaDocumentsEntradaAgrupatsPerTramitOvt(java.math.BigDecimal)
 	 */
 	@Override
@@ -172,7 +242,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return docsEntradaRDTOList;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -219,7 +289,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("cercaConfiguracioDocumentacioEntradaRequerida(BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return confDocEntradaRequeritRDTOList;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("cercaConfiguracioDocumentacioEntradaRequerida(BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -247,47 +317,45 @@ public class DocumentsServiceImpl implements DocumentsService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
-	 * aportarDocumentacioExpedient(es.bcn.gpa.gpaserveis.business.dto.documents
-	 * .AportarDocumentExpedientBDTO)
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#crearDocumentEntrada(es.
+	 * bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaBDTO)
 	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackAportarDocumentacioExpedient")
-	public RespostaAportarDocumentacioExpedientRDTO aportarDocumentacioExpedient(AportarDocumentExpedientBDTO aportarDocumentExpedientBDTO)
-	        throws GPAServeisServiceException {
+	@HystrixCommand(fallbackMethod = "fallbackCrearDocumentEntrada")
+	public DocsEntradaRDTO crearDocumentEntrada(CrearDocumentEntradaBDTO crearDocumentEntradaBDTO) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("aportarDocumentacioExpedient(AportarDocumentacioExpedientBDTO) - inici"); //$NON-NLS-1$
+			log.debug("crearDocumentEntrada(CrearDocumentEntradaBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			RespostaAportarDocumentacioExpedientRDTO respostaAportarDocumentacioExpedientRDTO = documentacioApi
-			        .aportarDocumentacioExpedient(aportarDocumentExpedientBDTO.getAportarDocumentacioExpedient(),
-			                aportarDocumentExpedientBDTO.getIdExpedient());
+			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.crearDocumentEntrada(crearDocumentEntradaBDTO.getDocsEntradaRDTO(),
+			        crearDocumentEntradaBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
-				log.debug("aportarDocumentacioExpedient(AportarDocumentacioExpedientBDTO) - fi"); //$NON-NLS-1$
+				log.debug("crearDocumentEntrada(CrearDocumentEntradaBDTO) - fi"); //$NON-NLS-1$
 			}
-			return respostaAportarDocumentacioExpedientRDTO;
-		} catch (ApiException e) {
-			log.error("aportarDocumentacioExpedient(AportarDocumentacioExpedientBDTO)", e); //$NON-NLS-1$
+			return docsEntradaRDTO;
+		} catch (RestClientException e) {
+			log.error("crearDocumentEntrada(CrearDocumentEntradaBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
 	}
 
 	/**
-	 * Fallback aportar documentacio expedient.
+	 * Fallback crear document entrada.
 	 *
-	 * @param aportarDocumentExpedientBDTO
-	 *            the aportar document expedient BDTO
-	 * @return the resposta aportar documentacio expedient RDTO
+	 * @param crearDocumentEntradaBDTO
+	 *            the crear document entrada BDTO
+	 * @return the docs entrada RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public RespostaAportarDocumentacioExpedientRDTO fallbackAportarDocumentacioExpedient(
-	        AportarDocumentExpedientBDTO aportarDocumentExpedientBDTO) throws GPAServeisServiceException {
+	public DocsEntradaRDTO fallbackCrearDocumentEntrada(CrearDocumentEntradaBDTO crearDocumentEntradaBDTO)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackAportarDocumentacioExpedient(AportarDocumentacioExpedientBDTO) - inici"); //$NON-NLS-1$
+			log.debug("fallbackCrearDocumentEntrada(CrearDocumentEntradaBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
@@ -297,45 +365,436 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
-	 * substituirDocumentExpedient(es.bcn.gpa.gpaserveis.business.dto.documents.
-	 * SubstituirDocumentExpedientBDTO)
+	 * crearDeclaracioResponsable(es.bcn.gpa.gpaserveis.business.dto.documents.
+	 * CrearDeclaracioResponsableBDTO)
 	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackSubstituirDocumentExpedient")
-	public RespostaSubstituirDocumentExpedientRDTO substituirDocumentExpedient(
-	        SubstituirDocumentExpedientBDTO substituirDocumentExpedientBDTO) throws GPAServeisServiceException {
+	@HystrixCommand(fallbackMethod = "fallbackCrearDeclaracioResponsable")
+	public DocsEntradaRDTO crearDeclaracioResponsable(CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("substituirDocumentExpedient(SubstituirDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
+			log.debug("crearDeclaracioResponsable(CrearDeclaracioResponsableBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			RespostaSubstituirDocumentExpedientRDTO respostaSubstituirDocumentExpedientRDTO = documentacioApi.substituirDocumentExpedient(
-			        substituirDocumentExpedientBDTO.getIdExpedient(), substituirDocumentExpedientBDTO.getSubstituirDocumentExpedient());
+			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.crearDeclaracioResponsable(
+			        crearDeclaracioResponsableBDTO.getDocsEntradaRDTO(), crearDeclaracioResponsableBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
-				log.debug("substituirDocumentExpedient(SubstituirDocumentExpedientBDTO) - fi"); //$NON-NLS-1$
+				log.debug("crearDeclaracioResponsable(CrearDeclaracioResponsableBDTO) - fi"); //$NON-NLS-1$
 			}
-			return respostaSubstituirDocumentExpedientRDTO;
-		} catch (ApiException e) {
-			log.error("substituirDocumentExpedient(SubstituirDocumentExpedientBDTO)", e); //$NON-NLS-1$
+			return docsEntradaRDTO;
+		} catch (RestClientException e) {
+			log.error("crearDeclaracioResponsable(CrearDeclaracioResponsableBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
 	}
 
 	/**
-	 * Fallback substituir document expedient.
+	 * Fallback crear declaracio responsable.
 	 *
-	 * @param substituirDocumentExpedientBDTO
-	 *            the substituir document expedient BDTO
-	 * @return the resposta substituir document expedient RDTO
+	 * @param crearDocumentEntradaBDTO
+	 *            the crear document entrada BDTO
+	 * @return the docs entrada RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public RespostaSubstituirDocumentExpedientRDTO fallbackSubstituirDocumentExpedient(
-	        SubstituirDocumentExpedientBDTO substituirDocumentExpedientBDTO) throws GPAServeisServiceException {
+	public DocsEntradaRDTO fallbackCrearDeclaracioResponsable(CrearDeclaracioResponsableBDTO crearDocumentEntradaBDTO)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackSubstituirDocumentExpedient(SubstituirDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
+			log.debug("fallbackCrearDeclaracioResponsable(CrearDeclaracioResponsableBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#crearDocumentTramitacio(
+	 * es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackCrearDocumentTramitacio")
+	public DocsTramitacioRDTO crearDocumentTramitacio(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("crearDocumentTramitacio(CrearDocumentTramitacioBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.crearDocumentTramitacio(
+			        crearDocumentTramitacioBDTO.getDocsTramitacioRDTO(), crearDocumentTramitacioBDTO.getIdExpedient());
+
+			if (log.isDebugEnabled()) {
+				log.debug("crearDocumentTramitacio(CrearDocumentTramitacioBDTO) - fi"); //$NON-NLS-1$
+			}
+			return docsTramitacioRDTO;
+		} catch (RestClientException e) {
+			log.error("crearDocumentTramitacio(CrearDocumentTramitacioBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback crear document tramitacio.
+	 *
+	 * @param crearDocumentTramitacioBDTO
+	 *            the crear document tramitacio BDTO
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsTramitacioRDTO fallbackCrearDocumentTramitacio(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCrearDocumentTramitacio(CrearDocumentTramitacioBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackGuardarDocumentTramitacioPlantilla")
+	public DocsTramitacioRDTO guardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("guardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarDocumentTramitacioPlantilla(
+			        crearDocumentTramitacioBDTO.getDocsTramitacioRDTO(), crearDocumentTramitacioBDTO.getIdExpedient());
+
+			if (log.isDebugEnabled()) {
+				log.debug("guardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO) - fi"); //$NON-NLS-1$
+			}
+			return docsTramitacioRDTO;
+		} catch (RestClientException e) {
+			log.error("guardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	public DocsTramitacioRDTO fallbackGuardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCrearDocumentTramitacio(CrearDocumentTramitacioBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * actualitzarDocumentEntrada(es.bcn.gpa.gpaserveis.business.dto.documents.
+	 * ActualitzarDocumentEntradaBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackActualitzarDocumentEntrada")
+	public DocsEntradaRDTO actualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO actualitzarDocumentEntradaBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("actualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.actualitzarDocumentEntrada(
+			        actualitzarDocumentEntradaBDTO.getDocsEntradaRDTO(), actualitzarDocumentEntradaBDTO.getIdExpedient());
+
+			if (log.isDebugEnabled()) {
+				log.debug("actualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO) - fi"); //$NON-NLS-1$
+			}
+			return docsEntradaRDTO;
+		} catch (RestClientException e) {
+			log.error("actualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback actualitzar document entrada.
+	 *
+	 * @param actualitzarDocumentEntradaBDTO
+	 *            the actualitzar document entrada BDTO
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsEntradaRDTO fallbackActualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO actualitzarDocumentEntradaBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackActualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * actualitzarDeclaracioResponsable(es.bcn.gpa.gpaserveis.business.dto.
+	 * documents.ActualitzarDeclaracioResponsableBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackActualitzarDeclaracioResponsable")
+	public DocsEntradaRDTO actualitzarDeclaracioResponsable(ActualitzarDeclaracioResponsableBDTO actualitzarDeclaracioResponsableBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("actualitzarDeclaracioResponsable(ActualitzarDeclaracioResponsableBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.actualitzarDeclaracioResponsable(
+			        actualitzarDeclaracioResponsableBDTO.getDocsEntradaRDTO(), actualitzarDeclaracioResponsableBDTO.getIdExpedient());
+
+			if (log.isDebugEnabled()) {
+				log.debug("actualitzarDeclaracioResponsable(ActualitzarDeclaracioResponsableBDTO) - fi"); //$NON-NLS-1$
+			}
+			return docsEntradaRDTO;
+		} catch (RestClientException e) {
+			log.error("actualitzarDeclaracioResponsable(ActualitzarDeclaracioResponsableBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback actualitzar declaracio responsable.
+	 *
+	 * @param actualitzarDeclaracioResponsableBDTO
+	 *            the actualitzar declaracio responsable BDTO
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsEntradaRDTO fallbackActualitzarDeclaracioResponsable(
+	        ActualitzarDeclaracioResponsableBDTO actualitzarDeclaracioResponsableBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackActualitzarDeclaracioResponsable(ActualitzarDeclaracioResponsableBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * actualitzarDocumentTramitacio(es.bcn.gpa.gpaserveis.business.dto.
+	 * documents.ActualitzarDocumentTramitacioBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackActualitzarDocumentTramitacio")
+	public DocsTramitacioRDTO actualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO actualitzarDocumentTramitacioBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("actualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.actualitzarDocumentTramitacio(
+			        actualitzarDocumentTramitacioBDTO.getDocsTramitacioRDTO(), actualitzarDocumentTramitacioBDTO.getIdExpedient());
+
+			if (log.isDebugEnabled()) {
+				log.debug("actualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO) - fi"); //$NON-NLS-1$
+			}
+			return docsTramitacioRDTO;
+		} catch (RestClientException e) {
+			log.error("actualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback actualitzar document tramitacio.
+	 *
+	 * @param actualitzarDocumentTramitacioBDTO
+	 *            the actualitzar document tramitacio BDTO
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsEntradaRDTO fallbackActualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO actualitzarDocumentTramitacioBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackActualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * guardarDocumentEntradaFitxer(es.bcn.gpa.gpaserveis.business.dto.documents
+	 * .GuardarDocumentEntradaFitxerBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackGuardarDocumentEntradaFitxer")
+	public DocsEntradaRDTO guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		File file = null;
+		try {
+			Path tempFile = Files.createTempFile("upload-temp-file", null);
+			Files.write(tempFile, guardarDocumentEntradaFitxerBDTO.getFile().getBytes(), StandardOpenOption.CREATE);
+			file = tempFile.toFile();
+
+			ObjectMapper objectMapper = new ObjectMapper();
+			objectMapper.registerModule(new JodaModule());
+			objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+			String docsEntradaJSON = objectMapper.writeValueAsString(guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO());
+			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.guardarDocumentEntradaFitxer(docsEntradaJSON, file,
+			        guardarDocumentEntradaFitxerBDTO.getIdExpedient());
+
+			if (log.isDebugEnabled()) {
+				log.debug("guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO) - fi"); //$NON-NLS-1$
+			}
+			return docsEntradaRDTO;
+		} catch (RestClientException | IOException e) {
+			log.error("guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		} finally {
+			if (file != null) {
+				file.delete();
+			}
+		}
+	}
+
+	/**
+	 * Fallback guardar document entrada fitxer.
+	 *
+	 * @param guardarDocumentEntradaFitxerBDTO
+	 *            the guardar document entrada fitxer BDTO
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsEntradaRDTO fallbackGuardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackGuardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * guardarDocumentTramitacioFitxer(es.bcn.gpa.gpaserveis.business.dto.
+	 * documents.GuardarDocumentTramitacioFitxerBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackGuardarDocumentTramitacioFitxer")
+	public DocsTramitacioRDTO guardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("guardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			String docsTramitacioJSON = objectMapper.writeValueAsString(guardarDocumentTramitacioFitxerBDTO.getDocsTramitacioRDTO());
+			DocsTramitacioRDTO docsTramitacioRDTO = null;
+			// documentacioApi.guardarDocumentTramitacioFitxer(docsTramitacioJSON,
+			// guardarDocumentTramitacioFitxerBDTO.getFile(),
+			// guardarDocumentTramitacioFitxerBDTO.getIdExpedient());
+
+			if (log.isDebugEnabled()) {
+				log.debug("guardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO) - fi"); //$NON-NLS-1$
+			}
+			return docsTramitacioRDTO;
+		} catch (/* RestClientException | */ JsonProcessingException e) {
+			log.error("guardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback guardar document tramitacio fitxer.
+	 *
+	 * @param guardarDocumentTramitacioFitxerBDTO
+	 *            the guardar document tramitacio fitxer BDTO
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsTramitacioRDTO fallbackGuardarDocumentTramitacioFitxer(
+	        GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackGuardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#guardarRequerimentFitxer(
+	 * es.bcn.gpa.gpaserveis.business.dto.documents.
+	 * GuardarRequerimentFitxerBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackGuardarRequerimentFitxer")
+	public DocsTramitacioRDTO guardarRequerimentFitxer(GuardarRequerimentFitxerBDTO guardarRequerimentFitxerBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("guardarRequerimentFitxer(GuardarRequerimentFitxerBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			String guardarRequerimentExpedientJSON = objectMapper
+			        .writeValueAsString(guardarRequerimentFitxerBDTO.getGuardarRequerimentExpedient());
+			DocsTramitacioRDTO docsTramitacioRDTO = null;
+			// documentacioApi.guardarRequerimentFitxer(guardarRequerimentFitxerBDTO.getFile(),
+			// guardarRequerimentFitxerBDTO.getIdExpedient(),
+			// guardarRequerimentExpedientJSON);
+
+			if (log.isDebugEnabled()) {
+				log.debug("guardarRequerimentFitxer(GuardarRequerimentFitxerBDTO) - fi"); //$NON-NLS-1$
+			}
+			return docsTramitacioRDTO;
+		} catch (/* RestClientException | */ JsonProcessingException e) {
+			log.error("guardarRequerimentFitxer(GuardarRequerimentFitxerBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback guardar requeriment fitxer.
+	 *
+	 * @param guardarRequerimentFitxerBDTO
+	 *            the guardar requeriment fitxer BDTO
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsTramitacioRDTO fallbackGuardarRequerimentFitxer(GuardarRequerimentFitxerBDTO guardarRequerimentFitxerBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackGuardarRequerimentFitxer(GuardarRequerimentFitxerBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
@@ -363,7 +822,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 			if (log.isDebugEnabled()) {
 				log.debug("esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO) - fi"); //$NON-NLS-1$
 			}
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -407,7 +866,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("consultarDadesDocumentAportat(BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return docsEntradaRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("consultarDadesDocumentAportat(BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -435,45 +894,41 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
-	 * descarregarDocumentExpedient(es.bcn.gpa.gpaserveis.business.dto.documents
-	 * .DescarregarDocumentExpedientBDTO)
+	 * consultarDadesDocumentGenerat(java.math.BigDecimal)
 	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackDescarregarDocumentExpedient")
-	public byte[] descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
-	        throws GPAServeisServiceException {
+	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesDocumentGenerat")
+	public DocsTramitacioRDTO consultarDadesDocumentGenerat(BigDecimal id) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("descarregarDocumentExpedient(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
+			log.debug("consultarDadesDocumentGenerat(BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			byte[] documentByteArray = downloadEntradaApi.descarregarDocumentExpedient(descarregarDocumentExpedientBDTO.getIdDocument(),
-			        descarregarDocumentExpedientBDTO.getIdExpedient());
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.consultarDadesDocumentGenerat(id);
 
 			if (log.isDebugEnabled()) {
-				log.debug("descarregarDocumentExpedient(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
+				log.debug("consultarDadesDocumentGenerat(BigDecimal) - fi"); //$NON-NLS-1$
 			}
-			return documentByteArray;
-		} catch (ApiException e) {
-			log.error("descarregarDocumentExpedient(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
+			return docsTramitacioRDTO;
+		} catch (RestClientException e) {
+			log.error("consultarDadesDocumentGenerat(BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
 	}
 
 	/**
-	 * Fallback descarregar document expedient.
+	 * Fallback consultar dades document generat.
 	 *
-	 * @param descarregarDocumentExpedientBDTO
-	 *            the descarregar document expedient BDTO
-	 * @return the byte[]
+	 * @param id
+	 *            the id
+	 * @return the docs tramitacio RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public byte[] fallbackDescarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
-	        throws GPAServeisServiceException {
+	public DocsTramitacioRDTO fallbackConsultarDadesDocumentGenerat(BigDecimal id) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackDescarregarDocumentExpedient(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
+			log.debug("fallbackConsultarDadesDocumentGenerat(BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
@@ -482,50 +937,73 @@ public class DocumentsServiceImpl implements DocumentsService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * es.bcn.gpa.gpaserveis.business.DocumentsService#uploadDocumentExpedient(
-	 * es.bcn.gpa.gpaserveis.business.dto.documents.UploadDocumentExpedientBDTO)
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * descarregarDocumentEntradaExpedient(es.bcn.gpa.gpaserveis.business.dto.
+	 * documents.DescarregarDocumentExpedientBDTO)
 	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackUploadDocumentExpedient")
-	public RespostaUploadDocumentExpedient uploadDocumentExpedient(UploadDocumentExpedientBDTO uploadDocumentExpedientRDTO)
+	@HystrixCommand(fallbackMethod = "fallbackDescarregarDocumentEntradaExpedient")
+	public byte[] descarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("uploadDocumentExpedient(UploadDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
+			log.debug("descarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			RespostaUploadDocumentExpedient respostaUploadDocumentExpedient = documentacioApi.uploadDocumentExpedient(
-			        uploadDocumentExpedientRDTO.getIdExpedient(), uploadDocumentExpedientRDTO.getUploadDocumentExpedient());
+			byte[] documentByteArray = downloadEntradaApi.descarregarDocumentEntradaExpedient(
+			        descarregarDocumentExpedientBDTO.getIdDocument(), descarregarDocumentExpedientBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
-				log.debug("uploadDocumentExpedient(UploadDocumentExpedientBDTO) - fi"); //$NON-NLS-1$
+				log.debug("descarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO) - fi"); //$NON-NLS-1$
 			}
-			return respostaUploadDocumentExpedient;
-		} catch (ApiException e) {
-			log.error("uploadDocumentExpedient(UploadDocumentExpedientBDTO)", e); //$NON-NLS-1$
+			return documentByteArray;
+		} catch (RestClientException e) {
+			log.error("descarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
 	}
 
 	/**
-	 * Fallback upload document expedient.
+	 * Fallback descarregar document entrada expedient.
 	 *
-	 * @param uploadDocumentExpedientRDTO
-	 *            the upload document expedient RDTO
-	 * @return the resposta upload document expedient
+	 * @param descarregarDocumentExpedientBDTO
+	 *            the descarregar document expedient BDTO
+	 * @return the byte[]
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public RespostaUploadDocumentExpedient fallbackUploadDocumentExpedient(UploadDocumentExpedientBDTO uploadDocumentExpedientRDTO)
+	public byte[] fallbackDescarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackUploadDocumentExpedient(UploadDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
+			log.debug("fallbackDescarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
 	}
+
+	// TODO
+	// public RespostaUploadDocumentExpedient
+	// fallbackUploadDocumentExpedient(UploadDocumentExpedientBDTO
+	// uploadDocumentExpedientRDTO,
+	// Throwable e) throws GPAServeisServiceException, JsonParseException,
+	// IOException {
+	// if (log.isDebugEnabled()) {
+	// log.debug("fallbackUploadDocumentExpedient(UploadDocumentExpedientBDTO) -
+	// inici"); //$NON-NLS-1$
+	// }
+	//
+	// ObjectMapper mapper = new ObjectMapper();
+	// JsonFactory factory = mapper.getFactory();
+	// JsonParser parser = factory.createParser(e.getMessage());
+	// JsonNode actualObj = mapper.readTree(parser);
+	// ObjectReader reader = mapper.readerFor(new TypeReference<String>() {
+	// });
+	// String message =
+	// String.valueOf(reader.readValue(actualObj.get("errorMessage")));
+	//
+	// throw new GPAServeisServiceException(message);
+	// }
 
 	/*
 	 * (non-Javadoc)
@@ -547,7 +1025,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("cercaDadesOperacioRequerits(BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return dadesOperacioRequeritsIdList;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("cercaDadesOperacioRequerits(BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -591,7 +1069,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 			if (log.isDebugEnabled()) {
 				log.debug("revisarDocumentacioEntrada(DocumentAportatValidarBDTO) - fi"); //$NON-NLS-1$
 			}
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("revisarDocumentacioEntrada(DocumentAportatValidarBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -610,6 +1088,336 @@ public class DocumentsServiceImpl implements DocumentsService {
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackRevisarDocumentacioEntrada(DocumentAportatValidarBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#getPlantillaDocVinculada(
+	 * java.math.BigDecimal, java.math.BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackGetPlantillaDocVinculada")
+	public RespostaPlantillaDocVinculada getPlantillaDocVinculada(BigDecimal idConfDoc, BigDecimal idDocVinculada)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("getPlantillaDocVinculada(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			RespostaPlantillaDocVinculada respostaPlantillaDocVinculada = configuracioDocumentacioApi.getPlantillaDocVinculada(idConfDoc,
+			        idDocVinculada);
+
+			if (log.isDebugEnabled()) {
+				log.debug("getPlantillaDocVinculada(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
+			}
+
+			return respostaPlantillaDocVinculada;
+		} catch (RestClientException e) {
+			log.error("getPlantillaDocVinculada(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback get plantilla doc vinculada.
+	 *
+	 * @param idConfDoc
+	 *            the id conf doc
+	 * @param idDocVinculada
+	 *            the id doc vinculada
+	 * @return the resposta plantilla doc vinculada
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public RespostaPlantillaDocVinculada fallbackGetPlantillaDocVinculada(BigDecimal idConfDoc, BigDecimal idDocVinculada)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackGetPlantillaDocVinculada(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * associarRegistreDocumentacioExpedient(es.bcn.gpa.gpaserveis.rest.client.
+	 * api.model.gpadocumentacio.DocumentActualizarRegistre)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackAssociarRegistreDocumentacioExpedient")
+	public void associarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("associarRegistreDocumentacioExpedient(DocumentActualizarRegistre) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			documentacioApi.associarRegistreDocumentacio(documentActualizarRegistreRDTO);
+
+			if (log.isDebugEnabled()) {
+				log.debug("associarRegistreDocumentacioExpedient(DocumentActualizarRegistre) - fi"); //$NON-NLS-1$
+			}
+
+		} catch (RestClientException e) {
+			log.error("associarRegistreDocumentacioExpedient(DocumentActualizarRegistre)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e);
+		}
+
+	}
+
+	/**
+	 * Fallback associar registre documentacio expedient.
+	 *
+	 * @param documentActualizarRegistreRDTO
+	 *            the document actualizar registre RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackAssociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackaAssociarRegistreDocumentacioExpedient(DocumentActualizarRegistre) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#associarRegistreDocsEnt(
+	 * es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.
+	 * DocsEntActualizarRegistre)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackAssociarRegistreDocsEnt")
+	public void associarRegistreDocsEnt(DocsEntActualizarRegistre docsEntActualizarRegistreRDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("associarRegistreDocsEnt(DocsEntActualizarRegistre) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			documentacioApi.associarRegistreDocsEnt(docsEntActualizarRegistreRDTO);
+
+			if (log.isDebugEnabled()) {
+				log.debug("associarRegistreDocsEnt(DocsEntActualizarRegistre) - fi"); //$NON-NLS-1$
+			}
+
+		} catch (RestClientException e) {
+			log.error("associarRegistreDocsEnt(DocsEntActualizarRegistre)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback associar registre docs ent.
+	 *
+	 * @param docsEntActualizarRegistre
+	 *            the docs ent actualizar registre
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackAssociarRegistreDocsEnt(DocsEntActualizarRegistre docsEntActualizarRegistre) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackaAssociarRegistreDocsEnt(DocsEntActualizarRegistre) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#signarValidarDocument(es.
+	 * bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackSignarValidarDocument")
+	public PeticionsPortasig signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("signarValidarDocument(SignarDocument) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			PeticionsPortasig crearPeticioPortaSig = documentacioApi.crearPeticioPortaSig(signarDocument);
+
+			if (log.isDebugEnabled()) {
+				log.debug("signarValidarDocument(SignarDocument) - fi"); //$NON-NLS-1$
+			}
+			return crearPeticioPortaSig;
+
+		} catch (RestClientException e) {
+			log.error("signarValidarDocument(SignarDocument)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback signar document.
+	 *
+	 * @param signarDocument
+	 *            the signar document
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public PeticionsPortasig fallbackSignarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackSignarValidarDocument(SignarDocument) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * obtenirDocsTramitacioByNotificationId(java.lang.Long)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackObtenirDocsTramitacioByNotificationId")
+	public DocsTramitacioRDTO obtenirDocsTramitacioByNotificationId(Long notificacioId) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("obtenirDocsTramitacioByNotificationId(Long) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi
+			        .obtenirDocsTramitacioByNotificationId(BigDecimal.valueOf(notificacioId));
+
+			if (log.isDebugEnabled()) {
+				log.debug("obtenirDocsTramitacioByNotificationId(Long) - fi"); //$NON-NLS-1$
+			}
+			return docsTramitacioRDTO;
+		} catch (RestClientException e) {
+			log.error("obtenirDocsTramitacioByNotificationId(Long)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback obtenir docs tramitacio by notification id.
+	 *
+	 * @param notificacioId
+	 *            the notificacio id
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsTramitacioRDTO fallbackObtenirDocsTramitacioByNotificationId(Long notificacioId) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackObtenirDocsTramitacioByNotificationId(Long) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#actualitzarNotificacion()
+	 */
+	@Override
+	public void actualitzarNotificacion() throws GPAServeisServiceException {
+		// TODO Auto-generated method stub
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * tancarRequerimentsExpedient(java.math.BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackTancarRequerimentsExpedient")
+	public void tancarRequerimentsExpedient(BigDecimal idDocumentacio) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("tancarRequerimentsExpedient(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			documentacioApi.tancarRequerimentsExpedient(idDocumentacio);
+
+			if (log.isDebugEnabled()) {
+				log.debug("tancarRequerimentsExpedient(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("tancarRequerimentsExpedient(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback tancar requeriments expedient.
+	 *
+	 * @param idDocumentacio
+	 *            the id documentacio
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackTancarRequerimentsExpedient(BigDecimal idDocumentacio) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackTancarRequerimentsExpedient(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#callbackPortaSig(es.bcn.
+	 * gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackCallbackPortaSig")
+	public void callbackPortaSig(CallbackPortaSig callbackPortaSig) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("callbackPortaSig(CallbackPortaSig) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			documentacioApi.callbackPortaSig(callbackPortaSig);
+
+			if (log.isDebugEnabled()) {
+				log.debug("callbackPortaSig(CallbackPortaSig) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("callbackPortaSig(CallbackPortaSig)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback callback porta sig.
+	 *
+	 * @param callbackPortaSig
+	 *            the callback porta sig
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackCallbackPortaSig(CallbackPortaSig callbackPortaSig) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCallbackPortaSig(CallbackPortaSig) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de documentacio no està disponible");

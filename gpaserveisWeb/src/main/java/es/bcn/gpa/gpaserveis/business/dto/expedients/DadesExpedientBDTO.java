@@ -9,6 +9,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
@@ -39,10 +40,10 @@ public class DadesExpedientBDTO {
 	private Persones representant;
 
 	/** The persones interessades. */
-	private List<Persones> personesInteressades;
+	private List<PersonesSollicitudRDTO> personesInteressades;
 
 	/** The persones implicades. */
-	private List<Persones> personesImplicades;
+	private List<PersonesSollicitudRDTO> personesImplicades;
 
 	/** The accions disponibles. */
 	private List<AccionsEstatsRDTO> accionsDisponibles;
