@@ -1,11 +1,6 @@
 package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.Configuration;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.Pair;
-
-import javax.ws.rs.core.GenericType;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SuportConfeccioRDTO;
 
@@ -14,59 +9,71 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T18:14:43.653+02:00")
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-28T16:24:07.324+02:00")
+@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.SuportConfeccioApi")
 public class SuportConfeccioApi {
-  private ApiClient apiClient;
+    private ApiClient apiClient;
 
-  public SuportConfeccioApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    public SuportConfeccioApi() {
+        this(new ApiClient());
+    }
 
-  public SuportConfeccioApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    @Autowired
+    public SuportConfeccioApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Returns all the suportConfeccios
-   * 
-   * @return List&lt;SuportConfeccioRDTO&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<SuportConfeccioRDTO> getSuportConfeccioUsingGET() throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/documentacio/catalog/suportConfeccio";
+    /**
+     * Returns all the suportConfeccios
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @return List&lt;SuportConfeccioRDTO&gt;
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public List<SuportConfeccioRDTO> getSuportConfeccioUsingGET() throws RestClientException {
+        Object postBody = null;
+        
+        String path = UriComponentsBuilder.fromPath("/documentacio/catalog/suportConfeccio").build().toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
+        String[] authNames = new String[] {  };
 
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<List<SuportConfeccioRDTO>> localVarReturnType = new GenericType<List<SuportConfeccioRDTO>>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
+        ParameterizedTypeReference<List<SuportConfeccioRDTO>> returnType = new ParameterizedTypeReference<List<SuportConfeccioRDTO>>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
 }

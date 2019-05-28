@@ -6,6 +6,7 @@ import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -15,7 +16,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.multipart.MultipartFile;
 
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisRuntimeException;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
@@ -330,10 +330,10 @@ public abstract class ParentTest {
 			when(configuracioDocumentacioApi.getPlantillaDocVinculada(any(BigDecimal.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.getPlantillaDocVinculadaResponse());
 
-			when(documentacioApi.guardarDocumentEntradaFitxer(any(String.class), any(MultipartFile.class), any(BigDecimal.class)))
+			when(documentacioApi.guardarDocumentEntradaFitxer(any(String.class), any(File.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.guardarDocumentEntradaResponse());
 
-			when(documentacioApi.guardarDocumentTramitacioFitxer(any(String.class), any(MultipartFile.class), any(BigDecimal.class)))
+			when(documentacioApi.guardarDocumentTramitacioFitxer(any(String.class), any(File.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.guardarDocumentTramitacioResponse());
 
 			doNothing().when(documentacioApi).crearPeticioPortaSig(any(SignarDocument.class));

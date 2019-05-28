@@ -1,11 +1,6 @@
 package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.Configuration;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.Pair;
-
-import javax.ws.rs.core.GenericType;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ActualitzarNotificacionDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotificacio;
@@ -16,105 +11,119 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T18:14:43.653+02:00")
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-28T16:24:07.324+02:00")
+@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi")
 public class NotificacionsApi {
-  private ApiClient apiClient;
+    private ApiClient apiClient;
 
-  public NotificacionsApi() {
-    this(Configuration.getDefaultApiClient());
-  }
-
-  public NotificacionsApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
-
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  /**
-   * actualitzarNotificacio
-   * 
-   * @param actualitzarNotificacionDocumentRDTO actualitzarNotificacionDocumentRDTO (required)
-   * @throws ApiException if fails to make API call
-   */
-  public void actualitzarNotificacio(ActualitzarNotificacionDocument actualitzarNotificacionDocumentRDTO) throws ApiException {
-    Object localVarPostBody = actualitzarNotificacionDocumentRDTO;
-    
-    // verify the required parameter 'actualitzarNotificacionDocumentRDTO' is set
-    if (actualitzarNotificacionDocumentRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'actualitzarNotificacionDocumentRDTO' when calling actualitzarNotificacio");
+    public NotificacionsApi() {
+        this(new ApiClient());
     }
-    
-    // create path and map variables
-    String localVarPath = "/notificacions/actualitzarNotificacio";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-
-    apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
-  }
-  /**
-   * crearNotificacio
-   * 
-   * @param crearNotificacioRDTO crearNotificacioRDTO (required)
-   * @return NotificacionsRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public NotificacionsRDTO crearNotificacio(CrearNotificacio crearNotificacioRDTO) throws ApiException {
-    Object localVarPostBody = crearNotificacioRDTO;
-    
-    // verify the required parameter 'crearNotificacioRDTO' is set
-    if (crearNotificacioRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'crearNotificacioRDTO' when calling crearNotificacio");
+    @Autowired
+    public NotificacionsApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
     }
-    
-    // create path and map variables
-    String localVarPath = "/notificacions/crearNotificacio";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    /**
+     * actualitzarNotificacio
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>201</b> - Created
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param actualitzarNotificacionDocumentRDTO actualitzarNotificacionDocumentRDTO
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public void actualitzarNotificacio(ActualitzarNotificacionDocument actualitzarNotificacionDocumentRDTO) throws RestClientException {
+        Object postBody = actualitzarNotificacionDocumentRDTO;
+        
+        // verify the required parameter 'actualitzarNotificacionDocumentRDTO' is set
+        if (actualitzarNotificacionDocumentRDTO == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'actualitzarNotificacionDocumentRDTO' when calling actualitzarNotificacio");
+        }
+        
+        String path = UriComponentsBuilder.fromPath("/notificacions/actualitzarNotificacio").build().toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { 
+            "application/json"
+        };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
-    String[] localVarAuthNames = new String[] {  };
+        String[] authNames = new String[] {  };
 
-    GenericType<NotificacionsRDTO> localVarReturnType = new GenericType<NotificacionsRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
+        ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {};
+        apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * crearNotificacio
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>201</b> - Created
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param crearNotificacioRDTO crearNotificacioRDTO
+     * @return NotificacionsRDTO
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public NotificacionsRDTO crearNotificacio(CrearNotificacio crearNotificacioRDTO) throws RestClientException {
+        Object postBody = crearNotificacioRDTO;
+        
+        // verify the required parameter 'crearNotificacioRDTO' is set
+        if (crearNotificacioRDTO == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'crearNotificacioRDTO' when calling crearNotificacio");
+        }
+        
+        String path = UriComponentsBuilder.fromPath("/notificacions/crearNotificacio").build().toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { 
+            "application/json"
+        };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<NotificacionsRDTO> returnType = new ParameterizedTypeReference<NotificacionsRDTO>() {};
+        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
 }

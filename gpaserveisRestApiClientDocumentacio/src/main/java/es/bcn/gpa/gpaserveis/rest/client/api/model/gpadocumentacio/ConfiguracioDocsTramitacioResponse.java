@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 /**
  * ConfiguracioDocsTramitacioResponse
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T18:14:43.653+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-28T16:24:07.324+02:00")
 public class ConfiguracioDocsTramitacioResponse {
   @JsonProperty("error")
   private Exception error = null;

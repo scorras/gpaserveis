@@ -1,11 +1,6 @@
 package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.Configuration;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.Pair;
-
-import javax.ws.rs.core.GenericType;
 
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.InputStreamResource;
@@ -15,73 +10,87 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-27T18:14:43.653+02:00")
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-28T16:24:07.324+02:00")
+@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadTramitacioApi")
 public class DownloadTramitacioApi {
-  private ApiClient apiClient;
+    private ApiClient apiClient;
 
-  public DownloadTramitacioApi() {
-    this(Configuration.getDefaultApiClient());
-  }
-
-  public DownloadTramitacioApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
-
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  /**
-   * download the fileTramitacio
-   * 
-   * @param idDoc idDoc (required)
-   * @param idExpedient idExpedient (required)
-   * @return InputStreamResource
-   * @throws ApiException if fails to make API call
-   */
-  public InputStreamResource downloadFileTramitacioUsingGET(BigDecimal idDoc, BigDecimal idExpedient) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'idDoc' is set
-    if (idDoc == null) {
-      throw new ApiException(400, "Missing the required parameter 'idDoc' when calling downloadFileTramitacioUsingGET");
+    public DownloadTramitacioApi() {
+        this(new ApiClient());
     }
-    
-    // verify the required parameter 'idExpedient' is set
-    if (idExpedient == null) {
-      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling downloadFileTramitacioUsingGET");
+
+    @Autowired
+    public DownloadTramitacioApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
     }
-    
-    // create path and map variables
-    String localVarPath = "/documentacio/downloadFileTramitacio/{idExpedient}/{idDoc}"
-      .replaceAll("\\{" + "idDoc" + "\\}", apiClient.escapeString(idDoc.toString()))
-      .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    /**
+     * download the fileTramitacio
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param idDoc idDoc
+     * @param idExpedient idExpedient
+     * @return InputStreamResource
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public InputStreamResource downloadFileTramitacioUsingGET(BigDecimal idDoc, BigDecimal idExpedient) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'idDoc' is set
+        if (idDoc == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idDoc' when calling downloadFileTramitacioUsingGET");
+        }
+        
+        // verify the required parameter 'idExpedient' is set
+        if (idExpedient == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idExpedient' when calling downloadFileTramitacioUsingGET");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("idDoc", idDoc);
+        uriVariables.put("idExpedient", idExpedient);
+        String path = UriComponentsBuilder.fromPath("/documentacio/downloadFileTramitacio/{idExpedient}/{idDoc}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
-    String[] localVarAuthNames = new String[] {  };
+        String[] authNames = new String[] {  };
 
-    GenericType<InputStreamResource> localVarReturnType = new GenericType<InputStreamResource>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
+        ParameterizedTypeReference<InputStreamResource> returnType = new ParameterizedTypeReference<InputStreamResource>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
 }

@@ -10,77 +10,59 @@
  * Do not edit the class manually.
  */
 
+
 package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
-
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isNull;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
-
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
-import org.mockito.InjectMocks;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ActualitzarNotificacionDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
+import org.junit.Test;
+import org.junit.Ignore;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * API tests for NotificacionsApi
  */
-@SuppressWarnings("unchecked")
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class NotificacionsApiTest extends ParentTest {
+@Ignore
+public class NotificacionsApiTest {
 
-	@InjectMocks
-	private NotificacionsApi api = new NotificacionsApi();
+    private final NotificacionsApi api = new NotificacionsApi();
 
-	/**
-	 * actualitzarNotificacio
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void actualitzarNotificacioTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/notificacions/actualitzarNotificacio"), eq("POST"), any(List.class), any(Object.class),
-				any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), isNull(GenericType.class)))
-						.thenReturn(null);
+    
+    /**
+     * actualitzarNotificacio
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void actualitzarNotificacioTest() {
+        ActualitzarNotificacionDocument actualitzarNotificacionDocumentRDTO = null;
+        api.actualitzarNotificacio(actualitzarNotificacionDocumentRDTO);
 
-		ActualitzarNotificacionDocument actualitzarNotificacionDocumentRDTO = new ActualitzarNotificacionDocument();
-		api.actualitzarNotificacio(actualitzarNotificacionDocumentRDTO);
+        // TODO: test validations
+    }
+    
+    /**
+     * crearNotificacio
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void crearNotificacioTest() {
+        CrearNotificacio crearNotificacioRDTO = null;
+        NotificacionsRDTO response = api.crearNotificacio(crearNotificacioRDTO);
 
-		assertTrue(true);
-	}
-
-	/**
-	 * crearNotificacio
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void crearNotificacioTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/notificacions/crearNotificacio"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(new NotificacionsRDTO());
-
-		CrearNotificacio crearNotificacioRDTO = new CrearNotificacio();
-		NotificacionsRDTO response = api.crearNotificacio(crearNotificacioRDTO);
-
-		assertTrue(response != null);
-	}
-
+        // TODO: test validations
+    }
+    
 }

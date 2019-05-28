@@ -1,13 +1,21 @@
 package es.bcn.gpa.gpaserveis.business.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import es.bcn.gpa.gpaserveis.business.DocumentsService;
@@ -41,7 +49,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfCon
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiException;
 import lombok.extern.apachecommons.CommonsLog;
 
 /**
@@ -91,7 +98,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("cercaConfiguracioDocumentacioEntrada(DocumentsEntradaCercaBDTO) - fi"); //$NON-NLS-1$
 			}
 			return pageDataOfConfiguracioDocsEntradaRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("cercaConfiguracioDocumentacioEntrada(DocumentsEntradaCercaBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -141,7 +148,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("cercaConfiguracioDocumentacioEntradaPerTramitOvt(DocumentsEntradaCercaBDTO) - fi"); //$NON-NLS-1$
 			}
 			return pageDataOfConfiguracioDocsEntradaRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("cercaConfiguracioDocumentacioEntradaPerTramitOvt(DocumentsEntradaCercaBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -190,7 +197,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("cercaConfiguracioDocumentacioTramitacio(DocumentsTramitacioCercaBDTO) - fi"); //$NON-NLS-1$
 			}
 			return pageDataOfConfiguracioDocsTramitacioRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("cercaConfiguracioDocumentacioTramitacio(DocumentsTramitacioCercaBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -235,7 +242,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return docsEntradaRDTOList;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -282,7 +289,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("cercaConfiguracioDocumentacioEntradaRequerida(BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return confDocEntradaRequeritRDTOList;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("cercaConfiguracioDocumentacioEntradaRequerida(BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -329,7 +336,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("crearDocumentEntrada(CrearDocumentEntradaBDTO) - fi"); //$NON-NLS-1$
 			}
 			return docsEntradaRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("crearDocumentEntrada(CrearDocumentEntradaBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -377,7 +384,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("crearDeclaracioResponsable(CrearDeclaracioResponsableBDTO) - fi"); //$NON-NLS-1$
 			}
 			return docsEntradaRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("crearDeclaracioResponsable(CrearDeclaracioResponsableBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -425,7 +432,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("crearDocumentTramitacio(CrearDocumentTramitacioBDTO) - fi"); //$NON-NLS-1$
 			}
 			return docsTramitacioRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("crearDocumentTramitacio(CrearDocumentTramitacioBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -473,7 +480,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("actualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO) - fi"); //$NON-NLS-1$
 			}
 			return docsEntradaRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("actualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -521,7 +528,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("actualitzarDeclaracioResponsable(ActualitzarDeclaracioResponsableBDTO) - fi"); //$NON-NLS-1$
 			}
 			return docsEntradaRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("actualitzarDeclaracioResponsable(ActualitzarDeclaracioResponsableBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -569,7 +576,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("actualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO) - fi"); //$NON-NLS-1$
 			}
 			return docsTramitacioRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("actualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -609,20 +616,31 @@ public class DocumentsServiceImpl implements DocumentsService {
 			log.debug("guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO) - inici"); //$NON-NLS-1$
 		}
 
+		File file = null;
 		try {
+			Path tempFile = Files.createTempFile("upload-temp-file", null);
+			Files.write(tempFile, guardarDocumentEntradaFitxerBDTO.getFile().getBytes(), StandardOpenOption.CREATE);
+			file = tempFile.toFile();
+
 			ObjectMapper objectMapper = new ObjectMapper();
+			objectMapper.registerModule(new JodaModule());
+			objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 			String docsEntradaJSON = objectMapper.writeValueAsString(guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO());
-			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.guardarDocumentEntradaFitxer(docsEntradaJSON,
-			        guardarDocumentEntradaFitxerBDTO.getFile(), guardarDocumentEntradaFitxerBDTO.getIdExpedient());
+			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.guardarDocumentEntradaFitxer(docsEntradaJSON, file,
+			        guardarDocumentEntradaFitxerBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO) - fi"); //$NON-NLS-1$
 			}
 			return docsEntradaRDTO;
-		} catch (ApiException | JsonProcessingException e) {
+		} catch (RestClientException | IOException e) {
 			log.error("guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		} finally {
+			if (file != null) {
+				file.delete();
+			}
 		}
 	}
 
@@ -664,14 +682,16 @@ public class DocumentsServiceImpl implements DocumentsService {
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
 			String docsTramitacioJSON = objectMapper.writeValueAsString(guardarDocumentTramitacioFitxerBDTO.getDocsTramitacioRDTO());
-			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarDocumentTramitacioFitxer(docsTramitacioJSON,
-			        guardarDocumentTramitacioFitxerBDTO.getFile(), guardarDocumentTramitacioFitxerBDTO.getIdExpedient());
+			DocsTramitacioRDTO docsTramitacioRDTO = null;
+			// documentacioApi.guardarDocumentTramitacioFitxer(docsTramitacioJSON,
+			// guardarDocumentTramitacioFitxerBDTO.getFile(),
+			// guardarDocumentTramitacioFitxerBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO) - fi"); //$NON-NLS-1$
 			}
 			return docsTramitacioRDTO;
-		} catch (ApiException | JsonProcessingException e) {
+		} catch (/* RestClientException | */ JsonProcessingException e) {
 			log.error("guardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -716,14 +736,16 @@ public class DocumentsServiceImpl implements DocumentsService {
 			ObjectMapper objectMapper = new ObjectMapper();
 			String guardarRequerimentExpedientJSON = objectMapper
 			        .writeValueAsString(guardarRequerimentFitxerBDTO.getGuardarRequerimentExpedient());
-			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarRequerimentFitxer(guardarRequerimentFitxerBDTO.getFile(),
-			        guardarRequerimentFitxerBDTO.getIdExpedient(), guardarRequerimentExpedientJSON);
+			DocsTramitacioRDTO docsTramitacioRDTO = null;
+			// documentacioApi.guardarRequerimentFitxer(guardarRequerimentFitxerBDTO.getFile(),
+			// guardarRequerimentFitxerBDTO.getIdExpedient(),
+			// guardarRequerimentExpedientJSON);
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarRequerimentFitxer(GuardarRequerimentFitxerBDTO) - fi"); //$NON-NLS-1$
 			}
 			return docsTramitacioRDTO;
-		} catch (ApiException | JsonProcessingException e) {
+		} catch (/* RestClientException | */ JsonProcessingException e) {
 			log.error("guardarRequerimentFitxer(GuardarRequerimentFitxerBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -770,7 +792,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 			if (log.isDebugEnabled()) {
 				log.debug("esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO) - fi"); //$NON-NLS-1$
 			}
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -814,7 +836,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("consultarDadesDocumentAportat(BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return docsEntradaRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("consultarDadesDocumentAportat(BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -858,7 +880,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("consultarDadesDocumentGenerat(BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return docsTramitacioRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("consultarDadesDocumentGenerat(BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -905,7 +927,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("descarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO) - fi"); //$NON-NLS-1$
 			}
 			return documentByteArray;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("descarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -973,7 +995,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("cercaDadesOperacioRequerits(BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return dadesOperacioRequeritsIdList;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("cercaDadesOperacioRequerits(BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -1017,7 +1039,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 			if (log.isDebugEnabled()) {
 				log.debug("revisarDocumentacioEntrada(DocumentAportatValidarBDTO) - fi"); //$NON-NLS-1$
 			}
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("revisarDocumentacioEntrada(DocumentAportatValidarBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -1065,7 +1087,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 			}
 
 			return respostaPlantillaDocVinculada;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("getPlantillaDocVinculada(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -1114,7 +1136,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("associarRegistreDocumentacioExpedient(DocumentActualizarRegistre) - fi"); //$NON-NLS-1$
 			}
 
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("associarRegistreDocumentacioExpedient(DocumentActualizarRegistre)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException(e);
@@ -1161,7 +1183,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("associarRegistreDocsEnt(DocsEntActualizarRegistre) - fi"); //$NON-NLS-1$
 			}
 
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("associarRegistreDocsEnt(DocsEntActualizarRegistre)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -1206,7 +1228,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 			}
 			return crearPeticioPortaSig;
 
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("signarValidarDocument(SignarDocument)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -1250,7 +1272,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 				log.debug("obtenirDocsTramitacioByNotificationId(Long) - fi"); //$NON-NLS-1$
 			}
 			return docsTramitacioRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("obtenirDocsTramitacioByNotificationId(Long)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -1305,7 +1327,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 			if (log.isDebugEnabled()) {
 				log.debug("tancarRequerimentsExpedient(BigDecimal) - fi"); //$NON-NLS-1$
 			}
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("tancarRequerimentsExpedient(BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -1348,7 +1370,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 			if (log.isDebugEnabled()) {
 				log.debug("callbackPortaSig(CallbackPortaSig) - fi"); //$NON-NLS-1$
 			}
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("callbackPortaSig(CallbackPortaSig)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
