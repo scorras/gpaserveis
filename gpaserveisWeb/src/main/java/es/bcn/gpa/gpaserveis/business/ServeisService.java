@@ -319,6 +319,8 @@ public interface ServeisService {
 	 * @param crearDeclaracioResponsableBDTO
 	 *            the crear declaracio responsable BDTO
 	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
 	 */
 	DocsEntradaRDTO crearDeclaracioResponsable(CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO)
 			throws GPAServeisServiceException;
@@ -554,7 +556,7 @@ public interface ServeisService {
 	 *
 	 * @param signarDocument
 	 *            the signar document
-	 * @return
+	 * @return the peticions portasig
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
@@ -681,6 +683,12 @@ public interface ServeisService {
 	 */
 	BigDecimal getIdExpedientByDocumentacioIdExt(BigDecimal documentacio) throws GPAServeisServiceException;
 
+	/**
+	 * Actualitzar notificacion.
+	 *
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	void actualitzarNotificacion() throws GPAServeisServiceException;
 
 	/**
@@ -693,6 +701,26 @@ public interface ServeisService {
 	 */
 	void tancarRequerimentsExpedient(BigDecimal idDocumentacio) throws GPAServeisServiceException;
 
+	/**
+	 * Callback porta sig.
+	 *
+	 * @param callbackPortaSig
+	 *            the callback porta sig
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	void callbackPortaSig(CallbackPortaSig callbackPortaSig) throws GPAServeisServiceException;
+
+	/**
+	 * Guardar document tramitacio plantilla.
+	 *
+	 * @param crearDocumentTramitacioBDTO
+	 *            the crear document tramitacio BDTO
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsTramitacioRDTO guardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
+			throws GPAServeisServiceException;
 
 }

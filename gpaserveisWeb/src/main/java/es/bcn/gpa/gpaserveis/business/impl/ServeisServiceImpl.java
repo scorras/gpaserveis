@@ -859,4 +859,17 @@ public class ServeisServiceImpl implements ServeisService {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * guardarDocumentTramitacioPlantilla(es.bcn.gpa.gpaserveis.business.dto.
+	 * documents.CrearDocumentTramitacioBDTO)
+	 */
+	@Override
+	public DocsTramitacioRDTO guardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
+			throws GPAServeisServiceException {
+		return documentsService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
+	}
+
 }
