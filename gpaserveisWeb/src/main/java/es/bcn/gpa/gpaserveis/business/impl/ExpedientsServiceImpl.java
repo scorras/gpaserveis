@@ -1,11 +1,19 @@
 package es.bcn.gpa.gpaserveis.business.impl;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import es.bcn.gpa.gpaserveis.business.ExpedientsService;
@@ -449,14 +457,14 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackActualitzarDadesAltraPersonaImplicada")
 	public PageDataOfPersonesSollicitudRDTO actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = personesSollicitudApi.actualitzarDadesAltraPersonaImplicada(
-			        personesSollicitudRDTO, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+					personesSollicitudRDTO, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
 				log.debug("actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO) - fi"); //$NON-NLS-1$
@@ -479,7 +487,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	public PageDataOfPersonesSollicitudRDTO fallbackActualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO) - inici"); //$NON-NLS-1$
 		}
@@ -567,7 +575,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		} catch (ApiException e) {
 			log.error("crearSollicitudExpedient(ExpedientsCrearBDTO)", e); //$NON-NLS-1$
 
-			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+			throw new GPAServeisServiceException(e.getMessage());
 		}
 
 	}
@@ -580,13 +588,24 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 * @return the expedients RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
+	 * @throws IOException
+	 * @throws JsonParseException
 	 */
-	public ExpedientsRDTO fallbackCrearSollicitudExpedient(ExpedientsCrearBDTO expedientsCrearBDTO) throws GPAServeisServiceException {
+	public ExpedientsRDTO fallbackCrearSollicitudExpedient(ExpedientsCrearBDTO expedientsCrearBDTO, Throwable e)
+			throws GPAServeisServiceException, JsonParseException, IOException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearSollicitudExpedient(ExpedientsCrearBDTO) - inici"); //$NON-NLS-1$
 		}
 
-		throw new GPAServeisServiceException("El servei de expedients no està disponible");
+		ObjectMapper mapper = new ObjectMapper();
+		JsonFactory factory = mapper.getFactory();
+		JsonParser parser = factory.createParser(e.getMessage());
+		JsonNode actualObj = mapper.readTree(parser);
+		ObjectReader reader = mapper.readerFor(new TypeReference<String>() {
+		});
+		String message = String.valueOf(reader.readValue(actualObj.get("errorMessage")));
+
+		throw new GPAServeisServiceException(message);
 	}
 
 	/*
@@ -1151,15 +1170,15 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCercaExpedientsAcumular")
 	public PageDataOfExpedientsRDTO cercaExpedientsAcumular(ExpedientsCercaAcumularBDTO expedientsCercaAcumularBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("cercaExpedientsAcumular(ExpedientsCercaAcumularBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			PageDataOfExpedientsRDTO pageDataOfExpedientsRDTO = expedients_Api.cercaExpedientsAcumular(null, null, null, null, null, null,
-			        null, null, null, null, expedientsCercaAcumularBDTO.getIdProcediment(), null, null, null, null, null, null, null, null,
-			        null);
+					null, null, null, null, expedientsCercaAcumularBDTO.getIdProcediment(), null, null, null, null, null, null, null, null,
+					null);
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaExpedientsAcumular(ExpedientsCercaAcumularBDTO) - fi"); //$NON-NLS-1$
@@ -1182,7 +1201,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	public PageDataOfExpedientsRDTO fallbackCercaExpedientsAcumular(ExpedientsCercaAcumularBDTO expedientsCercaAcumularBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaExpedientsAcumular(ExpedientsCercaAcumularBDTO) - inici"); //$NON-NLS-1$
 		}
@@ -1249,7 +1268,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		try {
 			PageDataOfExpedientsRDTO pageDataOfExpedientsRDTO = expedients_Api.cercaExpedientsAcumulats(idExpedient, null, null, null, null,
-			        null, null, null, null, null, null, null, null, null, null);
+					null, null, null, null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaExpedientsAcumulats(BigDecimal) - fi"); //$NON-NLS-1$
