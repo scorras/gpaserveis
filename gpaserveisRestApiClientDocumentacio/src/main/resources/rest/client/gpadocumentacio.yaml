@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.11.0"
+  version: "1.12.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -1659,6 +1659,44 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/entrada/digitalitzar/{idExpedient}:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "crea el document digitalitzat d'entrada"
+      operationId: "crearDocumentEntradaDigitalitzat"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "docsEntradaRDTO"
+        description: "docsEntradaRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/DocsEntradaRDTO"
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/DocsEntradaRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /documentacio/entrada/estatsRevisio:
     get:
       tags:
@@ -3295,6 +3333,8 @@ definitions:
       eliminat:
         type: "integer"
         format: "int32"
+      estatDigitalitzacio:
+        type: "number"
       id:
         type: "number"
       idIdiomaPlantilla:
@@ -3342,6 +3382,8 @@ definitions:
         type: "number"
       ultimaModificacioIdext:
         type: "number"
+      urlDigitalitzacio:
+        type: "string"
       usuariIdext:
         type: "number"
     title: "DocsEntradaRDTO"

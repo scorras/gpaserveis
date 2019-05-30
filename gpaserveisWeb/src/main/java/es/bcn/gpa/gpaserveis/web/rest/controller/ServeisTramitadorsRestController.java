@@ -34,7 +34,6 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentTramitacioFit
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarRequerimentFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaCompletarDocumentEntradaExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaCompletarDocumentTramitacioExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDigitalitzarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaIncorporarNouDocumentEntradaExpedientBDTO;
@@ -2164,10 +2163,15 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT, ErrorPrincipal.ERROR_GENERIC);
 		}
 
-		RespostaDigitalitzarDocumentExpedientBDTO respostaDigitalitzarDocumentExpedientBDTO = new RespostaDigitalitzarDocumentExpedientBDTO(
-				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
-		respostaDigitalitzarDocumentRDTO = modelMapper.map(respostaDigitalitzarDocumentExpedientBDTO,
-				RespostaDigitalitzarDocumentRDTO.class);
+		// TODO
+		// RespostaDigitalitzarDocumentExpedientBDTO
+		// respostaDigitalitzarDocumentExpedientBDTO = new
+		// RespostaDigitalitzarDocumentExpedientBDTO(
+		// dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() :
+		// null, respostaResultatBDTO);
+		// respostaDigitalitzarDocumentRDTO =
+		// modelMapper.map(respostaDigitalitzarDocumentExpedientBDTO,
+		// RespostaDigitalitzarDocumentRDTO.class);
 
 		if (log.isDebugEnabled()) {
 			log.debug("digitalitzarDocumentExpedient(String, DocumentDigitalitzacioRDTO) - fi"); //$NON-NLS-1$
