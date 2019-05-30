@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang.math.NumberUtils;
+
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AtributsDocs;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntrada;
@@ -1438,6 +1440,7 @@ public class TestsConfigHelper {
 		docsEntradaRDTO.setDataPresentacio(now());
 		docsEntradaRDTO.setDataUltimaModificacio(now());
 		docsEntradaRDTO.setDocumentacio(ONE);
+		docsEntradaRDTO.setDeclaracioResponsable(NumberUtils.INTEGER_ZERO);
 
 		return docsEntradaRDTO;
 	}

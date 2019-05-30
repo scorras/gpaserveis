@@ -24,8 +24,15 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	/** The Constant APPLICATION_JSON_UTF8. */
 	private static final String APPLICATION_JSON_UTF8 = "application/json;charset=UTF-8";
 
+	/** The Constant BASE_URL. */
 	private final static String BASE_URL = "/rest/serveis/portal";
 
+	/**
+	 * Test stage 01 get cerca procediments.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage01_GetCercaProcediments() throws Exception {
 		String url = BASE_URL
@@ -33,24 +40,48 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 
+	/**
+	 * Test stage 02 get consultar dades procediment.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage02_GetConsultarDadesProcediment() throws Exception {
 		String url = BASE_URL + "/procediments/1";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 
+	/**
+	 * Test stage 03 get consultar dades operacio tramit.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage03_GetConsultarDadesOperacioTramit() throws Exception {
 		String url = BASE_URL + "/procediments/1/tramits/SOL/atributs";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 
+	/**
+	 * Test stage 04 get consultar documentacio procediment.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage04_GetConsultarDocumentacioProcediment() throws Exception {
 		String url = BASE_URL + "/procediments/1/tramits/APO/documentacio";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 
+	/**
+	 * Test stage 05 get cerca expedients.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage05_GetCercaExpedients() throws Exception {
 		String url = BASE_URL
@@ -58,12 +89,24 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 
+	/**
+	 * Test stage 06 get consultar dades expedient.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage06_GetConsultarDadesExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/2019_EXP_00001";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 
+	/**
+	 * Test stage 07 post crear solicitud.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage07_PostCrearSolicitud() throws Exception {
 		String url = BASE_URL + "/expedients";
@@ -74,6 +117,12 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 
 	}
 
+	/**
+	 * Test stage 08 post actualitzar solicitud.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage08_PostActualitzarSolicitud() throws Exception {
 		String url = BASE_URL + "/expedients/1";
@@ -84,6 +133,12 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 
 	}
 
+	/**
+	 * Test stage 09 post registrar solicitud.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage09_PostRegistrarSolicitud() throws Exception {
 		String url = BASE_URL + "/expedients/1/registre";
@@ -91,6 +146,12 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 
 	}
 
+	/**
+	 * Test stage 10 post aportar documentacio expedient.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage10_PostAportarDocumentacioExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/1/documentacio";
@@ -101,6 +162,12 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 
 	}
 
+	/**
+	 * Test stage 11 post substituir document expedient.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage11_PostSubstituirDocumentExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/1/documentacio/1/substituir";
@@ -111,6 +178,12 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 
 	}
 
+	/**
+	 * Test stage 12 delete esborrar document expedient.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage12_DeleteEsborrarDocumentExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/1/documentacio/1";
@@ -118,6 +191,12 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 
 	}
 
+	/**
+	 * Test stage 13 post esmenar expedient.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage13_PostEsmenarExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/1/esmena";
@@ -128,6 +207,12 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 
 	}
 
+	/**
+	 * Test stage 14 post abandonar expedient.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage14_PostAbandonarExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/1/desistir";
@@ -135,6 +220,12 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 
 	}
 
+	/**
+	 * Test stage 15 post upload document expedient.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage15_PostUploadDocumentExpedient() throws Exception {
 		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
@@ -144,10 +235,32 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 
 	}
 
+	/**
+	 * Test stage 16 get descarregar document expedient.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage16_GetDescarregarDocumentExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/1/documents/1";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+
+	}
+
+	/**
+	 * Test stage 17 post digitalitzar documentacio expedient.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test
+	public void testStage17_PostDigitalitzarDocumentacioExpedient() throws Exception {
+		String url = BASE_URL + "/expedients/1/documentacio/digitalitzar";
+		getMockMvc()
+				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+						"{ \"documentacio\": [ { \"configuracioDocumentacio\": \"42\",\t \"origen\": \"EXTERN\",\t \"comentari\": \"Document aportat des de portal de tramitació\",\t \"idioma\": \"CATALA\", \"fitxer\": {\t \"nom\": \"DNI.pdf\", \"format\": \"PDF\" } },\t{ \"configuracioDocumentacio\": \"43\",\t \"origen\": \"INTERN\",\t \"comentari\": \"Document aportat des de portal de tramitació\",\t \"idioma\": \"CASTELLA\", \"fitxer\": {\t \"nom\": \"DNI.pdf\", \"format\": \"PDF\" } } ], \"registrar\": true}"))
+				.andExpect(status().isOk()).andDo(print());
 
 	}
 

@@ -30,6 +30,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentEntradaBD
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDeclaracioResponsableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaDigitalitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DescarregarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
@@ -61,6 +62,8 @@ import lombok.extern.apachecommons.CommonsLog;
  * The Class DocumentsServiceImpl.
  */
 @Service
+
+/** The Constant log. */
 @CommonsLog
 public class DocumentsServiceImpl implements DocumentsService {
 
@@ -406,7 +409,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public DocsEntradaRDTO fallbackCrearDeclaracioResponsable(CrearDeclaracioResponsableBDTO crearDocumentEntradaBDTO)
+	public DocsEntradaRDTO fallbackCrearDeclaracioResponsable(CrearDocumentEntradaDigitalitzarBDTO crearDocumentEntradaBDTO)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearDeclaracioResponsable(CrearDeclaracioResponsableBDTO) - inici"); //$NON-NLS-1$
@@ -463,6 +466,13 @@ public class DocumentsServiceImpl implements DocumentsService {
 		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * guardarDocumentTramitacioPlantilla(es.bcn.gpa.gpaserveis.business.dto.
+	 * documents.CrearDocumentTramitacioBDTO)
+	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackGuardarDocumentTramitacioPlantilla")
 	public DocsTramitacioRDTO guardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
@@ -486,6 +496,21 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 	}
 
+	/**
+	 * Fallback guardar document tramitacio plantilla.
+	 *
+	 * @param crearDocumentTramitacioBDTO
+	 *            the crear document tramitacio BDTO
+	 * @param e
+	 *            the e
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 * @throws JsonParseException
+	 *             the json parse exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
 	public DocsTramitacioRDTO fallbackGuardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO,
 			Throwable e) throws GPAServeisServiceException, JsonParseException, IOException {
 		if (log.isDebugEnabled()) {
@@ -695,11 +720,15 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *
 	 * @param guardarDocumentEntradaFitxerBDTO
 	 *            the guardar document entrada fitxer BDTO
+	 * @param e
+	 *            the e
 	 * @return the docs entrada RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
-	 * @throws IOException
 	 * @throws JsonParseException
+	 *             the json parse exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	public DocsEntradaRDTO fallbackGuardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO,
 			Throwable e) throws GPAServeisServiceException, JsonParseException, IOException {
@@ -757,11 +786,15 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *
 	 * @param guardarDocumentTramitacioFitxerBDTO
 	 *            the guardar document tramitacio fitxer BDTO
+	 * @param e
+	 *            the e
 	 * @return the docs tramitacio RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
-	 * @throws IOException
 	 * @throws JsonParseException
+	 *             the json parse exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	public DocsTramitacioRDTO fallbackGuardarDocumentTramitacioFitxer(
 			GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO, Throwable e)
@@ -822,11 +855,15 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *
 	 * @param guardarRequerimentFitxerBDTO
 	 *            the guardar requeriment fitxer BDTO
+	 * @param e
+	 *            the e
 	 * @return the docs tramitacio RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
-	 * @throws IOException
 	 * @throws JsonParseException
+	 *             the json parse exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	public DocsTramitacioRDTO fallbackGuardarRequerimentFitxer(GuardarRequerimentFitxerBDTO guardarRequerimentFitxerBDTO, Throwable e)
 			throws GPAServeisServiceException, JsonParseException, IOException {
@@ -879,10 +916,14 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *
 	 * @param esborrarDocumentExpedientBDTO
 	 *            the esborrar document expedient BDTO
+	 * @param e
+	 *            the e
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
-	 * @throws IOException
 	 * @throws JsonParseException
+	 *             the json parse exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	public void fallbackEsborrarDocumentExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO, Throwable e)
 			throws GPAServeisServiceException, JsonParseException, IOException {
@@ -1302,6 +1343,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *
 	 * @param signarDocument
 	 *            the signar document
+	 * @return the peticions portasig
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
@@ -1450,6 +1492,53 @@ public class DocumentsServiceImpl implements DocumentsService {
 	public void fallbackCallbackPortaSig(CallbackPortaSig callbackPortaSig) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCallbackPortaSig(CallbackPortaSig) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * crearDocumentEntradaDigitalitzat(es.bcn.gpa.gpaserveis.business.dto.
+	 * documents.CrearDocumentEntradaDigitalitzarBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackCrearDocumentEntradaDigitalitzat")
+	public DocsEntradaRDTO crearDocumentEntradaDigitalitzat(CrearDocumentEntradaDigitalitzarBDTO crearDocumentEntradaDigitalitzarBDTO)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("crearDocumentEntradaDigitalitzat(CrearDocumentEntradaDigitalitzarBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.crearDocumentEntradaDigitalitzat(
+					crearDocumentEntradaDigitalitzarBDTO.getDocsEntradaRDTO(), crearDocumentEntradaDigitalitzarBDTO.getIdExpedient());
+
+			if (log.isDebugEnabled()) {
+				log.debug("crearDocumentEntradaDigitalitzat(CrearDocumentEntradaDigitalitzarBDTO) - fi"); //$NON-NLS-1$
+			}
+			return docsEntradaRDTO;
+		} catch (RestClientException e) {
+			log.error("crearDocumentEntradaDigitalitzat(CrearDocumentEntradaDigitalitzarBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback crear document entrada digitalitzat.
+	 *
+	 * @param crearDocumentEntradaDigitalitzarBDTO
+	 *            the crear document entrada digitalitzar BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsEntradaRDTO fallbackCrearDocumentEntradaDigitalitzat(
+			CrearDocumentEntradaDigitalitzarBDTO crearDocumentEntradaDigitalitzarBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCrearDocumentEntradaDigitalitzat(CrearDocumentEntradaDigitalitzarBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de documentacio no està disponible");

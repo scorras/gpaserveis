@@ -18,6 +18,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentEntradaBD
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDeclaracioResponsableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaDigitalitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DescarregarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
@@ -870,6 +871,19 @@ public class ServeisServiceImpl implements ServeisService {
 	public DocsTramitacioRDTO guardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
 			throws GPAServeisServiceException {
 		return documentsService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * crearDocumentEntradaDigitalitzat(es.bcn.gpa.gpaserveis.business.dto.
+	 * documents.CrearDocumentEntradaDigitalitzarBDTO)
+	 */
+	@Override
+	public DocsEntradaRDTO crearDocumentEntradaDigitalitzat(CrearDocumentEntradaDigitalitzarBDTO crearDocumentEntradaDigitalitzarBDTO)
+			throws GPAServeisServiceException {
+		return documentsService.crearDocumentEntradaDigitalitzat(crearDocumentEntradaDigitalitzarBDTO);
 	}
 
 }
