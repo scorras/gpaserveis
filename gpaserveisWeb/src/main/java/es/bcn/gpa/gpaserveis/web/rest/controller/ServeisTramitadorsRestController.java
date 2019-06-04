@@ -753,7 +753,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Cambio de estado del expediente
 			// Es necesario consultar el histórico para determinar el cambio de
-			// estado que debe hacerse
+			// estado que debe hacerse (omitir los tornar enrere anteriores)
 			if (CollectionUtils.isNotEmpty(dadesExpedientBDTO.getHistoricsEstats()) && dadesExpedientBDTO.getHistoricsEstats().size() > 1) {
 				ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
 				        ExpedientCanviEstatAccio.class);
