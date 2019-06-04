@@ -843,6 +843,10 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			DocumentAportatValidarBDTO documentAportatValidarBDTO = new DocumentAportatValidarBDTO(documentRevisio);
 			serveisService.revisarDocumentacioEntrada(documentAportatValidarBDTO);
 
+			// Si todo fue bien, se actualiza el valor en el objeto utilizado
+			// para construir la salida
+			docsEntradaRDTO.setRevisio(RevisioApiParamValue.CORRECTE.getInternalValue());
+
 			// Crear comentario
 			ComentariCreacioAccio comentariCreacioAccio = new ComentariCreacioAccio();
 			comentariCreacioAccio.setComentari(documentAportatValidar.getComentari());
@@ -926,6 +930,10 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			documentRevisio.setEstatRevisioId(RevisioApiParamValue.INCORRECTE.getInternalValue());
 			DocumentAportatValidarBDTO documentAportatValidarBDTO = new DocumentAportatValidarBDTO(documentRevisio);
 			serveisService.revisarDocumentacioEntrada(documentAportatValidarBDTO);
+
+			// Si todo fue bien, se actualiza el valor en el objeto utilizado
+			// para construir la salida
+			docsEntradaRDTO.setRevisio(RevisioApiParamValue.INCORRECTE.getInternalValue());
 
 			// Crear comentario
 			ComentariCreacioAccio comentariCreacioAccio = new ComentariCreacioAccio();
