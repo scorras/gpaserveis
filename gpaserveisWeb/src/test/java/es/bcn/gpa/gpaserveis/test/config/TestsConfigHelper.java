@@ -27,6 +27,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Paisos;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
@@ -39,7 +40,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfHistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Paisos;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesDadescontacte;
@@ -421,13 +421,10 @@ public class TestsConfigHelper {
 		TipusDocumentIdentitat tipusDocumentIdentitat = new TipusDocumentIdentitat();
 		tipusDocumentIdentitat.setId(ZERO);
 		tipusDocumentIdentitat.setDescripcio("NIF");
-		Paisos paisos = new Paisos();
-		paisos.setCodiIne("108");
-		paisos.setCodiIso("ES");
 		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
 		personesDadescontacte.setId(ONE);
 		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
-		documentsIdentitat.setPaisos(paisos);
+		documentsIdentitat.setPais("108");
 		persones.setDocumentsIdentitat(documentsIdentitat);
 		persones.setPersonesDadescontacte(personesDadescontacte);
 		personesSollicitud.setPersones(persones);
@@ -496,7 +493,6 @@ public class TestsConfigHelper {
 		RegistreAssentament registreAssentament = new RegistreAssentament();
 		registreAssentament.setId(ONE);
 		registreAssentament.setCodi("REG01");
-		registreAssentament.setUsuari(ONE);
 		registreAssentament.setTipus(ONE);
 		registreAssentament.setDataRegistre(now());
 
@@ -531,7 +527,7 @@ public class TestsConfigHelper {
 		estats.setUnitatGestoraIdext(ONE);
 
 		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
-		documentsIdentitat.setPaisos(paisos);
+		documentsIdentitat.setPais("108");
 		persones.setDocumentsIdentitat(documentsIdentitat);
 		persones.setPersonesDadescontacte(personesDadescontacte);
 		registreAssentament.setPersones(persones);
@@ -578,7 +574,6 @@ public class TestsConfigHelper {
 		RegistreAssentament registreAssentament = new RegistreAssentament();
 		registreAssentament.setId(ONE);
 		registreAssentament.setCodi("REG01");
-		registreAssentament.setUsuari(ONE);
 		registreAssentament.setTipus(ONE);
 		registreAssentament.setDataRegistre(now());
 
@@ -613,7 +608,7 @@ public class TestsConfigHelper {
 		estats.setUnitatGestoraIdext(ONE);
 
 		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
-		documentsIdentitat.setPaisos(paisos);
+		documentsIdentitat.setPais("108");
 		persones.setDocumentsIdentitat(documentsIdentitat);
 		persones.setPersonesDadescontacte(personesDadescontacte);
 		registreAssentament.setPersones(persones);
@@ -658,7 +653,6 @@ public class TestsConfigHelper {
 		RegistreAssentament registreAssentament = new RegistreAssentament();
 		registreAssentament.setId(ONE);
 		registreAssentament.setCodi("REG01");
-		registreAssentament.setUsuari(ONE);
 		registreAssentament.setTipus(ONE);
 		registreAssentament.setDataRegistre(now());
 
@@ -693,7 +687,7 @@ public class TestsConfigHelper {
 		estats.setUnitatGestoraIdext(ONE);
 
 		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
-		documentsIdentitat.setPaisos(paisos);
+		documentsIdentitat.setPais("108");
 		persones.setDocumentsIdentitat(documentsIdentitat);
 		persones.setPersonesDadescontacte(personesDadescontacte);
 		registreAssentament.setPersones(persones);
@@ -904,7 +898,7 @@ public class TestsConfigHelper {
 		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
 		personesDadescontacte.setId(ONE);
 		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
-		documentsIdentitat.setPaisos(paisos);
+		documentsIdentitat.setPais("108");
 		persones.setDocumentsIdentitat(documentsIdentitat);
 		persones.setPersonesDadescontacte(personesDadescontacte);
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsPausarBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToResultatRespostaConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToExpedientAccioConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToExpedientAccioPausarConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.pausar.RespostaPausarExpedientRDTO;
 
 /**
@@ -17,8 +17,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients
 public class RespostaExpedientsPausarBDTOToRespostaPausarExpedientRDTOMapper
         extends PropertyMap<RespostaExpedientsPausarBDTO, RespostaPausarExpedientRDTO> {
 
-	/** The internal to expedient accio converter. */
-	private InternalToExpedientAccioConverter internalToExpedientAccioConverter;
+	/** The internal to expedient accio pausar converter. */
+	private InternalToExpedientAccioPausarConverter internalToExpedientAccioPausarConverter;
 
 	/** The internal to resultat resposta converter. */
 	private InternalToResultatRespostaConverter internalToResultatRespostaConverter;
@@ -34,9 +34,9 @@ public class RespostaExpedientsPausarBDTOToRespostaPausarExpedientRDTOMapper
 	 */
 	@Autowired
 	public RespostaExpedientsPausarBDTOToRespostaPausarExpedientRDTOMapper(
-	        @Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
+	        @Qualifier("expedientInternalToExpedientAccioPausarConverter") InternalToExpedientAccioPausarConverter internalToExpedientAccioPausarConverter,
 	        @Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
-		this.internalToExpedientAccioConverter = internalToExpedientAccioConverter;
+		this.internalToExpedientAccioPausarConverter = internalToExpedientAccioPausarConverter;
 		this.internalToResultatRespostaConverter = internalToResultatRespostaConverter;
 	}
 
@@ -48,7 +48,7 @@ public class RespostaExpedientsPausarBDTOToRespostaPausarExpedientRDTOMapper
 	@Override
 	protected void configure() {
 		using(internalToResultatRespostaConverter).map(source.getRespostaResultatBDTO()).setResultat(null);
-		using(internalToExpedientAccioConverter).map(source.getExpedientsRDTO()).setExpedient(null);
+		using(internalToExpedientAccioPausarConverter).map(source.getExpedientsRDTO()).setExpedient(null);
 	}
 
 }

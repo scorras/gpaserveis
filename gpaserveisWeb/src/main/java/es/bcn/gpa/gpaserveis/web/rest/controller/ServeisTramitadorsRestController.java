@@ -8,6 +8,10 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -96,6 +100,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarLaTrami
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerValidationHelper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.BooleanApiParamValue;
@@ -103,9 +108,11 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.Confi
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.RevisioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusAccionsPortaSigApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.MotiuPausaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.ConfiguracioApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.MotiuPausaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.resolucio.validar.PersonaValidarResolucioDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.resolucio.validar.RespostaResolucioValidarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.PersonaSignarDocumentRDTO;
@@ -274,7 +281,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaPausarExpedientRDTO pausarExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Dades de la pausa de l'expedient") @RequestBody ExpedientPausaRDTO expedientPausa)
+	        @ApiParam(value = "Dades de la pausa de l'expedient", required = true) @RequestBody ExpedientPausaRDTO expedientPausa)
 	        throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
@@ -291,19 +298,47 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_PAUSAR_EXPEDIENT);
 
+			// Si se indica una fecha límite, debe ser posterior a la fecha
+			// actual
+			ServeisRestControllerValidationHelper.validateDataLimit(expedientPausa.getDataLimit(), Resultat.ERROR_PAUSAR_EXPEDIENT);
+
 			// Pausar expediente si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.PAUSAR_EXPEDIENT, Resultat.ERROR_PAUSAR_EXPEDIENT);
 
-			// Cambio de estado del expediente
+			// Cambio de estado del expediente y actualización de fechas de
+			// límite de plazo
 			ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
 			        ExpedientCanviEstatAccio.class);
 			// Desde el estado 4 se puede transicionar al 5 o 6 en función del
 			// motivo
 			expedientCanviEstatAccio.setOperacio(expedientPausa.getMotiu());
+			if (StringUtils.isNotEmpty(expedientPausa.getDataLimit())) {
+				DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
+				DateTime valorDataHora = DateTime.parse(expedientPausa.getDataLimit(), dataHoraFormatter);
+				MotiuPausaApiParamValueTranslator motiuPausaApiParamValueTranslator = new MotiuPausaApiParamValueTranslator();
+				MotiuPausaApiParamValue motiuPausaApiParamValue = motiuPausaApiParamValueTranslator
+				        .getEnumByApiParamValue(expedientPausa.getMotiu());
+				switch (motiuPausaApiParamValue) {
+				case TRAMIT_ALLEGACIONS:
+					expedientCanviEstatAccio.setDataLimitAllegacio(valorDataHora);
+
+					break;
+				case REQUERIMENT_SUBSANACIO:
+					expedientCanviEstatAccio.setDataLimitRequeriment(valorDataHora);
+
+					break;
+				default:
+					break;
+				}
+			}
 			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.PAUSAR_EXPEDIENT.getInternalValue());
 			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+
+			// Se vuelve a consultar el expediente actualizado
+			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
+			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("pausarExpedient(String, String, ExpedientPausaRDTO)", e);
@@ -366,14 +401,13 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.REACTIVAR_EXPEDIENT, Resultat.ERROR_REACTIVAR_EXPEDIENT);
 
-			// Cambio de estado del expediente
+			// Cambio de estado del expediente y actualización de fechas de
+			// límite de plazo a null
 			ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
 			        ExpedientCanviEstatAccio.class);
 			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.REACTIVAR_EXPEDIENT.getInternalValue());
 			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
-
-			// TODO Fechas fin de plazo a null
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("reactivarExpedient(String, ExpedientReactivacioRDTO)", e);

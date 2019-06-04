@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.11.0"
+  version: "1.12.0"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -3850,6 +3850,12 @@ definitions:
         $ref: "#/definitions/Comentaris"
       convidarTramitar:
         $ref: "#/definitions/ConvidarTramitarBDTO"
+      dataLimitAllegacio:
+        type: "string"
+        format: "date-time"
+      dataLimitRequeriment:
+        type: "string"
+        format: "date-time"
       estatActual:
         $ref: "#/definitions/DropdownItemBDTO"
       estatAnterior:
@@ -4125,8 +4131,6 @@ definitions:
         type: "string"
       pais:
         type: "string"
-      paisos:
-        $ref: "#/definitions/Paisos"
       tipus:
         type: "number"
       tipusDocumentIdentitat:
@@ -4231,6 +4235,16 @@ definitions:
   ExpedientCanviEstatAccio:
     type: "object"
     properties:
+      dataLimitAllegacio:
+        type: "string"
+        format: "date-time"
+        description: "Data impositiva de fi de termini per esmenar l'expedient, responent\
+          \ a les al·legacions"
+      dataLimitRequeriment:
+        type: "string"
+        format: "date-time"
+        description: "Data impositiva de fi de termini per esmenar l'expedient, responent\
+          \ al requeriment"
       descEstat:
         type: "string"
         description: "Descripció de l'estat actual"
@@ -4635,20 +4649,6 @@ definitions:
         type: "integer"
         format: "int32"
     title: "PaginationAttributes"
-  Paisos:
-    type: "object"
-    properties:
-      codiIne:
-        type: "string"
-      codiIso:
-        type: "string"
-      nom:
-        type: "string"
-      nomCastella:
-        type: "string"
-      nomCatala:
-        type: "string"
-    title: "Paisos"
   PaisosRDTO:
     type: "object"
     properties:
@@ -4832,8 +4832,6 @@ definitions:
         $ref: "#/definitions/Persones"
       tipus:
         type: "number"
-      usuari:
-        type: "number"
     title: "RegistreAssentament"
   RegistreAssentamentRDTO:
     type: "object"
@@ -4850,8 +4848,6 @@ definitions:
       persones:
         $ref: "#/definitions/Persones"
       tipus:
-        type: "number"
-      usuari:
         type: "number"
     title: "RegistreAssentamentRDTO"
   RegistreDocumentacioExpedient:

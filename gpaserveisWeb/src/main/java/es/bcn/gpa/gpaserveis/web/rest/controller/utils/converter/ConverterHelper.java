@@ -17,7 +17,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Paisos;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesDadescontacte;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitud;
@@ -215,9 +214,6 @@ public class ConverterHelper {
 			documentsIdentitat.setTipus(tipusDocumentIdentitatApiParamValueTranslator
 			        .getInternalValueByApiParamValue(personesRDTO.getDocumentIndentitat().getTipusDocument()));
 			documentsIdentitat.setNumeroDocument(personesRDTO.getDocumentIndentitat().getNumeroDocument());
-			Paisos paisos = new Paisos();
-			paisos.setCodiIne(personesRDTO.getDocumentIndentitat().getPais());
-			documentsIdentitat.setPaisos(paisos);
 			documentsIdentitat.setPais(personesRDTO.getDocumentIndentitat().getPais());
 			persones.setDocumentsIdentitat(documentsIdentitat);
 			PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
