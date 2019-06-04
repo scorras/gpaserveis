@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @ApiModel(value = "RetornNotificacio")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "notificacioId", "estat", "codiError", "descripcioError", "dataHoraDiposit", "dataHoraVisualitzacio", "dataHoraAceptacioRebuig", "dataLimit", "docEvidenciaElectronic", "dataEnviament", "dataAcusamentRebuda", "docEvidenciaPaper" })
+@JsonPropertyOrder({ "notificacioId", "estat", "codiError", "descripcioError", "numRegistre", "dataHoraRegistre", "dataHoraDiposit", "dataHoraVisualitzacio", "dataHoraAceptacioRebuig", "dataLimit", "docEvidenciaElectronic", "dataEnviament", "dataAcusamentRebuda", "docEvidenciaPaper" })
 @Getter
 @Setter
 public class RetornNotificacioRDTO {
@@ -23,6 +23,10 @@ public class RetornNotificacioRDTO {
 	private Integer codiError;
 	@ApiModelProperty(value = "Descripció de l'error")
 	private String descripcioError;
+	@ApiModelProperty(value = "Número de registre de la notificació.")
+	private String numRegistre;	
+	@ApiModelProperty(value = "Data en la que ha estat registrada la notificació. Format: dd/MM/yyyy hh:mm:ss")
+	private String dataHoraRegistre;
 	@ApiModelProperty(value = "Data en la que ha estat diposada la notificació. Format: dd/MM/yyyy hh:mm:ss")
 	private String dataHoraDiposit;
 	@ApiModelProperty(value = "Data en la que ha estat visualitzada la notificació. Format: dd/MM/yyyy hh:mm:ss")

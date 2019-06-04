@@ -50,7 +50,7 @@ public class ServeisNotificacionsRestController extends BaseRestController {
 	@PostMapping("/retorn_notificacio")
 	@ApiOperation(value = "Retorn de l'estat de les notificacions", tags = { "Serveis Notificacions API" })
 	public ResponseEntity<Void> retornEstatNotificacio(
-	        @ApiParam(value = "Resposta del MDS a una peticion d'escaneig", required = true) @RequestBody RetornNotificacioRDTO retornNotificacioRDTO)
+	        @ApiParam(value = "Resposta del servei de notificacions", required = true) @RequestBody RetornNotificacioRDTO retornNotificacioRDTO)
 	        throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
