@@ -35,13 +35,19 @@ import org.joda.time.DateTime;
 /**
  * DocsTramitacioRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-04T17:48:15.469+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-05T13:25:08.238+02:00")
 public class DocsTramitacioRDTO {
+  @JsonProperty("canalComunicat")
+  private BigDecimal canalComunicat = null;
+
   @JsonProperty("codi")
   private String codi = null;
 
   @JsonProperty("comentari")
   private String comentari = null;
+
+  @JsonProperty("comunicat")
+  private Integer comunicat = null;
 
   @JsonProperty("configDocTramitacio")
   private BigDecimal configDocTramitacio = null;
@@ -51,6 +57,9 @@ public class DocsTramitacioRDTO {
 
   @JsonProperty("configuracioDocsTramitacioNom")
   private String configuracioDocsTramitacioNom = null;
+
+  @JsonProperty("dataComunicat")
+  private DateTime dataComunicat = null;
 
   @JsonProperty("dataCreacio")
   private DateTime dataCreacio = null;
@@ -118,6 +127,9 @@ public class DocsTramitacioRDTO {
   @JsonProperty("migracioIdOrigen")
   private String migracioIdOrigen = null;
 
+  @JsonProperty("missatgeComunicat")
+  private String missatgeComunicat = null;
+
   @JsonProperty("notificacio")
   private BigDecimal notificacio = null;
 
@@ -166,6 +178,24 @@ public class DocsTramitacioRDTO {
   @JsonProperty("usuariIdext")
   private BigDecimal usuariIdext = null;
 
+  public DocsTramitacioRDTO canalComunicat(BigDecimal canalComunicat) {
+    this.canalComunicat = canalComunicat;
+    return this;
+  }
+
+   /**
+   * Get canalComunicat
+   * @return canalComunicat
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getCanalComunicat() {
+    return canalComunicat;
+  }
+
+  public void setCanalComunicat(BigDecimal canalComunicat) {
+    this.canalComunicat = canalComunicat;
+  }
+
   public DocsTramitacioRDTO codi(String codi) {
     this.codi = codi;
     return this;
@@ -200,6 +230,24 @@ public class DocsTramitacioRDTO {
 
   public void setComentari(String comentari) {
     this.comentari = comentari;
+  }
+
+  public DocsTramitacioRDTO comunicat(Integer comunicat) {
+    this.comunicat = comunicat;
+    return this;
+  }
+
+   /**
+   * Get comunicat
+   * @return comunicat
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getComunicat() {
+    return comunicat;
+  }
+
+  public void setComunicat(Integer comunicat) {
+    this.comunicat = comunicat;
   }
 
   public DocsTramitacioRDTO configDocTramitacio(BigDecimal configDocTramitacio) {
@@ -254,6 +302,24 @@ public class DocsTramitacioRDTO {
 
   public void setConfiguracioDocsTramitacioNom(String configuracioDocsTramitacioNom) {
     this.configuracioDocsTramitacioNom = configuracioDocsTramitacioNom;
+  }
+
+  public DocsTramitacioRDTO dataComunicat(DateTime dataComunicat) {
+    this.dataComunicat = dataComunicat;
+    return this;
+  }
+
+   /**
+   * Get dataComunicat
+   * @return dataComunicat
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getDataComunicat() {
+    return dataComunicat;
+  }
+
+  public void setDataComunicat(DateTime dataComunicat) {
+    this.dataComunicat = dataComunicat;
   }
 
   public DocsTramitacioRDTO dataCreacio(DateTime dataCreacio) {
@@ -660,6 +726,24 @@ public class DocsTramitacioRDTO {
     this.migracioIdOrigen = migracioIdOrigen;
   }
 
+  public DocsTramitacioRDTO missatgeComunicat(String missatgeComunicat) {
+    this.missatgeComunicat = missatgeComunicat;
+    return this;
+  }
+
+   /**
+   * Get missatgeComunicat
+   * @return missatgeComunicat
+  **/
+  @ApiModelProperty(value = "")
+  public String getMissatgeComunicat() {
+    return missatgeComunicat;
+  }
+
+  public void setMissatgeComunicat(String missatgeComunicat) {
+    this.missatgeComunicat = missatgeComunicat;
+  }
+
   public DocsTramitacioRDTO notificacio(BigDecimal notificacio) {
     this.notificacio = notificacio;
     return this;
@@ -958,11 +1042,14 @@ public class DocsTramitacioRDTO {
       return false;
     }
     DocsTramitacioRDTO docsTramitacioRDTO = (DocsTramitacioRDTO) o;
-    return Objects.equals(this.codi, docsTramitacioRDTO.codi) &&
+    return Objects.equals(this.canalComunicat, docsTramitacioRDTO.canalComunicat) &&
+        Objects.equals(this.codi, docsTramitacioRDTO.codi) &&
         Objects.equals(this.comentari, docsTramitacioRDTO.comentari) &&
+        Objects.equals(this.comunicat, docsTramitacioRDTO.comunicat) &&
         Objects.equals(this.configDocTramitacio, docsTramitacioRDTO.configDocTramitacio) &&
         Objects.equals(this.configuracioDocsTramitacio, docsTramitacioRDTO.configuracioDocsTramitacio) &&
         Objects.equals(this.configuracioDocsTramitacioNom, docsTramitacioRDTO.configuracioDocsTramitacioNom) &&
+        Objects.equals(this.dataComunicat, docsTramitacioRDTO.dataComunicat) &&
         Objects.equals(this.dataCreacio, docsTramitacioRDTO.dataCreacio) &&
         Objects.equals(this.dataDigitalitzacio, docsTramitacioRDTO.dataDigitalitzacio) &&
         Objects.equals(this.dataUltimaModificacio, docsTramitacioRDTO.dataUltimaModificacio) &&
@@ -985,6 +1072,7 @@ public class DocsTramitacioRDTO {
         Objects.equals(this.idiomaDigitalitzacio, docsTramitacioRDTO.idiomaDigitalitzacio) &&
         Objects.equals(this.metadata, docsTramitacioRDTO.metadata) &&
         Objects.equals(this.migracioIdOrigen, docsTramitacioRDTO.migracioIdOrigen) &&
+        Objects.equals(this.missatgeComunicat, docsTramitacioRDTO.missatgeComunicat) &&
         Objects.equals(this.notificacio, docsTramitacioRDTO.notificacio) &&
         Objects.equals(this.notificacions, docsTramitacioRDTO.notificacions) &&
         Objects.equals(this.numDocsConfiguracio, docsTramitacioRDTO.numDocsConfiguracio) &&
@@ -1005,7 +1093,7 @@ public class DocsTramitacioRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(codi, comentari, configDocTramitacio, configuracioDocsTramitacio, configuracioDocsTramitacioNom, dataCreacio, dataDigitalitzacio, dataUltimaModificacio, descripcioEstat, digitalitzat, docsFisics, docsFisicsNom, docsSignatures, documentFisic, documentacio, editable, eliminat, estat, estatAnterior, estatDigitalitzacio, estatDocsTramitacio, estatsDocsTramitacio, id, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, notificacio, notificacions, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreIdext, requereixSignatura, requeriments, seleccionable, tipusMimeDescripcio, ultimaModificacioIdext, ultimaSignatura, urlDigitalitzacio, usuariIdext);
+    return Objects.hash(canalComunicat, codi, comentari, comunicat, configDocTramitacio, configuracioDocsTramitacio, configuracioDocsTramitacioNom, dataComunicat, dataCreacio, dataDigitalitzacio, dataUltimaModificacio, descripcioEstat, digitalitzat, docsFisics, docsFisicsNom, docsSignatures, documentFisic, documentacio, editable, eliminat, estat, estatAnterior, estatDigitalitzacio, estatDocsTramitacio, estatsDocsTramitacio, id, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, missatgeComunicat, notificacio, notificacions, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreIdext, requereixSignatura, requeriments, seleccionable, tipusMimeDescripcio, ultimaModificacioIdext, ultimaSignatura, urlDigitalitzacio, usuariIdext);
   }
 
 
@@ -1014,11 +1102,14 @@ public class DocsTramitacioRDTO {
     StringBuilder sb = new StringBuilder();
     sb.append("class DocsTramitacioRDTO {\n");
     
+    sb.append("    canalComunicat: ").append(toIndentedString(canalComunicat)).append("\n");
     sb.append("    codi: ").append(toIndentedString(codi)).append("\n");
     sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
+    sb.append("    comunicat: ").append(toIndentedString(comunicat)).append("\n");
     sb.append("    configDocTramitacio: ").append(toIndentedString(configDocTramitacio)).append("\n");
     sb.append("    configuracioDocsTramitacio: ").append(toIndentedString(configuracioDocsTramitacio)).append("\n");
     sb.append("    configuracioDocsTramitacioNom: ").append(toIndentedString(configuracioDocsTramitacioNom)).append("\n");
+    sb.append("    dataComunicat: ").append(toIndentedString(dataComunicat)).append("\n");
     sb.append("    dataCreacio: ").append(toIndentedString(dataCreacio)).append("\n");
     sb.append("    dataDigitalitzacio: ").append(toIndentedString(dataDigitalitzacio)).append("\n");
     sb.append("    dataUltimaModificacio: ").append(toIndentedString(dataUltimaModificacio)).append("\n");
@@ -1041,6 +1132,7 @@ public class DocsTramitacioRDTO {
     sb.append("    idiomaDigitalitzacio: ").append(toIndentedString(idiomaDigitalitzacio)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
     sb.append("    migracioIdOrigen: ").append(toIndentedString(migracioIdOrigen)).append("\n");
+    sb.append("    missatgeComunicat: ").append(toIndentedString(missatgeComunicat)).append("\n");
     sb.append("    notificacio: ").append(toIndentedString(notificacio)).append("\n");
     sb.append("    notificacions: ").append(toIndentedString(notificacions)).append("\n");
     sb.append("    numDocsConfiguracio: ").append(toIndentedString(numDocsConfiguracio)).append("\n");

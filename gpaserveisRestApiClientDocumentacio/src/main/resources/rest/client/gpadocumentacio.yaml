@@ -2203,6 +2203,37 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/tramitacio/comunicat:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "Updates the selected DocsTramitacio with the comunicat specified"
+      operationId: "registrarComunicatDocumentTramitacio"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "documentRegistrarComunicatRDTO"
+        description: "documentRegistrarComunicatRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/DocumentRegistrarComunicat"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /documentacio/tramitacio/delete/{idExpedient}:
     post:
       tags:
@@ -3480,16 +3511,24 @@ definitions:
   DocsTramitacioRDTO:
     type: "object"
     properties:
+      canalComunicat:
+        type: "number"
       codi:
         type: "string"
       comentari:
         type: "string"
+      comunicat:
+        type: "integer"
+        format: "int32"
       configDocTramitacio:
         type: "number"
       configuracioDocsTramitacio:
         $ref: "#/definitions/ConfiguracioDocsTramitacio"
       configuracioDocsTramitacioNom:
         type: "string"
+      dataComunicat:
+        type: "string"
+        format: "date-time"
       dataCreacio:
         type: "string"
         format: "date-time"
@@ -3542,6 +3581,8 @@ definitions:
           items:
             type: "string"
       migracioIdOrigen:
+        type: "string"
+      missatgeComunicat:
         type: "string"
       notificacio:
         type: "number"
@@ -3612,6 +3653,23 @@ definitions:
         type: "number"
         description: "Identificador de l'expedient"
     title: "DocumentCanviEstat"
+  DocumentRegistrarComunicat:
+    type: "object"
+    properties:
+      canalComunicat:
+        type: "number"
+        description: "identificador del canal de comunicació"
+      dataComunicat:
+        type: "string"
+        format: "date-time"
+        description: "Data del comunicat"
+      docsTramitacioId:
+        type: "number"
+        description: "identificador del document de tramitació"
+      missatgeComunicat:
+        type: "string"
+        description: "Missatge del comunicat"
+    title: "DocumentRegistrarComunicat"
   DocumentRevisio:
     type: "object"
     properties:

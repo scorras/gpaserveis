@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * URI
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-04T17:48:15.469+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-05T13:25:08.238+02:00")
 public class URI {
   @JsonProperty("absolute")
   private Boolean absolute = null;
