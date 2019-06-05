@@ -891,4 +891,25 @@ public class DocumentacioApiTest extends ParentTest {
 
 		assertTrue(response != null);
 	}
+
+	/**
+	 * crea el document digitalitzat de tramitacio
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void crearDocumentTramitacioDigitalitzatTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/digitalitzar/1"), eq(HttpMethod.POST), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
+
+		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
+		BigDecimal idExpedient = ONE;
+		DocsTramitacioRDTO response = api.crearDocumentTramitacioDigitalitzat(docsTramitacioRDTO, idExpedient);
+
+		assertTrue(response != null);
+	}
 }

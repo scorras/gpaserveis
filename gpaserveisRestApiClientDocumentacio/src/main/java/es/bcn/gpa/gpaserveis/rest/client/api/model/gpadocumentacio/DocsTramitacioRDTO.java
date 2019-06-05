@@ -35,7 +35,7 @@ import org.joda.time.DateTime;
 /**
  * DocsTramitacioRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-30T14:02:05.775+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-04T17:48:15.469+02:00")
 public class DocsTramitacioRDTO {
   @JsonProperty("codi")
   private String codi = null;
@@ -93,6 +93,9 @@ public class DocsTramitacioRDTO {
 
   @JsonProperty("estatAnterior")
   private BigDecimal estatAnterior = null;
+
+  @JsonProperty("estatDigitalitzacio")
+  private BigDecimal estatDigitalitzacio = null;
 
   @JsonProperty("estatDocsTramitacio")
   private BigDecimal estatDocsTramitacio = null;
@@ -156,6 +159,9 @@ public class DocsTramitacioRDTO {
 
   @JsonProperty("ultimaSignatura")
   private BigDecimal ultimaSignatura = null;
+
+  @JsonProperty("urlDigitalitzacio")
+  private String urlDigitalitzacio = null;
 
   @JsonProperty("usuariIdext")
   private BigDecimal usuariIdext = null;
@@ -500,6 +506,24 @@ public class DocsTramitacioRDTO {
 
   public void setEstatAnterior(BigDecimal estatAnterior) {
     this.estatAnterior = estatAnterior;
+  }
+
+  public DocsTramitacioRDTO estatDigitalitzacio(BigDecimal estatDigitalitzacio) {
+    this.estatDigitalitzacio = estatDigitalitzacio;
+    return this;
+  }
+
+   /**
+   * Get estatDigitalitzacio
+   * @return estatDigitalitzacio
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getEstatDigitalitzacio() {
+    return estatDigitalitzacio;
+  }
+
+  public void setEstatDigitalitzacio(BigDecimal estatDigitalitzacio) {
+    this.estatDigitalitzacio = estatDigitalitzacio;
   }
 
   public DocsTramitacioRDTO estatDocsTramitacio(BigDecimal estatDocsTramitacio) {
@@ -888,6 +912,24 @@ public class DocsTramitacioRDTO {
     this.ultimaSignatura = ultimaSignatura;
   }
 
+  public DocsTramitacioRDTO urlDigitalitzacio(String urlDigitalitzacio) {
+    this.urlDigitalitzacio = urlDigitalitzacio;
+    return this;
+  }
+
+   /**
+   * Get urlDigitalitzacio
+   * @return urlDigitalitzacio
+  **/
+  @ApiModelProperty(value = "")
+  public String getUrlDigitalitzacio() {
+    return urlDigitalitzacio;
+  }
+
+  public void setUrlDigitalitzacio(String urlDigitalitzacio) {
+    this.urlDigitalitzacio = urlDigitalitzacio;
+  }
+
   public DocsTramitacioRDTO usuariIdext(BigDecimal usuariIdext) {
     this.usuariIdext = usuariIdext;
     return this;
@@ -935,6 +977,7 @@ public class DocsTramitacioRDTO {
         Objects.equals(this.eliminat, docsTramitacioRDTO.eliminat) &&
         Objects.equals(this.estat, docsTramitacioRDTO.estat) &&
         Objects.equals(this.estatAnterior, docsTramitacioRDTO.estatAnterior) &&
+        Objects.equals(this.estatDigitalitzacio, docsTramitacioRDTO.estatDigitalitzacio) &&
         Objects.equals(this.estatDocsTramitacio, docsTramitacioRDTO.estatDocsTramitacio) &&
         Objects.equals(this.estatsDocsTramitacio, docsTramitacioRDTO.estatsDocsTramitacio) &&
         Objects.equals(this.id, docsTramitacioRDTO.id) &&
@@ -956,12 +999,13 @@ public class DocsTramitacioRDTO {
         Objects.equals(this.tipusMimeDescripcio, docsTramitacioRDTO.tipusMimeDescripcio) &&
         Objects.equals(this.ultimaModificacioIdext, docsTramitacioRDTO.ultimaModificacioIdext) &&
         Objects.equals(this.ultimaSignatura, docsTramitacioRDTO.ultimaSignatura) &&
+        Objects.equals(this.urlDigitalitzacio, docsTramitacioRDTO.urlDigitalitzacio) &&
         Objects.equals(this.usuariIdext, docsTramitacioRDTO.usuariIdext);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(codi, comentari, configDocTramitacio, configuracioDocsTramitacio, configuracioDocsTramitacioNom, dataCreacio, dataDigitalitzacio, dataUltimaModificacio, descripcioEstat, digitalitzat, docsFisics, docsFisicsNom, docsSignatures, documentFisic, documentacio, editable, eliminat, estat, estatAnterior, estatDocsTramitacio, estatsDocsTramitacio, id, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, notificacio, notificacions, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreIdext, requereixSignatura, requeriments, seleccionable, tipusMimeDescripcio, ultimaModificacioIdext, ultimaSignatura, usuariIdext);
+    return Objects.hash(codi, comentari, configDocTramitacio, configuracioDocsTramitacio, configuracioDocsTramitacioNom, dataCreacio, dataDigitalitzacio, dataUltimaModificacio, descripcioEstat, digitalitzat, docsFisics, docsFisicsNom, docsSignatures, documentFisic, documentacio, editable, eliminat, estat, estatAnterior, estatDigitalitzacio, estatDocsTramitacio, estatsDocsTramitacio, id, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, notificacio, notificacions, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreIdext, requereixSignatura, requeriments, seleccionable, tipusMimeDescripcio, ultimaModificacioIdext, ultimaSignatura, urlDigitalitzacio, usuariIdext);
   }
 
 
@@ -989,6 +1033,7 @@ public class DocsTramitacioRDTO {
     sb.append("    eliminat: ").append(toIndentedString(eliminat)).append("\n");
     sb.append("    estat: ").append(toIndentedString(estat)).append("\n");
     sb.append("    estatAnterior: ").append(toIndentedString(estatAnterior)).append("\n");
+    sb.append("    estatDigitalitzacio: ").append(toIndentedString(estatDigitalitzacio)).append("\n");
     sb.append("    estatDocsTramitacio: ").append(toIndentedString(estatDocsTramitacio)).append("\n");
     sb.append("    estatsDocsTramitacio: ").append(toIndentedString(estatsDocsTramitacio)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
@@ -1010,6 +1055,7 @@ public class DocsTramitacioRDTO {
     sb.append("    tipusMimeDescripcio: ").append(toIndentedString(tipusMimeDescripcio)).append("\n");
     sb.append("    ultimaModificacioIdext: ").append(toIndentedString(ultimaModificacioIdext)).append("\n");
     sb.append("    ultimaSignatura: ").append(toIndentedString(ultimaSignatura)).append("\n");
+    sb.append("    urlDigitalitzacio: ").append(toIndentedString(urlDigitalitzacio)).append("\n");
     sb.append("    usuariIdext: ").append(toIndentedString(usuariIdext)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -27,7 +27,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Paisos;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
@@ -511,10 +510,6 @@ public class TestsConfigHelper {
 		tipusDocumentIdentitat.setId(ONE);
 		tipusDocumentIdentitat.setDescripcio("NIF");
 
-		Paisos paisos = new Paisos();
-		paisos.setCodiIne("108");
-		paisos.setCodiIso("ES");
-
 		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
 		personesDadescontacte.setId(ONE);
 
@@ -592,10 +587,6 @@ public class TestsConfigHelper {
 		tipusDocumentIdentitat.setId(ONE);
 		tipusDocumentIdentitat.setDescripcio("NIF");
 
-		Paisos paisos = new Paisos();
-		paisos.setCodiIne("108");
-		paisos.setCodiIso("ES");
-
 		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
 		personesDadescontacte.setId(ONE);
 
@@ -670,10 +661,6 @@ public class TestsConfigHelper {
 		TipusDocumentIdentitat tipusDocumentIdentitat = new TipusDocumentIdentitat();
 		tipusDocumentIdentitat.setId(ONE);
 		tipusDocumentIdentitat.setDescripcio("NIF");
-
-		Paisos paisos = new Paisos();
-		paisos.setCodiIne("108");
-		paisos.setCodiIso("ES");
 
 		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
 		personesDadescontacte.setId(ONE);
@@ -892,9 +879,6 @@ public class TestsConfigHelper {
 		TipusDocumentIdentitat tipusDocumentIdentitat = new TipusDocumentIdentitat();
 		tipusDocumentIdentitat.setId(ZERO);
 		tipusDocumentIdentitat.setDescripcio("NIF");
-		Paisos paisos = new Paisos();
-		paisos.setCodiIne("108");
-		paisos.setCodiIso("ES");
 		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
 		personesDadescontacte.setId(ONE);
 		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
@@ -1283,10 +1267,7 @@ public class TestsConfigHelper {
 		tipusDocumentIdentitat.setId(ONE);
 		tipusDocumentIdentitat.setDescripcio("NIF");
 		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Paisos paisos = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Paisos();
-		paisos.setCodiIne("108");
-		paisos.setCodiIso("ES");
-		documentsIdentitat.setPaisos(paisos);
+		documentsIdentitat.setPais("108");
 		persones.setDocumentsIdentitat(documentsIdentitat);
 		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PersonesDadescontacte personesDadescontacte = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PersonesDadescontacte();
 		personesDadescontacte.setId(ONE);

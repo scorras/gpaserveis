@@ -1,6 +1,3 @@
-/*
- * 
- */
 package es.bcn.gpa.gpaserveis.business;
 
 import java.math.BigDecimal;
@@ -13,6 +10,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDeclaracioResponsableBD
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaDigitalitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioDigitalitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DescarregarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO;
@@ -374,6 +372,17 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	DocsEntradaRDTO crearDocumentEntradaDigitalitzat(CrearDocumentEntradaDigitalitzarBDTO crearDocumentEntradaDigitalitzarBDTO)
+			throws GPAServeisServiceException;
+
+	/**
+	 * Crear document tramitacio digitalitzat.
+	 *
+	 * @param guardarDocumentTramitacioDigitalitzarBDTO
+	 *            the guardar document tramitacio digitalitzar BDTO
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 */
+	DocsTramitacioRDTO crearDocumentTramitacioDigitalitzat(CrearDocumentTramitacioDigitalitzarBDTO crearDocumentTramitacioDigitalitzarBDTO)
 			throws GPAServeisServiceException;
 
 }
