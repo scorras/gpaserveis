@@ -17,7 +17,7 @@ import lombok.Setter;
 
 @ApiModel(value = "RespostaDigitalitzarDocument")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "resultat", "documentacioDigitalitzat", "registre", "expedient", "comprovant", "url" })
+@JsonPropertyOrder({ "resultat", "documentacioDigitalitzat", "registre", "expedient", "comprovant" })
 @Getter
 @Setter
 public class RespostaDigitalitzarDocumentRDTO {

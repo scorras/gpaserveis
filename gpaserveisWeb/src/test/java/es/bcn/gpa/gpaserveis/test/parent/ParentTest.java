@@ -378,6 +378,9 @@ public abstract class ParentTest {
 			when(documentacioApi.crearDocumentEntradaDigitalitzat(any(DocsEntradaRDTO.class), any(BigDecimal.class)))
 					.thenReturn(TestsConfigHelper.guardarDocumentEntradaResponse());
 
+			when(documentacioApi.crearDocumentTramitacio(any(DocsTramitacioRDTO.class), any(BigDecimal.class)))
+					.thenReturn(TestsConfigHelper.guardarDocumentTramitacioResponse());
+
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$
 
