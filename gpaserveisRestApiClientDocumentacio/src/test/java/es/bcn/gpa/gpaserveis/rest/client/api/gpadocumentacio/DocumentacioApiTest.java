@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -611,8 +610,7 @@ public class DocumentacioApiTest extends ParentTest {
 
 		File file = testFolder.newFolder("test");
 		BigDecimal idExpedient = ONE;
-		String requerimentExpedient = StringUtils.EMPTY;
-		DocsTramitacioRDTO response = api.guardarRequerimentFitxer(file, idExpedient, requerimentExpedient);
+		DocsTramitacioRDTO response = api.guardarRequerimentFitxer(file, idExpedient, file);
 
 		assertTrue(response != null);
 	}
@@ -675,10 +673,9 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(new DocsEntradaRDTO());
 
-		String docsEntrada = StringUtils.EMPTY;
 		File file = testFolder.newFolder("test");
 		BigDecimal idExpedient = ONE;
-		DocsEntradaRDTO response = api.guardarDocumentEntradaFitxer(docsEntrada, file, idExpedient);
+		DocsEntradaRDTO response = api.guardarDocumentEntradaFitxer(file, file, idExpedient);
 
 		assertTrue(response != null);
 	}
@@ -700,10 +697,9 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
 
-		String docsTramitacio = StringUtils.EMPTY;
 		File file = testFolder.newFolder("test");
 		BigDecimal idExpedient = ONE;
-		DocsTramitacioRDTO response = api.guardarDocumentTramitacioFitxer(docsTramitacio, file, idExpedient);
+		DocsTramitacioRDTO response = api.guardarDocumentTramitacioFitxer(file, file, idExpedient);
 
 		assertTrue(response != null);
 	}

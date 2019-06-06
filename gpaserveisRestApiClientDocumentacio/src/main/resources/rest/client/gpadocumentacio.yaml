@@ -1733,10 +1733,10 @@ paths:
       - "*/*"
       parameters:
       - name: "docsEntrada"
-        in: "query"
+        in: "formData"
         description: "docsEntrada"
         required: true
-        type: "string"
+        type: "file"
       - name: "file"
         in: "formData"
         description: "file"
@@ -2046,10 +2046,10 @@ paths:
         required: true
         type: "number"
       - name: "requerimentExpedient"
-        in: "query"
+        in: "formData"
         description: "requerimentExpedient"
         required: true
-        type: "string"
+        type: "file"
       responses:
         200:
           description: "OK"
@@ -2352,10 +2352,10 @@ paths:
       - "*/*"
       parameters:
       - name: "docsTramitacio"
-        in: "query"
+        in: "formData"
         description: "docsTramitacio"
         required: true
-        type: "string"
+        type: "file"
       - name: "file"
         in: "formData"
         description: "file"

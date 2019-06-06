@@ -41,7 +41,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TransicionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-05T13:25:08.238+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-06T16:49:04.592+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi")
 public class DocumentacioApi {
 	private ApiClient apiClient;
@@ -1704,7 +1704,7 @@ public class DocumentacioApi {
 	 * @throws RestClientException
 	 *             if an error occurs while attempting to invoke the API
 	 */
-	public DocsEntradaRDTO guardarDocumentEntradaFitxer(String docsEntrada, File file, BigDecimal idExpedient) throws RestClientException {
+	public DocsEntradaRDTO guardarDocumentEntradaFitxer(File docsEntrada, File file, BigDecimal idExpedient) throws RestClientException {
 		Object postBody = null;
 
 		// verify the required parameter 'docsEntrada' is set
@@ -1735,8 +1735,7 @@ public class DocumentacioApi {
 		final HttpHeaders headerParams = new HttpHeaders();
 		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "docsEntrada", docsEntrada));
-
+		formParams.add("docsEntrada", new FileSystemResource(docsEntrada));
 		formParams.add("file", new FileSystemResource(file));
 
 		final String[] accepts = { "*/*" };
@@ -1776,7 +1775,7 @@ public class DocumentacioApi {
 	 * @throws RestClientException
 	 *             if an error occurs while attempting to invoke the API
 	 */
-	public DocsTramitacioRDTO guardarDocumentTramitacioFitxer(String docsTramitacio, File file, BigDecimal idExpedient)
+	public DocsTramitacioRDTO guardarDocumentTramitacioFitxer(File docsTramitacio, File file, BigDecimal idExpedient)
 	        throws RestClientException {
 		Object postBody = null;
 
@@ -1808,8 +1807,7 @@ public class DocumentacioApi {
 		final HttpHeaders headerParams = new HttpHeaders();
 		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "docsTramitacio", docsTramitacio));
-
+		formParams.add("docsTramitacio", new FileSystemResource(docsTramitacio));
 		formParams.add("file", new FileSystemResource(file));
 
 		final String[] accepts = { "*/*" };
@@ -1910,7 +1908,7 @@ public class DocumentacioApi {
 	 * @throws RestClientException
 	 *             if an error occurs while attempting to invoke the API
 	 */
-	public DocsTramitacioRDTO guardarRequerimentFitxer(File file, BigDecimal idExpedient, String requerimentExpedient)
+	public DocsTramitacioRDTO guardarRequerimentFitxer(File file, BigDecimal idExpedient, File requerimentExpedient)
 	        throws RestClientException {
 		Object postBody = null;
 
@@ -1942,9 +1940,8 @@ public class DocumentacioApi {
 		final HttpHeaders headerParams = new HttpHeaders();
 		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "requerimentExpedient", requerimentExpedient));
-
 		formParams.add("file", new FileSystemResource(file));
+		formParams.add("requerimentExpedient", new FileSystemResource(requerimentExpedient));
 
 		final String[] accepts = { "*/*" };
 		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);

@@ -8,12 +8,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
-import es.bcn.gpa.gpaserveis.web.rest.controller.converter.StringToDocumentIncorporacioNouRDTOConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.converter.StringToRequerimentPreparacioRDTOConverter;
 import net.opentrends.openframe.services.rest.apidocs.config.RestServiceDefaultSwaggerConfiguration;
 import net.opentrends.openframe.services.rest.http.ResponseEntity;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -49,12 +46,6 @@ public class RestServerConfig extends RestServiceDefaultSwaggerConfiguration {
 		registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
 
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-	}
-
-	@Override
-	public void addFormatters(FormatterRegistry registry) {
-		registry.addConverter(new StringToDocumentIncorporacioNouRDTOConverter());
-		registry.addConverter(new StringToRequerimentPreparacioRDTOConverter());
 	}
 
 }

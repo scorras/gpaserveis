@@ -339,13 +339,13 @@ public abstract class ParentTest {
 			when(documentacioApi.crearDocumentEntrada(any(DocsEntradaRDTO.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.guardarDocumentEntradaResponse());
 
-			when(documentacioApi.guardarDocumentEntradaFitxer(any(String.class), any(File.class), any(BigDecimal.class)))
+			when(documentacioApi.guardarDocumentEntradaFitxer(any(File.class), any(File.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.guardarDocumentEntradaResponse());
 
 			when(documentacioApi.crearDocumentTramitacio(any(DocsTramitacioRDTO.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.guardarDocumentTramitacioResponse());
 
-			when(documentacioApi.guardarDocumentTramitacioFitxer(any(String.class), any(File.class), any(BigDecimal.class)))
+			when(documentacioApi.guardarDocumentTramitacioFitxer(any(File.class), any(File.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.guardarDocumentTramitacioResponse());
 
 			when(documentacioApi.guardarDocumentTramitacioPlantilla(any(DocsTramitacioRDTO.class), any(BigDecimal.class)))
