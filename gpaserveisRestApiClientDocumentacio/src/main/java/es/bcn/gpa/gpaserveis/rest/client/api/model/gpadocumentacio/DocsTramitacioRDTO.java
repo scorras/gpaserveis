@@ -35,7 +35,7 @@ import org.joda.time.DateTime;
 /**
  * DocsTramitacioRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-06T16:49:04.592+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-07T08:53:20.805+02:00")
 public class DocsTramitacioRDTO {
   @JsonProperty("canalComunicat")
   private BigDecimal canalComunicat = null;
@@ -147,6 +147,9 @@ public class DocsTramitacioRDTO {
 
   @JsonProperty("plantillaPdf")
   private Boolean plantillaPdf = null;
+
+  @JsonProperty("publicarInfoPublica")
+  private Integer publicarInfoPublica = null;
 
   @JsonProperty("registreAssentament")
   private RegistreAssentament registreAssentament = null;
@@ -852,6 +855,24 @@ public class DocsTramitacioRDTO {
     this.plantillaPdf = plantillaPdf;
   }
 
+  public DocsTramitacioRDTO publicarInfoPublica(Integer publicarInfoPublica) {
+    this.publicarInfoPublica = publicarInfoPublica;
+    return this;
+  }
+
+   /**
+   * Get publicarInfoPublica
+   * @return publicarInfoPublica
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getPublicarInfoPublica() {
+    return publicarInfoPublica;
+  }
+
+  public void setPublicarInfoPublica(Integer publicarInfoPublica) {
+    this.publicarInfoPublica = publicarInfoPublica;
+  }
+
   public DocsTramitacioRDTO registreAssentament(RegistreAssentament registreAssentament) {
     this.registreAssentament = registreAssentament;
     return this;
@@ -1079,6 +1100,7 @@ public class DocsTramitacioRDTO {
         Objects.equals(this.obligatoriEnEstat, docsTramitacioRDTO.obligatoriEnEstat) &&
         Objects.equals(this.origen, docsTramitacioRDTO.origen) &&
         Objects.equals(this.plantillaPdf, docsTramitacioRDTO.plantillaPdf) &&
+        Objects.equals(this.publicarInfoPublica, docsTramitacioRDTO.publicarInfoPublica) &&
         Objects.equals(this.registreAssentament, docsTramitacioRDTO.registreAssentament) &&
         Objects.equals(this.registreIdext, docsTramitacioRDTO.registreIdext) &&
         Objects.equals(this.requereixSignatura, docsTramitacioRDTO.requereixSignatura) &&
@@ -1093,7 +1115,7 @@ public class DocsTramitacioRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(canalComunicat, codi, comentari, comunicat, configDocTramitacio, configuracioDocsTramitacio, configuracioDocsTramitacioNom, dataComunicat, dataCreacio, dataDigitalitzacio, dataUltimaModificacio, descripcioEstat, digitalitzat, docsFisics, docsFisicsNom, docsSignatures, documentFisic, documentacio, editable, eliminat, estat, estatAnterior, estatDigitalitzacio, estatDocsTramitacio, estatsDocsTramitacio, id, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, missatgeComunicat, notificacio, notificacions, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreIdext, requereixSignatura, requeriments, seleccionable, tipusMimeDescripcio, ultimaModificacioIdext, ultimaSignatura, urlDigitalitzacio, usuariIdext);
+    return Objects.hash(canalComunicat, codi, comentari, comunicat, configDocTramitacio, configuracioDocsTramitacio, configuracioDocsTramitacioNom, dataComunicat, dataCreacio, dataDigitalitzacio, dataUltimaModificacio, descripcioEstat, digitalitzat, docsFisics, docsFisicsNom, docsSignatures, documentFisic, documentacio, editable, eliminat, estat, estatAnterior, estatDigitalitzacio, estatDocsTramitacio, estatsDocsTramitacio, id, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, missatgeComunicat, notificacio, notificacions, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, publicarInfoPublica, registreAssentament, registreIdext, requereixSignatura, requeriments, seleccionable, tipusMimeDescripcio, ultimaModificacioIdext, ultimaSignatura, urlDigitalitzacio, usuariIdext);
   }
 
 
@@ -1139,6 +1161,7 @@ public class DocsTramitacioRDTO {
     sb.append("    obligatoriEnEstat: ").append(toIndentedString(obligatoriEnEstat)).append("\n");
     sb.append("    origen: ").append(toIndentedString(origen)).append("\n");
     sb.append("    plantillaPdf: ").append(toIndentedString(plantillaPdf)).append("\n");
+    sb.append("    publicarInfoPublica: ").append(toIndentedString(publicarInfoPublica)).append("\n");
     sb.append("    registreAssentament: ").append(toIndentedString(registreAssentament)).append("\n");
     sb.append("    registreIdext: ").append(toIndentedString(registreIdext)).append("\n");
     sb.append("    requereixSignatura: ").append(toIndentedString(requereixSignatura)).append("\n");

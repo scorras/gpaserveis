@@ -21,7 +21,7 @@ public class RespostaEvidenciaDigitalitzacioRDTO {
 	private String resultat;
 	@ApiModelProperty(value = "Data i hora de digitalització del document si el resultat es OK")
 	private String dataDigitalitzacio;
-	@ApiModelProperty(value = "Idioma del document escanejat")
+	@ApiModelProperty(value = "Idioma del document escanejat", allowableValues = "CATALA, CASTELLA, ALTRES")
 	private String idioma;
 	@ApiModelProperty(value = "Codi de l'error si el resultat es KO")
 	private String codiError;
