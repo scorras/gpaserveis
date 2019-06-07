@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Exception
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-06T16:49:04.592+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-07T08:53:20.805+02:00")
 public class Exception {
   @JsonProperty("cause")
   private Throwable cause = null;
