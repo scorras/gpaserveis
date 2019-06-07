@@ -32,10 +32,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.RequestEntity.BodyBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -622,10 +623,10 @@ public class ApiClient {
 	 * @return RestTemplate
 	 */
 	protected RestTemplate buildRestTemplate() {
-		RestTemplate restTemplate = new RestTemplate();
-		// This allows us to read the response more than once - Necessary for
-		// debugging.
-		restTemplate.setRequestFactory(new BufferingClientHttpRequestFactory(restTemplate.getRequestFactory()));
+		SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+		requestFactory.setBufferRequestBody(false);
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
+		restTemplate.getMessageConverters().add(new FormHttpMessageConverter());
 		return restTemplate;
 	}
 

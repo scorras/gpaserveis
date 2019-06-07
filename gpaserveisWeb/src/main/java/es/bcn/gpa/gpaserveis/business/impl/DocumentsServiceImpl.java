@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
@@ -14,12 +16,11 @@ import org.springframework.web.client.RestClientException;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
@@ -696,16 +697,22 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		File file = null;
+		File docsEntradaFile = null;
+		ObjectMapper jsonMapper = new ObjectMapper();
+		jsonMapper.registerModule(new JodaModule());
+		ObjectWriter jsonWriter = jsonMapper.writer();
+		byte[] docsEntradaBytes;
 		try {
 			Path tempFile = Files.createTempFile("upload-temp-file", null);
 			guardarDocumentEntradaFitxerBDTO.getFile().transferTo(tempFile.toFile());
 			file = tempFile.toFile();
 
-			ObjectMapper objectMapper = new ObjectMapper();
-			objectMapper.registerModule(new JodaModule());
-			objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-			String docsEntradaJSON = objectMapper.writeValueAsString(guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO());
-			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.guardarDocumentEntradaFitxer(docsEntradaJSON, file,
+			docsEntradaBytes = jsonWriter.writeValueAsBytes(guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO());
+			Path tempDocsEntradaFile = Files.createTempFile("upload-temp-docsEntrada", ".txt");
+			docsEntradaFile = tempDocsEntradaFile.toFile();
+			Files.write(tempDocsEntradaFile, docsEntradaBytes, StandardOpenOption.CREATE);
+
+			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.guardarDocumentEntradaFitxer(docsEntradaFile, file,
 			        guardarDocumentEntradaFitxerBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
@@ -718,7 +725,10 @@ public class DocumentsServiceImpl implements DocumentsService {
 			throw new GPAServeisServiceException(e.getMessage());
 		} finally {
 			if (file != null) {
-				file.delete();
+				FileUtils.deleteQuietly(file);
+			}
+			if (docsEntradaFile != null) {
+				FileUtils.deleteQuietly(docsEntradaFile);
 			}
 		}
 	}
@@ -775,22 +785,40 @@ public class DocumentsServiceImpl implements DocumentsService {
 			log.debug("guardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO) - inici"); //$NON-NLS-1$
 		}
 
+		File file = null;
+		File docsTramitacioFile = null;
+		ObjectMapper jsonMapper = new ObjectMapper();
+		jsonMapper.registerModule(new JodaModule());
+		ObjectWriter jsonWriter = jsonMapper.writer();
+		byte[] docsTramitacioBytes;
 		try {
-			ObjectMapper objectMapper = new ObjectMapper();
-			String docsTramitacioJSON = objectMapper.writeValueAsString(guardarDocumentTramitacioFitxerBDTO.getDocsTramitacioRDTO());
-			DocsTramitacioRDTO docsTramitacioRDTO = null;
-			// documentacioApi.guardarDocumentTramitacioFitxer(docsTramitacioJSON,
-			// guardarDocumentTramitacioFitxerBDTO.getFile(),
-			// guardarDocumentTramitacioFitxerBDTO.getIdExpedient());
+			Path tempFile = Files.createTempFile("upload-temp-file", null);
+			guardarDocumentTramitacioFitxerBDTO.getFile().transferTo(tempFile.toFile());
+			file = tempFile.toFile();
+
+			docsTramitacioBytes = jsonWriter.writeValueAsBytes(guardarDocumentTramitacioFitxerBDTO.getDocsTramitacioRDTO());
+			Path tempDocsTramitacioFile = Files.createTempFile("upload-temp-docsTramitacio", ".txt");
+			docsTramitacioFile = tempDocsTramitacioFile.toFile();
+			Files.write(tempDocsTramitacioFile, docsTramitacioBytes, StandardOpenOption.CREATE);
+
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarDocumentTramitacioFitxer(docsTramitacioFile, file,
+			        guardarDocumentTramitacioFitxerBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO) - fi"); //$NON-NLS-1$
 			}
 			return docsTramitacioRDTO;
-		} catch (/* RestClientException | */ JsonProcessingException e) {
+		} catch (RestClientException | IOException e) {
 			log.error("guardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException(e.getMessage());
+		} finally {
+			if (file != null) {
+				FileUtils.deleteQuietly(file);
+			}
+			if (docsTramitacioFile != null) {
+				FileUtils.deleteQuietly(docsTramitacioFile);
+			}
 		}
 	}
 
@@ -848,23 +876,40 @@ public class DocumentsServiceImpl implements DocumentsService {
 			log.debug("guardarRequerimentFitxer(GuardarRequerimentFitxerBDTO) - inici"); //$NON-NLS-1$
 		}
 
+		File file = null;
+		File requerimentFile = null;
+		ObjectMapper jsonMapper = new ObjectMapper();
+		jsonMapper.registerModule(new JodaModule());
+		ObjectWriter jsonWriter = jsonMapper.writer();
+		byte[] requerimentBytes;
 		try {
-			ObjectMapper objectMapper = new ObjectMapper();
-			String guardarRequerimentExpedientJSON = objectMapper
-			        .writeValueAsString(guardarRequerimentFitxerBDTO.getGuardarRequerimentExpedient());
-			DocsTramitacioRDTO docsTramitacioRDTO = null;
-			// documentacioApi.guardarRequerimentFitxer(guardarRequerimentFitxerBDTO.getFile(),
-			// guardarRequerimentFitxerBDTO.getIdExpedient(),
-			// guardarRequerimentExpedientJSON);
+			Path tempFile = Files.createTempFile("upload-temp-file", null);
+			guardarRequerimentFitxerBDTO.getFile().transferTo(tempFile.toFile());
+			file = tempFile.toFile();
+
+			requerimentBytes = jsonWriter.writeValueAsBytes(guardarRequerimentFitxerBDTO.getGuardarRequerimentExpedient());
+			Path tempRequerimentFile = Files.createTempFile("upload-temp-requeriment", ".txt");
+			requerimentFile = tempRequerimentFile.toFile();
+			Files.write(tempRequerimentFile, requerimentBytes, StandardOpenOption.CREATE);
+
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarRequerimentFitxer(file,
+			        guardarRequerimentFitxerBDTO.getIdExpedient(), requerimentFile);
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarRequerimentFitxer(GuardarRequerimentFitxerBDTO) - fi"); //$NON-NLS-1$
 			}
 			return docsTramitacioRDTO;
-		} catch (/* RestClientException | */ JsonProcessingException e) {
+		} catch (RestClientException | IOException e) {
 			log.error("guardarRequerimentFitxer(GuardarRequerimentFitxerBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException(e.getMessage());
+		} finally {
+			if (file != null) {
+				FileUtils.deleteQuietly(file);
+			}
+			if (requerimentFile != null) {
+				FileUtils.deleteQuietly(requerimentFile);
+			}
 		}
 	}
 
