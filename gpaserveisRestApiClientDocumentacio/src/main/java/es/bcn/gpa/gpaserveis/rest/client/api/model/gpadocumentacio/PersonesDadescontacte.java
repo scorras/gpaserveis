@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * PersonesDadescontacte
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-07T08:53:20.805+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-10T19:27:34.899+02:00")
 public class PersonesDadescontacte {
   @JsonProperty("bloc")
   private String bloc = null;
@@ -91,6 +91,9 @@ public class PersonesDadescontacte {
 
   @JsonProperty("tipusVia")
   private String tipusVia = null;
+
+  @JsonProperty("tipusViesValor")
+  private String tipusViesValor = null;
 
   public PersonesDadescontacte bloc(String bloc) {
     this.bloc = bloc;
@@ -488,6 +491,24 @@ public class PersonesDadescontacte {
     this.tipusVia = tipusVia;
   }
 
+  public PersonesDadescontacte tipusViesValor(String tipusViesValor) {
+    this.tipusViesValor = tipusViesValor;
+    return this;
+  }
+
+   /**
+   * Get tipusViesValor
+   * @return tipusViesValor
+  **/
+  @ApiModelProperty(value = "")
+  public String getTipusViesValor() {
+    return tipusViesValor;
+  }
+
+  public void setTipusViesValor(String tipusViesValor) {
+    this.tipusViesValor = tipusViesValor;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -519,12 +540,13 @@ public class PersonesDadescontacte {
         Objects.equals(this.provinciaEstranger, personesDadescontacte.provinciaEstranger) &&
         Objects.equals(this.provinciaValor, personesDadescontacte.provinciaValor) &&
         Objects.equals(this.telefon, personesDadescontacte.telefon) &&
-        Objects.equals(this.tipusVia, personesDadescontacte.tipusVia);
+        Objects.equals(this.tipusVia, personesDadescontacte.tipusVia) &&
+        Objects.equals(this.tipusViesValor, personesDadescontacte.tipusViesValor);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bloc, codiPostal, direccioPostal, email, escala, fax, id, mobil, municipi, municipiEstranger, municipiValor, notificacioPaper, numero, pais, paisValor, pis, porta, provincia, provinciaEstranger, provinciaValor, telefon, tipusVia);
+    return Objects.hash(bloc, codiPostal, direccioPostal, email, escala, fax, id, mobil, municipi, municipiEstranger, municipiValor, notificacioPaper, numero, pais, paisValor, pis, porta, provincia, provinciaEstranger, provinciaValor, telefon, tipusVia, tipusViesValor);
   }
 
 
@@ -555,6 +577,7 @@ public class PersonesDadescontacte {
     sb.append("    provinciaValor: ").append(toIndentedString(provinciaValor)).append("\n");
     sb.append("    telefon: ").append(toIndentedString(telefon)).append("\n");
     sb.append("    tipusVia: ").append(toIndentedString(tipusVia)).append("\n");
+    sb.append("    tipusViesValor: ").append(toIndentedString(tipusViesValor)).append("\n");
     sb.append("}");
     return sb.toString();
   }

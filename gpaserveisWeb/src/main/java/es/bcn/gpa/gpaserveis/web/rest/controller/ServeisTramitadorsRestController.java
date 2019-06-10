@@ -22,11 +22,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.business.dto.RespostaResultatBDTO;
@@ -1172,13 +1169,13 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	@PostMapping("/expedients/{codiExpedient}/documentacio")
+	@PostMapping(value = "/expedients/{codiExpedient}/documentacio", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ApiOperation(value = "Incorporar un nou document electrònic", tags = { "Serveis Tramitadors API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaIncorporarNouDocumentRDTO incorporarNouDocumentExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Fitxer") @RequestPart("file") MultipartFile file,
-	        @ApiParam(value = "Dades del document a incorporar") @RequestPart("document") MultipartFile document)
+	        @ApiParam(value = "Fitxer") @RequestParam("file") MultipartFile file,
+	        @ApiParam(value = "Dades del document a incorporar") @RequestParam("document") DocumentIncorporacioNouRDTO documentIncorporacioNou)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("incorporarNouDocumentExpedientExpedient(String, DocumentIncorporacioNouRDTO) - inici"); //$NON-NLS-1$
@@ -1192,9 +1189,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		Boolean esAportada = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
 		try {
-			DocumentIncorporacioNouRDTO documentIncorporacioNou = new ObjectMapper().readValue(document.getBytes(),
-			        DocumentIncorporacioNouRDTO.class);
-
 			ConfiguracioApiParamValueTranslator configuracioApiParamValueTranslator = new ConfiguracioApiParamValueTranslator();
 			ConfiguracioApiParamValue configuracioApiParamValue = configuracioApiParamValueTranslator
 			        .getEnumByApiParamValue(documentIncorporacioNou.getDocument().getConfiguracio());
@@ -1694,13 +1688,13 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	@PostMapping("/expedients/{codiExpedient}/documentacio/requeriment")
+	@PostMapping(value = "/expedients/{codiExpedient}/documentacio/requeriment", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ApiOperation(value = "Preparar un requeriment a l’interessat", tags = { "Serveis Tramitadors API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaPrepararRequerimentRDTO prepararRequerimentExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Fitxer") @RequestPart("file") MultipartFile file,
-	        @ApiParam(value = "Dades del requeriment a preparar") @RequestParam("requeriment") MultipartFile requeriment)
+	        @ApiParam(value = "Fitxer") @RequestParam("file") MultipartFile file,
+	        @ApiParam(value = "Dades del requeriment a preparar") @RequestParam("requeriment") RequerimentPreparacioRDTO requerimentPreparacio)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("prepararRequerimentExpedient(String, RequerimentPreparacioRDTO) - inici"); //$NON-NLS-1$
@@ -1711,9 +1705,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		DocsTramitacioRDTO docsTramitacioRDTOResult = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_PREPARAR_REQUERIMENT_EXPEDIENT);
 		try {
-			RequerimentPreparacioRDTO requerimentPreparacio = new ObjectMapper().readValue(requeriment.getBytes(),
-			        RequerimentPreparacioRDTO.class);
-
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
