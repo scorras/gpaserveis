@@ -10,15 +10,14 @@
  * Do not edit the class manually.
  */
 
-
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
-import io.swagger.annotations.ApiModel;
+
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -26,66 +25,87 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-03T18:51:19.536+02:00")
 public class CrearRegistre {
-  @JsonProperty("expedient")
-  private ExpedientsRDTO expedient = null;
+	@JsonProperty("expedient")
+	private ExpedientsRDTO expedient = null;
 
-  public CrearRegistre expedient(ExpedientsRDTO expedient) {
-    this.expedient = expedient;
-    return this;
-  }
+	@JsonProperty("documents")
+	private List<BigDecimal> documents;
 
-   /**
-   * Dades de l&#39;expedient
-   * @return expedient
-  **/
-  @ApiModelProperty(value = "Dades de l'expedient")
-  public ExpedientsRDTO getExpedient() {
-    return expedient;
-  }
+	public CrearRegistre expedient(ExpedientsRDTO expedient) {
+		this.expedient = expedient;
+		return this;
+	}
 
-  public void setExpedient(ExpedientsRDTO expedient) {
-    this.expedient = expedient;
-  }
+	/**
+	 * Dades de l&#39;expedient
+	 * 
+	 * @return expedient
+	 **/
+	@ApiModelProperty(value = "Dades de l'expedient")
+	public ExpedientsRDTO getExpedient() {
+		return expedient;
+	}
 
+	public void setExpedient(ExpedientsRDTO expedient) {
+		this.expedient = expedient;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    CrearRegistre crearRegistre = (CrearRegistre) o;
-    return Objects.equals(this.expedient, crearRegistre.expedient);
-  }
+	public CrearRegistre documents(List<BigDecimal> documents) {
+		this.documents = documents;
+		return this;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(expedient);
-  }
+	/**
+	 * Dades de l&#39;expedient
+	 * 
+	 * @return expedient
+	 **/
+	@ApiModelProperty(value = "Dades del document")
+	public List<BigDecimal> getDocuments() {
+		return documents;
+	}
 
+	public void setDocuments(List<BigDecimal> documents) {
+		this.documents = documents;
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CrearRegistre {\n");
-    
-    sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		CrearRegistre crearRegistre = (CrearRegistre) o;
+		return Objects.equals(this.expedient, crearRegistre.expedient) && Objects.equals(this.documents, crearRegistre.documents);
+	}
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(expedient, documents);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class CrearRegistre {\n");
+
+		sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
+		sb.append("    documents: ").append(toIndentedString(documents)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
 }
-
