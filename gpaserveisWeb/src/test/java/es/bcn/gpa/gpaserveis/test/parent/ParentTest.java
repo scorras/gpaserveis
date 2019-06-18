@@ -214,8 +214,9 @@ public abstract class ParentTest {
 			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), any(Integer.class), any(DateTime.class),
 			        any(DateTime.class), any(String.class), any(List.class), isNull(BigDecimal.class), isNull(BigDecimal.class),
 			        isNull(Boolean.class), isNull(Integer.class), isNull(String.class), any(String.class), any(Integer.class),
-			        isNull(Integer.class), any(List.class), any(BigDecimal.class), any(String.class), any(String.class), isNull(Long.class),
-			        isNull(Integer.class), any(String.class), any(List.class))).thenReturn(TestsConfigHelper.cercaExpedientsResponse());
+			        isNull(Integer.class), any(List.class), any(BigDecimal.class), any(BigDecimal.class), any(String.class),
+			        isNull(Long.class), isNull(Integer.class), any(String.class), any(List.class)))
+			                .thenReturn(TestsConfigHelper.cercaExpedientsResponse());
 
 			when(expedients_Api.consultarDadesExpedient(eq(BigDecimal.ONE)))
 			        .thenReturn(TestsConfigHelper.consultarDadesExpedientResponse());
@@ -233,9 +234,10 @@ public abstract class ParentTest {
 
 			when(expedients_Api.cercaExpedientsAcumular(isNull(Integer.class), isNull(Integer.class), isNull(String.class),
 			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
-			        isNull(String.class), isNull(BigDecimal.class), any(BigDecimal.class), isNull(BigDecimal.class), isNull(Integer.class),
-			        isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(String.class), isNull(String.class),
-			        isNull(Long.class), isNull(Integer.class))).thenReturn(TestsConfigHelper.cercaExpedientsAcumularResponse());
+			        isNull(String.class), isNull(BigDecimal.class), any(BigDecimal.class), isNull(BigDecimal.class),
+			        isNull(BigDecimal.class), isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class),
+			        isNull(String.class), isNull(String.class), isNull(Long.class), isNull(Integer.class)))
+			                .thenReturn(TestsConfigHelper.cercaExpedientsAcumularResponse());
 
 			when(expedients_Api.cercaExpedientsAcumulats(any(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
 			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),

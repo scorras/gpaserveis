@@ -39,6 +39,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InputStreamResource;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
@@ -94,7 +95,7 @@ public class Expedients_ApiTest extends ParentTest {
 		Integer previousPageNumber = null;
 		List<String> procedimentCodisList = null;
 		BigDecimal procedimentId = null;
-		String procedimentVersio = null;
+		BigDecimal procedimentVersio = null;
 		String sort = null;
 		Long totalElements = null;
 		Integer totalPages = null;
@@ -385,6 +386,7 @@ public class Expedients_ApiTest extends ParentTest {
 		Integer currentPageNumber = null;
 		String dir = null;
 		BigDecimal id = null;
+		BigDecimal idExpedientAcumulador = null;
 		BigDecimal idProcedimentAcumulat = null;
 		BigDecimal idUsuari = null;
 		Integer nextPageNumber = null;
@@ -397,8 +399,8 @@ public class Expedients_ApiTest extends ParentTest {
 		Integer totalPages = null;
 		PageDataOfExpedientsRDTO response = api.cercaExpedientsAcumular(absoluteRowNumberOfFirstRowInCurrentPage,
 		        absoluteRowNumberOfLastRowInCurrentPage, codi, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dir, id, idProcedimentAcumulat, idUsuari, nextPageNumber, nombreDocument,
-		        pageSize, previousPageNumber, sollicitant, sort, totalElements, totalPages);
+		        currentPageIsLastPage, currentPageNumber, dir, id, idExpedientAcumulador, idProcedimentAcumulat, idUsuari, nextPageNumber,
+		        nombreDocument, pageSize, previousPageNumber, sollicitant, sort, totalElements, totalPages);
 
 		assertTrue(response != null);
 	}
@@ -433,7 +435,7 @@ public class Expedients_ApiTest extends ParentTest {
 		String numeroDocumentSollicitantEstricte = null;
 		List<String> procedimentCodisList = null;
 		BigDecimal procedimentId = null;
-		String procedimentVersio = null;
+		BigDecimal procedimentVersio = null;
 		String tramitador = null;
 		List<BigDecimal> unitatsGestoresList = null;
 		InputStreamResource response = api.exportarCercaExpedientExcel(aplicacioNegoci, avisList, codi, criteriDeCercaDadesOperacioList0Id,
@@ -523,6 +525,47 @@ public class Expedients_ApiTest extends ParentTest {
 		BigDecimal response = api.getIdExpedientByDocumentacioIdExt(idDocumentacio);
 
 		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested expedient
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirExpedientObjecteDeRecursTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/expedients/obtenirExpedientObjecteDeRecurs/1/1"), eq("GET"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ExpedientsRDTO());
+
+		String codi = ONE.toString();
+		BigDecimal procObjecteDeRecursId = ONE;
+		ExpedientsRDTO response = api.obtenirExpedientObjecteDeRecurs(codi, procObjecteDeRecursId);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Register the provided documentacio
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void registreDocumentacioAriadnaTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/expedients/registre/registreDoc"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
+
+		RegistreDocumentacioExpedient registreDocumentacioExpedientRDTO = new RegistreDocumentacioExpedient();
+		api.registreDocumentacioAriadna(registreDocumentacioExpedientRDTO);
+
+		assertTrue(true);
 	}
 
 }

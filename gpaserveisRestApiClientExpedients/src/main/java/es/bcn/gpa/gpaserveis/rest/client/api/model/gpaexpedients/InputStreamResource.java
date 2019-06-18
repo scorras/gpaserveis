@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * InputStreamResource
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-03T18:51:19.536+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-18T17:48:56.871+02:00")
 public class InputStreamResource {
   @JsonProperty("description")
   private String description = null;

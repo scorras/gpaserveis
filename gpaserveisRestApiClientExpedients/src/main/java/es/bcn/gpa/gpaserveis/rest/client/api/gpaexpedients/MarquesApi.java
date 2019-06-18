@@ -8,6 +8,7 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.Pair;
 import javax.ws.rs.core.GenericType;
 
 import java.math.BigDecimal;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownCampReferenciaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MarquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfMarquesRDTO;
 
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-03T18:51:19.536+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-18T17:48:56.871+02:00")
 public class MarquesApi {
   private ApiClient apiClient;
 
@@ -41,28 +42,29 @@ public class MarquesApi {
    * 
    * @param absoluteRowNumberOfFirstRowInCurrentPage  (optional)
    * @param absoluteRowNumberOfLastRowInCurrentPage  (optional)
-   * @param codi  (optional)
+   * @param campReferencia Camp de referència a l&#39;OGE (optional)
+   * @param codi Codi de la marca (optional)
    * @param currentPageHasNextPage  (optional)
    * @param currentPageHasPreviousPage  (optional)
    * @param currentPageIsFirstPage  (optional)
    * @param currentPageIsLastPage  (optional)
    * @param currentPageNumber  (optional)
-   * @param descripcio  (optional)
+   * @param descripcio Descripcio de la marca (optional)
    * @param dir  (optional)
-   * @param example  (optional)
-   * @param expressio  (optional)
-   * @param id  (optional)
+   * @param id Identificador pel qual es realitza la cerca (optional)
+   * @param idUsuari Identificador d&#39;usuari pel qual es realitza la cerca (optional)
    * @param nextPageNumber  (optional)
    * @param pageSize  (optional)
    * @param previousPageNumber  (optional)
-   * @param referencia  (optional)
+   * @param procedimentCodi Codi del procediment (optional)
+   * @param procedimentVersio Versió del procediment (optional)
    * @param sort  (optional)
    * @param totalElements  (optional)
    * @param totalPages  (optional)
    * @return PageDataOfMarquesRDTO
    * @throws ApiException if fails to make API call
    */
-  public PageDataOfMarquesRDTO cercaMarques(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, String codi, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String descripcio, String dir, String example, String expressio, BigDecimal id, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String referencia, String sort, Long totalElements, Integer totalPages) throws ApiException {
+  public PageDataOfMarquesRDTO cercaMarques(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, String campReferencia, String codi, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String descripcio, String dir, BigDecimal id, BigDecimal idUsuari, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String procedimentCodi, BigDecimal procedimentVersio, String sort, Long totalElements, Integer totalPages) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -75,6 +77,7 @@ public class MarquesApi {
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "campReferencia", campReferencia));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "codi", codi));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasNextPage", currentPageHasNextPage));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasPreviousPage", currentPageHasPreviousPage));
@@ -83,13 +86,13 @@ public class MarquesApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "descripcio", descripcio));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "example", example));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "expressio", expressio));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "id", id));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "idUsuari", idUsuari));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "nextPageNumber", nextPageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "previousPageNumber", previousPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "referencia", referencia));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "procedimentCodi", procedimentCodi));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "procedimentVersio", procedimentVersio));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
@@ -172,6 +175,41 @@ public class MarquesApi {
     String[] localVarAuthNames = new String[] {  };
 
     GenericType<PageDataOfMarquesRDTO> localVarReturnType = new GenericType<PageDataOfMarquesRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Returns all the camps referencia entries
+   * 
+   * @return List&lt;DropdownCampReferenciaRDTO&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<DropdownCampReferenciaRDTO> obtenirCampsReferencia() throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/marques/obtenirCampsReferencia";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<DropdownCampReferenciaRDTO>> localVarReturnType = new GenericType<List<DropdownCampReferenciaRDTO>>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**

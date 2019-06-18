@@ -21,6 +21,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDT
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatCiutadaApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.VersioProcedimentApiParamValueTranslator;
 
 /**
  * The Class ExpedientsApiParamToInternalMapper.
@@ -47,7 +48,7 @@ public class ExpedientsApiParamToInternalMapper {
 	private static BaseApiParamValueTranslator tramitadorApiParamValueTranslator;
 
 	/** The versio procediment api param value translator. */
-	private static BaseApiParamValueTranslator versioProcedimentApiParamValueTranslator;
+	private static VersioProcedimentApiParamValueTranslator versioProcedimentApiParamValueTranslator;
 
 	/**
 	 * Instantiates a new expedients api param to internal mapper.
@@ -69,7 +70,7 @@ public class ExpedientsApiParamToInternalMapper {
 	        @Qualifier("expedientSentitOrdenacioApiParamValueTranslator") BaseApiParamValueTranslator sentitOrdenacioApiParamValueTranslator,
 	        @Qualifier("expedientEstatCiutadaApiParamValueTranslator") EstatCiutadaApiParamValueTranslator estatCiutadaApiParamValueTranslator,
 	        @Qualifier("expedientTramitadorApiParamValueTranslator") BaseApiParamValueTranslator tramitadorApiParamValueTranslator,
-	        @Qualifier("expedientVersioProcedimentApiParamValueTranslator") BaseApiParamValueTranslator versioProcedimentApiParamValueTranslator) {
+	        @Qualifier("expedientVersioProcedimentApiParamValueTranslator") VersioProcedimentApiParamValueTranslator versioProcedimentApiParamValueTranslator) {
 		ExpedientsApiParamToInternalMapper.ordenarPerApiParamValueTranslator = ordenarPerApiParamValueTranslator;
 		ExpedientsApiParamToInternalMapper.sentitOrdenacioApiParamValueTranslator = sentitOrdenacioApiParamValueTranslator;
 		ExpedientsApiParamToInternalMapper.estatCiutadaApiParamValueTranslator = estatCiutadaApiParamValueTranslator;
@@ -194,7 +195,7 @@ public class ExpedientsApiParamToInternalMapper {
 	 *            the versio
 	 * @return the versio procediment internal value
 	 */
-	public static String getVersioProcedimentInternalValue(String versio) {
+	public static BigDecimal getVersioProcedimentInternalValue(String versio) {
 		return versioProcedimentApiParamValueTranslator.getInternalValueByApiParamValue(versio);
 	}
 
