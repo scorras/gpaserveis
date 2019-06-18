@@ -9,6 +9,7 @@ import javax.ws.rs.core.GenericType;
 
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.MarquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesOperacionsRDTO;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-10T10:06:44.423+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-17T14:27:24.410+02:00")
 public class DadesOperacionsApi {
   private ApiClient apiClient;
 
@@ -269,6 +270,55 @@ public class DadesOperacionsApi {
     String[] localVarAuthNames = new String[] {  };
 
     GenericType<PageDataOfDadesOperacionsRDTO> localVarReturnType = new GenericType<PageDataOfDadesOperacionsRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Returns all the dades operacions entries for the procedure
+   * 
+   * @param procedimentCodi procedimentCodi (required)
+   * @param procedimentVersio procedimentVersio (required)
+   * @return List&lt;MarquesRDTO&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<MarquesRDTO> obtenirMaquesDadesOperacioProcedimentUsingGET(String procedimentCodi, BigDecimal procedimentVersio) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'procedimentCodi' is set
+    if (procedimentCodi == null) {
+      throw new ApiException(400, "Missing the required parameter 'procedimentCodi' when calling obtenirMaquesDadesOperacioProcedimentUsingGET");
+    }
+    
+    // verify the required parameter 'procedimentVersio' is set
+    if (procedimentVersio == null) {
+      throw new ApiException(400, "Missing the required parameter 'procedimentVersio' when calling obtenirMaquesDadesOperacioProcedimentUsingGET");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/procediments/obtenirMaquesDadesOperacioProcediment/{procedimentCodi}/{procedimentVersio}"
+      .replaceAll("\\{" + "procedimentCodi" + "\\}", apiClient.escapeString(procedimentCodi.toString()))
+      .replaceAll("\\{" + "procedimentVersio" + "\\}", apiClient.escapeString(procedimentVersio.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<MarquesRDTO>> localVarReturnType = new GenericType<List<MarquesRDTO>>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
 }

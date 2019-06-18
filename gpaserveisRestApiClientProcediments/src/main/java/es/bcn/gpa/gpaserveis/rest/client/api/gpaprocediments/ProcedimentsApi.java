@@ -18,6 +18,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.InputStreamRe
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfComentarisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfHistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfProcedimentsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentDeRecursRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentSerieDocRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsForTramitsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsForUnitatsRDTO;
@@ -32,7 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-10T10:06:44.423+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-17T14:27:24.410+02:00")
 public class ProcedimentsApi {
   private ApiClient apiClient;
 
@@ -574,6 +575,48 @@ public class ProcedimentsApi {
     String[] localVarAuthNames = new String[] {  };
 
     GenericType<InputStreamResource> localVarReturnType = new GenericType<InputStreamResource>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * EsProcedimentDeRecurs
+   * 
+   * @param id id (required)
+   * @return ProcedimentDeRecursRDTO
+   * @throws ApiException if fails to make API call
+   */
+  public ProcedimentDeRecursRDTO esProcedimentDeRecursUsingGET(BigDecimal id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling esProcedimentDeRecursUsingGET");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/procediments/esProcedimentDeRecurs/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<ProcedimentDeRecursRDTO> localVarReturnType = new GenericType<ProcedimentDeRecursRDTO>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
@@ -1226,6 +1269,41 @@ public class ProcedimentsApi {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
+   * ProcedimentsForMarquesForDropdown
+   * 
+   * @return List&lt;ProcedimentsRDTO&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<ProcedimentsRDTO> obtenirProcedimentsForMarquesForDropdownUsingGET() throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/procediments/procedimentsForMarquesForDropdown";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<ProcedimentsRDTO>> localVarReturnType = new GenericType<List<ProcedimentsRDTO>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
    * ProcedimentBloquejatPerUnAltreUsuari
    * 
    * @param id id (required)
@@ -1277,7 +1355,7 @@ public class ProcedimentsApi {
    * @return List&lt;BigDecimal&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<BigDecimal> procedimentIdsByCodiAndTramitadorUsingGET(String aplicacio, List<String> procedimentCodis, String procedimentVersio, String tramitador) throws ApiException {
+  public List<BigDecimal> procedimentIdsByCodiAndTramitadorUsingGET(String aplicacio, List<String> procedimentCodis, BigDecimal procedimentVersio, String tramitador) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables

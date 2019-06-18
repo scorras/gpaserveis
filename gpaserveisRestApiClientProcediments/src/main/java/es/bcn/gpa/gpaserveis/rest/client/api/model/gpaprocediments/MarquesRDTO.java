@@ -19,20 +19,43 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
 
 /**
- * TipusValidacioRDTO
+ * MarquesRDTO
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-17T14:27:24.410+02:00")
-public class TipusValidacioRDTO {
+public class MarquesRDTO {
+  @JsonProperty("codi")
+  private String codi = null;
+
   @JsonProperty("descripcio")
   private String descripcio = null;
 
-  @JsonProperty("id")
-  private BigDecimal id = null;
+  @JsonProperty("example")
+  private String example = null;
 
-  public TipusValidacioRDTO descripcio(String descripcio) {
+  @JsonProperty("referencia")
+  private String referencia = null;
+
+  public MarquesRDTO codi(String codi) {
+    this.codi = codi;
+    return this;
+  }
+
+   /**
+   * Get codi
+   * @return codi
+  **/
+  @ApiModelProperty(value = "")
+  public String getCodi() {
+    return codi;
+  }
+
+  public void setCodi(String codi) {
+    this.codi = codi;
+  }
+
+  public MarquesRDTO descripcio(String descripcio) {
     this.descripcio = descripcio;
     return this;
   }
@@ -50,22 +73,40 @@ public class TipusValidacioRDTO {
     this.descripcio = descripcio;
   }
 
-  public TipusValidacioRDTO id(BigDecimal id) {
-    this.id = id;
+  public MarquesRDTO example(String example) {
+    this.example = example;
     return this;
   }
 
    /**
-   * Get id
-   * @return id
+   * Get example
+   * @return example
   **/
   @ApiModelProperty(value = "")
-  public BigDecimal getId() {
-    return id;
+  public String getExample() {
+    return example;
   }
 
-  public void setId(BigDecimal id) {
-    this.id = id;
+  public void setExample(String example) {
+    this.example = example;
+  }
+
+  public MarquesRDTO referencia(String referencia) {
+    this.referencia = referencia;
+    return this;
+  }
+
+   /**
+   * Get referencia
+   * @return referencia
+  **/
+  @ApiModelProperty(value = "")
+  public String getReferencia() {
+    return referencia;
+  }
+
+  public void setReferencia(String referencia) {
+    this.referencia = referencia;
   }
 
 
@@ -77,24 +118,28 @@ public class TipusValidacioRDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TipusValidacioRDTO tipusValidacioRDTO = (TipusValidacioRDTO) o;
-    return Objects.equals(this.descripcio, tipusValidacioRDTO.descripcio) &&
-        Objects.equals(this.id, tipusValidacioRDTO.id);
+    MarquesRDTO marquesRDTO = (MarquesRDTO) o;
+    return Objects.equals(this.codi, marquesRDTO.codi) &&
+        Objects.equals(this.descripcio, marquesRDTO.descripcio) &&
+        Objects.equals(this.example, marquesRDTO.example) &&
+        Objects.equals(this.referencia, marquesRDTO.referencia);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(descripcio, id);
+    return Objects.hash(codi, descripcio, example, referencia);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TipusValidacioRDTO {\n");
+    sb.append("class MarquesRDTO {\n");
     
+    sb.append("    codi: ").append(toIndentedString(codi)).append("\n");
     sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    example: ").append(toIndentedString(example)).append("\n");
+    sb.append("    referencia: ").append(toIndentedString(referencia)).append("\n");
     sb.append("}");
     return sb.toString();
   }

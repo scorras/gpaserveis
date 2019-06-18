@@ -143,7 +143,7 @@ public class TestsConfigHelper {
 		procedimentsRDTO.setUgrIdext(ONE);
 		procedimentsRDTO.setUgrNom("UG1");
 		procedimentsRDTO.setUltimaModificacio(ONE);
-		procedimentsRDTO.setVersio("1");
+		procedimentsRDTO.setVersio(ONE);
 		procedimentsRDTOList.add(procedimentsRDTO);
 		pageDataOfProcedimentsRDTO.setData(procedimentsRDTOList);
 
@@ -182,7 +182,7 @@ public class TestsConfigHelper {
 
 		procedimentsRDTO.setId(ONE);
 		procedimentsRDTO.setCodi("PROC-01");
-		procedimentsRDTO.setVersio("1");
+		procedimentsRDTO.setVersio(ONE);
 		procedimentsRDTO.setNom("Procediment 1");
 		procedimentsRDTO.setDescripcio("Descripció Procediment 1");
 		procedimentsRDTO.setUgrIdext(ONE);
@@ -926,7 +926,6 @@ public class TestsConfigHelper {
 		dadesOperacions.setComentari("Comentari DO");
 		dadesOperacions.setDescripcio("Descripció DO");
 		dadesOperacions.setDesTipusCamp("Numèric");
-		dadesOperacions.setDetallValidacio("Detall validació 1");
 		DadesoperEstatsExp dadesoperEstatsExp = new DadesoperEstatsExp();
 		dadesoperEstatsExp.setDadesOperacio(ONE);
 		dadesoperEstatsExp.setEstatExpIdext(ONE);
@@ -939,7 +938,6 @@ public class TestsConfigHelper {
 		dadesOperacions.setTitol("Tìtol DO");
 		dadesOperacions.setTitolGrup("Tìtol G1");
 		dadesOperacions.setUrlOrigen("URL Origen DO");
-		dadesOperacions.setValidacio(INTEGER_ONE);
 		dadesOperacions.setVigent(INTEGER_ONE);
 		ArrayList<DadesOperacionsValidacio> dadesOperacionsValidacioList = new ArrayList<DadesOperacionsValidacio>();
 		DadesOperacionsValidacio dadesOperacionsValidacio = new DadesOperacionsValidacio();
@@ -1625,7 +1623,6 @@ public class TestsConfigHelper {
 		dadesOperacionsRDTO1.setComentari("Comentari DO");
 		dadesOperacionsRDTO1.setDescripcio("Descripció DO");
 		dadesOperacionsRDTO1.setDesTipusCamp("Numèric");
-		dadesOperacionsRDTO1.setDetallValidacio("Detall validació 1");
 		dadesOperacionsRDTO1.setDadesoperEstatsExpList(Arrays.asList(dadesoperEstatsExp));
 		dadesOperacionsRDTO1.setGrup(ONE);
 		dadesOperacionsRDTO1.setId(ONE);
@@ -1635,7 +1632,6 @@ public class TestsConfigHelper {
 		dadesOperacionsRDTO1.setTitol("Tìtol DO");
 		dadesOperacionsRDTO1.setTitolGrup("Tìtol G1");
 		dadesOperacionsRDTO1.setUrlOrigen("URL Origen DO");
-		dadesOperacionsRDTO1.setValidacio(INTEGER_ONE);
 		dadesOperacionsRDTO1.setVigent(INTEGER_ONE);
 		dadesOperacionsRDTO1.setDadesOperacionsValidacio(dadesOperacionsValidacioList);
 		dadesOperacionsRDTO1.setDadesOperTramitsOvtList(dadesOperTramitsOvtList);
@@ -1647,7 +1643,6 @@ public class TestsConfigHelper {
 		dadesOperacionsRDTO2.setComentari("Comentari DO");
 		dadesOperacionsRDTO2.setDescripcio("Descripció DO");
 		dadesOperacionsRDTO2.setDesTipusCamp("Numèric");
-		dadesOperacionsRDTO2.setDetallValidacio("Detall validació 1");
 		dadesOperacionsRDTO2.setDadesoperEstatsExpList(Arrays.asList(dadesoperEstatsExp));
 		dadesOperacionsRDTO2.setGrup(ONE);
 		dadesOperacionsRDTO2.setId(ONE);
@@ -1657,7 +1652,6 @@ public class TestsConfigHelper {
 		dadesOperacionsRDTO2.setTitol("Tìtol DO");
 		dadesOperacionsRDTO2.setTitolGrup("Tìtol G1");
 		dadesOperacionsRDTO2.setUrlOrigen("URL Origen DO");
-		dadesOperacionsRDTO2.setValidacio(INTEGER_ONE);
 		dadesOperacionsRDTO2.setVigent(INTEGER_ONE);
 		dadesOperacionsRDTO2.setDadesOperacionsValidacio(dadesOperacionsValidacioList);
 		dadesOperacionsRDTO2.setDadesOperTramitsOvtList(dadesOperTramitsOvtList);
