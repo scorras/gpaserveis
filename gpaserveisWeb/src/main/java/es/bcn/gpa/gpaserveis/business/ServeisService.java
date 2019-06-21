@@ -45,6 +45,7 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaProcedimentsCerca
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ActualitzarNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
@@ -688,12 +689,14 @@ public interface ServeisService {
 	BigDecimal getIdExpedientByDocumentacioIdExt(BigDecimal documentacio) throws GPAServeisServiceException;
 
 	/**
-	 * Actualitzar notificacion.
+	 * Actualitzar notificacio.
+	 * 
+	 * @param actualitzarNotificacionDocument
 	 *
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	void actualitzarNotificacion() throws GPAServeisServiceException;
+	void callbackNotificacio(ActualitzarNotificacio actualitzarNotificacio) throws GPAServeisServiceException;
 
 	/**
 	 * Tancar requeriments expedient.

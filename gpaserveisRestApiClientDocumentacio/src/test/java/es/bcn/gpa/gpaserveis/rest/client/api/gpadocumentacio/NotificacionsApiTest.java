@@ -30,7 +30,7 @@ import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ActualitzarNotificacionDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ActualitzarNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
 
@@ -54,12 +54,12 @@ public class NotificacionsApiTest extends ParentTest {
 	 */
 	@Test
 	public void actualitzarNotificacioTest() throws RestClientException {
-		when(apiClient.invokeAPI(eq("/notificacions/actualitzarNotificacio"), eq(HttpMethod.POST), any(MultiValueMap.class),
-		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
+		when(apiClient.invokeAPI(eq("/notificacions"), eq(HttpMethod.PUT), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		ActualitzarNotificacionDocument actualitzarNotificacionDocumentRDTO = new ActualitzarNotificacionDocument();
-		api.actualitzarNotificacio(actualitzarNotificacionDocumentRDTO);
+		ActualitzarNotificacio actualitzarNotificacionDocumentRDTO = new ActualitzarNotificacio();
+		api.callbackNotificacio(actualitzarNotificacionDocumentRDTO);
 
 		assertTrue(true);
 	}
@@ -74,9 +74,9 @@ public class NotificacionsApiTest extends ParentTest {
 	 */
 	@Test
 	public void crearNotificacioTest() throws RestClientException {
-		when(apiClient.invokeAPI(eq("/notificacions/crearNotificacio"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new NotificacionsRDTO());
+		when(apiClient.invokeAPI(eq("/notificacions"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new NotificacionsRDTO());
 
 		CrearNotificacio crearNotificacioRDTO = new CrearNotificacio();
 		NotificacionsRDTO response = api.crearNotificacio(crearNotificacioRDTO);

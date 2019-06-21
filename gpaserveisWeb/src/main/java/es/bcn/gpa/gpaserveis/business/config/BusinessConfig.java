@@ -11,6 +11,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.CanviUnitatGestoraApi;
@@ -209,6 +210,15 @@ public class BusinessConfig {
 		DownloadEntradaApi downloadEntradaApi = new DownloadEntradaApi(apiClient);
 
 		return downloadEntradaApi;
+	}
+
+	@Bean
+	public NotificacionsApi clientApiNotificacionsApi() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_DOCUMENTACIO);
+		NotificacionsApi notificacionsApi = new NotificacionsApi(apiClient);
+
+		return notificacionsApi;
 	}
 
 	@Bean

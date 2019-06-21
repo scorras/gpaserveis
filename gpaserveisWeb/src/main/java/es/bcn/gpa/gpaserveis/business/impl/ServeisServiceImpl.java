@@ -56,6 +56,7 @@ import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.business.impl.helper.ServeisServiceHelper;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ActualitzarNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
@@ -1320,21 +1321,17 @@ public class ServeisServiceImpl implements ServeisService {
 		return expedientsService.getIdExpedientByDocumentacioIdExt(documentacio);
 	}
 
-	/**
-	 * Actualitzar notificacion.
-	 *
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ServeisService#actualitzarNotificacion()
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#actualitzarNotificacio(es.
+	 * bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.
+	 * ActualitzarNotificacionDocument)
 	 */
 	@Override
-	public void actualitzarNotificacion() throws GPAServeisServiceException {
-		documentsService.actualitzarNotificacion();
+	public void callbackNotificacio(ActualitzarNotificacio actualitzarNotificacio) throws GPAServeisServiceException {
+		documentsService.callbackNotificacio(actualitzarNotificacio);
 
 	}
 
