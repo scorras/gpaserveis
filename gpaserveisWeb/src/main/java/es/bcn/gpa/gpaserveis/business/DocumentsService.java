@@ -21,6 +21,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarRequerimentFitxerBDTO
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentGeneratRegistrarComunicatBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ActualitzarNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
@@ -325,12 +326,14 @@ public interface DocumentsService {
 	DocsTramitacioRDTO obtenirDocsTramitacioByNotificationId(Long notificacioId) throws GPAServeisServiceException;
 
 	/**
-	 * Actualitzar notificacion.
+	 * Actualitzar notificacio.
 	 *
+	 * @param actualitzarNotificacionDocument
+	 *            the actualitzar notificacion document
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	void actualitzarNotificacion() throws GPAServeisServiceException;
+	void callbackNotificacio(ActualitzarNotificacio actualitzarNotificacio) throws GPAServeisServiceException;
 
 	/**
 	 * Tancar requeriments expedient.
@@ -379,10 +382,11 @@ public interface DocumentsService {
 	/**
 	 * Crear document tramitacio digitalitzat.
 	 *
-	 * @param guardarDocumentTramitacioDigitalitzarBDTO
-	 *            the guardar document tramitacio digitalitzar BDTO
+	 * @param crearDocumentTramitacioDigitalitzarBDTO
+	 *            the crear document tramitacio digitalitzar BDTO
 	 * @return the docs tramitacio RDTO
 	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
 	 */
 	DocsTramitacioRDTO crearDocumentTramitacioDigitalitzat(CrearDocumentTramitacioDigitalitzarBDTO crearDocumentTramitacioDigitalitzarBDTO)
 			throws GPAServeisServiceException;
