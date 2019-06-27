@@ -54,6 +54,8 @@ public enum ErrorPrincipal {
 
 	ERROR_EXPEDIENTS_PERSONA_IMPLICADA_NOT_FOUND("3015", "No s'ha trobat la persona implicada en l'expedient"),
 
+	ERROR_EXPEDIENTS_DATA_LIMIT_NOT_VALID("3016", "La data límit no és vàlida perquè és anterior a la data actual"),
+
 	/* Documents */
 	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document"),
 
@@ -66,7 +68,9 @@ public enum ErrorPrincipal {
 
 	ERROR_DOCUMENTS_UPLOAD_DECLARACIO_RESPONSABLE_NOT_AVAILABLE("4005", "No és possible pujar un fitxer a una declaració responsable"),
 
-	ERROR_DOCUMENTS_OPENTEXT("4005", "");
+	ERROR_DOCUMENTS_OPENTEXT("4005", ""),
+
+	ERROR_EXPEDIENTS_OPENTEXT("4005", "");
 
 	private String codi;
 

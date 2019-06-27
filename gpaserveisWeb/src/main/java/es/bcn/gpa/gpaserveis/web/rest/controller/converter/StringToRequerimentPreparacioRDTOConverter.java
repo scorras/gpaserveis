@@ -17,7 +17,7 @@ public class StringToRequerimentPreparacioRDTOConverter implements Converter<Str
 	public RequerimentPreparacioRDTO convert(String from) {
 		RequerimentPreparacioRDTO requerimentPreparacioRDTO = null;
 		try {
-			requerimentPreparacioRDTO = new ObjectMapper().readValue(from, RequerimentPreparacioRDTO.class);
+			requerimentPreparacioRDTO = new ObjectMapper().readValue(from.getBytes(), RequerimentPreparacioRDTO.class);
 		} catch (IOException e) {
 			throw new GPAServeisRuntimeException(e);
 		}

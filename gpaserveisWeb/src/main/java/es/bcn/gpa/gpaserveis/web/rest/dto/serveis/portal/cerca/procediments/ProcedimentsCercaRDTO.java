@@ -26,7 +26,7 @@ public class ProcedimentsCercaRDTO {
 	@ApiModelProperty(value = "Codi del procediment")
 	private String codi;
 	@ApiModelProperty(value = "Versió del procediment")
-	private String versio;
+	private BigDecimal versio;
 	@ApiModelProperty(value = "Nom del procediment")
 	private String nom;
 	@ApiModelProperty(value = "Nom del procediment en castellà")

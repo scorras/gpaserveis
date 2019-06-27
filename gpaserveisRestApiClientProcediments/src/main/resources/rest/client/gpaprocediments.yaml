@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaprocediments"
-  version: "1.11.0"
+  version: "1.12.0"
   title: "API gpaprocediments"
   contact:
     name: "Sergio Corras"
@@ -1374,6 +1374,34 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /procediments/esProcedimentDeRecurs/{id}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "EsProcedimentDeRecurs"
+      operationId: "esProcedimentDeRecursUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProcedimentDeRecursRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /procediments/estatsAnteriorProcediment/{id}:
     get:
       tags:
@@ -1805,6 +1833,41 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /procediments/obtenirMaquesDadesOperacioProcediment/{procedimentCodi}/{procedimentVersio}:
+    get:
+      tags:
+      - "Dades Operacions"
+      summary: "Returns all the dades operacions entries for the procedure"
+      operationId: "obtenirMaquesDadesOperacioProcedimentUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "procedimentCodi"
+        in: "path"
+        description: "procedimentCodi"
+        required: true
+        type: "string"
+      - name: "procedimentVersio"
+        in: "path"
+        description: "procedimentVersio"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/MarquesRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /procediments/perCodi/{codi}:
     get:
       tags:
@@ -1887,7 +1950,7 @@ paths:
         in: "query"
         description: "procedimentVersio"
         required: false
-        type: "string"
+        type: "number"
       - name: "tramitador"
         in: "query"
         description: "tramitador"
@@ -1900,6 +1963,30 @@ paths:
             type: "array"
             items:
               type: "number"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/procedimentsForMarquesForDropdown:
+    get:
+      tags:
+      - "Procediments"
+      summary: "ProcedimentsForMarquesForDropdown"
+      operationId: "obtenirProcedimentsForMarquesForDropdownUsingGET"
+      produces:
+      - "*/*"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ProcedimentsRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -3488,8 +3575,6 @@ definitions:
         type: "string"
       descripcioCastella:
         type: "string"
-      detallValidacio:
-        type: "string"
       editable:
         type: "boolean"
       grup:
@@ -3520,9 +3605,6 @@ definitions:
         type: "string"
       urlOrigen:
         type: "string"
-      validacio:
-        type: "integer"
-        format: "int32"
       vigent:
         type: "integer"
         format: "int32"
@@ -3555,8 +3637,6 @@ definitions:
         type: "string"
       descripcioCastella:
         type: "string"
-      detallValidacio:
-        type: "string"
       editable:
         type: "boolean"
       grup:
@@ -3587,9 +3667,6 @@ definitions:
         type: "string"
       urlOrigen:
         type: "string"
-      validacio:
-        type: "integer"
-        format: "int32"
       vigent:
         type: "integer"
         format: "int32"
@@ -3622,8 +3699,6 @@ definitions:
         type: "string"
       descripcioCastella:
         type: "string"
-      detallValidacio:
-        type: "string"
       editable:
         type: "boolean"
       grup:
@@ -3654,9 +3729,6 @@ definitions:
         type: "string"
       urlOrigen:
         type: "string"
-      validacio:
-        type: "integer"
-        format: "int32"
       vigent:
         type: "integer"
         format: "int32"
@@ -4157,6 +4229,18 @@ definitions:
         type: "integer"
         format: "int32"
     title: "Items"
+  MarquesRDTO:
+    type: "object"
+    properties:
+      codi:
+        type: "string"
+      descripcio:
+        type: "string"
+      example:
+        type: "string"
+      referencia:
+        type: "string"
+    title: "MarquesRDTO"
   NivellIntegracioRDTO:
     type: "object"
     properties:
@@ -4284,6 +4368,14 @@ definitions:
         type: "integer"
         format: "int32"
     title: "PaginationAttributes"
+  ProcedimentDeRecursRDTO:
+    type: "object"
+    properties:
+      esProcedimentDeRecurs:
+        type: "boolean"
+      procObjecteDeRecurs:
+        type: "number"
+    title: "ProcedimentDeRecursRDTO"
   ProcedimentSerieDocRDTO:
     type: "object"
     properties:
@@ -4407,7 +4499,7 @@ definitions:
       unitat:
         type: "string"
       versio:
-        type: "string"
+        type: "number"
       versioDocumental:
         type: "number"
     title: "Procediments"
@@ -4544,7 +4636,7 @@ definitions:
       unitat:
         type: "string"
       versio:
-        type: "string"
+        type: "number"
       versioDocumental:
         type: "number"
     title: "ProcedimentsRDTO"

@@ -143,4 +143,25 @@ public class ComentarisApiTest extends ParentTest {
 
 		assertTrue(true);
 	}
+
+	/**
+	 * UsuariPropietariComentari
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void usuariPropietariComentariUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/expedients/comentaris/usuariPropietariComentari/1"), eq("GET"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(Boolean.TRUE);
+
+		BigDecimal idUsuaricComentari = ONE;
+		Boolean response = api.usuariPropietariComentariUsingGET(idUsuaricComentari);
+
+		assertTrue(response != null);
+	}
 }

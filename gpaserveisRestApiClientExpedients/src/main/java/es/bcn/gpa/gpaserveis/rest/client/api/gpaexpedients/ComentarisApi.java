@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-20T19:08:55.520+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-18T17:48:56.871+02:00")
 public class ComentarisApi {
   private ApiClient apiClient;
 
@@ -223,5 +223,47 @@ public class ComentarisApi {
 
     GenericType<PageDataOfComentarisRDTO> localVarReturnType = new GenericType<PageDataOfComentarisRDTO>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * UsuariPropietariComentari
+   * 
+   * @param idUsuaricComentari idUsuaricComentari (required)
+   * @return Boolean
+   * @throws ApiException if fails to make API call
+   */
+  public Boolean usuariPropietariComentariUsingGET(BigDecimal idUsuaricComentari) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'idUsuaricComentari' is set
+    if (idUsuaricComentari == null) {
+      throw new ApiException(400, "Missing the required parameter 'idUsuaricComentari' when calling usuariPropietariComentariUsingGET");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/expedients/comentaris/usuariPropietariComentari/{idUsuaricComentari}"
+      .replaceAll("\\{" + "idUsuaricComentari" + "\\}", apiClient.escapeString(idUsuaricComentari.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<Boolean> localVarReturnType = new GenericType<Boolean>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
 }

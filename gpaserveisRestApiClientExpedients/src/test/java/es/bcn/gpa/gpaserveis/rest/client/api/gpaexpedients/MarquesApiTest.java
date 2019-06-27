@@ -94,6 +94,7 @@ public class MarquesApiTest extends ParentTest {
 
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
+		String campReferencia = null;
 		String codi = null;
 		Boolean currentPageHasNextPage = null;
 		Boolean currentPageHasPreviousPage = null;
@@ -102,20 +103,20 @@ public class MarquesApiTest extends ParentTest {
 		Integer currentPageNumber = null;
 		String descripcio = null;
 		String dir = null;
-		String example = null;
-		String expressio = null;
 		BigDecimal id = null;
+		BigDecimal idUsuari = null;
 		Integer nextPageNumber = null;
 		Integer pageSize = null;
 		Integer previousPageNumber = null;
-		String referencia = null;
+		String procedimentCodi = null;
+		BigDecimal procedimentVersio = null;
 		String sort = null;
 		Long totalElements = null;
 		Integer totalPages = null;
 		PageDataOfMarquesRDTO response = api.cercaMarques(absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage,
-		        codi, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber,
-		        descripcio, dir, example, expressio, id, nextPageNumber, pageSize, previousPageNumber, referencia, sort, totalElements,
-		        totalPages);
+		        campReferencia, codi, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage,
+		        currentPageNumber, descripcio, dir, id, idUsuari, nextPageNumber, pageSize, previousPageNumber, procedimentCodi,
+		        procedimentVersio, sort, totalElements, totalPages);
 
 		assertTrue(response != null);
 	}

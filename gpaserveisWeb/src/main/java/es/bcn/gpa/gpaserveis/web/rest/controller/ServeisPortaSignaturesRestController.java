@@ -58,11 +58,11 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 			CallbackPortaSig callbackPortaSig = new CallbackPortaSig();
 			callbackPortaSig.setCodiEstat(resultatPeticio.getCodiEstat());
 			callbackPortaSig.setCodiPeticio(resultatPeticio.getCodiPeticio());
-			MciPortasigSignatarisDTO mciPortasigSignatarisDTO = resultatPeticio.getDetallSignataris().getSignatari().get(0);
+			MciPortasigSignatarisDTO mciPortasigSignatarisDTO = resultatPeticio.getDetallSignataris().get(0);
 			callbackPortaSig.setCodiUsuari(mciPortasigSignatarisDTO.getCodiUsuari());
 			callbackPortaSig.setNifUsuari(mciPortasigSignatarisDTO.getNifUsuari());
 			callbackPortaSig.setNomCompletUsuari(mciPortasigSignatarisDTO.getNomCompletUsuari());
-			callbackPortaSig.setTicketSignatura(mciPortasigSignatarisDTO.getTicketSignatura());
+			callbackPortaSig.setTicketPeticio(mciPortasigSignatarisDTO.getTicketPeticio());
 			callbackPortaSig.setTipusPeticio(mciPortasigSignatarisDTO.getTipusPeticio());
 
 			if (mciPortasigSignatarisDTO.getCodiEstat().equals(TipusCodiEstatPortasigApiParamValue.COMPLETADA.getApiParamValue())) {

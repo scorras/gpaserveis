@@ -22,6 +22,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.CanviUnitatGestoraApi;
@@ -42,8 +43,11 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.AccionsEstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRegistrarComunicat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
@@ -165,6 +169,10 @@ public abstract class ParentTest {
 	@Autowired
 	protected PersonesSollicitudApi personesSollicitudApi;
 
+	/** The notificacions api. */
+	@Autowired
+	protected NotificacionsApi notificacionsApi;
+
 	/**
 	 * Sets the up.
 	 */
@@ -212,8 +220,9 @@ public abstract class ParentTest {
 			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), any(Integer.class), any(DateTime.class),
 			        any(DateTime.class), any(String.class), any(List.class), isNull(BigDecimal.class), isNull(BigDecimal.class),
 			        isNull(Boolean.class), isNull(Integer.class), isNull(String.class), any(String.class), any(Integer.class),
-			        isNull(Integer.class), any(List.class), any(BigDecimal.class), any(String.class), any(String.class), isNull(Long.class),
-			        isNull(Integer.class), any(String.class), any(List.class))).thenReturn(TestsConfigHelper.cercaExpedientsResponse());
+			        isNull(Integer.class), any(List.class), any(BigDecimal.class), any(BigDecimal.class), any(String.class),
+			        isNull(Long.class), isNull(Integer.class), any(String.class), any(List.class)))
+			                .thenReturn(TestsConfigHelper.cercaExpedientsResponse());
 
 			when(expedients_Api.consultarDadesExpedient(eq(BigDecimal.ONE)))
 			        .thenReturn(TestsConfigHelper.consultarDadesExpedientResponse());
@@ -231,9 +240,10 @@ public abstract class ParentTest {
 
 			when(expedients_Api.cercaExpedientsAcumular(isNull(Integer.class), isNull(Integer.class), isNull(String.class),
 			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
-			        isNull(String.class), isNull(BigDecimal.class), any(BigDecimal.class), isNull(BigDecimal.class), isNull(Integer.class),
-			        isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(String.class), isNull(String.class),
-			        isNull(Long.class), isNull(Integer.class))).thenReturn(TestsConfigHelper.cercaExpedientsAcumularResponse());
+			        isNull(String.class), isNull(BigDecimal.class), any(BigDecimal.class), isNull(BigDecimal.class),
+			        isNull(BigDecimal.class), isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class),
+			        isNull(String.class), isNull(String.class), isNull(Long.class), isNull(Integer.class)))
+			                .thenReturn(TestsConfigHelper.cercaExpedientsAcumularResponse());
 
 			when(expedients_Api.cercaExpedientsAcumulats(any(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
 			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
@@ -374,6 +384,18 @@ public abstract class ParentTest {
 			        isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class),
 			        isNull(String.class), isNull(Long.class), isNull(Integer.class)))
 			                .thenReturn(TestsConfigHelper.cercaAltresPersonesImplicadesExpedientResponse());
+
+			when(documentacioApi.crearDocumentEntradaDigitalitzat(any(DocsEntradaRDTO.class), any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.guardarDocumentEntradaResponse());
+
+			when(documentacioApi.crearDocumentTramitacio(any(DocsTramitacioRDTO.class), any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.guardarDocumentTramitacioResponse());
+
+			doNothing().when(documentacioApi).registrarComunicatDocumentTramitacio(any(DocumentRegistrarComunicat.class));
+
+			doNothing().when(documentacioApi).callbackDigitalitzacio(any(CallbackDigitalitzacio.class));
+
+			when(notificacionsApi.crearNotificacio(any(CrearNotificacio.class))).thenReturn(TestsConfigHelper.crearNotificacioResponse());
 
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$

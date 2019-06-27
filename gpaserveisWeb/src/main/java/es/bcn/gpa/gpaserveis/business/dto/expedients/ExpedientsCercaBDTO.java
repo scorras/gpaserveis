@@ -33,7 +33,7 @@ public class ExpedientsCercaBDTO {
 	private List<String> procedimentCodisList;
 
 	/** The procediment versio. */
-	private String procedimentVersio;
+	private BigDecimal procedimentVersio;
 
 	/** The estat list. */
 	private List<BigDecimal> estatList;

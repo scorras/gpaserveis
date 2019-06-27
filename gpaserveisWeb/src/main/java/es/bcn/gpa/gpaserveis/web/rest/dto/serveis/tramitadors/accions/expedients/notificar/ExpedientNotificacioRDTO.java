@@ -12,18 +12,12 @@ import lombok.Setter;
 
 @ApiModel(value = "ExpedientNotificacioRDTO")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "titol", "textNotificacio", "destinataris", "documents" })
+@JsonPropertyOrder({ "destinataris" })
 @Getter
 @Setter
 public class ExpedientNotificacioRDTO {
 
-	@ApiModelProperty(value = "Títol de la notificació.", required = true)
-	private String titol;
-	@ApiModelProperty(value = "Text de la notificació.", required = true)
-	private String textNotificacio;
 	@ApiModelProperty(value = "Destinataris de la notificació.", required = true)
-	private List<String> destinataris;
-	@ApiModelProperty(value = "Documents de la notificació.", required = true)
-	private List<String> documents;
+	private List<PersonesNotificacioRDTO> destinataris;
 
 }

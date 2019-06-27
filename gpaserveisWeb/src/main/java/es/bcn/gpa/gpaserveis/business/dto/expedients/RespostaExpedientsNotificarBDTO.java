@@ -1,5 +1,7 @@
 package es.bcn.gpa.gpaserveis.business.dto.expedients;
 
+import java.math.BigDecimal;
+
 import es.bcn.gpa.gpaserveis.business.dto.RespostaResultatBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import lombok.AllArgsConstructor;
@@ -18,6 +20,6 @@ public class RespostaExpedientsNotificarBDTO {
 	private RespostaResultatBDTO respostaResultatBDTO;
 
 	/** The id notificacio. */
-	private String idNotificacio;
+	private BigDecimal idNotificacio;
 
 }

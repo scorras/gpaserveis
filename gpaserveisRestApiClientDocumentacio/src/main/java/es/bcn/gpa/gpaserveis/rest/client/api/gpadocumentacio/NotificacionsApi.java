@@ -2,7 +2,7 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ActualitzarNotificacionDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ActualitzarNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
 
@@ -25,7 +25,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-28T16:24:07.324+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-19T16:12:57.396+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi")
 public class NotificacionsApi {
     private ApiClient apiClient;
@@ -48,7 +48,7 @@ public class NotificacionsApi {
     }
 
     /**
-     * actualitzarNotificacio
+     * Actualitzar una notificació
      * 
      * <p><b>200</b> - OK
      * <p><b>201</b> - Created
@@ -58,15 +58,15 @@ public class NotificacionsApi {
      * @param actualitzarNotificacionDocumentRDTO actualitzarNotificacionDocumentRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void actualitzarNotificacio(ActualitzarNotificacionDocument actualitzarNotificacionDocumentRDTO) throws RestClientException {
+    public void callbackNotificacio(ActualitzarNotificacio actualitzarNotificacionDocumentRDTO) throws RestClientException {
         Object postBody = actualitzarNotificacionDocumentRDTO;
         
         // verify the required parameter 'actualitzarNotificacionDocumentRDTO' is set
         if (actualitzarNotificacionDocumentRDTO == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'actualitzarNotificacionDocumentRDTO' when calling actualitzarNotificacio");
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'actualitzarNotificacionDocumentRDTO' when calling callbackNotificacio");
         }
         
-        String path = UriComponentsBuilder.fromPath("/notificacions/actualitzarNotificacio").build().toUriString();
+        String path = UriComponentsBuilder.fromPath("/notificacions").build().toUriString();
         
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();
@@ -84,10 +84,10 @@ public class NotificacionsApi {
         String[] authNames = new String[] {  };
 
         ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {};
-        apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+        apiClient.invokeAPI(path, HttpMethod.PUT, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
-     * crearNotificacio
+     * Crear una petició per notificar un document signat
      * 
      * <p><b>200</b> - OK
      * <p><b>201</b> - Created
@@ -106,7 +106,7 @@ public class NotificacionsApi {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'crearNotificacioRDTO' when calling crearNotificacio");
         }
         
-        String path = UriComponentsBuilder.fromPath("/notificacions/crearNotificacio").build().toUriString();
+        String path = UriComponentsBuilder.fromPath("/notificacions").build().toUriString();
         
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();

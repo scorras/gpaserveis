@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.11.0"
+  version: "1.12.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -1029,6 +1029,37 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/callbackDigitalitzacio:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "Callback per actualitzar l'estat dels documents digitalitzats"
+      operationId: "callbackDigitalitzacio"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "callbackDigitalitzacioRDTO"
+        description: "callbackDigitalitzacioRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/CallbackDigitalitzacio"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /documentacio/callbackPortaSig:
     post:
       tags:
@@ -1555,6 +1586,66 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /documentacio/documents/registre/{idDocumentacio}:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Obtenir els documents per al registre"
+      operationId: "obtenirDocumentsToRegistreUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDocumentacio"
+        in: "path"
+        description: "idDocumentacio"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /documentacio/documentsEntrada/registre/{documents}:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Obtenir els documents d'entrada per al registre"
+      operationId: "obtenirDocumentsEntradaToRegistreUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "documents"
+        in: "path"
+        description: "documents"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /documentacio/downloadFileEntrada/{idExpedient}/{idDoc}:
     get:
       tags:
@@ -1621,6 +1712,34 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /documentacio/entrada/dades/{id}:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Returns the requested document"
+      operationId: "consultarDadesDocumentAportat"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/DocsEntradaRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /documentacio/entrada/delete/{idExpedient}:
     post:
       tags:
@@ -1648,6 +1767,81 @@ paths:
       responses:
         200:
           description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /documentacio/entrada/digitalitzar/{idExpedient}:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "crea el document digitalitzat d'entrada"
+      operationId: "crearDocumentEntradaDigitalitzat"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "docsEntradaRDTO"
+        description: "docsEntradaRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/DocsEntradaRDTO"
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/DocsEntradaRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+    put:
+      tags:
+      - "Documentacio"
+      summary: "crea el document digitalitzat d'entrada"
+      operationId: "actualitzarDocumentEntradaDigitalitzat"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "docsEntradaRDTO"
+        description: "docsEntradaRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/DocsEntradaRDTO"
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/DocsEntradaRDTO"
         201:
           description: "Created"
         401:
@@ -1694,11 +1888,12 @@ paths:
       produces:
       - "*/*"
       parameters:
-      - name: "docsEntrada"
-        in: "query"
+      - in: "formData"
+        name: "docsEntrada"
         description: "docsEntrada"
         required: true
-        type: "string"
+        schema:
+          type: "string"
       - name: "file"
         in: "formData"
         description: "file"
@@ -1936,34 +2131,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/entrada/{id}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Returns the requested document"
-      operationId: "consultarDadesDocumentAportat"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "id"
-        in: "path"
-        description: "id"
-        required: true
-        type: "number"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/DocsEntradaRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
   /documentacio/newDocumentacio:
     get:
       tags:
@@ -2007,11 +2174,12 @@ paths:
         description: "idExpedient"
         required: true
         type: "number"
-      - name: "requerimentExpedient"
-        in: "query"
+      - in: "formData"
+        name: "requerimentExpedient"
         description: "requerimentExpedient"
         required: true
-        type: "string"
+        schema:
+          type: "string"
       responses:
         200:
           description: "OK"
@@ -2165,6 +2333,65 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/tramitacio/comunicat:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "Updates the selected DocsTramitacio with the comunicat specified"
+      operationId: "registrarComunicatDocumentTramitacio"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "documentRegistrarComunicatRDTO"
+        description: "documentRegistrarComunicatRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/DocumentRegistrarComunicat"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /documentacio/tramitacio/dades/{id}:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Returns the requested document"
+      operationId: "consultarDadesDocumentGenerat"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/DocsTramitacioRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /documentacio/tramitacio/delete/{idExpedient}:
     post:
       tags:
@@ -2192,6 +2419,81 @@ paths:
       responses:
         200:
           description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /documentacio/tramitacio/digitalitzar/{idExpedient}:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "crea el document digitalitzat de tramitació"
+      operationId: "crearDocumentTramitacioDigitalitzat"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "docsTramitacioRDTO"
+        description: "docsTramitacioRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/DocsTramitacioRDTO"
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/DocsTramitacioRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+    put:
+      tags:
+      - "Documentacio"
+      summary: "actualitzar el document digitalitzat de tramitació"
+      operationId: "actualitzarDocumentTramitacioDigitalitzat"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "docsTramitacioRDTO"
+        description: "docsTramitacioRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/DocsTramitacioRDTO"
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/DocsTramitacioRDTO"
         201:
           description: "Created"
         401:
@@ -2244,11 +2546,12 @@ paths:
       produces:
       - "*/*"
       parameters:
-      - name: "docsTramitacio"
-        in: "query"
+      - in: "formData"
+        name: "docsTramitacio"
         description: "docsTramitacio"
         required: true
-        type: "string"
+        schema:
+          type: "string"
       - name: "file"
         in: "formData"
         description: "file"
@@ -2418,34 +2721,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/tramitacio/{id}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Returns the requested document"
-      operationId: "consultarDadesDocumentGenerat"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "id"
-        in: "path"
-        description: "id"
-        required: true
-        type: "number"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/DocsTramitacioRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
   /documentacio/{idDocumentacio}/entrada/agrupatPerTramitOvt:
     get:
       tags:
@@ -2680,42 +2955,11 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /notificacions/actualitzarNotificacio:
+  /notificacions:
     post:
       tags:
       - "Notificacions"
-      summary: "actualitzarNotificacio"
-      operationId: "actualitzarNotificacio"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "actualitzarNotificacionDocumentRDTO"
-        description: "actualitzarNotificacionDocumentRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/ActualitzarNotificacionDocument"
-      responses:
-        200:
-          description: "OK"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /notificacions/crearNotificacio:
-    post:
-      tags:
-      - "Notificacions"
-      summary: "crearNotificacio"
+      summary: "Crear una petició per notificar un document signat"
       operationId: "crearNotificacio"
       consumes:
       - "application/json"
@@ -2744,6 +2988,36 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+    put:
+      tags:
+      - "Notificacions"
+      summary: "Actualitzar una notificació"
+      operationId: "callbackNotificacio"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "actualitzarNotificacionDocumentRDTO"
+        description: "actualitzarNotificacionDocumentRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/ActualitzarNotificacio"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
 definitions:
   AccessRestringutRDTO:
     type: "object"
@@ -2754,43 +3028,61 @@ definitions:
         type: "integer"
         format: "int32"
     title: "AccessRestringutRDTO"
-  ActualitzarNotificacionDocument:
+  ActualitzarNotificacio:
     type: "object"
     properties:
-      dataAceptacioRebuig:
-        type: "string"
-        format: "date-time"
-        description: "Data i hora d'aceptació o rebuig"
+      codiError:
+        type: "integer"
+        format: "int32"
+        description: "Codi de l'error"
       dataAcusamentRebuda:
         type: "string"
         format: "date-time"
-        description: "Data d'acusament rebuda"
+        description: "Data d'acusament rebuda. Format: dd/MM/yyyy hh:mm:ss"
       dataEnviament:
         type: "string"
         format: "date-time"
-        description: "Data d'enviament"
+        description: "Data d'enviament. Format: dd/MM/yyyy hh:mm:ss"
+      dataHoraAceptacioRebuig:
+        type: "string"
+        format: "date-time"
+        description: "Data i hora d'aceptació o rebuig. Format: dd/MM/yyyy hh:mm:ss"
       dataHoraDiposit:
         type: "string"
         format: "date-time"
-        description: "Data i hora dde diposit"
+        description: "Data i hora de diposit. Format: dd/MM/yyyy hh:mm:ss"
+      dataHoraRegistre:
+        type: "string"
+        format: "date-time"
+        description: "Data en la que ha estat registrada la notificació. Format: dd/MM/yyyy\
+          \ hh:mm:ss"
       dataHoraVisualitzacio:
         type: "string"
         format: "date-time"
-        description: "Data i hora de visualitzacio"
+        description: "Data i hora de visualitzacio. Format: dd/MM/yyyy hh:mm:ss"
       dataLimit:
         type: "string"
         format: "date-time"
-        description: "Data limit"
+        description: "Data limit. Format: dd/MM/yyyy"
+      descripcioError:
+        type: "string"
+        description: "Descripció de l'error"
       docEvidenciaElectronic:
         type: "string"
         description: "Document de la evidència electrònica de la notificació"
       docEvidenciaPaper:
         type: "string"
         description: "Document de la evidència en paper de la notificació"
+      estat:
+        type: "string"
+        description: "Estat de la notificació"
       notificacioId:
         type: "number"
         description: "Identificador de la notificació"
-    title: "ActualitzarNotificacionDocument"
+      numRegistre:
+        type: "string"
+        description: "Número de registre de la notificació"
+    title: "ActualitzarNotificacio"
   AcumularDocumentacioRDTO:
     type: "object"
     properties:
@@ -2833,6 +3125,30 @@ definitions:
         type: "integer"
         format: "int32"
     title: "AtributsDocs"
+  CallbackDigitalitzacio:
+    type: "object"
+    properties:
+      codiError:
+        type: "string"
+        description: "Codi de l'error si el resultat es KO"
+      dataDigitalitzacio:
+        type: "string"
+        format: "date-time"
+        description: "Data i hora de digitalització del document si el resultat es\
+          \ OK"
+      descripcioError:
+        type: "string"
+        description: "Descripció de l'error si el resultat es KO"
+      estat:
+        type: "number"
+        description: "Estat del document escanejat. 2: OK, 3: KO"
+      idDocScan:
+        type: "string"
+        description: "Identificador d'opentext del document"
+      idioma:
+        type: "number"
+        description: "Idioma del document escanejat"
+    title: "CallbackDigitalitzacio"
   CallbackPortaSig:
     type: "object"
     properties:
@@ -2868,8 +3184,8 @@ definitions:
       nomCompletUsuari:
         type: "string"
         description: "Nom i cognoms del usuari"
-      ticketSignatura:
-        type: "string"
+      ticketPeticio:
+        type: "number"
         description: "Si el document ja ha sigut signat/vist-i-plau, en aquest camp\
           \ s'informa el id assignat pel Mòdul de Signatura a aquesta signatura/ vist-i-plau.\
           \ La aplicació client pot fer servir APIs del Mòdul de Signatura per a obtindre\
@@ -3203,15 +3519,23 @@ definitions:
   CrearNotificacio:
     type: "object"
     properties:
-      docsTramitacioId:
+      codiExpedient:
+        type: "string"
+        description: "Codi Opentext de l'expedient"
+      idDocument:
         type: "number"
         description: "Identificador del document de tramitació"
-      expedientId:
+      idExpedient:
         type: "number"
         description: "Identificador de l'expedient"
-      notificacioId:
-        type: "number"
-        description: "Identificador de la notificació"
+      nomProcediment:
+        type: "string"
+        description: "Nom del procediment de l'expedient"
+      persones:
+        type: "array"
+        description: "Llista de persones a notificar"
+        items:
+          $ref: "#/definitions/Persones"
     title: "CrearNotificacio"
   DadesOperacioRDTO:
     type: "object"
@@ -3295,6 +3619,8 @@ definitions:
       eliminat:
         type: "integer"
         format: "int32"
+      estatDigitalitzacio:
+        type: "number"
       id:
         type: "number"
       idIdiomaPlantilla:
@@ -3342,6 +3668,8 @@ definitions:
         type: "number"
       ultimaModificacioIdext:
         type: "number"
+      urlDigitalitzacio:
+        type: "string"
       usuariIdext:
         type: "number"
     title: "DocsEntradaRDTO"
@@ -3392,24 +3720,32 @@ definitions:
       signatManualment:
         type: "integer"
         format: "int32"
-      ticketSignatura:
-        type: "string"
+      ticketPeticio:
+        type: "number"
       usuariSignaturaIdext:
         type: "number"
     title: "DocsSignatures"
   DocsTramitacioRDTO:
     type: "object"
     properties:
+      canalComunicat:
+        type: "number"
       codi:
         type: "string"
       comentari:
         type: "string"
+      comunicat:
+        type: "integer"
+        format: "int32"
       configDocTramitacio:
         type: "number"
       configuracioDocsTramitacio:
         $ref: "#/definitions/ConfiguracioDocsTramitacio"
       configuracioDocsTramitacioNom:
         type: "string"
+      dataComunicat:
+        type: "string"
+        format: "date-time"
       dataCreacio:
         type: "string"
         format: "date-time"
@@ -3443,6 +3779,8 @@ definitions:
         type: "number"
       estatAnterior:
         type: "number"
+      estatDigitalitzacio:
+        type: "number"
       estatDocsTramitacio:
         type: "number"
       estatsDocsTramitacio:
@@ -3461,6 +3799,8 @@ definitions:
             type: "string"
       migracioIdOrigen:
         type: "string"
+      missatgeComunicat:
+        type: "string"
       notificacio:
         type: "number"
       notificacions:
@@ -3474,6 +3814,9 @@ definitions:
         format: "int32"
       plantillaPdf:
         type: "boolean"
+      publicarInfoPublica:
+        type: "integer"
+        format: "int32"
       registreAssentament:
         $ref: "#/definitions/RegistreAssentament"
       registreIdext:
@@ -3491,6 +3834,8 @@ definitions:
         type: "number"
       ultimaSignatura:
         type: "number"
+      urlDigitalitzacio:
+        type: "string"
       usuariIdext:
         type: "number"
     title: "DocsTramitacioRDTO"
@@ -3528,6 +3873,23 @@ definitions:
         type: "number"
         description: "Identificador de l'expedient"
     title: "DocumentCanviEstat"
+  DocumentRegistrarComunicat:
+    type: "object"
+    properties:
+      canalComunicat:
+        type: "number"
+        description: "identificador del canal de comunicació"
+      dataComunicat:
+        type: "string"
+        format: "date-time"
+        description: "Data del comunicat"
+      docsTramitacioId:
+        type: "number"
+        description: "identificador del document de tramitació"
+      missatgeComunicat:
+        type: "string"
+        description: "Missatge del comunicat"
+    title: "DocumentRegistrarComunicat"
   DocumentRevisio:
     type: "object"
     properties:
@@ -3553,8 +3915,6 @@ definitions:
         type: "string"
       pais:
         type: "string"
-      paisos:
-        $ref: "#/definitions/Paisos"
       tipus:
         type: "number"
       tipusDocumentIdentitat:
@@ -3747,6 +4107,8 @@ definitions:
   Notificacions:
     type: "object"
     properties:
+      codiError:
+        type: "string"
       dataAceptacioRebuig:
         type: "string"
         format: "date-time"
@@ -3762,6 +4124,9 @@ definitions:
       dataLimit:
         type: "string"
         format: "date-time"
+      dataRegistre:
+        type: "string"
+        format: "date-time"
       dataVisualitzacio:
         type: "string"
         format: "date-time"
@@ -3771,12 +4136,18 @@ definitions:
         type: "string"
       id:
         type: "number"
+      missatgeError:
+        type: "string"
       notificacioId:
         type: "number"
+      numRegistre:
+        type: "string"
     title: "Notificacions"
   NotificacionsRDTO:
     type: "object"
     properties:
+      codiError:
+        type: "string"
       dataAceptacioRebuig:
         type: "string"
         format: "date-time"
@@ -3792,6 +4163,9 @@ definitions:
       dataLimit:
         type: "string"
         format: "date-time"
+      dataRegistre:
+        type: "string"
+        format: "date-time"
       dataVisualitzacio:
         type: "string"
         format: "date-time"
@@ -3801,8 +4175,12 @@ definitions:
         type: "string"
       id:
         type: "number"
+      missatgeError:
+        type: "string"
       notificacioId:
         type: "number"
+      numRegistre:
+        type: "string"
     title: "NotificacionsRDTO"
   OrigenDocumentRDTO:
     type: "object"
@@ -3897,16 +4275,6 @@ definitions:
         type: "integer"
         format: "int32"
     title: "PaginationAttributes"
-  Paisos:
-    type: "object"
-    properties:
-      codiIne:
-        type: "string"
-      codiIso:
-        type: "string"
-      nom:
-        type: "string"
-    title: "Paisos"
   Persones:
     type: "object"
     properties:
@@ -3979,6 +4347,8 @@ definitions:
         type: "string"
       tipusVia:
         type: "string"
+      tipusViesValor:
+        type: "string"
     title: "PersonesDadescontacte"
   PeticionsPortasig:
     type: "object"
@@ -3986,6 +4356,8 @@ definitions:
       codiError:
         type: "string"
       codiPeticio:
+        type: "string"
+      codiUsuari:
         type: "string"
       dataCaducitat:
         type: "string"

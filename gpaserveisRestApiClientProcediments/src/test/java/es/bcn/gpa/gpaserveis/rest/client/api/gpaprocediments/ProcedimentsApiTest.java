@@ -44,6 +44,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.InputStreamRe
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfComentarisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfHistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfProcedimentsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentDeRecursRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentSerieDocRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsForTramitsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsForUnitatsRDTO;
@@ -493,7 +494,7 @@ public class ProcedimentsApiTest extends ParentTest {
 
 		String aplicacio = null;
 		List<String> procedimentCodis = null;
-		String procedimentVersio = null;
+		BigDecimal procedimentVersio = null;
 		String tramitador = null;
 		List<BigDecimal> response = api.procedimentIdsByCodiAndTramitadorUsingGET(aplicacio, procedimentCodis, procedimentVersio,
 		        tramitador);
@@ -1050,6 +1051,46 @@ public class ProcedimentsApiTest extends ParentTest {
 		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
 		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
 		        totalPages);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * EsProcedimentDeRecurs
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void esProcedimentDeRecursUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/procediments/esProcedimentDeRecurs/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ProcedimentDeRecursRDTO());
+
+		BigDecimal id = ONE;
+		ProcedimentDeRecursRDTO response = api.esProcedimentDeRecursUsingGET(id);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * ProcedimentsForMarquesForDropdown
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirProcedimentsForMarquesForDropdownUsingGETTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/procediments/procedimentsForMarquesForDropdown"), eq("GET"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<ProcedimentsRDTO>());
+
+		List<ProcedimentsRDTO> response = api.obtenirProcedimentsForMarquesForDropdownUsingGET();
 
 		assertTrue(response != null);
 	}

@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang.math.NumberUtils;
+
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AtributsDocs;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntrada;
@@ -23,6 +25,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
@@ -37,7 +40,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfHistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Paisos;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesDadescontacte;
@@ -142,7 +144,7 @@ public class TestsConfigHelper {
 		procedimentsRDTO.setUgrIdext(ONE);
 		procedimentsRDTO.setUgrNom("UG1");
 		procedimentsRDTO.setUltimaModificacio(ONE);
-		procedimentsRDTO.setVersio("1");
+		procedimentsRDTO.setVersio(ONE);
 		procedimentsRDTOList.add(procedimentsRDTO);
 		pageDataOfProcedimentsRDTO.setData(procedimentsRDTOList);
 
@@ -181,7 +183,7 @@ public class TestsConfigHelper {
 
 		procedimentsRDTO.setId(ONE);
 		procedimentsRDTO.setCodi("PROC-01");
-		procedimentsRDTO.setVersio("1");
+		procedimentsRDTO.setVersio(ONE);
 		procedimentsRDTO.setNom("Procediment 1");
 		procedimentsRDTO.setDescripcio("Descripció Procediment 1");
 		procedimentsRDTO.setUgrIdext(ONE);
@@ -419,13 +421,10 @@ public class TestsConfigHelper {
 		TipusDocumentIdentitat tipusDocumentIdentitat = new TipusDocumentIdentitat();
 		tipusDocumentIdentitat.setId(ZERO);
 		tipusDocumentIdentitat.setDescripcio("NIF");
-		Paisos paisos = new Paisos();
-		paisos.setCodiIne("108");
-		paisos.setCodiIso("ES");
 		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
 		personesDadescontacte.setId(ONE);
 		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
-		documentsIdentitat.setPaisos(paisos);
+		documentsIdentitat.setPais("108");
 		persones.setDocumentsIdentitat(documentsIdentitat);
 		persones.setPersonesDadescontacte(personesDadescontacte);
 		personesSollicitud.setPersones(persones);
@@ -494,7 +493,6 @@ public class TestsConfigHelper {
 		RegistreAssentament registreAssentament = new RegistreAssentament();
 		registreAssentament.setId(ONE);
 		registreAssentament.setCodi("REG01");
-		registreAssentament.setUsuari(ONE);
 		registreAssentament.setTipus(ONE);
 		registreAssentament.setDataRegistre(now());
 
@@ -513,10 +511,6 @@ public class TestsConfigHelper {
 		tipusDocumentIdentitat.setId(ONE);
 		tipusDocumentIdentitat.setDescripcio("NIF");
 
-		Paisos paisos = new Paisos();
-		paisos.setCodiIne("108");
-		paisos.setCodiIso("ES");
-
 		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
 		personesDadescontacte.setId(ONE);
 
@@ -529,7 +523,7 @@ public class TestsConfigHelper {
 		estats.setUnitatGestoraIdext(ONE);
 
 		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
-		documentsIdentitat.setPaisos(paisos);
+		documentsIdentitat.setPais("108");
 		persones.setDocumentsIdentitat(documentsIdentitat);
 		persones.setPersonesDadescontacte(personesDadescontacte);
 		registreAssentament.setPersones(persones);
@@ -576,7 +570,6 @@ public class TestsConfigHelper {
 		RegistreAssentament registreAssentament = new RegistreAssentament();
 		registreAssentament.setId(ONE);
 		registreAssentament.setCodi("REG01");
-		registreAssentament.setUsuari(ONE);
 		registreAssentament.setTipus(ONE);
 		registreAssentament.setDataRegistre(now());
 
@@ -595,10 +588,6 @@ public class TestsConfigHelper {
 		tipusDocumentIdentitat.setId(ONE);
 		tipusDocumentIdentitat.setDescripcio("NIF");
 
-		Paisos paisos = new Paisos();
-		paisos.setCodiIne("108");
-		paisos.setCodiIso("ES");
-
 		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
 		personesDadescontacte.setId(ONE);
 
@@ -611,7 +600,7 @@ public class TestsConfigHelper {
 		estats.setUnitatGestoraIdext(ONE);
 
 		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
-		documentsIdentitat.setPaisos(paisos);
+		documentsIdentitat.setPais("108");
 		persones.setDocumentsIdentitat(documentsIdentitat);
 		persones.setPersonesDadescontacte(personesDadescontacte);
 		registreAssentament.setPersones(persones);
@@ -656,7 +645,6 @@ public class TestsConfigHelper {
 		RegistreAssentament registreAssentament = new RegistreAssentament();
 		registreAssentament.setId(ONE);
 		registreAssentament.setCodi("REG01");
-		registreAssentament.setUsuari(ONE);
 		registreAssentament.setTipus(ONE);
 		registreAssentament.setDataRegistre(now());
 
@@ -675,10 +663,6 @@ public class TestsConfigHelper {
 		tipusDocumentIdentitat.setId(ONE);
 		tipusDocumentIdentitat.setDescripcio("NIF");
 
-		Paisos paisos = new Paisos();
-		paisos.setCodiIne("108");
-		paisos.setCodiIso("ES");
-
 		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
 		personesDadescontacte.setId(ONE);
 
@@ -691,7 +675,7 @@ public class TestsConfigHelper {
 		estats.setUnitatGestoraIdext(ONE);
 
 		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
-		documentsIdentitat.setPaisos(paisos);
+		documentsIdentitat.setPais("108");
 		persones.setDocumentsIdentitat(documentsIdentitat);
 		persones.setPersonesDadescontacte(personesDadescontacte);
 		registreAssentament.setPersones(persones);
@@ -896,13 +880,10 @@ public class TestsConfigHelper {
 		TipusDocumentIdentitat tipusDocumentIdentitat = new TipusDocumentIdentitat();
 		tipusDocumentIdentitat.setId(ZERO);
 		tipusDocumentIdentitat.setDescripcio("NIF");
-		Paisos paisos = new Paisos();
-		paisos.setCodiIne("108");
-		paisos.setCodiIso("ES");
 		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
 		personesDadescontacte.setId(ONE);
 		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
-		documentsIdentitat.setPaisos(paisos);
+		documentsIdentitat.setPais("108");
 		persones.setDocumentsIdentitat(documentsIdentitat);
 		persones.setPersonesDadescontacte(personesDadescontacte);
 
@@ -946,7 +927,6 @@ public class TestsConfigHelper {
 		dadesOperacions.setComentari("Comentari DO");
 		dadesOperacions.setDescripcio("Descripció DO");
 		dadesOperacions.setDesTipusCamp("Numèric");
-		dadesOperacions.setDetallValidacio("Detall validació 1");
 		DadesoperEstatsExp dadesoperEstatsExp = new DadesoperEstatsExp();
 		dadesoperEstatsExp.setDadesOperacio(ONE);
 		dadesoperEstatsExp.setEstatExpIdext(ONE);
@@ -959,7 +939,6 @@ public class TestsConfigHelper {
 		dadesOperacions.setTitol("Tìtol DO");
 		dadesOperacions.setTitolGrup("Tìtol G1");
 		dadesOperacions.setUrlOrigen("URL Origen DO");
-		dadesOperacions.setValidacio(INTEGER_ONE);
 		dadesOperacions.setVigent(INTEGER_ONE);
 		ArrayList<DadesOperacionsValidacio> dadesOperacionsValidacioList = new ArrayList<DadesOperacionsValidacio>();
 		DadesOperacionsValidacio dadesOperacionsValidacio = new DadesOperacionsValidacio();
@@ -1287,10 +1266,7 @@ public class TestsConfigHelper {
 		tipusDocumentIdentitat.setId(ONE);
 		tipusDocumentIdentitat.setDescripcio("NIF");
 		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Paisos paisos = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Paisos();
-		paisos.setCodiIne("108");
-		paisos.setCodiIso("ES");
-		documentsIdentitat.setPaisos(paisos);
+		documentsIdentitat.setPais("108");
 		persones.setDocumentsIdentitat(documentsIdentitat);
 		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PersonesDadescontacte personesDadescontacte = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PersonesDadescontacte();
 		personesDadescontacte.setId(ONE);
@@ -1438,6 +1414,7 @@ public class TestsConfigHelper {
 		docsEntradaRDTO.setDataPresentacio(now());
 		docsEntradaRDTO.setDataUltimaModificacio(now());
 		docsEntradaRDTO.setDocumentacio(ONE);
+		docsEntradaRDTO.setDeclaracioResponsable(NumberUtils.INTEGER_ZERO);
 
 		return docsEntradaRDTO;
 	}
@@ -1647,7 +1624,6 @@ public class TestsConfigHelper {
 		dadesOperacionsRDTO1.setComentari("Comentari DO");
 		dadesOperacionsRDTO1.setDescripcio("Descripció DO");
 		dadesOperacionsRDTO1.setDesTipusCamp("Numèric");
-		dadesOperacionsRDTO1.setDetallValidacio("Detall validació 1");
 		dadesOperacionsRDTO1.setDadesoperEstatsExpList(Arrays.asList(dadesoperEstatsExp));
 		dadesOperacionsRDTO1.setGrup(ONE);
 		dadesOperacionsRDTO1.setId(ONE);
@@ -1657,7 +1633,6 @@ public class TestsConfigHelper {
 		dadesOperacionsRDTO1.setTitol("Tìtol DO");
 		dadesOperacionsRDTO1.setTitolGrup("Tìtol G1");
 		dadesOperacionsRDTO1.setUrlOrigen("URL Origen DO");
-		dadesOperacionsRDTO1.setValidacio(INTEGER_ONE);
 		dadesOperacionsRDTO1.setVigent(INTEGER_ONE);
 		dadesOperacionsRDTO1.setDadesOperacionsValidacio(dadesOperacionsValidacioList);
 		dadesOperacionsRDTO1.setDadesOperTramitsOvtList(dadesOperTramitsOvtList);
@@ -1669,7 +1644,6 @@ public class TestsConfigHelper {
 		dadesOperacionsRDTO2.setComentari("Comentari DO");
 		dadesOperacionsRDTO2.setDescripcio("Descripció DO");
 		dadesOperacionsRDTO2.setDesTipusCamp("Numèric");
-		dadesOperacionsRDTO2.setDetallValidacio("Detall validació 1");
 		dadesOperacionsRDTO2.setDadesoperEstatsExpList(Arrays.asList(dadesoperEstatsExp));
 		dadesOperacionsRDTO2.setGrup(ONE);
 		dadesOperacionsRDTO2.setId(ONE);
@@ -1679,7 +1653,6 @@ public class TestsConfigHelper {
 		dadesOperacionsRDTO2.setTitol("Tìtol DO");
 		dadesOperacionsRDTO2.setTitolGrup("Tìtol G1");
 		dadesOperacionsRDTO2.setUrlOrigen("URL Origen DO");
-		dadesOperacionsRDTO2.setValidacio(INTEGER_ONE);
 		dadesOperacionsRDTO2.setVigent(INTEGER_ONE);
 		dadesOperacionsRDTO2.setDadesOperacionsValidacio(dadesOperacionsValidacioList);
 		dadesOperacionsRDTO2.setDadesOperTramitsOvtList(dadesOperTramitsOvtList);
@@ -1693,6 +1666,12 @@ public class TestsConfigHelper {
 	public static PeticionsPortasig crearPeticioPortaSigResponse() {
 		PeticionsPortasig peticionsPortasig = new PeticionsPortasig();
 		return peticionsPortasig;
+	}
+
+	public static NotificacionsRDTO crearNotificacioResponse() {
+		NotificacionsRDTO notificacionsRDTO = new NotificacionsRDTO();
+		notificacionsRDTO.setNotificacioId(ONE);
+		return notificacionsRDTO;
 	}
 
 }

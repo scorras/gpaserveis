@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-20T19:08:55.520+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-18T17:48:56.871+02:00")
 public class Expedients_Api {
   private ApiClient apiClient;
 
@@ -124,7 +124,7 @@ public class Expedients_Api {
    * @return PageDataOfExpedientsRDTO
    * @throws ApiException if fails to make API call
    */
-  public PageDataOfExpedientsRDTO cercaExpedients(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, String aplicacioNegoci, List<String> avisList, String codi, BigDecimal criteriDeCercaDadesOperacioList0Id, BigDecimal criteriDeCercaDadesOperacioList0Tipus, String criteriDeCercaDadesOperacioList0Valor, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, DateTime dataPresentacioDes, DateTime dataPresentacioFinsA, String dir, List<BigDecimal> estatList, BigDecimal id, BigDecimal idUsuari, Boolean isOge, Integer nextPageNumber, String numeroDocumentSollicitant, String numeroDocumentSollicitantEstricte, Integer pageSize, Integer previousPageNumber, List<String> procedimentCodisList, BigDecimal procedimentId, String procedimentVersio, String sort, Long totalElements, Integer totalPages, String tramitador, List<BigDecimal> unitatsGestoresList) throws ApiException {
+  public PageDataOfExpedientsRDTO cercaExpedients(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, String aplicacioNegoci, List<String> avisList, String codi, BigDecimal criteriDeCercaDadesOperacioList0Id, BigDecimal criteriDeCercaDadesOperacioList0Tipus, String criteriDeCercaDadesOperacioList0Valor, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, DateTime dataPresentacioDes, DateTime dataPresentacioFinsA, String dir, List<BigDecimal> estatList, BigDecimal id, BigDecimal idUsuari, Boolean isOge, Integer nextPageNumber, String numeroDocumentSollicitant, String numeroDocumentSollicitantEstricte, Integer pageSize, Integer previousPageNumber, List<String> procedimentCodisList, BigDecimal procedimentId, BigDecimal procedimentVersio, String sort, Long totalElements, Integer totalPages, String tramitador, List<BigDecimal> unitatsGestoresList) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -199,6 +199,7 @@ public class Expedients_Api {
    * @param currentPageNumber  (optional)
    * @param dir  (optional)
    * @param id Identificador pel qual es realitza la cerca (optional)
+   * @param idExpedientAcumulador Identificador de l&#39;expedient acumulador (optional)
    * @param idProcedimentAcumulat Identificador del procediment de l&#39;expedient a acumular (optional)
    * @param idUsuari Identificador d&#39;usuari pel qual es realitza la cerca (optional)
    * @param nextPageNumber  (optional)
@@ -212,7 +213,7 @@ public class Expedients_Api {
    * @return PageDataOfExpedientsRDTO
    * @throws ApiException if fails to make API call
    */
-  public PageDataOfExpedientsRDTO cercaExpedientsAcumular(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, String codi, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, BigDecimal id, BigDecimal idProcedimentAcumulat, BigDecimal idUsuari, Integer nextPageNumber, String nombreDocument, Integer pageSize, Integer previousPageNumber, String sollicitant, String sort, Long totalElements, Integer totalPages) throws ApiException {
+  public PageDataOfExpedientsRDTO cercaExpedientsAcumular(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, String codi, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, BigDecimal id, BigDecimal idExpedientAcumulador, BigDecimal idProcedimentAcumulat, BigDecimal idUsuari, Integer nextPageNumber, String nombreDocument, Integer pageSize, Integer previousPageNumber, String sollicitant, String sort, Long totalElements, Integer totalPages) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -233,6 +234,7 @@ public class Expedients_Api {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "id", id));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "idExpedientAcumulador", idExpedientAcumulador));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "idProcedimentAcumulat", idProcedimentAcumulat));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "idUsuari", idUsuari));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "nextPageNumber", nextPageNumber));
@@ -571,7 +573,7 @@ public class Expedients_Api {
    * @return InputStreamResource
    * @throws ApiException if fails to make API call
    */
-  public InputStreamResource exportarCercaExpedientExcel(String aplicacioNegoci, List<String> avisList, String codi, BigDecimal criteriDeCercaDadesOperacioList0Id, BigDecimal criteriDeCercaDadesOperacioList0Tipus, String criteriDeCercaDadesOperacioList0Valor, DateTime dataPresentacioDes, DateTime dataPresentacioFinsA, List<BigDecimal> estatList, BigDecimal id, BigDecimal idUsuari, Boolean isOge, String numeroDocumentSollicitant, String numeroDocumentSollicitantEstricte, List<String> procedimentCodisList, BigDecimal procedimentId, String procedimentVersio, String tramitador, List<BigDecimal> unitatsGestoresList) throws ApiException {
+  public InputStreamResource exportarCercaExpedientExcel(String aplicacioNegoci, List<String> avisList, String codi, BigDecimal criteriDeCercaDadesOperacioList0Id, BigDecimal criteriDeCercaDadesOperacioList0Tipus, String criteriDeCercaDadesOperacioList0Valor, DateTime dataPresentacioDes, DateTime dataPresentacioFinsA, List<BigDecimal> estatList, BigDecimal id, BigDecimal idUsuari, Boolean isOge, String numeroDocumentSollicitant, String numeroDocumentSollicitantEstricte, List<String> procedimentCodisList, BigDecimal procedimentId, BigDecimal procedimentVersio, String tramitador, List<BigDecimal> unitatsGestoresList) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -827,6 +829,55 @@ public class Expedients_Api {
     String[] localVarAuthNames = new String[] {  };
 
     GenericType<PageDataOfExpedientsRDTO> localVarReturnType = new GenericType<PageDataOfExpedientsRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Returns the requested expedient
+   * 
+   * @param codi codi (required)
+   * @param procObjecteDeRecursId procObjecteDeRecursId (required)
+   * @return ExpedientsRDTO
+   * @throws ApiException if fails to make API call
+   */
+  public ExpedientsRDTO obtenirExpedientObjecteDeRecurs(String codi, BigDecimal procObjecteDeRecursId) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'codi' is set
+    if (codi == null) {
+      throw new ApiException(400, "Missing the required parameter 'codi' when calling obtenirExpedientObjecteDeRecurs");
+    }
+    
+    // verify the required parameter 'procObjecteDeRecursId' is set
+    if (procObjecteDeRecursId == null) {
+      throw new ApiException(400, "Missing the required parameter 'procObjecteDeRecursId' when calling obtenirExpedientObjecteDeRecurs");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/expedients/obtenirExpedientObjecteDeRecurs/{codi}/{procObjecteDeRecursId}"
+      .replaceAll("\\{" + "codi" + "\\}", apiClient.escapeString(codi.toString()))
+      .replaceAll("\\{" + "procObjecteDeRecursId" + "\\}", apiClient.escapeString(procObjecteDeRecursId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<ExpedientsRDTO> localVarReturnType = new GenericType<ExpedientsRDTO>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**

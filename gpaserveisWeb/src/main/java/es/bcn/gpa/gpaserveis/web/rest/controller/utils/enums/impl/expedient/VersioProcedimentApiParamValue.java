@@ -1,5 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient;
 
+import java.math.BigDecimal;
+
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.BaseApiParamValue;
 
 /**
@@ -7,16 +9,16 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.BaseApiParamValue;
  */
 public enum VersioProcedimentApiParamValue implements BaseApiParamValue {
     /** The en elaboracio. */
-	TOTES_LES_VERSIONS("TOTES_LES_VERSIONS", "1"),
+	TOTES_LES_VERSIONS("TOTES_LES_VERSIONS", new BigDecimal(1)),
 
 	/** The finalitzat. */
-	DARRERA_VERSIO("DARRERA_VERSIO", "2");
+	DARRERA_VERSIO("DARRERA_VERSIO", new BigDecimal(2));
 
 	/** The api param value. */
 	private String apiParamValue;
 
 	/** The internal value. */
-	private String internalValue;
+	private BigDecimal internalValue;
 
 	/**
 	 * Instantiates a new estat cerca procediments.
@@ -26,7 +28,7 @@ public enum VersioProcedimentApiParamValue implements BaseApiParamValue {
 	 * @param internalValue
 	 *            the internal value
 	 */
-	VersioProcedimentApiParamValue(String apiParamValue, String internalValue) {
+	VersioProcedimentApiParamValue(String apiParamValue, BigDecimal internalValue) {
 		this.apiParamValue = apiParamValue;
 		this.internalValue = internalValue;
 	}
@@ -51,7 +53,7 @@ public enum VersioProcedimentApiParamValue implements BaseApiParamValue {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public String getInternalValue() {
+	public BigDecimal getInternalValue() {
 		return internalValue;
 	}
 }

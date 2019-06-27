@@ -31,6 +31,7 @@ import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.MarquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesOperacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiException;
 
@@ -161,6 +162,28 @@ public class DadesOperacionsApiTest extends ParentTest {
 		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
 		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
 		        previousPageNumber, sort, totalElements, totalPages);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns all the dades operacions entries for the procedure
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirMaquesDadesOperacioProcedimentUsingGETTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/procediments/obtenirMaquesDadesOperacioProcediment/1/1"), eq("GET"), any(List.class),
+		        any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
+		        any(GenericType.class))).thenReturn(new ArrayList<MarquesRDTO>());
+
+		String procedimentCodi = ONE.toString();
+		BigDecimal procedimentVersio = ONE;
+		List<MarquesRDTO> response = api.obtenirMaquesDadesOperacioProcedimentUsingGET(procedimentCodi, procedimentVersio);
 
 		assertTrue(response != null);
 	}

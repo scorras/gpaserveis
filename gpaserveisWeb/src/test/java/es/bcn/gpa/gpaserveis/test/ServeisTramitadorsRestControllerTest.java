@@ -134,9 +134,9 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 
 	@Test
 	public void testStage15_PostIncorporarNouDocumentAportadaExpedient() throws Exception {
-		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
+		MockMultipartFile mockMultipartFileFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
 		String url = BASE_URL + "/expedients/1/documentacio";
-		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile)
+		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFileFile)
 		        .param("document",
 		                "{ \"document\": { \"configuracio\": \"APORTADA\", \"configuracioDocumentacio\": \"42\", \"origen\": \"INTERN\", \"comentari\": \"comentari\", \"idioma\": \"CATALA\", \"revisio\": \"CORRECTE\", \"digitalitzat\": true, \"digitalitzacio\": {\"idioma\": \"CASTELLA\", \"dataDigitalitzacio\": \"19/05/2019 18:45:22\"}, \"fitxer\": {\"nom\": \"prova.txt\", \"format\": \"TXT\"}, \"numeroRegistre\": \"123456\" }}")
 		        .contentType(MediaType.MULTIPART_FORM_DATA)).andExpect(status().isOk()).andDo(print());
@@ -144,9 +144,9 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 
 	@Test
 	public void testStage16_PostIncorporarNouDocumentGeneradaExpedient() throws Exception {
-		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
+		MockMultipartFile mockMultipartFileFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
 		String url = BASE_URL + "/expedients/1/documentacio";
-		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile)
+		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFileFile)
 		        .param("document",
 		                "{ \"document\": { \"configuracio\": \"GENERADA\", \"configuracioDocumentacio\": \"42\", \"origen\": \"INTERN\", \"comentari\": \"comentari\", \"idioma\": \"CATALA\", \"digitalitzat\": true, \"digitalitzacio\": {\"idioma\": \"CASTELLA\", \"dataDigitalitzacio\": \"19/05/2019 18:45:22\"}, \"fitxer\": {\"nom\": \"prova.txt\", \"format\": \"TXT\"}, \"numeroRegistre\": \"123456\" }}")
 		        .contentType(MediaType.MULTIPART_FORM_DATA)).andExpect(status().isOk()).andDo(print());
@@ -190,9 +190,9 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 
 	@Test
 	public void testStage21_PostPrepararRequerimentExpedient() throws Exception {
-		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
+		MockMultipartFile mockMultipartFileFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
 		String url = BASE_URL + "/expedients/1/documentacio/requeriment";
-		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile)
+		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFileFile)
 		        .param("requeriment",
 		                "{ \"document\": { \"configuracioDocumentacio\": \"42\", \"origen\": \"INTERN\", \"comentari\": \"comentari\", \"idioma\": \"CATALA\", \"digitalitzat\": true, \"digitalitzacio\": {\"idioma\": \"CASTELLA\", \"dataDigitalitzacio\": \"19/05/2019 18:45:22\"}, \"fitxer\": {\"nom\": \"prova.txt\", \"format\": \"TXT\"} }, \"dadesOperacioRequerits\": [{\"codi\": \"DO1\"}, {\"codi\": \"DO2\"}], \"documentacioRequerida\": [{\"configuracioDocumentacio\": \"42\"}, {\"configuracioDocumentacio\": \"43\"}]}")
 		        .contentType(MediaType.MULTIPART_FORM_DATA)).andExpect(status().isOk()).andDo(print());
@@ -218,7 +218,7 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 
 	@Test
 	public void testStage24_PostRegistrarComunicacioExpedient() throws Exception {
-		String url = BASE_URL + "/expedients/1/comunicat";
+		String url = BASE_URL + "/expedients/1/documentacio/1/comunicat";
 		getMockMvc()
 		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
 		                "{ \"canal\":\"TELEFON\",\"dataComunicacio\":\"22/05/2019 18:24:36\",\"comentari\":\"Expedient comunicat\" }"))
@@ -227,10 +227,10 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 
 	@Test
 	public void testStage25_PostNotificarExpedient() throws Exception {
-		String url = BASE_URL + "/expedients/1/notificar";
+		String url = BASE_URL + "/expedients/1/documentacio/1/notificar";
 		getMockMvc()
 		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-		                "{ \"titol\":\"titol\",\"textNotificacio\":\"Text Notificació\", \"destinataris\": [\"D1\", \"D2\"], \"documents\": [\"D1\", \"D2\"]}"))
+		                "{\r\n\"destinataris\": \r\n[{  \r\n   \"tipusPersona\":\"FISICA\",\r\n   \"nom\":\"Carmen\",\r\n   \"cognom1\":\"Rodrigo\",\r\n   \"cognom2\":\"D\u00EDaz\",\r\n   \"documentIndentitat\":{\r\n      \"tipusDocument\":\"NIF\",\r\n      \"numeroDocument\":\"35278573T\"\r\n   },\r\n   \"dadesNotificacio\":{\r\n      \"email\":\"email@email.com\",\r\n\t  \"telefon\":\"235466356\",\r\n\t  \"mobil\":\"578239506\",\r\n\t  \"tipusVia\":\"Carrer\",\r\n\t  \"nomVia\":\"Gran V\u00EDa\",\r\n\t  \"numero\":\"15\",\r\n\t  \"bloc\":\"4\",\r\n\t  \"porta\":\"B\",\r\n\t  \"pis\":\"2\",\r\n      \"codiPostal\":\"13004\",\r\n\t  \"municipi\":\"Miguelturra\",\r\n      \"provincia\":\"Ciudad Real\",\r\n      \"viaNotificacio\":\"ELECTRONICA\"\r\n   }\r\n}]\r\n}"))
 		        .andExpect(status().isOk()).andDo(print());
 	}
 
@@ -244,8 +244,19 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 	@Test
 	public void testStage27_PostDigitalitzarDocumentExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/1/documentacio/digitalitzar";
-		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{ \"document\": {}}")).andExpect(status().isOk())
-		        .andDo(print());
+		getMockMvc()
+		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+		                "{ \"document\": {\"configuracio\":\"APORTADA\",\"configuracioDocumentacio\":\"475\",\"origen\":\"EXTERN\",\"comentari\":\"Document digitalizat des de portal de tramitació\",\"numeroRegistre\":\"1524/2018\"}}"))
+		        .andExpect(status().isOk()).andDo(print());
+	}
+
+	@Test
+	public void testStage28_PostDigitalitzarDocumentExpedient() throws Exception {
+		String url = BASE_URL + "/expedients/1/documentacio/digitalitzar";
+		getMockMvc()
+		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+		                "{ \"document\": {\"configuracio\":\"GENERADA\",\"configuracioDocumentacio\":\"429\",\"origen\":\"EXTERN\",\"comentari\":\"Document digitalizat des de portal de tramitació\"}}"))
+		        .andExpect(status().isOk()).andDo(print());
 	}
 
 }

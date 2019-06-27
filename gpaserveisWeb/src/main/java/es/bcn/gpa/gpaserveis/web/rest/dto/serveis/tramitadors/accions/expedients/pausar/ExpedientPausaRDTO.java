@@ -18,9 +18,8 @@ import lombok.Setter;
 @Setter
 public class ExpedientPausaRDTO {
 
-	@ApiModelProperty(value = "Motiu per a pausar l'expedient", allowableValues = MotiuPausaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
+	@ApiModelProperty(value = "Motiu per a pausar l'expedient", required = true, allowableValues = MotiuPausaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private String motiu;
-
 	@ApiModelProperty(value = "Data límit que estableix la durada de la pausa de l'expedient.")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_TIME_PATTERN)
 	private String dataLimit;

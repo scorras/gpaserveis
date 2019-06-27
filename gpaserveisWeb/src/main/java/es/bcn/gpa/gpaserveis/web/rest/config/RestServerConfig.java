@@ -24,12 +24,25 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Lazy(true)
 public class RestServerConfig extends RestServiceDefaultSwaggerConfiguration {
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see net.opentrends.openframe.services.rest.apidocs.config.
+	 * RestServiceDefaultSwaggerConfiguration#apiDocumentedByRestService()
+	 */
 	@Bean(name = "apiDocumentedByRestService")
 	public Docket apiDocumentedByRestService() {
 		return super.apiDocumentedByRestService().pathProvider(null).genericModelSubstitutes(ResponseEntity.class).forCodeGeneration(true)
 		        .useDefaultResponseMessages(true);
 	}
 
+	/**
+	 * Model mapper.
+	 *
+	 * @param propertyMapList
+	 *            the property map list
+	 * @return the model mapper
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Bean
 	public ModelMapper modelMapper(List<PropertyMap> propertyMapList) {
@@ -44,6 +57,14 @@ public class RestServerConfig extends RestServiceDefaultSwaggerConfiguration {
 		return modelMapper;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
+	 * #addResourceHandlers(org.springframework.web.servlet.config.annotation.
+	 * ResourceHandlerRegistry)
+	 */
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
@@ -51,6 +72,13 @@ public class RestServerConfig extends RestServiceDefaultSwaggerConfiguration {
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
+	 * #addFormatters(org.springframework.format.FormatterRegistry)
+	 */
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addConverter(new StringToDocumentIncorporacioNouRDTOConverter());
