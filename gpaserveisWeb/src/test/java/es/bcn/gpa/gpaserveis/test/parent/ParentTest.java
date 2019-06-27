@@ -22,6 +22,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.CanviUnitatGestoraApi;
@@ -43,6 +44,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRegistrarComunicat;
@@ -166,6 +168,10 @@ public abstract class ParentTest {
 	/** The persones sollicitud api. */
 	@Autowired
 	protected PersonesSollicitudApi personesSollicitudApi;
+
+	/** The notificacions api. */
+	@Autowired
+	protected NotificacionsApi notificacionsApi;
 
 	/**
 	 * Sets the up.
@@ -388,6 +394,8 @@ public abstract class ParentTest {
 			doNothing().when(documentacioApi).registrarComunicatDocumentTramitacio(any(DocumentRegistrarComunicat.class));
 
 			doNothing().when(documentacioApi).callbackDigitalitzacio(any(CallbackDigitalitzacio.class));
+
+			when(notificacionsApi.crearNotificacio(any(CrearNotificacio.class))).thenReturn(TestsConfigHelper.crearNotificacioResponse());
 
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$

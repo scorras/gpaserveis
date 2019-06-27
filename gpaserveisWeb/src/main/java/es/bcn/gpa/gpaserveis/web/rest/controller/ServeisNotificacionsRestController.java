@@ -53,7 +53,7 @@ public class ServeisNotificacionsRestController extends BaseRestController {
 	@PostMapping("/retorn_notificacio")
 	@ApiOperation(value = "Retorn de l'estat de les notificacions", tags = { "Serveis Notificacions API" })
 	public ResponseEntity<Void> retornEstatNotificacio(
-			@ApiParam(value = "Resposta del servei de notificacions", required = true) @RequestBody RetornNotificacioRDTO retornNotificacioRDTO) {
+	        @ApiParam(value = "Resposta del servei de notificacions", required = true) @RequestBody RetornNotificacioRDTO retornNotificacioRDTO) {
 
 		if (log.isDebugEnabled()) {
 			log.debug("retornEstatNotificacio(RetornNotificacioRDTO) - inici"); //$NON-NLS-1$
@@ -65,37 +65,37 @@ public class ServeisNotificacionsRestController extends BaseRestController {
 			TipusEstatsNotificacionsApiParamValueTranslator tipusEstatsNotificacionsApiParamValueTranslator = new TipusEstatsNotificacionsApiParamValueTranslator();
 			TipusEstatsNotificacionsApiParamValue tipusEstatsDocumentsApiParamValue = null;
 			tipusEstatsDocumentsApiParamValue = tipusEstatsNotificacionsApiParamValueTranslator
-					.getEnumByApiParamValue(retornNotificacioRDTO.getEstat());
+			        .getEnumByApiParamValue(retornNotificacioRDTO.getEstat());
 
-			DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
+			DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN_NOTIFICACIONS);
 			actualitzarNotificacio = modelMapper.map(retornNotificacioRDTO, ActualitzarNotificacio.class);
 
 			switch (tipusEstatsDocumentsApiParamValue) {
-			case REGISTRAT:
+			case REGISTRADA:
 				actualitzarNotificacio.setDataHoraRegistre(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraRegistre()));
 				break;
-			case DISPOSITAT:
+			case DIPOSITADA:
 				actualitzarNotificacio.setDataHoraDiposit(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraDiposit()));
 				break;
-			case NOTIFICACIO_REBUTJADA_ACCES:
+			case REBUTJADA_SENSE_ACCES:
 				actualitzarNotificacio
-						.setDataHoraAceptacioRebuig(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraAceptacioRebuig()));
+				        .setDataHoraAceptacioRebuig(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraAceptacioRebuig()));
 				break;
-			case NOTIFICACIO_VISUALITZADA:
+			case VISUALITZADA:
 				actualitzarNotificacio
-						.setDataHoraVisualitzacio(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraVisualitzacio()));
+				        .setDataHoraVisualitzacio(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraVisualitzacio()));
 				break;
-			case NOTIFICACIO_REBUTJADA:
+			case REBUTJADA:
 				actualitzarNotificacio
-						.setDataHoraAceptacioRebuig(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraAceptacioRebuig()));
+				        .setDataHoraAceptacioRebuig(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraAceptacioRebuig()));
 				break;
-			case NOTIFICACIO_ACCEPTADA:
+			case ACCEPTADA:
 				actualitzarNotificacio
-						.setDataHoraAceptacioRebuig(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraAceptacioRebuig()));
+				        .setDataHoraAceptacioRebuig(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraAceptacioRebuig()));
 				break;
-			case NOTIFICACIO_REBUTJADA_ACCIO:
+			case REBUTJADA_SENSE_ACCIO:
 				actualitzarNotificacio
-						.setDataHoraAceptacioRebuig(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraAceptacioRebuig()));
+				        .setDataHoraAceptacioRebuig(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraAceptacioRebuig()));
 				break;
 			default:
 				break;

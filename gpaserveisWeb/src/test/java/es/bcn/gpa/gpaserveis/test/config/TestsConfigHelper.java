@@ -25,6 +25,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
@@ -1665,6 +1666,12 @@ public class TestsConfigHelper {
 	public static PeticionsPortasig crearPeticioPortaSigResponse() {
 		PeticionsPortasig peticionsPortasig = new PeticionsPortasig();
 		return peticionsPortasig;
+	}
+
+	public static NotificacionsRDTO crearNotificacioResponse() {
+		NotificacionsRDTO notificacionsRDTO = new NotificacionsRDTO();
+		notificacionsRDTO.setNotificacioId(ONE);
+		return notificacionsRDTO;
 	}
 
 }

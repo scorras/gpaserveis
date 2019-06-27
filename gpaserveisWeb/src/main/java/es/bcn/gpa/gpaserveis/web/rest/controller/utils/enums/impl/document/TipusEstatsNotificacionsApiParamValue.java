@@ -9,29 +9,29 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.BaseApiParamValue;
  */
 public enum TipusEstatsNotificacionsApiParamValue implements BaseApiParamValue {
 
-	/** The pendent notificacio. */
-	PENDENT_NOTIFICACIO("PENDENT_NOTIFICACIO", BigDecimal.valueOf(7)),
+    /** The pendent de processar. */
+	PENDENT_DE_PROCESSAR("Pendent de processar", BigDecimal.valueOf(7)),
 
-	/** The registrat. */
-	REGISTRAT("REGISTRAT", BigDecimal.valueOf(9)),
+	/** The registrada. */
+	REGISTRADA("Registrada", BigDecimal.valueOf(9)),
 
-	/** The dispositat. */
-	DISPOSITAT("DISPOSITAT", BigDecimal.valueOf(10)),
+	/** The dipositada. */
+	DIPOSITADA("Dipositada", BigDecimal.valueOf(10)),
 
-	/** The notificacio visualitzada. */
-	NOTIFICACIO_VISUALITZADA("NOTIFICACIO_VISUALITZADA", BigDecimal.valueOf(11)),
+	/** The visualitzada. */
+	VISUALITZADA("Visualitzada", BigDecimal.valueOf(11)),
 
-	/** The notificacio rebutjada. */
-	NOTIFICACIO_REBUTJADA("NOTIFICACIO_REBUTJADA", BigDecimal.valueOf(12)),
+	/** The rebutjada. */
+	REBUTJADA("Rebutjada", BigDecimal.valueOf(12)),
 
-	/** The notificacio acceptada. */
-	NOTIFICACIO_ACCEPTADA("NOTIFICACIO_ACCEPTADA", BigDecimal.valueOf(13)),
+	/** The acceptada. */
+	ACCEPTADA("Acceptada", BigDecimal.valueOf(13)),
 
-	/** The notificacio rebutjada acces. */
-	NOTIFICACIO_REBUTJADA_ACCES("NOTIFICACIO_REBUTJADA_ACCES", BigDecimal.valueOf(18)),
+	/** The rebutjada sense acces. */
+	REBUTJADA_SENSE_ACCES("Rebutjada sense accés", BigDecimal.valueOf(18)),
 
-	/** The notificacio rebutjada accio. */
-	NOTIFICACIO_REBUTJADA_ACCIO("NOTIFICACIO_REBUTJADA_ACCIO", BigDecimal.valueOf(19));
+	/** The rebutjada sense accio. */
+	REBUTJADA_SENSE_ACCIO("Rebutjada sense acció", BigDecimal.valueOf(19));
 
 	/** The api param value. */
 	private String apiParamValue;

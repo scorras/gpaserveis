@@ -19,6 +19,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentEntradaFitxer
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentTramitacioFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarRequerimentFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentCrearNotificacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentGeneratRegistrarComunicatBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ActualitzarNotificacio;
@@ -29,6 +30,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActual
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
@@ -50,7 +52,7 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	PageDataOfConfiguracioDocsEntradaRDTO cercaConfiguracioDocumentacioEntrada(DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Cerca configuracio documentacio entrada per tramit ovt.
@@ -62,7 +64,7 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	PageDataOfConfiguracioDocsEntradaRDTO cercaConfiguracioDocumentacioEntradaPerTramitOvt(
-			DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO) throws GPAServeisServiceException;
+	        DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO) throws GPAServeisServiceException;
 
 	/**
 	 * Cerca configuracio documentacio tramitacio.
@@ -74,7 +76,7 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	PageDataOfConfiguracioDocsTramitacioRDTO cercaConfiguracioDocumentacioTramitacio(
-			DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO) throws GPAServeisServiceException;
+	        DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO) throws GPAServeisServiceException;
 
 	/**
 	 * Cerca documents entrada agrupats per tramit ovt.
@@ -97,7 +99,7 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	List<ConfDocEntradaRequeritRDTO> cercaConfiguracioDocumentacioEntradaRequerida(BigDecimal idDocumentacio)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Crear document entrada.
@@ -142,7 +144,7 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	DocsEntradaRDTO actualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO actualitzarDocumentEntradaBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Actualitzar declaracio responsable.
@@ -154,7 +156,7 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	DocsEntradaRDTO actualitzarDeclaracioResponsable(ActualitzarDeclaracioResponsableBDTO actualitzarDeclaracioResponsableBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Actualitzar document tramitacio.
@@ -166,7 +168,7 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	DocsTramitacioRDTO actualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO actualitzarDocumentTramitacioBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Guardar document entrada fitxer.
@@ -178,7 +180,7 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	DocsEntradaRDTO guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Guardar requeriment fitxer.
@@ -190,7 +192,7 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	DocsTramitacioRDTO guardarRequerimentFitxer(GuardarRequerimentFitxerBDTO guardarRequerimentFitxerBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Guardar document tramitacio fitxer.
@@ -202,7 +204,7 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	DocsTramitacioRDTO guardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Esborrar document expedient.
@@ -246,7 +248,7 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	byte[] descarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Cerca dades operacio requerits.
@@ -281,7 +283,7 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaPlantillaDocVinculada getPlantillaDocVinculada(BigDecimal idConfDoc, BigDecimal idDocVinculada)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Associar registre documentacio expedient.
@@ -326,6 +328,17 @@ public interface DocumentsService {
 	DocsTramitacioRDTO obtenirDocsTramitacioByNotificationId(Long notificacioId) throws GPAServeisServiceException;
 
 	/**
+	 * Crear notificacio.
+	 *
+	 * @param documentCrearNotificacioBDTO
+	 *            the document crear notificacio BDTO
+	 * @return the notificacions RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	NotificacionsRDTO crearNotificacio(DocumentCrearNotificacioBDTO documentCrearNotificacioBDTO) throws GPAServeisServiceException;
+
+	/**
 	 * Actualitzar notificacio.
 	 *
 	 * @param actualitzarNotificacionDocument
@@ -365,7 +378,7 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	DocsTramitacioRDTO guardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Crear document entrada digitalitzat.
@@ -377,7 +390,7 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	DocsEntradaRDTO crearDocumentEntradaDigitalitzat(CrearDocumentEntradaDigitalitzarBDTO crearDocumentEntradaDigitalitzarBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Crear document tramitacio digitalitzat.
@@ -389,7 +402,7 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	DocsTramitacioRDTO crearDocumentTramitacioDigitalitzat(CrearDocumentTramitacioDigitalitzarBDTO crearDocumentTramitacioDigitalitzarBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Registrar comunicat document tramitacio.
@@ -400,7 +413,7 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	void registrarComunicatDocumentTramitacio(DocumentGeneratRegistrarComunicatBDTO documentGeneratRegistrarComunicatBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Callback digitalitzacio.

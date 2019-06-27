@@ -227,10 +227,10 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 
 	@Test
 	public void testStage25_PostNotificarExpedient() throws Exception {
-		String url = BASE_URL + "/expedients/1/notificar";
+		String url = BASE_URL + "/expedients/1/documentacio/1/notificar";
 		getMockMvc()
 		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-		                "{ \"titol\":\"titol\",\"textNotificacio\":\"Text Notificació\", \"destinataris\": [\"D1\", \"D2\"], \"documents\": [\"D1\", \"D2\"]}"))
+		                "{\r\n\"destinataris\": \r\n[{  \r\n   \"tipusPersona\":\"FISICA\",\r\n   \"nom\":\"Carmen\",\r\n   \"cognom1\":\"Rodrigo\",\r\n   \"cognom2\":\"D\u00EDaz\",\r\n   \"documentIndentitat\":{\r\n      \"tipusDocument\":\"NIF\",\r\n      \"numeroDocument\":\"35278573T\"\r\n   },\r\n   \"dadesNotificacio\":{\r\n      \"email\":\"email@email.com\",\r\n\t  \"telefon\":\"235466356\",\r\n\t  \"mobil\":\"578239506\",\r\n\t  \"tipusVia\":\"Carrer\",\r\n\t  \"nomVia\":\"Gran V\u00EDa\",\r\n\t  \"numero\":\"15\",\r\n\t  \"bloc\":\"4\",\r\n\t  \"porta\":\"B\",\r\n\t  \"pis\":\"2\",\r\n      \"codiPostal\":\"13004\",\r\n\t  \"municipi\":\"Miguelturra\",\r\n      \"provincia\":\"Ciudad Real\",\r\n      \"viaNotificacio\":\"ELECTRONICA\"\r\n   }\r\n}]\r\n}"))
 		        .andExpect(status().isOk()).andDo(print());
 	}
 

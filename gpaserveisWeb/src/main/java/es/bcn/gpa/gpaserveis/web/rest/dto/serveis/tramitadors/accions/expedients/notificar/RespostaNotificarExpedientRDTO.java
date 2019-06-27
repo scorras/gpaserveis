@@ -1,5 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.notificar;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -22,6 +24,6 @@ public class RespostaNotificarExpedientRDTO {
 	@ApiModelProperty("Expedient")
 	private ExpedientAccioRDTO expedient;
 	@ApiModelProperty("Identificador de la notificació")
-	private String idNotificacio;
+	private BigDecimal idNotificacio;
 
 }
