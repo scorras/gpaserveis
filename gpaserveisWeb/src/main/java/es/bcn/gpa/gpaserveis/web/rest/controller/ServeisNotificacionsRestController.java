@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller;
 
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.modelmapper.ModelMapper;
@@ -67,7 +68,7 @@ public class ServeisNotificacionsRestController extends BaseRestController {
 			tipusEstatsDocumentsApiParamValue = tipusEstatsNotificacionsApiParamValueTranslator
 			        .getEnumByApiParamValue(retornNotificacioRDTO.getEstat());
 
-			DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN_NOTIFICACIONS);
+			DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
 			actualitzarNotificacio = modelMapper.map(retornNotificacioRDTO, ActualitzarNotificacio.class);
 
 			switch (tipusEstatsDocumentsApiParamValue) {
@@ -75,25 +76,41 @@ public class ServeisNotificacionsRestController extends BaseRestController {
 				actualitzarNotificacio.setDataHoraRegistre(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraRegistre()));
 				break;
 			case DIPOSITADA:
+				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraRegistre())) {
+					actualitzarNotificacio
+					        .setDataHoraRegistre(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraRegistre()));
+				}
 				actualitzarNotificacio.setDataHoraDiposit(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraDiposit()));
 				break;
-			case REBUTJADA_SENSE_ACCES:
-				actualitzarNotificacio
-				        .setDataHoraAceptacioRebuig(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraAceptacioRebuig()));
-				break;
 			case VISUALITZADA:
+				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraRegistre())) {
+					actualitzarNotificacio
+					        .setDataHoraRegistre(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraRegistre()));
+				}
+				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraDiposit())) {
+					actualitzarNotificacio.setDataHoraDiposit(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraDiposit()));
+				}
 				actualitzarNotificacio
 				        .setDataHoraVisualitzacio(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraVisualitzacio()));
 				break;
+			case REBUTJADA_SENSE_ACCES:
+
 			case REBUTJADA:
-				actualitzarNotificacio
-				        .setDataHoraAceptacioRebuig(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraAceptacioRebuig()));
-				break;
+
 			case ACCEPTADA:
-				actualitzarNotificacio
-				        .setDataHoraAceptacioRebuig(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraAceptacioRebuig()));
-				break;
+
 			case REBUTJADA_SENSE_ACCIO:
+				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraRegistre())) {
+					actualitzarNotificacio
+					        .setDataHoraRegistre(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraRegistre()));
+				}
+				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraDiposit())) {
+					actualitzarNotificacio.setDataHoraDiposit(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraDiposit()));
+				}
+				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraVisualitzacio())) {
+					actualitzarNotificacio
+					        .setDataHoraVisualitzacio(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraVisualitzacio()));
+				}
 				actualitzarNotificacio
 				        .setDataHoraAceptacioRebuig(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraAceptacioRebuig()));
 				break;
