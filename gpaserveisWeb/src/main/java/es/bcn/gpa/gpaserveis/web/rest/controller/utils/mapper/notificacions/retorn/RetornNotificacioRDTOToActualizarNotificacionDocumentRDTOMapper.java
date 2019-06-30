@@ -16,7 +16,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.notificacions.estat.RetornNoti
  */
 @Component("notificacioRetornNotificacioRDTOToActualizarNotificacionDocumentRDTOMapper")
 public class RetornNotificacioRDTOToActualizarNotificacionDocumentRDTOMapper
-		extends PropertyMap<RetornNotificacioRDTO, ActualitzarNotificacio> {
+        extends PropertyMap<RetornNotificacioRDTO, ActualitzarNotificacio> {
 
 	private DataToInternalConverter dataToInternalConverter;
 	private DataHoraToInternalConverter dataHoraToInternalConverter;
@@ -24,9 +24,9 @@ public class RetornNotificacioRDTOToActualizarNotificacionDocumentRDTOMapper
 
 	@Autowired
 	public RetornNotificacioRDTOToActualizarNotificacionDocumentRDTOMapper(
-			@Qualifier("dataHoraToInternalConverter") DataHoraToInternalConverter dataHoraToInternalConverter,
-			@Qualifier("dataToInternalConverter") DataToInternalConverter dataToInternalConverter,
-			@Qualifier("internalToBigDecimalConverter") InternalToBigDecimalConverter internalToBigDecimalConverter) {
+	        @Qualifier("dataHoraToInternalConverter") DataHoraToInternalConverter dataHoraToInternalConverter,
+	        @Qualifier("dataToInternalConverter") DataToInternalConverter dataToInternalConverter,
+	        @Qualifier("internalToBigDecimalConverter") InternalToBigDecimalConverter internalToBigDecimalConverter) {
 
 		this.dataHoraToInternalConverter = dataHoraToInternalConverter;
 		this.dataToInternalConverter = dataToInternalConverter;
@@ -48,6 +48,6 @@ public class RetornNotificacioRDTOToActualizarNotificacionDocumentRDTOMapper
 		map().setDocEvidenciaElectronic(source.getDocEvidenciaElectronic());
 		map().setDocEvidenciaPaper(source.getDocEvidenciaPaper());
 		using(dataHoraToInternalConverter).map(source.getDataEnviament()).setDataEnviament(null);
-		using(dataToInternalConverter).map(source.getDataLimit()).setDataLimit(null);
+		using(dataHoraToInternalConverter).map(source.getDataLimit()).setDataLimit(null);
 	}
 }

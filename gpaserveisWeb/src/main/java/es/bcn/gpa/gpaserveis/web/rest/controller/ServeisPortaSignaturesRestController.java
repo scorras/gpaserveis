@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 	@PostMapping("/resultat_peticio")
 	@ApiOperation(value = "Resultat de l'estat de les peticions", tags = { "Serveis Portasignatures API" })
 	public MciPortasigResultatPeticioRespostaDTO resultatEstatPeticio(
-			@ApiParam(value = "Resultat del portasignatures a una petició de vist-i-plau/signatura", required = true) @RequestBody MciPortasigResultatPeticioDTO resultatPeticio) {
+	        @ApiParam(value = "Resultat del portasignatures a una petició de vist-i-plau/signatura", required = true) @RequestBody MciPortasigResultatPeticioDTO resultatPeticio) {
 
 		if (log.isDebugEnabled()) {
 			log.debug("resultatEstatPeticio(MciPortasigResultatPeticioDTO) - inici"); //$NON-NLS-1$
@@ -78,9 +79,9 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error("resultatEstatPeticio(MciPortasigResultatPeticioDTO)", e);
 			// $NON-NLS-1$
+			resposta.setCodiError("KO");
+			resposta.setDescError(ExceptionUtils.getFullStackTrace(e));
 		}
-
-		resposta.setCodiError("OK");
 
 		if (log.isDebugEnabled()) {
 			log.debug("resultatPeticio(MciPortasigResultatPeticioDTO) - fi"); //$NON-NLS-1$
