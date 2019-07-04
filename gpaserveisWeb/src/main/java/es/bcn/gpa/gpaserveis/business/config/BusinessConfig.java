@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
@@ -204,12 +204,12 @@ public class BusinessConfig {
 	}
 
 	@Bean
-	public DownloadEntradaApi clientApiDownloadEntrada() {
+	public DownloadApi clientApiDownload() {
 		es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient();
 		apiClient.setBasePath(URL_SERVICES_DOCUMENTACIO);
-		DownloadEntradaApi downloadEntradaApi = new DownloadEntradaApi(apiClient);
+		DownloadApi downloadApi = new DownloadApi(apiClient);
 
-		return downloadEntradaApi;
+		return downloadApi;
 	}
 
 	@Bean

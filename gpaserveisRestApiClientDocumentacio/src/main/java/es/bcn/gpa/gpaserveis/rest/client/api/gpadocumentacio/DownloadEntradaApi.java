@@ -24,7 +24,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-19T16:12:57.396+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-03T21:35:26.370+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi")
 public class DownloadEntradaApi {
     private ApiClient apiClient;
@@ -46,53 +46,6 @@ public class DownloadEntradaApi {
         this.apiClient = apiClient;
     }
 
-    /**
-     * Downloads the document
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param idDoc idDoc
-     * @param idExpedient idExpedient
-     * @return byte[]
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public byte[] descarregarDocumentEntradaExpedient(BigDecimal idDoc, BigDecimal idExpedient) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'idDoc' is set
-        if (idDoc == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idDoc' when calling descarregarDocumentEntradaExpedient");
-        }
-        
-        // verify the required parameter 'idExpedient' is set
-        if (idExpedient == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idExpedient' when calling descarregarDocumentEntradaExpedient");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idDoc", idDoc);
-        uriVariables.put("idExpedient", idExpedient);
-        String path = UriComponentsBuilder.fromPath("/documentacio/descarregarDocument/{idExpedient}/{idDoc}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<byte[]> returnType = new ParameterizedTypeReference<byte[]>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
     /**
      * download the fileEntrada
      * 

@@ -51,6 +51,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigit
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
@@ -404,26 +405,37 @@ public interface ServeisService {
 	        throws GPAServeisServiceException;
 
 	/**
+	 * Consultar dades document.
+	 *
+	 * @param idDocument
+	 *            the id document
+	 * @return the docs RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsRDTO consultarDadesDocument(BigDecimal idDocument) throws GPAServeisServiceException;
+
+	/**
 	 * Consultar dades document aportat.
 	 *
-	 * @param idExpedient
-	 *            the id expedient
+	 * @param idDocument
+	 *            the id document
 	 * @return the docs entrada RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	DocsEntradaRDTO consultarDadesDocumentAportat(BigDecimal idExpedient) throws GPAServeisServiceException;
+	DocsEntradaRDTO consultarDadesDocumentAportat(BigDecimal idDocument) throws GPAServeisServiceException;
 
 	/**
 	 * Consultar dades document generat.
 	 *
-	 * @param idExpedient
-	 *            the id expedient
+	 * @param idDocument
+	 *            the id document
 	 * @return the docs tramitacio RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	DocsTramitacioRDTO consultarDadesDocumentGenerat(BigDecimal idExpedient) throws GPAServeisServiceException;
+	DocsTramitacioRDTO consultarDadesDocumentGenerat(BigDecimal idDocument) throws GPAServeisServiceException;
 
 	/**
 	 * Esborrar document expedient.
@@ -436,7 +448,7 @@ public interface ServeisService {
 	void esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO) throws GPAServeisServiceException;
 
 	/**
-	 * Descarregar document entrada expedient.
+	 * Descarregar document expedient.
 	 *
 	 * @param descarregarDocumentExpedientBDTO
 	 *            the descarregar document expedient BDTO
@@ -444,7 +456,7 @@ public interface ServeisService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	byte[] descarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
+	byte[] descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
 	        throws GPAServeisServiceException;
 
 	/**

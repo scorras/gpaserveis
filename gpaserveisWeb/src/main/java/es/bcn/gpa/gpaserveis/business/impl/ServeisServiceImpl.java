@@ -62,6 +62,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigit
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
@@ -790,15 +791,18 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.guardarRequerimentFitxer(guardarRequerimentFitxerBDTO);
 	}
 
-	/**
-	 * Consultar dades document aportat.
-	 *
-	 * @param idExpedient
-	 *            the id expedient
-	 * @return the docs entrada RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#consultarDadesDocument(java
+	 * .math.BigDecimal)
 	 */
+	@Override
+	public DocsRDTO consultarDadesDocument(BigDecimal idDocument) throws GPAServeisServiceException {
+		return documentsService.consultarDadesDocument(idDocument);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -806,19 +810,10 @@ public class ServeisServiceImpl implements ServeisService {
 	 * consultarDadesDocumentAportat(java.math.BigDecimal)
 	 */
 	@Override
-	public DocsEntradaRDTO consultarDadesDocumentAportat(BigDecimal idExpedient) throws GPAServeisServiceException {
-		return documentsService.consultarDadesDocumentAportat(idExpedient);
+	public DocsEntradaRDTO consultarDadesDocumentAportat(BigDecimal idDocument) throws GPAServeisServiceException {
+		return documentsService.consultarDadesDocumentAportat(idDocument);
 	}
 
-	/**
-	 * Consultar dades document generat.
-	 *
-	 * @param idExpedient
-	 *            the id expedient
-	 * @return the docs tramitacio RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -826,8 +821,8 @@ public class ServeisServiceImpl implements ServeisService {
 	 * consultarDadesDocumentGenerat(java.math.BigDecimal)
 	 */
 	@Override
-	public DocsTramitacioRDTO consultarDadesDocumentGenerat(BigDecimal idExpedient) throws GPAServeisServiceException {
-		return documentsService.consultarDadesDocumentGenerat(idExpedient);
+	public DocsTramitacioRDTO consultarDadesDocumentGenerat(BigDecimal idDocument) throws GPAServeisServiceException {
+		return documentsService.consultarDadesDocumentGenerat(idDocument);
 	}
 
 	/**
@@ -863,13 +858,13 @@ public class ServeisServiceImpl implements ServeisService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
-	 * descarregarDocumentEntradaExpedient(es.bcn.gpa.gpaserveis.business.dto.
+	 * descarregarDocumentExpedient(es.bcn.gpa.gpaserveis.business.dto.
 	 * documents.DescarregarDocumentExpedientBDTO)
 	 */
 	@Override
-	public byte[] descarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
+	public byte[] descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
 	        throws GPAServeisServiceException {
-		return documentsService.descarregarDocumentEntradaExpedient(descarregarDocumentExpedientBDTO);
+		return documentsService.descarregarDocumentExpedient(descarregarDocumentExpedientBDTO);
 	}
 
 	/**

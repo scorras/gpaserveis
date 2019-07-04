@@ -45,27 +45,6 @@ public class DownloadEntradaApiTest extends ParentTest {
 	private DownloadEntradaApi api = new DownloadEntradaApi();
 
 	/**
-	 * Downloads the document
-	 *
-	 * 
-	 *
-	 * @throws RestClientException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void descarregarDocumentEntradaExpedient() throws RestClientException {
-		when(apiClient.invokeAPI(eq("/documentacio/descarregarDocument/1/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
-		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn("prova".getBytes());
-
-		BigDecimal idDoc = ONE;
-		BigDecimal idExpedient = ONE;
-		byte[] response = api.descarregarDocumentEntradaExpedient(idDoc, idExpedient);
-
-		assertTrue(response != null);
-	}
-
-	/**
 	 * download the fileEntrada
 	 *
 	 * 
