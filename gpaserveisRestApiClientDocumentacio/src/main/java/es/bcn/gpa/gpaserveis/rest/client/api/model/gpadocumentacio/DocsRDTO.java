@@ -17,7 +17,6 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntrada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RegistreAssentament;
 import io.swagger.annotations.ApiModel;
@@ -29,27 +28,15 @@ import java.util.Map;
 import org.joda.time.DateTime;
 
 /**
- * DocsEntradaRDTO
+ * DocsRDTO
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-03T21:35:26.370+02:00")
-public class DocsEntradaRDTO {
+public class DocsRDTO {
   @JsonProperty("codi")
   private String codi = null;
 
   @JsonProperty("comentari")
   private String comentari = null;
-
-  @JsonProperty("configDocEntrada")
-  private BigDecimal configDocEntrada = null;
-
-  @JsonProperty("configuracioDocsEntrada")
-  private ConfiguracioDocsEntrada configuracioDocsEntrada = null;
-
-  @JsonProperty("configuracioDocsEntradaNom")
-  private String configuracioDocsEntradaNom = null;
-
-  @JsonProperty("configuracioDocsEntradaNomCastella")
-  private String configuracioDocsEntradaNomCastella = null;
 
   @JsonProperty("dataCreacio")
   private DateTime dataCreacio = null;
@@ -57,14 +44,8 @@ public class DocsEntradaRDTO {
   @JsonProperty("dataDigitalitzacio")
   private DateTime dataDigitalitzacio = null;
 
-  @JsonProperty("dataPresentacio")
-  private DateTime dataPresentacio = null;
-
   @JsonProperty("dataUltimaModificacio")
   private DateTime dataUltimaModificacio = null;
-
-  @JsonProperty("declaracioResponsable")
-  private Integer declaracioResponsable = null;
 
   @JsonProperty("digitalitzat")
   private Integer digitalitzat = null;
@@ -93,9 +74,6 @@ public class DocsEntradaRDTO {
   @JsonProperty("id")
   private BigDecimal id = null;
 
-  @JsonProperty("idIdiomaPlantilla")
-  private BigDecimal idIdiomaPlantilla = null;
-
   @JsonProperty("idioma")
   private BigDecimal idioma = null;
 
@@ -107,9 +85,6 @@ public class DocsEntradaRDTO {
 
   @JsonProperty("migracioIdOrigen")
   private String migracioIdOrigen = null;
-
-  @JsonProperty("nou")
-  private Integer nou = null;
 
   @JsonProperty("numDocsConfiguracio")
   private BigDecimal numDocsConfiguracio = null;
@@ -126,26 +101,14 @@ public class DocsEntradaRDTO {
   @JsonProperty("registreAssentament")
   private RegistreAssentament registreAssentament = null;
 
-  @JsonProperty("registreCodi")
-  private String registreCodi = null;
-
   @JsonProperty("registreIdext")
   private BigDecimal registreIdext = null;
-
-  @JsonProperty("requerit")
-  private Boolean requerit = null;
-
-  @JsonProperty("revisio")
-  private Integer revisio = null;
 
   @JsonProperty("seleccionable")
   private Boolean seleccionable = null;
 
   @JsonProperty("tipusMimeDescripcio")
   private String tipusMimeDescripcio = null;
-
-  @JsonProperty("tramitOvtIdext")
-  private BigDecimal tramitOvtIdext = null;
 
   @JsonProperty("ultimaModificacioIdext")
   private BigDecimal ultimaModificacioIdext = null;
@@ -156,7 +119,7 @@ public class DocsEntradaRDTO {
   @JsonProperty("usuariIdext")
   private BigDecimal usuariIdext = null;
 
-  public DocsEntradaRDTO codi(String codi) {
+  public DocsRDTO codi(String codi) {
     this.codi = codi;
     return this;
   }
@@ -174,7 +137,7 @@ public class DocsEntradaRDTO {
     this.codi = codi;
   }
 
-  public DocsEntradaRDTO comentari(String comentari) {
+  public DocsRDTO comentari(String comentari) {
     this.comentari = comentari;
     return this;
   }
@@ -192,79 +155,7 @@ public class DocsEntradaRDTO {
     this.comentari = comentari;
   }
 
-  public DocsEntradaRDTO configDocEntrada(BigDecimal configDocEntrada) {
-    this.configDocEntrada = configDocEntrada;
-    return this;
-  }
-
-   /**
-   * Get configDocEntrada
-   * @return configDocEntrada
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getConfigDocEntrada() {
-    return configDocEntrada;
-  }
-
-  public void setConfigDocEntrada(BigDecimal configDocEntrada) {
-    this.configDocEntrada = configDocEntrada;
-  }
-
-  public DocsEntradaRDTO configuracioDocsEntrada(ConfiguracioDocsEntrada configuracioDocsEntrada) {
-    this.configuracioDocsEntrada = configuracioDocsEntrada;
-    return this;
-  }
-
-   /**
-   * Get configuracioDocsEntrada
-   * @return configuracioDocsEntrada
-  **/
-  @ApiModelProperty(value = "")
-  public ConfiguracioDocsEntrada getConfiguracioDocsEntrada() {
-    return configuracioDocsEntrada;
-  }
-
-  public void setConfiguracioDocsEntrada(ConfiguracioDocsEntrada configuracioDocsEntrada) {
-    this.configuracioDocsEntrada = configuracioDocsEntrada;
-  }
-
-  public DocsEntradaRDTO configuracioDocsEntradaNom(String configuracioDocsEntradaNom) {
-    this.configuracioDocsEntradaNom = configuracioDocsEntradaNom;
-    return this;
-  }
-
-   /**
-   * Get configuracioDocsEntradaNom
-   * @return configuracioDocsEntradaNom
-  **/
-  @ApiModelProperty(value = "")
-  public String getConfiguracioDocsEntradaNom() {
-    return configuracioDocsEntradaNom;
-  }
-
-  public void setConfiguracioDocsEntradaNom(String configuracioDocsEntradaNom) {
-    this.configuracioDocsEntradaNom = configuracioDocsEntradaNom;
-  }
-
-  public DocsEntradaRDTO configuracioDocsEntradaNomCastella(String configuracioDocsEntradaNomCastella) {
-    this.configuracioDocsEntradaNomCastella = configuracioDocsEntradaNomCastella;
-    return this;
-  }
-
-   /**
-   * Get configuracioDocsEntradaNomCastella
-   * @return configuracioDocsEntradaNomCastella
-  **/
-  @ApiModelProperty(value = "")
-  public String getConfiguracioDocsEntradaNomCastella() {
-    return configuracioDocsEntradaNomCastella;
-  }
-
-  public void setConfiguracioDocsEntradaNomCastella(String configuracioDocsEntradaNomCastella) {
-    this.configuracioDocsEntradaNomCastella = configuracioDocsEntradaNomCastella;
-  }
-
-  public DocsEntradaRDTO dataCreacio(DateTime dataCreacio) {
+  public DocsRDTO dataCreacio(DateTime dataCreacio) {
     this.dataCreacio = dataCreacio;
     return this;
   }
@@ -282,7 +173,7 @@ public class DocsEntradaRDTO {
     this.dataCreacio = dataCreacio;
   }
 
-  public DocsEntradaRDTO dataDigitalitzacio(DateTime dataDigitalitzacio) {
+  public DocsRDTO dataDigitalitzacio(DateTime dataDigitalitzacio) {
     this.dataDigitalitzacio = dataDigitalitzacio;
     return this;
   }
@@ -300,25 +191,7 @@ public class DocsEntradaRDTO {
     this.dataDigitalitzacio = dataDigitalitzacio;
   }
 
-  public DocsEntradaRDTO dataPresentacio(DateTime dataPresentacio) {
-    this.dataPresentacio = dataPresentacio;
-    return this;
-  }
-
-   /**
-   * Get dataPresentacio
-   * @return dataPresentacio
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getDataPresentacio() {
-    return dataPresentacio;
-  }
-
-  public void setDataPresentacio(DateTime dataPresentacio) {
-    this.dataPresentacio = dataPresentacio;
-  }
-
-  public DocsEntradaRDTO dataUltimaModificacio(DateTime dataUltimaModificacio) {
+  public DocsRDTO dataUltimaModificacio(DateTime dataUltimaModificacio) {
     this.dataUltimaModificacio = dataUltimaModificacio;
     return this;
   }
@@ -336,25 +209,7 @@ public class DocsEntradaRDTO {
     this.dataUltimaModificacio = dataUltimaModificacio;
   }
 
-  public DocsEntradaRDTO declaracioResponsable(Integer declaracioResponsable) {
-    this.declaracioResponsable = declaracioResponsable;
-    return this;
-  }
-
-   /**
-   * Get declaracioResponsable
-   * @return declaracioResponsable
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getDeclaracioResponsable() {
-    return declaracioResponsable;
-  }
-
-  public void setDeclaracioResponsable(Integer declaracioResponsable) {
-    this.declaracioResponsable = declaracioResponsable;
-  }
-
-  public DocsEntradaRDTO digitalitzat(Integer digitalitzat) {
+  public DocsRDTO digitalitzat(Integer digitalitzat) {
     this.digitalitzat = digitalitzat;
     return this;
   }
@@ -372,7 +227,7 @@ public class DocsEntradaRDTO {
     this.digitalitzat = digitalitzat;
   }
 
-  public DocsEntradaRDTO docsFisics(DocsFisics docsFisics) {
+  public DocsRDTO docsFisics(DocsFisics docsFisics) {
     this.docsFisics = docsFisics;
     return this;
   }
@@ -390,7 +245,7 @@ public class DocsEntradaRDTO {
     this.docsFisics = docsFisics;
   }
 
-  public DocsEntradaRDTO docsFisicsNom(String docsFisicsNom) {
+  public DocsRDTO docsFisicsNom(String docsFisicsNom) {
     this.docsFisicsNom = docsFisicsNom;
     return this;
   }
@@ -408,7 +263,7 @@ public class DocsEntradaRDTO {
     this.docsFisicsNom = docsFisicsNom;
   }
 
-  public DocsEntradaRDTO documentFisic(BigDecimal documentFisic) {
+  public DocsRDTO documentFisic(BigDecimal documentFisic) {
     this.documentFisic = documentFisic;
     return this;
   }
@@ -426,7 +281,7 @@ public class DocsEntradaRDTO {
     this.documentFisic = documentFisic;
   }
 
-  public DocsEntradaRDTO documentacio(BigDecimal documentacio) {
+  public DocsRDTO documentacio(BigDecimal documentacio) {
     this.documentacio = documentacio;
     return this;
   }
@@ -444,7 +299,7 @@ public class DocsEntradaRDTO {
     this.documentacio = documentacio;
   }
 
-  public DocsEntradaRDTO editable(Boolean editable) {
+  public DocsRDTO editable(Boolean editable) {
     this.editable = editable;
     return this;
   }
@@ -462,7 +317,7 @@ public class DocsEntradaRDTO {
     this.editable = editable;
   }
 
-  public DocsEntradaRDTO eliminat(Integer eliminat) {
+  public DocsRDTO eliminat(Integer eliminat) {
     this.eliminat = eliminat;
     return this;
   }
@@ -480,7 +335,7 @@ public class DocsEntradaRDTO {
     this.eliminat = eliminat;
   }
 
-  public DocsEntradaRDTO estatDigitalitzacio(BigDecimal estatDigitalitzacio) {
+  public DocsRDTO estatDigitalitzacio(BigDecimal estatDigitalitzacio) {
     this.estatDigitalitzacio = estatDigitalitzacio;
     return this;
   }
@@ -498,7 +353,7 @@ public class DocsEntradaRDTO {
     this.estatDigitalitzacio = estatDigitalitzacio;
   }
 
-  public DocsEntradaRDTO id(BigDecimal id) {
+  public DocsRDTO id(BigDecimal id) {
     this.id = id;
     return this;
   }
@@ -516,25 +371,7 @@ public class DocsEntradaRDTO {
     this.id = id;
   }
 
-  public DocsEntradaRDTO idIdiomaPlantilla(BigDecimal idIdiomaPlantilla) {
-    this.idIdiomaPlantilla = idIdiomaPlantilla;
-    return this;
-  }
-
-   /**
-   * Get idIdiomaPlantilla
-   * @return idIdiomaPlantilla
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getIdIdiomaPlantilla() {
-    return idIdiomaPlantilla;
-  }
-
-  public void setIdIdiomaPlantilla(BigDecimal idIdiomaPlantilla) {
-    this.idIdiomaPlantilla = idIdiomaPlantilla;
-  }
-
-  public DocsEntradaRDTO idioma(BigDecimal idioma) {
+  public DocsRDTO idioma(BigDecimal idioma) {
     this.idioma = idioma;
     return this;
   }
@@ -552,7 +389,7 @@ public class DocsEntradaRDTO {
     this.idioma = idioma;
   }
 
-  public DocsEntradaRDTO idiomaDigitalitzacio(BigDecimal idiomaDigitalitzacio) {
+  public DocsRDTO idiomaDigitalitzacio(BigDecimal idiomaDigitalitzacio) {
     this.idiomaDigitalitzacio = idiomaDigitalitzacio;
     return this;
   }
@@ -570,12 +407,12 @@ public class DocsEntradaRDTO {
     this.idiomaDigitalitzacio = idiomaDigitalitzacio;
   }
 
-  public DocsEntradaRDTO metadata(Map<String, List<String>> metadata) {
+  public DocsRDTO metadata(Map<String, List<String>> metadata) {
     this.metadata = metadata;
     return this;
   }
 
-  public DocsEntradaRDTO putMetadataItem(String key, List<String> metadataItem) {
+  public DocsRDTO putMetadataItem(String key, List<String> metadataItem) {
     if (this.metadata == null) {
       this.metadata = new HashMap<String, List<String>>();
     }
@@ -596,7 +433,7 @@ public class DocsEntradaRDTO {
     this.metadata = metadata;
   }
 
-  public DocsEntradaRDTO migracioIdOrigen(String migracioIdOrigen) {
+  public DocsRDTO migracioIdOrigen(String migracioIdOrigen) {
     this.migracioIdOrigen = migracioIdOrigen;
     return this;
   }
@@ -614,25 +451,7 @@ public class DocsEntradaRDTO {
     this.migracioIdOrigen = migracioIdOrigen;
   }
 
-  public DocsEntradaRDTO nou(Integer nou) {
-    this.nou = nou;
-    return this;
-  }
-
-   /**
-   * Get nou
-   * @return nou
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getNou() {
-    return nou;
-  }
-
-  public void setNou(Integer nou) {
-    this.nou = nou;
-  }
-
-  public DocsEntradaRDTO numDocsConfiguracio(BigDecimal numDocsConfiguracio) {
+  public DocsRDTO numDocsConfiguracio(BigDecimal numDocsConfiguracio) {
     this.numDocsConfiguracio = numDocsConfiguracio;
     return this;
   }
@@ -650,7 +469,7 @@ public class DocsEntradaRDTO {
     this.numDocsConfiguracio = numDocsConfiguracio;
   }
 
-  public DocsEntradaRDTO obligatoriEnEstat(Boolean obligatoriEnEstat) {
+  public DocsRDTO obligatoriEnEstat(Boolean obligatoriEnEstat) {
     this.obligatoriEnEstat = obligatoriEnEstat;
     return this;
   }
@@ -668,7 +487,7 @@ public class DocsEntradaRDTO {
     this.obligatoriEnEstat = obligatoriEnEstat;
   }
 
-  public DocsEntradaRDTO origen(Integer origen) {
+  public DocsRDTO origen(Integer origen) {
     this.origen = origen;
     return this;
   }
@@ -686,7 +505,7 @@ public class DocsEntradaRDTO {
     this.origen = origen;
   }
 
-  public DocsEntradaRDTO plantillaPdf(Boolean plantillaPdf) {
+  public DocsRDTO plantillaPdf(Boolean plantillaPdf) {
     this.plantillaPdf = plantillaPdf;
     return this;
   }
@@ -704,7 +523,7 @@ public class DocsEntradaRDTO {
     this.plantillaPdf = plantillaPdf;
   }
 
-  public DocsEntradaRDTO registreAssentament(RegistreAssentament registreAssentament) {
+  public DocsRDTO registreAssentament(RegistreAssentament registreAssentament) {
     this.registreAssentament = registreAssentament;
     return this;
   }
@@ -722,25 +541,7 @@ public class DocsEntradaRDTO {
     this.registreAssentament = registreAssentament;
   }
 
-  public DocsEntradaRDTO registreCodi(String registreCodi) {
-    this.registreCodi = registreCodi;
-    return this;
-  }
-
-   /**
-   * Get registreCodi
-   * @return registreCodi
-  **/
-  @ApiModelProperty(value = "")
-  public String getRegistreCodi() {
-    return registreCodi;
-  }
-
-  public void setRegistreCodi(String registreCodi) {
-    this.registreCodi = registreCodi;
-  }
-
-  public DocsEntradaRDTO registreIdext(BigDecimal registreIdext) {
+  public DocsRDTO registreIdext(BigDecimal registreIdext) {
     this.registreIdext = registreIdext;
     return this;
   }
@@ -758,43 +559,7 @@ public class DocsEntradaRDTO {
     this.registreIdext = registreIdext;
   }
 
-  public DocsEntradaRDTO requerit(Boolean requerit) {
-    this.requerit = requerit;
-    return this;
-  }
-
-   /**
-   * Get requerit
-   * @return requerit
-  **/
-  @ApiModelProperty(value = "")
-  public Boolean isRequerit() {
-    return requerit;
-  }
-
-  public void setRequerit(Boolean requerit) {
-    this.requerit = requerit;
-  }
-
-  public DocsEntradaRDTO revisio(Integer revisio) {
-    this.revisio = revisio;
-    return this;
-  }
-
-   /**
-   * Get revisio
-   * @return revisio
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getRevisio() {
-    return revisio;
-  }
-
-  public void setRevisio(Integer revisio) {
-    this.revisio = revisio;
-  }
-
-  public DocsEntradaRDTO seleccionable(Boolean seleccionable) {
+  public DocsRDTO seleccionable(Boolean seleccionable) {
     this.seleccionable = seleccionable;
     return this;
   }
@@ -812,7 +577,7 @@ public class DocsEntradaRDTO {
     this.seleccionable = seleccionable;
   }
 
-  public DocsEntradaRDTO tipusMimeDescripcio(String tipusMimeDescripcio) {
+  public DocsRDTO tipusMimeDescripcio(String tipusMimeDescripcio) {
     this.tipusMimeDescripcio = tipusMimeDescripcio;
     return this;
   }
@@ -830,25 +595,7 @@ public class DocsEntradaRDTO {
     this.tipusMimeDescripcio = tipusMimeDescripcio;
   }
 
-  public DocsEntradaRDTO tramitOvtIdext(BigDecimal tramitOvtIdext) {
-    this.tramitOvtIdext = tramitOvtIdext;
-    return this;
-  }
-
-   /**
-   * Get tramitOvtIdext
-   * @return tramitOvtIdext
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getTramitOvtIdext() {
-    return tramitOvtIdext;
-  }
-
-  public void setTramitOvtIdext(BigDecimal tramitOvtIdext) {
-    this.tramitOvtIdext = tramitOvtIdext;
-  }
-
-  public DocsEntradaRDTO ultimaModificacioIdext(BigDecimal ultimaModificacioIdext) {
+  public DocsRDTO ultimaModificacioIdext(BigDecimal ultimaModificacioIdext) {
     this.ultimaModificacioIdext = ultimaModificacioIdext;
     return this;
   }
@@ -866,7 +613,7 @@ public class DocsEntradaRDTO {
     this.ultimaModificacioIdext = ultimaModificacioIdext;
   }
 
-  public DocsEntradaRDTO urlDigitalitzacio(String urlDigitalitzacio) {
+  public DocsRDTO urlDigitalitzacio(String urlDigitalitzacio) {
     this.urlDigitalitzacio = urlDigitalitzacio;
     return this;
   }
@@ -884,7 +631,7 @@ public class DocsEntradaRDTO {
     this.urlDigitalitzacio = urlDigitalitzacio;
   }
 
-  public DocsEntradaRDTO usuariIdext(BigDecimal usuariIdext) {
+  public DocsRDTO usuariIdext(BigDecimal usuariIdext) {
     this.usuariIdext = usuariIdext;
     return this;
   }
@@ -911,72 +658,54 @@ public class DocsEntradaRDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DocsEntradaRDTO docsEntradaRDTO = (DocsEntradaRDTO) o;
-    return Objects.equals(this.codi, docsEntradaRDTO.codi) &&
-        Objects.equals(this.comentari, docsEntradaRDTO.comentari) &&
-        Objects.equals(this.configDocEntrada, docsEntradaRDTO.configDocEntrada) &&
-        Objects.equals(this.configuracioDocsEntrada, docsEntradaRDTO.configuracioDocsEntrada) &&
-        Objects.equals(this.configuracioDocsEntradaNom, docsEntradaRDTO.configuracioDocsEntradaNom) &&
-        Objects.equals(this.configuracioDocsEntradaNomCastella, docsEntradaRDTO.configuracioDocsEntradaNomCastella) &&
-        Objects.equals(this.dataCreacio, docsEntradaRDTO.dataCreacio) &&
-        Objects.equals(this.dataDigitalitzacio, docsEntradaRDTO.dataDigitalitzacio) &&
-        Objects.equals(this.dataPresentacio, docsEntradaRDTO.dataPresentacio) &&
-        Objects.equals(this.dataUltimaModificacio, docsEntradaRDTO.dataUltimaModificacio) &&
-        Objects.equals(this.declaracioResponsable, docsEntradaRDTO.declaracioResponsable) &&
-        Objects.equals(this.digitalitzat, docsEntradaRDTO.digitalitzat) &&
-        Objects.equals(this.docsFisics, docsEntradaRDTO.docsFisics) &&
-        Objects.equals(this.docsFisicsNom, docsEntradaRDTO.docsFisicsNom) &&
-        Objects.equals(this.documentFisic, docsEntradaRDTO.documentFisic) &&
-        Objects.equals(this.documentacio, docsEntradaRDTO.documentacio) &&
-        Objects.equals(this.editable, docsEntradaRDTO.editable) &&
-        Objects.equals(this.eliminat, docsEntradaRDTO.eliminat) &&
-        Objects.equals(this.estatDigitalitzacio, docsEntradaRDTO.estatDigitalitzacio) &&
-        Objects.equals(this.id, docsEntradaRDTO.id) &&
-        Objects.equals(this.idIdiomaPlantilla, docsEntradaRDTO.idIdiomaPlantilla) &&
-        Objects.equals(this.idioma, docsEntradaRDTO.idioma) &&
-        Objects.equals(this.idiomaDigitalitzacio, docsEntradaRDTO.idiomaDigitalitzacio) &&
-        Objects.equals(this.metadata, docsEntradaRDTO.metadata) &&
-        Objects.equals(this.migracioIdOrigen, docsEntradaRDTO.migracioIdOrigen) &&
-        Objects.equals(this.nou, docsEntradaRDTO.nou) &&
-        Objects.equals(this.numDocsConfiguracio, docsEntradaRDTO.numDocsConfiguracio) &&
-        Objects.equals(this.obligatoriEnEstat, docsEntradaRDTO.obligatoriEnEstat) &&
-        Objects.equals(this.origen, docsEntradaRDTO.origen) &&
-        Objects.equals(this.plantillaPdf, docsEntradaRDTO.plantillaPdf) &&
-        Objects.equals(this.registreAssentament, docsEntradaRDTO.registreAssentament) &&
-        Objects.equals(this.registreCodi, docsEntradaRDTO.registreCodi) &&
-        Objects.equals(this.registreIdext, docsEntradaRDTO.registreIdext) &&
-        Objects.equals(this.requerit, docsEntradaRDTO.requerit) &&
-        Objects.equals(this.revisio, docsEntradaRDTO.revisio) &&
-        Objects.equals(this.seleccionable, docsEntradaRDTO.seleccionable) &&
-        Objects.equals(this.tipusMimeDescripcio, docsEntradaRDTO.tipusMimeDescripcio) &&
-        Objects.equals(this.tramitOvtIdext, docsEntradaRDTO.tramitOvtIdext) &&
-        Objects.equals(this.ultimaModificacioIdext, docsEntradaRDTO.ultimaModificacioIdext) &&
-        Objects.equals(this.urlDigitalitzacio, docsEntradaRDTO.urlDigitalitzacio) &&
-        Objects.equals(this.usuariIdext, docsEntradaRDTO.usuariIdext);
+    DocsRDTO docsRDTO = (DocsRDTO) o;
+    return Objects.equals(this.codi, docsRDTO.codi) &&
+        Objects.equals(this.comentari, docsRDTO.comentari) &&
+        Objects.equals(this.dataCreacio, docsRDTO.dataCreacio) &&
+        Objects.equals(this.dataDigitalitzacio, docsRDTO.dataDigitalitzacio) &&
+        Objects.equals(this.dataUltimaModificacio, docsRDTO.dataUltimaModificacio) &&
+        Objects.equals(this.digitalitzat, docsRDTO.digitalitzat) &&
+        Objects.equals(this.docsFisics, docsRDTO.docsFisics) &&
+        Objects.equals(this.docsFisicsNom, docsRDTO.docsFisicsNom) &&
+        Objects.equals(this.documentFisic, docsRDTO.documentFisic) &&
+        Objects.equals(this.documentacio, docsRDTO.documentacio) &&
+        Objects.equals(this.editable, docsRDTO.editable) &&
+        Objects.equals(this.eliminat, docsRDTO.eliminat) &&
+        Objects.equals(this.estatDigitalitzacio, docsRDTO.estatDigitalitzacio) &&
+        Objects.equals(this.id, docsRDTO.id) &&
+        Objects.equals(this.idioma, docsRDTO.idioma) &&
+        Objects.equals(this.idiomaDigitalitzacio, docsRDTO.idiomaDigitalitzacio) &&
+        Objects.equals(this.metadata, docsRDTO.metadata) &&
+        Objects.equals(this.migracioIdOrigen, docsRDTO.migracioIdOrigen) &&
+        Objects.equals(this.numDocsConfiguracio, docsRDTO.numDocsConfiguracio) &&
+        Objects.equals(this.obligatoriEnEstat, docsRDTO.obligatoriEnEstat) &&
+        Objects.equals(this.origen, docsRDTO.origen) &&
+        Objects.equals(this.plantillaPdf, docsRDTO.plantillaPdf) &&
+        Objects.equals(this.registreAssentament, docsRDTO.registreAssentament) &&
+        Objects.equals(this.registreIdext, docsRDTO.registreIdext) &&
+        Objects.equals(this.seleccionable, docsRDTO.seleccionable) &&
+        Objects.equals(this.tipusMimeDescripcio, docsRDTO.tipusMimeDescripcio) &&
+        Objects.equals(this.ultimaModificacioIdext, docsRDTO.ultimaModificacioIdext) &&
+        Objects.equals(this.urlDigitalitzacio, docsRDTO.urlDigitalitzacio) &&
+        Objects.equals(this.usuariIdext, docsRDTO.usuariIdext);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(codi, comentari, configDocEntrada, configuracioDocsEntrada, configuracioDocsEntradaNom, configuracioDocsEntradaNomCastella, dataCreacio, dataDigitalitzacio, dataPresentacio, dataUltimaModificacio, declaracioResponsable, digitalitzat, docsFisics, docsFisicsNom, documentFisic, documentacio, editable, eliminat, estatDigitalitzacio, id, idIdiomaPlantilla, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, nou, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreCodi, registreIdext, requerit, revisio, seleccionable, tipusMimeDescripcio, tramitOvtIdext, ultimaModificacioIdext, urlDigitalitzacio, usuariIdext);
+    return Objects.hash(codi, comentari, dataCreacio, dataDigitalitzacio, dataUltimaModificacio, digitalitzat, docsFisics, docsFisicsNom, documentFisic, documentacio, editable, eliminat, estatDigitalitzacio, id, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreIdext, seleccionable, tipusMimeDescripcio, ultimaModificacioIdext, urlDigitalitzacio, usuariIdext);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DocsEntradaRDTO {\n");
+    sb.append("class DocsRDTO {\n");
     
     sb.append("    codi: ").append(toIndentedString(codi)).append("\n");
     sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
-    sb.append("    configDocEntrada: ").append(toIndentedString(configDocEntrada)).append("\n");
-    sb.append("    configuracioDocsEntrada: ").append(toIndentedString(configuracioDocsEntrada)).append("\n");
-    sb.append("    configuracioDocsEntradaNom: ").append(toIndentedString(configuracioDocsEntradaNom)).append("\n");
-    sb.append("    configuracioDocsEntradaNomCastella: ").append(toIndentedString(configuracioDocsEntradaNomCastella)).append("\n");
     sb.append("    dataCreacio: ").append(toIndentedString(dataCreacio)).append("\n");
     sb.append("    dataDigitalitzacio: ").append(toIndentedString(dataDigitalitzacio)).append("\n");
-    sb.append("    dataPresentacio: ").append(toIndentedString(dataPresentacio)).append("\n");
     sb.append("    dataUltimaModificacio: ").append(toIndentedString(dataUltimaModificacio)).append("\n");
-    sb.append("    declaracioResponsable: ").append(toIndentedString(declaracioResponsable)).append("\n");
     sb.append("    digitalitzat: ").append(toIndentedString(digitalitzat)).append("\n");
     sb.append("    docsFisics: ").append(toIndentedString(docsFisics)).append("\n");
     sb.append("    docsFisicsNom: ").append(toIndentedString(docsFisicsNom)).append("\n");
@@ -986,24 +715,18 @@ public class DocsEntradaRDTO {
     sb.append("    eliminat: ").append(toIndentedString(eliminat)).append("\n");
     sb.append("    estatDigitalitzacio: ").append(toIndentedString(estatDigitalitzacio)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    idIdiomaPlantilla: ").append(toIndentedString(idIdiomaPlantilla)).append("\n");
     sb.append("    idioma: ").append(toIndentedString(idioma)).append("\n");
     sb.append("    idiomaDigitalitzacio: ").append(toIndentedString(idiomaDigitalitzacio)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
     sb.append("    migracioIdOrigen: ").append(toIndentedString(migracioIdOrigen)).append("\n");
-    sb.append("    nou: ").append(toIndentedString(nou)).append("\n");
     sb.append("    numDocsConfiguracio: ").append(toIndentedString(numDocsConfiguracio)).append("\n");
     sb.append("    obligatoriEnEstat: ").append(toIndentedString(obligatoriEnEstat)).append("\n");
     sb.append("    origen: ").append(toIndentedString(origen)).append("\n");
     sb.append("    plantillaPdf: ").append(toIndentedString(plantillaPdf)).append("\n");
     sb.append("    registreAssentament: ").append(toIndentedString(registreAssentament)).append("\n");
-    sb.append("    registreCodi: ").append(toIndentedString(registreCodi)).append("\n");
     sb.append("    registreIdext: ").append(toIndentedString(registreIdext)).append("\n");
-    sb.append("    requerit: ").append(toIndentedString(requerit)).append("\n");
-    sb.append("    revisio: ").append(toIndentedString(revisio)).append("\n");
     sb.append("    seleccionable: ").append(toIndentedString(seleccionable)).append("\n");
     sb.append("    tipusMimeDescripcio: ").append(toIndentedString(tipusMimeDescripcio)).append("\n");
-    sb.append("    tramitOvtIdext: ").append(toIndentedString(tramitOvtIdext)).append("\n");
     sb.append("    ultimaModificacioIdext: ").append(toIndentedString(ultimaModificacioIdext)).append("\n");
     sb.append("    urlDigitalitzacio: ").append(toIndentedString(urlDigitalitzacio)).append("\n");
     sb.append("    usuariIdext: ").append(toIndentedString(usuariIdext)).append("\n");

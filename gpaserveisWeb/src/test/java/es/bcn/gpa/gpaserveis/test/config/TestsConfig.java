@@ -10,7 +10,7 @@ import org.springframework.core.env.Environment;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
@@ -285,17 +285,17 @@ public class TestsConfig implements EnvironmentAware {
 	}
 
 	@Bean
-	public DownloadEntradaApi downloadEntradaApi() {
+	public DownloadApi downloadApi() {
 		if (log.isDebugEnabled()) {
-			log.debug("downloadEntradaApi() - inici"); //$NON-NLS-1$
+			log.debug("downloadApi() - inici"); //$NON-NLS-1$
 		}
 
-		DownloadEntradaApi downloadEntradaApi = Mockito.mock(DownloadEntradaApi.class);
+		DownloadApi downloadApi = Mockito.mock(DownloadApi.class);
 
 		if (log.isDebugEnabled()) {
-			log.debug("downloadEntradaApi() - fi"); //$NON-NLS-1$
+			log.debug("downloadApi() - fi"); //$NON-NLS-1$
 		}
-		return downloadEntradaApi;
+		return downloadApi;
 	}
 
 	@Bean
