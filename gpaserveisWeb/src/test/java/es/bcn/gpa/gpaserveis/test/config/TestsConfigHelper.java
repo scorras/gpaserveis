@@ -24,6 +24,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
@@ -1391,6 +1392,23 @@ public class TestsConfigHelper {
 		expedientsRDTO.setCodi("Codi/2019/000001");
 
 		return expedientsRDTO;
+	}
+
+	/**
+	 * Consultar dades document response.
+	 *
+	 * @return the docs RDTO
+	 */
+	public static DocsRDTO consultarDadesDocumentResponse() {
+		DocsFisics docsFisics = new DocsFisics();
+		docsFisics.setId(ONE);
+		DocsRDTO docsRDTO = new DocsRDTO();
+		docsRDTO.setId(ONE);
+		docsRDTO.setDocsFisics(docsFisics);
+		docsRDTO.setDocumentacio(ONE);
+		docsRDTO.setCodi(ONE.toString());
+
+		return docsRDTO;
 	}
 
 	/**

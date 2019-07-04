@@ -2,7 +2,7 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatsRDTO;
+import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,16 +24,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-03T21:35:26.370+02:00")
-@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.EstatsDocumentApi")
-public class EstatsDocumentApi {
+@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadApi")
+public class DownloadApi {
     private ApiClient apiClient;
 
-    public EstatsDocumentApi() {
+    public DownloadApi() {
         this(new ApiClient());
     }
 
     @Autowired
-    public EstatsDocumentApi(ApiClient apiClient) {
+    public DownloadApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -46,19 +46,35 @@ public class EstatsDocumentApi {
     }
 
     /**
-     * Returns all the estatsDocument
+     * Downloads the document
      * 
      * <p><b>200</b> - OK
      * <p><b>401</b> - Unauthorized
      * <p><b>403</b> - Forbidden
      * <p><b>404</b> - Not Found
-     * @return List&lt;EstatsRDTO&gt;
+     * @param idDoc idDoc
+     * @param idExpedient idExpedient
+     * @return byte[]
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<EstatsRDTO> getEstatsDocumentUsingGET() throws RestClientException {
+    public byte[] descarregarDocumentExpedient(BigDecimal idDoc, BigDecimal idExpedient) throws RestClientException {
         Object postBody = null;
         
-        String path = UriComponentsBuilder.fromPath("/documentacio/catalog/estatsDocument").build().toUriString();
+        // verify the required parameter 'idDoc' is set
+        if (idDoc == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idDoc' when calling descarregarDocumentExpedient");
+        }
+        
+        // verify the required parameter 'idExpedient' is set
+        if (idExpedient == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idExpedient' when calling descarregarDocumentExpedient");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("idDoc", idDoc);
+        uriVariables.put("idExpedient", idExpedient);
+        String path = UriComponentsBuilder.fromPath("/documentacio/descarregarDocument/{idExpedient}/{idDoc}").buildAndExpand(uriVariables).toUriString();
         
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();
@@ -73,7 +89,7 @@ public class EstatsDocumentApi {
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<List<EstatsRDTO>> returnType = new ParameterizedTypeReference<List<EstatsRDTO>>() {};
+        ParameterizedTypeReference<byte[]> returnType = new ParameterizedTypeReference<byte[]>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }

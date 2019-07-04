@@ -21,7 +21,7 @@ import es.bcn.gpa.gpaserveis.business.exception.GPAServeisRuntimeException;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
@@ -129,9 +129,9 @@ public abstract class ParentTest {
 	@Autowired
 	protected DadesEspecifiquesApi dadesEspecifiquesApi;
 
-	/** The download entrada api. */
+	/** The download api. */
 	@Autowired
-	protected DownloadEntradaApi downloadEntradaApi;
+	protected DownloadApi downloadApi;
 
 	/** The comentaris api. */
 	@Autowired
@@ -316,6 +316,9 @@ public abstract class ParentTest {
 			when(expedients_Api.actualitzarDadesSollicitud(any(ActualitzarDadesSollicitud.class)))
 			        .thenReturn(TestsConfigHelper.crearSollicitudExpedientResponse());
 
+			when(documentacioApi.consultarDadesDocument(any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.consultarDadesDocumentResponse());
+
 			when(documentacioApi.consultarDadesDocumentAportat(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesDocumentAportatResponse());
 
@@ -324,7 +327,7 @@ public abstract class ParentTest {
 
 			doNothing().when(documentacioApi).esborrarDocumentExpedient(any(List.class), any(BigDecimal.class));
 
-			when(downloadEntradaApi.descarregarDocumentEntradaExpedient(any(BigDecimal.class), any(BigDecimal.class)))
+			when(downloadApi.descarregarDocumentExpedient(any(BigDecimal.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.descarregarDocumentExpedientResponse());
 
 			doNothing().when(comentarisApi).crearComentariAccio(any(BigDecimal.class), any(BigDecimal.class),

@@ -28,6 +28,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPorta
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
@@ -217,6 +218,15 @@ public interface DocumentsService {
 	void esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO) throws GPAServeisServiceException;
 
 	/**
+	 * Consultar dades document.
+	 *
+	 * @param idDocument
+	 *            the id document
+	 * @return the docs RDTO
+	 */
+	DocsRDTO consultarDadesDocument(BigDecimal idDocument) throws GPAServeisServiceException;
+
+	/**
 	 * Consultar dades document aportat.
 	 *
 	 * @param id
@@ -239,7 +249,7 @@ public interface DocumentsService {
 	DocsTramitacioRDTO consultarDadesDocumentGenerat(BigDecimal id) throws GPAServeisServiceException;
 
 	/**
-	 * Descarregar document entrada expedient.
+	 * Descarregar document expedient.
 	 *
 	 * @param descarregarDocumentExpedientBDTO
 	 *            the descarregar document expedient BDTO
@@ -247,7 +257,7 @@ public interface DocumentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	byte[] descarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
+	byte[] descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
 	        throws GPAServeisServiceException;
 
 	/**

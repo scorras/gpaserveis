@@ -46,7 +46,7 @@ import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadEntradaApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ActualitzarNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
@@ -54,6 +54,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPorta
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
@@ -89,9 +90,9 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Autowired
 	private DocumentacioRequeritApi documentacioRequeritApi;
 
-	/** The download entrada api. */
+	/** The download api. */
 	@Autowired
-	private DownloadEntradaApi downloadEntradaApi;
+	private DownloadApi downloadApi;
 
 	/** The notificacions api. */
 	@Autowired
@@ -1043,6 +1044,51 @@ public class DocumentsServiceImpl implements DocumentsService {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#consultarDadesDocument(
+	 * java.math.BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesDocument")
+	public DocsRDTO consultarDadesDocument(BigDecimal idDocument) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarDadesDocument(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsRDTO docsRDTO = documentacioApi.consultarDadesDocument(idDocument);
+
+			if (log.isDebugEnabled()) {
+				log.debug("consultarDadesDocument(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			return docsRDTO;
+		} catch (RestClientException e) {
+			log.error("consultarDadesDocument(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback consultar dades document.
+	 *
+	 * @param idDocument
+	 *            the id document
+	 * @return the docs RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsRDTO fallbackConsultarDadesDocument(BigDecimal idDocument) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackConsultarDadesDocument(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
 	 * consultarDadesDocumentAportat(java.math.BigDecimal)
 	 */
@@ -1132,34 +1178,34 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
-	 * descarregarDocumentEntradaExpedient(es.bcn.gpa.gpaserveis.business.dto.
+	 * descarregarDocumentExpedient(es.bcn.gpa.gpaserveis.business.dto.
 	 * documents.DescarregarDocumentExpedientBDTO)
 	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackDescarregarDocumentEntradaExpedient")
-	public byte[] descarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
+	@HystrixCommand(fallbackMethod = "fallbackDescarregarDocumentExpedient")
+	public byte[] descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("descarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
+			log.debug("descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			byte[] documentByteArray = downloadEntradaApi.descarregarDocumentEntradaExpedient(
-			        descarregarDocumentExpedientBDTO.getIdDocument(), descarregarDocumentExpedientBDTO.getIdExpedient());
+			byte[] documentByteArray = downloadApi.descarregarDocumentExpedient(descarregarDocumentExpedientBDTO.getIdDocument(),
+			        descarregarDocumentExpedientBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
-				log.debug("descarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO) - fi"); //$NON-NLS-1$
+				log.debug("descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO) - fi"); //$NON-NLS-1$
 			}
 			return documentByteArray;
 		} catch (RestClientException e) {
-			log.error("descarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO)", e); //$NON-NLS-1$
+			log.error("descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
 	}
 
 	/**
-	 * Fallback descarregar document entrada expedient.
+	 * Fallback descarregar document expedient.
 	 *
 	 * @param descarregarDocumentExpedientBDTO
 	 *            the descarregar document expedient BDTO
@@ -1167,10 +1213,10 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public byte[] fallbackDescarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
+	public byte[] fallbackDescarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackDescarregarDocumentEntradaExpedient(DescarregarDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
+			log.debug("fallbackDescarregarDocumentExpedient(DescarregarDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		throw new GPAServeisServiceException("El servei de documentacio no està disponible");
