@@ -1241,7 +1241,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	@PostMapping(value = "/expedients/{codiExpedient}/documentacio", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@PostMapping(value = "/expedients/{codiExpedient}/documentacio")
 	@ApiOperation(value = "Incorporar un nou document electrònic", tags = { "Serveis Tramitadors API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaIncorporarNouDocumentRDTO incorporarNouDocumentExpedient(
@@ -1762,7 +1762,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	@PostMapping(value = "/expedients/{codiExpedient}/documentacio/requeriment", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@PostMapping(value = "/expedients/{codiExpedient}/documentacio/requeriment")
 	@ApiOperation(value = "Preparar un requeriment a l’interessat", tags = { "Serveis Tramitadors API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaPrepararRequerimentRDTO prepararRequerimentExpedient(
