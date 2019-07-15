@@ -179,6 +179,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.validar.ExpedientValidacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.validar.RespostaValidarExpedientRDTO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Extension;
@@ -1241,9 +1243,10 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	@PostMapping(value = "/expedients/{codiExpedient}/documentacio")
+	@PostMapping(value = "/expedients/{codiExpedient}/documentacio", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ApiOperation(value = "Incorporar un nou document electrònic", tags = { "Serveis Tramitadors API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	@ApiImplicitParams(@ApiImplicitParam(name = "document", value = "document", dataType = "string", paramType = "form", required = true))
 	public RespostaIncorporarNouDocumentRDTO incorporarNouDocumentExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Fitxer") @RequestParam("file") MultipartFile file,
@@ -1762,9 +1765,10 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	@PostMapping(value = "/expedients/{codiExpedient}/documentacio/requeriment")
+	@PostMapping(value = "/expedients/{codiExpedient}/documentacio/requeriment", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ApiOperation(value = "Preparar un requeriment a l’interessat", tags = { "Serveis Tramitadors API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	@ApiImplicitParams(@ApiImplicitParam(name = "requeriment", value = "requeriment", dataType = "string", paramType = "form", required = true))
 	public RespostaPrepararRequerimentRDTO prepararRequerimentExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Fitxer") @RequestParam("file") MultipartFile file,
