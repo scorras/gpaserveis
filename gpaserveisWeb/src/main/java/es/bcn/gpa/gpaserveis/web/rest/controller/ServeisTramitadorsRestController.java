@@ -1246,11 +1246,11 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	@PostMapping(value = "/expedients/{codiExpedient}/documentacio", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ApiOperation(value = "Incorporar un nou document electrònic", tags = { "Serveis Tramitadors API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	@ApiImplicitParams(@ApiImplicitParam(name = "document", value = "document", dataType = "string", paramType = "form", required = true))
+	@ApiImplicitParams(@ApiImplicitParam(name = "document", value = "Dades del document a incorporar", dataType = "string", paramType = "form", required = true))
 	public RespostaIncorporarNouDocumentRDTO incorporarNouDocumentExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Fitxer") @RequestParam("file") MultipartFile file,
-	        @ApiParam(value = "Dades del document a incorporar") @RequestParam("document") DocumentIncorporacioNouRDTO documentIncorporacioNou)
+	        @ApiParam(value = "Fitxer", required = true) @RequestParam("file") MultipartFile file,
+	        @RequestParam("document") DocumentIncorporacioNouRDTO documentIncorporacioNou)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("incorporarNouDocumentExpedientExpedient(String, DocumentIncorporacioNouRDTO) - inici"); //$NON-NLS-1$
@@ -1768,11 +1768,11 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	@PostMapping(value = "/expedients/{codiExpedient}/documentacio/requeriment", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ApiOperation(value = "Preparar un requeriment a l’interessat", tags = { "Serveis Tramitadors API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	@ApiImplicitParams(@ApiImplicitParam(name = "requeriment", value = "requeriment", dataType = "string", paramType = "form", required = true))
+	@ApiImplicitParams(@ApiImplicitParam(name = "requeriment", value = "Dades del requeriment a preparar", dataType = "string", paramType = "form", required = true))
 	public RespostaPrepararRequerimentRDTO prepararRequerimentExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Fitxer") @RequestParam("file") MultipartFile file,
-	        @ApiParam(value = "Dades del requeriment a preparar") @RequestParam("requeriment") RequerimentPreparacioRDTO requerimentPreparacio)
+	        @ApiParam(value = "Fitxer", required = true) @RequestParam("file") MultipartFile file,
+	        @RequestParam("requeriment") RequerimentPreparacioRDTO requerimentPreparacio)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("prepararRequerimentExpedient(String, RequerimentPreparacioRDTO) - inici"); //$NON-NLS-1$
