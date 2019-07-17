@@ -2120,12 +2120,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	@PostMapping("/expedients/{codiExpedient}/documentacio/{idDocument}/notificar")
+	@PostMapping("/expedients/{codiExpedient}/documentacio/{idDocumentPrincipal}/notificar")
 	@ApiOperation(value = "Enviar notificació de l'expedient", tags = { "Serveis Tramitadors API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaNotificarExpedientRDTO notificarExpedient(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
+			@ApiParam(value = "Identificador del document principal", required = true) @PathVariable BigDecimal idDocumentPrincipal,
 			@ApiParam(value = "Dades de la notificació de l'expedient") @RequestBody ExpedientNotificacioRDTO expedientNotificacio)
 			throws GPAServeisServiceException {
 
@@ -2145,9 +2145,17 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// El id del documento debe existir y pertenecer al expediente
 			// indicado
-			DocsTramitacioRDTO docsTramitacioRDTO = serveisService.consultarDadesDocumentGenerat(idDocument);
+			DocsTramitacioRDTO docsTramitacioRDTO = serveisService.consultarDadesDocumentGenerat(idDocumentPrincipal);
 			ServeisRestControllerValidationHelper.validateDocumentGenerat(docsTramitacioRDTO, dadesExpedientBDTO,
 					Resultat.ERROR_NOTIFICAR_EXPEDIENT);
+
+			if (CollectionUtils.isNotEmpty(expedientNotificacio.getIdsAnnexosList())) {
+				for (BigDecimal idAnnexe : expedientNotificacio.getIdsAnnexosList()) {
+					docsTramitacioRDTO = serveisService.consultarDadesDocumentGenerat(idAnnexe);
+					ServeisRestControllerValidationHelper.validateDocumentGenerat(docsTramitacioRDTO, dadesExpedientBDTO,
+							Resultat.ERROR_NOTIFICAR_EXPEDIENT);
+				}
+			}
 
 			// Notificar si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
@@ -2156,7 +2164,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// Crear Notificación
 			CrearNotificacio crearNotificacio = modelMapper.map(expedientNotificacio, CrearNotificacio.class);
 			crearNotificacio.setCodiExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
-			crearNotificacio.setIdDocument(docsTramitacioRDTO.getId());
+			crearNotificacio.setIdDocumentPrincipal(idDocumentPrincipal);
+			crearNotificacio.setIdsAnnexosList(expedientNotificacio.getIdsAnnexosList());
 			crearNotificacio.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
 			crearNotificacio.setNomProcediment(dadesExpedientBDTO.getExpedientsRDTO().getNomProcediment());
 			DocumentCrearNotificacioBDTO documentCrearNotificacioBDTO = new DocumentCrearNotificacioBDTO(crearNotificacio);
