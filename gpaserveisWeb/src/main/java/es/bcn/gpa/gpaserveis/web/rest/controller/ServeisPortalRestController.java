@@ -303,6 +303,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		// El id del Procedimiento debe ser válido
 		if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
 			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND.getDescripcio());
+			// TODO return 404
 		}
 		ProcedimentsConsultaRDTO procedimentsConsultaRDTO = modelMapper.map(dadesProcedimentBDTO, ProcedimentsConsultaRDTO.class);
 		respostaConsultaProcedimentsRDTO.setProcediment(procedimentsConsultaRDTO);
