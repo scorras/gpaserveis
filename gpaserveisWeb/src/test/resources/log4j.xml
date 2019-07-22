@@ -10,12 +10,12 @@
 	</appender>
 
 	<category name="org.springframework" additivity="false">
-		<level value="info" />
+		<level value="debug" />
 		<appender-ref ref="CONSOLE" />
 	</category>
 
 	<category name="net.opentrends.openframe.services" additivity="false">
-		<level value="info" />
+		<level value="debug" />
 		<appender-ref ref="CONSOLE" />
 	</category>
 
@@ -25,7 +25,7 @@
 	</category>
 
 	<root>
-		<level value="info" />
+		<level value="debug" />
 		<appender-ref ref="CONSOLE" />
 	</root>
 

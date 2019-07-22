@@ -10,7 +10,7 @@
 	</appender>
 
 	<category name="org.springframework" additivity="false">
-		<level value="debug" />
+		<level value="info" />
 		<appender-ref ref="CONSOLE" />
 	</category>
 
@@ -20,12 +20,12 @@
 	</category>
 
 	<category name="es.bcn.gpa.gpaserveis" additivity="false">
-		<level value="debug" />
+		<level value="info" />
 		<appender-ref ref="CONSOLE" />
 	</category>
 
 	<root>
-		<level value="debug" />
+		<level value="info" />
 		<appender-ref ref="CONSOLE" />
 	</root>
 
