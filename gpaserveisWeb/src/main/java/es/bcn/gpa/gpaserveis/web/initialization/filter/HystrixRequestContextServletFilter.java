@@ -20,7 +20,7 @@ public class HystrixRequestContextServletFilter implements Filter {
         try {
             chain.doFilter(request, response);
         } finally {
-            context.shutdown();
+            context.close();
         }
     }
 
