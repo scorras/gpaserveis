@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheKey;
+import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheResult;
 
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
@@ -81,8 +83,9 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 	 * consultarDadesUnitatGestora(java.math.BigDecimal)
 	 */
 	@Override
+	@CacheResult
 	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesUnitatGestora")
-	public UnitatsGestoresRDTO consultarDadesUnitatGestora(BigDecimal id) throws GPAServeisServiceException {
+	public UnitatsGestoresRDTO consultarDadesUnitatGestora(@CacheKey BigDecimal id) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("consultarDadesUnitatGestora(BigDecimal) - inici"); //$NON-NLS-1$
 		}
