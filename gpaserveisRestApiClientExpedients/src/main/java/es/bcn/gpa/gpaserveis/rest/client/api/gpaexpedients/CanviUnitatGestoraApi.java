@@ -7,14 +7,14 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraMassiuRDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-18T17:48:56.871+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-24T01:06:10.329+02:00")
 public class CanviUnitatGestoraApi {
   private ApiClient apiClient;
 
@@ -37,15 +37,15 @@ public class CanviUnitatGestoraApi {
   /**
    * Changes the unitat gestora of the provided expedient
    * 
-   * @param canviUnitatGestoraRDTO canviUnitatGestoraRDTO (required)
+   * @param canviUnitatGestoraMassiuRDTO canviUnitatGestoraMassiuRDTO (required)
    * @throws ApiException if fails to make API call
    */
-  public void canviarUnitatGestoraExpedient(CanviUnitatGestoraRDTO canviUnitatGestoraRDTO) throws ApiException {
-    Object localVarPostBody = canviUnitatGestoraRDTO;
+  public void canviarUnitatGestoraExpedient(CanviUnitatGestoraMassiuRDTO canviUnitatGestoraMassiuRDTO) throws ApiException {
+    Object localVarPostBody = canviUnitatGestoraMassiuRDTO;
     
-    // verify the required parameter 'canviUnitatGestoraRDTO' is set
-    if (canviUnitatGestoraRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'canviUnitatGestoraRDTO' when calling canviarUnitatGestoraExpedient");
+    // verify the required parameter 'canviUnitatGestoraMassiuRDTO' is set
+    if (canviUnitatGestoraMassiuRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'canviUnitatGestoraMassiuRDTO' when calling canviarUnitatGestoraExpedient");
     }
     
     // create path and map variables

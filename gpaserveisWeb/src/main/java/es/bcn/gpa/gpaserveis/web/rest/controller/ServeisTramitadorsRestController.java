@@ -58,7 +58,6 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentGeneratRegistrarCom
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAcumularBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarUnitatGestoraBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaAcumularBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
@@ -98,12 +97,16 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPort
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.UsuariPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraBDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraMassiuRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Comentaris;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarBDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarMassiuRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownItemBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarLaTramitacioRDTO;
@@ -1095,16 +1098,18 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        AccioTramitadorApiParamValue.CONVIDAR_TRAMITAR, Resultat.ERROR_CONVIDAR_TRAMITAR_EXPEDIENT);
 
 			// Asociación de la UG invitada a tramitar
-			ConvidarTramitarRDTO convidarTramitarRDTO = new ConvidarTramitarRDTO();
-			convidarTramitarRDTO.setIdExpedientList(Arrays.asList(dadesExpedientBDTO.getExpedientsRDTO().getId()));
+			ConvidarTramitarMassiuRDTO convidarTramitarMassiuRDTO = new ConvidarTramitarMassiuRDTO();
+			ConvidarTramitarBDTO convidarTramitarBDTO = new ConvidarTramitarBDTO();
+			convidarTramitarBDTO.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
 			DropdownItemBDTO dropdownItemBDTO = new DropdownItemBDTO();
 			dropdownItemBDTO.setId(unitatsGestoresRDTO.getId());
 			dropdownItemBDTO.setDescripcio(unitatsGestoresRDTO.getDescripcio());
-			convidarTramitarRDTO.setUnitatGestoraConvidada(dropdownItemBDTO);
+			convidarTramitarBDTO.setUnitatGestoraConvidada(dropdownItemBDTO);
 			Comentaris comentaris = new Comentaris();
 			comentaris.setDescripcio(expedientConvidarTramitar.getComentari());
-			convidarTramitarRDTO.setComentari(comentaris);
-			ExpedientsConvidarTramitarBDTO expedientsConvidarTramitarBDTO = new ExpedientsConvidarTramitarBDTO(convidarTramitarRDTO);
+			convidarTramitarBDTO.setComentari(comentaris);
+			convidarTramitarMassiuRDTO.setConvidarTramitarList(Arrays.asList(convidarTramitarBDTO));
+			ExpedientsConvidarTramitarBDTO expedientsConvidarTramitarBDTO = new ExpedientsConvidarTramitarBDTO(convidarTramitarMassiuRDTO);
 			serveisService.convidarTramitarExpedient(expedientsConvidarTramitarBDTO);
 
 			// Crear comentario
@@ -1189,21 +1194,23 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        AccioTramitadorApiParamValue.CANVIAR_UNITAT_GESTORA, Resultat.ERROR_CANVIAR_UNITAT_GESTORA_EXPEDIENT);
 
 			// Asociación de la nueva UG
-			CanviUnitatGestoraRDTO canviUnitatGestoraRDTO = new CanviUnitatGestoraRDTO();
-			canviUnitatGestoraRDTO.setIdExpedientList(Arrays.asList(dadesExpedientBDTO.getExpedientsRDTO().getId()));
+			CanviUnitatGestoraMassiuRDTO canviUnitatGestoraMassiuRDTO = new CanviUnitatGestoraMassiuRDTO();
+			CanviUnitatGestoraBDTO canviUnitatGestoraBDTO = new CanviUnitatGestoraBDTO();
+			canviUnitatGestoraBDTO.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
 			DropdownItemBDTO unitatGestoraActual = new DropdownItemBDTO();
 			unitatGestoraActual.setId(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
 			unitatGestoraActual.setDescripcio(dadesExpedientBDTO.getExpedientsRDTO().getDescUnitatGestora());
-			canviUnitatGestoraRDTO.setUnitatGestoraActual(unitatGestoraActual);
+			canviUnitatGestoraBDTO.setUnitatGestoraActual(unitatGestoraActual);
 			DropdownItemBDTO unitatGestoraFutura = new DropdownItemBDTO();
 			unitatGestoraFutura.setId(unitatsGestoresRDTO.getId());
 			unitatGestoraFutura.setDescripcio(unitatsGestoresRDTO.getDescripcio());
-			canviUnitatGestoraRDTO.setUnitatGestoraFutura(unitatGestoraFutura);
+			canviUnitatGestoraBDTO.setUnitatGestoraFutura(unitatGestoraFutura);
 			Comentaris comentaris = new Comentaris();
 			comentaris.setDescripcio(expedientCanviUnitatGestora.getComentari());
-			canviUnitatGestoraRDTO.setComentari(comentaris);
+			canviUnitatGestoraBDTO.setComentari(comentaris);
+			canviUnitatGestoraMassiuRDTO.setCanviUnitatGestoraList(Arrays.asList(canviUnitatGestoraBDTO));
 			ExpedientsCanviarUnitatGestoraBDTO expedientsCanviarUnitatGestoraBDTO = new ExpedientsCanviarUnitatGestoraBDTO(
-			        canviUnitatGestoraRDTO);
+			        canviUnitatGestoraMassiuRDTO);
 			serveisService.canviarUnitatGestoraExpedient(expedientsCanviarUnitatGestoraBDTO);
 
 		} catch (GPAApiParamValidationException e) {
@@ -1424,7 +1431,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			usuariPortaSig.setNif(persona.getDocumentIdentitat());
 			usuariPortaSig.setNom(persona.getNom());
 			signarDocument.setUsuariPortaSig(usuariPortaSig);
-			PeticionsPortasig peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
+			List<PeticionsPortasig> peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
 			serveisService.signarValidarDocument(signarDocument);
 
 		} catch (GPAApiParamValidationException e) {
@@ -1504,7 +1511,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			usuariPortaSig.setNif(persona.getDocumentIdentitat());
 			usuariPortaSig.setNom(persona.getNom());
 			signarDocument.setUsuariPortaSig(usuariPortaSig);
-			PeticionsPortasig peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
+			List<PeticionsPortasig> peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
 			serveisService.signarValidarDocument(signarDocument);
 
 		} catch (GPAApiParamValidationException e) {
@@ -1897,26 +1904,37 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		RespostaAcumularExpedientRDTO respostaAcumularExpedientRDTO = null;
 		DadesExpedientBDTO dadesExpedientAcumulador = null;
 		DadesExpedientBDTO dadesExpedientAcumular = null;
-		List<DadesExpedientBDTO> dadesExpedientBDTOAcumulatsList = null;
+		List<ExpedientsRDTO> expedientsAcumulatsRDTOList = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACUMULAR_EXPEDIENT);
 		try {
 			// El codi del expediente acumulador debe existir y no debe estar ya
 			// acumulado
 			dadesExpedientAcumulador = serveisService.consultarDadesBasiquesExpedient(
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
-			ServeisRestControllerValidationHelper.validateExpedientAcumulador(dadesExpedientAcumulador, Resultat.ERROR_ACUMULAR_EXPEDIENT);
+			PageDataOfExpedientsRDTO pageDataOfExpedientsAcumuladorRDTO = null;
+			List<ExpedientsRDTO> expedientsRelacionatsAcumuladorRDTOList = null;
+			if (dadesExpedientAcumulador.getExpedientsRDTO() == null) {
+				pageDataOfExpedientsAcumuladorRDTO = serveisService
+				        .obtenirExpedientsRelacionats(dadesExpedientAcumulador.getExpedientsRDTO().getId());
+				expedientsRelacionatsAcumuladorRDTOList = pageDataOfExpedientsAcumuladorRDTO.getData();
+			}
+			ServeisRestControllerValidationHelper.validateExpedientAcumulador(dadesExpedientAcumulador,
+			        expedientsRelacionatsAcumuladorRDTOList, Resultat.ERROR_ACUMULAR_EXPEDIENT);
 
 			// El codi del expediente a acumular debe existir, ser diferente al
 			// acumulador indicado, pertenecer al mismo procedimiento y no estar
 			// ya acumulado a otro expediente
 			dadesExpedientAcumular = serveisService.consultarDadesBasiquesExpedient(
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(expedientAcumulacio.getCodiExpedient(), expedientsIdOrgan));
-			ExpedientsCercaAcumularBDTO expedientsCercaAcumularBDTO = new ExpedientsCercaAcumularBDTO(
-			        dadesExpedientAcumulador.getExpedientsRDTO().getProcedimentIdext());
-			RespostaExpedientsCercaBDTO respostaExpedientsAcumularCercaBDTO = serveisService
-			        .cercaExpedientsAcumular(expedientsCercaAcumularBDTO);
+			PageDataOfExpedientsRDTO pageDataOfExpedientsAcumularRDTO = null;
+			List<ExpedientsRDTO> expedientsRelacionatsAcumularRDTOList = null;
+			if (dadesExpedientAcumular.getExpedientsRDTO() == null) {
+				pageDataOfExpedientsAcumularRDTO = serveisService
+				        .obtenirExpedientsRelacionats(dadesExpedientAcumular.getExpedientsRDTO().getId());
+				expedientsRelacionatsAcumularRDTOList = pageDataOfExpedientsAcumularRDTO.getData();
+			}
 			ServeisRestControllerValidationHelper.validateExpedientAcumular(dadesExpedientAcumulador, dadesExpedientAcumular,
-			        respostaExpedientsAcumularCercaBDTO.getDadesExpedientBDTOList(), Resultat.ERROR_ACUMULAR_EXPEDIENT);
+			        expedientsRelacionatsAcumularRDTOList, Resultat.ERROR_ACUMULAR_EXPEDIENT);
 
 			// Acumular expediente si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientAcumulador,
@@ -1937,9 +1955,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			serveisService.acumularExpedient(expedientsAcumularBDTO);
 
 			// Se obtiene la lista actualizada de expedientes acumulados
-			RespostaExpedientsCercaBDTO respostaExpedientsAcumulatsCercaBDTO = serveisService
-			        .cercaExpedientsAcumulats(dadesExpedientAcumulador.getExpedientsRDTO().getId());
-			dadesExpedientBDTOAcumulatsList = respostaExpedientsAcumulatsCercaBDTO.getDadesExpedientBDTOList();
+			expedientsAcumulatsRDTOList = serveisService.cercaExpedientsAcumulats(dadesExpedientAcumulador.getExpedientsRDTO().getId());
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("acumularExpedient(String, ExpedientAcumulacioRDTO)", e);
@@ -1954,7 +1970,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		RespostaExpedientsAcumularBDTO respostaExpedientsAcumularBDTO = new RespostaExpedientsAcumularBDTO(
-		        dadesExpedientAcumulador != null ? dadesExpedientAcumulador.getExpedientsRDTO() : null, dadesExpedientBDTOAcumulatsList,
+		        dadesExpedientAcumulador != null ? dadesExpedientAcumulador.getExpedientsRDTO() : null, expedientsAcumulatsRDTOList,
 		        respostaResultatBDTO);
 		respostaAcumularExpedientRDTO = modelMapper.map(respostaExpedientsAcumularBDTO, RespostaAcumularExpedientRDTO.class);
 

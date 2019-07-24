@@ -612,7 +612,7 @@ public class TestsConfigHelper {
 		return expedientsRDTO;
 	}
 
-	public static PageDataOfExpedientsRDTO cercaExpedientsAcumularResponse() {
+	public static PageDataOfExpedientsRDTO obtenirExpedientsRelacionatsResponse() {
 		PageDataOfExpedientsRDTO pageDataOfExpedientsRDTO = new PageDataOfExpedientsRDTO();
 		ArrayList<ExpedientsRDTO> expedientsRDTOList = new ArrayList<ExpedientsRDTO>();
 
@@ -1681,9 +1681,9 @@ public class TestsConfigHelper {
 		return pageDataOfDadesOperacionsRDTO;
 	}
 
-	public static PeticionsPortasig crearPeticioPortaSigResponse() {
+	public static List<PeticionsPortasig> crearPeticioPortaSigResponse() {
 		PeticionsPortasig peticionsPortasig = new PeticionsPortasig();
-		return peticionsPortasig;
+		return Arrays.asList(peticionsPortasig);
 	}
 
 	public static NotificacionsRDTO crearNotificacioResponse() {

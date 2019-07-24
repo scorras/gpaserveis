@@ -30,6 +30,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
@@ -46,9 +47,11 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.BooleanApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.TipusRelacioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.EstatApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TipusCampApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TipusValidacioApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusRelacioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TipusCampApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TipusValidacioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.DocumentsIdentitatRDTO;
@@ -152,21 +155,35 @@ public class ServeisRestControllerValidationHelper {
 	/**
 	 * Validate expedient acumulador.
 	 *
-	 * @param dadesExpedientBDTOAcumulador
-	 *            the dades expedient BDTO acumulador
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param expedientsRDTORelacionatsList
+	 *            the expedients RDTO relacionats list
 	 * @param resultatError
 	 *            the resultat error
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
-	public static void validateExpedientAcumulador(DadesExpedientBDTO dadesExpedientBDTOAcumulador, Resultat resultatError)
-	        throws GPAApiParamValidationException {
-		if (dadesExpedientBDTOAcumulador.getExpedientsRDTO() == null) {
+	public static void validateExpedientAcumulador(DadesExpedientBDTO dadesExpedientBDTO,
+	        List<ExpedientsRDTO> expedientsRDTORelacionatsAcumuladorList, Resultat resultatError) throws GPAApiParamValidationException {
+		if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULADOR_NOT_FOUND);
 		}
 
-		if (dadesExpedientBDTOAcumulador.getExpedientsRDTO().getAcumulador() != null) {
-			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULADOR_NOT_VALID_JA_ACUMULAT);
+		TipusRelacioApiParamValueTranslator tipusRelacioApiParamValueTranslator = new TipusRelacioApiParamValueTranslator();
+		TipusRelacioApiParamValue tipusRelacioApiParamValue = null;
+		if (CollectionUtils.isNotEmpty(expedientsRDTORelacionatsAcumuladorList)) {
+			for (ExpedientsRDTO expedientsRDTO : expedientsRDTORelacionatsAcumuladorList) {
+				tipusRelacioApiParamValue = tipusRelacioApiParamValueTranslator
+				        .getEnumByInternalValue(expedientsRDTO.getRelacioTipusRelacio());
+				switch (tipusRelacioApiParamValue) {
+				case OBJECTE_D_ACUMULACIO:
+					throw new GPAApiParamValidationException(resultatError,
+					        ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULADOR_NOT_VALID_JA_ACUMULAT);
+				default:
+					break;
+				}
+			}
 		}
 	}
 
@@ -177,15 +194,15 @@ public class ServeisRestControllerValidationHelper {
 	 *            the dades expedient BDTO acumulador
 	 * @param dadesExpedientBDTOAcumular
 	 *            the dades expedient BDTO acumular
-	 * @param dadesExpedientAcumularCercaBDTOList
-	 *            the dades expedient acumular cerca BDTO list
+	 * @param expedientsRDTORelacionatsAcumularList
+	 *            the expedients RDTO relacionats acumular list
 	 * @param resultatError
 	 *            the resultat error
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
 	public static void validateExpedientAcumular(DadesExpedientBDTO dadesExpedientBDTOAcumulador,
-	        DadesExpedientBDTO dadesExpedientBDTOAcumular, List<DadesExpedientBDTO> dadesExpedientAcumularCercaBDTOList,
+	        DadesExpedientBDTO dadesExpedientBDTOAcumular, List<ExpedientsRDTO> expedientsRDTORelacionatsAcumularList,
 	        Resultat resultatError) throws GPAApiParamValidationException {
 		if (dadesExpedientBDTOAcumular.getExpedientsRDTO() == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULAT_NOT_FOUND);
@@ -201,18 +218,20 @@ public class ServeisRestControllerValidationHelper {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULAT_NOT_VALID_MATEIX_PROCEDIMENT);
 		}
 
-		Boolean esAcumulable = Boolean.FALSE;
-		for (DadesExpedientBDTO dadesExpedientBDTO : dadesExpedientAcumularCercaBDTOList) {
-			if (dadesExpedientBDTOAcumular.getExpedientsRDTO().getId()
-			        .compareTo(dadesExpedientBDTO.getExpedientsRDTO().getId()) == NumberUtils.INTEGER_ZERO) {
-				esAcumulable = Boolean.TRUE;
-				break;
+		TipusRelacioApiParamValueTranslator tipusRelacioApiParamValueTranslator = new TipusRelacioApiParamValueTranslator();
+		TipusRelacioApiParamValue tipusRelacioApiParamValue = null;
+		if (CollectionUtils.isNotEmpty(expedientsRDTORelacionatsAcumularList)) {
+			for (ExpedientsRDTO expedientsRDTO : expedientsRDTORelacionatsAcumularList) {
+				tipusRelacioApiParamValue = tipusRelacioApiParamValueTranslator
+				        .getEnumByInternalValue(expedientsRDTO.getRelacioTipusRelacio());
+				switch (tipusRelacioApiParamValue) {
+				case ACUMULAT:
+					throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULAT_NOT_VALID_JA_ACUMULAT);
+				default:
+					break;
+				}
 			}
 		}
-		if (!esAcumulable) {
-			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULAT_NOT_VALID_JA_ACUMULAT);
-		}
-
 	}
 
 	/**

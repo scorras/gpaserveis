@@ -9,11 +9,14 @@ import javax.ws.rs.core.GenericType;
 
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.BloquejosRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CercaExpedientsIntraoperabilitatRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientOpenTextRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfComentarisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfHistoricsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PeticioDgt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaUnitatsExpedient;
@@ -23,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-18T17:48:56.871+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-24T01:06:10.329+02:00")
 public class ExpedientsApi {
   private ApiClient apiClient;
 
@@ -141,6 +144,47 @@ public class ExpedientsApi {
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
+   * cercaExpedientsIntraoperabilitat
+   * 
+   * @param codiExpedient codiExpedient (optional)
+   * @param idExpedient idExpedient (optional)
+   * @param nifSolicitant nifSolicitant (optional)
+   * @return List&lt;CercaExpedientsIntraoperabilitatRDTO&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<CercaExpedientsIntraoperabilitatRDTO> cercaExpedientsIntraoperabilitat(String codiExpedient, BigDecimal idExpedient, String nifSolicitant) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/expedients/cercaExpedientsIntraoperabilitat";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "codiExpedient", codiExpedient));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "idExpedient", idExpedient));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "nifSolicitant", nifSolicitant));
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<CercaExpedientsIntraoperabilitatRDTO>> localVarReturnType = new GenericType<List<CercaExpedientsIntraoperabilitatRDTO>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
    * Returns all the historic entries for the procedure that meet the search criteria
    * 
    * @param id id (required)
@@ -252,6 +296,40 @@ public class ExpedientsApi {
 
 
     apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
+  /**
+   * DesbloquejarTotsElsExpedientsUsuari
+   * 
+   * @throws ApiException if fails to make API call
+   */
+  public void desbloquejarTotsElsExpedientsUsuari() throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/expedients/desbloquejarTotsElsExpedientsUsuari";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+
+    apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
   }
   /**
    * ExpedientBloquejatPerUnAltreUsuari
@@ -463,6 +541,95 @@ public class ExpedientsApi {
     GenericType<RespostaUnitatsExpedient> localVarReturnType = new GenericType<RespostaUnitatsExpedient>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
+  /**
+   * Returns the requested expedient
+   * 
+   * @param codi codi (required)
+   * @param procObjecteDeRecursId procObjecteDeRecursId (required)
+   * @return ExpedientsRDTO
+   * @throws ApiException if fails to make API call
+   */
+  public ExpedientsRDTO obtenirExpedientObjecteDeRecurs(String codi, BigDecimal procObjecteDeRecursId) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'codi' is set
+    if (codi == null) {
+      throw new ApiException(400, "Missing the required parameter 'codi' when calling obtenirExpedientObjecteDeRecurs");
+    }
+    
+    // verify the required parameter 'procObjecteDeRecursId' is set
+    if (procObjecteDeRecursId == null) {
+      throw new ApiException(400, "Missing the required parameter 'procObjecteDeRecursId' when calling obtenirExpedientObjecteDeRecurs");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/expedients/obtenirExpedientObjecteDeRecurs/{codi}/{procObjecteDeRecursId}"
+      .replaceAll("\\{" + "codi" + "\\}", apiClient.escapeString(codi.toString()))
+      .replaceAll("\\{" + "procObjecteDeRecursId" + "\\}", apiClient.escapeString(procObjecteDeRecursId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<ExpedientsRDTO> localVarReturnType = new GenericType<ExpedientsRDTO>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * obtenirInfoInteroperabilitat
+   * 
+   * @param peticioDgtRDTO peticioDgtRDTO (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void obtenirInfoInteroperabilitat(PeticioDgt peticioDgtRDTO) throws ApiException {
+    Object localVarPostBody = peticioDgtRDTO;
+    
+    // verify the required parameter 'peticioDgtRDTO' is set
+    if (peticioDgtRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'peticioDgtRDTO' when calling obtenirInfoInteroperabilitat");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/expedients/obtenirInfoInteroperabilitat";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+
+    apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
   /**
    * Inserts new historic
    * 

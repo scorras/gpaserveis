@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-18T17:48:56.871+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-24T01:06:10.329+02:00")
 public class Expedients_Api {
   private ApiClient apiClient;
 
@@ -242,76 +242,6 @@ public class Expedients_Api {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "previousPageNumber", previousPageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sollicitant", sollicitant));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<PageDataOfExpedientsRDTO> localVarReturnType = new GenericType<PageDataOfExpedientsRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns the requested child expedients
-   * 
-   * @param idExpedient idExpedient (required)
-   * @param absoluteRowNumberOfFirstRowInCurrentPage  (optional)
-   * @param absoluteRowNumberOfLastRowInCurrentPage  (optional)
-   * @param currentPageHasNextPage  (optional)
-   * @param currentPageHasPreviousPage  (optional)
-   * @param currentPageIsFirstPage  (optional)
-   * @param currentPageIsLastPage  (optional)
-   * @param currentPageNumber  (optional)
-   * @param dir  (optional)
-   * @param nextPageNumber  (optional)
-   * @param pageSize  (optional)
-   * @param previousPageNumber  (optional)
-   * @param sort  (optional)
-   * @param totalElements  (optional)
-   * @param totalPages  (optional)
-   * @return PageDataOfExpedientsRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public PageDataOfExpedientsRDTO cercaExpedientsAcumulats(BigDecimal idExpedient, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'idExpedient' is set
-    if (idExpedient == null) {
-      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling cercaExpedientsAcumulats");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/acumulacioExpedients/{idExpedient}/acumulacio/children"
-      .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasNextPage", currentPageHasNextPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasPreviousPage", currentPageHasPreviousPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsFirstPage", currentPageIsFirstPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsLastPage", currentPageIsLastPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "nextPageNumber", nextPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "previousPageNumber", previousPageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
@@ -759,125 +689,6 @@ public class Expedients_Api {
     String[] localVarAuthNames = new String[] {  };
 
     GenericType<BigDecimal> localVarReturnType = new GenericType<BigDecimal>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns the requested parent&#39;s expedient
-   * 
-   * @param idExpedient idExpedient (required)
-   * @param absoluteRowNumberOfFirstRowInCurrentPage  (optional)
-   * @param absoluteRowNumberOfLastRowInCurrentPage  (optional)
-   * @param currentPageHasNextPage  (optional)
-   * @param currentPageHasPreviousPage  (optional)
-   * @param currentPageIsFirstPage  (optional)
-   * @param currentPageIsLastPage  (optional)
-   * @param currentPageNumber  (optional)
-   * @param dir  (optional)
-   * @param nextPageNumber  (optional)
-   * @param pageSize  (optional)
-   * @param previousPageNumber  (optional)
-   * @param sort  (optional)
-   * @param totalElements  (optional)
-   * @param totalPages  (optional)
-   * @return PageDataOfExpedientsRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public PageDataOfExpedientsRDTO getParentExpedientUsingGET(BigDecimal idExpedient, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'idExpedient' is set
-    if (idExpedient == null) {
-      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling getParentExpedientUsingGET");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/acumulacioExpedients/{idExpedient}/acumulacio/parent"
-      .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasNextPage", currentPageHasNextPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasPreviousPage", currentPageHasPreviousPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsFirstPage", currentPageIsFirstPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsLastPage", currentPageIsLastPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "nextPageNumber", nextPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "previousPageNumber", previousPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<PageDataOfExpedientsRDTO> localVarReturnType = new GenericType<PageDataOfExpedientsRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns the requested expedient
-   * 
-   * @param codi codi (required)
-   * @param procObjecteDeRecursId procObjecteDeRecursId (required)
-   * @return ExpedientsRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public ExpedientsRDTO obtenirExpedientObjecteDeRecurs(String codi, BigDecimal procObjecteDeRecursId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'codi' is set
-    if (codi == null) {
-      throw new ApiException(400, "Missing the required parameter 'codi' when calling obtenirExpedientObjecteDeRecurs");
-    }
-    
-    // verify the required parameter 'procObjecteDeRecursId' is set
-    if (procObjecteDeRecursId == null) {
-      throw new ApiException(400, "Missing the required parameter 'procObjecteDeRecursId' when calling obtenirExpedientObjecteDeRecurs");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/obtenirExpedientObjecteDeRecurs/{codi}/{procObjecteDeRecursId}"
-      .replaceAll("\\{" + "codi" + "\\}", apiClient.escapeString(codi.toString()))
-      .replaceAll("\\{" + "procObjecteDeRecursId" + "\\}", apiClient.escapeString(procObjecteDeRecursId.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<ExpedientsRDTO> localVarReturnType = new GenericType<ExpedientsRDTO>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**

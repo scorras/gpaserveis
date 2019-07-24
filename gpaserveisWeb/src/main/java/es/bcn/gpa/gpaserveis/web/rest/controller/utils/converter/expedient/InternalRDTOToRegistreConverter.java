@@ -34,11 +34,6 @@ public class InternalRDTOToRegistreConverter extends AbstractConverter<RegistreA
 	@Qualifier("expedientTipusSexeApiParamValueTranslator")
 	private BaseApiParamValueTranslator tipusSexeApiParamValueTranslator;
 
-	/** The tipus via api param value translator. */
-	@Autowired
-	@Qualifier("expedientTipusViaApiParamValueTranslator")
-	private BaseApiParamValueTranslator tipusViaApiParamValueTranslator;
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -53,7 +48,7 @@ public class InternalRDTOToRegistreConverter extends AbstractConverter<RegistreA
 			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
 			registreRDTO.setDataRegistre((source.getDataRegistre() != null) ? dateTimeFormatter.print(source.getDataRegistre()) : null);
 			registreRDTO.setPersona(ConverterHelper.buildPersonesRDTOExpedient(source.getPersones(), tipusPersonaApiParamValueTranslator,
-					tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator, tipusViaApiParamValueTranslator));
+			        tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator));
 		}
 		return registreRDTO;
 	}

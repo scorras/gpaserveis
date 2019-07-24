@@ -22,7 +22,6 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCerc
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadaEspecificaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaAcumularBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
@@ -58,6 +57,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.TipusRelacioApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusRelacioApiParamValueTranslator;
 
 /**
  * The Class ServeisServiceHelper.
@@ -231,66 +232,28 @@ public class ServeisServiceHelper {
 		return respostaExpedientsCercaBDTO;
 	}
 
-	/**
-	 * Load cerca expedients acumular.
-	 *
-	 * @param expedientsService
-	 *            the expedients service
-	 * @param expedientsCercaAcumularBDTO
-	 *            the expedients cerca acumular BDTO
-	 * @return the resposta expedients cerca BDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	public static RespostaExpedientsCercaBDTO loadCercaExpedientsAcumular(ExpedientsService expedientsService,
-	        ExpedientsCercaAcumularBDTO expedientsCercaAcumularBDTO) throws GPAServeisServiceException {
-		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = new RespostaExpedientsCercaBDTO();
-		ArrayList<DadesExpedientBDTO> dadesExpedientBDTOList = new ArrayList<DadesExpedientBDTO>();
-		DadesExpedientBDTO dadesExpedientBDTO = null;
-
-		PageDataOfExpedientsRDTO pageDataOfExpedientsRDTO = expedientsService.cercaExpedientsAcumular(expedientsCercaAcumularBDTO);
-
-		for (ExpedientsRDTO expedientsRDTO : pageDataOfExpedientsRDTO.getData()) {
-			dadesExpedientBDTO = new DadesExpedientBDTO();
-			dadesExpedientBDTO.setExpedientsRDTO(expedientsRDTO);
-			dadesExpedientBDTOList.add(dadesExpedientBDTO);
-		}
-
-		respostaExpedientsCercaBDTO.setDadesExpedientBDTOList(dadesExpedientBDTOList);
-		respostaExpedientsCercaBDTO.setPaginationAttributes(pageDataOfExpedientsRDTO.getPage());
-
-		return respostaExpedientsCercaBDTO;
-	}
-
-	/**
-	 * Load cerca expedients acumulats.
-	 *
-	 * @param expedientsService
-	 *            the expedients service
-	 * @param idExpedient
-	 *            the id expedient
-	 * @return the resposta expedients cerca BDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	public static RespostaExpedientsCercaBDTO loadCercaExpedientsAcumulats(ExpedientsService expedientsService, BigDecimal idExpedient)
+	public static List<ExpedientsRDTO> loadCercaExpedientsAcumulats(ExpedientsService expedientsService, BigDecimal idExpedient)
 	        throws GPAServeisServiceException {
-		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = new RespostaExpedientsCercaBDTO();
-		ArrayList<DadesExpedientBDTO> dadesExpedientBDTOList = new ArrayList<DadesExpedientBDTO>();
-		DadesExpedientBDTO dadesExpedientBDTO = null;
 
-		PageDataOfExpedientsRDTO pageDataOfExpedientsRDTO = expedientsService.cercaExpedientsAcumulats(idExpedient);
+		ArrayList<ExpedientsRDTO> expedientsAcumulatsRDTOList = new ArrayList<ExpedientsRDTO>();
+		PageDataOfExpedientsRDTO pageDataOfExpedientsRDTO = expedientsService.obtenirExpedientsRelacionats(idExpedient);
 
-		for (ExpedientsRDTO expedientsRDTO : pageDataOfExpedientsRDTO.getData()) {
-			dadesExpedientBDTO = new DadesExpedientBDTO();
-			dadesExpedientBDTO.setExpedientsRDTO(expedientsRDTO);
-			dadesExpedientBDTOList.add(dadesExpedientBDTO);
+		TipusRelacioApiParamValueTranslator tipusRelacioApiParamValueTranslator = new TipusRelacioApiParamValueTranslator();
+		TipusRelacioApiParamValue tipusRelacioApiParamValue = null;
+		if (pageDataOfExpedientsRDTO != null && CollectionUtils.isNotEmpty(pageDataOfExpedientsRDTO.getData())) {
+			for (ExpedientsRDTO expedientsRDTO : pageDataOfExpedientsRDTO.getData()) {
+				tipusRelacioApiParamValue = tipusRelacioApiParamValueTranslator
+				        .getEnumByInternalValue(expedientsRDTO.getRelacioTipusRelacio());
+				switch (tipusRelacioApiParamValue) {
+				case ACUMULAT:
+					expedientsAcumulatsRDTOList.add(expedientsRDTO);
+				default:
+					break;
+				}
+			}
 		}
 
-		respostaExpedientsCercaBDTO.setDadesExpedientBDTOList(dadesExpedientBDTOList);
-		respostaExpedientsCercaBDTO.setPaginationAttributes(pageDataOfExpedientsRDTO.getPage());
-
-		return respostaExpedientsCercaBDTO;
+		return expedientsAcumulatsRDTOList;
 	}
 
 	/**

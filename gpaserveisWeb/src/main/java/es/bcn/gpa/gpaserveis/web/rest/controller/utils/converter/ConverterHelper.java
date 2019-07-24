@@ -40,7 +40,6 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.common.Bo
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusDocumentIdentitatApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusPersonaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusSexeApiParamValueTranslator;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusViaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ConfiguracioDocumentacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.DadesContacteRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.DocumentsIdentitatRDTO;
@@ -118,14 +117,12 @@ public class ConverterHelper {
 	 *            the tipus document identitat api param value translator
 	 * @param tipusSexeApiParamValueTranslator
 	 *            the tipus sexe api param value translator
-	 * @param tipusViaApiParamValueTranslator
-	 *            the tipus via api param value translator
 	 * @return the persones RDTO
 	 */
 	public static PersonesRDTO buildPersonesRDTOExpedient(Persones persones,
 	        BaseApiParamValueTranslator tipusPersonaApiParamValueTranslator,
 	        BaseApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
-	        BaseApiParamValueTranslator tipusSexeApiParamValueTranslator, BaseApiParamValueTranslator tipusViaApiParamValueTranslator) {
+	        BaseApiParamValueTranslator tipusSexeApiParamValueTranslator) {
 
 		if (persones == null) {
 			return null;
@@ -142,8 +139,7 @@ public class ConverterHelper {
 			dadesContacte.setTelefon(persones.getPersonesDadescontacte().getTelefon());
 			dadesContacte.setMobil(persones.getPersonesDadescontacte().getMobil());
 			dadesContacte.setFax(persones.getPersonesDadescontacte().getFax());
-			dadesContacte.setTipusVia(
-			        tipusViaApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getTipusVia()));
+			dadesContacte.setTipusVia(persones.getPersonesDadescontacte().getTipusVia());
 			dadesContacte.setNomVia(persones.getPersonesDadescontacte().getDireccioPostal());
 			dadesContacte.setNumero(persones.getPersonesDadescontacte().getNumero());
 			dadesContacte.setEscala(persones.getPersonesDadescontacte().getEscala());
@@ -185,16 +181,13 @@ public class ConverterHelper {
 	 *            the tipus document identitat api param value translator
 	 * @param tipusSexeApiParamValueTranslator
 	 *            the tipus sexe api param value translator
-	 * @param tipusViaApiParamValueTranslator
-	 *            the tipus via api param value translator
 	 * @return the persones sollicitud
 	 */
 	public static PersonesSollicitud buildPersonesSollicitudExpedient(PersonesRDTO personesRDTO,
 	        RelacioPersonaApiParamValue relacioPersonaApiParamValue,
 	        TipusPersonaApiParamValueTranslator tipusPersonaApiParamValueTranslator,
 	        TipusDocumentIdentitatApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
-	        TipusSexeApiParamValueTranslator tipusSexeApiParamValueTranslator,
-	        TipusViaApiParamValueTranslator tipusViaApiParamValueTranslator) {
+	        TipusSexeApiParamValueTranslator tipusSexeApiParamValueTranslator) {
 		PersonesSollicitud personesSollicitud = null;
 
 		if (personesRDTO != null) {
@@ -223,8 +216,7 @@ public class ConverterHelper {
 				personesDadescontacte.setTelefon(personesRDTO.getDadesNotificacio().getTelefon());
 				personesDadescontacte.setMobil(personesRDTO.getDadesNotificacio().getMobil());
 				personesDadescontacte.setFax(personesRDTO.getDadesNotificacio().getFax());
-				personesDadescontacte.setTipusVia(
-				        tipusViaApiParamValueTranslator.getInternalValueByApiParamValue(personesRDTO.getDadesNotificacio().getTipusVia()));
+				personesDadescontacte.setTipusVia(personesRDTO.getDadesNotificacio().getTipusVia());
 				personesDadescontacte.setDireccioPostal(personesRDTO.getDadesNotificacio().getNomVia());
 				personesDadescontacte.setNumero(personesRDTO.getDadesNotificacio().getNumero());
 				personesDadescontacte.setEscala(personesRDTO.getDadesNotificacio().getEscala());
@@ -315,14 +307,12 @@ public class ConverterHelper {
 	 *            the tipus document identitat api param value translator
 	 * @param tipusSexeApiParamValueTranslator
 	 *            the tipus sexe api param value translator
-	 * @param tipusViaApiParamValueTranslator
-	 *            the tipus via api param value translator
 	 * @return the persones RDTO
 	 */
 	public static PersonesRDTO buildPersonesRDTOExpedient(es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones persones,
 	        BaseApiParamValueTranslator tipusPersonaApiParamValueTranslator,
 	        BaseApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
-	        BaseApiParamValueTranslator tipusSexeApiParamValueTranslator, BaseApiParamValueTranslator tipusViaApiParamValueTranslator) {
+	        BaseApiParamValueTranslator tipusSexeApiParamValueTranslator) {
 
 		if (persones == null) {
 			return null;
@@ -339,8 +329,7 @@ public class ConverterHelper {
 			dadesContacte.setTelefon(persones.getPersonesDadescontacte().getTelefon());
 			dadesContacte.setMobil(persones.getPersonesDadescontacte().getMobil());
 			dadesContacte.setFax(persones.getPersonesDadescontacte().getFax());
-			dadesContacte.setTipusVia(
-			        tipusViaApiParamValueTranslator.getApiParamValueByInternalValue(persones.getPersonesDadescontacte().getTipusVia()));
+			dadesContacte.setTipusVia(persones.getPersonesDadescontacte().getTipusVia());
 			dadesContacte.setNomVia(persones.getPersonesDadescontacte().getDireccioPostal());
 			dadesContacte.setNumero(persones.getPersonesDadescontacte().getNumero());
 			dadesContacte.setEscala(persones.getPersonesDadescontacte().getEscala());
@@ -592,7 +581,7 @@ public class ConverterHelper {
 	        List<DocsEntradaRDTO> docsEntradaRDTOList, BaseApiParamValueTranslator tramitOvtApiParamValueTranslator,
 	        BaseApiParamValueTranslator revisioApiParamValueTranslator, BaseApiParamValueTranslator tipusPersonaApiParamValueTranslator,
 	        BaseApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
-	        BaseApiParamValueTranslator tipusSexeApiParamValueTranslator, BaseApiParamValueTranslator tipusViaApiParamValueTranslator) {
+	        BaseApiParamValueTranslator tipusSexeApiParamValueTranslator) {
 		ArrayList<DocumentAportatConsultaRDTO> documentAportatConsultaRDTOList = null;
 		DocumentAportatConsultaRDTO documentAportatConsultaRDTO = null;
 		ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = null;
@@ -622,7 +611,7 @@ public class ConverterHelper {
 					        ? dateTimeFormatter.print(docsEntradaRDTO.getRegistreAssentament().getDataRegistre()) : null);
 					registreRDTO.setPersona(buildPersonesRDTOExpedient(docsEntradaRDTO.getRegistreAssentament().getPersones(),
 					        tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator,
-					        tipusSexeApiParamValueTranslator, tipusViaApiParamValueTranslator));
+					        tipusSexeApiParamValueTranslator));
 					documentAportatConsultaRDTO.setRegistre(registreRDTO);
 				}
 				if (docsEntradaRDTO.getTramitOvtIdext() != null) {

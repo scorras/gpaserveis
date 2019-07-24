@@ -48,6 +48,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigit
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsAssociatsIntraRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
@@ -60,8 +61,10 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatRevisioR
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequerimentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfRespostaCercaDocsEntradaIntraoperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RestClientResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TransicionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient.CollectionFormat;
 
@@ -548,8 +551,8 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(Boolean.TRUE);
 
-		BigDecimal idDocumentacio = ONE;
-		Boolean response = api.comprovarDocumentsSignatsUsingGET(idDocumentacio);
+		String idDocumentacioList = ONE.toString();
+		Boolean response = api.comprovarDocumentsSignatsUsingGET(idDocumentacioList);
 
 		assertTrue(response != null);
 	}
@@ -1055,6 +1058,90 @@ public class DocumentacioApiTest extends ParentTest {
 
 		BigDecimal id = ONE;
 		DocsRDTO response = api.consultarDadesDocument(id);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Associar els documents d&#39;entrada
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void associatsDocsIntraTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/docsEntrada/associatsDocsIntra"), eq(HttpMethod.POST), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		DocsAssociatsIntraRDTO docsAssociatsIntraRDTO = new DocsAssociatsIntraRDTO();
+		api.associatsDocsIntra(docsAssociatsIntraRDTO);
+
+		assertTrue(true);
+	}
+
+	/**
+	 * Obtenir els documents d&#39;entrada
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void cercaDocumentsEntradaUsingGETTest() {
+		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
+		        .thenReturn(new LinkedMultiValueMap<String, String>());
+		when(apiClient.invokeAPI(eq("/documentacio/documentsEntrada/cerca"), eq(HttpMethod.GET), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class)))
+		                .thenReturn(new PageDataOfRespostaCercaDocsEntradaIntraoperabilitat());
+
+		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
+		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
+		String codiExpedient = null;
+		Boolean currentPageHasNextPage = null;
+		Boolean currentPageHasPreviousPage = null;
+		Boolean currentPageIsFirstPage = null;
+		Boolean currentPageIsLastPage = null;
+		Integer currentPageNumber = null;
+		String dir = null;
+		BigDecimal idExpedient = null;
+		Integer nextPageNumber = null;
+		String nifSolicitant = null;
+		String nomDocument = null;
+		Integer pageSize = null;
+		Integer previousPageNumber = null;
+		String sort = null;
+		String tipusDocument = null;
+		Long totalElements = null;
+		Integer totalPages = null;
+		PageDataOfRespostaCercaDocsEntradaIntraoperabilitat response = api.cercaDocumentsEntradaUsingGET(
+		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, codiExpedient, currentPageHasNextPage,
+		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, idExpedient,
+		        nextPageNumber, nifSolicitant, nomDocument, pageSize, previousPageNumber, sort, tipusDocument, totalElements, totalPages);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Crear una petició per signar un document
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void signarSegellTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/signarSegell"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new SignarSegellDocument());
+
+		SignarSegellDocument signarSegellDocumentRDTO = new SignarSegellDocument();
+		SignarSegellDocument response = api.signarSegell(signarSegellDocumentRDTO);
 
 		assertTrue(response != null);
 	}

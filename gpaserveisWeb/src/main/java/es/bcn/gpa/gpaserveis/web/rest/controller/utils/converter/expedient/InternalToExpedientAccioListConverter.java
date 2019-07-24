@@ -7,7 +7,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.AbstractConverter;
 import org.springframework.stereotype.Component;
 
-import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.ExpedientAccioRDTO;
 
@@ -15,7 +15,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.Expe
  * The Class InternalToExpedientAccioListConverter.
  */
 @Component("expedientInternalToExpedientAccioListConverter")
-public class InternalToExpedientAccioListConverter extends AbstractConverter<List<DadesExpedientBDTO>, List<ExpedientAccioRDTO>> {
+public class InternalToExpedientAccioListConverter extends AbstractConverter<List<ExpedientsRDTO>, List<ExpedientAccioRDTO>> {
 
 	/*
 	 * (non-Javadoc)
@@ -23,17 +23,16 @@ public class InternalToExpedientAccioListConverter extends AbstractConverter<Lis
 	 * @see org.modelmapper.AbstractConverter#convert(java.lang.Object)
 	 */
 	@Override
-	protected List<ExpedientAccioRDTO> convert(List<DadesExpedientBDTO> source) {
+	protected List<ExpedientAccioRDTO> convert(List<ExpedientsRDTO> source) {
 		ArrayList<ExpedientAccioRDTO> expedientAccioRDTOList = null;
 		if (CollectionUtils.isNotEmpty(source)) {
 			expedientAccioRDTOList = new ArrayList<ExpedientAccioRDTO>();
 			ExpedientAccioRDTO expedientAccioRDTO = null;
 
-			for (DadesExpedientBDTO dadesExpedientBDTO : source) {
+			for (ExpedientsRDTO expedientsRDTO : source) {
 				expedientAccioRDTO = new ExpedientAccioRDTO();
-				expedientAccioRDTO.setId(dadesExpedientBDTO.getExpedientsRDTO().getId());
-				expedientAccioRDTO.setCodi(ConverterHelper.buildCodiExpedient(dadesExpedientBDTO.getExpedientsRDTO().getCodi(),
-				        dadesExpedientBDTO.getExpedientsRDTO().getIdEstat()));
+				expedientAccioRDTO.setId(expedientsRDTO.getId());
+				expedientAccioRDTO.setCodi(ConverterHelper.buildCodiExpedient(expedientsRDTO.getCodi(), expedientsRDTO.getIdEstat()));
 				expedientAccioRDTOList.add(expedientAccioRDTO);
 			}
 		}
