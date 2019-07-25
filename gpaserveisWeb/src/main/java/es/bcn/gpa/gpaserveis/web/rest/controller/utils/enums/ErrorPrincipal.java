@@ -5,7 +5,7 @@ package es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums;
  */
 public enum ErrorPrincipal {
 
-    /* Generic */
+	/* Generic */
 	ERROR_GENERIC("9999", "S'ha produit una incidencia"),
 
 	/* Unitats */
@@ -36,7 +36,7 @@ public enum ErrorPrincipal {
 	ERROR_EXPEDIENTS_REGISTRE_ASSENTAMENT_NOT_FOUND("3007", "No es troba l'assentament de registre"),
 
 	ERROR_EXPEDIENTS_DADA_OPERACIO_REQUERIMENT_NOT_AVAILABLE("3008",
-	        "La dada d'operació no està disponible per a ser afegit al requeriment: "),
+			"La dada d'operació no està disponible per a ser afegit al requeriment: "),
 
 	ERROR_EXPEDIENTS_ACUMULADOR_NOT_FOUND("3009", "No s'ha trobat l'expedient acumulador"),
 
@@ -47,10 +47,10 @@ public enum ErrorPrincipal {
 	ERROR_EXPEDIENTS_ACUMULAT_NOT_VALID_MATEIX_EXPEDIENT("3012", "No és possible acumular un expedient a si mateix"),
 
 	ERROR_EXPEDIENTS_ACUMULAT_NOT_VALID_MATEIX_PROCEDIMENT("3013",
-	        "Els expedients acumulador i acumulat han d'estar associats al mateix procediment"),
+			"Els expedients acumulador i acumulat han d'estar associats al mateix procediment"),
 
 	ERROR_EXPEDIENTS_ACUMULAT_NOT_VALID_JA_ACUMULAT("3014",
-	        "L'expedient a acumular no és vàlid perquè ja ha estat acumulat a un altre expedient"),
+			"L'expedient a acumular no és vàlid perquè ja ha estat acumulat a un altre expedient"),
 
 	ERROR_EXPEDIENTS_PERSONA_IMPLICADA_NOT_FOUND("3015", "No s'ha trobat la persona implicada en l'expedient"),
 
@@ -64,13 +64,30 @@ public enum ErrorPrincipal {
 	ERROR_CONFIGURACIO_DOCUMENTACIO_NOT_IN_EXPEDIENT("4003", "La configuració de documentació indicada no està associada a l'expedient: "),
 
 	ERROR_CONFIGURACIO_DOCUMENTACIO_REQUERIMENT_NOT_AVAILABLE("4004",
-	        "La configuració de documentació no està disponible per a ser afegida al requeriment: "),
+			"La configuració de documentació no està disponible per a ser afegida al requeriment: "),
 
 	ERROR_DOCUMENTS_UPLOAD_DECLARACIO_RESPONSABLE_NOT_AVAILABLE("4005", "No és possible pujar un fitxer a una declaració responsable"),
 
-	ERROR_DOCUMENTS_OPENTEXT("4005", ""),
+	/* Integracions */
+	ERROR_ARIADNA("5001", ""),
 
-	ERROR_EXPEDIENTS_OPENTEXT("4005", "");
+	ERROR_CATALEG("5002", ""),
+
+	ERROR_CTRLUSER("5003", ""),
+
+	ERROR_DIGITALITZACIO("5004", ""),
+
+	ERROR_GEOCOD("5005", ""),
+
+	ERROR_NOTIFICADOR("5006", ""),
+
+	ERROR_OPENTEXT("5007", ""),
+
+	ERROR_PDFGESTOR("5008", ""),
+
+	ERROR_PORTASIG("5009", ""),
+
+	ERROR_SIGNATURES("5010", "");
 
 	private String codi;
 
