@@ -36,20 +36,20 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDad
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiException;
 
 /**
- * API tests for DadesOperacionsApi
+ * API tests for DadesOperacionsApi.
  */
 @SuppressWarnings("unchecked")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DadesOperacionsApiTest extends ParentTest {
 
+	/** The api. */
 	@InjectMocks
 	private DadesOperacionsApi api = new DadesOperacionsApi();
 
 	/**
-	 * Returns all the dades operacions entries for the procedure
+	 * Returns all the dades operacions entries for the procedure.
 	 *
-	 * 
-	 *
+	 * @return the dades operacions using GET 1 test
 	 * @throws ApiException
 	 *             if the Api call fails
 	 */
@@ -57,8 +57,8 @@ public class DadesOperacionsApiTest extends ParentTest {
 	public void getDadesOperacionsUsingGET1Test() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/procediments/1/dades"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfDadesOperacionsRDTO());
+				any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new PageDataOfDadesOperacionsRDTO());
 
 		BigDecimal id = ONE;
 		String dir = null;
@@ -69,10 +69,9 @@ public class DadesOperacionsApiTest extends ParentTest {
 	}
 
 	/**
-	 * Returns all the dades operacions entries for the procedure
+	 * Returns all the dades operacions entries for the procedure.
 	 *
-	 * 
-	 *
+	 * @return the dades operacions list using GET test
 	 * @throws ApiException
 	 *             if the Api call fails
 	 */
@@ -80,8 +79,8 @@ public class DadesOperacionsApiTest extends ParentTest {
 	public void getDadesOperacionsListUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/procediments/dadesOperacio/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<DadesOperacionsRDTO>());
+				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new ArrayList<DadesOperacionsRDTO>());
 
 		String idsDadesOperList = ONE.toString();
 		List<DadesOperacionsRDTO> response = api.getDadesOperacionsListUsingGET(idsDadesOperList);
@@ -90,9 +89,7 @@ public class DadesOperacionsApiTest extends ParentTest {
 	}
 
 	/**
-	 * Returns all the dades operacions entries for the procedure
-	 *
-	 * 
+	 * Returns all the dades operacions entries for the procedure.
 	 *
 	 * @throws ApiException
 	 *             if the Api call fails
@@ -101,8 +98,8 @@ public class DadesOperacionsApiTest extends ParentTest {
 	public void cercaDadesOperacioRequeritsTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/procediments/1/dadesOperRequerit"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfDadesOperacionsRDTO());
+				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new PageDataOfDadesOperacionsRDTO());
 
 		BigDecimal id = ONE;
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
@@ -120,18 +117,17 @@ public class DadesOperacionsApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		PageDataOfDadesOperacionsRDTO response = api.cercaDadesOperacioRequerits(id, absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
-		        totalPages);
+				absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
+				currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
+				totalPages);
 
 		assertTrue(response != null);
 	}
 
 	/**
-	 * Returns all the dades operacions entries for the procedure
+	 * Returns all the dades operacions entries for the procedure.
 	 *
-	 * 
-	 *
+	 * @return the dades operacions requerit with ids using GET test
 	 * @throws ApiException
 	 *             if the Api call fails
 	 */
@@ -139,8 +135,8 @@ public class DadesOperacionsApiTest extends ParentTest {
 	public void getDadesOperacionsRequeritWithIdsUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
 		when(apiClient.invokeAPI(eq("/procediments/1/dadesOperRequerit/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfDadesOperacionsRDTO());
+				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+						.thenReturn(new PageDataOfDadesOperacionsRDTO());
 
 		BigDecimal id = ONE;
 		String idsJaExisteix = ONE.toString();
@@ -159,31 +155,29 @@ public class DadesOperacionsApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		PageDataOfDadesOperacionsRDTO response = api.getDadesOperacionsRequeritWithIdsUsingGET(id, idsJaExisteix,
-		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
-		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
-		        previousPageNumber, sort, totalElements, totalPages);
+				absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
+				currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
+				previousPageNumber, sort, totalElements, totalPages);
 
 		assertTrue(response != null);
 	}
 
 	/**
-	 * Returns all the dades operacions entries for the procedure
-	 *
-	 * 
+	 * Obtenir marques dades operacio procediment using GET test.
 	 *
 	 * @throws ApiException
-	 *             if the Api call fails
+	 *             the api exception
 	 */
 	@Test
-	public void obtenirMaquesDadesOperacioProcedimentUsingGETTest() throws ApiException {
+	public void obtenirMarquesDadesOperacioProcedimentUsingGETTest() throws ApiException {
 		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/procediments/obtenirMaquesDadesOperacioProcediment/1/1"), eq("GET"), any(List.class),
-		        any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
-		        any(GenericType.class))).thenReturn(new ArrayList<MarquesRDTO>());
+		when(apiClient.invokeAPI(eq("/procediments/obtenirMarquesDadesOperacioProcediment/1/1"), eq("GET"), any(List.class),
+				any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
+				any(GenericType.class))).thenReturn(new ArrayList<MarquesRDTO>());
 
 		String procedimentCodi = ONE.toString();
 		BigDecimal procedimentVersio = ONE;
-		List<MarquesRDTO> response = api.obtenirMaquesDadesOperacioProcedimentUsingGET(procedimentCodi, procedimentVersio);
+		List<MarquesRDTO> response = api.obtenirMarquesDadesOperacioProcedimentUsingGET(procedimentCodi, procedimentVersio);
 
 		assertTrue(response != null);
 	}
