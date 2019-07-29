@@ -10,7 +10,8 @@ import lombok.Setter;
 
 @ApiModel(value = "DadesIdentificacio")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "informacioCiutada", "nivellAutenticacio", "endpointSignatura", "endpointAutenticacio", "terminisDuracio" })
+@JsonPropertyOrder({ "informacioCiutada", "nivellAutenticacio", "endpointSignatura", "endpointAutenticacio", "terminisDuracio",
+		"tractamentGdpr" })
 @Getter
 @Setter
 public class DadesIdentificacioRDTO {
@@ -25,5 +26,7 @@ public class DadesIdentificacioRDTO {
 	private String endpointAutenticacio;
 	@ApiModelProperty(value = "Terminis de duració")
 	private TerminisDuracioRDTO terminisDuracio;
+	@ApiModelProperty(value = "Tractament GDPR")
+	private String tractamentGdpr;
 
 }

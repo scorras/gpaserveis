@@ -20,6 +20,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ConvidarATramitartApi
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsRelacionatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi;
@@ -422,6 +423,20 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("notificacionsApi() - fi"); //$NON-NLS-1$
 		}
 		return notificacionsApi;
+	}
+
+	@Bean
+	public ExpedientsRelacionatsApi expedientsRelacionatsApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("expedientsRelacionatsApi() - inici"); //$NON-NLS-1$
+		}
+
+		ExpedientsRelacionatsApi expedientsRelacionatsApi = Mockito.mock(ExpedientsRelacionatsApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("expedientsRelacionatsApi() - fi"); //$NON-NLS-1$
+		}
+		return expedientsRelacionatsApi;
 	}
 
 }

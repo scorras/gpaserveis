@@ -40,7 +40,6 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAcumularBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarUnitatGestoraBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaAcumularBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
@@ -70,6 +69,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPort
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
@@ -1183,32 +1183,8 @@ public class ServeisServiceImpl implements ServeisService {
 	 * bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument)
 	 */
 	@Override
-	public PeticionsPortasig signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException {
+	public List<PeticionsPortasig> signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException {
 		return documentsService.signarValidarDocument(signarDocument);
-	}
-
-	/**
-	 * Cerca expedients acumular.
-	 *
-	 * @param expedientsCercaAcumularBDTO
-	 *            the expedients cerca acumular BDTO
-	 * @return the resposta expedients cerca BDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ServeisService#cercaExpedientsAcumular(es.
-	 * bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaAcumularBDTO)
-	 */
-	@Override
-	public RespostaExpedientsCercaBDTO cercaExpedientsAcumular(ExpedientsCercaAcumularBDTO expedientsCercaAcumularBDTO)
-	        throws GPAServeisServiceException {
-		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = ServeisServiceHelper.loadCercaExpedientsAcumular(expedientsService,
-		        expedientsCercaAcumularBDTO);
-		return respostaExpedientsCercaBDTO;
 	}
 
 	/**
@@ -1248,10 +1224,10 @@ public class ServeisServiceImpl implements ServeisService {
 	 * java.math.BigDecimal)
 	 */
 	@Override
-	public RespostaExpedientsCercaBDTO cercaExpedientsAcumulats(BigDecimal idExpedient) throws GPAServeisServiceException {
-		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = ServeisServiceHelper.loadCercaExpedientsAcumulats(expedientsService,
+	public List<ExpedientsRDTO> cercaExpedientsAcumulats(BigDecimal idExpedient) throws GPAServeisServiceException {
+		List<ExpedientsRDTO> expedientsAcumulatsRDTOList = ServeisServiceHelper.loadCercaExpedientsAcumulats(expedientsService,
 		        idExpedient);
-		return respostaExpedientsCercaBDTO;
+		return expedientsAcumulatsRDTOList;
 	}
 
 	/**
@@ -1466,7 +1442,17 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public void callbackDigitalitzacio(CallbackDigitalitzacio callbackDigitalitzacio) throws GPAServeisServiceException {
 		documentsService.callbackDigitalitzacio(callbackDigitalitzacio);
+	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * obtenirExpedientsRelacionats(java.math.BigDecimal)
+	 */
+	@Override
+	public PageDataOfExpedientsRDTO obtenirExpedientsRelacionats(BigDecimal idExpedient) throws GPAServeisServiceException {
+		return expedientsService.obtenirExpedientsRelacionats(idExpedient);
 	}
 
 }

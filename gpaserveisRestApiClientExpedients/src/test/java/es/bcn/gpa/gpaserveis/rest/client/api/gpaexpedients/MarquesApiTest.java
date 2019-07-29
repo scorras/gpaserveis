@@ -19,6 +19,7 @@ import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownCampReferenciaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MarquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfMarquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
@@ -136,6 +138,25 @@ public class MarquesApiTest extends ParentTest {
 
 		MarquesRDTO tramitsRDTO = new MarquesRDTO();
 		MarquesRDTO response = api.saveTramitUsingPOST(tramitsRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns all the camps referencia entries
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirCampsReferenciaTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/marques/obtenirCampsReferencia"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
+		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<DropdownCampReferenciaRDTO>());
+
+		List<DropdownCampReferenciaRDTO> response = api.obtenirCampsReferencia();
 
 		assertTrue(response != null);
 	}

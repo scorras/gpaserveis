@@ -30,7 +30,6 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAcumularBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarUnitatGestoraBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaAcumularBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
@@ -59,6 +58,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPort
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
@@ -579,7 +579,7 @@ public interface ServeisService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	PeticionsPortasig signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException;
+	List<PeticionsPortasig> signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException;
 
 	/**
 	 * Convidar tramitar expedient.
@@ -636,18 +636,6 @@ public interface ServeisService {
 	        throws GPAServeisServiceException;
 
 	/**
-	 * Cerca expedients acumular.
-	 *
-	 * @param expedientsCercaAcumularBDTO
-	 *            the expedients cerca acumular BDTO
-	 * @return the resposta expedients cerca BDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	RespostaExpedientsCercaBDTO cercaExpedientsAcumular(ExpedientsCercaAcumularBDTO expedientsCercaAcumularBDTO)
-	        throws GPAServeisServiceException;
-
-	/**
 	 * Acumular expedient.
 	 *
 	 * @param expedientsAcumularBDTO
@@ -662,11 +650,11 @@ public interface ServeisService {
 	 *
 	 * @param idExpedient
 	 *            the id expedient
-	 * @return the resposta expedients cerca BDTO
+	 * @return the list
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	RespostaExpedientsCercaBDTO cercaExpedientsAcumulats(BigDecimal idExpedient) throws GPAServeisServiceException;
+	List<ExpedientsRDTO> cercaExpedientsAcumulats(BigDecimal idExpedient) throws GPAServeisServiceException;
 
 	/**
 	 * Actualitzar dades altra persona implicada.
@@ -798,5 +786,16 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	void callbackDigitalitzacio(CallbackDigitalitzacio callbackDigitalitzacio) throws GPAServeisServiceException;
+
+	/**
+	 * Obtenir expedients relacionats.
+	 *
+	 * @param idExpedient
+	 *            the id expedient
+	 * @return the page data of expedients RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	PageDataOfExpedientsRDTO obtenirExpedientsRelacionats(BigDecimal idExpedient) throws GPAServeisServiceException;
 
 }

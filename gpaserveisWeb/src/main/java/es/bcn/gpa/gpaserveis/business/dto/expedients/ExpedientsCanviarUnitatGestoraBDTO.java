@@ -1,6 +1,6 @@
 package es.bcn.gpa.gpaserveis.business.dto.expedients;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraMassiuRDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ExpedientsCanviarUnitatGestoraBDTO {
 
-	/** The canvi unitat gestora RDTO. */
-	private CanviUnitatGestoraRDTO canviUnitatGestoraRDTO;
+	/** The canvi unitat gestora massiu RDTO. */
+	private CanviUnitatGestoraMassiuRDTO canviUnitatGestoraMassiuRDTO;
 
 }

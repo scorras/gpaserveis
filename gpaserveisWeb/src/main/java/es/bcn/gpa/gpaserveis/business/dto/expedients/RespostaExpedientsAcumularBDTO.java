@@ -16,8 +16,8 @@ public class RespostaExpedientsAcumularBDTO {
 	/** The expedients RDTO. */
 	private ExpedientsRDTO expedientsRDTO;
 
-	/** The dades expedient BDTO list. */
-	private List<DadesExpedientBDTO> dadesExpedientBDTOList;
+	/** The expedients acumulats RDTO list. */
+	private List<ExpedientsRDTO> expedientsAcumulatsRDTOList;
 
 	/** The resposta resultat BDTO. */
 	private RespostaResultatBDTO respostaResultatBDTO;

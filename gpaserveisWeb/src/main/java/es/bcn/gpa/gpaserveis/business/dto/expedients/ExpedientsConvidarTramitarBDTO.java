@@ -1,6 +1,6 @@
 package es.bcn.gpa.gpaserveis.business.dto.expedients;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarMassiuRDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ExpedientsConvidarTramitarBDTO {
 
-	private ConvidarTramitarRDTO convidarTramitarRDTO;
+	/** The convidar tramitar massiu RDTO. */
+	private ConvidarTramitarMassiuRDTO convidarTramitarMassiuRDTO;
 
 }

@@ -28,7 +28,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraMassiuRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
@@ -52,10 +52,10 @@ public class CanviUnitatGestoraApiTest extends ParentTest {
 	@Test
 	public void canviarUnitatGestoraExpedientTest() throws ApiException {
 		when(apiClient.invokeAPI(eq("/expedients/canviUnitatGestora"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-				any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
+		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
 
-		CanviUnitatGestoraRDTO canviUnitatGestoraRDTO = new CanviUnitatGestoraRDTO();
-		api.canviarUnitatGestoraExpedient(canviUnitatGestoraRDTO);
+		CanviUnitatGestoraMassiuRDTO canviUnitatGestoraMassiuRDTO = new CanviUnitatGestoraMassiuRDTO();
+		api.canviarUnitatGestoraExpedient(canviUnitatGestoraMassiuRDTO);
 
 		assertTrue(true);
 	}

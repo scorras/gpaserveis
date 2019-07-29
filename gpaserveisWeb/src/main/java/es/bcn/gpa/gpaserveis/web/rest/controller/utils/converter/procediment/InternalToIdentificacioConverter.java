@@ -41,19 +41,20 @@ public class InternalToIdentificacioConverter extends AbstractConverter<Identifi
 		DadesIdentificacioRDTO dadesIdentificacioRDTO = new DadesIdentificacioRDTO();
 		dadesIdentificacioRDTO.setInformacioCiutada(source.getInformacioCiutada());
 		dadesIdentificacioRDTO.setNivellAutenticacio(
-		        nivellAutenticacioApiParamValueTranslator.getApiParamValueByInternalValue(source.getNivellAutenticacio()));
+				nivellAutenticacioApiParamValueTranslator.getApiParamValueByInternalValue(source.getNivellAutenticacio()));
 		// TODO Valor por determinar
 		dadesIdentificacioRDTO.setEndpointSignatura("http://endpoint/signatura");
 		// TODO Valor por determinar
 		dadesIdentificacioRDTO.setEndpointAutenticacio("http://endpoint/autenticacio");
+		dadesIdentificacioRDTO.setTractamentGdpr(source.getTractamentGdpr());
 		TerminisDuracioRDTO terminisDuracioRDTO = new TerminisDuracioRDTO();
 		terminisDuracioRDTO.setUnitat(terminiMaximApiParamValueTranslator.getApiParamValueByInternalValue(source.getTerminiMaxim()));
 		terminisDuracioRDTO.setTerminiMaxim((source.getEspecTerminiMaxim() != null) ? String.valueOf(source.getEspecTerminiMaxim()) : null);
 		terminisDuracioRDTO
-		        .setPeriodicitat(periodicitatApiParamValueTranslator.getApiParamValueByInternalValue(source.getPeriodicitatTermini()));
+				.setPeriodicitat(periodicitatApiParamValueTranslator.getApiParamValueByInternalValue(source.getPeriodicitatTermini()));
 		DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_PATTERN);
 		terminisDuracioRDTO
-		        .setDataIniciVigencia((source.getVigenciaInici() != null) ? dateTimeFormatter.print(source.getVigenciaInici()) : null);
+				.setDataIniciVigencia((source.getVigenciaInici() != null) ? dateTimeFormatter.print(source.getVigenciaInici()) : null);
 		terminisDuracioRDTO.setDataFiVigencia((source.getVigenciaFi() != null) ? dateTimeFormatter.print(source.getVigenciaFi()) : null);
 		dadesIdentificacioRDTO.setTerminisDuracio(terminisDuracioRDTO);
 

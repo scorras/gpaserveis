@@ -1833,12 +1833,12 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /procediments/obtenirMaquesDadesOperacioProcediment/{procedimentCodi}/{procedimentVersio}:
+  /procediments/obtenirMarquesDadesOperacioProcediment/{procedimentCodi}/{procedimentVersio}:
     get:
       tags:
       - "Dades Operacions"
       summary: "Returns all the dades operacions entries for the procedure"
-      operationId: "obtenirMaquesDadesOperacioProcedimentUsingGET"
+      operationId: "obtenirMarquesDadesOperacioProcedimentUsingGET"
       produces:
       - "*/*"
       parameters:

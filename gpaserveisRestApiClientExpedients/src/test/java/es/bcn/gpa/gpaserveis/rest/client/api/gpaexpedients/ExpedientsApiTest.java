@@ -32,11 +32,14 @@ import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.BloquejosRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CercaExpedientsIntraoperabilitatRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientOpenTextRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfComentarisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfHistoricsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PeticioDgt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaUnitatsExpedient;
@@ -317,6 +320,89 @@ public class ExpedientsApiTest extends ParentTest {
 		RespostaUnitatsExpedient response = api.getUnitasGestoresExpedientUsingGET(idExpedient);
 
 		assertTrue(response != null);
+	}
+
+	/**
+	 * cercaExpedientsIntraoperabilitat
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void cercaExpedientsIntraoperabilitatTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/expedients/cercaExpedientsIntraoperabilitat"), eq("GET"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ArrayList<CercaExpedientsIntraoperabilitatRDTO>());
+
+		String codiExpedient = null;
+		BigDecimal idExpedient = null;
+		String nifSolicitant = null;
+		List<CercaExpedientsIntraoperabilitatRDTO> response = api.cercaExpedientsIntraoperabilitat(codiExpedient, idExpedient,
+		        nifSolicitant);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * DesbloquejarTotsElsExpedientsUsuari
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void desbloquejarTotsElsExpedientsUsuariTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/expedients/desbloquejarTotsElsExpedientsUsuari"), eq("PUT"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(null);
+
+		api.desbloquejarTotsElsExpedientsUsuari();
+
+		assertTrue(true);
+	}
+
+	/**
+	 * Returns the requested expedient
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirExpedientObjecteDeRecursTest() throws ApiException {
+		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
+		when(apiClient.invokeAPI(eq("/expedients/obtenirExpedientObjecteDeRecurs/1/1"), eq("GET"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(new ExpedientsRDTO());
+		String codi = ONE.toString();
+		BigDecimal procObjecteDeRecursId = ONE;
+		ExpedientsRDTO response = api.obtenirExpedientObjecteDeRecurs(codi, procObjecteDeRecursId);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * obtenirInfoInteroperabilitat
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirInfoInteroperabilitatTest() throws ApiException {
+		when(apiClient.invokeAPI(eq("/expedients/obtenirInfoInteroperabilitat"), eq("POST"), any(List.class), any(Object.class),
+		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
+		                .thenReturn(null);
+
+		PeticioDgt peticioDgtRDTO = new PeticioDgt();
+		api.obtenirInfoInteroperabilitat(peticioDgtRDTO);
+
+		assertTrue(true);
 	}
 
 }
