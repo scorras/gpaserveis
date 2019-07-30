@@ -139,7 +139,11 @@ public enum Resultat {
 
 	OK_DOCUMENT_DIGITALITZAT_EXPEDIENT("OK", "Document digitalitzat correctament"),
 
-	ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT("ERROR", "No s'ha pogut digitalitzar el document");
+	ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT("ERROR", "No s'ha pogut digitalitzar el document"),
+
+	OK_OBTENIR_DOCUMENT_INTRAOPERABILITAT("OK", "Document obtingut correctament"),
+
+	ERROR_OBTENIR_DOCUMENT_INTRAOPERABILITAT("ERROR", "No s'ha pogut obtenir el document per intraoperabilitat");
 
 	private String codi;
 

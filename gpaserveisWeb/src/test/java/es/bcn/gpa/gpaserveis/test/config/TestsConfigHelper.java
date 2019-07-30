@@ -636,6 +636,7 @@ public class TestsConfigHelper {
 		expedientsRDTO.setDescEstat("En preparació");
 		expedientsRDTO.setIdEstat(ONE);
 		expedientsRDTO.setProcedimentCodi("PROC01");
+		expedientsRDTO.setRelacioTipusRelacio("1-2");
 
 		Sollicituds sollicituds = new Sollicituds();
 		sollicituds.setId(ONE);
