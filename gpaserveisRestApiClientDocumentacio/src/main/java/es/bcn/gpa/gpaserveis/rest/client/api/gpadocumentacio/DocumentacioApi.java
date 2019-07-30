@@ -25,6 +25,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigit
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsAssociatsIntra;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
@@ -37,13 +38,15 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatRevisioR
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequerimentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfRespostaCercaDocsEntradaIntraoperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RestClientResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TransicionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-03T21:35:26.370+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-26T10:13:20.464+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi")
 public class DocumentacioApi {
 	private ApiClient apiClient;
@@ -88,26 +91,26 @@ public class DocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public DocsEntradaRDTO actualitzarDeclaracioResponsable(DocsEntradaRDTO docsEntradaRDTO, BigDecimal idExpedient)
-	        throws RestClientException {
+			throws RestClientException {
 		Object postBody = docsEntradaRDTO;
 
 		// verify the required parameter 'docsEntradaRDTO' is set
 		if (docsEntradaRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'docsEntradaRDTO' when calling actualitzarDeclaracioResponsable");
+					"Missing the required parameter 'docsEntradaRDTO' when calling actualitzarDeclaracioResponsable");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling actualitzarDeclaracioResponsable");
+					"Missing the required parameter 'idExpedient' when calling actualitzarDeclaracioResponsable");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idExpedient", idExpedient);
 		String path = UriComponentsBuilder.fromPath("/documentacio/entrada/responsable/{idExpedient}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -123,7 +126,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsEntradaRDTO> returnType = new ParameterizedTypeReference<DocsEntradaRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.PUT, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -154,13 +157,13 @@ public class DocumentacioApi {
 		// verify the required parameter 'docsEntradaRDTO' is set
 		if (docsEntradaRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'docsEntradaRDTO' when calling actualitzarDocumentEntrada");
+					"Missing the required parameter 'docsEntradaRDTO' when calling actualitzarDocumentEntrada");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling actualitzarDocumentEntrada");
+					"Missing the required parameter 'idExpedient' when calling actualitzarDocumentEntrada");
 		}
 
 		// create path and map variables
@@ -182,7 +185,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsEntradaRDTO> returnType = new ParameterizedTypeReference<DocsEntradaRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.PUT, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -208,26 +211,26 @@ public class DocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public DocsEntradaRDTO actualitzarDocumentEntradaDigitalitzat(DocsEntradaRDTO docsEntradaRDTO, BigDecimal idExpedient)
-	        throws RestClientException {
+			throws RestClientException {
 		Object postBody = docsEntradaRDTO;
 
 		// verify the required parameter 'docsEntradaRDTO' is set
 		if (docsEntradaRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'docsEntradaRDTO' when calling actualitzarDocumentEntradaDigitalitzat");
+					"Missing the required parameter 'docsEntradaRDTO' when calling actualitzarDocumentEntradaDigitalitzat");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling actualitzarDocumentEntradaDigitalitzat");
+					"Missing the required parameter 'idExpedient' when calling actualitzarDocumentEntradaDigitalitzat");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idExpedient", idExpedient);
 		String path = UriComponentsBuilder.fromPath("/documentacio/entrada/digitalitzar/{idExpedient}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -243,7 +246,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsEntradaRDTO> returnType = new ParameterizedTypeReference<DocsEntradaRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.PUT, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -269,19 +272,19 @@ public class DocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public DocsTramitacioRDTO actualitzarDocumentTramitacio(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient)
-	        throws RestClientException {
+			throws RestClientException {
 		Object postBody = docsTramitacioRDTO;
 
 		// verify the required parameter 'docsTramitacioRDTO' is set
 		if (docsTramitacioRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'docsTramitacioRDTO' when calling actualitzarDocumentTramitacio");
+					"Missing the required parameter 'docsTramitacioRDTO' when calling actualitzarDocumentTramitacio");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling actualitzarDocumentTramitacio");
+					"Missing the required parameter 'idExpedient' when calling actualitzarDocumentTramitacio");
 		}
 
 		// create path and map variables
@@ -303,7 +306,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsTramitacioRDTO> returnType = new ParameterizedTypeReference<DocsTramitacioRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.PUT, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -329,26 +332,26 @@ public class DocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public DocsTramitacioRDTO actualitzarDocumentTramitacioDigitalitzat(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient)
-	        throws RestClientException {
+			throws RestClientException {
 		Object postBody = docsTramitacioRDTO;
 
 		// verify the required parameter 'docsTramitacioRDTO' is set
 		if (docsTramitacioRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'docsTramitacioRDTO' when calling actualitzarDocumentTramitacioDigitalitzat");
+					"Missing the required parameter 'docsTramitacioRDTO' when calling actualitzarDocumentTramitacioDigitalitzat");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling actualitzarDocumentTramitacioDigitalitzat");
+					"Missing the required parameter 'idExpedient' when calling actualitzarDocumentTramitacioDigitalitzat");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idExpedient", idExpedient);
 		String path = UriComponentsBuilder.fromPath("/documentacio/tramitacio/digitalitzar/{idExpedient}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -364,7 +367,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsTramitacioRDTO> returnType = new ParameterizedTypeReference<DocsTramitacioRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.PUT, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -390,20 +393,20 @@ public class DocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public DocsTramitacioRDTO actualitzarRequeriment(GuardarRequerimentExpedient guardarRequerimentExpedientRDTO, BigDecimal idExpedient)
-	        throws RestClientException {
+			throws RestClientException {
 		Object postBody = guardarRequerimentExpedientRDTO;
 
 		// verify the required parameter 'guardarRequerimentExpedientRDTO' is
 		// set
 		if (guardarRequerimentExpedientRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'guardarRequerimentExpedientRDTO' when calling actualitzarRequeriment");
+					"Missing the required parameter 'guardarRequerimentExpedientRDTO' when calling actualitzarRequeriment");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling actualitzarRequeriment");
+					"Missing the required parameter 'idExpedient' when calling actualitzarRequeriment");
 		}
 
 		// create path and map variables
@@ -425,7 +428,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsTramitacioRDTO> returnType = new ParameterizedTypeReference<DocsTramitacioRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.PUT, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -454,7 +457,7 @@ public class DocumentacioApi {
 		// verify the required parameter 'acumularDocumentacioRDTO' is set
 		if (acumularDocumentacioRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'acumularDocumentacioRDTO' when calling acumularDocumentacioUsingPOST");
+					"Missing the required parameter 'acumularDocumentacioRDTO' when calling acumularDocumentacioUsingPOST");
 		}
 
 		String path = UriComponentsBuilder.fromPath("/documentacio/acumularDocumentacio").build().toUriString();
@@ -473,7 +476,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<RestClientResponse> returnType = new ParameterizedTypeReference<RestClientResponse>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -501,7 +504,7 @@ public class DocumentacioApi {
 		// verify the required parameter 'docsEntActualizarRegistreRDTO' is set
 		if (docsEntActualizarRegistreRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'docsEntActualizarRegistreRDTO' when calling associarRegistreDocsEnt");
+					"Missing the required parameter 'docsEntActualizarRegistreRDTO' when calling associarRegistreDocsEnt");
 		}
 
 		String path = UriComponentsBuilder.fromPath("/documentacio/associarRegistreDocsEnt").build().toUriString();
@@ -520,7 +523,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
 		};
 		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -548,7 +551,7 @@ public class DocumentacioApi {
 		// verify the required parameter 'documentActualizarRegistreRDTO' is set
 		if (documentActualizarRegistreRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'documentActualizarRegistreRDTO' when calling associarRegistreDocumentacio");
+					"Missing the required parameter 'documentActualizarRegistreRDTO' when calling associarRegistreDocumentacio");
 		}
 
 		String path = UriComponentsBuilder.fromPath("/documentacio/associarRegistreDocumentacio").build().toUriString();
@@ -567,7 +570,54 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
 		};
 		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
+	}
+
+	/**
+	 * Associar els documents d&#39;entrada
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>201</b> - Created
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param docsAssociatsIntraRDTO
+	 *            docsAssociatsIntraRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public void associatsDocsIntra(DocsAssociatsIntra docsAssociatsIntraRDTO) throws RestClientException {
+		Object postBody = docsAssociatsIntraRDTO;
+
+		// verify the required parameter 'docsAssociatsIntraRDTO' is set
+		if (docsAssociatsIntraRDTO == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+					"Missing the required parameter 'docsAssociatsIntraRDTO' when calling associatsDocsIntra");
+		}
+
+		String path = UriComponentsBuilder.fromPath("/documentacio/docsEntrada/associatsDocsIntra").build().toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "application/json" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
+		};
+		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+				returnType);
 	}
 
 	/**
@@ -595,7 +645,7 @@ public class DocumentacioApi {
 		// verify the required parameter 'callbackDigitalitzacioRDTO' is set
 		if (callbackDigitalitzacioRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'callbackDigitalitzacioRDTO' when calling callbackDigitalitzacio");
+					"Missing the required parameter 'callbackDigitalitzacioRDTO' when calling callbackDigitalitzacio");
 		}
 
 		String path = UriComponentsBuilder.fromPath("/documentacio/callbackDigitalitzacio").build().toUriString();
@@ -614,7 +664,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
 		};
 		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -642,7 +692,7 @@ public class DocumentacioApi {
 		// verify the required parameter 'callbackPortaSigRDTO' is set
 		if (callbackPortaSigRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'callbackPortaSigRDTO' when calling callbackPortaSig");
+					"Missing the required parameter 'callbackPortaSigRDTO' when calling callbackPortaSig");
 		}
 
 		String path = UriComponentsBuilder.fromPath("/documentacio/callbackPortaSig").build().toUriString();
@@ -661,7 +711,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
 		};
 		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -689,14 +739,14 @@ public class DocumentacioApi {
 		// verify the required parameter 'idDocument' is set
 		if (idDocument == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idDocument' when calling cancelarSignarDocumentUsingPOST");
+					"Missing the required parameter 'idDocument' when calling cancelarSignarDocumentUsingPOST");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idDocument", idDocument);
 		String path = UriComponentsBuilder.fromPath("/documentacio/cancelarPeticioPortaSig/{idDocument}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -712,7 +762,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
 		};
 		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -740,7 +790,7 @@ public class DocumentacioApi {
 		// verify the required parameter 'documentCanviEstatRDTO' is set
 		if (documentCanviEstatRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'documentCanviEstatRDTO' when calling canviEstatDocumentacioTramitacioUsingPOST");
+					"Missing the required parameter 'documentCanviEstatRDTO' when calling canviEstatDocumentacioTramitacioUsingPOST");
 		}
 
 		String path = UriComponentsBuilder.fromPath("/documentacio/tramitacio/canviEstat").build().toUriString();
@@ -759,7 +809,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
 		};
 		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -786,7 +836,7 @@ public class DocumentacioApi {
 		// verify the required parameter 'idDoc' is set
 		if (idDoc == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idDoc' when calling cercaDadesOperacioRequerits");
+					"Missing the required parameter 'idDoc' when calling cercaDadesOperacioRequerits");
 		}
 
 		// create path and map variables
@@ -808,7 +858,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<List<BigDecimal>> returnType = new ParameterizedTypeReference<List<BigDecimal>>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -835,14 +885,14 @@ public class DocumentacioApi {
 		// verify the required parameter 'idDocumentacio' is set
 		if (idDocumentacio == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idDocumentacio' when calling cercaDocumentsEntradaAgrupatsPerTramitOvt");
+					"Missing the required parameter 'idDocumentacio' when calling cercaDocumentsEntradaAgrupatsPerTramitOvt");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idDocumentacio", idDocumentacio);
 		String path = UriComponentsBuilder.fromPath("/documentacio/{idDocumentacio}/entrada/agrupatPerTramitOvt")
-		        .buildAndExpand(uriVariables).toUriString();
+				.buildAndExpand(uriVariables).toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -858,7 +908,110 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<List<DocsEntradaRDTO>> returnType = new ParameterizedTypeReference<List<DocsEntradaRDTO>>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
+	}
+
+	/**
+	 * Obtenir els documents d&#39;entrada
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param absoluteRowNumberOfFirstRowInCurrentPage
+	 *            The absoluteRowNumberOfFirstRowInCurrentPage parameter
+	 * @param absoluteRowNumberOfLastRowInCurrentPage
+	 *            The absoluteRowNumberOfLastRowInCurrentPage parameter
+	 * @param codiExpedient
+	 *            The codiExpedient parameter
+	 * @param currentPageHasNextPage
+	 *            The currentPageHasNextPage parameter
+	 * @param currentPageHasPreviousPage
+	 *            The currentPageHasPreviousPage parameter
+	 * @param currentPageIsFirstPage
+	 *            The currentPageIsFirstPage parameter
+	 * @param currentPageIsLastPage
+	 *            The currentPageIsLastPage parameter
+	 * @param currentPageNumber
+	 *            The currentPageNumber parameter
+	 * @param dir
+	 *            The dir parameter
+	 * @param idExpedient
+	 *            The idExpedient parameter
+	 * @param nextPageNumber
+	 *            The nextPageNumber parameter
+	 * @param nifSolicitant
+	 *            The nifSolicitant parameter
+	 * @param nomDocument
+	 *            The nomDocument parameter
+	 * @param pageSize
+	 *            The pageSize parameter
+	 * @param previousPageNumber
+	 *            The previousPageNumber parameter
+	 * @param sort
+	 *            The sort parameter
+	 * @param tipusDocument
+	 *            The tipusDocument parameter
+	 * @param totalElements
+	 *            The totalElements parameter
+	 * @param totalPages
+	 *            The totalPages parameter
+	 * @return PageDataOfRespostaCercaDocsEntradaIntraoperabilitat
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public PageDataOfRespostaCercaDocsEntradaIntraoperabilitat cercaDocumentsEntradaUsingGET(
+			Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, String codiExpedient,
+			Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage,
+			Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, BigDecimal idExpedient, Integer nextPageNumber,
+			String nifSolicitant, String nomDocument, Integer pageSize, Integer previousPageNumber, String sort, String tipusDocument,
+			Long totalElements, Integer totalPages) throws RestClientException {
+		Object postBody = null;
+
+		String path = UriComponentsBuilder.fromPath("/documentacio/documentsEntrada/cerca").build().toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfFirstRowInCurrentPage",
+				absoluteRowNumberOfFirstRowInCurrentPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfLastRowInCurrentPage",
+				absoluteRowNumberOfLastRowInCurrentPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "codiExpedient", codiExpedient));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasNextPage", currentPageHasNextPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasPreviousPage", currentPageHasPreviousPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsFirstPage", currentPageIsFirstPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsLastPage", currentPageIsLastPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageNumber", currentPageNumber));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "dir", dir));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "idExpedient", idExpedient));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nextPageNumber", nextPageNumber));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nifSolicitant", nifSolicitant));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nomDocument", nomDocument));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "pageSize", pageSize));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "previousPageNumber", previousPageNumber));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sort", sort));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "tipusDocument", tipusDocument));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalElements", totalElements));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalPages", totalPages));
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = {};
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<PageDataOfRespostaCercaDocsEntradaIntraoperabilitat> returnType = new ParameterizedTypeReference<PageDataOfRespostaCercaDocsEntradaIntraoperabilitat>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+				returnType);
 	}
 
 	/**
@@ -873,26 +1026,26 @@ public class DocumentacioApi {
 	 * <p>
 	 * <b>404</b> - Not Found
 	 * 
-	 * @param idDocumentacio
-	 *            idDocumentacio
+	 * @param idDocumentacioList
+	 *            idDocumentacioList
 	 * @return Boolean
 	 * @throws RestClientException
 	 *             if an error occurs while attempting to invoke the API
 	 */
-	public Boolean comprovarDocumentsSignatsUsingGET(BigDecimal idDocumentacio) throws RestClientException {
+	public Boolean comprovarDocumentsSignatsUsingGET(String idDocumentacioList) throws RestClientException {
 		Object postBody = null;
 
-		// verify the required parameter 'idDocumentacio' is set
-		if (idDocumentacio == null) {
+		// verify the required parameter 'idDocumentacioList' is set
+		if (idDocumentacioList == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idDocumentacio' when calling comprovarDocumentsSignatsUsingGET");
+					"Missing the required parameter 'idDocumentacioList' when calling comprovarDocumentsSignatsUsingGET");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
-		uriVariables.put("idDocumentacio", idDocumentacio);
-		String path = UriComponentsBuilder.fromPath("/documentacio/comprovarDocumentsSignats/{idDocumentacio}").buildAndExpand(uriVariables)
-		        .toUriString();
+		uriVariables.put("idDocumentacioList", idDocumentacioList);
+		String path = UriComponentsBuilder.fromPath("/documentacio/comprovarDocumentsSignats/{idDocumentacioList}")
+				.buildAndExpand(uriVariables).toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -908,7 +1061,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<Boolean> returnType = new ParameterizedTypeReference<Boolean>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -935,7 +1088,7 @@ public class DocumentacioApi {
 		// verify the required parameter 'id' is set
 		if (id == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'id' when calling consultarDadesDocument");
+					"Missing the required parameter 'id' when calling consultarDadesDocument");
 		}
 
 		// create path and map variables
@@ -957,7 +1110,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsRDTO> returnType = new ParameterizedTypeReference<DocsRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -984,7 +1137,7 @@ public class DocumentacioApi {
 		// verify the required parameter 'id' is set
 		if (id == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'id' when calling consultarDadesDocumentAportat");
+					"Missing the required parameter 'id' when calling consultarDadesDocumentAportat");
 		}
 
 		// create path and map variables
@@ -1006,7 +1159,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsEntradaRDTO> returnType = new ParameterizedTypeReference<DocsEntradaRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -1033,7 +1186,7 @@ public class DocumentacioApi {
 		// verify the required parameter 'id' is set
 		if (id == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'id' when calling consultarDadesDocumentGenerat");
+					"Missing the required parameter 'id' when calling consultarDadesDocumentGenerat");
 		}
 
 		// create path and map variables
@@ -1055,7 +1208,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsTramitacioRDTO> returnType = new ParameterizedTypeReference<DocsTramitacioRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -1086,20 +1239,20 @@ public class DocumentacioApi {
 		// verify the required parameter 'docsEntradaRDTO' is set
 		if (docsEntradaRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'docsEntradaRDTO' when calling crearDeclaracioResponsable");
+					"Missing the required parameter 'docsEntradaRDTO' when calling crearDeclaracioResponsable");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling crearDeclaracioResponsable");
+					"Missing the required parameter 'idExpedient' when calling crearDeclaracioResponsable");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idExpedient", idExpedient);
 		String path = UriComponentsBuilder.fromPath("/documentacio/entrada/responsable/{idExpedient}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -1115,7 +1268,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsEntradaRDTO> returnType = new ParameterizedTypeReference<DocsEntradaRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -1146,13 +1299,13 @@ public class DocumentacioApi {
 		// verify the required parameter 'docsEntradaRDTO' is set
 		if (docsEntradaRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'docsEntradaRDTO' when calling crearDocumentEntrada");
+					"Missing the required parameter 'docsEntradaRDTO' when calling crearDocumentEntrada");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling crearDocumentEntrada");
+					"Missing the required parameter 'idExpedient' when calling crearDocumentEntrada");
 		}
 
 		// create path and map variables
@@ -1174,7 +1327,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsEntradaRDTO> returnType = new ParameterizedTypeReference<DocsEntradaRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -1200,26 +1353,26 @@ public class DocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public DocsEntradaRDTO crearDocumentEntradaDigitalitzat(DocsEntradaRDTO docsEntradaRDTO, BigDecimal idExpedient)
-	        throws RestClientException {
+			throws RestClientException {
 		Object postBody = docsEntradaRDTO;
 
 		// verify the required parameter 'docsEntradaRDTO' is set
 		if (docsEntradaRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'docsEntradaRDTO' when calling crearDocumentEntradaDigitalitzat");
+					"Missing the required parameter 'docsEntradaRDTO' when calling crearDocumentEntradaDigitalitzat");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling crearDocumentEntradaDigitalitzat");
+					"Missing the required parameter 'idExpedient' when calling crearDocumentEntradaDigitalitzat");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idExpedient", idExpedient);
 		String path = UriComponentsBuilder.fromPath("/documentacio/entrada/digitalitzar/{idExpedient}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -1235,7 +1388,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsEntradaRDTO> returnType = new ParameterizedTypeReference<DocsEntradaRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -1261,19 +1414,19 @@ public class DocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public DocsTramitacioRDTO crearDocumentTramitacio(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient)
-	        throws RestClientException {
+			throws RestClientException {
 		Object postBody = docsTramitacioRDTO;
 
 		// verify the required parameter 'docsTramitacioRDTO' is set
 		if (docsTramitacioRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'docsTramitacioRDTO' when calling crearDocumentTramitacio");
+					"Missing the required parameter 'docsTramitacioRDTO' when calling crearDocumentTramitacio");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling crearDocumentTramitacio");
+					"Missing the required parameter 'idExpedient' when calling crearDocumentTramitacio");
 		}
 
 		// create path and map variables
@@ -1295,7 +1448,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsTramitacioRDTO> returnType = new ParameterizedTypeReference<DocsTramitacioRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -1321,26 +1474,26 @@ public class DocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public DocsTramitacioRDTO crearDocumentTramitacioDigitalitzat(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient)
-	        throws RestClientException {
+			throws RestClientException {
 		Object postBody = docsTramitacioRDTO;
 
 		// verify the required parameter 'docsTramitacioRDTO' is set
 		if (docsTramitacioRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'docsTramitacioRDTO' when calling crearDocumentTramitacioDigitalitzat");
+					"Missing the required parameter 'docsTramitacioRDTO' when calling crearDocumentTramitacioDigitalitzat");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling crearDocumentTramitacioDigitalitzat");
+					"Missing the required parameter 'idExpedient' when calling crearDocumentTramitacioDigitalitzat");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idExpedient", idExpedient);
 		String path = UriComponentsBuilder.fromPath("/documentacio/tramitacio/digitalitzar/{idExpedient}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -1356,7 +1509,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsTramitacioRDTO> returnType = new ParameterizedTypeReference<DocsTramitacioRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -1375,17 +1528,17 @@ public class DocumentacioApi {
 	 * 
 	 * @param signarDocumentRDTO
 	 *            signarDocumentRDTO
-	 * @return PeticionsPortasig
+	 * @return List&lt;PeticionsPortasig&gt;
 	 * @throws RestClientException
 	 *             if an error occurs while attempting to invoke the API
 	 */
-	public PeticionsPortasig crearPeticioPortaSig(SignarDocument signarDocumentRDTO) throws RestClientException {
+	public List<PeticionsPortasig> crearPeticioPortaSig(SignarDocument signarDocumentRDTO) throws RestClientException {
 		Object postBody = signarDocumentRDTO;
 
 		// verify the required parameter 'signarDocumentRDTO' is set
 		if (signarDocumentRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'signarDocumentRDTO' when calling crearPeticioPortaSig");
+					"Missing the required parameter 'signarDocumentRDTO' when calling crearPeticioPortaSig");
 		}
 
 		String path = UriComponentsBuilder.fromPath("/documentacio/crearPeticioPortaSig").build().toUriString();
@@ -1401,10 +1554,10 @@ public class DocumentacioApi {
 
 		String[] authNames = new String[] {};
 
-		ParameterizedTypeReference<PeticionsPortasig> returnType = new ParameterizedTypeReference<PeticionsPortasig>() {
+		ParameterizedTypeReference<List<PeticionsPortasig>> returnType = new ParameterizedTypeReference<List<PeticionsPortasig>>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -1429,26 +1582,26 @@ public class DocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public void deleteDocumentacioTramitacioUsingPOST(List<BigDecimal> docsTramitacioIds, BigDecimal idExpedient)
-	        throws RestClientException {
+			throws RestClientException {
 		Object postBody = docsTramitacioIds;
 
 		// verify the required parameter 'docsTramitacioIds' is set
 		if (docsTramitacioIds == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'docsTramitacioIds' when calling deleteDocumentacioTramitacioUsingPOST");
+					"Missing the required parameter 'docsTramitacioIds' when calling deleteDocumentacioTramitacioUsingPOST");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling deleteDocumentacioTramitacioUsingPOST");
+					"Missing the required parameter 'idExpedient' when calling deleteDocumentacioTramitacioUsingPOST");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idExpedient", idExpedient);
 		String path = UriComponentsBuilder.fromPath("/documentacio/tramitacio/delete/{idExpedient}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -1464,7 +1617,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
 		};
 		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -1494,20 +1647,20 @@ public class DocumentacioApi {
 		// verify the required parameter 'docsEntradaIds' is set
 		if (docsEntradaIds == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'docsEntradaIds' when calling esborrarDocumentExpedient");
+					"Missing the required parameter 'docsEntradaIds' when calling esborrarDocumentExpedient");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling esborrarDocumentExpedient");
+					"Missing the required parameter 'idExpedient' when calling esborrarDocumentExpedient");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idExpedient", idExpedient);
 		String path = UriComponentsBuilder.fromPath("/documentacio/entrada/delete/{idExpedient}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -1523,7 +1676,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
 		};
 		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -1577,28 +1730,28 @@ public class DocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public PageDataOfDocsEntradaRDTO getDocumentacioEntradaUsingGET(String estatsFutursList, BigDecimal idConfiguracioDocumentacio,
-	        BigDecimal idDocumentacio, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage,
-	        Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage,
-	        Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize,
-	        Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
+			BigDecimal idDocumentacio, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage,
+			Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage,
+			Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize,
+			Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
 		Object postBody = null;
 
 		// verify the required parameter 'estatsFutursList' is set
 		if (estatsFutursList == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'estatsFutursList' when calling getDocumentacioEntradaUsingGET");
+					"Missing the required parameter 'estatsFutursList' when calling getDocumentacioEntradaUsingGET");
 		}
 
 		// verify the required parameter 'idConfiguracioDocumentacio' is set
 		if (idConfiguracioDocumentacio == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idConfiguracioDocumentacio' when calling getDocumentacioEntradaUsingGET");
+					"Missing the required parameter 'idConfiguracioDocumentacio' when calling getDocumentacioEntradaUsingGET");
 		}
 
 		// verify the required parameter 'idDocumentacio' is set
 		if (idDocumentacio == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idDocumentacio' when calling getDocumentacioEntradaUsingGET");
+					"Missing the required parameter 'idDocumentacio' when calling getDocumentacioEntradaUsingGET");
 		}
 
 		// create path and map variables
@@ -1607,17 +1760,17 @@ public class DocumentacioApi {
 		uriVariables.put("idConfiguracioDocumentacio", idConfiguracioDocumentacio);
 		uriVariables.put("idDocumentacio", idDocumentacio);
 		String path = UriComponentsBuilder
-		        .fromPath("/documentacio/{idDocumentacio}/entrada/{idConfiguracioDocumentacio}/{estatsFutursList}")
-		        .buildAndExpand(uriVariables).toUriString();
+				.fromPath("/documentacio/{idDocumentacio}/entrada/{idConfiguracioDocumentacio}/{estatsFutursList}")
+				.buildAndExpand(uriVariables).toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
 		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfFirstRowInCurrentPage",
-		        absoluteRowNumberOfFirstRowInCurrentPage));
+				absoluteRowNumberOfFirstRowInCurrentPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfLastRowInCurrentPage",
-		        absoluteRowNumberOfLastRowInCurrentPage));
+				absoluteRowNumberOfLastRowInCurrentPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasNextPage", currentPageHasNextPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasPreviousPage", currentPageHasPreviousPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsFirstPage", currentPageIsFirstPage));
@@ -1641,7 +1794,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<PageDataOfDocsEntradaRDTO> returnType = new ParameterizedTypeReference<PageDataOfDocsEntradaRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -1695,28 +1848,28 @@ public class DocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public PageDataOfDocsTramitacioRDTO getDocumentacioTramitacioUsingGET(String estatsFutursList, BigDecimal idConfiguracioDocumentacio,
-	        BigDecimal idDocumentacio, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage,
-	        Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage,
-	        Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize,
-	        Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
+			BigDecimal idDocumentacio, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage,
+			Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage,
+			Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize,
+			Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
 		Object postBody = null;
 
 		// verify the required parameter 'estatsFutursList' is set
 		if (estatsFutursList == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'estatsFutursList' when calling getDocumentacioTramitacioUsingGET");
+					"Missing the required parameter 'estatsFutursList' when calling getDocumentacioTramitacioUsingGET");
 		}
 
 		// verify the required parameter 'idConfiguracioDocumentacio' is set
 		if (idConfiguracioDocumentacio == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idConfiguracioDocumentacio' when calling getDocumentacioTramitacioUsingGET");
+					"Missing the required parameter 'idConfiguracioDocumentacio' when calling getDocumentacioTramitacioUsingGET");
 		}
 
 		// verify the required parameter 'idDocumentacio' is set
 		if (idDocumentacio == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idDocumentacio' when calling getDocumentacioTramitacioUsingGET");
+					"Missing the required parameter 'idDocumentacio' when calling getDocumentacioTramitacioUsingGET");
 		}
 
 		// create path and map variables
@@ -1725,17 +1878,17 @@ public class DocumentacioApi {
 		uriVariables.put("idConfiguracioDocumentacio", idConfiguracioDocumentacio);
 		uriVariables.put("idDocumentacio", idDocumentacio);
 		String path = UriComponentsBuilder
-		        .fromPath("/documentacio/{idDocumentacio}/tramitacio/{idConfiguracioDocumentacio}/{estatsFutursList}")
-		        .buildAndExpand(uriVariables).toUriString();
+				.fromPath("/documentacio/{idDocumentacio}/tramitacio/{idConfiguracioDocumentacio}/{estatsFutursList}")
+				.buildAndExpand(uriVariables).toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
 		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfFirstRowInCurrentPage",
-		        absoluteRowNumberOfFirstRowInCurrentPage));
+				absoluteRowNumberOfFirstRowInCurrentPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfLastRowInCurrentPage",
-		        absoluteRowNumberOfLastRowInCurrentPage));
+				absoluteRowNumberOfLastRowInCurrentPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasNextPage", currentPageHasNextPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasPreviousPage", currentPageHasPreviousPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsFirstPage", currentPageIsFirstPage));
@@ -1759,7 +1912,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<PageDataOfDocsTramitacioRDTO> returnType = new ParameterizedTypeReference<PageDataOfDocsTramitacioRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -1797,7 +1950,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<List<EstatRevisioRDTO>> returnType = new ParameterizedTypeReference<List<EstatRevisioRDTO>>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -1824,14 +1977,14 @@ public class DocumentacioApi {
 		// verify the required parameter 'idConfigDoc' is set
 		if (idConfigDoc == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idConfigDoc' when calling getTipusGrupEntradaUsingGET");
+					"Missing the required parameter 'idConfigDoc' when calling getTipusGrupEntradaUsingGET");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idConfigDoc", idConfigDoc);
 		String path = UriComponentsBuilder.fromPath("/documentacio/entrada/listTipusGrup/{idConfigDoc}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -1847,7 +2000,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<List<ConfiguracioDocsEntradaRDTO>> returnType = new ParameterizedTypeReference<List<ConfiguracioDocsEntradaRDTO>>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -1874,14 +2027,14 @@ public class DocumentacioApi {
 		// verify the required parameter 'idConfigDoc' is set
 		if (idConfigDoc == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idConfigDoc' when calling getTipusGrupTramitacioUsingGET");
+					"Missing the required parameter 'idConfigDoc' when calling getTipusGrupTramitacioUsingGET");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idConfigDoc", idConfigDoc);
 		String path = UriComponentsBuilder.fromPath("/documentacio/tramitacio/listTipusGrup/{idConfigDoc}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -1897,7 +2050,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<List<ConfiguracioDocsTramitacioRDTO>> returnType = new ParameterizedTypeReference<List<ConfiguracioDocsTramitacioRDTO>>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -1930,26 +2083,26 @@ public class DocumentacioApi {
 		// verify the required parameter 'docsEntrada' is set
 		if (docsEntrada == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'docsEntrada' when calling guardarDocumentEntradaFitxer");
+					"Missing the required parameter 'docsEntrada' when calling guardarDocumentEntradaFitxer");
 		}
 
 		// verify the required parameter 'file' is set
 		if (file == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'file' when calling guardarDocumentEntradaFitxer");
+					"Missing the required parameter 'file' when calling guardarDocumentEntradaFitxer");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling guardarDocumentEntradaFitxer");
+					"Missing the required parameter 'idExpedient' when calling guardarDocumentEntradaFitxer");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idExpedient", idExpedient);
 		String path = UriComponentsBuilder.fromPath("/documentacio/entrada/fitxer/{idExpedient}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -1968,7 +2121,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsEntradaRDTO> returnType = new ParameterizedTypeReference<DocsEntradaRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -1996,32 +2149,32 @@ public class DocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public DocsTramitacioRDTO guardarDocumentTramitacioFitxer(String docsTramitacio, File file, BigDecimal idExpedient)
-	        throws RestClientException {
+			throws RestClientException {
 		Object postBody = null;
 
 		// verify the required parameter 'docsTramitacio' is set
 		if (docsTramitacio == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'docsTramitacio' when calling guardarDocumentTramitacioFitxer");
+					"Missing the required parameter 'docsTramitacio' when calling guardarDocumentTramitacioFitxer");
 		}
 
 		// verify the required parameter 'file' is set
 		if (file == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'file' when calling guardarDocumentTramitacioFitxer");
+					"Missing the required parameter 'file' when calling guardarDocumentTramitacioFitxer");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling guardarDocumentTramitacioFitxer");
+					"Missing the required parameter 'idExpedient' when calling guardarDocumentTramitacioFitxer");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idExpedient", idExpedient);
 		String path = UriComponentsBuilder.fromPath("/documentacio/tramitacio/fitxer/{idExpedient}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -2040,7 +2193,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsTramitacioRDTO> returnType = new ParameterizedTypeReference<DocsTramitacioRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -2066,26 +2219,26 @@ public class DocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public DocsTramitacioRDTO guardarDocumentTramitacioPlantilla(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient)
-	        throws RestClientException {
+			throws RestClientException {
 		Object postBody = docsTramitacioRDTO;
 
 		// verify the required parameter 'docsTramitacioRDTO' is set
 		if (docsTramitacioRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'docsTramitacioRDTO' when calling guardarDocumentTramitacioPlantilla");
+					"Missing the required parameter 'docsTramitacioRDTO' when calling guardarDocumentTramitacioPlantilla");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling guardarDocumentTramitacioPlantilla");
+					"Missing the required parameter 'idExpedient' when calling guardarDocumentTramitacioPlantilla");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idExpedient", idExpedient);
 		String path = UriComponentsBuilder.fromPath("/documentacio/tramitacio/plantilla/{idExpedient}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -2101,7 +2254,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsTramitacioRDTO> returnType = new ParameterizedTypeReference<DocsTramitacioRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -2129,32 +2282,32 @@ public class DocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public DocsTramitacioRDTO guardarRequerimentFitxer(File file, BigDecimal idExpedient, String requerimentExpedient)
-	        throws RestClientException {
+			throws RestClientException {
 		Object postBody = null;
 
 		// verify the required parameter 'file' is set
 		if (file == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'file' when calling guardarRequerimentFitxer");
+					"Missing the required parameter 'file' when calling guardarRequerimentFitxer");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling guardarRequerimentFitxer");
+					"Missing the required parameter 'idExpedient' when calling guardarRequerimentFitxer");
 		}
 
 		// verify the required parameter 'requerimentExpedient' is set
 		if (requerimentExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'requerimentExpedient' when calling guardarRequerimentFitxer");
+					"Missing the required parameter 'requerimentExpedient' when calling guardarRequerimentFitxer");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idExpedient", idExpedient);
 		String path = UriComponentsBuilder.fromPath("/documentacio/requeriment/fitxer/{idExpedient}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -2173,7 +2326,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsTramitacioRDTO> returnType = new ParameterizedTypeReference<DocsTramitacioRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -2199,27 +2352,27 @@ public class DocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public DocsTramitacioRDTO guardarRequerimentPlantilla(GuardarRequerimentExpedient guardarRequerimentExpedientRDTO,
-	        BigDecimal idExpedient) throws RestClientException {
+			BigDecimal idExpedient) throws RestClientException {
 		Object postBody = guardarRequerimentExpedientRDTO;
 
 		// verify the required parameter 'guardarRequerimentExpedientRDTO' is
 		// set
 		if (guardarRequerimentExpedientRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'guardarRequerimentExpedientRDTO' when calling guardarRequerimentPlantilla");
+					"Missing the required parameter 'guardarRequerimentExpedientRDTO' when calling guardarRequerimentPlantilla");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling guardarRequerimentPlantilla");
+					"Missing the required parameter 'idExpedient' when calling guardarRequerimentPlantilla");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idExpedient", idExpedient);
 		String path = UriComponentsBuilder.fromPath("/documentacio/requeriment/plantilla/{idExpedient}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -2235,7 +2388,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsTramitacioRDTO> returnType = new ParameterizedTypeReference<DocsTramitacioRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -2273,7 +2426,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<RestClientResponse> returnType = new ParameterizedTypeReference<RestClientResponse>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -2311,7 +2464,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<List<BigDecimal>> returnType = new ParameterizedTypeReference<List<BigDecimal>>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -2338,14 +2491,14 @@ public class DocumentacioApi {
 		// verify the required parameter 'idNotificacio' is set
 		if (idNotificacio == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idNotificacio' when calling obtenirDocsTramitacioByNotificationId");
+					"Missing the required parameter 'idNotificacio' when calling obtenirDocsTramitacioByNotificationId");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idNotificacio", idNotificacio);
 		String path = UriComponentsBuilder.fromPath("/documentacio/docsTramitacioByNotificationId/{idNotificacio}")
-		        .buildAndExpand(uriVariables).toUriString();
+				.buildAndExpand(uriVariables).toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -2361,7 +2514,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<DocsTramitacioRDTO> returnType = new ParameterizedTypeReference<DocsTramitacioRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -2388,14 +2541,14 @@ public class DocumentacioApi {
 		// verify the required parameter 'documents' is set
 		if (documents == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'documents' when calling obtenirDocumentsEntradaToRegistreUsingGET");
+					"Missing the required parameter 'documents' when calling obtenirDocumentsEntradaToRegistreUsingGET");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("documents", documents);
 		String path = UriComponentsBuilder.fromPath("/documentacio/documentsEntrada/registre/{documents}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -2411,7 +2564,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<Map<String, String>> returnType = new ParameterizedTypeReference<Map<String, String>>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -2438,14 +2591,14 @@ public class DocumentacioApi {
 		// verify the required parameter 'idDocumentacio' is set
 		if (idDocumentacio == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idDocumentacio' when calling obtenirDocumentsToRegistreUsingGET");
+					"Missing the required parameter 'idDocumentacio' when calling obtenirDocumentsToRegistreUsingGET");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idDocumentacio", idDocumentacio);
 		String path = UriComponentsBuilder.fromPath("/documentacio/documents/registre/{idDocumentacio}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -2461,7 +2614,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<Map<String, String>> returnType = new ParameterizedTypeReference<Map<String, String>>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -2483,20 +2636,20 @@ public class DocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public List<TransicionsEstatsRDTO> obtenirTransicionsEstatsByEstatDocTramUsingGET(BigDecimal estatDocTramitacio)
-	        throws RestClientException {
+			throws RestClientException {
 		Object postBody = null;
 
 		// verify the required parameter 'estatDocTramitacio' is set
 		if (estatDocTramitacio == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'estatDocTramitacio' when calling obtenirTransicionsEstatsByEstatDocTramUsingGET");
+					"Missing the required parameter 'estatDocTramitacio' when calling obtenirTransicionsEstatsByEstatDocTramUsingGET");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("estatDocTramitacio", estatDocTramitacio);
 		String path = UriComponentsBuilder.fromPath("/documentacio/tramitacio/estatsDocTramCanviEstat/{estatDocTramitacio}")
-		        .buildAndExpand(uriVariables).toUriString();
+				.buildAndExpand(uriVariables).toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -2512,7 +2665,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<List<TransicionsEstatsRDTO>> returnType = new ParameterizedTypeReference<List<TransicionsEstatsRDTO>>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -2540,7 +2693,7 @@ public class DocumentacioApi {
 		// verify the required parameter 'documentRegistrarComunicatRDTO' is set
 		if (documentRegistrarComunicatRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'documentRegistrarComunicatRDTO' when calling registrarComunicatDocumentTramitacio");
+					"Missing the required parameter 'documentRegistrarComunicatRDTO' when calling registrarComunicatDocumentTramitacio");
 		}
 
 		String path = UriComponentsBuilder.fromPath("/documentacio/tramitacio/comunicat").build().toUriString();
@@ -2559,7 +2712,7 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
 		};
 		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -2587,7 +2740,7 @@ public class DocumentacioApi {
 		// verify the required parameter 'documentRevisioRDTO' is set
 		if (documentRevisioRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'documentRevisioRDTO' when calling revisarDocumentacioEntrada");
+					"Missing the required parameter 'documentRevisioRDTO' when calling revisarDocumentacioEntrada");
 		}
 
 		String path = UriComponentsBuilder.fromPath("/documentacio/entrada/revisar").build().toUriString();
@@ -2606,7 +2759,55 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
 		};
 		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
+	}
+
+	/**
+	 * Crear una petició per signar un document
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>201</b> - Created
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param signarSegellDocumentRDTO
+	 *            signarSegellDocumentRDTO
+	 * @return SignarSegellDocument
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public SignarSegellDocument signarSegell(SignarSegellDocument signarSegellDocumentRDTO) throws RestClientException {
+		Object postBody = signarSegellDocumentRDTO;
+
+		// verify the required parameter 'signarSegellDocumentRDTO' is set
+		if (signarSegellDocumentRDTO == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+					"Missing the required parameter 'signarSegellDocumentRDTO' when calling signarSegell");
+		}
+
+		String path = UriComponentsBuilder.fromPath("/documentacio/signarSegell").build().toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "application/json" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<SignarSegellDocument> returnType = new ParameterizedTypeReference<SignarSegellDocument>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+				returnType);
 	}
 
 	/**
@@ -2634,14 +2835,14 @@ public class DocumentacioApi {
 		// verify the required parameter 'idDocumentacio' is set
 		if (idDocumentacio == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idDocumentacio' when calling tancarRequerimentsExpedient");
+					"Missing the required parameter 'idDocumentacio' when calling tancarRequerimentsExpedient");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idDocumentacio", idDocumentacio);
 		String path = UriComponentsBuilder.fromPath("/documentacio/tancarRequeriments/{idDocumentacio}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -2657,6 +2858,6 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
 		};
 		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 }

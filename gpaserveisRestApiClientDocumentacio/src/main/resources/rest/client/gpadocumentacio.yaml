@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.13.1"
+  version: "1.13.2"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -1409,7 +1409,7 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /documentacio/comprovarDocumentsSignats/{idDocumentacio}:
+  /documentacio/comprovarDocumentsSignats/{idDocumentacioList}:
     get:
       tags:
       - "Documentacio"
@@ -1418,11 +1418,11 @@ paths:
       produces:
       - "*/*"
       parameters:
-      - name: "idDocumentacio"
+      - name: "idDocumentacioList"
         in: "path"
-        description: "idDocumentacio"
+        description: "idDocumentacioList"
         required: true
-        type: "number"
+        type: "string"
       responses:
         200:
           description: "OK"
@@ -1458,7 +1458,9 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/PeticionsPortasig"
+            type: "array"
+            items:
+              $ref: "#/definitions/PeticionsPortasig"
         201:
           description: "Created"
         401:
@@ -1534,6 +1536,37 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /documentacio/docsEntrada/associatsDocsIntra:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "Associar els documents d'entrada"
+      operationId: "associatsDocsIntra"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "docsAssociatsIntraRDTO"
+        description: "docsAssociatsIntraRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/DocsAssociatsIntra"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /documentacio/docsTramitacioByNotificationId/{idNotificacio}:
     get:
       tags:
@@ -1607,6 +1640,113 @@ paths:
             type: "object"
             additionalProperties:
               type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /documentacio/documentsEntrada/cerca:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Obtenir els documents d'entrada"
+      operationId: "cercaDocumentsEntradaUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "codiExpedient"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "idExpedient"
+        in: "query"
+        required: false
+        type: "number"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "nifSolicitant"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "nomDocument"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "tipusDocument"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfRespostaCercaDocsEntradaIntraoperabilitat"
         401:
           description: "Unauthorized"
         403:
@@ -1888,12 +2028,11 @@ paths:
       produces:
       - "*/*"
       parameters:
-      - in: "formData"
-        name: "docsEntrada"
+      - name: "docsEntrada"
+        in: "formData"
         description: "docsEntrada"
         required: true
-        schema:
-          type: "string"
+        type: "string"
       - name: "file"
         in: "formData"
         description: "file"
@@ -2174,12 +2313,11 @@ paths:
         description: "idExpedient"
         required: true
         type: "number"
-      - in: "formData"
-        name: "requerimentExpedient"
+      - name: "requerimentExpedient"
+        in: "formData"
         description: "requerimentExpedient"
         required: true
-        schema:
-          type: "string"
+        type: "string"
       responses:
         200:
           description: "OK"
@@ -2261,6 +2399,39 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/DocsTramitacioRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /documentacio/signarSegell:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "Crear una petició per signar un document"
+      operationId: "signarSegell"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "signarSegellDocumentRDTO"
+        description: "signarSegellDocumentRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/SignarSegellDocument"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/SignarSegellDocument"
         201:
           description: "Created"
         401:
@@ -2546,12 +2717,11 @@ paths:
       produces:
       - "*/*"
       parameters:
-      - in: "formData"
-        name: "docsTramitacio"
+      - name: "docsTramitacio"
+        in: "formData"
         description: "docsTramitacio"
         required: true
-        schema:
-          type: "string"
+        type: "string"
       - name: "file"
         in: "formData"
         description: "file"
@@ -3550,12 +3720,17 @@ definitions:
       codiExpedient:
         type: "string"
         description: "Codi Opentext de l'expedient"
-      idDocument:
+      idDocumentPrincipal:
         type: "number"
-        description: "Identificador del document de tramitació"
+        description: "Identificador del document principal de tramitació"
       idExpedient:
         type: "number"
         description: "Identificador de l'expedient"
+      idsAnnexosList:
+        type: "array"
+        description: "llista d'identificadors dels annexos"
+        items:
+          type: "number"
       nomProcediment:
         type: "string"
         description: "Nom del procediment de l'expedient"
@@ -3589,6 +3764,18 @@ definitions:
       titolGrup:
         type: "string"
     title: "DadesOperacioRDTO"
+  DocsAssociatsIntra:
+    type: "object"
+    properties:
+      docsEntrada:
+        $ref: "#/definitions/DocsEntrada"
+      idDocumentOriginal:
+        type: "number"
+      idExpedientDestino:
+        type: "number"
+      idExpedientOrigen:
+        type: "number"
+    title: "DocsAssociatsIntra"
   DocsEntActualizarRegistre:
     type: "object"
     properties:
@@ -3601,6 +3788,106 @@ definitions:
         items:
           type: "number"
     title: "DocsEntActualizarRegistre"
+  DocsEntrada:
+    type: "object"
+    properties:
+      codi:
+        type: "string"
+      comentari:
+        type: "string"
+      configDocEntrada:
+        type: "number"
+      configuracioDocsEntrada:
+        $ref: "#/definitions/ConfiguracioDocsEntrada"
+      configuracioDocsEntradaNom:
+        type: "string"
+      configuracioDocsEntradaNomCastella:
+        type: "string"
+      dataCreacio:
+        type: "string"
+        format: "date-time"
+      dataDigitalitzacio:
+        type: "string"
+        format: "date-time"
+      dataPresentacio:
+        type: "string"
+        format: "date-time"
+      dataUltimaModificacio:
+        type: "string"
+        format: "date-time"
+      declaracioResponsable:
+        type: "integer"
+        format: "int32"
+      digitalitzat:
+        type: "integer"
+        format: "int32"
+      docsFisics:
+        $ref: "#/definitions/DocsFisics"
+      docsFisicsNom:
+        type: "string"
+      documentFisic:
+        type: "number"
+      documentacio:
+        type: "number"
+      editable:
+        type: "boolean"
+      eliminat:
+        type: "integer"
+        format: "int32"
+      estatDigitalitzacio:
+        type: "number"
+      id:
+        type: "number"
+      idIdiomaPlantilla:
+        type: "number"
+      idioma:
+        type: "number"
+      idiomaDigitalitzacio:
+        type: "number"
+      metadata:
+        type: "object"
+        additionalProperties:
+          type: "array"
+          items:
+            type: "string"
+      migracioIdOrigen:
+        type: "string"
+      nou:
+        type: "integer"
+        format: "int32"
+      numDocsConfiguracio:
+        type: "number"
+      obligatoriEnEstat:
+        type: "boolean"
+      origen:
+        type: "integer"
+        format: "int32"
+      plantillaPdf:
+        type: "boolean"
+      registreAssentament:
+        $ref: "#/definitions/RegistreAssentament"
+      registreCodi:
+        type: "string"
+      registreIdext:
+        type: "number"
+      requerit:
+        type: "boolean"
+      revisio:
+        type: "integer"
+        format: "int32"
+      seleccionable:
+        type: "boolean"
+      tipusMimeDescripcio:
+        type: "string"
+      tramitOvtIdext:
+        type: "number"
+      ultimaModificacioIdext:
+        type: "number"
+      urlDigitalitzacio:
+        type: "string"
+      usuariIdext:
+        type: "number"
+    title: "DocsEntrada"
   DocsEntradaRDTO:
     type: "object"
     properties:
@@ -4341,6 +4628,18 @@ definitions:
       sortInfo:
         $ref: "#/definitions/SortInfo"
     title: "PageDataOfDocsTramitacioRDTO"
+  PageDataOfRespostaCercaDocsEntradaIntraoperabilitat:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/RespostaCercaDocsEntradaIntraoperabilitat"
+      page:
+        $ref: "#/definitions/PaginationAttributes"
+      sortInfo:
+        $ref: "#/definitions/SortInfo"
+    title: "PageDataOfRespostaCercaDocsEntradaIntraoperabilitat"
   PaginationAttributes:
     type: "object"
     properties:
@@ -4525,6 +4824,26 @@ definitions:
       id:
         type: "number"
     title: "Requeriments"
+  RespostaCercaDocsEntradaIntraoperabilitat:
+    type: "object"
+    properties:
+      codiExpedient:
+        type: "string"
+      editable:
+        type: "boolean"
+      id:
+        type: "number"
+      idExpedient:
+        type: "number"
+      nifSolicitant:
+        type: "string"
+      nomDocument:
+        type: "string"
+      seleccionable:
+        type: "boolean"
+      tipusDocument:
+        type: "string"
+    title: "RespostaCercaDocsEntradaIntraoperabilitat"
   RespostaDocumentacioVinculadaCompletaRDTO:
     type: "object"
     properties:
@@ -4615,9 +4934,11 @@ definitions:
       accio:
         type: "number"
         description: "Acció a realitzar per l'portafirmas"
-      idDocument:
-        type: "number"
-        description: "Identificador del document"
+      listIdDocument:
+        type: "array"
+        description: "Llista d'identificadors dels documents"
+        items:
+          type: "number"
       unitatGestoraIdext:
         type: "number"
         description: "Identificador de la unitat gestora"
@@ -4625,6 +4946,20 @@ definitions:
         description: "Usuari que va realitzar l'acció"
         $ref: "#/definitions/UsuariPortaSig"
     title: "SignarDocument"
+  SignarSegellDocument:
+    type: "object"
+    properties:
+      codiError:
+        type: "integer"
+        format: "int32"
+        description: "Codi de l'error"
+      descError:
+        type: "string"
+        description: "Descripció de l'error"
+      idDocument:
+        type: "number"
+        description: "Identificador del document"
+    title: "SignarSegellDocument"
   SortInfo:
     type: "object"
     properties:

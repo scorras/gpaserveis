@@ -1681,9 +1681,9 @@ public class TestsConfigHelper {
 		return pageDataOfDadesOperacionsRDTO;
 	}
 
-	public static PeticionsPortasig crearPeticioPortaSigResponse() {
+	public static List<PeticionsPortasig> crearPeticioPortaSigResponse() {
 		PeticionsPortasig peticionsPortasig = new PeticionsPortasig();
-		return peticionsPortasig;
+		return Arrays.asList(peticionsPortasig);
 	}
 
 	public static NotificacionsRDTO crearNotificacioResponse() {
