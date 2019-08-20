@@ -1,5 +1,9 @@
 package es.bcn.gpa.gpaserveis.web.initialization.servlet;
 
+import javax.servlet.Filter;
+import javax.servlet.ServletContext;
+
+import es.bcn.gpa.gpaserveis.web.initialization.filter.HystrixRequestContextServletFilter;
 import es.bcn.gpa.gpaserveis.web.rest.config.RestServerConfig;
 import net.opentrends.openframe.services.web.servlet.support.AbstractAnnotationConfigRootApplicationContextlessDispatcherServletInitializer;
 
@@ -25,6 +29,15 @@ public class RestDispatcherServletInitializer extends AbstractAnnotationConfigRo
 	@Override
 	protected String getServletName() {
 		return SERVLET_NAME;
+	}
+
+	/**
+	 * Specify filters to add and map to the {@code DispatcherServlet}.
+	 * @return an array of filters or {@code null}
+	 * @see #registerServletFilter(ServletContext, Filter)
+	 */
+	protected Filter[] getServletFilters() {
+		return new Filter[] { new HystrixRequestContextServletFilter() };
 	}
 
 }
