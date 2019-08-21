@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.http.MediaType;
@@ -199,6 +200,7 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 	}
 
 	@Test
+	@Ignore
 	public void testStage22_PostAcumularExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/1/acumular";
 		getMockMvc()
