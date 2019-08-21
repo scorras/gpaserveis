@@ -56,7 +56,7 @@ public class RespostaExpedientsAcumularBDTOToRespostaAcumularExpedientRDTOMapper
 	protected void configure() {
 		using(internalToResultatRespostaConverter).map(source.getRespostaResultatBDTO()).setResultat(null);
 		using(internalToExpedientAccioConverter).map(source.getExpedientsRDTO()).setExpedient(null);
-		using(internalToExpedientAccioListConverter).map(source.getDadesExpedientBDTOList()).setAcumulats(null);
+		using(internalToExpedientAccioListConverter).map(source.getExpedientsAcumulatsRDTOList()).setAcumulats(null);
 	}
 
 }

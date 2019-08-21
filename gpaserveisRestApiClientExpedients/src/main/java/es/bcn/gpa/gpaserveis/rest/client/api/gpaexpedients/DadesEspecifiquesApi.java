@@ -8,6 +8,7 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.Pair;
 import javax.ws.rs.core.GenericType;
 
 import java.math.BigDecimal;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesMassiu;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-18T17:48:56.871+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-24T01:06:10.329+02:00")
 public class DadesEspecifiquesApi {
   private ApiClient apiClient;
 
@@ -75,6 +76,48 @@ public class DadesEspecifiquesApi {
     String[] localVarAuthNames = new String[] {  };
 
     GenericType<List<DadesEspecifiquesRDTO>> localVarReturnType = new GenericType<List<DadesEspecifiquesRDTO>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * Returns the requested dades especifiques
+   * 
+   * @param idsExpedient idsExpedient (required)
+   * @return List&lt;DadesEspecifiquesMassiu&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<DadesEspecifiquesMassiu> consultarDadesEspecifiquesExpedientMassiu(String idsExpedient) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'idsExpedient' is set
+    if (idsExpedient == null) {
+      throw new ApiException(400, "Missing the required parameter 'idsExpedient' when calling consultarDadesEspecifiquesExpedientMassiu");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/expedients/dadesEspecifiques/massiu/{idsExpedient}"
+      .replaceAll("\\{" + "idsExpedient" + "\\}", apiClient.escapeString(idsExpedient.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    GenericType<List<DadesEspecifiquesMassiu>> localVarReturnType = new GenericType<List<DadesEspecifiquesMassiu>>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**

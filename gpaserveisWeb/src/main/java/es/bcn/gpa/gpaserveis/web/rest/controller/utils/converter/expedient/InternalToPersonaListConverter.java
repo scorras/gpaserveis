@@ -32,11 +32,6 @@ public class InternalToPersonaListConverter extends AbstractConverter<List<Perso
 	@Qualifier("expedientTipusSexeApiParamValueTranslator")
 	private BaseApiParamValueTranslator tipusSexeApiParamValueTranslator;
 
-	/** The tipus via api param value translator. */
-	@Autowired
-	@Qualifier("expedientTipusViaApiParamValueTranslator")
-	private BaseApiParamValueTranslator tipusViaApiParamValueTranslator;
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -50,7 +45,7 @@ public class InternalToPersonaListConverter extends AbstractConverter<List<Perso
 			for (PersonesSollicitudRDTO personesSollicitudRDTO : source) {
 				personesRDTOList.add(ConverterHelper.buildPersonesRDTOExpedient(personesSollicitudRDTO.getPersones(),
 				        tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator,
-				        tipusSexeApiParamValueTranslator, tipusViaApiParamValueTranslator));
+				        tipusSexeApiParamValueTranslator));
 			}
 		}
 		return personesRDTOList;

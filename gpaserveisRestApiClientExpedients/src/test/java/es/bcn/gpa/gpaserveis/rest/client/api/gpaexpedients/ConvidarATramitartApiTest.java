@@ -28,7 +28,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarMassiuRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
@@ -54,8 +54,8 @@ public class ConvidarATramitartApiTest extends ParentTest {
 		when(apiClient.invokeAPI(eq("/expedients/convidarATramitar"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
 		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
 
-		ConvidarTramitarRDTO convidarTramitarRDTO = new ConvidarTramitarRDTO();
-		api.convidarTramitarExpedient(convidarTramitarRDTO);
+		ConvidarTramitarMassiuRDTO convidarTramitarMassiuRDTO = new ConvidarTramitarMassiuRDTO();
+		api.convidarTramitarExpedient(convidarTramitarMassiuRDTO);
 
 		assertTrue(true);
 	}

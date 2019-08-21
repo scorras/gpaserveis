@@ -11,7 +11,6 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.Rela
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusDocumentIdentitatApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusPersonaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusSexeApiParamValueTranslator;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusViaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.PersonesRDTO;
 
 /**
@@ -32,10 +31,6 @@ public class PersonaSollicitantToInternalConverter extends AbstractConverter<Per
 	@Qualifier("expedientTipusSexeApiParamValueTranslator")
 	private TipusSexeApiParamValueTranslator tipusSexeApiParamValueTranslator;
 
-	@Autowired
-	@Qualifier("expedientTipusViaApiParamValueTranslator")
-	private TipusViaApiParamValueTranslator tipusViaApiParamValueTranslator;
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -44,7 +39,6 @@ public class PersonaSollicitantToInternalConverter extends AbstractConverter<Per
 	@Override
 	protected PersonesSollicitud convert(PersonesRDTO source) {
 		return ConverterHelper.buildPersonesSollicitudExpedient(source, RelacioPersonaApiParamValue.SOLLICITANT,
-		        tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator,
-		        tipusViaApiParamValueTranslator);
+		        tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator);
 	}
 }

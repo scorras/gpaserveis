@@ -1462,13 +1462,13 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackSignarValidarDocument")
-	public PeticionsPortasig signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException {
+	public List<PeticionsPortasig> signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("signarValidarDocument(SignarDocument) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			PeticionsPortasig crearPeticioPortaSig = documentacioApi.crearPeticioPortaSig(signarDocument);
+			List<PeticionsPortasig> crearPeticioPortaSig = documentacioApi.crearPeticioPortaSig(signarDocument);
 
 			if (log.isDebugEnabled()) {
 				log.debug("signarValidarDocument(SignarDocument) - fi"); //$NON-NLS-1$
@@ -1491,7 +1491,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public PeticionsPortasig fallbackSignarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException {
+	public List<PeticionsPortasig> fallbackSignarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackSignarValidarDocument(SignarDocument) - inici"); //$NON-NLS-1$
 		}

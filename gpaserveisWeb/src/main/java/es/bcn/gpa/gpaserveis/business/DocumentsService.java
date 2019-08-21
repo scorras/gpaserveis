@@ -324,7 +324,7 @@ public interface DocumentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	PeticionsPortasig signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException;
+	List<PeticionsPortasig> signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException;
 
 	/**
 	 * Obtenir docs tramitacio by notification id.

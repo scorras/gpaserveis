@@ -7,14 +7,14 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarMassiuRDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-18T17:48:56.871+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-24T01:06:10.329+02:00")
 public class ConvidarATramitartApi {
   private ApiClient apiClient;
 
@@ -37,15 +37,15 @@ public class ConvidarATramitartApi {
   /**
    * ConvidarATramitart
    * 
-   * @param convidarTramitarRDTO convidarTramitarRDTO (required)
+   * @param convidarTramitarMassiuRDTO convidarTramitarMassiuRDTO (required)
    * @throws ApiException if fails to make API call
    */
-  public void convidarTramitarExpedient(ConvidarTramitarRDTO convidarTramitarRDTO) throws ApiException {
-    Object localVarPostBody = convidarTramitarRDTO;
+  public void convidarTramitarExpedient(ConvidarTramitarMassiuRDTO convidarTramitarMassiuRDTO) throws ApiException {
+    Object localVarPostBody = convidarTramitarMassiuRDTO;
     
-    // verify the required parameter 'convidarTramitarRDTO' is set
-    if (convidarTramitarRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'convidarTramitarRDTO' when calling convidarTramitarExpedient");
+    // verify the required parameter 'convidarTramitarMassiuRDTO' is set
+    if (convidarTramitarMassiuRDTO == null) {
+      throw new ApiException(400, "Missing the required parameter 'convidarTramitarMassiuRDTO' when calling convidarTramitarExpedient");
     }
     
     // create path and map variables

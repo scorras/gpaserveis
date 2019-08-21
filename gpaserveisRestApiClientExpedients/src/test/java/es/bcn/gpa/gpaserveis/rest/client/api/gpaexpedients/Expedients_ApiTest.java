@@ -154,44 +154,6 @@ public class Expedients_ApiTest extends ParentTest {
 	}
 
 	/**
-	 * Returns the requested child expedients
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void cercaExpedientsAcumulatsTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/acumulacioExpedients/1/acumulacio/children"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfExpedientsRDTO());
-
-		BigDecimal idExpedient = ONE;
-		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
-		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
-		Boolean currentPageHasNextPage = null;
-		Boolean currentPageHasPreviousPage = null;
-		Boolean currentPageIsFirstPage = null;
-		Boolean currentPageIsLastPage = null;
-		Integer currentPageNumber = null;
-		String dir = null;
-		Integer nextPageNumber = null;
-		Integer pageSize = null;
-		Integer previousPageNumber = null;
-		String sort = null;
-		Long totalElements = null;
-		Integer totalPages = null;
-		PageDataOfExpedientsRDTO response = api.cercaExpedientsAcumulats(idExpedient, absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
-		        totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
 	 * Returns al the expedients
 	 *
 	 * 
@@ -239,44 +201,6 @@ public class Expedients_ApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		PageDataOfExpedientsRDTO response = api.getExpedientsUsingGET1(absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
-		        totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns the requested parent&#39;s expedient
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getParentExpedientUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/acumulacioExpedients/1/acumulacio/parent"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfExpedientsRDTO());
-
-		BigDecimal idExpedient = ONE;
-		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
-		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
-		Boolean currentPageHasNextPage = null;
-		Boolean currentPageHasPreviousPage = null;
-		Boolean currentPageIsFirstPage = null;
-		Boolean currentPageIsLastPage = null;
-		Integer currentPageNumber = null;
-		String dir = null;
-		Integer nextPageNumber = null;
-		Integer pageSize = null;
-		Integer previousPageNumber = null;
-		String sort = null;
-		Long totalElements = null;
-		Integer totalPages = null;
-		PageDataOfExpedientsRDTO response = api.getParentExpedientUsingGET(idExpedient, absoluteRowNumberOfFirstRowInCurrentPage,
 		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
 		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
 		        totalPages);
@@ -523,28 +447,6 @@ public class Expedients_ApiTest extends ParentTest {
 
 		BigDecimal idDocumentacio = ONE;
 		BigDecimal response = api.getIdExpedientByDocumentacioIdExt(idDocumentacio);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns the requested expedient
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void obtenirExpedientObjecteDeRecursTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/obtenirExpedientObjecteDeRecurs/1/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ExpedientsRDTO());
-
-		String codi = ONE.toString();
-		BigDecimal procObjecteDeRecursId = ONE;
-		ExpedientsRDTO response = api.obtenirExpedientObjecteDeRecurs(codi, procObjecteDeRecursId);
 
 		assertTrue(response != null);
 	}

@@ -42,4 +42,34 @@ public class Constants {
 	/** The Constant CODI_ISO_PAIS_PER_DEFECTE. */
 	public static final String CODI_ISO_PAIS_PER_DEFECTE = "ES";
 
+	/** The Constant MISSATGE_ERROR_ARIADNA. */
+	public static final String MISSATGE_ERROR_ARIADNA = "Error Ariadna:";
+
+	/** The Constant MISSATGE_ERROR_CATALEG. */
+	public static final String MISSATGE_ERROR_CATALEG = "Error Cataleg:";
+
+	/** The Constant MISSATGE_ERROR_CTRLUSER. */
+	public static final String MISSATGE_ERROR_CTRLUSER = "Error CtrlUser:";
+
+	/** The Constant MISSATGE_ERROR_DIGITALITZACIO. */
+	public static final String MISSATGE_ERROR_DIGITALITZACIO = "Error Digitalització:";
+
+	/** The Constant MISSATGE_ERROR_GEOCOD. */
+	public static final String MISSATGE_ERROR_GEOCOD = "Error GeoCod:";
+
+	/** The Constant MISSATGE_ERROR_NOTIFICADOR. */
+	public static final String MISSATGE_ERROR_NOTIFICADOR = "Error Notificador:";
+
+	/** The Constant MISSATGE_ERROR_OPENTEXT. */
+	public static final String MISSATGE_ERROR_OPENTEXT = "Error OpenText:";
+
+	/** The Constant MISSATGE_ERROR_PDFGESTOR. */
+	public static final String MISSATGE_ERROR_PDFGESTOR = "Error PdfGestor:";
+
+	/** The Constant MISSATGE_ERROR_PORTASIG. */
+	public static final String MISSATGE_ERROR_PORTASIG = "Error PortaSig:";
+
+	/** The Constant MISSATGE_ERROR_SIGNATURES. */
+	public static final String MISSATGE_ERROR_SIGNATURES = "Error Signatures:";
+
 }

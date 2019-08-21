@@ -31,6 +31,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ConvidarATramitartApi
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsRelacionatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi;
@@ -53,9 +54,9 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AvisCreacioAccio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraMassiuRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarMassiuRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
@@ -173,6 +174,10 @@ public abstract class ParentTest {
 	@Autowired
 	protected NotificacionsApi notificacionsApi;
 
+	/** The expedients relacionats api. */
+	@Autowired
+	protected ExpedientsRelacionatsApi expedientsRelacionatsApi;
+
 	/**
 	 * Sets the up.
 	 */
@@ -238,17 +243,10 @@ public abstract class ParentTest {
 			when(expedients_Api.consultarDadesExpedientPerCodi(eq("ES_LO1080193_2019_EXP_000000000000000000000000000001")))
 			        .thenReturn(TestsConfigHelper.consultarDadesExpedientResponse());
 
-			when(expedients_Api.cercaExpedientsAcumular(isNull(Integer.class), isNull(Integer.class), isNull(String.class),
-			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
-			        isNull(String.class), isNull(BigDecimal.class), any(BigDecimal.class), isNull(BigDecimal.class),
-			        isNull(BigDecimal.class), isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class),
-			        isNull(String.class), isNull(String.class), isNull(Long.class), isNull(Integer.class)))
-			                .thenReturn(TestsConfigHelper.cercaExpedientsAcumularResponse());
-
-			when(expedients_Api.cercaExpedientsAcumulats(any(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
+			when(expedientsRelacionatsApi.obtenirExpedientsRelacionats(any(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
 			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
 			        isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class), isNull(String.class),
-			        isNull(Long.class), isNull(Integer.class))).thenReturn(TestsConfigHelper.cercaExpedientsAcumularResponse());
+			        isNull(Long.class), isNull(Integer.class))).thenReturn(TestsConfigHelper.obtenirExpedientsRelacionatsResponse());
 
 			when(expedientsApi.cercaHistoricsExpedient(any(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
 			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
@@ -368,9 +366,9 @@ public abstract class ParentTest {
 
 			doNothing().when(retornarLaTramitacioApi).retornarTramitacioExpedient(any(RetornarLaTramitacioRDTO.class));
 
-			doNothing().when(convidarATramitartApi).convidarTramitarExpedient(any(ConvidarTramitarRDTO.class));
+			doNothing().when(convidarATramitartApi).convidarTramitarExpedient(any(ConvidarTramitarMassiuRDTO.class));
 
-			doNothing().when(canviUnitatGestoraApi).canviarUnitatGestoraExpedient(any(CanviUnitatGestoraRDTO.class));
+			doNothing().when(canviUnitatGestoraApi).canviarUnitatGestoraExpedient(any(CanviUnitatGestoraMassiuRDTO.class));
 
 			when(expedients_Api.consultarDadesRegistreAssentament(any(String.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesRegistreAssentamentResponse());

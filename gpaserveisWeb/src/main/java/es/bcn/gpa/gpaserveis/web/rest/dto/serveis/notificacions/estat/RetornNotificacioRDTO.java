@@ -30,21 +30,21 @@ public class RetornNotificacioRDTO {
 	private String descripcioError;
 	@ApiModelProperty(value = "Número de registre de la notificació.")
 	private String numRegistre;
-	@ApiModelProperty(value = "Data en la que ha estat registrada la notificació. Format: dd/MM/yyyy hh:mm:ss")
+	@ApiModelProperty(value = "Data en la que ha estat registrada la notificació. Format: dd/MM/yyyy HH:mm:ss")
 	private String dataHoraRegistre;
-	@ApiModelProperty(value = "Data en la que ha estat diposada la notificació. Format: dd/MM/yyyy hh:mm:ss")
+	@ApiModelProperty(value = "Data en la que ha estat diposada la notificació. Format: dd/MM/yyyy HH:mm:ss")
 	private String dataHoraDiposit;
-	@ApiModelProperty(value = "Data en la que ha estat visualitzada la notificació. Format: dd/MM/yyyy hh:mm:ss")
+	@ApiModelProperty(value = "Data en la que ha estat visualitzada la notificació. Format: dd/MM/yyyy HH:mm:ss")
 	private String dataHoraVisualitzacio;
-	@ApiModelProperty(value = "Data en la que ha estat acceptada/rebutjada la notificació. Format: dd/MM/yyyy hh:mm:ss")
+	@ApiModelProperty(value = "Data en la que ha estat acceptada/rebutjada la notificació. Format: dd/MM/yyyy HH:mm:ss")
 	private String dataHoraAceptacioRebuig;
-	@ApiModelProperty(value = "Data límit de la notificació. Format: dd/MM/yyyy")
+	@ApiModelProperty(value = "Data límit de la notificació. Format: dd/MM/yyyy HH:mm:ss")
 	private String dataLimit;
 	@ApiModelProperty(value = "Document de la evidència electrònica de la notificació")
 	private String docEvidenciaElectronic;
-	@ApiModelProperty(value = "Data d'enviament de la notificació. Format: dd/MM/yyyy hh:mm:ss")
+	@ApiModelProperty(value = "Data d'enviament de la notificació. Format: dd/MM/yyyy HH:mm:ss")
 	private String dataEnviament;
-	@ApiModelProperty(value = "Data de l'acussament de rebuda de la notificació. Format: dd/MM/yyyy hh:mm:ss")
+	@ApiModelProperty(value = "Data de l'acussament de rebuda de la notificació. Format: dd/MM/yyyy HH:mm:ss")
 	private String dataAcusamentRebuda;
 	@ApiModelProperty(value = "Document de la evidència en paper de la notificació")
 	private String docEvidenciaPaper;
