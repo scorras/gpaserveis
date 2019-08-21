@@ -30,7 +30,7 @@ public class RestDispatcherServletInitializer extends AbstractAnnotationConfigRo
 	protected String getServletName() {
 		return SERVLET_NAME;
 	}
-
+	
 	/**
 	 * Specify filters to add and map to the {@code DispatcherServlet}.
 	 * @return an array of filters or {@code null}
