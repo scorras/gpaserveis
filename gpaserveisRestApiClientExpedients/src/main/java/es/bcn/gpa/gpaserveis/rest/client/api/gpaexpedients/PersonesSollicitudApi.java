@@ -1,314 +1,140 @@
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.Configuration;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.Pair;
+import java.util.List;
 
-import javax.ws.rs.core.GenericType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-24T01:06:10.329+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-14T14:00:28.664+02:00")
+@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi")
 public class PersonesSollicitudApi {
-  private ApiClient apiClient;
+	private ApiClient apiClient;
 
-  public PersonesSollicitudApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+	public PersonesSollicitudApi() {
+		this(new ApiClient());
+	}
 
-  public PersonesSollicitudApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+	@Autowired
+	public PersonesSollicitudApi(ApiClient apiClient) {
+		this.apiClient = apiClient;
+	}
 
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+	public ApiClient getApiClient() {
+		return apiClient;
+	}
 
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+	public void setApiClient(ApiClient apiClient) {
+		this.apiClient = apiClient;
+	}
 
-  /**
-   * Save the provided persone
-   * 
-   * @param personesSollicitudRDTO personesSollicitudRDTO (required)
-   * @param absoluteRowNumberOfFirstRowInCurrentPage  (optional)
-   * @param absoluteRowNumberOfLastRowInCurrentPage  (optional)
-   * @param currentPageHasNextPage  (optional)
-   * @param currentPageHasPreviousPage  (optional)
-   * @param currentPageIsFirstPage  (optional)
-   * @param currentPageIsLastPage  (optional)
-   * @param currentPageNumber  (optional)
-   * @param dir  (optional)
-   * @param nextPageNumber  (optional)
-   * @param pageSize  (optional)
-   * @param previousPageNumber  (optional)
-   * @param sort  (optional)
-   * @param totalElements  (optional)
-   * @param totalPages  (optional)
-   * @return PageDataOfPersonesSollicitudRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public PageDataOfPersonesSollicitudRDTO actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
-    Object localVarPostBody = personesSollicitudRDTO;
-    
-    // verify the required parameter 'personesSollicitudRDTO' is set
-    if (personesSollicitudRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'personesSollicitudRDTO' when calling actualitzarDadesAltraPersonaImplicada");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/personesSollicitud/altresImplidades";
+	/**
+	 * Save the provided persone
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>201</b> - Created
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param personesSollicitudRDTO
+	 *            personesSollicitudRDTO
+	 * @param absoluteRowNumberOfFirstRowInCurrentPage
+	 *            The absoluteRowNumberOfFirstRowInCurrentPage parameter
+	 * @param absoluteRowNumberOfLastRowInCurrentPage
+	 *            The absoluteRowNumberOfLastRowInCurrentPage parameter
+	 * @param currentPageHasNextPage
+	 *            The currentPageHasNextPage parameter
+	 * @param currentPageHasPreviousPage
+	 *            The currentPageHasPreviousPage parameter
+	 * @param currentPageIsFirstPage
+	 *            The currentPageIsFirstPage parameter
+	 * @param currentPageIsLastPage
+	 *            The currentPageIsLastPage parameter
+	 * @param currentPageNumber
+	 *            The currentPageNumber parameter
+	 * @param dir
+	 *            The dir parameter
+	 * @param nextPageNumber
+	 *            The nextPageNumber parameter
+	 * @param pageSize
+	 *            The pageSize parameter
+	 * @param previousPageNumber
+	 *            The previousPageNumber parameter
+	 * @param sort
+	 *            The sort parameter
+	 * @param totalElements
+	 *            The totalElements parameter
+	 * @param totalPages
+	 *            The totalPages parameter
+	 * @return PageDataOfPersonesSollicitudRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public PageDataOfPersonesSollicitudRDTO actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO,
+	        Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage,
+	        Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage,
+	        Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize,
+	        Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
+		Object postBody = personesSollicitudRDTO;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		// verify the required parameter 'personesSollicitudRDTO' is set
+		if (personesSollicitudRDTO == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'personesSollicitudRDTO' when calling actualitzarDadesAltraPersonaImplicada");
+		}
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasNextPage", currentPageHasNextPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasPreviousPage", currentPageHasPreviousPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsFirstPage", currentPageIsFirstPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsLastPage", currentPageIsLastPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "nextPageNumber", nextPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "previousPageNumber", previousPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
+		String path = UriComponentsBuilder.fromPath("/expedients/personesSollicitud/altresImplidades").build().toUriString();
 
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfFirstRowInCurrentPage",
+		        absoluteRowNumberOfFirstRowInCurrentPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfLastRowInCurrentPage",
+		        absoluteRowNumberOfLastRowInCurrentPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasNextPage", currentPageHasNextPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasPreviousPage", currentPageHasPreviousPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsFirstPage", currentPageIsFirstPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsLastPage", currentPageIsLastPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageNumber", currentPageNumber));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "dir", dir));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nextPageNumber", nextPageNumber));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "pageSize", pageSize));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "previousPageNumber", previousPageNumber));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sort", sort));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalElements", totalElements));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalPages", totalPages));
 
-    String[] localVarAuthNames = new String[] {  };
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "application/json" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
-    GenericType<PageDataOfPersonesSollicitudRDTO> localVarReturnType = new GenericType<PageDataOfPersonesSollicitudRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Deletes the requested personesSollicitud list
-   * 
-   * @param personesSollicitudRDTOList personesSollicitudRDTOList (required)
-   * @param absoluteRowNumberOfFirstRowInCurrentPage  (optional)
-   * @param absoluteRowNumberOfLastRowInCurrentPage  (optional)
-   * @param currentPageHasNextPage  (optional)
-   * @param currentPageHasPreviousPage  (optional)
-   * @param currentPageIsFirstPage  (optional)
-   * @param currentPageIsLastPage  (optional)
-   * @param currentPageNumber  (optional)
-   * @param dir  (optional)
-   * @param nextPageNumber  (optional)
-   * @param pageSize  (optional)
-   * @param previousPageNumber  (optional)
-   * @param sort  (optional)
-   * @param totalElements  (optional)
-   * @param totalPages  (optional)
-   * @return PageDataOfPersonesSollicitudRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public PageDataOfPersonesSollicitudRDTO deleteAltresImplicadesListUsingPOST(List<PersonesSollicitudRDTO> personesSollicitudRDTOList, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
-    Object localVarPostBody = personesSollicitudRDTOList;
-    
-    // verify the required parameter 'personesSollicitudRDTOList' is set
-    if (personesSollicitudRDTOList == null) {
-      throw new ApiException(400, "Missing the required parameter 'personesSollicitudRDTOList' when calling deleteAltresImplicadesListUsingPOST");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/personesSollicitud/altresImplidades/delete";
+		String[] authNames = new String[] {};
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasNextPage", currentPageHasNextPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasPreviousPage", currentPageHasPreviousPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsFirstPage", currentPageIsFirstPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsLastPage", currentPageIsLastPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "nextPageNumber", nextPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "previousPageNumber", previousPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<PageDataOfPersonesSollicitudRDTO> localVarReturnType = new GenericType<PageDataOfPersonesSollicitudRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Deletes the requested personesSollicitud list
-   * 
-   * @param personesSollicitudRDTOList personesSollicitudRDTOList (required)
-   * @param absoluteRowNumberOfFirstRowInCurrentPage  (optional)
-   * @param absoluteRowNumberOfLastRowInCurrentPage  (optional)
-   * @param currentPageHasNextPage  (optional)
-   * @param currentPageHasPreviousPage  (optional)
-   * @param currentPageIsFirstPage  (optional)
-   * @param currentPageIsLastPage  (optional)
-   * @param currentPageNumber  (optional)
-   * @param dir  (optional)
-   * @param nextPageNumber  (optional)
-   * @param pageSize  (optional)
-   * @param previousPageNumber  (optional)
-   * @param sort  (optional)
-   * @param totalElements  (optional)
-   * @param totalPages  (optional)
-   * @return PageDataOfPersonesSollicitudRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public PageDataOfPersonesSollicitudRDTO deletePersonesInteresadesListUsingPOST(List<PersonesSollicitudRDTO> personesSollicitudRDTOList, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
-    Object localVarPostBody = personesSollicitudRDTOList;
-    
-    // verify the required parameter 'personesSollicitudRDTOList' is set
-    if (personesSollicitudRDTOList == null) {
-      throw new ApiException(400, "Missing the required parameter 'personesSollicitudRDTOList' when calling deletePersonesInteresadesListUsingPOST");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/personesSollicitud/interessades/delete";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasNextPage", currentPageHasNextPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasPreviousPage", currentPageHasPreviousPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsFirstPage", currentPageIsFirstPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsLastPage", currentPageIsLastPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "nextPageNumber", nextPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "previousPageNumber", previousPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<PageDataOfPersonesSollicitudRDTO> localVarReturnType = new GenericType<PageDataOfPersonesSollicitudRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Save the provided comment
-   * 
-   * @param personesSollicitudRDTO personesSollicitudRDTO (required)
-   * @param absoluteRowNumberOfFirstRowInCurrentPage  (optional)
-   * @param absoluteRowNumberOfLastRowInCurrentPage  (optional)
-   * @param currentPageHasNextPage  (optional)
-   * @param currentPageHasPreviousPage  (optional)
-   * @param currentPageIsFirstPage  (optional)
-   * @param currentPageIsLastPage  (optional)
-   * @param currentPageNumber  (optional)
-   * @param dir  (optional)
-   * @param nextPageNumber  (optional)
-   * @param pageSize  (optional)
-   * @param previousPageNumber  (optional)
-   * @param sort  (optional)
-   * @param totalElements  (optional)
-   * @param totalPages  (optional)
-   * @return PageDataOfPersonesSollicitudRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public PageDataOfPersonesSollicitudRDTO savePersonesInteresadesUsingPOST(PersonesSollicitudRDTO personesSollicitudRDTO, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
-    Object localVarPostBody = personesSollicitudRDTO;
-    
-    // verify the required parameter 'personesSollicitudRDTO' is set
-    if (personesSollicitudRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'personesSollicitudRDTO' when calling savePersonesInteresadesUsingPOST");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/personesSollicitud/interessades";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasNextPage", currentPageHasNextPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasPreviousPage", currentPageHasPreviousPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsFirstPage", currentPageIsFirstPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsLastPage", currentPageIsLastPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "nextPageNumber", nextPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "previousPageNumber", previousPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<PageDataOfPersonesSollicitudRDTO> localVarReturnType = new GenericType<PageDataOfPersonesSollicitudRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
+		ParameterizedTypeReference<PageDataOfPersonesSollicitudRDTO> returnType = new ParameterizedTypeReference<PageDataOfPersonesSollicitudRDTO>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+	}
 }

@@ -15,21 +15,21 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
  * API tests for AcumulaciExpedientsApi
@@ -50,10 +50,10 @@ public class AcumulaciExpedientsApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void acumularExpedientTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/acumulacioExpedients/acumularExpedient"), eq("POST"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(null);
+	public void acumularExpedientTest() {
+		when(apiClient.invokeAPI(eq("/acumulacioExpedients/acumularExpedient"), eq(HttpMethod.POST), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		AcumularExpedientRDTO acumularExpedientRDTO = new AcumularExpedientRDTO();
 		api.acumularExpedient(acumularExpedientRDTO);

@@ -16,25 +16,23 @@ import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesMassiu;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
  * API tests for DadesEspecifiquesApi
@@ -55,56 +53,15 @@ public class DadesEspecifiquesApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void consultarDadesEspecifiquesExpedientTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/dadesEspecifiques/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<DadesEspecifiquesRDTO>());
+	public void consultarDadesEspecifiquesExpedientTest() {
+		when(apiClient.invokeAPI(eq("/expedients/dadesEspecifiques/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DadesEspecifiquesRDTO>());
 
 		BigDecimal idExpedient = ONE;
 		List<DadesEspecifiquesRDTO> response = api.consultarDadesEspecifiquesExpedient(idExpedient);
 
 		assertTrue(response != null);
-	}
-
-	/**
-	 * Insert or updates the provided dades especifiques
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void saveOrUpdateUsingPOSTTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/dadesEspecifiques"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
-
-		List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = Arrays.asList(new DadesEspecifiquesRDTO());
-		api.saveOrUpdateUsingPOST(dadesEspecifiquesRDTOList);
-
-		assertTrue(true);
-	}
-
-	/**
-	 * Returns the requested dades especifiques
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void consultarDadesEspecifiquesExpedientMassiuTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/dadesEspecifiques/massiu/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<DadesEspecifiquesMassiu>());
-
-		String idsExpedient = ONE.toString();
-		List<DadesEspecifiquesMassiu> response = api.consultarDadesEspecifiquesExpedientMassiu(idsExpedient);
-
-		assertTrue(true);
 	}
 
 }

@@ -13,24 +13,17 @@
 
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsSignatures;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatsDocsTramitacio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Notificacions;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RegistreAssentament;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Requeriments;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
 import org.joda.time.DateTime;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * DocsTramitacioRDTO

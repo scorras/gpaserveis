@@ -99,7 +99,7 @@
 						<configuration>
 							<inputSpec>${yaml.file}</inputSpec>
 							<language>java</language>
-							<library>jersey2</library>
+							<library>resttemplate</library>
 							<modelPackage>es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats</modelPackage>
 							<apiPackage>es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats</apiPackage>
 							<invokerPackage>es.bcn.gpa.gpaserveis.rest.client.invoker.gpaunitats</invokerPackage>

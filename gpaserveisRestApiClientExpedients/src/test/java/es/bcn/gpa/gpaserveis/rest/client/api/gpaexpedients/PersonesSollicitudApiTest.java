@@ -18,20 +18,22 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
+import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient.CollectionFormat;
 
 /**
  * API tests for PersonesSollicitudApi
@@ -44,80 +46,6 @@ public class PersonesSollicitudApiTest extends ParentTest {
 	private PersonesSollicitudApi api = new PersonesSollicitudApi();
 
 	/**
-	 * Deletes the requested personesSollicitud list
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void deleteAltresImplicadesListUsingPOSTTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/personesSollicitud/altresImplidades/delete"), eq("POST"), any(List.class),
-		        any(Object.class), any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class),
-		        any(GenericType.class))).thenReturn(new PageDataOfPersonesSollicitudRDTO());
-
-		List<PersonesSollicitudRDTO> personesSollicitudRDTOList = Arrays.asList(new PersonesSollicitudRDTO());
-		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
-		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
-		Boolean currentPageHasNextPage = null;
-		Boolean currentPageHasPreviousPage = null;
-		Boolean currentPageIsFirstPage = null;
-		Boolean currentPageIsLastPage = null;
-		Integer currentPageNumber = null;
-		String dir = null;
-		Integer nextPageNumber = null;
-		Integer pageSize = null;
-		Integer previousPageNumber = null;
-		String sort = null;
-		Long totalElements = null;
-		Integer totalPages = null;
-		PageDataOfPersonesSollicitudRDTO response = api.deleteAltresImplicadesListUsingPOST(personesSollicitudRDTOList,
-		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
-		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
-		        previousPageNumber, sort, totalElements, totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Deletes the requested personesSollicitud list
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void deletePersonesInteresadesListUsingPOSTTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/personesSollicitud/interessades/delete"), eq("POST"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfPersonesSollicitudRDTO());
-
-		List<PersonesSollicitudRDTO> personesSollicitudRDTOList = Arrays.asList(new PersonesSollicitudRDTO());
-		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
-		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
-		Boolean currentPageHasNextPage = null;
-		Boolean currentPageHasPreviousPage = null;
-		Boolean currentPageIsFirstPage = null;
-		Boolean currentPageIsLastPage = null;
-		Integer currentPageNumber = null;
-		String dir = null;
-		Integer nextPageNumber = null;
-		Integer pageSize = null;
-		Integer previousPageNumber = null;
-		String sort = null;
-		Long totalElements = null;
-		Integer totalPages = null;
-		PageDataOfPersonesSollicitudRDTO response = api.deletePersonesInteresadesListUsingPOST(personesSollicitudRDTOList,
-		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
-		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
-		        previousPageNumber, sort, totalElements, totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
 	 * Save the provided persone
 	 *
 	 * 
@@ -126,10 +54,12 @@ public class PersonesSollicitudApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void actualitzarDadesAltraPersonaImplicadaTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/personesSollicitud/altresImplidades"), eq("POST"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfPersonesSollicitudRDTO());
+	public void actualitzarDadesAltraPersonaImplicadaTest() {
+		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
+		        .thenReturn(new LinkedMultiValueMap<String, String>());
+		when(apiClient.invokeAPI(eq("/expedients/personesSollicitud/altresImplidades"), eq(HttpMethod.POST), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfPersonesSollicitudRDTO());
 
 		PersonesSollicitudRDTO personesSollicitudRDTO = new PersonesSollicitudRDTO();
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
@@ -147,43 +77,6 @@ public class PersonesSollicitudApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		PageDataOfPersonesSollicitudRDTO response = api.actualitzarDadesAltraPersonaImplicada(personesSollicitudRDTO,
-		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
-		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
-		        previousPageNumber, sort, totalElements, totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Save the provided comment
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void savePersonesInteresadesUsingPOSTTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/personesSollicitud/interessades"), eq("POST"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfPersonesSollicitudRDTO());
-
-		PersonesSollicitudRDTO personesSollicitudRDTO = new PersonesSollicitudRDTO();
-		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
-		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
-		Boolean currentPageHasNextPage = null;
-		Boolean currentPageHasPreviousPage = null;
-		Boolean currentPageIsFirstPage = null;
-		Boolean currentPageIsLastPage = null;
-		Integer currentPageNumber = null;
-		String dir = null;
-		Integer nextPageNumber = null;
-		Integer pageSize = null;
-		Integer previousPageNumber = null;
-		String sort = null;
-		Long totalElements = null;
-		Integer totalPages = null;
-		PageDataOfPersonesSollicitudRDTO response = api.savePersonesInteresadesUsingPOST(personesSollicitudRDTO,
 		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
 		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
 		        previousPageNumber, sort, totalElements, totalPages);

@@ -16,25 +16,22 @@ import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentarisRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfComentarisRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
  * API tests for ComentarisApi
@@ -47,80 +44,6 @@ public class ComentarisApiTest extends ParentTest {
 	private ComentarisApi api = new ComentarisApi();
 
 	/**
-	 * Deletes the requested comentaris list
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void deleteComentarisListUsingPOSTTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/comentaris/delete"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfComentarisRDTO());
-
-		List<ComentarisRDTO> comentarisRDTOList = Arrays.asList(new ComentarisRDTO());
-		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
-		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
-		Boolean currentPageHasNextPage = null;
-		Boolean currentPageHasPreviousPage = null;
-		Boolean currentPageIsFirstPage = null;
-		Boolean currentPageIsLastPage = null;
-		Integer currentPageNumber = null;
-		String dir = null;
-		Integer nextPageNumber = null;
-		Integer pageSize = null;
-		Integer previousPageNumber = null;
-		String sort = null;
-		Long totalElements = null;
-		Integer totalPages = null;
-		PageDataOfComentarisRDTO response = api.deleteComentarisListUsingPOST(comentarisRDTOList, absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
-		        totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Save the provided comment
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void saveComentarisUsingPOSTTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/comentaris"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfComentarisRDTO());
-
-		ComentarisRDTO comentarisRDTO = new ComentarisRDTO();
-		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
-		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
-		Boolean currentPageHasNextPage = null;
-		Boolean currentPageHasPreviousPage = null;
-		Boolean currentPageIsFirstPage = null;
-		Boolean currentPageIsLastPage = null;
-		Integer currentPageNumber = null;
-		String dir = null;
-		Integer nextPageNumber = null;
-		Integer pageSize = null;
-		Integer previousPageNumber = null;
-		String sort = null;
-		Long totalElements = null;
-		Integer totalPages = null;
-		PageDataOfComentarisRDTO response = api.saveComentarisUsingPOST(comentarisRDTO, absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
-		        totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
 	 * Crea un nou comentari per a l&#39;expedient en funció de l&#39;acció
 	 * executada
 	 *
@@ -130,11 +53,10 @@ public class ComentarisApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void crearComentariAccioTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/comentaris/1/accions/1/crear"), eq("POST"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(null);
+	public void crearComentariAccioTest() {
+		when(apiClient.invokeAPI(eq("/expedients/comentaris/1/accions/1/crear"), eq(HttpMethod.POST), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		BigDecimal idAccio = ONE;
 		BigDecimal idExpedient = ONE;
@@ -144,24 +66,4 @@ public class ComentarisApiTest extends ParentTest {
 		assertTrue(true);
 	}
 
-	/**
-	 * UsuariPropietariComentari
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void usuariPropietariComentariUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/comentaris/usuariPropietariComentari/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(Boolean.TRUE);
-
-		BigDecimal idUsuaricComentari = ONE;
-		Boolean response = api.usuariPropietariComentariUsingGET(idUsuaricComentari);
-
-		assertTrue(response != null);
-	}
 }

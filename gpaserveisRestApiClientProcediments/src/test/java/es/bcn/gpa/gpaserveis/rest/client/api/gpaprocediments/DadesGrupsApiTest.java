@@ -20,20 +20,21 @@ import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesGrupsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiException;
+import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient.CollectionFormat;
 
 /**
  * API tests for DadesGrupsApi
@@ -54,11 +55,12 @@ public class DadesGrupsApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void cercaDadesOperacioAgrupatsPerTramitOvtTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/procediments/1/grups/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfDadesGrupsRDTO());
+	public void cercaDadesOperacioAgrupatsPerTramitOvtTest() {
+		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
+		        .thenReturn(new LinkedMultiValueMap<String, String>());
+		when(apiClient.invokeAPI(eq("/procediments/1/grups/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfDadesGrupsRDTO());
 
 		BigDecimal id = ONE;
 		BigDecimal idTramitOvt = ONE;
@@ -78,38 +80,17 @@ public class DadesGrupsApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void cercaDadesOperacioTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/procediments/1/grups"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfDadesGrupsRDTO());
+	public void cercaDadesOperacioTest() {
+		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
+		        .thenReturn(new LinkedMultiValueMap<String, String>());
+		when(apiClient.invokeAPI(eq("/procediments/1/grups"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfDadesGrupsRDTO());
 
 		BigDecimal id = ONE;
 		String dir = null;
 		String sort = null;
 		PageDataOfDadesGrupsRDTO response = api.cercaDadesOperacio(id, dir, sort);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns all the dades operacions entries for the procedure
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getDadesGrupsWithDadesOperacioUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/procediments/1/dadesGrupsWithDadesOperacio/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<DadesGrupsRDTO>());
-
-		String estatsFutursList = ONE.toString();
-		BigDecimal id = ONE;
-		List<DadesGrupsRDTO> response = api.getDadesGrupsWithDadesOperacioUsingGET(estatsFutursList, id);
 
 		assertTrue(response != null);
 	}

@@ -16,23 +16,22 @@ import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AvisCreacioAccio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfAvisosRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
  * API tests for AvisosApi
@@ -45,43 +44,6 @@ public class AvisosApiTest extends ParentTest {
 	private AvisosApi api = new AvisosApi();
 
 	/**
-	 * Returns all avisos
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void obtenirAvisosPorIdExpedientUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/avisos/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(new PageDataOfAvisosRDTO());
-
-		BigDecimal id = ONE;
-		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
-		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
-		Boolean currentPageHasNextPage = null;
-		Boolean currentPageHasPreviousPage = null;
-		Boolean currentPageIsFirstPage = null;
-		Boolean currentPageIsLastPage = null;
-		Integer currentPageNumber = null;
-		String dir = null;
-		Integer nextPageNumber = null;
-		Integer pageSize = null;
-		Integer previousPageNumber = null;
-		String sort = null;
-		Long totalElements = null;
-		Integer totalPages = null;
-		PageDataOfAvisosRDTO response = api.obtenirAvisosPorIdExpedientUsingGET(id, absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
-		        totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
 	 * Crea un nou avís per a l&#39;expedient en funció de l&#39;acció executada
 	 *
 	 * 
@@ -90,10 +52,10 @@ public class AvisosApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void crearAvisAccioTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/avisos/1/accions/1/crear"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
+	public void crearAvisAccioTest() {
+		when(apiClient.invokeAPI(eq("/avisos/1/accions/1/crear"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		BigDecimal idAccio = ONE;
 		BigDecimal idExpedient = ONE;
@@ -101,26 +63,6 @@ public class AvisosApiTest extends ParentTest {
 		api.crearAvisAccio(idAccio, idExpedient, avisCreacioAccioRDTO);
 
 		assertTrue(true);
-	}
-
-	/**
-	 * Returns criticitat avis
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void obtenirCriticitatAvisPorIdExpedientUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/avisos/criticitatAvis/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(ONE);
-
-		BigDecimal id = ONE;
-		BigDecimal response = api.obtenirCriticitatAvisPorIdExpedientUsingGET(id);
-
-		assertTrue(response != null);
 	}
 
 }

@@ -16,24 +16,23 @@ import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiException;
 
 /**
  * API tests for AccionsEstatsApi
@@ -46,169 +45,6 @@ public class AccionsEstatsApiTest extends ParentTest {
 	private AccionsEstatsApi api = new AccionsEstatsApi();
 
 	/**
-	 * Returns the accio estat inicial
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getAccioEstatInicialUsingGETTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/tramits/accioEstatInicial"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(ONE);
-
-		BigDecimal response = api.getAccioEstatInicialUsingGET();
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns all the accions estats descs
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getAccioEstatsByEstatUsingPOSTTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/tramits/accioEstatsByEstat"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(Arrays.asList(ONE));
-
-		List<BigDecimal> estatsIds = Arrays.asList(ONE);
-		List<BigDecimal> response = api.getAccioEstatsByEstatUsingPOST(estatsIds);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns the accion estats to transit
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getAccionsEstatsForDocumentacioAportadaUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/tramits/accionsEstatsForDocumentacioAportada/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(Arrays.asList(new AccionsEstatsRDTO()));
-
-		BigDecimal accioEstatId = ONE;
-		List<AccionsEstatsRDTO> response = api.getAccionsEstatsForDocumentacioAportadaUsingGET(accioEstatId);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns the accion estats to transit
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getAccionsEstatsForDocumentacioGeneradaUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/tramits/accionsEstatsForDocumentacioGenerada/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(Arrays.asList(new AccionsEstatsRDTO()));
-
-		BigDecimal accioEstatId = ONE;
-		List<AccionsEstatsRDTO> response = api.getAccionsEstatsForDocumentacioGeneradaUsingGET(accioEstatId);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns the accion estats to transit
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getAccionsEstatsForDocumentacioTramitacioUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/tramits/accionsEstatsForDocumentacioTramitacio/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(Arrays.asList(new AccionsEstatsRDTO()));
-
-		BigDecimal accioEstatId = ONE;
-		List<AccionsEstatsRDTO> response = api.getAccionsEstatsForDocumentacioTramitacioUsingGET(accioEstatId);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns the accion estats to transit
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getAccionsEstatsForOperationUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/tramits/accionsEstatsForOperation/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(Arrays.asList(new AccionsEstatsRDTO()));
-
-		BigDecimal accioEstatId = ONE;
-		List<AccionsEstatsRDTO> response = api.getAccionsEstatsForOperationUsingGET(accioEstatId);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns the accion estats to transit
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getAccionsEstatsForTransitionUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/tramits/accionsEstatsForTransition/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(Arrays.asList(new AccionsEstatsRDTO()));
-
-		BigDecimal accioEstatId = ONE;
-		List<AccionsEstatsRDTO> response = api.getAccionsEstatsForTransitionUsingGET(accioEstatId);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns all the accions estats descs
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getInfoAccionsEstatsUsingPOSTTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/tramits/infoEstats"), eq("POST"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(Arrays.asList(new AccionsEstatsRDTO()));
-
-		List<BigDecimal> accionsEstatsIds = Arrays.asList(ONE);
-		List<AccionsEstatsRDTO> response = api.getInfoAccionsEstatsUsingPOST(accionsEstatsIds);
-
-		assertTrue(response != null);
-	}
-
-	/**
 	 * Returns the accions allowed for the current expedient&#39;s status
 	 *
 	 * 
@@ -217,56 +53,13 @@ public class AccionsEstatsApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void cercaAccionsPossiblesTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/tramits/accionsPermesesForEstatActual/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(Arrays.asList(new AccionsEstatsRDTO()));
+	public void cercaAccionsPossiblesTest() {
+		when(apiClient.invokeAPI(eq("/tramits/accionsPermesesForEstatActual/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<AccionsEstatsRDTO>());
 
-		BigDecimal accioEstatId = ONE;
-		List<AccionsEstatsRDTO> response = api.cercaAccionsPossibles(accioEstatId);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns the transition for the current expedient&#39;s status and action
-	 * execution
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void cercaTransicioCanviEstatTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/tramits/accionsEstatsForEstatActualAndAccio/1/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(Arrays.asList(new ArrayList<AccionsEstatsRDTO>()));
-
-		BigDecimal idAccio = ONE;
-		BigDecimal idEstatActual = ONE;
-		List<AccionsEstatsRDTO> response = api.cercaTransicioCanviEstat(idAccio, idEstatActual);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * AccioEstatsEnPreparacio
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void obtenirIdAccioEstatsEnPreparacioUsingGETTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/tramits/accioEstatsEnPreparacio"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(Arrays.asList(new ArrayList<BigDecimal>()));
-
-		List<BigDecimal> response = api.obtenirIdAccioEstatsEnPreparacioUsingGET();
+		BigDecimal estatId = ONE;
+		List<AccionsEstatsRDTO> response = api.cercaAccionsPossibles(estatId);
 
 		assertTrue(response != null);
 	}

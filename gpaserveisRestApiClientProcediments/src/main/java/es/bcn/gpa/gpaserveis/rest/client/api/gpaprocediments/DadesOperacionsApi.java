@@ -1,396 +1,142 @@
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.GenericType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.MarquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesOperacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiException;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.Configuration;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.Pair;
 
-/**
- * The Class DadesOperacionsApi.
- */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-17T14:27:24.410+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-14T14:00:34.420+02:00")
+@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesOperacionsApi")
 public class DadesOperacionsApi {
-
-	/** The api client. */
 	private ApiClient apiClient;
 
-	/**
-	 * Instantiates a new dades operacions api.
-	 */
 	public DadesOperacionsApi() {
-		this(Configuration.getDefaultApiClient());
+		this(new ApiClient());
 	}
 
-	/**
-	 * Instantiates a new dades operacions api.
-	 *
-	 * @param apiClient
-	 *            the api client
-	 */
+	@Autowired
 	public DadesOperacionsApi(ApiClient apiClient) {
 		this.apiClient = apiClient;
 	}
 
-	/**
-	 * Gets the api client.
-	 *
-	 * @return the api client
-	 */
 	public ApiClient getApiClient() {
 		return apiClient;
 	}
 
-	/**
-	 * Sets the api client.
-	 *
-	 * @param apiClient
-	 *            the new api client
-	 */
 	public void setApiClient(ApiClient apiClient) {
 		this.apiClient = apiClient;
 	}
 
 	/**
-	 * Returns all the dades operacions entries for the procedure.
-	 *
+	 * Returns all the dades operacions entries for the procedure
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
 	 * @param id
-	 *            id (required)
+	 *            id
 	 * @param absoluteRowNumberOfFirstRowInCurrentPage
-	 *            (optional)
+	 *            The absoluteRowNumberOfFirstRowInCurrentPage parameter
 	 * @param absoluteRowNumberOfLastRowInCurrentPage
-	 *            (optional)
+	 *            The absoluteRowNumberOfLastRowInCurrentPage parameter
 	 * @param currentPageHasNextPage
-	 *            (optional)
+	 *            The currentPageHasNextPage parameter
 	 * @param currentPageHasPreviousPage
-	 *            (optional)
+	 *            The currentPageHasPreviousPage parameter
 	 * @param currentPageIsFirstPage
-	 *            (optional)
+	 *            The currentPageIsFirstPage parameter
 	 * @param currentPageIsLastPage
-	 *            (optional)
+	 *            The currentPageIsLastPage parameter
 	 * @param currentPageNumber
-	 *            (optional)
+	 *            The currentPageNumber parameter
 	 * @param dir
-	 *            (optional)
+	 *            The dir parameter
 	 * @param nextPageNumber
-	 *            (optional)
+	 *            The nextPageNumber parameter
 	 * @param pageSize
-	 *            (optional)
+	 *            The pageSize parameter
 	 * @param previousPageNumber
-	 *            (optional)
+	 *            The previousPageNumber parameter
 	 * @param sort
-	 *            (optional)
+	 *            The sort parameter
 	 * @param totalElements
-	 *            (optional)
+	 *            The totalElements parameter
 	 * @param totalPages
-	 *            (optional)
+	 *            The totalPages parameter
 	 * @return PageDataOfDadesOperacionsRDTO
-	 * @throws ApiException
-	 *             if fails to make API call
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
 	 */
 	public PageDataOfDadesOperacionsRDTO cercaDadesOperacioRequerits(BigDecimal id, Integer absoluteRowNumberOfFirstRowInCurrentPage,
-			Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage,
-			Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber,
-			Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
-		Object localVarPostBody = null;
+	        Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage,
+	        Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber,
+	        Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
+		Object postBody = null;
 
 		// verify the required parameter 'id' is set
 		if (id == null) {
-			throw new ApiException(400, "Missing the required parameter 'id' when calling cercaDadesOperacioRequerits");
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'id' when calling cercaDadesOperacioRequerits");
 		}
 
 		// create path and map variables
-		String localVarPath = "/procediments/{id}/dadesOperRequerit".replaceAll("\\{" + "id" + "\\}",
-				apiClient.escapeString(id.toString()));
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("id", id);
+		String path = UriComponentsBuilder.fromPath("/procediments/{id}/dadesOperRequerit").buildAndExpand(uriVariables).toUriString();
 
-		// query params
-		List<Pair> localVarQueryParams = new ArrayList<Pair>();
-		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-		localVarQueryParams.addAll(
-				apiClient.parameterToPairs("", "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-		localVarQueryParams
-				.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasNextPage", currentPageHasNextPage));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasPreviousPage", currentPageHasPreviousPage));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsFirstPage", currentPageIsFirstPage));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsLastPage", currentPageIsLastPage));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "nextPageNumber", nextPageNumber));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "previousPageNumber", previousPageNumber));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfFirstRowInCurrentPage",
+		        absoluteRowNumberOfFirstRowInCurrentPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfLastRowInCurrentPage",
+		        absoluteRowNumberOfLastRowInCurrentPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasNextPage", currentPageHasNextPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasPreviousPage", currentPageHasPreviousPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsFirstPage", currentPageIsFirstPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsLastPage", currentPageIsLastPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageNumber", currentPageNumber));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "dir", dir));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nextPageNumber", nextPageNumber));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "pageSize", pageSize));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "previousPageNumber", previousPageNumber));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sort", sort));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalElements", totalElements));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalPages", totalPages));
 
-		final String[] localVarAccepts = { "*/*" };
-		final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = {};
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
-		final String[] localVarContentTypes = {
+		String[] authNames = new String[] {};
 
+		ParameterizedTypeReference<PageDataOfDadesOperacionsRDTO> returnType = new ParameterizedTypeReference<PageDataOfDadesOperacionsRDTO>() {
 		};
-		final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-		String[] localVarAuthNames = new String[] {};
-
-		GenericType<PageDataOfDadesOperacionsRDTO> localVarReturnType = new GenericType<PageDataOfDadesOperacionsRDTO>() {
-		};
-		return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
-				localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-	}
-
-	/**
-	 * Returns all the dades operacions entries for the procedure.
-	 *
-	 * @param idsDadesOperList
-	 *            idsDadesOperList (required)
-	 * @return List&lt;DadesOperacionsRDTO&gt;
-	 * @throws ApiException
-	 *             if fails to make API call
-	 */
-	public List<DadesOperacionsRDTO> getDadesOperacionsListUsingGET(String idsDadesOperList) throws ApiException {
-		Object localVarPostBody = null;
-
-		// verify the required parameter 'idsDadesOperList' is set
-		if (idsDadesOperList == null) {
-			throw new ApiException(400, "Missing the required parameter 'idsDadesOperList' when calling getDadesOperacionsListUsingGET");
-		}
-
-		// create path and map variables
-		String localVarPath = "/procediments/dadesOperacio/{idsDadesOperList}".replaceAll("\\{" + "idsDadesOperList" + "\\}",
-				apiClient.escapeString(idsDadesOperList.toString()));
-
-		// query params
-		List<Pair> localVarQueryParams = new ArrayList<Pair>();
-		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-		final String[] localVarAccepts = { "*/*" };
-		final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-		final String[] localVarContentTypes = {
-
-		};
-		final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-		String[] localVarAuthNames = new String[] {};
-
-		GenericType<List<DadesOperacionsRDTO>> localVarReturnType = new GenericType<List<DadesOperacionsRDTO>>() {
-		};
-		return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
-				localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-	}
-
-	/**
-	 * Returns all the dades operacions entries for the procedure.
-	 *
-	 * @param id
-	 *            id (required)
-	 * @param idsJaExisteix
-	 *            idsJaExisteix (required)
-	 * @param absoluteRowNumberOfFirstRowInCurrentPage
-	 *            (optional)
-	 * @param absoluteRowNumberOfLastRowInCurrentPage
-	 *            (optional)
-	 * @param currentPageHasNextPage
-	 *            (optional)
-	 * @param currentPageHasPreviousPage
-	 *            (optional)
-	 * @param currentPageIsFirstPage
-	 *            (optional)
-	 * @param currentPageIsLastPage
-	 *            (optional)
-	 * @param currentPageNumber
-	 *            (optional)
-	 * @param dir
-	 *            (optional)
-	 * @param nextPageNumber
-	 *            (optional)
-	 * @param pageSize
-	 *            (optional)
-	 * @param previousPageNumber
-	 *            (optional)
-	 * @param sort
-	 *            (optional)
-	 * @param totalElements
-	 *            (optional)
-	 * @param totalPages
-	 *            (optional)
-	 * @return PageDataOfDadesOperacionsRDTO
-	 * @throws ApiException
-	 *             if fails to make API call
-	 */
-	public PageDataOfDadesOperacionsRDTO getDadesOperacionsRequeritWithIdsUsingGET(BigDecimal id, String idsJaExisteix,
-			Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage,
-			Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage,
-			Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize,
-			Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
-		Object localVarPostBody = null;
-
-		// verify the required parameter 'id' is set
-		if (id == null) {
-			throw new ApiException(400, "Missing the required parameter 'id' when calling getDadesOperacionsRequeritWithIdsUsingGET");
-		}
-
-		// verify the required parameter 'idsJaExisteix' is set
-		if (idsJaExisteix == null) {
-			throw new ApiException(400,
-					"Missing the required parameter 'idsJaExisteix' when calling getDadesOperacionsRequeritWithIdsUsingGET");
-		}
-
-		// create path and map variables
-		String localVarPath = "/procediments/{id}/dadesOperRequerit/{idsJaExisteix}"
-				.replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
-				.replaceAll("\\{" + "idsJaExisteix" + "\\}", apiClient.escapeString(idsJaExisteix.toString()));
-
-		// query params
-		List<Pair> localVarQueryParams = new ArrayList<Pair>();
-		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-		localVarQueryParams.addAll(
-				apiClient.parameterToPairs("", "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-		localVarQueryParams
-				.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasNextPage", currentPageHasNextPage));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasPreviousPage", currentPageHasPreviousPage));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsFirstPage", currentPageIsFirstPage));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsLastPage", currentPageIsLastPage));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "nextPageNumber", nextPageNumber));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "previousPageNumber", previousPageNumber));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
-
-		final String[] localVarAccepts = { "*/*" };
-		final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-		final String[] localVarContentTypes = {
-
-		};
-		final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-		String[] localVarAuthNames = new String[] {};
-
-		GenericType<PageDataOfDadesOperacionsRDTO> localVarReturnType = new GenericType<PageDataOfDadesOperacionsRDTO>() {
-		};
-		return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
-				localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-	}
-
-	/**
-	 * Returns all the dades operacions entries for the procedure.
-	 *
-	 * @param id
-	 *            id (required)
-	 * @param dir
-	 *            (optional)
-	 * @param sort
-	 *            (optional)
-	 * @return PageDataOfDadesOperacionsRDTO
-	 * @throws ApiException
-	 *             if fails to make API call
-	 */
-	public PageDataOfDadesOperacionsRDTO getDadesOperacionsUsingGET1(BigDecimal id, String dir, String sort) throws ApiException {
-		Object localVarPostBody = null;
-
-		// verify the required parameter 'id' is set
-		if (id == null) {
-			throw new ApiException(400, "Missing the required parameter 'id' when calling getDadesOperacionsUsingGET1");
-		}
-
-		// create path and map variables
-		String localVarPath = "/procediments/{id}/dades".replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-		// query params
-		List<Pair> localVarQueryParams = new ArrayList<Pair>();
-		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
-		localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
-
-		final String[] localVarAccepts = { "*/*" };
-		final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-		final String[] localVarContentTypes = {
-
-		};
-		final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-		String[] localVarAuthNames = new String[] {};
-
-		GenericType<PageDataOfDadesOperacionsRDTO> localVarReturnType = new GenericType<PageDataOfDadesOperacionsRDTO>() {
-		};
-		return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
-				localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-	}
-
-	/**
-	 * Obtenir marques dades operacio procediment using GET.
-	 *
-	 * @param procedimentCodi
-	 *            the procediment codi
-	 * @param procedimentVersio
-	 *            the procediment versio
-	 * @return the list
-	 * @throws ApiException
-	 *             the api exception
-	 */
-	public List<MarquesRDTO> obtenirMarquesDadesOperacioProcedimentUsingGET(String procedimentCodi, BigDecimal procedimentVersio)
-			throws ApiException {
-		Object localVarPostBody = null;
-
-		// verify the required parameter 'procedimentCodi' is set
-		if (procedimentCodi == null) {
-			throw new ApiException(400,
-					"Missing the required parameter 'procedimentCodi' when calling obtenirMarquesDadesOperacioProcedimentUsingGET");
-		}
-
-		// verify the required parameter 'procedimentVersio' is set
-		if (procedimentVersio == null) {
-			throw new ApiException(400,
-					"Missing the required parameter 'procedimentVersio' when calling obtenirMarquesDadesOperacioProcedimentUsingGET");
-		}
-
-		// create path and map variables
-		String localVarPath = "/procediments/obtenirMarquesDadesOperacioProcediment/{procedimentCodi}/{procedimentVersio}"
-				.replaceAll("\\{" + "procedimentCodi" + "\\}", apiClient.escapeString(procedimentCodi.toString()))
-				.replaceAll("\\{" + "procedimentVersio" + "\\}", apiClient.escapeString(procedimentVersio.toString()));
-
-		// query params
-		List<Pair> localVarQueryParams = new ArrayList<Pair>();
-		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-		final String[] localVarAccepts = { "*/*" };
-		final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-		final String[] localVarContentTypes = {
-
-		};
-		final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-		String[] localVarAuthNames = new String[] {};
-
-		GenericType<List<MarquesRDTO>> localVarReturnType = new GenericType<List<MarquesRDTO>>() {
-		};
-		return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
-				localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
 	}
 }
