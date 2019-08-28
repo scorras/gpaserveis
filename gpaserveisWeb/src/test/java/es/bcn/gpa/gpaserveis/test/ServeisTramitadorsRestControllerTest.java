@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.test;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -36,7 +37,7 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 		String url = BASE_URL + "/expedients/1/pausar";
 		getMockMvc()
 		        .perform(post(url).contentType(APPLICATION_JSON_UTF8)
-		                .content("{ \"motiu\":\"tramitAllegacions\",\"dataLimit\":\"26/04/2019 18:24:36\" }"))
+		                .content("{ \"motiu\":\"tramitAllegacions\",\"dataLimit\":\"26/04/2050 18:24:36\" }"))
 		        .andExpect(status().isOk()).andDo(print());
 	}
 
@@ -246,7 +247,7 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 		String url = BASE_URL + "/expedients/1/documentacio/digitalitzar";
 		getMockMvc()
 		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-		                "{ \"document\": {\"configuracio\":\"APORTADA\",\"configuracioDocumentacio\":\"475\",\"origen\":\"EXTERN\",\"comentari\":\"Document digitalizat des de portal de tramitació\",\"numeroRegistre\":\"1524/2018\"}}"))
+		                "{ \"document\": {\"configuracio\":\"APORTADA\",\"configuracioDocumentacio\":\"42\",\"origen\":\"EXTERN\",\"comentari\":\"Document digitalizat des de portal de tramitació\",\"numeroRegistre\":\"1524/2018\"}}"))
 		        .andExpect(status().isOk()).andDo(print());
 	}
 
@@ -255,8 +256,24 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 		String url = BASE_URL + "/expedients/1/documentacio/digitalitzar";
 		getMockMvc()
 		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-		                "{ \"document\": {\"configuracio\":\"GENERADA\",\"configuracioDocumentacio\":\"429\",\"origen\":\"EXTERN\",\"comentari\":\"Document digitalizat des de portal de tramitació\"}}"))
+		                "{ \"document\": {\"configuracio\":\"GENERADA\",\"configuracioDocumentacio\":\"42\",\"origen\":\"EXTERN\",\"comentari\":\"Document digitalizat des de portal de tramitació\"}}"))
 		        .andExpect(status().isOk()).andDo(print());
+	}
+
+	@Test
+	public void testStage29_PostObtenirDocumentIntraoperabilitatExpedient() throws Exception {
+		String url = BASE_URL + "/expedients/1/documentacio/1/intraoperabilitat";
+		getMockMvc()
+		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+		                "{\"configuracio\":\"APORTADA\",\"configuracioDocumentacio\":\"42\",\"origen\":\"EXTERN\",\"comentari\":\"Document digitalizat des de portal de tramitació\"}"))
+		        .andExpect(status().isOk()).andDo(print());
+	}
+
+	@Test
+	public void testStage30_GetCercaExpedients() throws Exception {
+		String url = BASE_URL
+		        + "/expedients?resultatsPerPagina=20&numeroPagina=1&ordenarPer=DARRERA_MODIFICACIO&sentitOrdenacio=DESC&codiExpedient=PROC-01/2018&sollicitant=40954862G&dataPresentacioInici=22/06/2018&dataPresentacioFi=22/01/2019&codiProcediment=PROC-01,PROC-02,PROC-03&versioProcediment=TOTES_LES_VERSIONS&estat=REBUT,EN_CURS,PENDENT_ESMENES,PENDENT_ALEGACIONS,RESOLT,TANCAT&unitatGestora=U&tramitador=APLICACIO_DE_NEGOCI&aplicacioNegoci=quiosc";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 
 }

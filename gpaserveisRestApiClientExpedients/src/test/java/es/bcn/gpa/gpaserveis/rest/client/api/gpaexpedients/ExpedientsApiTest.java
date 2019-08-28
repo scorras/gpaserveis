@@ -16,34 +16,23 @@ import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.BloquejosRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CercaExpedientsIntraoperabilitatRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientOpenTextRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.HistoricsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfComentarisRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfHistoricsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PeticioDgt;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaUnitatsExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
 
 /**
  * API tests for ExpedientsApi
@@ -56,229 +45,6 @@ public class ExpedientsApiTest extends ParentTest {
 	private ExpedientsApi api = new ExpedientsApi();
 
 	/**
-	 * Locks the provided procediment for editing
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void bloquejarExpedientUsingPOSTTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/bloquejar/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
-
-		BloquejosRDTO bloquejosRDTO = new BloquejosRDTO();
-		BigDecimal id = ONE;
-		api.bloquejarExpedientUsingPOST(bloquejosRDTO, id);
-
-		assertTrue(true);
-	}
-
-	/**
-	 * Returns all the historic entries for the procedure that meet the search
-	 * criteria
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void cercaHistoricsExpedientTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/historic/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfHistoricsRDTO());
-
-		BigDecimal id = ONE;
-		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
-		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
-		Boolean currentPageHasNextPage = null;
-		Boolean currentPageHasPreviousPage = null;
-		Boolean currentPageIsFirstPage = null;
-		Boolean currentPageIsLastPage = null;
-		Integer currentPageNumber = null;
-		String dir = null;
-		Integer nextPageNumber = null;
-		Integer pageSize = null;
-		Integer previousPageNumber = null;
-		String sort = null;
-		List<BigDecimal> tipus = null;
-		Long totalElements = null;
-		Integer totalPages = null;
-		PageDataOfHistoricsRDTO response = api.cercaHistoricsExpedient(id, absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, tipus, totalElements,
-		        totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Unlocks the provided procediment
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void desbloquejarExpedientUsingPOSTTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/desbloquejar/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
-
-		BigDecimal id = ONE;
-		api.desbloquejarExpedientUsingPOST(id);
-
-		assertTrue(true);
-	}
-
-	/**
-	 * Returns all the historic entries for the id list
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getHistoricsListUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/historic/list/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<HistoricsRDTO>());
-
-		String ids = ONE.toString();
-		List<HistoricsRDTO> response = api.getHistoricsListUsingGET(ids);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns the requested registre
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getRegistresAssentamentListUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/registre/list/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<RegistreAssentamentRDTO>());
-
-		String ids = ONE.toString();
-		List<RegistreAssentamentRDTO> response = api.getRegistresAssentamentListUsingGET(ids);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Inserts new historic
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void registrarHistoricDocumentacioUsingPOSTTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/historic/insert"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(ONE);
-
-		HistoricsRDTO historicsRDTO = new HistoricsRDTO();
-		BigDecimal response = api.registrarHistoricDocumentacioUsingPOST(historicsRDTO);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns all the comentaris entries for the procedure that meet the search
-	 * criteria
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void searchComentarisUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/comentaris/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfComentarisRDTO());
-
-		BigDecimal id = ONE;
-		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
-		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
-		Boolean currentPageHasNextPage = null;
-		Boolean currentPageHasPreviousPage = null;
-		Boolean currentPageIsFirstPage = null;
-		Boolean currentPageIsLastPage = null;
-		Integer currentPageNumber = null;
-		String dir = null;
-		Integer nextPageNumber = null;
-		Integer pageSize = null;
-		Integer previousPageNumber = null;
-		String sort = null;
-		Long totalElements = null;
-		Integer totalPages = null;
-		PageDataOfComentarisRDTO response = api.searchComentarisUsingGET(id, absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
-		        totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * ExpedientBloquejatPerUnAltreUsuari
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void expedientBloquejatPerUnAltreUsuariUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/expedientBloquejatPerUnAltreUsuari/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new BloquejosRDTO());
-
-		BigDecimal id = ONE;
-		BloquejosRDTO response = api.expedientBloquejatPerUnAltreUsuariUsingGET(id);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Return expedient data for OpenText
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getExpedientDataOpenTextUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/expedientDataOpenText/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ExpedientOpenTextRDTO());
-
-		BigDecimal id = ONE;
-		ExpedientOpenTextRDTO response = api.getExpedientDataOpenTextUsingGET(id);
-
-		assertTrue(response != null);
-	}
-
-	/**
 	 * Canvia l&#39;estat d&#39;un expedient en funció de l&#39;acció executada
 	 *
 	 * 
@@ -287,11 +53,10 @@ public class ExpedientsApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void canviarEstatAccioExpedientTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/1/accions/1/canviEstat"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new RespostaCanviarEstatAccioExpedient());
+	public void canviarEstatAccioExpedientTest() {
+		when(apiClient.invokeAPI(eq("/expedients/1/accions/1/canviEstat"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new RespostaCanviarEstatAccioExpedient());
 
 		BigDecimal idAccio = ONE;
 		BigDecimal idExpedient = ONE;
@@ -299,110 +64,6 @@ public class ExpedientsApiTest extends ParentTest {
 		RespostaCanviarEstatAccioExpedient response = api.canviarEstatAccioExpedient(idAccio, idExpedient, expedientCanviEstatAccioRDTO);
 
 		assertTrue(response != null);
-	}
-
-	/**
-	 * Retorna les unitats gestores de l&#39;expedient
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getUnitasGestoresExpedientUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/unitasExpedient/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new RespostaUnitatsExpedient());
-
-		BigDecimal idExpedient = ONE;
-		RespostaUnitatsExpedient response = api.getUnitasGestoresExpedientUsingGET(idExpedient);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * cercaExpedientsIntraoperabilitat
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void cercaExpedientsIntraoperabilitatTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/cercaExpedientsIntraoperabilitat"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<CercaExpedientsIntraoperabilitatRDTO>());
-
-		String codiExpedient = null;
-		BigDecimal idExpedient = null;
-		String nifSolicitant = null;
-		List<CercaExpedientsIntraoperabilitatRDTO> response = api.cercaExpedientsIntraoperabilitat(codiExpedient, idExpedient,
-		        nifSolicitant);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * DesbloquejarTotsElsExpedientsUsuari
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void desbloquejarTotsElsExpedientsUsuariTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/desbloquejarTotsElsExpedientsUsuari"), eq("PUT"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(null);
-
-		api.desbloquejarTotsElsExpedientsUsuari();
-
-		assertTrue(true);
-	}
-
-	/**
-	 * Returns the requested expedient
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void obtenirExpedientObjecteDeRecursTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/obtenirExpedientObjecteDeRecurs/1/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ExpedientsRDTO());
-		String codi = ONE.toString();
-		BigDecimal procObjecteDeRecursId = ONE;
-		ExpedientsRDTO response = api.obtenirExpedientObjecteDeRecurs(codi, procObjecteDeRecursId);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * obtenirInfoInteroperabilitat
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void obtenirInfoInteroperabilitatTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/obtenirInfoInteroperabilitat"), eq("POST"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(null);
-
-		PeticioDgt peticioDgtRDTO = new PeticioDgt();
-		api.obtenirInfoInteroperabilitat(peticioDgtRDTO);
-
-		assertTrue(true);
 	}
 
 }

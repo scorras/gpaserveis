@@ -22,6 +22,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaDigitali
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioDigitalitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DescarregarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.DocsAssociatsIntraBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
@@ -86,12 +87,6 @@ import lombok.extern.apachecommons.CommonsLog;
  * The Class ServeisServiceImpl.
  */
 @Service
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
 @CommonsLog
 public class ServeisServiceImpl implements ServeisService {
 
@@ -1183,7 +1178,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 * bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument)
 	 */
 	@Override
-	public List<PeticionsPortasig> signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException {
+	public PeticionsPortasig signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException {
 		return documentsService.signarValidarDocument(signarDocument);
 	}
 
@@ -1453,6 +1448,31 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public PageDataOfExpedientsRDTO obtenirExpedientsRelacionats(BigDecimal idExpedient) throws GPAServeisServiceException {
 		return expedientsService.obtenirExpedientsRelacionats(idExpedient);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#associatsDocsIntra(es.bcn.
+	 * gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsAssociatsIntra)
+	 */
+	@Override
+	public void associatsDocsIntra(DocsAssociatsIntraBDTO docsAssociatsIntraBDTO) throws GPAServeisServiceException {
+		documentsService.associatsDocsIntra(docsAssociatsIntraBDTO);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * consultarDadesBasiquesExpedientByIdDocumentacio(java.math.BigDecimal)
+	 */
+	@Override
+	public DadesExpedientBDTO consultarDadesBasiquesExpedientByIdDocumentacio(BigDecimal idDocumentacio) throws GPAServeisServiceException {
+		BigDecimal idExpedientByDocumentacioIdExt = expedientsService.getIdExpedientByDocumentacioIdExt(idDocumentacio);
+		return consultarDadesBasiquesExpedient(idExpedientByDocumentacioIdExt);
 	}
 
 }

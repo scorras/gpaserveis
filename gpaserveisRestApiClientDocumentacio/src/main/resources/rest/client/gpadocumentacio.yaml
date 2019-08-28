@@ -1552,7 +1552,7 @@ paths:
         description: "docsAssociatsIntraRDTO"
         required: true
         schema:
-          $ref: "#/definitions/DocsAssociatsIntraRDTO"
+          $ref: "#/definitions/DocsAssociatsIntra"
       responses:
         200:
           description: "OK"
@@ -3764,7 +3764,7 @@ definitions:
       titolGrup:
         type: "string"
     title: "DadesOperacioRDTO"
-  DocsAssociatsIntraRDTO:
+  DocsAssociatsIntra:
     type: "object"
     properties:
       docsEntrada:
@@ -3775,7 +3775,7 @@ definitions:
         type: "number"
       idExpedientOrigen:
         type: "number"
-    title: "DocsAssociatsIntraRDTO"
+    title: "DocsAssociatsIntra"
   DocsEntActualizarRegistre:
     type: "object"
     properties:

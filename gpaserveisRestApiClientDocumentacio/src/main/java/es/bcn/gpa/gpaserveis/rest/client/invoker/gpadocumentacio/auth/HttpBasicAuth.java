@@ -1,6 +1,5 @@
 package es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.auth;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
 import org.springframework.http.HttpHeaders;

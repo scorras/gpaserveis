@@ -13,7 +13,6 @@
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
 import static java.math.BigDecimal.ONE;
-import static org.apache.commons.lang.math.NumberUtils.INTEGER_ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -23,26 +22,28 @@ import static org.mockito.Mockito.when;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.joda.time.DateTime;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InputStreamResource;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
+import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient.CollectionFormat;
 
 /**
  * API tests for Expedients_Api
@@ -63,15 +64,19 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void cercaExpedientsTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/search"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfExpedientsRDTO());
+	public void cercaExpedientsTest() {
+		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
+		        .thenReturn(new LinkedMultiValueMap<String, String>());
+		when(apiClient.parameterToMultiValueMap(any(CollectionFormat.class), any(String.class), any(Object.class)))
+		        .thenReturn(new LinkedMultiValueMap<String, String>());
+		when(apiClient.invokeAPI(eq("/expedients/search"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfExpedientsRDTO());
 
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
 		String aplicacioNegoci = null;
-		List<String> avisList = null;
+		List<String> avisList = new ArrayList<String>();
 		String codi = null;
 		BigDecimal criteriDeCercaDadesOperacioList0Id = null;
 		BigDecimal criteriDeCercaDadesOperacioList0Tipus = null;
@@ -121,10 +126,10 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void consultarDadesExpedientTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(new ExpedientsRDTO());
+	public void consultarDadesExpedientTest() {
+		when(apiClient.invokeAPI(eq("/expedients/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new ExpedientsRDTO());
 
 		BigDecimal id = ONE;
 		ExpedientsRDTO response = api.consultarDadesExpedient(id);
@@ -141,69 +146,13 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void consultarDadesExpedientPerCodiTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn("Codi%20%2F2018%2F000001");
-		when(apiClient.invokeAPI(eq("/expedients/perCodi/Codi%20%2F2018%2F000001"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ExpedientsRDTO());
+	public void consultarDadesExpedientPerCodiTest() {
+		when(apiClient.invokeAPI(eq("/expedients/perCodi/Codi000001"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new ExpedientsRDTO());
 
-		String codiBaseName = "Codi /2018/000001";
-		ExpedientsRDTO response = api.consultarDadesExpedientPerCodi(codiBaseName);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns al the expedients
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getExpedientsUsingGETTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/all"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<ExpedientsRDTO>());
-
-		List<ExpedientsRDTO> response = api.getExpedientsUsingGET();
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns all the expedients gestores
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getExpedientsUsingGET1Test() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfExpedientsRDTO());
-
-		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
-		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
-		Boolean currentPageHasNextPage = null;
-		Boolean currentPageHasPreviousPage = null;
-		Boolean currentPageIsFirstPage = null;
-		Boolean currentPageIsLastPage = null;
-		Integer currentPageNumber = null;
-		String dir = null;
-		Integer nextPageNumber = null;
-		Integer pageSize = null;
-		Integer previousPageNumber = null;
-		String sort = null;
-		Long totalElements = null;
-		Integer totalPages = null;
-		PageDataOfExpedientsRDTO response = api.getExpedientsUsingGET1(absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
-		        totalPages);
+		String codi = "Codi000001";
+		ExpedientsRDTO response = api.consultarDadesExpedientPerCodi(codi);
 
 		assertTrue(response != null);
 	}
@@ -217,32 +166,15 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void consultarDadesRegistreAssentamentTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/registre"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new RegistreAssentamentRDTO());
+	public void consultarDadesRegistreAssentamentTest() {
+		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
+		        .thenReturn(new LinkedMultiValueMap<String, String>());
+		when(apiClient.invokeAPI(eq("/expedients/registre"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new RegistreAssentamentRDTO());
 
 		String codi = ONE.toString();
 		RegistreAssentamentRDTO response = api.consultarDadesRegistreAssentament(codi);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns all the expedients gestores
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void obtenirIndicadorExpedientsUsingGETTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/obtenirIndicadorExpedients"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(INTEGER_ONE);
-
-		Integer response = api.obtenirIndicadorExpedientsUsingGET();
 
 		assertTrue(response != null);
 	}
@@ -256,9 +188,10 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void crearSollicitudExpedientTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients"), eq("POST"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(new ExpedientsRDTO());
+	public void crearSollicitudExpedientTest() {
+		when(apiClient.invokeAPI(eq("/expedients"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new ExpedientsRDTO());
 
 		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
 		ExpedientsRDTO response = api.crearSollicitudExpedient(expedientsRDTO);
@@ -267,7 +200,7 @@ public class Expedients_ApiTest extends ParentTest {
 	}
 
 	/**
-	 * Updates the provided expedient
+	 * Updates the provided expedient including specific data
 	 *
 	 * 
 	 *
@@ -275,97 +208,13 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void actualitzarDadesSollicitudTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/dadesSollicitud"), eq("PUT"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ExpedientsRDTO());
+	public void actualitzarDadesSollicitudTest() {
+		when(apiClient.invokeAPI(eq("/expedients/dadesSollicitud"), eq(HttpMethod.PUT), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new ExpedientsRDTO());
 
-		ActualitzarDadesSollicitud actualitzarDadesSollicitud = new ActualitzarDadesSollicitud();
-		ExpedientsRDTO response = api.actualitzarDadesSollicitud(actualitzarDadesSollicitud);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns all the expedients that meet the search criteria
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void cercaExpedientsAcumularTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/acumulacioExpedients/searchExpedientsAcumuladors"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfExpedientsRDTO());
-
-		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
-		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
-		String codi = null;
-		Boolean currentPageHasNextPage = null;
-		Boolean currentPageHasPreviousPage = null;
-		Boolean currentPageIsFirstPage = null;
-		Boolean currentPageIsLastPage = null;
-		Integer currentPageNumber = null;
-		String dir = null;
-		BigDecimal id = null;
-		BigDecimal idExpedientAcumulador = null;
-		BigDecimal idProcedimentAcumulat = null;
-		BigDecimal idUsuari = null;
-		Integer nextPageNumber = null;
-		String nombreDocument = null;
-		Integer pageSize = null;
-		Integer previousPageNumber = null;
-		String sollicitant = null;
-		String sort = null;
-		Long totalElements = null;
-		Integer totalPages = null;
-		PageDataOfExpedientsRDTO response = api.cercaExpedientsAcumular(absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, codi, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dir, id, idExpedientAcumulador, idProcedimentAcumulat, idUsuari, nextPageNumber,
-		        nombreDocument, pageSize, previousPageNumber, sollicitant, sort, totalElements, totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns excel file with all the expedients that meet the search criteria
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void exportarCercaExpedientExcelTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/exportarCercaExpedientExcel"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new InputStreamResource());
-
-		String aplicacioNegoci = null;
-		List<String> avisList = null;
-		String codi = null;
-		BigDecimal criteriDeCercaDadesOperacioList0Id = null;
-		BigDecimal criteriDeCercaDadesOperacioList0Tipus = null;
-		String criteriDeCercaDadesOperacioList0Valor = null;
-		DateTime dataPresentacioDes = null;
-		DateTime dataPresentacioFinsA = null;
-		List<BigDecimal> estatList = null;
-		BigDecimal id = null;
-		BigDecimal idUsuari = null;
-		Boolean isOge = null;
-		String numeroDocumentSollicitant = null;
-		String numeroDocumentSollicitantEstricte = null;
-		List<String> procedimentCodisList = null;
-		BigDecimal procedimentId = null;
-		BigDecimal procedimentVersio = null;
-		String tramitador = null;
-		List<BigDecimal> unitatsGestoresList = null;
-		InputStreamResource response = api.exportarCercaExpedientExcel(aplicacioNegoci, avisList, codi, criteriDeCercaDadesOperacioList0Id,
-		        criteriDeCercaDadesOperacioList0Tipus, criteriDeCercaDadesOperacioList0Valor, dataPresentacioDes, dataPresentacioFinsA,
-		        estatList, id, idUsuari, isOge, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, procedimentCodisList,
-		        procedimentId, procedimentVersio, tramitador, unitatsGestoresList);
+		ActualitzarDadesSollicitud actualitzarDadesSollicitudRDTO = new ActualitzarDadesSollicitud();
+		ExpedientsRDTO response = api.actualitzarDadesSollicitud(actualitzarDadesSollicitudRDTO);
 
 		assertTrue(response != null);
 	}
@@ -379,33 +228,13 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void obtenirXmlExpedientTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/obtenirXmlEvaluate/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new RespostaObtenirXmlExpedient());
+	public void obtenirXmlExpedientTest() {
+		when(apiClient.invokeAPI(eq("/expedients/obtenirXmlEvaluate/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new RespostaObtenirXmlExpedient());
 
 		BigDecimal idExpedient = ONE;
 		RespostaObtenirXmlExpedient response = api.obtenirXmlExpedient(idExpedient);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Updates the provided expedient
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void updateExpedientUsingPUTTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients"), eq("PUT"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(new ExpedientsRDTO());
-
-		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
-		ExpedientsRDTO response = api.updateExpedientUsingPUT(expedientsRDTO);
 
 		assertTrue(response != null);
 	}
@@ -419,14 +248,14 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void crearRegistreSolicitudExpedientTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/registre/crear/1"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new RespostaCrearRegistreExpedient());
+	public void crearRegistreSolicitudExpedientTest() {
+		when(apiClient.invokeAPI(eq("/expedients/registre/crear/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new RespostaCrearRegistreExpedient());
 
+		BigDecimal accio = ONE;
 		CrearRegistre registrarSolicitudExpedientRDTO = new CrearRegistre();
-		RespostaCrearRegistreExpedient response = api.crearRegistreSolicitudExpedient(BigDecimal.ONE, registrarSolicitudExpedientRDTO);
+		RespostaCrearRegistreExpedient response = api.crearRegistreSolicitudExpedient(accio, registrarSolicitudExpedientRDTO);
 
 		assertTrue(response != null);
 	}
@@ -440,10 +269,10 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void getIdExpedientByDocumentacioIdExtTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/expedientByIdDoc/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(ONE);
+	public void getIdExpedientByDocumentacioIdExtTest() {
+		when(apiClient.invokeAPI(eq("/expedients/expedientByIdDoc/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(ONE);
 
 		BigDecimal idDocumentacio = ONE;
 		BigDecimal response = api.getIdExpedientByDocumentacioIdExt(idDocumentacio);
@@ -460,9 +289,10 @@ public class Expedients_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void registreDocumentacioAriadnaTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/expedients/registre/registreDoc"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class))).thenReturn(null);
+	public void registreDocumentacioAriadnaTest() {
+		when(apiClient.invokeAPI(eq("/expedients/registre/registreDoc"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		RegistreDocumentacioExpedient registreDocumentacioExpedientRDTO = new RegistreDocumentacioExpedient();
 		api.registreDocumentacioAriadna(registreDocumentacioExpedientRDTO);

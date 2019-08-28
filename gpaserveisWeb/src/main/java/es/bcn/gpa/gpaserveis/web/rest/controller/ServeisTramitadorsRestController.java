@@ -33,6 +33,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentTramitaci
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDeclaracioResponsableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaDigitalitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioDigitalitzarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.DocsAssociatsIntraBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentEntradaFitxerBDTO;
@@ -46,6 +47,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCerc
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaIncorporarNouDocumentEntradaExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaIncorporarNouDocumentTramitacioExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaObtenirDocumentEntradaIntraoperabilitatExpedientRDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaPrepararRequerimentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaPresentarDeclaracioResponsableExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaRebutjarDocumentExpedientBDTO;
@@ -87,6 +89,7 @@ import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotificacio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsAssociatsIntra;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRegistrarComunicat;
@@ -115,6 +118,7 @@ import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.handler.ServeisRestControllerExceptionHandler;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerValidationHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.BooleanApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.ConfiguracioApiParamValue;
@@ -143,6 +147,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentac
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.digitalitzar.RespostaDigitalitzarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.DocumentIncorporacioNouRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.RespostaIncorporarNouDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.intraoperabilitat.DocumentIntraoperabilitatRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.intraoperabilitat.RespostaObtenirDocumentIntraoperabilitatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.preparar.requeriment.RequerimentPreparacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.preparar.requeriment.RespostaPrepararRequerimentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.presentar.declaracio.responsable.DeclaracioResponsablePresentacioRDTO;
@@ -1377,7 +1383,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			usuariPortaSig.setNif(persona.getDocumentIdentitat());
 			usuariPortaSig.setNom(persona.getNom());
 			signarDocument.setUsuariPortaSig(usuariPortaSig);
-			List<PeticionsPortasig> peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
+			PeticionsPortasig peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
 			serveisService.signarValidarDocument(signarDocument);
 
 		} catch (GPAApiParamValidationException e) {
@@ -1455,7 +1461,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			usuariPortaSig.setNif(persona.getDocumentIdentitat());
 			usuariPortaSig.setNom(persona.getNom());
 			signarDocument.setUsuariPortaSig(usuariPortaSig);
-			List<PeticionsPortasig> peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
+			PeticionsPortasig peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
 			serveisService.signarValidarDocument(signarDocument);
 
 		} catch (GPAApiParamValidationException e) {
@@ -2324,6 +2330,112 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		return respostaDigitalitzarDocumentRDTO;
+	}
+
+	/**
+	 * Obtenir document intraoperabilitat.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param idDocument
+	 *            the id document
+	 * @param documentIntraoperabilitatRDTO
+	 *            the document intraoperabilitat RDTO
+	 * @return the resposta incorporar nou document RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@PostMapping(value = "/expedients/{codiExpedient}/documentacio/{idDocument}/intraoperabilitat")
+	@ApiOperation(value = "Obtenir un document per intraoperabilitat", tags = { "Serveis Tramitadors API" }, extensions = {
+			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	@ApiImplicitParams(@ApiImplicitParam(name = "document", value = "Dades del document a obtenir", dataType = "string", paramType = "form", required = true))
+	public RespostaObtenirDocumentIntraoperabilitatRDTO obtenirDocumentIntraoperabilitat(
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
+			@ApiParam(value = "Dades del document de l'expedient", required = true) @RequestBody DocumentIntraoperabilitatRDTO documentIntraoperabilitatRDTO)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("obtenirDocumentIntraoperabilitat(String, String, DocumentIntraoperabilitatRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		RespostaObtenirDocumentIntraoperabilitatRDTO respostaObtenirDocumentIntraoperabilitatRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTODestino = null;
+		DadesExpedientBDTO dadesExpedientBDTOOrigen = null;
+		RegistreAssentamentRDTO registreAssentamentRDTO = null;
+		DocsEntradaRDTO docsEntradaRDTOResult = null;
+		DocsEntradaRDTO consultarDadesDocumentAportat = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_OBTENIR_DOCUMENT_INTRAOPERABILITAT);
+		try {
+			// El codi del expediente destino debe existir
+			dadesExpedientBDTODestino = serveisService.consultarDadesBasiquesExpedient(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTODestino,
+					Resultat.ERROR_OBTENIR_DOCUMENT_INTRAOPERABILITAT);
+
+			// El número de registro indicado debe existir
+			registreAssentamentRDTO = serveisService.consultarDadesRegistreAssentament(documentIntraoperabilitatRDTO.getNumeroRegistre());
+			ServeisRestControllerValidationHelper.validateRegistreAssentament(registreAssentamentRDTO,
+					Resultat.ERROR_OBTENIR_DOCUMENT_INTRAOPERABILITAT);
+
+			// Obtener datos del expediente origen del documento
+			consultarDadesDocumentAportat = serveisService.consultarDadesDocumentAportat(idDocument);
+			dadesExpedientBDTOOrigen = serveisService
+					.consultarDadesBasiquesExpedientByIdDocumentacio(consultarDadesDocumentAportat.getDocumentacio());
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTOOrigen,
+					Resultat.ERROR_OBTENIR_DOCUMENT_INTRAOPERABILITAT);
+
+			// Obtener un documento por intraoperabilitat si la acción es
+			// permitida
+			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTODestino,
+					AccioTramitadorApiParamValue.OBTENIR_DOCUMENT_INTRAOPERABILITAT, Resultat.ERROR_OBTENIR_DOCUMENT_INTRAOPERABILITAT);
+
+			// La configuración de documentación indicada debe estar asociada al
+			// procedimiento del expediente
+			DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(
+					dadesExpedientBDTODestino.getExpedientsRDTO().getConfiguracioDocumentacioProc(), null);
+			RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = serveisService
+					.cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);
+			HashMap<String, ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaMap = ServeisRestControllerValidationHelper
+					.validateConfiguracioDocumentacioEntradaIntraoperabilitat(
+							respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList(), documentIntraoperabilitatRDTO,
+							Resultat.ERROR_OBTENIR_DOCUMENT_INTRAOPERABILITAT);
+
+			DocsEntradaRDTO docsEntradaRDTO = modelMapper.map(documentIntraoperabilitatRDTO, DocsEntradaRDTO.class);
+			docsEntradaRDTO
+					.setConfigDocEntrada(configuracioDocsEntradaMap.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
+			docsEntradaRDTO.setRegistreIdext(registreAssentamentRDTO.getId());
+
+			DocsAssociatsIntra docsAssociatsIntra = new DocsAssociatsIntra();
+			docsAssociatsIntra.setDocsEntrada(docsEntradaRDTO);
+			docsAssociatsIntra.setIdDocumentOriginal(idDocument);
+			docsAssociatsIntra.setIdExpedientOrigen(dadesExpedientBDTOOrigen.getExpedientsRDTO().getId());
+			docsAssociatsIntra.setIdExpedientDestino(dadesExpedientBDTODestino.getExpedientsRDTO().getId());
+			DocsAssociatsIntraBDTO docsAssociatsIntraBDTO = new DocsAssociatsIntraBDTO(docsAssociatsIntra);
+			serveisService.associatsDocsIntra(docsAssociatsIntraBDTO);
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("obtenirDocumentIntraoperabilitat(String, String, DocumentIntraoperabilitatRDTO)", e);
+			// $NON-NLS-1$
+
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("obtenirDocumentIntraoperabilitat(String, String, DocumentIntraoperabilitatRDTO)", e);
+			// $NON-NLS-1$
+			respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_OBTENIR_DOCUMENT_INTRAOPERABILITAT,
+					ErrorPrincipal.ERROR_GENERIC);
+		}
+
+		RespostaObtenirDocumentEntradaIntraoperabilitatExpedientRDTO respostaObtenirDocumentEntradaIntraoperabilitatExpedientRDTO = new RespostaObtenirDocumentEntradaIntraoperabilitatExpedientRDTO(
+				docsEntradaRDTOResult, dadesExpedientBDTODestino != null ? dadesExpedientBDTODestino.getExpedientsRDTO() : null,
+				registreAssentamentRDTO, respostaResultatBDTO);
+		respostaObtenirDocumentIntraoperabilitatRDTO = modelMapper.map(respostaObtenirDocumentEntradaIntraoperabilitatExpedientRDTO,
+				RespostaObtenirDocumentIntraoperabilitatRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("obtenirDocumentIntraoperabilitat(String, String, DocumentIntraoperabilitatRDTO) - fi"); //$NON-NLS-1$
+		}
+
+		return respostaObtenirDocumentIntraoperabilitatRDTO;
 	}
 
 }

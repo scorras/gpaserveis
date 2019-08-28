@@ -13,32 +13,21 @@
 
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Bloquejos;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Comentaris;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrups;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.EstatsProcediment;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Historics;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Identificacions;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Procediments;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsIniciacions;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRelacionats;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsUgos;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.RequerimentsOperatius;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import org.joda.time.DateTime;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * ProcedimentsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-17T14:27:24.410+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-14T14:00:34.420+02:00")
 public class ProcedimentsRDTO {
   @JsonProperty("bloqueig")
   private BigDecimal bloqueig = null;

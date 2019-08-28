@@ -19,19 +19,19 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiException;
 
 /**
  * API tests for TramitsOvtApi
@@ -44,25 +44,6 @@ public class TramitsOvtApiTest extends ParentTest {
 	private TramitsOvtApi api = new TramitsOvtApi();
 
 	/**
-	 * Returns all the tramitsOVT
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getTramitsOvtUsingGETTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/tramitsOvt"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<TramitsOvtRDTO>());
-
-		List<TramitsOvtRDTO> response = api.getTramitsOvtUsingGET();
-
-		assertTrue(response != null);
-	}
-
-	/**
 	 * Returns the requested tràmit OVT
 	 *
 	 * 
@@ -71,10 +52,10 @@ public class TramitsOvtApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void consultarDadesTramitOvtTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/tramitsOvt/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(new TramitsOvtRDTO());
+	public void consultarDadesTramitOvtTest() {
+		when(apiClient.invokeAPI(eq("/tramitsOvt/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new TramitsOvtRDTO());
 
 		BigDecimal id = ONE;
 		TramitsOvtRDTO response = api.consultarDadesTramitOvt(id);

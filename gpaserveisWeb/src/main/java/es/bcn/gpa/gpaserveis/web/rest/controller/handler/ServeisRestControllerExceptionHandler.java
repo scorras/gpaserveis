@@ -24,7 +24,6 @@ public class ServeisRestControllerExceptionHandler {
 			log.debug("handleException(Resultat, Exception) - inici"); //$NON-NLS-1$
 		}
 		RespostaResultatBDTO respostaResultatBDTO = null;
-		new RespostaResultatBDTO(errorResultat);
 
 		if (e.getMessage() != null) {
 			if (e.getMessage().contains(Constants.MISSATGE_ERROR_ARIADNA)) {

@@ -5,24 +5,27 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import es.bcn.gpa.gpaserveis.business.TramitsService;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.business.handler.ServeisServiceExceptionHandler;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.AccionsEstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.PageDataOfTramitsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiException;
 import lombok.extern.apachecommons.CommonsLog;
 
 /**
  * The Class TramitsServiceImpl.
  */
 @Service
+
+/** The Constant log. */
 @CommonsLog
 public class TramitsServiceImpl implements TramitsService {
 
@@ -38,15 +41,6 @@ public class TramitsServiceImpl implements TramitsService {
 	@Autowired
 	private AccionsEstatsApi accionsEstatsApi;
 
-	/**
-	 * Cerca tramits procediment.
-	 *
-	 * @param idProcediment
-	 *            the id procediment
-	 * @return the page data of tramits RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -70,7 +64,7 @@ public class TramitsServiceImpl implements TramitsService {
 				log.debug("cercaTramitsProcediment(BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return pageDataOfTramitsRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("cercaTramitsProcediment(BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -82,27 +76,22 @@ public class TramitsServiceImpl implements TramitsService {
 	 *
 	 * @param idProcediment
 	 *            the id procediment
+	 * @param e
+	 *            the e
 	 * @return the page data of tramits RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public PageDataOfTramitsRDTO fallbackCercaTramitsProcediment(BigDecimal idProcediment) throws GPAServeisServiceException {
+	public PageDataOfTramitsRDTO fallbackCercaTramitsProcediment(BigDecimal idProcediment, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackCercaTramitsProcediment(BigDecimal) - inici"); //$NON-NLS-1$
+			log.debug("fallbackCercaTramitsProcediment(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
-		throw new GPAServeisServiceException("El servei de tràmits no està disponible");
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 
-	/**
-	 * Consultar dades tramit ovt.
-	 *
-	 * @param idTramitOvt
-	 *            the id tramit ovt
-	 * @return the tramits ovt RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -124,7 +113,7 @@ public class TramitsServiceImpl implements TramitsService {
 				log.debug("consultarDadesTramitOvt(BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return tramitsOvtRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("consultarDadesTramitOvt(BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -137,26 +126,28 @@ public class TramitsServiceImpl implements TramitsService {
 	 *
 	 * @param idTramitOvt
 	 *            the id tramit ovt
+	 * @param e
+	 *            the e
 	 * @return the tramits ovt RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public TramitsOvtRDTO fallbackConsultarDadesTramitOvt(BigDecimal idTramitOvt) throws GPAServeisServiceException {
+	public TramitsOvtRDTO fallbackConsultarDadesTramitOvt(BigDecimal idTramitOvt, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackConsultarDadesTramitOvt(BigDecimal) - inici"); //$NON-NLS-1$
+			log.debug("fallbackConsultarDadesTramitOvt(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
-		throw new GPAServeisServiceException("El servei de tràmits no està disponible");
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 
-	/**
-	 * Cerca accions possibles.
-	 *
-	 * @param idAccioEstat
-	 *            the id accio estat
-	 * @return the list
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.TramitsService#cercaAccionsPossibles(java.
+	 * math.BigDecimal)
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCercaAccionsPossibles")
@@ -172,7 +163,7 @@ public class TramitsServiceImpl implements TramitsService {
 				log.debug("cercaAccionsPossibles(BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return accionsEstatsRDTOList;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("cercaAccionsPossibles(BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -184,16 +175,20 @@ public class TramitsServiceImpl implements TramitsService {
 	 *
 	 * @param idAccioEstat
 	 *            the id accio estat
+	 * @param e
+	 *            the e
 	 * @return the list
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public List<AccionsEstatsRDTO> fallbackCercaAccionsPossibles(BigDecimal idAccioEstat) throws GPAServeisServiceException {
+	public List<AccionsEstatsRDTO> fallbackCercaAccionsPossibles(BigDecimal idAccioEstat, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackCercaAccionsPossibles(BigDecimal) - inici"); //$NON-NLS-1$
+			log.debug("fallbackCercaAccionsPossibles(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
-		throw new GPAServeisServiceException("El servei de tràmits no està disponible");
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 
 }

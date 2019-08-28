@@ -16,24 +16,25 @@ import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.MarquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesOperacionsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiException;
+import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient.CollectionFormat;
 
 /**
  * API tests for DadesOperacionsApi.
@@ -47,59 +48,20 @@ public class DadesOperacionsApiTest extends ParentTest {
 	private DadesOperacionsApi api = new DadesOperacionsApi();
 
 	/**
-	 * Returns all the dades operacions entries for the procedure.
+	 * Returns all the dades operacions entries for the procedure
 	 *
-	 * @return the dades operacions using GET 1 test
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getDadesOperacionsUsingGET1Test() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/procediments/1/dades"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-				any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(new PageDataOfDadesOperacionsRDTO());
-
-		BigDecimal id = ONE;
-		String dir = null;
-		String sort = null;
-		PageDataOfDadesOperacionsRDTO response = api.getDadesOperacionsUsingGET1(id, dir, sort);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns all the dades operacions entries for the procedure.
-	 *
-	 * @return the dades operacions list using GET test
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getDadesOperacionsListUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/procediments/dadesOperacio/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(new ArrayList<DadesOperacionsRDTO>());
-
-		String idsDadesOperList = ONE.toString();
-		List<DadesOperacionsRDTO> response = api.getDadesOperacionsListUsingGET(idsDadesOperList);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns all the dades operacions entries for the procedure.
+	 * 
 	 *
 	 * @throws ApiException
 	 *             if the Api call fails
 	 */
 	@Test
-	public void cercaDadesOperacioRequeritsTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/procediments/1/dadesOperRequerit"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(new PageDataOfDadesOperacionsRDTO());
+	public void cercaDadesOperacioRequeritsTest() {
+		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
+		        .thenReturn(new LinkedMultiValueMap<String, String>());
+		when(apiClient.invokeAPI(eq("/procediments/1/dadesOperRequerit"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfDadesOperacionsRDTO());
 
 		BigDecimal id = ONE;
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
@@ -117,67 +79,9 @@ public class DadesOperacionsApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		PageDataOfDadesOperacionsRDTO response = api.cercaDadesOperacioRequerits(id, absoluteRowNumberOfFirstRowInCurrentPage,
-				absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-				currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
-				totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns all the dades operacions entries for the procedure.
-	 *
-	 * @return the dades operacions requerit with ids using GET test
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getDadesOperacionsRequeritWithIdsUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/procediments/1/dadesOperRequerit/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-				any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-						.thenReturn(new PageDataOfDadesOperacionsRDTO());
-
-		BigDecimal id = ONE;
-		String idsJaExisteix = ONE.toString();
-		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
-		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
-		Boolean currentPageHasNextPage = null;
-		Boolean currentPageHasPreviousPage = null;
-		Boolean currentPageIsFirstPage = null;
-		Boolean currentPageIsLastPage = null;
-		Integer currentPageNumber = null;
-		String dir = null;
-		Integer nextPageNumber = null;
-		Integer pageSize = null;
-		Integer previousPageNumber = null;
-		String sort = null;
-		Long totalElements = null;
-		Integer totalPages = null;
-		PageDataOfDadesOperacionsRDTO response = api.getDadesOperacionsRequeritWithIdsUsingGET(id, idsJaExisteix,
-				absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
-				currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
-				previousPageNumber, sort, totalElements, totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Obtenir marques dades operacio procediment using GET test.
-	 *
-	 * @throws ApiException
-	 *             the api exception
-	 */
-	@Test
-	public void obtenirMarquesDadesOperacioProcedimentUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/procediments/obtenirMarquesDadesOperacioProcediment/1/1"), eq("GET"), any(List.class),
-				any(Object.class), any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class),
-				any(GenericType.class))).thenReturn(new ArrayList<MarquesRDTO>());
-
-		String procedimentCodi = ONE.toString();
-		BigDecimal procedimentVersio = ONE;
-		List<MarquesRDTO> response = api.obtenirMarquesDadesOperacioProcedimentUsingGET(procedimentCodi, procedimentVersio);
+		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
+		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
+		        totalPages);
 
 		assertTrue(response != null);
 	}

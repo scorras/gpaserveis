@@ -20,7 +20,6 @@ import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.FixMethodOrder;
@@ -35,9 +34,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesOperacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
@@ -52,27 +48,6 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 
 	@InjectMocks
 	private ConfiguracioDocumentacioApi api = new ConfiguracioDocumentacioApi();
-
-	/**
-	 * Returns the requested entrada configuracio associada al requeriment
-	 *
-	 * 
-	 *
-	 * @throws RestClientException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getConfDocAssociadaRequerimentUsingGETTest() throws RestClientException {
-		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/getConfDocAssociadaRequeriment/1"), eq(HttpMethod.GET),
-		        any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class),
-		        any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
-		                .thenReturn(new ArrayList<ConfiguracioDocsEntradaRDTO>());
-
-		BigDecimal idRequeriment = ONE;
-		List<ConfiguracioDocsEntradaRDTO> response = api.getConfDocAssociadaRequerimentUsingGET(idRequeriment);
-
-		assertTrue(response != null);
-	}
 
 	/**
 	 * Returns the requested entrada configuracio
@@ -188,173 +163,6 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
 		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
 		        previousPageNumber, sort, totalElements, totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns the requested entrada configuracio
-	 *
-	 * 
-	 *
-	 * @throws RestClientException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void obtenirConfiguracioDocEntAssociarRequerimentUsingGETTest() throws RestClientException {
-		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
-		        .thenReturn(new LinkedMultiValueMap<String, String>());
-		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/entradaAssociarRequeriment/1/1"), eq(HttpMethod.GET),
-		        any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class),
-		        any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
-		                .thenReturn(new PageDataOfConfiguracioDocsEntradaRDTO());
-
-		BigDecimal idConfiguracioDocumentacio = ONE;
-		String idsConfEntrAssociarReq = ONE.toString();
-		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
-		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
-		Boolean currentPageHasNextPage = null;
-		Boolean currentPageHasPreviousPage = null;
-		Boolean currentPageIsFirstPage = null;
-		Boolean currentPageIsLastPage = null;
-		Integer currentPageNumber = null;
-		String dir = null;
-		Integer nextPageNumber = null;
-		Integer pageSize = null;
-		Integer previousPageNumber = null;
-		String sort = null;
-		Long totalElements = null;
-		Integer totalPages = null;
-		PageDataOfConfiguracioDocsEntradaRDTO response = api.obtenirConfiguracioDocEntAssociarRequerimentUsingGET(
-		        idConfiguracioDocumentacio, idsConfEntrAssociarReq, absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
-		        totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns the requested tramitacio configuracio
-	 *
-	 * 
-	 *
-	 * @throws RestClientException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void obtenirConfiguracioDocumentacioTramitacioUsingGETTest() throws RestClientException {
-		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/configuracioDocsTramitacio/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
-		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<ConfiguracioDocsTramitacioRDTO>());
-
-		BigDecimal id = ONE;
-		List<ConfiguracioDocsTramitacioRDTO> response = api.obtenirConfiguracioDocumentacioTramitacioUsingGET(id);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * updates the doc config
-	 *
-	 * 
-	 *
-	 * @throws RestClientException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void updateDocumentacioEntradaUsingPUTTest() throws RestClientException {
-		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/docEntrada/1"), eq(HttpMethod.PUT), any(MultiValueMap.class),
-		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(Void.class);
-
-		ConfiguracioDocsEntradaRDTO docEntrada = new ConfiguracioDocsEntradaRDTO();
-		BigDecimal procId = ONE;
-		api.updateDocumentacioEntradaUsingPUT(docEntrada, procId);
-
-		assertTrue(true);
-	}
-
-	/**
-	 * updates the doc config
-	 *
-	 * 
-	 *
-	 * @throws RestClientException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void updateDocumentacioTramitacioUsingPUTTest() throws RestClientException {
-		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/docTramitacio/1"), eq(HttpMethod.PUT), any(MultiValueMap.class),
-		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(Void.class);
-
-		ConfiguracioDocsTramitacioRDTO docTramitacio = new ConfiguracioDocsTramitacioRDTO();
-		BigDecimal procId = ONE;
-		api.updateDocumentacioTramitacioUsingPUT(docTramitacio, procId);
-
-		assertTrue(true);
-	}
-
-	/**
-	 * comprovarDocumentacioConfDocsEntPerEstat
-	 *
-	 * 
-	 *
-	 * @throws RestClientException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void comprovarDocumentacioConfDocsEntPerEstatUsingGETTest() throws RestClientException {
-		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/comprovarDocumentacioConfDocsEntPerEstat/1/1"), eq(HttpMethod.GET),
-		        any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class),
-		        any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(Boolean.TRUE);
-
-		BigDecimal confDocsEntrada = ONE;
-		BigDecimal estatFuturo = ONE;
-		Boolean response = api.comprovarDocumentacioConfDocsEntPerEstatUsingGET(confDocsEntrada, estatFuturo);
-
-		assertTrue(response);
-	}
-
-	/**
-	 * comprovarDocumentacioConfDocsEntPerEstat
-	 *
-	 * 
-	 *
-	 * @throws RestClientException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void comprovarDocumentacioConfDocsTramPerEstatUsingGETTest() throws RestClientException {
-		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/comprovarDocumentacioConfDocsTramPerEstat/1/1"), eq(HttpMethod.GET),
-		        any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class),
-		        any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(Boolean.TRUE);
-
-		BigDecimal confDocsTramitacio = ONE;
-		BigDecimal estatFuturo = ONE;
-		Boolean response = api.comprovarDocumentacioConfDocsTramPerEstatUsingGET(confDocsTramitacio, estatFuturo);
-
-		assertTrue(response);
-	}
-
-	/**
-	 * Returns the requested dadas operacio associada al requeriment
-	 *
-	 * 
-	 *
-	 * @throws RestClientException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getDadesOperAssociadaRequerimentUsingGETTest() throws RestClientException {
-		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/getDadesOperAssociadaRequeriment/1"), eq(HttpMethod.GET),
-		        any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class),
-		        any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
-		                .thenReturn(new ArrayList<DadesOperacioRDTO>());
-
-		BigDecimal idRequeriment = ONE;
-		List<DadesOperacioRDTO> response = api.getDadesOperAssociadaRequerimentUsingGET(idRequeriment);
 
 		assertTrue(response != null);
 	}

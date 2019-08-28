@@ -8,7 +8,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiException;
 import es.bcn.gpa.gpaserveis.test.config.RestServerTestsConfig;
 import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.web.test.servlet.setup.ServletBaseContextReplacer;
@@ -28,11 +27,6 @@ public abstract class RestServerParentTest extends ParentTest {
 	/** The mock mvc. */
 	private MockMvc mockMvc;
 
-	/**
-	 * Sets the up.
-	 * 
-	 * @throws ApiException
-	 */
 	@Before
 	public void setUp() {
 		if (log.isDebugEnabled()) {
