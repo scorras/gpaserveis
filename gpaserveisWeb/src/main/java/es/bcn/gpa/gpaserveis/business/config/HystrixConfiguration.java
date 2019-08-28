@@ -45,10 +45,10 @@ public class HystrixConfiguration {
 		abstractConfiguration.setProperty("hystrix.command.default.metrics.healthSnapshot.intervalInMilliseconds", "500");
 
 		// ThreadPool Properties
-		abstractConfiguration.setProperty("hystrix.threadpool.default.coreSize", "5");
-		abstractConfiguration.setProperty("hystrix.threadpool.default.maximumSize", "10");
+		abstractConfiguration.setProperty("hystrix.threadpool.default.coreSize", "25");
+		abstractConfiguration.setProperty("hystrix.threadpool.default.maximumSize", "250");
 		abstractConfiguration.setProperty("hystrix.threadpool.default.allowMaximumSizeToDivergeFromCoreSize", "true");
-		abstractConfiguration.setProperty("hystrix.threadpool.default.maxQueueSize", "10");
+		abstractConfiguration.setProperty("hystrix.threadpool.default.maxQueueSize", "-1");
 
 		return abstractConfiguration;
 	}

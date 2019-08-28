@@ -90,8 +90,9 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 	 * consultarDadesUnitatGestora(java.math.BigDecimal)
 	 */
 	@Override
+	@CacheResult
 	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesUnitatGestora")
-	public UnitatsGestoresRDTO consultarDadesUnitatGestora(BigDecimal id) throws GPAServeisServiceException {
+	public UnitatsGestoresRDTO consultarDadesUnitatGestora(@CacheKey BigDecimal id) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("consultarDadesUnitatGestora(BigDecimal) - inici"); //$NON-NLS-1$
 		}
