@@ -243,16 +243,12 @@ public abstract class ParentTest {
 			when(expedients_Api.consultarDadesExpedientPerCodi(eq("ES_LO1080193_2019_EXP_000000000000000000000000000001")))
 			        .thenReturn(TestsConfigHelper.consultarDadesExpedientResponse());
 
+			when(expedients_Api.getIdExpedientByDocumentacioIdExt(any(BigDecimal.class))).thenReturn(BigDecimal.ONE);
+
 			when(expedientsRelacionatsApi.obtenirExpedientsRelacionats(any(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
 			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
 			        isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class), isNull(String.class),
 			        isNull(Long.class), isNull(Integer.class))).thenReturn(TestsConfigHelper.obtenirExpedientsRelacionatsResponse());
-
-			when(expedientsApi.cercaHistoricsExpedient(any(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
-			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
-			        isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class), isNull(String.class),
-			        any(List.class), isNull(Long.class), isNull(Integer.class)))
-			                .thenReturn(TestsConfigHelper.cercaHistoricsExpedientResponse());
 
 			when(personesInteressades_Api.cercaPersonesInteresadesExpedient(any(BigDecimal.class), isNull(Integer.class),
 			        isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
@@ -397,6 +393,12 @@ public abstract class ParentTest {
 			doNothing().when(documentacioApi).callbackDigitalitzacio(any(CallbackDigitalitzacio.class));
 
 			when(notificacionsApi.crearNotificacio(any(CrearNotificacio.class))).thenReturn(TestsConfigHelper.crearNotificacioResponse());
+
+			when(documentacioApi.actualitzarDocumentTramitacio(any(DocsTramitacioRDTO.class), any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.actualitzarDocumentTramitacioResponse());
+
+			when(documentacioApi.crearDocumentTramitacioDigitalitzat(any(DocsTramitacioRDTO.class), any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.crearDocumentTramitacioDigitalitzatResponse());
 
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$

@@ -49,7 +49,7 @@ public class HystrixConfiguration {
 		abstractConfiguration.setProperty("hystrix.threadpool.default.maximumSize", "250");
 		abstractConfiguration.setProperty("hystrix.threadpool.default.allowMaximumSizeToDivergeFromCoreSize", "true");
 		abstractConfiguration.setProperty("hystrix.threadpool.default.maxQueueSize", "-1");
-		
+
 		return abstractConfiguration;
 	}
 

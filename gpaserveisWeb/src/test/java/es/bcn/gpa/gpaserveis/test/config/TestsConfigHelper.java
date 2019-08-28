@@ -37,11 +37,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdenti
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfHistoricsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesDadescontacte;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitud;
@@ -636,6 +633,7 @@ public class TestsConfigHelper {
 		expedientsRDTO.setDescEstat("En preparació");
 		expedientsRDTO.setIdEstat(ONE);
 		expedientsRDTO.setProcedimentCodi("PROC01");
+		expedientsRDTO.setRelacioTipusRelacio("1-2");
 
 		Sollicituds sollicituds = new Sollicituds();
 		sollicituds.setId(ONE);
@@ -688,55 +686,6 @@ public class TestsConfigHelper {
 		pageDataOfExpedientsRDTO.setData(expedientsRDTOList);
 
 		return pageDataOfExpedientsRDTO;
-	}
-
-	/**
-	 * Cerca historics expedient response.
-	 *
-	 * @return the page data of historics RDTO
-	 */
-	public static PageDataOfHistoricsRDTO cercaHistoricsExpedientResponse() {
-		PageDataOfHistoricsRDTO pageDataOfHistoricsRDTO = new PageDataOfHistoricsRDTO();
-
-		// Data
-		ArrayList<HistoricsRDTO> historicsRDTOList = new ArrayList<HistoricsRDTO>();
-		HistoricsRDTO historicsRDTO1 = new HistoricsRDTO();
-		historicsRDTO1.setDataCreacio(now());
-		historicsRDTO1.setDescripcio("S'ha realitzat un canvi d'estat de l'expedient de \"En preparació\" a \"Sol·licitud en revisió\"");
-		historicsRDTOList.add(historicsRDTO1);
-		HistoricsRDTO historicsRDTO2 = new HistoricsRDTO();
-		historicsRDTO2.setDataCreacio(now());
-		historicsRDTO2.setDescripcio("S'ha realitzat un canvi d'estat de l'expedient de \"Sol·licitud en revisió\" a \"Pendent esmenes\"");
-		historicsRDTOList.add(historicsRDTO2);
-		HistoricsRDTO historicsRDTO3 = new HistoricsRDTO();
-		historicsRDTO3.setDataCreacio(now());
-		historicsRDTO3.setDescripcio("S'ha realitzat un canvi d'estat de l'expedient de \"Pendent esmenes\" a \"En tramitació\"");
-		historicsRDTOList.add(historicsRDTO3);
-		pageDataOfHistoricsRDTO.setData(historicsRDTOList);
-
-		// Page
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaginationAttributes paginationAttributes = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaginationAttributes();
-		paginationAttributes.setAbsoluteRowNumberOfFirstRowInCurrentPage(INTEGER_ONE);
-		paginationAttributes.setAbsoluteRowNumberOfLastRowInCurrentPage(new Integer(3));
-		paginationAttributes.setCurrentPageHasNextPage(FALSE);
-		paginationAttributes.setCurrentPageHasPreviousPage(FALSE);
-		paginationAttributes.setCurrentPageIsFirstPage(TRUE);
-		paginationAttributes.setCurrentPageIsLastPage(TRUE);
-		paginationAttributes.setCurrentPageNumber(INTEGER_ONE);
-		paginationAttributes.setNextPageNumber(INTEGER_ZERO);
-		paginationAttributes.setPageSize(new Integer(10));
-		paginationAttributes.setPreviousPageNumber(INTEGER_ZERO);
-		paginationAttributes.setTotalElements(new Long(3));
-		paginationAttributes.setTotalPages(INTEGER_ONE);
-		pageDataOfHistoricsRDTO.setPage(paginationAttributes);
-
-		// SortInfo
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SortInfo sortInfo = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SortInfo();
-		sortInfo.setSort("nom");
-		sortInfo.setDir("DESC");
-		pageDataOfHistoricsRDTO.setSortInfo(sortInfo);
-
-		return pageDataOfHistoricsRDTO;
 	}
 
 	/**
@@ -1235,6 +1184,12 @@ public class TestsConfigHelper {
 		accionsEstatsRDTO30.setAccio(new BigDecimal(13));
 		accionsEstatsRDTOList.add(accionsEstatsRDTO30);
 
+		AccionsEstatsRDTO accionsEstatsRDTO31 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO31.setId(ONE);
+		accionsEstatsRDTO31.setNomAccio("Obtenir un document per intraoperabilitat");
+		accionsEstatsRDTO31.setAccio(new BigDecimal(33));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO31);
+
 		return accionsEstatsRDTOList;
 	}
 
@@ -1366,21 +1321,6 @@ public class TestsConfigHelper {
 	}
 
 	/**
-	 * Consultar dades pais response.
-	 *
-	 * @return the paisos RDTO
-	 */
-	public static PaisosRDTO consultarDadesPaisResponse() {
-		PaisosRDTO paisosRDTO = new PaisosRDTO();
-
-		paisosRDTO.setCodiIne("108");
-		paisosRDTO.setCodiIso("ES");
-		paisosRDTO.setNom("España");
-
-		return paisosRDTO;
-	}
-
-	/**
 	 * Crear sollicitud expedient response.
 	 *
 	 * @return the expedients RDTO
@@ -1443,6 +1383,51 @@ public class TestsConfigHelper {
 	 * @return the docs tramitacio RDTO
 	 */
 	public static DocsTramitacioRDTO consultarDadesDocumentGeneratResponse() {
+		DocsFisics docsFisics = new DocsFisics();
+		docsFisics.setNom("prova.txt");
+		ConfiguracioDocsTramitacio configuracioDocsTramitacio = new ConfiguracioDocsTramitacio();
+		configuracioDocsTramitacio.setId(ONE);
+		configuracioDocsTramitacio.setNom("Nom");
+		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
+		docsTramitacioRDTO.setId(ONE);
+		docsTramitacioRDTO.setDocsFisics(docsFisics);
+		docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
+		docsTramitacioRDTO.setConfiguracioDocsTramitacioNom("Nom");
+		docsTramitacioRDTO.setOrigen(INTEGER_ONE);
+		docsTramitacioRDTO.setDataCreacio(now());
+		docsTramitacioRDTO.setDataDigitalitzacio(now());
+		docsTramitacioRDTO.setDataUltimaModificacio(now());
+		docsTramitacioRDTO.setDocumentacio(ONE);
+
+		return docsTramitacioRDTO;
+	}
+
+	/**
+	 * Actualitzar document tramitacio response.
+	 *
+	 * @return the docs tramitacio RDTO
+	 */
+	public static DocsTramitacioRDTO actualitzarDocumentTramitacioResponse() {
+		DocsFisics docsFisics = new DocsFisics();
+		docsFisics.setNom("prova.txt");
+		ConfiguracioDocsTramitacio configuracioDocsTramitacio = new ConfiguracioDocsTramitacio();
+		configuracioDocsTramitacio.setId(ONE);
+		configuracioDocsTramitacio.setNom("Nom");
+		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
+		docsTramitacioRDTO.setId(ONE);
+		docsTramitacioRDTO.setDocsFisics(docsFisics);
+		docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
+		docsTramitacioRDTO.setConfiguracioDocsTramitacioNom("Nom");
+		docsTramitacioRDTO.setOrigen(INTEGER_ONE);
+		docsTramitacioRDTO.setDataCreacio(now());
+		docsTramitacioRDTO.setDataDigitalitzacio(now());
+		docsTramitacioRDTO.setDataUltimaModificacio(now());
+		docsTramitacioRDTO.setDocumentacio(ONE);
+
+		return docsTramitacioRDTO;
+	}
+
+	public static DocsTramitacioRDTO crearDocumentTramitacioDigitalitzatResponse() {
 		DocsFisics docsFisics = new DocsFisics();
 		docsFisics.setNom("prova.txt");
 		ConfiguracioDocsTramitacio configuracioDocsTramitacio = new ConfiguracioDocsTramitacio();

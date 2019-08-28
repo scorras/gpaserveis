@@ -1,852 +1,662 @@
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.Configuration;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.Pair;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import javax.ws.rs.core.GenericType;
+import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
-import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
-import org.joda.time.DateTime;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InputStreamResource;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-24T01:06:10.329+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-14T14:00:28.664+02:00")
+@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api")
 public class Expedients_Api {
-  private ApiClient apiClient;
-
-  public Expedients_Api() {
-    this(Configuration.getDefaultApiClient());
-  }
-
-  public Expedients_Api(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
-
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  /**
-   * Updates the provided expedient including specific data
-   * 
-   * @param actualitzarDadesSollicitudRDTO actualitzarDadesSollicitudRDTO (required)
-   * @return ExpedientsRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public ExpedientsRDTO actualitzarDadesSollicitud(ActualitzarDadesSollicitud actualitzarDadesSollicitudRDTO) throws ApiException {
-    Object localVarPostBody = actualitzarDadesSollicitudRDTO;
-    
-    // verify the required parameter 'actualitzarDadesSollicitudRDTO' is set
-    if (actualitzarDadesSollicitudRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'actualitzarDadesSollicitudRDTO' when calling actualitzarDadesSollicitud");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/dadesSollicitud";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<ExpedientsRDTO> localVarReturnType = new GenericType<ExpedientsRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns all the expedients that meet the search criteria
-   * 
-   * @param absoluteRowNumberOfFirstRowInCurrentPage  (optional)
-   * @param absoluteRowNumberOfLastRowInCurrentPage  (optional)
-   * @param aplicacioNegoci Aplicació de negoci (optional)
-   * @param avisList Llista d&#39;avisos de l&#39;expedient (optional)
-   * @param codi Codi de l&#39;expedient (optional)
-   * @param criteriDeCercaDadesOperacioList0Id Identificador de la dada d&#39;operació (optional)
-   * @param criteriDeCercaDadesOperacioList0Tipus Tipus de la dada d&#39;operació (optional)
-   * @param criteriDeCercaDadesOperacioList0Valor Valor de la dada d&#39;operació (optional)
-   * @param currentPageHasNextPage  (optional)
-   * @param currentPageHasPreviousPage  (optional)
-   * @param currentPageIsFirstPage  (optional)
-   * @param currentPageIsLastPage  (optional)
-   * @param currentPageNumber  (optional)
-   * @param dataPresentacioDes Data presentació des de (optional)
-   * @param dataPresentacioFinsA Data presentació fins a (optional)
-   * @param dir  (optional)
-   * @param estatList Llista d&#39;estats de l&#39;expedient (optional)
-   * @param id Identificador pel qual es realitza la cerca (optional)
-   * @param idUsuari Identificador d&#39;usuari pel qual es realitza la cerca (optional)
-   * @param isOge Invocació des de OGE (optional)
-   * @param nextPageNumber  (optional)
-   * @param numeroDocumentSollicitant Numero de document d&#39;identificació del sol·licitant (optional)
-   * @param numeroDocumentSollicitantEstricte Numero de document d&#39;identificació del sol·licitant estricte (optional)
-   * @param pageSize  (optional)
-   * @param previousPageNumber  (optional)
-   * @param procedimentCodisList Llista dels codis dels procediments (optional)
-   * @param procedimentId Identificador del procediment (optional)
-   * @param procedimentVersio Versió del procediment (optional)
-   * @param sort  (optional)
-   * @param totalElements  (optional)
-   * @param totalPages  (optional)
-   * @param tramitador Tramitador de l&#39;expedient (optional)
-   * @param unitatsGestoresList Llista d&#39;unitats gestores (optional)
-   * @return PageDataOfExpedientsRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public PageDataOfExpedientsRDTO cercaExpedients(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, String aplicacioNegoci, List<String> avisList, String codi, BigDecimal criteriDeCercaDadesOperacioList0Id, BigDecimal criteriDeCercaDadesOperacioList0Tipus, String criteriDeCercaDadesOperacioList0Valor, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, DateTime dataPresentacioDes, DateTime dataPresentacioFinsA, String dir, List<BigDecimal> estatList, BigDecimal id, BigDecimal idUsuari, Boolean isOge, Integer nextPageNumber, String numeroDocumentSollicitant, String numeroDocumentSollicitantEstricte, Integer pageSize, Integer previousPageNumber, List<String> procedimentCodisList, BigDecimal procedimentId, BigDecimal procedimentVersio, String sort, Long totalElements, Integer totalPages, String tramitador, List<BigDecimal> unitatsGestoresList) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/expedients/search";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "aplicacioNegoci", aplicacioNegoci));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "avisList", avisList));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "codi", codi));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "criteriDeCercaDadesOperacioList[0].id", criteriDeCercaDadesOperacioList0Id));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "criteriDeCercaDadesOperacioList[0].tipus", criteriDeCercaDadesOperacioList0Tipus));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "criteriDeCercaDadesOperacioList[0].valor", criteriDeCercaDadesOperacioList0Valor));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasNextPage", currentPageHasNextPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasPreviousPage", currentPageHasPreviousPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsFirstPage", currentPageIsFirstPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsLastPage", currentPageIsLastPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dataPresentacioDes", dataPresentacioDes));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dataPresentacioFinsA", dataPresentacioFinsA));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "estatList", estatList));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "id", id));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "idUsuari", idUsuari));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "isOge", isOge));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "nextPageNumber", nextPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "numeroDocumentSollicitant", numeroDocumentSollicitant));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "numeroDocumentSollicitantEstricte", numeroDocumentSollicitantEstricte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "previousPageNumber", previousPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "procedimentCodisList", procedimentCodisList));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "procedimentId", procedimentId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "procedimentVersio", procedimentVersio));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "tramitador", tramitador));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "unitatsGestoresList", unitatsGestoresList));
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<PageDataOfExpedientsRDTO> localVarReturnType = new GenericType<PageDataOfExpedientsRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns all the expedients that meet the search criteria
-   * 
-   * @param absoluteRowNumberOfFirstRowInCurrentPage  (optional)
-   * @param absoluteRowNumberOfLastRowInCurrentPage  (optional)
-   * @param codi Codi de l&#39;expedient (optional)
-   * @param currentPageHasNextPage  (optional)
-   * @param currentPageHasPreviousPage  (optional)
-   * @param currentPageIsFirstPage  (optional)
-   * @param currentPageIsLastPage  (optional)
-   * @param currentPageNumber  (optional)
-   * @param dir  (optional)
-   * @param id Identificador pel qual es realitza la cerca (optional)
-   * @param idExpedientAcumulador Identificador de l&#39;expedient acumulador (optional)
-   * @param idProcedimentAcumulat Identificador del procediment de l&#39;expedient a acumular (optional)
-   * @param idUsuari Identificador d&#39;usuari pel qual es realitza la cerca (optional)
-   * @param nextPageNumber  (optional)
-   * @param nombreDocument Nombre del document del sol·licitant (optional)
-   * @param pageSize  (optional)
-   * @param previousPageNumber  (optional)
-   * @param sollicitant Nom del sol·licitant (optional)
-   * @param sort  (optional)
-   * @param totalElements  (optional)
-   * @param totalPages  (optional)
-   * @return PageDataOfExpedientsRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public PageDataOfExpedientsRDTO cercaExpedientsAcumular(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, String codi, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, BigDecimal id, BigDecimal idExpedientAcumulador, BigDecimal idProcedimentAcumulat, BigDecimal idUsuari, Integer nextPageNumber, String nombreDocument, Integer pageSize, Integer previousPageNumber, String sollicitant, String sort, Long totalElements, Integer totalPages) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/acumulacioExpedients/searchExpedientsAcumuladors";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "codi", codi));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasNextPage", currentPageHasNextPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasPreviousPage", currentPageHasPreviousPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsFirstPage", currentPageIsFirstPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsLastPage", currentPageIsLastPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "id", id));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "idExpedientAcumulador", idExpedientAcumulador));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "idProcedimentAcumulat", idProcedimentAcumulat));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "idUsuari", idUsuari));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "nextPageNumber", nextPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "nombreDocument", nombreDocument));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "previousPageNumber", previousPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sollicitant", sollicitant));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<PageDataOfExpedientsRDTO> localVarReturnType = new GenericType<PageDataOfExpedientsRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns the requested expedient
-   * 
-   * @param id id (required)
-   * @return ExpedientsRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public ExpedientsRDTO consultarDadesExpedient(BigDecimal id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling consultarDadesExpedient");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<ExpedientsRDTO> localVarReturnType = new GenericType<ExpedientsRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns the requested expedient
-   * 
-   * @param codi codi (required)
-   * @return ExpedientsRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public ExpedientsRDTO consultarDadesExpedientPerCodi(String codi) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'codi' is set
-    if (codi == null) {
-      throw new ApiException(400, "Missing the required parameter 'codi' when calling consultarDadesExpedientPerCodi");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/perCodi/{codi}"
-      .replaceAll("\\{" + "codi" + "\\}", apiClient.escapeString(codi.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<ExpedientsRDTO> localVarReturnType = new GenericType<ExpedientsRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns the requested unitat
-   * 
-   * @param codi codi (required)
-   * @return RegistreAssentamentRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public RegistreAssentamentRDTO consultarDadesRegistreAssentament(String codi) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'codi' is set
-    if (codi == null) {
-      throw new ApiException(400, "Missing the required parameter 'codi' when calling consultarDadesRegistreAssentament");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/registre";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "codi", codi));
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<RegistreAssentamentRDTO> localVarReturnType = new GenericType<RegistreAssentamentRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Register the provided expedient
-   * 
-   * @param accio accio (required)
-   * @param registrarSolicitudExpedientRDTO registrarSolicitudExpedientRDTO (required)
-   * @return RespostaCrearRegistreExpedient
-   * @throws ApiException if fails to make API call
-   */
-  public RespostaCrearRegistreExpedient crearRegistreSolicitudExpedient(BigDecimal accio, CrearRegistre registrarSolicitudExpedientRDTO) throws ApiException {
-    Object localVarPostBody = registrarSolicitudExpedientRDTO;
-    
-    // verify the required parameter 'accio' is set
-    if (accio == null) {
-      throw new ApiException(400, "Missing the required parameter 'accio' when calling crearRegistreSolicitudExpedient");
-    }
-    
-    // verify the required parameter 'registrarSolicitudExpedientRDTO' is set
-    if (registrarSolicitudExpedientRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'registrarSolicitudExpedientRDTO' when calling crearRegistreSolicitudExpedient");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/registre/crear/{accio}"
-      .replaceAll("\\{" + "accio" + "\\}", apiClient.escapeString(accio.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<RespostaCrearRegistreExpedient> localVarReturnType = new GenericType<RespostaCrearRegistreExpedient>() {};
-    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Insert the provided expedient
-   * 
-   * @param expedientsRDTO expedientsRDTO (required)
-   * @return ExpedientsRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public ExpedientsRDTO crearSollicitudExpedient(ExpedientsRDTO expedientsRDTO) throws ApiException {
-    Object localVarPostBody = expedientsRDTO;
-    
-    // verify the required parameter 'expedientsRDTO' is set
-    if (expedientsRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'expedientsRDTO' when calling crearSollicitudExpedient");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<ExpedientsRDTO> localVarReturnType = new GenericType<ExpedientsRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns excel file with all the expedients that meet the search criteria
-   * 
-   * @param aplicacioNegoci Aplicació de negoci (optional)
-   * @param avisList Llista d&#39;avisos de l&#39;expedient (optional)
-   * @param codi Codi de l&#39;expedient (optional)
-   * @param criteriDeCercaDadesOperacioList0Id Identificador de la dada d&#39;operació (optional)
-   * @param criteriDeCercaDadesOperacioList0Tipus Tipus de la dada d&#39;operació (optional)
-   * @param criteriDeCercaDadesOperacioList0Valor Valor de la dada d&#39;operació (optional)
-   * @param dataPresentacioDes Data presentació des de (optional)
-   * @param dataPresentacioFinsA Data presentació fins a (optional)
-   * @param estatList Llista d&#39;estats de l&#39;expedient (optional)
-   * @param id Identificador pel qual es realitza la cerca (optional)
-   * @param idUsuari Identificador d&#39;usuari pel qual es realitza la cerca (optional)
-   * @param isOge Invocació des de OGE (optional)
-   * @param numeroDocumentSollicitant Numero de document d&#39;identificació del sol·licitant (optional)
-   * @param numeroDocumentSollicitantEstricte Numero de document d&#39;identificació del sol·licitant estricte (optional)
-   * @param procedimentCodisList Llista dels codis dels procediments (optional)
-   * @param procedimentId Identificador del procediment (optional)
-   * @param procedimentVersio Versió del procediment (optional)
-   * @param tramitador Tramitador de l&#39;expedient (optional)
-   * @param unitatsGestoresList Llista d&#39;unitats gestores (optional)
-   * @return InputStreamResource
-   * @throws ApiException if fails to make API call
-   */
-  public InputStreamResource exportarCercaExpedientExcel(String aplicacioNegoci, List<String> avisList, String codi, BigDecimal criteriDeCercaDadesOperacioList0Id, BigDecimal criteriDeCercaDadesOperacioList0Tipus, String criteriDeCercaDadesOperacioList0Valor, DateTime dataPresentacioDes, DateTime dataPresentacioFinsA, List<BigDecimal> estatList, BigDecimal id, BigDecimal idUsuari, Boolean isOge, String numeroDocumentSollicitant, String numeroDocumentSollicitantEstricte, List<String> procedimentCodisList, BigDecimal procedimentId, BigDecimal procedimentVersio, String tramitador, List<BigDecimal> unitatsGestoresList) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/expedients/exportarCercaExpedientExcel";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "aplicacioNegoci", aplicacioNegoci));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "avisList", avisList));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "codi", codi));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "criteriDeCercaDadesOperacioList[0].id", criteriDeCercaDadesOperacioList0Id));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "criteriDeCercaDadesOperacioList[0].tipus", criteriDeCercaDadesOperacioList0Tipus));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "criteriDeCercaDadesOperacioList[0].valor", criteriDeCercaDadesOperacioList0Valor));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dataPresentacioDes", dataPresentacioDes));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dataPresentacioFinsA", dataPresentacioFinsA));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "estatList", estatList));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "id", id));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "idUsuari", idUsuari));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "isOge", isOge));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "numeroDocumentSollicitant", numeroDocumentSollicitant));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "numeroDocumentSollicitantEstricte", numeroDocumentSollicitantEstricte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "procedimentCodisList", procedimentCodisList));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "procedimentId", procedimentId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "procedimentVersio", procedimentVersio));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "tramitador", tramitador));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "unitatsGestoresList", unitatsGestoresList));
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<InputStreamResource> localVarReturnType = new GenericType<InputStreamResource>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns al the expedients
-   * 
-   * @return List&lt;ExpedientsRDTO&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<ExpedientsRDTO> getExpedientsUsingGET() throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/expedients/all";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<List<ExpedientsRDTO>> localVarReturnType = new GenericType<List<ExpedientsRDTO>>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns all the expedients gestores
-   * 
-   * @param absoluteRowNumberOfFirstRowInCurrentPage  (optional)
-   * @param absoluteRowNumberOfLastRowInCurrentPage  (optional)
-   * @param currentPageHasNextPage  (optional)
-   * @param currentPageHasPreviousPage  (optional)
-   * @param currentPageIsFirstPage  (optional)
-   * @param currentPageIsLastPage  (optional)
-   * @param currentPageNumber  (optional)
-   * @param dir  (optional)
-   * @param nextPageNumber  (optional)
-   * @param pageSize  (optional)
-   * @param previousPageNumber  (optional)
-   * @param sort  (optional)
-   * @param totalElements  (optional)
-   * @param totalPages  (optional)
-   * @return PageDataOfExpedientsRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public PageDataOfExpedientsRDTO getExpedientsUsingGET1(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/expedients";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasNextPage", currentPageHasNextPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasPreviousPage", currentPageHasPreviousPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsFirstPage", currentPageIsFirstPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsLastPage", currentPageIsLastPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "nextPageNumber", nextPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "previousPageNumber", previousPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<PageDataOfExpedientsRDTO> localVarReturnType = new GenericType<PageDataOfExpedientsRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns the requested id expedient
-   * 
-   * @param idDocumentacio idDocumentacio (required)
-   * @return BigDecimal
-   * @throws ApiException if fails to make API call
-   */
-  public BigDecimal getIdExpedientByDocumentacioIdExt(BigDecimal idDocumentacio) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'idDocumentacio' is set
-    if (idDocumentacio == null) {
-      throw new ApiException(400, "Missing the required parameter 'idDocumentacio' when calling getIdExpedientByDocumentacioIdExt");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/expedientByIdDoc/{idDocumentacio}"
-      .replaceAll("\\{" + "idDocumentacio" + "\\}", apiClient.escapeString(idDocumentacio.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<BigDecimal> localVarReturnType = new GenericType<BigDecimal>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns all the expedients gestores
-   * 
-   * @return Integer
-   * @throws ApiException if fails to make API call
-   */
-  public Integer obtenirIndicadorExpedientsUsingGET() throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/expedients/obtenirIndicadorExpedients";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<Integer> localVarReturnType = new GenericType<Integer>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Retorna el xml de la informació de l&#39;expedient
-   * 
-   * @param idExpedient idExpedient (required)
-   * @return RespostaObtenirXmlExpedient
-   * @throws ApiException if fails to make API call
-   */
-  public RespostaObtenirXmlExpedient obtenirXmlExpedient(BigDecimal idExpedient) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'idExpedient' is set
-    if (idExpedient == null) {
-      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling obtenirXmlExpedient");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/obtenirXmlEvaluate/{idExpedient}"
-      .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<RespostaObtenirXmlExpedient> localVarReturnType = new GenericType<RespostaObtenirXmlExpedient>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Register the provided documentacio
-   * 
-   * @param registreDocumentacioExpedientRDTO registreDocumentacioExpedientRDTO (required)
-   * @throws ApiException if fails to make API call
-   */
-  public void registreDocumentacioAriadna(RegistreDocumentacioExpedient registreDocumentacioExpedientRDTO) throws ApiException {
-    Object localVarPostBody = registreDocumentacioExpedientRDTO;
-    
-    // verify the required parameter 'registreDocumentacioExpedientRDTO' is set
-    if (registreDocumentacioExpedientRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'registreDocumentacioExpedientRDTO' when calling registreDocumentacioAriadna");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/registre/registreDoc";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-
-    apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
-  }
-  /**
-   * Updates the provided expedient
-   * 
-   * @param expedientsRDTO expedientsRDTO (required)
-   * @return ExpedientsRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public ExpedientsRDTO updateExpedientUsingPUT(ExpedientsRDTO expedientsRDTO) throws ApiException {
-    Object localVarPostBody = expedientsRDTO;
-    
-    // verify the required parameter 'expedientsRDTO' is set
-    if (expedientsRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'expedientsRDTO' when calling updateExpedientUsingPUT");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<ExpedientsRDTO> localVarReturnType = new GenericType<ExpedientsRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
+	private ApiClient apiClient;
+
+	public Expedients_Api() {
+		this(new ApiClient());
+	}
+
+	@Autowired
+	public Expedients_Api(ApiClient apiClient) {
+		this.apiClient = apiClient;
+	}
+
+	public ApiClient getApiClient() {
+		return apiClient;
+	}
+
+	public void setApiClient(ApiClient apiClient) {
+		this.apiClient = apiClient;
+	}
+
+	/**
+	 * Returns all the expedients that meet the search criteria
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param absoluteRowNumberOfFirstRowInCurrentPage
+	 *            The absoluteRowNumberOfFirstRowInCurrentPage parameter
+	 * @param absoluteRowNumberOfLastRowInCurrentPage
+	 *            The absoluteRowNumberOfLastRowInCurrentPage parameter
+	 * @param aplicacioNegoci
+	 *            Aplicació de negoci
+	 * @param avisList
+	 *            Llista d&#39;avisos de l&#39;expedient
+	 * @param codi
+	 *            Codi de l&#39;expedient
+	 * @param criteriDeCercaDadesOperacioList0Id
+	 *            Identificador de la dada d&#39;operació
+	 * @param criteriDeCercaDadesOperacioList0Tipus
+	 *            Tipus de la dada d&#39;operació
+	 * @param criteriDeCercaDadesOperacioList0Valor
+	 *            Valor de la dada d&#39;operació
+	 * @param currentPageHasNextPage
+	 *            The currentPageHasNextPage parameter
+	 * @param currentPageHasPreviousPage
+	 *            The currentPageHasPreviousPage parameter
+	 * @param currentPageIsFirstPage
+	 *            The currentPageIsFirstPage parameter
+	 * @param currentPageIsLastPage
+	 *            The currentPageIsLastPage parameter
+	 * @param currentPageNumber
+	 *            The currentPageNumber parameter
+	 * @param dataPresentacioDes
+	 *            Data presentació des de
+	 * @param dataPresentacioFinsA
+	 *            Data presentació fins a
+	 * @param dir
+	 *            The dir parameter
+	 * @param estatList
+	 *            Llista d&#39;estats de l&#39;expedient
+	 * @param id
+	 *            Identificador pel qual es realitza la cerca
+	 * @param idUsuari
+	 *            Identificador d&#39;usuari pel qual es realitza la cerca
+	 * @param isOge
+	 *            Invocació des de OGE
+	 * @param nextPageNumber
+	 *            The nextPageNumber parameter
+	 * @param numeroDocumentSollicitant
+	 *            Numero de document d&#39;identificació del sol·licitant
+	 * @param numeroDocumentSollicitantEstricte
+	 *            Numero de document d&#39;identificació del sol·licitant
+	 *            estricte
+	 * @param pageSize
+	 *            The pageSize parameter
+	 * @param previousPageNumber
+	 *            The previousPageNumber parameter
+	 * @param procedimentCodisList
+	 *            Llista dels codis dels procediments
+	 * @param procedimentId
+	 *            Identificador del procediment
+	 * @param procedimentVersio
+	 *            Versió del procediment
+	 * @param sort
+	 *            The sort parameter
+	 * @param totalElements
+	 *            The totalElements parameter
+	 * @param totalPages
+	 *            The totalPages parameter
+	 * @param tramitador
+	 *            Tramitador de l&#39;expedient
+	 * @param unitatsGestoresList
+	 *            Llista d&#39;unitats gestores
+	 * @return PageDataOfExpedientsRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public PageDataOfExpedientsRDTO cercaExpedients(Integer absoluteRowNumberOfFirstRowInCurrentPage,
+	        Integer absoluteRowNumberOfLastRowInCurrentPage, String aplicacioNegoci, List<String> avisList, String codi,
+	        BigDecimal criteriDeCercaDadesOperacioList0Id, BigDecimal criteriDeCercaDadesOperacioList0Tipus,
+	        String criteriDeCercaDadesOperacioList0Valor, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage,
+	        Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, DateTime dataPresentacioDes,
+	        DateTime dataPresentacioFinsA, String dir, List<BigDecimal> estatList, BigDecimal id, BigDecimal idUsuari, Boolean isOge,
+	        Integer nextPageNumber, String numeroDocumentSollicitant, String numeroDocumentSollicitantEstricte, Integer pageSize,
+	        Integer previousPageNumber, List<String> procedimentCodisList, BigDecimal procedimentId, BigDecimal procedimentVersio,
+	        String sort, Long totalElements, Integer totalPages, String tramitador, List<BigDecimal> unitatsGestoresList)
+	        throws RestClientException {
+		Object postBody = null;
+
+		String path = UriComponentsBuilder.fromPath("/expedients/search").build().toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfFirstRowInCurrentPage",
+		        absoluteRowNumberOfFirstRowInCurrentPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfLastRowInCurrentPage",
+		        absoluteRowNumberOfLastRowInCurrentPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "aplicacioNegoci", aplicacioNegoci));
+		queryParams.putAll(
+		        apiClient.parameterToMultiValueMap(ApiClient.CollectionFormat.valueOf("multi".toUpperCase()), "avisList", avisList));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "codi", codi));
+		queryParams.putAll(
+		        apiClient.parameterToMultiValueMap(null, "criteriDeCercaDadesOperacioList[0].id", criteriDeCercaDadesOperacioList0Id));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "criteriDeCercaDadesOperacioList[0].tipus",
+		        criteriDeCercaDadesOperacioList0Tipus));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "criteriDeCercaDadesOperacioList[0].valor",
+		        criteriDeCercaDadesOperacioList0Valor));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasNextPage", currentPageHasNextPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasPreviousPage", currentPageHasPreviousPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsFirstPage", currentPageIsFirstPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsLastPage", currentPageIsLastPage));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageNumber", currentPageNumber));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "dataPresentacioDes", dataPresentacioDes));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "dataPresentacioFinsA", dataPresentacioFinsA));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "dir", dir));
+		queryParams.putAll(
+		        apiClient.parameterToMultiValueMap(ApiClient.CollectionFormat.valueOf("multi".toUpperCase()), "estatList", estatList));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "id", id));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "idUsuari", idUsuari));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "isOge", isOge));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nextPageNumber", nextPageNumber));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "numeroDocumentSollicitant", numeroDocumentSollicitant));
+		queryParams
+		        .putAll(apiClient.parameterToMultiValueMap(null, "numeroDocumentSollicitantEstricte", numeroDocumentSollicitantEstricte));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "pageSize", pageSize));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "previousPageNumber", previousPageNumber));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(ApiClient.CollectionFormat.valueOf("multi".toUpperCase()),
+		        "procedimentCodisList", procedimentCodisList));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "procedimentId", procedimentId));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "procedimentVersio", procedimentVersio));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sort", sort));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalElements", totalElements));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalPages", totalPages));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "tramitador", tramitador));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(ApiClient.CollectionFormat.valueOf("multi".toUpperCase()),
+		        "unitatsGestoresList", unitatsGestoresList));
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = {};
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<PageDataOfExpedientsRDTO> returnType = new ParameterizedTypeReference<PageDataOfExpedientsRDTO>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+	}
+
+	/**
+	 * Returns the requested expedient
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param id
+	 *            id
+	 * @return ExpedientsRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public ExpedientsRDTO consultarDadesExpedient(BigDecimal id) throws RestClientException {
+		Object postBody = null;
+
+		// verify the required parameter 'id' is set
+		if (id == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'id' when calling consultarDadesExpedient");
+		}
+
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("id", id);
+		String path = UriComponentsBuilder.fromPath("/expedients/{id}").buildAndExpand(uriVariables).toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = {};
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<ExpedientsRDTO> returnType = new ParameterizedTypeReference<ExpedientsRDTO>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+	}
+
+	/**
+	 * Returns the requested expedient
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param codi
+	 *            codi
+	 * @return ExpedientsRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public ExpedientsRDTO consultarDadesExpedientPerCodi(String codi) throws RestClientException {
+		Object postBody = null;
+
+		// verify the required parameter 'codi' is set
+		if (codi == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'codi' when calling consultarDadesExpedientPerCodi");
+		}
+
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("codi", codi);
+		String path = UriComponentsBuilder.fromPath("/expedients/perCodi/{codi}").buildAndExpand(uriVariables).toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = {};
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<ExpedientsRDTO> returnType = new ParameterizedTypeReference<ExpedientsRDTO>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+	}
+
+	/**
+	 * Insert the provided expedient
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>201</b> - Created
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param expedientsRDTO
+	 *            expedientsRDTO
+	 * @return ExpedientsRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public ExpedientsRDTO crearSollicitudExpedient(ExpedientsRDTO expedientsRDTO) throws RestClientException {
+		Object postBody = expedientsRDTO;
+
+		// verify the required parameter 'expedientsRDTO' is set
+		if (expedientsRDTO == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'expedientsRDTO' when calling crearSollicitudExpedient");
+		}
+
+		String path = UriComponentsBuilder.fromPath("/expedients").build().toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "application/json" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<ExpedientsRDTO> returnType = new ParameterizedTypeReference<ExpedientsRDTO>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+	}
+
+	/**
+	 * Updates the provided expedient including specific data
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>201</b> - Created
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param actualitzarDadesSollicitudRDTO
+	 *            actualitzarDadesSollicitudRDTO
+	 * @return ExpedientsRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public ExpedientsRDTO actualitzarDadesSollicitud(ActualitzarDadesSollicitud actualitzarDadesSollicitudRDTO) throws RestClientException {
+		Object postBody = actualitzarDadesSollicitudRDTO;
+
+		// verify the required parameter 'actualitzarDadesSollicitudRDTO' is set
+		if (actualitzarDadesSollicitudRDTO == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'actualitzarDadesSollicitudRDTO' when calling actualitzarDadesSollicitud");
+		}
+
+		String path = UriComponentsBuilder.fromPath("/expedients/dadesSollicitud").build().toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "application/json" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<ExpedientsRDTO> returnType = new ParameterizedTypeReference<ExpedientsRDTO>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.PUT, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+	}
+
+	/**
+	 * Register the provided expedient
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>201</b> - Created
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param accio
+	 *            accio
+	 * @param registrarSolicitudExpedientRDTO
+	 *            registrarSolicitudExpedientRDTO
+	 * @return RespostaCrearRegistreExpedient
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public RespostaCrearRegistreExpedient crearRegistreSolicitudExpedient(BigDecimal accio, CrearRegistre registrarSolicitudExpedientRDTO)
+	        throws RestClientException {
+		Object postBody = registrarSolicitudExpedientRDTO;
+
+		// verify the required parameter 'accio' is set
+		if (accio == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'accio' when calling crearRegistreSolicitudExpedient");
+		}
+
+		// verify the required parameter 'registrarSolicitudExpedientRDTO' is
+		// set
+		if (registrarSolicitudExpedientRDTO == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'registrarSolicitudExpedientRDTO' when calling crearRegistreSolicitudExpedient");
+		}
+
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("accio", accio);
+		String path = UriComponentsBuilder.fromPath("/expedients/registre/crear/{accio}").buildAndExpand(uriVariables).toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "application/json" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<RespostaCrearRegistreExpedient> returnType = new ParameterizedTypeReference<RespostaCrearRegistreExpedient>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+	}
+
+	/**
+	 * Retorna el xml de la informació de l&#39;expedient
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param idExpedient
+	 *            idExpedient
+	 * @return RespostaObtenirXmlExpedient
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public RespostaObtenirXmlExpedient obtenirXmlExpedient(BigDecimal idExpedient) throws RestClientException {
+		Object postBody = null;
+
+		// verify the required parameter 'idExpedient' is set
+		if (idExpedient == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'idExpedient' when calling obtenirXmlExpedient");
+		}
+
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("idExpedient", idExpedient);
+		String path = UriComponentsBuilder.fromPath("/expedients/obtenirXmlEvaluate/{idExpedient}").buildAndExpand(uriVariables)
+		        .toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = {};
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<RespostaObtenirXmlExpedient> returnType = new ParameterizedTypeReference<RespostaObtenirXmlExpedient>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+	}
+
+	/**
+	 * Register the provided documentacio
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>201</b> - Created
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param registreDocumentacioExpedientRDTO
+	 *            registreDocumentacioExpedientRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public void registreDocumentacioAriadna(RegistreDocumentacioExpedient registreDocumentacioExpedientRDTO) throws RestClientException {
+		Object postBody = registreDocumentacioExpedientRDTO;
+
+		// verify the required parameter 'registreDocumentacioExpedientRDTO' is
+		// set
+		if (registreDocumentacioExpedientRDTO == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'registreDocumentacioExpedientRDTO' when calling registreDocumentacioAriadna");
+		}
+
+		String path = UriComponentsBuilder.fromPath("/expedients/registre/registreDoc").build().toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "application/json" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
+		};
+		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+	}
+
+	/**
+	 * Returns the requested unitat
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param codi
+	 *            codi
+	 * @return RegistreAssentamentRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public RegistreAssentamentRDTO consultarDadesRegistreAssentament(String codi) throws RestClientException {
+		Object postBody = null;
+
+		// verify the required parameter 'codi' is set
+		if (codi == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'codi' when calling consultarDadesRegistreAssentament");
+		}
+
+		String path = UriComponentsBuilder.fromPath("/expedients/registre").build().toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "codi", codi));
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = {};
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<RegistreAssentamentRDTO> returnType = new ParameterizedTypeReference<RegistreAssentamentRDTO>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+	}
+
+	/**
+	 * Returns the requested id expedient
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param idDocumentacio
+	 *            idDocumentacio
+	 * @return BigDecimal
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public BigDecimal getIdExpedientByDocumentacioIdExt(BigDecimal idDocumentacio) throws RestClientException {
+		Object postBody = null;
+
+		// verify the required parameter 'idDocumentacio' is set
+		if (idDocumentacio == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'idDocumentacio' when calling getIdExpedientByDocumentacioIdExt");
+		}
+
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("idDocumentacio", idDocumentacio);
+		String path = UriComponentsBuilder.fromPath("/expedients/expedientByIdDoc/{idDocumentacio}").buildAndExpand(uriVariables)
+		        .toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = {};
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<BigDecimal> returnType = new ParameterizedTypeReference<BigDecimal>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+	}
 }

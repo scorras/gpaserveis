@@ -20,22 +20,23 @@ import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.joda.time.DateTime;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaunitats.ApiException;
+import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaunitats.ApiClient.CollectionFormat;
 
 /**
  * API tests for UnitatsGestoresApi
@@ -48,25 +49,6 @@ public class UnitatsGestoresApiTest extends ParentTest {
 	private UnitatsGestoresApi api = new UnitatsGestoresApi();
 
 	/**
-	 * Deletes the requested unitats list
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void bulkDeleteUnitatListUsingPOSTTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/unitats/delete"), eq("POST"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        any(String.class), any(String.class), any(String[].class), isNull(GenericType.class))).thenReturn(null);
-
-		List<BigDecimal> unitatIdList = Arrays.asList(ONE);
-		api.bulkDeleteUnitatListUsingPOST(unitatIdList);
-
-		assertTrue(true);
-	}
-
-	/**
 	 * Returns all the unitats that meet the search criteria
 	 *
 	 * 
@@ -75,10 +57,14 @@ public class UnitatsGestoresApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void cercaUnitatsGestoresTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/unitats/search"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfUnitatsGestoresRDTO());
+	public void cercaUnitatsGestoresTest() {
+		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
+		        .thenReturn(new LinkedMultiValueMap<String, String>());
+		when(apiClient.parameterToMultiValueMap(any(CollectionFormat.class), any(String.class), any(Object.class)))
+		        .thenReturn(new LinkedMultiValueMap<String, String>());
+		when(apiClient.invokeAPI(eq("/unitats/search"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfUnitatsGestoresRDTO());
 
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
@@ -122,10 +108,10 @@ public class UnitatsGestoresApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void consultarDadesUnitatGestoraTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/unitats/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(new UnitatsGestoresRDTO());
+	public void consultarDadesUnitatGestoraTest() {
+		when(apiClient.invokeAPI(eq("/unitats/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class),
+		        any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new UnitatsGestoresRDTO());
 
 		BigDecimal id = ONE;
 		UnitatsGestoresRDTO response = api.consultarDadesUnitatGestora(id);
@@ -142,167 +128,15 @@ public class UnitatsGestoresApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void getAllUnitatsGestoresUsingGETTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/unitats/all"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<UnitatsGestoresRDTO>());
-
-		List<UnitatsGestoresRDTO> response = api.getAllUnitatsGestoresUsingGET();
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns all the unitats gestores
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getUnitatsGestoresUsingGETTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/unitats"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfUnitatsGestoresRDTO());
-
-		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
-		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
-		Boolean currentPageHasNextPage = null;
-		Boolean currentPageHasPreviousPage = null;
-		Boolean currentPageIsFirstPage = null;
-		Boolean currentPageIsLastPage = null;
-		Integer currentPageNumber = null;
-		String dir = null;
-		Integer nextPageNumber = null;
-		Integer pageSize = null;
-		Integer previousPageNumber = null;
-		String sort = null;
-		Long totalElements = null;
-		Integer totalPages = null;
-		PageDataOfUnitatsGestoresRDTO response = api.getUnitatsGestoresUsingGET(absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
-		        totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Insert or updates the provided unitat
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void saveOrUpdateUsingPOSTTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/unitats"), eq("POST"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new UnitatsGestoresRDTO());
-
-		UnitatsGestoresRDTO unitatsGestoresRDTO = new UnitatsGestoresRDTO();
-		UnitatsGestoresRDTO response = api.saveOrUpdateUsingPOST(unitatsGestoresRDTO);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Selects the requested unitats list
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void selectUnitatListUsingPOSTTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/unitats/list"), eq("POST"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<UnitatsGestoresRDTO>());
-
-		List<BigDecimal> unitatIdList = Arrays.asList(ONE);
-		List<UnitatsGestoresRDTO> response = api.selectUnitatListUsingPOST(unitatIdList);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns the requested unitat
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void consultarDadesUnitatGestoraPerNomTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/unitats/perNom/1"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        any(String.class), any(String.class), any(String[].class), any(GenericType.class))).thenReturn(new UnitatsGestoresRDTO());
+	public void consultarDadesUnitatGestoraPerNomTest() {
+		when(apiClient.invokeAPI(eq("/unitats/perNom/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new UnitatsGestoresRDTO());
 
 		String nom = ONE.toString();
 		UnitatsGestoresRDTO response = api.consultarDadesUnitatGestoraPerNom(nom);
 
 		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns all the unitats gestores vigents
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void obtenirUnitatsGestoresVigentsUsingGETTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/unitats/vigents"), eq("GET"), any(List.class), any(Object.class), any(Map.class), any(Map.class),
-		        any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<UnitatsGestoresRDTO>());
-
-		List<UnitatsGestoresRDTO> response = api.obtenirUnitatsGestoresVigentsUsingGET();
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns the requested unitat
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void returnDarreraSincronitzacioTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/unitats/darreraSincronitzacio"), eq("GET"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(DateTime.now());
-
-		DateTime response = api.returnDarreraSincronitzacio();
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Sincronitzar Unitats Gestores
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void sincronitzarUnitatsGestoresUsingPOSTTest() throws ApiException {
-		when(apiClient.invokeAPI(eq("/unitats/sincronitzarUnitatsGestores"), eq("POST"), any(List.class), any(Object.class), any(Map.class),
-		        any(Map.class), isNull(String.class), isNull(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<UnitatsGestoresRDTO>());
-
-		api.sincronitzarUnitatsGestoresUsingPOST();
-
-		assertTrue(true);
 	}
 
 }

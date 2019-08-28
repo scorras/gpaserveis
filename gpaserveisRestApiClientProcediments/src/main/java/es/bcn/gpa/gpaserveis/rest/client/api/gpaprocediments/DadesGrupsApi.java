@@ -1,187 +1,167 @@
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments;
 
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiException;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.Configuration;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.Pair;
-
-import javax.ws.rs.core.GenericType;
-
 import java.math.BigDecimal;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesGrupsRDTO;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-06-17T14:27:24.410+02:00")
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesGrupsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient;
+
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-14T14:00:34.420+02:00")
+@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi")
 public class DadesGrupsApi {
-  private ApiClient apiClient;
+	private ApiClient apiClient;
 
-  public DadesGrupsApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+	public DadesGrupsApi() {
+		this(new ApiClient());
+	}
 
-  public DadesGrupsApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+	@Autowired
+	public DadesGrupsApi(ApiClient apiClient) {
+		this.apiClient = apiClient;
+	}
 
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+	public ApiClient getApiClient() {
+		return apiClient;
+	}
 
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+	public void setApiClient(ApiClient apiClient) {
+		this.apiClient = apiClient;
+	}
 
-  /**
-   * Returns all the grups entries for the procedure
-   * 
-   * @param id id (required)
-   * @param dir  (optional)
-   * @param sort  (optional)
-   * @return PageDataOfDadesGrupsRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public PageDataOfDadesGrupsRDTO cercaDadesOperacio(BigDecimal id, String dir, String sort) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling cercaDadesOperacio");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/procediments/{id}/grups"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+	/**
+	 * Returns all the grups entries for the procedure
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param id
+	 *            id
+	 * @param idTramitOvt
+	 *            idTramitOvt
+	 * @param dir
+	 *            The dir parameter
+	 * @param sort
+	 *            The sort parameter
+	 * @return PageDataOfDadesGrupsRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public PageDataOfDadesGrupsRDTO cercaDadesOperacioAgrupatsPerTramitOvt(BigDecimal id, BigDecimal idTramitOvt, String dir, String sort)
+	        throws RestClientException {
+		Object postBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		// verify the required parameter 'id' is set
+		if (id == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'id' when calling cercaDadesOperacioAgrupatsPerTramitOvt");
+		}
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
+		// verify the required parameter 'idTramitOvt' is set
+		if (idTramitOvt == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'idTramitOvt' when calling cercaDadesOperacioAgrupatsPerTramitOvt");
+		}
 
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("id", id);
+		uriVariables.put("idTramitOvt", idTramitOvt);
+		String path = UriComponentsBuilder.fromPath("/procediments/{id}/grups/{idTramitOvt}").buildAndExpand(uriVariables).toUriString();
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-    String[] localVarAuthNames = new String[] {  };
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "dir", dir));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sort", sort));
 
-    GenericType<PageDataOfDadesGrupsRDTO> localVarReturnType = new GenericType<PageDataOfDadesGrupsRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns all the grups entries for the procedure
-   * 
-   * @param id id (required)
-   * @param idTramitOvt idTramitOvt (required)
-   * @param dir  (optional)
-   * @param sort  (optional)
-   * @return PageDataOfDadesGrupsRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public PageDataOfDadesGrupsRDTO cercaDadesOperacioAgrupatsPerTramitOvt(BigDecimal id, BigDecimal idTramitOvt, String dir, String sort) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling cercaDadesOperacioAgrupatsPerTramitOvt");
-    }
-    
-    // verify the required parameter 'idTramitOvt' is set
-    if (idTramitOvt == null) {
-      throw new ApiException(400, "Missing the required parameter 'idTramitOvt' when calling cercaDadesOperacioAgrupatsPerTramitOvt");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/procediments/{id}/grups/{idTramitOvt}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
-      .replaceAll("\\{" + "idTramitOvt" + "\\}", apiClient.escapeString(idTramitOvt.toString()));
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = {};
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		String[] authNames = new String[] {};
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
+		ParameterizedTypeReference<PageDataOfDadesGrupsRDTO> returnType = new ParameterizedTypeReference<PageDataOfDadesGrupsRDTO>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+	}
 
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+	/**
+	 * Returns all the grups entries for the procedure
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param id
+	 *            id
+	 * @param dir
+	 *            The dir parameter
+	 * @param sort
+	 *            The sort parameter
+	 * @return PageDataOfDadesGrupsRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public PageDataOfDadesGrupsRDTO cercaDadesOperacio(BigDecimal id, String dir, String sort) throws RestClientException {
+		Object postBody = null;
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+		// verify the required parameter 'id' is set
+		if (id == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'id' when calling cercaDadesOperacio");
+		}
 
-    String[] localVarAuthNames = new String[] {  };
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("id", id);
+		String path = UriComponentsBuilder.fromPath("/procediments/{id}/grups").buildAndExpand(uriVariables).toUriString();
 
-    GenericType<PageDataOfDadesGrupsRDTO> localVarReturnType = new GenericType<PageDataOfDadesGrupsRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns all the dades operacions entries for the procedure
-   * 
-   * @param estatsFutursList estatsFutursList (required)
-   * @param id id (required)
-   * @return List&lt;DadesGrupsRDTO&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<DadesGrupsRDTO> getDadesGrupsWithDadesOperacioUsingGET(String estatsFutursList, BigDecimal id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'estatsFutursList' is set
-    if (estatsFutursList == null) {
-      throw new ApiException(400, "Missing the required parameter 'estatsFutursList' when calling getDadesGrupsWithDadesOperacioUsingGET");
-    }
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getDadesGrupsWithDadesOperacioUsingGET");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/procediments/{id}/dadesGrupsWithDadesOperacio/{estatsFutursList}"
-      .replaceAll("\\{" + "estatsFutursList" + "\\}", apiClient.escapeString(estatsFutursList.toString()))
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "dir", dir));
+		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sort", sort));
 
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = {};
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+		String[] authNames = new String[] {};
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<List<DadesGrupsRDTO>> localVarReturnType = new GenericType<List<DadesGrupsRDTO>>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
+		ParameterizedTypeReference<PageDataOfDadesGrupsRDTO> returnType = new ParameterizedTypeReference<PageDataOfDadesGrupsRDTO>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+	}
 }

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheKey;
@@ -12,16 +13,18 @@ import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheResult;
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.business.handler.ServeisServiceExceptionHandler;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaunitats.ApiException;
 import lombok.extern.apachecommons.CommonsLog;
 
 /**
  * The Class UnitatsGestoresServiceImpl.
  */
 @Service
+
+/** The Constant log. */
 @CommonsLog
 public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 
@@ -53,7 +56,7 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 				log.debug("cercaUnitatsGestores(UnitatsGestoresCercaBDTO) - fi"); //$NON-NLS-1$
 			}
 			return pageDataOfUnitatsGestoresRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("cercaUnitatsGestores(UnitatsGestoresCercaBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -63,17 +66,23 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 	/**
 	 * Fallback cerca unitats gestores.
 	 *
+	 * @param unitatsGestoresCercaBDTO
+	 *            the unitats gestores cerca BDTO
+	 * @param e
+	 *            the e
 	 * @return the page data of unitats gestores RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public PageDataOfUnitatsGestoresRDTO fallbackCercaUnitatsGestores(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO)
+	public PageDataOfUnitatsGestoresRDTO fallbackCercaUnitatsGestores(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO, Throwable e)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackCercaUnitatsGestores() - inici"); //$NON-NLS-1$
+			log.debug("fallbackCercaUnitatsGestores(UnitatsGestoresCercaBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
 
-		throw new GPAServeisServiceException("El servei de unitats gestores no està disponible");
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 
 	/*
@@ -97,7 +106,7 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 				log.debug("consultarDadesUnitatGestora(BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return unitatsGestoresRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("consultarDadesUnitatGestora(BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -109,18 +118,28 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 	 *
 	 * @param id
 	 *            the id
-	 * @return the procediments RDTO
+	 * @param e
+	 *            the e
+	 * @return the unitats gestores RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public UnitatsGestoresRDTO fallbackConsultarDadesUnitatGestora(BigDecimal id) throws GPAServeisServiceException {
+	public UnitatsGestoresRDTO fallbackConsultarDadesUnitatGestora(BigDecimal id, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackConsultarDadesUnitatGestora(BigDecimal) - inici"); //$NON-NLS-1$
+			log.debug("fallbackConsultarDadesUnitatGestora(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
-		throw new GPAServeisServiceException("El servei de unitats gestores no està disponible");
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.UnitatsGestoresService#
+	 * consultarDadesUnitatGestoraPerCodi(java.lang.String)
+	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesUnitatGestoraPerCodi")
 	public UnitatsGestoresRDTO consultarDadesUnitatGestoraPerCodi(String codi) throws GPAServeisServiceException {
@@ -135,18 +154,31 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 				log.debug("consultarDadesUnitatGestoraPerCodi(String) - fi"); //$NON-NLS-1$
 			}
 			return unitatsGestoresRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("consultarDadesUnitatGestoraPerCodi(String)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
 	}
 
-	public UnitatsGestoresRDTO fallbackConsultarDadesUnitatGestoraPerCodi(String codi) throws GPAServeisServiceException {
+	/**
+	 * Fallback consultar dades unitat gestora per codi.
+	 *
+	 * @param codi
+	 *            the codi
+	 * @param e
+	 *            the e
+	 * @return the unitats gestores RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public UnitatsGestoresRDTO fallbackConsultarDadesUnitatGestoraPerCodi(String codi, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackConsultarDadesUnitatGestoraPerCodi(String) - inici"); //$NON-NLS-1$
+			log.debug("fallbackConsultarDadesUnitatGestoraPerCodi(String, Throwable) - inici"); //$NON-NLS-1$
 		}
 
-		throw new GPAServeisServiceException("El servei de unitats gestores no està disponible");
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 }

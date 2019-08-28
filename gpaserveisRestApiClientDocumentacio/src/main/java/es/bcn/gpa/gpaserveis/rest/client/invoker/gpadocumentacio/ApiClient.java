@@ -50,6 +50,7 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.auth.Authentica
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.auth.AuthenticationImpl;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.auth.HttpBasicAuth;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.auth.OAuth;
+import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.exception.handler.DocumentacioResponseErrorHandler;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-05-28T10:22:59.533+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient")
@@ -627,6 +628,7 @@ public class ApiClient {
 		requestFactory.setBufferRequestBody(false);
 		RestTemplate restTemplate = new RestTemplate(requestFactory);
 		restTemplate.getMessageConverters().add(new FormHttpMessageConverter());
+		restTemplate.setErrorHandler(new DocumentacioResponseErrorHandler());
 		return restTemplate;
 	}
 

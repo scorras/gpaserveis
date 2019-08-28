@@ -113,9 +113,6 @@
 							<generateModelTests>true</generateModelTests>
 							<generateModelDocumentation>false</generateModelDocumentation>
 							<generateSupportingFiles>false</generateSupportingFiles>
-<!-- 							<typeMappings> -->
-<!-- 								<typeMapping>file=org.springframework.web.multipart.MultipartFile</typeMapping> -->
-<!-- 							</typeMappings> -->
 							<skip>true</skip>
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>

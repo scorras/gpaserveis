@@ -2,6 +2,7 @@ package es.bcn.gpa.gpaserveis.business.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
@@ -12,7 +13,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesOperacionsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesOperacionsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiException;
 import lombok.extern.apachecommons.CommonsLog;
 
 /**
@@ -57,7 +57,7 @@ public class DadesOperacioServiceImpl implements DadesOperacioService {
 				log.debug("cercaDadesOperacio(DadesOperacioCercaBDTO) - fi"); //$NON-NLS-1$
 			}
 			return pageDataOfDadesGrupsRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("cercaDadesOperacio(DadesOperacioCercaBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -106,7 +106,7 @@ public class DadesOperacioServiceImpl implements DadesOperacioService {
 				log.debug("cercaDadesOperacioRequerits(DadesOperacioCercaBDTO) - fi"); //$NON-NLS-1$
 			}
 			return pageDataOfDadesOperacionsRDTO;
-		} catch (ApiException e) {
+		} catch (RestClientException e) {
 			log.error("cercaDadesOperacioRequerits(DadesOperacioCercaBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);

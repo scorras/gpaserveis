@@ -1,744 +1,110 @@
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.Configuration;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.Pair;
-
-import javax.ws.rs.core.GenericType;
-
 import java.math.BigDecimal;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.BloquejosRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CercaExpedientsIntraoperabilitatRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientOpenTextRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.HistoricsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfComentarisRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfHistoricsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PeticioDgt;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaUnitatsExpedient;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-24T01:06:10.329+02:00")
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
+
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-14T14:00:28.664+02:00")
+@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi")
 public class ExpedientsApi {
-  private ApiClient apiClient;
-
-  public ExpedientsApi() {
-    this(Configuration.getDefaultApiClient());
-  }
-
-  public ExpedientsApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
-
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  /**
-   * Locks the provided procediment for editing
-   * 
-   * @param bloquejosRDTO bloquejosRDTO (required)
-   * @param id id (required)
-   * @throws ApiException if fails to make API call
-   */
-  public void bloquejarExpedientUsingPOST(BloquejosRDTO bloquejosRDTO, BigDecimal id) throws ApiException {
-    Object localVarPostBody = bloquejosRDTO;
-    
-    // verify the required parameter 'bloquejosRDTO' is set
-    if (bloquejosRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'bloquejosRDTO' when calling bloquejarExpedientUsingPOST");
-    }
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling bloquejarExpedientUsingPOST");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/bloquejar/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-
-    apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
-  }
-  /**
-   * Canvia l&#39;estat d&#39;un expedient en funció de l&#39;acció executada
-   * 
-   * @param idAccio Identificador de l&#39;acció (required)
-   * @param idExpedient Identificador de l&#39;expedient (required)
-   * @param expedientCanviEstatAccioRDTO Dades del canvi d&#39;estat (optional)
-   * @return RespostaCanviarEstatAccioExpedient
-   * @throws ApiException if fails to make API call
-   */
-  public RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedient(BigDecimal idAccio, BigDecimal idExpedient, ExpedientCanviEstatAccio expedientCanviEstatAccioRDTO) throws ApiException {
-    Object localVarPostBody = expedientCanviEstatAccioRDTO;
-    
-    // verify the required parameter 'idAccio' is set
-    if (idAccio == null) {
-      throw new ApiException(400, "Missing the required parameter 'idAccio' when calling canviarEstatAccioExpedient");
-    }
-    
-    // verify the required parameter 'idExpedient' is set
-    if (idExpedient == null) {
-      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling canviarEstatAccioExpedient");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/{idExpedient}/accions/{idAccio}/canviEstat"
-      .replaceAll("\\{" + "idAccio" + "\\}", apiClient.escapeString(idAccio.toString()))
-      .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<RespostaCanviarEstatAccioExpedient> localVarReturnType = new GenericType<RespostaCanviarEstatAccioExpedient>() {};
-    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * cercaExpedientsIntraoperabilitat
-   * 
-   * @param codiExpedient codiExpedient (optional)
-   * @param idExpedient idExpedient (optional)
-   * @param nifSolicitant nifSolicitant (optional)
-   * @return List&lt;CercaExpedientsIntraoperabilitatRDTO&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<CercaExpedientsIntraoperabilitatRDTO> cercaExpedientsIntraoperabilitat(String codiExpedient, BigDecimal idExpedient, String nifSolicitant) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/expedients/cercaExpedientsIntraoperabilitat";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "codiExpedient", codiExpedient));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "idExpedient", idExpedient));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "nifSolicitant", nifSolicitant));
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<List<CercaExpedientsIntraoperabilitatRDTO>> localVarReturnType = new GenericType<List<CercaExpedientsIntraoperabilitatRDTO>>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns all the historic entries for the procedure that meet the search criteria
-   * 
-   * @param id id (required)
-   * @param absoluteRowNumberOfFirstRowInCurrentPage  (optional)
-   * @param absoluteRowNumberOfLastRowInCurrentPage  (optional)
-   * @param currentPageHasNextPage  (optional)
-   * @param currentPageHasPreviousPage  (optional)
-   * @param currentPageIsFirstPage  (optional)
-   * @param currentPageIsLastPage  (optional)
-   * @param currentPageNumber  (optional)
-   * @param dir  (optional)
-   * @param nextPageNumber  (optional)
-   * @param pageSize  (optional)
-   * @param previousPageNumber  (optional)
-   * @param sort  (optional)
-   * @param tipus tipus (optional)
-   * @param totalElements  (optional)
-   * @param totalPages  (optional)
-   * @return PageDataOfHistoricsRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public PageDataOfHistoricsRDTO cercaHistoricsExpedient(BigDecimal id, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, List<BigDecimal> tipus, Long totalElements, Integer totalPages) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling cercaHistoricsExpedient");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/historic/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasNextPage", currentPageHasNextPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasPreviousPage", currentPageHasPreviousPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsFirstPage", currentPageIsFirstPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsLastPage", currentPageIsLastPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "nextPageNumber", nextPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "previousPageNumber", previousPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "tipus", tipus));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<PageDataOfHistoricsRDTO> localVarReturnType = new GenericType<PageDataOfHistoricsRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Unlocks the provided procediment
-   * 
-   * @param id id (required)
-   * @throws ApiException if fails to make API call
-   */
-  public void desbloquejarExpedientUsingPOST(BigDecimal id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling desbloquejarExpedientUsingPOST");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/desbloquejar/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-
-    apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
-  }
-  /**
-   * DesbloquejarTotsElsExpedientsUsuari
-   * 
-   * @throws ApiException if fails to make API call
-   */
-  public void desbloquejarTotsElsExpedientsUsuari() throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/expedients/desbloquejarTotsElsExpedientsUsuari";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-
-    apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
-  }
-  /**
-   * ExpedientBloquejatPerUnAltreUsuari
-   * 
-   * @param id id (required)
-   * @return BloquejosRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public BloquejosRDTO expedientBloquejatPerUnAltreUsuariUsingGET(BigDecimal id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling expedientBloquejatPerUnAltreUsuariUsingGET");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/expedientBloquejatPerUnAltreUsuari/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<BloquejosRDTO> localVarReturnType = new GenericType<BloquejosRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Return expedient data for OpenText
-   * 
-   * @param id id (required)
-   * @return ExpedientOpenTextRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public ExpedientOpenTextRDTO getExpedientDataOpenTextUsingGET(BigDecimal id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getExpedientDataOpenTextUsingGET");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/expedientDataOpenText/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<ExpedientOpenTextRDTO> localVarReturnType = new GenericType<ExpedientOpenTextRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns all the historic entries for the id list
-   * 
-   * @param ids ids (required)
-   * @return List&lt;HistoricsRDTO&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<HistoricsRDTO> getHistoricsListUsingGET(String ids) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'ids' is set
-    if (ids == null) {
-      throw new ApiException(400, "Missing the required parameter 'ids' when calling getHistoricsListUsingGET");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/historic/list/{ids}"
-      .replaceAll("\\{" + "ids" + "\\}", apiClient.escapeString(ids.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<List<HistoricsRDTO>> localVarReturnType = new GenericType<List<HistoricsRDTO>>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns the requested registre
-   * 
-   * @param ids ids (required)
-   * @return List&lt;RegistreAssentamentRDTO&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<RegistreAssentamentRDTO> getRegistresAssentamentListUsingGET(String ids) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'ids' is set
-    if (ids == null) {
-      throw new ApiException(400, "Missing the required parameter 'ids' when calling getRegistresAssentamentListUsingGET");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/registre/list/{ids}"
-      .replaceAll("\\{" + "ids" + "\\}", apiClient.escapeString(ids.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<List<RegistreAssentamentRDTO>> localVarReturnType = new GenericType<List<RegistreAssentamentRDTO>>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Retorna les unitats gestores de l&#39;expedient
-   * 
-   * @param idExpedient idExpedient (required)
-   * @return RespostaUnitatsExpedient
-   * @throws ApiException if fails to make API call
-   */
-  public RespostaUnitatsExpedient getUnitasGestoresExpedientUsingGET(BigDecimal idExpedient) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'idExpedient' is set
-    if (idExpedient == null) {
-      throw new ApiException(400, "Missing the required parameter 'idExpedient' when calling getUnitasGestoresExpedientUsingGET");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/unitasExpedient/{idExpedient}"
-      .replaceAll("\\{" + "idExpedient" + "\\}", apiClient.escapeString(idExpedient.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<RespostaUnitatsExpedient> localVarReturnType = new GenericType<RespostaUnitatsExpedient>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns the requested expedient
-   * 
-   * @param codi codi (required)
-   * @param procObjecteDeRecursId procObjecteDeRecursId (required)
-   * @return ExpedientsRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public ExpedientsRDTO obtenirExpedientObjecteDeRecurs(String codi, BigDecimal procObjecteDeRecursId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'codi' is set
-    if (codi == null) {
-      throw new ApiException(400, "Missing the required parameter 'codi' when calling obtenirExpedientObjecteDeRecurs");
-    }
-    
-    // verify the required parameter 'procObjecteDeRecursId' is set
-    if (procObjecteDeRecursId == null) {
-      throw new ApiException(400, "Missing the required parameter 'procObjecteDeRecursId' when calling obtenirExpedientObjecteDeRecurs");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/obtenirExpedientObjecteDeRecurs/{codi}/{procObjecteDeRecursId}"
-      .replaceAll("\\{" + "codi" + "\\}", apiClient.escapeString(codi.toString()))
-      .replaceAll("\\{" + "procObjecteDeRecursId" + "\\}", apiClient.escapeString(procObjecteDeRecursId.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<ExpedientsRDTO> localVarReturnType = new GenericType<ExpedientsRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * obtenirInfoInteroperabilitat
-   * 
-   * @param peticioDgtRDTO peticioDgtRDTO (required)
-   * @throws ApiException if fails to make API call
-   */
-  public void obtenirInfoInteroperabilitat(PeticioDgt peticioDgtRDTO) throws ApiException {
-    Object localVarPostBody = peticioDgtRDTO;
-    
-    // verify the required parameter 'peticioDgtRDTO' is set
-    if (peticioDgtRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'peticioDgtRDTO' when calling obtenirInfoInteroperabilitat");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/obtenirInfoInteroperabilitat";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-
-    apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
-  }
-  /**
-   * Inserts new historic
-   * 
-   * @param historicsRDTO historicsRDTO (required)
-   * @return BigDecimal
-   * @throws ApiException if fails to make API call
-   */
-  public BigDecimal registrarHistoricDocumentacioUsingPOST(HistoricsRDTO historicsRDTO) throws ApiException {
-    Object localVarPostBody = historicsRDTO;
-    
-    // verify the required parameter 'historicsRDTO' is set
-    if (historicsRDTO == null) {
-      throw new ApiException(400, "Missing the required parameter 'historicsRDTO' when calling registrarHistoricDocumentacioUsingPOST");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/historic/insert";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<BigDecimal> localVarReturnType = new GenericType<BigDecimal>() {};
-    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * Returns all the comentaris entries for the procedure that meet the search criteria
-   * 
-   * @param id id (required)
-   * @param absoluteRowNumberOfFirstRowInCurrentPage  (optional)
-   * @param absoluteRowNumberOfLastRowInCurrentPage  (optional)
-   * @param currentPageHasNextPage  (optional)
-   * @param currentPageHasPreviousPage  (optional)
-   * @param currentPageIsFirstPage  (optional)
-   * @param currentPageIsLastPage  (optional)
-   * @param currentPageNumber  (optional)
-   * @param dir  (optional)
-   * @param nextPageNumber  (optional)
-   * @param pageSize  (optional)
-   * @param previousPageNumber  (optional)
-   * @param sort  (optional)
-   * @param totalElements  (optional)
-   * @param totalPages  (optional)
-   * @return PageDataOfComentarisRDTO
-   * @throws ApiException if fails to make API call
-   */
-  public PageDataOfComentarisRDTO searchComentarisUsingGET(BigDecimal id, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling searchComentarisUsingGET");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/expedients/comentaris/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasNextPage", currentPageHasNextPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageHasPreviousPage", currentPageHasPreviousPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsFirstPage", currentPageIsFirstPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageIsLastPage", currentPageIsLastPage));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "currentPageNumber", currentPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "dir", dir));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "nextPageNumber", nextPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "previousPageNumber", previousPageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalElements", totalElements));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "totalPages", totalPages));
-
-    
-    
-    final String[] localVarAccepts = {
-      "*/*"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] {  };
-
-    GenericType<PageDataOfComentarisRDTO> localVarReturnType = new GenericType<PageDataOfComentarisRDTO>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
+	private ApiClient apiClient;
+
+	public ExpedientsApi() {
+		this(new ApiClient());
+	}
+
+	@Autowired
+	public ExpedientsApi(ApiClient apiClient) {
+		this.apiClient = apiClient;
+	}
+
+	public ApiClient getApiClient() {
+		return apiClient;
+	}
+
+	public void setApiClient(ApiClient apiClient) {
+		this.apiClient = apiClient;
+	}
+
+	/**
+	 * Canvia l&#39;estat d&#39;un expedient en funció de l&#39;acció executada
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>201</b> - Created
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param idAccio
+	 *            Identificador de l&#39;acció
+	 * @param idExpedient
+	 *            Identificador de l&#39;expedient
+	 * @param expedientCanviEstatAccioRDTO
+	 *            Dades del canvi d&#39;estat
+	 * @return RespostaCanviarEstatAccioExpedient
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedient(BigDecimal idAccio, BigDecimal idExpedient,
+	        ExpedientCanviEstatAccio expedientCanviEstatAccioRDTO) throws RestClientException {
+		Object postBody = expedientCanviEstatAccioRDTO;
+
+		// verify the required parameter 'idAccio' is set
+		if (idAccio == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'idAccio' when calling canviarEstatAccioExpedient");
+		}
+
+		// verify the required parameter 'idExpedient' is set
+		if (idExpedient == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'idExpedient' when calling canviarEstatAccioExpedient");
+		}
+
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("idAccio", idAccio);
+		uriVariables.put("idExpedient", idExpedient);
+		String path = UriComponentsBuilder.fromPath("/expedients/{idExpedient}/accions/{idAccio}/canviEstat").buildAndExpand(uriVariables)
+		        .toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "application/json" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<RespostaCanviarEstatAccioExpedient> returnType = new ParameterizedTypeReference<RespostaCanviarEstatAccioExpedient>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+	}
 }

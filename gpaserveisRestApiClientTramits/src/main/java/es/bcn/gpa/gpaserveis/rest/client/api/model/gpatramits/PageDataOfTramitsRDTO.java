@@ -13,22 +13,18 @@
 
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.PaginationAttributes;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.SortInfo;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsRDTO;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * PageDataOfTramitsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-04-02T03:58:39.261+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-14T14:05:54.907+02:00")
 public class PageDataOfTramitsRDTO {
   @JsonProperty("data")
   private List<TramitsRDTO> data = null;

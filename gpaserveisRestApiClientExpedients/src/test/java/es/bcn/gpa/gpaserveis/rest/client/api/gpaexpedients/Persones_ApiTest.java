@@ -16,23 +16,25 @@ import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.GenericType;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiException;
+import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient.CollectionFormat;
 
 /**
  * API tests for Persones_Api
@@ -53,11 +55,12 @@ public class Persones_ApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void cercaAltresPersonesImplicadesExpedientTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/personesSollicitud/altresImplidades/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new PageDataOfPersonesSollicitudRDTO());
+	public void cercaAltresPersonesImplicadesExpedientTest() {
+		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
+		        .thenReturn(new LinkedMultiValueMap<String, String>());
+		when(apiClient.invokeAPI(eq("/expedients/personesSollicitud/altresImplidades/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfPersonesSollicitudRDTO());
 
 		BigDecimal idSolicitud = ONE;
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
@@ -78,27 +81,6 @@ public class Persones_ApiTest extends ParentTest {
 		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
 		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
 		        previousPageNumber, sort, totalElements, totalPages);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns all persons
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void obtenirTotesPersonesExpedientUsingGETTest() throws ApiException {
-		when(apiClient.escapeString(any(String.class))).thenReturn(ONE.toString());
-		when(apiClient.invokeAPI(eq("/expedients/personesSollicitud/totesPersones/1"), eq("GET"), any(List.class), any(Object.class),
-		        any(Map.class), any(Map.class), any(String.class), any(String.class), any(String[].class), any(GenericType.class)))
-		                .thenReturn(new ArrayList<PersonesSollicitudRDTO>());
-
-		BigDecimal idSolicitud = ONE;
-		List<PersonesSollicitudRDTO> response = api.obtenirTotesPersonesExpedientUsingGET(idSolicitud);
 
 		assertTrue(response != null);
 	}
