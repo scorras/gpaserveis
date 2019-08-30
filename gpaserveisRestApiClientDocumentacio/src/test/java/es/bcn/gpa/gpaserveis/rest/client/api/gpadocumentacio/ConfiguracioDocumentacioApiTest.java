@@ -40,19 +40,18 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlant
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient.CollectionFormat;
 
 /**
- * API tests for ConfiguracioDocumentacioApi
+ * API tests for ConfiguracioDocumentacioApi.
  */
 @SuppressWarnings("unchecked")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ConfiguracioDocumentacioApiTest extends ParentTest {
 
+	/** The api. */
 	@InjectMocks
 	private ConfiguracioDocumentacioApi api = new ConfiguracioDocumentacioApi();
 
 	/**
-	 * Returns the requested entrada configuracio
-	 *
-	 * 
+	 * Returns the requested entrada configuracio.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -60,10 +59,10 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	@Test
 	public void cercaConfiguracioDocumentacioEntradaTest() throws RestClientException {
 		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
-		        .thenReturn(new LinkedMultiValueMap<String, String>());
+				.thenReturn(new LinkedMultiValueMap<String, String>());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/entrada/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfConfiguracioDocsEntradaRDTO());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfConfiguracioDocsEntradaRDTO());
 
 		BigDecimal id = ONE;
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
@@ -81,17 +80,15 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		PageDataOfConfiguracioDocsEntradaRDTO response = api.cercaConfiguracioDocumentacioEntrada(id,
-		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
-		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
-		        previousPageNumber, sort, totalElements, totalPages);
+				absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
+				currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
+				previousPageNumber, sort, totalElements, totalPages);
 
 		assertTrue(response != null);
 	}
 
 	/**
-	 * Returns the requested entrada configuracio
-	 *
-	 * 
+	 * Returns the requested entrada configuracio.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -99,10 +96,10 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	@Test
 	public void cercaConfiguracioDocumentacioEntradaPerTramitOvtTest() throws RestClientException {
 		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
-		        .thenReturn(new LinkedMultiValueMap<String, String>());
+				.thenReturn(new LinkedMultiValueMap<String, String>());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/entrada/1/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
-		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfConfiguracioDocsEntradaRDTO());
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfConfiguracioDocsEntradaRDTO());
 
 		BigDecimal id = ONE;
 		BigDecimal idTramitOvt = ONE;
@@ -121,17 +118,15 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		PageDataOfConfiguracioDocsEntradaRDTO response = api.cercaConfiguracioDocumentacioEntradaPerTramitOvt(id, idTramitOvt,
-		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
-		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
-		        previousPageNumber, sort, totalElements, totalPages);
+				absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
+				currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
+				previousPageNumber, sort, totalElements, totalPages);
 
 		assertTrue(response != null);
 	}
 
 	/**
-	 * Returns the requested tramitacio configuracio
-	 *
-	 * 
+	 * Returns the requested tramitacio configuracio.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -139,10 +134,10 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	@Test
 	public void cercaConfiguracioDocumentacioTramitacioTest() throws RestClientException {
 		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
-		        .thenReturn(new LinkedMultiValueMap<String, String>());
+				.thenReturn(new LinkedMultiValueMap<String, String>());
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/tramitacio/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
-		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfConfiguracioDocsTramitacioRDTO());
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfConfiguracioDocsTramitacioRDTO());
 
 		BigDecimal id = ONE;
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
@@ -160,9 +155,9 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		PageDataOfConfiguracioDocsTramitacioRDTO response = api.cercaConfiguracioDocumentacioTramitacio(id,
-		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
-		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
-		        previousPageNumber, sort, totalElements, totalPages);
+				absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
+				currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
+				previousPageNumber, sort, totalElements, totalPages);
 
 		assertTrue(response != null);
 	}
@@ -172,15 +167,15 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	 *
 	 * @return the plantilla doc vinculada test
 	 * @throws RestClientException
-	 *             the api exception
+	 *             the rest client exception
 	 */
 	@Test
 	public void getPlantillaDocVinculadaTest() throws RestClientException {
 		when(apiClient.invokeAPI(eq("/configuracioDocumentacio/plantillaDocVinculada/1/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
-		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new RespostaPlantillaDocVinculada());
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new RespostaPlantillaDocVinculada());
 
-		RespostaPlantillaDocVinculada plantillaDocVinculada = api.getPlantillaDocVinculada(ONE, ONE);
+		RespostaPlantillaDocVinculada plantillaDocVinculada = api.consultarPlantillaDocumentacioVinculada(ONE, ONE);
 
 		assertTrue(plantillaDocVinculada != null);
 	}
