@@ -27,7 +27,7 @@ import org.joda.time.DateTime;
 /**
  * UnitatsGestoresRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-30T12:06:02.625+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-30T12:57:15.658+02:00")
 public class UnitatsGestoresRDTO {
   @JsonProperty("darreraSincronitzacio")
   private DateTime darreraSincronitzacio = null;

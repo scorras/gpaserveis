@@ -27,7 +27,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-30T12:06:02.625+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-30T12:57:15.658+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi")
 public class UnitatsGestoresApi {
     private ApiClient apiClient;
@@ -264,12 +264,12 @@ public class UnitatsGestoresApi {
      * @return UnitatsOrganigramaRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public UnitatsOrganigramaRDTO returnTheRequestedUnitatOrganigrama(BigDecimal id) throws RestClientException {
+    public UnitatsOrganigramaRDTO consultarUnitatOrganigrama(BigDecimal id) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'id' is set
         if (id == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'id' when calling returnTheRequestedUnitatOrganigrama");
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'id' when calling consultarUnitatOrganigrama");
         }
         
         // create path and map variables

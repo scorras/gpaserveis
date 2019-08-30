@@ -272,7 +272,7 @@ paths:
       tags:
       - "Unitats Gestores"
       summary: "Returns the requested unitat"
-      operationId: "return the requested unitat organigrama"
+      operationId: "consultarUnitatOrganigrama"
       produces:
       - "*/*"
       parameters:
