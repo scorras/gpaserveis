@@ -862,22 +862,15 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 	}
 
-	/**
-	 * Fallback crear data xml expedient.
-	 *
-	 * @param idExpedient
-	 *            the id expedient
-	 * @param e
-	 *            the e
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	public void fallbackCrearDataXmlExpedient(BigDecimal idExpedient, Throwable e) throws GPAServeisServiceException {
+	public RespostaObtenirXmlExpedient fallbackCrearDataXmlExpedient(BigDecimal idExpedient, Throwable e)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearDataXmlExpedient(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 
 	/*
