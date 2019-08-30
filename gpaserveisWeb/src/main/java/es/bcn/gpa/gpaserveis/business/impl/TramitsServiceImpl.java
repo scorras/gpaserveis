@@ -58,7 +58,8 @@ public class TramitsServiceImpl implements TramitsService {
 		try {
 			PageDataOfTramitsRDTO pageDataOfTramitsRDTO = tramitsApi.cercaTramitsProcediment(idProcediment, null, null, null, null, null,
 			        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-			        null, null);
+			        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+			        null, null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaTramitsProcediment(BigDecimal) - fi"); //$NON-NLS-1$

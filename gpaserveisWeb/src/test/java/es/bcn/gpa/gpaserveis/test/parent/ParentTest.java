@@ -213,11 +213,17 @@ public abstract class ParentTest {
 			        .thenReturn(TestsConfigHelper.consultarDadesUnitatGestoraResponse());
 
 			when(tramitsApi.cercaTramitsProcediment(any(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
-			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
-			        isNull(DateTime.class), isNull(DateTime.class), isNull(String.class), isNull(String.class), isNull(Integer.class),
-			        isNull(Integer.class), isNull(String.class), isNull(BigDecimal.class), isNull(String.class), isNull(Integer.class),
-			        isNull(String.class), isNull(String.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class),
-			        isNull(String.class), isNull(String.class), isNull(Long.class), isNull(Integer.class), isNull(BigDecimal.class)))
+			        isNull(BigDecimal.class), isNull(BigDecimal.class), isNull(DateTime.class), isNull(String.class), isNull(Boolean.class),
+			        isNull(Boolean.class), isNull(BigDecimal.class), isNull(String.class), isNull(String.class), isNull(String.class),
+			        isNull(String.class), isNull(String.class), isNull(List.class), isNull(BigDecimal.class), isNull(String.class),
+			        isNull(String.class), isNull(String.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
+			        isNull(Boolean.class), isNull(Integer.class), isNull(DateTime.class), isNull(DateTime.class), isNull(String.class),
+			        isNull(String.class), isNull(String.class), isNull(Integer.class), isNull(BigDecimal.class), isNull(BigDecimal.class),
+			        isNull(BigDecimal.class), isNull(String.class), isNull(BigDecimal.class), isNull(BigDecimal.class),
+			        isNull(BigDecimal.class), isNull(BigDecimal.class), isNull(Integer.class), isNull(String.class),
+			        isNull(BigDecimal.class), isNull(String.class), isNull(Integer.class), isNull(String.class), isNull(String.class),
+			        isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(String.class), isNull(String.class),
+			        isNull(Long.class), isNull(Integer.class), isNull(BigDecimal.class)))
 			                .thenReturn(TestsConfigHelper.cercaTramitsProcedimentResponse());
 
 			when(expedients_Api.cercaExpedients(isNull(Integer.class), isNull(Integer.class), any(String.class), isNull(List.class),

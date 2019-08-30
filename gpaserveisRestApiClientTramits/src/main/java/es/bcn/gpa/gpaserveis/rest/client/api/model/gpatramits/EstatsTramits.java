@@ -19,52 +19,53 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 
 /**
- * SortInfo
+ * EstatsTramits
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-29T14:21:02.349+02:00")
-public class SortInfo {
-  @JsonProperty("dir")
-  private String dir = null;
+public class EstatsTramits {
+  @JsonProperty("descripcio")
+  private String descripcio = null;
 
-  @JsonProperty("sort")
-  private String sort = null;
+  @JsonProperty("id")
+  private BigDecimal id = null;
 
-  public SortInfo dir(String dir) {
-    this.dir = dir;
+  public EstatsTramits descripcio(String descripcio) {
+    this.descripcio = descripcio;
     return this;
   }
 
    /**
-   * Get dir
-   * @return dir
+   * Get descripcio
+   * @return descripcio
   **/
   @ApiModelProperty(value = "")
-  public String getDir() {
-    return dir;
+  public String getDescripcio() {
+    return descripcio;
   }
 
-  public void setDir(String dir) {
-    this.dir = dir;
+  public void setDescripcio(String descripcio) {
+    this.descripcio = descripcio;
   }
 
-  public SortInfo sort(String sort) {
-    this.sort = sort;
+  public EstatsTramits id(BigDecimal id) {
+    this.id = id;
     return this;
   }
 
    /**
-   * Get sort
-   * @return sort
+   * Get id
+   * @return id
   **/
   @ApiModelProperty(value = "")
-  public String getSort() {
-    return sort;
+  public BigDecimal getId() {
+    return id;
   }
 
-  public void setSort(String sort) {
-    this.sort = sort;
+  public void setId(BigDecimal id) {
+    this.id = id;
   }
 
 
@@ -76,24 +77,24 @@ public class SortInfo {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SortInfo sortInfo = (SortInfo) o;
-    return Objects.equals(this.dir, sortInfo.dir) &&
-        Objects.equals(this.sort, sortInfo.sort);
+    EstatsTramits estatsTramits = (EstatsTramits) o;
+    return Objects.equals(this.descripcio, estatsTramits.descripcio) &&
+        Objects.equals(this.id, estatsTramits.id);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dir, sort);
+    return Objects.hash(descripcio, id);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SortInfo {\n");
+    sb.append("class EstatsTramits {\n");
     
-    sb.append("    dir: ").append(toIndentedString(dir)).append("\n");
-    sb.append("    sort: ").append(toIndentedString(sort)).append("\n");
+    sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("}");
     return sb.toString();
   }
