@@ -205,9 +205,10 @@ public abstract class ParentTest {
 			when(unitatsGestoresApi.cercaUnitatsGestores(isNull(Integer.class), isNull(Integer.class), isNull(Boolean.class),
 					isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class), isNull(DateTime.class),
 					isNull(DateTime.class), isNull(DateTime.class), isNull(String.class), isNull(String.class), isNull(String.class),
-					isNull(BigDecimal.class), isNull(Integer.class), any(String.class), isNull(Integer.class), isNull(Integer.class),
-					isNull(String.class), isNull(Long.class), isNull(Integer.class), isNull(BigDecimal.class), any(List.class),
-					isNull(Integer.class))).thenReturn(TestsConfigHelper.cercaUnitatsGestoresResponse());
+					isNull(BigDecimal.class), isNull(Long.class), isNull(Integer.class), any(String.class), any(String.class),
+					isNull(Integer.class), isNull(Integer.class), isNull(String.class), isNull(Long.class), isNull(Integer.class),
+					isNull(BigDecimal.class), any(List.class), isNull(Integer.class)))
+							.thenReturn(TestsConfigHelper.cercaUnitatsGestoresResponse());
 
 			when(unitatsGestoresApi.consultarDadesUnitatGestora(any(BigDecimal.class)))
 					.thenReturn(TestsConfigHelper.consultarDadesUnitatGestoraResponse());

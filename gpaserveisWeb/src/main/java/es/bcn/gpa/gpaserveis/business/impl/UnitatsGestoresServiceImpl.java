@@ -40,15 +40,15 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCercaUnitatsGestores")
 	public PageDataOfUnitatsGestoresRDTO cercaUnitatsGestores(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("cercaUnitatsGestores(UnitatsGestoresCercaBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			PageDataOfUnitatsGestoresRDTO pageDataOfUnitatsGestoresRDTO = unitatsGestoresApi.cercaUnitatsGestores(null, null, null, null,
-			        null, null, null, null, null, null, null, null, null, null, null, unitatsGestoresCercaBDTO.getCodi(), null, null, null,
-			        null, null, null, null, null);
+					null, null, null, null, null, null, null, null, null, null, null, null, null, unitatsGestoresCercaBDTO.getCodi(), null,
+					null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaUnitatsGestores(UnitatsGestoresCercaBDTO) - fi"); //$NON-NLS-1$
@@ -73,7 +73,7 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 	 *             the GPA serveis service exception
 	 */
 	public PageDataOfUnitatsGestoresRDTO fallbackCercaUnitatsGestores(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaUnitatsGestores(UnitatsGestoresCercaBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
