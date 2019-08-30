@@ -249,7 +249,7 @@ public abstract class ParentTest {
 			when(expedients_Api.consultarDadesExpedientPerCodi(eq("ES_LO1080193_2019_EXP_000000000000000000000000000001")))
 					.thenReturn(TestsConfigHelper.consultarDadesExpedientResponse());
 
-			when(expedients_Api.getIdExpedientByDocumentacioIdExt(any(BigDecimal.class))).thenReturn(BigDecimal.ONE);
+			when(expedients_Api.consultarExpedientPerDocumentacioIdExt(any(BigDecimal.class))).thenReturn(BigDecimal.ONE);
 
 			when(expedientsRelacionatsApi.obtenirExpedientsRelacionats(any(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
 					isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
