@@ -20,6 +20,7 @@ import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -36,6 +37,7 @@ import org.springframework.util.MultiValueMap;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsOrganigramaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaunitats.ApiClient.CollectionFormat;
 
 /**
@@ -152,13 +154,34 @@ public class UnitatsGestoresApiTest extends ParentTest {
 	 */
 	@Test
 	public void consultarDadesUnitatGestoraPerNomListTest() {
-		when(apiClient.invokeAPI(eq("/unitats//obtenirIdsUnitatsPerNomList/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		when(apiClient.invokeAPI(eq("/unitats/obtenirIdsUnitatsPerNomList/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
 				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(new UnitatsGestoresRDTO());
+				any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<BigDecimal>());
 
 		String nom = ONE.toString();
 		List<BigDecimal> response = api.consultarDadesUnitatGestoraPerNomList(nom);
 
 		assertTrue(response != null);
 	}
+	
+	/**
+	 * Returns the requested unitat
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void consultarUnitatOrganigrama() {
+		when(apiClient.invokeAPI(eq("/1/unitatOrganigrama"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new UnitatsOrganigramaRDTO());
+
+		BigDecimal id = ONE;
+		UnitatsOrganigramaRDTO response = api.consultarUnitatOrganigrama(id);
+
+		assertTrue(response != null);
+	}
+	   
 }
