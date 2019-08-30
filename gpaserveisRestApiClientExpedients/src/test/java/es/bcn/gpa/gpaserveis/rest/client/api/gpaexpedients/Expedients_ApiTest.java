@@ -178,6 +178,26 @@ public class Expedients_ApiTest extends ParentTest {
 
 		assertTrue(response != null);
 	}
+	
+	/**
+     * Returns the requested id expedient
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void consultarExpedientPerDocumentacioIdExtTest() {
+    	when(apiClient.invokeAPI(eq("/expedients/expedientByIdDoc/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(ONE);
+
+		BigDecimal idDocumentacio = ONE;
+		BigDecimal response = api.consultarExpedientPerDocumentacioIdExt(idDocumentacio);
+
+		assertTrue(response != null);
+    }
 
 	/**
 	 * Insert the provided expedient
@@ -256,26 +276,6 @@ public class Expedients_ApiTest extends ParentTest {
 		BigDecimal accio = ONE;
 		CrearRegistre registrarSolicitudExpedientRDTO = new CrearRegistre();
 		RespostaCrearRegistreExpedient response = api.crearRegistreSolicitudExpedient(accio, registrarSolicitudExpedientRDTO);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Returns the requested id expedient
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void getIdExpedientByDocumentacioIdExtTest() {
-		when(apiClient.invokeAPI(eq("/expedients/expedientByIdDoc/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(ONE);
-
-		BigDecimal idDocumentacio = ONE;
-		BigDecimal response = api.getIdExpedientByDocumentacioIdExt(idDocumentacio);
 
 		assertTrue(response != null);
 	}
