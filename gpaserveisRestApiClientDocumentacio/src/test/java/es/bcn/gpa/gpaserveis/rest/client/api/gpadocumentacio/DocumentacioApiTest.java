@@ -51,6 +51,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitaci
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRegistrarComunicat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequerimentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient.CollectionFormat;
@@ -596,4 +597,74 @@ public class DocumentacioApiTest extends ParentTest {
 
 		assertTrue(response != null);
 	}
+	
+	/**
+	 * actualitzar Document Tramitacio
+	 * @throws RestClientException
+	 */
+	@Test
+	public void actualitzarDocumentEntradaDigitalitzatTest() throws RestClientException {
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/digitalitzar/1"), eq(HttpMethod.PUT), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new DocsEntradaRDTO());
+
+		DocsEntradaRDTO docsEntradaoRDTO = new DocsEntradaRDTO();
+		BigDecimal idExpedient = ONE;
+		DocsEntradaRDTO response = api.actualitzarDocumentEntradaDigitalitzat(docsEntradaoRDTO, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * actualitzar Document Tramitacio Digitalitzat
+	 * @throws RestClientException
+	 */
+	@Test
+	public void actualitzarDocumentTramitacioDigitalitzatTest() throws RestClientException {
+		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/digitalitzar/1"), eq(HttpMethod.PUT), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
+
+		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
+		BigDecimal idExpedient = ONE;
+		DocsTramitacioRDTO response = api.actualitzarDocumentTramitacioDigitalitzat(docsTramitacioRDTO, idExpedient);
+
+		assertTrue(response != null);
+	}
+	
+	/**
+	 * actualitzar Requeriment
+	 * @throws RestClientException
+	 */
+	@Test
+	public void actualitzarRequerimentTest() throws RestClientException {
+		when(apiClient.invokeAPI(eq("/documentacio/requeriment/1"), eq(HttpMethod.PUT), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
+
+		GuardarRequerimentExpedient guardarRequerimentExpedient = new GuardarRequerimentExpedient();
+		BigDecimal idExpedient = ONE;
+		DocsTramitacioRDTO response = api.actualitzarRequeriment(guardarRequerimentExpedient,idExpedient);
+
+		assertTrue(response != null);
+	}
+	
+	
+	/**
+	 * actualitzar Requeriment
+	 * @throws RestClientException
+	 */
+	@Test
+	public void guardarRequerimentPlantillaTest() throws RestClientException {
+		when(apiClient.invokeAPI(eq("/documentacio/requeriment/plantilla/1"), eq(HttpMethod.PUT), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
+
+		GuardarRequerimentExpedient guardarRequerimentExpedient = new GuardarRequerimentExpedient();
+		BigDecimal idExpedient = ONE;
+		DocsTramitacioRDTO response = api.guardarRequerimentPlantilla(guardarRequerimentExpedient,idExpedient);
+
+		assertTrue(response != null);
+	}
+	  
 }
