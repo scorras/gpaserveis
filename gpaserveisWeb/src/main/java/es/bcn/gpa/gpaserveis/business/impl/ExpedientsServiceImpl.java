@@ -1129,7 +1129,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			BigDecimal idExpedient = expedients_Api.getIdExpedientByDocumentacioIdExt(idDocumentacio);
+			BigDecimal idExpedient = expedients_Api.consultarExpedientPerDocumentacioIdExt(idDocumentacio);
 
 			if (log.isDebugEnabled()) {
 				log.debug("getIdExpedientByDocumentacioIdExt(BigDecimal) - fi"); //$NON-NLS-1$
