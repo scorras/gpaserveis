@@ -19,52 +19,74 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 
 /**
- * SortInfo
+ * UnitatsOrganigramaRDTO
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-30T12:06:02.625+02:00")
-public class SortInfo {
-  @JsonProperty("dir")
-  private String dir = null;
+public class UnitatsOrganigramaRDTO {
+  @JsonProperty("codi")
+  private String codi = null;
 
-  @JsonProperty("sort")
-  private String sort = null;
+  @JsonProperty("id")
+  private BigDecimal id = null;
 
-  public SortInfo dir(String dir) {
-    this.dir = dir;
+  @JsonProperty("nom")
+  private String nom = null;
+
+  public UnitatsOrganigramaRDTO codi(String codi) {
+    this.codi = codi;
     return this;
   }
 
    /**
-   * Get dir
-   * @return dir
+   * Get codi
+   * @return codi
   **/
   @ApiModelProperty(value = "")
-  public String getDir() {
-    return dir;
+  public String getCodi() {
+    return codi;
   }
 
-  public void setDir(String dir) {
-    this.dir = dir;
+  public void setCodi(String codi) {
+    this.codi = codi;
   }
 
-  public SortInfo sort(String sort) {
-    this.sort = sort;
+  public UnitatsOrganigramaRDTO id(BigDecimal id) {
+    this.id = id;
     return this;
   }
 
    /**
-   * Get sort
-   * @return sort
+   * Get id
+   * @return id
   **/
   @ApiModelProperty(value = "")
-  public String getSort() {
-    return sort;
+  public BigDecimal getId() {
+    return id;
   }
 
-  public void setSort(String sort) {
-    this.sort = sort;
+  public void setId(BigDecimal id) {
+    this.id = id;
+  }
+
+  public UnitatsOrganigramaRDTO nom(String nom) {
+    this.nom = nom;
+    return this;
+  }
+
+   /**
+   * Get nom
+   * @return nom
+  **/
+  @ApiModelProperty(value = "")
+  public String getNom() {
+    return nom;
+  }
+
+  public void setNom(String nom) {
+    this.nom = nom;
   }
 
 
@@ -76,24 +98,26 @@ public class SortInfo {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SortInfo sortInfo = (SortInfo) o;
-    return Objects.equals(this.dir, sortInfo.dir) &&
-        Objects.equals(this.sort, sortInfo.sort);
+    UnitatsOrganigramaRDTO unitatsOrganigramaRDTO = (UnitatsOrganigramaRDTO) o;
+    return Objects.equals(this.codi, unitatsOrganigramaRDTO.codi) &&
+        Objects.equals(this.id, unitatsOrganigramaRDTO.id) &&
+        Objects.equals(this.nom, unitatsOrganigramaRDTO.nom);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dir, sort);
+    return Objects.hash(codi, id, nom);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SortInfo {\n");
+    sb.append("class UnitatsOrganigramaRDTO {\n");
     
-    sb.append("    dir: ").append(toIndentedString(dir)).append("\n");
-    sb.append("    sort: ").append(toIndentedString(sort)).append("\n");
+    sb.append("    codi: ").append(toIndentedString(codi)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    nom: ").append(toIndentedString(nom)).append("\n");
     sb.append("}");
     return sb.toString();
   }
