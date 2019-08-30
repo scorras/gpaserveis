@@ -1342,7 +1342,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 * @return the resposta resolucio validar document RDTO
 	 */
 	@PostMapping("/expedients/{codiExpedient}/resolucio/{idDocResolucio}/validar")
-	@ApiOperation(value = "Validar un document", tags = { "Serveis Portal API" }, extensions = {
+	@ApiOperation(value = "Validar un document", tags = { "Serveis Tramitadors API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaResolucioValidarDocumentRDTO validarResolucioDocument(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
@@ -1420,7 +1420,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 * @return the resposta signar document RDTO
 	 */
 	@PostMapping("/expedients/{codiExpedient}/documentacio/{idDocument}/signar")
-	@ApiOperation(value = "Signar un document", tags = { "Serveis Portal API" }, extensions = {
+	@ApiOperation(value = "Signar un document", tags = { "Serveis Tramitadors API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaSignarDocumentRDTO signarDocument(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
