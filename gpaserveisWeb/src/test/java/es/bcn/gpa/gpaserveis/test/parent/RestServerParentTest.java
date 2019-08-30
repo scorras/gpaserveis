@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import es.bcn.gpa.gpaserveis.test.config.RestServerTestsConfig;
+import es.bcn.gpa.gpaserveis.web.initialization.filter.HystrixRequestContextServletFilter;
 import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.web.test.servlet.setup.ServletBaseContextReplacer;
 
@@ -33,7 +34,7 @@ public abstract class RestServerParentTest extends ParentTest {
 			log.debug("setUp() - inici"); //$NON-NLS-1$
 		}
 
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).apply(new ServletBaseContextReplacer("/rest", "")).build();
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).apply(new ServletBaseContextReplacer("/rest", "")).addFilter(new HystrixRequestContextServletFilter()).build();
 		super.setUp();
 
 		if (log.isDebugEnabled()) {
