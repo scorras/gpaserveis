@@ -141,4 +141,24 @@ public class UnitatsGestoresApiTest extends ParentTest {
 		assertTrue(response != null);
 	}
 
+	
+	/**
+	 * Returns the requested unitat
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void consultarDadesUnitatGestoraPerNomListTest() {
+		when(apiClient.invokeAPI(eq("/unitats//obtenirIdsUnitatsPerNomList/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new UnitatsGestoresRDTO());
+
+		String nom = ONE.toString();
+		List<BigDecimal> response = api.consultarDadesUnitatGestoraPerNomList(nom);
+
+		assertTrue(response != null);
+	}
 }
