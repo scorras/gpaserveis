@@ -1059,6 +1059,10 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateUnitatGestora(unitatsGestoresRDTO, dadesProcedimentBDTO,
 			        Resultat.ERROR_CONVIDAR_TRAMITAR_EXPEDIENT);
 
+			// La UG convidada debe ser diferente a la UG principal
+			ServeisRestControllerValidationHelper.validateUnitatGestoraConvidada(unitatsGestoresRDTO.getId(),
+			        dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext(), Resultat.ERROR_CONVIDAR_TRAMITAR_EXPEDIENT);
+
 			// Invitar a tramitar el expediente si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.CONVIDAR_TRAMITAR, Resultat.ERROR_CONVIDAR_TRAMITAR_EXPEDIENT);
