@@ -29,8 +29,8 @@ public class DocumentDigitalitzacioRDTOToDocsEntradaRDTOMapper extends PropertyM
 	 */
 	@Autowired
 	public DocumentDigitalitzacioRDTOToDocsEntradaRDTOMapper(
-			@Qualifier("internalToBigDecimalConverter") InternalToBigDecimalConverter internalToBigDecimalConverter,
-			@Qualifier("origenToInternalConverter") OrigenToInternalConverter origenToInternalConverter) {
+	        @Qualifier("internalToBigDecimalConverter") InternalToBigDecimalConverter internalToBigDecimalConverter,
+	        @Qualifier("origenToInternalConverter") OrigenToInternalConverter origenToInternalConverter) {
 		this.internalToBigDecimalConverter = internalToBigDecimalConverter;
 		this.origenToInternalConverter = origenToInternalConverter;
 	}
@@ -45,6 +45,5 @@ public class DocumentDigitalitzacioRDTOToDocsEntradaRDTOMapper extends PropertyM
 		using(internalToBigDecimalConverter).map(source.getConfiguracioDocumentacio()).setConfigDocEntrada(null);
 		using(origenToInternalConverter).map(source.getOrigen()).setOrigen(null);
 		map().setComentari(source.getComentari());
-		map().setRegistreCodi(source.getNumeroRegistre());
 	}
 }

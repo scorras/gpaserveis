@@ -2257,10 +2257,13 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT);
 
 			// El número de registro indicado debe existir
-			registreAssentamentRDTO = serveisService
-			        .consultarDadesRegistreAssentament(documentDigitalitzacio.getDocument().getNumeroRegistre());
-			ServeisRestControllerValidationHelper.validateRegistreAssentament(registreAssentamentRDTO,
-			        Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
+			// TODO Confirmar que el núemro de registro no se debe enviar en el
+			// modelo de petición. Es Digitalización el que lo crea y lo
+			// devuelve
+			// registreAssentamentRDTO = serveisService
+			// .consultarDadesRegistreAssentament(documentDigitalitzacio.getDocument().getNumeroRegistre());
+			// ServeisRestControllerValidationHelper.validateRegistreAssentament(registreAssentamentRDTO,
+			// Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
 
 			// Digitalizar documento si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
@@ -2272,10 +2275,14 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// procedimiento del expediente
 			if (BooleanUtils.isTrue(esAportada)) {
 				// El número de registro indicado debe existir
-				registreAssentamentRDTO = serveisService
-				        .consultarDadesRegistreAssentament(documentDigitalitzacio.getDocument().getNumeroRegistre());
-				ServeisRestControllerValidationHelper.validateRegistreAssentament(registreAssentamentRDTO,
-				        Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
+				// TODO Confirmar que el núemro de registro no se debe enviar en
+				// el
+				// modelo de petición. Es Digitalización el que lo crea y lo
+				// devuelve
+				// registreAssentamentRDTO = serveisService
+				// .consultarDadesRegistreAssentament(documentDigitalitzacio.getDocument().getNumeroRegistre());
+				// ServeisRestControllerValidationHelper.validateRegistreAssentament(registreAssentamentRDTO,
+				// Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
 
 				DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(
 				        dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc(), null);
