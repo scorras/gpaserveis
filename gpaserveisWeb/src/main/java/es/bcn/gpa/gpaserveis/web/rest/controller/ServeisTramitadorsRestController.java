@@ -431,7 +431,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 		} catch (Exception e) {
 			log.error("pausarExpedient(String, String, ExpedientPausaRDTO)", e); // $NON-NLS-1$
-			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_DESISTIR_RENUNCIAR_EXPEDIENT, e);
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_PAUSAR_EXPEDIENT, e);
 		}
 
 		RespostaExpedientsPausarBDTO respostaExpedientsPausarBDTO = new RespostaExpedientsPausarBDTO(
@@ -553,6 +553,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        dadesExpedientBDTO.getExpedientsRDTO().getId(),
 			        AccioTramitadorApiParamValue.ARXIVAR_SOLLICITUD_INCOMPLETA.getInternalValue());
 			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+
+			// TODO Guardar el comentario de la acción
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("arxivarSolicitudExpedient(String, ExpedientArxiuRDTO)", e); // $NON-NLS-1$
@@ -691,6 +693,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.PROPOSAR_RESOLUCIO.getInternalValue());
 			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+
+			// TODO Insertar comentario de la acción
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("proposarResolucioExpedient(String, ExpedientPropostaResolucioRDTO)", e); // $NON-NLS-1$
@@ -2149,6 +2153,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	@ApiOperation(value = "Força el canvi d'estat de l'expedient a Finzalizado i Comunicat després de la signatura dels documents", tags = {
 	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	// TODO Pasar también el id del documento de tramitación
 	public RespostaDocumentSignatExpedientRDTO documentSignatExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Dades de l'expedient amb document signat") @RequestBody ExpedientDocumentSignatRDTO expedientDocumentSignat)

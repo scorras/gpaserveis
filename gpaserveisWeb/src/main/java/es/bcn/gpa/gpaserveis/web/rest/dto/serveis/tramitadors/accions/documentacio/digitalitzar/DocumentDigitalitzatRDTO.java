@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @ApiModel(value = "DocumentDigitalitzat")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "configuracio", "configuracioDocumentacio", "origen", "comentari", "numeroRegistre" })
+@JsonPropertyOrder({ "configuracio", "configuracioDocumentacio", "origen", "comentari" })
 @Getter
 @Setter
 public class DocumentDigitalitzatRDTO {
@@ -25,7 +25,5 @@ public class DocumentDigitalitzatRDTO {
 	private String origen;
 	@ApiModelProperty(value = "Comentari del document.")
 	private String comentari;
-	@ApiModelProperty(value = "Número de registre.")
-	private String numeroRegistre;
 
 }

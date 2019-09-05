@@ -140,7 +140,7 @@ public class ServeisRestControllerValidationHelper {
 	        Resultat resultatError) throws GPAApiParamValidationException {
 		// La Unitat Gestora a convidar debe ser diferente a la que tiene
 		// asignada el expediente
-		if (idUnitatGestoraConvidada.compareTo(idUnitatGestoraExpedient) == NumberUtils.INTEGER_ZERO) {
+		if (idUnitatGestoraConvidada.compareTo(idUnitatGestoraExpedient) != NumberUtils.INTEGER_ZERO) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_UNITATS_ASSIGNADA);
 		}
 	}

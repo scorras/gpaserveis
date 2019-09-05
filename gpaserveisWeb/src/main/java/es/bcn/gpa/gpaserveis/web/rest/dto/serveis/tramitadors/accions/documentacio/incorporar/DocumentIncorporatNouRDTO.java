@@ -32,7 +32,7 @@ public class DocumentIncorporatNouRDTO {
 	private String comentari;
 	@ApiModelProperty(value = "Idioma del document.", allowableValues = IdiomaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private String idioma;
-	@ApiModelProperty(value = "Revisió del document.", required = true, allowableValues = RevisioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
+	@ApiModelProperty(value = "Revisió del document.", allowableValues = RevisioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private String revisio;
 	@ApiModelProperty(value = "Document digitalitzat.")
 	private Boolean digitalitzat;
