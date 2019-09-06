@@ -143,7 +143,11 @@ public enum Resultat {
 
 	OK_OBTENIR_DOCUMENT_INTRAOPERABILITAT("OK", "Document obtingut correctament"),
 
-	ERROR_OBTENIR_DOCUMENT_INTRAOPERABILITAT("ERROR", "No s'ha pogut obtenir el document per intraoperabilitat");
+	ERROR_OBTENIR_DOCUMENT_INTRAOPERABILITAT("ERROR", "No s'ha pogut obtenir el document per intraoperabilitat"),
+	
+	OK_OBTENIR_EXPEDIENT("OK", "Expedient obtingut correctament"),
+
+	ERROR_OBTENIR_EXPEDIENT("ERROR", "No s'ha pogut obtenir el expedient");
 
 	private String codi;
 
