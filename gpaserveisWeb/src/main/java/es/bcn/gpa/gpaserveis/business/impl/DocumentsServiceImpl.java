@@ -1421,7 +1421,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			PeticionsPortasig crearPeticioPortaSig = documentacioApi.crearPeticioPortaSig(signarDocument).get(0);
+			PeticionsPortasig crearPeticioPortaSig = documentacioApi.crearPeticioPortaSig(signarDocument);
 
 			if (log.isDebugEnabled()) {
 				log.debug("signarValidarDocument(SignarDocument) - fi"); //$NON-NLS-1$
@@ -1442,12 +1442,11 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *            the signar document
 	 * @param e
 	 *            the e
-	 * @return the list
+	 * @return the PeticionsPortasig
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public List<PeticionsPortasig> fallbackSignarValidarDocument(SignarDocument signarDocument, Throwable e)
-			throws GPAServeisServiceException {
+	public PeticionsPortasig fallbackSignarValidarDocument(SignarDocument signarDocument, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackSignarValidarDocument(SignarDocument, Throwable) - inici"); //$NON-NLS-1$
 		}

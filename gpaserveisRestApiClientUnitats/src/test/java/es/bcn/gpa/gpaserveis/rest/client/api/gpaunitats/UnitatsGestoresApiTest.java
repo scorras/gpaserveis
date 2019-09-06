@@ -143,7 +143,6 @@ public class UnitatsGestoresApiTest extends ParentTest {
 		assertTrue(response != null);
 	}
 
-	
 	/**
 	 * Returns the requested unitat
 	 *
@@ -154,16 +153,16 @@ public class UnitatsGestoresApiTest extends ParentTest {
 	 */
 	@Test
 	public void consultarDadesUnitatGestoraPerNomListTest() {
-		when(apiClient.invokeAPI(eq("/unitats/obtenirIdsUnitatsPerNomList/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<BigDecimal>());
+		when(apiClient.invokeAPI(eq("/unitats/obtenirIdsUnitatsPerNomList/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<BigDecimal>());
 
 		String nom = ONE.toString();
 		List<BigDecimal> response = api.consultarDadesUnitatGestoraPerNomList(nom);
 
 		assertTrue(response != null);
 	}
-	
+
 	/**
 	 * Returns the requested unitat
 	 *
@@ -183,5 +182,5 @@ public class UnitatsGestoresApiTest extends ParentTest {
 
 		assertTrue(response != null);
 	}
-	   
+
 }

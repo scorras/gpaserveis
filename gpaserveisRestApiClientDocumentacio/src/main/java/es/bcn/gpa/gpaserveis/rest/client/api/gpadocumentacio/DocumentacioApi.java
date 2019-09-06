@@ -38,7 +38,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-30T08:55:34.487+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-09-06T08:41:37.186+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi")
 public class DocumentacioApi {
     private ApiClient apiClient;
@@ -1003,10 +1003,10 @@ public class DocumentacioApi {
      * <p><b>403</b> - Forbidden
      * <p><b>404</b> - Not Found
      * @param signarDocumentRDTO signarDocumentRDTO
-     * @return List&lt;PeticionsPortasig&gt;
+     * @return PeticionsPortasig
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<PeticionsPortasig> crearPeticioPortaSig(SignarDocument signarDocumentRDTO) throws RestClientException {
+    public PeticionsPortasig crearPeticioPortaSig(SignarDocument signarDocumentRDTO) throws RestClientException {
         Object postBody = signarDocumentRDTO;
         
         // verify the required parameter 'signarDocumentRDTO' is set
@@ -1031,7 +1031,7 @@ public class DocumentacioApi {
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<List<PeticionsPortasig>> returnType = new ParameterizedTypeReference<List<PeticionsPortasig>>() {};
+        ParameterizedTypeReference<PeticionsPortasig> returnType = new ParameterizedTypeReference<PeticionsPortasig>() {};
         return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**

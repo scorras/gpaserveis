@@ -507,9 +507,7 @@ paths:
         200:
           description: "OK"
           schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/PeticionsPortasig"
+            $ref: "#/definitions/PeticionsPortasig"
         201:
           description: "Created"
         401:
@@ -2830,11 +2828,9 @@ definitions:
       accio:
         type: "number"
         description: "Acció a realitzar per l'portafirmas"
-      listIdDocument:
-        type: "array"
-        description: "Llista d'identificadors dels documents"
-        items:
-          type: "number"
+      idDocument:
+        type: "number"
+        description: "identificador del document"
       unitatGestoraIdext:
         type: "number"
         description: "Identificador de la unitat gestora"
@@ -2884,13 +2880,13 @@ definitions:
   UsuariPortaSig:
     type: "object"
     properties:
+      documentIdentitat:
+        type: "string"
+        description: "Document d'identitat de la persona que va a signar el document"
       matricula:
         type: "string"
-        description: "Matrícula de l'usuari"
-      nif:
-        type: "string"
-        description: "DNI de l'usuari"
+        description: "Matrícula de la persona que va a signar el document"
       nom:
         type: "string"
-        description: "Nom de l'usuari"
+        description: "Nom de la persona que va a signar el document"
     title: "UsuariPortaSig"

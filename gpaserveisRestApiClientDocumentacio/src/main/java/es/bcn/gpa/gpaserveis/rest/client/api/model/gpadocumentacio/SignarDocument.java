@@ -21,19 +21,17 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.UsuariPortaSi
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * SignarDocument
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-30T08:55:34.487+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-09-06T08:41:37.186+02:00")
 public class SignarDocument {
   @JsonProperty("accio")
   private BigDecimal accio = null;
 
-  @JsonProperty("listIdDocument")
-  private List<BigDecimal> listIdDocument = null;
+  @JsonProperty("idDocument")
+  private BigDecimal idDocument = null;
 
   @JsonProperty("unitatGestoraIdext")
   private BigDecimal unitatGestoraIdext = null;
@@ -59,30 +57,22 @@ public class SignarDocument {
     this.accio = accio;
   }
 
-  public SignarDocument listIdDocument(List<BigDecimal> listIdDocument) {
-    this.listIdDocument = listIdDocument;
-    return this;
-  }
-
-  public SignarDocument addListIdDocumentItem(BigDecimal listIdDocumentItem) {
-    if (this.listIdDocument == null) {
-      this.listIdDocument = new ArrayList<BigDecimal>();
-    }
-    this.listIdDocument.add(listIdDocumentItem);
+  public SignarDocument idDocument(BigDecimal idDocument) {
+    this.idDocument = idDocument;
     return this;
   }
 
    /**
-   * Llista d&#39;identificadors dels documents
-   * @return listIdDocument
+   * identificador del document
+   * @return idDocument
   **/
-  @ApiModelProperty(value = "Llista d'identificadors dels documents")
-  public List<BigDecimal> getListIdDocument() {
-    return listIdDocument;
+  @ApiModelProperty(value = "identificador del document")
+  public BigDecimal getIdDocument() {
+    return idDocument;
   }
 
-  public void setListIdDocument(List<BigDecimal> listIdDocument) {
-    this.listIdDocument = listIdDocument;
+  public void setIdDocument(BigDecimal idDocument) {
+    this.idDocument = idDocument;
   }
 
   public SignarDocument unitatGestoraIdext(BigDecimal unitatGestoraIdext) {
@@ -132,14 +122,14 @@ public class SignarDocument {
     }
     SignarDocument signarDocument = (SignarDocument) o;
     return Objects.equals(this.accio, signarDocument.accio) &&
-        Objects.equals(this.listIdDocument, signarDocument.listIdDocument) &&
+        Objects.equals(this.idDocument, signarDocument.idDocument) &&
         Objects.equals(this.unitatGestoraIdext, signarDocument.unitatGestoraIdext) &&
         Objects.equals(this.usuariPortaSig, signarDocument.usuariPortaSig);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accio, listIdDocument, unitatGestoraIdext, usuariPortaSig);
+    return Objects.hash(accio, idDocument, unitatGestoraIdext, usuariPortaSig);
   }
 
 
@@ -149,7 +139,7 @@ public class SignarDocument {
     sb.append("class SignarDocument {\n");
     
     sb.append("    accio: ").append(toIndentedString(accio)).append("\n");
-    sb.append("    listIdDocument: ").append(toIndentedString(listIdDocument)).append("\n");
+    sb.append("    idDocument: ").append(toIndentedString(idDocument)).append("\n");
     sb.append("    unitatGestoraIdext: ").append(toIndentedString(unitatGestoraIdext)).append("\n");
     sb.append("    usuariPortaSig: ").append(toIndentedString(usuariPortaSig)).append("\n");
     sb.append("}");

@@ -23,16 +23,34 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * UsuariPortaSig
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-30T08:55:34.487+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-09-06T08:41:37.186+02:00")
 public class UsuariPortaSig {
+  @JsonProperty("documentIdentitat")
+  private String documentIdentitat = null;
+
   @JsonProperty("matricula")
   private String matricula = null;
 
-  @JsonProperty("nif")
-  private String nif = null;
-
   @JsonProperty("nom")
   private String nom = null;
+
+  public UsuariPortaSig documentIdentitat(String documentIdentitat) {
+    this.documentIdentitat = documentIdentitat;
+    return this;
+  }
+
+   /**
+   * Document d&#39;identitat de la persona que va a signar el document
+   * @return documentIdentitat
+  **/
+  @ApiModelProperty(value = "Document d'identitat de la persona que va a signar el document")
+  public String getDocumentIdentitat() {
+    return documentIdentitat;
+  }
+
+  public void setDocumentIdentitat(String documentIdentitat) {
+    this.documentIdentitat = documentIdentitat;
+  }
 
   public UsuariPortaSig matricula(String matricula) {
     this.matricula = matricula;
@@ -40,10 +58,10 @@ public class UsuariPortaSig {
   }
 
    /**
-   * Matrícula de l&#39;usuari
+   * Matrícula de la persona que va a signar el document
    * @return matricula
   **/
-  @ApiModelProperty(value = "Matrícula de l'usuari")
+  @ApiModelProperty(value = "Matrícula de la persona que va a signar el document")
   public String getMatricula() {
     return matricula;
   }
@@ -52,34 +70,16 @@ public class UsuariPortaSig {
     this.matricula = matricula;
   }
 
-  public UsuariPortaSig nif(String nif) {
-    this.nif = nif;
-    return this;
-  }
-
-   /**
-   * DNI de l&#39;usuari
-   * @return nif
-  **/
-  @ApiModelProperty(value = "DNI de l'usuari")
-  public String getNif() {
-    return nif;
-  }
-
-  public void setNif(String nif) {
-    this.nif = nif;
-  }
-
   public UsuariPortaSig nom(String nom) {
     this.nom = nom;
     return this;
   }
 
    /**
-   * Nom de l&#39;usuari
+   * Nom de la persona que va a signar el document
    * @return nom
   **/
-  @ApiModelProperty(value = "Nom de l'usuari")
+  @ApiModelProperty(value = "Nom de la persona que va a signar el document")
   public String getNom() {
     return nom;
   }
@@ -98,14 +98,14 @@ public class UsuariPortaSig {
       return false;
     }
     UsuariPortaSig usuariPortaSig = (UsuariPortaSig) o;
-    return Objects.equals(this.matricula, usuariPortaSig.matricula) &&
-        Objects.equals(this.nif, usuariPortaSig.nif) &&
+    return Objects.equals(this.documentIdentitat, usuariPortaSig.documentIdentitat) &&
+        Objects.equals(this.matricula, usuariPortaSig.matricula) &&
         Objects.equals(this.nom, usuariPortaSig.nom);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(matricula, nif, nom);
+    return Objects.hash(documentIdentitat, matricula, nom);
   }
 
 
@@ -114,8 +114,8 @@ public class UsuariPortaSig {
     StringBuilder sb = new StringBuilder();
     sb.append("class UsuariPortaSig {\n");
     
+    sb.append("    documentIdentitat: ").append(toIndentedString(documentIdentitat)).append("\n");
     sb.append("    matricula: ").append(toIndentedString(matricula)).append("\n");
-    sb.append("    nif: ").append(toIndentedString(nif)).append("\n");
     sb.append("    nom: ").append(toIndentedString(nom)).append("\n");
     sb.append("}");
     return sb.toString();
