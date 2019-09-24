@@ -147,7 +147,11 @@ public enum Resultat {
 	
 	OK_OBTENIR_EXPEDIENT("OK", "Expedient obtingut correctament"),
 
-	ERROR_OBTENIR_EXPEDIENT("ERROR", "No s'ha pogut obtenir el expedient");
+	ERROR_OBTENIR_EXPEDIENT("ERROR", "No s'ha pogut obtenir el expedient"),
+	
+	OK_REVISAR_EXPEDIENT("OK", "Expedient revisat correctament"),
+
+	ERROR_REVISAR_EXPEDIENT("ERROR", "No s'ha pogut revisar l'expedient");
 
 	private String codi;
 

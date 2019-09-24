@@ -173,7 +173,7 @@ public class UnitatsGestoresApiTest extends ParentTest {
 	 */
 	@Test
 	public void consultarUnitatOrganigrama() {
-		when(apiClient.invokeAPI(eq("/1/unitatOrganigrama"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		when(apiClient.invokeAPI(eq("/unitats/1/unitatOrganigrama"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
 				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 				any(ParameterizedTypeReference.class))).thenReturn(new UnitatsOrganigramaRDTO());
 

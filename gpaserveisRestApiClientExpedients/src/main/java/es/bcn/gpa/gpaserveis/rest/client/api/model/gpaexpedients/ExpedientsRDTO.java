@@ -192,6 +192,9 @@ public class ExpedientsRDTO {
 
   @JsonProperty("unitatGestoraIdext")
   private BigDecimal unitatGestoraIdext = null;
+  
+  @JsonProperty("numeroRegistre")
+  private String numeroRegistre = null;
 
   public ExpedientsRDTO accioEstatIdext(BigDecimal accioEstatIdext) {
     this.accioEstatIdext = accioEstatIdext;
@@ -1164,6 +1167,19 @@ public class ExpedientsRDTO {
   public void setUnitatGestoraIdext(BigDecimal unitatGestoraIdext) {
     this.unitatGestoraIdext = unitatGestoraIdext;
   }
+  
+  /**
+  * Get numeroRegistre
+  * @return numeroRegistre
+ **/
+ @ApiModelProperty(value = "")
+ public String getNumeroRegistre() {
+   return numeroRegistre;
+ }
+
+ public void setNumeroRegistre(String numeroRegistre) {
+   this.numeroRegistre = numeroRegistre;
+ }
 
 
   @Override
