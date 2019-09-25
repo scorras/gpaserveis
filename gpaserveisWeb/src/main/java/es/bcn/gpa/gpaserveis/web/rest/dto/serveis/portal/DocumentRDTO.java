@@ -12,13 +12,15 @@ import lombok.Setter;
 
 @ApiModel(value = "Document")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "nom" })
+@JsonPropertyOrder({ "id", "idGestorDocumental", "nom" })
 @Getter
 @Setter
 public class DocumentRDTO {
 
 	@ApiModelProperty(value = "Id del document")
 	private BigDecimal id;
+	@ApiModelProperty(value = "Id del gestor documental")
+	private String idGestorDocumental;
 	@ApiModelProperty(value = "Nom del document")
 	private String nom;
 

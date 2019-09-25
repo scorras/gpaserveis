@@ -593,6 +593,7 @@ public class ConverterHelper {
 			for (DocsEntradaRDTO docsEntradaRDTO : docsEntradaRDTOList) {
 				documentAportatConsultaRDTO = new DocumentAportatConsultaRDTO();
 				documentAportatConsultaRDTO.setId(docsEntradaRDTO.getId());
+				documentAportatConsultaRDTO.setIdGestorDocumental(docsEntradaRDTO.getCodi());
 				documentAportatConsultaRDTO.setNom(docsEntradaRDTO.getDocsFisicsNom());
 				documentAportatConsultaRDTO.setDataPresentacio((docsEntradaRDTO.getDataPresentacio() != null)
 						? dateTimeFormatter.print(docsEntradaRDTO.getDataPresentacio()) : null);
@@ -741,6 +742,7 @@ public class ConverterHelper {
 			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
 			documentAportatAccioRDTO = new DocumentAportatAccioRDTO();
 			documentAportatAccioRDTO.setId(docsEntradaRDTO.getId());
+			documentAportatAccioRDTO.setIdGestorDocumental(docsEntradaRDTO.getCodi());
 			if (docsEntradaRDTO.getDocsFisics() != null) {
 				documentAportatAccioRDTO.setNom(docsEntradaRDTO.getDocsFisics().getNom());
 			}

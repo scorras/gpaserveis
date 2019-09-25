@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @ApiModel(value = "MciPortasigSignataris")
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -16,6 +17,7 @@ import lombok.Setter;
 		"dataCaducitat", "codiEstat", "raoRetorn", "ticketPeticio", "carrec", "tractament", "instantSignatura" })
 @Getter
 @Setter
+@ToString
 public class MciPortasigSignatarisDTO {
 
 	@ApiModelProperty(required = true, value = "Identificador ControlUser de l'usuari que ha de signar/validar el document. Té 10 posicions com màxim. Requerit.")
