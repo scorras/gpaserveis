@@ -9,12 +9,14 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @ApiModel(value = "MciPortasigResultatPeticio")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "codiAplicacio", "codiPeticio", "codiEstat", "raoRetorn", "detallSignataris" })
 @Getter
 @Setter
+@ToString
 public class MciPortasigResultatPeticioDTO {
 
 	@ApiModelProperty(required = true, value = "Identificador enviat per l'aplicació client en la seva petició original de signatura/validació. Té 20 posicions. Requerit.")
