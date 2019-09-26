@@ -2,13 +2,13 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.15.1"
+  version: "1.15.2"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
     email: "sergio.corras@iecisa.com"
   license:
-    name: "Llicència IMI"
+    name: "LlicÃ¨ncia IMI"
 basePath: "/services/gpaserveis/rest"
 tags:
 - name: "Serveis MDS API"
@@ -91,8 +91,8 @@ paths:
       parameters:
       - name: "aplicacioNegoci"
         in: "query"
-        description: "En cas que el tramitador sigui una aplicació de negoci, filtra\
-          \ procediments pel nom de dita aplicació"
+        description: "En cas que el tramitador sigui una aplicaciï¿½ de negoci, filtra\
+          \ procediments pel nom de dita aplicaciï¿½"
         required: false
         type: "string"
         allowEmptyValue: false
@@ -113,13 +113,13 @@ paths:
         allowEmptyValue: false
       - name: "dataPresentacioFi"
         in: "query"
-        description: "Filtra expedients per data de presentació (format dd/MM/aaaa)"
+        description: "Filtra expedients per data de presentaciï¿½ (format dd/MM/aaaa)"
         required: false
         type: "string"
         allowEmptyValue: false
       - name: "dataPresentacioInici"
         in: "query"
-        description: "Filtra expedients per data de presentació (format dd/MM/aaaa)"
+        description: "Filtra expedients per data de presentaciï¿½ (format dd/MM/aaaa)"
         required: false
         type: "string"
         allowEmptyValue: false
@@ -147,7 +147,7 @@ paths:
         allowEmptyValue: false
       - name: "numeroPagina"
         in: "query"
-        description: "Indicarà en quina pàgina hauria de començar els resultats demanats\
+        description: "Indicarï¿½ en quina pï¿½gina hauria de comenï¿½ar els resultats demanats\
           \ en una cerca"
         required: false
         type: "integer"
@@ -156,7 +156,7 @@ paths:
         allowEmptyValue: false
       - name: "ordenarPer"
         in: "query"
-        description: "Indicarà el camp mitjançant el qual s'ordenarà el resultat de\
+        description: "Indicarï¿½ el camp mitjanï¿½ant el qual s'ordenarï¿½ el resultat de\
           \ la cerca"
         required: false
         type: "string"
@@ -169,7 +169,7 @@ paths:
         - "DARRERA_MODIFICACIO"
       - name: "resultatsPerPagina"
         in: "query"
-        description: "Indicarà el número de resultats per pàgina"
+        description: "Indicarï¿½ el nï¿½mero de resultats per pï¿½gina"
         required: false
         type: "integer"
         default: 20
@@ -177,7 +177,7 @@ paths:
         allowEmptyValue: false
       - name: "sentitOrdenacio"
         in: "query"
-        description: "Indicarà el sentit d'ordenació per al resultat de la cerca"
+        description: "Indicarï¿½ el sentit d'ordenaciï¿½ per al resultat de la cerca"
         required: false
         type: "string"
         default: "DESC"
@@ -187,7 +187,7 @@ paths:
         - "DESC"
       - name: "tramitador"
         in: "query"
-        description: "Filtra procediments per aplicació de tramitació"
+        description: "Filtra procediments per aplicaciï¿½ de tramitaciï¿½"
         required: false
         type: "string"
         allowEmptyValue: false
@@ -203,7 +203,7 @@ paths:
       - name: "versioProcediment"
         in: "query"
         description: "En cas que s'indiqui codi de procediment, filtra expedients\
-          \ per versió de procediment"
+          \ per versiï¿½ de procediment"
         required: false
         type: "string"
         default: "TOTES_LES_VERSIONS"
@@ -228,7 +228,7 @@ paths:
     post:
       tags:
       - "Serveis Portal API"
-      summary: "Crear una sol·licitud d'un expedient"
+      summary: "Crear una solï¿½licitud d'un expedient"
       operationId: "crearSolicitudExpedientUsingPOST"
       consumes:
       - "application/json"
@@ -237,7 +237,7 @@ paths:
       parameters:
       - in: "body"
         name: "solicitudExpedient"
-        description: "Dades de la creació de l'expedient"
+        description: "Dades de la creaciï¿½ de l'expedient"
         required: false
         schema:
           $ref: "#/definitions/ExpedientCrear"
@@ -288,7 +288,7 @@ paths:
     post:
       tags:
       - "Serveis Portal API"
-      summary: "Actualitzar dades de la sol·licitud de l'expedient"
+      summary: "Actualitzar dades de la solï¿½licitud de l'expedient"
       operationId: "actualitzarSolicitudExpedientUsingPOST"
       consumes:
       - "application/json"
@@ -302,7 +302,7 @@ paths:
         type: "string"
       - in: "body"
         name: "solicitudExpedient"
-        description: "Dades de la actualització de l'expedient"
+        description: "Dades de la actualitzaciï¿½ de l'expedient"
         required: false
         schema:
           $ref: "#/definitions/ExpedientActualitzar"
@@ -326,7 +326,7 @@ paths:
     post:
       tags:
       - "Serveis Portal API"
-      summary: "Aportar documentació a l'expedient"
+      summary: "Aportar documentaciï¿½ a l'expedient"
       operationId: "aportarDocumentacioExpedientUsingPOST"
       consumes:
       - "application/json"
@@ -340,7 +340,7 @@ paths:
         type: "string"
       - in: "body"
         name: "documentacioAportar"
-        description: "Dades de la creació del document"
+        description: "Dades de la creaciï¿½ del document"
         required: false
         schema:
           $ref: "#/definitions/DocumentacioAportar"
@@ -364,7 +364,7 @@ paths:
     post:
       tags:
       - "Serveis Portal API"
-      summary: "Digitalitzar documentació a l'expedient"
+      summary: "Digitalitzar documentaciï¿½ a l'expedient"
       operationId: "digitalitzarDocumentacioExpedientUsingPOST"
       consumes:
       - "application/json"
@@ -378,7 +378,7 @@ paths:
         type: "string"
       - in: "body"
         name: "documentDigitalitzar"
-        description: "Dades de la creació del document"
+        description: "Dades de la creaciï¿½ del document"
         required: false
         schema:
           $ref: "#/definitions/DocumentDigitalitzar"
@@ -449,7 +449,7 @@ paths:
         type: "string"
       - in: "body"
         name: "documentSubstituir"
-        description: "Dades de la versió del document"
+        description: "Dades de la versiï¿½ del document"
         required: false
         schema:
           $ref: "#/definitions/DocumentAportatSubstituir"
@@ -554,7 +554,7 @@ paths:
     post:
       tags:
       - "Serveis Portal API"
-      summary: "Respondre a requeriment o tràmit d'al·legacions o IP"
+      summary: "Respondre a requeriment o trï¿½mit d'alï¿½legacions o IP"
       operationId: "esmenarExpedientUsingPOST"
       consumes:
       - "application/json"
@@ -592,7 +592,7 @@ paths:
     post:
       tags:
       - "Serveis Portal API"
-      summary: "Registrar la sol·licitud de l'expedient"
+      summary: "Registrar la solï¿½licitud de l'expedient"
       operationId: "registrarSolicitudExpedientUsingPOST"
       consumes:
       - "application/json"
@@ -627,7 +627,11 @@ paths:
       summary: "Exporta les dades de l'expedient en format XML"
       operationId: "exportarDadesExpedientXmlUsingGET"
       produces:
+<<<<<<< HEAD
       - "text/plain"
+=======
+      - "application/json"
+>>>>>>> origin/master
       parameters:
       - name: "codiExpedient"
         in: "path"
@@ -661,7 +665,7 @@ paths:
       parameters:
       - name: "accio"
         in: "path"
-        description: "Acció a realitzar amb l'expedient"
+        description: "Acciï¿½ a realitzar amb l'expedient"
         required: true
         type: "string"
         enum:
@@ -705,7 +709,7 @@ paths:
       parameters:
       - name: "activableFormatElectronic"
         in: "query"
-        description: "Filtra procediments per canals d'activació en format electrò\
+        description: "Filtra procediments per canals d'activaciï¿½ en format electrï¿½\
           nic"
         required: false
         type: "array"
@@ -722,14 +726,14 @@ paths:
         - "PER_CANAL_ESPECIFIC"
       - name: "actuacio"
         in: "query"
-        description: "Filtra procediments per actuació"
+        description: "Filtra procediments per actuaciï¿½"
         required: false
         type: "string"
         allowEmptyValue: false
       - name: "aplicacioNegoci"
         in: "query"
-        description: "En cas que el tramitador sigui una aplicació de negoci, filtra\
-          \ procediments pel nom de dita aplicació"
+        description: "En cas que el tramitador sigui una aplicaciï¿½ de negoci, filtra\
+          \ procediments pel nom de dita aplicaciï¿½"
         required: false
         type: "string"
         allowEmptyValue: false
@@ -741,7 +745,7 @@ paths:
         allowEmptyValue: false
       - name: "competenciaAssociada"
         in: "query"
-        description: "Filtrar procediments per conjunt de competències associades"
+        description: "Filtrar procediments per conjunt de competï¿½ncies associades"
         required: false
         type: "array"
         items:
@@ -791,7 +795,7 @@ paths:
         - "NO"
       - name: "familia"
         in: "query"
-        description: "Filtrar procediments per conjunt de famílies"
+        description: "Filtrar procediments per conjunt de famï¿½lies"
         required: false
         type: "array"
         items:
@@ -837,7 +841,7 @@ paths:
         allowEmptyValue: false
       - name: "numeroPagina"
         in: "query"
-        description: "Indicarà en quina pàgina hauria de començar els resultats demanats\
+        description: "Indicarï¿½ en quina pï¿½gina hauria de comenï¿½ar els resultats demanats\
           \ en una cerca"
         required: false
         type: "integer"
@@ -846,7 +850,7 @@ paths:
         allowEmptyValue: false
       - name: "ordenarPer"
         in: "query"
-        description: "Indicarà el camp mitjançant el qual s'ordenarà el resultat de\
+        description: "Indicarï¿½ el camp mitjanï¿½ant el qual s'ordenarï¿½ el resultat de\
           \ la cerca"
         required: false
         type: "string"
@@ -860,13 +864,13 @@ paths:
         - "DARRERA_MODIFICACIO"
       - name: "organResolutori"
         in: "query"
-        description: "Filtra procediments per òrgan resolutori"
+        description: "Filtra procediments per ï¿½rgan resolutori"
         required: false
         type: "string"
         allowEmptyValue: false
       - name: "resultatsPerPagina"
         in: "query"
-        description: "Indicarà el número de resultats per pàgina"
+        description: "Indicarï¿½ el nï¿½mero de resultats per pï¿½gina"
         required: false
         type: "integer"
         default: 20
@@ -874,7 +878,7 @@ paths:
         allowEmptyValue: false
       - name: "sentitOrdenacio"
         in: "query"
-        description: "Indicarà el sentit d'ordenació per al resultat de la cerca"
+        description: "Indicarï¿½ el sentit d'ordenaciï¿½ per al resultat de la cerca"
         required: false
         type: "string"
         default: "ASC"
@@ -884,7 +888,7 @@ paths:
         - "DESC"
       - name: "tramitador"
         in: "query"
-        description: "Filtra procediments per aplicació de tramitació"
+        description: "Filtra procediments per aplicaciï¿½ de tramitaciï¿½"
         required: false
         type: "string"
         allowEmptyValue: false
@@ -943,14 +947,14 @@ paths:
     get:
       tags:
       - "Serveis Portal API"
-      summary: "Consultar les dades d'operació del tràmit"
+      summary: "Consultar les dades d'operaciï¿½ del trï¿½mit"
       operationId: "consultarDadesOperacioTramitUsingGET"
       produces:
       - "application/json"
       parameters:
       - name: "codiTramit"
         in: "path"
-        description: "Codi del tràmit"
+        description: "Codi del trï¿½mit"
         required: true
         type: "string"
         enum:
@@ -981,14 +985,14 @@ paths:
     get:
       tags:
       - "Serveis Portal API"
-      summary: "Consultar les dades de documentació d'entrada del procediment"
+      summary: "Consultar les dades de documentaciï¿½ d'entrada del procediment"
       operationId: "consultarDocumentacioEntradaProcedimentUsingGET"
       produces:
       - "application/json"
       parameters:
       - name: "codiTramit"
         in: "path"
-        description: "Codi del tràmit"
+        description: "Codi del trï¿½mit"
         required: true
         type: "string"
         enum:
@@ -1028,7 +1032,7 @@ paths:
       parameters:
       - in: "body"
         name: "resultatPeticio"
-        description: "Resultat del portasignatures a una petició de vist-i-plau/signatura"
+        description: "Resultat del portasignatures a una peticiï¿½ de vist-i-plau/signatura"
         required: true
         schema:
           $ref: "#/definitions/MciPortasigResultatPeticio"
@@ -1057,8 +1061,8 @@ paths:
       parameters:
       - name: "aplicacioNegoci"
         in: "query"
-        description: "En cas que el tramitador sigui una aplicació de negoci, filtra\
-          \ procediments pel nom de dita aplicació"
+        description: "En cas que el tramitador sigui una aplicaciï¿½ de negoci, filtra\
+          \ procediments pel nom de dita aplicaciï¿½"
         required: false
         type: "string"
         allowEmptyValue: false
@@ -1079,13 +1083,13 @@ paths:
         allowEmptyValue: false
       - name: "dataPresentacioFi"
         in: "query"
-        description: "Filtra expedients per data de presentació (format dd/MM/aaaa)"
+        description: "Filtra expedients per data de presentaciï¿½ (format dd/MM/aaaa)"
         required: false
         type: "string"
         allowEmptyValue: false
       - name: "dataPresentacioInici"
         in: "query"
-        description: "Filtra expedients per data de presentació (format dd/MM/aaaa)"
+        description: "Filtra expedients per data de presentaciï¿½ (format dd/MM/aaaa)"
         required: false
         type: "string"
         allowEmptyValue: false
@@ -1113,7 +1117,7 @@ paths:
         allowEmptyValue: false
       - name: "numeroPagina"
         in: "query"
-        description: "Indicarà en quina pàgina hauria de començar els resultats demanats\
+        description: "Indicarï¿½ en quina pï¿½gina hauria de comenï¿½ar els resultats demanats\
           \ en una cerca"
         required: false
         type: "integer"
@@ -1122,7 +1126,7 @@ paths:
         allowEmptyValue: false
       - name: "ordenarPer"
         in: "query"
-        description: "Indicarà el camp mitjançant el qual s'ordenarà el resultat de\
+        description: "Indicarï¿½ el camp mitjanï¿½ant el qual s'ordenarï¿½ el resultat de\
           \ la cerca"
         required: false
         type: "string"
@@ -1135,7 +1139,7 @@ paths:
         - "DARRERA_MODIFICACIO"
       - name: "resultatsPerPagina"
         in: "query"
-        description: "Indicarà el número de resultats per pàgina"
+        description: "Indicarï¿½ el nï¿½mero de resultats per pï¿½gina"
         required: false
         type: "integer"
         default: 20
@@ -1143,7 +1147,7 @@ paths:
         allowEmptyValue: false
       - name: "sentitOrdenacio"
         in: "query"
-        description: "Indicarà el sentit d'ordenació per al resultat de la cerca"
+        description: "Indicarï¿½ el sentit d'ordenaciï¿½ per al resultat de la cerca"
         required: false
         type: "string"
         default: "DESC"
@@ -1153,7 +1157,7 @@ paths:
         - "DESC"
       - name: "tramitador"
         in: "query"
-        description: "Filtra procediments per aplicació de tramitació"
+        description: "Filtra procediments per aplicaciï¿½ de tramitaciï¿½"
         required: false
         type: "string"
         allowEmptyValue: false
@@ -1169,7 +1173,7 @@ paths:
       - name: "versioProcediment"
         in: "query"
         description: "En cas que s'indiqui codi de procediment, filtra expedients\
-          \ per versió de procediment"
+          \ per versiï¿½ de procediment"
         required: false
         type: "string"
         default: "TOTES_LES_VERSIONS"
@@ -1195,7 +1199,7 @@ paths:
     post:
       tags:
       - "Serveis Tramitadors API"
-      summary: "Accés a l'expedient (funcionari dona accés)"
+      summary: "Accï¿½s a l'expedient (funcionari dona accï¿½s)"
       operationId: "accesExpedientUsingPOST"
       consumes:
       - "application/json"
@@ -1209,7 +1213,7 @@ paths:
         type: "string"
       - in: "body"
         name: "expedientAcces"
-        description: "Dades de l'accés a l'expedient"
+        description: "Dades de l'accï¿½s a l'expedient"
         required: false
         schema:
           $ref: "#/definitions/ExpedientAcces"
@@ -1247,7 +1251,7 @@ paths:
         type: "string"
       - in: "body"
         name: "expedientAcumulacio"
-        description: "Dades de l'acumulació d'expedient"
+        description: "Dades de l'acumulaciï¿½ d'expedient"
         required: false
         schema:
           $ref: "#/definitions/ExpedientAcumulacio"
@@ -1271,7 +1275,7 @@ paths:
     post:
       tags:
       - "Serveis Tramitadors API"
-      summary: "Arxivar sol·licitud incompleta"
+      summary: "Arxivar solï¿½licitud incompleta"
       operationId: "arxivarSolicitudExpedientUsingPOST"
       consumes:
       - "application/json"
@@ -1309,7 +1313,7 @@ paths:
     post:
       tags:
       - "Serveis Tramitadors API"
-      summary: "Incorporar un nou document electrònic"
+      summary: "Incorporar un nou document electrï¿½nic"
       operationId: "incorporarNouDocumentExpedientUsingPOST"
       consumes:
       - "multipart/form-data"
@@ -1351,7 +1355,7 @@ paths:
     post:
       tags:
       - "Serveis Tramitadors API"
-      summary: "Presentar declaració responsable"
+      summary: "Presentar declaraciï¿½ responsable"
       operationId: "presentarDeclaracioResponsableExpedientUsingPOST"
       consumes:
       - "application/json"
@@ -1389,7 +1393,7 @@ paths:
     post:
       tags:
       - "Serveis Tramitadors API"
-      summary: "Força el canvi d'estat de l'expedient a Finzalizado i Comunicat despré\
+      summary: "Forï¿½a el canvi d'estat de l'expedient a Finzalizado i Comunicat desprï¿½\
         s de la signatura dels documents"
       operationId: "digitalitzarDocumentExpedientUsingPOST"
       consumes:
@@ -1404,7 +1408,7 @@ paths:
         type: "string"
       - in: "body"
         name: "documentDigitalitzacio"
-        description: "Dades de la digitalització del document de l'expedient"
+        description: "Dades de la digitalitzaciï¿½ del document de l'expedient"
         required: false
         schema:
           $ref: "#/definitions/DocumentDigitalitzacio"
@@ -1428,7 +1432,7 @@ paths:
     post:
       tags:
       - "Serveis Tramitadors API"
-      summary: "Preparar un requeriment a l’interessat"
+      summary: "Preparar un requeriment a lï¿½interessat"
       operationId: "prepararRequerimentExpedientUsingPOST"
       consumes:
       - "multipart/form-data"
@@ -1470,7 +1474,7 @@ paths:
     post:
       tags:
       - "Serveis Tramitadors API"
-      summary: "Força el canvi d'estat de l'expedient a Finzalizado i Comunicat despré\
+      summary: "Forï¿½a el canvi d'estat de l'expedient a Finzalizado i Comunicat desprï¿½\
         s de la signatura dels documents"
       operationId: "documentSignatExpedientUsingPOST"
       consumes:
@@ -1509,7 +1513,7 @@ paths:
     post:
       tags:
       - "Serveis Tramitadors API"
-      summary: "Enviar notificació de l'expedient"
+      summary: "Enviar notificaciï¿½ de l'expedient"
       operationId: "notificarExpedientUsingPOST"
       consumes:
       - "application/json"
@@ -1523,7 +1527,7 @@ paths:
         type: "string"
       - in: "body"
         name: "expedientNotificacio"
-        description: "Dades de la notificació de l'expedient"
+        description: "Dades de la notificaciï¿½ de l'expedient"
         required: false
         schema:
           $ref: "#/definitions/ExpedientNotificacioRDTO"
@@ -1595,7 +1599,7 @@ paths:
     post:
       tags:
       - "Serveis Tramitadors API"
-      summary: "Registrar comunicació de l'expedient"
+      summary: "Registrar comunicaciï¿½ de l'expedient"
       operationId: "registrarComunicacioExpedientUsingPOST"
       consumes:
       - "application/json"
@@ -1609,7 +1613,7 @@ paths:
         type: "string"
       - in: "body"
         name: "expedientComunicat"
-        description: "Dades de la comunicació de l'expedient"
+        description: "Dades de la comunicaciï¿½ de l'expedient"
         required: false
         schema:
           $ref: "#/definitions/ExpedientComunicat"
@@ -1700,7 +1704,7 @@ paths:
         type: "string"
       - in: "body"
         name: "documentAportatRebutjar"
-        description: "Dades de la versió del document"
+        description: "Dades de la versiï¿½ del document"
         required: false
         schema:
           $ref: "#/definitions/DocumentAportatRebutjar"
@@ -1787,7 +1791,7 @@ paths:
         type: "string"
       - in: "body"
         name: "documentAportatValidar"
-        description: "Dades de la versió del document"
+        description: "Dades de la versiï¿½ del document"
         required: false
         schema:
           $ref: "#/definitions/DocumentAportatValidar"
@@ -1816,7 +1820,7 @@ paths:
     post:
       tags:
       - "Serveis Tramitadors API"
-      summary: "Pausar la tramitació de l'expedient"
+      summary: "Pausar la tramitaciï¿½ de l'expedient"
       operationId: "pausarExpedientUsingPOST"
       consumes:
       - "application/json"
@@ -1854,7 +1858,7 @@ paths:
     post:
       tags:
       - "Serveis Tramitadors API"
-      summary: "Força la recuperació de l'expedient inclús abans que hagi transcorregut\
+      summary: "Forï¿½a la recuperaciï¿½ de l'expedient inclï¿½s abans que hagi transcorregut\
         \ el termini"
       operationId: "reactivarExpedientUsingPOST"
       consumes:
@@ -1869,7 +1873,7 @@ paths:
         type: "string"
       - in: "body"
         name: "expedientReactivacio"
-        description: "Dades de la reactivació de l'expedient"
+        description: "Dades de la reactivaciï¿½ de l'expedient"
         required: false
         schema:
           $ref: "#/definitions/ExpedientReactivacio"
@@ -1893,8 +1897,8 @@ paths:
     post:
       tags:
       - "Serveis Tramitadors API"
-      summary: "Eleva una proposta de resolució per sotmetre-la al vist-i-plau i signatura\
-        \ dels òrgans competents"
+      summary: "Eleva una proposta de resoluciï¿½ per sotmetre-la al vist-i-plau i signatura\
+        \ dels ï¿½rgans competents"
       operationId: "proposarResolucioExpedientUsingPOST"
       consumes:
       - "application/json"
@@ -1908,7 +1912,7 @@ paths:
         type: "string"
       - in: "body"
         name: "expedientPropostaResolucio"
-        description: "Dades de la proposta de resolució de l'expedient"
+        description: "Dades de la proposta de resoluciï¿½ de l'expedient"
         required: false
         schema:
           $ref: "#/definitions/ExpedientPropostaResolucio"
@@ -2066,7 +2070,7 @@ paths:
         type: "string"
       - in: "body"
         name: "expedientConvidarTramitar"
-        description: "Dades de la invitació a tramitar l'expedient"
+        description: "Dades de la invitaciï¿½ a tramitar l'expedient"
         required: false
         schema:
           $ref: "#/definitions/ExpedientConvidarTramitar"
@@ -2090,7 +2094,7 @@ paths:
     post:
       tags:
       - "Serveis Tramitadors API"
-      summary: "Donar resposta a l'acció Convidar a tramitar"
+      summary: "Donar resposta a l'acciï¿½ Convidar a tramitar"
       operationId: "retornarExpedientUsingPOST"
       consumes:
       - "application/json"
@@ -2128,7 +2132,7 @@ paths:
     post:
       tags:
       - "Serveis Tramitadors API"
-      summary: "Canviar la unitat gestora de l’expedient"
+      summary: "Canviar la unitat gestora de lï¿½expedient"
       operationId: "canviarUnitatGestoraExpedientUsingPOST"
       consumes:
       - "application/json"
@@ -2142,7 +2146,7 @@ paths:
         type: "string"
       - in: "body"
         name: "expedientCanviUnitatGestora"
-        description: "Dades de la versió del document"
+        description: "Dades de la versiï¿½ del document"
         required: false
         schema:
           $ref: "#/definitions/ExpedientCanviUnitatGestora"
@@ -2166,7 +2170,7 @@ paths:
     post:
       tags:
       - "Serveis Tramitadors API"
-      summary: "Validar la sol·licitud de l'expedient"
+      summary: "Validar la solï¿½licitud de l'expedient"
       operationId: "validarSolicitudExpedientUsingPOST"
       consumes:
       - "application/json"
@@ -2180,7 +2184,7 @@ paths:
         type: "string"
       - in: "body"
         name: "expedientValidacio"
-        description: "Dades de la validació de l'expedient"
+        description: "Dades de la validaciï¿½ de l'expedient"
         required: false
         schema:
           $ref: "#/definitions/ExpedientValidacio"
@@ -2224,10 +2228,10 @@ definitions:
         description: "Codi de l'atribut"
       descripcio:
         type: "string"
-        description: "Descripció de l'atribut"
+        description: "Descripciï¿½ de l'atribut"
       descripcioCastella:
         type: "string"
-        description: "Descripció de l'atribut en castellà"
+        description: "Descripciï¿½ de l'atribut en castellï¿½"
       ordre:
         type: "string"
         description: "Ordre del atribut dins del grup"
@@ -2252,21 +2256,21 @@ definitions:
         - "MUNICIPI"
       titol:
         type: "string"
-        description: "Títol de l'atribut"
+        description: "Tï¿½tol de l'atribut"
       titolCastella:
         type: "string"
-        description: "Títol de l'atribut en castellà"
+        description: "Tï¿½tol de l'atribut en castellï¿½"
       urlOrigen:
         type: "string"
         description: "URL d'origen a nivell d'atribut"
       validacions:
         type: "array"
-        description: "Validacións de l'atribut"
+        description: "Validaciï¿½ns de l'atribut"
         items:
           $ref: "#/definitions/Validacions"
       valorsLlista:
         type: "array"
-        description: "Si el tipus de camp de l'atribut és llista, valors d'aquesta\
+        description: "Si el tipus de camp de l'atribut ï¿½s llista, valors d'aquesta\
           \ llista"
         items:
           $ref: "#/definitions/ValorsLlista"
@@ -2306,10 +2310,10 @@ definitions:
         description: "Codi de l'atribut"
       descripcio:
         type: "string"
-        description: "Descripció de l'atribut"
+        description: "Descripciï¿½ de l'atribut"
       descripcioCastella:
         type: "string"
-        description: "Descripció de l'atribut en castellà"
+        description: "Descripciï¿½ de l'atribut en castellï¿½"
       tipus:
         type: "string"
         description: "Tipus de camp de l'atribut"
@@ -2331,10 +2335,10 @@ definitions:
         - "MUNICIPI"
       titol:
         type: "string"
-        description: "Títol de l'atribut"
+        description: "Tï¿½tol de l'atribut"
       titolCastella:
         type: "string"
-        description: "Títol de l'atribut en castellà"
+        description: "Tï¿½tol de l'atribut en castellï¿½"
     title: "AtributsRequerits"
   ConfiguracioDocumentacio:
     type: "object"
@@ -2344,10 +2348,10 @@ definitions:
         description: "Codi del document"
       descripcio:
         type: "string"
-        description: "Descripció del document"
+        description: "Descripciï¿½ del document"
       descripcioCastella:
         type: "string"
-        description: "Descripció del document en castellà"
+        description: "Descripciï¿½ del document en castellï¿½"
     title: "ConfiguracioDocumentacio"
   ConfiguracioDocumentacioRequeridaConsulta:
     type: "object"
@@ -2357,16 +2361,16 @@ definitions:
         description: "Codi del document"
       descripcio:
         type: "string"
-        description: "Descripció del document"
+        description: "Descripciï¿½ del document"
       descripcioAmpliada:
         type: "string"
-        description: "Descripció ampliada del document"
+        description: "Descripciï¿½ ampliada del document"
       descripcioCastella:
         type: "string"
-        description: "Descripció del document en castellà"
+        description: "Descripciï¿½ del document en castellï¿½"
       suportConfeccio:
         type: "string"
-        description: "Suport per a la confecció del document"
+        description: "Suport per a la confecciï¿½ del document"
         enum:
         - "SENSE_SUPORT"
         - "GUIA"
@@ -2374,7 +2378,7 @@ definitions:
         - "PLANTILLA"
       suportEnllac:
         type: "string"
-        description: "Enllaç document de suport per a la confecció del document"
+        description: "Enllaï¿½ document de suport per a la confecciï¿½ del document"
     title: "ConfiguracioDocumentacioRequeridaConsulta"
   ConfiguracionDocumentacioAportadaConsulta:
     type: "object"
@@ -2384,13 +2388,13 @@ definitions:
         description: "Codi del document"
       descripcio:
         type: "string"
-        description: "Descripció del document"
+        description: "Descripciï¿½ del document"
       descripcioAmpliada:
         type: "string"
-        description: "Descripció ampliada del document"
+        description: "Descripciï¿½ ampliada del document"
       descripcioCastella:
         type: "string"
-        description: "Descripció del document en castellà"
+        description: "Descripciï¿½ del document en castellï¿½"
       obligatori:
         type: "boolean"
         description: "Obligatori"
@@ -2399,7 +2403,7 @@ definitions:
         description: "Repetible"
       suportConfeccio:
         type: "string"
-        description: "Suport per a la confecció del document"
+        description: "Suport per a la confecciï¿½ del document"
         enum:
         - "SENSE_SUPORT"
         - "GUIA"
@@ -2407,7 +2411,7 @@ definitions:
         - "PLANTILLA"
       suportEnllac:
         type: "string"
-        description: "Enllaç document de suport per a la confecció del document"
+        description: "Enllaï¿½ document de suport per a la confecciï¿½ del document"
     title: "ConfiguracionDocumentacioAportadaConsulta"
   DadesContacte:
     type: "object"
@@ -2429,7 +2433,7 @@ definitions:
         description: "Fax"
       mobil:
         type: "string"
-        description: "Telèfon mobil"
+        description: "Telï¿½fon mobil"
       municipi:
         type: "string"
         description: "Codi INE del Municipi"
@@ -2441,7 +2445,7 @@ definitions:
         description: "Nom de la via"
       numero:
         type: "string"
-        description: "Número"
+        description: "Nï¿½mero"
       pais:
         type: "string"
         description: "Codi INE del Pais"
@@ -2453,13 +2457,13 @@ definitions:
         description: "Porta"
       provincia:
         type: "string"
-        description: "Codi INE de la Província"
+        description: "Codi INE de la Provï¿½ncia"
       provinciaEstranger:
         type: "string"
         description: "Provincia estrangera"
       telefon:
         type: "string"
-        description: "Telèfon fixe"
+        description: "Telï¿½fon fixe"
       tipusVia:
         type: "string"
         description: "Codi INE del tipus de via"
@@ -2483,7 +2487,7 @@ definitions:
         description: "Email de la persona"
       mobil:
         type: "string"
-        description: "Telèfon mobil de la persona"
+        description: "Telï¿½fon mobil de la persona"
       municipi:
         type: "string"
         description: "Nom del Municipi"
@@ -2492,7 +2496,7 @@ definitions:
         description: "Nom de la via"
       numero:
         type: "string"
-        description: "Número"
+        description: "Nï¿½mero"
       pis:
         type: "string"
         description: "Pis"
@@ -2501,16 +2505,16 @@ definitions:
         description: "Porta"
       provincia:
         type: "string"
-        description: "Nom de la Província"
+        description: "Nom de la Provï¿½ncia"
       telefon:
         type: "string"
-        description: "Telèfon fixe de la persona"
+        description: "Telï¿½fon fixe de la persona"
       tipusVia:
         type: "string"
         description: "nom del tipus de via"
       viaNotificacio:
         type: "string"
-        description: "Via de notificació a la persona"
+        description: "Via de notificaciï¿½ a la persona"
         enum:
         - "ELECTRONICA"
         - "PAPER"
@@ -2520,18 +2524,18 @@ definitions:
     properties:
       endpointAutenticacio:
         type: "string"
-        description: "Endpoint d'autenticació"
+        description: "Endpoint d'autenticaciï¿½"
       endpointSignatura:
         type: "string"
         description: "Endpoint de signatura"
       informacioCiutada:
         type: "string"
-        description: "Informació complementària per a mostrar al ciutadà"
+        description: "Informaciï¿½ complementï¿½ria per a mostrar al ciutadï¿½"
       nivellAutenticacio:
         type: "string"
-        description: "Nivell d'autenticació requerit"
+        description: "Nivell d'autenticaciï¿½ requerit"
       terminisDuracio:
-        description: "Terminis de duració"
+        description: "Terminis de duraciï¿½"
         $ref: "#/definitions/TerminisDuracio"
       tractamentGdpr:
         type: "string"
@@ -2566,7 +2570,7 @@ definitions:
         description: "Comentari del document."
       configuracioDocumentacio:
         type: "string"
-        description: "Codi corresponent a la configuració del document definit a RPA."
+        description: "Codi corresponent a la configuraciï¿½ del document definit a RPA."
       idioma:
         type: "string"
         description: "Idioma del document."
@@ -2576,7 +2580,7 @@ definitions:
         - "ALTRES"
       origen:
         type: "string"
-        description: "Origen del tipus de documentació."
+        description: "Origen del tipus de documentaciï¿½."
         enum:
         - "INTERN"
         - "EXTERN"
@@ -2589,13 +2593,13 @@ definitions:
         $ref: "#/definitions/ConfiguracioDocumentacio"
       dataCreacio:
         type: "string"
-        description: "Data de creació del document"
+        description: "Data de creaciï¿½ del document"
       id:
         type: "number"
         description: "Id del document"
       origen:
         type: "string"
-        description: "Origen del tipus de documentació"
+        description: "Origen del tipus de documentaciï¿½"
         enum:
         - "INTERN"
         - "EXTERN"
@@ -2605,7 +2609,7 @@ definitions:
     properties:
       dataDigitalitzacio:
         type: "string"
-        description: "Data de digitalització del document."
+        description: "Data de digitalitzaciï¿½ del document."
       idioma:
         type: "string"
         description: "Idioma del document digitalitzat."
@@ -2625,22 +2629,25 @@ definitions:
         description: "Data de modificacio del document"
       dataPresentacio:
         type: "string"
-        description: "Data de presentació del document"
+        description: "Data de presentaciï¿½ del document"
       id:
         type: "number"
         description: "Id del document"
+      idGestorDocumental:
+        type: "string"
+        description: "Id del gestor documental"
       nom:
         type: "string"
         description: "Nom del document"
       origen:
         type: "string"
-        description: "Origen del tipus de documentació"
+        description: "Origen del tipus de documentaciï¿½"
         enum:
         - "INTERN"
         - "EXTERN"
       revisio:
         type: "string"
-        description: "Estat de revisió del document"
+        description: "Estat de revisiï¿½ del document"
         enum:
         - "CORRECTE"
         - "INCORRECTE"
@@ -2654,10 +2661,13 @@ definitions:
         $ref: "#/definitions/ConfiguracioDocumentacio"
       dataPresentacio:
         type: "string"
-        description: "Data de presentació del document"
+        description: "Data de presentaciï¿½ del document"
       id:
         type: "number"
         description: "Id del document"
+      idGestorDocumental:
+        type: "string"
+        description: "Id del gestor documental"
       nom:
         type: "string"
         description: "Nom del document"
@@ -2666,13 +2676,13 @@ definitions:
         $ref: "#/definitions/Registre"
       revisio:
         type: "string"
-        description: "Estat de revisió del document"
+        description: "Estat de revisiï¿½ del document"
         enum:
         - "CORRECTE"
         - "INCORRECTE"
         - "PENDENT"
       tramit:
-        description: "Tràmit"
+        description: "Trï¿½mit"
         $ref: "#/definitions/TramitsOvt"
     title: "DocumentAportatConsulta"
   DocumentAportatCrear:
@@ -2686,10 +2696,10 @@ definitions:
         description: "Comentari del document."
       configuracioDocumentacio:
         type: "string"
-        description: "Codi corresponent a la configuració del document definit a RPA."
+        description: "Codi corresponent a la configuraciï¿½ del document definit a RPA."
       declaracioResponsable:
         type: "boolean"
-        description: "Declaració Responsable"
+        description: "Declaraciï¿½ Responsable"
       fitxer:
         description: "Fitxer"
         $ref: "#/definitions/Fitxer"
@@ -2702,7 +2712,7 @@ definitions:
         - "ALTRES"
       origen:
         type: "string"
-        description: "Origen del tipus de documentació."
+        description: "Origen del tipus de documentaciï¿½."
         enum:
         - "INTERN"
         - "EXTERN"
@@ -2712,7 +2722,7 @@ definitions:
     properties:
       comentari:
         type: "string"
-        description: "Comentari amb la informació que NO ha estat validada."
+        description: "Comentari amb la informaciï¿½ que NO ha estat validada."
     title: "DocumentAportatRebutjar"
   DocumentAportatSubstituir:
     type: "object"
@@ -2725,7 +2735,7 @@ definitions:
         description: "Comentari del document."
       configuracioDocumentacio:
         type: "string"
-        description: "Codi corresponent a la configuració del document definit a RPA."
+        description: "Codi corresponent a la configuraciï¿½ del document definit a RPA."
       fitxer:
         description: "Fitxer"
         $ref: "#/definitions/Fitxer"
@@ -2734,7 +2744,7 @@ definitions:
         description: "Idioma del document"
       origen:
         type: "string"
-        description: "Origen del tipus de documentació."
+        description: "Origen del tipus de documentaciï¿½."
         enum:
         - "INTERN"
         - "EXTERN"
@@ -2744,7 +2754,7 @@ definitions:
     properties:
       comentari:
         type: "string"
-        description: "Comentari amb la informació que ha estat validada."
+        description: "Comentari amb la informaciï¿½ que ha estat validada."
     title: "DocumentAportatValidar"
   DocumentComplecio:
     type: "object"
@@ -2768,15 +2778,15 @@ definitions:
         description: "Comentari del document."
       configuracio:
         type: "string"
-        description: "Configuració del document."
+        description: "Configuraciï¿½ del document."
         enum:
         - "APORTADA"
         - "GENERADA"
       configuracioDocumentacio:
         type: "string"
-        description: "Codi corresponent a la configuració del document definit a RPA."
+        description: "Codi corresponent a la configuraciï¿½ del document definit a RPA."
       digitalitzacio:
-        description: "Dades de digitalització."
+        description: "Dades de digitalitzaciï¿½."
         $ref: "#/definitions/Digitalitzacio"
       digitalitzat:
         type: "boolean"
@@ -2790,13 +2800,13 @@ definitions:
         - "ALTRES"
       origen:
         type: "string"
-        description: "Origen del tipus de documentació."
+        description: "Origen del tipus de documentaciï¿½."
         enum:
         - "INTERN"
         - "EXTERN"
       revisio:
         type: "string"
-        description: "Revisió del document."
+        description: "Revisiï¿½ del document."
         enum:
         - "CORRECTE"
         - "INCORRECTE"
@@ -2809,7 +2819,7 @@ definitions:
     properties:
       configuracio:
         type: "string"
-        description: "Configuració del document"
+        description: "Configuraciï¿½ del document"
         enum:
         - "APORTADA"
         - "GENERADA"
@@ -2818,22 +2828,22 @@ definitions:
         $ref: "#/definitions/ConfiguracioDocumentacio"
       dataCreacio:
         type: "string"
-        description: "Data de creació del document"
+        description: "Data de creaciï¿½ del document"
       dataModificacio:
         type: "string"
-        description: "Data de modificació del document"
+        description: "Data de modificaciï¿½ del document"
       id:
         type: "number"
         description: "Id del document"
       origen:
         type: "string"
-        description: "Origen del tipus de documentació"
+        description: "Origen del tipus de documentaciï¿½"
         enum:
         - "INTERN"
         - "EXTERN"
       revisio:
         type: "string"
-        description: "Estat de revisió del document"
+        description: "Estat de revisiï¿½ del document"
         enum:
         - "CORRECTE"
         - "INCORRECTE"
@@ -2855,7 +2865,7 @@ definitions:
     properties:
       documentacio:
         type: "array"
-        description: "Llista de documentació"
+        description: "Llista de documentaciï¿½"
         items:
           $ref: "#/definitions/DocumentDigitalitzarCrear"
       registrar:
@@ -2873,7 +2883,7 @@ definitions:
         description: "Data de modificacio del document"
       dataPresentacio:
         type: "string"
-        description: "Data de presentació del document"
+        description: "Data de presentaciï¿½ del document"
       id:
         type: "number"
         description: "Id del document"
@@ -2882,20 +2892,20 @@ definitions:
         description: "Nom del document"
       origen:
         type: "string"
-        description: "Origen del tipus de documentació"
+        description: "Origen del tipus de documentaciï¿½"
         enum:
         - "INTERN"
         - "EXTERN"
       revisio:
         type: "string"
-        description: "Estat de revisió del document"
+        description: "Estat de revisiï¿½ del document"
         enum:
         - "CORRECTE"
         - "INCORRECTE"
         - "PENDENT"
       urlDigitalitzacio:
         type: "string"
-        description: "Url que ens retorna el servei de digitalització"
+        description: "Url que ens retorna el servei de digitalitzaciï¿½"
     title: "DocumentDigitalitzarAccio"
   DocumentDigitalitzarCrear:
     type: "object"
@@ -2908,10 +2918,10 @@ definitions:
         description: "Comentari del document."
       configuracioDocumentacio:
         type: "string"
-        description: "Codi corresponent a la configuració del document definit a RPA."
+        description: "Codi corresponent a la configuraciï¿½ del document definit a RPA."
       origen:
         type: "string"
-        description: "Origen del tipus de documentació."
+        description: "Origen del tipus de documentaciï¿½."
         enum:
         - "INTERN"
         - "EXTERN"
@@ -2928,19 +2938,19 @@ definitions:
         description: "Comentari del document."
       configuracio:
         type: "string"
-        description: "Configuració del document."
+        description: "Configuraciï¿½ del document."
         enum:
         - "APORTADA"
         - "GENERADA"
       configuracioDocumentacio:
         type: "string"
-        description: "Codi corresponent a la configuració del document definit a RPA."
+        description: "Codi corresponent a la configuraciï¿½ del document definit a RPA."
       numeroRegistre:
         type: "string"
-        description: "Número de registre."
+        description: "Nï¿½mero de registre."
       origen:
         type: "string"
-        description: "Origen del tipus de documentació."
+        description: "Origen del tipus de documentaciï¿½."
         enum:
         - "INTERN"
         - "EXTERN"
@@ -2964,10 +2974,10 @@ definitions:
     properties:
       numeroDocument:
         type: "string"
-        description: "Número de document d'identitat de la persona"
+        description: "Nï¿½mero de document d'identitat de la persona"
       pais:
         type: "string"
-        description: "Codi INE del país del document d'identitat de la persona"
+        description: "Codi INE del paï¿½s del document d'identitat de la persona"
       tipusDocument:
         type: "string"
         description: "Tipus de document d'identitat de la persona"
@@ -2985,7 +2995,7 @@ definitions:
     properties:
       configuracio:
         type: "string"
-        description: "Configuració del document"
+        description: "Configuraciï¿½ del document"
         enum:
         - "APORTADA"
         - "GENERADA"
@@ -2994,7 +3004,7 @@ definitions:
         $ref: "#/definitions/ConfiguracioDocumentacio"
       dataCreacio:
         type: "string"
-        description: "Data de creació del document"
+        description: "Data de creaciï¿½ del document"
       id:
         type: "number"
         description: "Id del document"
@@ -3003,13 +3013,13 @@ definitions:
         description: "Nom del document"
       origen:
         type: "string"
-        description: "Origen del tipus de documentació"
+        description: "Origen del tipus de documentaciï¿½"
         enum:
         - "INTERN"
         - "EXTERN"
       revisio:
         type: "string"
-        description: "Estat de revisió del document"
+        description: "Estat de revisiï¿½ del document"
         enum:
         - "CORRECTE"
         - "INCORRECTE"
@@ -3028,14 +3038,14 @@ definitions:
         description: "Comentari del document."
       configuracio:
         type: "string"
-        description: "Configuració del document."
+        description: "Configuraciï¿½ del document."
         enum:
         - "APORTADA"
       configuracioDocumentacio:
         type: "string"
-        description: "Codi corresponent a la configuració del document definit a RPA."
+        description: "Codi corresponent a la configuraciï¿½ del document definit a RPA."
       digitalitzacio:
-        description: "Dades de digitalització."
+        description: "Dades de digitalitzaciï¿½."
         $ref: "#/definitions/Digitalitzacio"
       digitalitzat:
         type: "boolean"
@@ -3049,16 +3059,16 @@ definitions:
         - "ALTRES"
       numeroRegistre:
         type: "string"
-        description: "Número de registre."
+        description: "Nï¿½mero de registre."
       origen:
         type: "string"
-        description: "Origen del tipus de documentació."
+        description: "Origen del tipus de documentaciï¿½."
         enum:
         - "INTERN"
         - "EXTERN"
       revisio:
         type: "string"
-        description: "Revisió del document."
+        description: "Revisiï¿½ del document."
         enum:
         - "CORRECTE"
         - "INCORRECTE"
@@ -3076,7 +3086,7 @@ definitions:
         description: "Comentari del document."
       configuracioDocumentacio:
         type: "string"
-        description: "Codi corresponent a la configuració del document definit a RPA."
+        description: "Codi corresponent a la configuraciï¿½ del document definit a RPA."
       fitxer:
         description: "Fitxer"
         $ref: "#/definitions/Fitxer"
@@ -3089,7 +3099,7 @@ definitions:
         - "ALTRES"
       origen:
         type: "string"
-        description: "Origen del tipus de documentació."
+        description: "Origen del tipus de documentaciï¿½."
         enum:
         - "INTERN"
         - "EXTERN"
@@ -3101,7 +3111,7 @@ definitions:
     properties:
       documentacio:
         type: "array"
-        description: "Llista de documentació"
+        description: "Llista de documentaciï¿½"
         items:
           $ref: "#/definitions/DocumentAportatCrear"
       registrar:
@@ -3116,7 +3126,7 @@ definitions:
     properties:
       numeroDocument:
         type: "string"
-        description: "Número de document d'identitat de la persona"
+        description: "Nï¿½mero de document d'identitat de la persona"
       tipusDocument:
         type: "string"
         description: "Tipus de document d'identitat de la persona"
@@ -3135,7 +3145,7 @@ definitions:
         description: "Codi de l'error"
       descripcio:
         type: "string"
-        description: "Descripció de l'error"
+        description: "Descripciï¿½ de l'error"
     title: "Error"
   ExpedientAbandonament:
     type: "object"
@@ -3169,7 +3179,7 @@ definitions:
         description: "Codi identificador de l'expedient"
       dataLimit:
         type: "string"
-        description: "Data límit que estableix la durada de la pausa de l’expedient"
+        description: "Data lï¿½mit que estableix la durada de la pausa de lï¿½expedient"
       estat:
         type: "string"
         description: "Estat actual del expedient"
@@ -3202,7 +3212,7 @@ definitions:
         description: "Persona representant"
         $ref: "#/definitions/Persona"
       sollicitant:
-        description: "Persona sol·licitant"
+        description: "Persona solï¿½licitant"
         $ref: "#/definitions/Persona"
     title: "ExpedientActualitzar"
   ExpedientAcumulacio:
@@ -3245,7 +3255,7 @@ definitions:
     properties:
       canal:
         type: "string"
-        description: "Canal de comunicació informat."
+        description: "Canal de comunicaciï¿½ informat."
         enum:
         - "TELEFON"
         - "MAIL"
@@ -3280,29 +3290,29 @@ definitions:
         description: "Codi de l'expedient"
       configuracioDocumentacioRequerida:
         type: "array"
-        description: "Documentació requerida per l'expedient"
+        description: "Documentaciï¿½ requerida per l'expedient"
         items:
           $ref: "#/definitions/ConfiguracioDocumentacioRequeridaConsulta"
       dadesOperacio:
         type: "array"
-        description: "Dades d'operació de l'expedient"
+        description: "Dades d'operaciï¿½ de l'expedient"
         items:
           $ref: "#/definitions/AtributsExpedient"
       dataLimitAllegacions:
         type: "string"
-        description: "Data límit per presentar les al·legacions"
+        description: "Data lï¿½mit per presentar les alï¿½legacions"
       dataLimitEsmena:
         type: "string"
-        description: "Data límit per presentar els requeriments"
+        description: "Data lï¿½mit per presentar els requeriments"
       dataModificacio:
         type: "string"
-        description: "Data de l'última modificació de l'expedient"
+        description: "Data de l'ï¿½ltima modificaciï¿½ de l'expedient"
       dataPresentacio:
         type: "string"
-        description: "Data de presentació de l'expedient"
+        description: "Data de presentaciï¿½ de l'expedient"
       documentsAportats:
         type: "array"
-        description: "Documents aportats a l'expedient agrupats per tràmit"
+        description: "Documents aportats a l'expedient agrupats per trï¿½mit"
         items:
           $ref: "#/definitions/DocumentAportatConsulta"
       estat:
@@ -3310,10 +3320,10 @@ definitions:
         description: "Estat actual del expedient"
       estatCastella:
         type: "string"
-        description: "Estat actual del expedient en castellà"
+        description: "Estat actual del expedient en castellï¿½"
       historics:
         type: "array"
-        description: "Llista d'històrics de l'expedient"
+        description: "Llista d'histï¿½rics de l'expedient"
         items:
           $ref: "#/definitions/Historic"
       id:
@@ -3339,7 +3349,7 @@ definitions:
         description: "Representant principal de l'expedient"
         $ref: "#/definitions/Persona"
       sollicitant:
-        description: "Sol·licitant principal de l'expedient"
+        description: "Solï¿½licitant principal de l'expedient"
         $ref: "#/definitions/Persona"
       unitatGestora:
         description: "Unitat gestora"
@@ -3355,7 +3365,7 @@ definitions:
         description: "Codi de la Unitat Gestora"
       comentari:
         type: "string"
-        description: "Comentari associat a la invitació a tramitar."
+        description: "Comentari associat a la invitaciï¿½ a tramitar."
     title: "ExpedientConvidarTramitar"
   ExpedientCrear:
     type: "object"
@@ -3364,16 +3374,16 @@ definitions:
     - "sollicitant"
     properties:
       procediment:
-        description: "Procediment associat a la sol·licitud"
+        description: "Procediment associat a la solï¿½licitud"
         $ref: "#/definitions/ProcedimentExpedientCrear"
       representant:
         description: "Persona representant"
         $ref: "#/definitions/Persona"
       sollicitant:
-        description: "Persona sol·licitant"
+        description: "Persona solï¿½licitant"
         $ref: "#/definitions/Persona"
       unitatGestora:
-        description: "Unitat Gestora que tramitarà inicialment la sol·licitud"
+        description: "Unitat Gestora que tramitarï¿½ inicialment la solï¿½licitud"
         $ref: "#/definitions/UnitatGestoraExpedientCrear"
     title: "ExpedientCrear"
   ExpedientDocumentSignat:
@@ -3396,7 +3406,7 @@ definitions:
           $ref: "#/definitions/AtributRequerit"
       documentacio:
         type: "array"
-        description: "Llista de documentació requerida"
+        description: "Llista de documentaciï¿½ requerida"
         items:
           $ref: "#/definitions/DocumentRequeritCrear"
     title: "ExpedientEsmena"
@@ -3407,7 +3417,7 @@ definitions:
     properties:
       destinataris:
         type: "array"
-        description: "Destinataris de la notificació."
+        description: "Destinataris de la notificaciï¿½."
         items:
           $ref: "#/definitions/PersonaNotificacio"
       idsAnnexosList:
@@ -3423,7 +3433,7 @@ definitions:
     properties:
       dataLimit:
         type: "string"
-        description: "Data límit que estableix la durada de la pausa de l'expedient."
+        description: "Data lï¿½mit que estableix la durada de la pausa de l'expedient."
       motiu:
         type: "string"
         description: "Motiu per a pausar l'expedient"
@@ -3438,14 +3448,14 @@ definitions:
     properties:
       comentari:
         type: "string"
-        description: "Comentari associat a la proposta de resolució."
+        description: "Comentari associat a la proposta de resoluciï¿½."
     title: "ExpedientPropostaResolucio"
   ExpedientReactivacio:
     type: "object"
     properties:
       comentari:
         type: "string"
-        description: "comentari associat a la reactivació."
+        description: "comentari associat a la reactivaciï¿½."
     title: "ExpedientReactivacio"
   ExpedientRetorn:
     type: "object"
@@ -3473,31 +3483,31 @@ definitions:
     properties:
       comentari:
         type: "string"
-        description: "comentari associat a la validació."
+        description: "comentari associat a la validaciï¿½."
     title: "ExpedientValidacio"
   ExpedientsCerca:
     type: "object"
     properties:
       aplicacioNegoci:
         type: "string"
-        description: "Nom de l'aplicació, en cas que el tramitador sigui una aplicació\
+        description: "Nom de l'aplicaciï¿½, en cas que el tramitador sigui una aplicaciï¿½\
           \ de negoci"
       codi:
         type: "string"
         description: "Codi de l'expedient"
       dataModificacio:
         type: "string"
-        description: "Data de l'última modificació de l'expedient (format dd/MM/aaaa\
+        description: "Data de l'ï¿½ltima modificaciï¿½ de l'expedient (format dd/MM/aaaa\
           \ HH:mm:ss)"
       dataPresentacio:
         type: "string"
-        description: "Data de presentació de l'expedient (format dd/MM/aaaa HH:mm:ss)"
+        description: "Data de presentaciï¿½ de l'expedient (format dd/MM/aaaa HH:mm:ss)"
       estat:
         type: "string"
         description: "estat actual de l'expedient"
       estatCastella:
         type: "string"
-        description: "estat actual de l'expedient en castellà"
+        description: "estat actual de l'expedient en castellï¿½"
       id:
         type: "number"
         description: "Identificador de l'expedient"
@@ -3505,11 +3515,11 @@ definitions:
         description: "Procediment"
         $ref: "#/definitions/ProcedimentCerca"
       sollicitant:
-        description: "Sol·licitant de l'expedient"
+        description: "Solï¿½licitant de l'expedient"
         $ref: "#/definitions/Persona"
       tramitador:
         type: "string"
-        description: "Aplicació de tramitació"
+        description: "Aplicaciï¿½ de tramitaciï¿½"
         enum:
         - "APLICACIO_DE_NEGOCI"
         - "OGE"
@@ -3561,35 +3571,35 @@ definitions:
         description: "Columnes del grup d'atributs"
       descripcio:
         type: "string"
-        description: "Descripció del grup d'atributs"
+        description: "Descripciï¿½ del grup d'atributs"
       descripcioCastella:
         type: "string"
-        description: "Descripció del grup d'atributs en castellà"
+        description: "Descripciï¿½ del grup d'atributs en castellï¿½"
       ordre:
         type: "string"
         description: "Ordre del grup d'atributs"
       titol:
         type: "string"
-        description: "Títol del grup d'atributs"
+        description: "Tï¿½tol del grup d'atributs"
       titolCastella:
         type: "string"
-        description: "Títol del grup d'atributs en castellà"
+        description: "Tï¿½tol del grup d'atributs en castellï¿½"
       urlValidacio:
         type: "string"
-        description: "URL de validació a nivell de grup d'atributs"
+        description: "URL de validaciï¿½ a nivell de grup d'atributs"
     title: "Grups"
   Historic:
     type: "object"
     properties:
       dataCreacio:
         type: "string"
-        description: "Data de creació de l'històric"
+        description: "Data de creaciï¿½ de l'histï¿½ric"
       estat:
         type: "string"
-        description: "Estat de l'històric"
+        description: "Estat de l'histï¿½ric"
       estatCastella:
         type: "string"
-        description: "Estat de l'històric en castellà"
+        description: "Estat de l'histï¿½ric en castellï¿½"
     title: "Historic"
   MciPortasigResultatPeticio:
     type: "object"
@@ -3601,11 +3611,11 @@ definitions:
     properties:
       codiAplicacio:
         type: "string"
-        description: "Identificador enviat per l'aplicació client en la seva petició\
-          \ original de signatura/validació. Té 20 posicions. Requerit."
+        description: "Identificador enviat per l'aplicaciï¿½ client en la seva peticiï¿½\
+          \ original de signatura/validaciï¿½. Tï¿½ 20 posicions. Requerit."
       codiEstat:
         type: "string"
-        description: "Indicador de l'estat global de la petició, o buit en cas que\
+        description: "Indicador de l'estat global de la peticiï¿½, o buit en cas que\
           \ es produeixi un error. Requerit."
         enum:
         - "COMPLETADA"
@@ -3614,33 +3624,33 @@ definitions:
       codiPeticio:
         type: "string"
         description: "Identificador assignat pel Portasignatures en el moment d'acceptar\
-          \ la petició. 12 posicions. Requerit."
+          \ la peticiï¿½. 12 posicions. Requerit."
       detallSignataris:
         type: "array"
-        description: "Detall de l'estat parcial de la petició, pels casos en que s'hagi\
+        description: "Detall de l'estat parcial de la peticiï¿½, pels casos en que s'hagi\
           \ demanat circuit de signatures/validacions"
         items:
           $ref: "#/definitions/MciPortasigSignataris"
       raoRetorn:
         type: "string"
-        description: "Pel cas d'una petició globalment retornada, quina ha sigut la\
-          \ raó donada pel usuari signatari/validador responsable del retorn. Inclò\
-          s per a peticions retornades, aquest camp pot estar buit (no és obligat\
-          \ que l'usuari indiqui una raó). Opcional."
+        description: "Pel cas d'una peticiï¿½ globalment retornada, quina ha sigut la\
+          \ raï¿½ donada pel usuari signatari/validador responsable del retorn. Inclï¿½\
+          s per a peticions retornades, aquest camp pot estar buit (no ï¿½s obligat\
+          \ que l'usuari indiqui una raï¿½). Opcional."
     title: "MciPortasigResultatPeticio"
   MciPortasigResultatPeticioResposta:
     type: "object"
     properties:
       codiError:
         type: "string"
-        description: "Indicant quin error s'ha produït. Aquest error no tindrà tractament\
-          \ al costat del Portasignatures: si consigueix contactar a l'aplicació client,\
-          \ i si el web service resultatPeticio finalitza sense problemes tècnics,\
-          \ el Portasignatures considera que la notificació del resultat de la petició\
+        description: "Indicant quin error s'ha produï¿½t. Aquest error no tindrï¿½ tractament\
+          \ al costat del Portasignatures: si consigueix contactar a l'aplicaciï¿½ client,\
+          \ i si el web service resultatPeticio finalitza sense problemes tï¿½cnics,\
+          \ el Portasignatures considera que la notificaciï¿½ del resultat de la peticiï¿½\
           \ ja ha sigut realitzada."
       descError:
         type: "string"
-        description: "Text explicatiu de l'error produït."
+        description: "Text explicatiu de l'error produï¿½t."
     title: "MciPortasigResultatPeticioResposta"
   MciPortasigSignataris:
     type: "object"
@@ -3652,12 +3662,12 @@ definitions:
     properties:
       carrec:
         type: "number"
-        description: "Codi alfanumèric que indica el càrrec de l'usuari que ha de\
+        description: "Codi alfanumï¿½ric que indica el cï¿½rrec de l'usuari que ha de\
           \ signar/validar el document. Els valors possibles estan inventariats al\
-          \ mòdul de signatura de l'Ajuntament i caldrà contactar amb els responsables\
-          \ de Seguretat de l'IMI per obtenir-los. 8 posicions com a màxim. Opcional,\
-          \ però si s'informa cal informar a més el paràmetre tractament. No més es\
-          \ retorna si al demanar el alta de la petició es va indicar un valor de\
+          \ mï¿½dul de signatura de l'Ajuntament i caldrï¿½ contactar amb els responsables\
+          \ de Seguretat de l'IMI per obtenir-los. 8 posicions com a mï¿½xim. Opcional,\
+          \ perï¿½ si s'informa cal informar a mï¿½s el parï¿½metre tractament. No mï¿½s es\
+          \ retorna si al demanar el alta de la peticiï¿½ es va indicar un valor de\
           \ versioIntegracio igual o major que 2."
       codiEstat:
         type: "string"
@@ -3669,29 +3679,29 @@ definitions:
       codiUsuari:
         type: "string"
         description: "Identificador ControlUser de l'usuari que ha de signar/validar\
-          \ el document. Té 10 posicions com màxim. Requerit."
+          \ el document. Tï¿½ 10 posicions com mï¿½xim. Requerit."
       dataCaducitat:
         type: "string"
-        description: "Data, hora i minut límit abans de considerar aquest pas de la\
-          \ petició global com caducada i no permetre a l'usuari d'aquest pas signar\
-          \ el document. Si es supera la dataCaducitat en un pas, tota la petició\
-          \ global és considerada caducada, i l'aplicació origen és notificada. Opcional."
+        description: "Data, hora i minut lï¿½mit abans de considerar aquest pas de la\
+          \ peticiï¿½ global com caducada i no permetre a l'usuari d'aquest pas signar\
+          \ el document. Si es supera la dataCaducitat en un pas, tota la peticiï¿½\
+          \ global ï¿½s considerada caducada, i l'aplicaciï¿½ origen ï¿½s notificada. Opcional."
       esObligada:
         type: "boolean"
-        description: "Camp rellevant no més en el cas de demanar signatura/validació\
-          \ per part de dos o més usuaris. En aquest cas, amb true, indica que es\
+        description: "Camp rellevant no mï¿½s en el cas de demanar signatura/validaciï¿½\
+          \ per part de dos o mï¿½s usuaris. En aquest cas, amb true, indica que es\
           \ obligat que aquest usuari signi/validi el document, i que si l'usuari\
-          \ opta per retornar el document, la petició global serà retornada a l'aplicació\
-          \ origen (serà rebutjada), sense importar que la resta de usuaris signataris\
+          \ opta per retornar el document, la peticiï¿½ global serï¿½ retornada a l'aplicaciï¿½\
+          \ origen (serï¿½ rebutjada), sense importar que la resta de usuaris signataris\
           \ hagin signat/validat el document. Amb false, indica que si aquest usuari\
-          \ opta per retornar el document, el circuit de signatura continuarà, i que\
-          \ la petició global no més serà retornada a l'aplicació origen si tots els\
-          \ usuaris opten per retornar el document. Requerit (però ignorat en el cas\
-          \ de que no més s'informi un signatari, en aquest cas es true)."
+          \ opta per retornar el document, el circuit de signatura continuarï¿½, i que\
+          \ la peticiï¿½ global no mï¿½s serï¿½ retornada a l'aplicaciï¿½ origen si tots els\
+          \ usuaris opten per retornar el document. Requerit (perï¿½ ignorat en el cas\
+          \ de que no mï¿½s s'informi un signatari, en aquest cas es true)."
       instantSignatura:
         type: "string"
         description: "Instant (data i hora) en que l'usuari va signar el document.\
-          \ No més es retorna si al demanar el alta de la petició es va indicar un\
+          \ No mï¿½s es retorna si al demanar el alta de la peticiï¿½ es va indicar un\
           \ valor de versioIntegracio igual o major que 2. Aquest camp pot no estar\
           \ informat o estar buit, depenent de l'estat d'aquest pas."
       nifUsuari:
@@ -3699,35 +3709,35 @@ definitions:
         description: "NIF del usuari. 9 posicions. Requerit."
       nomCompletUsuari:
         type: "string"
-        description: "Nom i cognoms del usuari. 60 posicions com màxim. Opcional."
+        description: "Nom i cognoms del usuari. 60 posicions com mï¿½xim. Opcional."
       ordreIntervencio:
         type: "number"
-        description: "Valor numèric que indica si a aquest usuari se li demanarà que\
-          \ signi abans o desprès que a la resta d'usuaris signataris, es a dir, permet\
-          \ definir circuits seqüencials; primer es demanarà al que tingui el valor\
-          \ més baix (per exemple, 1), després al següent valor més baix (per exemple,\
-          \ 2) i així successivament. A més, el valor podrà ser el mateix per dos\
-          \ o més usuaris, indicant un circuit paral·lel, durant el qual aquests usuaris\
+        description: "Valor numï¿½ric que indica si a aquest usuari se li demanarï¿½ que\
+          \ signi abans o desprï¿½s que a la resta d'usuaris signataris, es a dir, permet\
+          \ definir circuits seqï¿½encials; primer es demanarï¿½ al que tingui el valor\
+          \ mï¿½s baix (per exemple, 1), desprï¿½s al segï¿½ent valor mï¿½s baix (per exemple,\
+          \ 2) i aixï¿½ successivament. A mï¿½s, el valor podrï¿½ ser el mateix per dos\
+          \ o mï¿½s usuaris, indicant un circuit paralï¿½lel, durant el qual aquests usuaris\
           \ poden anar signant/validant el document en qualsevol ordre. Requerit."
       raoRetorn:
         type: "string"
-        description: "Pel cas de retorn en aquest pas, quina ha sigut la raó donada\
+        description: "Pel cas de retorn en aquest pas, quina ha sigut la raï¿½ donada\
           \ pel usuari signatari/validador. Opcional. Aquest camp pot no estar informat\
-          \ o estar buit (no és obligat que l'usuari indiqui una raó). Té fins a 255\
+          \ o estar buit (no ï¿½s obligat que l'usuari indiqui una raï¿½). Tï¿½ fins a 255\
           \ posicions de text."
       ticketPeticio:
         type: "number"
         description: "Si el document ja ha sigut signat/vist-i-plau, en aquest camp\
-          \ s'informa el id assignat pel Mòdul de Signatura a aquesta signatura/ vist-i-plau.\
-          \ La aplicació client pot fer servir APIs del Mòdul de Signatura per a obtindre\
+          \ s'informa el id assignat pel Mï¿½dul de Signatura a aquesta signatura/ vist-i-plau.\
+          \ La aplicaciï¿½ client pot fer servir APIs del Mï¿½dul de Signatura per a obtindre\
           \ les dades de la signatura (timestamp, common name del certificat del signatari...).\
-          \ Opcional. Aquest camp pot no estar informat o estar buit. Té fins a 14\
+          \ Opcional. Aquest camp pot no estar informat o estar buit. Tï¿½ fins a 14\
           \ posicions de text."
       tipusDocument:
         type: "string"
-        description: "Amb el mateix significat que el paràmetre tipusDocument en les\
-          \ interfícies E/S de MciSignatura 1.0 o que el paràmetre política en MciSignatura\
-          \ 2.0. Té 50 posicions com màxim. Requerit."
+        description: "Amb el mateix significat que el parï¿½metre tipusDocument en les\
+          \ interfï¿½cies E/S de MciSignatura 1.0 o que el parï¿½metre polï¿½tica en MciSignatura\
+          \ 2.0. Tï¿½ 50 posicions com mï¿½xim. Requerit."
       tipusPeticio:
         type: "string"
         description: "Amb 2 valors possibles: SIGNATURA i VIST_I_PLAU, indicant si\
@@ -3737,12 +3747,12 @@ definitions:
         - "VIST_I_PLAU"
       tractament:
         type: "number"
-        description: "Codi alfanumèric que indica el tractament aplicable a l'usuari\
+        description: "Codi alfanumï¿½ric que indica el tractament aplicable a l'usuari\
           \ que ha de signar/validar el document. Els valors possibles estan inventariats\
-          \ al mòdul de signatura de l'Ajuntament i caldrà contactar amb els responsables\
-          \ de Seguretat de l'IMI per obtenir-los. 2 posicions com a màxim. Opcional,\
-          \ però si s'informa cal informar a més el paràmetre carrec.. No més es retorna\
-          \ si al demanar el alta de la petició es va indicar un valor de versioIntegracio\
+          \ al mï¿½dul de signatura de l'Ajuntament i caldrï¿½ contactar amb els responsables\
+          \ de Seguretat de l'IMI per obtenir-los. 2 posicions com a mï¿½xim. Opcional,\
+          \ perï¿½ si s'informa cal informar a mï¿½s el parï¿½metre carrec.. No mï¿½s es retorna\
+          \ si al demanar el alta de la peticiï¿½ es va indicar un valor de versioIntegracio\
           \ igual o major que 2."
     title: "MciPortasigSignataris"
   Paginacio:
@@ -3751,19 +3761,19 @@ definitions:
       numeroPagina:
         type: "integer"
         format: "int32"
-        description: "Número de pàgina de la cerca"
+        description: "Nï¿½mero de pï¿½gina de la cerca"
       resultatsPerPagina:
         type: "integer"
         format: "int32"
-        description: "Resultats per pàgina de la cerca"
+        description: "Resultats per pï¿½gina de la cerca"
       totalPagines:
         type: "integer"
         format: "int32"
-        description: "Número total de pàgines de la cerca"
+        description: "Nï¿½mero total de pï¿½gines de la cerca"
       totalResultats:
         type: "integer"
         format: "int64"
-        description: "Número total de resultats de la cerca"
+        description: "Nï¿½mero total de resultats de la cerca"
     title: "Paginacio"
   Persona:
     type: "object"
@@ -3778,14 +3788,14 @@ definitions:
         type: "string"
         description: "Cognom 2 de la persona"
       dadesNotificacio:
-        description: "Dades de notificació de la persona"
+        description: "Dades de notificaciï¿½ de la persona"
         $ref: "#/definitions/DadesContacte"
       documentIndentitat:
         description: "Document d'identitat de la persona"
         $ref: "#/definitions/DocumentIdentitat"
       nomRaoSocial:
         type: "string"
-        description: "Nom o raó social de la persona"
+        description: "Nom o raï¿½ social de la persona"
       tipusPersona:
         type: "string"
         description: "Tipus de persona"
@@ -3810,7 +3820,7 @@ definitions:
         type: "string"
         description: "Cognom 2 de la persona"
       dadesNotificacio:
-        description: "Dades de notificació de la persona"
+        description: "Dades de notificaciï¿½ de la persona"
         $ref: "#/definitions/DadesContacteNotificacio"
       documentIndentitat:
         description: "Document d'identitat de la persona"
@@ -3837,7 +3847,7 @@ definitions:
         description: "Document d'identitat de la persona que va a signar el document"
       matricula:
         type: "string"
-        description: "Matrícula de la persona que va a signar el document"
+        description: "Matrï¿½cula de la persona que va a signar el document"
       nom:
         type: "string"
         description: "Nom de la persona que va a signar el document"
@@ -3854,7 +3864,7 @@ definitions:
         description: "Document d'identitat de la persona que va a signar el document"
       matricula:
         type: "string"
-        description: "Matrícula de la persona que va a signar el document"
+        description: "Matrï¿½cula de la persona que va a signar el document"
       nom:
         type: "string"
         description: "Nom de la persona que va a signar el document"
@@ -3864,20 +3874,20 @@ definitions:
     properties:
       aplicacioNegoci:
         type: "string"
-        description: "Nom de l'aplicació, en cas que el tramitador sigui una aplicació\
+        description: "Nom de l'aplicaciï¿½, en cas que el tramitador sigui una aplicaciï¿½\
           \ de negoci"
       codi:
         type: "string"
         description: "Codi del procediment"
       descripcio:
         type: "string"
-        description: "Descripció del procediment"
+        description: "Descripciï¿½ del procediment"
       estat:
         type: "string"
         description: "Estat actual del procediment"
       estatCastella:
         type: "string"
-        description: "Estat actual del procediment en castellà"
+        description: "Estat actual del procediment en castellï¿½"
       id:
         type: "number"
         description: "Identificador del procediment"
@@ -3886,13 +3896,13 @@ definitions:
         description: "Nom del procediment"
       nomCastella:
         type: "string"
-        description: "Nom del procediment en castellà"
+        description: "Nom del procediment en castellï¿½"
       organResolutori:
         type: "string"
-        description: "Òrgan resolutori del procediment"
+        description: "ï¿½rgan resolutori del procediment"
       tramitador:
         type: "string"
-        description: "Aplicació de tramitació"
+        description: "Aplicaciï¿½ de tramitaciï¿½"
         enum:
         - "APLICACIO_DE_NEGOCI"
         - "OGE"
@@ -3906,7 +3916,7 @@ definitions:
         $ref: "#/definitions/UnitatGestora"
       versio:
         type: "number"
-        description: "Versió del procediment"
+        description: "Versiï¿½ del procediment"
     title: "ProcedimentCerca"
   ProcedimentConsulta:
     type: "object"
@@ -3915,20 +3925,20 @@ definitions:
         type: "string"
         description: "Codi del procediment"
       dadesIdentificacio:
-        description: "Dades d'identificació del procediment"
+        description: "Dades d'identificaciï¿½ del procediment"
         $ref: "#/definitions/DadesIdentificacio"
       descripcio:
         type: "string"
-        description: "Descripció del procediment"
+        description: "Descripciï¿½ del procediment"
       descripcioCastella:
         type: "string"
-        description: "Descripció del procediment en castellà"
+        description: "Descripciï¿½ del procediment en castellï¿½"
       estat:
         type: "string"
         description: "Estat actual del procediment"
       estatCastella:
         type: "string"
-        description: "Estat actual del procediment en castellà"
+        description: "Estat actual del procediment en castellï¿½"
       id:
         type: "number"
         description: "Identificador del procediment"
@@ -3947,10 +3957,10 @@ definitions:
         description: "Nom del procediment"
       nomCastella:
         type: "string"
-        description: "Nom del procediment en castellà"
+        description: "Nom del procediment en castellï¿½"
       organResolutori:
         type: "string"
-        description: "Òrgan resolutori"
+        description: "ï¿½rgan resolutori"
       ugo:
         type: "array"
         description: "Llista d'unitats gestores operatives"
@@ -3961,7 +3971,7 @@ definitions:
         $ref: "#/definitions/UnitatGestora"
       versio:
         type: "number"
-        description: "Versió del procediment"
+        description: "Versiï¿½ del procediment"
     title: "ProcedimentConsulta"
   ProcedimentExpedientCrear:
     type: "object"
@@ -3980,7 +3990,7 @@ definitions:
         description: "Data del registre"
       numRegistre:
         type: "string"
-        description: "Número del registre"
+        description: "Nï¿½mero del registre"
       persona:
         description: "Persona que ha efectuat el registre"
         $ref: "#/definitions/Persona"
@@ -3993,7 +4003,7 @@ definitions:
         $ref: "#/definitions/ConfiguracioDocumentacio"
       dataCreacio:
         type: "string"
-        description: "Data de creació del document"
+        description: "Data de creaciï¿½ del document"
       id:
         type: "number"
         description: "Id del document"
@@ -4002,7 +4012,7 @@ definitions:
         description: "Nom del document"
       origen:
         type: "string"
-        description: "Origen del tipus de documentació"
+        description: "Origen del tipus de documentaciï¿½"
         enum:
         - "INTERN"
         - "EXTERN"
@@ -4020,7 +4030,7 @@ definitions:
         description: "Registre del document"
         $ref: "#/definitions/Registre"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostSubstituirDocument"
   RespostaAbandonarExpedient:
@@ -4030,7 +4040,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaAbandonarExpedient"
   RespostaAccesExpedient:
@@ -4040,7 +4050,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaAccesExpedient"
   RespostaActualitzarExpedient:
@@ -4050,7 +4060,7 @@ definitions:
         description: "Expedient actualitzat"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaActualitzarExpedient"
   RespostaAcumularExpedient:
@@ -4065,7 +4075,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaAcumularExpedient"
   RespostaAportarDocumentacio:
@@ -4084,10 +4094,10 @@ definitions:
         description: "Expedient del document"
         $ref: "#/definitions/ExpedientAccio"
       registre:
-        description: "Registre de la documentació"
+        description: "Registre de la documentaciï¿½"
         $ref: "#/definitions/Registre"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaAportarDocumentacio"
   RespostaArxivarExpedient:
@@ -4097,7 +4107,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaArxivarExpedient"
   RespostaCanviarUnitatGestoraExpedient:
@@ -4107,7 +4117,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccioUnitatGestora"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaCanviarUnitatGestoraExpedient"
   RespostaCercaExpedients:
@@ -4135,11 +4145,11 @@ definitions:
     properties:
       configuracioDocumentacioAportada:
         type: "array"
-        description: "Llista de configuració documentació aportada"
+        description: "Llista de configuraciï¿½ documentaciï¿½ aportada"
         items:
           $ref: "#/definitions/ConfiguracionDocumentacioAportadaConsulta"
       tramit:
-        description: "Dades del tràmit"
+        description: "Dades del trï¿½mit"
         $ref: "#/definitions/TramitsOvt"
     title: "RespostaConsultaConfiguracioDocumentacioAportada"
   RespostaConsultaExpedients:
@@ -4161,7 +4171,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaConvidarTramitarExpedient"
   RespostaCrearSolicitud:
@@ -4171,17 +4181,17 @@ definitions:
         description: "Expedient creat en estat inicial"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaCrearSolicitud"
   RespostaDadesOperacio:
     type: "object"
     properties:
       dadesOperacio:
-        description: "Llista de dades d'operació"
+        description: "Llista de dades d'operaciï¿½"
         $ref: "#/definitions/DadesOperacio"
       tramit:
-        description: "Dades del tràmit"
+        description: "Dades del trï¿½mit"
         $ref: "#/definitions/TramitsOvt"
     title: "RespostaDadesOperacio"
   RespostaDigitalitzarDocument:
@@ -4194,10 +4204,10 @@ definitions:
         description: "Expedient del document"
         $ref: "#/definitions/ExpedientAccio"
       registre:
-        description: "Registre de la documentació"
+        description: "Registre de la documentaciï¿½"
         $ref: "#/definitions/Registre"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaDigitalitzarDocument"
   RespostaDocumentSignatExpedient:
@@ -4207,7 +4217,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaDocumentSignatExpedient"
   RespostaEsborrarDocument:
@@ -4220,7 +4230,7 @@ definitions:
         description: "Expedient del document"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaEsborrarDocument"
   RespostaEsmenarExpedient:
@@ -4234,7 +4244,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaEsmenarExpedient"
   RespostaEvidenciaDigitalitzacio:
@@ -4245,11 +4255,11 @@ definitions:
         description: "Codi de l'error si el resultat es KO"
       dataDigitalitzacio:
         type: "string"
-        description: "Data i hora de digitalització del document si el resultat es\
+        description: "Data i hora de digitalitzaciï¿½ del document si el resultat es\
           \ OK"
       descripcioError:
         type: "string"
-        description: "Descripció de l'error si el resultat es KO"
+        description: "Descripciï¿½ de l'error si el resultat es KO"
       idDocScan:
         type: "string"
         description: "Identificador d'opentext del document"
@@ -4278,10 +4288,10 @@ definitions:
         description: "Expedient del document"
         $ref: "#/definitions/ExpedientAccio"
       registre:
-        description: "Registre de la documentació"
+        description: "Registre de la documentaciï¿½"
         $ref: "#/definitions/Registre"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaIncorporarNouDocument"
   RespostaNotificarExpedientRDTO:
@@ -4292,9 +4302,9 @@ definitions:
         $ref: "#/definitions/ExpedientAccio"
       idNotificacio:
         type: "number"
-        description: "Identificador de la notificació"
+        description: "Identificador de la notificaciï¿½"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaNotificarExpedientRDTO"
   RespostaObtenirDocumentIntraoperabilitat:
@@ -4307,10 +4317,10 @@ definitions:
         description: "Expedient del document"
         $ref: "#/definitions/ExpedientAccio"
       registre:
-        description: "Registre de la documentació"
+        description: "Registre de la documentaciï¿½"
         $ref: "#/definitions/Registre"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaObtenirDocumentIntraoperabilitat"
   RespostaPausarExpedient:
@@ -4320,7 +4330,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccioPausar"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaPausarExpedient"
   RespostaPrepararRequeriment:
@@ -4333,7 +4343,7 @@ definitions:
         description: "Expedient del document"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaPrepararRequeriment"
   RespostaPresentarDeclaracioResponsable:
@@ -4346,7 +4356,7 @@ definitions:
         description: "Expedient del document"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaPresentarDeclaracioResponsable"
   RespostaProposarResolucioExpedient:
@@ -4356,7 +4366,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaProposarResolucioExpedient"
   RespostaReactivarExpedient:
@@ -4366,7 +4376,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaReactivarExpedient"
   RespostaRebutjarDocument:
@@ -4376,7 +4386,7 @@ definitions:
         description: "Document rebutjat"
         $ref: "#/definitions/DocumentAportatAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaRebutjarDocument"
   RespostaRegistrarComunicacioExpedient:
@@ -4386,7 +4396,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaRegistrarComunicacioExpedient"
   RespostaRegistrarExpedient:
@@ -4403,7 +4413,7 @@ definitions:
         description: "Dades del registre de l'expedient"
         $ref: "#/definitions/Registre"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaRegistrarExpedient"
   RespostaResolucioValidarDocument:
@@ -4413,7 +4423,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaResolucioValidarDocument"
   RespostaRetornarExpedien:
@@ -4423,7 +4433,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaRetornarExpedien"
   RespostaSignarDocument:
@@ -4433,7 +4443,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaSignarDocument"
   RespostaTancarExpedient:
@@ -4443,7 +4453,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaTancarExpedient"
   RespostaTornarEnrereExpedient:
@@ -4453,7 +4463,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaTornarEnrereExpedient"
   RespostaUploadDocument:
@@ -4469,7 +4479,7 @@ definitions:
         description: "Registre del document"
         $ref: "#/definitions/Registre"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaUploadDocument"
   RespostaValidarDocument:
@@ -4479,7 +4489,7 @@ definitions:
         description: "Document validat"
         $ref: "#/definitions/DocumentAportatAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaValidarDocument"
   RespostaValidarExpedient:
@@ -4489,7 +4499,7 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
-        description: "Resultat de l'operació"
+        description: "Resultat de l'operaciï¿½"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaValidarExpedient"
   ResultatResposta:
@@ -4497,12 +4507,12 @@ definitions:
     properties:
       codi:
         type: "string"
-        description: "Codi resultat de l'operació"
+        description: "Codi resultat de l'operaciï¿½"
       descripcio:
         type: "string"
-        description: "Descripció del resultat de l'operació"
+        description: "Descripciï¿½ del resultat de l'operaciï¿½"
       detallError:
-        description: "En cas d'ocórrer, detall de l'error"
+        description: "En cas d'ocï¿½rrer, detall de l'error"
         $ref: "#/definitions/Error"
     title: "ResultatResposta"
   RetornNotificacio:
@@ -4514,42 +4524,42 @@ definitions:
         description: "codi de l'error"
       dataAcusamentRebuda:
         type: "string"
-        description: "Data de l'acussament de rebuda de la notificació. Format: dd/MM/yyyy\
+        description: "Data de l'acussament de rebuda de la notificaciï¿½. Format: dd/MM/yyyy\
           \ HH:mm:ss"
       dataEnviament:
         type: "string"
-        description: "Data d'enviament de la notificació. Format: dd/MM/yyyy HH:mm:ss"
+        description: "Data d'enviament de la notificaciï¿½. Format: dd/MM/yyyy HH:mm:ss"
       dataHoraAceptacioRebuig:
         type: "string"
-        description: "Data en la que ha estat acceptada/rebutjada la notificació.\
+        description: "Data en la que ha estat acceptada/rebutjada la notificaciï¿½.\
           \ Format: dd/MM/yyyy HH:mm:ss"
       dataHoraDiposit:
         type: "string"
-        description: "Data en la que ha estat diposada la notificació. Format: dd/MM/yyyy\
+        description: "Data en la que ha estat diposada la notificaciï¿½. Format: dd/MM/yyyy\
           \ HH:mm:ss"
       dataHoraRegistre:
         type: "string"
-        description: "Data en la que ha estat registrada la notificació. Format: dd/MM/yyyy\
+        description: "Data en la que ha estat registrada la notificaciï¿½. Format: dd/MM/yyyy\
           \ HH:mm:ss"
       dataHoraVisualitzacio:
         type: "string"
-        description: "Data en la que ha estat visualitzada la notificació. Format:\
+        description: "Data en la que ha estat visualitzada la notificaciï¿½. Format:\
           \ dd/MM/yyyy HH:mm:ss"
       dataLimit:
         type: "string"
-        description: "Data límit de la notificació. Format: dd/MM/yyyy HH:mm:ss"
+        description: "Data lï¿½mit de la notificaciï¿½. Format: dd/MM/yyyy HH:mm:ss"
       descripcioError:
         type: "string"
-        description: "Descripció de l'error"
+        description: "Descripciï¿½ de l'error"
       docEvidenciaElectronic:
         type: "string"
-        description: "Document de la evidència electrònica de la notificació"
+        description: "Document de la evidï¿½ncia electrï¿½nica de la notificaciï¿½"
       docEvidenciaPaper:
         type: "string"
-        description: "Document de la evidència en paper de la notificació"
+        description: "Document de la evidï¿½ncia en paper de la notificaciï¿½"
       estat:
         type: "string"
-        description: "Estat de la notificació"
+        description: "Estat de la notificaciï¿½"
         enum:
         - "Pendent de processar"
         - "Registrada"
@@ -4557,26 +4567,26 @@ definitions:
         - "Visualitzada"
         - "Rebutjada"
         - "Acceptada"
-        - "Rebutjada sense accés"
-        - "Rebutjada sense acció"
+        - "Rebutjada sense accï¿½s"
+        - "Rebutjada sense acciï¿½"
         - "Error"
       notificacioId:
         type: "integer"
         format: "int64"
-        description: "Identificador de la notificació"
+        description: "Identificador de la notificaciï¿½"
       numRegistre:
         type: "string"
-        description: "Número de registre de la notificació."
+        description: "Nï¿½mero de registre de la notificaciï¿½."
     title: "RetornNotificacio"
   TerminisDuracio:
     type: "object"
     properties:
       dataFiVigencia:
         type: "string"
-        description: "Data fi vigència"
+        description: "Data fi vigï¿½ncia"
       dataIniciVigencia:
         type: "string"
-        description: "Data inici vigència"
+        description: "Data inici vigï¿½ncia"
       periodicitat:
         type: "string"
         description: "Periodicitat del procediment"
@@ -4587,10 +4597,10 @@ definitions:
         - "ESPORADIC"
       terminiMaxim:
         type: "string"
-        description: "Termini màxim de duració del procediment"
+        description: "Termini mï¿½xim de duraciï¿½ del procediment"
       unitat:
         type: "string"
-        description: "Unitat de mesura del termini de duració"
+        description: "Unitat de mesura del termini de duraciï¿½"
         enum:
         - "DIES_HABILS"
         - "DIES_NATURALS"
@@ -4604,7 +4614,7 @@ definitions:
     properties:
       codi:
         type: "string"
-        description: "Codi del tràmit"
+        description: "Codi del trï¿½mit"
         enum:
         - "SOL"
         - "APO"
@@ -4612,7 +4622,7 @@ definitions:
         - "ALE"
       nom:
         type: "string"
-        description: "Nom del tràmit"
+        description: "Nom del trï¿½mit"
     title: "TramitsOvt"
   UnitatGestora:
     type: "object"
@@ -4645,7 +4655,7 @@ definitions:
     properties:
       tipus:
         type: "string"
-        description: "Tipus de validació"
+        description: "Tipus de validaciï¿½"
         enum:
         - "OBLIGATORI"
         - "MENOR"
@@ -4660,7 +4670,7 @@ definitions:
         - "URL"
       valorsValidacions:
         type: "array"
-        description: "Valors aplicables a la validació"
+        description: "Valors aplicables a la validaciï¿½"
         items:
           $ref: "#/definitions/ValorsValidacions"
     title: "Validacions"
@@ -4682,8 +4692,8 @@ definitions:
     properties:
       ordre:
         type: "string"
-        description: "Ordre del valor aplicable a la validació"
+        description: "Ordre del valor aplicable a la validaciï¿½"
       valor:
         type: "string"
-        description: "Valor aplicable a la validació"
+        description: "Valor aplicable a la validaciï¿½"
     title: "ValorsValidacions"
