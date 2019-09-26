@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.15.0"
+  version: "1.15.2"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -620,6 +620,34 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /serveis/portal/expedients/{codiExpedient}/report/exportacio-xml:
+    get:
+      tags:
+      - "Serveis Portal API"
+      summary: "Exporta les dades de l'expedient en format XML"
+      operationId: "exportarDadesExpedientXmlUsingGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codiExpedient"
+        in: "path"
+        description: "Codi de l'expedient"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /serveis/portal/expedients/{codiExpedient}/{accio}:
     post:
       tags:
@@ -2601,6 +2629,9 @@ definitions:
       id:
         type: "number"
         description: "Id del document"
+      idGestorDocumental:
+        type: "string"
+        description: "Id del gestor documental"
       nom:
         type: "string"
         description: "Nom del document"
@@ -2630,6 +2661,9 @@ definitions:
       id:
         type: "number"
         description: "Id del document"
+      idGestorDocumental:
+        type: "string"
+        description: "Id del gestor documental"
       nom:
         type: "string"
         description: "Nom del document"
