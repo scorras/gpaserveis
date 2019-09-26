@@ -627,11 +627,7 @@ paths:
       summary: "Exporta les dades de l'expedient en format XML"
       operationId: "exportarDadesExpedientXmlUsingGET"
       produces:
-<<<<<<< HEAD
       - "text/plain"
-=======
-      - "application/json"
->>>>>>> origin/master
       parameters:
       - name: "codiExpedient"
         in: "path"
