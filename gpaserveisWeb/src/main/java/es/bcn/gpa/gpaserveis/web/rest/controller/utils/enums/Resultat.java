@@ -144,14 +144,18 @@ public enum Resultat {
 	OK_OBTENIR_DOCUMENT_INTRAOPERABILITAT("OK", "Document obtingut correctament"),
 
 	ERROR_OBTENIR_DOCUMENT_INTRAOPERABILITAT("ERROR", "No s'ha pogut obtenir el document per intraoperabilitat"),
-	
+
 	OK_OBTENIR_EXPEDIENT("OK", "Expedient obtingut correctament"),
 
 	ERROR_OBTENIR_EXPEDIENT("ERROR", "No s'ha pogut obtenir el expedient"),
-	
+
 	OK_REVISAR_EXPEDIENT("OK", "Expedient revisat correctament"),
 
-	ERROR_REVISAR_EXPEDIENT("ERROR", "No s'ha pogut revisar l'expedient");
+	ERROR_REVISAR_EXPEDIENT("ERROR", "No s'ha pogut revisar l'expedient"),
+
+	OK_RECURS_EXPEDIENT("OK", "Recurs d'Expedient creat correctament"),
+
+	ERROR_RECURS_EXPEDIENT("ERROR", "No s'ha pogut crear el recurs d'expedient");
 
 	private String codi;
 

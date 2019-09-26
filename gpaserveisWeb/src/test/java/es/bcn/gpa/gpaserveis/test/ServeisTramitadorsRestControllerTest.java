@@ -285,4 +285,13 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 				.andExpect(status().isOk()).andDo(print());
 	}
 
+	@Test
+	public void testStage32_PresentarRecursExpedient() throws Exception {
+		String url = BASE_URL + "/expedients/recurs";
+		getMockMvc()
+				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+						"{\"procediment\":{\"id\":2},\"unitatGestora\":{\"codi\":\"TRANS\"},\"numeroRegistre\":\"1524/2018\",\"sollicitant\":{\"id\":null,\"dadesContacte\":null,\"docIndentitat\":null,\"tipusPersona\":\"FISICA\",\"nomRaoSocial\":\"El Àlvar\",\"cognom1\":\"Perau\",\"cognom2\":null,\"documentIdentitat\":{\"tipusDocument\":\"NIE\",\"numeroDocument\":\"00914091\",\"pais\":\"108\"},\"personesDadescontacte\":{}},\"representant\":null, \"expedientObjecteDeRecurs\":\"2019_EXP_335701\"}"))
+				.andExpect(status().isOk()).andDo(print());
+	}
+
 }

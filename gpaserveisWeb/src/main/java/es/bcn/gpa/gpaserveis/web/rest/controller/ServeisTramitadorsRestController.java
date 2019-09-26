@@ -146,6 +146,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.re
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.resolucio.validar.RespostaResolucioValidarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.PersonaSignarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.RespostaSignarDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.recurs.RecursExpedientRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.recurs.RespostaRecursExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.revisar.ExpedientRevisarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.revisar.RespostaRevisarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.PaginacioRDTO;
@@ -2619,6 +2621,86 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		return respostaRevisarSolicitudsRDTO;
+	}
+
+	/**
+	 * Revisar solicitud expedient.
+	 *
+	 * @param solicitudExpedient
+	 *            the solicitud expedient
+	 * @return the resposta revisar expedient RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@PostMapping("/expedients/recurs")
+	@ApiOperation(value = "Revisar una sol·licitud d'un expedient", tags = { "Serveis Tramitadors API" }, extensions = {
+			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	public RespostaRecursExpedientRDTO presentarRecursExpedient(
+			@ApiParam(value = "Dades de la revisió de l'expedient") @RequestBody RecursExpedientRDTO recursExpedient)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("presentarRecursExpedient(RecursExpedientRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		RespostaRecursExpedientRDTO respostaRecursExpedientRDTO = null;
+		ExpedientsRDTO returnExpedientsRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_RECURS_EXPEDIENT);
+		try {
+			// El id del procedimiento debe existir y el procedimiento debe
+			// encontrarse en estado Publicat
+			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
+					.consultarDadesBasiquesProcediment(recursExpedient.getProcediment().getId());
+			ServeisRestControllerValidationHelper.validateProcedimentCrearSolicitudExpedient(dadesProcedimentBDTO);
+
+			// El codi del expediente debe existir
+			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(ExpedientsApiParamToInternalMapper
+					.getCodiInternalValue(recursExpedient.getExpedientObjecteDeRecurs(), expedientsIdOrgan));
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_RECURS_EXPEDIENT);
+			// La acción debe estar disponible: estats posibles [Finalizat y
+			// comunicat, tancat]
+			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+					AccioTramitadorApiParamValue.PRESENTAR_RECURS, Resultat.ERROR_RECURS_EXPEDIENT);
+
+			// El codi de la unitat gestora, opcional, debe existir y estar
+			// vigente
+			BigDecimal idUnitatGestora = null;
+			if (recursExpedient.getUnitatGestora() != null) {
+				UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(
+						recursExpedient.getUnitatGestora().getCodi());
+				UnitatsGestoresRDTO unitatsGestoresRDTO = serveisService.consultarDadesUnitatGestora(unitatsGestoresCercaBDTO);
+				ServeisRestControllerValidationHelper.validateUnitatGestora(unitatsGestoresRDTO, dadesProcedimentBDTO,
+						Resultat.ERROR_RECURS_EXPEDIENT);
+				idUnitatGestora = unitatsGestoresRDTO.getId();
+			} else {
+				// Si no se indica, se establece la UGR del procedimiento
+				idUnitatGestora = dadesProcedimentBDTO.getProcedimentsRDTO().getUgrIdext();
+			}
+
+			ExpedientsRDTO expedientsRDTO = modelMapper.map(recursExpedient, ExpedientsRDTO.class);
+			// Se debe indicar el id de la Unitat Gestora recuperada
+			expedientsRDTO.setUnitatGestoraIdext(idUnitatGestora);
+			// Indicamos también el id del expediente objeto de recurso
+			expedientsRDTO.setExpedientObjecteDeRecursId(dadesExpedientBDTO.getExpedientsRDTO().getId());
+			ExpedientsCrearBDTO expedientsCrearBDTO = new ExpedientsCrearBDTO(expedientsRDTO);
+
+			returnExpedientsRDTO = serveisService.crearSollicitudExpedient(expedientsCrearBDTO);
+		} catch (GPAApiParamValidationException e) {
+			log.error("revisarSolicitudExpedient(ExpedientRevisarRDTO)", e); //$NON-NLS-1$
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("revisarSolicitudExpedient(ExpedientRevisarRDTO)", e); //$NON-NLS-1$
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_RECURS_EXPEDIENT, e);
+		}
+		RespostaExpedientsCrearBDTO respostaRecursExpedientsBDTO = new RespostaExpedientsCrearBDTO(returnExpedientsRDTO,
+				respostaResultatBDTO);
+		respostaRecursExpedientRDTO = modelMapper.map(respostaRecursExpedientsBDTO, RespostaRecursExpedientRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("revisarSolicitudExpedient(SolicitudsCrearRDTO) - fi"); //$NON-NLS-1$
+		}
+
+		return respostaRecursExpedientRDTO;
 	}
 
 }
