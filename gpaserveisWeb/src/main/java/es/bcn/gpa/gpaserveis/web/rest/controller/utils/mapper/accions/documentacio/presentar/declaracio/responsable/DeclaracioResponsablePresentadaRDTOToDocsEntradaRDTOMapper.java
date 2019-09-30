@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.BooleanToInternalConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.DataHoraToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToBigDecimalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.IdiomaToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.OrigenToInternalConverter;
@@ -16,7 +18,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentac
  */
 @Component("declaracioResponsablePresentadaRDTOToDocsEntradaRDTOMapper")
 public class DeclaracioResponsablePresentadaRDTOToDocsEntradaRDTOMapper
-        extends PropertyMap<DeclaracioResponsablePresentadaRDTO, DocsEntradaRDTO> {
+		extends PropertyMap<DeclaracioResponsablePresentadaRDTO, DocsEntradaRDTO> {
 
 	private InternalToBigDecimalConverter internalToBigDecimalConverter;
 
@@ -24,14 +26,22 @@ public class DeclaracioResponsablePresentadaRDTOToDocsEntradaRDTOMapper
 
 	private IdiomaToInternalConverter idiomaToInternalConverter;
 
+	private BooleanToInternalConverter booleanToInternalConverter;
+
+	private DataHoraToInternalConverter dataHoraToInternalConverter;
+
 	@Autowired
 	public DeclaracioResponsablePresentadaRDTOToDocsEntradaRDTOMapper(
-	        @Qualifier("internalToBigDecimalConverter") InternalToBigDecimalConverter internalToBigDecimalConverter,
-	        @Qualifier("origenToInternalConverter") OrigenToInternalConverter origenToInternalConverter,
-	        @Qualifier("idiomaToInternalConverter") IdiomaToInternalConverter idiomaToInternalConverter) {
+			@Qualifier("internalToBigDecimalConverter") InternalToBigDecimalConverter internalToBigDecimalConverter,
+			@Qualifier("origenToInternalConverter") OrigenToInternalConverter origenToInternalConverter,
+			@Qualifier("idiomaToInternalConverter") IdiomaToInternalConverter idiomaToInternalConverter,
+			@Qualifier("booleanToInternalConverter") BooleanToInternalConverter booleanToInternalConverter,
+			@Qualifier("dataHoraToInternalConverter") DataHoraToInternalConverter dataHoraToInternalConverter) {
 		this.internalToBigDecimalConverter = internalToBigDecimalConverter;
 		this.origenToInternalConverter = origenToInternalConverter;
 		this.idiomaToInternalConverter = idiomaToInternalConverter;
+		this.booleanToInternalConverter = booleanToInternalConverter;
+		this.dataHoraToInternalConverter = dataHoraToInternalConverter;
 	}
 
 	/*
@@ -45,6 +55,10 @@ public class DeclaracioResponsablePresentadaRDTOToDocsEntradaRDTOMapper
 		using(origenToInternalConverter).map(source.getOrigen()).setOrigen(null);
 		map().setComentari(source.getComentari());
 		using(idiomaToInternalConverter).map(source.getIdioma()).setIdioma(null);
+		using(booleanToInternalConverter).map(source.getDigitalitzat()).setDigitalitzat(null);
+		using(idiomaToInternalConverter).map(source.getDigitalitzacio().getIdioma()).setIdiomaDigitalitzacio(null);
+		using(dataHoraToInternalConverter).map(source.getDigitalitzacio().getDataDigitalitzacio()).setDataDigitalitzacio(null);
+		map().setRegistreCodi(source.getNumeroRegistre());
 	}
 
 }
