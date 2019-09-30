@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.IdiomaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.OrigenApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.DigitalitzacioRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import lombok.Setter;
 
 @ApiModel(value = "DeclaracioResponsablePresentada")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "configuracioDocumentacio", "origen", "comentari", "idioma" })
+@JsonPropertyOrder({ "configuracioDocumentacio", "origen", "comentari", "idioma", "digitalitzat", "digitalitzacio", "numeroRegistre" })
 @Getter
 @Setter
 public class DeclaracioResponsablePresentadaRDTO {
@@ -25,5 +26,11 @@ public class DeclaracioResponsablePresentadaRDTO {
 	private String comentari;
 	@ApiModelProperty(value = "Idioma del document.", allowableValues = IdiomaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private String idioma;
+	@ApiModelProperty(value = "Document digitalitzat.")
+	private Boolean digitalitzat;
+	@ApiModelProperty(value = "Dades de digitalització.")
+	private DigitalitzacioRDTO digitalitzacio;
+	@ApiModelProperty(value = "Número de registre.")
+	private String numeroRegistre;
 
 }

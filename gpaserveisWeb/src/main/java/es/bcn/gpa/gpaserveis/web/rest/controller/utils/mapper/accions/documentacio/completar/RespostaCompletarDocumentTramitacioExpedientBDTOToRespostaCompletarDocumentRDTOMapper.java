@@ -10,15 +10,15 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.Internal
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToDocumentTramitacioCompletatAccioConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToRegistreConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToExpedientAccioConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.RespostaIncorporarNouDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.completar.RespostaCompletarDocumentRDTO;
 
 /**
  * The Class
  * RespostaCompletarDocumentTramitacioExpedientBDTOToRespostaIncorporarNouDocumentRDTOMapper.
  */
-@Component("respostaCompletarDocumentTramitacioExpedientBDTOToRespostaIncorporarNouDocumentRDTOMapper")
-public class RespostaCompletarDocumentTramitacioExpedientBDTOToRespostaIncorporarNouDocumentRDTOMapper
-        extends PropertyMap<RespostaCompletarDocumentTramitacioExpedientBDTO, RespostaIncorporarNouDocumentRDTO> {
+@Component("respostaCompletarDocumentTramitacioExpedientBDTOToRespostaCompletarDocumentRDTOMapper")
+public class RespostaCompletarDocumentTramitacioExpedientBDTOToRespostaCompletarDocumentRDTOMapper
+		extends PropertyMap<RespostaCompletarDocumentTramitacioExpedientBDTO, RespostaCompletarDocumentRDTO> {
 
 	private InternalToExpedientAccioConverter internalToExpedientAccioConverter;
 
@@ -29,11 +29,11 @@ public class RespostaCompletarDocumentTramitacioExpedientBDTOToRespostaIncorpora
 	private InternalToDocumentTramitacioCompletatAccioConverter internalToDocumentTramitacioCompletatAccioConverter;
 
 	@Autowired
-	public RespostaCompletarDocumentTramitacioExpedientBDTOToRespostaIncorporarNouDocumentRDTOMapper(
-	        @Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
-	        @Qualifier("documentInternalToRegistreConverter") InternalToRegistreConverter internalToRegistreConverter,
-	        @Qualifier("internalToDocumentTramitacioCompletatAccioConverter") InternalToDocumentTramitacioCompletatAccioConverter internalToDocumentTramitacioCompletatAccioConverter,
-	        @Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
+	public RespostaCompletarDocumentTramitacioExpedientBDTOToRespostaCompletarDocumentRDTOMapper(
+			@Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
+			@Qualifier("documentInternalToRegistreConverter") InternalToRegistreConverter internalToRegistreConverter,
+			@Qualifier("internalToDocumentTramitacioCompletatAccioConverter") InternalToDocumentTramitacioCompletatAccioConverter internalToDocumentTramitacioCompletatAccioConverter,
+			@Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
 		this.internalToExpedientAccioConverter = internalToExpedientAccioConverter;
 		this.internalToRegistreConverter = internalToRegistreConverter;
 		this.internalToDocumentTramitacioCompletatAccioConverter = internalToDocumentTramitacioCompletatAccioConverter;

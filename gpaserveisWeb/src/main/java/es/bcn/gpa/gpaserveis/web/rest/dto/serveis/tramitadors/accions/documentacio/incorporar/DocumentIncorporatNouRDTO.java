@@ -17,7 +17,7 @@ import lombok.Setter;
 @ApiModel(value = "DocumentIncorporatNou")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "configuracio", "configuracioDocumentacio", "origen", "comentari", "idioma", "revisio", "digitalitzat",
-        "digitalitzacio", "fitxer", "numeroRegistre" })
+		"digitalitzacio", "fitxer", "numeroRegistre", "publicarInfoPublica", "plantillaPdf" })
 @Getter
 @Setter
 public class DocumentIncorporatNouRDTO {
@@ -42,5 +42,9 @@ public class DocumentIncorporatNouRDTO {
 	private FitxerRDTO fitxer;
 	@ApiModelProperty(value = "Número de registre.")
 	private String numeroRegistre;
+	@ApiModelProperty(value = "Publicar informació pública.")
+	private Boolean publicarInfoPublica;
+	@ApiModelProperty(value = "Document de plantilla.")
+	private Boolean plantillaPdf;
 
 }
