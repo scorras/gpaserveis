@@ -46,5 +46,7 @@ public class DocumentCompletatRDTO {
 	private Boolean publicarInfoPublica;
 	@ApiModelProperty(value = "Document de plantilla.")
 	private Boolean plantillaPdf;
+	@ApiModelProperty(value = "Document de requeriment.")
+	private Boolean requeriment;
 
 }

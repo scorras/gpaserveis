@@ -37,6 +37,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDeclaracioResponsableBD
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaDigitalitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioDigitalitzarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.CrearRequerimentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocsAssociatsIntraBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO;
@@ -107,6 +108,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequer
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RegistreAssentament;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Requeriments;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.UsuariPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
@@ -1422,9 +1424,11 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				docsEntradaRDTO
 						.setConfigDocEntrada(configuracioDocsEntradaMap.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
 
-				RegistreAssentament registreAssentament = new RegistreAssentament();
-				registreAssentament.setId(registreAssentamentRDTO.getId());
-				docsEntradaRDTO.setRegistreAssentament(registreAssentament);
+				if (registreAssentamentRDTO != null) {
+					RegistreAssentament registreAssentament = new RegistreAssentament();
+					registreAssentament.setId(registreAssentamentRDTO.getId());
+					docsEntradaRDTO.setRegistreAssentament(registreAssentament);
+				}
 
 				GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(
 						dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, file);
@@ -1693,6 +1697,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		Integer declaracioResponsable = null;
 		BigDecimal docsFisicsIdAnterior = null;
 		Integer docsFisicsPlantillaAnterior = null;
+		ArrayList<BigDecimal> idDadesOperacionsList = null;
+		ArrayList<BigDecimal> idConfiguracioDocsEntradaList = null;
+		Requeriments requeriments = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_COMPLETAR_DOCUMENT_EXPEDIENT);
 		try {
 			ConfiguracioApiParamValueTranslator configuracioApiParamValueTranslator = new ConfiguracioApiParamValueTranslator();
@@ -1729,6 +1736,10 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				documentacioId = docsTramitacioRDTO.getDocumentacio();
 				docsFisicsIdAnterior = docsTramitacioRDTO.getDocsFisics().getId();
 				docsFisicsPlantillaAnterior = docsTramitacioRDTO.getDocsFisics().getPlantilla();
+				if (documentComplecio.getDocument().getRequeriment()) {
+					requeriments = docsTramitacioRDTO.getRequeriments();
+				}
+
 				ServeisRestControllerValidationHelper.validateDocumentGenerat(docsTramitacioRDTO, dadesExpedientBDTO,
 						Resultat.ERROR_COMPLETAR_DOCUMENT_EXPEDIENT);
 			}
@@ -1744,6 +1755,35 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// Completar documento si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 					AccioTramitadorApiParamValue.COMPLETAR_DOCUMENT, Resultat.ERROR_COMPLETAR_DOCUMENT_EXPEDIENT);
+
+			if (documentComplecio.getDocument().getRequeriment())
+				// Los Datos de Operación deben existir, estar asociados al
+				// procedimiento y tener asociado el trámite OVT de Esmena. Se
+				// aprovecha para recuperar los identificadores de los campos
+
+				if (CollectionUtils.isNotEmpty(documentComplecio.getDadesOperacioRequerits())) {
+					DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(
+							dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
+					RespostaDadesOperacioRequeritsCercaBDTO respostaDadesOperacioRequeritsCercaBDTO = serveisService
+							.cercaDadesOperacioRequerits(dadesOperacioCercaBDTO);
+					idDadesOperacionsList = ServeisRestControllerValidationHelper.validateDadesOperacioPrepararRequerimentExpedient(
+							documentComplecio.getDadesOperacioRequerits(),
+							respostaDadesOperacioRequeritsCercaBDTO.getDadesOperacionsRDTOList());
+				}
+
+			// Las Configuraciones de Documentación deben existir, estar
+			// asociados al procedimiento y tener asociado el trámite OVT de
+			// Esmena
+			if (CollectionUtils.isNotEmpty(documentComplecio.getDocumentacioRequerida())) {
+				DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(
+						dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc(),
+						TramitOvtApiParamValue.REQ.getInternalValue());
+				RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = serveisService
+						.cercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsEntradaCercaBDTO);
+				idConfiguracioDocsEntradaList = ServeisRestControllerValidationHelper
+						.validateConfiguracioDocumentacioPrepararRequerimentExpedient(documentComplecio.getDocumentacioRequerida(),
+								respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList());
+			}
 
 			// Completar documento, pudiéndose tratar de entrada o tramitación
 			// La configuración de documentación indicada debe estar asociada al
@@ -1765,9 +1805,11 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				docsEntradaRDTO.setDocumentacio(documentacioId);
 				docsEntradaRDTO.setDeclaracioResponsable(declaracioResponsable);
 
-				RegistreAssentament registreAssentament = new RegistreAssentament();
-				registreAssentament.setId(registreAssentamentRDTO.getId());
-				docsEntradaRDTO.setRegistreAssentament(registreAssentament);
+				if (registreAssentamentRDTO != null) {
+					RegistreAssentament registreAssentament = new RegistreAssentament();
+					registreAssentament.setId(registreAssentamentRDTO.getId());
+					docsEntradaRDTO.setRegistreAssentament(registreAssentament);
+				}
 
 				if ((new Integer(1)).equals(docsEntradaRDTO.getDeclaracioResponsable())) {
 					ActualitzarDeclaracioResponsableBDTO actualitzarDeclaracioResponsableBDTO = new ActualitzarDeclaracioResponsableBDTO(
@@ -1801,9 +1843,22 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				docsTramitacioRDTO.setDocumentacio(documentacioId);
 
 				if (file != null) {
-					GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO = new GuardarDocumentTramitacioFitxerBDTO(
-							dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO, file);
-					docsTramitacioRDTOResult = serveisService.guardarDocumentTramitacioFitxer(guardarDocumentTramitacioFitxerBDTO);
+					if (documentComplecio.getDocument().getRequeriment()) {
+						docsTramitacioRDTO.setRequeriments(requeriments);
+
+						GuardarRequerimentExpedient guardarRequerimentExpedient = new GuardarRequerimentExpedient();
+						guardarRequerimentExpedient.setDocsTramitacio(docsTramitacioRDTO);
+						guardarRequerimentExpedient.setIdsDadesOperList(idDadesOperacionsList);
+						guardarRequerimentExpedient.setIdsConfDocEntradaList(idConfiguracioDocsEntradaList);
+
+						GuardarRequerimentFitxerBDTO guardarRequerimentFitxerBDTO = new GuardarRequerimentFitxerBDTO(
+								dadesExpedientBDTO.getExpedientsRDTO().getId(), guardarRequerimentExpedient, file);
+						docsTramitacioRDTOResult = serveisService.guardarRequerimentFitxer(guardarRequerimentFitxerBDTO);
+					} else {
+						GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO = new GuardarDocumentTramitacioFitxerBDTO(
+								dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO, file);
+						docsTramitacioRDTOResult = serveisService.guardarDocumentTramitacioFitxer(guardarDocumentTramitacioFitxerBDTO);
+					}
 
 				} else {
 					if (documentComplecio.getDocument().getPlantillaPdf() && (new Integer(0)).equals(docsFisicsPlantillaAnterior)) {
@@ -1817,9 +1872,25 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 								.get(documentComplecio.getDocument().getConfiguracioDocumentacio()).getSuportEnllac());
 						docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 					}
-					ActualitzarDocumentTramitacioBDTO actualitzarDocumentTramitacioBDTO = new ActualitzarDocumentTramitacioBDTO(
-							dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
-					docsTramitacioRDTOResult = serveisService.actualitzarDocumentTramitacio(actualitzarDocumentTramitacioBDTO);
+
+					if (documentComplecio.getDocument().getRequeriment()) {
+						docsTramitacioRDTO.setRequeriments(requeriments);
+
+						GuardarRequerimentExpedient guardarRequerimentExpedient = new GuardarRequerimentExpedient();
+						guardarRequerimentExpedient.setDocsTramitacio(docsTramitacioRDTO);
+						guardarRequerimentExpedient.setIdsDadesOperList(idDadesOperacionsList);
+						guardarRequerimentExpedient.setIdsConfDocEntradaList(idConfiguracioDocsEntradaList);
+
+						CrearRequerimentBDTO crearRequerimentBDTO = new CrearRequerimentBDTO(dadesExpedientBDTO.getExpedientsRDTO().getId(),
+								guardarRequerimentExpedient);
+						docsTramitacioRDTOResult = serveisService.actualitzarRequeriment(crearRequerimentBDTO);
+
+					} else {
+						ActualitzarDocumentTramitacioBDTO actualitzarDocumentTramitacioBDTO = new ActualitzarDocumentTramitacioBDTO(
+								dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
+						docsTramitacioRDTOResult = serveisService.actualitzarDocumentTramitacio(actualitzarDocumentTramitacioBDTO);
+					}
+
 				}
 			}
 
@@ -1962,7 +2033,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	@ApiImplicitParams(@ApiImplicitParam(name = "requeriment", value = "Dades del requeriment a preparar", dataType = "string", paramType = "form", required = true))
 	public RespostaPrepararRequerimentRDTO prepararRequerimentExpedient(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Fitxer") @RequestParam(value = "file", required = true) MultipartFile file,
+			@ApiParam(value = "Fitxer") @RequestParam(value = "file", required = false) MultipartFile file,
 			@RequestParam("requeriment") RequerimentPreparacioRDTO requerimentPreparacio) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("prepararRequerimentExpedient(String, RequerimentPreparacioRDTO) - inici"); //$NON-NLS-1$
@@ -2027,13 +2098,26 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			DocsTramitacioRDTO docsTramitacioRDTO = modelMapper.map(requerimentPreparacio.getDocument(), DocsTramitacioRDTO.class);
 			docsTramitacioRDTO.setConfigDocTramitacio(
 					configuracioDocsTramitacioMap.get(String.valueOf(docsTramitacioRDTO.getConfigDocTramitacio())).getId());
+
 			GuardarRequerimentExpedient guardarRequerimentExpedient = new GuardarRequerimentExpedient();
 			guardarRequerimentExpedient.setDocsTramitacio(docsTramitacioRDTO);
 			guardarRequerimentExpedient.setIdsDadesOperList(idDadesOperacionsList);
 			guardarRequerimentExpedient.setIdsConfDocEntradaList(idConfiguracioDocsEntradaList);
-			GuardarRequerimentFitxerBDTO guardarRequerimentFitxerBDTO = new GuardarRequerimentFitxerBDTO(
-					dadesExpedientBDTO.getExpedientsRDTO().getId(), guardarRequerimentExpedient, file);
-			docsTramitacioRDTOResult = serveisService.guardarRequerimentFitxer(guardarRequerimentFitxerBDTO);
+
+			if (requerimentPreparacio.getDocument().getPlantillaPdf()) {
+				ConfiguracioDocsTramitacio configuracioDocsTramitacio = new ConfiguracioDocsTramitacio();
+				configuracioDocsTramitacio.setSuportEnllac(configuracioDocsTramitacioMap
+						.get(requerimentPreparacio.getDocument().getConfiguracioDocumentacio()).getSuportEnllac());
+				docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
+
+				CrearRequerimentBDTO crearRequerimentBDTO = new CrearRequerimentBDTO(dadesExpedientBDTO.getExpedientsRDTO().getId(),
+						guardarRequerimentExpedient);
+				docsTramitacioRDTOResult = serveisService.guardarRequerimentPlantilla(crearRequerimentBDTO);
+			} else {
+				GuardarRequerimentFitxerBDTO guardarRequerimentFitxerBDTO = new GuardarRequerimentFitxerBDTO(
+						dadesExpedientBDTO.getExpedientsRDTO().getId(), guardarRequerimentExpedient, file);
+				docsTramitacioRDTOResult = serveisService.guardarRequerimentFitxer(guardarRequerimentFitxerBDTO);
+			}
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("prepararRequerimentExpedient(String, RequerimentPreparacioRDTO)", e); // $NON-NLS-1$

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaPrepararRequerimentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToResultatRespostaConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToDocumentTramitacioIncorporatNouAccioConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToDocumentTramitacioRequerimentPreparatAccioConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToExpedientAccioConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.preparar.requeriment.RespostaPrepararRequerimentRDTO;
 
@@ -17,21 +17,21 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentac
  */
 @Component("respostaPrepararRequerimentExpedientBDTOToRespostaPrepararRequerimentRDTOMapper")
 public class RespostaPrepararRequerimentExpedientBDTOToRespostaPrepararRequerimentRDTOMapper
-        extends PropertyMap<RespostaPrepararRequerimentExpedientBDTO, RespostaPrepararRequerimentRDTO> {
+		extends PropertyMap<RespostaPrepararRequerimentExpedientBDTO, RespostaPrepararRequerimentRDTO> {
 
 	private InternalToExpedientAccioConverter internalToExpedientAccioConverter;
 
 	private InternalToResultatRespostaConverter internalToResultatRespostaConverter;
 
-	private InternalToDocumentTramitacioIncorporatNouAccioConverter internalToDocumentTramitacioIncorporatNouAccioConverter;
+	private InternalToDocumentTramitacioRequerimentPreparatAccioConverter internalToDocumentTramitacioRequerimentPreparatAccioConverter;
 
 	@Autowired
 	public RespostaPrepararRequerimentExpedientBDTOToRespostaPrepararRequerimentRDTOMapper(
-	        @Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
-	        @Qualifier("internalToDocumentTramitacioIncorporatNouAccioConverter") InternalToDocumentTramitacioIncorporatNouAccioConverter internalToDocumentTramitacioIncorporatNouAccioConverter,
-	        @Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
+			@Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
+			@Qualifier("internalToDocumentTramitacioRequerimentPreparatAccioConverter") InternalToDocumentTramitacioRequerimentPreparatAccioConverter internalToDocumentTramitacioRequerimentPreparatAccioConverter,
+			@Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
 		this.internalToExpedientAccioConverter = internalToExpedientAccioConverter;
-		this.internalToDocumentTramitacioIncorporatNouAccioConverter = internalToDocumentTramitacioIncorporatNouAccioConverter;
+		this.internalToDocumentTramitacioRequerimentPreparatAccioConverter = internalToDocumentTramitacioRequerimentPreparatAccioConverter;
 		this.internalToResultatRespostaConverter = internalToResultatRespostaConverter;
 	}
 
@@ -44,7 +44,7 @@ public class RespostaPrepararRequerimentExpedientBDTOToRespostaPrepararRequerime
 	protected void configure() {
 		using(internalToResultatRespostaConverter).map(source.getRespostaResultatBDTO()).setResultat(null);
 		using(internalToExpedientAccioConverter).map(source.getExpedientsRDTO()).setExpedient(null);
-		using(internalToDocumentTramitacioIncorporatNouAccioConverter).map(source.getDocsTramitacioRDTO()).setDocument(null);
+		using(internalToDocumentTramitacioRequerimentPreparatAccioConverter).map(source.getDocsTramitacioRDTO()).setDocument(null);
 	}
 
 }
