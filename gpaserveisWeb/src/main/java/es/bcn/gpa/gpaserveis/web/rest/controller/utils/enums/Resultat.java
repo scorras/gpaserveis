@@ -155,7 +155,11 @@ public enum Resultat {
 
 	OK_RECURS_EXPEDIENT("OK", "Recurs d'Expedient creat correctament"),
 
-	ERROR_RECURS_EXPEDIENT("ERROR", "No s'ha pogut crear el recurs d'expedient");
+	ERROR_RECURS_EXPEDIENT("ERROR", "No s'ha pogut crear el recurs d'expedient"),
+
+	OK_PUBLICAR_PER_A_INFORMACIO_PUBLICA("OK", "Informació publicada correctament"),
+
+	ERROR_PUBLICAR_PER_A_INFORMACIO_PUBLICA("ERROR", "No s'ha pogut publicar la informació");
 
 	private String codi;
 

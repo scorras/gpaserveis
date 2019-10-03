@@ -87,6 +87,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsRetornarB
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsTancarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsValidarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaPublicarPerAInformacioPublicaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaResolucioValidarDocumentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaSignarDocumentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
@@ -191,6 +192,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.notificar.RespostaNotificarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.pausar.ExpedientPausaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.pausar.RespostaPausarExpedientRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.publicar.InformacioPublicaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.publicar.RespostaPublicarPerAInformacioPublicaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.reactivar.ExpedientReactivacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.reactivar.RespostaReactivarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.resolucio.proposar.ExpedientPropostaResolucioRDTO;
@@ -226,6 +229,8 @@ import net.opentrends.openframe.services.configuration.annotation.EntornProperty
 @RequestMapping(value = "/serveis/tramitadors", produces = MediaType.APPLICATION_JSON_VALUE)
 @Lazy(true)
 @Api(value = "Serveis Tramitadors API", tags = "Serveis Tramitadors API")
+
+/** The Constant log. */
 
 /** The Constant log. */
 @CommonsLog
@@ -2795,8 +2800,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	/**
 	 * Revisar solicitud expedient.
 	 *
-	 * @param solicitudExpedient
-	 *            the solicitud expedient
+	 * @param expedientRevisar
+	 *            the expedient revisar
 	 * @return the resposta revisar expedient RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
@@ -2863,8 +2868,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	/**
 	 * Revisar solicitud expedient.
 	 *
-	 * @param solicitudExpedient
-	 *            the solicitud expedient
+	 * @param recursExpedient
+	 *            the recurs expedient
 	 * @return the resposta revisar expedient RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
@@ -2938,6 +2943,62 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		return respostaRecursExpedientRDTO;
+	}
+
+	/**
+	 * Publicar per A informacio publica.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param informacioPublicaRDTO
+	 *            the informacio publica RDTO
+	 * @return the resposta publicar per A informacio publica RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@PostMapping("/expedients/{codiExpedient}/publicar")
+	@ApiOperation(value = "Publicar per a informació pública", tags = { "Serveis Tramitadors API" }, extensions = {
+			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaPublicarPerAInformacioPublicaRDTO publicarPerAInformacioPublica(
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Dades per a la informació pública") @RequestBody InformacioPublicaRDTO informacioPublicaRDTO)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("publicarPerAInformacioPublica(String, InformacioPublicaRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		RespostaPublicarPerAInformacioPublicaRDTO respostaPublicarPerAInformacioPublicaRDTO = null;
+		ExpedientsRDTO returnExpedientsRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_PUBLICAR_PER_A_INFORMACIO_PUBLICA);
+		try {
+			// El codi del expediente debe existir
+			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_PUBLICAR_PER_A_INFORMACIO_PUBLICA);
+
+			// TODO ver la información que se debe enviar, validaciones y hacer
+			// la integración
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("publicarPerAInformacioPublica(String, InformacioPublicaRDTO)", e); // $NON-NLS-1$
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("publicarPerAInformacioPublica(String, InformacioPublicaRDTO)", e); // $NON-NLS-1$
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_PUBLICAR_PER_A_INFORMACIO_PUBLICA,
+					e);
+		}
+
+		RespostaPublicarPerAInformacioPublicaBDTO respostaPublicarPerAInformacioPublicaBDTO = new RespostaPublicarPerAInformacioPublicaBDTO(
+				returnExpedientsRDTO, respostaResultatBDTO);
+		respostaPublicarPerAInformacioPublicaRDTO = modelMapper.map(respostaPublicarPerAInformacioPublicaBDTO,
+				RespostaPublicarPerAInformacioPublicaRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("publicarPerAInformacioPublica(String, InformacioPublicaRDTO) - fi"); //$NON-NLS-1$
+		}
+
+		return respostaPublicarPerAInformacioPublicaRDTO;
 	}
 
 }
