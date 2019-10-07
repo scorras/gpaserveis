@@ -159,7 +159,11 @@ public enum Resultat {
 
 	OK_PUBLICAR_PER_A_INFORMACIO_PUBLICA("OK", "Informació publicada correctament"),
 
-	ERROR_PUBLICAR_PER_A_INFORMACIO_PUBLICA("ERROR", "No s'ha pogut publicar la informació");
+	ERROR_PUBLICAR_PER_A_INFORMACIO_PUBLICA("ERROR", "No s'ha pogut publicar la informació"),
+
+	OK_ANOTAR_OPERACIO_COMPTABLE("OK", "L'operació comptable s'ha anotat correctament"),
+
+	ERROR_ANOTAR_OPERACIO_COMPTABLE("ERROR", "No s'ha pogut anotar l'operació comptable");
 
 	private String codi;
 

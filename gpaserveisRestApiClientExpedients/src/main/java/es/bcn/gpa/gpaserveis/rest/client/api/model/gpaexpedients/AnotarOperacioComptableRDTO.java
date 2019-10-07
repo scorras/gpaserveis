@@ -17,54 +17,34 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Comentaris;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * ComentariCreacioAccio
+ * AnotarOperacioComptableRDTO
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-04T08:30:58.174+02:00")
-public class ComentariCreacioAccio {
+public class AnotarOperacioComptableRDTO {
   @JsonProperty("comentari")
-  private String comentari = null;
+  private Comentaris comentari = null;
 
-  @JsonProperty("operacio")
-  private String operacio = null;
-
-  public ComentariCreacioAccio comentari(String comentari) {
+  public AnotarOperacioComptableRDTO comentari(Comentaris comentari) {
     this.comentari = comentari;
     return this;
   }
 
    /**
-   * Comentari associat a l&#39;execució de l&#39;acció.
+   * Get comentari
    * @return comentari
   **/
-  @ApiModelProperty(value = "Comentari associat a l'execució de l'acció.")
-  public String getComentari() {
+  @ApiModelProperty(value = "")
+  public Comentaris getComentari() {
     return comentari;
   }
 
-  public void setComentari(String comentari) {
+  public void setComentari(Comentaris comentari) {
     this.comentari = comentari;
-  }
-
-  public ComentariCreacioAccio operacio(String operacio) {
-    this.operacio = operacio;
-    return this;
-  }
-
-   /**
-   * Operació concreta en l&#39;execució de l&#39;acció
-   * @return operacio
-  **/
-  @ApiModelProperty(value = "Operació concreta en l'execució de l'acció")
-  public String getOperacio() {
-    return operacio;
-  }
-
-  public void setOperacio(String operacio) {
-    this.operacio = operacio;
   }
 
 
@@ -76,24 +56,22 @@ public class ComentariCreacioAccio {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ComentariCreacioAccio comentariCreacioAccio = (ComentariCreacioAccio) o;
-    return Objects.equals(this.comentari, comentariCreacioAccio.comentari) &&
-        Objects.equals(this.operacio, comentariCreacioAccio.operacio);
+    AnotarOperacioComptableRDTO anotarOperacioComptableRDTO = (AnotarOperacioComptableRDTO) o;
+    return Objects.equals(this.comentari, anotarOperacioComptableRDTO.comentari);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comentari, operacio);
+    return Objects.hash(comentari);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ComentariCreacioAccio {\n");
+    sb.append("class AnotarOperacioComptableRDTO {\n");
     
     sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
-    sb.append("    operacio: ").append(toIndentedString(operacio)).append("\n");
     sb.append("}");
     return sb.toString();
   }

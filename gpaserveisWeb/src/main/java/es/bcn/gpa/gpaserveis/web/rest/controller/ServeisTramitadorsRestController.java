@@ -57,6 +57,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaPrepararRequerimentE
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaPresentarDeclaracioResponsableExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaRebutjarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaValidarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.AnotarOperacioComptableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
@@ -69,6 +70,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaAnotarOperacioComptableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaConsultaExpedientsBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsAccesBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsAcumularBDTO;
@@ -113,6 +115,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Requeriments;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.UsuariPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AnotarOperacioComptableRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraMassiuRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
@@ -184,6 +187,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.acces.RespostaAccesExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.acumular.ExpedientAcumulacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.acumular.RespostaAcumularExpedientRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.anotar.operacio.comptable.OperacioComptableRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.anotar.operacio.comptable.RespostaAnotarOperacioComptableRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.arxivar.ExpedientArxiuRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.arxivar.RespostaArxivarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.comunicar.ExpedientComunicatRDTO;
@@ -229,6 +234,8 @@ import net.opentrends.openframe.services.configuration.annotation.EntornProperty
 @RequestMapping(value = "/serveis/tramitadors", produces = MediaType.APPLICATION_JSON_VALUE)
 @Lazy(true)
 @Api(value = "Serveis Tramitadors API", tags = "Serveis Tramitadors API")
+
+/** The Constant log. */
 
 /** The Constant log. */
 
@@ -2999,6 +3006,69 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		return respostaPublicarPerAInformacioPublicaRDTO;
+	}
+
+	/**
+	 * Anotar operacio comptable.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param operacioComptableRDTO
+	 *            the operacio comptable RDTO
+	 * @return the resposta anotar operacio comptable RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@PostMapping("/expedients/{codiExpedient}/operacioComptable/anotar")
+	@ApiOperation(value = "Anotar Operació comptable", tags = { "Serveis Tramitadors API" }, extensions = {
+			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaAnotarOperacioComptableRDTO anotarOperacioComptable(
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Dades dades de l'operació comptable") @RequestBody OperacioComptableRDTO operacioComptableRDTO)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("anotarOperacioComptable(String, OperacioComptableRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		RespostaAnotarOperacioComptableRDTO respostaAnotarOperacioComptableRDTO = null;
+		ExpedientsRDTO returnExpedientsRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ANOTAR_OPERACIO_COMPTABLE);
+		try {
+			// El codi del expediente debe existir
+			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_ANOTAR_OPERACIO_COMPTABLE);
+
+			// TODO ver la información que se debe enviar, validaciones y hacer
+			// la integración
+
+			AnotarOperacioComptableRDTO anotarOperacioComptableRDTO = new AnotarOperacioComptableRDTO();
+			Comentaris comentaris = new Comentaris();
+			comentaris.setDescripcio(operacioComptableRDTO.getComentari());
+			anotarOperacioComptableRDTO.setComentari(comentaris);
+
+			AnotarOperacioComptableBDTO anotarOperacioComptableBDTO = new AnotarOperacioComptableBDTO(
+					dadesExpedientBDTO.getExpedientsRDTO().getId(), anotarOperacioComptableRDTO);
+			serveisService.anotarOperacioComptable(anotarOperacioComptableBDTO);
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("anotarOperacioComptable(String, OperacioComptableRDTO)", e); // $NON-NLS-1$
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("anotarOperacioComptable(String, OperacioComptableRDTO)", e); // $NON-NLS-1$
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ANOTAR_OPERACIO_COMPTABLE, e);
+		}
+
+		RespostaAnotarOperacioComptableBDTO respostaAnotarOperacioComptableBDTO = new RespostaAnotarOperacioComptableBDTO(
+				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
+		respostaAnotarOperacioComptableRDTO = modelMapper.map(respostaAnotarOperacioComptableBDTO,
+				RespostaAnotarOperacioComptableRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("publicarPerAInformacioPublica(String, InformacioPublicaRDTO) - fi"); //$NON-NLS-1$
+		}
+		return respostaAnotarOperacioComptableRDTO;
 	}
 
 }
