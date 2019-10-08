@@ -2255,7 +2255,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaAccesExpedientRDTO accesExpedient(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades de l'accés a l'expedient") @RequestBody ExpedientAccesRDTO expedientAcces)
+			@ApiParam(value = "Dades de l'accés a l'expedient", required = false) @RequestBody ExpedientAccesRDTO expedientAcces)
 			throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
@@ -2275,7 +2275,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// El documento de identidad debe corresponderse con el de una
 			// persona implicada en el expediente
 			personesSollicitudRDTO = ServeisRestControllerValidationHelper.validatePersonaImplicadaExpedient(dadesExpedientBDTO,
-					expedientAcces.getDocumentIdentitat(), Resultat.ERROR_ACCES_EXPEDIENT);
+					expedientAcces.getDocumentsIdentitatRDTO(), Resultat.ERROR_ACCES_EXPEDIENT);
 
 			// Dar acceso al expediente si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
