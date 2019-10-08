@@ -3,6 +3,7 @@ package es.bcn.gpa.gpaserveis.business;
 import java.math.BigDecimal;
 import java.util.List;
 
+import es.bcn.gpa.gpaserveis.business.dto.expedients.AnotarOperacioComptableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
@@ -108,7 +109,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	PageDataOfPersonesSollicitudRDTO actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Cerca dades especifiques expedient.
@@ -149,12 +150,13 @@ public interface ExpedientsService {
 	 * @param expedientsRegistrarBDTO
 	 *            the expedients registrar BDTO
 	 * @param tipusDocVinculada
+	 *            the tipus doc vinculada
 	 * @return the resposta crear registre solicitud expedient
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
 	RespostaCrearRegistreExpedient crearRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO, BigDecimal tipusDocVinculada)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Canviar estat accio expedient.
@@ -166,7 +168,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Crear comentari accio.
@@ -238,7 +240,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	void canviarUnitatGestoraExpedient(ExpedientsCanviarUnitatGestoraBDTO expedientsCanviarUnitatGestoraBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Consultar dades registre assentament.
@@ -282,4 +284,14 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	PageDataOfExpedientsRDTO obtenirExpedientsRelacionats(BigDecimal idExpedient) throws GPAServeisServiceException;
+
+	/**
+	 * Anotar operacio comptable.
+	 *
+	 * @param anotarOperacioComptableBDTO
+	 *            the anotar operacio comptable BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void anotarOperacioComptable(AnotarOperacioComptableBDTO anotarOperacioComptableBDTO) throws GPAServeisServiceException;
 }

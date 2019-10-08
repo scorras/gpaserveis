@@ -296,4 +296,11 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 				.andExpect(status().isOk()).andDo(print());
 	}
 
+	@Test
+	public void testStage33_AnotarOperacioComptable() throws Exception {
+		String url = BASE_URL + "/expedients/1/operacioComptable/anotar";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{ \"comentari\":\"S'executa l'acció.\" }"))
+				.andExpect(status().isOk()).andDo(print());
+	}
+
 }

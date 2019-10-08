@@ -2,6 +2,7 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AnotarOperacioComptableRDTO;
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
@@ -25,7 +26,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-30T09:27:23.307+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-04T08:30:58.174+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi")
 public class ExpedientsApi {
     private ApiClient apiClient;
@@ -47,6 +48,49 @@ public class ExpedientsApi {
         this.apiClient = apiClient;
     }
 
+    /**
+     * Anotar Operació Comptable
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>201</b> - Created
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param idExpedient Identificador de l&#39;expedient
+     * @param anotarOperacioComptableRDTO Dades dades de l&#39;operació comptable
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public void anotarOperacioComptable(BigDecimal idExpedient, AnotarOperacioComptableRDTO anotarOperacioComptableRDTO) throws RestClientException {
+        Object postBody = anotarOperacioComptableRDTO;
+        
+        // verify the required parameter 'idExpedient' is set
+        if (idExpedient == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idExpedient' when calling anotarOperacioComptable");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("idExpedient", idExpedient);
+        String path = UriComponentsBuilder.fromPath("/expedients/anotarOperacioComptable/{idExpedient}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { 
+            "application/json"
+        };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {};
+        apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
     /**
      * Canvia l&#39;estat d&#39;un expedient en funció de l&#39;acció executada
      * 

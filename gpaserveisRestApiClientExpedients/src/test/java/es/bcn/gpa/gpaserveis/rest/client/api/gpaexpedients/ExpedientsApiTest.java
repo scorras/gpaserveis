@@ -31,6 +31,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AnotarOperacioComptableRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 
@@ -55,8 +56,8 @@ public class ExpedientsApiTest extends ParentTest {
 	@Test
 	public void canviarEstatAccioExpedientTest() {
 		when(apiClient.invokeAPI(eq("/expedients/1/accions/1/canviEstat"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new RespostaCanviarEstatAccioExpedient());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new RespostaCanviarEstatAccioExpedient());
 
 		BigDecimal idAccio = ONE;
 		BigDecimal idExpedient = ONE;
@@ -64,6 +65,28 @@ public class ExpedientsApiTest extends ParentTest {
 		RespostaCanviarEstatAccioExpedient response = api.canviarEstatAccioExpedient(idAccio, idExpedient, expedientCanviEstatAccioRDTO);
 
 		assertTrue(response != null);
+	}
+
+	/**
+	 * Anotar Operació Comptable
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void anotarOperacioComptableTest() {
+
+		when(apiClient.invokeAPI(eq("/expedients/1/operacioComptable/anotar"), eq(HttpMethod.POST), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		BigDecimal idExpedient = ONE;
+		AnotarOperacioComptableRDTO anotarOperacioComptableRDTO = new AnotarOperacioComptableRDTO();
+		api.anotarOperacioComptable(idExpedient, anotarOperacioComptableRDTO);
+
+		assertTrue(true);
 	}
 
 }
