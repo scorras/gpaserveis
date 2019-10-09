@@ -1265,7 +1265,7 @@ public class ServeisServiceImpl implements ServeisService {
 	public List<PersonesSollicitudRDTO> actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO)
 			throws GPAServeisServiceException {
 		PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = expedientsService
-				.actualitzarDadesAltraPersonaImplicada(personesSollicitudRDTO);
+				.donarAccesAltraPersonaImplicada(personesSollicitudRDTO);
 		return pageDataOfPersonesSollicitudRDTO.getData();
 	}
 

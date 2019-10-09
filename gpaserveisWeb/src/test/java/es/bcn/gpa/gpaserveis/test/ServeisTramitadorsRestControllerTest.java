@@ -215,7 +215,7 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 		String url = BASE_URL + "/expedients/1/acces";
 		getMockMvc()
 				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-						"{ \"documentIdentitat\": { \"tipusDocument\": \"NIF\", \"numeroDocument\": \"79688341B\", \"pais\": \"108\" }}"))
+						"{ \"documentsIdentitatRDTO\": { \"tipusDocument\": \"NIF\", \"numeroDocument\": \"79688341B\", \"pais\": \"108\" }}"))
 				.andExpect(status().isOk()).andDo(print());
 	}
 

@@ -431,23 +431,23 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 * api.model.gpaexpedients.PersonesSollicitudRDTO)
 	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackActualitzarDadesAltraPersonaImplicada")
-	public PageDataOfPersonesSollicitudRDTO actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO)
+	@HystrixCommand(fallbackMethod = "fallbackDonarAccesAltraPersonaImplicada")
+	public PageDataOfPersonesSollicitudRDTO donarAccesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO) - inici"); //$NON-NLS-1$
+			log.debug("donarAccesAltraPersonaImplicada(PersonesSollicitudRDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = personesSollicitudApi.actualitzarDadesAltraPersonaImplicada(
+			PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = personesSollicitudApi.donarAccesAltraPersonaImplicada(
 					personesSollicitudRDTO, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
-				log.debug("actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO) - fi"); //$NON-NLS-1$
+				log.debug("donarAccesAltraPersonaImplicada(PersonesSollicitudRDTO) - fi"); //$NON-NLS-1$
 			}
 			return pageDataOfPersonesSollicitudRDTO;
 		} catch (RestClientException e) {
-			log.error("actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO)", e); //$NON-NLS-1$
+			log.error("donarAccesAltraPersonaImplicada(PersonesSollicitudRDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
