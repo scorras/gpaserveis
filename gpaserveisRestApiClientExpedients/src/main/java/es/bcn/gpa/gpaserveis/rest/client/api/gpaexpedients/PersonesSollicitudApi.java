@@ -24,7 +24,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-04T08:30:58.174+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-08T13:16:35.843+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi")
 public class PersonesSollicitudApi {
     private ApiClient apiClient;
@@ -72,15 +72,15 @@ public class PersonesSollicitudApi {
      * @return PageDataOfPersonesSollicitudRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public PageDataOfPersonesSollicitudRDTO actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
+    public PageDataOfPersonesSollicitudRDTO donarAccesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
         Object postBody = personesSollicitudRDTO;
         
         // verify the required parameter 'personesSollicitudRDTO' is set
         if (personesSollicitudRDTO == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'personesSollicitudRDTO' when calling actualitzarDadesAltraPersonaImplicada");
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'personesSollicitudRDTO' when calling donarAccesAltraPersonaImplicada");
         }
         
-        String path = UriComponentsBuilder.fromPath("/expedients/personesSollicitud/altresImplidades").build().toUriString();
+        String path = UriComponentsBuilder.fromPath("/expedients/personesSollicitud/donarAccesAltresImplidades").build().toUriString();
         
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();

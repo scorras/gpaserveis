@@ -383,7 +383,7 @@ public abstract class ParentTest {
 
 			doNothing().when(acumulaciExpedientsApi).acumularExpedient(any(AcumularExpedientRDTO.class));
 
-			when(personesSollicitudApi.actualitzarDadesAltraPersonaImplicada(any(PersonesSollicitudRDTO.class), isNull(Integer.class),
+			when(personesSollicitudApi.donarAccesAltraPersonaImplicada(any(PersonesSollicitudRDTO.class), isNull(Integer.class),
 					isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
 					isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class),
 					isNull(String.class), isNull(Long.class), isNull(Integer.class)))

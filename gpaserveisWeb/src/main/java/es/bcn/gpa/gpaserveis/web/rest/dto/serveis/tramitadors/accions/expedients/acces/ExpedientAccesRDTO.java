@@ -17,6 +17,6 @@ import lombok.Setter;
 public class ExpedientAccesRDTO {
 
 	@ApiModelProperty(value = "Dades del document d'identitat.")
-	private DocumentsIdentitatRDTO documentIdentitat;
+	private DocumentsIdentitatRDTO documentsIdentitatRDTO;
 
 }
