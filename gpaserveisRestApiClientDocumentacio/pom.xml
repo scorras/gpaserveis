@@ -62,6 +62,7 @@
 	</dependencies>
 	
 	<build>
+	<pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -122,10 +123,6 @@
 					</execution>
 				</executions>
 			</plugin>
-		</plugins>
-
-		<pluginManagement>
-			<plugins>
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
