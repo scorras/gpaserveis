@@ -40,6 +40,9 @@ public class ActualitzarDadesSollicitud {
 
   @JsonProperty("expedient")
   private ExpedientsRDTO expedient = null;
+  
+  @JsonProperty("tipusIniciacio")
+  private String tipusIniciacio = null;
 
   public ActualitzarDadesSollicitud comentari(String comentari) {
     this.comentari = comentari;
@@ -120,6 +123,28 @@ public class ActualitzarDadesSollicitud {
   public void setExpedient(ExpedientsRDTO expedient) {
     this.expedient = expedient;
   }
+  
+
+  public ActualitzarDadesSollicitud tipusIniciacio(String tipusIniciacio) {
+	  this.tipusIniciacio = tipusIniciacio;
+	  return this;
+  }
+  
+  /**
+   * Iniciacio associat a les dades de sol·licitud
+   * @return tipusIniciacio
+   **/
+  
+  @ApiModelProperty(value = "Tipus de iniciació sollicitud")
+	  public String getTipusIniciacio() {
+		  return tipusIniciacio;
+	  }
+  
+  
+  public void setTipusIniciacio(String tipusIniciacio) {
+	  this.tipusIniciacio = tipusIniciacio;
+  }
+  
 
 
   @Override
@@ -134,12 +159,13 @@ public class ActualitzarDadesSollicitud {
     return Objects.equals(this.comentari, actualitzarDadesSollicitud.comentari) &&
         Objects.equals(this.dadesEspecifiques, actualitzarDadesSollicitud.dadesEspecifiques) &&
         Objects.equals(this.esmena, actualitzarDadesSollicitud.esmena) &&
-        Objects.equals(this.expedient, actualitzarDadesSollicitud.expedient);
+        Objects.equals(this.expedient, actualitzarDadesSollicitud.expedient) &&
+        Objects.equals(this.tipusIniciacio, actualitzarDadesSollicitud.tipusIniciacio);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comentari, dadesEspecifiques, esmena, expedient);
+    return Objects.hash(comentari, dadesEspecifiques, esmena, expedient, tipusIniciacio);
   }
 
 
@@ -152,6 +178,7 @@ public class ActualitzarDadesSollicitud {
     sb.append("    dadesEspecifiques: ").append(toIndentedString(dadesEspecifiques)).append("\n");
     sb.append("    esmena: ").append(toIndentedString(esmena)).append("\n");
     sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
+    sb.append("    tipusIniciacio: ").append(toIndentedString(tipusIniciacio)).append("\n");
     sb.append("}");
     return sb.toString();
   }
