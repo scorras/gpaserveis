@@ -26,7 +26,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.DescarregarDocumentExpedient
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocsAssociatsIntraBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentEntradaFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentTramitacioFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarRequerimentFitxerBDTO;
@@ -89,6 +89,8 @@ import lombok.extern.apachecommons.CommonsLog;
  * The Class ServeisServiceImpl.
  */
 @Service
+
+/** The Constant log. */
 
 /** The Constant log. */
 
@@ -794,6 +796,15 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.guardarRequerimentFitxer(guardarRequerimentFitxerBDTO);
 	}
 
+	/**
+	 * Guardar requeriment plantilla.
+	 *
+	 * @param crearRequerimentBDTO
+	 *            the crear requeriment BDTO
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -806,6 +817,15 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.guardarRequerimentPlantilla(crearRequerimentBDTO);
 	}
 
+	/**
+	 * Consultar dades document.
+	 *
+	 * @param idDocument
+	 *            the id document
+	 * @return the docs RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -818,6 +838,15 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.consultarDadesDocument(idDocument);
 	}
 
+	/**
+	 * Consultar dades document aportat.
+	 *
+	 * @param idDocument
+	 *            the id document
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -829,6 +858,15 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.consultarDadesDocumentAportat(idDocument);
 	}
 
+	/**
+	 * Consultar dades document generat.
+	 *
+	 * @param idDocument
+	 *            the id document
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -838,26 +876,6 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public DocsTramitacioRDTO consultarDadesDocumentGenerat(BigDecimal idDocument) throws GPAServeisServiceException {
 		return documentsService.consultarDadesDocumentGenerat(idDocument);
-	}
-
-	/**
-	 * Esborrar document expedient.
-	 *
-	 * @param esborrarDocumentExpedientBDTO
-	 *            the esborrar document expedient BDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
-	 * esborrarDocumentExpedient(es.bcn.gpa.gpaserveis.business.dto.documents.
-	 * EsborrarDocumentExpedientBDTO)
-	 */
-	@Override
-	public void esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO) throws GPAServeisServiceException {
-		documentsService.esborrarDocumentExpedient(esborrarDocumentExpedientBDTO);
 	}
 
 	/**
@@ -1309,6 +1327,15 @@ public class ServeisServiceImpl implements ServeisService {
 		return expedientsService.getIdExpedientByDocumentacioIdExt(documentacio);
 	}
 
+	/**
+	 * Crear notificacio.
+	 *
+	 * @param documentCrearNotificacioBDTO
+	 *            the document crear notificacio BDTO
+	 * @return the notificacions RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1321,6 +1348,14 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.crearNotificacio(documentCrearNotificacioBDTO);
 	}
 
+	/**
+	 * Callback notificacio.
+	 *
+	 * @param actualitzarNotificacio
+	 *            the actualitzar notificacio
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1420,6 +1455,15 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.crearDocumentEntradaDigitalitzat(crearDocumentEntradaDigitalitzarBDTO);
 	}
 
+	/**
+	 * Crear document tramitacio digitalitzat.
+	 *
+	 * @param crearDocumentTramitacioDigitalitzarBDTO
+	 *            the crear document tramitacio digitalitzar BDTO
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1433,6 +1477,14 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.crearDocumentTramitacioDigitalitzat(crearDocumentTramitacioDigitalitzarBDTO);
 	}
 
+	/**
+	 * Registrar comunicat document tramitacio.
+	 *
+	 * @param documentGeneratRegistrarComunicatBDTO
+	 *            the document generat registrar comunicat BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1446,6 +1498,14 @@ public class ServeisServiceImpl implements ServeisService {
 		documentsService.registrarComunicatDocumentTramitacio(documentGeneratRegistrarComunicatBDTO);
 	}
 
+	/**
+	 * Callback digitalitzacio.
+	 *
+	 * @param callbackDigitalitzacio
+	 *            the callback digitalitzacio
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1459,6 +1519,15 @@ public class ServeisServiceImpl implements ServeisService {
 		documentsService.callbackDigitalitzacio(callbackDigitalitzacio);
 	}
 
+	/**
+	 * Obtenir expedients relacionats.
+	 *
+	 * @param idExpedient
+	 *            the id expedient
+	 * @return the page data of expedients RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1470,6 +1539,14 @@ public class ServeisServiceImpl implements ServeisService {
 		return expedientsService.obtenirExpedientsRelacionats(idExpedient);
 	}
 
+	/**
+	 * Associats docs intra.
+	 *
+	 * @param docsAssociatsIntraBDTO
+	 *            the docs associats intra BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1483,6 +1560,15 @@ public class ServeisServiceImpl implements ServeisService {
 
 	}
 
+	/**
+	 * Consultar dades basiques expedient by id documentacio.
+	 *
+	 * @param idDocumentacio
+	 *            the id documentacio
+	 * @return the dades expedient BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1495,6 +1581,15 @@ public class ServeisServiceImpl implements ServeisService {
 		return consultarDadesBasiquesExpedient(idExpedientByDocumentacioIdExt);
 	}
 
+	/**
+	 * Actualitzar requeriment.
+	 *
+	 * @param crearRequerimentBDTO
+	 *            the crear requeriment BDTO
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1507,6 +1602,14 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.actualitzarRequeriment(crearRequerimentBDTO);
 	}
 
+	/**
+	 * Anotar operacio comptable.
+	 *
+	 * @param anotarOperacioComptableBDTO
+	 *            the anotar operacio comptable BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1517,6 +1620,34 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public void anotarOperacioComptable(AnotarOperacioComptableBDTO anotarOperacioComptableBDTO) throws GPAServeisServiceException {
 		expedientsService.anotarOperacioComptable(anotarOperacioComptableBDTO);
+	}
+
+	/**
+	 * Es borrar documentacio entrada.
+	 *
+	 * @param esborrarDocumentBDTO
+	 *            the esborrar document BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@Override
+	public void esBorrarDocumentacioEntrada(EsborrarDocumentBDTO esborrarDocumentBDTO) throws GPAServeisServiceException {
+		documentsService.esBorrarDocumentacioEntrada(esborrarDocumentBDTO);
+
+	}
+
+	/**
+	 * Es borrar documentacio tramitacio.
+	 *
+	 * @param esborrarDocumentBDTO
+	 *            the esborrar document BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@Override
+	public void esBorrarDocumentacioTramitacio(EsborrarDocumentBDTO esborrarDocumentBDTO) throws GPAServeisServiceException {
+		documentsService.esBorrarDocumentacioTramitacio(esborrarDocumentBDTO);
+
 	}
 
 }

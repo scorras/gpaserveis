@@ -303,4 +303,11 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 				.andExpect(status().isOk()).andDo(print());
 	}
 
+	@Test
+	public void testStage34_EsborrarDocument() throws Exception {
+		String url = BASE_URL + "/expedients/1/documentacio/1/esborrar";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{ \"configuracio\":\"APORTADA\" }"))
+				.andExpect(status().isOk()).andDo(print());
+	}
+
 }

@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class RespostaEsborrarDocumentExpedientBDTO {
+public class RespostaEsborrarDocumentEntradaBDTO {
 
 	/** The expedients RDTO. */
 	private ExpedientsRDTO expedientsRDTO;

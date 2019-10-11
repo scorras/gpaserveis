@@ -326,7 +326,9 @@ public abstract class ParentTest {
 			when(documentacioApi.consultarDadesDocumentGenerat(any(BigDecimal.class)))
 					.thenReturn(TestsConfigHelper.consultarDadesDocumentGeneratResponse());
 
-			doNothing().when(documentacioApi).esborrarDocumentExpedient(any(List.class), any(BigDecimal.class));
+			doNothing().when(documentacioApi).esBorrarDocumentacioEntrada(any(BigDecimal.class), any(BigDecimal.class));
+
+			doNothing().when(documentacioApi).esBorrarDocumentacioTramitacio(any(BigDecimal.class), any(BigDecimal.class));
 
 			when(downloadApi.descarregarDocumentExpedient(any(BigDecimal.class), any(BigDecimal.class)))
 					.thenReturn(TestsConfigHelper.descarregarDocumentExpedientResponse());

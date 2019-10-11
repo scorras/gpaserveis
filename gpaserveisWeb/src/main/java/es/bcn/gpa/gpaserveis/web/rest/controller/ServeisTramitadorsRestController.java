@@ -41,6 +41,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.CrearRequerimentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocsAssociatsIntraBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentEntradaFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentTramitacioFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarRequerimentFitxerBDTO;
@@ -50,6 +51,8 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDigitalitzarDocument
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDigitalitzarDocumentTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsTramitacioCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaEsborrarDocumentEntradaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaEsborrarDocumentTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaIncorporarNouDocumentEntradaExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaIncorporarNouDocumentTramitacioExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaObtenirDocumentEntradaIntraoperabilitatExpedientRDTO;
@@ -158,6 +161,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.VersioProcedimentApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ErrorDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ResultatRespostaDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.esborrar.RespostaEsborrarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.resolucio.validar.PersonaValidarResolucioDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.resolucio.validar.RespostaResolucioValidarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.PersonaSignarDocumentRDTO;
@@ -178,6 +182,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentac
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.completar.RespostaCompletarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.digitalitzar.DocumentDigitalitzacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.digitalitzar.RespostaDigitalitzarDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.esborrar.DocumentacioEsborrarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.DocumentIncorporacioNouRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.RespostaIncorporarNouDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.intraoperabilitat.DocumentIntraoperabilitatRDTO;
@@ -241,6 +246,10 @@ import net.opentrends.openframe.services.configuration.annotation.EntornProperty
 @RequestMapping(value = "/serveis/tramitadors", produces = MediaType.APPLICATION_JSON_VALUE)
 @Lazy(true)
 @Api(value = "Serveis Tramitadors API", tags = "Serveis Tramitadors API")
+
+/** The Constant log. */
+
+/** The Constant log. */
 
 /** The Constant log. */
 
@@ -3160,6 +3169,106 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			log.debug("publicarPerAInformacioPublica(String, InformacioPublicaRDTO) - fi"); //$NON-NLS-1$
 		}
 		return respostaAnotarOperacioComptableRDTO;
+	}
+
+	@PostMapping("/expedients/{codiExpedient}/documentacio/{idDocument}/esborrar")
+	@ApiOperation(value = "Esborrar un document de l'expedient", tags = { "Serveis Tramitadors API" }, extensions = {
+			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaEsborrarDocumentRDTO esborrarDocument(
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
+			@ApiParam(value = "Dades del document a esborrar") @RequestBody DocumentacioEsborrarRDTO documentacioEsborrarRDTO) {
+		if (log.isDebugEnabled()) {
+			log.debug("esborrarDocument(String, BigDecimal, String) - inici"); //$NON-NLS-1$
+		}
+		RespostaEsborrarDocumentRDTO respostaEsborrarDocumentRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+		DocsEntradaRDTO docsEntradaRDTO = null;
+		DocsTramitacioRDTO docsTramitacioRDTO = null;
+		Boolean esAportada = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ESBORRAR_DOCUMENT_EXPEDIENT);
+
+		try {
+
+			ConfiguracioApiParamValueTranslator configuracioApiParamValueTranslator = new ConfiguracioApiParamValueTranslator();
+			ConfiguracioApiParamValue configuracioApiParamValue = configuracioApiParamValueTranslator
+					.getEnumByApiParamValue(documentacioEsborrarRDTO.getConfiguracio());
+			switch (configuracioApiParamValue) {
+			case APORTADA:
+				esAportada = Boolean.TRUE;
+
+				break;
+			case GENERADA:
+				esAportada = Boolean.FALSE;
+
+				break;
+			default:
+				break;
+			}
+
+			// El codi del expediente debe existir
+			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT);
+
+			// Esborrar document si la acción es permitida
+			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+					AccioTramitadorApiParamValue.ESBORRAR_DOCUMENT, Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT);
+
+			if (esAportada) {
+				// El id del documento debe existir y pertenecer al expediente
+				// indicado
+				docsEntradaRDTO = serveisService.consultarDadesDocumentAportat(idDocument);
+				ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO,
+						Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT);
+
+				// Se construye el modelo para la llamada a la operación de
+				// esborrar
+				// document
+				EsborrarDocumentBDTO esborrarDocumentBDTO = new EsborrarDocumentBDTO(dadesExpedientBDTO.getExpedientsRDTO().getId(),
+						idDocument);
+
+				serveisService.esBorrarDocumentacioEntrada(esborrarDocumentBDTO);
+			} else {
+				// El id del documento debe existir y pertenecer al expediente
+				// indicado
+				docsTramitacioRDTO = serveisService.consultarDadesDocumentGenerat(idDocument);
+				ServeisRestControllerValidationHelper.validateDocumentGenerat(docsTramitacioRDTO, dadesExpedientBDTO,
+						Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT);
+
+				// Se construye el modelo para la llamada a la operación de
+				// esborrar
+				// document
+				EsborrarDocumentBDTO esborrarDocumentBDTO = new EsborrarDocumentBDTO(dadesExpedientBDTO.getExpedientsRDTO().getId(),
+						idDocument);
+
+				serveisService.esBorrarDocumentacioTramitacio(esborrarDocumentBDTO);
+			}
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("esborrarDocument(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("esborrarDocument(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT, e);
+		}
+
+		ExpedientsRDTO expedientsRDTO = (dadesExpedientBDTO != null) ? dadesExpedientBDTO.getExpedientsRDTO() : null;
+
+		if (esAportada) {
+			RespostaEsborrarDocumentEntradaBDTO respostaEsborrarDocumentEntradaBDTO = new RespostaEsborrarDocumentEntradaBDTO(
+					expedientsRDTO, docsEntradaRDTO, respostaResultatBDTO);
+			respostaEsborrarDocumentRDTO = modelMapper.map(respostaEsborrarDocumentEntradaBDTO, RespostaEsborrarDocumentRDTO.class);
+		} else {
+			RespostaEsborrarDocumentTramitacioBDTO respostaEsborrarDocumentTramitacioBDTO = new RespostaEsborrarDocumentTramitacioBDTO(
+					expedientsRDTO, docsTramitacioRDTO, respostaResultatBDTO);
+			respostaEsborrarDocumentRDTO = modelMapper.map(respostaEsborrarDocumentTramitacioBDTO, RespostaEsborrarDocumentRDTO.class);
+		}
+
+		if (log.isDebugEnabled()) {
+			log.debug("esborrarDocument(String, BigDecimal, String) - fi"); //$NON-NLS-1$
+		}
+		return respostaEsborrarDocumentRDTO;
 	}
 
 }
