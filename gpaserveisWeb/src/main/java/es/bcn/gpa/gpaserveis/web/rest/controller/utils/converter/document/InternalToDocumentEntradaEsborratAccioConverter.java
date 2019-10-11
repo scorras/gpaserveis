@@ -7,10 +7,10 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRD
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.DocumentEsborratAccioRDTO;
 
 /**
- * The Class InternalToDocumentEsborratAccioConverter.
+ * The Class InternalToDocumentEntradaEsborratAccioConverter.
  */
-@Component("internalToDocumentEsborratAccioConverter")
-public class InternalToDocumentEsborratAccioConverter extends AbstractConverter<DocsEntradaRDTO, DocumentEsborratAccioRDTO> {
+@Component("internalToDocumentEntradaEsborratAccioConverter")
+public class InternalToDocumentEntradaEsborratAccioConverter extends AbstractConverter<DocsEntradaRDTO, DocumentEsborratAccioRDTO> {
 
 	/*
 	 * (non-Javadoc)

@@ -185,7 +185,7 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	 *             the exception
 	 */
 	@Test
-	public void testStage12_DeleteEsborrarDocumentExpedient() throws Exception {
+	public void testStage12_DeleteEsborrarDocument() throws Exception {
 		String url = BASE_URL + "/expedients/1/documentacio/1";
 		getMockMvc().perform(delete(url).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(print());
 

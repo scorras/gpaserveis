@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -72,20 +71,43 @@ public class DocumentacioApiTest extends ParentTest {
 	public TemporaryFolder testFolder = new TemporaryFolder();
 
 	/**
-	 * Delete all selected DocsEntrada.
+	 * Delete DocsEntrada
 	 *
-	 * @throws RestClientException
+	 * 
+	 *
+	 * @throws ApiException
 	 *             if the Api call fails
 	 */
 	@Test
-	public void esborrarDocumentExpedientTest() throws RestClientException {
-		when(apiClient.invokeAPI(eq("/documentacio/entrada/delete/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+	public void esBorrarDocumentacioEntradaTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/esBorrar/1/entrada/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
 				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 				any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		List<BigDecimal> docsEntradaIds = Arrays.asList(ONE);
-		BigDecimal idExpedient = ONE;
-		api.esborrarDocumentExpedient(docsEntradaIds, idExpedient);
+		BigDecimal idDocsEntrada = BigDecimal.ONE;
+		BigDecimal idExpedient = BigDecimal.ONE;
+		api.esBorrarDocumentacioEntrada(idDocsEntrada, idExpedient);
+
+		assertTrue(true);
+	}
+
+	/**
+	 * Delete DocsTramitacio
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void esBorrarDocumentacioTramitacioTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/esBorrar/1/tramitacio/1"), eq(HttpMethod.POST), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		BigDecimal idDocsTramitacio = BigDecimal.ONE;
+		BigDecimal idExpedient = BigDecimal.ONE;
+		api.esBorrarDocumentacioTramitacio(idDocsTramitacio, idExpedient);
 
 		assertTrue(true);
 	}

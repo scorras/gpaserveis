@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.15.0"
+  version: "1.15.2"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -670,44 +670,6 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /documentacio/entrada/delete/{idExpedient}:
-    post:
-      tags:
-      - "Documentacio"
-      summary: "Delete all selected DocsEntrada"
-      operationId: "esborrarDocumentExpedient"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "docsEntradaIds"
-        description: "docsEntradaIds"
-        required: true
-        schema:
-          type: "array"
-          items:
-            type: "number"
-      - name: "idExpedient"
-        in: "path"
-        description: "idExpedient"
-        required: true
-        type: "number"
-      responses:
-        200:
-          description: "OK"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /documentacio/entrada/digitalitzar/{idExpedient}:
     post:
       tags:
@@ -931,6 +893,37 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/entrada/revisarMassiu:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "Updates all selected DocsEntrada with the EstatRevisio specified"
+      operationId: "revisarDocumentacioEntradaMassiu"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "documentRevisioRDTO"
+        description: "documentRevisioRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/DocumentRevisio"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /documentacio/entrada/{idExpedient}:
     post:
       tags:
@@ -1003,6 +996,68 @@ paths:
           description: "Forbidden"
         404:
           description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /documentacio/esBorrar/{idExpedient}/entrada/{idDocument}:
+    delete:
+      tags:
+      - "Documentacio"
+      summary: "Delete DocsEntrada"
+      operationId: "esBorrarDocumentacioEntrada"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDocument"
+        in: "path"
+        description: "idDocument"
+        required: true
+        type: "number"
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+        204:
+          description: "No Content"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /documentacio/esBorrar/{idExpedient}/tramitacio/{idDocument}:
+    delete:
+      tags:
+      - "Documentacio"
+      summary: "Delete DocsTramitacio"
+      operationId: "esBorrarDocumentacioTramitacio"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDocument"
+        in: "path"
+        description: "idDocument"
+        required: true
+        type: "number"
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+        204:
+          description: "No Content"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
@@ -2469,6 +2524,9 @@ definitions:
   DocumentRevisio:
     type: "object"
     properties:
+      codiExpedient:
+        type: "string"
+        description: "Codi de l'expedient"
       docsEntradaIds:
         type: "array"
         description: "Llista d'identificadors de document"
