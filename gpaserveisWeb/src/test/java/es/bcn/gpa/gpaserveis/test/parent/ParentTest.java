@@ -58,7 +58,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGest
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarMassiuRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarLaTramitacioRDTO;
@@ -336,8 +336,8 @@ public abstract class ParentTest {
 
 			doNothing().when(avisosApi).crearAvisAccio(any(BigDecimal.class), any(BigDecimal.class), any(AvisCreacioAccio.class));
 
-			when(expedientsApi.canviarEstatAccioExpedient(any(BigDecimal.class), any(BigDecimal.class),
-					any(ExpedientCanviEstatAccio.class))).thenReturn(TestsConfigHelper.canviarEstatAccioExpedientResponse());
+			when(expedientsApi.canviarEstatExpedient(any(BigDecimal.class), any(ExpedientCanviEstat.class)))
+					.thenReturn(TestsConfigHelper.canviarEstatExpedientResponse());
 
 			when(estatsApi.cercaHistoricsEstats(any(BigDecimal.class))).thenReturn(TestsConfigHelper.cercaHistoricsEstatsResponse());
 
@@ -383,7 +383,7 @@ public abstract class ParentTest {
 
 			doNothing().when(acumulaciExpedientsApi).acumularExpedient(any(AcumularExpedientRDTO.class));
 
-			when(personesSollicitudApi.actualitzarDadesAltraPersonaImplicada(any(PersonesSollicitudRDTO.class), isNull(Integer.class),
+			when(personesSollicitudApi.donarAccesAltraPersonaImplicada(any(PersonesSollicitudRDTO.class), isNull(Integer.class),
 					isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
 					isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class),
 					isNull(String.class), isNull(Long.class), isNull(Integer.class)))

@@ -129,6 +129,42 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /expedients/anotarOperacioComptable/{idExpedient}:
+    post:
+      tags:
+      - "Expedients"
+      summary: "Anotar Operació Comptable"
+      operationId: "anotarOperacioComptable"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "anotarOperacioComptableRDTO"
+        description: "Dades dades de l'operació comptable"
+        required: false
+        schema:
+          $ref: "#/definitions/AnotarOperacioComptableRDTO"
+      - name: "idExpedient"
+        in: "path"
+        description: "Identificador de l'expedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/canviUnitatGestora:
     post:
       tags:
@@ -501,103 +537,6 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/personesSollicitud/altresImplidades:
-    post:
-      tags:
-      - "PersonesSollicitud"
-      summary: "Save the provided persone"
-      operationId: "actualitzarDadesAltraPersonaImplicada"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "absoluteRowNumberOfLastRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "currentPageHasNextPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageHasPreviousPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsFirstPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsLastPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "dir"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "nextPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "pageSize"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - in: "body"
-        name: "personesSollicitudRDTO"
-        description: "personesSollicitudRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/PersonesSollicitudRDTO"
-      - name: "previousPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "sort"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "totalElements"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int64"
-      - name: "totalPages"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/PageDataOfPersonesSollicitudRDTO"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /expedients/personesSollicitud/altresImplidades/{idSolicitud}:
     get:
       tags:
@@ -690,6 +629,103 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/personesSollicitud/donarAccesAltresImplidades:
+    post:
+      tags:
+      - "PersonesSollicitud"
+      summary: "Save the provided persone"
+      operationId: "donarAccesAltraPersonaImplicada"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - in: "body"
+        name: "personesSollicitudRDTO"
+        description: "personesSollicitudRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/PersonesSollicitudRDTO"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfPersonesSollicitudRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/personesSollicitud/interessades/{idSolicitud}:
     get:
       tags:
@@ -1106,28 +1142,23 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/{idExpedient}/accions/{idAccio}/canviEstat:
+  /expedients/{idExpedient}/canviEstat:
     post:
       tags:
       - "Expedients"
-      summary: "Canvia l'estat d'un expedient en funció de l'acció executada"
-      operationId: "canviarEstatAccioExpedient"
+      summary: "Canvia l'estat d'un expedient"
+      operationId: "canviarEstatExpedient"
       consumes:
       - "application/json"
       produces:
       - "*/*"
       parameters:
       - in: "body"
-        name: "expedientCanviEstatAccioRDTO"
+        name: "expedientCanviEstatRDTO"
         description: "Dades del canvi d'estat"
         required: false
         schema:
-          $ref: "#/definitions/ExpedientCanviEstatAccio"
-      - name: "idAccio"
-        in: "path"
-        description: "Identificador de l'acció"
-        required: true
-        type: "number"
+          $ref: "#/definitions/ExpedientCanviEstat"
       - name: "idExpedient"
         in: "path"
         description: "Identificador de l'expedient"
@@ -1210,6 +1241,12 @@ definitions:
       idExpedientAcumulador:
         type: "number"
     title: "AcumularExpedientRDTO"
+  AnotarOperacioComptableRDTO:
+    type: "object"
+    properties:
+      comentari:
+        $ref: "#/definitions/Comentaris"
+    title: "AnotarOperacioComptableRDTO"
   AvisCreacioAccio:
     type: "object"
     properties:
@@ -1472,6 +1509,22 @@ definitions:
   ExpedientCanviEstat:
     type: "object"
     properties:
+      comentari:
+        type: "string"
+        description: "Comentari associat al canvi d'estat"
+      diesTerminiAllegacio:
+        type: "number"
+        description: "Dies de termini per respondre a les al·legacions"
+      diesTerminiRequeriment:
+        type: "number"
+        description: "Dies de termini per respondre al requeriment"
+      idAccioEstat:
+        type: "number"
+        description: "Identificador de la transició acció - estat"
+    title: "ExpedientCanviEstat"
+  ExpedientCanviarEstat:
+    type: "object"
+    properties:
       codi:
         type: "string"
         description: "Codi identificador de l'expedient"
@@ -1484,39 +1537,7 @@ definitions:
       id:
         type: "number"
         description: "Identificador de l'expedient"
-    title: "ExpedientCanviEstat"
-  ExpedientCanviEstatAccio:
-    type: "object"
-    properties:
-      dataLimitAllegacio:
-        type: "string"
-        format: "date-time"
-        description: "Data impositiva de fi de termini per esmenar l'expedient, responent\
-          \ a les al·legacions"
-      dataLimitRequeriment:
-        type: "string"
-        format: "date-time"
-        description: "Data impositiva de fi de termini per esmenar l'expedient, responent\
-          \ al requeriment"
-      descEstat:
-        type: "string"
-        description: "Descripció de l'estat actual"
-      diesTerminiAllegacio:
-        type: "number"
-        description: "Dies de termini per respondre a les al·legacions"
-      diesTerminiRequeriment:
-        type: "number"
-        description: "Dies de termini per respondre al requeriment"
-      idEstat:
-        type: "number"
-        description: "Identificador de l'estat actual"
-      idProcediment:
-        type: "number"
-        description: "Identificador del procediment"
-      operacio:
-        type: "string"
-        description: "Operació concreta en l'execució de l'acció"
-    title: "ExpedientCanviEstatAccio"
+    title: "ExpedientCanviarEstat"
   ExpedientsRDTO:
     type: "object"
     properties:
@@ -1885,7 +1906,7 @@ definitions:
     properties:
       expedient:
         description: "Dades bàsiques de l'expedient"
-        $ref: "#/definitions/ExpedientCanviEstat"
+        $ref: "#/definitions/ExpedientCanviarEstat"
     title: "RespostaCanviarEstatAccioExpedient"
   RespostaCrearRegistreExpedient:
     type: "object"

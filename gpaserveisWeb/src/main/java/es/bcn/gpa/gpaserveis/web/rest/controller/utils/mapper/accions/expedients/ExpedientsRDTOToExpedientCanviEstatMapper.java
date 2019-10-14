@@ -3,14 +3,14 @@ package es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.accions.expedient
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Component;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 
 /**
- * The Class ExpedientsRDTOToExpedientCanviEstatAccioMapper.
+ * The Class ExpedientsRDTOToExpedientCanviEstatMapper.
  */
-@Component("expedientsRDTOToExpedientCanviEstatAccioMapper")
-public class ExpedientsRDTOToExpedientCanviEstatAccioMapper extends PropertyMap<ExpedientsRDTO, ExpedientCanviEstatAccio> {
+@Component("expedientsRDTOToExpedientCanviEstatMapper")
+public class ExpedientsRDTOToExpedientCanviEstatMapper extends PropertyMap<ExpedientsRDTO, ExpedientCanviEstat> {
 
 	/*
 	 * (non-Javadoc)
@@ -19,9 +19,6 @@ public class ExpedientsRDTOToExpedientCanviEstatAccioMapper extends PropertyMap<
 	 */
 	@Override
 	protected void configure() {
-		map().setIdEstat(source.getIdEstat());
-		map().setDescEstat(source.getDescEstat());
-		map().setIdProcediment(source.getProcedimentIdext());
 		map().setDiesTerminiRequeriment(source.getDiesTerminiRequeriment());
 		map().setDiesTerminiAllegacio(source.getDiesTerminiAllegacio());
 	}

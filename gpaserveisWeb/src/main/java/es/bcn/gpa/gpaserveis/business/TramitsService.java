@@ -45,4 +45,14 @@ public interface TramitsService {
 	 *             the GPA serveis service exception
 	 */
 	List<AccionsEstatsRDTO> cercaAccionsPossibles(BigDecimal idAccioEstat) throws GPAServeisServiceException;
+
+	/**
+	 * obtenir l'aneu accion estat a partir de l'estat actual i la accion
+	 * 
+	 * @param idAccio
+	 * @param idEstatActual
+	 * @return
+	 * @throws GPAServeisServiceException
+	 */
+	List<AccionsEstatsRDTO> cercaTransicioCanviEstat(BigDecimal idAccio, BigDecimal idEstatActual) throws GPAServeisServiceException;
 }

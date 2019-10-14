@@ -57,9 +57,9 @@ public class TramitsServiceImpl implements TramitsService {
 
 		try {
 			PageDataOfTramitsRDTO pageDataOfTramitsRDTO = tramitsApi.cercaTramitsProcediment(idProcediment, null, null, null, null, null,
-			        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-			        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-			        null, null, null, null, null, null, null, null);
+					null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+					null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+					null, null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaTramitsProcediment(BigDecimal) - fi"); //$NON-NLS-1$
@@ -185,6 +185,50 @@ public class TramitsServiceImpl implements TramitsService {
 	public List<AccionsEstatsRDTO> fallbackCercaAccionsPossibles(BigDecimal idAccioEstat, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaAccionsPossibles(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackCercaTransicioCanviEstat")
+	public List<AccionsEstatsRDTO> cercaTransicioCanviEstat(BigDecimal idAccio, BigDecimal idEstatActual)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("cercaTransicioCanviEstat(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			List<AccionsEstatsRDTO> accionsEstatsRDTOList = accionsEstatsApi.cercaTransicioCanviEstat(idAccio, idEstatActual);
+
+			if (log.isDebugEnabled()) {
+				log.debug("cercaTransicioCanviEstat(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			return accionsEstatsRDTOList;
+		} catch (RestClientException e) {
+			log.error("cercaTransicioCanviEstat(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback cerca transicio canvi estat.
+	 *
+	 * @param idAccioEstat
+	 *            the id accio estat
+	 * @param e
+	 *            the e
+	 * @return the list
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public List<AccionsEstatsRDTO> fallbackCercaTransicioCanviEstat(BigDecimal idAccio, BigDecimal idEstatActual, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCercaTransicioCanviEstat(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
