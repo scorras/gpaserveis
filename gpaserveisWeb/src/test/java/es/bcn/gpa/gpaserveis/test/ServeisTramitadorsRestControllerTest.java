@@ -310,4 +310,11 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 				.andExpect(status().isOk()).andDo(print());
 	}
 
+	@Test
+	public void testStage35_InscriureEnRegistre() throws Exception {
+		String url = BASE_URL + "/expedients/1/registre/inscriure";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{ \"comentari\":\"S'executa l'acció.\" }"))
+				.andExpect(status().isOk()).andDo(print());
+	}
+
 }

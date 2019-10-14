@@ -24,6 +24,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarB
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.business.handler.ServeisServiceExceptionHandler;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
@@ -57,6 +58,8 @@ import lombok.extern.apachecommons.CommonsLog;
  * The Class ExpedientsServiceImpl.
  */
 @Service
+
+/** The Constant log. */
 
 /** The Constant log. */
 
@@ -1308,6 +1311,53 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackAnotarOperacioComptable(AnotarOperacioComptableBDTO, Throwable e) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#inscriureEnRegistre(es.
+	 * bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackInscriureEnRegistre")
+	public void inscriureEnRegistre(InscriureEnRegistreBDTO inscriureEnRegistreBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("inscriureEnRegistre(InscriureEnRegistreBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			expedientsApi.inscriureEnRegistre(inscriureEnRegistreBDTO.getIdExpedient(),
+					inscriureEnRegistreBDTO.getInscriureEnRegistreRDTO());
+
+			if (log.isDebugEnabled()) {
+				log.debug("inscriureEnRegistre(InscriureEnRegistreBDTO) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("inscriureEnRegistre(InscriureEnRegistreBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback inscriure en registre.
+	 *
+	 * @param inscriureEnRegistreBDTO
+	 *            the inscriure en registre BDTO
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackInscriureEnRegistre(InscriureEnRegistreBDTO inscriureEnRegistreBDTO, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackInscriureEnRegistre(InscriureEnRegistreBDTO, Throwable e) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);

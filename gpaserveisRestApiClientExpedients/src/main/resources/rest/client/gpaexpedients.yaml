@@ -389,6 +389,42 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/inscriureEnRegistre/{idExpedient}:
+    post:
+      tags:
+      - "Expedients"
+      summary: "Inscriure en un registre"
+      operationId: "inscriureEnRegistre"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idExpedient"
+        in: "path"
+        description: "Identificador de l'expedient"
+        required: true
+        type: "number"
+      - in: "body"
+        name: "inscriureEnRegistreRDTO"
+        description: "Dades dades del registre"
+        required: false
+        schema:
+          $ref: "#/definitions/InscriureEnRegistreRDTO"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/obtenirExpedientsRelacionats/{id}:
     get:
       tags:
@@ -1231,6 +1267,9 @@ definitions:
       expedient:
         description: "Dades de l'expedient"
         $ref: "#/definitions/ExpedientsRDTO"
+      tipusIniciacio:
+        type: "string"
+        description: "Tipus de iniciació sollicitud"
     title: "ActualitzarDadesSollicitud"
   AcumularExpedientRDTO:
     type: "object"
@@ -1677,6 +1716,12 @@ definitions:
       unitatGestoraIdext:
         type: "number"
     title: "ExpedientsRDTO"
+  InscriureEnRegistreRDTO:
+    type: "object"
+    properties:
+      comentari:
+        $ref: "#/definitions/Comentaris"
+    title: "InscriureEnRegistreRDTO"
   PageDataOfExpedientsRDTO:
     type: "object"
     properties:

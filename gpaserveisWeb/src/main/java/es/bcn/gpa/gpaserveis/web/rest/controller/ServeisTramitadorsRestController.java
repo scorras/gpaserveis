@@ -74,6 +74,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaAnotarOperacioComptableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaConsultaExpedientsBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsAccesBDTO;
@@ -94,6 +95,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsRetornarB
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsTancarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsValidarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaInscriureEnRegistreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaPublicarPerAInformacioPublicaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaResolucioValidarDocumentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaSignarDocumentBDTO;
@@ -133,6 +135,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiqu
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownItemBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegistreRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
@@ -166,7 +169,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.re
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.resolucio.validar.RespostaResolucioValidarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.PersonaSignarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.RespostaSignarDocumentRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.actualitzar.ExpedientActualitzarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar.RespostaActualitzarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.recurs.RecursExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.recurs.RespostaRecursExpedientRDTO;
@@ -197,6 +199,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentac
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.validar.RespostaValidarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.acces.ExpedientAccesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.acces.RespostaAccesExpedientRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.actualitzar.ExpedientActualitzarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.acumular.ExpedientAcumulacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.acumular.RespostaAcumularExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.anotar.operacio.comptable.OperacioComptableRDTO;
@@ -205,6 +208,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.arxivar.RespostaArxivarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.comunicar.ExpedientComunicatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.comunicar.RespostaRegistrarComunicacioExpedientRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.inscriure.en.registre.InscriureRegistreRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.inscriure.en.registre.RespostaInscriureEnRegistreRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.notificar.ExpedientNotificacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.notificar.RespostaNotificarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.pausar.ExpedientPausaRDTO;
@@ -246,6 +251,8 @@ import net.opentrends.openframe.services.configuration.annotation.EntornProperty
 @RequestMapping(value = "/serveis/tramitadors", produces = MediaType.APPLICATION_JSON_VALUE)
 @Lazy(true)
 @Api(value = "Serveis Tramitadors API", tags = "Serveis Tramitadors API")
+
+/** The Constant log. */
 
 /** The Constant log. */
 
@@ -2967,7 +2974,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 		return respostaRecursExpedientRDTO;
 	}
-	
+
 	/**
 	 * Actualitzar solicitud expedient.
 	 *
@@ -2979,10 +2986,10 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 */
 	@PostMapping("/expedients/{codiExpedient}")
 	@ApiOperation(value = "Actualitzar dades de la sol·licitud de l'expedient", tags = { "Serveis Tramitadors API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaActualitzarExpedientRDTO actualitzarSolicitudExpedient(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Dades de la actualització de l'expedient") @RequestBody ExpedientActualitzarRDTO solicitudExpedient) {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Dades de la actualització de l'expedient") @RequestBody ExpedientActualitzarRDTO solicitudExpedient) {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO) - inici"); //$NON-NLS-1$
 		}
@@ -2993,19 +3000,19 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		try {
 			// El codi del expediente debe existir
 			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
-			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
 
 			// Si se indica alguna persona al menos debe indicarse el
 			// Solicitante
 			ServeisRestControllerValidationHelper.validateSollicitantActualitzarSolicitudExpedient(solicitudExpedient.getSollicitant(),
-			        solicitudExpedient.getRepresentant());
+					solicitudExpedient.getRepresentant());
 
 			// Actualizar Solicitante / Representante / Dades d'Operació si se
 			// incluyen en los datos de la petición y si la acción es permitida
 			if (solicitudExpedient.getSollicitant() != null || CollectionUtils.isNotEmpty(solicitudExpedient.getDadesOperacio())) {
 				ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
-				        AccioTramitadorApiParamValue.INFORMAR_DADES_EXPEDIENT, Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
+						AccioTramitadorApiParamValue.INFORMAR_DADES_EXPEDIENT, Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
 			}
 
 			// Se obtienen los Dades d'Operació del procedimiento y se valida
@@ -3014,11 +3021,11 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
 			if (CollectionUtils.isNotEmpty(solicitudExpedient.getDadesOperacio())) {
 				DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(
-				        dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
+						dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
 				RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = serveisService.cercaDadesOperacio(dadesOperacioCercaBDTO);
 				dadesEspecifiquesRDTOList = ServeisRestControllerValidationHelper.validateDadesOperacioActualitzarSolicitudExpedient(
-				        solicitudExpedient.getDadesOperacio(), respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList(),
-				        dadesExpedientBDTO.getExpedientsRDTO().getId(), false);
+						solicitudExpedient.getDadesOperacio(), respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList(),
+						dadesExpedientBDTO.getExpedientsRDTO().getId(), false);
 			}
 
 			// Se construye el modelo para la llamada a la operación de
@@ -3042,7 +3049,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		RespostaExpedientsActualitzarBDTO respostaExpedientsActualitzarBDTO = new RespostaExpedientsActualitzarBDTO(returnExpedientsRDTO,
-		        respostaResultatBDTO);
+				respostaResultatBDTO);
 		respostaActualitzarSolicitudsRDTO = modelMapper.map(respostaExpedientsActualitzarBDTO, RespostaActualitzarExpedientRDTO.class);
 
 		if (log.isDebugEnabled()) {
@@ -3050,7 +3057,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 		return respostaActualitzarSolicitudsRDTO;
 	}
-
 
 	/**
 	 * Publicar per A informacio publica.
@@ -3124,7 +3130,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaAnotarOperacioComptableRDTO anotarOperacioComptable(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades dades de l'operació comptable") @RequestBody OperacioComptableRDTO operacioComptableRDTO)
+			@ApiParam(value = "Dades de l'operació comptable") @RequestBody OperacioComptableRDTO operacioComptableRDTO)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("anotarOperacioComptable(String, OperacioComptableRDTO) - inici"); //$NON-NLS-1$
@@ -3166,11 +3172,84 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				RespostaAnotarOperacioComptableRDTO.class);
 
 		if (log.isDebugEnabled()) {
-			log.debug("publicarPerAInformacioPublica(String, InformacioPublicaRDTO) - fi"); //$NON-NLS-1$
+			log.debug("publicarPerAInformacioPublica(String, OperacioComptableRDTO) - fi"); //$NON-NLS-1$
 		}
 		return respostaAnotarOperacioComptableRDTO;
 	}
 
+	/**
+	 * Inscriure en registre.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param inscriureRegistreRDTO
+	 *            the inscriure registre RDTO
+	 * @return the resposta inscriure en registre RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@PostMapping("/expedients/{codiExpedient}/registre/inscriure")
+	@ApiOperation(value = "Inscriure en un registre", tags = { "Serveis Tramitadors API" }, extensions = {
+			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaInscriureEnRegistreRDTO inscriureEnRegistre(
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Dades del registre") @RequestBody InscriureRegistreRDTO inscriureRegistreRDTO)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("inscriureEnRegistre(String, InscriureEnRegistreRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		RespostaInscriureEnRegistreRDTO respostaInscriureEnRegistreRDTO = null;
+		ExpedientsRDTO returnExpedientsRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_INSCRIURE_EN_REGISTRE);
+		try {
+			// El codi del expediente debe existir
+			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_INSCRIURE_EN_REGISTRE);
+
+			// TODO ver la información que se debe enviar, validaciones y hacer
+			// la integración
+
+			InscriureEnRegistreRDTO inscriureEnRegistreRDTO = new InscriureEnRegistreRDTO();
+			Comentaris comentaris = new Comentaris();
+			comentaris.setDescripcio(inscriureRegistreRDTO.getComentari());
+			inscriureEnRegistreRDTO.setComentari(comentaris);
+
+			InscriureEnRegistreBDTO inscriureEnRegistreBDTO = new InscriureEnRegistreBDTO(dadesExpedientBDTO.getExpedientsRDTO().getId(),
+					inscriureEnRegistreRDTO);
+			serveisService.inscriureEnRegistre(inscriureEnRegistreBDTO);
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("inscriureEnRegistre(String, InscriureEnRegistreRDTO)", e); // $NON-NLS-1$
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("inscriureEnRegistre(String, InscriureEnRegistreRDTO)", e); // $NON-NLS-1$
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_INSCRIURE_EN_REGISTRE, e);
+		}
+
+		RespostaInscriureEnRegistreBDTO respostaInscriureEnRegistreBDTO = new RespostaInscriureEnRegistreBDTO(
+				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
+		respostaInscriureEnRegistreRDTO = modelMapper.map(respostaInscriureEnRegistreBDTO, RespostaInscriureEnRegistreRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("inscriureEnRegistre(String, InscriureEnRegistreRDTO) - fi"); //$NON-NLS-1$
+		}
+		return respostaInscriureEnRegistreRDTO;
+	}
+
+	/**
+	 * Esborrar document.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param idDocument
+	 *            the id document
+	 * @param documentacioEsborrarRDTO
+	 *            the documentacio esborrar RDTO
+	 * @return the resposta esborrar document RDTO
+	 */
 	@PostMapping("/expedients/{codiExpedient}/documentacio/{idDocument}/esborrar")
 	@ApiOperation(value = "Esborrar un document de l'expedient", tags = { "Serveis Tramitadors API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })

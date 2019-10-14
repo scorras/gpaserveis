@@ -22,14 +22,14 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * AnotarOperacioComptableRDTO
+ * InscriureEnRegistreRDTO
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-14T11:11:38.011+02:00")
-public class AnotarOperacioComptableRDTO {
+public class InscriureEnRegistreRDTO {
   @JsonProperty("comentari")
   private Comentaris comentari = null;
 
-  public AnotarOperacioComptableRDTO comentari(Comentaris comentari) {
+  public InscriureEnRegistreRDTO comentari(Comentaris comentari) {
     this.comentari = comentari;
     return this;
   }
@@ -56,8 +56,8 @@ public class AnotarOperacioComptableRDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AnotarOperacioComptableRDTO anotarOperacioComptableRDTO = (AnotarOperacioComptableRDTO) o;
-    return Objects.equals(this.comentari, anotarOperacioComptableRDTO.comentari);
+    InscriureEnRegistreRDTO inscriureEnRegistreRDTO = (InscriureEnRegistreRDTO) o;
+    return Objects.equals(this.comentari, inscriureEnRegistreRDTO.comentari);
   }
 
   @Override
@@ -69,7 +69,7 @@ public class AnotarOperacioComptableRDTO {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AnotarOperacioComptableRDTO {\n");
+    sb.append("class InscriureEnRegistreRDTO {\n");
     
     sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
     sb.append("}");

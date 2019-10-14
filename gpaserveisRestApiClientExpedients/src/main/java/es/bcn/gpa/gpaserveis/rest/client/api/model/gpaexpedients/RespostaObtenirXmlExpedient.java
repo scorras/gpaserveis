@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * RespostaObtenirXmlExpedient
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-08T13:16:35.843+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-14T11:11:38.011+02:00")
 public class RespostaObtenirXmlExpedient {
   @JsonProperty("dadesXml")
   private String dadesXml = null;

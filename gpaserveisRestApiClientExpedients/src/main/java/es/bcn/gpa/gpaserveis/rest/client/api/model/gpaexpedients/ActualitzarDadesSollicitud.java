@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * ActualitzarDadesSollicitud
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-08T13:16:35.843+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-14T11:11:38.011+02:00")
 public class ActualitzarDadesSollicitud {
   @JsonProperty("comentari")
   private String comentari = null;
@@ -40,7 +40,7 @@ public class ActualitzarDadesSollicitud {
 
   @JsonProperty("expedient")
   private ExpedientsRDTO expedient = null;
-  
+
   @JsonProperty("tipusIniciacio")
   private String tipusIniciacio = null;
 
@@ -123,28 +123,24 @@ public class ActualitzarDadesSollicitud {
   public void setExpedient(ExpedientsRDTO expedient) {
     this.expedient = expedient;
   }
-  
 
   public ActualitzarDadesSollicitud tipusIniciacio(String tipusIniciacio) {
-	  this.tipusIniciacio = tipusIniciacio;
-	  return this;
+    this.tipusIniciacio = tipusIniciacio;
+    return this;
   }
-  
-  /**
-   * Iniciacio associat a les dades de sol·licitud
+
+   /**
+   * Tipus de iniciació sollicitud
    * @return tipusIniciacio
-   **/
-  
+  **/
   @ApiModelProperty(value = "Tipus de iniciació sollicitud")
-	  public String getTipusIniciacio() {
-		  return tipusIniciacio;
-	  }
-  
-  
-  public void setTipusIniciacio(String tipusIniciacio) {
-	  this.tipusIniciacio = tipusIniciacio;
+  public String getTipusIniciacio() {
+    return tipusIniciacio;
   }
-  
+
+  public void setTipusIniciacio(String tipusIniciacio) {
+    this.tipusIniciacio = tipusIniciacio;
+  }
 
 
   @Override

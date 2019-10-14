@@ -163,7 +163,11 @@ public enum Resultat {
 
 	OK_ANOTAR_OPERACIO_COMPTABLE("OK", "L'operació comptable s'ha anotat correctament"),
 
-	ERROR_ANOTAR_OPERACIO_COMPTABLE("ERROR", "No s'ha pogut anotar l'operació comptable");
+	ERROR_ANOTAR_OPERACIO_COMPTABLE("ERROR", "No s'ha pogut anotar l'operació comptable"),
+
+	OK_INSCRIURE_EN_REGISTRE("OK", "S'ha inscrit l'expedient en un registre manualment"),
+
+	ERROR_INSCRIURE_EN_REGISTRE("ERROR", "No s'ha pogut inscriure en el registre");
 
 	private String codi;
 

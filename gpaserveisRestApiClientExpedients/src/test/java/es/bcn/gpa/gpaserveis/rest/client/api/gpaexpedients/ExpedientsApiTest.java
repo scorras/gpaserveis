@@ -33,6 +33,7 @@ import org.springframework.util.MultiValueMap;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AnotarOperacioComptableRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegistreRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 
 /**
@@ -87,6 +88,25 @@ public class ExpedientsApiTest extends ParentTest {
 		api.anotarOperacioComptable(idExpedient, anotarOperacioComptableRDTO);
 
 		assertTrue(true);
+	}
+
+	/**
+	 * Inscriure en un registre
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void inscriureEnRegistreTest() {
+		when(apiClient.invokeAPI(eq("/expedients/1/registre/inscriure"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		BigDecimal idExpedient = ONE;
+		InscriureEnRegistreRDTO inscriureEnRegistreRDTO = new InscriureEnRegistreRDTO();
+		api.inscriureEnRegistre(idExpedient, inscriureEnRegistreRDTO);
 	}
 
 }
