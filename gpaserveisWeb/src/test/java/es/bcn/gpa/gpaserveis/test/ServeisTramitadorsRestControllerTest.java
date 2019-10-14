@@ -35,9 +35,7 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 	@Test
 	public void testStage02_PostPausarExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/1/pausar";
-		getMockMvc()
-				.perform(post(url).contentType(APPLICATION_JSON_UTF8)
-						.content("{ \"motiu\":\"tramitAllegacions\",\"dataLimit\":\"26/04/2050 18:24:36\" }"))
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{ \"motiu\":\"tramitAllegacions\",\"dataLimit\":22}"))
 				.andExpect(status().isOk()).andDo(print());
 	}
 

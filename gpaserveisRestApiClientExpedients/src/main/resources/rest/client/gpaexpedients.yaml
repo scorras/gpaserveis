@@ -1178,28 +1178,23 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /expedients/{idExpedient}/accions/{idAccio}/canviEstat:
+  /expedients/{idExpedient}/canviEstat:
     post:
       tags:
       - "Expedients"
-      summary: "Canvia l'estat d'un expedient en funció de l'acció executada"
-      operationId: "canviarEstatAccioExpedient"
+      summary: "Canvia l'estat d'un expedient"
+      operationId: "canviarEstatExpedient"
       consumes:
       - "application/json"
       produces:
       - "*/*"
       parameters:
       - in: "body"
-        name: "expedientCanviEstatAccioRDTO"
+        name: "expedientCanviEstatRDTO"
         description: "Dades del canvi d'estat"
         required: false
         schema:
-          $ref: "#/definitions/ExpedientCanviEstatAccio"
-      - name: "idAccio"
-        in: "path"
-        description: "Identificador de l'acció"
-        required: true
-        type: "number"
+          $ref: "#/definitions/ExpedientCanviEstat"
       - name: "idExpedient"
         in: "path"
         description: "Identificador de l'expedient"
@@ -1553,6 +1548,22 @@ definitions:
   ExpedientCanviEstat:
     type: "object"
     properties:
+      comentari:
+        type: "string"
+        description: "Comentari associat al canvi d'estat"
+      diesTerminiAllegacio:
+        type: "number"
+        description: "Dies de termini per respondre a les al·legacions"
+      diesTerminiRequeriment:
+        type: "number"
+        description: "Dies de termini per respondre al requeriment"
+      idAccioEstat:
+        type: "number"
+        description: "Identificador de la transició acció - estat"
+    title: "ExpedientCanviEstat"
+  ExpedientCanviarEstat:
+    type: "object"
+    properties:
       codi:
         type: "string"
         description: "Codi identificador de l'expedient"
@@ -1565,39 +1576,7 @@ definitions:
       id:
         type: "number"
         description: "Identificador de l'expedient"
-    title: "ExpedientCanviEstat"
-  ExpedientCanviEstatAccio:
-    type: "object"
-    properties:
-      dataLimitAllegacio:
-        type: "string"
-        format: "date-time"
-        description: "Data impositiva de fi de termini per esmenar l'expedient, responent\
-          \ a les al·legacions"
-      dataLimitRequeriment:
-        type: "string"
-        format: "date-time"
-        description: "Data impositiva de fi de termini per esmenar l'expedient, responent\
-          \ al requeriment"
-      descEstat:
-        type: "string"
-        description: "Descripció de l'estat actual"
-      diesTerminiAllegacio:
-        type: "number"
-        description: "Dies de termini per respondre a les al·legacions"
-      diesTerminiRequeriment:
-        type: "number"
-        description: "Dies de termini per respondre al requeriment"
-      idEstat:
-        type: "number"
-        description: "Identificador de l'estat actual"
-      idProcediment:
-        type: "number"
-        description: "Identificador del procediment"
-      operacio:
-        type: "string"
-        description: "Operació concreta en l'execució de l'acció"
-    title: "ExpedientCanviEstatAccio"
+    title: "ExpedientCanviarEstat"
   ExpedientsRDTO:
     type: "object"
     properties:
@@ -1972,7 +1951,7 @@ definitions:
     properties:
       expedient:
         description: "Dades bàsiques de l'expedient"
-        $ref: "#/definitions/ExpedientCanviEstat"
+        $ref: "#/definitions/ExpedientCanviarEstat"
     title: "RespostaCanviarEstatAccioExpedient"
   RespostaCrearRegistreExpedient:
     type: "object"

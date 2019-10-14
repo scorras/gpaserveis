@@ -35,7 +35,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiqu
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviarEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
@@ -1461,9 +1461,9 @@ public class TestsConfigHelper {
 	 *
 	 * @return the resposta canviar estat accio expedient
 	 */
-	public static RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedientResponse() {
+	public static RespostaCanviarEstatAccioExpedient canviarEstatExpedientResponse() {
 		RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccioExpedient = new RespostaCanviarEstatAccioExpedient();
-		ExpedientCanviEstat expedientCanviEstat = new ExpedientCanviEstat();
+		ExpedientCanviarEstat expedientCanviEstat = new ExpedientCanviarEstat();
 		expedientCanviEstat.setId(ONE);
 		expedientCanviEstat.setCodi("Codi");
 		expedientCanviEstat.setEstat("Estat");

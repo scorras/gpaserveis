@@ -10,10 +10,7 @@ import java.util.Map.Entry;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -68,7 +65,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentCrearNotificacioBDT
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentGeneratRegistrarComunicatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAcumularBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarUnitatGestoraBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
@@ -133,19 +130,20 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramita
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarMassiuRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownItemBDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegistreRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarLaTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.handler.ServeisRestControllerExceptionHandler;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerValidationHelper;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.BooleanApiParamValue;
@@ -155,6 +153,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.Tipus
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.MotiuPausaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.TipusCanalComunicacioApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.TransicioAccioEstatApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.ConfiguracioApiParamValueTranslator;
@@ -488,11 +487,23 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.VALIDAR_SOLLICITUD, Resultat.ERROR_VALIDAR_EXPEDIENT);
 
 			// Cambio de estado del expediente
-			ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
-					ExpedientCanviEstatAccio.class);
-			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
-					dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.VALIDAR_SOLLICITUD.getInternalValue());
-			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+
+			// obtenemos el idAccioEstat futuro
+			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
+					AccioTramitadorApiParamValue.VALIDAR_SOLLICITUD.getInternalValue(),
+					dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+
+			// debe existir una transicion posible para el estado actual
+			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
+					AccioTramitadorApiParamValue.VALIDAR_SOLLICITUD, Resultat.ERROR_PROPOSAR_RESOLUCIO_EXPEDIENT);
+
+			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+
+			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
+					dadesExpedientBDTO.getExpedientsRDTO().getId());
+
+			RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccio = serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 
 			// Crear comentario
 			ComentariCreacioAccio comentariCreacioAccio = new ComentariCreacioAccio();
@@ -501,6 +512,28 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.VALIDAR_SOLLICITUD.getInternalValue());
 			serveisService.crearComentariAccio(comentarisCrearAccioBDTO);
 
+			if (respostaCanviarEstatAccio != null) {
+				// TODO control del error, que debemos devolver en la
+				// respuesta??....
+				/*
+				 * ErrorDTO errorDTO = new ErrorDTO();
+				 * errorDTO.setCodi(peticionsPortasig.getCodiError());
+				 * errorDTO.setDescripcio(peticionsPortasig.getMissatgeError());
+				 * 
+				 * ResultatRespostaDTO resultatRespostaDTO = new
+				 * ResultatRespostaDTO();
+				 * resultatRespostaDTO.setDetallError(errorDTO);
+				 * 
+				 * respostaSignarDocumentRDTO = new
+				 * RespostaSignarDocumentRDTO();
+				 * respostaSignarDocumentRDTO.setResultat(resultatRespostaDTO);
+				 */
+			} else {
+				RespostaExpedientsValidarBDTO respostaExpedientsValidarBDTO = new RespostaExpedientsValidarBDTO(
+						dadesExpedientBDTO.getExpedientsRDTO(), respostaResultatBDTO);
+				respostaValidarExpedientRDTO = modelMapper.map(respostaExpedientsValidarBDTO, RespostaValidarExpedientRDTO.class);
+			}
+
 		} catch (GPAApiParamValidationException e) {
 			log.error("validarSolicitudExpedient(String, ExpedientValidacioRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
@@ -508,10 +541,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			log.error("validarSolicitudExpedient(String, ExpedientValidacioRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_VALIDAR_EXPEDIENT, e);
 		}
-
-		RespostaExpedientsValidarBDTO respostaExpedientsValidarBDTO = new RespostaExpedientsValidarBDTO(
-				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
-		respostaValidarExpedientRDTO = modelMapper.map(respostaExpedientsValidarBDTO, RespostaValidarExpedientRDTO.class);
 
 		if (log.isDebugEnabled()) {
 			log.debug("validarSolicitudExpedient(String, ExpedientValidacioRDTO) - fi"); //$NON-NLS-1$
@@ -555,7 +584,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Si se indica una fecha límite, debe ser posterior a la fecha
 			// actual
-			ServeisRestControllerValidationHelper.validateDataLimit(expedientPausa.getDataLimit(), Resultat.ERROR_PAUSAR_EXPEDIENT);
+			// ServeisRestControllerValidationHelper.validateDataLimit(expedientPausa.getDataLimit(),
+			// Resultat.ERROR_PAUSAR_EXPEDIENT);
 
 			// Pausar expediente si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
@@ -563,33 +593,72 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Cambio de estado del expediente y actualización de fechas de
 			// límite de plazo
-			ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
-					ExpedientCanviEstatAccio.class);
+			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+
+			// obtenemos el idAccioEstat futuro
+			// TODO REVISAR: en este caso no realizamos consulta y utilizamos un
+			// enum para determinar el idAccioEstat en funcion del motivo
+			/*
+			 * List<AccionsEstatsRDTO> accionsEstatsRDTOList =
+			 * serveisService.cercaTransicioCanviEstat(
+			 * AccioTramitadorApiParamValue.PAUSAR_EXPEDIENT.getInternalValue(),
+			 * dadesExpedientBDTO.getExpedientsRDTO().getEstatActual()); if
+			 * (accionsEstatsRDTOList != null && accionsEstatsRDTOList.size() >
+			 * 0) {
+			 * expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).
+			 * getId()); }
+			 */
+
 			// Desde el estado 4 se puede transicionar al 5 o 6 en función del
 			// motivo
-			expedientCanviEstatAccio.setOperacio(expedientPausa.getMotiu());
-			if (StringUtils.isNotEmpty(expedientPausa.getDataLimit())) {
-				DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
-				DateTime valorDataHora = DateTime.parse(expedientPausa.getDataLimit(), dataHoraFormatter);
-				MotiuPausaApiParamValueTranslator motiuPausaApiParamValueTranslator = new MotiuPausaApiParamValueTranslator();
-				MotiuPausaApiParamValue motiuPausaApiParamValue = motiuPausaApiParamValueTranslator
-						.getEnumByApiParamValue(expedientPausa.getMotiu());
-				switch (motiuPausaApiParamValue) {
-				case TRAMIT_ALLEGACIONS:
-					expedientCanviEstatAccio.setDataLimitAllegacio(valorDataHora);
-
-					break;
-				case REQUERIMENT_SUBSANACIO:
-					expedientCanviEstatAccio.setDataLimitRequeriment(valorDataHora);
-
-					break;
-				default:
-					break;
-				}
+			// TODO revisar que ya no mandamos operacio
+			// expedientCanviEstat.setOperacio(expedientPausa.getMotiu());
+			/*
+			 * if (StringUtils.isNotEmpty(expedientPausa.getDataLimit())) {
+			 * DateTimeFormatter dataHoraFormatter =
+			 * DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN); DateTime
+			 * valorDataHora = DateTime.parse(expedientPausa.getDataLimit(),
+			 * dataHoraFormatter); MotiuPausaApiParamValueTranslator
+			 * motiuPausaApiParamValueTranslator = new
+			 * MotiuPausaApiParamValueTranslator(); MotiuPausaApiParamValue
+			 * motiuPausaApiParamValue = motiuPausaApiParamValueTranslator
+			 * .getEnumByApiParamValue(expedientPausa.getMotiu()); switch
+			 * (motiuPausaApiParamValue) { case TRAMIT_ALLEGACIONS:
+			 * expedientCanviEstat.setDataLimitAllegacio(valorDataHora); break;
+			 * case REQUERIMENT_SUBSANACIO:
+			 * expedientCanviEstat.setDataLimitRequeriment(valorDataHora);
+			 * 
+			 * break; default: break; } }
+			 */
+			MotiuPausaApiParamValueTranslator motiuPausaApiParamValueTranslator = new MotiuPausaApiParamValueTranslator();
+			MotiuPausaApiParamValue motiuPausaApiParamValue = motiuPausaApiParamValueTranslator
+					.getEnumByApiParamValue(expedientPausa.getMotiu());
+			switch (motiuPausaApiParamValue) {
+			case TRAMIT_ALLEGACIONS:
+				expedientCanviEstat.setDiesTerminiAllegacio(expedientPausa.getDataLimit());
+				expedientCanviEstat.setIdAccioEstat(
+						new BigDecimal(TransicioAccioEstatApiParamValue.PAUSAR_EXPEDIENT_PER_ALLEGACIO.getInternalValue()));
+				break;
+			case REQUERIMENT_SUBSANACIO:
+				expedientCanviEstat.setDiesTerminiRequeriment(expedientPausa.getDataLimit());
+				expedientCanviEstat
+						.setIdAccioEstat(new BigDecimal(TransicioAccioEstatApiParamValue.PAUSAR_EXPEDIENT_PER_ESMENES.getInternalValue()));
+				break;
+			case NOTIFICACIO_RESOLUCIO:
+				expedientCanviEstat.setDiesTerminiRequeriment(expedientPausa.getDataLimit());
+				break;
+			case REQUERIMENT_INFORME:
+				expedientCanviEstat.setDiesTerminiRequeriment(expedientPausa.getDataLimit());
+				expedientCanviEstat
+						.setIdAccioEstat(new BigDecimal(TransicioAccioEstatApiParamValue.PAUSAR_EXPEDIENT_PER_INFORME.getInternalValue()));
+				break;
+			default:
+				break;
 			}
-			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
-					dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.PAUSAR_EXPEDIENT.getInternalValue());
-			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+
+			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
+					dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 
 			// Se vuelve a consultar el expediente actualizado
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
@@ -654,11 +723,22 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Cambio de estado del expediente y actualización de fechas de
 			// límite de plazo a null
-			ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
-					ExpedientCanviEstatAccio.class);
-			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
-					dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.REACTIVAR_EXPEDIENT.getInternalValue());
-			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+
+			// obtenemos el idAccioEstat futuro
+			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
+					AccioTramitadorApiParamValue.REACTIVAR_EXPEDIENT.getInternalValue(),
+					dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+
+			// debe existir una transicion posible para el estado actual
+			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
+					AccioTramitadorApiParamValue.REACTIVAR_EXPEDIENT, Resultat.ERROR_PROPOSAR_RESOLUCIO_EXPEDIENT);
+
+			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+
+			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
+					dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("reactivarExpedient(String, ExpedientReactivacioRDTO)", e); // $NON-NLS-1$
@@ -716,14 +796,52 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.ARXIVAR_SOLLICITUD_INCOMPLETA, Resultat.ERROR_ARXIVAR_EXPEDIENT);
 
 			// Cambio de estado del expediente
-			ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
-					ExpedientCanviEstatAccio.class);
-			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
+			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+
+			// obtenemos el idAccioEstat futuro
+			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
+					AccioTramitadorApiParamValue.ARXIVAR_SOLLICITUD_INCOMPLETA.getInternalValue(),
+					dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+
+			// debe existir una transicion posible para el estado actual
+			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
+					AccioTramitadorApiParamValue.ARXIVAR_SOLLICITUD_INCOMPLETA, Resultat.ERROR_PROPOSAR_RESOLUCIO_EXPEDIENT);
+
+			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+
+			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
+					dadesExpedientBDTO.getExpedientsRDTO().getId());
+			RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccio = serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
+
+			// Crear comentario
+			ComentariCreacioAccio comentariCreacioAccio = new ComentariCreacioAccio();
+			comentariCreacioAccio.setComentari(expedientArxiu.getComentari());
+			ComentarisCrearAccioBDTO comentarisCrearAccioBDTO = new ComentarisCrearAccioBDTO(comentariCreacioAccio,
 					dadesExpedientBDTO.getExpedientsRDTO().getId(),
 					AccioTramitadorApiParamValue.ARXIVAR_SOLLICITUD_INCOMPLETA.getInternalValue());
-			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+			serveisService.crearComentariAccio(comentarisCrearAccioBDTO);
 
-			// TODO Guardar el comentario de la acción
+			if (respostaCanviarEstatAccio != null) {
+				// TODO control del error, que debemos devolver en la
+				// respuesta??....
+				/*
+				 * ErrorDTO errorDTO = new ErrorDTO();
+				 * errorDTO.setCodi(peticionsPortasig.getCodiError());
+				 * errorDTO.setDescripcio(peticionsPortasig.getMissatgeError());
+				 * 
+				 * ResultatRespostaDTO resultatRespostaDTO = new
+				 * ResultatRespostaDTO();
+				 * resultatRespostaDTO.setDetallError(errorDTO);
+				 * 
+				 * respostaSignarDocumentRDTO = new
+				 * RespostaSignarDocumentRDTO();
+				 * respostaSignarDocumentRDTO.setResultat(resultatRespostaDTO);
+				 */
+			} else {
+				RespostaExpedientsArxivarBDTO respostaExpedientsArxivarBDTO = new RespostaExpedientsArxivarBDTO(
+						dadesExpedientBDTO.getExpedientsRDTO(), respostaResultatBDTO);
+				respostaArxivarExpedientRDTO = modelMapper.map(respostaExpedientsArxivarBDTO, RespostaArxivarExpedientRDTO.class);
+			}
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("arxivarSolicitudExpedient(String, ExpedientArxiuRDTO)", e); // $NON-NLS-1$
@@ -732,10 +850,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			log.error("arxivarSolicitudExpedient(String, ExpedientArxiuRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ARXIVAR_EXPEDIENT, e);
 		}
-
-		RespostaExpedientsArxivarBDTO respostaExpedientsArxivarBDTO = new RespostaExpedientsArxivarBDTO(
-				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
-		respostaArxivarExpedientRDTO = modelMapper.map(respostaExpedientsArxivarBDTO, RespostaArxivarExpedientRDTO.class);
 
 		if (log.isDebugEnabled()) {
 			log.debug("arxivarSolicitudExpedient(String, ExpedientArxiuRDTO) - fi"); //$NON-NLS-1$
@@ -794,11 +908,22 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			serveisService.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO);
 
 			// Cambio de estado del expediente
-			ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
-					ExpedientCanviEstatAccio.class);
-			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
-					dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.RETORNAR_TRAMITACIO.getInternalValue());
-			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+
+			// obtenemos el idAccioEstat futuro
+			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
+					AccioTramitadorApiParamValue.RETORNAR_TRAMITACIO.getInternalValue(),
+					dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+
+			// debe existir una transicion posible para el estado actual
+			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
+					AccioTramitadorApiParamValue.RETORNAR_TRAMITACIO, Resultat.ERROR_PROPOSAR_RESOLUCIO_EXPEDIENT);
+
+			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+
+			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
+					dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("retornarExpedient(String, ExpedientRetornRDTO)", e); // $NON-NLS-1$
@@ -857,13 +982,29 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.PROPOSAR_RESOLUCIO, Resultat.ERROR_PROPOSAR_RESOLUCIO_EXPEDIENT);
 
 			// Cambio de estado del expediente
-			ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
-					ExpedientCanviEstatAccio.class);
-			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
-					dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.PROPOSAR_RESOLUCIO.getInternalValue());
-			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
 
-			// TODO Insertar comentario de la acción
+			// obtenemos el idAccioEstat futuro
+			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
+					AccioTramitadorApiParamValue.PROPOSAR_RESOLUCIO.getInternalValue(),
+					dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+
+			// debe existir una transicion posible para el estado actual
+			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
+					AccioTramitadorApiParamValue.PROPOSAR_RESOLUCIO, Resultat.ERROR_PROPOSAR_RESOLUCIO_EXPEDIENT);
+
+			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+
+			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
+					dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
+
+			// Crear comentario
+			ComentariCreacioAccio comentariCreacioAccio = new ComentariCreacioAccio();
+			comentariCreacioAccio.setComentari(expedientPropostaResolucio.getComentari());
+			ComentarisCrearAccioBDTO comentarisCrearAccioBDTO = new ComentarisCrearAccioBDTO(comentariCreacioAccio,
+					dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.PROPOSAR_RESOLUCIO.getInternalValue());
+			serveisService.crearComentariAccio(comentarisCrearAccioBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("proposarResolucioExpedient(String, ExpedientPropostaResolucioRDTO)", e); // $NON-NLS-1$
@@ -922,11 +1063,21 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.TANCAR_EXPEDIENT, Resultat.ERROR_TANCAR_EXPEDIENT);
 
 			// Cambio de estado del expediente
-			ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
-					ExpedientCanviEstatAccio.class);
-			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
-					dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.TANCAR_EXPEDIENT.getInternalValue());
-			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+
+			// obtenemos el idAccioEstat futuro
+			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
+					AccioTramitadorApiParamValue.TANCAR_EXPEDIENT.getInternalValue(), dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+
+			// debe existir una transicion posible para el estado actual
+			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
+					AccioTramitadorApiParamValue.TANCAR_EXPEDIENT, Resultat.ERROR_TANCAR_EXPEDIENT);
+
+			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+
+			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
+					dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 
 			// TODO Validar Contenido mínimo requerido (Documentos, Dades
 			// d'Operació?)
@@ -990,15 +1141,29 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// Es necesario consultar el histórico para determinar el cambio de
 			// estado que debe hacerse (omitir los tornar enrere anteriores)
 			if (CollectionUtils.isNotEmpty(dadesExpedientBDTO.getHistoricsEstats()) && dadesExpedientBDTO.getHistoricsEstats().size() > 1) {
-				ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
-						ExpedientCanviEstatAccio.class);
-				String operacio = dadesExpedientBDTO.getHistoricsEstats().get(0).getIdEstatActual() + "_"
-						+ dadesExpedientBDTO.getHistoricsEstats().get(1).getIdEstatActual();
-				expedientCanviEstatAccio.setOperacio(operacio);
-				ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(
-						expedientCanviEstatAccio, dadesExpedientBDTO.getExpedientsRDTO().getId(),
-						AccioTramitadorApiParamValue.TORNAR_ENRERE.getInternalValue());
-				serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+				ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
+						ExpedientCanviEstat.class);
+
+				// obtenemos el idAccioEstat futuro
+				List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
+						AccioTramitadorApiParamValue.TORNAR_ENRERE.getInternalValue(), dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+
+				// debe existir una transicion posible para el estado actual
+				ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
+						AccioTramitadorApiParamValue.TORNAR_ENRERE, Resultat.ERROR_PROPOSAR_RESOLUCIO_EXPEDIENT);
+
+				expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+
+				// TODO revisar que ya no mandamos operacio
+				// String operacio =
+				// dadesExpedientBDTO.getHistoricsEstats().get(0).getIdEstatActual()
+				// + "_"
+				// +
+				// dadesExpedientBDTO.getHistoricsEstats().get(1).getIdEstatActual();
+				// expedientCanviEstat.setOperacio(operacio);
+				ExpedientsCanviarEstatBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
+						dadesExpedientBDTO.getExpedientsRDTO().getId());
+				serveisService.canviarEstatExpedient(expedientsCanviarEstatAccioBDTO);
 			}
 
 		} catch (GPAApiParamValidationException e) {
@@ -2548,11 +2713,21 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.DOCUMENT_SIGNAT, Resultat.ERROR_DOCUMENT_SIGNAT_EXPEDIENT);
 
 			// Cambio de estado del expediente
-			ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
-					ExpedientCanviEstatAccio.class);
-			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
-					dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.DOCUMENT_SIGNAT.getInternalValue());
-			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+
+			// obtenemos el idAccioEstat futuro
+			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
+					AccioTramitadorApiParamValue.DOCUMENT_SIGNAT.getInternalValue(), dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+
+			// debe existir una transicion posible para el estado actual
+			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
+					AccioTramitadorApiParamValue.DOCUMENT_SIGNAT, Resultat.ERROR_PROPOSAR_RESOLUCIO_EXPEDIENT);
+
+			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+
+			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
+					dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 
 			// TODO Fechas fin de plazo a null
 

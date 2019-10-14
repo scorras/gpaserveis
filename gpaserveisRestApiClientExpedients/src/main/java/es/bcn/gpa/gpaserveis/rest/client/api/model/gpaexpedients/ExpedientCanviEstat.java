@@ -10,151 +10,150 @@
  * Do not edit the class manually.
  */
 
-
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * ExpedientCanviEstat
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-14T11:11:38.011+02:00")
 public class ExpedientCanviEstat {
-  @JsonProperty("codi")
-  private String codi = null;
+	@JsonProperty("comentari")
+	private String comentari = null;
 
-  @JsonProperty("estat")
-  private String estat = null;
+	@JsonProperty("diesTerminiAllegacio")
+	private BigDecimal diesTerminiAllegacio = null;
 
-  @JsonProperty("estatCastella")
-  private String estatCastella = null;
+	@JsonProperty("diesTerminiRequeriment")
+	private BigDecimal diesTerminiRequeriment = null;
 
-  @JsonProperty("id")
-  private BigDecimal id = null;
+	@JsonProperty("idAccioEstat")
+	private BigDecimal idAccioEstat = null;
 
-  public ExpedientCanviEstat codi(String codi) {
-    this.codi = codi;
-    return this;
-  }
+	public ExpedientCanviEstat comentari(String comentari) {
+		this.comentari = comentari;
+		return this;
+	}
 
-   /**
-   * Codi identificador de l&#39;expedient
-   * @return codi
-  **/
-  @ApiModelProperty(value = "Codi identificador de l'expedient")
-  public String getCodi() {
-    return codi;
-  }
+	/**
+	 * Comentari associat al canvi d&#39;estat
+	 * 
+	 * @return comentari
+	 **/
+	@ApiModelProperty(value = "Comentari associat al canvi d'estat")
+	public String getComentari() {
+		return comentari;
+	}
 
-  public void setCodi(String codi) {
-    this.codi = codi;
-  }
+	public void setComentari(String comentari) {
+		this.comentari = comentari;
+	}
 
-  public ExpedientCanviEstat estat(String estat) {
-    this.estat = estat;
-    return this;
-  }
+	public ExpedientCanviEstat diesTerminiAllegacio(BigDecimal diesTerminiAllegacio) {
+		this.diesTerminiAllegacio = diesTerminiAllegacio;
+		return this;
+	}
 
-   /**
-   * Estat actual del expedient
-   * @return estat
-  **/
-  @ApiModelProperty(value = "Estat actual del expedient")
-  public String getEstat() {
-    return estat;
-  }
+	/**
+	 * Dies de termini per respondre a les al·legacions
+	 * 
+	 * @return diesTerminiAllegacio
+	 **/
+	@ApiModelProperty(value = "Dies de termini per respondre a les al·legacions")
+	public BigDecimal getDiesTerminiAllegacio() {
+		return diesTerminiAllegacio;
+	}
 
-  public void setEstat(String estat) {
-    this.estat = estat;
-  }
+	public void setDiesTerminiAllegacio(BigDecimal diesTerminiAllegacio) {
+		this.diesTerminiAllegacio = diesTerminiAllegacio;
+	}
 
-  public ExpedientCanviEstat estatCastella(String estatCastella) {
-    this.estatCastella = estatCastella;
-    return this;
-  }
+	public ExpedientCanviEstat diesTerminiRequeriment(BigDecimal diesTerminiRequeriment) {
+		this.diesTerminiRequeriment = diesTerminiRequeriment;
+		return this;
+	}
 
-   /**
-   * Estat actual del expedient en castellà
-   * @return estatCastella
-  **/
-  @ApiModelProperty(value = "Estat actual del expedient en castellà")
-  public String getEstatCastella() {
-    return estatCastella;
-  }
+	/**
+	 * Dies de termini per respondre al requeriment
+	 * 
+	 * @return diesTerminiRequeriment
+	 **/
+	@ApiModelProperty(value = "Dies de termini per respondre al requeriment")
+	public BigDecimal getDiesTerminiRequeriment() {
+		return diesTerminiRequeriment;
+	}
 
-  public void setEstatCastella(String estatCastella) {
-    this.estatCastella = estatCastella;
-  }
+	public void setDiesTerminiRequeriment(BigDecimal diesTerminiRequeriment) {
+		this.diesTerminiRequeriment = diesTerminiRequeriment;
+	}
 
-  public ExpedientCanviEstat id(BigDecimal id) {
-    this.id = id;
-    return this;
-  }
+	public ExpedientCanviEstat idAccioEstat(BigDecimal idAccioEstat) {
+		this.idAccioEstat = idAccioEstat;
+		return this;
+	}
 
-   /**
-   * Identificador de l&#39;expedient
-   * @return id
-  **/
-  @ApiModelProperty(value = "Identificador de l'expedient")
-  public BigDecimal getId() {
-    return id;
-  }
+	/**
+	 * Identificador de la transició acció - estat
+	 * 
+	 * @return idAccioEstat
+	 **/
+	@ApiModelProperty(value = "Identificador de la transició acció - estat")
+	public BigDecimal getIdAccioEstat() {
+		return idAccioEstat;
+	}
 
-  public void setId(BigDecimal id) {
-    this.id = id;
-  }
+	public void setIdAccioEstat(BigDecimal idAccioEstat) {
+		this.idAccioEstat = idAccioEstat;
+	}
 
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		ExpedientCanviEstat expedientCanviEstat = (ExpedientCanviEstat) o;
+		return Objects.equals(this.comentari, expedientCanviEstat.comentari)
+				&& Objects.equals(this.diesTerminiAllegacio, expedientCanviEstat.diesTerminiAllegacio)
+				&& Objects.equals(this.diesTerminiRequeriment, expedientCanviEstat.diesTerminiRequeriment)
+				&& Objects.equals(this.idAccioEstat, expedientCanviEstat.idAccioEstat);
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ExpedientCanviEstat expedientCanviEstat = (ExpedientCanviEstat) o;
-    return Objects.equals(this.codi, expedientCanviEstat.codi) &&
-        Objects.equals(this.estat, expedientCanviEstat.estat) &&
-        Objects.equals(this.estatCastella, expedientCanviEstat.estatCastella) &&
-        Objects.equals(this.id, expedientCanviEstat.id);
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(comentari, diesTerminiAllegacio, diesTerminiRequeriment, idAccioEstat);
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(codi, estat, estatCastella, id);
-  }
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class ExpedientCanviEstat {\n");
 
+		sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
+		sb.append("    diesTerminiAllegacio: ").append(toIndentedString(diesTerminiAllegacio)).append("\n");
+		sb.append("    diesTerminiRequeriment: ").append(toIndentedString(diesTerminiRequeriment)).append("\n");
+		sb.append("    idAccioEstat: ").append(toIndentedString(idAccioEstat)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ExpedientCanviEstat {\n");
-    
-    sb.append("    codi: ").append(toIndentedString(codi)).append("\n");
-    sb.append("    estat: ").append(toIndentedString(estat)).append("\n");
-    sb.append("    estatCastella: ").append(toIndentedString(estatCastella)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
 }
-

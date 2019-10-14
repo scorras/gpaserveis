@@ -32,7 +32,7 @@ import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AnotarOperacioComptableRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegistreRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 
@@ -46,24 +46,16 @@ public class ExpedientsApiTest extends ParentTest {
 	@InjectMocks
 	private ExpedientsApi api = new ExpedientsApi();
 
-	/**
-	 * Canvia l&#39;estat d&#39;un expedient en funció de l&#39;acció executada
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
 	@Test
-	public void canviarEstatAccioExpedientTest() {
-		when(apiClient.invokeAPI(eq("/expedients/1/accions/1/canviEstat"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+	public void canviarEstatExpedientTest() {
+
+		when(apiClient.invokeAPI(eq("/expedients/1/canviEstat"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
 				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 				any(ParameterizedTypeReference.class))).thenReturn(new RespostaCanviarEstatAccioExpedient());
 
-		BigDecimal idAccio = ONE;
 		BigDecimal idExpedient = ONE;
-		ExpedientCanviEstatAccio expedientCanviEstatAccioRDTO = new ExpedientCanviEstatAccio();
-		RespostaCanviarEstatAccioExpedient response = api.canviarEstatAccioExpedient(idAccio, idExpedient, expedientCanviEstatAccioRDTO);
+		ExpedientCanviEstat expedientCanviEstatRDTO = new ExpedientCanviEstat();
+		RespostaCanviarEstatAccioExpedient response = api.canviarEstatExpedient(idExpedient, expedientCanviEstatRDTO);
 
 		assertTrue(response != null);
 	}

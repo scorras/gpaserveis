@@ -17,7 +17,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAcumularBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarUnitatGestoraBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
@@ -695,28 +695,27 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
-	 * canviarEstatAccioExpedient(es.bcn.gpa.gpaserveis.business.dto.expedients.
-	 * ExpedientsCanviarEstatAccioBDTO)
+	 * canviarEstatExpedient(es.bcn.gpa.gpaserveis.business.dto.expedients.
+	 * ExpedientsCanviarEstatBDTO)
 	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackCanviarEstatAccioExpedient")
-	public RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO)
+	@HystrixCommand(fallbackMethod = "fallbackCanviarEstatExpedient")
+	public RespostaCanviarEstatAccioExpedient canviarEstatExpedient(ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO) - inici"); //$NON-NLS-1$
+			log.debug("canviarEstatExpedient(ExpedientsCanviarEstatBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccioExpedient = expedientsApi.canviarEstatAccioExpedient(
-					expedientsCanviarEstatAccioBDTO.getIdAccio(), expedientsCanviarEstatAccioBDTO.getIdExpedient(),
-					expedientsCanviarEstatAccioBDTO.getExpedientCanviEstatAccio());
+			RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccioExpedient = expedientsApi.canviarEstatExpedient(
+					expedientsCanviarEstatBDTO.getIdExpedient(), expedientsCanviarEstatBDTO.getExpedientCanviEstat());
 
 			if (log.isDebugEnabled()) {
-				log.debug("canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO) - fi"); //$NON-NLS-1$
+				log.debug("canviarEstatExpedient(ExpedientsCanviarEstatBDTO) - fi"); //$NON-NLS-1$
 			}
 			return respostaCanviarEstatAccioExpedient;
 		} catch (RestClientException e) {
-			log.error("canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO)", e); //$NON-NLS-1$
+			log.error("canviarEstatExpedient(ExpedientsCanviarEstatBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
@@ -724,20 +723,20 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	}
 
 	/**
-	 * Fallback canviar estat accio expedient.
+	 * Fallback canviar estat expedient.
 	 *
-	 * @param expedientsCanviarEstatAccioBDTO
-	 *            the expedients canviar estat accio BDTO
+	 * @param expedientsCanviarEstatBDTO
+	 *            the expedients canviar estat BDTO
 	 * @param e
 	 *            the e
-	 * @return the resposta canviar estat accio expedient
+	 * @return the resposta canviar estat expedient
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public RespostaCanviarEstatAccioExpedient fallbackCanviarEstatAccioExpedient(
-			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO, Throwable e) throws GPAServeisServiceException {
+	public RespostaCanviarEstatAccioExpedient fallbackCanviarEstatExpedient(ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO,
+			Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackCanviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO, Throwable) - inici"); //$NON-NLS-1$
+			log.debug("fallbackCanviarEstatExpedient(ExpedientsCanviarEstatBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);

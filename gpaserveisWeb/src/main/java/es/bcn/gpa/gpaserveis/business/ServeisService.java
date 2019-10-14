@@ -3,6 +3,8 @@ package es.bcn.gpa.gpaserveis.business;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.springframework.web.client.RestClientException;
+
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDeclaracioResponsableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentTramitacioBDTO;
@@ -31,7 +33,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentCrearNotificacioBDT
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentGeneratRegistrarComunicatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAcumularBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarUnitatGestoraBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
@@ -468,15 +470,15 @@ public interface ServeisService {
 			throws GPAServeisServiceException;
 
 	/**
-	 * Canviar estat accio expedient.
+	 * Canviar estat expedient.
 	 *
-	 * @param expedientsCanviarEstatAccioBDTO
-	 *            the expedients canviar estat accio BDTO
-	 * @return the resposta canviar estat accio expedient
+	 * @param expedientsCanviarEstatBDTO
+	 *            the expedients canviar estat BDTO
+	 * @return the resposta canviar estat expedient
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO)
+	RespostaCanviarEstatAccioExpedient canviarEstatExpedient(ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO)
 			throws GPAServeisServiceException;
 
 	/**
@@ -875,5 +877,15 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	void esBorrarDocumentacioTramitacio(EsborrarDocumentBDTO esborrarDocumentBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * obtenir l'aneu accion estat a partir de l'estat actual i la accion
+	 * 
+	 * @param idAccio
+	 * @param idEstatActual
+	 * @return
+	 * @throws RestClientException
+	 */
+	List<AccionsEstatsRDTO> cercaTransicioCanviEstat(BigDecimal idAccio, BigDecimal idEstatActual) throws GPAServeisServiceException;
 
 }

@@ -41,7 +41,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentCrearNotificacioBDT
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentGeneratRegistrarComunicatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAcumularBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarUnitatGestoraBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
@@ -928,26 +928,25 @@ public class ServeisServiceImpl implements ServeisService {
 	}
 
 	/**
-	 * Canviar estat accio expedient.
+	 * Canviar estat expedient.
 	 *
-	 * @param expedientsCanviarEstatAccioBDTO
-	 *            the expedients canviar estat accio BDTO
-	 * @return the resposta canviar estat accio expedient
+	 * @param expedientsCanviarEstatBDTO
+	 *            the expedients canviar estat BDTO
+	 * @return the resposta canviar estat expedient
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ServeisService#canviarEstatAccioExpedient(
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#canviarEstatExpedient(
 	 * es.bcn.gpa.gpaserveis.business.dto.expedients.
-	 * ExpedientsCanviarEstatAccioBDTO)
+	 * ExpedientsCanviarEstatBDTO)
 	 */
 	@Override
-	public RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO)
+	public RespostaCanviarEstatAccioExpedient canviarEstatExpedient(ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO)
 			throws GPAServeisServiceException {
-		return expedientsService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+		return expedientsService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 	}
 
 	/**
@@ -1662,6 +1661,14 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public void esBorrarDocumentacioTramitacio(EsborrarDocumentBDTO esborrarDocumentBDTO) throws GPAServeisServiceException {
 		documentsService.esBorrarDocumentacioTramitacio(esborrarDocumentBDTO);
+
+	}
+
+	@Override
+	public List<AccionsEstatsRDTO> cercaTransicioCanviEstat(BigDecimal idAccio, BigDecimal idEstatActual)
+			throws GPAServeisServiceException {
+
+		return tramitsService.cercaTransicioCanviEstat(idAccio, idEstatActual);
 
 	}
 
