@@ -40,7 +40,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.RetornarLaTramitacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
@@ -102,10 +101,6 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	/** The convidar A tramitart api. */
 	@Autowired
 	private ConvidarATramitartApi convidarATramitartApi;
-
-	/** The retornar la tramitacio api. */
-	@Autowired
-	private RetornarLaTramitacioApi retornarLaTramitacioApi;
 
 	/** The Canvi unitat gestora api. */
 	@Autowired
@@ -951,7 +946,8 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			retornarLaTramitacioApi.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO.getRetornarLaTramitacioRDTO());
+			expedientsApi.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO.getIdExpedient(),
+					expedientsRetornarTramitacioBDTO.getRetornarTramitacioRDTO());
 
 			if (log.isDebugEnabled()) {
 				log.debug("retornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO) - fi"); //$NON-NLS-1$

@@ -36,7 +36,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.RetornarLaTramitacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesOperacionsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
@@ -61,7 +60,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarLaTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.test.config.TestsConfigHelper;
 import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.configuration.context.ContextPropertySourcesInitializer;
@@ -145,10 +144,6 @@ public abstract class ParentTest {
 	/** The estats api. */
 	@Autowired
 	protected EstatsApi estatsApi;
-
-	/** The retornar la tramitacio api. */
-	@Autowired
-	protected RetornarLaTramitacioApi retornarLaTramitacioApi;
 
 	/** The convidar A tramitart api. */
 	@Autowired
@@ -369,7 +364,7 @@ public abstract class ParentTest {
 			when(documentacioApi.crearPeticioPortaSig(any(SignarDocument.class)))
 					.thenReturn(TestsConfigHelper.crearPeticioPortaSigResponse());
 
-			doNothing().when(retornarLaTramitacioApi).retornarTramitacioExpedient(any(RetornarLaTramitacioRDTO.class));
+			doNothing().when(expedientsApi).retornarTramitacioExpedient(any(BigDecimal.class), any(RetornarTramitacioRDTO.class));
 
 			doNothing().when(convidarATramitartApi).convidarTramitarExpedient(any(ConvidarTramitarMassiuRDTO.class));
 

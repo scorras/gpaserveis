@@ -10,199 +10,199 @@
  * Do not edit the class manually.
  */
 
+
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients;
 
-import java.math.BigDecimal;
 import java.util.Objects;
-
-import org.joda.time.DateTime;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
+import org.joda.time.DateTime;
 
 /**
  * RegistreAssentamentRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-14T11:11:38.011+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-15T10:03:16.673+02:00")
 public class RegistreAssentamentRDTO {
-	@JsonProperty("codi")
-	private String codi = null;
+  @JsonProperty("codi")
+  private String codi = null;
 
-	@JsonProperty("dataRegistre")
-	private DateTime dataRegistre = null;
+  @JsonProperty("dataRegistre")
+  private DateTime dataRegistre = null;
 
-	@JsonProperty("id")
-	private BigDecimal id = null;
+  @JsonProperty("id")
+  private BigDecimal id = null;
 
-	@JsonProperty("persona")
-	private BigDecimal persona = null;
+  @JsonProperty("persona")
+  private BigDecimal persona = null;
 
-	@JsonProperty("persones")
-	private Persones persones = null;
+  @JsonProperty("persones")
+  private Persones persones = null;
 
-	@JsonProperty("tipus")
-	private BigDecimal tipus = null;
+  @JsonProperty("tipus")
+  private BigDecimal tipus = null;
 
-	public RegistreAssentamentRDTO codi(String codi) {
-		this.codi = codi;
-		return this;
-	}
+  public RegistreAssentamentRDTO codi(String codi) {
+    this.codi = codi;
+    return this;
+  }
 
-	/**
-	 * Get codi
-	 * 
-	 * @return codi
-	 **/
-	@ApiModelProperty(value = "")
-	public String getCodi() {
-		return codi;
-	}
+   /**
+   * Get codi
+   * @return codi
+  **/
+  @ApiModelProperty(value = "")
+  public String getCodi() {
+    return codi;
+  }
 
-	public void setCodi(String codi) {
-		this.codi = codi;
-	}
+  public void setCodi(String codi) {
+    this.codi = codi;
+  }
 
-	public RegistreAssentamentRDTO dataRegistre(DateTime dataRegistre) {
-		this.dataRegistre = dataRegistre;
-		return this;
-	}
+  public RegistreAssentamentRDTO dataRegistre(DateTime dataRegistre) {
+    this.dataRegistre = dataRegistre;
+    return this;
+  }
 
-	/**
-	 * Get dataRegistre
-	 * 
-	 * @return dataRegistre
-	 **/
-	@ApiModelProperty(value = "")
-	public DateTime getDataRegistre() {
-		return dataRegistre;
-	}
+   /**
+   * Get dataRegistre
+   * @return dataRegistre
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getDataRegistre() {
+    return dataRegistre;
+  }
 
-	public void setDataRegistre(DateTime dataRegistre) {
-		this.dataRegistre = dataRegistre;
-	}
+  public void setDataRegistre(DateTime dataRegistre) {
+    this.dataRegistre = dataRegistre;
+  }
 
-	public RegistreAssentamentRDTO id(BigDecimal id) {
-		this.id = id;
-		return this;
-	}
+  public RegistreAssentamentRDTO id(BigDecimal id) {
+    this.id = id;
+    return this;
+  }
 
-	/**
-	 * Get id
-	 * 
-	 * @return id
-	 **/
-	@ApiModelProperty(value = "")
-	public BigDecimal getId() {
-		return id;
-	}
+   /**
+   * Get id
+   * @return id
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getId() {
+    return id;
+  }
 
-	public void setId(BigDecimal id) {
-		this.id = id;
-	}
+  public void setId(BigDecimal id) {
+    this.id = id;
+  }
 
-	public RegistreAssentamentRDTO persona(BigDecimal persona) {
-		this.persona = persona;
-		return this;
-	}
+  public RegistreAssentamentRDTO persona(BigDecimal persona) {
+    this.persona = persona;
+    return this;
+  }
 
-	/**
-	 * Get persona
-	 * 
-	 * @return persona
-	 **/
-	@ApiModelProperty(value = "")
-	public BigDecimal getPersona() {
-		return persona;
-	}
+   /**
+   * Get persona
+   * @return persona
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getPersona() {
+    return persona;
+  }
 
-	public void setPersona(BigDecimal persona) {
-		this.persona = persona;
-	}
+  public void setPersona(BigDecimal persona) {
+    this.persona = persona;
+  }
 
-	public RegistreAssentamentRDTO persones(Persones persones) {
-		this.persones = persones;
-		return this;
-	}
+  public RegistreAssentamentRDTO persones(Persones persones) {
+    this.persones = persones;
+    return this;
+  }
 
-	/**
-	 * Get persones
-	 * 
-	 * @return persones
-	 **/
-	@ApiModelProperty(value = "")
-	public Persones getPersones() {
-		return persones;
-	}
+   /**
+   * Get persones
+   * @return persones
+  **/
+  @ApiModelProperty(value = "")
+  public Persones getPersones() {
+    return persones;
+  }
 
-	public void setPersones(Persones persones) {
-		this.persones = persones;
-	}
+  public void setPersones(Persones persones) {
+    this.persones = persones;
+  }
 
-	public RegistreAssentamentRDTO tipus(BigDecimal tipus) {
-		this.tipus = tipus;
-		return this;
-	}
+  public RegistreAssentamentRDTO tipus(BigDecimal tipus) {
+    this.tipus = tipus;
+    return this;
+  }
 
-	/**
-	 * Get tipus
-	 * 
-	 * @return tipus
-	 **/
-	@ApiModelProperty(value = "")
-	public BigDecimal getTipus() {
-		return tipus;
-	}
+   /**
+   * Get tipus
+   * @return tipus
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getTipus() {
+    return tipus;
+  }
 
-	public void setTipus(BigDecimal tipus) {
-		this.tipus = tipus;
-	}
+  public void setTipus(BigDecimal tipus) {
+    this.tipus = tipus;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		RegistreAssentamentRDTO registreAssentamentRDTO = (RegistreAssentamentRDTO) o;
-		return Objects.equals(this.codi, registreAssentamentRDTO.codi)
-				&& Objects.equals(this.dataRegistre, registreAssentamentRDTO.dataRegistre)
-				&& Objects.equals(this.id, registreAssentamentRDTO.id) && Objects.equals(this.persona, registreAssentamentRDTO.persona)
-				&& Objects.equals(this.persones, registreAssentamentRDTO.persones)
-				&& Objects.equals(this.tipus, registreAssentamentRDTO.tipus);
-	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(codi, dataRegistre, id, persona, persones, tipus);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    RegistreAssentamentRDTO registreAssentamentRDTO = (RegistreAssentamentRDTO) o;
+    return Objects.equals(this.codi, registreAssentamentRDTO.codi) &&
+        Objects.equals(this.dataRegistre, registreAssentamentRDTO.dataRegistre) &&
+        Objects.equals(this.id, registreAssentamentRDTO.id) &&
+        Objects.equals(this.persona, registreAssentamentRDTO.persona) &&
+        Objects.equals(this.persones, registreAssentamentRDTO.persones) &&
+        Objects.equals(this.tipus, registreAssentamentRDTO.tipus);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class RegistreAssentamentRDTO {\n");
+  @Override
+  public int hashCode() {
+    return Objects.hash(codi, dataRegistre, id, persona, persones, tipus);
+  }
 
-		sb.append("    codi: ").append(toIndentedString(codi)).append("\n");
-		sb.append("    dataRegistre: ").append(toIndentedString(dataRegistre)).append("\n");
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    persona: ").append(toIndentedString(persona)).append("\n");
-		sb.append("    persones: ").append(toIndentedString(persones)).append("\n");
-		sb.append("    tipus: ").append(toIndentedString(tipus)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class RegistreAssentamentRDTO {\n");
+    
+    sb.append("    codi: ").append(toIndentedString(codi)).append("\n");
+    sb.append("    dataRegistre: ").append(toIndentedString(dataRegistre)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    persona: ").append(toIndentedString(persona)).append("\n");
+    sb.append("    persones: ").append(toIndentedString(persones)).append("\n");
+    sb.append("    tipus: ").append(toIndentedString(tipus)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
 }
+

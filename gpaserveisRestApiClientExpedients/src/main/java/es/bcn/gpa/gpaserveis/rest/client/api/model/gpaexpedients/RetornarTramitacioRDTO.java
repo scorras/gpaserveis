@@ -17,33 +17,34 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Comentaris;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * AvisCreacioAccio
+ * RetornarTramitacioRDTO
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-15T10:03:16.673+02:00")
-public class AvisCreacioAccio {
-  @JsonProperty("operacio")
-  private String operacio = null;
+public class RetornarTramitacioRDTO {
+  @JsonProperty("comentari")
+  private Comentaris comentari = null;
 
-  public AvisCreacioAccio operacio(String operacio) {
-    this.operacio = operacio;
+  public RetornarTramitacioRDTO comentari(Comentaris comentari) {
+    this.comentari = comentari;
     return this;
   }
 
    /**
-   * Operació concreta en l&#39;execució de l&#39;acció
-   * @return operacio
+   * Get comentari
+   * @return comentari
   **/
-  @ApiModelProperty(value = "Operació concreta en l'execució de l'acció")
-  public String getOperacio() {
-    return operacio;
+  @ApiModelProperty(value = "")
+  public Comentaris getComentari() {
+    return comentari;
   }
 
-  public void setOperacio(String operacio) {
-    this.operacio = operacio;
+  public void setComentari(Comentaris comentari) {
+    this.comentari = comentari;
   }
 
 
@@ -55,22 +56,22 @@ public class AvisCreacioAccio {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AvisCreacioAccio avisCreacioAccio = (AvisCreacioAccio) o;
-    return Objects.equals(this.operacio, avisCreacioAccio.operacio);
+    RetornarTramitacioRDTO retornarTramitacioRDTO = (RetornarTramitacioRDTO) o;
+    return Objects.equals(this.comentari, retornarTramitacioRDTO.comentari);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(operacio);
+    return Objects.hash(comentari);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AvisCreacioAccio {\n");
+    sb.append("class RetornarTramitacioRDTO {\n");
     
-    sb.append("    operacio: ").append(toIndentedString(operacio)).append("\n");
+    sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
     sb.append("}");
     return sb.toString();
   }

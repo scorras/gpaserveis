@@ -10,111 +10,116 @@
  * Do not edit the class manually.
  */
 
+
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients;
 
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * CrearRegistre
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-14T11:11:38.011+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-15T10:03:16.673+02:00")
 public class CrearRegistre {
-	@JsonProperty("documents")
-	private List<BigDecimal> documents = null;
+  @JsonProperty("documents")
+  private List<BigDecimal> documents = null;
 
-	@JsonProperty("expedient")
-	private ExpedientsRDTO expedient = null;
+  @JsonProperty("expedient")
+  private ExpedientsRDTO expedient = null;
 
-	public CrearRegistre documents(List<BigDecimal> documents) {
-		this.documents = documents;
-		return this;
-	}
+  public CrearRegistre documents(List<BigDecimal> documents) {
+    this.documents = documents;
+    return this;
+  }
 
-	public CrearRegistre addDocumentsItem(BigDecimal documentsItem) {
-		if (this.documents == null) {
-			this.documents = new ArrayList<BigDecimal>();
-		}
-		this.documents.add(documentsItem);
-		return this;
-	}
+  public CrearRegistre addDocumentsItem(BigDecimal documentsItem) {
+    if (this.documents == null) {
+      this.documents = new ArrayList<BigDecimal>();
+    }
+    this.documents.add(documentsItem);
+    return this;
+  }
 
-	/**
-	 * Identificador dels documents
-	 * 
-	 * @return documents
-	 **/
-	@ApiModelProperty(value = "Identificador dels documents")
-	public List<BigDecimal> getDocuments() {
-		return documents;
-	}
+   /**
+   * Identificador dels documents
+   * @return documents
+  **/
+  @ApiModelProperty(value = "Identificador dels documents")
+  public List<BigDecimal> getDocuments() {
+    return documents;
+  }
 
-	public void setDocuments(List<BigDecimal> documents) {
-		this.documents = documents;
-	}
+  public void setDocuments(List<BigDecimal> documents) {
+    this.documents = documents;
+  }
 
-	public CrearRegistre expedient(ExpedientsRDTO expedient) {
-		this.expedient = expedient;
-		return this;
-	}
+  public CrearRegistre expedient(ExpedientsRDTO expedient) {
+    this.expedient = expedient;
+    return this;
+  }
 
-	/**
-	 * Dades de l&#39;expedient
-	 * 
-	 * @return expedient
-	 **/
-	@ApiModelProperty(value = "Dades de l'expedient")
-	public ExpedientsRDTO getExpedient() {
-		return expedient;
-	}
+   /**
+   * Dades de l&#39;expedient
+   * @return expedient
+  **/
+  @ApiModelProperty(value = "Dades de l'expedient")
+  public ExpedientsRDTO getExpedient() {
+    return expedient;
+  }
 
-	public void setExpedient(ExpedientsRDTO expedient) {
-		this.expedient = expedient;
-	}
+  public void setExpedient(ExpedientsRDTO expedient) {
+    this.expedient = expedient;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		CrearRegistre crearRegistre = (CrearRegistre) o;
-		return Objects.equals(this.documents, crearRegistre.documents) && Objects.equals(this.expedient, crearRegistre.expedient);
-	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(documents, expedient);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    CrearRegistre crearRegistre = (CrearRegistre) o;
+    return Objects.equals(this.documents, crearRegistre.documents) &&
+        Objects.equals(this.expedient, crearRegistre.expedient);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class CrearRegistre {\n");
+  @Override
+  public int hashCode() {
+    return Objects.hash(documents, expedient);
+  }
 
-		sb.append("    documents: ").append(toIndentedString(documents)).append("\n");
-		sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class CrearRegistre {\n");
+    
+    sb.append("    documents: ").append(toIndentedString(documents)).append("\n");
+    sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
 }
+

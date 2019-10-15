@@ -25,7 +25,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.RetornarLaTramitacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesOperacionsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
@@ -325,20 +324,6 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("avisosApi() - fi"); //$NON-NLS-1$
 		}
 		return avisosApi;
-	}
-
-	@Bean
-	public RetornarLaTramitacioApi retornarLaTramitacioApi() {
-		if (log.isDebugEnabled()) {
-			log.debug("retornarLaTramitacioApi() - inici"); //$NON-NLS-1$
-		}
-
-		RetornarLaTramitacioApi retornarLaTramitacioApi = Mockito.mock(RetornarLaTramitacioApi.class);
-
-		if (log.isDebugEnabled()) {
-			log.debug("retornarLaTramitacioApi() - fi"); //$NON-NLS-1$
-		}
-		return retornarLaTramitacioApi;
 	}
 
 	@Bean

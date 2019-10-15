@@ -137,7 +137,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExped
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarLaTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
@@ -863,7 +863,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 *
 	 * @param codiExpedient
 	 *            the codi expedient
-	 * @param expedientRetorn
+	 * @param expedientRetornRDTO
 	 *            the expedient retorn
 	 * @return the resposta retornar expedient RDTO
 	 * @throws GPAServeisServiceException
@@ -874,7 +874,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaRetornarExpedientRDTO retornarExpedient(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades de la tornada de l'expedient") @RequestBody ExpedientRetornRDTO expedientRetorn)
+			@ApiParam(value = "Dades de la tornada de l'expedient") @RequestBody ExpedientRetornRDTO expedientRetornRDTO)
 			throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
@@ -895,19 +895,16 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.RETORNAR_TRAMITACIO, Resultat.ERROR_RETORNAR_TRAMITACIO_EXPEDIENT);
 
 			// Desasociar de la UG invitada a tramitar
-			UnitatsGestoresRDTO unitatsGestoresRDTO = serveisService
-					.consultarDadesUnitatGestora(dadesExpedientBDTO.getExpedientsRDTO().getUgConvidadaIdext());
-			RetornarLaTramitacioRDTO retornarLaTramitacioRDTO = new RetornarLaTramitacioRDTO();
-			retornarLaTramitacioRDTO.setIdExpedientList(Arrays.asList(dadesExpedientBDTO.getExpedientsRDTO().getId()));
-			DropdownItemBDTO dropdownItemBDTO = new DropdownItemBDTO();
-			dropdownItemBDTO.setId(unitatsGestoresRDTO.getId());
-			dropdownItemBDTO.setDescripcio(unitatsGestoresRDTO.getDescripcio());
-			retornarLaTramitacioRDTO.setUnitatGestoraConvidada(dropdownItemBDTO);
+			RetornarTramitacioRDTO retornarTramitacioRDTO = new RetornarTramitacioRDTO();
+			Comentaris comentaris = new Comentaris();
+			comentaris.setDescripcio(expedientRetornRDTO.getComentari());
+			retornarTramitacioRDTO.setComentari(comentaris);
+
 			ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO = new ExpedientsRetornarTramitacioBDTO(
-					retornarLaTramitacioRDTO);
+					dadesExpedientBDTO.getExpedientsRDTO().getId(), retornarTramitacioRDTO);
 			serveisService.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO);
 
-			// Cambio de estado del expediente
+			// Cambio de estado del expediente en función del estado origen
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
 
 			// obtenemos el idAccioEstat futuro
@@ -915,15 +912,18 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.RETORNAR_TRAMITACIO.getInternalValue(),
 					dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
 
-			// debe existir una transicion posible para el estado actual
-			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
+			// Comprobamos si existe una transicion posible para el estado
+			// actual y de ser así se cambia el estado al expediente
+			boolean canviarEstat = ServeisRestControllerValidationHelper.validateCanviarEstatExpedient(accionsEstatsRDTOList,
 					AccioTramitadorApiParamValue.RETORNAR_TRAMITACIO, Resultat.ERROR_PROPOSAR_RESOLUCIO_EXPEDIENT);
 
-			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+			if (canviarEstat) {
+				expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
 
-			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
-					dadesExpedientBDTO.getExpedientsRDTO().getId());
-			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
+				ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
+						dadesExpedientBDTO.getExpedientsRDTO().getId());
+				serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
+			}
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("retornarExpedient(String, ExpedientRetornRDTO)", e); // $NON-NLS-1$

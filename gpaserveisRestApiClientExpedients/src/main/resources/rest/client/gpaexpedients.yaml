@@ -951,23 +951,28 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /expedients/retornarLaTramitacio:
+  /expedients/retornarTramitacio/{idExpedient}:
     post:
       tags:
-      - "RetornarLaTramitacio"
-      summary: "RetornarLaTramitacio"
+      - "Expedients"
+      summary: "RetornarTramitacio"
       operationId: "retornarTramitacioExpedient"
       consumes:
       - "application/json"
       produces:
       - "*/*"
       parameters:
+      - name: "idExpedient"
+        in: "path"
+        description: "Identificador de l'expedient"
+        required: true
+        type: "number"
       - in: "body"
-        name: "retornarLaTramitacioRDTO"
-        description: "retornarLaTramitacioRDTO"
+        name: "retornarTramitacioRDTO"
+        description: "retornarTramitacioRDTO"
         required: true
         schema:
-          $ref: "#/definitions/RetornarLaTramitacioRDTO"
+          $ref: "#/definitions/RetornarTramitacioRDTO"
       responses:
         200:
           description: "OK"
@@ -1970,16 +1975,12 @@ definitions:
         type: "number"
         description: "Identificador de l'expedient"
     title: "RespostaObtenirXmlExpedient"
-  RetornarLaTramitacioRDTO:
+  RetornarTramitacioRDTO:
     type: "object"
     properties:
-      idExpedientList:
-        type: "array"
-        items:
-          type: "number"
-      unitatGestoraConvidada:
-        $ref: "#/definitions/DropdownItemBDTO"
-    title: "RetornarLaTramitacioRDTO"
+      comentari:
+        $ref: "#/definitions/Comentaris"
+    title: "RetornarTramitacioRDTO"
   Sollicituds:
     type: "object"
     properties:

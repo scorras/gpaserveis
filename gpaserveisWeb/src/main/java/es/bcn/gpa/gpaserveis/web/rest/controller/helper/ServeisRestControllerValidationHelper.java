@@ -136,6 +136,18 @@ public class ServeisRestControllerValidationHelper {
 		}
 	}
 
+	/**
+	 * Validate unitat gestora convidada.
+	 *
+	 * @param idUnitatGestoraConvidada
+	 *            the id unitat gestora convidada
+	 * @param idUnitatGestoraExpedient
+	 *            the id unitat gestora expedient
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
 	public static void validateUnitatGestoraConvidada(BigDecimal idUnitatGestoraConvidada, BigDecimal idUnitatGestoraExpedient,
 			Resultat resultatError) throws GPAApiParamValidationException {
 		// La Unitat Gestora a convidar debe ser diferente a la que tiene
@@ -167,8 +179,8 @@ public class ServeisRestControllerValidationHelper {
 	 *
 	 * @param dadesExpedientBDTO
 	 *            the dades expedient BDTO
-	 * @param expedientsRDTORelacionatsList
-	 *            the expedients RDTO relacionats list
+	 * @param expedientsRDTORelacionatsAcumuladorList
+	 *            the expedients RDTO relacionats acumulador list
 	 * @param resultatError
 	 *            the resultat error
 	 * @throws GPAApiParamValidationException
@@ -294,6 +306,8 @@ public class ServeisRestControllerValidationHelper {
 	 *            the dades grups RDTO list
 	 * @param idExpedient
 	 *            the id expedient
+	 * @param isPortal
+	 *            the is portal
 	 * @return the array list
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
@@ -381,6 +395,8 @@ public class ServeisRestControllerValidationHelper {
 	 *            the dades grups RDTO list
 	 * @param idExpedient
 	 *            the id expedient
+	 * @param isPortal
+	 *            the is portal
 	 * @return the array list
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
@@ -1353,8 +1369,8 @@ public class ServeisRestControllerValidationHelper {
 	/**
 	 * Validate transicio accio disponible expedient.
 	 *
-	 * @param List<AccionsEstatsRDTO>
-	 *            the accions Estats RDTO List
+	 * @param accionsEstatsRDTOList
+	 *            the accions estats RDTO list
 	 * @param accioTramitadorApiParamValue
 	 *            the accio tramitador api param value
 	 * @param resultatError
@@ -1370,6 +1386,28 @@ public class ServeisRestControllerValidationHelper {
 					accioTramitadorApiParamValue.getApiParamValue());
 		}
 
+	}
+
+	/**
+	 * Validate canviar estat expedient.
+	 *
+	 * @param accionsEstatsRDTOList
+	 *            the accions estats RDTO list
+	 * @param accioTramitadorApiParamValue
+	 *            the accio tramitador api param value
+	 * @param resultatError
+	 *            the resultat error
+	 * @return true, if successful
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static boolean validateCanviarEstatExpedient(List<AccionsEstatsRDTO> accionsEstatsRDTOList,
+			AccioTramitadorApiParamValue accioTramitadorApiParamValue, Resultat resultatError) throws GPAApiParamValidationException {
+		if (accionsEstatsRDTOList == null || accionsEstatsRDTOList.size() == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 }

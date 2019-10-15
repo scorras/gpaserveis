@@ -15,5 +15,6 @@ public class InscriureEnRegistreBDTO {
 	/** The id expedient. */
 	private BigDecimal idExpedient;
 
+	/** The inscriure en registre RDTO. */
 	private InscriureEnRegistreRDTO inscriureEnRegistreRDTO;
 }
