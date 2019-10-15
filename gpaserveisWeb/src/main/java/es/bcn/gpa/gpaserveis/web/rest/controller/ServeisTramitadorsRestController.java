@@ -496,7 +496,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// debe existir una transicion posible para el estado actual
 			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
-					AccioTramitadorApiParamValue.VALIDAR_SOLLICITUD, Resultat.ERROR_PROPOSAR_RESOLUCIO_EXPEDIENT);
+					AccioTramitadorApiParamValue.VALIDAR_SOLLICITUD, Resultat.ERROR_VALIDAR_EXPEDIENT);
 
 			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
 
@@ -732,13 +732,35 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// debe existir una transicion posible para el estado actual
 			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
-					AccioTramitadorApiParamValue.REACTIVAR_EXPEDIENT, Resultat.ERROR_PROPOSAR_RESOLUCIO_EXPEDIENT);
+					AccioTramitadorApiParamValue.REACTIVAR_EXPEDIENT, Resultat.ERROR_REACTIVAR_EXPEDIENT);
 
 			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
 
 			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
 					dadesExpedientBDTO.getExpedientsRDTO().getId());
-			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
+			RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccio = serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
+
+			if (respostaCanviarEstatAccio != null) {
+				// TODO control del error, que debemos devolver en la
+				// respuesta??....
+				/*
+				 * ErrorDTO errorDTO = new ErrorDTO();
+				 * errorDTO.setCodi(peticionsPortasig.getCodiError());
+				 * errorDTO.setDescripcio(peticionsPortasig.getMissatgeError());
+				 * 
+				 * ResultatRespostaDTO resultatRespostaDTO = new
+				 * ResultatRespostaDTO();
+				 * resultatRespostaDTO.setDetallError(errorDTO);
+				 * 
+				 * respostaSignarDocumentRDTO = new
+				 * RespostaSignarDocumentRDTO();
+				 * respostaSignarDocumentRDTO.setResultat(resultatRespostaDTO);
+				 */
+			} else {
+				RespostaExpedientsValidarBDTO respostaExpedientsValidarBDTO = new RespostaExpedientsValidarBDTO(
+						dadesExpedientBDTO.getExpedientsRDTO(), respostaResultatBDTO);
+				respostaReactivarExpedientRDTO = modelMapper.map(respostaExpedientsValidarBDTO, RespostaReactivarExpedientRDTO.class);
+			}
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("reactivarExpedient(String, ExpedientReactivacioRDTO)", e); // $NON-NLS-1$
@@ -805,7 +827,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// debe existir una transicion posible para el estado actual
 			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
-					AccioTramitadorApiParamValue.ARXIVAR_SOLLICITUD_INCOMPLETA, Resultat.ERROR_PROPOSAR_RESOLUCIO_EXPEDIENT);
+					AccioTramitadorApiParamValue.ARXIVAR_SOLLICITUD_INCOMPLETA, Resultat.ERROR_ARXIVAR_EXPEDIENT);
 
 			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
 
@@ -915,7 +937,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// Comprobamos si existe una transicion posible para el estado
 			// actual y de ser así se cambia el estado al expediente
 			boolean canviarEstat = ServeisRestControllerValidationHelper.validateCanviarEstatExpedient(accionsEstatsRDTOList,
-					AccioTramitadorApiParamValue.RETORNAR_TRAMITACIO, Resultat.ERROR_PROPOSAR_RESOLUCIO_EXPEDIENT);
+					AccioTramitadorApiParamValue.RETORNAR_TRAMITACIO, Resultat.ERROR_RETORNAR_TRAMITACIO_EXPEDIENT);
 
 			if (canviarEstat) {
 				expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
@@ -1150,7 +1172,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 				// debe existir una transicion posible para el estado actual
 				ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
-						AccioTramitadorApiParamValue.TORNAR_ENRERE, Resultat.ERROR_PROPOSAR_RESOLUCIO_EXPEDIENT);
+						AccioTramitadorApiParamValue.TORNAR_ENRERE, Resultat.ERROR_TORNAR_ENRERE_EXPEDIENT);
 
 				expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
 
@@ -2721,7 +2743,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// debe existir una transicion posible para el estado actual
 			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
-					AccioTramitadorApiParamValue.DOCUMENT_SIGNAT, Resultat.ERROR_PROPOSAR_RESOLUCIO_EXPEDIENT);
+					AccioTramitadorApiParamValue.DOCUMENT_SIGNAT, Resultat.ERROR_DOCUMENT_SIGNAT_EXPEDIENT);
 
 			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
 
