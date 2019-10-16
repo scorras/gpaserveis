@@ -27,7 +27,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsAp
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.CanviUnitatGestoraApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ConvidarATramitartApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
@@ -55,7 +54,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedie
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AvisCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraMassiuRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarMassiuRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
@@ -144,10 +143,6 @@ public abstract class ParentTest {
 	/** The estats api. */
 	@Autowired
 	protected EstatsApi estatsApi;
-
-	/** The convidar A tramitart api. */
-	@Autowired
-	protected ConvidarATramitartApi convidarATramitartApi;
 
 	/** The canvi unitat gestora api. */
 	@Autowired
@@ -366,7 +361,7 @@ public abstract class ParentTest {
 
 			doNothing().when(expedientsApi).retornarTramitacioExpedient(any(BigDecimal.class), any(RetornarTramitacioRDTO.class));
 
-			doNothing().when(convidarATramitartApi).convidarTramitarExpedient(any(ConvidarTramitarMassiuRDTO.class));
+			doNothing().when(expedientsApi).convidarTramitarExpedient(any(ConvidarTramitarRDTO.class), any(BigDecimal.class));
 
 			doNothing().when(canviUnitatGestoraApi).canviarUnitatGestoraExpedient(any(CanviUnitatGestoraMassiuRDTO.class));
 
