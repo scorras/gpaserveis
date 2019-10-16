@@ -29,7 +29,7 @@ import org.joda.time.DateTime;
 /**
  * Sollicituds
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-15T10:03:16.673+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-15T17:44:24.356+02:00")
 public class Sollicituds {
   @JsonProperty("dataPresentacio")
   private DateTime dataPresentacio = null;

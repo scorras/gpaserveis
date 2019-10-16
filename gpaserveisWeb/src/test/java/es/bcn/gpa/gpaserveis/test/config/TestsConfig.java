@@ -16,7 +16,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsAp
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.CanviUnitatGestoraApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ConvidarATramitartApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
@@ -324,20 +323,6 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("avisosApi() - fi"); //$NON-NLS-1$
 		}
 		return avisosApi;
-	}
-
-	@Bean
-	public ConvidarATramitartApi convidarATramitartApi() {
-		if (log.isDebugEnabled()) {
-			log.debug("convidarATramitartApi() - inici"); //$NON-NLS-1$
-		}
-
-		ConvidarATramitartApi convidarATramitartApi = Mockito.mock(ConvidarATramitartApi.class);
-
-		if (log.isDebugEnabled()) {
-			log.debug("convidarATramitartApi() - fi"); //$NON-NLS-1$
-		}
-		return convidarATramitartApi;
 	}
 
 	@Bean

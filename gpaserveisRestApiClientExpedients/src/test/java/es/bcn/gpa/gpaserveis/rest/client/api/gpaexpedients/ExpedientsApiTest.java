@@ -32,6 +32,7 @@ import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AnotarOperacioComptableRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegistreRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
@@ -72,7 +73,7 @@ public class ExpedientsApiTest extends ParentTest {
 	@Test
 	public void anotarOperacioComptableTest() {
 
-		when(apiClient.invokeAPI(eq("/expedients/1/operacioComptable/anotar"), eq(HttpMethod.POST), any(MultiValueMap.class),
+		when(apiClient.invokeAPI(eq("/expedients/anotarOperacioComptable/1"), eq(HttpMethod.POST), any(MultiValueMap.class),
 				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
 
@@ -93,7 +94,7 @@ public class ExpedientsApiTest extends ParentTest {
 	 */
 	@Test
 	public void inscriureEnRegistreTest() {
-		when(apiClient.invokeAPI(eq("/expedients/1/registre/inscriure"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+		when(apiClient.invokeAPI(eq("/expedients/inscriureEnRegistre/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
 				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 				any(ParameterizedTypeReference.class))).thenReturn(null);
 
@@ -112,13 +113,34 @@ public class ExpedientsApiTest extends ParentTest {
 	 */
 	@Test
 	public void retornarTramitacioExpedientTest() {
-		when(apiClient.invokeAPI(eq("/expedients/1/tramitar/retornar"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+		when(apiClient.invokeAPI(eq("/expedients/retornarTramitacio/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
 				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 				any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		BigDecimal idExpedient = ONE;
 		RetornarTramitacioRDTO retornarTramitacioRDTO = new RetornarTramitacioRDTO();
 		api.retornarTramitacioExpedient(idExpedient, retornarTramitacioRDTO);
+
+		assertTrue(true);
+	}
+
+	/**
+	 * ConvidarTramitart
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void convidarTramitarExpedientTest() {
+		when(apiClient.invokeAPI(eq("/expedients/convidarTramitar/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		ConvidarTramitarRDTO convidarTramitarRDTO = new ConvidarTramitarRDTO();
+		BigDecimal idExpedient = ONE;
+		api.convidarTramitarExpedient(convidarTramitarRDTO, idExpedient);
 
 		assertTrue(true);
 	}

@@ -31,7 +31,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsAp
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.CanviUnitatGestoraApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ConvidarATramitartApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
@@ -97,10 +96,6 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	/** The avisos api. */
 	@Autowired
 	private AvisosApi avisosApi;
-
-	/** The convidar A tramitart api. */
-	@Autowired
-	private ConvidarATramitartApi convidarATramitartApi;
 
 	/** The Canvi unitat gestora api. */
 	@Autowired
@@ -899,7 +894,8 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			convidarATramitartApi.convidarTramitarExpedient(expedientsConvidarTramitarBDTO.getConvidarTramitarMassiuRDTO());
+			expedientsApi.convidarTramitarExpedient(expedientsConvidarTramitarBDTO.getConvidarTramitarRDTO(),
+					expedientsConvidarTramitarBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("convidarTramitarExpedient(ExpedientsConvidarTramitarBDTO) - fi"); //$NON-NLS-1$

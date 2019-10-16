@@ -21,23 +21,19 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Comentaris;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownItemBDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
 
 /**
- * ConvidarTramitarBDTO
+ * ConvidarTramitarRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-15T10:03:16.673+02:00")
-public class ConvidarTramitarBDTO {
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-15T17:44:24.356+02:00")
+public class ConvidarTramitarRDTO {
   @JsonProperty("comentari")
   private Comentaris comentari = null;
-
-  @JsonProperty("idExpedient")
-  private BigDecimal idExpedient = null;
 
   @JsonProperty("unitatGestoraConvidada")
   private DropdownItemBDTO unitatGestoraConvidada = null;
 
-  public ConvidarTramitarBDTO comentari(Comentaris comentari) {
+  public ConvidarTramitarRDTO comentari(Comentaris comentari) {
     this.comentari = comentari;
     return this;
   }
@@ -55,25 +51,7 @@ public class ConvidarTramitarBDTO {
     this.comentari = comentari;
   }
 
-  public ConvidarTramitarBDTO idExpedient(BigDecimal idExpedient) {
-    this.idExpedient = idExpedient;
-    return this;
-  }
-
-   /**
-   * Get idExpedient
-   * @return idExpedient
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getIdExpedient() {
-    return idExpedient;
-  }
-
-  public void setIdExpedient(BigDecimal idExpedient) {
-    this.idExpedient = idExpedient;
-  }
-
-  public ConvidarTramitarBDTO unitatGestoraConvidada(DropdownItemBDTO unitatGestoraConvidada) {
+  public ConvidarTramitarRDTO unitatGestoraConvidada(DropdownItemBDTO unitatGestoraConvidada) {
     this.unitatGestoraConvidada = unitatGestoraConvidada;
     return this;
   }
@@ -100,25 +78,23 @@ public class ConvidarTramitarBDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ConvidarTramitarBDTO convidarTramitarBDTO = (ConvidarTramitarBDTO) o;
-    return Objects.equals(this.comentari, convidarTramitarBDTO.comentari) &&
-        Objects.equals(this.idExpedient, convidarTramitarBDTO.idExpedient) &&
-        Objects.equals(this.unitatGestoraConvidada, convidarTramitarBDTO.unitatGestoraConvidada);
+    ConvidarTramitarRDTO convidarTramitarRDTO = (ConvidarTramitarRDTO) o;
+    return Objects.equals(this.comentari, convidarTramitarRDTO.comentari) &&
+        Objects.equals(this.unitatGestoraConvidada, convidarTramitarRDTO.unitatGestoraConvidada);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comentari, idExpedient, unitatGestoraConvidada);
+    return Objects.hash(comentari, unitatGestoraConvidada);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ConvidarTramitarBDTO {\n");
+    sb.append("class ConvidarTramitarRDTO {\n");
     
     sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
-    sb.append("    idExpedient: ").append(toIndentedString(idExpedient)).append("\n");
     sb.append("    unitatGestoraConvidada: ").append(toIndentedString(unitatGestoraConvidada)).append("\n");
     sb.append("}");
     return sb.toString();

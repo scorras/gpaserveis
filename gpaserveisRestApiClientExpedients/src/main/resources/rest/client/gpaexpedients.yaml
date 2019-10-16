@@ -237,11 +237,11 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /expedients/convidarATramitar:
+  /expedients/convidarTramitar/{idExpedient}:
     post:
       tags:
-      - "ConvidarATramitart"
-      summary: "ConvidarATramitart"
+      - "Expedients"
+      summary: "ConvidarTramitart"
       operationId: "convidarTramitarExpedient"
       consumes:
       - "application/json"
@@ -249,11 +249,16 @@ paths:
       - "*/*"
       parameters:
       - in: "body"
-        name: "convidarTramitarMassiuRDTO"
-        description: "convidarTramitarMassiuRDTO"
+        name: "convidarTramitarRDTO"
+        description: "convidarTramitarRDTO"
         required: true
         schema:
-          $ref: "#/definitions/ConvidarTramitarMassiuRDTO"
+          $ref: "#/definitions/ConvidarTramitarRDTO"
+      - name: "idExpedient"
+        in: "path"
+        description: "Identificador de l'expedient"
+        required: true
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -1383,24 +1388,14 @@ definitions:
       usuariNom:
         type: "string"
     title: "Comentaris"
-  ConvidarTramitarBDTO:
+  ConvidarTramitarRDTO:
     type: "object"
     properties:
       comentari:
         $ref: "#/definitions/Comentaris"
-      idExpedient:
-        type: "number"
       unitatGestoraConvidada:
         $ref: "#/definitions/DropdownItemBDTO"
-    title: "ConvidarTramitarBDTO"
-  ConvidarTramitarMassiuRDTO:
-    type: "object"
-    properties:
-      convidarTramitarList:
-        type: "array"
-        items:
-          $ref: "#/definitions/ConvidarTramitarBDTO"
-    title: "ConvidarTramitarMassiuRDTO"
+    title: "ConvidarTramitarRDTO"
   CrearRegistre:
     type: "object"
     properties:

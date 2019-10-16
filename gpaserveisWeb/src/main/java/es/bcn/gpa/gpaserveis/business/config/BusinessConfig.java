@@ -16,7 +16,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsAp
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.CanviUnitatGestoraApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ConvidarATramitartApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
@@ -245,15 +244,6 @@ public class BusinessConfig {
 		DadesOperacionsApi dadesOperacionsApi = new DadesOperacionsApi(apiClient);
 
 		return dadesOperacionsApi;
-	}
-
-	@Bean
-	public ConvidarATramitartApi clientApiConvidarATramitart() {
-		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient();
-		apiClient.setBasePath(URL_SERVICES_EXPEDIENTS);
-		ConvidarATramitartApi convidarATramitartApi = new ConvidarATramitartApi(apiClient);
-
-		return convidarATramitartApi;
 	}
 
 	@Bean

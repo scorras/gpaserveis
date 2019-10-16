@@ -126,8 +126,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGest
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraMassiuRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Comentaris;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarBDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarMassiuRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownItemBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
@@ -922,10 +921,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			comentaris.setDescripcio(expedientRetornRDTO.getComentari());
 			retornarTramitacioRDTO.setComentari(comentaris);
 
-			ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO = new ExpedientsRetornarTramitacioBDTO(
-					dadesExpedientBDTO.getExpedientsRDTO().getId(), retornarTramitacioRDTO);
-			serveisService.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO);
-
 			// Cambio de estado del expediente en función del estado origen
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
 
@@ -946,6 +941,10 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 						dadesExpedientBDTO.getExpedientsRDTO().getId());
 				serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 			}
+
+			ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO = new ExpedientsRetornarTramitacioBDTO(
+					dadesExpedientBDTO.getExpedientsRDTO().getId(), retornarTramitacioRDTO);
+			serveisService.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("retornarExpedient(String, ExpedientRetornRDTO)", e); // $NON-NLS-1$
@@ -1380,7 +1379,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 *
 	 * @param codiExpedient
 	 *            the codi expedient
-	 * @param expedientConvidarTramitar
+	 * @param expedientConvidarTramitarRDTO
 	 *            the expedient convidar tramitar
 	 * @return the resposta convidar tramitar expedient RDTO
 	 * @throws GPAServeisServiceException
@@ -1391,7 +1390,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaConvidarTramitarExpedientRDTO convidarTramitarExpedient(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades de la invitació a tramitar l'expedient") @RequestBody ExpedientConvidarTramitarRDTO expedientConvidarTramitar)
+			@ApiParam(value = "Dades de la invitació a tramitar l'expedient") @RequestBody ExpedientConvidarTramitarRDTO expedientConvidarTramitarRDTO)
 			throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
@@ -1414,7 +1413,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// El codi de la unitat gestora debe existir y estar vigente
 			UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(
-					expedientConvidarTramitar.getCodiUnitatGestora());
+					expedientConvidarTramitarRDTO.getCodiUnitatGestora());
 			UnitatsGestoresRDTO unitatsGestoresRDTO = serveisService.consultarDadesUnitatGestora(unitatsGestoresCercaBDTO);
 			ServeisRestControllerValidationHelper.validateUnitatGestora(unitatsGestoresRDTO, dadesProcedimentBDTO,
 					Resultat.ERROR_CONVIDAR_TRAMITAR_EXPEDIENT);
@@ -1428,23 +1427,40 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.CONVIDAR_TRAMITAR, Resultat.ERROR_CONVIDAR_TRAMITAR_EXPEDIENT);
 
 			// Asociación de la UG invitada a tramitar
-			ConvidarTramitarMassiuRDTO convidarTramitarMassiuRDTO = new ConvidarTramitarMassiuRDTO();
-			ConvidarTramitarBDTO convidarTramitarBDTO = new ConvidarTramitarBDTO();
-			convidarTramitarBDTO.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
+			Comentaris comentaris = new Comentaris();
+			comentaris.setDescripcio(expedientConvidarTramitarRDTO.getComentari());
+
 			DropdownItemBDTO dropdownItemBDTO = new DropdownItemBDTO();
 			dropdownItemBDTO.setId(unitatsGestoresRDTO.getId());
 			dropdownItemBDTO.setDescripcio(unitatsGestoresRDTO.getDescripcio());
-			convidarTramitarBDTO.setUnitatGestoraConvidada(dropdownItemBDTO);
-			Comentaris comentaris = new Comentaris();
-			comentaris.setDescripcio(expedientConvidarTramitar.getComentari());
-			convidarTramitarBDTO.setComentari(comentaris);
-			convidarTramitarMassiuRDTO.setConvidarTramitarList(Arrays.asList(convidarTramitarBDTO));
-			ExpedientsConvidarTramitarBDTO expedientsConvidarTramitarBDTO = new ExpedientsConvidarTramitarBDTO(convidarTramitarMassiuRDTO);
-			serveisService.convidarTramitarExpedient(expedientsConvidarTramitarBDTO);
 
-			// Crear comentario
-			// TODO Ahora se crea el comentario dentro de la operación de
-			// Convidar a Tramitar. Queda pendiente sacar esta operación fuera
+			ConvidarTramitarRDTO convidarTramitarRDTO = new ConvidarTramitarRDTO();
+			convidarTramitarRDTO.setComentari(comentaris);
+			convidarTramitarRDTO.setUnitatGestoraConvidada(dropdownItemBDTO);
+
+			// Cambio de estado del expediente en función del estado origen
+			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+
+			// obtenemos el idAccioEstat futuro
+			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
+					AccioTramitadorApiParamValue.CONVIDAR_TRAMITAR.getInternalValue(), dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+
+			// Comprobamos si existe una transicion posible para el estado
+			// actual y de ser así se cambia el estado al expediente
+			boolean canviarEstat = ServeisRestControllerValidationHelper.validateCanviarEstatExpedient(accionsEstatsRDTOList,
+					AccioTramitadorApiParamValue.CONVIDAR_TRAMITAR, Resultat.ERROR_CONVIDAR_TRAMITAR_EXPEDIENT);
+
+			if (canviarEstat) {
+				expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+
+				ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
+						dadesExpedientBDTO.getExpedientsRDTO().getId());
+				serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
+			}
+
+			ExpedientsConvidarTramitarBDTO expedientsConvidarTramitarBDTO = new ExpedientsConvidarTramitarBDTO(
+					dadesExpedientBDTO.getExpedientsRDTO().getId(), convidarTramitarRDTO);
+			serveisService.convidarTramitarExpedient(expedientsConvidarTramitarBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("convidarTramitarExpedient(String, ExpedientConvidarTramitarRDTO)", e); // $NON-NLS-1$
