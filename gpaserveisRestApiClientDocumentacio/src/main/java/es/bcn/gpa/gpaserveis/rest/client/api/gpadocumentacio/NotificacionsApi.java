@@ -20,7 +20,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotifica
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-26T10:13:20.464+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-10T16:06:01.755+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi")
 public class NotificacionsApi {
 	private ApiClient apiClient;
@@ -40,54 +40,6 @@ public class NotificacionsApi {
 
 	public void setApiClient(ApiClient apiClient) {
 		this.apiClient = apiClient;
-	}
-
-	/**
-	 * Crear una petició per notificar un document signat
-	 * 
-	 * <p>
-	 * <b>200</b> - OK
-	 * <p>
-	 * <b>201</b> - Created
-	 * <p>
-	 * <b>401</b> - Unauthorized
-	 * <p>
-	 * <b>403</b> - Forbidden
-	 * <p>
-	 * <b>404</b> - Not Found
-	 * 
-	 * @param crearNotificacioRDTO
-	 *            crearNotificacioRDTO
-	 * @return NotificacionsRDTO
-	 * @throws RestClientException
-	 *             if an error occurs while attempting to invoke the API
-	 */
-	public NotificacionsRDTO crearNotificacio(CrearNotificacio crearNotificacioRDTO) throws RestClientException {
-		Object postBody = crearNotificacioRDTO;
-
-		// verify the required parameter 'crearNotificacioRDTO' is set
-		if (crearNotificacioRDTO == null) {
-			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'crearNotificacioRDTO' when calling crearNotificacio");
-		}
-
-		String path = UriComponentsBuilder.fromPath("/notificacions").build().toUriString();
-
-		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-		final HttpHeaders headerParams = new HttpHeaders();
-		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-		final String[] accepts = { "*/*" };
-		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-		final String[] contentTypes = { "application/json" };
-		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-		String[] authNames = new String[] {};
-
-		ParameterizedTypeReference<NotificacionsRDTO> returnType = new ParameterizedTypeReference<NotificacionsRDTO>() {
-		};
-		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
 	}
 
 	/**
@@ -116,7 +68,7 @@ public class NotificacionsApi {
 		// is set
 		if (actualitzarNotificacionDocumentRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'actualitzarNotificacionDocumentRDTO' when calling callbackNotificacio");
+					"Missing the required parameter 'actualitzarNotificacionDocumentRDTO' when calling callbackNotificacio");
 		}
 
 		String path = UriComponentsBuilder.fromPath("/notificacions").build().toUriString();
@@ -135,6 +87,54 @@ public class NotificacionsApi {
 		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
 		};
 		apiClient.invokeAPI(path, HttpMethod.PUT, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
+	}
+
+	/**
+	 * Crear una petició per notificar un document signat
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>201</b> - Created
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param crearNotificacioRDTO
+	 *            crearNotificacioRDTO
+	 * @return NotificacionsRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public NotificacionsRDTO crearNotificacio(CrearNotificacio crearNotificacioRDTO) throws RestClientException {
+		Object postBody = crearNotificacioRDTO;
+
+		// verify the required parameter 'crearNotificacioRDTO' is set
+		if (crearNotificacioRDTO == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+					"Missing the required parameter 'crearNotificacioRDTO' when calling crearNotificacio");
+		}
+
+		String path = UriComponentsBuilder.fromPath("/notificacions").build().toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "application/json" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<NotificacionsRDTO> returnType = new ParameterizedTypeReference<NotificacionsRDTO>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+				returnType);
 	}
 }

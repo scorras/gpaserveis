@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.13.2"
+  version: "1.15.2"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -1502,6 +1502,37 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /documentacio/desassociarRegistreDocumentacio:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "desassocia el registre de la documentació de l'expedient"
+      operationId: "desassociarRegistreDocumentacio"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "documentActualizarRegistreRDTO"
+        description: "documentActualizarRegistreRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/DocumentActualizarRegistre"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /documentacio/descarregarDocument/{idExpedient}/{idDoc}:
     get:
       tags:
@@ -2568,7 +2599,7 @@ paths:
       tags:
       - "Documentacio"
       summary: "Delete all selected DocsEntrada"
-      operationId: "deleteDocumentacioTramitacioUsingPOST"
+      operationId: "esBorrarDocumentacioTramitacio"
       consumes:
       - "application/json"
       produces:
@@ -2921,6 +2952,103 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /documentacio/{idDocumentacio}/entrada/{idConfiguracioDocumentacio}:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Returns the requested documentacio entrada"
+      operationId: "getDocumentacioEntradaExpedientTancatUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "idConfiguracioDocumentacio"
+        in: "path"
+        description: "idConfiguracioDocumentacio"
+        required: true
+        type: "number"
+      - name: "idDocumentacio"
+        in: "path"
+        description: "idDocumentacio"
+        required: true
+        type: "number"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfDocsEntradaRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /documentacio/{idDocumentacio}/entrada/{idConfiguracioDocumentacio}/{estatsFutursList}:
     get:
       tags:
@@ -3014,6 +3142,103 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/PageDataOfDocsEntradaRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /documentacio/{idDocumentacio}/tramitacio/{idConfiguracioDocumentacio}:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Returns the requested documentacio tramitacio"
+      operationId: "getDocumentacioTramitacioExpedientTancatUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "idConfiguracioDocumentacio"
+        in: "path"
+        description: "idConfiguracioDocumentacio"
+        required: true
+        type: "number"
+      - name: "idDocumentacio"
+        in: "path"
+        description: "idDocumentacio"
+        required: true
+        type: "number"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfDocsTramitacioRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -3720,6 +3945,9 @@ definitions:
       codiExpedient:
         type: "string"
         description: "Codi Opentext de l'expedient"
+      codiProcediment:
+        type: "string"
+        description: "Codi del procediment de l'expedient"
       idDocumentPrincipal:
         type: "number"
         description: "Identificador del document principal de tramitació"
@@ -3731,9 +3959,6 @@ definitions:
         description: "llista d'identificadors dels annexos"
         items:
           type: "number"
-      nomProcediment:
-        type: "string"
-        description: "Nom del procediment de l'expedient"
       persones:
         type: "array"
         description: "Llista de persones a notificar"
@@ -3768,7 +3993,7 @@ definitions:
     type: "object"
     properties:
       docsEntrada:
-        $ref: "#/definitions/DocsEntrada"
+        $ref: "#/definitions/DocsEntradaRDTO"
       idDocumentOriginal:
         type: "number"
       idExpedientDestino:
@@ -3788,106 +4013,6 @@ definitions:
         items:
           type: "number"
     title: "DocsEntActualizarRegistre"
-  DocsEntrada:
-    type: "object"
-    properties:
-      codi:
-        type: "string"
-      comentari:
-        type: "string"
-      configDocEntrada:
-        type: "number"
-      configuracioDocsEntrada:
-        $ref: "#/definitions/ConfiguracioDocsEntrada"
-      configuracioDocsEntradaNom:
-        type: "string"
-      configuracioDocsEntradaNomCastella:
-        type: "string"
-      dataCreacio:
-        type: "string"
-        format: "date-time"
-      dataDigitalitzacio:
-        type: "string"
-        format: "date-time"
-      dataPresentacio:
-        type: "string"
-        format: "date-time"
-      dataUltimaModificacio:
-        type: "string"
-        format: "date-time"
-      declaracioResponsable:
-        type: "integer"
-        format: "int32"
-      digitalitzat:
-        type: "integer"
-        format: "int32"
-      docsFisics:
-        $ref: "#/definitions/DocsFisics"
-      docsFisicsNom:
-        type: "string"
-      documentFisic:
-        type: "number"
-      documentacio:
-        type: "number"
-      editable:
-        type: "boolean"
-      eliminat:
-        type: "integer"
-        format: "int32"
-      estatDigitalitzacio:
-        type: "number"
-      id:
-        type: "number"
-      idIdiomaPlantilla:
-        type: "number"
-      idioma:
-        type: "number"
-      idiomaDigitalitzacio:
-        type: "number"
-      metadata:
-        type: "object"
-        additionalProperties:
-          type: "array"
-          items:
-            type: "string"
-      migracioIdOrigen:
-        type: "string"
-      nou:
-        type: "integer"
-        format: "int32"
-      numDocsConfiguracio:
-        type: "number"
-      obligatoriEnEstat:
-        type: "boolean"
-      origen:
-        type: "integer"
-        format: "int32"
-      plantillaPdf:
-        type: "boolean"
-      registreAssentament:
-        $ref: "#/definitions/RegistreAssentament"
-      registreCodi:
-        type: "string"
-      registreIdext:
-        type: "number"
-      requerit:
-        type: "boolean"
-      revisio:
-        type: "integer"
-        format: "int32"
-      seleccionable:
-        type: "boolean"
-      tipusMimeDescripcio:
-        type: "string"
-      tramitOvtIdext:
-        type: "number"
-      ultimaModificacioIdext:
-        type: "number"
-      urlDigitalitzacio:
-        type: "string"
-      usuariIdext:
-        type: "number"
-    title: "DocsEntrada"
   DocsEntradaRDTO:
     type: "object"
     properties:

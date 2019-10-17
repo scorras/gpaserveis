@@ -21,7 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-26T10:13:20.464+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-10T16:06:01.755+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi")
 public class DocumentacioRequeritApi {
 	private ApiClient apiClient;
@@ -67,14 +67,14 @@ public class DocumentacioRequeritApi {
 		// verify the required parameter 'idDoc' is set
 		if (idDoc == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idDoc' when calling cercaConfiguracioDocumentacioEntradaRequerida");
+					"Missing the required parameter 'idDoc' when calling cercaConfiguracioDocumentacioEntradaRequerida");
 		}
 
 		// create path and map variables
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put("idDoc", idDoc);
 		String path = UriComponentsBuilder.fromPath("/configuracioDocumentacio/docsEntradaRequerit/{idDoc}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -90,6 +90,6 @@ public class DocumentacioRequeritApi {
 		ParameterizedTypeReference<List<ConfDocEntradaRequeritRDTO>> returnType = new ParameterizedTypeReference<List<ConfDocEntradaRequeritRDTO>>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 }

@@ -17,55 +17,34 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Comentaris;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
 
 /**
- * TipusDocumentIdentitat
+ * InscriureEnRegistreRDTO
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-17T16:58:56.741+02:00")
-public class TipusDocumentIdentitat {
-  @JsonProperty("descripcio")
-  private String descripcio = null;
+public class InscriureEnRegistreRDTO {
+  @JsonProperty("comentari")
+  private Comentaris comentari = null;
 
-  @JsonProperty("id")
-  private BigDecimal id = null;
-
-  public TipusDocumentIdentitat descripcio(String descripcio) {
-    this.descripcio = descripcio;
+  public InscriureEnRegistreRDTO comentari(Comentaris comentari) {
+    this.comentari = comentari;
     return this;
   }
 
    /**
-   * Get descripcio
-   * @return descripcio
+   * Get comentari
+   * @return comentari
   **/
   @ApiModelProperty(value = "")
-  public String getDescripcio() {
-    return descripcio;
+  public Comentaris getComentari() {
+    return comentari;
   }
 
-  public void setDescripcio(String descripcio) {
-    this.descripcio = descripcio;
-  }
-
-  public TipusDocumentIdentitat id(BigDecimal id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getId() {
-    return id;
-  }
-
-  public void setId(BigDecimal id) {
-    this.id = id;
+  public void setComentari(Comentaris comentari) {
+    this.comentari = comentari;
   }
 
 
@@ -77,24 +56,22 @@ public class TipusDocumentIdentitat {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TipusDocumentIdentitat tipusDocumentIdentitat = (TipusDocumentIdentitat) o;
-    return Objects.equals(this.descripcio, tipusDocumentIdentitat.descripcio) &&
-        Objects.equals(this.id, tipusDocumentIdentitat.id);
+    InscriureEnRegistreRDTO inscriureEnRegistreRDTO = (InscriureEnRegistreRDTO) o;
+    return Objects.equals(this.comentari, inscriureEnRegistreRDTO.comentari);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(descripcio, id);
+    return Objects.hash(comentari);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TipusDocumentIdentitat {\n");
+    sb.append("class InscriureEnRegistreRDTO {\n");
     
-    sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
     sb.append("}");
     return sb.toString();
   }

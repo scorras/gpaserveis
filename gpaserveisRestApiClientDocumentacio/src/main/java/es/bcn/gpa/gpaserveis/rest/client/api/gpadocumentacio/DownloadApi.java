@@ -20,7 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-26T10:13:20.464+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-10T16:06:01.755+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadApi")
 public class DownloadApi {
 	private ApiClient apiClient;
@@ -68,13 +68,13 @@ public class DownloadApi {
 		// verify the required parameter 'idDoc' is set
 		if (idDoc == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idDoc' when calling descarregarDocumentExpedient");
+					"Missing the required parameter 'idDoc' when calling descarregarDocumentExpedient");
 		}
 
 		// verify the required parameter 'idExpedient' is set
 		if (idExpedient == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling descarregarDocumentExpedient");
+					"Missing the required parameter 'idExpedient' when calling descarregarDocumentExpedient");
 		}
 
 		// create path and map variables
@@ -82,7 +82,7 @@ public class DownloadApi {
 		uriVariables.put("idDoc", idDoc);
 		uriVariables.put("idExpedient", idExpedient);
 		String path = UriComponentsBuilder.fromPath("/documentacio/descarregarDocument/{idExpedient}/{idDoc}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -98,6 +98,6 @@ public class DownloadApi {
 		ParameterizedTypeReference<byte[]> returnType = new ParameterizedTypeReference<byte[]>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 }
