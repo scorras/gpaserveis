@@ -1672,4 +1672,47 @@ public class ServeisServiceImpl implements ServeisService {
 
 	}
 
+	/**
+	 * Canviar estat expedient. Esborrar registre.
+	 *
+	 * @param expedientsRegistrarBDTO
+	 *            the expedients registrar BDTO
+	 * @param tipusDocVinculada
+	 *            the tipus doc vinculada
+	 * @return the resposta crear registre expedient
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * esborrarRegistre(es.bcn.gpa.gpaserveis.business.dto.
+	 * expedients.ExpedientsRegistrarBDTO)
+	 */
+	@Override
+	public void esborrarRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO) throws GPAServeisServiceException {
+		expedientsService.esborrarRegistre(expedientsRegistrarBDTO);
+	}
+
+	/**
+	 * Desassociar registre documentacio expedient.
+	 *
+	 * @param documentActualizarRegistreRDTO
+	 *            the document actualizar registre RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * desassociarRegistreDocumentacioExpedient(es.bcn.gpa.gpaserveis.rest.
+	 * client. api.model.gpadocumentacio.DocumentActualizarRegistre)
+	 */
+	@Override
+	public void desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
+			throws GPAServeisServiceException {
+		documentsService.desassociarRegistreDocumentacioExpedient(documentActualizarRegistreRDTO);
+	}
 }

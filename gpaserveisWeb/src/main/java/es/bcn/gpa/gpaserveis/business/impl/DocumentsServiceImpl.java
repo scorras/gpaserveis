@@ -2086,4 +2086,52 @@ public class DocumentsServiceImpl implements DocumentsService {
 		ServeisServiceExceptionHandler.handleException(e);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * desassociarRegistreDocumentacioExpedient(es.bcn.gpa.gpaserveis.rest.
+	 * client. api.model.gpadocumentacio.DocumentActualizarRegistre)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackDesssociarRegistreDocumentacioExpedient")
+	public void desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			documentacioApi.desassociarRegistreDocumentacio(documentActualizarRegistreRDTO);
+
+			if (log.isDebugEnabled()) {
+				log.debug("desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre) - fi"); //$NON-NLS-1$
+			}
+
+		} catch (RestClientException e) {
+			log.error("desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e);
+		}
+
+	}
+
+	/**
+	 * Fallback desassociar registre documentacio expedient.
+	 *
+	 * @param documentActualizarRegistreRDTO
+	 *            the document actualizar registre RDTO
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackDesssociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackDesssociarRegistreDocumentacioExpedient(DocumentActualizarRegistre, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+	}
 }

@@ -114,7 +114,7 @@
 							<generateModelTests>true</generateModelTests>
 							<generateModelDocumentation>false</generateModelDocumentation>
 							<generateSupportingFiles>false</generateSupportingFiles>
-							<skip>true</skip>
+							<skip>false</skip>
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>joda</dateLibrary>

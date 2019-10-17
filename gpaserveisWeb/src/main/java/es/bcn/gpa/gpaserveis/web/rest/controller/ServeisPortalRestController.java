@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -831,6 +832,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaCrearRegistreExpedient respostaCrearRegistreExpedient = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_REGISTRAR_EXPEDIENT);
 		DocsTramitacioRDTO respostaCrearJustificant = null;
+		ExpedientsRegistrarBDTO expedientsRegistrarBDTO = null;
+		DocumentActualizarRegistre documentActualizarRegistreRDTO = null;
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
@@ -844,12 +847,12 @@ public class ServeisPortalRestController extends BaseRestController {
 			// Se construye el modelo para la llamada a la operación de registro
 			CrearRegistre registreCreacioSolicitudExpedient = new CrearRegistre();
 			registreCreacioSolicitudExpedient.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
-			ExpedientsRegistrarBDTO expedientsRegistrarBDTO = new ExpedientsRegistrarBDTO(registreCreacioSolicitudExpedient);
+			expedientsRegistrarBDTO = new ExpedientsRegistrarBDTO(registreCreacioSolicitudExpedient);
 			respostaCrearRegistreExpedient = serveisService.crearRegistre(expedientsRegistrarBDTO,
 					TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_SOLLICITUD.getInternalValue());
 
 			// Asociar registre del expediente a la documentacio
-			DocumentActualizarRegistre documentActualizarRegistreRDTO = new DocumentActualizarRegistre();
+			documentActualizarRegistreRDTO = new DocumentActualizarRegistre();
 			documentActualizarRegistreRDTO.setIdDoc(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
 			documentActualizarRegistreRDTO.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
 			serveisService.associarRegistreDocumentacioExpedient(documentActualizarRegistreRDTO);
@@ -901,6 +904,10 @@ public class ServeisPortalRestController extends BaseRestController {
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 		} catch (Exception e) {
 			log.error("registrarSolicitudExpedient(BigDecimal)", e);
+
+			sagaRegistrarSolicitudExpedient(dadesExpedientBDTO, respostaCrearRegistreExpedient, respostaCrearJustificant,
+					expedientsRegistrarBDTO, documentActualizarRegistreRDTO);
+
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_REGISTRAR_EXPEDIENT, e);
 		}
 
@@ -914,6 +921,35 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		return respostaRegistrarExpedientRDTO;
+	}
+
+	private void sagaRegistrarSolicitudExpedient(DadesExpedientBDTO dadesExpedientBDTO,
+			RespostaCrearRegistreExpedient respostaCrearRegistreExpedient, DocsTramitacioRDTO respostaCrearJustificant,
+			ExpedientsRegistrarBDTO expedientsRegistrarBDTO, DocumentActualizarRegistre documentActualizarRegistreRDTO) {
+
+		try {
+			if (respostaCrearRegistreExpedient != null && respostaCrearRegistreExpedient.getRegistreAssentament() != null
+					&& StringUtils.isNotEmpty(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi())) {
+
+				serveisService.esborrarRegistre(expedientsRegistrarBDTO);
+				respostaCrearRegistreExpedient.getRegistreAssentament().setCodi(null);
+				respostaCrearRegistreExpedient.getRegistreAssentament().setDataRegistre(null);
+			}
+			if (documentActualizarRegistreRDTO != null) {
+				serveisService.desassociarRegistreDocumentacioExpedient(documentActualizarRegistreRDTO);
+			}
+
+			if (respostaCrearJustificant != null) {
+				EsborrarDocumentBDTO esborrarDocumentExpedientBDTO = new EsborrarDocumentBDTO(
+						dadesExpedientBDTO.getExpedientsRDTO().getId(), respostaCrearJustificant.getId());
+				serveisService.esBorrarDocumentacioTramitacio(esborrarDocumentExpedientBDTO);
+			}
+
+		} catch (GPAServeisServiceException e1) {
+			log.error(
+					"sagaRegistrarSolicitudExpedient(DadesExpedientBDTO, RespostaCrearRegistreExpedient, DocsTramitacioRDTO, ExpedientsRegistrarBDTO, DocumentActualizarRegistre)",
+					e1);// $NON-NLS-1$
+		}
 	}
 
 	/**

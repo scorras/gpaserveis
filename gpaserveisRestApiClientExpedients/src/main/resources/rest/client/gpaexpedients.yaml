@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.15.0"
+  version: "1.15.1"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -914,6 +914,37 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/RespostaCrearRegistreExpedient"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /expedients/registre/esborrar:
+    post:
+      tags:
+      - "Expedients"
+      summary: "Esborrar registre solicitud expedient"
+      operationId: "esborrarRegistreSolicitudExpedient"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "registrarSolicitudExpedientRDTO"
+        description: "registrarSolicitudExpedientRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/CrearRegistre"
+      responses:
+        200:
+          description: "OK"
         201:
           description: "Created"
         401:

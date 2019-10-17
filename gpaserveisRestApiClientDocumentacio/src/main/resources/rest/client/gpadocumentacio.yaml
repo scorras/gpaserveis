@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.15.2"
+  version: "1.15.3"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -549,6 +549,37 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /documentacio/desassociarRegistreDocumentacio:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "desassocia el registre de la documentació de l'expedient"
+      operationId: "desassociarRegistreDocumentacio"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "documentActualizarRegistreRDTO"
+        description: "documentActualizarRegistreRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/DocumentActualizarRegistre"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /documentacio/descarregarDocument/{idExpedient}/{idDoc}:
     get:
       tags:

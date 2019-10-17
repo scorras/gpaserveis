@@ -58,7 +58,6 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaPresentarDeclaracioR
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaRebutjarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaValidarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AnotarOperacioComptableBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
@@ -124,7 +123,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.UsuariPortaSi
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AnotarOperacioComptableRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AvisCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraMassiuRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
@@ -159,7 +157,6 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.Tran
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.ConfiguracioApiParamValueTranslator;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.AccioAbandonarApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatCiutadaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.MotiuPausaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusCanalComunicacioApiParamValueTranslator;
@@ -3568,7 +3565,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 		return respostaEsborrarDocumentRDTO;
 	}
-	
+
 	/**
 	 * Abandonar expedient.
 	 *
@@ -3632,11 +3629,15 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Crear aviso
 			// TODO se comenta ya que no se debe crear el aviso
-			/*AvisCreacioAccio avisCreacioAccio = new AvisCreacioAccio();
-			avisCreacioAccio.setOperacio(AccioTramitadorApiParamValue.DESISTIR_RENUNCIAR.getApiParamValue());
-			AvisosCrearAccioBDTO avisosCrearAccioBDTO = new AvisosCrearAccioBDTO(avisCreacioAccio,
-					dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.DESISTIR_RENUNCIAR.getInternalValue());
-			serveisService.crearAvisAccio(avisosCrearAccioBDTO);*/
+			/*
+			 * AvisCreacioAccio avisCreacioAccio = new AvisCreacioAccio();
+			 * avisCreacioAccio.setOperacio(AccioTramitadorApiParamValue.
+			 * DESISTIR_RENUNCIAR.getApiParamValue()); AvisosCrearAccioBDTO
+			 * avisosCrearAccioBDTO = new AvisosCrearAccioBDTO(avisCreacioAccio,
+			 * dadesExpedientBDTO.getExpedientsRDTO().getId(),
+			 * AccioTramitadorApiParamValue.DESISTIR_RENUNCIAR.getInternalValue(
+			 * )); serveisService.crearAvisAccio(avisosCrearAccioBDTO);
+			 */
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("abandonarExpedient(BigDecimal, String, ExpedientAbandonamentRDTO)", e);// $NON-NLS-1$
@@ -3656,6 +3657,5 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 		return respostaAbandonarExpedientRDTO;
 	}
-
 
 }
