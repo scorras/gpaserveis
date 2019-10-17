@@ -2600,7 +2600,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			documentRegistrarComunicat.setDataComunicat(DateTime.now());
 			TipusCanalComunicacioApiParamValueTranslator tipusCanalComunicacioApiParamValueTranslator = new TipusCanalComunicacioApiParamValueTranslator();
 			TipusCanalComunicacioApiParamValue tipusCanalComunicacioApiParamValue = tipusCanalComunicacioApiParamValueTranslator
-					.getEnumByApiParamValue(expedientComunicat.getCanal());
+					.getEnumByApiParamValue(expedientComunicat.getCanal().toUpperCase());
 			documentRegistrarComunicat.setCanalComunicat(tipusCanalComunicacioApiParamValue.getInternalValue());
 			documentRegistrarComunicat.setMissatgeComunicat(expedientComunicat.getComentari());
 			DocumentGeneratRegistrarComunicatBDTO documentGeneratRegistrarComunicatBDTO = new DocumentGeneratRegistrarComunicatBDTO(
