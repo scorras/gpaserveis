@@ -449,6 +449,16 @@ public interface ServeisService {
 	void esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO) throws GPAServeisServiceException;
 
 	/**
+	 * Esborrar document tramitacio expedient.
+	 *
+	 * @param esborrarDocumentExpedientBDTO
+	 *            the esborrar document expedient BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void esborrarDocumentTramitacioExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO) throws GPAServeisServiceException;
+
+	/**
 	 * Descarregar document expedient.
 	 *
 	 * @param descarregarDocumentExpedientBDTO
@@ -473,6 +483,16 @@ public interface ServeisService {
 	 */
 	RespostaCrearRegistreExpedient crearRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO, BigDecimal tipusDocVinculada)
 			throws GPAServeisServiceException;
+
+	/**
+	 * Esborrar registre solicitud expedient.
+	 *
+	 * @param expedientsRegistrarBDTO
+	 *            the expedients registrar BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void esborrarRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO) throws GPAServeisServiceException;
 
 	/**
 	 * Canviar estat accio expedient.
@@ -550,6 +570,17 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	void associarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Desassociar registre documentacio expedient.
+	 *
+	 * @param documentActualizarRegistreRDTO
+	 *            the document actualizar registre RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
+			throws GPAServeisServiceException;
 
 	/**
 	 * Associar registre docs ent.

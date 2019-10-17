@@ -219,6 +219,16 @@ public interface DocumentsService {
 	void esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO) throws GPAServeisServiceException;
 
 	/**
+	 * Esborrar document tramitacio expedient.
+	 *
+	 * @param esborrarDocumentExpedientBDTO
+	 *            the esborrar document expedient BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void esborrarDocumentTramitacioExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO) throws GPAServeisServiceException;
+
+	/**
 	 * Consultar dades document.
 	 *
 	 * @param idDocument
@@ -305,6 +315,17 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	void associarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Desassociar registre documentacio expedient.
+	 *
+	 * @param documentActualizarRegistreRDTO
+	 *            the document actualizar registre RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
+			throws GPAServeisServiceException;
 
 	/**
 	 * Associar registre docs ent.

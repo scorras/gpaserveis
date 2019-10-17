@@ -31,8 +31,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 
 /**
  * API tests for ExpedientsApi
@@ -55,8 +57,8 @@ public class ExpedientsApiTest extends ParentTest {
 	@Test
 	public void canviarEstatAccioExpedientTest() {
 		when(apiClient.invokeAPI(eq("/expedients/1/accions/1/canviEstat"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new RespostaCanviarEstatAccioExpedient());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new RespostaCanviarEstatAccioExpedient());
 
 		BigDecimal idAccio = ONE;
 		BigDecimal idExpedient = ONE;
@@ -66,4 +68,24 @@ public class ExpedientsApiTest extends ParentTest {
 		assertTrue(response != null);
 	}
 
+	/**
+	 * Esborrar registre solicitud expedient
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void esborrarRegistreSolicitudExpedientTest() {
+
+		when(apiClient.invokeAPI(eq("/expedients/registre/esborrar"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new RespostaCrearRegistreExpedient());
+
+		CrearRegistre registrarSolicitudExpedientRDTO = new CrearRegistre();
+		api.esborrarRegistreSolicitudExpedient(registrarSolicitudExpedientRDTO);
+
+		assertTrue(true);
+	}
 }

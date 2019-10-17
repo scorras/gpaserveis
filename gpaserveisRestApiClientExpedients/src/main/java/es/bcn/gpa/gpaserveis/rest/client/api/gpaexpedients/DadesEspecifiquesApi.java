@@ -1,95 +1,169 @@
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
+import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
+
 import java.math.BigDecimal;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesMassiu;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
-
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-14T14:00:28.664+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-17T09:06:51.509+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi")
 public class DadesEspecifiquesApi {
-	private ApiClient apiClient;
+    private ApiClient apiClient;
 
-	public DadesEspecifiquesApi() {
-		this(new ApiClient());
-	}
+    public DadesEspecifiquesApi() {
+        this(new ApiClient());
+    }
 
-	@Autowired
-	public DadesEspecifiquesApi(ApiClient apiClient) {
-		this.apiClient = apiClient;
-	}
+    @Autowired
+    public DadesEspecifiquesApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-	public ApiClient getApiClient() {
-		return apiClient;
-	}
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-	public void setApiClient(ApiClient apiClient) {
-		this.apiClient = apiClient;
-	}
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-	/**
-	 * Returns the requested dades especifiques
-	 * 
-	 * <p>
-	 * <b>200</b> - OK
-	 * <p>
-	 * <b>401</b> - Unauthorized
-	 * <p>
-	 * <b>403</b> - Forbidden
-	 * <p>
-	 * <b>404</b> - Not Found
-	 * 
-	 * @param idExpedient
-	 *            idExpedient
-	 * @return List&lt;DadesEspecifiquesRDTO&gt;
-	 * @throws RestClientException
-	 *             if an error occurs while attempting to invoke the API
-	 */
-	public List<DadesEspecifiquesRDTO> consultarDadesEspecifiquesExpedient(BigDecimal idExpedient) throws RestClientException {
-		Object postBody = null;
+    /**
+     * Returns the requested dades especifiques
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param idExpedient idExpedient
+     * @return List&lt;DadesEspecifiquesRDTO&gt;
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public List<DadesEspecifiquesRDTO> consultarDadesEspecifiquesExpedient(BigDecimal idExpedient) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'idExpedient' is set
+        if (idExpedient == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idExpedient' when calling consultarDadesEspecifiquesExpedient");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("idExpedient", idExpedient);
+        String path = UriComponentsBuilder.fromPath("/expedients/dadesEspecifiques/{idExpedient}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-		// verify the required parameter 'idExpedient' is set
-		if (idExpedient == null) {
-			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idExpedient' when calling consultarDadesEspecifiquesExpedient");
-		}
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
-		// create path and map variables
-		final Map<String, Object> uriVariables = new HashMap<String, Object>();
-		uriVariables.put("idExpedient", idExpedient);
-		String path = UriComponentsBuilder.fromPath("/expedients/dadesEspecifiques/{idExpedient}").buildAndExpand(uriVariables)
-		        .toUriString();
+        String[] authNames = new String[] {  };
 
-		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-		final HttpHeaders headerParams = new HttpHeaders();
-		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+        ParameterizedTypeReference<List<DadesEspecifiquesRDTO>> returnType = new ParameterizedTypeReference<List<DadesEspecifiquesRDTO>>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Returns the requested dades especifiques
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param idsExpedient idsExpedient
+     * @return List&lt;DadesEspecifiquesMassiu&gt;
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public List<DadesEspecifiquesMassiu> consultarDadesEspecifiquesExpedientMassiu(String idsExpedient) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'idsExpedient' is set
+        if (idsExpedient == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idsExpedient' when calling consultarDadesEspecifiquesExpedientMassiu");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("idsExpedient", idsExpedient);
+        String path = UriComponentsBuilder.fromPath("/expedients/dadesEspecifiques/massiu/{idsExpedient}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-		final String[] accepts = { "*/*" };
-		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-		final String[] contentTypes = {};
-		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
-		String[] authNames = new String[] {};
+        String[] authNames = new String[] {  };
 
-		ParameterizedTypeReference<List<DadesEspecifiquesRDTO>> returnType = new ParameterizedTypeReference<List<DadesEspecifiquesRDTO>>() {
-		};
-		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
-	}
+        ParameterizedTypeReference<List<DadesEspecifiquesMassiu>> returnType = new ParameterizedTypeReference<List<DadesEspecifiquesMassiu>>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Insert  or updates the provided dades especifiques
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>201</b> - Created
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param dadesEspecifiquesRDTOList dadesEspecifiquesRDTOList
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public void saveOrUpdateUsingPOST(List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList) throws RestClientException {
+        Object postBody = dadesEspecifiquesRDTOList;
+        
+        // verify the required parameter 'dadesEspecifiquesRDTOList' is set
+        if (dadesEspecifiquesRDTOList == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'dadesEspecifiquesRDTOList' when calling saveOrUpdateUsingPOST");
+        }
+        
+        String path = UriComponentsBuilder.fromPath("/expedients/dadesEspecifiques").build().toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { 
+            "application/json"
+        };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {};
+        apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
 }
