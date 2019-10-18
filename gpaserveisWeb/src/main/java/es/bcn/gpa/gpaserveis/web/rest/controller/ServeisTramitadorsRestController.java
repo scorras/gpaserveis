@@ -1760,6 +1760,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		RespostaResolucioValidarDocumentRDTO respostaResolucioValidarDocumentRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_VALIDAR_DOCUMENT);
+		PeticionsPortasig peticionsPortasig = null;
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
@@ -1787,8 +1788,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			usuariPortaSig.setDocumentIdentitat(persona.getDocumentIdentitat());
 			usuariPortaSig.setNom(persona.getNom());
 			signarDocument.setUsuariPortaSig(usuariPortaSig);
-			PeticionsPortasig peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
-			serveisService.signarValidarDocument(signarDocument);
+			peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("validarResolucioDocument(String, BigDecimal, PersonaValidarResolucioDocumentRDTO)", e); // $NON-NLS-1$
@@ -1798,12 +1798,21 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_VALIDAR_DOCUMENT, e);
 		}
 
-		// TODO: Modificar respuesta cuando PortSig devuelve descError y
-		// codiError
-		RespostaResolucioValidarDocumentBDTO respostaResolucioValidarDocumentBDTO = new RespostaResolucioValidarDocumentBDTO(
-				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
-		respostaResolucioValidarDocumentRDTO = modelMapper.map(respostaResolucioValidarDocumentBDTO,
-				RespostaResolucioValidarDocumentRDTO.class);
+		if (peticionsPortasig != null && peticionsPortasig.getCodiError() != null) {
+			ErrorDTO errorDTO = new ErrorDTO();
+			errorDTO.setCodi(peticionsPortasig.getCodiError());
+			errorDTO.setDescripcio(peticionsPortasig.getMissatgeError());
+
+			ResultatRespostaDTO resultatRespostaDTO = new ResultatRespostaDTO();
+			resultatRespostaDTO.setDetallError(errorDTO);
+
+			respostaResolucioValidarDocumentRDTO = new RespostaResolucioValidarDocumentRDTO();
+			respostaResolucioValidarDocumentRDTO.setResultat(resultatRespostaDTO);
+		} else {
+			RespostaResolucioValidarDocumentBDTO respostaResolucioValidarDocumentBDTO = new RespostaResolucioValidarDocumentBDTO(
+					dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
+			respostaResolucioValidarDocumentRDTO = modelMapper.map(respostaResolucioValidarDocumentBDTO, RespostaResolucioValidarDocumentRDTO.class);
+		}
 
 		if (log.isDebugEnabled()) {
 			log.debug("validarResolucioDocument(String, BigDecimal, PersonaValidarResolucioDocumentRDTO) - fi"); //$NON-NLS-1$
