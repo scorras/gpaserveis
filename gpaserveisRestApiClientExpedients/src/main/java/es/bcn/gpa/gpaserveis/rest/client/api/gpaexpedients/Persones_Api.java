@@ -4,6 +4,7 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +25,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-17T17:10:50.616+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-17T09:06:51.509+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api")
 public class Persones_Api {
     private ApiClient apiClient;
@@ -113,6 +114,46 @@ public class Persones_Api {
         String[] authNames = new String[] {  };
 
         ParameterizedTypeReference<PageDataOfPersonesSollicitudRDTO> returnType = new ParameterizedTypeReference<PageDataOfPersonesSollicitudRDTO>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Returns all persons
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param idSolicitud idSolicitud
+     * @return List&lt;PersonesSollicitudRDTO&gt;
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public List<PersonesSollicitudRDTO> obtenirTotesPersonesExpedientUsingGET(BigDecimal idSolicitud) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'idSolicitud' is set
+        if (idSolicitud == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idSolicitud' when calling obtenirTotesPersonesExpedientUsingGET");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("idSolicitud", idSolicitud);
+        String path = UriComponentsBuilder.fromPath("/expedients/personesSollicitud/totesPersones/{idSolicitud}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<List<PersonesSollicitudRDTO>> returnType = new ParameterizedTypeReference<List<PersonesSollicitudRDTO>>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }

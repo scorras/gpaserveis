@@ -10,102 +10,105 @@
  * Do not edit the class manually.
  */
 
+
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio;
 
-import java.math.BigDecimal;
 import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 
 /**
  * RespostaPlantillaDocVinculada
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-10T16:06:01.755+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-16T14:38:18.380+02:00")
 public class RespostaPlantillaDocVinculada {
-	@JsonProperty("id")
-	private BigDecimal id = null;
+  @JsonProperty("id")
+  private BigDecimal id = null;
 
-	@JsonProperty("plantilla")
-	private String plantilla = null;
+  @JsonProperty("plantilla")
+  private String plantilla = null;
 
-	public RespostaPlantillaDocVinculada id(BigDecimal id) {
-		this.id = id;
-		return this;
-	}
+  public RespostaPlantillaDocVinculada id(BigDecimal id) {
+    this.id = id;
+    return this;
+  }
 
-	/**
-	 * Identificador de la configuració documentació tramitació
-	 * 
-	 * @return id
-	 **/
-	@ApiModelProperty(value = "Identificador de la configuració documentació tramitació")
-	public BigDecimal getId() {
-		return id;
-	}
+   /**
+   * Identificador de la configuració documentació tramitació
+   * @return id
+  **/
+  @ApiModelProperty(value = "Identificador de la configuració documentació tramitació")
+  public BigDecimal getId() {
+    return id;
+  }
 
-	public void setId(BigDecimal id) {
-		this.id = id;
-	}
+  public void setId(BigDecimal id) {
+    this.id = id;
+  }
 
-	public RespostaPlantillaDocVinculada plantilla(String plantilla) {
-		this.plantilla = plantilla;
-		return this;
-	}
+  public RespostaPlantillaDocVinculada plantilla(String plantilla) {
+    this.plantilla = plantilla;
+    return this;
+  }
 
-	/**
-	 * Plantilla de la documentació vinculada
-	 * 
-	 * @return plantilla
-	 **/
-	@ApiModelProperty(value = "Plantilla de la documentació vinculada")
-	public String getPlantilla() {
-		return plantilla;
-	}
+   /**
+   * Plantilla de la documentació vinculada
+   * @return plantilla
+  **/
+  @ApiModelProperty(value = "Plantilla de la documentació vinculada")
+  public String getPlantilla() {
+    return plantilla;
+  }
 
-	public void setPlantilla(String plantilla) {
-		this.plantilla = plantilla;
-	}
+  public void setPlantilla(String plantilla) {
+    this.plantilla = plantilla;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		RespostaPlantillaDocVinculada respostaPlantillaDocVinculada = (RespostaPlantillaDocVinculada) o;
-		return Objects.equals(this.id, respostaPlantillaDocVinculada.id)
-				&& Objects.equals(this.plantilla, respostaPlantillaDocVinculada.plantilla);
-	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, plantilla);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    RespostaPlantillaDocVinculada respostaPlantillaDocVinculada = (RespostaPlantillaDocVinculada) o;
+    return Objects.equals(this.id, respostaPlantillaDocVinculada.id) &&
+        Objects.equals(this.plantilla, respostaPlantillaDocVinculada.plantilla);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class RespostaPlantillaDocVinculada {\n");
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, plantilla);
+  }
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    plantilla: ").append(toIndentedString(plantilla)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class RespostaPlantillaDocVinculada {\n");
+    
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    plantilla: ").append(toIndentedString(plantilla)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
 }
+

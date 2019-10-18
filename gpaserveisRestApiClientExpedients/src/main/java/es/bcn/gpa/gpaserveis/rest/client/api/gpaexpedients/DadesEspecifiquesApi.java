@@ -3,6 +3,7 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
 import java.math.BigDecimal;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesMassiu;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-17T17:10:50.616+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-17T09:06:51.509+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi")
 public class DadesEspecifiquesApi {
     private ApiClient apiClient;
@@ -85,5 +86,84 @@ public class DadesEspecifiquesApi {
 
         ParameterizedTypeReference<List<DadesEspecifiquesRDTO>> returnType = new ParameterizedTypeReference<List<DadesEspecifiquesRDTO>>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Returns the requested dades especifiques
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param idsExpedient idsExpedient
+     * @return List&lt;DadesEspecifiquesMassiu&gt;
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public List<DadesEspecifiquesMassiu> consultarDadesEspecifiquesExpedientMassiu(String idsExpedient) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'idsExpedient' is set
+        if (idsExpedient == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idsExpedient' when calling consultarDadesEspecifiquesExpedientMassiu");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("idsExpedient", idsExpedient);
+        String path = UriComponentsBuilder.fromPath("/expedients/dadesEspecifiques/massiu/{idsExpedient}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<List<DadesEspecifiquesMassiu>> returnType = new ParameterizedTypeReference<List<DadesEspecifiquesMassiu>>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Insert  or updates the provided dades especifiques
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>201</b> - Created
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param dadesEspecifiquesRDTOList dadesEspecifiquesRDTOList
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public void saveOrUpdateUsingPOST(List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList) throws RestClientException {
+        Object postBody = dadesEspecifiquesRDTOList;
+        
+        // verify the required parameter 'dadesEspecifiquesRDTOList' is set
+        if (dadesEspecifiquesRDTOList == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'dadesEspecifiquesRDTOList' when calling saveOrUpdateUsingPOST");
+        }
+        
+        String path = UriComponentsBuilder.fromPath("/expedients/dadesEspecifiques").build().toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { 
+            "application/json"
+        };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {};
+        apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }

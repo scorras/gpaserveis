@@ -10,216 +10,216 @@
  * Do not edit the class manually.
  */
 
+
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio;
 
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * CrearNotificacio
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-10T16:06:01.755+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-16T14:38:18.380+02:00")
 public class CrearNotificacio {
-	@JsonProperty("codiExpedient")
-	private String codiExpedient = null;
+  @JsonProperty("codiExpedient")
+  private String codiExpedient = null;
 
-	@JsonProperty("codiProcediment")
-	private String codiProcediment = null;
+  @JsonProperty("codiProcediment")
+  private String codiProcediment = null;
 
-	@JsonProperty("idDocumentPrincipal")
-	private BigDecimal idDocumentPrincipal = null;
+  @JsonProperty("idDocumentPrincipal")
+  private BigDecimal idDocumentPrincipal = null;
 
-	@JsonProperty("idExpedient")
-	private BigDecimal idExpedient = null;
+  @JsonProperty("idExpedient")
+  private BigDecimal idExpedient = null;
 
-	@JsonProperty("idsAnnexosList")
-	private List<BigDecimal> idsAnnexosList = null;
+  @JsonProperty("idsAnnexosList")
+  private List<BigDecimal> idsAnnexosList = null;
 
-	@JsonProperty("persones")
-	private List<Persones> persones = null;
+  @JsonProperty("persones")
+  private List<Persones> persones = null;
 
-	public CrearNotificacio codiExpedient(String codiExpedient) {
-		this.codiExpedient = codiExpedient;
-		return this;
-	}
+  public CrearNotificacio codiExpedient(String codiExpedient) {
+    this.codiExpedient = codiExpedient;
+    return this;
+  }
 
-	/**
-	 * Codi Opentext de l&#39;expedient
-	 * 
-	 * @return codiExpedient
-	 **/
-	@ApiModelProperty(value = "Codi Opentext de l'expedient")
-	public String getCodiExpedient() {
-		return codiExpedient;
-	}
+   /**
+   * Codi Opentext de l&#39;expedient
+   * @return codiExpedient
+  **/
+  @ApiModelProperty(value = "Codi Opentext de l'expedient")
+  public String getCodiExpedient() {
+    return codiExpedient;
+  }
 
-	public void setCodiExpedient(String codiExpedient) {
-		this.codiExpedient = codiExpedient;
-	}
+  public void setCodiExpedient(String codiExpedient) {
+    this.codiExpedient = codiExpedient;
+  }
 
-	public CrearNotificacio codiProcediment(String codiProcediment) {
-		this.codiProcediment = codiProcediment;
-		return this;
-	}
+  public CrearNotificacio codiProcediment(String codiProcediment) {
+    this.codiProcediment = codiProcediment;
+    return this;
+  }
 
-	/**
-	 * Codi del procediment de l&#39;expedient
-	 * 
-	 * @return codiProcediment
-	 **/
-	@ApiModelProperty(value = "Codi del procediment de l'expedient")
-	public String getCodiProcediment() {
-		return codiProcediment;
-	}
+   /**
+   * Codi del procediment de l&#39;expedient
+   * @return codiProcediment
+  **/
+  @ApiModelProperty(value = "Codi del procediment de l'expedient")
+  public String getCodiProcediment() {
+    return codiProcediment;
+  }
 
-	public void setCodiProcediment(String codiProcediment) {
-		this.codiProcediment = codiProcediment;
-	}
+  public void setCodiProcediment(String codiProcediment) {
+    this.codiProcediment = codiProcediment;
+  }
 
-	public CrearNotificacio idDocumentPrincipal(BigDecimal idDocumentPrincipal) {
-		this.idDocumentPrincipal = idDocumentPrincipal;
-		return this;
-	}
+  public CrearNotificacio idDocumentPrincipal(BigDecimal idDocumentPrincipal) {
+    this.idDocumentPrincipal = idDocumentPrincipal;
+    return this;
+  }
 
-	/**
-	 * Identificador del document principal de tramitació
-	 * 
-	 * @return idDocumentPrincipal
-	 **/
-	@ApiModelProperty(value = "Identificador del document principal de tramitació")
-	public BigDecimal getIdDocumentPrincipal() {
-		return idDocumentPrincipal;
-	}
+   /**
+   * Identificador del document principal de tramitació
+   * @return idDocumentPrincipal
+  **/
+  @ApiModelProperty(value = "Identificador del document principal de tramitació")
+  public BigDecimal getIdDocumentPrincipal() {
+    return idDocumentPrincipal;
+  }
 
-	public void setIdDocumentPrincipal(BigDecimal idDocumentPrincipal) {
-		this.idDocumentPrincipal = idDocumentPrincipal;
-	}
+  public void setIdDocumentPrincipal(BigDecimal idDocumentPrincipal) {
+    this.idDocumentPrincipal = idDocumentPrincipal;
+  }
 
-	public CrearNotificacio idExpedient(BigDecimal idExpedient) {
-		this.idExpedient = idExpedient;
-		return this;
-	}
+  public CrearNotificacio idExpedient(BigDecimal idExpedient) {
+    this.idExpedient = idExpedient;
+    return this;
+  }
 
-	/**
-	 * Identificador de l&#39;expedient
-	 * 
-	 * @return idExpedient
-	 **/
-	@ApiModelProperty(value = "Identificador de l'expedient")
-	public BigDecimal getIdExpedient() {
-		return idExpedient;
-	}
+   /**
+   * Identificador de l&#39;expedient
+   * @return idExpedient
+  **/
+  @ApiModelProperty(value = "Identificador de l'expedient")
+  public BigDecimal getIdExpedient() {
+    return idExpedient;
+  }
 
-	public void setIdExpedient(BigDecimal idExpedient) {
-		this.idExpedient = idExpedient;
-	}
+  public void setIdExpedient(BigDecimal idExpedient) {
+    this.idExpedient = idExpedient;
+  }
 
-	public CrearNotificacio idsAnnexosList(List<BigDecimal> idsAnnexosList) {
-		this.idsAnnexosList = idsAnnexosList;
-		return this;
-	}
+  public CrearNotificacio idsAnnexosList(List<BigDecimal> idsAnnexosList) {
+    this.idsAnnexosList = idsAnnexosList;
+    return this;
+  }
 
-	public CrearNotificacio addIdsAnnexosListItem(BigDecimal idsAnnexosListItem) {
-		if (this.idsAnnexosList == null) {
-			this.idsAnnexosList = new ArrayList<BigDecimal>();
-		}
-		this.idsAnnexosList.add(idsAnnexosListItem);
-		return this;
-	}
+  public CrearNotificacio addIdsAnnexosListItem(BigDecimal idsAnnexosListItem) {
+    if (this.idsAnnexosList == null) {
+      this.idsAnnexosList = new ArrayList<BigDecimal>();
+    }
+    this.idsAnnexosList.add(idsAnnexosListItem);
+    return this;
+  }
 
-	/**
-	 * llista d&#39;identificadors dels annexos
-	 * 
-	 * @return idsAnnexosList
-	 **/
-	@ApiModelProperty(value = "llista d'identificadors dels annexos")
-	public List<BigDecimal> getIdsAnnexosList() {
-		return idsAnnexosList;
-	}
+   /**
+   * llista d&#39;identificadors dels annexos
+   * @return idsAnnexosList
+  **/
+  @ApiModelProperty(value = "llista d'identificadors dels annexos")
+  public List<BigDecimal> getIdsAnnexosList() {
+    return idsAnnexosList;
+  }
 
-	public void setIdsAnnexosList(List<BigDecimal> idsAnnexosList) {
-		this.idsAnnexosList = idsAnnexosList;
-	}
+  public void setIdsAnnexosList(List<BigDecimal> idsAnnexosList) {
+    this.idsAnnexosList = idsAnnexosList;
+  }
 
-	public CrearNotificacio persones(List<Persones> persones) {
-		this.persones = persones;
-		return this;
-	}
+  public CrearNotificacio persones(List<Persones> persones) {
+    this.persones = persones;
+    return this;
+  }
 
-	public CrearNotificacio addPersonesItem(Persones personesItem) {
-		if (this.persones == null) {
-			this.persones = new ArrayList<Persones>();
-		}
-		this.persones.add(personesItem);
-		return this;
-	}
+  public CrearNotificacio addPersonesItem(Persones personesItem) {
+    if (this.persones == null) {
+      this.persones = new ArrayList<Persones>();
+    }
+    this.persones.add(personesItem);
+    return this;
+  }
 
-	/**
-	 * Llista de persones a notificar
-	 * 
-	 * @return persones
-	 **/
-	@ApiModelProperty(value = "Llista de persones a notificar")
-	public List<Persones> getPersones() {
-		return persones;
-	}
+   /**
+   * Llista de persones a notificar
+   * @return persones
+  **/
+  @ApiModelProperty(value = "Llista de persones a notificar")
+  public List<Persones> getPersones() {
+    return persones;
+  }
 
-	public void setPersones(List<Persones> persones) {
-		this.persones = persones;
-	}
+  public void setPersones(List<Persones> persones) {
+    this.persones = persones;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		CrearNotificacio crearNotificacio = (CrearNotificacio) o;
-		return Objects.equals(this.codiExpedient, crearNotificacio.codiExpedient)
-				&& Objects.equals(this.codiProcediment, crearNotificacio.codiProcediment)
-				&& Objects.equals(this.idDocumentPrincipal, crearNotificacio.idDocumentPrincipal)
-				&& Objects.equals(this.idExpedient, crearNotificacio.idExpedient)
-				&& Objects.equals(this.idsAnnexosList, crearNotificacio.idsAnnexosList)
-				&& Objects.equals(this.persones, crearNotificacio.persones);
-	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(codiExpedient, codiProcediment, idDocumentPrincipal, idExpedient, idsAnnexosList, persones);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    CrearNotificacio crearNotificacio = (CrearNotificacio) o;
+    return Objects.equals(this.codiExpedient, crearNotificacio.codiExpedient) &&
+        Objects.equals(this.codiProcediment, crearNotificacio.codiProcediment) &&
+        Objects.equals(this.idDocumentPrincipal, crearNotificacio.idDocumentPrincipal) &&
+        Objects.equals(this.idExpedient, crearNotificacio.idExpedient) &&
+        Objects.equals(this.idsAnnexosList, crearNotificacio.idsAnnexosList) &&
+        Objects.equals(this.persones, crearNotificacio.persones);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class CrearNotificacio {\n");
+  @Override
+  public int hashCode() {
+    return Objects.hash(codiExpedient, codiProcediment, idDocumentPrincipal, idExpedient, idsAnnexosList, persones);
+  }
 
-		sb.append("    codiExpedient: ").append(toIndentedString(codiExpedient)).append("\n");
-		sb.append("    codiProcediment: ").append(toIndentedString(codiProcediment)).append("\n");
-		sb.append("    idDocumentPrincipal: ").append(toIndentedString(idDocumentPrincipal)).append("\n");
-		sb.append("    idExpedient: ").append(toIndentedString(idExpedient)).append("\n");
-		sb.append("    idsAnnexosList: ").append(toIndentedString(idsAnnexosList)).append("\n");
-		sb.append("    persones: ").append(toIndentedString(persones)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class CrearNotificacio {\n");
+    
+    sb.append("    codiExpedient: ").append(toIndentedString(codiExpedient)).append("\n");
+    sb.append("    codiProcediment: ").append(toIndentedString(codiProcediment)).append("\n");
+    sb.append("    idDocumentPrincipal: ").append(toIndentedString(idDocumentPrincipal)).append("\n");
+    sb.append("    idExpedient: ").append(toIndentedString(idExpedient)).append("\n");
+    sb.append("    idsAnnexosList: ").append(toIndentedString(idsAnnexosList)).append("\n");
+    sb.append("    persones: ").append(toIndentedString(persones)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
 }
+

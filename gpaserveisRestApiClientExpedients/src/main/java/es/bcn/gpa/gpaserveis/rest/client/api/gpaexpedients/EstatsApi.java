@@ -3,6 +3,8 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
 import java.math.BigDecimal;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviEstatRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownItemRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-17T17:10:50.616+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-17T09:06:51.509+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi")
 public class EstatsApi {
     private ApiClient apiClient;
@@ -84,6 +86,86 @@ public class EstatsApi {
         String[] authNames = new String[] {  };
 
         ParameterizedTypeReference<List<EstatsRDTO>> returnType = new ParameterizedTypeReference<List<EstatsRDTO>>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Returns the requested estats
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param idExpedient idExpedient
+     * @return CanviEstatRDTO
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public CanviEstatRDTO getEstatsByIdExpedientUsingGET(BigDecimal idExpedient) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'idExpedient' is set
+        if (idExpedient == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idExpedient' when calling getEstatsByIdExpedientUsingGET");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("idExpedient", idExpedient);
+        String path = UriComponentsBuilder.fromPath("/expedients/estats/{idExpedient}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<CanviEstatRDTO> returnType = new ParameterizedTypeReference<CanviEstatRDTO>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Returns the requested estats
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param accioEstatIdext accioEstatIdext
+     * @return List&lt;DropdownItemRDTO&gt;
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public List<DropdownItemRDTO> getOperacionsByAccioEstatIdextUsingGET(BigDecimal accioEstatIdext) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'accioEstatIdext' is set
+        if (accioEstatIdext == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'accioEstatIdext' when calling getOperacionsByAccioEstatIdextUsingGET");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("accioEstatIdext", accioEstatIdext);
+        String path = UriComponentsBuilder.fromPath("/expedients/operacions/{accioEstatIdext}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<List<DropdownItemRDTO>> returnType = new ParameterizedTypeReference<List<DropdownItemRDTO>>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }

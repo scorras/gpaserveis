@@ -10,160 +10,138 @@
  * Do not edit the class manually.
  */
 
+
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio;
 
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * DocumentRevisio
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-10T16:06:01.755+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-16T14:38:18.380+02:00")
 public class DocumentRevisio {
-	@JsonProperty("codiExpedient")
-	private String codiExpedient = null;
+  @JsonProperty("docsEntradaIds")
+  private List<BigDecimal> docsEntradaIds = null;
 
-	@JsonProperty("docsEntradaIds")
-	private List<BigDecimal> docsEntradaIds = null;
+  @JsonProperty("estatRevisioId")
+  private Integer estatRevisioId = null;
 
-	@JsonProperty("estatRevisioId")
-	private Integer estatRevisioId = null;
+  @JsonProperty("expedientId")
+  private BigDecimal expedientId = null;
 
-	@JsonProperty("expedientId")
-	private BigDecimal expedientId = null;
+  public DocumentRevisio docsEntradaIds(List<BigDecimal> docsEntradaIds) {
+    this.docsEntradaIds = docsEntradaIds;
+    return this;
+  }
 
-	public DocumentRevisio codiExpedient(String codiExpedient) {
-		this.codiExpedient = codiExpedient;
-		return this;
-	}
+  public DocumentRevisio addDocsEntradaIdsItem(BigDecimal docsEntradaIdsItem) {
+    if (this.docsEntradaIds == null) {
+      this.docsEntradaIds = new ArrayList<BigDecimal>();
+    }
+    this.docsEntradaIds.add(docsEntradaIdsItem);
+    return this;
+  }
 
-	/**
-	 * Codi de l&#39;expedient
-	 * 
-	 * @return codiExpedient
-	 **/
-	@ApiModelProperty(value = "Codi de l'expedient")
-	public String getCodiExpedient() {
-		return codiExpedient;
-	}
+   /**
+   * Llista d&#39;identificadors de document
+   * @return docsEntradaIds
+  **/
+  @ApiModelProperty(value = "Llista d'identificadors de document")
+  public List<BigDecimal> getDocsEntradaIds() {
+    return docsEntradaIds;
+  }
 
-	public void setCodiExpedient(String codiExpedient) {
-		this.codiExpedient = codiExpedient;
-	}
+  public void setDocsEntradaIds(List<BigDecimal> docsEntradaIds) {
+    this.docsEntradaIds = docsEntradaIds;
+  }
 
-	public DocumentRevisio docsEntradaIds(List<BigDecimal> docsEntradaIds) {
-		this.docsEntradaIds = docsEntradaIds;
-		return this;
-	}
+  public DocumentRevisio estatRevisioId(Integer estatRevisioId) {
+    this.estatRevisioId = estatRevisioId;
+    return this;
+  }
 
-	public DocumentRevisio addDocsEntradaIdsItem(BigDecimal docsEntradaIdsItem) {
-		if (this.docsEntradaIds == null) {
-			this.docsEntradaIds = new ArrayList<BigDecimal>();
-		}
-		this.docsEntradaIds.add(docsEntradaIdsItem);
-		return this;
-	}
+   /**
+   * Identificador de l&#39;estat de revisió
+   * @return estatRevisioId
+  **/
+  @ApiModelProperty(value = "Identificador de l'estat de revisió")
+  public Integer getEstatRevisioId() {
+    return estatRevisioId;
+  }
 
-	/**
-	 * Llista d&#39;identificadors de document
-	 * 
-	 * @return docsEntradaIds
-	 **/
-	@ApiModelProperty(value = "Llista d'identificadors de document")
-	public List<BigDecimal> getDocsEntradaIds() {
-		return docsEntradaIds;
-	}
+  public void setEstatRevisioId(Integer estatRevisioId) {
+    this.estatRevisioId = estatRevisioId;
+  }
 
-	public void setDocsEntradaIds(List<BigDecimal> docsEntradaIds) {
-		this.docsEntradaIds = docsEntradaIds;
-	}
+  public DocumentRevisio expedientId(BigDecimal expedientId) {
+    this.expedientId = expedientId;
+    return this;
+  }
 
-	public DocumentRevisio estatRevisioId(Integer estatRevisioId) {
-		this.estatRevisioId = estatRevisioId;
-		return this;
-	}
+   /**
+   * Identificador de l&#39;expedient
+   * @return expedientId
+  **/
+  @ApiModelProperty(value = "Identificador de l'expedient")
+  public BigDecimal getExpedientId() {
+    return expedientId;
+  }
 
-	/**
-	 * Identificador de l&#39;estat de revisió
-	 * 
-	 * @return estatRevisioId
-	 **/
-	@ApiModelProperty(value = "Identificador de l'estat de revisió")
-	public Integer getEstatRevisioId() {
-		return estatRevisioId;
-	}
+  public void setExpedientId(BigDecimal expedientId) {
+    this.expedientId = expedientId;
+  }
 
-	public void setEstatRevisioId(Integer estatRevisioId) {
-		this.estatRevisioId = estatRevisioId;
-	}
 
-	public DocumentRevisio expedientId(BigDecimal expedientId) {
-		this.expedientId = expedientId;
-		return this;
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    DocumentRevisio documentRevisio = (DocumentRevisio) o;
+    return Objects.equals(this.docsEntradaIds, documentRevisio.docsEntradaIds) &&
+        Objects.equals(this.estatRevisioId, documentRevisio.estatRevisioId) &&
+        Objects.equals(this.expedientId, documentRevisio.expedientId);
+  }
 
-	/**
-	 * Identificador de l&#39;expedient
-	 * 
-	 * @return expedientId
-	 **/
-	@ApiModelProperty(value = "Identificador de l'expedient")
-	public BigDecimal getExpedientId() {
-		return expedientId;
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(docsEntradaIds, estatRevisioId, expedientId);
+  }
 
-	public void setExpedientId(BigDecimal expedientId) {
-		this.expedientId = expedientId;
-	}
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		DocumentRevisio documentRevisio = (DocumentRevisio) o;
-		return Objects.equals(this.codiExpedient, documentRevisio.codiExpedient)
-				&& Objects.equals(this.docsEntradaIds, documentRevisio.docsEntradaIds)
-				&& Objects.equals(this.estatRevisioId, documentRevisio.estatRevisioId)
-				&& Objects.equals(this.expedientId, documentRevisio.expedientId);
-	}
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class DocumentRevisio {\n");
+    
+    sb.append("    docsEntradaIds: ").append(toIndentedString(docsEntradaIds)).append("\n");
+    sb.append("    estatRevisioId: ").append(toIndentedString(estatRevisioId)).append("\n");
+    sb.append("    expedientId: ").append(toIndentedString(expedientId)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(codiExpedient, docsEntradaIds, estatRevisioId, expedientId);
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class DocumentRevisio {\n");
-
-		sb.append("    codiExpedient: ").append(toIndentedString(codiExpedient)).append("\n");
-		sb.append("    docsEntradaIds: ").append(toIndentedString(docsEntradaIds)).append("\n");
-		sb.append("    estatRevisioId: ").append(toIndentedString(estatRevisioId)).append("\n");
-		sb.append("    expedientId: ").append(toIndentedString(expedientId)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
-
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
 }
+

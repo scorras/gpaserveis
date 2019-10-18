@@ -10,126 +10,128 @@
  * Do not edit the class manually.
  */
 
+
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio;
 
-import java.math.BigDecimal;
 import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 
 /**
  * SignarSegellDocument
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-10T16:06:01.755+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-16T14:38:18.380+02:00")
 public class SignarSegellDocument {
-	@JsonProperty("codiError")
-	private Integer codiError = null;
+  @JsonProperty("codiError")
+  private Integer codiError = null;
 
-	@JsonProperty("descError")
-	private String descError = null;
+  @JsonProperty("descError")
+  private String descError = null;
 
-	@JsonProperty("idDocument")
-	private BigDecimal idDocument = null;
+  @JsonProperty("idDocument")
+  private BigDecimal idDocument = null;
 
-	public SignarSegellDocument codiError(Integer codiError) {
-		this.codiError = codiError;
-		return this;
-	}
+  public SignarSegellDocument codiError(Integer codiError) {
+    this.codiError = codiError;
+    return this;
+  }
 
-	/**
-	 * Codi de l&#39;error
-	 * 
-	 * @return codiError
-	 **/
-	@ApiModelProperty(value = "Codi de l'error")
-	public Integer getCodiError() {
-		return codiError;
-	}
+   /**
+   * Codi de l&#39;error
+   * @return codiError
+  **/
+  @ApiModelProperty(value = "Codi de l'error")
+  public Integer getCodiError() {
+    return codiError;
+  }
 
-	public void setCodiError(Integer codiError) {
-		this.codiError = codiError;
-	}
+  public void setCodiError(Integer codiError) {
+    this.codiError = codiError;
+  }
 
-	public SignarSegellDocument descError(String descError) {
-		this.descError = descError;
-		return this;
-	}
+  public SignarSegellDocument descError(String descError) {
+    this.descError = descError;
+    return this;
+  }
 
-	/**
-	 * Descripció de l&#39;error
-	 * 
-	 * @return descError
-	 **/
-	@ApiModelProperty(value = "Descripció de l'error")
-	public String getDescError() {
-		return descError;
-	}
+   /**
+   * Descripció de l&#39;error
+   * @return descError
+  **/
+  @ApiModelProperty(value = "Descripció de l'error")
+  public String getDescError() {
+    return descError;
+  }
 
-	public void setDescError(String descError) {
-		this.descError = descError;
-	}
+  public void setDescError(String descError) {
+    this.descError = descError;
+  }
 
-	public SignarSegellDocument idDocument(BigDecimal idDocument) {
-		this.idDocument = idDocument;
-		return this;
-	}
+  public SignarSegellDocument idDocument(BigDecimal idDocument) {
+    this.idDocument = idDocument;
+    return this;
+  }
 
-	/**
-	 * Identificador del document
-	 * 
-	 * @return idDocument
-	 **/
-	@ApiModelProperty(value = "Identificador del document")
-	public BigDecimal getIdDocument() {
-		return idDocument;
-	}
+   /**
+   * Identificador del document
+   * @return idDocument
+  **/
+  @ApiModelProperty(value = "Identificador del document")
+  public BigDecimal getIdDocument() {
+    return idDocument;
+  }
 
-	public void setIdDocument(BigDecimal idDocument) {
-		this.idDocument = idDocument;
-	}
+  public void setIdDocument(BigDecimal idDocument) {
+    this.idDocument = idDocument;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		SignarSegellDocument signarSegellDocument = (SignarSegellDocument) o;
-		return Objects.equals(this.codiError, signarSegellDocument.codiError)
-				&& Objects.equals(this.descError, signarSegellDocument.descError)
-				&& Objects.equals(this.idDocument, signarSegellDocument.idDocument);
-	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(codiError, descError, idDocument);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SignarSegellDocument signarSegellDocument = (SignarSegellDocument) o;
+    return Objects.equals(this.codiError, signarSegellDocument.codiError) &&
+        Objects.equals(this.descError, signarSegellDocument.descError) &&
+        Objects.equals(this.idDocument, signarSegellDocument.idDocument);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class SignarSegellDocument {\n");
+  @Override
+  public int hashCode() {
+    return Objects.hash(codiError, descError, idDocument);
+  }
 
-		sb.append("    codiError: ").append(toIndentedString(codiError)).append("\n");
-		sb.append("    descError: ").append(toIndentedString(descError)).append("\n");
-		sb.append("    idDocument: ").append(toIndentedString(idDocument)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SignarSegellDocument {\n");
+    
+    sb.append("    codiError: ").append(toIndentedString(codiError)).append("\n");
+    sb.append("    descError: ").append(toIndentedString(descError)).append("\n");
+    sb.append("    idDocument: ").append(toIndentedString(idDocument)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
 }
+
