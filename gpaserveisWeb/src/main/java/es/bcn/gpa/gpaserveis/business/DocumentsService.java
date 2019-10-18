@@ -481,4 +481,15 @@ public interface DocumentsService {
 	 */
 	void esBorrarDocumentacioTramitacio(EsborrarDocumentBDTO esborrarDocumentBDTO) throws GPAServeisServiceException;
 
+	/**
+	 * Comprovar documents signats expedient.
+	 *
+	 * @param idDocumentacio
+	 *            the id documentacio
+	 * @return the boolean
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	Boolean comprovarDocumentsSignatsExpedient(BigDecimal idDocumentacio) throws GPAServeisServiceException;
+
 }

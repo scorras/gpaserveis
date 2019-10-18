@@ -78,6 +78,10 @@ import lombok.extern.apachecommons.CommonsLog;
 /** The Constant log. */
 
 /** The Constant log. */
+
+/** The Constant log. */
+
+/** The Constant log. */
 @CommonsLog
 public class DocumentsServiceImpl implements DocumentsService {
 
@@ -2084,6 +2088,52 @@ public class DocumentsServiceImpl implements DocumentsService {
 			log.debug("fallbackEsBorrarDocumentacioTramitacio(EsborrarDocumentBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
 		ServeisServiceExceptionHandler.handleException(e);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * comprovarDocumentsSignatsExpedient(java.math.BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackComprovarDocumentsSignatsExpedient")
+	public Boolean comprovarDocumentsSignatsExpedient(BigDecimal idDocumentacio) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("comprovarDocumentsSignatsExpedient(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+		try {
+			Boolean documentsSignats = documentacioApi.comprovarDocumentsSignatsExpedient(idDocumentacio);
+
+			if (log.isDebugEnabled()) {
+				log.debug("comprovarDocumentsSignatsExpedient(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			return documentsSignats;
+		} catch (RestClientException e) {
+			log.error("comprovarDocumentsSignatsExpedient(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+	}
+
+	/**
+	 * Fallback comprovar documents signats expedient.
+	 *
+	 * @param idDocumentacio
+	 *            the id documentacio
+	 * @param e
+	 *            the e
+	 * @return the boolean
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public Boolean fallbackComprovarDocumentsSignatsExpedient(BigDecimal idDocumentacio, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackComprovarDocumentsSignatsExpedient(EsborrarDocumentBDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 
 }

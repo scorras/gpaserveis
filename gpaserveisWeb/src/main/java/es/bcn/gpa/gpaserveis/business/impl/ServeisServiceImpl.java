@@ -100,6 +100,8 @@ import lombok.extern.apachecommons.CommonsLog;
 /** The Constant log. */
 
 /** The Constant log. */
+
+/** The Constant log. */
 @CommonsLog
 public class ServeisServiceImpl implements ServeisService {
 
@@ -1664,12 +1666,30 @@ public class ServeisServiceImpl implements ServeisService {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#cercaTransicioCanviEstat(
+	 * java.math.BigDecimal, java.math.BigDecimal)
+	 */
 	@Override
 	public List<AccionsEstatsRDTO> cercaTransicioCanviEstat(BigDecimal idAccio, BigDecimal idEstatActual)
 			throws GPAServeisServiceException {
 
 		return tramitsService.cercaTransicioCanviEstat(idAccio, idEstatActual);
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * comprovarDocumentsSignatsExpedient(java.math.BigDecimal)
+	 */
+	@Override
+	public Boolean comprovarDocumentsSignatsExpedient(BigDecimal documentacioIdext) throws GPAServeisServiceException {
+		return documentsService.comprovarDocumentsSignatsExpedient(documentacioIdext);
 	}
 
 }

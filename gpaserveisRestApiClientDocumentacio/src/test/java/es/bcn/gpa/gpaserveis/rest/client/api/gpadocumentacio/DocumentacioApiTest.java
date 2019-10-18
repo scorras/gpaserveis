@@ -692,4 +692,24 @@ public class DocumentacioApiTest extends ParentTest {
 		assertTrue(true);
 	}
 
+	/**
+	 * ComprovarDocumentsSignatsExpedient
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void comprovarDocumentsSignatsExpedientTest() {
+		when(apiClient.invokeAPI(eq("/comprovarDocumentsSignatsExpedient/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(Boolean.class);
+
+		BigDecimal idDocumentacio = ONE;
+		Boolean response = api.comprovarDocumentsSignatsExpedient(idDocumentacio);
+
+		assertTrue(true);
+	}
+
 }

@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 /**
  * DocsAssociatsIntra
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-10T16:06:01.755+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-17T12:21:43.485+02:00")
 public class DocsAssociatsIntra {
   @JsonProperty("docsEntrada")
   private DocsEntradaRDTO docsEntrada = null;

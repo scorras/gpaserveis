@@ -1410,4 +1410,19 @@ public class ServeisRestControllerValidationHelper {
 		}
 	}
 
+	/**
+	 * Validate documents signats expedient.
+	 *
+	 * @param documentsSignats
+	 *            the documents signats
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateDocumentsSignatsExpedient(Boolean documentsSignats) throws GPAApiParamValidationException {
+		if (!documentsSignats) {
+			throw new GPAApiParamValidationException(Resultat.ERROR_DOCUMENT_SIGNAT_EXPEDIENT,
+					ErrorPrincipal.ERROR_DOCUMENTS_EXPEDIENTS_NO_SIGNATS);
+		}
+	}
+
 }
