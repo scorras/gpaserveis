@@ -209,6 +209,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.anotar.operacio.comptable.RespostaAnotarOperacioComptableRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.arxivar.ExpedientArxiuRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.arxivar.RespostaArxivarExpedientRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.certificar.CertificarExpedientRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.certificar.RespostaCertificarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.comunicar.ExpedientComunicatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.comunicar.RespostaRegistrarComunicacioExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.inscriure.en.registre.InscriureRegistreRDTO;
@@ -1813,7 +1815,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		} else {
 			RespostaResolucioValidarDocumentBDTO respostaResolucioValidarDocumentBDTO = new RespostaResolucioValidarDocumentBDTO(
 					dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
-			respostaResolucioValidarDocumentRDTO = modelMapper.map(respostaResolucioValidarDocumentBDTO, RespostaResolucioValidarDocumentRDTO.class);
+			respostaResolucioValidarDocumentRDTO = modelMapper.map(respostaResolucioValidarDocumentBDTO,
+					RespostaResolucioValidarDocumentRDTO.class);
 		}
 
 		if (log.isDebugEnabled()) {
@@ -3701,6 +3704,36 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		return new RespostaObtenirDocumentInteroperabilitatRDTO();
+	}
+
+	/**
+	 * Obtenir certificat expedients.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @return the resposta certificar expedient RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@GetMapping(value = "/expedients/{codiExpedient}/obtenirCertificat")
+	@ApiOperation(value = "Obtenir un document per interoperabilitat", tags = { "Serveis Tramitadors API" }, extensions = {
+			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	@ApiImplicitParams(@ApiImplicitParam(name = "document", value = "Dades del document a obtenir", dataType = "string", paramType = "form", required = true))
+	public RespostaCertificarExpedientRDTO obtenirCertificat(
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("obtenirCertificat(String) - inici"); //$NON-NLS-1$
+		}
+
+		// TODO Integración pendiente
+		CertificarExpedientRDTO certificarExpedientRDTO = new CertificarExpedientRDTO();
+
+		if (log.isDebugEnabled()) {
+			log.debug("obtenirCertificat(String) - fi"); //$NON-NLS-1$
+		}
+
+		return new RespostaCertificarExpedientRDTO();
 	}
 
 }
