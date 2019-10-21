@@ -879,12 +879,17 @@ public interface ServeisService {
 	void esBorrarDocumentacioTramitacio(EsborrarDocumentBDTO esborrarDocumentBDTO) throws GPAServeisServiceException;
 
 	/**
-	 * obtenir l'aneu accion estat a partir de l'estat actual i la accion
-	 * 
+	 * obtenir l'aneu accion estat a partir de l'estat actual i la accion.
+	 *
 	 * @param idAccio
+	 *            the id accio
 	 * @param idEstatActual
-	 * @return
+	 *            the id estat actual
+	 * @return the list
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
 	 * @throws RestClientException
+	 *             the rest client exception
 	 */
 	List<AccionsEstatsRDTO> cercaTransicioCanviEstat(BigDecimal idAccio, BigDecimal idEstatActual) throws GPAServeisServiceException;
 
@@ -908,4 +913,15 @@ public interface ServeisService {
 	 */
 	void desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
 			throws GPAServeisServiceException;
+
+	/**
+	 * Comprovar documents signats expedient.
+	 *
+	 * @param documentacioIdext
+	 *            the documentacio idext
+	 * @return the boolean
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	Boolean comprovarDocumentsSignatsExpedient(BigDecimal documentacioIdext) throws GPAServeisServiceException;
 }

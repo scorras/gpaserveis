@@ -100,6 +100,8 @@ import lombok.extern.apachecommons.CommonsLog;
 /** The Constant log. */
 
 /** The Constant log. */
+
+/** The Constant log. */
 @CommonsLog
 public class ServeisServiceImpl implements ServeisService {
 
@@ -1664,6 +1666,13 @@ public class ServeisServiceImpl implements ServeisService {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#cercaTransicioCanviEstat(
+	 * java.math.BigDecimal, java.math.BigDecimal)
+	 */
 	@Override
 	public List<AccionsEstatsRDTO> cercaTransicioCanviEstat(BigDecimal idAccio, BigDecimal idEstatActual)
 			throws GPAServeisServiceException {
@@ -1672,21 +1681,11 @@ public class ServeisServiceImpl implements ServeisService {
 
 	}
 
-	/**
-	 * Canviar estat expedient. Esborrar registre.
-	 *
-	 * @param expedientsRegistrarBDTO
-	 *            the expedients registrar BDTO
-	 * @param tipusDocVinculada
-	 *            the tipus doc vinculada
-	 * @return the resposta crear registre expedient
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * 
 	 * esborrarRegistre(es.bcn.gpa.gpaserveis.business.dto.
 	 * expedients.ExpedientsRegistrarBDTO)
 	 */
@@ -1695,14 +1694,6 @@ public class ServeisServiceImpl implements ServeisService {
 		expedientsService.esborrarRegistre(expedientsRegistrarBDTO);
 	}
 
-	/**
-	 * Desassociar registre documentacio expedient.
-	 *
-	 * @param documentActualizarRegistreRDTO
-	 *            the document actualizar registre RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1714,5 +1705,13 @@ public class ServeisServiceImpl implements ServeisService {
 	public void desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
 			throws GPAServeisServiceException {
 		documentsService.desassociarRegistreDocumentacioExpedient(documentActualizarRegistreRDTO);
+	}
+
+	/*
+	 * comprovarDocumentsSignatsExpedient(java.math.BigDecimal)
+	 */
+	@Override
+	public Boolean comprovarDocumentsSignatsExpedient(BigDecimal documentacioIdext) throws GPAServeisServiceException {
+		return documentsService.comprovarDocumentsSignatsExpedient(documentacioIdext);
 	}
 }

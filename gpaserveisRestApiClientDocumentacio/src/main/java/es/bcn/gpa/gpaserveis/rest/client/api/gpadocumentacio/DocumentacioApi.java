@@ -756,7 +756,57 @@ public class DocumentacioApi {
 	}
 
 	/**
-	 * Returns the requested document
+	 * <<<<<<< HEAD ======= ComprovarDocumentsSignatsExpedient
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param idDocumentacio
+	 *            idDocumentacio
+	 * @return Boolean
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public Boolean comprovarDocumentsSignatsExpedient(BigDecimal idDocumentacio) throws RestClientException {
+		Object postBody = null;
+
+		// verify the required parameter 'idDocumentacio' is set
+		if (idDocumentacio == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+					"Missing the required parameter 'idDocumentacio' when calling comprovarDocumentsSignatsExpedient");
+		}
+
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("idDocumentacio", idDocumentacio);
+		String path = UriComponentsBuilder.fromPath("/documentacio/comprovarDocumentsSignatsExpedient/{idDocumentacio}")
+				.buildAndExpand(uriVariables).toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = {};
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<Boolean> returnType = new ParameterizedTypeReference<Boolean>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+				returnType);
+	}
+
+	/**
+	 * >>>>>>> feature/GPA-2722 Returns the requested document
 	 * 
 	 * <p>
 	 * <b>200</b> - OK
@@ -1422,10 +1472,9 @@ public class DocumentacioApi {
 		final HttpHeaders headerParams = new HttpHeaders();
 		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-		if (docsEntrada != null)
-			formParams.add("docsEntrada", docsEntrada);
-		if (file != null)
-			formParams.add("file", new FileSystemResource(file));
+		formParams.add("docsEntrada", docsEntrada);
+
+		formParams.add("file", new FileSystemResource(file));
 
 		final String[] accepts = { "*/*" };
 		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
@@ -1496,10 +1545,9 @@ public class DocumentacioApi {
 		final HttpHeaders headerParams = new HttpHeaders();
 		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-		if (docsTramitacio != null)
-			formParams.add("docsTramitacio", docsTramitacio);
-		if (file != null)
-			formParams.add("file", new FileSystemResource(file));
+		formParams.add("docsTramitacio", docsTramitacio);
+
+		formParams.add("file", new FileSystemResource(file));
 
 		final String[] accepts = { "*/*" };
 		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
@@ -1631,10 +1679,9 @@ public class DocumentacioApi {
 		final HttpHeaders headerParams = new HttpHeaders();
 		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-		if (file != null)
-			formParams.add("file", new FileSystemResource(file));
-		if (requerimentExpedient != null)
-			formParams.add("requerimentExpedient", requerimentExpedient);
+		formParams.add("file", new FileSystemResource(file));
+
+		formParams.add("requerimentExpedient", requerimentExpedient);
 
 		final String[] accepts = { "*/*" };
 		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);

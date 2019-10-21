@@ -2729,25 +2729,13 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		return respostaNotificarExpedientRDTO;
 	}
 
-	/**
-	 * Document signat expedient.
-	 *
-	 * @param codiExpedient
-	 *            the codi expedient
-	 * @param expedientDocumentSignat
-	 *            the expedient document signat
-	 * @return the resposta document signat expedient RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
 	@PostMapping("/expedients/{codiExpedient}/documentacio/signat")
 	@ApiOperation(value = "Força el canvi d'estat de l'expedient a Finzalizado i Comunicat després de la signatura dels documents", tags = {
 			"Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	// TODO Pasar también el id del documento de tramitación
 	public RespostaDocumentSignatExpedientRDTO documentSignatExpedient(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades de l'expedient amb document signat") @RequestBody ExpedientDocumentSignatRDTO expedientDocumentSignat)
+			@ApiParam(value = "Dades de l'expedient amb document signat") @RequestBody ExpedientDocumentSignatRDTO expedientDocumentSignatRDTO)
 			throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
@@ -2767,6 +2755,11 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 					AccioTramitadorApiParamValue.DOCUMENT_SIGNAT, Resultat.ERROR_DOCUMENT_SIGNAT_EXPEDIENT);
 
+			// Validar que todos los documentos del expediente estén firmados
+			Boolean documentsSignats = serveisService
+					.comprovarDocumentsSignatsExpedient(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
+			ServeisRestControllerValidationHelper.validateDocumentsSignatsExpedient(documentsSignats);
+
 			// Cambio de estado del expediente
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
 
@@ -2779,12 +2772,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.DOCUMENT_SIGNAT, Resultat.ERROR_DOCUMENT_SIGNAT_EXPEDIENT);
 
 			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+			expedientCanviEstat.setDiesTerminiAllegacio(null);
+			expedientCanviEstat.setDiesTerminiRequeriment(null);
 
 			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
 					dadesExpedientBDTO.getExpedientsRDTO().getId());
 			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
-
-			// TODO Fechas fin de plazo a null
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("documentSignatExpedient(String, ExpedientDocumentSignatRDTO)", e); // $NON-NLS-1$
@@ -3735,5 +3728,4 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 		return new RespostaCertificarExpedientRDTO();
 	}
-
 }

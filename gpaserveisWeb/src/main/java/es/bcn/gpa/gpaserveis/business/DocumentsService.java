@@ -491,4 +491,16 @@ public interface DocumentsService {
 	 */
 	void desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
 			throws GPAServeisServiceException;
+
+	/**
+	 * Comprovar documents signats expedient.
+	 *
+	 * @param idDocumentacio
+	 *            the id documentacio
+	 * @return the boolean
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	Boolean comprovarDocumentsSignatsExpedient(BigDecimal idDocumentacio) throws GPAServeisServiceException;
+
 }
