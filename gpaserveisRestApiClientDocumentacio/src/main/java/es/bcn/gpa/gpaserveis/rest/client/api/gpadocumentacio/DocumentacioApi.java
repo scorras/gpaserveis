@@ -756,7 +756,7 @@ public class DocumentacioApi {
 	}
 
 	/**
-	 * <<<<<<< HEAD ======= ComprovarDocumentsSignatsExpedient
+	 * ComprovarDocumentsSignatsExpedient
 	 * 
 	 * <p>
 	 * <b>200</b> - OK
@@ -806,7 +806,7 @@ public class DocumentacioApi {
 	}
 
 	/**
-	 * >>>>>>> feature/GPA-2722 Returns the requested document
+	 * Returns the requested document
 	 * 
 	 * <p>
 	 * <b>200</b> - OK
@@ -1473,7 +1473,6 @@ public class DocumentacioApi {
 		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
 		formParams.add("docsEntrada", docsEntrada);
-
 		formParams.add("file", new FileSystemResource(file));
 
 		final String[] accepts = { "*/*" };
@@ -1546,7 +1545,6 @@ public class DocumentacioApi {
 		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
 		formParams.add("docsTramitacio", docsTramitacio);
-
 		formParams.add("file", new FileSystemResource(file));
 
 		final String[] accepts = { "*/*" };
@@ -1680,7 +1678,6 @@ public class DocumentacioApi {
 		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
 		formParams.add("file", new FileSystemResource(file));
-
 		formParams.add("requerimentExpedient", requerimentExpedient);
 
 		final String[] accepts = { "*/*" };
