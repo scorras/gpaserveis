@@ -315,4 +315,17 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 				.andExpect(status().isOk()).andDo(print());
 	}
 
+	@Test
+	public void testStage36_ObtenirDocumentInteroperabilitat() throws Exception {
+		String url = BASE_URL + "/expedients/2019_EXP_0001/interoperabilitat";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{ \"codiAccio\":\"S'executa l'acció.\" }"))
+				.andExpect(status().isOk()).andDo(print());
+	}
+
+	@Test
+	public void testStage37_ObtenirCertificat() throws Exception {
+		String url = BASE_URL + "/expedients/2019_EXP_0001/obtenirCertificat";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+	}
+
 }
