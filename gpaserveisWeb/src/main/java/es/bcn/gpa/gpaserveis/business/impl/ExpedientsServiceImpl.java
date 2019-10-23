@@ -29,7 +29,6 @@ import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.business.handler.ServeisServiceExceptionHandler;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.CanviUnitatGestoraApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
@@ -96,10 +95,6 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	/** The avisos api. */
 	@Autowired
 	private AvisosApi avisosApi;
-
-	/** The Canvi unitat gestora api. */
-	@Autowired
-	private CanviUnitatGestoraApi canviUnitatGestoraApi;
 
 	/** The acumulaci expedients api. */
 	@Autowired
@@ -1037,7 +1032,8 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			canviUnitatGestoraApi.canviarUnitatGestoraExpedient(expedientsCanviarUnitatGestoraBDTO.getCanviUnitatGestoraMassiuRDTO());
+			expedientsApi.canviarUnitatGestoraExpedient(expedientsCanviarUnitatGestoraBDTO.getCanviUnitatGestoraRDTO(),
+					expedientsCanviarUnitatGestoraBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("canviarUnitatGestoraExpedient(ExpedientsCanviarUnitatGestoraBDTO) - fi"); //$NON-NLS-1$

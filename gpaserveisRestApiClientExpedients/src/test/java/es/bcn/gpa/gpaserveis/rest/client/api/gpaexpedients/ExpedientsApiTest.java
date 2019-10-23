@@ -32,6 +32,7 @@ import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AnotarOperacioComptableRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
@@ -143,6 +144,27 @@ public class ExpedientsApiTest extends ParentTest {
 		ConvidarTramitarRDTO convidarTramitarRDTO = new ConvidarTramitarRDTO();
 		BigDecimal idExpedient = ONE;
 		api.convidarTramitarExpedient(convidarTramitarRDTO, idExpedient);
+
+		assertTrue(true);
+	}
+
+	/**
+	 * CanviarUnitatGestora
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void canviarUnitatGestoraExpedientTest() {
+		when(apiClient.invokeAPI(eq("/expedients/canviUnitatGestora"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		CanviUnitatGestoraRDTO canviUnitatGestoraRDTO = new CanviUnitatGestoraRDTO();
+		BigDecimal idExpedient = ONE;
+		api.canviarUnitatGestoraExpedient(canviUnitatGestoraRDTO, idExpedient);
 
 		assertTrue(true);
 	}

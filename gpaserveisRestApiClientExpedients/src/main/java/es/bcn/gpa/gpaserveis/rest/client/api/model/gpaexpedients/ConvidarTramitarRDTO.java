@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * ConvidarTramitarRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-17T17:10:50.616+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-22T09:45:57.875+02:00")
 public class ConvidarTramitarRDTO {
   @JsonProperty("comentari")
   private Comentaris comentari = null;

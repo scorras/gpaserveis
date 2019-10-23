@@ -123,8 +123,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.UsuariPortaSi
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AnotarOperacioComptableRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraBDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraMassiuRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Comentaris;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
@@ -1543,24 +1542,24 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.CANVIAR_UNITAT_GESTORA, Resultat.ERROR_CANVIAR_UNITAT_GESTORA_EXPEDIENT);
 
 			// Asociación de la nueva UG
-			CanviUnitatGestoraMassiuRDTO canviUnitatGestoraMassiuRDTO = new CanviUnitatGestoraMassiuRDTO();
-			CanviUnitatGestoraBDTO canviUnitatGestoraBDTO = new CanviUnitatGestoraBDTO();
-			canviUnitatGestoraBDTO.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
+			Comentaris comentaris = new Comentaris();
+			comentaris.setDescripcio(expedientCanviUnitatGestora.getComentari());
+
 			DropdownItemBDTO unitatGestoraActual = new DropdownItemBDTO();
 			unitatGestoraActual.setId(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
 			unitatGestoraActual.setDescripcio(dadesExpedientBDTO.getExpedientsRDTO().getDescUnitatGestora());
-			canviUnitatGestoraBDTO.setUnitatGestoraActual(unitatGestoraActual);
+
 			DropdownItemBDTO unitatGestoraFutura = new DropdownItemBDTO();
 			unitatGestoraFutura.setId(unitatsGestoresRDTO.getId());
 			unitatGestoraFutura.setDescripcio(unitatsGestoresRDTO.getDescripcio());
-			canviUnitatGestoraBDTO.setUnitatGestoraFutura(unitatGestoraFutura);
-			Comentaris comentaris = new Comentaris();
-			comentaris.setDescripcio(expedientCanviUnitatGestora.getComentari());
-			canviUnitatGestoraBDTO.setComentari(comentaris);
-			canviUnitatGestoraMassiuRDTO.setCanviUnitatGestoraList(Arrays.asList(canviUnitatGestoraBDTO));
-			ExpedientsCanviarUnitatGestoraBDTO expedientsCanviarUnitatGestoraBDTO = new ExpedientsCanviarUnitatGestoraBDTO(
-					canviUnitatGestoraMassiuRDTO);
 
+			CanviUnitatGestoraRDTO canviUnitatGestoraRDTO = new CanviUnitatGestoraRDTO();
+			canviUnitatGestoraRDTO.setComentari(comentaris);
+			canviUnitatGestoraRDTO.setUnitatGestoraActual(unitatGestoraActual);
+			canviUnitatGestoraRDTO.setUnitatGestoraFutura(unitatGestoraFutura);
+
+			ExpedientsCanviarUnitatGestoraBDTO expedientsCanviarUnitatGestoraBDTO = new ExpedientsCanviarUnitatGestoraBDTO(
+					dadesExpedientBDTO.getExpedientsRDTO().getId(), canviUnitatGestoraRDTO);
 			serveisService.canviarUnitatGestoraExpedient(expedientsCanviarUnitatGestoraBDTO);
 
 		} catch (GPAApiParamValidationException e) {

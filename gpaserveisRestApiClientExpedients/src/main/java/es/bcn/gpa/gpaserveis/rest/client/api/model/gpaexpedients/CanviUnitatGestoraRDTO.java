@@ -21,18 +21,14 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Comentaris;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownItemBDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
 
 /**
- * CanviUnitatGestoraBDTO
+ * CanviUnitatGestoraRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-17T17:10:50.616+02:00")
-public class CanviUnitatGestoraBDTO {
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-22T09:45:57.875+02:00")
+public class CanviUnitatGestoraRDTO {
   @JsonProperty("comentari")
   private Comentaris comentari = null;
-
-  @JsonProperty("idExpedient")
-  private BigDecimal idExpedient = null;
 
   @JsonProperty("unitatGestoraActual")
   private DropdownItemBDTO unitatGestoraActual = null;
@@ -40,7 +36,7 @@ public class CanviUnitatGestoraBDTO {
   @JsonProperty("unitatGestoraFutura")
   private DropdownItemBDTO unitatGestoraFutura = null;
 
-  public CanviUnitatGestoraBDTO comentari(Comentaris comentari) {
+  public CanviUnitatGestoraRDTO comentari(Comentaris comentari) {
     this.comentari = comentari;
     return this;
   }
@@ -58,25 +54,7 @@ public class CanviUnitatGestoraBDTO {
     this.comentari = comentari;
   }
 
-  public CanviUnitatGestoraBDTO idExpedient(BigDecimal idExpedient) {
-    this.idExpedient = idExpedient;
-    return this;
-  }
-
-   /**
-   * Get idExpedient
-   * @return idExpedient
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getIdExpedient() {
-    return idExpedient;
-  }
-
-  public void setIdExpedient(BigDecimal idExpedient) {
-    this.idExpedient = idExpedient;
-  }
-
-  public CanviUnitatGestoraBDTO unitatGestoraActual(DropdownItemBDTO unitatGestoraActual) {
+  public CanviUnitatGestoraRDTO unitatGestoraActual(DropdownItemBDTO unitatGestoraActual) {
     this.unitatGestoraActual = unitatGestoraActual;
     return this;
   }
@@ -94,7 +72,7 @@ public class CanviUnitatGestoraBDTO {
     this.unitatGestoraActual = unitatGestoraActual;
   }
 
-  public CanviUnitatGestoraBDTO unitatGestoraFutura(DropdownItemBDTO unitatGestoraFutura) {
+  public CanviUnitatGestoraRDTO unitatGestoraFutura(DropdownItemBDTO unitatGestoraFutura) {
     this.unitatGestoraFutura = unitatGestoraFutura;
     return this;
   }
@@ -121,26 +99,24 @@ public class CanviUnitatGestoraBDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CanviUnitatGestoraBDTO canviUnitatGestoraBDTO = (CanviUnitatGestoraBDTO) o;
-    return Objects.equals(this.comentari, canviUnitatGestoraBDTO.comentari) &&
-        Objects.equals(this.idExpedient, canviUnitatGestoraBDTO.idExpedient) &&
-        Objects.equals(this.unitatGestoraActual, canviUnitatGestoraBDTO.unitatGestoraActual) &&
-        Objects.equals(this.unitatGestoraFutura, canviUnitatGestoraBDTO.unitatGestoraFutura);
+    CanviUnitatGestoraRDTO canviUnitatGestoraRDTO = (CanviUnitatGestoraRDTO) o;
+    return Objects.equals(this.comentari, canviUnitatGestoraRDTO.comentari) &&
+        Objects.equals(this.unitatGestoraActual, canviUnitatGestoraRDTO.unitatGestoraActual) &&
+        Objects.equals(this.unitatGestoraFutura, canviUnitatGestoraRDTO.unitatGestoraFutura);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comentari, idExpedient, unitatGestoraActual, unitatGestoraFutura);
+    return Objects.hash(comentari, unitatGestoraActual, unitatGestoraFutura);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CanviUnitatGestoraBDTO {\n");
+    sb.append("class CanviUnitatGestoraRDTO {\n");
     
     sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
-    sb.append("    idExpedient: ").append(toIndentedString(idExpedient)).append("\n");
     sb.append("    unitatGestoraActual: ").append(toIndentedString(unitatGestoraActual)).append("\n");
     sb.append("    unitatGestoraFutura: ").append(toIndentedString(unitatGestoraFutura)).append("\n");
     sb.append("}");

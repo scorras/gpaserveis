@@ -25,7 +25,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.CanviUnitatGestoraApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
@@ -52,7 +51,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AvisCreacioAccio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraMassiuRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
@@ -143,10 +142,6 @@ public abstract class ParentTest {
 	/** The estats api. */
 	@Autowired
 	protected EstatsApi estatsApi;
-
-	/** The canvi unitat gestora api. */
-	@Autowired
-	protected CanviUnitatGestoraApi canviUnitatGestoraApi;
 
 	/** The dades operacions api. */
 	@Autowired
@@ -363,7 +358,7 @@ public abstract class ParentTest {
 
 			doNothing().when(expedientsApi).convidarTramitarExpedient(any(ConvidarTramitarRDTO.class), any(BigDecimal.class));
 
-			doNothing().when(canviUnitatGestoraApi).canviarUnitatGestoraExpedient(any(CanviUnitatGestoraMassiuRDTO.class));
+			doNothing().when(expedientsApi).canviarUnitatGestoraExpedient(any(CanviUnitatGestoraRDTO.class), any(BigDecimal.class));
 
 			when(expedients_Api.consultarDadesRegistreAssentament(any(String.class)))
 					.thenReturn(TestsConfigHelper.consultarDadesRegistreAssentamentResponse());
@@ -398,6 +393,9 @@ public abstract class ParentTest {
 
 			when(documentacioApi.crearDocumentTramitacioDigitalitzat(any(DocsTramitacioRDTO.class), any(BigDecimal.class)))
 					.thenReturn(TestsConfigHelper.crearDocumentTramitacioDigitalitzatResponse());
+
+			when(accionsEstatsApi.cercaTransicioCanviEstat(any(BigDecimal.class), any(BigDecimal.class)))
+					.thenReturn(TestsConfigHelper.obtenirTransicionsCanviEstat());
 
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$

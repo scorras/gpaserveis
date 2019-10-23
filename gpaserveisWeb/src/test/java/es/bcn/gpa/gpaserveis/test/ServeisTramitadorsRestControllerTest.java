@@ -118,7 +118,7 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 		String url = BASE_URL + "/expedients/1/tramitar/convidar";
 		getMockMvc()
 				.perform(post(url).contentType(APPLICATION_JSON_UTF8)
-						.content("{ \"codiUnitatGestora\":\"UG1\", \"comentari\":\"S'executa l'acció.\" }"))
+						.content("{ \"codiUnitatGestora\":\"UG3\", \"comentari\":\"S'executa l'acció.\" }"))
 				.andExpect(status().isOk()).andDo(print());
 	}
 
@@ -326,6 +326,28 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 	public void testStage37_ObtenirCertificat() throws Exception {
 		String url = BASE_URL + "/expedients/2019_EXP_0001/obtenirCertificat";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+	}
+
+	@Test
+	public void testStage38_Consultar() throws Exception {
+		String url = BASE_URL + "/expedients/2019_EXP_0001/consultar";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+	}
+
+	@Test
+	public void testStage39_AbandonarExpedient() throws Exception {
+		String url = BASE_URL + "/expedients/2019_EXP_0001/abandonar";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{ \"comentari\":\"S'executa l'acció.\" }"))
+				.andExpect(status().isOk()).andDo(print());
+	}
+
+	@Test
+	public void testStage40_PublicarPerAInformacioPublica() throws Exception {
+		String url = BASE_URL + "/expedients/2019_EXP_0001/publicar";
+		getMockMvc()
+				.perform(post(url).contentType(APPLICATION_JSON_UTF8)
+						.content("{\"codi\":\"2019_EXP_0001\", \"comentaris\":[], \"documents\":[]}"))
+				.andExpect(status().isOk()).andDo(print());
 	}
 
 }

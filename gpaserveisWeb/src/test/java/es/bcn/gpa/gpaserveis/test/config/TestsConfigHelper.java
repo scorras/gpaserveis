@@ -1676,4 +1676,20 @@ public class TestsConfigHelper {
 		return notificacionsRDTO;
 	}
 
+	public static List<AccionsEstatsRDTO> obtenirTransicionsCanviEstat() {
+		List<AccionsEstatsRDTO> accionsEstatsRDTOList = new ArrayList<AccionsEstatsRDTO>();
+		AccionsEstatsRDTO accionsEstatsRDTO = new AccionsEstatsRDTO();
+		accionsEstatsRDTO.setId(new BigDecimal(1));
+		accionsEstatsRDTO.setNomAccio("Accio 1");
+		accionsEstatsRDTO.setAccio(new BigDecimal(1));
+		accionsEstatsRDTO.setDescTransicio("Transicio 1");
+		accionsEstatsRDTO.setEsEstatFinal(0);
+		accionsEstatsRDTO.setEsEstatInicial(1);
+		accionsEstatsRDTO.setEstat(new BigDecimal(1));
+		accionsEstatsRDTO.setEstatTramitador("Estat Tramitador 1");
+		accionsEstatsRDTOList.add(accionsEstatsRDTO);
+
+		return accionsEstatsRDTOList;
+	}
+
 }

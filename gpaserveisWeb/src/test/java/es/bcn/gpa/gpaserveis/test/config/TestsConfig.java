@@ -14,7 +14,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.CanviUnitatGestoraApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
@@ -323,20 +322,6 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("avisosApi() - fi"); //$NON-NLS-1$
 		}
 		return avisosApi;
-	}
-
-	@Bean
-	public CanviUnitatGestoraApi canviUnitatGestoraApi() {
-		if (log.isDebugEnabled()) {
-			log.debug("canviUnitatGestoraApi() - inici"); //$NON-NLS-1$
-		}
-
-		CanviUnitatGestoraApi canviUnitatGestoraApi = Mockito.mock(CanviUnitatGestoraApi.class);
-
-		if (log.isDebugEnabled()) {
-			log.debug("canviUnitatGestoraApi() - fi"); //$NON-NLS-1$
-		}
-		return canviUnitatGestoraApi;
 	}
 
 	@Bean

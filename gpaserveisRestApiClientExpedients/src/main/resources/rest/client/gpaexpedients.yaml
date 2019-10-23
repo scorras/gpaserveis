@@ -165,11 +165,11 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /expedients/canviUnitatGestora:
+  /expedients/canviarUnitatGestora/{idExpedient}:
     post:
       tags:
-      - "Canvi Unitat Gestora"
-      summary: "Changes the unitat gestora of the provided expedient"
+      - "Expedients"
+      summary: "CanviarUnitatGestora"
       operationId: "canviarUnitatGestoraExpedient"
       consumes:
       - "application/json"
@@ -177,11 +177,16 @@ paths:
       - "*/*"
       parameters:
       - in: "body"
-        name: "canviUnitatGestoraMassiuRDTO"
-        description: "canviUnitatGestoraMassiuRDTO"
+        name: "canviUnitatGestoraRDTO"
+        description: "canviUnitatGestoraRDTO"
         required: true
         schema:
-          $ref: "#/definitions/CanviUnitatGestoraMassiuRDTO"
+          $ref: "#/definitions/CanviUnitatGestoraRDTO"
+      - name: "idExpedient"
+        in: "path"
+        description: "Identificador de l'expedient"
+        required: true
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -241,7 +246,7 @@ paths:
     post:
       tags:
       - "Expedients"
-      summary: "ConvidarTramitart"
+      summary: "ConvidarTramitar"
       operationId: "convidarTramitarExpedient"
       consumes:
       - "application/json"
@@ -1353,26 +1358,16 @@ definitions:
       usuariBloquejo:
         $ref: "#/definitions/Usuaris"
     title: "Bloquejos"
-  CanviUnitatGestoraBDTO:
+  CanviUnitatGestoraRDTO:
     type: "object"
     properties:
       comentari:
         $ref: "#/definitions/Comentaris"
-      idExpedient:
-        type: "number"
       unitatGestoraActual:
         $ref: "#/definitions/DropdownItemBDTO"
       unitatGestoraFutura:
         $ref: "#/definitions/DropdownItemBDTO"
-    title: "CanviUnitatGestoraBDTO"
-  CanviUnitatGestoraMassiuRDTO:
-    type: "object"
-    properties:
-      canviUnitatGestoraList:
-        type: "array"
-        items:
-          $ref: "#/definitions/CanviUnitatGestoraBDTO"
-    title: "CanviUnitatGestoraMassiuRDTO"
+    title: "CanviUnitatGestoraRDTO"
   ComentariCreacioAccio:
     type: "object"
     properties:
