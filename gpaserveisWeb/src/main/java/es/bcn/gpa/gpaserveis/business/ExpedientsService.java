@@ -179,7 +179,7 @@ public interface ExpedientsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	void crearComentariAccio(ComentarisCrearAccioBDTO comentarisCrearAccioBDTO) throws GPAServeisServiceException;
+	Integer crearComentariAccio(ComentarisCrearAccioBDTO comentarisCrearAccioBDTO) throws GPAServeisServiceException;
 
 	/**
 	 * Crear avis accio.
@@ -315,4 +315,17 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	void esborrarRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Esborra comentari.
+	 *
+	 * @param idComentari
+	 *            the id Comentari
+	 * @param idExpedient
+	 *            the id expedient
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void esborrarComentari(BigDecimal idComentari, BigDecimal idExpedient) throws GPAServeisServiceException;
+
 }

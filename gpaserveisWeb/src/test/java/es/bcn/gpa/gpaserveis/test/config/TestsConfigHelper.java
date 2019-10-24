@@ -1692,4 +1692,14 @@ public class TestsConfigHelper {
 		return accionsEstatsRDTOList;
 	}
 
+	/**
+	 * Crear comentari accio response.
+	 *
+	 * @return the expedients RDTO
+	 */
+	public static Integer crearComentariAccioResponse() {
+
+		return INTEGER_ONE;
+	}
+
 }

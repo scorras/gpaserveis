@@ -167,7 +167,11 @@ public enum Resultat {
 
 	OK_INSCRIURE_EN_REGISTRE("OK", "S'ha inscrit l'expedient en un registre manualment"),
 
-	ERROR_INSCRIURE_EN_REGISTRE("ERROR", "No s'ha pogut inscriure en el registre");
+	ERROR_INSCRIURE_EN_REGISTRE("ERROR", "No s'ha pogut inscriure en el registre"),
+
+	OK_ACTUALITZAR_ID_GESTOR_DOCUMENTAL_EXPEDIENT("OK", "Identificador del gestor documental actualitzat correctament"),
+
+	ERROR_ACTUALITZAR_ID_GESTOR_DOCUMENTAL_EXPEDIENT("ERROR", "No s'ha pogut actualitzar l'identificador del gestor documental");
 
 	private String codi;
 

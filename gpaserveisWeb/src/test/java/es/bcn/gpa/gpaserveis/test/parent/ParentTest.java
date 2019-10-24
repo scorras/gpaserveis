@@ -318,8 +318,8 @@ public abstract class ParentTest {
 			when(downloadApi.descarregarDocumentExpedient(any(BigDecimal.class), any(BigDecimal.class)))
 					.thenReturn(TestsConfigHelper.descarregarDocumentExpedientResponse());
 
-			doNothing().when(comentarisApi).crearComentariAccio(any(BigDecimal.class), any(BigDecimal.class),
-					any(ComentariCreacioAccio.class));
+			when(comentarisApi.crearComentariAccio(any(BigDecimal.class), any(BigDecimal.class), any(ComentariCreacioAccio.class)))
+					.thenReturn(TestsConfigHelper.crearComentariAccioResponse());
 
 			doNothing().when(avisosApi).crearAvisAccio(any(BigDecimal.class), any(BigDecimal.class), any(AvisCreacioAccio.class));
 

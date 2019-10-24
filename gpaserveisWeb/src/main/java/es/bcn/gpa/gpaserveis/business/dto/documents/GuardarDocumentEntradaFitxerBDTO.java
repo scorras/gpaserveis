@@ -23,4 +23,6 @@ public class GuardarDocumentEntradaFitxerBDTO {
 	/** The file. */
 	private MultipartFile file;
 
+	/** The id gestor documental. */
+	private String idGestorDocumental;
 }

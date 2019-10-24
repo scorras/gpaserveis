@@ -399,6 +399,18 @@ public interface ServeisService {
 			throws GPAServeisServiceException;
 
 	/**
+	 * Guardar document entrada gestor documental.
+	 *
+	 * @param guardarDocumentEntradaFitxerBDTO
+	 *            the guardar document entrada fitxer BDTO
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsEntradaRDTO guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO)
+			throws GPAServeisServiceException;
+
+	/**
 	 * Guardar document tramitacio fitxer.
 	 *
 	 * @param guardarDocumentTramitacioFitxerBDTO
@@ -489,7 +501,7 @@ public interface ServeisService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	void crearComentariAccio(ComentarisCrearAccioBDTO comentarisCrearAccioBDTO) throws GPAServeisServiceException;
+	Integer crearComentariAccio(ComentarisCrearAccioBDTO comentarisCrearAccioBDTO) throws GPAServeisServiceException;
 
 	/**
 	 * Crear avis accio.
@@ -924,4 +936,27 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	Boolean comprovarDocumentsSignatsExpedient(BigDecimal documentacioIdext) throws GPAServeisServiceException;
+
+	/**
+	 * Esborra comentari.
+	 *
+	 * @param idComentari
+	 *            the id Comentari
+	 * @param idExpedient
+	 *            the id expedient
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void esborrarComentari(BigDecimal idComentari, BigDecimal idExpedient) throws GPAServeisServiceException;
+
+	/**
+	 * Obrir requeriments expedient.
+	 *
+	 * @param idDocumentacio
+	 *            the id documentacio
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void obrirRequerimentsExpedient(BigDecimal idDocumentacio) throws GPAServeisServiceException;
+
 }

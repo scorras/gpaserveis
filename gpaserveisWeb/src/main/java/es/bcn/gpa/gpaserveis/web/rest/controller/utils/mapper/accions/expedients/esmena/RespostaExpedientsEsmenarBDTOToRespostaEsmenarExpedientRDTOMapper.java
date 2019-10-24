@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsEsmenarBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToResultatRespostaConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToDocumentAportatAccioListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToExpedientAccioConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.RespostaEsmenarExpedientRDTO;
 
@@ -15,18 +16,22 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esme
  */
 @Component("respostaExpedientsEsmenarBDTOToRespostaEsmenarExpedientRDTOMapper")
 public class RespostaExpedientsEsmenarBDTOToRespostaEsmenarExpedientRDTOMapper
-        extends PropertyMap<RespostaExpedientsEsmenarBDTO, RespostaEsmenarExpedientRDTO> {
+		extends PropertyMap<RespostaExpedientsEsmenarBDTO, RespostaEsmenarExpedientRDTO> {
 
 	private InternalToExpedientAccioConverter internalToExpedientAccioConverter;
 
 	private InternalToResultatRespostaConverter internalToResultatRespostaConverter;
 
+	private InternalToDocumentAportatAccioListConverter internalToDocumentAportatAccioListConverter;
+
 	@Autowired
 	public RespostaExpedientsEsmenarBDTOToRespostaEsmenarExpedientRDTOMapper(
-	        @Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
-	        @Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
+			@Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
+			@Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter,
+			@Qualifier("internalToDocumentAportatAccioListConverter") InternalToDocumentAportatAccioListConverter internalToDocumentAportatAccioListConverter) {
 		this.internalToExpedientAccioConverter = internalToExpedientAccioConverter;
 		this.internalToResultatRespostaConverter = internalToResultatRespostaConverter;
+		this.internalToDocumentAportatAccioListConverter = internalToDocumentAportatAccioListConverter;
 	}
 
 	/*
@@ -38,6 +43,7 @@ public class RespostaExpedientsEsmenarBDTOToRespostaEsmenarExpedientRDTOMapper
 	protected void configure() {
 		using(internalToExpedientAccioConverter).map(source.getExpedientsRDTO()).setExpedient(null);
 		using(internalToResultatRespostaConverter).map(source.getRespostaResultatBDTO()).setResultat(null);
+		using(internalToDocumentAportatAccioListConverter).map(source.getDocsEntradaRDTOList()).setDocumentacioAportada(null);
 	}
 
 }

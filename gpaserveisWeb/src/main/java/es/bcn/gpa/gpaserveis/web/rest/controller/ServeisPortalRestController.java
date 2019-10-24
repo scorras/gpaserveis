@@ -50,6 +50,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaSubstituirDocumentEx
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaUploadDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.DadaEspecificaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatBDTO;
@@ -932,6 +933,7 @@ public class ServeisPortalRestController extends BaseRestController {
 					&& StringUtils.isNotEmpty(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi())) {
 
 				serveisService.esborrarRegistre(expedientsRegistrarBDTO);
+				// ponemos a nulo los valores para no incluirlos en la respuesta
 				respostaCrearRegistreExpedient.getRegistreAssentament().setCodi(null);
 				respostaCrearRegistreExpedient.getRegistreAssentament().setDataRegistre(null);
 			}
@@ -943,6 +945,11 @@ public class ServeisPortalRestController extends BaseRestController {
 				EsborrarDocumentBDTO esborrarDocumentExpedientBDTO = new EsborrarDocumentBDTO(
 						dadesExpedientBDTO.getExpedientsRDTO().getId(), respostaCrearJustificant.getId());
 				serveisService.esBorrarDocumentacioTramitacio(esborrarDocumentExpedientBDTO);
+
+				// ponemos a nulo los valores para no incluirlos en la respuesta
+				// (comprovant)
+				respostaCrearJustificant.setId(null);
+
 			}
 
 		} catch (GPAServeisServiceException e1) {
@@ -1218,7 +1225,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			// Se construye el modelo para la llamada a la operación de upload
 			// document
 			GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(
-					dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, file);
+					dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, file, null);
 			docsEntradaRDTOResposta = serveisService.guardarDocumentEntradaFitxer(guardarDocumentEntradaFitxerBDTO);
 
 		} catch (GPAApiParamValidationException e) {
@@ -1227,6 +1234,65 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error("uploadDocumentExpedient(BigDecimal, BigDecimal, MultipartFile)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_UPLOAD_DOCUMENT_EXPEDIENT, e);
+		}
+
+		RespostaUploadDocumentExpedientBDTO respostaUploadDocumentExpedientBDTO = new RespostaUploadDocumentExpedientBDTO(
+				docsEntradaRDTOResposta, (dadesExpedientBDTO != null && dadesExpedientBDTO.getExpedientsRDTO() != null)
+						? dadesExpedientBDTO.getExpedientsRDTO() : null,
+				null, respostaResultatBDTO);
+		respostaUploadDocumentRDTO = modelMapper.map(respostaUploadDocumentExpedientBDTO, RespostaUploadDocumentRDTO.class);
+
+		return respostaUploadDocumentRDTO;
+	}
+
+	/**
+	 * Upload document expedient.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param idDocument
+	 *            the id document
+	 * @param file
+	 *            the file
+	 * @return the resposta upload document RDTO
+	 */
+	@PostMapping("/expedients/{codiExpedient}/documentacio/{idDocument}/actualitzarAneuGestorDocumental/{idGestorDocumental}")
+	@ApiOperation(value = "Actualitza l'aneu del gestor documental", tags = { "Serveis Portal API" }, extensions = {
+			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaUploadDocumentRDTO actualitzarAneuGestorDocumental(
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
+			@ApiParam(value = "Identificador del Gestor Documental", required = true) @PathVariable String idGestorDocumental) {
+
+		RespostaUploadDocumentRDTO respostaUploadDocumentRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+		DocsEntradaRDTO docsEntradaRDTOResposta = null;
+		DocsEntradaRDTO docsEntradaRDTO = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACTUALITZAR_ID_GESTOR_DOCUMENTAL_EXPEDIENT);
+		try {
+			// El codi del expediente debe existir
+			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO,
+					Resultat.ERROR_ACTUALITZAR_ID_GESTOR_DOCUMENTAL_EXPEDIENT);
+
+			// El id del documento debe existir y pertenecer al expediente
+			// indicado
+			docsEntradaRDTO = serveisService.consultarDadesDocumentAportat(idDocument);
+			ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO,
+					Resultat.ERROR_ACTUALITZAR_ID_GESTOR_DOCUMENTAL_EXPEDIENT);
+
+			GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(
+					dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, null, idGestorDocumental);
+			docsEntradaRDTOResposta = serveisService.guardarDocumentEntradaGestorDocumental(guardarDocumentEntradaFitxerBDTO);
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("uploadDocumentExpedient(BigDecimal, BigDecimal, MultipartFile)", e); //$NON-NLS-1$
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("uploadDocumentExpedient(BigDecimal, BigDecimal, MultipartFile)", e); //$NON-NLS-1$
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler
+					.handleException(Resultat.ERROR_ACTUALITZAR_ID_GESTOR_DOCUMENTAL_EXPEDIENT, e);
 		}
 
 		RespostaUploadDocumentExpedientBDTO respostaUploadDocumentExpedientBDTO = new RespostaUploadDocumentExpedientBDTO(
@@ -1329,10 +1395,14 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ESMENAR_EXPEDIENT);
 		RespostaCrearRegistreExpedient respostaCrearRegistreExpedient = null;
 		DocsTramitacioRDTO respostaCrearJustificant = null;
+		List<BigDecimal> idsDocsEnt = null;
+		Integer idComentario = null;
+		ActualitzarDadesSollicitud actualitzarDadesSollicitud = null;
+		List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOListBBDD = null;
 		try {
 			// El codi del expediente debe existir
-			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
-					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			dadesExpedientBDTO = serveisService
+					.consultarDadesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_ESMENAR_EXPEDIENT);
 
 			// Las configuraciones de documentación indicadas deben estar
@@ -1374,7 +1444,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				}
 			}
 
-			List<BigDecimal> idsDocsEnt = new ArrayList<>();
+			idsDocsEnt = new ArrayList<>();
 			if (CollectionUtils.isNotEmpty(docsEntradaRDTORespostaList)) {
 				for (DocsEntradaRDTO docsEntrada : docsEntradaRDTORespostaList) {
 					idsDocsEnt.add(docsEntrada.getId());
@@ -1425,6 +1495,13 @@ public class ServeisPortalRestController extends BaseRestController {
 				serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
 			}
 
+			// Nos quedamos con una copia de los dades de operacio actuales del
+			// expedient para restaurar en caso de error posterior
+			dadesEspecifiquesRDTOListBBDD = new ArrayList<>();
+			for (DadaEspecificaBDTO dadaEspecificaBDTO : dadesExpedientBDTO.getDadesOperacio()) {
+				dadesEspecifiquesRDTOListBBDD.add(dadaEspecificaBDTO.getDadaEspecifica());
+			}
+
 			// TODO CAMBIAR OBJETOS PARA QUE NO LLEVEN SOLLICITUD, MAS
 			// GENERICO
 			// 3. Aportar valores de dades d'operació
@@ -1440,7 +1517,7 @@ public class ServeisPortalRestController extends BaseRestController {
 						expedientEsmena.getDadesOperacio(), respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList(),
 						dadesExpedientBDTO.getExpedientsRDTO().getId());
 			}
-			ActualitzarDadesSollicitud actualitzarDadesSollicitud = new ActualitzarDadesSollicitud();
+			actualitzarDadesSollicitud = new ActualitzarDadesSollicitud();
 			actualitzarDadesSollicitud.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
 			actualitzarDadesSollicitud.setEsmena(Boolean.TRUE);
 			actualitzarDadesSollicitud.setComentari(expedientEsmena.getComentari());
@@ -1454,7 +1531,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			ComentarisCrearAccioBDTO comentarisCrearAccioBDTO = new ComentarisCrearAccioBDTO(comentariCreacioAccio,
 					dadesExpedientBDTO.getExpedientsRDTO().getId(),
 					AccioTramitadorApiParamValue.RESPONDRE_REQUERIMENT_O_TRAMIT_ALLEGACIONS_O_IP.getInternalValue());
-			serveisService.crearComentariAccio(comentarisCrearAccioBDTO);
+			idComentario = serveisService.crearComentariAccio(comentarisCrearAccioBDTO);
 
 			// 5. Debe establecerse la data tancament de aquellos requerimientos
 			// que estén aún abiertos (puede haber varios)
@@ -1483,12 +1560,17 @@ public class ServeisPortalRestController extends BaseRestController {
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 		} catch (Exception e) {
 			log.error("esmenarExpedient(BigDecimal, ExpedientEsmenaRDTO)", e); // $NON-NLS-1$
+
+			sagaEsmenarExpedient(expedientEsmena, dadesExpedientBDTO, respostaCrearJustificant, idsDocsEnt, idComentario,
+					actualitzarDadesSollicitud, dadesEspecifiquesRDTOListBBDD);
+
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ESMENAR_EXPEDIENT, e);
 		}
 
 		RespostaExpedientsEsmenarBDTO respostaExpedientsEsmenarBDTO = new RespostaExpedientsEsmenarBDTO(
 				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null,
-				respostaCrearJustificant != null ? respostaCrearJustificant.getId() : null, respostaResultatBDTO);
+				respostaCrearJustificant != null ? respostaCrearJustificant.getId() : null, respostaResultatBDTO,
+				docsEntradaRDTORespostaList != null ? docsEntradaRDTORespostaList : null);
 		respostaEsmenarExpedientRDTO = modelMapper.map(respostaExpedientsEsmenarBDTO, RespostaEsmenarExpedientRDTO.class);
 
 		if (log.isDebugEnabled()) {
@@ -1496,6 +1578,52 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		return respostaEsmenarExpedientRDTO;
+	}
+
+	private void sagaEsmenarExpedient(ExpedientEsmenaRDTO expedientEsmena, DadesExpedientBDTO dadesExpedientBDTO,
+			DocsTramitacioRDTO respostaCrearJustificant, List<BigDecimal> idsDocsEnt, Integer idComentario,
+			ActualitzarDadesSollicitud actualitzarDadesSollicitud, List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOListBBDD) {
+
+		try {
+			// 1 Borramos los documentos que se han incorporado en la esmena al
+			// expediente
+			if (null != idsDocsEnt && CollectionUtils.isNotEmpty(idsDocsEnt)) {
+
+				EsborrarDocumentBDTO esborrarDocumentExpedientBDTO = null;
+				for (BigDecimal idDoc : idsDocsEnt) {
+					esborrarDocumentExpedientBDTO = new EsborrarDocumentBDTO(dadesExpedientBDTO.getExpedientsRDTO().getId(), idDoc);
+
+					serveisService.esBorrarDocumentacioEntrada(esborrarDocumentExpedientBDTO);
+				}
+
+			}
+			// 2 Borramos el justificante generado en la esmena
+			if (respostaCrearJustificant != null) {
+				EsborrarDocumentBDTO esborrarDocumentExpedientBDTO = new EsborrarDocumentBDTO(
+						dadesExpedientBDTO.getExpedientsRDTO().getId(), respostaCrearJustificant.getId());
+				serveisService.esBorrarDocumentacioTramitacio(esborrarDocumentExpedientBDTO);
+			}
+			// 3 Restauramos los dades operacio con los que tenia el expediente
+			if (actualitzarDadesSollicitud != null && dadesEspecifiquesRDTOListBBDD != null && dadesEspecifiquesRDTOListBBDD.size() > 0) {
+				actualitzarDadesSollicitud = new ActualitzarDadesSollicitud();
+				actualitzarDadesSollicitud.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
+				actualitzarDadesSollicitud.setEsmena(Boolean.FALSE);
+				actualitzarDadesSollicitud.setDadesEspecifiques(dadesEspecifiquesRDTOListBBDD);
+				ExpedientsActualitzarBDTO expedientsActualitzarBDTO = new ExpedientsActualitzarBDTO(actualitzarDadesSollicitud);
+				serveisService.actualitzarSolicitudExpedient(expedientsActualitzarBDTO);
+			}
+			// 4 Eliminamos el comentario si se ha llegado a crear
+			if (idComentario != null) {
+				serveisService.esborrarComentari(new BigDecimal(idComentario), dadesExpedientBDTO.getExpedientsRDTO().getId());
+			}
+			// 5 - Deshacemos tancament requiremnt
+			serveisService.obrirRequerimentsExpedient(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
+
+		} catch (GPAServeisServiceException e1) {
+			log.error(
+					"sagaRegistrarSolicitudExpedient(DadesExpedientBDTO, RespostaCrearRegistreExpedient, DocsTramitacioRDTO, ExpedientsRegistrarBDTO, DocumentActualizarRegistre)",
+					e1);// $NON-NLS-1$
+		}
 	}
 
 	/**

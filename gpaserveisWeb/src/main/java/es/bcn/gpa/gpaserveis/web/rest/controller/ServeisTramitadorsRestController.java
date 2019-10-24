@@ -1675,7 +1675,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				}
 
 				GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(
-						dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, file);
+						dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, file, null);
 				docsEntradaRDTOResult = serveisService.guardarDocumentEntradaFitxer(guardarDocumentEntradaFitxerBDTO);
 			} else {
 				DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO = new DocumentsTramitacioCercaBDTO(
@@ -2072,7 +2072,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				} else {
 					if (file != null) {
 						GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(
-								dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, file);
+								dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, file, null);
 						docsEntradaRDTOResult = serveisService.guardarDocumentEntradaFitxer(guardarDocumentEntradaFitxerBDTO);
 					} else {
 						ActualitzarDocumentEntradaBDTO actualitzarDocumentEntradaBDTO = new ActualitzarDocumentEntradaBDTO(

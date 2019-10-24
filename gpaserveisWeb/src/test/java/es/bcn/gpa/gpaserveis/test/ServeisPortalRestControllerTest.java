@@ -264,4 +264,17 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 
 	}
 
+	/**
+	 * Test stage 18 post upload document expedient.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test
+	public void testStage18_PostUploadDocumentExpedient() throws Exception {
+
+		String url = BASE_URL + "/expedients/1/documentacio/1/actualitzarAneuGestorDocumental/1";
+		getMockMvc().perform(post(url)).andDo(print()).andExpect(status().isOk());
+
+	}
 }

@@ -2091,4 +2091,125 @@ public class DocumentacioApi {
 		apiClient.invokeAPI(path, HttpMethod.DELETE, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
 				returnType);
 	}
+
+	/**
+	 * Obre els requeriments de l&#39;expedient
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>201</b> - Created
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param idDocumentacio
+	 *            idDocumentacio
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public void obrirRequerimentsExpedient(BigDecimal idDocumentacio) throws RestClientException {
+		Object postBody = null;
+
+		// verify the required parameter 'idDocumentacio' is set
+		if (idDocumentacio == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+					"Missing the required parameter 'idDocumentacio' when calling obrirRequerimentsExpedient");
+		}
+
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("idDocumentacio", idDocumentacio);
+		String path = UriComponentsBuilder.fromPath("/documentacio/obrirRequeriments/{idDocumentacio}").buildAndExpand(uriVariables)
+				.toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "application/json" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
+		};
+		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+				returnType);
+	}
+
+	/**
+	 * actualitza l&#39;aneu del gestor documental
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>201</b> - Created
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param docsEntradaRDTO
+	 *            docsEntradaRDTO
+	 * @param idExpedient
+	 *            idExpedient
+	 * @param idGestorDocumental
+	 *            idGestorDocumental
+	 * @return DocsEntradaRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public DocsEntradaRDTO guardarDocumentEntradaGestorDocumental(DocsEntradaRDTO docsEntradaRDTO, BigDecimal idExpedient,
+			String idGestorDocumental) throws RestClientException {
+		Object postBody = docsEntradaRDTO;
+
+		// verify the required parameter 'docsEntradaRDTO' is set
+		if (docsEntradaRDTO == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+					"Missing the required parameter 'docsEntradaRDTO' when calling guardarDocumentEntradaGestorDocumental");
+		}
+
+		// verify the required parameter 'idExpedient' is set
+		if (idExpedient == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+					"Missing the required parameter 'idExpedient' when calling guardarDocumentEntradaGestorDocumental");
+		}
+
+		// verify the required parameter 'idGestorDocumental' is set
+		if (idGestorDocumental == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+					"Missing the required parameter 'idGestorDocumental' when calling guardarDocumentEntradaGestorDocumental");
+		}
+
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("idExpedient", idExpedient);
+		uriVariables.put("idGestorDocumental", idGestorDocumental);
+		String path = UriComponentsBuilder.fromPath("/documentacio/entrada/fitxer/{idExpedient}/{idGestorDocumental}")
+				.buildAndExpand(uriVariables).toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "application/json" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<DocsEntradaRDTO> returnType = new ParameterizedTypeReference<DocsEntradaRDTO>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+				returnType);
+	}
 }

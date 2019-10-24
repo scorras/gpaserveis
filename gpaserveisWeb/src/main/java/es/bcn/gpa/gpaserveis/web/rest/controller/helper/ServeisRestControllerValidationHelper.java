@@ -20,6 +20,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
@@ -1425,4 +1426,18 @@ public class ServeisRestControllerValidationHelper {
 		}
 	}
 
+	/**
+	 * Valida que uno de los dos parametros no sea nulo
+	 * 
+	 * @param file
+	 * @param idGestorDocumental
+	 */
+	public static void validateEntradaUpload(MultipartFile file, String idGestorDocumental, Resultat resultatError)
+			throws GPAApiParamValidationException {
+
+		if (null == file && StringUtils.isEmpty(idGestorDocumental)) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_ENTRADA_DOCUMENTS_UPLOAD);
+		}
+
+	}
 }
