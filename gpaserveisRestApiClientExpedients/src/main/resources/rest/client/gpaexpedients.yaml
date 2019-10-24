@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.15.0"
+  version: "1.15.1"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -1498,6 +1498,43 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /expedients/comentaris/deleteComentari:
+    post:
+      tags:
+      - "Comentaris"
+      summary: "Deletes the requested comentari"
+      operationId: "deleteComentari"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "idComentari"
+        description: "idComentari"
+        required: true
+        schema:
+          type: "number"
+      - in: "body"
+        name: "idExpedient"
+        description: "idExpedient"
+        required: true
+        schema:
+          type: "number"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/comentaris/usuariPropietariComentari/{idUsuaricComentari}:
     get:
       tags:
@@ -1556,6 +1593,9 @@ paths:
       responses:
         200:
           description: "OK"
+          schema:
+            type: "integer"
+            format: "int32"
         201:
           description: "Created"
         401:

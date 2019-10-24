@@ -68,6 +68,8 @@ public enum ErrorPrincipal {
 
 	ERROR_DOCUMENTS_UPLOAD_DECLARACIO_RESPONSABLE_NOT_AVAILABLE("4005", "No és possible pujar un fitxer a una declaració responsable"),
 
+	ERROR_ENTRADA_DOCUMENTS_UPLOAD("4006", "No és possible pujar un fitxer a una declaració responsable"),
+
 	/* Integracions */
 	ERROR_ARIADNA("5001", ""),
 

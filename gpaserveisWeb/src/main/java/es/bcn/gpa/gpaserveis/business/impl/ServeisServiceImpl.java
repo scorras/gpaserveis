@@ -743,6 +743,28 @@ public class ServeisServiceImpl implements ServeisService {
 	}
 
 	/**
+	 * Guardar document entrada fitxer.
+	 *
+	 * @param guardarDocumentEntradaFitxerBDTO
+	 *            the guardar document entrada fitxer BDTO
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * guardarDocumentEntradaGestorDocumental(es.bcn.gpa.gpaserveis.business.dto
+	 * .documents .GuardarDocumentEntradaFitxerBDTO)
+	 */
+	@Override
+	public DocsEntradaRDTO guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO)
+			throws GPAServeisServiceException {
+		return documentsService.guardarDocumentEntradaGestorDocumental(guardarDocumentEntradaFitxerBDTO);
+	}
+
+	/**
 	 * Guardar document tramitacio fitxer.
 	 *
 	 * @param guardarDocumentTramitacioFitxerBDTO
@@ -969,8 +991,8 @@ public class ServeisServiceImpl implements ServeisService {
 	 * gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO)
 	 */
 	@Override
-	public void crearComentariAccio(ComentarisCrearAccioBDTO comentarisCrearAccioBDTO) throws GPAServeisServiceException {
-		expedientsService.crearComentariAccio(comentarisCrearAccioBDTO);
+	public Integer crearComentariAccio(ComentarisCrearAccioBDTO comentarisCrearAccioBDTO) throws GPAServeisServiceException {
+		return expedientsService.crearComentariAccio(comentarisCrearAccioBDTO);
 	}
 
 	/**
@@ -1540,4 +1562,36 @@ public class ServeisServiceImpl implements ServeisService {
 		return consultarDadesBasiquesExpedient(idExpedientByDocumentacioIdExt);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#esborrarComentari(java.math
+	 * .BigDecimal, java.math.BigDecimal)
+	 */
+	@Override
+	public void esborrarComentari(BigDecimal idComentari, BigDecimal idExpedient) throws GPAServeisServiceException {
+
+		expedientsService.esborrarComentari(idComentari, idComentari);
+	}
+
+	/**
+	 * Obrir requeriments expedient.
+	 *
+	 * @param idDocumentacio
+	 *            the id documentacio
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#tancarRequerimentsExpedient
+	 * (java.math.BigDecimal)
+	 */
+	@Override
+	public void obrirRequerimentsExpedient(BigDecimal idDocumentacio) throws GPAServeisServiceException {
+		documentsService.obrirRequerimentsExpedient(idDocumentacio);
+	}
 }

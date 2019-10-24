@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.15.2"
+  version: "1.15.4"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -4236,6 +4236,11 @@ definitions:
         type: "number"
         description: "Identificador del comprovant en PDF del registre del document\
           \ incorporat"
+      documentacioAportada:
+        type: "array"
+        description: "Documentacio aportada a l'expedient"
+        items:
+          $ref: "#/definitions/DocumentAportatAccio"
       expedient:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
