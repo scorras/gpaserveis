@@ -785,6 +785,59 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * guardarDocumentEntradaGestorDocumental(es.bcn.gpa.gpaserveis.business.dto
+	 * .documents .GuardarDocumentEntradaFitxerBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackGuardarDocumentEntradaGestorDocumental")
+	public DocsEntradaRDTO guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.guardarDocumentEntradaGestorDocumental(
+					guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO(), guardarDocumentEntradaFitxerBDTO.getIdExpedient(),
+					guardarDocumentEntradaFitxerBDTO.getIdGestorDocumental());
+
+			if (log.isDebugEnabled()) {
+				log.debug("guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO) - fi"); //$NON-NLS-1$
+			}
+			return docsEntradaRDTO;
+		} catch (RestClientException e) {
+			log.error("guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * Fallback guardar document entrada gestor documental.
+	 *
+	 * @param guardarDocumentEntradaFitxerBDTO
+	 *            the guardar document entrada fitxer BDTO
+	 * @param e
+	 *            the e
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsEntradaRDTO fallbackGuardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO,
+			Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackGuardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
 	 * guardarDocumentTramitacioFitxer(es.bcn.gpa.gpaserveis.business.dto.
 	 * documents.GuardarDocumentTramitacioFitxerBDTO)
 	 */
@@ -2035,4 +2088,47 @@ public class DocumentsServiceImpl implements DocumentsService {
 		ServeisServiceExceptionHandler.handleException(e);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * obrirRequerimentsExpedient(java.math.BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackObrirRequerimentsExpedient")
+	public void obrirRequerimentsExpedient(BigDecimal idDocumentacio) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("obrirRequerimentsExpedient(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			documentacioApi.obrirRequerimentsExpedient(idDocumentacio);
+
+			if (log.isDebugEnabled()) {
+				log.debug("obrirRequerimentsExpedient(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("obrirRequerimentsExpedient(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback obrir requeriments expedient.
+	 *
+	 * @param idDocumentacio
+	 *            the id documentacio
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackObrirRequerimentsExpedient(BigDecimal idDocumentacio, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackObrirRequerimentsExpedient(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+	}
 }

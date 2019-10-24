@@ -185,6 +185,18 @@ public interface DocumentsService {
 			throws GPAServeisServiceException;
 
 	/**
+	 * Guardar document entrada gestor documental.
+	 *
+	 * @param guardarDocumentEntradaFitxerBDTO
+	 *            the guardar document entrada fitxer BDTO
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsEntradaRDTO guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO)
+			throws GPAServeisServiceException;
+
+	/**
 	 * Guardar requeriment fitxer.
 	 *
 	 * @param guardarRequerimentFitxerBDTO
@@ -467,4 +479,13 @@ public interface DocumentsService {
 	 */
 	void associatsDocsIntra(DocsAssociatsIntraBDTO docsAssociatsIntraBDTO) throws GPAServeisServiceException;
 
+	/**
+	 * Obrir requeriments expedient.
+	 *
+	 * @param idDocumentacio
+	 *            the id documentacio
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void obrirRequerimentsExpedient(BigDecimal idDocumentacio) throws GPAServeisServiceException;
 }
