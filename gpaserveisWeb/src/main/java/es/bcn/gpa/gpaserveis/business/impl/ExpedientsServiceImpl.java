@@ -795,18 +795,19 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCrearComentariAccio")
-	public void crearComentariAccio(ComentarisCrearAccioBDTO comentarisCrearAccioBDTO) throws GPAServeisServiceException {
+	public Integer crearComentariAccio(ComentarisCrearAccioBDTO comentarisCrearAccioBDTO) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("crearComentariAccio(ComentarisCrearAccioBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			comentarisApi.crearComentariAccio(comentarisCrearAccioBDTO.getIdAccio(), comentarisCrearAccioBDTO.getIdExpedient(),
-					comentarisCrearAccioBDTO.getComentariCreacioAccio());
+			Integer result = comentarisApi.crearComentariAccio(comentarisCrearAccioBDTO.getIdAccio(),
+					comentarisCrearAccioBDTO.getIdExpedient(), comentarisCrearAccioBDTO.getComentariCreacioAccio());
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearComentariAccio(ComentarisCrearAccioBDTO) - fi"); //$NON-NLS-1$
 			}
+			return result;
 		} catch (RestClientException e) {
 			log.error("crearComentariAccio(ComentarisCrearAccioBDTO)", e); //$NON-NLS-1$
 
@@ -825,13 +826,15 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public void fallbackCrearComentariAccio(ComentarisCrearAccioBDTO comentarisCrearAccioBDTO, Throwable e)
+	public Integer fallbackCrearComentariAccio(ComentarisCrearAccioBDTO comentarisCrearAccioBDTO, Throwable e)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearComentariAccio(ComentarisCrearAccioBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 
 	/*
@@ -1297,4 +1300,54 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		return null;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#esborrarComentari(java.
+	 * math.BigDecimal, java.math.BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackEsborrarComentari")
+	public void esborrarComentari(BigDecimal idComentari, BigDecimal idExpedient) throws GPAServeisServiceException {
+
+		if (log.isDebugEnabled()) {
+			log.debug("esborrarComentari(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			comentarisApi.deleteComentari(idComentari, idExpedient);
+
+			if (log.isDebugEnabled()) {
+				log.debug("esborrarComentari(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("esborrarComentari(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback esborrar comentari.
+	 *
+	 * @param idComentari
+	 *            the id Comentari
+	 * @param idExpedient
+	 *            the id expedient
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackEsborrarComentari(BigDecimal idComentari, BigDecimal idExpedient, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackEsborrarComentari(BigDecimal, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+	}
+
 }

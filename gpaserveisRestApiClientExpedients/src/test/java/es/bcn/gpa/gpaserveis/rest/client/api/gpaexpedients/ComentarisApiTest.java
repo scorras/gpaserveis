@@ -55,8 +55,8 @@ public class ComentarisApiTest extends ParentTest {
 	@Test
 	public void crearComentariAccioTest() {
 		when(apiClient.invokeAPI(eq("/expedients/comentaris/1/accions/1/crear"), eq(HttpMethod.POST), any(MultiValueMap.class),
-		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		BigDecimal idAccio = ONE;
 		BigDecimal idExpedient = ONE;
@@ -66,4 +66,24 @@ public class ComentarisApiTest extends ParentTest {
 		assertTrue(true);
 	}
 
+	/**
+	 * Deletes the requested comentari
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void deleteComentariTest() {
+		when(apiClient.invokeAPI(eq("/expedients/comentaris/deleteComentari"), eq(HttpMethod.POST), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		BigDecimal idComentari = ONE;
+		BigDecimal idExpedient = ONE;
+		api.deleteComentari(idComentari, idExpedient);
+
+		assertTrue(true);
+	}
 }

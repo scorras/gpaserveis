@@ -689,4 +689,48 @@ public class DocumentacioApiTest extends ParentTest {
 
 		assertTrue(true);
 	}
+
+	/**
+	 * Obre els requeriments de l&#39;expedient
+	 *
+	 * 
+	 *
+	 * @throws RestClientException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obrirRequerimentsExpedientTest() throws RestClientException {
+		when(apiClient.invokeAPI(eq("/documentacio/obrirRequeriments/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		BigDecimal idDocumentacio = ONE;
+		api.obrirRequerimentsExpedient(idDocumentacio);
+		assertTrue(true);
+	}
+
+	/**
+	 * actualitza l&#39;aneu del gestor documental
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void guardarDocumentEntradaGestorDocumentalTest() {
+
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/fitxer/1/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new DocsEntradaRDTO());
+
+		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
+		String idGestorDocumental = "1";
+		BigDecimal idExpedient = ONE;
+		DocsEntradaRDTO response = api.guardarDocumentEntradaGestorDocumental(docsEntradaRDTO, idExpedient, idGestorDocumental);
+
+		assertTrue(response != null);
+
+	}
+
 }

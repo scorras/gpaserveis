@@ -20,6 +20,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
@@ -166,7 +167,7 @@ public class ServeisRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static void validateExpedientAcumulador(DadesExpedientBDTO dadesExpedientBDTO,
-	        List<ExpedientsRDTO> expedientsRDTORelacionatsAcumuladorList, Resultat resultatError) throws GPAApiParamValidationException {
+			List<ExpedientsRDTO> expedientsRDTORelacionatsAcumuladorList, Resultat resultatError) throws GPAApiParamValidationException {
 		if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULADOR_NOT_FOUND);
 		}
@@ -176,11 +177,11 @@ public class ServeisRestControllerValidationHelper {
 		if (CollectionUtils.isNotEmpty(expedientsRDTORelacionatsAcumuladorList)) {
 			for (ExpedientsRDTO expedientsRDTO : expedientsRDTORelacionatsAcumuladorList) {
 				tipusRelacioApiParamValue = tipusRelacioApiParamValueTranslator
-				        .getEnumByInternalValue(expedientsRDTO.getRelacioTipusRelacio());
+						.getEnumByInternalValue(expedientsRDTO.getRelacioTipusRelacio());
 				switch (tipusRelacioApiParamValue) {
 				case OBJECTE_D_ACUMULACIO:
 					throw new GPAApiParamValidationException(resultatError,
-					        ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULADOR_NOT_VALID_JA_ACUMULAT);
+							ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULADOR_NOT_VALID_JA_ACUMULAT);
 				default:
 					break;
 				}
@@ -203,8 +204,8 @@ public class ServeisRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static void validateExpedientAcumular(DadesExpedientBDTO dadesExpedientBDTOAcumulador,
-	        DadesExpedientBDTO dadesExpedientBDTOAcumular, List<ExpedientsRDTO> expedientsRDTORelacionatsAcumularList,
-	        Resultat resultatError) throws GPAApiParamValidationException {
+			DadesExpedientBDTO dadesExpedientBDTOAcumular, List<ExpedientsRDTO> expedientsRDTORelacionatsAcumularList,
+			Resultat resultatError) throws GPAApiParamValidationException {
 		if (dadesExpedientBDTOAcumular.getExpedientsRDTO() == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULAT_NOT_FOUND);
 		}
@@ -224,7 +225,7 @@ public class ServeisRestControllerValidationHelper {
 		if (CollectionUtils.isNotEmpty(expedientsRDTORelacionatsAcumularList)) {
 			for (ExpedientsRDTO expedientsRDTO : expedientsRDTORelacionatsAcumularList) {
 				tipusRelacioApiParamValue = tipusRelacioApiParamValueTranslator
-				        .getEnumByInternalValue(expedientsRDTO.getRelacioTipusRelacio());
+						.getEnumByInternalValue(expedientsRDTO.getRelacioTipusRelacio());
 				switch (tipusRelacioApiParamValue) {
 				case ACUMULAT:
 					throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACUMULAT_NOT_VALID_JA_ACUMULAT);
@@ -1310,6 +1311,21 @@ public class ServeisRestControllerValidationHelper {
 					Arrays.asList(documentIntraoperabilitatRDTO.getConfiguracioDocumentacio()), resultatError);
 		}
 		return configuracioDocsEntradaRDTOMap;
+	}
+
+	/**
+	 * Valida que uno de los dos parametros no sea nulo
+	 * 
+	 * @param file
+	 * @param idGestorDocumental
+	 */
+	public static void validateEntradaUpload(MultipartFile file, String idGestorDocumental, Resultat resultatError)
+			throws GPAApiParamValidationException {
+
+		if (null == file && StringUtils.isEmpty(idGestorDocumental)) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_ENTRADA_DOCUMENTS_UPLOAD);
+		}
+
 	}
 
 }

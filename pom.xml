@@ -22,7 +22,7 @@
     <module>gpaserveisRestApiClientDocumentacio</module>
   </modules>
   <properties>
-    <revision>1.15.4</revision>
+    <revision>1.15.5</revision>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <build>
@@ -42,6 +42,20 @@
                     <versionRange>[1.0.0,)</versionRange>
                     <goals>
                       <goal>flatten</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <versionRange>[1.0.0,)</versionRange>
+                    <goals>
+                      <goal>add-source</goal>
+                      <goal>add-test-source</goal>
                     </goals>
                   </pluginExecutionFilter>
                   <action>
