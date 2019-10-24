@@ -1029,6 +1029,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// Crear comentario
 			ComentariCreacioAccio comentariCreacioAccio = new ComentariCreacioAccio();
 			comentariCreacioAccio.setComentari(expedientPropostaResolucio.getComentari());
+			comentariCreacioAccio.setOperacio(AccioTramitadorApiParamValue.PROPOSAR_RESOLUCIO.getApiParamValue());
 			ComentarisCrearAccioBDTO comentarisCrearAccioBDTO = new ComentarisCrearAccioBDTO(comentariCreacioAccio,
 					dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.PROPOSAR_RESOLUCIO.getInternalValue());
 			serveisService.crearComentariAccio(comentarisCrearAccioBDTO);

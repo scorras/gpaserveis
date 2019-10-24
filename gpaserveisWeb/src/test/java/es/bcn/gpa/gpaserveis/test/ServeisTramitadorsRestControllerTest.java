@@ -62,7 +62,7 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 
 	@Test
 	public void testStage06_PostProposarResolucioExpedient() throws Exception {
-		String url = BASE_URL + "/expedients/1/resolucio/proposar";
+		String url = BASE_URL + "/expedients/2019_EXP_0001/resolucio/proposar";
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{ \"comentari\":\"S'executa l'acció.\" }"))
 				.andExpect(status().isOk()).andDo(print());
 	}
