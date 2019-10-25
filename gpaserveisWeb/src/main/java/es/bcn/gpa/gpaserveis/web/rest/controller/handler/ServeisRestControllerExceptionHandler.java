@@ -59,6 +59,9 @@ public class ServeisRestControllerExceptionHandler {
 			} else {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_GENERIC);
 			}
+		} else {
+			log.warn("handleException", e);
+			respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_GENERIC);
 		}
 		if (log.isDebugEnabled()) {
 			log.debug("handleException(Resultat, Exception) - fi"); //$NON-NLS-1$

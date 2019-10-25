@@ -1520,6 +1520,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			sagaEsmenarExpedient(expedientEsmena, dadesExpedientBDTO, respostaCrearJustificant, idsDocsEnt, idComentario,
 					actualitzarDadesSollicitud, dadesEspecifiquesRDTOListBBDD);
 
+			// si hay fallo no debemos devolver la lista de documentacio
+			// aportada
+			docsEntradaRDTORespostaList = null;
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ESMENAR_EXPEDIENT, e);
 		}
 
