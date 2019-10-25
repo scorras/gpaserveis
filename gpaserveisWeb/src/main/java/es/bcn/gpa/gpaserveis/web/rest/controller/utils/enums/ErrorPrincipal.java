@@ -74,7 +74,7 @@ public enum ErrorPrincipal {
 
 	ERROR_DOCUMENTS_EXPEDIENTS_NO_SIGNATS("4006", "Els documents associats a l'expedient no estan signats"),
 
-	ERROR_ENTRADA_DOCUMENTS_UPLOAD("4006", "No és possible pujar un fitxer a una declaració responsable"),
+	ERROR_ENTRADA_DOCUMENTS_UPLOAD("4007", "No s'ha rebut arxiu per a pujar ni identificador de gestor documental per a actualitzar"),
 
 	/* Integracions */
 	ERROR_ARIADNA("5001", ""),

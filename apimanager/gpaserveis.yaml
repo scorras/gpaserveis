@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.15.5"
+  version: "1.15.6"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -542,6 +542,11 @@ paths:
         description: "Identificador del document"
         required: true
         type: "number"
+      - name: "idGestorDocumental"
+        in: "formData"
+        description: "idGestorDocumental"
+        required: false
+        type: "string"
       responses:
         200:
           description: "OK"
