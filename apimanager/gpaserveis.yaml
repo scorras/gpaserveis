@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.15.5"
+  version: "1.15.6"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -431,48 +431,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /serveis/portal/expedients/{codiExpedient}/documentacio/{idDocument}/actualitzarAneuGestorDocumental/{idGestorDocumental}:
-    post:
-      tags:
-      - "Serveis Portal API"
-      summary: "Actualitza l'aneu del gestor documental"
-      operationId: "actualitzarAneuGestorDocumentalUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "codiExpedient"
-        in: "path"
-        description: "Codi de l'expedient"
-        required: true
-        type: "string"
-      - name: "idDocument"
-        in: "path"
-        description: "Identificador del document"
-        required: true
-        type: "number"
-      - name: "idGestorDocumental"
-        in: "path"
-        description: "Identificador del Gestor Documental"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaUploadDocument"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /serveis/portal/expedients/{codiExpedient}/documentacio/{idDocument}/substituir:
     post:
       tags:
@@ -542,6 +500,11 @@ paths:
         description: "Identificador del document"
         required: true
         type: "number"
+      - name: "idGestorDocumental"
+        in: "formData"
+        description: "idGestorDocumental"
+        required: false
+        type: "string"
       responses:
         200:
           description: "OK"
