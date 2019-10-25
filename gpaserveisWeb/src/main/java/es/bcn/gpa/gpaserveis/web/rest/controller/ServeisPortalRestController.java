@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -153,6 +152,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.Res
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.ProcedimentsConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.RespostaConsultaProcedimentsRDTO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Extension;
@@ -1178,14 +1179,16 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *            the file
 	 * @return the resposta upload document RDTO
 	 */
-	@PostMapping("/expedients/{codiExpedient}/documentacio/{idDocument}/upload")
+	@PostMapping(value = "/expedients/{codiExpedient}/documentacio/{idDocument}/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ApiOperation(value = "Pujar el contingut d'un document de l'expedient al gestor documental", tags = {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	@ApiImplicitParams(@ApiImplicitParam(name = "idGestorDocumental", value = "idGestorDocumental", dataType = "string", paramType = "form", required = false))
 	public RespostaUploadDocumentRDTO uploadDocumentExpedient(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
-			@ApiParam(value = "Fitxer") @RequestPart("file") MultipartFile file) {
+			@ApiParam(value = "Fitxer") @RequestParam(name = "file", required = false) MultipartFile file,
+			@ApiParam(value = "Identificador Gestor Documental") @RequestParam(name = "idGestorDocumental", required = false) String idGestorDocumental) {
 
 		RespostaUploadDocumentRDTO respostaUploadDocumentRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
@@ -1204,17 +1207,29 @@ public class ServeisPortalRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO,
 					Resultat.ERROR_UPLOAD_DOCUMENT_EXPEDIENT);
 
-			// No se debe permitir subir un fichero a una Declaración
-			// Responsable
-			ServeisRestControllerValidationHelper.validateDocumentUpload(docsEntradaRDTO, Resultat.ERROR_UPLOAD_DOCUMENT_EXPEDIENT);
+			// Se valida que venga file o idgestor documental para decidir que
+			// operacion realizar
+			ServeisRestControllerValidationHelper.validateEntradaUpload(file, idGestorDocumental, Resultat.ERROR_UPLOAD_DOCUMENT_EXPEDIENT);
 
 			// No hay una acción asociada al upload
 
-			// Se construye el modelo para la llamada a la operación de upload
-			// document
-			GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(
-					dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, file, null);
-			docsEntradaRDTOResposta = serveisService.guardarDocumentEntradaFitxer(guardarDocumentEntradaFitxerBDTO);
+			if (null != file) {
+				// No se debe permitir subir un fichero a una Declaración
+				// Responsable
+				ServeisRestControllerValidationHelper.validateDocumentUpload(docsEntradaRDTO, Resultat.ERROR_UPLOAD_DOCUMENT_EXPEDIENT);
+
+				// Se construye el modelo para la llamada a la operación de
+				// upload
+				// document
+				GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(
+						dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, file, null);
+				docsEntradaRDTOResposta = serveisService.guardarDocumentEntradaFitxer(guardarDocumentEntradaFitxerBDTO);
+			}
+			if (StringUtils.isNotEmpty(idGestorDocumental)) {
+				GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(
+						dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, null, idGestorDocumental);
+				docsEntradaRDTOResposta = serveisService.guardarDocumentEntradaGestorDocumental(guardarDocumentEntradaFitxerBDTO);
+			}
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("uploadDocumentExpedient(BigDecimal, BigDecimal, MultipartFile)", e); //$NON-NLS-1$
@@ -1222,65 +1237,6 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error("uploadDocumentExpedient(BigDecimal, BigDecimal, MultipartFile)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_UPLOAD_DOCUMENT_EXPEDIENT, e);
-		}
-
-		RespostaUploadDocumentExpedientBDTO respostaUploadDocumentExpedientBDTO = new RespostaUploadDocumentExpedientBDTO(
-				docsEntradaRDTOResposta, (dadesExpedientBDTO != null && dadesExpedientBDTO.getExpedientsRDTO() != null)
-						? dadesExpedientBDTO.getExpedientsRDTO() : null,
-				null, respostaResultatBDTO);
-		respostaUploadDocumentRDTO = modelMapper.map(respostaUploadDocumentExpedientBDTO, RespostaUploadDocumentRDTO.class);
-
-		return respostaUploadDocumentRDTO;
-	}
-
-	/**
-	 * Upload document expedient.
-	 *
-	 * @param codiExpedient
-	 *            the codi expedient
-	 * @param idDocument
-	 *            the id document
-	 * @param file
-	 *            the file
-	 * @return the resposta upload document RDTO
-	 */
-	@PostMapping("/expedients/{codiExpedient}/documentacio/{idDocument}/actualitzarAneuGestorDocumental/{idGestorDocumental}")
-	@ApiOperation(value = "Actualitza l'aneu del gestor documental", tags = { "Serveis Portal API" }, extensions = {
-			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	public RespostaUploadDocumentRDTO actualitzarAneuGestorDocumental(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
-			@ApiParam(value = "Identificador del Gestor Documental", required = true) @PathVariable String idGestorDocumental) {
-
-		RespostaUploadDocumentRDTO respostaUploadDocumentRDTO = null;
-		DadesExpedientBDTO dadesExpedientBDTO = null;
-		DocsEntradaRDTO docsEntradaRDTOResposta = null;
-		DocsEntradaRDTO docsEntradaRDTO = null;
-		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACTUALITZAR_ID_GESTOR_DOCUMENTAL_EXPEDIENT);
-		try {
-			// El codi del expediente debe existir
-			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
-					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
-			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO,
-					Resultat.ERROR_ACTUALITZAR_ID_GESTOR_DOCUMENTAL_EXPEDIENT);
-
-			// El id del documento debe existir y pertenecer al expediente
-			// indicado
-			docsEntradaRDTO = serveisService.consultarDadesDocumentAportat(idDocument);
-			ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO,
-					Resultat.ERROR_ACTUALITZAR_ID_GESTOR_DOCUMENTAL_EXPEDIENT);
-
-			GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(
-					dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, null, idGestorDocumental);
-			docsEntradaRDTOResposta = serveisService.guardarDocumentEntradaGestorDocumental(guardarDocumentEntradaFitxerBDTO);
-
-		} catch (GPAApiParamValidationException e) {
-			log.error("uploadDocumentExpedient(BigDecimal, BigDecimal, MultipartFile)", e); //$NON-NLS-1$
-			respostaResultatBDTO = new RespostaResultatBDTO(e);
-		} catch (Exception e) {
-			log.error("uploadDocumentExpedient(BigDecimal, BigDecimal, MultipartFile)", e); //$NON-NLS-1$
-			respostaResultatBDTO = ServeisRestControllerExceptionHandler
-					.handleException(Resultat.ERROR_ACTUALITZAR_ID_GESTOR_DOCUMENTAL_EXPEDIENT, e);
 		}
 
 		RespostaUploadDocumentExpedientBDTO respostaUploadDocumentExpedientBDTO = new RespostaUploadDocumentExpedientBDTO(
