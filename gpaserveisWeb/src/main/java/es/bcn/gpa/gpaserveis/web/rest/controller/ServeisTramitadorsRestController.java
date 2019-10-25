@@ -2959,12 +2959,11 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 */
 	@PostMapping(value = "/expedients/{codiExpedient}/documentacio/{idDocument}/intraoperabilitat")
 	@ApiOperation(value = "Obtenir un document per intraoperabilitat", tags = { "Serveis Tramitadors API" }, extensions = {
-			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	@ApiImplicitParams(@ApiImplicitParam(name = "document", value = "Dades del document a obtenir", dataType = "string", paramType = "form", required = true))
+			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })	
 	public RespostaObtenirDocumentIntraoperabilitatRDTO obtenirDocumentIntraoperabilitat(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
-			@ApiParam(value = "Dades del document de l'expedient", required = true) @RequestBody DocumentIntraoperabilitatRDTO documentIntraoperabilitatRDTO)
+			@ApiParam(value = "Dades del document de l'expedient") @RequestBody DocumentIntraoperabilitatRDTO documentIntraoperabilitatRDTO)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("obtenirDocumentIntraoperabilitat(String, String, DocumentIntraoperabilitatRDTO) - inici"); //$NON-NLS-1$
@@ -3029,14 +3028,19 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			log.error("obtenirDocumentIntraoperabilitat(String, String, DocumentIntraoperabilitatRDTO)", e);
 			// $NON-NLS-1$
 
-			respostaResultatBDTO = new RespostaResultatBDTO(e);
-		} catch (Exception e) {
+			respostaResultatBDTO = new RespostaResultatBDTO(e);	
+		}  catch (Exception e) {
 			log.error("obtenirDocumentIntraoperabilitat(String, String, DocumentIntraoperabilitatRDTO)", e);
 			// $NON-NLS-1$
-			respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_OBTENIR_DOCUMENT_INTRAOPERABILITAT,
-					ErrorPrincipal.ERROR_GENERIC);
+			
+			if (e.getMessage().equalsIgnoreCase("No s'ha pogut emmagatzemar el fitxer")) {
+				respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_OBTENIR_DOCUMENT_INTRAOPERABILITAT,
+						ErrorPrincipal.ERROR_DOCUMENTS_EMMAGATZEMAR_FITXER);
+			} else {
+				respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_OBTENIR_DOCUMENT_INTRAOPERABILITAT,
+						ErrorPrincipal.ERROR_GENERIC);
+			}
 		}
-
 		RespostaObtenirDocumentEntradaIntraoperabilitatExpedientRDTO respostaObtenirDocumentEntradaIntraoperabilitatExpedientRDTO = new RespostaObtenirDocumentEntradaIntraoperabilitatExpedientRDTO(
 				docsEntradaRDTOResult, dadesExpedientBDTODestino != null ? dadesExpedientBDTODestino.getExpedientsRDTO() : null,
 				registreAssentamentRDTO, respostaResultatBDTO);
