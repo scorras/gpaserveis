@@ -2425,7 +2425,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// El codi del expediente acumulador debe existir y no debe estar ya
 			// acumulado
 			dadesExpedientAcumulador = serveisService.consultarDadesBasiquesExpedient(
-
 					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			PageDataOfExpedientsRDTO pageDataOfExpedientsAcumuladorRDTO = null;
 			List<ExpedientsRDTO> expedientsRelacionatsAcumuladorRDTOList = null;
