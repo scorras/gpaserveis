@@ -1434,9 +1434,11 @@ public class ServeisPortalRestController extends BaseRestController {
 
 			// Nos quedamos con una copia de los dades de operacio actuales del
 			// expedient para restaurar en caso de error posterior
-			dadesEspecifiquesRDTOListBBDD = new ArrayList<>();
-			for (DadaEspecificaBDTO dadaEspecificaBDTO : dadesExpedientBDTO.getDadesOperacio()) {
-				dadesEspecifiquesRDTOListBBDD.add(dadaEspecificaBDTO.getDadaEspecifica());
+			if(CollectionUtils.isNotEmpty(dadesExpedientBDTO.getDadesOperacio())) {
+				dadesEspecifiquesRDTOListBBDD = new ArrayList<>();
+				for (DadaEspecificaBDTO dadaEspecificaBDTO : dadesExpedientBDTO.getDadesOperacio()) {
+					dadesEspecifiquesRDTOListBBDD.add(dadaEspecificaBDTO.getDadaEspecifica());
+				}
 			}
 
 			// TODO CAMBIAR OBJETOS PARA QUE NO LLEVEN SOLLICITUD, MAS
@@ -1548,7 +1550,7 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		} catch (GPAServeisServiceException e1) {
 			log.error(
-					"sagaRegistrarSolicitudExpedient(DadesExpedientBDTO, RespostaCrearRegistreExpedient, DocsTramitacioRDTO, ExpedientsRegistrarBDTO, DocumentActualizarRegistre)",
+					"sagaEsmenarExpedient(DadesExpedientBDTO, RespostaCrearRegistreExpedient, DocsTramitacioRDTO, ExpedientsRegistrarBDTO, DocumentActualizarRegistre)",
 					e1);// $NON-NLS-1$
 		}
 	}
