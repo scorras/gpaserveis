@@ -465,7 +465,7 @@ public class ApiClient {
 	 */
 	public boolean isJsonMime(MediaType mediaType) {
 		return mediaType != null
-		        && (MediaType.APPLICATION_JSON.isCompatibleWith(mediaType) || mediaType.getSubtype().matches("^.*\\+json[;]?\\s*$"));
+				&& (MediaType.APPLICATION_JSON.isCompatibleWith(mediaType) || mediaType.getSubtype().matches("^.*\\+json[;]?\\s*$"));
 	}
 
 	/**
@@ -526,7 +526,7 @@ public class ApiClient {
 	 */
 	protected Object selectBody(Object obj, MultiValueMap<String, Object> formParams, MediaType contentType) {
 		boolean isForm = MediaType.MULTIPART_FORM_DATA.isCompatibleWith(contentType)
-		        || MediaType.APPLICATION_FORM_URLENCODED.isCompatibleWith(contentType);
+				|| MediaType.APPLICATION_FORM_URLENCODED.isCompatibleWith(contentType);
 		return isForm ? formParams : obj;
 	}
 
@@ -558,8 +558,8 @@ public class ApiClient {
 	 * @return The response body in chosen type
 	 */
 	public <T> T invokeAPI(String path, HttpMethod method, MultiValueMap<String, String> queryParams, Object body, HttpHeaders headerParams,
-	        MultiValueMap<String, Object> formParams, List<MediaType> accept, MediaType contentType, String[] authNames,
-	        ParameterizedTypeReference<T> returnType) throws RestClientException {
+			MultiValueMap<String, Object> formParams, List<MediaType> accept, MediaType contentType, String[] authNames,
+			ParameterizedTypeReference<T> returnType) throws RestClientException {
 		updateParamsForAuth(authNames, queryParams, headerParams);
 
 		final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(basePath).path(path);
@@ -633,6 +633,15 @@ public class ApiClient {
 	}
 
 	/**
+	 * return de RestTemplate
+	 * 
+	 * @return
+	 */
+	public RestTemplate getRestTemplate() {
+		return restTemplate;
+	}
+
+	/**
 	 * Update query and header parameters based on authentication settings.
 	 *
 	 * @param authNames
@@ -688,11 +697,11 @@ public class ApiClient {
 					builder.append(value).append(",");
 				}
 				builder.setLength(builder.length() - 1); // Get rid of trailing
-				                                         // comma
+															// comma
 				builder.append("],");
 			}
 			builder.setLength(builder.length() - 1); // Get rid of trailing
-			                                         // comma
+														// comma
 			return builder.toString();
 		}
 
