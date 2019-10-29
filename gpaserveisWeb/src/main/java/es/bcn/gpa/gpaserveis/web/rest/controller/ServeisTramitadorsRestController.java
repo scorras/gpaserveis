@@ -517,27 +517,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.VALIDAR_SOLLICITUD.getInternalValue());
 			serveisService.crearComentariAccio(comentarisCrearAccioBDTO);
 
-			if (respostaCanviarEstatAccio != null) {
-				// TODO control del error, que debemos devolver en la
-				// respuesta??....
-				/*
-				 * ErrorDTO errorDTO = new ErrorDTO();
-				 * errorDTO.setCodi(peticionsPortasig.getCodiError());
-				 * errorDTO.setDescripcio(peticionsPortasig.getMissatgeError());
-				 * 
-				 * ResultatRespostaDTO resultatRespostaDTO = new
-				 * ResultatRespostaDTO();
-				 * resultatRespostaDTO.setDetallError(errorDTO);
-				 * 
-				 * respostaSignarDocumentRDTO = new
-				 * RespostaSignarDocumentRDTO();
-				 * respostaSignarDocumentRDTO.setResultat(resultatRespostaDTO);
-				 */
-			} else {
-				RespostaExpedientsValidarBDTO respostaExpedientsValidarBDTO = new RespostaExpedientsValidarBDTO(
-						dadesExpedientBDTO.getExpedientsRDTO(), respostaResultatBDTO);
-				respostaValidarExpedientRDTO = modelMapper.map(respostaExpedientsValidarBDTO, RespostaValidarExpedientRDTO.class);
-			}
+			RespostaExpedientsValidarBDTO respostaExpedientsValidarBDTO = new RespostaExpedientsValidarBDTO(
+					dadesExpedientBDTO.getExpedientsRDTO(), respostaResultatBDTO);
+			respostaValidarExpedientRDTO = modelMapper.map(respostaExpedientsValidarBDTO, RespostaValidarExpedientRDTO.class);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("validarSolicitudExpedient(String, ExpedientValidacioRDTO)", e); // $NON-NLS-1$
@@ -601,40 +583,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
 
 			// obtenemos el idAccioEstat futuro
-			// TODO REVISAR: en este caso no realizamos consulta y utilizamos un
+			// En este caso no realizamos consulta y utilizamos un
 			// enum para determinar el idAccioEstat en funcion del motivo
-			/*
-			 * List<AccionsEstatsRDTO> accionsEstatsRDTOList =
-			 * serveisService.cercaTransicioCanviEstat(
-			 * AccioTramitadorApiParamValue.PAUSAR_EXPEDIENT.getInternalValue(),
-			 * dadesExpedientBDTO.getExpedientsRDTO().getEstatActual()); if
-			 * (accionsEstatsRDTOList != null && accionsEstatsRDTOList.size() >
-			 * 0) {
-			 * expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).
-			 * getId()); }
-			 */
-
-			// Desde el estado 4 se puede transicionar al 5 o 6 en función del
-			// motivo
-			// TODO revisar que ya no mandamos operacio
-			// expedientCanviEstat.setOperacio(expedientPausa.getMotiu());
-			/*
-			 * if (StringUtils.isNotEmpty(expedientPausa.getDataLimit())) {
-			 * DateTimeFormatter dataHoraFormatter =
-			 * DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN); DateTime
-			 * valorDataHora = DateTime.parse(expedientPausa.getDataLimit(),
-			 * dataHoraFormatter); MotiuPausaApiParamValueTranslator
-			 * motiuPausaApiParamValueTranslator = new
-			 * MotiuPausaApiParamValueTranslator(); MotiuPausaApiParamValue
-			 * motiuPausaApiParamValue = motiuPausaApiParamValueTranslator
-			 * .getEnumByApiParamValue(expedientPausa.getMotiu()); switch
-			 * (motiuPausaApiParamValue) { case TRAMIT_ALLEGACIONS:
-			 * expedientCanviEstat.setDataLimitAllegacio(valorDataHora); break;
-			 * case REQUERIMENT_SUBSANACIO:
-			 * expedientCanviEstat.setDataLimitRequeriment(valorDataHora);
-			 * 
-			 * break; default: break; } }
-			 */
 			MotiuPausaApiParamValueTranslator motiuPausaApiParamValueTranslator = new MotiuPausaApiParamValueTranslator();
 			MotiuPausaApiParamValue motiuPausaApiParamValue = motiuPausaApiParamValueTranslator
 					.getEnumByApiParamValue(expedientPausa.getMotiu());
@@ -745,27 +695,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					dadesExpedientBDTO.getExpedientsRDTO().getId());
 			RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccio = serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 
-			if (respostaCanviarEstatAccio != null) {
-				// TODO control del error, que debemos devolver en la
-				// respuesta??....
-				/*
-				 * ErrorDTO errorDTO = new ErrorDTO();
-				 * errorDTO.setCodi(peticionsPortasig.getCodiError());
-				 * errorDTO.setDescripcio(peticionsPortasig.getMissatgeError());
-				 * 
-				 * ResultatRespostaDTO resultatRespostaDTO = new
-				 * ResultatRespostaDTO();
-				 * resultatRespostaDTO.setDetallError(errorDTO);
-				 * 
-				 * respostaSignarDocumentRDTO = new
-				 * RespostaSignarDocumentRDTO();
-				 * respostaSignarDocumentRDTO.setResultat(resultatRespostaDTO);
-				 */
-			} else {
-				RespostaExpedientsValidarBDTO respostaExpedientsValidarBDTO = new RespostaExpedientsValidarBDTO(
-						dadesExpedientBDTO.getExpedientsRDTO(), respostaResultatBDTO);
-				respostaReactivarExpedientRDTO = modelMapper.map(respostaExpedientsValidarBDTO, RespostaReactivarExpedientRDTO.class);
-			}
+			RespostaExpedientsValidarBDTO respostaExpedientsValidarBDTO = new RespostaExpedientsValidarBDTO(
+					dadesExpedientBDTO.getExpedientsRDTO(), respostaResultatBDTO);
+			respostaReactivarExpedientRDTO = modelMapper.map(respostaExpedientsValidarBDTO, RespostaReactivarExpedientRDTO.class);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("reactivarExpedient(String, ExpedientReactivacioRDTO)", e); // $NON-NLS-1$
@@ -848,27 +780,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.ARXIVAR_SOLLICITUD_INCOMPLETA.getInternalValue());
 			serveisService.crearComentariAccio(comentarisCrearAccioBDTO);
 
-			if (respostaCanviarEstatAccio != null) {
-				// TODO control del error, que debemos devolver en la
-				// respuesta??....
-				/*
-				 * ErrorDTO errorDTO = new ErrorDTO();
-				 * errorDTO.setCodi(peticionsPortasig.getCodiError());
-				 * errorDTO.setDescripcio(peticionsPortasig.getMissatgeError());
-				 * 
-				 * ResultatRespostaDTO resultatRespostaDTO = new
-				 * ResultatRespostaDTO();
-				 * resultatRespostaDTO.setDetallError(errorDTO);
-				 * 
-				 * respostaSignarDocumentRDTO = new
-				 * RespostaSignarDocumentRDTO();
-				 * respostaSignarDocumentRDTO.setResultat(resultatRespostaDTO);
-				 */
-			} else {
-				RespostaExpedientsArxivarBDTO respostaExpedientsArxivarBDTO = new RespostaExpedientsArxivarBDTO(
-						dadesExpedientBDTO.getExpedientsRDTO(), respostaResultatBDTO);
-				respostaArxivarExpedientRDTO = modelMapper.map(respostaExpedientsArxivarBDTO, RespostaArxivarExpedientRDTO.class);
-			}
+			RespostaExpedientsArxivarBDTO respostaExpedientsArxivarBDTO = new RespostaExpedientsArxivarBDTO(
+					dadesExpedientBDTO.getExpedientsRDTO(), respostaResultatBDTO);
+			respostaArxivarExpedientRDTO = modelMapper.map(respostaExpedientsArxivarBDTO, RespostaArxivarExpedientRDTO.class);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("arxivarSolicitudExpedient(String, ExpedientArxiuRDTO)", e); // $NON-NLS-1$
@@ -1182,13 +1096,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 				expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
 
-				// TODO revisar que ya no mandamos operacio
-				// String operacio =
-				// dadesExpedientBDTO.getHistoricsEstats().get(0).getIdEstatActual()
-				// + "_"
-				// +
-				// dadesExpedientBDTO.getHistoricsEstats().get(1).getIdEstatActual();
-				// expedientCanviEstat.setOperacio(operacio);
 				ExpedientsCanviarEstatBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
 						dadesExpedientBDTO.getExpedientsRDTO().getId());
 				serveisService.canviarEstatExpedient(expedientsCanviarEstatAccioBDTO);
@@ -1785,7 +1692,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			SignarDocument signarDocument = new SignarDocument();
 			signarDocument.idDocument(idDocResolucio);
 			signarDocument.setAccio(TipusAccionsPortaSigApiParamValue.VALIDAR_DOCUMENT.getInternalValue());
-			// TODO Descomentar cuando se genere el cliente de documentación
 			signarDocument.setUnitatGestoraIdext(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
 			UsuariPortaSig usuariPortaSig = new UsuariPortaSig();
 			usuariPortaSig.setMatricula(persona.getMatricula());
@@ -1873,7 +1779,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			SignarDocument signarDocument = new SignarDocument();
 			signarDocument.idDocument(idDocument);
 			signarDocument.setAccio(TipusAccionsPortaSigApiParamValue.SIGNAR_DOCUMENT.getInternalValue());
-			// TODO Descomentar cuando se genere el cliente de documentación
 			signarDocument.setUnitatGestoraIdext(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
 			UsuariPortaSig usuariPortaSig = new UsuariPortaSig();
 			usuariPortaSig.setMatricula(persona.getMatricula());
@@ -2958,7 +2863,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 */
 	@PostMapping(value = "/expedients/{codiExpedient}/documentacio/{idDocument}/intraoperabilitat")
 	@ApiOperation(value = "Obtenir un document per intraoperabilitat", tags = { "Serveis Tramitadors API" }, extensions = {
-			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })	
+			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaObtenirDocumentIntraoperabilitatRDTO obtenirDocumentIntraoperabilitat(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
@@ -3027,11 +2932,11 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			log.error("obtenirDocumentIntraoperabilitat(String, String, DocumentIntraoperabilitatRDTO)", e);
 			// $NON-NLS-1$
 
-			respostaResultatBDTO = new RespostaResultatBDTO(e);	
-		}  catch (Exception e) {
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
 			log.error("obtenirDocumentIntraoperabilitat(String, String, DocumentIntraoperabilitatRDTO)", e);
 			// $NON-NLS-1$
-			
+
 			if (e.getMessage().equalsIgnoreCase("No s'ha pogut emmagatzemar el fitxer")) {
 				respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_OBTENIR_DOCUMENT_INTRAOPERABILITAT,
 						ErrorPrincipal.ERROR_DOCUMENTS_EMMAGATZEMAR_FITXER);
@@ -3363,7 +3268,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		RespostaAnotarOperacioComptableRDTO respostaAnotarOperacioComptableRDTO = null;
-		ExpedientsRDTO returnExpedientsRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ANOTAR_OPERACIO_COMPTABLE);
 		try {
@@ -3426,7 +3330,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		RespostaInscriureEnRegistreRDTO respostaInscriureEnRegistreRDTO = null;
-		ExpedientsRDTO returnExpedientsRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_INSCRIURE_EN_REGISTRE);
 		try {
