@@ -71,6 +71,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaAnotarOperacioComptableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaConsultaExpedientsBDTO;
@@ -137,6 +138,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollici
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TornarEnrereRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
@@ -1165,34 +1167,16 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 					AccioTramitadorApiParamValue.TORNAR_ENRERE, Resultat.ERROR_TORNAR_ENRERE_EXPEDIENT);
 
-			// Cambio de estado del expediente
-			// Es necesario consultar el histórico para determinar el cambio de
-			// estado que debe hacerse (omitir los tornar enrere anteriores)
-			if (CollectionUtils.isNotEmpty(dadesExpedientBDTO.getHistoricsEstats()) && dadesExpedientBDTO.getHistoricsEstats().size() > 1) {
-				ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
-						ExpedientCanviEstat.class);
+			Comentaris comentaris = new Comentaris();
+			comentaris.setDescripcio(expedientTornadaEnrere.getComentari());
 
-				// obtenemos el idAccioEstat futuro
-				List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
-						AccioTramitadorApiParamValue.TORNAR_ENRERE.getInternalValue(), dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+			TornarEnrereRDTO tornarEnrereRDTO = new TornarEnrereRDTO();
+			tornarEnrereRDTO.setComentari(comentaris);
 
-				// debe existir una transicion posible para el estado actual
-				ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
-						AccioTramitadorApiParamValue.TORNAR_ENRERE, Resultat.ERROR_TORNAR_ENRERE_EXPEDIENT);
+			ExpedientsTornarEnrereBDTO expedientsTornarEnrereBDTO = new ExpedientsTornarEnrereBDTO(
+					dadesExpedientBDTO.getExpedientsRDTO().getId(), tornarEnrereRDTO);
 
-				expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
-
-				// TODO revisar que ya no mandamos operacio
-				// String operacio =
-				// dadesExpedientBDTO.getHistoricsEstats().get(0).getIdEstatActual()
-				// + "_"
-				// +
-				// dadesExpedientBDTO.getHistoricsEstats().get(1).getIdEstatActual();
-				// expedientCanviEstat.setOperacio(operacio);
-				ExpedientsCanviarEstatBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
-						dadesExpedientBDTO.getExpedientsRDTO().getId());
-				serveisService.canviarEstatExpedient(expedientsCanviarEstatAccioBDTO);
-			}
+			serveisService.tornarEnrereExpedient(expedientsTornarEnrereBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("tornarEnrereExpedient(String, ExpedientTornadaEnrereRDTO)", e); // $NON-NLS-1$
@@ -2958,7 +2942,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 */
 	@PostMapping(value = "/expedients/{codiExpedient}/documentacio/{idDocument}/intraoperabilitat")
 	@ApiOperation(value = "Obtenir un document per intraoperabilitat", tags = { "Serveis Tramitadors API" }, extensions = {
-			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })	
+			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaObtenirDocumentIntraoperabilitatRDTO obtenirDocumentIntraoperabilitat(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
@@ -3027,11 +3011,11 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			log.error("obtenirDocumentIntraoperabilitat(String, String, DocumentIntraoperabilitatRDTO)", e);
 			// $NON-NLS-1$
 
-			respostaResultatBDTO = new RespostaResultatBDTO(e);	
-		}  catch (Exception e) {
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
 			log.error("obtenirDocumentIntraoperabilitat(String, String, DocumentIntraoperabilitatRDTO)", e);
 			// $NON-NLS-1$
-			
+
 			if (e.getMessage().equalsIgnoreCase("No s'ha pogut emmagatzemar el fitxer")) {
 				respostaResultatBDTO = new RespostaResultatBDTO(Resultat.ERROR_OBTENIR_DOCUMENT_INTRAOPERABILITAT,
 						ErrorPrincipal.ERROR_DOCUMENTS_EMMAGATZEMAR_FITXER);

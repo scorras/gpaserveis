@@ -15,6 +15,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarB
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
@@ -162,7 +163,7 @@ public interface ExpedientsService {
 	/**
 	 * Canviar estat expedient.
 	 *
-	 * @param expedientsCanviarEstatAccioBDTO
+	 * @param expedientsCanviarEstatBDTO
 	 *            the expedients canviar estat BDTO
 	 * @return the resposta canviar estat expedient
 	 * @throws GPAServeisServiceException
@@ -176,6 +177,7 @@ public interface ExpedientsService {
 	 *
 	 * @param comentarisCrearAccioBDTO
 	 *            the comentaris crear accio BDTO
+	 * @return the integer
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
@@ -327,5 +329,15 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	void esborrarComentari(BigDecimal idComentari, BigDecimal idExpedient) throws GPAServeisServiceException;
+
+	/**
+	 * Tornar enrere expedient.
+	 *
+	 * @param expedientsTornarEnrereBDTO
+	 *            the expedients tornar enrere BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void tornarEnrereExpedient(ExpedientsTornarEnrereBDTO expedientsTornarEnrereBDTO) throws GPAServeisServiceException;
 
 }
