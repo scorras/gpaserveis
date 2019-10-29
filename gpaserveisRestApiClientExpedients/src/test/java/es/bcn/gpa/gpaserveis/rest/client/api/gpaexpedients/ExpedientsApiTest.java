@@ -40,6 +40,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegi
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TornarEnrereRDTO;
 
 /**
  * API tests for ExpedientsApi
@@ -186,6 +187,27 @@ public class ExpedientsApiTest extends ParentTest {
 
 		CrearRegistre registrarSolicitudExpedientRDTO = new CrearRegistre();
 		api.esborrarRegistreSolicitudExpedient(registrarSolicitudExpedientRDTO);
+
+		assertTrue(true);
+	}
+
+	/**
+	 * TornarEnrere expedient
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void tornarEnrereTest() {
+		when(apiClient.invokeAPI(eq("/expedients/1/tornarEnrere"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		BigDecimal idExpedient = ONE;
+		TornarEnrereRDTO tornarEnrereRDTO = new TornarEnrereRDTO();
+		api.tornarEnrere(idExpedient, tornarEnrereRDTO);
 
 		assertTrue(true);
 	}
