@@ -888,7 +888,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			// obtenemos el idAccioEstat futuro
 			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
 					AccioTramitadorApiParamValue.REGISTRAR_SOLLICITUD.getInternalValue(),
-					dadesExpedientBDTO.getExpedientsRDTO().getEstatActual());
+					dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
 
 			// debe existir una transicion posible para el estado actual
 			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
@@ -1501,7 +1501,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			// obtenemos el idAccioEstat futuro
 			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
 					AccioTramitadorApiParamValue.RESPONDRE_REQUERIMENT_O_TRAMIT_ALLEGACIONS_O_IP.getInternalValue(),
-					dadesExpedientBDTO.getExpedientsRDTO().getEstatActual());
+					dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
 
 			// debe existir una transicion posible para el estado actual
 			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
@@ -1629,7 +1629,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			// obtenemos el idAccioEstat futuro
 			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
 					AccioTramitadorApiParamValue.DESISTIR_RENUNCIAR.getInternalValue(),
-					dadesExpedientBDTO.getExpedientsRDTO().getEstatActual());
+					dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
 
 			// debe existir una transicion posible para el estado actual
 			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
