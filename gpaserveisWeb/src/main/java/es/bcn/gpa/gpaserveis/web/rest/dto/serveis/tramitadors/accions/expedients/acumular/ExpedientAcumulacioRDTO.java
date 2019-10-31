@@ -17,7 +17,7 @@ public class ExpedientAcumulacioRDTO {
 
 	@ApiModelProperty(value = "Codi de l'expedient acumulat.", required = true)
 	private String codiExpedient;
-	@ApiModelProperty(value = "Comentari associat a l'acumulació.", required = true)
+	@ApiModelProperty(value = "Comentari associat a l'acumulació.", required = false)
 	private String comentari;
 
 }
