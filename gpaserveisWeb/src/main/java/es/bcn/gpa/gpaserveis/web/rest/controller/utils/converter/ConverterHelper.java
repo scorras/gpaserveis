@@ -581,7 +581,7 @@ public class ConverterHelper {
 			List<DocsEntradaRDTO> docsEntradaRDTOList, BaseApiParamValueTranslator tramitOvtApiParamValueTranslator,
 			BaseApiParamValueTranslator revisioApiParamValueTranslator, BaseApiParamValueTranslator tipusPersonaApiParamValueTranslator,
 			BaseApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
-			BaseApiParamValueTranslator tipusSexeApiParamValueTranslator) {
+			BaseApiParamValueTranslator tipusSexeApiParamValueTranslator, BaseApiParamValueTranslator origenApiParamValueTranslator) {
 		ArrayList<DocumentAportatConsultaRDTO> documentAportatConsultaRDTOList = null;
 		DocumentAportatConsultaRDTO documentAportatConsultaRDTO = null;
 		ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = null;
@@ -599,11 +599,14 @@ public class ConverterHelper {
 						? dateTimeFormatter.print(docsEntradaRDTO.getDataPresentacio()) : null);
 				documentAportatConsultaRDTO
 						.setRevisio(revisioApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTO.getRevisio()));
+				documentAportatConsultaRDTO
+						.setOrigen(origenApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTO.getOrigen()));
 				configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
 				configuracioDocumentacioRDTO.setCodi((docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId() != null)
 						? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId()) : null);
 				configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntradaNom());
 				configuracioDocumentacioRDTO.setDescripcioCastella(docsEntradaRDTO.getConfiguracioDocsEntradaNomCastella());
+				configuracioDocumentacioRDTO.setCodiNti(docsEntradaRDTO.getConfiguracioDocsEntrada().getCodiNti());
 				documentAportatConsultaRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
 				if (docsEntradaRDTO.getRegistreAssentament() != null) {
 					registreRDTO = new RegistreRDTO();
@@ -702,11 +705,7 @@ public class ConverterHelper {
 				documentDigitalitzarAccioRDTO.setNom(docsEntradaRDTO.getDocsFisics().getNom());
 			}
 			if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null) {
-				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
-				configuracioDocumentacioRDTO.setCodi(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId() != null
-						? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId()) : null);
-				configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntrada().getNom());
-				configuracioDocumentacioRDTO.setDescripcioCastella(docsEntradaRDTO.getConfiguracioDocsEntrada().getNomCastella());
+				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = buildConfiguracioDocumentacioRDTO(docsEntradaRDTO);
 				documentDigitalitzarAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
 			}
 			documentDigitalitzarAccioRDTO
@@ -747,11 +746,7 @@ public class ConverterHelper {
 				documentAportatAccioRDTO.setNom(docsEntradaRDTO.getDocsFisics().getNom());
 			}
 			if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null) {
-				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
-				configuracioDocumentacioRDTO.setCodi(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId() != null
-						? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId()) : null);
-				configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntrada().getNom());
-				configuracioDocumentacioRDTO.setDescripcioCastella(docsEntradaRDTO.getConfiguracioDocsEntrada().getNomCastella());
+				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = buildConfiguracioDocumentacioRDTO(docsEntradaRDTO);
 				documentAportatAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
 			}
 			documentAportatAccioRDTO.setOrigen(origenApiParamValueTranslator.getApiParamValueByInternalValue(docsEntradaRDTO.getOrigen()));
@@ -790,11 +785,7 @@ public class ConverterHelper {
 			}
 			documentIncorporatNouAccioRDTO.setConfiguracio(ConfiguracioApiParamValue.APORTADA.getApiParamValue());
 			if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null) {
-				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
-				configuracioDocumentacioRDTO.setCodi(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId() != null
-						? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId()) : null);
-				configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntrada().getNom());
-				configuracioDocumentacioRDTO.setDescripcioCastella(docsEntradaRDTO.getConfiguracioDocsEntrada().getNomCastella());
+				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = buildConfiguracioDocumentacioRDTO(docsEntradaRDTO);
 				documentIncorporatNouAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
 			}
 			documentIncorporatNouAccioRDTO
@@ -830,11 +821,7 @@ public class ConverterHelper {
 			}
 			documentIncorporatNouAccioRDTO.setConfiguracio(ConfiguracioApiParamValue.GENERADA.getApiParamValue());
 			if (docsTramitacioRDTO.getConfiguracioDocsTramitacio() != null) {
-				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
-				configuracioDocumentacioRDTO.setCodi(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getUniqueId() != null
-						? String.valueOf(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getUniqueId()) : null);
-				configuracioDocumentacioRDTO.setDescripcio(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getNom());
-				configuracioDocumentacioRDTO.setDescripcioCastella(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getNomCastella());
+				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = buildConfiguracioDocumentacioRDTO(docsTramitacioRDTO);
 				documentIncorporatNouAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
 			}
 			documentIncorporatNouAccioRDTO
@@ -862,11 +849,7 @@ public class ConverterHelper {
 			documentCompletatAccioRDTO.setId(docsEntradaRDTO.getId());
 			documentCompletatAccioRDTO.setConfiguracio(ConfiguracioApiParamValue.APORTADA.getApiParamValue());
 			if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null) {
-				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
-				configuracioDocumentacioRDTO.setCodi(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId() != null
-						? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId()) : null);
-				configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntrada().getNom());
-				configuracioDocumentacioRDTO.setDescripcioCastella(docsEntradaRDTO.getConfiguracioDocsEntrada().getNomCastella());
+				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = buildConfiguracioDocumentacioRDTO(docsEntradaRDTO);
 				documentCompletatAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
 			}
 			documentCompletatAccioRDTO.setDataCreacio(
@@ -894,11 +877,7 @@ public class ConverterHelper {
 			documentCompletatAccioRDTO.setId(docsTramitacioRDTO.getId());
 			documentCompletatAccioRDTO.setConfiguracio(ConfiguracioApiParamValue.APORTADA.getApiParamValue());
 			if (docsTramitacioRDTO.getConfiguracioDocsTramitacio() != null) {
-				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
-				configuracioDocumentacioRDTO.setCodi(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getUniqueId() != null
-						? String.valueOf(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getUniqueId()) : null);
-				configuracioDocumentacioRDTO.setDescripcio(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getNom());
-				configuracioDocumentacioRDTO.setDescripcioCastella(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getNomCastella());
+				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = buildConfiguracioDocumentacioRDTO(docsTramitacioRDTO);
 				documentCompletatAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
 			}
 			documentCompletatAccioRDTO.setDataCreacio(
@@ -928,11 +907,7 @@ public class ConverterHelper {
 			declaracioResponsablePresentadaAccioRDTO = new DeclaracioResponsablePresentadaAccioRDTO();
 			declaracioResponsablePresentadaAccioRDTO.setId(docsEntradaRDTO.getId());
 			if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null) {
-				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
-				configuracioDocumentacioRDTO.setCodi(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId() != null
-						? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId()) : null);
-				configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntrada().getNom());
-				configuracioDocumentacioRDTO.setDescripcioCastella(docsEntradaRDTO.getConfiguracioDocsEntrada().getNomCastella());
+				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = buildConfiguracioDocumentacioRDTO(docsEntradaRDTO);
 				declaracioResponsablePresentadaAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
 			}
 			declaracioResponsablePresentadaAccioRDTO
@@ -988,11 +963,7 @@ public class ConverterHelper {
 			documentDigitalitzarAccioRDTO = new DocumentDigitalitzarAccioRDTO();
 			documentDigitalitzarAccioRDTO.setId(docsTramitacioRDTO.getId());
 			if (docsTramitacioRDTO.getConfiguracioDocsTramitacio() != null) {
-				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
-				configuracioDocumentacioRDTO.setCodi(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getUniqueId() != null
-						? String.valueOf(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getUniqueId()) : null);
-				configuracioDocumentacioRDTO.setDescripcio(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getNom());
-				configuracioDocumentacioRDTO.setDescripcioCastella(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getNomCastella());
+				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = buildConfiguracioDocumentacioRDTO(docsTramitacioRDTO);
 				documentDigitalitzarAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
 			}
 			documentDigitalitzarAccioRDTO.setUrlDigitalitzacio(docsTramitacioRDTO.getUrlDigitalitzacio());
@@ -1020,11 +991,7 @@ public class ConverterHelper {
 			documentDigitalitzarAccioRDTO = new DocumentDigitalitzarAccioRDTO();
 			documentDigitalitzarAccioRDTO.setId(docsEntradaRDTO.getId());
 			if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null) {
-				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
-				configuracioDocumentacioRDTO.setCodi(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId() != null
-						? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId()) : null);
-				configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntrada().getNom());
-				configuracioDocumentacioRDTO.setDescripcioCastella(docsEntradaRDTO.getConfiguracioDocsEntrada().getNomCastella());
+				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = buildConfiguracioDocumentacioRDTO(docsEntradaRDTO);
 				documentDigitalitzarAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
 			}
 			documentDigitalitzarAccioRDTO.setUrlDigitalitzacio(docsEntradaRDTO.getUrlDigitalitzacio());
@@ -1037,4 +1004,38 @@ public class ConverterHelper {
 		return documentDigitalitzarAccioRDTO;
 	}
 
+	/**
+	 * build the configuracio documentacio
+	 * 
+	 * @param docsEntradaRDTO
+	 * @return
+	 */
+	private static ConfiguracioDocumentacioRDTO buildConfiguracioDocumentacioRDTO(DocsEntradaRDTO docsEntradaRDTO) {
+
+		ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
+		configuracioDocumentacioRDTO.setCodi(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId() != null
+				? String.valueOf(docsEntradaRDTO.getConfiguracioDocsEntrada().getUniqueId()) : null);
+		configuracioDocumentacioRDTO.setDescripcio(docsEntradaRDTO.getConfiguracioDocsEntrada().getNom());
+		configuracioDocumentacioRDTO.setDescripcioCastella(docsEntradaRDTO.getConfiguracioDocsEntrada().getNomCastella());
+		configuracioDocumentacioRDTO.setCodiNti(docsEntradaRDTO.getConfiguracioDocsEntrada().getCodiNti());
+
+		return configuracioDocumentacioRDTO;
+	}
+
+	/**
+	 * build the configuracio documentacio
+	 * 
+	 * @param docsTramitacioRDTO
+	 * @return
+	 */
+	private static ConfiguracioDocumentacioRDTO buildConfiguracioDocumentacioRDTO(DocsTramitacioRDTO docsTramitacioRDTO) {
+
+		ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = new ConfiguracioDocumentacioRDTO();
+		configuracioDocumentacioRDTO.setCodi(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getUniqueId() != null
+				? String.valueOf(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getUniqueId()) : null);
+		configuracioDocumentacioRDTO.setDescripcio(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getNom());
+		configuracioDocumentacioRDTO.setDescripcioCastella(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getNomCastella());
+		configuracioDocumentacioRDTO.setCodiNti(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getCodiNti());
+		return configuracioDocumentacioRDTO;
+	}
 }
