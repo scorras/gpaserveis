@@ -19,7 +19,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.Docu
  */
 @Component("internalToDocumentAportatConsultaListConverter")
 public class InternalToDocumentAportatConsultaListConverter
-        extends AbstractConverter<List<DocsEntradaRDTO>, List<DocumentAportatConsultaRDTO>> {
+		extends AbstractConverter<List<DocsEntradaRDTO>, List<DocumentAportatConsultaRDTO>> {
 
 	/** The tramit ovt api param value translator. */
 	@Autowired
@@ -30,6 +30,11 @@ public class InternalToDocumentAportatConsultaListConverter
 	@Autowired
 	@Qualifier("documentRevisioApiParamValueTranslator")
 	private BaseApiParamValueTranslator revisioApiParamValueTranslator;
+
+	/** The origen api param value translator. */
+	@Autowired
+	@Qualifier("documentOrigenApiParamValueTranslator")
+	private BaseApiParamValueTranslator origenApiParamValueTranslator;
 
 	/** The tipus persona api param value translator. */
 	@Autowired
@@ -56,8 +61,8 @@ public class InternalToDocumentAportatConsultaListConverter
 		ArrayList<DocumentAportatConsultaRDTO> documentAportatConsultaRDTOList = null;
 		if (CollectionUtils.isNotEmpty(docsEntradaRDTOList)) {
 			documentAportatConsultaRDTOList = ConverterHelper.buildDocumentsAportatsConsultaRDTOListExpedient(docsEntradaRDTOList,
-			        tramitOvtApiParamValueTranslator, revisioApiParamValueTranslator, tipusPersonaApiParamValueTranslator,
-			        tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator);
+					tramitOvtApiParamValueTranslator, revisioApiParamValueTranslator, tipusPersonaApiParamValueTranslator,
+					tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator, origenApiParamValueTranslator);
 		}
 
 		return documentAportatConsultaRDTOList;
