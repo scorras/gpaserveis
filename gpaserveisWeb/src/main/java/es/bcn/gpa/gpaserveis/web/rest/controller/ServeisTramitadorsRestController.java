@@ -495,6 +495,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Cambio de estado del expediente
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+			expedientCanviEstat.setComentari(expedientValidacio.getComentari());
 
 			// obtenemos el idAccioEstat futuro
 			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
@@ -583,6 +584,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// Cambio de estado del expediente y actualización de fechas de
 			// límite de plazo
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+			expedientCanviEstat.setComentari(expedientPausa.getComentari());
 
 			// obtenemos el idAccioEstat futuro
 			// En este caso no realizamos consulta y utilizamos un
@@ -681,6 +683,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// Cambio de estado del expediente y actualización de fechas de
 			// límite de plazo a null
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+			expedientCanviEstat.setComentari(expedientReactivacio.getComentari());
 
 			// obtenemos el idAccioEstat futuro
 			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
@@ -758,6 +761,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Cambio de estado del expediente
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+			expedientCanviEstat.setComentari(expedientArxiu.getComentari());
 
 			// obtenemos el idAccioEstat futuro
 			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
@@ -845,6 +849,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Cambio de estado del expediente en función del estado origen
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+			expedientCanviEstat.setComentari(expedientRetornRDTO.getComentari());
 
 			// obtenemos el idAccioEstat futuro
 			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
@@ -926,6 +931,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Cambio de estado del expediente
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+			expedientCanviEstat.setComentari(expedientPropostaResolucio.getComentari());
 
 			// obtenemos el idAccioEstat futuro
 			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
@@ -1008,6 +1014,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Cambio de estado del expediente
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+			expedientCanviEstat.setComentari(expedientTancament.getComentari());
 
 			// obtenemos el idAccioEstat futuro
 			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
@@ -1345,6 +1352,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Cambio de estado del expediente en función del estado origen
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+			expedientCanviEstat.setComentari(expedientConvidarTramitarRDTO.getComentari());
 
 			// obtenemos el idAccioEstat futuro
 			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
@@ -2657,6 +2665,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Cambio de estado del expediente
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+			expedientCanviEstat.setComentari(expedientDocumentSignatRDTO.getComentari());
 
 			// obtenemos el idAccioEstat futuro
 			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
@@ -3507,6 +3516,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Cambio de estado del expediente
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+			expedientCanviEstat.setComentari(expedientAbandonament.getComentari());
 
 			// obtenemos el idAccioEstat futuro
 			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(

@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>es.bcn.gpa</groupId>
   <artifactId>gpaserveisWeb</artifactId>
-  <version>1.15.4</version>
+  <version>1.15.7</version>
   <packaging>war</packaging>
   <dependencies>
     <dependency>
@@ -46,31 +46,31 @@
     <dependency>
       <groupId>es.bcn.gpa</groupId>
       <artifactId>gpaserveisRestApiClientDocumentacio</artifactId>
-      <version>1.15.4</version>
+      <version>1.15.7</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>es.bcn.gpa</groupId>
       <artifactId>gpaserveisRestApiClientExpedients</artifactId>
-      <version>1.15.4</version>
+      <version>1.15.7</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>es.bcn.gpa</groupId>
       <artifactId>gpaserveisRestApiClientProcediments</artifactId>
-      <version>1.15.4</version>
+      <version>1.15.7</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>es.bcn.gpa</groupId>
       <artifactId>gpaserveisRestApiClientTramits</artifactId>
-      <version>1.15.4</version>
+      <version>1.15.7</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>es.bcn.gpa</groupId>
       <artifactId>gpaserveisRestApiClientUnitats</artifactId>
-      <version>1.15.4</version>
+      <version>1.15.7</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

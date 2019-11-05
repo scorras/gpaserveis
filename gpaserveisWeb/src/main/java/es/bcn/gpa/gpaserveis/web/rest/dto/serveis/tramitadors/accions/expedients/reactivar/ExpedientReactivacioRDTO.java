@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 public class ExpedientReactivacioRDTO {
 
-	@ApiModelProperty(value = "comentari associat a la reactivació.")
+	@ApiModelProperty(value = "Comentari associat a la reactivació.")
 	private String comentari;
 
 }
