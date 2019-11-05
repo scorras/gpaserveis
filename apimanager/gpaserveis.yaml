@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.15.6"
+  version: "1.15.8"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -2809,6 +2809,9 @@ definitions:
       codi:
         type: "string"
         description: "Codi del document"
+      codiNti:
+        type: "string"
+        description: "Codi Nti del document"
       descripcio:
         type: "string"
         description: "Descripció del document"
@@ -2822,6 +2825,9 @@ definitions:
       codi:
         type: "string"
         description: "Codi del document"
+      codiNti:
+        type: "string"
+        description: "Codi Nti del document"
       descripcio:
         type: "string"
         description: "Descripció del document"
@@ -2849,6 +2855,9 @@ definitions:
       codi:
         type: "string"
         description: "Codi del document"
+      codiNti:
+        type: "string"
+        description: "Codi Nti del document"
       descripcio:
         type: "string"
         description: "Descripció del document"
@@ -3143,6 +3152,12 @@ definitions:
       nom:
         type: "string"
         description: "Nom del document"
+      origen:
+        type: "string"
+        description: "Origen del tipus de documentació."
+        enum:
+        - "INTERN"
+        - "EXTERN"
       registre:
         description: "Registre del document"
         $ref: "#/definitions/Registre"

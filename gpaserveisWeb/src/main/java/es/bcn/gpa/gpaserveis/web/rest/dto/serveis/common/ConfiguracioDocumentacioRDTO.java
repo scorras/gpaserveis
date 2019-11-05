@@ -21,5 +21,7 @@ public class ConfiguracioDocumentacioRDTO {
 	private String descripcio;
 	@ApiModelProperty(value = "Descripció del document en castellà")
 	private String descripcioCastella;
+	@ApiModelProperty(value = "Codi Nti del document")
+	private String codiNti;
 
 }
