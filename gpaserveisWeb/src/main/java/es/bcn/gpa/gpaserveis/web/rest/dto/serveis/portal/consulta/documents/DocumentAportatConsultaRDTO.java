@@ -3,6 +3,7 @@ package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.OrigenApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.RevisioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ConfiguracioDocumentacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.RegistreRDTO;
@@ -28,6 +29,8 @@ public class DocumentAportatConsultaRDTO extends DocumentRDTO {
 	private RegistreRDTO registre;
 	@ApiModelProperty(value = "Estat de revisió del document", allowableValues = RevisioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private String revisio;
+	@ApiModelProperty(value = "Origen del tipus de documentació.", allowableValues = OrigenApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
+	private String origen;
 	@ApiModelProperty(value = "Tràmit")
 	private TramitsOvtRDTO tramit;
 
