@@ -281,6 +281,24 @@ public class ServeisRestControllerValidationHelper {
 	}
 
 	/**
+	 * Validate accio tornar enrere disponible expedient.
+	 *
+	 * @param idEstat
+	 *            the id estat
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateAccioTornarEnrereDisponibleExpedient(BigDecimal idEstat, Resultat resultatError)
+			throws GPAApiParamValidationException {
+		if ((idEstat == null) || (Constants.ESTAT_EXPEDIENT_EN_PREPARACIO.compareTo(idEstat) == INTEGER_ZERO)
+				|| (Constants.ESTAT_EXPEDIENT_SOLLICITUD_EN_REVISIO.compareTo(idEstat) == INTEGER_ZERO)) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACCIO_NOT_AVAILABLE);
+		}
+	}
+
+	/**
 	 * Validate sollicitant actualitzar solicitud expedient.
 	 *
 	 * @param sollicitant

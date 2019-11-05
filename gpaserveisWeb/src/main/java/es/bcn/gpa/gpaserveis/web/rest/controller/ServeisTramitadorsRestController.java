@@ -1078,8 +1078,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_TORNAR_ENRERE_EXPEDIENT);
 
 			// Volver atrás si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
-					AccioTramitadorApiParamValue.TORNAR_ENRERE, Resultat.ERROR_TORNAR_ENRERE_EXPEDIENT);
+			ServeisRestControllerValidationHelper.validateAccioTornarEnrereDisponibleExpedient(
+					dadesExpedientBDTO.getExpedientsRDTO().getIdEstat(), Resultat.ERROR_TORNAR_ENRERE_EXPEDIENT);
 
 			Comentaris comentaris = new Comentaris();
 			comentaris.setDescripcio(expedientTornadaEnrere.getComentari());
