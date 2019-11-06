@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>es.bcn.gpa</groupId>
   <artifactId>gpaserveisRestApiClientExpedients</artifactId>
-  <version>1.15.7</version>
+  <version>1.16.0</version>
   <dependencies>
     <dependency>
       <groupId>io.springfox</groupId>
