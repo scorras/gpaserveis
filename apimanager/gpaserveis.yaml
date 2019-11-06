@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.15.8"
+  version: "1.16.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -428,48 +428,6 @@ paths:
           description: "Unauthorized"
         403:
           description: "Forbidden"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /serveis/portal/expedients/{codiExpedient}/documentacio/{idDocument}/actualitzarAneuGestorDocumental/{idGestorDocumental}:
-    post:
-      tags:
-      - "Serveis Portal API"
-      summary: "Actualitza l'aneu del gestor documental"
-      operationId: "actualitzarAneuGestorDocumentalUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "codiExpedient"
-        in: "path"
-        description: "Codi de l'expedient"
-        required: true
-        type: "string"
-      - name: "idDocument"
-        in: "path"
-        description: "Identificador del document"
-        required: true
-        type: "number"
-      - name: "idGestorDocumental"
-        in: "path"
-        description: "Identificador del Gestor Documental"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaUploadDocument"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
@@ -1913,15 +1871,10 @@ paths:
         description: "Codi de l'expedient"
         required: true
         type: "string"
-      - name: "document"
-        in: "formData"
-        description: "Dades del document a obtenir"
-        required: true
-        type: "string"
       - in: "body"
         name: "documentIntraoperabilitatRDTO"
         description: "Dades del document de l'expedient"
-        required: true
+        required: false
         schema:
           $ref: "#/definitions/DocumentIntraoperabilitat"
       - name: "idDocument"
@@ -3689,7 +3642,6 @@ definitions:
     type: "object"
     required:
     - "codiExpedient"
-    - "comentari"
     properties:
       codiExpedient:
         type: "string"
@@ -3901,6 +3853,9 @@ definitions:
     required:
     - "motiu"
     properties:
+      comentari:
+        type: "string"
+        description: "Comentari associat a la pausa de l'expedient."
       dataLimit:
         type: "number"
         description: "Data límit que estableix la durada de la pausa de l'expedient."
@@ -3925,7 +3880,7 @@ definitions:
     properties:
       comentari:
         type: "string"
-        description: "comentari associat a la reactivació."
+        description: "Comentari associat a la reactivació."
     title: "ExpedientReactivacio"
   ExpedientRetorn:
     type: "object"
