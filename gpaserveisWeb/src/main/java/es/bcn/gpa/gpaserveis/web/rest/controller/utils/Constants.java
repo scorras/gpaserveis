@@ -72,4 +72,10 @@ public class Constants {
 	/** The Constant MISSATGE_ERROR_SIGNATURES. */
 	public static final String MISSATGE_ERROR_SIGNATURES = "Error Signatures:";
 
+	/** The Constant ESTAT_EXPEDIENT_EN_PREPARACIO. */
+	public static final BigDecimal ESTAT_EXPEDIENT_EN_PREPARACIO = BigDecimal.ONE;
+
+	/** The Constant ESTAT_EXPEDIENT_SOLLICITUD_EN_REVISIO. */
+	public static final BigDecimal ESTAT_EXPEDIENT_SOLLICITUD_EN_REVISIO = new BigDecimal(2);
+
 }

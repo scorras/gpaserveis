@@ -9,6 +9,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitaci
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.BooleanToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.DataHoraToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToBigDecimalConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.FitxerToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.IdiomaToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.OrigenToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.completar.DocumentCompletatRDTO;
@@ -29,18 +30,22 @@ public class DocumentCompletatRDTOToDocsTramitacioRDTOMapper extends PropertyMap
 
 	private DataHoraToInternalConverter dataHoraToInternalConverter;
 
+	private FitxerToInternalConverter fitxerToInternalConverter;
+
 	@Autowired
 	public DocumentCompletatRDTOToDocsTramitacioRDTOMapper(
-	        @Qualifier("internalToBigDecimalConverter") InternalToBigDecimalConverter internalToBigDecimalConverter,
-	        @Qualifier("origenToInternalConverter") OrigenToInternalConverter origenToInternalConverter,
-	        @Qualifier("idiomaToInternalConverter") IdiomaToInternalConverter idiomaToInternalConverter,
-	        @Qualifier("booleanToInternalConverter") BooleanToInternalConverter booleanToInternalConverter,
-	        @Qualifier("dataHoraToInternalConverter") DataHoraToInternalConverter dataHoraToInternalConverter) {
+			@Qualifier("internalToBigDecimalConverter") InternalToBigDecimalConverter internalToBigDecimalConverter,
+			@Qualifier("origenToInternalConverter") OrigenToInternalConverter origenToInternalConverter,
+			@Qualifier("idiomaToInternalConverter") IdiomaToInternalConverter idiomaToInternalConverter,
+			@Qualifier("booleanToInternalConverter") BooleanToInternalConverter booleanToInternalConverter,
+			@Qualifier("dataHoraToInternalConverter") DataHoraToInternalConverter dataHoraToInternalConverter,
+			@Qualifier("documentFitxerToInternalConverter") FitxerToInternalConverter fitxerToInternalConverter) {
 		this.internalToBigDecimalConverter = internalToBigDecimalConverter;
 		this.origenToInternalConverter = origenToInternalConverter;
 		this.idiomaToInternalConverter = idiomaToInternalConverter;
 		this.booleanToInternalConverter = booleanToInternalConverter;
 		this.dataHoraToInternalConverter = dataHoraToInternalConverter;
+		this.fitxerToInternalConverter = fitxerToInternalConverter;
 	}
 
 	/*
@@ -57,6 +62,8 @@ public class DocumentCompletatRDTOToDocsTramitacioRDTOMapper extends PropertyMap
 		using(booleanToInternalConverter).map(source.getDigitalitzat()).setDigitalitzat(null);
 		using(idiomaToInternalConverter).map(source.getDigitalitzacio().getIdioma()).setIdiomaDigitalitzacio(null);
 		using(dataHoraToInternalConverter).map(source.getDigitalitzacio().getDataDigitalitzacio()).setDataDigitalitzacio(null);
+		using(fitxerToInternalConverter).map(source.getFitxer()).setDocsFisics(null);
+		using(booleanToInternalConverter).map(source.getPublicarInfoPublica()).setPublicarInfoPublica(null);
 	}
 
 }

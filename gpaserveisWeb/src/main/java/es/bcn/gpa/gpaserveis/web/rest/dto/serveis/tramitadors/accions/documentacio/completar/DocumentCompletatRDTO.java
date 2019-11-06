@@ -8,6 +8,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.OrigenApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.RevisioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.DigitalitzacioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.FitxerRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -16,7 +17,7 @@ import lombok.Setter;
 @ApiModel(value = "DocumentCompletat")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "configuracio", "configuracioDocumentacio", "origen", "comentari", "idioma", "revisio", "digitalitzat",
-        "digitalitzacio" })
+		"digitalitzacio", "fitxer", "numeroRegistre", "publicarInfoPublica", "plantillaPdf" })
 @Getter
 @Setter
 public class DocumentCompletatRDTO {
@@ -37,5 +38,15 @@ public class DocumentCompletatRDTO {
 	private Boolean digitalitzat;
 	@ApiModelProperty(value = "Dades de digitalització.")
 	private DigitalitzacioRDTO digitalitzacio;
+	@ApiModelProperty(value = "Fitxer.")
+	private FitxerRDTO fitxer;
+	@ApiModelProperty(value = "Número de registre.")
+	private String numeroRegistre;
+	@ApiModelProperty(value = "Publicar informació pública.")
+	private Boolean publicarInfoPublica;
+	@ApiModelProperty(value = "Document de plantilla.")
+	private Boolean plantillaPdf;
+	@ApiModelProperty(value = "Document de requeriment.")
+	private Boolean requeriment;
 
 }

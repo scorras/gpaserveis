@@ -138,6 +138,27 @@ public class ServeisRestControllerValidationHelper {
 	}
 
 	/**
+	 * Validate unitat gestora convidada.
+	 *
+	 * @param idUnitatGestoraConvidada
+	 *            the id unitat gestora convidada
+	 * @param idUnitatGestoraExpedient
+	 *            the id unitat gestora expedient
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateUnitatGestoraConvidada(BigDecimal idUnitatGestoraConvidada, BigDecimal idUnitatGestoraExpedient,
+			Resultat resultatError) throws GPAApiParamValidationException {
+		// La Unitat Gestora a convidar debe ser diferente a la que tiene
+		// asignada el expediente
+		if (idUnitatGestoraConvidada.compareTo(idUnitatGestoraExpedient) == NumberUtils.INTEGER_ZERO) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_UNITATS_ASSIGNADA);
+		}
+	}
+
+	/**
 	 * Validate expedient.
 	 *
 	 * @param dadesExpedientBDTO
@@ -159,8 +180,8 @@ public class ServeisRestControllerValidationHelper {
 	 *
 	 * @param dadesExpedientBDTO
 	 *            the dades expedient BDTO
-	 * @param expedientsRDTORelacionatsList
-	 *            the expedients RDTO relacionats list
+	 * @param expedientsRDTORelacionatsAcumuladorList
+	 *            the expedients RDTO relacionats acumulador list
 	 * @param resultatError
 	 *            the resultat error
 	 * @throws GPAApiParamValidationException
@@ -260,6 +281,24 @@ public class ServeisRestControllerValidationHelper {
 	}
 
 	/**
+	 * Validate accio tornar enrere disponible expedient.
+	 *
+	 * @param idEstat
+	 *            the id estat
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateAccioTornarEnrereDisponibleExpedient(BigDecimal idEstat, Resultat resultatError)
+			throws GPAApiParamValidationException {
+		if ((idEstat == null) || (Constants.ESTAT_EXPEDIENT_EN_PREPARACIO.compareTo(idEstat) == INTEGER_ZERO)
+				|| (Constants.ESTAT_EXPEDIENT_SOLLICITUD_EN_REVISIO.compareTo(idEstat) == INTEGER_ZERO)) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACCIO_NOT_AVAILABLE);
+		}
+	}
+
+	/**
 	 * Validate sollicitant actualitzar solicitud expedient.
 	 *
 	 * @param sollicitant
@@ -286,12 +325,14 @@ public class ServeisRestControllerValidationHelper {
 	 *            the dades grups RDTO list
 	 * @param idExpedient
 	 *            the id expedient
+	 * @param isPortal
+	 *            the is portal
 	 * @return the array list
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
 	public static ArrayList<DadesEspecifiquesRDTO> validateDadesOperacioActualitzarSolicitudExpedient(
-			List<AtributsActualitzarRDTO> dadesOperacio, List<DadesGrupsRDTO> dadesGrupsRDTOList, BigDecimal idExpedient)
+			List<AtributsActualitzarRDTO> dadesOperacio, List<DadesGrupsRDTO> dadesGrupsRDTOList, BigDecimal idExpedient, boolean isPortal)
 			throws GPAApiParamValidationException {
 		ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
 		HashMap<String, List<String>> atributsMap = new HashMap<String, List<String>>();
@@ -299,7 +340,7 @@ public class ServeisRestControllerValidationHelper {
 			for (AtributsActualitzarRDTO atributsActualitzarRDTO : dadesOperacio) {
 				atributsMap.put(atributsActualitzarRDTO.getCodi(), atributsActualitzarRDTO.getValor());
 			}
-			dadesEspecifiquesRDTOList = validateDadesOperacio(atributsMap, dadesGrupsRDTOList, idExpedient);
+			dadesEspecifiquesRDTOList = validateDadesOperacio(atributsMap, dadesGrupsRDTOList, idExpedient, isPortal);
 		}
 		return dadesEspecifiquesRDTOList;
 	}
@@ -359,7 +400,7 @@ public class ServeisRestControllerValidationHelper {
 			for (AtributRequeritRDTO atributRequeritRDTO : dadesOperacio) {
 				atributsMap.put(atributRequeritRDTO.getCodi(), atributRequeritRDTO.getValor());
 			}
-			dadesEspecifiquesRDTOList = validateDadesOperacio(atributsMap, dadesGrupsRDTOList, idExpedient);
+			dadesEspecifiquesRDTOList = validateDadesOperacio(atributsMap, dadesGrupsRDTOList, idExpedient, true);
 		}
 		return dadesEspecifiquesRDTOList;
 	}
@@ -373,12 +414,14 @@ public class ServeisRestControllerValidationHelper {
 	 *            the dades grups RDTO list
 	 * @param idExpedient
 	 *            the id expedient
+	 * @param isPortal
+	 *            the is portal
 	 * @return the array list
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
 	private static ArrayList<DadesEspecifiquesRDTO> validateDadesOperacio(Map<String, List<String>> atributsMap,
-			List<DadesGrupsRDTO> dadesGrupsRDTOList, BigDecimal idExpedient) throws GPAApiParamValidationException {
+			List<DadesGrupsRDTO> dadesGrupsRDTOList, BigDecimal idExpedient, boolean isPortal) throws GPAApiParamValidationException {
 		ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
 
 		HashMap<String, DadesOperacions> dadesOperacionsMap = new HashMap<String, DadesOperacions>();
@@ -411,85 +454,114 @@ public class ServeisRestControllerValidationHelper {
 			dadesEspecifiquesRDTO = new DadesEspecifiquesRDTO();
 			dadesEspecifiquesRDTO.setCampIdext(dadesOperacions.getId());
 			dadesEspecifiquesRDTO.setExpedient(idExpedient);
-			dadesEspecifiquesRDTO.setNou(INTEGER_ONE);
+			if (isPortal == true)
+				dadesEspecifiquesRDTO.setNou(INTEGER_ONE);
+			else
+				dadesEspecifiquesRDTO.setNou(INTEGER_ZERO);
 			dadesEspecifiquesValorsList = new ArrayList<DadesEspecifiquesValors>();
 			dadesEspecifiquesValors = new DadesEspecifiquesValors();
 			tipusCampApiParamValue = tipusCampApiParamValueTranslator.getEnumByInternalValue(dadesOperacions.getTipus());
 			try {
 				switch (tipusCampApiParamValue) {
 				case NUMERIC:
-					Long valorInteger = Long.valueOf(atributEntry.getValue().get(INTEGER_ZERO));
-					validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorInteger));
-					dadesEspecifiquesValors.setValorInteger(valorInteger);
+					if (atributEntry.getValue().get(0) != null) {
+						Long valorInteger = Long.valueOf(atributEntry.getValue().get(INTEGER_ZERO));
+						validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorInteger));
+						dadesEspecifiquesValors.setValorInteger(valorInteger);
+					}
 					break;
 				case DECIMAL:
-					Double valorDouble = numberFormat.parse(atributEntry.getValue().get(INTEGER_ZERO)).doubleValue();
-					validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorDouble));
-					dadesEspecifiquesValors.setValorDouble(valorDouble);
+					if (atributEntry.getValue().get(0) != null) {
+						Double valorDouble = numberFormat.parse(atributEntry.getValue().get(INTEGER_ZERO)).doubleValue();
+						validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorDouble));
+						dadesEspecifiquesValors.setValorDouble(valorDouble);
+					}
 					break;
 				case MONEDA:
-					Double valorMoneda = numberFormat.parse(atributEntry.getValue().get(INTEGER_ZERO)).doubleValue();
-					validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorMoneda));
-					dadesEspecifiquesValors.setValorMoneda(valorMoneda);
+					if (atributEntry.getValue().get(0) != null) {
+						Double valorMoneda = numberFormat.parse(atributEntry.getValue().get(INTEGER_ZERO)).doubleValue();
+						validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorMoneda));
+						dadesEspecifiquesValors.setValorMoneda(valorMoneda);
+					}
 					break;
 				case DATA:
-					DateTime valorData = DateTime.parse(atributEntry.getValue().get(INTEGER_ZERO), dataFormatter);
-					validateDadesOperacioDataGeneral(dadesOperacions, valorData, tipusCampApiParamValue);
-					dadesEspecifiquesValors.setValorCalendar(valorData);
+					if (atributEntry.getValue().get(0) != null) {
+						DateTime valorData = DateTime.parse(atributEntry.getValue().get(INTEGER_ZERO), dataFormatter);
+						validateDadesOperacioDataGeneral(dadesOperacions, valorData, tipusCampApiParamValue);
+						dadesEspecifiquesValors.setValorCalendar(valorData);
+					}
 					break;
 				case DATA_HORA:
-					DateTime valorDataHora = DateTime.parse(atributEntry.getValue().get(INTEGER_ZERO), dataHoraFormatter);
-					validateDadesOperacioDataGeneral(dadesOperacions, valorDataHora, tipusCampApiParamValue);
-					dadesEspecifiquesValors.setValorCalendar(valorDataHora);
+					if (atributEntry.getValue().get(0) != null) {
+						DateTime valorDataHora = DateTime.parse(atributEntry.getValue().get(INTEGER_ZERO), dataHoraFormatter);
+						validateDadesOperacioDataGeneral(dadesOperacions, valorDataHora, tipusCampApiParamValue);
+						dadesEspecifiquesValors.setValorCalendar(valorDataHora);
+					}
 					break;
 				case HORA:
-					DateTime valorHora = DateTime.parse(atributEntry.getValue().get(INTEGER_ZERO), horaFormatter);
-					validateDadesOperacioDataGeneral(dadesOperacions, valorHora, tipusCampApiParamValue);
-					dadesEspecifiquesValors.setValorCalendar(valorHora);
+					if (atributEntry.getValue().get(0) != null) {
+						DateTime valorHora = DateTime.parse(atributEntry.getValue().get(INTEGER_ZERO), horaFormatter);
+						validateDadesOperacioDataGeneral(dadesOperacions, valorHora, tipusCampApiParamValue);
+						dadesEspecifiquesValors.setValorCalendar(valorHora);
+					}
 					break;
 				case TEXT:
-					String valorText = atributEntry.getValue().get(INTEGER_ZERO);
-					validateDadesOperacioCadenaGeneral(dadesOperacions, valorText);
-					dadesEspecifiquesValors.setValorString(valorText);
+					if (atributEntry.getValue().get(0) != null) {
+						String valorText = atributEntry.getValue().get(INTEGER_ZERO);
+						validateDadesOperacioCadenaGeneral(dadesOperacions, valorText);
+						dadesEspecifiquesValors.setValorString(valorText);
+					}
 					break;
 				case TEXT_GRAN:
-					String valorTextGran = atributEntry.getValue().get(INTEGER_ZERO);
-					validateDadesOperacioCadenaGeneral(dadesOperacions, valorTextGran);
-					dadesEspecifiquesValors.setValorClob(valorTextGran);
+					if (atributEntry.getValue().get(0) != null) {
+						String valorTextGran = atributEntry.getValue().get(INTEGER_ZERO);
+						validateDadesOperacioCadenaGeneral(dadesOperacions, valorTextGran);
+						dadesEspecifiquesValors.setValorClob(valorTextGran);
+					}
 					break;
 				case LITERAL:
 					break;
 				case LLISTA_SIMPLE:
-					Integer valorLlistaSimple = Integer.valueOf(atributEntry.getValue().get(INTEGER_ZERO));
-					validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorLlistaSimple));
-					dadesEspecifiquesValors.setValorListaSimple(valorLlistaSimple);
+					if (atributEntry.getValue().get(0) != null) {
+						Integer valorLlistaSimple = Integer.valueOf(atributEntry.getValue().get(INTEGER_ZERO));
+						validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorLlistaSimple));
+						dadesEspecifiquesValors.setValorListaSimple(valorLlistaSimple);
+					}
 					break;
 				case LLISTA_MULTIPLE:
-					ArrayList<Integer> integerList = new ArrayList<Integer>();
-					if (CollectionUtils.isNotEmpty(atributEntry.getValue())) {
-						for (String valor : atributEntry.getValue()) {
-							integerList.add(Integer.valueOf(valor));
+					if (atributEntry.getValue().get(0) != null) {
+						ArrayList<Integer> integerList = new ArrayList<Integer>();
+						if (CollectionUtils.isNotEmpty(atributEntry.getValue())) {
+							for (String valor : atributEntry.getValue()) {
+								integerList.add(Integer.valueOf(valor));
+							}
 						}
+						dadesEspecifiquesValors.setValorListaMultipleList(integerList);
 					}
-					dadesEspecifiquesValors.setValorListaMultipleList(integerList);
 					break;
 				case MARCADOR:
 					dadesEspecifiquesValors.setValorBoolean(Integer.valueOf(atributEntry.getValue().get(INTEGER_ZERO)));
 					break;
 				case PAIS:
-					String valorPais = atributEntry.getValue().get(INTEGER_ZERO);
-					validateDadesOperacioCadenaGeneral(dadesOperacions, valorPais);
-					dadesEspecifiquesValors.setValorPais(valorPais);
+					if (atributEntry.getValue().get(0) != null) {
+						String valorPais = atributEntry.getValue().get(INTEGER_ZERO);
+						validateDadesOperacioCadenaGeneral(dadesOperacions, valorPais);
+						dadesEspecifiquesValors.setValorPais(valorPais);
+					}
 					break;
 				case PROVINCIA:
-					String valorProvincia = atributEntry.getValue().get(INTEGER_ZERO);
-					validateDadesOperacioCadenaGeneral(dadesOperacions, valorProvincia);
-					dadesEspecifiquesValors.setValorProvincia(valorProvincia);
+					if (atributEntry.getValue().get(0) != null) {
+						String valorProvincia = atributEntry.getValue().get(INTEGER_ZERO);
+						validateDadesOperacioCadenaGeneral(dadesOperacions, valorProvincia);
+						dadesEspecifiquesValors.setValorProvincia(valorProvincia);
+					}
 					break;
 				case MUNICIPI:
-					String valorMunicipi = atributEntry.getValue().get(INTEGER_ZERO);
-					validateDadesOperacioCadenaGeneral(dadesOperacions, valorMunicipi);
-					dadesEspecifiquesValors.setValorMunicipi(valorMunicipi);
+					if (atributEntry.getValue().get(0) != null) {
+						String valorMunicipi = atributEntry.getValue().get(INTEGER_ZERO);
+						validateDadesOperacioCadenaGeneral(dadesOperacions, valorMunicipi);
+						dadesEspecifiquesValors.setValorMunicipi(valorMunicipi);
+					}
 					break;
 				default:
 					break;
@@ -1314,6 +1386,65 @@ public class ServeisRestControllerValidationHelper {
 	}
 
 	/**
+	 * Validate transicio accio disponible expedient.
+	 *
+	 * @param accionsEstatsRDTOList
+	 *            the accions estats RDTO list
+	 * @param accioTramitadorApiParamValue
+	 *            the accio tramitador api param value
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateTransicioAccioDisponibleExpedient(List<AccionsEstatsRDTO> accionsEstatsRDTOList,
+			AccioTramitadorApiParamValue accioTramitadorApiParamValue, Resultat resultatError) throws GPAApiParamValidationException {
+
+		if (accionsEstatsRDTOList == null || accionsEstatsRDTOList.size() == 0) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_TRANSICION_ESTAT_NOT_VALID,
+					accioTramitadorApiParamValue.getApiParamValue());
+		}
+
+	}
+
+	/**
+	 * Validate canviar estat expedient.
+	 *
+	 * @param accionsEstatsRDTOList
+	 *            the accions estats RDTO list
+	 * @param accioTramitadorApiParamValue
+	 *            the accio tramitador api param value
+	 * @param resultatError
+	 *            the resultat error
+	 * @return true, if successful
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static boolean validateCanviarEstatExpedient(List<AccionsEstatsRDTO> accionsEstatsRDTOList,
+			AccioTramitadorApiParamValue accioTramitadorApiParamValue, Resultat resultatError) throws GPAApiParamValidationException {
+		if (accionsEstatsRDTOList == null || accionsEstatsRDTOList.size() == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * Validate documents signats expedient.
+	 *
+	 * @param documentsSignats
+	 *            the documents signats
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateDocumentsSignatsExpedient(Boolean documentsSignats) throws GPAApiParamValidationException {
+		if (!documentsSignats) {
+			throw new GPAApiParamValidationException(Resultat.ERROR_DOCUMENT_SIGNAT_EXPEDIENT,
+					ErrorPrincipal.ERROR_DOCUMENTS_EXPEDIENTS_NO_SIGNATS);
+		}
+	}
+
+	/**
 	 * Valida que uno de los dos parametros no sea nulo
 	 * 
 	 * @param file
@@ -1327,5 +1458,4 @@ public class ServeisRestControllerValidationHelper {
 		}
 
 	}
-
 }

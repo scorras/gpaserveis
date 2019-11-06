@@ -54,12 +54,13 @@ public class PersonesSollicitudApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void actualitzarDadesAltraPersonaImplicadaTest() {
+	public void donarAccesAltraPersonaImplicadaTestOK() {
 		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
-		        .thenReturn(new LinkedMultiValueMap<String, String>());
-		when(apiClient.invokeAPI(eq("/expedients/personesSollicitud/altresImplidades"), eq(HttpMethod.POST), any(MultiValueMap.class),
-		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfPersonesSollicitudRDTO());
+				.thenReturn(new LinkedMultiValueMap<String, String>());
+		when(apiClient.invokeAPI(eq("/expedients/personesSollicitud/donarAccesAltresImplidades"), eq(HttpMethod.POST),
+				any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class),
+				any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
+						.thenReturn(new PageDataOfPersonesSollicitudRDTO());
 
 		PersonesSollicitudRDTO personesSollicitudRDTO = new PersonesSollicitudRDTO();
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
@@ -76,10 +77,10 @@ public class PersonesSollicitudApiTest extends ParentTest {
 		String sort = null;
 		Long totalElements = null;
 		Integer totalPages = null;
-		PageDataOfPersonesSollicitudRDTO response = api.actualitzarDadesAltraPersonaImplicada(personesSollicitudRDTO,
-		        absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
-		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
-		        previousPageNumber, sort, totalElements, totalPages);
+		PageDataOfPersonesSollicitudRDTO response = api.donarAccesAltraPersonaImplicada(personesSollicitudRDTO,
+				absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
+				currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
+				previousPageNumber, sort, totalElements, totalPages);
 
 		assertTrue(response != null);
 	}

@@ -11,11 +11,12 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaDigitalitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioDigitalitzarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.CrearRequerimentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DescarregarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocsAssociatsIntraBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentEntradaFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentTramitacioFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarRequerimentFitxerBDTO;
@@ -209,6 +210,17 @@ public interface DocumentsService {
 			throws GPAServeisServiceException;
 
 	/**
+	 * Guardar requeriment plantilla.
+	 *
+	 * @param crearRequerimentBDTO
+	 *            the crear requeriment BDTO
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsTramitacioRDTO guardarRequerimentPlantilla(CrearRequerimentBDTO crearRequerimentBDTO) throws GPAServeisServiceException;
+
+	/**
 	 * Guardar document tramitacio fitxer.
 	 *
 	 * @param guardarDocumentTramitacioFitxerBDTO
@@ -221,31 +233,13 @@ public interface DocumentsService {
 			throws GPAServeisServiceException;
 
 	/**
-	 * Esborrar document expedient.
-	 *
-	 * @param esborrarDocumentExpedientBDTO
-	 *            the esborrar document expedient BDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	void esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO) throws GPAServeisServiceException;
-
-	/**
-	 * Esborrar document tramitacio expedient.
-	 *
-	 * @param esborrarDocumentExpedientBDTO
-	 *            the esborrar document expedient BDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	void esborrarDocumentTramitacioExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO) throws GPAServeisServiceException;
-
-	/**
 	 * Consultar dades document.
 	 *
 	 * @param idDocument
 	 *            the id document
 	 * @return the docs RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
 	 */
 	DocsRDTO consultarDadesDocument(BigDecimal idDocument) throws GPAServeisServiceException;
 
@@ -329,17 +323,6 @@ public interface DocumentsService {
 	void associarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO) throws GPAServeisServiceException;
 
 	/**
-	 * Desassociar registre documentacio expedient.
-	 *
-	 * @param documentActualizarRegistreRDTO
-	 *            the document actualizar registre RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	void desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
-			throws GPAServeisServiceException;
-
-	/**
 	 * Associar registre docs ent.
 	 *
 	 * @param docsEntActualizarRegistreRDTO
@@ -385,8 +368,8 @@ public interface DocumentsService {
 	/**
 	 * Actualitzar notificacio.
 	 *
-	 * @param actualitzarNotificacionDocument
-	 *            the actualitzar notificacion document
+	 * @param actualitzarNotificacio
+	 *            the actualitzar notificacio
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
@@ -480,6 +463,59 @@ public interface DocumentsService {
 	void associatsDocsIntra(DocsAssociatsIntraBDTO docsAssociatsIntraBDTO) throws GPAServeisServiceException;
 
 	/**
+	 * Actualitzar requeriment.
+	 *
+	 * @param crearRequerimentBDTO
+	 *            the crear requeriment BDTO
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsTramitacioRDTO actualitzarRequeriment(CrearRequerimentBDTO crearRequerimentBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Es borrar documentacio entrada.
+	 *
+	 * @param esborrarDocumentBDTO
+	 *            the esborrar document BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void esBorrarDocumentacioEntrada(EsborrarDocumentBDTO esborrarDocumentBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Es borrar documentacio tramitacio.
+	 *
+	 * @param esborrarDocumentBDTO
+	 *            the esborrar document BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void esBorrarDocumentacioTramitacio(EsborrarDocumentBDTO esborrarDocumentBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Desassociar registre documentacio expedient.
+	 *
+	 * @param documentActualizarRegistreRDTO
+	 *            the document actualizar registre RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
+			throws GPAServeisServiceException;
+
+	/**
+	 * Comprovar documents signats expedient.
+	 *
+	 * @param idDocumentacio
+	 *            the id documentacio
+	 * @return the boolean
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	Boolean comprovarDocumentsSignatsExpedient(BigDecimal idDocumentacio) throws GPAServeisServiceException;
+
+	/**
 	 * Obrir requeriments expedient.
 	 *
 	 * @param idDocumentacio
@@ -488,4 +524,5 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	void obrirRequerimentsExpedient(BigDecimal idDocumentacio) throws GPAServeisServiceException;
+
 }

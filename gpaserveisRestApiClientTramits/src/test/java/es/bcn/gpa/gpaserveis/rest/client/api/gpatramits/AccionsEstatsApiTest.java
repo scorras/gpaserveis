@@ -64,4 +64,26 @@ public class AccionsEstatsApiTest extends ParentTest {
 		assertTrue(response != null);
 	}
 
+	/**
+	 * Returns the transition for the current expedient&#39;s status and action
+	 * execution
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void cercaTransicioCanviEstatTest() {
+		when(apiClient.invokeAPI(eq("/tramits/accionsEstatsForEstatActualAndAccio/1/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<AccionsEstatsRDTO>());
+
+		BigDecimal idAccio = ONE;
+		BigDecimal idEstatActual = ONE;
+		List<AccionsEstatsRDTO> response = api.cercaTransicioCanviEstat(idAccio, idEstatActual);
+
+		assertTrue(response != null);
+	}
+
 }

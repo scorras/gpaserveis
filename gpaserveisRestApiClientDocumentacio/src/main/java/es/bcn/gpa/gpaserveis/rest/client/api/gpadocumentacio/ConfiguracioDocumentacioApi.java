@@ -23,7 +23,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfCon
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-07-26T10:13:20.464+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-17T12:21:43.485+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi")
 public class ConfiguracioDocumentacioApi {
 	private ApiClient apiClient;
@@ -92,16 +92,16 @@ public class ConfiguracioDocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public PageDataOfConfiguracioDocsEntradaRDTO cercaConfiguracioDocumentacioEntrada(BigDecimal id,
-	        Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage,
-	        Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage,
-	        Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize,
-	        Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
+			Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage,
+			Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage,
+			Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize,
+			Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
 		Object postBody = null;
 
 		// verify the required parameter 'id' is set
 		if (id == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'id' when calling cercaConfiguracioDocumentacioEntrada");
+					"Missing the required parameter 'id' when calling cercaConfiguracioDocumentacioEntrada");
 		}
 
 		// create path and map variables
@@ -114,9 +114,9 @@ public class ConfiguracioDocumentacioApi {
 		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfFirstRowInCurrentPage",
-		        absoluteRowNumberOfFirstRowInCurrentPage));
+				absoluteRowNumberOfFirstRowInCurrentPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfLastRowInCurrentPage",
-		        absoluteRowNumberOfLastRowInCurrentPage));
+				absoluteRowNumberOfLastRowInCurrentPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasNextPage", currentPageHasNextPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasPreviousPage", currentPageHasPreviousPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsFirstPage", currentPageIsFirstPage));
@@ -140,7 +140,7 @@ public class ConfiguracioDocumentacioApi {
 		ParameterizedTypeReference<PageDataOfConfiguracioDocsEntradaRDTO> returnType = new ParameterizedTypeReference<PageDataOfConfiguracioDocsEntradaRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -192,22 +192,22 @@ public class ConfiguracioDocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public PageDataOfConfiguracioDocsEntradaRDTO cercaConfiguracioDocumentacioEntradaPerTramitOvt(BigDecimal id, BigDecimal idTramitOvt,
-	        Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage,
-	        Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage,
-	        Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize,
-	        Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
+			Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage,
+			Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage,
+			Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize,
+			Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
 		Object postBody = null;
 
 		// verify the required parameter 'id' is set
 		if (id == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'id' when calling cercaConfiguracioDocumentacioEntradaPerTramitOvt");
+					"Missing the required parameter 'id' when calling cercaConfiguracioDocumentacioEntradaPerTramitOvt");
 		}
 
 		// verify the required parameter 'idTramitOvt' is set
 		if (idTramitOvt == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idTramitOvt' when calling cercaConfiguracioDocumentacioEntradaPerTramitOvt");
+					"Missing the required parameter 'idTramitOvt' when calling cercaConfiguracioDocumentacioEntradaPerTramitOvt");
 		}
 
 		// create path and map variables
@@ -215,16 +215,16 @@ public class ConfiguracioDocumentacioApi {
 		uriVariables.put("id", id);
 		uriVariables.put("idTramitOvt", idTramitOvt);
 		String path = UriComponentsBuilder.fromPath("/configuracioDocumentacio/entrada/{id}/{idTramitOvt}").buildAndExpand(uriVariables)
-		        .toUriString();
+				.toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
 		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfFirstRowInCurrentPage",
-		        absoluteRowNumberOfFirstRowInCurrentPage));
+				absoluteRowNumberOfFirstRowInCurrentPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfLastRowInCurrentPage",
-		        absoluteRowNumberOfLastRowInCurrentPage));
+				absoluteRowNumberOfLastRowInCurrentPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasNextPage", currentPageHasNextPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasPreviousPage", currentPageHasPreviousPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsFirstPage", currentPageIsFirstPage));
@@ -248,7 +248,7 @@ public class ConfiguracioDocumentacioApi {
 		ParameterizedTypeReference<PageDataOfConfiguracioDocsEntradaRDTO> returnType = new ParameterizedTypeReference<PageDataOfConfiguracioDocsEntradaRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -298,16 +298,16 @@ public class ConfiguracioDocumentacioApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public PageDataOfConfiguracioDocsTramitacioRDTO cercaConfiguracioDocumentacioTramitacio(BigDecimal id,
-	        Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage,
-	        Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage,
-	        Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize,
-	        Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
+			Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage,
+			Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage,
+			Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize,
+			Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
 		Object postBody = null;
 
 		// verify the required parameter 'id' is set
 		if (id == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'id' when calling cercaConfiguracioDocumentacioTramitacio");
+					"Missing the required parameter 'id' when calling cercaConfiguracioDocumentacioTramitacio");
 		}
 
 		// create path and map variables
@@ -320,9 +320,9 @@ public class ConfiguracioDocumentacioApi {
 		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfFirstRowInCurrentPage",
-		        absoluteRowNumberOfFirstRowInCurrentPage));
+				absoluteRowNumberOfFirstRowInCurrentPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfLastRowInCurrentPage",
-		        absoluteRowNumberOfLastRowInCurrentPage));
+				absoluteRowNumberOfLastRowInCurrentPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasNextPage", currentPageHasNextPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasPreviousPage", currentPageHasPreviousPage));
 		queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsFirstPage", currentPageIsFirstPage));
@@ -346,7 +346,7 @@ public class ConfiguracioDocumentacioApi {
 		ParameterizedTypeReference<PageDataOfConfiguracioDocsTramitacioRDTO> returnType = new ParameterizedTypeReference<PageDataOfConfiguracioDocsTramitacioRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -369,20 +369,20 @@ public class ConfiguracioDocumentacioApi {
 	 * @throws RestClientException
 	 *             if an error occurs while attempting to invoke the API
 	 */
-	public RespostaPlantillaDocVinculada getPlantillaDocVinculada(BigDecimal idConfDoc, BigDecimal idDocVinculada)
-	        throws RestClientException {
+	public RespostaPlantillaDocVinculada consultarPlantillaDocumentacioVinculada(BigDecimal idConfDoc, BigDecimal idDocVinculada)
+			throws RestClientException {
 		Object postBody = null;
 
 		// verify the required parameter 'idConfDoc' is set
 		if (idConfDoc == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idConfDoc' when calling getPlantillaDocVinculada");
+					"Missing the required parameter 'idConfDoc' when calling consultarPlantillaDocumentacioVinculada");
 		}
 
 		// verify the required parameter 'idDocVinculada' is set
 		if (idDocVinculada == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'idDocVinculada' when calling getPlantillaDocVinculada");
+					"Missing the required parameter 'idDocVinculada' when calling consultarPlantillaDocumentacioVinculada");
 		}
 
 		// create path and map variables
@@ -390,7 +390,7 @@ public class ConfiguracioDocumentacioApi {
 		uriVariables.put("idConfDoc", idConfDoc);
 		uriVariables.put("idDocVinculada", idDocVinculada);
 		String path = UriComponentsBuilder.fromPath("/configuracioDocumentacio/plantillaDocVinculada/{idConfDoc}/{idDocVinculada}")
-		        .buildAndExpand(uriVariables).toUriString();
+				.buildAndExpand(uriVariables).toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		final HttpHeaders headerParams = new HttpHeaders();
@@ -406,6 +406,6 @@ public class ConfiguracioDocumentacioApi {
 		ParameterizedTypeReference<RespostaPlantillaDocVinculada> returnType = new ParameterizedTypeReference<RespostaPlantillaDocVinculada>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 }

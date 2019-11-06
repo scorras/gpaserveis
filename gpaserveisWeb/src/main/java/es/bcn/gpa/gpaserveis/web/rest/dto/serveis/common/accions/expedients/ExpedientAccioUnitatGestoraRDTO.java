@@ -11,7 +11,7 @@ import lombok.Setter;
 
 @ApiModel(value = "ExpedientAccioUnitatGestora")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "codi", "unitatGestora" })
+@JsonPropertyOrder({ "unitatGestora" })
 @Getter
 @Setter
 public class ExpedientAccioUnitatGestoraRDTO extends ExpedientAccioRDTO {

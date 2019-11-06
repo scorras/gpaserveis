@@ -145,6 +145,30 @@ public enum Resultat {
 
 	ERROR_OBTENIR_DOCUMENT_INTRAOPERABILITAT("ERROR", "No s'ha pogut obtenir el document per intraoperabilitat"),
 
+	OK_OBTENIR_EXPEDIENT("OK", "Expedient obtingut correctament"),
+
+	ERROR_OBTENIR_EXPEDIENT("ERROR", "No s'ha pogut obtenir el expedient"),
+
+	OK_REVISAR_EXPEDIENT("OK", "Expedient revisat correctament"),
+
+	ERROR_REVISAR_EXPEDIENT("ERROR", "No s'ha pogut revisar l'expedient"),
+
+	OK_RECURS_EXPEDIENT("OK", "Recurs d'Expedient creat correctament"),
+
+	ERROR_RECURS_EXPEDIENT("ERROR", "No s'ha pogut crear el recurs d'expedient"),
+
+	OK_PUBLICAR_PER_A_INFORMACIO_PUBLICA("OK", "Informació publicada correctament"),
+
+	ERROR_PUBLICAR_PER_A_INFORMACIO_PUBLICA("ERROR", "No s'ha pogut publicar la informació"),
+
+	OK_ANOTAR_OPERACIO_COMPTABLE("OK", "L'operació comptable s'ha anotat correctament"),
+
+	ERROR_ANOTAR_OPERACIO_COMPTABLE("ERROR", "No s'ha pogut anotar l'operació comptable"),
+
+	OK_INSCRIURE_EN_REGISTRE("OK", "S'ha inscrit l'expedient en un registre manualment"),
+
+	ERROR_INSCRIURE_EN_REGISTRE("ERROR", "No s'ha pogut inscriure en el registre"),
+
 	OK_ACTUALITZAR_ID_GESTOR_DOCUMENTAL_EXPEDIENT("OK", "Identificador del gestor documental actualitzat correctament"),
 
 	ERROR_ACTUALITZAR_ID_GESTOR_DOCUMENTAL_EXPEDIENT("ERROR", "No s'ha pogut actualitzar l'identificador del gestor documental");
