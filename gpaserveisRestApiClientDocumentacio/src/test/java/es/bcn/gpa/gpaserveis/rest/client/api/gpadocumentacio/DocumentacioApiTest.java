@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -51,47 +50,70 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitaci
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRegistrarComunicat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequerimentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient.CollectionFormat;
 
 /**
- * API tests for DocumentacioApi
+ * API tests for DocumentacioApi.
  */
 @SuppressWarnings("unchecked")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DocumentacioApiTest extends ParentTest {
 
+	/** The api. */
 	@InjectMocks
 	private DocumentacioApi api = new DocumentacioApi();
 
+	/** The test folder. */
 	@Rule
 	public TemporaryFolder testFolder = new TemporaryFolder();
 
 	/**
-	 * Delete all selected DocsEntrada
+	 * Delete DocsEntrada
 	 *
 	 * 
 	 *
-	 * @throws RestClientException
+	 * @throws ApiException
 	 *             if the Api call fails
 	 */
 	@Test
-	public void esborrarDocumentExpedientTest() throws RestClientException {
-		when(apiClient.invokeAPI(eq("/documentacio/entrada/delete/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+	public void esBorrarDocumentacioEntradaTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/esBorrar/1/entrada/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
 				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 				any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		List<BigDecimal> docsEntradaIds = Arrays.asList(ONE);
-		BigDecimal idExpedient = ONE;
-		api.esborrarDocumentExpedient(docsEntradaIds, idExpedient);
+		BigDecimal idDocsEntrada = BigDecimal.ONE;
+		BigDecimal idExpedient = BigDecimal.ONE;
+		api.esBorrarDocumentacioEntrada(idDocsEntrada, idExpedient);
 
 		assertTrue(true);
 	}
 
 	/**
-	 * Returns the requested documentacio entrada grouped by tràmit OVT
+	 * Delete DocsTramitacio
 	 *
 	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void esBorrarDocumentacioTramitacioTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/esBorrar/1/tramitacio/1"), eq(HttpMethod.POST), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		BigDecimal idDocsTramitacio = BigDecimal.ONE;
+		BigDecimal idExpedient = BigDecimal.ONE;
+		api.esBorrarDocumentacioTramitacio(idDocsTramitacio, idExpedient);
+
+		assertTrue(true);
+	}
+
+	/**
+	 * Returns the requested documentacio entrada grouped by tràmit OVT.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -109,9 +131,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * Updates all selected DocsEntrada with the EstatRevisio specified
-	 *
-	 * 
+	 * Updates all selected DocsEntrada with the EstatRevisio specified.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -129,9 +149,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * Returns the requested document
-	 *
-	 * 
+	 * Returns the requested document.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -149,9 +167,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * Returns the requested dades operacio requerit
-	 *
-	 * 
+	 * Returns the requested dades operacio requerit.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -169,9 +185,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * associa el registre a la llista de documentació
-	 *
-	 * 
+	 * associa el registre a la llista de documentació.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -189,9 +203,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * associa el registre a la documentació de l&#39;expedient
-	 *
-	 * 
+	 * associa el registre a la documentació de l&#39;expedient.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -227,9 +239,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * Returns the requested document
-	 *
-	 * 
+	 * Returns the requested document.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -247,9 +257,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * updates the doc entrada responsable
-	 *
-	 * 
+	 * updates the doc entrada responsable.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -268,9 +276,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * crea el document d&#39;entrada
-	 *
-	 * 
+	 * crea el document d&#39;entrada.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -289,13 +295,12 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * crea o actualitza el requeriment i desa el document
-	 *
-	 * 
+	 * crea o actualitza el requeriment i desa el document.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
 	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void guardarRequerimentFitxerTest() throws RestClientException, IOException {
@@ -314,9 +319,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * Returns the requested documentacio tramitacio
-	 *
-	 * 
+	 * Returns the requested documentacio tramitacio.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -334,13 +337,12 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * updates the doc entrada
-	 *
-	 * 
+	 * updates the doc entrada.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
 	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void guardarDocumentEntradaFitxerTest() throws RestClientException, IOException {
@@ -359,13 +361,12 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * save the doc tramitacio i fitxer
-	 *
-	 * 
+	 * save the doc tramitacio i fitxer.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
 	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void guardarDocumentTramitacioFitxerTest() throws RestClientException, IOException {
@@ -384,9 +385,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * save the doc tramitacio i plantilla
-	 *
-	 * 
+	 * save the doc tramitacio i plantilla.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -405,9 +404,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * updates the doc entrada responsable
-	 *
-	 * 
+	 * updates the doc entrada responsable.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -426,9 +423,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * actualitzar el document d&#39;entrada
-	 *
-	 * 
+	 * actualitzar el document d&#39;entrada.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -447,9 +442,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * actualitzar document tramitacio
-	 *
-	 * 
+	 * actualitzar document tramitacio.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -468,9 +461,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * Callback per actualitzar l&#39;estat dels documents enviats a portasig
-	 *
-	 * 
+	 * Callback per actualitzar l&#39;estat dels documents enviats a portasig.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -487,9 +478,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * Closes the expedient&#39;s requirements
-	 *
-	 * 
+	 * Closes the expedient&#39;s requirements.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -506,9 +495,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * crea el document de tramitació
-	 *
-	 * 
+	 * crea el document de tramitació.
 	 *
 	 * @throws RestClientException
 	 *             if the Api call fails
@@ -527,12 +514,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * crea el document digitalitzat d&#39;entrada
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
+	 * crea el document digitalitzat d&#39;entrada.
 	 */
 	@Test
 	public void crearDocumentEntradaDigitalitzatTest() {
@@ -548,12 +530,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * crea el document digitalitzat de tramitacio
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
+	 * crea el document digitalitzat de tramitacio.
 	 */
 	@Test
 	public void crearDocumentTramitacioDigitalitzatTest() {
@@ -569,12 +546,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * Updates the selected DocsTramitacio with the comunicat specified
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
+	 * Updates the selected DocsTramitacio with the comunicat specified.
 	 */
 	@Test
 	public void registrarComunicatDocumentTramitacioTest() {
@@ -589,12 +561,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * Callback per actualitzar l&#39;estat dels documents digitalitzats
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
+	 * Callback per actualitzar l&#39;estat dels documents digitalitzats.
 	 */
 	@Test
 	public void callbackDigitalitzacioTest() {
@@ -609,12 +576,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * Returns the requested document
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
+	 * Returns the requested document.
 	 */
 	@Test
 	public void consultarDadesDocumentTest() {
@@ -629,12 +591,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * Associar els documents d&#39;entrada
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
+	 * Associar els documents d&#39;entrada.
 	 */
 	@Test
 	public void associatsDocsIntraTest() {
@@ -644,6 +601,93 @@ public class DocumentacioApiTest extends ParentTest {
 
 		DocsAssociatsIntra docsAssociatsIntraRDTO = new DocsAssociatsIntra();
 		api.associatsDocsIntra(docsAssociatsIntraRDTO);
+
+		assertTrue(true);
+	}
+
+	/**
+	 * Signar segell test.
+	 */
+	@Test
+	public void signarSegellTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/signarSegell"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new SignarSegellDocument());
+
+		SignarSegellDocument signarSegellDocumentRDTO = new SignarSegellDocument();
+		SignarSegellDocument response = api.signarSegell(signarSegellDocumentRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * actualitzar Document Tramitacio
+	 * 
+	 * @throws RestClientException
+	 */
+	@Test
+	public void actualitzarDocumentEntradaDigitalitzatTest() throws RestClientException {
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/digitalitzar/1"), eq(HttpMethod.PUT), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new DocsEntradaRDTO());
+
+		DocsEntradaRDTO docsEntradaoRDTO = new DocsEntradaRDTO();
+		BigDecimal idExpedient = ONE;
+		DocsEntradaRDTO response = api.actualitzarDocumentEntradaDigitalitzat(docsEntradaoRDTO, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * actualitzar Document Tramitacio Digitalitzat
+	 * 
+	 * @throws RestClientException
+	 */
+	@Test
+	public void actualitzarDocumentTramitacioDigitalitzatTest() throws RestClientException {
+		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/digitalitzar/1"), eq(HttpMethod.PUT), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
+
+		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
+		BigDecimal idExpedient = ONE;
+		DocsTramitacioRDTO response = api.actualitzarDocumentTramitacioDigitalitzat(docsTramitacioRDTO, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * actualitzar Requeriment
+	 * 
+	 * @throws RestClientException
+	 */
+	@Test
+	public void actualitzarRequerimentTest() throws RestClientException {
+		when(apiClient.invokeAPI(eq("/documentacio/requeriment/1"), eq(HttpMethod.PUT), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
+
+		GuardarRequerimentExpedient guardarRequerimentExpedient = new GuardarRequerimentExpedient();
+		BigDecimal idExpedient = ONE;
+		DocsTramitacioRDTO response = api.actualitzarRequeriment(guardarRequerimentExpedient, idExpedient);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * actualitzar Requeriment
+	 * 
+	 * @throws RestClientException
+	 */
+	@Test
+	public void guardarRequerimentPlantillaTest() throws RestClientException {
+		when(apiClient.invokeAPI(eq("/documentacio/requeriment/plantilla/1"), eq(HttpMethod.PUT), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
+
+		GuardarRequerimentExpedient guardarRequerimentExpedient = new GuardarRequerimentExpedient();
+		BigDecimal idExpedient = ONE;
+		DocsTramitacioRDTO response = api.guardarRequerimentPlantilla(guardarRequerimentExpedient, idExpedient);
 
 		assertTrue(true);
 	}
@@ -670,7 +714,7 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * Delete all selected DocsEntrada
+	 * ComprovarDocumentsSignatsExpedient
 	 *
 	 * 
 	 *
@@ -678,14 +722,13 @@ public class DocumentacioApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void esBorrarDocumentacioTramitacioTest() {
-		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/delete/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(null);
+	public void comprovarDocumentsSignatsExpedientTest() {
+		when(apiClient.invokeAPI(eq("/comprovarDocumentsSignatsExpedient/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(Boolean.class);
 
-		List<BigDecimal> docsEntradaIds = Arrays.asList(ONE);
-		BigDecimal idExpedient = ONE;
-		api.esBorrarDocumentacioTramitacio(docsEntradaIds, idExpedient);
+		BigDecimal idDocumentacio = ONE;
+		Boolean response = api.comprovarDocumentsSignatsExpedient(idDocumentacio);
 
 		assertTrue(true);
 	}
@@ -732,5 +775,4 @@ public class DocumentacioApiTest extends ParentTest {
 		assertTrue(response != null);
 
 	}
-
 }

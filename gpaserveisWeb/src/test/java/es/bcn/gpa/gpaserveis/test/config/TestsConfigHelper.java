@@ -35,7 +35,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiqu
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviarEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
@@ -1461,9 +1461,9 @@ public class TestsConfigHelper {
 	 *
 	 * @return the resposta canviar estat accio expedient
 	 */
-	public static RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedientResponse() {
+	public static RespostaCanviarEstatAccioExpedient canviarEstatExpedientResponse() {
 		RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccioExpedient = new RespostaCanviarEstatAccioExpedient();
-		ExpedientCanviEstat expedientCanviEstat = new ExpedientCanviEstat();
+		ExpedientCanviarEstat expedientCanviEstat = new ExpedientCanviarEstat();
 		expedientCanviEstat.setId(ONE);
 		expedientCanviEstat.setCodi("Codi");
 		expedientCanviEstat.setEstat("Estat");
@@ -1666,15 +1666,30 @@ public class TestsConfigHelper {
 		return pageDataOfDadesOperacionsRDTO;
 	}
 
-	public static List<PeticionsPortasig> crearPeticioPortaSigResponse() {
-		PeticionsPortasig peticionsPortasig = new PeticionsPortasig();
-		return Arrays.asList(peticionsPortasig);
+	public static PeticionsPortasig crearPeticioPortaSigResponse() {
+		return new PeticionsPortasig();
 	}
 
 	public static NotificacionsRDTO crearNotificacioResponse() {
 		NotificacionsRDTO notificacionsRDTO = new NotificacionsRDTO();
 		notificacionsRDTO.setNotificacioId(ONE);
 		return notificacionsRDTO;
+	}
+
+	public static List<AccionsEstatsRDTO> obtenirTransicionsCanviEstat() {
+		List<AccionsEstatsRDTO> accionsEstatsRDTOList = new ArrayList<AccionsEstatsRDTO>();
+		AccionsEstatsRDTO accionsEstatsRDTO = new AccionsEstatsRDTO();
+		accionsEstatsRDTO.setId(new BigDecimal(1));
+		accionsEstatsRDTO.setNomAccio("Accio 1");
+		accionsEstatsRDTO.setAccio(new BigDecimal(1));
+		accionsEstatsRDTO.setDescTransicio("Transicio 1");
+		accionsEstatsRDTO.setEsEstatFinal(0);
+		accionsEstatsRDTO.setEsEstatInicial(1);
+		accionsEstatsRDTO.setEstat(new BigDecimal(1));
+		accionsEstatsRDTO.setEstatTramitador("Estat Tramitador 1");
+		accionsEstatsRDTOList.add(accionsEstatsRDTO);
+
+		return accionsEstatsRDTOList;
 	}
 
 	/**

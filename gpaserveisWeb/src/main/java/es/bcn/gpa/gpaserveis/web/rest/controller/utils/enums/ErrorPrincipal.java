@@ -15,6 +15,8 @@ public enum ErrorPrincipal {
 
 	ERROR_UNITATS_NOT_VIGENT("1003", "La unitat gestora indicada no està vigent"),
 
+	ERROR_UNITATS_ASSIGNADA("1004", "La unitat gestora indicada ja està assignada a l'expedient"),
+
 	/* Procediments */
 	ERROR_PROCEDIMENTS_NOT_FOUND("2001", "No s'ha trobat el procediment"),
 
@@ -56,6 +58,8 @@ public enum ErrorPrincipal {
 
 	ERROR_EXPEDIENTS_DATA_LIMIT_NOT_VALID("3016", "La data límit no és vàlida perquè és anterior a la data actual"),
 
+	ERROR_EXPEDIENTS_TRANSICION_ESTAT_NOT_VALID("3017", "No existeix transició de canvi d'estat vàlida per a aquesta acció"),
+
 	/* Documents */
 	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document"),
 
@@ -68,7 +72,11 @@ public enum ErrorPrincipal {
 
 	ERROR_DOCUMENTS_UPLOAD_DECLARACIO_RESPONSABLE_NOT_AVAILABLE("4005", "No és possible pujar un fitxer a una declaració responsable"),
 
-	ERROR_ENTRADA_DOCUMENTS_UPLOAD("4006", "No s'ha rebut arxiu per a pujar ni identificador de gestor documental per a actualitzar"),
+	ERROR_DOCUMENTS_EXPEDIENTS_NO_SIGNATS("4006", "Els documents associats a l'expedient no estan signats"),
+	
+	ERROR_DOCUMENTS_EMMAGATZEMAR_FITXER("4007", "No s'ha pogut emmagatzemar el fitxer"),
+
+	ERROR_ENTRADA_DOCUMENTS_UPLOAD("4007", "No s'ha rebut arxiu per a pujar ni identificador de gestor documental per a actualitzar"),
 
 	/* Integracions */
 	ERROR_ARIADNA("5001", ""),

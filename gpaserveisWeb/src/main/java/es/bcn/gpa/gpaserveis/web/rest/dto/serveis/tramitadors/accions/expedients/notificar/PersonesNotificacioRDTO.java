@@ -11,7 +11,7 @@ import lombok.Setter;
 
 @ApiModel(value = "PersonaNotificacio")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "tipusPersona", "nom", "cognom1", "cognom2", "documentIndentitat", "dadesNotificacio" })
+@JsonPropertyOrder({ "tipusPersona", "nom", "cognom1", "cognom2", "documentIdentitat", "dadesNotificacio" })
 @Getter
 @Setter
 public class PersonesNotificacioRDTO {
@@ -25,7 +25,7 @@ public class PersonesNotificacioRDTO {
 	@ApiModelProperty(value = "Cognom 2 de la persona", required = true)
 	private String cognom2;
 	@ApiModelProperty(value = "Document d'identitat de la persona", required = true)
-	private DocumentsIdentitatNotificacioRDTO documentIndentitat;
+	private DocumentsIdentitatNotificacioRDTO documentIdentitat;
 	@ApiModelProperty(value = "Dades de notificació de la persona", required = true)
 	private DadesContacteNotificacioRDTO dadesNotificacio;
 

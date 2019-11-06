@@ -26,11 +26,12 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaDigitalitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioDigitalitzarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.CrearRequerimentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DescarregarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocsAssociatsIntraBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentEntradaFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentTramitacioFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarRequerimentFitxerBDTO;
@@ -65,6 +66,18 @@ import lombok.extern.apachecommons.CommonsLog;
  * The Class DocumentsServiceImpl.
  */
 @Service
+
+/** The Constant log. */
+
+/** The Constant log. */
+
+/** The Constant log. */
+
+/** The Constant log. */
+
+/** The Constant log. */
+
+/** The Constant log. */
 
 /** The Constant log. */
 
@@ -700,11 +713,11 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *            the actualitzar document tramitacio BDTO
 	 * @param e
 	 *            the e
-	 * @return the docs entrada RDTO
+	 * @return the docs tramitacio RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public DocsEntradaRDTO fallbackActualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO actualitzarDocumentTramitacioBDTO,
+	public DocsTramitacioRDTO fallbackActualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO actualitzarDocumentTramitacioBDTO,
 			Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackActualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO, Throwable) - inici"); //$NON-NLS-1$
@@ -774,59 +787,6 @@ public class DocumentsServiceImpl implements DocumentsService {
 			Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackGuardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO, Throwable) - inici"); //$NON-NLS-1$
-		}
-
-		ServeisServiceExceptionHandler.handleException(e);
-
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
-	 * guardarDocumentEntradaGestorDocumental(es.bcn.gpa.gpaserveis.business.dto
-	 * .documents .GuardarDocumentEntradaFitxerBDTO)
-	 */
-	@Override
-	@HystrixCommand(fallbackMethod = "fallbackGuardarDocumentEntradaGestorDocumental")
-	public DocsEntradaRDTO guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO)
-			throws GPAServeisServiceException {
-		if (log.isDebugEnabled()) {
-			log.debug("guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO) - inici"); //$NON-NLS-1$
-		}
-
-		try {
-			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.guardarDocumentEntradaGestorDocumental(
-					guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO(), guardarDocumentEntradaFitxerBDTO.getIdExpedient(),
-					guardarDocumentEntradaFitxerBDTO.getIdGestorDocumental());
-
-			if (log.isDebugEnabled()) {
-				log.debug("guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO) - fi"); //$NON-NLS-1$
-			}
-			return docsEntradaRDTO;
-		} catch (RestClientException e) {
-			log.error("guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO)", e); //$NON-NLS-1$
-
-			throw new GPAServeisServiceException(e.getMessage(), e);
-		}
-	}
-
-	/**
-	 * Fallback guardar document entrada gestor documental.
-	 *
-	 * @param guardarDocumentEntradaFitxerBDTO
-	 *            the guardar document entrada fitxer BDTO
-	 * @param e
-	 *            the e
-	 * @return the docs entrada RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	public DocsEntradaRDTO fallbackGuardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO,
-			Throwable e) throws GPAServeisServiceException {
-		if (log.isDebugEnabled()) {
-			log.debug("fallbackGuardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
@@ -970,97 +930,101 @@ public class DocumentsServiceImpl implements DocumentsService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * es.bcn.gpa.gpaserveis.business.DocumentsService#esborrarDocumentExpedient
-	 * (es.bcn.gpa.gpaserveis.business.dto.documents.
-	 * EsborrarDocumentExpedientBDTO)
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * guardarRequerimentPlantilla(es.bcn.gpa.gpaserveis.business.dto.documents.
+	 * CrearRequerimentBDTO)
 	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackEsborrarDocumentExpedient")
-	public void esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO) throws GPAServeisServiceException {
+	@HystrixCommand(fallbackMethod = "fallbackGuardarRequerimentPlantilla")
+	public DocsTramitacioRDTO guardarRequerimentPlantilla(CrearRequerimentBDTO crearRequerimentBDTO) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
+			log.debug("guardarRequerimentPlantilla(CrearRequerimentBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			documentacioApi.esborrarDocumentExpedient(esborrarDocumentExpedientBDTO.getIdDocumentList(),
-					esborrarDocumentExpedientBDTO.getIdExpedient());
-
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarRequerimentPlantilla(
+					crearRequerimentBDTO.getGuardarRequerimentExpedient(), crearRequerimentBDTO.getIdExpedient());
 			if (log.isDebugEnabled()) {
-				log.debug("esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO) - fi"); //$NON-NLS-1$
+				log.debug("guardarRequerimentPlantilla(CrearRequerimentBDTO) - fi"); //$NON-NLS-1$
 			}
+			return docsTramitacioRDTO;
 		} catch (RestClientException e) {
-			log.error("esborrarDocumentExpedient(EsborrarDocumentExpedientBDTO)", e); //$NON-NLS-1$
+			log.error("guardarRequerimentPlantilla(CrearRequerimentBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException(e.getMessage());
 		}
 	}
 
 	/**
-	 * Fallback esborrar document expedient.
+	 * Fallback guardar requeriment plantilla.
 	 *
-	 * @param esborrarDocumentExpedientBDTO
-	 *            the esborrar document expedient BDTO
+	 * @param crearRequerimentBDTO
+	 *            the crear requeriment BDTO
 	 * @param e
 	 *            the e
+	 * @return the docs tramitacio RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public void fallbackEsborrarDocumentExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO, Throwable e)
+	public DocsTramitacioRDTO fallbackGuardarRequerimentPlantilla(CrearRequerimentBDTO crearRequerimentBDTO, Throwable e)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackEsborrarDocumentExpedient(EsborrarDocumentExpedientBDTO, Throwable) - inici"); //$NON-NLS-1$
+			log.debug("fallbackGuardarRequerimentPlantilla(CrearRequerimentBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * es.bcn.gpa.gpaserveis.business.DocumentsService#esborrarDocumentExpedient
-	 * (es.bcn.gpa.gpaserveis.business.dto.documents.
-	 * EsborrarDocumentExpedientBDTO)
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#actualitzarRequeriment(es
+	 * .bcn.gpa.gpaserveis.business.dto.documents.CrearRequerimentBDTO)
 	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackEsborrarDocumentTramitacioExpedient")
-	public void esborrarDocumentTramitacioExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO)
-			throws GPAServeisServiceException {
+	@HystrixCommand(fallbackMethod = "fallbackActualitzarRequeriment")
+	public DocsTramitacioRDTO actualitzarRequeriment(CrearRequerimentBDTO crearRequerimentBDTO) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackEsborrarDocumentTramitacioExpedient(EsborrarDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
+			log.debug("actualitzarRequeriment(CrearRequerimentBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			documentacioApi.esBorrarDocumentacioTramitacio(esborrarDocumentExpedientBDTO.getIdDocumentList(),
-					esborrarDocumentExpedientBDTO.getIdExpedient());
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi
+					.actualitzarRequeriment(crearRequerimentBDTO.getGuardarRequerimentExpedient(), crearRequerimentBDTO.getIdExpedient());
 			if (log.isDebugEnabled()) {
-				log.debug("fallbackEsborrarDocumentTramitacioExpedient(EsborrarDocumentExpedientBDTO) - fi"); //$NON-NLS-1$
+				log.debug("actualitzarRequeriment(CrearRequerimentBDTO) - fi"); //$NON-NLS-1$
 			}
+			return docsTramitacioRDTO;
 		} catch (RestClientException e) {
-			log.error("fallbackEsborrarDocumentTramitacioExpedient(EsborrarDocumentExpedientBDTO)", e); //$NON-NLS-1$
+			log.error("actualitzarRequeriment(CrearRequerimentBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException(e.getMessage());
 		}
 	}
 
 	/**
-	 * Fallback esborrar document tramitacio expedient.
+	 * Fallback actualitzar requeriment.
 	 *
-	 * @param esborrarDocumentExpedientBDTO
-	 *            the esborrar document expedient BDTO
+	 * @param crearRequerimentBDTO
+	 *            the crear requeriment BDTO
 	 * @param e
 	 *            the e
+	 * @return the docs tramitacio RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public void fallbackEsborrarDocumentTramitacioExpedient(EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO, Throwable e)
+	public DocsTramitacioRDTO fallbackActualitzarRequeriment(CrearRequerimentBDTO crearRequerimentBDTO, Throwable e)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackEsborrarDocumentTramitacioExpedient(EsborrarDocumentExpedientBDTO, Throwable) - inici"); //$NON-NLS-1$
+			log.debug("fallbackActualitzarRequeriment(CrearRequerimentBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 
 	/*
@@ -1371,8 +1335,8 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			RespostaPlantillaDocVinculada respostaPlantillaDocVinculada = configuracioDocumentacioApi.getPlantillaDocVinculada(idConfDoc,
-					idDocVinculada);
+			RespostaPlantillaDocVinculada respostaPlantillaDocVinculada = configuracioDocumentacioApi
+					.consultarPlantillaDocumentacioVinculada(idConfDoc, idDocVinculada);
 
 			if (log.isDebugEnabled()) {
 				log.debug("getPlantillaDocVinculada(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
@@ -1462,55 +1426,6 @@ public class DocumentsServiceImpl implements DocumentsService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
-	 * desassociarRegistreDocumentacioExpedient(es.bcn.gpa.gpaserveis.rest.
-	 * client. api.model.gpadocumentacio.DocumentActualizarRegistre)
-	 */
-	@Override
-	@HystrixCommand(fallbackMethod = "fallbackDesssociarRegistreDocumentacioExpedient")
-	public void desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
-			throws GPAServeisServiceException {
-		if (log.isDebugEnabled()) {
-			log.debug("desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre) - inici"); //$NON-NLS-1$
-		}
-
-		try {
-			documentacioApi.desassociarRegistreDocumentacio(documentActualizarRegistreRDTO);
-
-			if (log.isDebugEnabled()) {
-				log.debug("desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre) - fi"); //$NON-NLS-1$
-			}
-
-		} catch (RestClientException e) {
-			log.error("desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre)", e); //$NON-NLS-1$
-
-			throw new GPAServeisServiceException(e);
-		}
-
-	}
-
-	/**
-	 * Fallback desassociar registre documentacio expedient.
-	 *
-	 * @param documentActualizarRegistreRDTO
-	 *            the document actualizar registre RDTO
-	 * @param e
-	 *            the e
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	public void fallbackDesssociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO, Throwable e)
-			throws GPAServeisServiceException {
-		if (log.isDebugEnabled()) {
-			log.debug("fallbackDesssociarRegistreDocumentacioExpedient(DocumentActualizarRegistre, Throwable) - inici"); //$NON-NLS-1$
-		}
-
-		ServeisServiceExceptionHandler.handleException(e);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * es.bcn.gpa.gpaserveis.business.DocumentsService#associarRegistreDocsEnt(
 	 * es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.
@@ -1571,7 +1486,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			PeticionsPortasig crearPeticioPortaSig = documentacioApi.crearPeticioPortaSig(signarDocument).get(0);
+			PeticionsPortasig crearPeticioPortaSig = documentacioApi.crearPeticioPortaSig(signarDocument);
 
 			if (log.isDebugEnabled()) {
 				log.debug("signarValidarDocument(SignarDocument) - fi"); //$NON-NLS-1$
@@ -1592,12 +1507,11 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *            the signar document
 	 * @param e
 	 *            the e
-	 * @return the list
+	 * @return the PeticionsPortasig
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public List<PeticionsPortasig> fallbackSignarValidarDocument(SignarDocument signarDocument, Throwable e)
-			throws GPAServeisServiceException {
+	public PeticionsPortasig fallbackSignarValidarDocument(SignarDocument signarDocument, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackSignarValidarDocument(SignarDocument, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -2086,6 +2000,239 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * esBorrarDocumentacioEntrada(es.bcn.gpa.gpaserveis.business.dto.documents.
+	 * EsborrarDocumentBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackEsBorrarDocumentacioEntrada")
+	public void esBorrarDocumentacioEntrada(EsborrarDocumentBDTO esborrarDocumentBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("esBorrarDocumentacioEntrada(EsborrarDocumentBDTO) - inici"); //$NON-NLS-1$
+		}
+		try {
+			documentacioApi.esBorrarDocumentacioEntrada(esborrarDocumentBDTO.getIdDocument(), esborrarDocumentBDTO.getIdExpedient());
+
+			if (log.isDebugEnabled()) {
+				log.debug("esBorrarDocumentacioEntrada(EsborrarDocumentBDTO) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("esBorrarDocumentacioEntrada(EsborrarDocumentBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+	}
+
+	/**
+	 * Fallback es borrar documentacio entrada.
+	 *
+	 * @param esborrarDocumentBDTO
+	 *            the esborrar document BDTO
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackEsBorrarDocumentacioEntrada(EsborrarDocumentBDTO esborrarDocumentBDTO, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackEsBorrarDocumentacioEntrada(EsborrarDocumentBDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+		ServeisServiceExceptionHandler.handleException(e);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * esBorrarDocumentacioTramitacio(es.bcn.gpa.gpaserveis.business.dto.
+	 * documents.EsborrarDocumentBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackEsBorrarDocumentacioTramitacio")
+	public void esBorrarDocumentacioTramitacio(EsborrarDocumentBDTO esborrarDocumentBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("esBorrarDocumentacioTramitacio(EsborrarDocumentBDTO) - inici"); //$NON-NLS-1$
+		}
+		try {
+			documentacioApi.esBorrarDocumentacioTramitacio(esborrarDocumentBDTO.getIdDocument(), esborrarDocumentBDTO.getIdExpedient());
+
+			if (log.isDebugEnabled()) {
+				log.debug("esBorrarDocumentacioTramitacio(EsborrarDocumentBDTO) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("esBorrarDocumentacioTramitacio(EsborrarDocumentBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+	}
+
+	/**
+	 * Fallback es borrar documentacio tramitacio.
+	 *
+	 * @param esborrarDocumentBDTO
+	 *            the esborrar document BDTO
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackEsBorrarDocumentacioTramitacio(EsborrarDocumentBDTO esborrarDocumentBDTO, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackEsBorrarDocumentacioTramitacio(EsborrarDocumentBDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+		ServeisServiceExceptionHandler.handleException(e);
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 *      desassociarRegistreDocumentacioExpedient(es.bcn.gpa.gpaserveis.rest.
+	 *      client. api.model.gpadocumentacio.DocumentActualizarRegistre)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackDesssociarRegistreDocumentacioExpedient")
+	public void desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			documentacioApi.desassociarRegistreDocumentacio(documentActualizarRegistreRDTO);
+
+			if (log.isDebugEnabled()) {
+				log.debug("desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre) - fi"); //$NON-NLS-1$
+			}
+
+		} catch (RestClientException e) {
+			log.error("desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e);
+		}
+
+	}
+
+	/**
+	 * Fallback desassociar registre documentacio expedient.
+	 *
+	 * @param documentActualizarRegistreRDTO
+	 *            the document actualizar registre RDTO
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackDesssociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackDesssociarRegistreDocumentacioExpedient(DocumentActualizarRegistre, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+	}
+
+	/**
+	 * comprovarDocumentsSignatsExpedient(java.math.BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackComprovarDocumentsSignatsExpedient")
+	public Boolean comprovarDocumentsSignatsExpedient(BigDecimal idDocumentacio) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("comprovarDocumentsSignatsExpedient(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+		try {
+			Boolean documentsSignats = documentacioApi.comprovarDocumentsSignatsExpedient(idDocumentacio);
+
+			if (log.isDebugEnabled()) {
+				log.debug("comprovarDocumentsSignatsExpedient(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			return documentsSignats;
+		} catch (RestClientException e) {
+			log.error("comprovarDocumentsSignatsExpedient(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+	}
+
+	/**
+	 * Fallback comprovar documents signats expedient.
+	 *
+	 * @param idDocumentacio
+	 *            the id documentacio
+	 * @param e
+	 *            the e
+	 * @return the boolean
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public Boolean fallbackComprovarDocumentsSignatsExpedient(BigDecimal idDocumentacio, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackComprovarDocumentsSignatsExpedient(EsborrarDocumentBDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * guardarDocumentEntradaGestorDocumental(es.bcn.gpa.gpaserveis.business.dto
+	 * .documents .GuardarDocumentEntradaFitxerBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackGuardarDocumentEntradaGestorDocumental")
+	public DocsEntradaRDTO guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.guardarDocumentEntradaGestorDocumental(
+					guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO(), guardarDocumentEntradaFitxerBDTO.getIdExpedient(),
+					guardarDocumentEntradaFitxerBDTO.getIdGestorDocumental());
+
+			if (log.isDebugEnabled()) {
+				log.debug("guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO) - fi"); //$NON-NLS-1$
+			}
+			return docsEntradaRDTO;
+		} catch (RestClientException e) {
+			log.error("guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * Fallback guardar document entrada gestor documental.
+	 *
+	 * @param guardarDocumentEntradaFitxerBDTO
+	 *            the guardar document entrada fitxer BDTO
+	 * @param e
+	 *            the e
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsEntradaRDTO fallbackGuardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO,
+			Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackGuardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 
 	/*

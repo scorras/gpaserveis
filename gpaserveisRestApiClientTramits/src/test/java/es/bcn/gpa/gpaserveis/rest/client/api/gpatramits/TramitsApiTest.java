@@ -35,6 +35,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.PageDataOfTramitsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiClient.CollectionFormat;
 
 /**
@@ -60,6 +61,8 @@ public class TramitsApiTest extends ParentTest {
 	public void cercaTramitsProcedimentTest() {
 		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
 		        .thenReturn(new LinkedMultiValueMap<String, String>());
+		when(apiClient.parameterToMultiValueMap(any(CollectionFormat.class), any(String.class), any(Object.class)))
+		        .thenReturn(new LinkedMultiValueMap<String, String>());
 		when(apiClient.invokeAPI(eq("/tramits/searchAssociated/procediment/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfTramitsRDTO());
@@ -67,6 +70,23 @@ public class TramitsApiTest extends ParentTest {
 		BigDecimal idProcediment = ONE;
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
+		BigDecimal bloqueig = null;
+		BigDecimal bloquejosId = null;
+		DateTime bloquejosMomentBloqueig = null;
+		String bloquejosTipus = null;
+		Boolean bloquejosTramitBloquejatPerAltreUsuari = null;
+		Boolean bloquejosTramitEditable = null;
+		BigDecimal bloquejosUsuari = null;
+		String bloquejosUsuariBloquejoCarrec = null;
+		String bloquejosUsuariBloquejoCognom1 = null;
+		String bloquejosUsuariBloquejoCognom2 = null;
+		String bloquejosUsuariBloquejoDocumentIdentitat = null;
+		String bloquejosUsuariBloquejoEmail = null;
+		List<String> bloquejosUsuariBloquejoGrp = null;
+		BigDecimal bloquejosUsuariBloquejoId = null;
+		String bloquejosUsuariBloquejoMatricula = null;
+		String bloquejosUsuariBloquejoNom = null;
+		String bloquejosUsuariBloquejoUser = null;
 		Boolean currentPageHasNextPage = null;
 		Boolean currentPageHasPreviousPage = null;
 		Boolean currentPageIsFirstPage = null;
@@ -75,8 +95,17 @@ public class TramitsApiTest extends ParentTest {
 		DateTime darreraModificacio = null;
 		DateTime dataGestioElectronica = null;
 		String descripcio = null;
+		String descripcioEstatTramit = null;
 		String dir = null;
 		Integer esTramitIniciacio = null;
+		BigDecimal estatTramit = null;
+		BigDecimal estatsTramitEstat = null;
+		BigDecimal estatsTramitEstatTramitAnt = null;
+		String estatsTramitEstatsTramitsDescripcio = null;
+		BigDecimal estatsTramitEstatsTramitsId = null;
+		BigDecimal estatsTramitHistoric = null;
+		BigDecimal estatsTramitId = null;
+		BigDecimal estatsTramitTramit = null;
 		Integer exclusiuIntern = null;
 		String gestioElectronica = null;
 		BigDecimal id = null;
@@ -93,10 +122,36 @@ public class TramitsApiTest extends ParentTest {
 		Integer totalPages = null;
 		BigDecimal ultimaModificacio = null;
 		PageDataOfTramitsRDTO response = api.cercaTramitsProcediment(idProcediment, absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, darreraModificacio, dataGestioElectronica, descripcio, dir, esTramitIniciacio,
+		        absoluteRowNumberOfLastRowInCurrentPage, bloqueig, bloquejosId, bloquejosMomentBloqueig, bloquejosTipus,
+		        bloquejosTramitBloquejatPerAltreUsuari, bloquejosTramitEditable, bloquejosUsuari, bloquejosUsuariBloquejoCarrec,
+		        bloquejosUsuariBloquejoCognom1, bloquejosUsuariBloquejoCognom2, bloquejosUsuariBloquejoDocumentIdentitat,
+		        bloquejosUsuariBloquejoEmail, bloquejosUsuariBloquejoGrp, bloquejosUsuariBloquejoId, bloquejosUsuariBloquejoMatricula,
+		        bloquejosUsuariBloquejoNom, bloquejosUsuariBloquejoUser, currentPageHasNextPage, currentPageHasPreviousPage,
+		        currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, darreraModificacio, dataGestioElectronica, descripcio,
+		        descripcioEstatTramit, dir, esTramitIniciacio, estatTramit, estatsTramitEstat, estatsTramitEstatTramitAnt,
+		        estatsTramitEstatsTramitsDescripcio, estatsTramitEstatsTramitsId, estatsTramitHistoric, estatsTramitId, estatsTramitTramit,
 		        exclusiuIntern, gestioElectronica, id, informacioTramitador, nextPageNumber, nom, normaAltresAplicacio,
 		        normaReferenciaPrincipal, pageSize, previousPageNumber, rolUsuari, sort, totalElements, totalPages, ultimaModificacio);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested tramits
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void consultarDadesTramitTest() {
+		when(apiClient.invokeAPI(eq("/tramits/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class),
+		        any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new TramitsRDTO());
+
+		BigDecimal id = ONE;
+		TramitsRDTO response = api.consultarDadesTramit(id);
 
 		assertTrue(response != null);
 	}

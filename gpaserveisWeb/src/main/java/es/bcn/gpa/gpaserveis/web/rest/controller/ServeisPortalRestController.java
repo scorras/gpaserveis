@@ -3,7 +3,6 @@ package es.bcn.gpa.gpaserveis.web.rest.controller;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -40,12 +39,12 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaDigitali
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DescarregarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentEntradaFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaAportarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDigitalitzarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaEsborrarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaEsborrarDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaSubstituirDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaUploadDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
@@ -53,7 +52,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadaEspecificaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
@@ -84,11 +83,12 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AvisCreacioAcci
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstatAccio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
@@ -580,7 +580,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	@GetMapping("/expedients/{codiExpedient}/report/exportacio-xml")
+	@GetMapping(value = "/expedients/{codiExpedient}/report/exportacio-xml", produces = MediaType.TEXT_PLAIN_VALUE)
 	@ApiOperation(value = "Exporta les dades de l'expedient en format XML", tags = { "Serveis Portal API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public ResponseEntity<String> exportarDadesExpedientXml(
@@ -781,7 +781,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = serveisService.cercaDadesOperacio(dadesOperacioCercaBDTO);
 				dadesEspecifiquesRDTOList = ServeisRestControllerValidationHelper.validateDadesOperacioActualitzarSolicitudExpedient(
 						solicitudExpedient.getDadesOperacio(), respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList(),
-						dadesExpedientBDTO.getExpedientsRDTO().getId());
+						dadesExpedientBDTO.getExpedientsRDTO().getId(), true);
 			}
 
 			// Se construye el modelo para la llamada a la operación de
@@ -883,11 +883,22 @@ public class ServeisPortalRestController extends BaseRestController {
 			serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
 
 			// Cambiar el estado del expediente
-			ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
-					ExpedientCanviEstatAccio.class);
-			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
-					dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.REGISTRAR_SOLLICITUD.getInternalValue());
-			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+
+			// obtenemos el idAccioEstat futuro
+			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
+					AccioTramitadorApiParamValue.REGISTRAR_SOLLICITUD.getInternalValue(),
+					dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+
+			// debe existir una transicion posible para el estado actual
+			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
+					AccioTramitadorApiParamValue.REGISTRAR_SOLLICITUD, Resultat.ERROR_REGISTRAR_EXPEDIENT);
+
+			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+
+			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
+					dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 			dadesExpedientBDTO.getExpedientsRDTO().setIdEstat(EstatTramitadorApiParamValue.SOL_LICITUD_EN_REVISIO.getInternalValue());
 
 		} catch (GPAApiParamValidationException e) {
@@ -932,13 +943,14 @@ public class ServeisPortalRestController extends BaseRestController {
 			}
 
 			if (respostaCrearJustificant != null) {
-				EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO = new EsborrarDocumentExpedientBDTO(
-						dadesExpedientBDTO.getExpedientsRDTO().getId(), Arrays.asList(respostaCrearJustificant.getId()));
-				serveisService.esborrarDocumentTramitacioExpedient(esborrarDocumentExpedientBDTO);
+				EsborrarDocumentBDTO esborrarDocumentExpedientBDTO = new EsborrarDocumentBDTO(
+						dadesExpedientBDTO.getExpedientsRDTO().getId(), respostaCrearJustificant.getId());
+				serveisService.esBorrarDocumentacioTramitacio(esborrarDocumentExpedientBDTO);
 
 				// ponemos a nulo los valores para no incluirlos en la respuesta
 				// (comprovant)
 				respostaCrearJustificant.setId(null);
+
 			}
 
 		} catch (GPAServeisServiceException e1) {
@@ -1260,9 +1272,12 @@ public class ServeisPortalRestController extends BaseRestController {
 	@DeleteMapping("/expedients/{codiExpedient}/documentacio/{idDocument}")
 	@ApiOperation(value = "Esborrar un document de l'expedient", tags = { "Serveis Portal API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	public RespostaEsborrarDocumentRDTO esborrarDocumentExpedient(
+	public RespostaEsborrarDocumentRDTO esborrarDocument(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument) {
+		if (log.isDebugEnabled()) {
+			log.debug("esborrarDocument(String, BigDecimal) - inici"); //$NON-NLS-1$
+		}
 
 		RespostaEsborrarDocumentRDTO respostaEsborrarDocumentRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
@@ -1286,23 +1301,27 @@ public class ServeisPortalRestController extends BaseRestController {
 
 			// Se construye el modelo para la llamada a la operación de esborrar
 			// document
-			EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO = new EsborrarDocumentExpedientBDTO(
-					dadesExpedientBDTO.getExpedientsRDTO().getId(), Arrays.asList(idDocument));
-			serveisService.esborrarDocumentExpedient(esborrarDocumentExpedientBDTO);
+			EsborrarDocumentBDTO esborrarDocumentBDTO = new EsborrarDocumentBDTO(dadesExpedientBDTO.getExpedientsRDTO().getId(),
+					idDocument);
+
+			serveisService.esBorrarDocumentacioEntrada(esborrarDocumentBDTO);
 
 		} catch (GPAApiParamValidationException e) {
-			log.error("esborrarDocumentExpedient(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
+			log.error("esborrarDocument(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 		} catch (Exception e) {
-			log.error("esborrarDocumentExpedient(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
+			log.error("esborrarDocument(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT, e);
 		}
 
 		ExpedientsRDTO expedientsRDTO = (dadesExpedientBDTO != null) ? dadesExpedientBDTO.getExpedientsRDTO() : null;
-		RespostaEsborrarDocumentExpedientBDTO respostaEsborrarDocumentExpedientBDTO = new RespostaEsborrarDocumentExpedientBDTO(
-				expedientsRDTO, docsEntradaRDTO, respostaResultatBDTO);
-		respostaEsborrarDocumentRDTO = modelMapper.map(respostaEsborrarDocumentExpedientBDTO, RespostaEsborrarDocumentRDTO.class);
+		RespostaEsborrarDocumentEntradaBDTO respostaEsborrarDocumentEntradaBDTO = new RespostaEsborrarDocumentEntradaBDTO(expedientsRDTO,
+				docsEntradaRDTO, respostaResultatBDTO);
+		respostaEsborrarDocumentRDTO = modelMapper.map(respostaEsborrarDocumentEntradaBDTO, RespostaEsborrarDocumentRDTO.class);
 
+		if (log.isDebugEnabled()) {
+			log.debug("esborrarDocument(String, BigDecimal) - fi"); //$NON-NLS-1$
+		}
 		return respostaEsborrarDocumentRDTO;
 	}
 
@@ -1434,9 +1453,11 @@ public class ServeisPortalRestController extends BaseRestController {
 
 			// Nos quedamos con una copia de los dades de operacio actuales del
 			// expedient para restaurar en caso de error posterior
-			dadesEspecifiquesRDTOListBBDD = new ArrayList<>();
-			for (DadaEspecificaBDTO dadaEspecificaBDTO : dadesExpedientBDTO.getDadesOperacio()) {
-				dadesEspecifiquesRDTOListBBDD.add(dadaEspecificaBDTO.getDadaEspecifica());
+			if (CollectionUtils.isNotEmpty(dadesExpedientBDTO.getDadesOperacio())) {
+				dadesEspecifiquesRDTOListBBDD = new ArrayList<>();
+				for (DadaEspecificaBDTO dadaEspecificaBDTO : dadesExpedientBDTO.getDadesOperacio()) {
+					dadesEspecifiquesRDTOListBBDD.add(dadaEspecificaBDTO.getDadaEspecifica());
+				}
 			}
 
 			// TODO CAMBIAR OBJETOS PARA QUE NO LLEVEN SOLLICITUD, MAS
@@ -1475,12 +1496,22 @@ public class ServeisPortalRestController extends BaseRestController {
 			serveisService.tancarRequerimentsExpedient(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
 
 			// 6. Cambiar el estado del expediente
-			ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
-					ExpedientCanviEstatAccio.class);
-			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
-					dadesExpedientBDTO.getExpedientsRDTO().getId(),
-					AccioTramitadorApiParamValue.RESPONDRE_REQUERIMENT_O_TRAMIT_ALLEGACIONS_O_IP.getInternalValue());
-			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+
+			// obtenemos el idAccioEstat futuro
+			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
+					AccioTramitadorApiParamValue.RESPONDRE_REQUERIMENT_O_TRAMIT_ALLEGACIONS_O_IP.getInternalValue(),
+					dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+
+			// debe existir una transicion posible para el estado actual
+			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
+					AccioTramitadorApiParamValue.RESPONDRE_REQUERIMENT_O_TRAMIT_ALLEGACIONS_O_IP, Resultat.ERROR_ESMENAR_EXPEDIENT);
+
+			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+
+			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
+					dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("esmenarExpedient(BigDecimal, ExpedientEsmenaRDTO)", e);// $NON-NLS-1$
@@ -1519,16 +1550,19 @@ public class ServeisPortalRestController extends BaseRestController {
 			// expediente
 			if (null != idsDocsEnt && CollectionUtils.isNotEmpty(idsDocsEnt)) {
 
-				EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO = new EsborrarDocumentExpedientBDTO(
-						dadesExpedientBDTO.getExpedientsRDTO().getId(), idsDocsEnt);
+				EsborrarDocumentBDTO esborrarDocumentExpedientBDTO = null;
+				for (BigDecimal idDoc : idsDocsEnt) {
+					esborrarDocumentExpedientBDTO = new EsborrarDocumentBDTO(dadesExpedientBDTO.getExpedientsRDTO().getId(), idDoc);
 
-				serveisService.esborrarDocumentExpedient(esborrarDocumentExpedientBDTO);
+					serveisService.esBorrarDocumentacioEntrada(esborrarDocumentExpedientBDTO);
+				}
+
 			}
 			// 2 Borramos el justificante generado en la esmena
 			if (respostaCrearJustificant != null) {
-				EsborrarDocumentExpedientBDTO esborrarDocumentExpedientBDTO = new EsborrarDocumentExpedientBDTO(
-						dadesExpedientBDTO.getExpedientsRDTO().getId(), Arrays.asList(respostaCrearJustificant.getId()));
-				serveisService.esborrarDocumentTramitacioExpedient(esborrarDocumentExpedientBDTO);
+				EsborrarDocumentBDTO esborrarDocumentExpedientBDTO = new EsborrarDocumentBDTO(
+						dadesExpedientBDTO.getExpedientsRDTO().getId(), respostaCrearJustificant.getId());
+				serveisService.esBorrarDocumentacioTramitacio(esborrarDocumentExpedientBDTO);
 			}
 			// 3 Restauramos los dades operacio con los que tenia el expediente
 			if (actualitzarDadesSollicitud != null && dadesEspecifiquesRDTOListBBDD != null && dadesEspecifiquesRDTOListBBDD.size() > 0) {
@@ -1548,7 +1582,7 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		} catch (GPAServeisServiceException e1) {
 			log.error(
-					"sagaRegistrarSolicitudExpedient(DadesExpedientBDTO, RespostaCrearRegistreExpedient, DocsTramitacioRDTO, ExpedientsRegistrarBDTO, DocumentActualizarRegistre)",
+					"sagaEsmenarExpedient(ExpedientEsmenaRDTO, DadesExpedientBDTO, DocsTramitacioRDTO, List<BigDecimal>, Integer, ActualitzarDadesSollicitud, List<DadesEspecifiquesRDTO>)",
 					e1);// $NON-NLS-1$
 		}
 	}
@@ -1590,11 +1624,22 @@ public class ServeisPortalRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.DESISTIR_RENUNCIAR, Resultat.ERROR_DESISTIR_RENUNCIAR_EXPEDIENT);
 
 			// Cambio de estado del expediente
-			ExpedientCanviEstatAccio expedientCanviEstatAccio = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(),
-					ExpedientCanviEstatAccio.class);
-			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO = new ExpedientsCanviarEstatAccioBDTO(expedientCanviEstatAccio,
-					dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.DESISTIR_RENUNCIAR.getInternalValue());
-			serveisService.canviarEstatAccioExpedient(expedientsCanviarEstatAccioBDTO);
+			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
+
+			// obtenemos el idAccioEstat futuro
+			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
+					AccioTramitadorApiParamValue.DESISTIR_RENUNCIAR.getInternalValue(),
+					dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+
+			// debe existir una transicion posible para el estado actual
+			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
+					AccioTramitadorApiParamValue.DESISTIR_RENUNCIAR, Resultat.ERROR_DESISTIR_RENUNCIAR_EXPEDIENT);
+
+			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+
+			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
+					dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 
 			// Crear comentario
 			ComentariCreacioAccio comentariCreacioAccio = new ComentariCreacioAccio();

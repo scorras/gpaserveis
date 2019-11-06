@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaunitats"
-  version: "1.9.1"
+  version: "1.15.0"
   title: "API gpaunitats"
   contact:
     name: "Sergio Corras"
@@ -11,14 +11,10 @@ info:
     name: "Llicència IMI"
 basePath: "/services/gpaunitats/rest"
 tags:
-- name: "catalog-rest-controller"
-  description: "Catalog Rest Controller"
 - name: "contexte-seguretat-rest-controller"
   description: "Contexte Seguretat Rest Controller"
 - name: "unitats-rest-controller"
   description: "Unitats Rest Controller"
-- name: "usuaris-rest-controller"
-  description: "Usuaris Rest Controller"
 paths:
   /autenticacioUsuaris/autenticat:
     get:
@@ -42,257 +38,27 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /unitats:
-    get:
-      tags:
-      - "Unitats Gestores"
-      summary: "Returns all the unitats gestores"
-      operationId: "getUnitatsGestoresUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "absoluteRowNumberOfLastRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "currentPageHasNextPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageHasPreviousPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsFirstPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsLastPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "dir"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "nextPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "pageSize"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "previousPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "sort"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "totalElements"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int64"
-      - name: "totalPages"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/PageDataOfUnitatsGestoresRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-    post:
-      tags:
-      - "Unitats Gestores"
-      summary: "Insert  or updates the provided unitat"
-      operationId: "saveOrUpdateUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "unitatsGestoresRDTO"
-        description: "unitatsGestoresRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/UnitatsGestoresRDTO"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/UnitatsGestoresRDTO"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /unitats/all:
+  /unitats/obtenirIdsUnitatsPerNomList/{nomList}:
     get:
       tags:
       - "Unitats Gestores"
       summary: "Returns the requested unitat"
-      operationId: "getAllUnitatsGestoresUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/UnitatsGestoresRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /unitats/catalog/unitatsOrganigrama:
-    get:
-      tags:
-      - "RelacioProcediments"
-      summary: "Returns all the unitats Organigrama"
-      operationId: "obtenirUnitatsOrganigramaUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/UnitatsOrganigramaRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /unitats/darreraSincronitzacio:
-    get:
-      tags:
-      - "Unitats Gestores"
-      summary: "Returns the requested unitat"
-      operationId: "return darrera sincronitzacio"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "string"
-            format: "date-time"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /unitats/delete:
-    post:
-      tags:
-      - "Unitats Gestores"
-      summary: "Deletes the requested unitats list"
-      operationId: "bulkDeleteUnitatListUsingPOST"
-      consumes:
-      - "application/json"
+      operationId: "consultarDadesUnitatGestoraPerNomList"
       produces:
       - "*/*"
       parameters:
-      - in: "body"
-        name: "unitatIdList"
-        description: "unitatIdList"
+      - name: "nomList"
+        in: "path"
+        description: "nomList"
         required: true
-        schema:
-          type: "array"
-          items:
-            type: "number"
-      responses:
-        200:
-          description: "OK"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /unitats/list:
-    post:
-      tags:
-      - "Unitats Gestores"
-      summary: "Selects the requested unitats list"
-      operationId: "selectUnitatListUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "unitatIdList"
-        description: "unitatIdList"
-        required: true
-        schema:
-          type: "array"
-          items:
-            type: "number"
+        type: "string"
       responses:
         200:
           description: "OK"
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/UnitatsGestoresRDTO"
-        201:
-          description: "Created"
+              type: "number"
         401:
           description: "Unauthorized"
         403:
@@ -401,12 +167,21 @@ paths:
         in: "query"
         required: false
         type: "number"
+      - name: "idGrup"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
       - name: "nextPageNumber"
         in: "query"
         required: false
         type: "integer"
         format: "int32"
       - name: "nom"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "nomDescripcio"
         in: "query"
         required: false
         type: "string"
@@ -464,54 +239,6 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /unitats/sincronitzarUnitatsGestores:
-    post:
-      tags:
-      - "Unitats Gestores"
-      summary: "Sincronitzar Unitats Gestores"
-      operationId: "sincronitzarUnitatsGestoresUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /unitats/vigents:
-    get:
-      tags:
-      - "Unitats Gestores"
-      summary: "Returns all the unitats gestores vigents"
-      operationId: "obtenirUnitatsGestoresVigentsUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/UnitatsGestoresRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
   /unitats/{id}:
     get:
       tags:
@@ -540,83 +267,25 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /usuaris/list/{idsUsuaris}:
+  /unitats/{id}/unitatOrganigrama:
     get:
       tags:
-      - "Usuaris"
-      summary: "Returns the requested usuaris"
-      operationId: "obtenirUsuarisPorIds"
+      - "Unitats Gestores"
+      summary: "Returns the requested unitat"
+      operationId: "consultarUnitatOrganigrama"
       produces:
       - "*/*"
       parameters:
-      - name: "idsUsuaris"
+      - name: "id"
         in: "path"
-        description: "idsUsuaris"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/UsuarisRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /usuaris/matricula/{matricula}:
-    get:
-      tags:
-      - "Usuaris"
-      summary: "Returns the requested usuari"
-      operationId: "obtenirUsuariPorMatricula"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "matricula"
-        in: "path"
-        description: "matricula"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/UsuarisRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /usuaris/{idUsuari}:
-    get:
-      tags:
-      - "Usuaris"
-      summary: "Returns the requested usuari"
-      operationId: "obtenirUsuariPorId"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idUsuari"
-        in: "path"
-        description: "idUsuari"
+        description: "id"
         required: true
         type: "number"
       responses:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/UsuarisRDTO"
+            $ref: "#/definitions/UnitatsOrganigramaRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -701,7 +370,12 @@ definitions:
         type: "string"
       id:
         type: "number"
+      idGrup:
+        type: "integer"
+        format: "int64"
       nom:
+        type: "string"
+      nomDescripcio:
         type: "string"
       unitatOrganigrama:
         type: "number"
@@ -736,6 +410,10 @@ definitions:
         type: "string"
       email:
         type: "string"
+      grp:
+        type: "array"
+        items:
+          type: "string"
       id:
         type: "number"
       matricula:

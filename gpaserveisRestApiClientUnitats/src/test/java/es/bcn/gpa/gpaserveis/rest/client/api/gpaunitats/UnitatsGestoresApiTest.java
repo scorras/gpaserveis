@@ -20,6 +20,7 @@ import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -36,6 +37,7 @@ import org.springframework.util.MultiValueMap;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsOrganigramaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaunitats.ApiClient.CollectionFormat;
 
 /**
@@ -59,12 +61,12 @@ public class UnitatsGestoresApiTest extends ParentTest {
 	@Test
 	public void cercaUnitatsGestoresTest() {
 		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
-		        .thenReturn(new LinkedMultiValueMap<String, String>());
+				.thenReturn(new LinkedMultiValueMap<String, String>());
 		when(apiClient.parameterToMultiValueMap(any(CollectionFormat.class), any(String.class), any(Object.class)))
-		        .thenReturn(new LinkedMultiValueMap<String, String>());
+				.thenReturn(new LinkedMultiValueMap<String, String>());
 		when(apiClient.invokeAPI(eq("/unitats/search"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfUnitatsGestoresRDTO());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfUnitatsGestoresRDTO());
 
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
@@ -80,8 +82,10 @@ public class UnitatsGestoresApiTest extends ParentTest {
 		String descripcio = null;
 		String dir = null;
 		BigDecimal id = null;
+		Long idGrup = null;
 		Integer nextPageNumber = null;
 		String nom = null;
+		String nomDescripcio = null;
 		Integer pageSize = null;
 		Integer previousPageNumber = null;
 		String sort = null;
@@ -91,10 +95,10 @@ public class UnitatsGestoresApiTest extends ParentTest {
 		List<BigDecimal> unitatOrganigramaList = null;
 		Integer vigent = null;
 		PageDataOfUnitatsGestoresRDTO response = api.cercaUnitatsGestores(absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-		        currentPageIsLastPage, currentPageNumber, darreraSincronitzacio, dataCreacio, dataModificacio, descUnitatOrganigrama,
-		        descripcio, dir, id, nextPageNumber, nom, pageSize, previousPageNumber, sort, totalElements, totalPages, unitatOrganigrama,
-		        unitatOrganigramaList, vigent);
+				absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
+				currentPageIsLastPage, currentPageNumber, darreraSincronitzacio, dataCreacio, dataModificacio, descUnitatOrganigrama,
+				descripcio, dir, id, idGrup, nextPageNumber, nom, nomDescripcio, pageSize, previousPageNumber, sort, totalElements,
+				totalPages, unitatOrganigrama, unitatOrganigramaList, vigent);
 
 		assertTrue(response != null);
 	}
@@ -110,8 +114,8 @@ public class UnitatsGestoresApiTest extends ParentTest {
 	@Test
 	public void consultarDadesUnitatGestoraTest() {
 		when(apiClient.invokeAPI(eq("/unitats/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class),
-		        any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new UnitatsGestoresRDTO());
+				any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new UnitatsGestoresRDTO());
 
 		BigDecimal id = ONE;
 		UnitatsGestoresRDTO response = api.consultarDadesUnitatGestora(id);
@@ -130,11 +134,51 @@ public class UnitatsGestoresApiTest extends ParentTest {
 	@Test
 	public void consultarDadesUnitatGestoraPerNomTest() {
 		when(apiClient.invokeAPI(eq("/unitats/perNom/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new UnitatsGestoresRDTO());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new UnitatsGestoresRDTO());
 
 		String nom = ONE.toString();
 		UnitatsGestoresRDTO response = api.consultarDadesUnitatGestoraPerNom(nom);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested unitat
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void consultarDadesUnitatGestoraPerNomListTest() {
+		when(apiClient.invokeAPI(eq("/unitats/obtenirIdsUnitatsPerNomList/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<BigDecimal>());
+
+		String nom = ONE.toString();
+		List<BigDecimal> response = api.consultarDadesUnitatGestoraPerNomList(nom);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested unitat
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void consultarUnitatOrganigrama() {
+		when(apiClient.invokeAPI(eq("/unitats/1/unitatOrganigrama"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new UnitatsOrganigramaRDTO());
+
+		BigDecimal id = ONE;
+		UnitatsOrganigramaRDTO response = api.consultarUnitatOrganigrama(id);
 
 		assertTrue(response != null);
 	}

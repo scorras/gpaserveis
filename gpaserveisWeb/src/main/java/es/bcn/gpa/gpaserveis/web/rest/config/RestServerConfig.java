@@ -12,6 +12,7 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
+import es.bcn.gpa.gpaserveis.web.rest.controller.converter.StringToDocumentComplecioRDTOConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.converter.StringToDocumentIncorporacioNouRDTOConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.converter.StringToRequerimentPreparacioRDTOConverter;
 import net.opentrends.openframe.services.rest.apidocs.config.RestServiceDefaultSwaggerConfiguration;
@@ -33,7 +34,7 @@ public class RestServerConfig extends RestServiceDefaultSwaggerConfiguration {
 	@Bean(name = "apiDocumentedByRestService")
 	public Docket apiDocumentedByRestService() {
 		return super.apiDocumentedByRestService().pathProvider(null).genericModelSubstitutes(ResponseEntity.class).forCodeGeneration(true)
-		        .useDefaultResponseMessages(true);
+				.useDefaultResponseMessages(true);
 	}
 
 	/**
@@ -83,6 +84,7 @@ public class RestServerConfig extends RestServiceDefaultSwaggerConfiguration {
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addConverter(new StringToDocumentIncorporacioNouRDTOConverter());
 		registry.addConverter(new StringToRequerimentPreparacioRDTOConverter());
+		registry.addConverter(new StringToDocumentComplecioRDTOConverter());
 	}
 
 }

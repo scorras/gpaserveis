@@ -12,24 +12,25 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import es.bcn.gpa.gpaserveis.business.ExpedientsService;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.AnotarOperacioComptableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAcumularBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatAccioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarUnitatGestoraBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.business.handler.ServeisServiceExceptionHandler;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.CanviUnitatGestoraApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ConvidarATramitartApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
@@ -38,7 +39,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
-import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.RetornarLaTramitacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
@@ -56,6 +56,12 @@ import lombok.extern.apachecommons.CommonsLog;
  * The Class ExpedientsServiceImpl.
  */
 @Service
+
+/** The Constant log. */
+
+/** The Constant log. */
+
+/** The Constant log. */
 
 /** The Constant log. */
 @CommonsLog
@@ -93,18 +99,6 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	@Autowired
 	private AvisosApi avisosApi;
 
-	/** The convidar A tramitart api. */
-	@Autowired
-	private ConvidarATramitartApi convidarATramitartApi;
-
-	/** The retornar la tramitacio api. */
-	@Autowired
-	private RetornarLaTramitacioApi retornarLaTramitacioApi;
-
-	/** The Canvi unitat gestora api. */
-	@Autowired
-	private CanviUnitatGestoraApi canviUnitatGestoraApi;
-
 	/** The acumulaci expedients api. */
 	@Autowired
 	private AcumulaciExpedientsApi acumulaciExpedientsApi;
@@ -136,7 +130,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 					expedientsCercaBDTO.getAplicacioNegoci(), null, expedientsCercaBDTO.getCodi(), null, null, null, null, null, null, null,
 					expedientsCercaBDTO.getCurrentPageNumber(), expedientsCercaBDTO.getDataPresentacioDes(),
 					expedientsCercaBDTO.getDataPresentacioFinsA(), expedientsCercaBDTO.getDir(), expedientsCercaBDTO.getEstatList(), null,
-					null, null, null, expedientsCercaBDTO.getNifSollicitant(), null, expedientsCercaBDTO.getPageSize(), null,
+					null, null, null, null, expedientsCercaBDTO.getNifSollicitant(), expedientsCercaBDTO.getPageSize(), null,
 					expedientsCercaBDTO.getProcedimentCodisList(), null, expedientsCercaBDTO.getProcedimentVersio(),
 					expedientsCercaBDTO.getSort(), null, null, expedientsCercaBDTO.getTramitador(),
 					expedientsCercaBDTO.getUnitatsGestoresList());
@@ -428,23 +422,23 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 * api.model.gpaexpedients.PersonesSollicitudRDTO)
 	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackActualitzarDadesAltraPersonaImplicada")
-	public PageDataOfPersonesSollicitudRDTO actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO)
+	@HystrixCommand(fallbackMethod = "fallbackDonarAccesAltraPersonaImplicada")
+	public PageDataOfPersonesSollicitudRDTO donarAccesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO) - inici"); //$NON-NLS-1$
+			log.debug("donarAccesAltraPersonaImplicada(PersonesSollicitudRDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = personesSollicitudApi.actualitzarDadesAltraPersonaImplicada(
+			PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = personesSollicitudApi.donarAccesAltraPersonaImplicada(
 					personesSollicitudRDTO, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
-				log.debug("actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO) - fi"); //$NON-NLS-1$
+				log.debug("donarAccesAltraPersonaImplicada(PersonesSollicitudRDTO) - fi"); //$NON-NLS-1$
 			}
 			return pageDataOfPersonesSollicitudRDTO;
 		} catch (RestClientException e) {
-			log.error("actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO)", e); //$NON-NLS-1$
+			log.error("donarAccesAltraPersonaImplicada(PersonesSollicitudRDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
@@ -688,76 +682,28 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#esborrarRegistre(es.bcn.
-	 * gpa .gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO)
-	 */
-	@Override
-	@HystrixCommand(fallbackMethod = "fallbackEsborrarRegistre")
-	public void esborrarRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO) throws GPAServeisServiceException {
-		if (log.isDebugEnabled()) {
-			log.debug("esborrarRegistre(ExpedientsRegistrarBDTO) - inici"); //$NON-NLS-1$
-		}
-
-		try {
-			expedientsApi.esborrarRegistreSolicitudExpedient(expedientsRegistrarBDTO.getCrearRegistre());
-
-			if (log.isDebugEnabled()) {
-				log.debug("esborrarRegistre(ExpedientsRegistrarBDTO) - fi"); //$NON-NLS-1$
-			}
-		} catch (RestClientException e) {
-			log.error("esborrarRegistre(ExpedientsRegistrarBDTO)", e); //$NON-NLS-1$
-
-			throw new GPAServeisServiceException("S'ha produït una incidència", e);
-		}
-
-	}
-
-	/**
-	 * Fallback esborrar registre.
-	 *
-	 * @param expedientsRegistrarBDTO
-	 *            the expedients registrar BDTO
-	 * @param e
-	 *            the e
-	 * @return the resposta crear registre expedient
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	public void fallbackEsborrarRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO, Throwable e) throws GPAServeisServiceException {
-		if (log.isDebugEnabled()) {
-			log.debug("fallbackEsborrarRegistre(ExpedientsRegistrarBDTO, Throwable) - inici"); //$NON-NLS-1$
-		}
-
-		ServeisServiceExceptionHandler.handleException(e);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
-	 * canviarEstatAccioExpedient(es.bcn.gpa.gpaserveis.business.dto.expedients.
-	 * ExpedientsCanviarEstatAccioBDTO)
+	 * canviarEstatExpedient(es.bcn.gpa.gpaserveis.business.dto.expedients.
+	 * ExpedientsCanviarEstatBDTO)
 	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackCanviarEstatAccioExpedient")
-	public RespostaCanviarEstatAccioExpedient canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO)
+	@HystrixCommand(fallbackMethod = "fallbackCanviarEstatExpedient")
+	public RespostaCanviarEstatAccioExpedient canviarEstatExpedient(ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO) - inici"); //$NON-NLS-1$
+			log.debug("canviarEstatExpedient(ExpedientsCanviarEstatBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccioExpedient = expedientsApi.canviarEstatAccioExpedient(
-					expedientsCanviarEstatAccioBDTO.getIdAccio(), expedientsCanviarEstatAccioBDTO.getIdExpedient(),
-					expedientsCanviarEstatAccioBDTO.getExpedientCanviEstatAccio());
+			RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccioExpedient = expedientsApi.canviarEstatExpedient(
+					expedientsCanviarEstatBDTO.getIdExpedient(), expedientsCanviarEstatBDTO.getExpedientCanviEstat());
 
 			if (log.isDebugEnabled()) {
-				log.debug("canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO) - fi"); //$NON-NLS-1$
+				log.debug("canviarEstatExpedient(ExpedientsCanviarEstatBDTO) - fi"); //$NON-NLS-1$
 			}
 			return respostaCanviarEstatAccioExpedient;
 		} catch (RestClientException e) {
-			log.error("canviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO)", e); //$NON-NLS-1$
+			log.error("canviarEstatExpedient(ExpedientsCanviarEstatBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
@@ -765,20 +711,20 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	}
 
 	/**
-	 * Fallback canviar estat accio expedient.
+	 * Fallback canviar estat expedient.
 	 *
-	 * @param expedientsCanviarEstatAccioBDTO
-	 *            the expedients canviar estat accio BDTO
+	 * @param expedientsCanviarEstatBDTO
+	 *            the expedients canviar estat BDTO
 	 * @param e
 	 *            the e
-	 * @return the resposta canviar estat accio expedient
+	 * @return the resposta canviar estat expedient
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public RespostaCanviarEstatAccioExpedient fallbackCanviarEstatAccioExpedient(
-			ExpedientsCanviarEstatAccioBDTO expedientsCanviarEstatAccioBDTO, Throwable e) throws GPAServeisServiceException {
+	public RespostaCanviarEstatAccioExpedient fallbackCanviarEstatExpedient(ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO,
+			Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackCanviarEstatAccioExpedient(ExpedientsCanviarEstatAccioBDTO, Throwable) - inici"); //$NON-NLS-1$
+			log.debug("fallbackCanviarEstatExpedient(ExpedientsCanviarEstatBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
@@ -823,6 +769,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 *            the comentaris crear accio BDTO
 	 * @param e
 	 *            the e
+	 * @return the integer
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
@@ -912,6 +859,17 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 	}
 
+	/**
+	 * Fallback crear data xml expedient.
+	 *
+	 * @param idExpedient
+	 *            the id expedient
+	 * @param e
+	 *            the e
+	 * @return the resposta obtenir xml expedient
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	public RespostaObtenirXmlExpedient fallbackCrearDataXmlExpedient(BigDecimal idExpedient, Throwable e)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
@@ -938,7 +896,8 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			convidarATramitartApi.convidarTramitarExpedient(expedientsConvidarTramitarBDTO.getConvidarTramitarMassiuRDTO());
+			expedientsApi.convidarTramitarExpedient(expedientsConvidarTramitarBDTO.getConvidarTramitarRDTO(),
+					expedientsConvidarTramitarBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("convidarTramitarExpedient(ExpedientsConvidarTramitarBDTO) - fi"); //$NON-NLS-1$
@@ -985,7 +944,8 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			retornarLaTramitacioApi.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO.getRetornarLaTramitacioRDTO());
+			expedientsApi.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO.getIdExpedient(),
+					expedientsRetornarTramitacioBDTO.getRetornarTramitacioRDTO());
 
 			if (log.isDebugEnabled()) {
 				log.debug("retornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO) - fi"); //$NON-NLS-1$
@@ -1079,7 +1039,8 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			canviUnitatGestoraApi.canviarUnitatGestoraExpedient(expedientsCanviarUnitatGestoraBDTO.getCanviUnitatGestoraMassiuRDTO());
+			expedientsApi.canviarUnitatGestoraExpedient(expedientsCanviarUnitatGestoraBDTO.getCanviUnitatGestoraRDTO(),
+					expedientsCanviarUnitatGestoraBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("canviarUnitatGestoraExpedient(ExpedientsCanviarUnitatGestoraBDTO) - fi"); //$NON-NLS-1$
@@ -1172,7 +1133,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			BigDecimal idExpedient = expedients_Api.getIdExpedientByDocumentacioIdExt(idDocumentacio);
+			BigDecimal idExpedient = expedients_Api.consultarExpedientPerDocumentacioIdExt(idDocumentacio);
 
 			if (log.isDebugEnabled()) {
 				log.debug("getIdExpedientByDocumentacioIdExt(BigDecimal) - fi"); //$NON-NLS-1$
@@ -1305,6 +1266,148 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#anotarOperacioComptable(
+	 * es.bcn.gpa.gpaserveis.business.dto.expedients.
+	 * AnotarOperacioComptableBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackAnotarOperacioComptable")
+	public void anotarOperacioComptable(AnotarOperacioComptableBDTO anotarOperacioComptableBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("anotarOperacioComptable(AnotarOperacioComptableBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			expedientsApi.anotarOperacioComptable(anotarOperacioComptableBDTO.getIdExpedient(),
+					anotarOperacioComptableBDTO.getAnotarOperacioComptableRDTO());
+
+			if (log.isDebugEnabled()) {
+				log.debug("anotarOperacioComptable(AnotarOperacioComptableBDTO) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("anotarOperacioComptable(AnotarOperacioComptableBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback anotar operacio comptable.
+	 *
+	 * @param anotarOperacioComptableBDTO
+	 *            the anotar operacio comptable BDTO
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackAnotarOperacioComptable(AnotarOperacioComptableBDTO anotarOperacioComptableBDTO, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackAnotarOperacioComptable(AnotarOperacioComptableBDTO, Throwable e) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#inscriureEnRegistre(es.
+	 * bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackInscriureEnRegistre")
+	public void inscriureEnRegistre(InscriureEnRegistreBDTO inscriureEnRegistreBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("inscriureEnRegistre(InscriureEnRegistreBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			expedientsApi.inscriureEnRegistre(inscriureEnRegistreBDTO.getIdExpedient(),
+					inscriureEnRegistreBDTO.getInscriureEnRegistreRDTO());
+
+			if (log.isDebugEnabled()) {
+				log.debug("inscriureEnRegistre(InscriureEnRegistreBDTO) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("inscriureEnRegistre(InscriureEnRegistreBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback inscriure en registre.
+	 *
+	 * @param inscriureEnRegistreBDTO
+	 *            the inscriure en registre BDTO
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackInscriureEnRegistre(InscriureEnRegistreBDTO inscriureEnRegistreBDTO, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackInscriureEnRegistre(InscriureEnRegistreBDTO, Throwable e) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#esborrarRegistre(es.bcn.
+	 * gpa .gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackEsborrarRegistre")
+	public void esborrarRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("esborrarRegistre(ExpedientsRegistrarBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			expedientsApi.esborrarRegistreSolicitudExpedient(expedientsRegistrarBDTO.getCrearRegistre());
+
+			if (log.isDebugEnabled()) {
+				log.debug("esborrarRegistre(ExpedientsRegistrarBDTO) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("esborrarRegistre(ExpedientsRegistrarBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+
+	}
+
+	/**
+	 * Fallback esborrar registre.
+	 *
+	 * @param expedientsRegistrarBDTO
+	 *            the expedients registrar BDTO
+	 * @param e
+	 *            the e
+	 * @return the resposta crear registre expedient
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackEsborrarRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackEsborrarRegistre(ExpedientsRegistrarBDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
 	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#esborrarComentari(java.
 	 * math.BigDecimal, java.math.BigDecimal)
 	 */
@@ -1348,6 +1451,52 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		ServeisServiceExceptionHandler.handleException(e);
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#tornarEnrereExpedient(es
+	 * .bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackTornarEnrereExpedient")
+	public void tornarEnrereExpedient(ExpedientsTornarEnrereBDTO expedientsTornarEnrereBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("tornarEnrereExpedient(ExpedientsTornarEnrereBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			expedientsApi.tornarEnrere(expedientsTornarEnrereBDTO.getIdExpedient(), expedientsTornarEnrereBDTO.getTornarEnrereRDTO());
+
+			if (log.isDebugEnabled()) {
+				log.debug("tornarEnrereExpedient(ExpedientsTornarEnrereBDTO) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("tornarEnrereExpedient(ExpedientsTornarEnrereBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback tornar enrere expedient.
+	 *
+	 * @param expedientsTornarEnrereBDTO
+	 *            the expedients tornar enrere BDTO
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackTornarEnrereExpedient(ExpedientsTornarEnrereBDTO expedientsTornarEnrereBDTO, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackTornarEnrereExpedient(ExpedientsTornarEnrereBDTO, Throwable e) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
 	}
 
 }
