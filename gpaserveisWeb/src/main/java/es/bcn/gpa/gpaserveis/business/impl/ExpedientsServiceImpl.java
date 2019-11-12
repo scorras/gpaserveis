@@ -422,7 +422,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 * api.model.gpaexpedients.PersonesSollicitudRDTO)
 	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackDonarAccesAltraPersonaImplicada")
+	@HystrixCommand(fallbackMethod = "fallbackActualitzarDadesAltraPersonaImplicada")
 	public PageDataOfPersonesSollicitudRDTO donarAccesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
