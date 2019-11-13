@@ -37,6 +37,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPerso
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesDadescontacte;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TornarEnrereRDTO;
 import es.bcn.gpa.gpaserveis.test.parent.RestServerParentTest;
 import lombok.extern.apachecommons.CommonsLog;
@@ -56,14 +57,22 @@ public class ExpedientsServiceImplTest extends RestServerParentTest {
 
 	/**
 	 * Setup.
+	 * 
+	 * @throws GPAServeisServiceException
 	 */
 	@Before
-	public void setup() {
+	public void setup() throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("setup() - inici"); //$NON-NLS-1$
 		}
 
 		MockitoAnnotations.initMocks(this);
+
+		// ServeisServiceExceptionHandler serveisServiceExceptionHandler =
+		// Mockito.mock(ServeisServiceExceptionHandler.class);
+		// doNothing().doThrow(GPAServeisServiceException.class).when(serveisServiceExceptionHandler);
+		// ServeisServiceExceptionHandler.handleException(new
+		// GPAServeisServiceException());
 
 		if (log.isDebugEnabled()) {
 			log.debug("setup() - fi"); //$NON-NLS-1$
@@ -123,6 +132,30 @@ public class ExpedientsServiceImplTest extends RestServerParentTest {
 	 * @throws Exception
 	 *             the exception
 	 */
+	@Ignore
+	@Test
+	public void testStage01_donarAccesAltraPersonaImplicadaKO() throws GPAServeisServiceException {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - inici"); //$NON-NLS-1$
+		}
+
+		// TODO Este test no funciona bien, ya que no debería devolver datos
+		// cuando se le pasa un nulo
+
+		PageDataOfPersonesSollicitudRDTO result = expedientsService.donarAccesAltraPersonaImplicada(null);
+		assertTrue(result == null);
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - fi"); //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * Test stage 01 comprovar documents signats expedient.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage02_crearDataXmlExpedient() throws GPAServeisServiceException {
 		if (LOGGER.isDebugEnabled()) {
@@ -144,12 +177,52 @@ public class ExpedientsServiceImplTest extends RestServerParentTest {
 	 *             the exception
 	 */
 	@Test
+	public void testStage02_crearDataXmlExpedientKO() throws GPAServeisServiceException {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - inici"); //$NON-NLS-1$
+		}
+
+		RespostaObtenirXmlExpedient result = expedientsService.crearDataXmlExpedient(null);
+		assertTrue(result == null);
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - fi"); //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * Test stage 01 comprovar documents signats expedient.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test
 	public void testStage03_esborrarComentari() throws GPAServeisServiceException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - inici"); //$NON-NLS-1$
 		}
 
 		expedientsService.esborrarComentari(new BigDecimal(1), new BigDecimal(1));
+		assertTrue(true);
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - fi"); //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * Test stage 01 comprovar documents signats expedient.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test
+	public void testStage03_esborrarComentariKO() throws GPAServeisServiceException {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - inici"); //$NON-NLS-1$
+		}
+
+		expedientsService.esborrarComentari(null, null);
 		assertTrue(true);
 
 		if (LOGGER.isDebugEnabled()) {
@@ -221,6 +294,25 @@ public class ExpedientsServiceImplTest extends RestServerParentTest {
 	 * @throws Exception
 	 *             the exception
 	 */
+	@Test(expected = GPAServeisServiceException.class)
+	public void testStage04_esborrarRegistreKO() throws GPAServeisServiceException {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - inici"); //$NON-NLS-1$
+		}
+
+		expedientsService.esborrarRegistre(null);
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - fi"); //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * Test stage 01 comprovar documents signats expedient.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testStage05_convidarTramitarExpedient() throws GPAServeisServiceException {
 		if (LOGGER.isDebugEnabled()) {
@@ -257,7 +349,6 @@ public class ExpedientsServiceImplTest extends RestServerParentTest {
 	 * @throws Exception
 	 *             the exception
 	 */
-	@Ignore
 	@Test(expected = GPAServeisServiceException.class)
 	public void testStage05_convidarTramitarExpedientKO() throws GPAServeisServiceException {
 		if (LOGGER.isDebugEnabled()) {
@@ -302,6 +393,25 @@ public class ExpedientsServiceImplTest extends RestServerParentTest {
 
 		expedientsService.tornarEnrereExpedient(expedientsTornarEnrereBDTO);
 		assertTrue(true);
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - fi"); //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * Test stage 01 comprovar documents signats expedient.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test(expected = GPAServeisServiceException.class)
+	public void testStage06_tornarEnrereExpedientKO() throws GPAServeisServiceException {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - inici"); //$NON-NLS-1$
+		}
+
+		expedientsService.tornarEnrereExpedient(null);
 
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - fi"); //$NON-NLS-1$
