@@ -165,7 +165,7 @@ public class ConverterHelper {
 			documentsIdentitatRDTO.setNumeroDocument(persones.getDocumentsIdentitat().getNumeroDocument().toUpperCase());
 			documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPais());
 		}
-		personesRDTO.setDocumentIdentitat(documentsIdentitatRDTO);
+		personesRDTO.setDocumentIndentitat(documentsIdentitatRDTO);
 		return personesRDTO;
 	}
 
@@ -204,12 +204,12 @@ public class ConverterHelper {
 			DocumentsIdentitat documentsIdentitat = new DocumentsIdentitat();
 			TipusDocumentIdentitat tipusDocumentIdentitat = new TipusDocumentIdentitat();
 			tipusDocumentIdentitat.setId(tipusDocumentIdentitatApiParamValueTranslator
-					.getInternalValueByApiParamValue(personesRDTO.getDocumentIdentitat().getTipusDocument()));
+					.getInternalValueByApiParamValue(personesRDTO.getDocumentIndentitat().getTipusDocument()));
 			documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
 			documentsIdentitat.setTipus(tipusDocumentIdentitatApiParamValueTranslator
-					.getInternalValueByApiParamValue(personesRDTO.getDocumentIdentitat().getTipusDocument()));
-			documentsIdentitat.setNumeroDocument(personesRDTO.getDocumentIdentitat().getNumeroDocument());
-			documentsIdentitat.setPais(personesRDTO.getDocumentIdentitat().getPais());
+					.getInternalValueByApiParamValue(personesRDTO.getDocumentIndentitat().getTipusDocument()));
+			documentsIdentitat.setNumeroDocument(personesRDTO.getDocumentIndentitat().getNumeroDocument());
+			documentsIdentitat.setPais(personesRDTO.getDocumentIndentitat().getPais());
 			persones.setDocumentsIdentitat(documentsIdentitat);
 			PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
 			if (personesRDTO.getDadesNotificacio() != null) {
@@ -355,7 +355,7 @@ public class ConverterHelper {
 			documentsIdentitatRDTO.setNumeroDocument(persones.getDocumentsIdentitat().getNumeroDocument().toUpperCase());
 			documentsIdentitatRDTO.setPais(persones.getDocumentsIdentitat().getPais());
 		}
-		personesRDTO.setDocumentIdentitat(documentsIdentitatRDTO);
+		personesRDTO.setDocumentIndentitat(documentsIdentitatRDTO);
 		return personesRDTO;
 	}
 
