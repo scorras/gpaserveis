@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.16.0"
+  version: "1.16.1"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -4271,7 +4271,7 @@ definitions:
       dadesNotificacio:
         description: "Dades de notificació de la persona"
         $ref: "#/definitions/DadesContacte"
-      documentIdentitat:
+      documentIndentitat:
         description: "Document d'identitat de la persona"
         $ref: "#/definitions/DocumentIdentitat"
       nomRaoSocial:
