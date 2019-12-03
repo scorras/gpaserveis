@@ -63,6 +63,9 @@ public class Constants {
 	/** The Constant MISSATGE_ERROR_OPENTEXT. */
 	public static final String MISSATGE_ERROR_OPENTEXT = "Error OpenText:";
 
+	/** The Constant MISSATGE_ERROR_DOCUMENTUM. */
+	public static final String MISSATGE_ERROR_DOCUMENTUM = "Error Documentum:";
+
 	/** The Constant MISSATGE_ERROR_PDFGESTOR. */
 	public static final String MISSATGE_ERROR_PDFGESTOR = "Error PdfGestor:";
 

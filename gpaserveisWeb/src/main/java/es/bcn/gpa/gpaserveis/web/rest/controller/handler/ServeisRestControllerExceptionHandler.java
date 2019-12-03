@@ -47,6 +47,9 @@ public class ServeisRestControllerExceptionHandler {
 			} else if (e.getMessage().contains(Constants.MISSATGE_ERROR_OPENTEXT)) {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_OPENTEXT, e.getMessage());
 
+			} else if (e.getMessage().contains(Constants.MISSATGE_ERROR_DOCUMENTUM)) {
+				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_DOCUMENTUM, e.getMessage());
+
 			} else if (e.getMessage().contains(Constants.MISSATGE_ERROR_PDFGESTOR)) {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_PDFGESTOR, e.getMessage());
 
