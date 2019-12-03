@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -2577,6 +2578,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		RespostaNotificarExpedientRDTO respostaNotificarExpedientRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		BigDecimal idNotificacio = null;
+		NotificacionsRDTO notificacionsRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_NOTIFICAR_EXPEDIENT);
 		try {
 			// El codi del expediente debe existir
@@ -2610,7 +2612,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			crearNotificacio.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
 			crearNotificacio.setCodiProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentCodi());
 			DocumentCrearNotificacioBDTO documentCrearNotificacioBDTO = new DocumentCrearNotificacioBDTO(crearNotificacio);
-			NotificacionsRDTO notificacionsRDTO = serveisService.crearNotificacio(documentCrearNotificacioBDTO);
+			notificacionsRDTO = serveisService.crearNotificacio(documentCrearNotificacioBDTO);
 			idNotificacio = notificacionsRDTO.getNotificacioId();
 
 		} catch (GPAApiParamValidationException e) {
@@ -2621,9 +2623,18 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_NOTIFICAR_EXPEDIENT, e);
 		}
 
-		RespostaExpedientsNotificarBDTO respostaExpedientsNotificarBDTO = new RespostaExpedientsNotificarBDTO(
-				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO, idNotificacio);
-		respostaNotificarExpedientRDTO = modelMapper.map(respostaExpedientsNotificarBDTO, RespostaNotificarExpedientRDTO.class);
+		if (StringUtils.isNotEmpty(notificacionsRDTO.getCodiError())) {
+			ResultatRespostaDTO resultatRespostaDTO = new ResultatRespostaDTO();
+			resultatRespostaDTO.setCodi(notificacionsRDTO.getCodiError());
+			resultatRespostaDTO.setDescripcio(notificacionsRDTO.getMissatgeError());
+
+			respostaNotificarExpedientRDTO = new RespostaNotificarExpedientRDTO();
+			respostaNotificarExpedientRDTO.setResultat(resultatRespostaDTO);
+		} else {
+			RespostaExpedientsNotificarBDTO respostaExpedientsNotificarBDTO = new RespostaExpedientsNotificarBDTO(
+					dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO, idNotificacio);
+			respostaNotificarExpedientRDTO = modelMapper.map(respostaExpedientsNotificarBDTO, RespostaNotificarExpedientRDTO.class);
+		}
 
 		if (log.isDebugEnabled()) {
 			log.debug("notificarExpedient(String, ExpedientNotificacioRDTO) - fi"); //$NON-NLS-1$

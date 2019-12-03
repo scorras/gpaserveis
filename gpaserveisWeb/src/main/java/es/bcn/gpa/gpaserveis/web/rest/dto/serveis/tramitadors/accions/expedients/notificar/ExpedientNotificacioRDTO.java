@@ -21,6 +21,9 @@ public class ExpedientNotificacioRDTO {
 	@ApiModelProperty(value = "Destinataris de la notificació.", required = true)
 	private List<PersonesNotificacioRDTO> destinataris;
 
+	@ApiModelProperty(value = "Persona física vinculada a la persona jurídica.")
+	PersonesNotificacioRDTO personaFisicaVinculada;
+
 	@ApiModelProperty(value = "Llista d'identificadors dels annexo.")
 	private List<BigDecimal> idsAnnexosList;
 

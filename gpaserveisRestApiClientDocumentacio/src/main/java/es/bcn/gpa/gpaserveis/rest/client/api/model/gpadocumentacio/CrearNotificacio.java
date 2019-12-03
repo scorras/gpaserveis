@@ -44,6 +44,9 @@ public class CrearNotificacio {
 	@JsonProperty("persones")
 	private List<Persones> persones = null;
 
+	@JsonProperty("personaFisicaVinculada")
+	private Persones personaFisicaVinculada = null;
+
 	public CrearNotificacio codiExpedient(String codiExpedient) {
 		this.codiExpedient = codiExpedient;
 		return this;
@@ -174,6 +177,20 @@ public class CrearNotificacio {
 		this.persones = persones;
 	}
 
+	/**
+	 * Gets the persona fisica vinculada.
+	 *
+	 * @return the persona fisica vinculada
+	 */
+	@ApiModelProperty(value = "Persona física vinculada")
+	public Persones getPersonaFisicaVinculada() {
+		return personaFisicaVinculada;
+	}
+
+	public void setPersonaFisicaVinculada(Persones personaFisicaVinculada) {
+		this.personaFisicaVinculada = personaFisicaVinculada;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -188,12 +205,14 @@ public class CrearNotificacio {
 				&& Objects.equals(this.idDocumentPrincipal, crearNotificacio.idDocumentPrincipal)
 				&& Objects.equals(this.idExpedient, crearNotificacio.idExpedient)
 				&& Objects.equals(this.idsAnnexosList, crearNotificacio.idsAnnexosList)
-				&& Objects.equals(this.persones, crearNotificacio.persones);
+				&& Objects.equals(this.persones, crearNotificacio.persones)
+				&& Objects.equals(this.personaFisicaVinculada, crearNotificacio.personaFisicaVinculada);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codiExpedient, codiProcediment, idDocumentPrincipal, idExpedient, idsAnnexosList, persones);
+		return Objects.hash(codiExpedient, codiProcediment, idDocumentPrincipal, idExpedient, idsAnnexosList, persones,
+				personaFisicaVinculada);
 	}
 
 	@Override
@@ -207,6 +226,7 @@ public class CrearNotificacio {
 		sb.append("    idExpedient: ").append(toIndentedString(idExpedient)).append("\n");
 		sb.append("    idsAnnexosList: ").append(toIndentedString(idsAnnexosList)).append("\n");
 		sb.append("    persones: ").append(toIndentedString(persones)).append("\n");
+		sb.append("    personaFisicaVinculada: ").append(toIndentedString(personaFisicaVinculada)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
