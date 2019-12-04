@@ -472,14 +472,14 @@ public class ServeisRestControllerValidationHelper {
 					break;
 				case DECIMAL:
 					if (atributEntry.getValue().get(0) != null) {
-						Double valorDouble = numberFormat.parse(atributEntry.getValue().get(INTEGER_ZERO)).doubleValue();
+						Double valorDouble = Double.valueOf(atributEntry.getValue().get(INTEGER_ZERO));
 						validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorDouble));
 						dadesEspecifiquesValors.setValorDouble(valorDouble);
 					}
 					break;
 				case MONEDA:
 					if (atributEntry.getValue().get(0) != null) {
-						Double valorMoneda = numberFormat.parse(atributEntry.getValue().get(INTEGER_ZERO)).doubleValue();
+						Double valorMoneda = Double.valueOf(atributEntry.getValue().get(INTEGER_ZERO));
 						validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorMoneda));
 						dadesEspecifiquesValors.setValorMoneda(valorMoneda);
 					}
@@ -544,23 +544,26 @@ public class ServeisRestControllerValidationHelper {
 					break;
 				case PAIS:
 					if (atributEntry.getValue().get(0) != null) {
-						String valorPais = atributEntry.getValue().get(INTEGER_ZERO);
-						validateDadesOperacioCadenaGeneral(dadesOperacions, valorPais);
-						dadesEspecifiquesValors.setValorPais(valorPais);
+						String valorPaisNom = atributEntry.getValue().get(INTEGER_ZERO).substring(4);
+						String valorPaisCodiIne = atributEntry.getValue().get(INTEGER_ZERO).substring(0, 3);
+						validateDadesOperacioCadenaGeneral(dadesOperacions, valorPaisNom);
+						dadesEspecifiquesValors.setValorPais(valorPaisCodiIne);
 					}
 					break;
 				case PROVINCIA:
 					if (atributEntry.getValue().get(0) != null) {
-						String valorProvincia = atributEntry.getValue().get(INTEGER_ZERO);
-						validateDadesOperacioCadenaGeneral(dadesOperacions, valorProvincia);
-						dadesEspecifiquesValors.setValorProvincia(valorProvincia);
+						String valorProvinciaNom = atributEntry.getValue().get(INTEGER_ZERO).substring(4);
+						String valorProvinciaCodiIne = atributEntry.getValue().get(INTEGER_ZERO).substring(0, 3);
+						validateDadesOperacioCadenaGeneral(dadesOperacions, valorProvinciaNom);
+						dadesEspecifiquesValors.setValorProvincia(valorProvinciaCodiIne);
 					}
 					break;
 				case MUNICIPI:
 					if (atributEntry.getValue().get(0) != null) {
-						String valorMunicipi = atributEntry.getValue().get(INTEGER_ZERO);
-						validateDadesOperacioCadenaGeneral(dadesOperacions, valorMunicipi);
-						dadesEspecifiquesValors.setValorMunicipi(valorMunicipi);
+						String valorMunicipiNom = atributEntry.getValue().get(INTEGER_ZERO).substring(7);
+						String valorMunicipiCodiIne = atributEntry.getValue().get(INTEGER_ZERO).substring(0, 6);
+						validateDadesOperacioCadenaGeneral(dadesOperacions, valorMunicipiNom);
+						dadesEspecifiquesValors.setValorMunicipi(valorMunicipiCodiIne);
 					}
 					break;
 				default:
@@ -619,7 +622,7 @@ public class ServeisRestControllerValidationHelper {
 			if (dadesOperacionsValidacio.getDadesOperacionsValidValors().size() > INTEGER_ONE) {
 				// Es necesario comprobar la validación atendiendo al ordre
 				dadesOperValidVal1 = dadesOperacionsValidacio.getDadesOperacionsValidValors().get(INTEGER_ONE);
-				validVal1 = new BigDecimal(dadesOperValidVal1.getValor());
+				validVal1 =  new BigDecimal(numberFormat.parse(dadesOperValidVal1.getValor()).toString());
 				if (dadesOperValidVal0.getOrdre().longValue() < dadesOperValidVal1.getOrdre().longValue()) {
 					validValArray = new BigDecimal[] { validVal0, validVal1 };
 				} else {
@@ -783,7 +786,7 @@ public class ServeisRestControllerValidationHelper {
 				valid = StringUtils.isNotEmpty(valor);
 				break;
 			case IGUAL:
-				valid = StringUtils.equals(valor, validVal);
+				valid = StringUtils.equalsIgnoreCase(valor, validVal);
 				break;
 			case LONGITUD_MAXIMA:
 				valid = valor.length() <= Long.valueOf(validVal).longValue();
