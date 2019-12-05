@@ -17,55 +17,34 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaServeiDgtRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
 
 /**
- * DropdownItemBDTO
+ * RespostaInteroperabilitat
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-04T08:40:05.141+01:00")
-public class DropdownItemBDTO {
-  @JsonProperty("descripcio")
-  private String descripcio = null;
+public class RespostaInteroperabilitat {
+  @JsonProperty("respostaServeiDgt")
+  private RespostaServeiDgtRDTO respostaServeiDgt = null;
 
-  @JsonProperty("id")
-  private BigDecimal id = null;
-
-  public DropdownItemBDTO descripcio(String descripcio) {
-    this.descripcio = descripcio;
+  public RespostaInteroperabilitat respostaServeiDgt(RespostaServeiDgtRDTO respostaServeiDgt) {
+    this.respostaServeiDgt = respostaServeiDgt;
     return this;
   }
 
    /**
-   * Get descripcio
-   * @return descripcio
+   * Resposta del servei DGT
+   * @return respostaServeiDgt
   **/
-  @ApiModelProperty(value = "")
-  public String getDescripcio() {
-    return descripcio;
+  @ApiModelProperty(value = "Resposta del servei DGT")
+  public RespostaServeiDgtRDTO getRespostaServeiDgt() {
+    return respostaServeiDgt;
   }
 
-  public void setDescripcio(String descripcio) {
-    this.descripcio = descripcio;
-  }
-
-  public DropdownItemBDTO id(BigDecimal id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getId() {
-    return id;
-  }
-
-  public void setId(BigDecimal id) {
-    this.id = id;
+  public void setRespostaServeiDgt(RespostaServeiDgtRDTO respostaServeiDgt) {
+    this.respostaServeiDgt = respostaServeiDgt;
   }
 
 
@@ -77,24 +56,22 @@ public class DropdownItemBDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DropdownItemBDTO dropdownItemBDTO = (DropdownItemBDTO) o;
-    return Objects.equals(this.descripcio, dropdownItemBDTO.descripcio) &&
-        Objects.equals(this.id, dropdownItemBDTO.id);
+    RespostaInteroperabilitat respostaInteroperabilitat = (RespostaInteroperabilitat) o;
+    return Objects.equals(this.respostaServeiDgt, respostaInteroperabilitat.respostaServeiDgt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(descripcio, id);
+    return Objects.hash(respostaServeiDgt);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DropdownItemBDTO {\n");
+    sb.append("class RespostaInteroperabilitat {\n");
     
-    sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    respostaServeiDgt: ").append(toIndentedString(respostaServeiDgt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

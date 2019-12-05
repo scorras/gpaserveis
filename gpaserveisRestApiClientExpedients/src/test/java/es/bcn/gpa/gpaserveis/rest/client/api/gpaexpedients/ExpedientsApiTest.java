@@ -37,8 +37,10 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramita
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegistreRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ObtenirPerInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TornarEnrereRDTO;
 
@@ -208,6 +210,27 @@ public class ExpedientsApiTest extends ParentTest {
 		BigDecimal idExpedient = ONE;
 		TornarEnrereRDTO tornarEnrereRDTO = new TornarEnrereRDTO();
 		api.tornarEnrere(idExpedient, tornarEnrereRDTO);
+
+		assertTrue(true);
+	}
+
+	/**
+	 * obtenirPerInteroperabilitat
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirPerInteroperabilitatTest() {
+		when(apiClient.invokeAPI(eq("/expedients/obtenirPerInteroperabilitat/1"), eq(HttpMethod.POST), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new RespostaInteroperabilitat());
+
+		BigDecimal idExpedient = ONE;
+		ObtenirPerInteroperabilitat obtenirPerInteroperabilitat = new ObtenirPerInteroperabilitat();
+		RespostaInteroperabilitat response = api.obtenirPerInteroperabilitat(idExpedient, obtenirPerInteroperabilitat);
 
 		assertTrue(true);
 	}

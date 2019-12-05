@@ -99,7 +99,9 @@ public enum ErrorPrincipal {
 
 	ERROR_SIGNATURES("5010", ""),
 
-	ERROR_DOCUMENTUM("5011", "");
+	ERROR_DOCUMENTUM("5011", ""),
+
+	ERROR_SERVEI_INTEROPERABILITAT("5012", "");
 
 	private String codi;
 
