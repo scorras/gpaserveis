@@ -19,53 +19,31 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
 
 /**
- * DropdownItemBDTO
+ * ObtenirPerInteroperabilitat
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-04T08:40:05.141+01:00")
-public class DropdownItemBDTO {
-  @JsonProperty("descripcio")
-  private String descripcio = null;
+public class ObtenirPerInteroperabilitat {
+  @JsonProperty("codiServei")
+  private String codiServei = null;
 
-  @JsonProperty("id")
-  private BigDecimal id = null;
-
-  public DropdownItemBDTO descripcio(String descripcio) {
-    this.descripcio = descripcio;
+  public ObtenirPerInteroperabilitat codiServei(String codiServei) {
+    this.codiServei = codiServei;
     return this;
   }
 
    /**
-   * Get descripcio
-   * @return descripcio
+   * Codi del servei a executar
+   * @return codiServei
   **/
-  @ApiModelProperty(value = "")
-  public String getDescripcio() {
-    return descripcio;
+  @ApiModelProperty(value = "Codi del servei a executar")
+  public String getCodiServei() {
+    return codiServei;
   }
 
-  public void setDescripcio(String descripcio) {
-    this.descripcio = descripcio;
-  }
-
-  public DropdownItemBDTO id(BigDecimal id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getId() {
-    return id;
-  }
-
-  public void setId(BigDecimal id) {
-    this.id = id;
+  public void setCodiServei(String codiServei) {
+    this.codiServei = codiServei;
   }
 
 
@@ -77,24 +55,22 @@ public class DropdownItemBDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DropdownItemBDTO dropdownItemBDTO = (DropdownItemBDTO) o;
-    return Objects.equals(this.descripcio, dropdownItemBDTO.descripcio) &&
-        Objects.equals(this.id, dropdownItemBDTO.id);
+    ObtenirPerInteroperabilitat obtenirPerInteroperabilitat = (ObtenirPerInteroperabilitat) o;
+    return Objects.equals(this.codiServei, obtenirPerInteroperabilitat.codiServei);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(descripcio, id);
+    return Objects.hash(codiServei);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DropdownItemBDTO {\n");
+    sb.append("class ObtenirPerInteroperabilitat {\n");
     
-    sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    codiServei: ").append(toIndentedString(codiServei)).append("\n");
     sb.append("}");
     return sb.toString();
   }

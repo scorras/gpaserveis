@@ -9,7 +9,9 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramita
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegistreRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ObtenirPerInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TornarEnrereRDTO;
 
@@ -32,7 +34,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-29T08:39:44.007+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-04T08:40:05.141+01:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi")
 public class ExpedientsApi {
     private ApiClient apiClient;
@@ -318,6 +320,55 @@ public class ExpedientsApi {
 
         ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {};
         apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * obtenirPerInteroperabilitat
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>201</b> - Created
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param idExpedient idExpedient
+     * @param obtenirPerInteroperabilitatRDTO obtenirPerInteroperabilitatRDTO
+     * @return RespostaInteroperabilitat
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public RespostaInteroperabilitat obtenirPerInteroperabilitat(BigDecimal idExpedient, ObtenirPerInteroperabilitat obtenirPerInteroperabilitatRDTO) throws RestClientException {
+        Object postBody = obtenirPerInteroperabilitatRDTO;
+        
+        // verify the required parameter 'idExpedient' is set
+        if (idExpedient == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idExpedient' when calling obtenirPerInteroperabilitat");
+        }
+        
+        // verify the required parameter 'obtenirPerInteroperabilitatRDTO' is set
+        if (obtenirPerInteroperabilitatRDTO == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'obtenirPerInteroperabilitatRDTO' when calling obtenirPerInteroperabilitat");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("idExpedient", idExpedient);
+        String path = UriComponentsBuilder.fromPath("/expedients/obtenirPerInteroperabilitat/{idExpedient}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { 
+            "application/json"
+        };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<RespostaInteroperabilitat> returnType = new ParameterizedTypeReference<RespostaInteroperabilitat>() {};
+        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
      * RetornarTramitacio

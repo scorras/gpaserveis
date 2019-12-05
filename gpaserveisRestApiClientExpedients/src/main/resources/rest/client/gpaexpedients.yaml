@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.15.2"
+  version: "1.16.1"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -567,6 +567,44 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/obtenirPerInteroperabilitat/{idExpedient}:
+    post:
+      tags:
+      - "Expedients"
+      summary: "obtenirPerInteroperabilitat"
+      operationId: "obtenirPerInteroperabilitat"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      - in: "body"
+        name: "obtenirPerInteroperabilitatRDTO"
+        description: "obtenirPerInteroperabilitatRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/ObtenirPerInteroperabilitat"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaInteroperabilitat"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/obtenirXmlEvaluate/{idExpedient}:
     get:
       tags:
@@ -1803,6 +1841,13 @@ definitions:
       comentari:
         $ref: "#/definitions/Comentaris"
     title: "InscriureEnRegistreRDTO"
+  ObtenirPerInteroperabilitat:
+    type: "object"
+    properties:
+      codiServei:
+        type: "string"
+        description: "Codi del servei a executar"
+    title: "ObtenirPerInteroperabilitat"
   PageDataOfExpedientsRDTO:
     type: "object"
     properties:
@@ -2062,6 +2107,13 @@ definitions:
         description: "Dades del registre de l'expedient"
         $ref: "#/definitions/RegistreAssentamentRDTO"
     title: "RespostaCrearRegistreExpedient"
+  RespostaInteroperabilitat:
+    type: "object"
+    properties:
+      respostaServeiDgt:
+        description: "Resposta del servei DGT"
+        $ref: "#/definitions/RespostaServeiDgtRDTO"
+    title: "RespostaInteroperabilitat"
   RespostaObtenirXmlExpedient:
     type: "object"
     properties:
@@ -2072,6 +2124,16 @@ definitions:
         type: "number"
         description: "Identificador de l'expedient"
     title: "RespostaObtenirXmlExpedient"
+  RespostaServeiDgtRDTO:
+    type: "object"
+    properties:
+      codiError:
+        type: "string"
+      identificadorPropietari:
+        type: "string"
+      missatgeError:
+        type: "string"
+    title: "RespostaServeiDgtRDTO"
   RetornarTramitacioRDTO:
     type: "object"
     properties:

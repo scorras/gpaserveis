@@ -72,6 +72,9 @@ public class Constants {
 	/** The Constant MISSATGE_ERROR_SIGNATURES. */
 	public static final String MISSATGE_ERROR_SIGNATURES = "Error Signatures:";
 
+	/** The Constant MISSATGE_ERROR_SERVEI_INTEROPERABILITAT. */
+	public static final String MISSATGE_ERROR_SERVEI_INTEROPERABILITAT = "Error Servei Interoperabilitat:";
+
 	/** The Constant ESTAT_EXPEDIENT_EN_PREPARACIO. */
 	public static final BigDecimal ESTAT_EXPEDIENT_EN_PREPARACIO = BigDecimal.ONE;
 

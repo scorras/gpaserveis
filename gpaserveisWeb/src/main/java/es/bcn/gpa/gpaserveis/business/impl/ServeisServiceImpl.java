@@ -50,6 +50,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ObtenirPerInteroperabilitatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
@@ -81,6 +82,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssenta
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
@@ -91,6 +93,8 @@ import lombok.extern.apachecommons.CommonsLog;
  * The Class ServeisServiceImpl.
  */
 @Service
+
+/** The Constant log. */
 
 /** The Constant log. */
 
@@ -1841,4 +1845,20 @@ public class ServeisServiceImpl implements ServeisService {
 		expedientsService.tornarEnrereExpedient(expedientsTornarEnrereBDTO);
 
 	}
+
+	/**
+	 * Obtenir per interoperabilitat.
+	 *
+	 * @param obtenirPerInteroperabilitatBDTO
+	 *            the obtenir per interoperabilitat BDTO
+	 * @return the resposta interoperabilitat
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@Override
+	public RespostaInteroperabilitat obtenirPerInteroperabilitat(ObtenirPerInteroperabilitatBDTO obtenirPerInteroperabilitatBDTO)
+			throws GPAServeisServiceException {
+		return expedientsService.obtenirPerInteroperabilitat(obtenirPerInteroperabilitatBDTO);
+	}
+
 }

@@ -73,7 +73,7 @@ public enum ErrorPrincipal {
 	ERROR_DOCUMENTS_UPLOAD_DECLARACIO_RESPONSABLE_NOT_AVAILABLE("4005", "No és possible pujar un fitxer a una declaració responsable"),
 
 	ERROR_DOCUMENTS_EXPEDIENTS_NO_SIGNATS("4006", "Els documents associats a l'expedient no estan signats"),
-	
+
 	ERROR_DOCUMENTS_EMMAGATZEMAR_FITXER("4007", "No s'ha pogut emmagatzemar el fitxer"),
 
 	ERROR_ENTRADA_DOCUMENTS_UPLOAD("4007", "No s'ha rebut arxiu per a pujar ni identificador de gestor documental per a actualitzar"),
@@ -97,7 +97,9 @@ public enum ErrorPrincipal {
 
 	ERROR_PORTASIG("5009", ""),
 
-	ERROR_SIGNATURES("5010", "");
+	ERROR_SIGNATURES("5010", ""),
+
+	ERROR_SERVEI_INTEROPERABILITAT("5011", "");
 
 	private String codi;
 
