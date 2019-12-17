@@ -55,6 +55,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatDigitalitzacioDocumentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
@@ -2266,5 +2267,56 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * obtenirEstatDigitalitzacioDocument(Long)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackObtenirEstatDigitalitzacioDocument")
+	public EstatDigitalitzacioDocumentRDTO obtenirEstatDigitalitzacioDocument(Long idDocument) throws GPAServeisServiceException {
+
+		if (log.isDebugEnabled()) {
+			log.debug("obtenirEstatDigitalitzacioDocument(Long) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			EstatDigitalitzacioDocumentRDTO estat = documentacioApi.estatDigitalitzacio(idDocument);
+
+			if (log.isDebugEnabled()) {
+				log.debug("obtenirEstatDigitalitzacioDocument(Long) - fi"); //$NON-NLS-1$
+			}
+
+			return estat;
+		} catch (RestClientException e) {
+			log.error("obtenirEstatDigitalitzacioDocument(Long)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+
+	}
+
+	/**
+	 * Fallback estat de digitalització del document.
+	 *
+	 * @param idDocumentacio
+	 *            the id documentacio
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public EstatDigitalitzacioDocumentRDTO fallbackObtenirEstatDigitalitzacioDocument(Long idDocument, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackObtenirEstatDigitalitzacioDocument(Long, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 }

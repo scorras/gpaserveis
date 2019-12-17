@@ -50,6 +50,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitaci
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRegistrarComunicat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatDigitalitzacioDocumentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequerimentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
@@ -775,4 +776,36 @@ public class DocumentacioApiTest extends ParentTest {
 		assertTrue(response != null);
 
 	}
+
+	/**
+	 * Obtenir estat de digitalització del document
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void estatDigitalitzacioTest() {
+		Long idDocumentacio = null;
+		EstatDigitalitzacioDocumentRDTO response = api.estatDigitalitzacio(idDocumentacio);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Obté la manera d&#39;emmagatzematge en ús
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void storageModeTest() {
+		String response = api.storageMode();
+
+		// TODO: test validations
+	}
+
 }

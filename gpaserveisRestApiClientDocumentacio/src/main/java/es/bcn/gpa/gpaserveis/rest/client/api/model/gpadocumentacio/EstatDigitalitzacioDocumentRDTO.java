@@ -19,53 +19,52 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
 
 /**
- * ConfdocsentEstatsExp
+ * EstatDigitalitzacioDocumentRDTO
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-17T16:56:22.026+01:00")
-public class ConfdocsentEstatsExp {
-  @JsonProperty("confDocsEntrada")
-  private BigDecimal confDocsEntrada = null;
+public class EstatDigitalitzacioDocumentRDTO {
+  @JsonProperty("message")
+  private String message = null;
 
-  @JsonProperty("estatExpIdext")
-  private BigDecimal estatExpIdext = null;
+  @JsonProperty("status")
+  private String status = null;
 
-  public ConfdocsentEstatsExp confDocsEntrada(BigDecimal confDocsEntrada) {
-    this.confDocsEntrada = confDocsEntrada;
+  public EstatDigitalitzacioDocumentRDTO message(String message) {
+    this.message = message;
     return this;
   }
 
    /**
-   * Get confDocsEntrada
-   * @return confDocsEntrada
+   * Get message
+   * @return message
   **/
   @ApiModelProperty(value = "")
-  public BigDecimal getConfDocsEntrada() {
-    return confDocsEntrada;
+  public String getMessage() {
+    return message;
   }
 
-  public void setConfDocsEntrada(BigDecimal confDocsEntrada) {
-    this.confDocsEntrada = confDocsEntrada;
+  public void setMessage(String message) {
+    this.message = message;
   }
 
-  public ConfdocsentEstatsExp estatExpIdext(BigDecimal estatExpIdext) {
-    this.estatExpIdext = estatExpIdext;
+  public EstatDigitalitzacioDocumentRDTO status(String status) {
+    this.status = status;
     return this;
   }
 
    /**
-   * Get estatExpIdext
-   * @return estatExpIdext
+   * Get status
+   * @return status
   **/
   @ApiModelProperty(value = "")
-  public BigDecimal getEstatExpIdext() {
-    return estatExpIdext;
+  public String getStatus() {
+    return status;
   }
 
-  public void setEstatExpIdext(BigDecimal estatExpIdext) {
-    this.estatExpIdext = estatExpIdext;
+  public void setStatus(String status) {
+    this.status = status;
   }
 
 
@@ -77,24 +76,24 @@ public class ConfdocsentEstatsExp {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ConfdocsentEstatsExp confdocsentEstatsExp = (ConfdocsentEstatsExp) o;
-    return Objects.equals(this.confDocsEntrada, confdocsentEstatsExp.confDocsEntrada) &&
-        Objects.equals(this.estatExpIdext, confdocsentEstatsExp.estatExpIdext);
+    EstatDigitalitzacioDocumentRDTO estatDigitalitzacioDocumentRDTO = (EstatDigitalitzacioDocumentRDTO) o;
+    return Objects.equals(this.message, estatDigitalitzacioDocumentRDTO.message) &&
+        Objects.equals(this.status, estatDigitalitzacioDocumentRDTO.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(confDocsEntrada, estatExpIdext);
+    return Objects.hash(message, status);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ConfdocsentEstatsExp {\n");
+    sb.append("class EstatDigitalitzacioDocumentRDTO {\n");
     
-    sb.append("    confDocsEntrada: ").append(toIndentedString(confDocsEntrada)).append("\n");
-    sb.append("    estatExpIdext: ").append(toIndentedString(estatExpIdext)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();
   }
