@@ -1,6 +1,6 @@
-package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
+package es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments;
 
-import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
+import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient;
 
 import java.math.BigDecimal;
 
@@ -23,17 +23,17 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-17T18:22:49.037+01:00")
-@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadApi")
-public class DownloadApi {
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-18T12:40:10.491+01:00")
+@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.NumeradorsApi")
+public class NumeradorsApi {
     private ApiClient apiClient;
 
-    public DownloadApi() {
+    public NumeradorsApi() {
         this(new ApiClient());
     }
 
     @Autowired
-    public DownloadApi(ApiClient apiClient) {
+    public NumeradorsApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -46,35 +46,28 @@ public class DownloadApi {
     }
 
     /**
-     * Downloads the document
+     * Returns the next val of the procediment sequence
      * 
      * <p><b>200</b> - OK
      * <p><b>401</b> - Unauthorized
      * <p><b>403</b> - Forbidden
      * <p><b>404</b> - Not Found
-     * @param idDoc idDoc
-     * @param idExpedient idExpedient
-     * @return byte[]
+     * @param idProcediment idProcediment
+     * @return String
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public byte[] descarregarDocumentExpedient(BigDecimal idDoc, BigDecimal idExpedient) throws RestClientException {
+    public String getSequenceNextValExpUsingGET(BigDecimal idProcediment) throws RestClientException {
         Object postBody = null;
         
-        // verify the required parameter 'idDoc' is set
-        if (idDoc == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idDoc' when calling descarregarDocumentExpedient");
-        }
-        
-        // verify the required parameter 'idExpedient' is set
-        if (idExpedient == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idExpedient' when calling descarregarDocumentExpedient");
+        // verify the required parameter 'idProcediment' is set
+        if (idProcediment == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idProcediment' when calling getSequenceNextValExpUsingGET");
         }
         
         // create path and map variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idDoc", idDoc);
-        uriVariables.put("idExpedient", idExpedient);
-        String path = UriComponentsBuilder.fromPath("/documentacio/descarregarDocument/{idExpedient}/{idDoc}").buildAndExpand(uriVariables).toUriString();
+        uriVariables.put("idProcediment", idProcediment);
+        String path = UriComponentsBuilder.fromPath("/procediments/sequenceNextValExp/{idProcediment}").buildAndExpand(uriVariables).toUriString();
         
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();
@@ -89,7 +82,7 @@ public class DownloadApi {
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<byte[]> returnType = new ParameterizedTypeReference<byte[]>() {};
+        ParameterizedTypeReference<String> returnType = new ParameterizedTypeReference<String>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }

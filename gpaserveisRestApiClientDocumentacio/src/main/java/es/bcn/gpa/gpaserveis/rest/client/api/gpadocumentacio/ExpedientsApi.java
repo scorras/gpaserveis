@@ -2,7 +2,7 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-import java.math.BigDecimal;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ExpedientGestorDocumentalRDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,16 +24,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-17T18:22:49.037+01:00")
-@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadApi")
-public class DownloadApi {
+@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ExpedientsApi")
+public class ExpedientsApi {
     private ApiClient apiClient;
 
-    public DownloadApi() {
+    public ExpedientsApi() {
         this(new ApiClient());
     }
 
     @Autowired
-    public DownloadApi(ApiClient apiClient) {
+    public ExpedientsApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -46,35 +46,26 @@ public class DownloadApi {
     }
 
     /**
-     * Downloads the document
+     * donar d&#39;alta un expedient en Gestor Documental
      * 
      * <p><b>200</b> - OK
+     * <p><b>201</b> - Created
      * <p><b>401</b> - Unauthorized
      * <p><b>403</b> - Forbidden
      * <p><b>404</b> - Not Found
-     * @param idDoc idDoc
-     * @param idExpedient idExpedient
-     * @return byte[]
+     * @param expedientGestorDocumentalRDTO expedientGestorDocumentalRDTO
+     * @return String
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public byte[] descarregarDocumentExpedient(BigDecimal idDoc, BigDecimal idExpedient) throws RestClientException {
-        Object postBody = null;
+    public String altaExpedientGestorDocumentalUsingPOST(ExpedientGestorDocumentalRDTO expedientGestorDocumentalRDTO) throws RestClientException {
+        Object postBody = expedientGestorDocumentalRDTO;
         
-        // verify the required parameter 'idDoc' is set
-        if (idDoc == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idDoc' when calling descarregarDocumentExpedient");
+        // verify the required parameter 'expedientGestorDocumentalRDTO' is set
+        if (expedientGestorDocumentalRDTO == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'expedientGestorDocumentalRDTO' when calling altaExpedientGestorDocumentalUsingPOST");
         }
         
-        // verify the required parameter 'idExpedient' is set
-        if (idExpedient == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idExpedient' when calling descarregarDocumentExpedient");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idDoc", idDoc);
-        uriVariables.put("idExpedient", idExpedient);
-        String path = UriComponentsBuilder.fromPath("/documentacio/descarregarDocument/{idExpedient}/{idDoc}").buildAndExpand(uriVariables).toUriString();
+        String path = UriComponentsBuilder.fromPath("/documentacio/altaExpedientGestorDocumental").build().toUriString();
         
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();
@@ -84,12 +75,14 @@ public class DownloadApi {
             "*/*"
         };
         final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
+        final String[] contentTypes = { 
+            "application/json"
+        };
         final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<byte[]> returnType = new ParameterizedTypeReference<byte[]>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+        ParameterizedTypeReference<String> returnType = new ParameterizedTypeReference<String>() {};
+        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }
