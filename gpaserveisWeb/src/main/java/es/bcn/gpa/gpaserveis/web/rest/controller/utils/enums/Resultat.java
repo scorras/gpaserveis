@@ -145,6 +145,10 @@ public enum Resultat {
 
 	ERROR_OBTENIR_DOCUMENT_INTRAOPERABILITAT("ERROR", "No s'ha pogut obtenir el document per intraoperabilitat"),
 
+	OK_OBTENIR_PER_INTEROPERABILITAT("OK", "S'ha obtingut la resposta del servei per interoperabilitat correctament"),
+
+	ERROR_OBTENIR_PER_INTEROPERABILITAT("ERROR", "No s'ha pogut obtenir la resposta del servei per interoperabilitat"),
+
 	OK_OBTENIR_EXPEDIENT("OK", "Expedient obtingut correctament"),
 
 	ERROR_OBTENIR_EXPEDIENT("ERROR", "No s'ha pogut obtenir el expedient"),

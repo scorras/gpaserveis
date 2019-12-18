@@ -47,6 +47,9 @@ public class ServeisRestControllerExceptionHandler {
 			} else if (e.getMessage().contains(Constants.MISSATGE_ERROR_OPENTEXT)) {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_OPENTEXT, e.getMessage());
 
+			} else if (e.getMessage().contains(Constants.MISSATGE_ERROR_DOCUMENTUM)) {
+				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_DOCUMENTUM, e.getMessage());
+
 			} else if (e.getMessage().contains(Constants.MISSATGE_ERROR_PDFGESTOR)) {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_PDFGESTOR, e.getMessage());
 
@@ -56,6 +59,9 @@ public class ServeisRestControllerExceptionHandler {
 			} else if (e.getMessage().contains(Constants.MISSATGE_ERROR_SIGNATURES)) {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_SIGNATURES, e.getMessage());
 
+			} else if (e.getMessage().contains(Constants.MISSATGE_ERROR_SERVEI_INTEROPERABILITAT)) {
+				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_SERVEI_INTEROPERABILITAT,
+						e.getMessage());
 			} else {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_GENERIC);
 			}

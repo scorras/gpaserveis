@@ -22,7 +22,7 @@ public class PersonesNotificacioRDTO {
 	private String nom;
 	@ApiModelProperty(value = "Cognom 1 de la persona", required = true)
 	private String cognom1;
-	@ApiModelProperty(value = "Cognom 2 de la persona", required = true)
+	@ApiModelProperty(value = "Cognom 2 de la persona", required = false)
 	private String cognom2;
 	@ApiModelProperty(value = "Document d'identitat de la persona", required = true)
 	private DocumentsIdentitatNotificacioRDTO documentIdentitat;

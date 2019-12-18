@@ -17,6 +17,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ObtenirPerInteroperabilitatBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
@@ -28,6 +29,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssenta
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 
 /**
@@ -339,5 +341,17 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	void tornarEnrereExpedient(ExpedientsTornarEnrereBDTO expedientsTornarEnrereBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Obtenir per interoperabilitat.
+	 *
+	 * @param obtenirPerInteroperabilitatBDTO
+	 *            the obtenir per interoperabilitat BDTO
+	 * @return the resposta interoperabilitat
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	RespostaInteroperabilitat obtenirPerInteroperabilitat(ObtenirPerInteroperabilitatBDTO obtenirPerInteroperabilitatBDTO)
+			throws GPAServeisServiceException;
 
 }

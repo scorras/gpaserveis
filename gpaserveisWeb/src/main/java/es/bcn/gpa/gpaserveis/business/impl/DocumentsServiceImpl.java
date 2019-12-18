@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
@@ -66,21 +67,6 @@ import lombok.extern.apachecommons.CommonsLog;
  * The Class DocumentsServiceImpl.
  */
 @Service
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
 /** The Constant log. */
 @CommonsLog
 public class DocumentsServiceImpl implements DocumentsService {
@@ -748,7 +734,8 @@ public class DocumentsServiceImpl implements DocumentsService {
 		jsonMapper.registerModule(new JodaModule());
 		ObjectWriter jsonWriter = jsonMapper.writer();
 		try {
-			Path tempFile = Files.createTempFile("upload-temp-file", null);
+			String extension = FilenameUtils.getExtension(guardarDocumentEntradaFitxerBDTO.getFile().getOriginalFilename());
+			Path tempFile = Files.createTempFile("upload-temp-file", "." + extension);
 			guardarDocumentEntradaFitxerBDTO.getFile().transferTo(tempFile.toFile());
 			file = tempFile.toFile();
 
@@ -814,7 +801,8 @@ public class DocumentsServiceImpl implements DocumentsService {
 		jsonMapper.registerModule(new JodaModule());
 		ObjectWriter jsonWriter = jsonMapper.writer();
 		try {
-			Path tempFile = Files.createTempFile("upload-temp-file", null);
+			String extension = FilenameUtils.getExtension(guardarDocumentTramitacioFitxerBDTO.getFile().getOriginalFilename());
+			Path tempFile = Files.createTempFile("upload-temp-file", "." + extension);
 			guardarDocumentTramitacioFitxerBDTO.getFile().transferTo(tempFile.toFile());
 			file = tempFile.toFile();
 
@@ -881,7 +869,8 @@ public class DocumentsServiceImpl implements DocumentsService {
 		jsonMapper.registerModule(new JodaModule());
 		ObjectWriter jsonWriter = jsonMapper.writer();
 		try {
-			Path tempFile = Files.createTempFile("upload-temp-file", null);
+			String extension = FilenameUtils.getExtension(guardarRequerimentFitxerBDTO.getFile().getOriginalFilename());
+			Path tempFile = Files.createTempFile("upload-temp-file", "." + extension);
 			guardarRequerimentFitxerBDTO.getFile().transferTo(tempFile.toFile());
 			file = tempFile.toFile();
 

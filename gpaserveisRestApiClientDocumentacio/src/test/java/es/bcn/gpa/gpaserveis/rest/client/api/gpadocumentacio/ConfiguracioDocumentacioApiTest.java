@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
@@ -178,5 +179,15 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 		RespostaPlantillaDocVinculada plantillaDocVinculada = api.consultarPlantillaDocumentacioVinculada(ONE, ONE);
 
 		assertTrue(plantillaDocVinculada != null);
+	}
+
+	@Test
+	@Ignore
+	public void consultarPlantillaDocumentacioVinculadaTest() {
+		BigDecimal idConfDoc = null;
+		BigDecimal idDocVinculada = null;
+		RespostaPlantillaDocVinculada response = api.consultarPlantillaDocumentacioVinculada(idConfDoc, idDocVinculada);
+
+		// TODO: test validations
 	}
 }

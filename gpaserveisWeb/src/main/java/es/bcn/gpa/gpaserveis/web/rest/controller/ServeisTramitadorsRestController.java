@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ObtenirPerInteroperabilitatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaAnotarOperacioComptableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaConsultaExpedientsBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsAbandonarBDTO;
@@ -95,6 +97,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsTancarBDT
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaInscriureEnRegistreBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaObtenirPerInteroperabilitatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaPublicarPerAInformacioPublicaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaResolucioValidarDocumentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaSignarDocumentBDTO;
@@ -133,10 +136,12 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownItemBDT
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegistreRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ObtenirPerInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TornarEnrereRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
@@ -187,8 +192,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentac
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.esborrar.DocumentacioEsborrarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.DocumentIncorporacioNouRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.RespostaIncorporarNouDocumentRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.interoperabilitat.DocumentInteroperabilitatRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.interoperabilitat.RespostaObtenirDocumentInteroperabilitatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.intraoperabilitat.DocumentIntraoperabilitatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.intraoperabilitat.RespostaObtenirDocumentIntraoperabilitatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.preparar.requeriment.RequerimentPreparacioRDTO;
@@ -240,6 +243,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.unitatsgestores.canviar.RespostaCanviarUnitatGestoraExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.validar.ExpedientValidacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.validar.RespostaValidarExpedientRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.interoperabilitat.ObtenirPerInteroperabilitatRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.interoperabilitat.RespostaObtenirPerInteroperabilitatRDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -2577,6 +2582,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		RespostaNotificarExpedientRDTO respostaNotificarExpedientRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		BigDecimal idNotificacio = null;
+		NotificacionsRDTO notificacionsRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_NOTIFICAR_EXPEDIENT);
 		try {
 			// El codi del expediente debe existir
@@ -2610,7 +2616,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			crearNotificacio.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
 			crearNotificacio.setCodiProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentCodi());
 			DocumentCrearNotificacioBDTO documentCrearNotificacioBDTO = new DocumentCrearNotificacioBDTO(crearNotificacio);
-			NotificacionsRDTO notificacionsRDTO = serveisService.crearNotificacio(documentCrearNotificacioBDTO);
+			notificacionsRDTO = serveisService.crearNotificacio(documentCrearNotificacioBDTO);
 			idNotificacio = notificacionsRDTO.getNotificacioId();
 
 		} catch (GPAApiParamValidationException e) {
@@ -2621,9 +2627,22 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_NOTIFICAR_EXPEDIENT, e);
 		}
 
-		RespostaExpedientsNotificarBDTO respostaExpedientsNotificarBDTO = new RespostaExpedientsNotificarBDTO(
-				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO, idNotificacio);
-		respostaNotificarExpedientRDTO = modelMapper.map(respostaExpedientsNotificarBDTO, RespostaNotificarExpedientRDTO.class);
+		if (notificacionsRDTO != null && StringUtils.isNotEmpty(notificacionsRDTO.getCodiError())) {
+			ErrorDTO errorDTO = new ErrorDTO();
+			errorDTO.setCodi(notificacionsRDTO.getCodiError());
+			errorDTO.setDescripcio(notificacionsRDTO.getMissatgeError());
+
+			ResultatRespostaDTO resultatRespostaDTO = new ResultatRespostaDTO();
+			resultatRespostaDTO.setCodi(notificacionsRDTO.getCodiError());
+			resultatRespostaDTO.setDetallError(errorDTO);
+
+			respostaNotificarExpedientRDTO = new RespostaNotificarExpedientRDTO();
+			respostaNotificarExpedientRDTO.setResultat(resultatRespostaDTO);
+		} else {
+			RespostaExpedientsNotificarBDTO respostaExpedientsNotificarBDTO = new RespostaExpedientsNotificarBDTO(
+					dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO, idNotificacio);
+			respostaNotificarExpedientRDTO = modelMapper.map(respostaExpedientsNotificarBDTO, RespostaNotificarExpedientRDTO.class);
+		}
 
 		if (log.isDebugEnabled()) {
 			log.debug("notificarExpedient(String, ExpedientNotificacioRDTO) - fi"); //$NON-NLS-1$
@@ -3572,38 +3591,63 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		return respostaAbandonarExpedientRDTO;
 	}
 
-	/**
-	 * Obtenir document interoperabilitat.
-	 *
-	 * @param codiExpedient
-	 *            the codi expedient
-	 * @param idDocument
-	 *            the id document
-	 * @param documentInteroperabilitatRDTO
-	 *            the document interoperabilitat RDTO
-	 * @return the resposta incorporar nou document RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
 	@PostMapping(value = "/expedients/{codiExpedient}/interoperabilitat")
 	@ApiOperation(value = "Obtenir un document per interoperabilitat", tags = { "Serveis Tramitadors API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	@ApiImplicitParams(@ApiImplicitParam(name = "document", value = "Dades del document a obtenir", dataType = "string", paramType = "form", required = true))
-	public RespostaObtenirDocumentInteroperabilitatRDTO obtenirDocumentInteroperabilitat(
+	public RespostaObtenirPerInteroperabilitatRDTO obtenirPerInteroperabilitat(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades del document de l'expedient", required = true) @RequestBody DocumentInteroperabilitatRDTO documentInteroperabilitatRDTO)
+			@ApiParam(value = "Dades necessàries per a la consulta al servei", required = true) @RequestBody ObtenirPerInteroperabilitatRDTO obtenirPerInteroperabilitatRDTO)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("obtenirDocumentIntraoperabilitat(String, String, DocumentIntraoperabilitatRDTO) - inici"); //$NON-NLS-1$
+			log.debug("obtenirPerInteroperabilitat(String, ObtenirPerInteroperabilitatRDTO) - inici"); //$NON-NLS-1$
+		}
+		RespostaObtenirPerInteroperabilitatRDTO respostaObtenirPerInteroperabilitatRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+		String resposta = null;
+		RespostaInteroperabilitat respostaInteroperabilitat = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_OBTENIR_PER_INTEROPERABILITAT);
+
+		try {
+			// El codi del expediente debe existir
+			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_OBTENIR_PER_INTEROPERABILITAT);
+
+			ObtenirPerInteroperabilitat obtenirPerInteroperabilitat = new ObtenirPerInteroperabilitat();
+			obtenirPerInteroperabilitat.setCodiServei(obtenirPerInteroperabilitatRDTO.getCodiServei());
+
+			ObtenirPerInteroperabilitatBDTO obtenirPerInteroperabilitatBDTO = new ObtenirPerInteroperabilitatBDTO(
+					dadesExpedientBDTO.getExpedientsRDTO().getId(), obtenirPerInteroperabilitat);
+
+			respostaInteroperabilitat = serveisService.obtenirPerInteroperabilitat(obtenirPerInteroperabilitatBDTO);
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("obtenirPerInteroperabilitat(String, ObtenirPerInteroperabilitatRDTO) ", e); // $NON-NLS-1$
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("obtenirPerInteroperabilitat(String, ObtenirPerInteroperabilitatRDTO) ", e); // $NON-NLS-1$
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_OBTENIR_PER_INTEROPERABILITAT, e);
 		}
 
-		// TODO Integración pendiente
+		switch (obtenirPerInteroperabilitatRDTO.getCodiServei()) {
+		case "DGT - Verificació matrícula":
+			if (respostaInteroperabilitat != null && respostaInteroperabilitat.getRespostaServeiDgt() != null) {
+				resposta = respostaInteroperabilitat.getRespostaServeiDgt().getIdentificadorPropietari();
+			}
+			break;
+		}
+		RespostaObtenirPerInteroperabilitatBDTO respostaObtenirPerInteroperabilitatBDTO = new RespostaObtenirPerInteroperabilitatBDTO(
+				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO, resposta);
+
+		respostaObtenirPerInteroperabilitatRDTO = modelMapper.map(respostaObtenirPerInteroperabilitatBDTO,
+				RespostaObtenirPerInteroperabilitatRDTO.class);
 
 		if (log.isDebugEnabled()) {
-			log.debug("obtenirDocumentIntraoperabilitat(String, String, DocumentIntraoperabilitatRDTO) - fi"); //$NON-NLS-1$
+			log.debug("obtenirPerInteroperabilitat(String, ObtenirPerInteroperabilitatRDTO) - fi"); //$NON-NLS-1$
 		}
 
-		return new RespostaObtenirDocumentInteroperabilitatRDTO();
+		return respostaObtenirPerInteroperabilitatRDTO;
 	}
 
 	/**

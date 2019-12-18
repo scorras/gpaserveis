@@ -26,6 +26,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ObtenirPerInteroperabilitatBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.business.handler.ServeisServiceExceptionHandler;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
@@ -49,6 +50,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssenta
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 import lombok.extern.apachecommons.CommonsLog;
 
@@ -56,6 +58,8 @@ import lombok.extern.apachecommons.CommonsLog;
  * The Class ExpedientsServiceImpl.
  */
 @Service
+
+/** The Constant log. */
 
 /** The Constant log. */
 
@@ -422,7 +426,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 * api.model.gpaexpedients.PersonesSollicitudRDTO)
 	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackDonarAccesAltraPersonaImplicada")
+	@HystrixCommand(fallbackMethod = "fallbackActualitzarDadesAltraPersonaImplicada")
 	public PageDataOfPersonesSollicitudRDTO donarAccesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
@@ -1497,6 +1501,61 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
+	}
+
+	/**
+	 * Obtenir per interoperabilitat.
+	 *
+	 * @param obtenirPerInteroperabilitatBDTO
+	 *            the obtenir per interoperabilitat BDTO
+	 * @return the resposta interoperabilitat
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackObtenirPerInteroperabilitat")
+	public RespostaInteroperabilitat obtenirPerInteroperabilitat(ObtenirPerInteroperabilitatBDTO obtenirPerInteroperabilitatBDTO)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("obtenirPerInteroperabilitat(ObtenirPerInteroperabilitatBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			RespostaInteroperabilitat respostaInteroperabilitat = expedientsApi.obtenirPerInteroperabilitat(
+					obtenirPerInteroperabilitatBDTO.getIdExpedient(), obtenirPerInteroperabilitatBDTO.getObtenirPerInteroperabilitat());
+
+			if (log.isDebugEnabled()) {
+				log.debug("obtenirPerInteroperabilitat(ObtenirPerInteroperabilitatBDTO) - fi"); //$NON-NLS-1$
+			}
+			return respostaInteroperabilitat;
+		} catch (RestClientException e) {
+			log.error("obtenirPerInteroperabilitat(ObtenirPerInteroperabilitatBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+
+	}
+
+	/**
+	 * Fallback obtenir per interoperabilitat.
+	 *
+	 * @param obtenirPerInteroperabilitatBDTO
+	 *            the obtenir per interoperabilitat BDTO
+	 * @param e
+	 *            the e
+	 * @return the resposta interoperabilitat
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public RespostaInteroperabilitat fallbackObtenirPerInteroperabilitat(ObtenirPerInteroperabilitatBDTO obtenirPerInteroperabilitatBDTO,
+			Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackObtenirPerInteroperabilitat(ObtenirPerInteroperabilitatBDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 
 }

@@ -63,6 +63,9 @@ public class Constants {
 	/** The Constant MISSATGE_ERROR_OPENTEXT. */
 	public static final String MISSATGE_ERROR_OPENTEXT = "Error OpenText:";
 
+	/** The Constant MISSATGE_ERROR_DOCUMENTUM. */
+	public static final String MISSATGE_ERROR_DOCUMENTUM = "Error Documentum:";
+
 	/** The Constant MISSATGE_ERROR_PDFGESTOR. */
 	public static final String MISSATGE_ERROR_PDFGESTOR = "Error PdfGestor:";
 
@@ -71,6 +74,9 @@ public class Constants {
 
 	/** The Constant MISSATGE_ERROR_SIGNATURES. */
 	public static final String MISSATGE_ERROR_SIGNATURES = "Error Signatures:";
+
+	/** The Constant MISSATGE_ERROR_SERVEI_INTEROPERABILITAT. */
+	public static final String MISSATGE_ERROR_SERVEI_INTEROPERABILITAT = "Error Servei Interoperabilitat:";
 
 	/** The Constant ESTAT_EXPEDIENT_EN_PREPARACIO. */
 	public static final BigDecimal ESTAT_EXPEDIENT_EN_PREPARACIO = BigDecimal.ONE;
