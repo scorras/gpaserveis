@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotificacio;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.PersonaFisicaVinculadaToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.PersonaNotificacioToInternalListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.notificar.ExpedientNotificacioRDTO;
 
@@ -18,10 +19,15 @@ public class ExpedientNotificacioRDTOToCrearNotificacioMapper extends PropertyMa
 	/** The persona sollicitant to internal converter. */
 	private PersonaNotificacioToInternalListConverter personaNotificacioToInternalListConverter;
 
+	/** The persona fisica vinculada to internal converter. */
+	private PersonaFisicaVinculadaToInternalConverter personaFisicaVinculadaToInternalConverter;
+
 	@Autowired
 	public ExpedientNotificacioRDTOToCrearNotificacioMapper(
-	        @Qualifier("expedientPersonaNotificacioToInternalListConverter") PersonaNotificacioToInternalListConverter personaNotificacioToInternalListConverter) {
+			@Qualifier("expedientPersonaNotificacioToInternalListConverter") PersonaNotificacioToInternalListConverter personaNotificacioToInternalListConverter,
+			@Qualifier("expedientPersonaFisicaVinculadaToInternalListConverter") PersonaFisicaVinculadaToInternalConverter personaFisicaVinculadaToInternalConverter) {
 		this.personaNotificacioToInternalListConverter = personaNotificacioToInternalListConverter;
+		this.personaFisicaVinculadaToInternalConverter = personaFisicaVinculadaToInternalConverter;
 	}
 
 	/*
@@ -32,6 +38,7 @@ public class ExpedientNotificacioRDTOToCrearNotificacioMapper extends PropertyMa
 	@Override
 	protected void configure() {
 		using(personaNotificacioToInternalListConverter).map(source.getDestinataris()).setPersones(null);
+		using(personaFisicaVinculadaToInternalConverter).map(source.getPersonaFisicaVinculada()).setPersonaFisicaVinculada(null);
 	}
 
 }

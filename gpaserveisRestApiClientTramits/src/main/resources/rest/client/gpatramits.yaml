@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpatramits"
-  version: "1.15.0"
+  version: "1.16.2"
   title: "API gpatramits"
   contact:
     name: "Sergio Corras"

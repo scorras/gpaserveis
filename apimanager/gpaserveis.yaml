@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.16.1"
+  version: "1.16.2"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -2032,7 +2032,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Obtenir un document per interoperabilitat"
-      operationId: "obtenirDocumentInteroperabilitatUsingPOST"
+      operationId: "obtenirPerInteroperabilitatUsingPOST"
       consumes:
       - "application/json"
       produces:
@@ -2049,11 +2049,11 @@ paths:
         required: true
         type: "string"
       - in: "body"
-        name: "documentInteroperabilitatRDTO"
-        description: "Dades del document de l'expedient"
+        name: "obtenirPerInteroperabilitatRDTO"
+        description: "Dades necessàries per a la consulta al servei"
         required: true
         schema:
-          $ref: "#/definitions/DocumentIntraoperabilitat"
+          $ref: "#/definitions/ObtenirPerInteroperabilitat"
       responses:
         200:
           description: "OK"
@@ -3414,9 +3414,6 @@ definitions:
     - "origen"
     - "revisio"
     properties:
-      codiAccio:
-        type: "string"
-        description: "Codi de l'acció."
       comentari:
         type: "string"
         description: "Comentari del document."
@@ -3847,6 +3844,9 @@ definitions:
         description: "Llista d'identificadors dels annexo."
         items:
           type: "number"
+      personaFisicaVinculada:
+        description: "Persona física vinculada a la persona jurídica."
+        $ref: "#/definitions/PersonaNotificacio"
     title: "ExpedientNotificacioRDTO"
   ExpedientPausa:
     type: "object"
@@ -4229,6 +4229,15 @@ definitions:
           \ si al demanar el alta de la petició es va indicar un valor de versioIntegracio\
           \ igual o major que 2."
     title: "MciPortasigSignataris"
+  ObtenirPerInteroperabilitat:
+    type: "object"
+    required:
+    - "codiServei"
+    properties:
+      codiServei:
+        type: "string"
+        description: "Codi del servei a executar."
+    title: "ObtenirPerInteroperabilitat"
   OperacioComptable:
     type: "object"
     properties:
@@ -4271,7 +4280,7 @@ definitions:
       dadesNotificacio:
         description: "Dades de notificació de la persona"
         $ref: "#/definitions/DadesContacte"
-      documentIdentitat:
+      documentIndentitat:
         description: "Document d'identitat de la persona"
         $ref: "#/definitions/DocumentIdentitat"
       nomRaoSocial:
@@ -4288,7 +4297,6 @@ definitions:
     type: "object"
     required:
     - "cognom1"
-    - "cognom2"
     - "dadesNotificacio"
     - "documentIdentitat"
     - "nom"
@@ -4848,6 +4856,9 @@ definitions:
       registre:
         description: "Registre de la documentació"
         $ref: "#/definitions/Registre"
+      resposta:
+        type: "string"
+        description: "Resposta del servei"
       resultat:
         description: "Resultat de l'operació"
         $ref: "#/definitions/ResultatResposta"

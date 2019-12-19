@@ -36,7 +36,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-17T12:21:43.485+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-17T18:22:49.037+01:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi")
 public class DocumentacioApi {
 	private ApiClient apiClient;
@@ -1302,6 +1302,53 @@ public class DocumentacioApi {
 	}
 
 	/**
+	 * desassocia el registre de la documentació de l&#39;expedient
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>201</b> - Created
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param documentActualizarRegistreRDTO
+	 *            documentActualizarRegistreRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public void desassociarRegistreDocumentacio(DocumentActualizarRegistre documentActualizarRegistreRDTO) throws RestClientException {
+		Object postBody = documentActualizarRegistreRDTO;
+
+		// verify the required parameter 'documentActualizarRegistreRDTO' is set
+		if (documentActualizarRegistreRDTO == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+					"Missing the required parameter 'documentActualizarRegistreRDTO' when calling desassociarRegistreDocumentacio");
+		}
+
+		String path = UriComponentsBuilder.fromPath("/documentacio/desassociarRegistreDocumentacio").build().toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "application/json" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
+		};
+		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+				returnType);
+	}
+
+	/**
 	 * Delete DocsEntrada
 	 * 
 	 * <p>
@@ -1478,6 +1525,76 @@ public class DocumentacioApi {
 		final String[] accepts = { "*/*" };
 		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
 		final String[] contentTypes = { "multipart/form-data" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<DocsEntradaRDTO> returnType = new ParameterizedTypeReference<DocsEntradaRDTO>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+				returnType);
+	}
+
+	/**
+	 * actualitza l&#39;aneu del gestor documental
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>201</b> - Created
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param docsEntradaRDTO
+	 *            docsEntradaRDTO
+	 * @param idExpedient
+	 *            idExpedient
+	 * @param idGestorDocumental
+	 *            idGestorDocumental
+	 * @return DocsEntradaRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public DocsEntradaRDTO guardarDocumentEntradaGestorDocumental(DocsEntradaRDTO docsEntradaRDTO, BigDecimal idExpedient,
+			String idGestorDocumental) throws RestClientException {
+		Object postBody = docsEntradaRDTO;
+
+		// verify the required parameter 'docsEntradaRDTO' is set
+		if (docsEntradaRDTO == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+					"Missing the required parameter 'docsEntradaRDTO' when calling guardarDocumentEntradaGestorDocumental");
+		}
+
+		// verify the required parameter 'idExpedient' is set
+		if (idExpedient == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+					"Missing the required parameter 'idExpedient' when calling guardarDocumentEntradaGestorDocumental");
+		}
+
+		// verify the required parameter 'idGestorDocumental' is set
+		if (idGestorDocumental == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+					"Missing the required parameter 'idGestorDocumental' when calling guardarDocumentEntradaGestorDocumental");
+		}
+
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("idExpedient", idExpedient);
+		uriVariables.put("idGestorDocumental", idGestorDocumental);
+		String path = UriComponentsBuilder.fromPath("/documentacio/entrada/fitxer/{idExpedient}/{idGestorDocumental}")
+				.buildAndExpand(uriVariables).toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "application/json" };
 		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
 		String[] authNames = new String[] {};
@@ -1756,6 +1873,57 @@ public class DocumentacioApi {
 	}
 
 	/**
+	 * Obre els requeriments de l&#39;expedient
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>201</b> - Created
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param idDocumentacio
+	 *            idDocumentacio
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public void obrirRequerimentsExpedient(BigDecimal idDocumentacio) throws RestClientException {
+		Object postBody = null;
+
+		// verify the required parameter 'idDocumentacio' is set
+		if (idDocumentacio == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+					"Missing the required parameter 'idDocumentacio' when calling obrirRequerimentsExpedient");
+		}
+
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("idDocumentacio", idDocumentacio);
+		String path = UriComponentsBuilder.fromPath("/documentacio/obrirRequeriments/{idDocumentacio}").buildAndExpand(uriVariables)
+				.toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "application/json" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
+		};
+		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+				returnType);
+	}
+
+	/**
 	 * Returns the requested documentacio tramitacio
 	 * 
 	 * <p>
@@ -1995,6 +2163,44 @@ public class DocumentacioApi {
 	}
 
 	/**
+	 * Obté la manera d&#39;emmagatzematge en ús
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @return String
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public String storageMode() throws RestClientException {
+		Object postBody = null;
+
+		String path = UriComponentsBuilder.fromPath("/documentacio/storageMode").build().toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = {};
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<String> returnType = new ParameterizedTypeReference<String>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+				returnType);
+	}
+
+	/**
 	 * Closes the expedient&#39;s requirements
 	 * 
 	 * <p>
@@ -2042,174 +2248,6 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
 		};
 		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-				returnType);
-	}
-
-	/**
-	 * desassocia el registre de la documentació de l&#39;expedient
-	 * 
-	 * <p>
-	 * <b>200</b> - OK
-	 * <p>
-	 * <b>201</b> - Created
-	 * <p>
-	 * <b>401</b> - Unauthorized
-	 * <p>
-	 * <b>403</b> - Forbidden
-	 * <p>
-	 * <b>404</b> - Not Found
-	 * 
-	 * @param documentActualizarRegistreRDTO
-	 *            documentActualizarRegistreRDTO
-	 * @throws RestClientException
-	 *             if an error occurs while attempting to invoke the API
-	 */
-	public void desassociarRegistreDocumentacio(DocumentActualizarRegistre documentActualizarRegistreRDTO) throws RestClientException {
-		Object postBody = documentActualizarRegistreRDTO;
-
-		// verify the required parameter 'documentActualizarRegistreRDTO' is set
-		if (documentActualizarRegistreRDTO == null) {
-			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-					"Missing the required parameter 'documentActualizarRegistreRDTO' when calling desassociarRegistreDocumentacio");
-		}
-
-		String path = UriComponentsBuilder.fromPath("/documentacio/desassociarRegistreDocumentacio").build().toUriString();
-
-		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-		final HttpHeaders headerParams = new HttpHeaders();
-		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-		final String[] accepts = { "*/*" };
-		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-		final String[] contentTypes = { "application/json" };
-		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-		String[] authNames = new String[] {};
-
-		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
-		};
-		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-				returnType);
-	}
-
-	/**
-	 * Obre els requeriments de l&#39;expedient
-	 * 
-	 * <p>
-	 * <b>200</b> - OK
-	 * <p>
-	 * <b>201</b> - Created
-	 * <p>
-	 * <b>401</b> - Unauthorized
-	 * <p>
-	 * <b>403</b> - Forbidden
-	 * <p>
-	 * <b>404</b> - Not Found
-	 * 
-	 * @param idDocumentacio
-	 *            idDocumentacio
-	 * @throws RestClientException
-	 *             if an error occurs while attempting to invoke the API
-	 */
-	public void obrirRequerimentsExpedient(BigDecimal idDocumentacio) throws RestClientException {
-		Object postBody = null;
-
-		// verify the required parameter 'idDocumentacio' is set
-		if (idDocumentacio == null) {
-			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-					"Missing the required parameter 'idDocumentacio' when calling obrirRequerimentsExpedient");
-		}
-
-		// create path and map variables
-		final Map<String, Object> uriVariables = new HashMap<String, Object>();
-		uriVariables.put("idDocumentacio", idDocumentacio);
-		String path = UriComponentsBuilder.fromPath("/documentacio/obrirRequeriments/{idDocumentacio}").buildAndExpand(uriVariables)
-				.toUriString();
-
-		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-		final HttpHeaders headerParams = new HttpHeaders();
-		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-		final String[] accepts = { "*/*" };
-		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-		final String[] contentTypes = { "application/json" };
-		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-		String[] authNames = new String[] {};
-
-		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
-		};
-		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-				returnType);
-	}
-
-	/**
-	 * actualitza l&#39;aneu del gestor documental
-	 * 
-	 * <p>
-	 * <b>200</b> - OK
-	 * <p>
-	 * <b>201</b> - Created
-	 * <p>
-	 * <b>401</b> - Unauthorized
-	 * <p>
-	 * <b>403</b> - Forbidden
-	 * <p>
-	 * <b>404</b> - Not Found
-	 * 
-	 * @param docsEntradaRDTO
-	 *            docsEntradaRDTO
-	 * @param idExpedient
-	 *            idExpedient
-	 * @param idGestorDocumental
-	 *            idGestorDocumental
-	 * @return DocsEntradaRDTO
-	 * @throws RestClientException
-	 *             if an error occurs while attempting to invoke the API
-	 */
-	public DocsEntradaRDTO guardarDocumentEntradaGestorDocumental(DocsEntradaRDTO docsEntradaRDTO, BigDecimal idExpedient,
-			String idGestorDocumental) throws RestClientException {
-		Object postBody = docsEntradaRDTO;
-
-		// verify the required parameter 'docsEntradaRDTO' is set
-		if (docsEntradaRDTO == null) {
-			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-					"Missing the required parameter 'docsEntradaRDTO' when calling guardarDocumentEntradaGestorDocumental");
-		}
-
-		// verify the required parameter 'idExpedient' is set
-		if (idExpedient == null) {
-			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-					"Missing the required parameter 'idExpedient' when calling guardarDocumentEntradaGestorDocumental");
-		}
-
-		// verify the required parameter 'idGestorDocumental' is set
-		if (idGestorDocumental == null) {
-			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-					"Missing the required parameter 'idGestorDocumental' when calling guardarDocumentEntradaGestorDocumental");
-		}
-
-		// create path and map variables
-		final Map<String, Object> uriVariables = new HashMap<String, Object>();
-		uriVariables.put("idExpedient", idExpedient);
-		uriVariables.put("idGestorDocumental", idGestorDocumental);
-		String path = UriComponentsBuilder.fromPath("/documentacio/entrada/fitxer/{idExpedient}/{idGestorDocumental}")
-				.buildAndExpand(uriVariables).toUriString();
-
-		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-		final HttpHeaders headerParams = new HttpHeaders();
-		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-		final String[] accepts = { "*/*" };
-		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-		final String[] contentTypes = { "application/json" };
-		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-		String[] authNames = new String[] {};
-
-		ParameterizedTypeReference<DocsEntradaRDTO> returnType = new ParameterizedTypeReference<DocsEntradaRDTO>() {
-		};
-		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
 				returnType);
 	}
 }

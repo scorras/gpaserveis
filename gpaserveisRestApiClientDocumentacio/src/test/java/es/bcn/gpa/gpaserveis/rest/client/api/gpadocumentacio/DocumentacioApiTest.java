@@ -27,6 +27,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -775,4 +776,55 @@ public class DocumentacioApiTest extends ParentTest {
 		assertTrue(response != null);
 
 	}
+
+	/**
+	 * Updates all selected DocsEntrada with the EstatRevisio specified
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	@Ignore
+	public void revisarDocumentacioEntradaTest() {
+		DocumentRevisio documentRevisioRDTO = null;
+		api.revisarDocumentacioEntrada(documentRevisioRDTO);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Updates all selected DocsEntrada with the EstatRevisio specified
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	@Ignore
+	public void revisarDocumentacioEntradaMassiuTest() {
+		DocumentRevisio documentRevisioRDTO = null;
+		api.revisarDocumentacioEntradaMassiu(documentRevisioRDTO);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Obté la manera d&#39;emmagatzematge en ús
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	@Ignore
+	public void storageModeTest() {
+		String response = api.storageMode();
+
+		// TODO: test validations
+	}
+
 }
