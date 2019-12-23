@@ -1,0 +1,5 @@
+#------------------------------------------------------------------------------
+# PROPERTIES THAT CONFIGURE THE ELEMENTS INVOLVED IN THE API CONNECT + OAM MODE
+#------------------------------------------------------------------------------
+
+security.authentication.httptoken.mode=apiConnectWithMockAuthenticationServer

@@ -5,6 +5,7 @@ import javax.servlet.ServletContext;
 
 import es.bcn.gpa.gpaserveis.web.initialization.filter.HystrixRequestContextServletFilter;
 import es.bcn.gpa.gpaserveis.web.rest.config.RestServerConfig;
+import net.opentrends.openframe.services.security.config.ServletApplicationContextSecurityDefaultConfiguration;
 import net.opentrends.openframe.services.web.servlet.support.AbstractAnnotationConfigRootApplicationContextlessDispatcherServletInitializer;
 
 public class RestDispatcherServletInitializer extends AbstractAnnotationConfigRootApplicationContextlessDispatcherServletInitializer {
@@ -13,7 +14,7 @@ public class RestDispatcherServletInitializer extends AbstractAnnotationConfigRo
 
 	@Override
 	protected Class<?>[] getServletApplicationContextSecurityConfigClasses() {
-		return new Class[0];
+		return new Class[] { ServletApplicationContextSecurityDefaultConfiguration.class };
 	}
 
 	@Override
@@ -30,9 +31,10 @@ public class RestDispatcherServletInitializer extends AbstractAnnotationConfigRo
 	protected String getServletName() {
 		return SERVLET_NAME;
 	}
-	
+
 	/**
 	 * Specify filters to add and map to the {@code DispatcherServlet}.
+	 * 
 	 * @return an array of filters or {@code null}
 	 * @see #registerServletFilter(ServletContext, Filter)
 	 */
