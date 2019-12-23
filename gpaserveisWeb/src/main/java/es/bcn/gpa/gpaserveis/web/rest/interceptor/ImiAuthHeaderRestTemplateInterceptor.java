@@ -37,6 +37,8 @@ public class ImiAuthHeaderRestTemplateInterceptor implements ClientHttpRequestIn
 			if (authHeader != null) {
 				request.getHeaders().add(AUTH_IMI_HEADER, authHeader);
 			}
+		} else {
+			request.getHeaders().add(AUTH_IMI_HEADER, "{\"user\": \"T000000\", \"grp\" : null}");
 		}
 		return execution.execute(request, body);
 	}

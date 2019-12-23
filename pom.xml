@@ -22,7 +22,7 @@
     <module>gpaserveisRestApiClientDocumentacio</module>
   </modules>
   <properties>
-    <revision>1.16.2</revision>
+    <revision>1.16.3</revision>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <build>
@@ -175,6 +175,20 @@
           <type>pom</type>
           <scope>provided</scope>
         </dependency>
+        <dependency>
+          <groupId>es.bcn.imi.maven</groupId>
+          <artifactId>Fwk4CtuCtrlUserUg</artifactId>
+          <version>1.0-SNAPSHOT</version>
+          <type>pom</type>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>es.bcn.imi.maven</groupId>
+          <artifactId>CtuCtrlUserUg</artifactId>
+          <version>1.0-SNAPSHOT</version>
+          <type>pom</type>
+          <scope>provided</scope>
+        </dependency>
       </dependencies>
     </profile>
     <profile>
@@ -225,6 +239,18 @@
         <dependency>
           <groupId>es.bcn.imi.maven</groupId>
           <artifactId>Fwk4Security</artifactId>
+          <version>1.0-SNAPSHOT</version>
+          <type>pom</type>
+        </dependency>
+        <dependency>
+          <groupId>es.bcn.imi.maven</groupId>
+          <artifactId>Fwk4CtuCtrlUserUg</artifactId>
+          <version>1.0-SNAPSHOT</version>
+          <type>pom</type>
+        </dependency>
+        <dependency>
+          <groupId>es.bcn.imi.maven</groupId>
+          <artifactId>CtuCtrlUserUg</artifactId>
           <version>1.0-SNAPSHOT</version>
           <type>pom</type>
         </dependency>

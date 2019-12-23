@@ -4,6 +4,7 @@ import org.mockito.Mockito;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
 
@@ -31,14 +32,14 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
 import lombok.extern.apachecommons.CommonsLog;
+import net.opentrends.openframe.services.security.config.RootApplicationContextSecurityDefaultConfiguration;
 
 /**
  * The Class TestsConfig.
  */
 @Configuration
+@Import({ RootApplicationContextSecurityDefaultConfiguration.class })
 @Lazy(true)
-
-/** The Constant log. */
 @CommonsLog
 public class TestsConfig implements EnvironmentAware {
 
