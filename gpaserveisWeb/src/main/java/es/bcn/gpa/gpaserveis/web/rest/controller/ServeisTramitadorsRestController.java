@@ -3696,7 +3696,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 *            the documentacio aportar
 	 * @return the resposta aportar document RDTO
 	 */
-	@PostMapping("/expedients/{codiExpedient}/documentacio")
+	@PostMapping("/expedients/{codiExpedient}/documentacio/aportar")
 	@ApiOperation(value = "Aportar documentació a l'expedient", tags = { "Serveis Tramitadors API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaAportarDocumentRDTO aportarDocumentacioExpedient(
