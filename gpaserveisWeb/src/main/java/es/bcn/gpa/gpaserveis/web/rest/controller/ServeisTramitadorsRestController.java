@@ -54,6 +54,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCerc
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaEsborrarDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaEsborrarDocumentTramitacioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaEstatDigitalitzacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaIncorporarNouDocumentEntradaExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaIncorporarNouDocumentTramitacioExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaObtenirDocumentEntradaIntraoperabilitatExpedientRDTO;
@@ -206,6 +207,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentac
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.digitalitzar.DocumentDigitalitzacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.digitalitzar.RespostaDigitalitzarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.esborrar.DocumentacioEsborrarRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.estatDigitalitzacio.RespostaEstatDigitalitzacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.DocumentIncorporacioNouRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.RespostaIncorporarNouDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.intraoperabilitat.DocumentIntraoperabilitatRDTO;
@@ -278,17 +280,6 @@ import net.opentrends.openframe.services.configuration.annotation.EntornProperty
 @RequestMapping(value = "/serveis/tramitadors", produces = MediaType.APPLICATION_JSON_VALUE)
 @Lazy(true)
 @Api(value = "Serveis Tramitadors API", tags = "Serveis Tramitadors API")
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
 /** The Constant log. */
 @CommonsLog
 @EntornPropertySource(value = { "classpath:/app/config/gpaserveis.properties" })
@@ -3837,9 +3828,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 *             the GPA serveis service exception
 	 */
 	@GetMapping(value = "/expedients/{codiExpedient}/documentacio/{idDocument}/estatDigitalitzacio")
-	@ApiOperation(value = " Obtenir estat de digitalitzacio d'un document", tags = { "Serveis Tramitadors API" }, extensions = {
+	@ApiOperation(value = "Obtenir estat de digitalitzacio d'un document", tags = { "Serveis Tramitadors API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	public RespostaCertificarExpedientRDTO obtenirEstatDigitalitzacio(
+	public RespostaEstatDigitalitzacioRDTO obtenirEstatDigitalitzacio(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 			@ApiParam(value = "Identificador del document", required = true) @PathVariable Long idDocument)
 			throws GPAServeisServiceException {
@@ -3847,7 +3838,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			log.debug("obtenirEstatDigitalitzacio(String, BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
-		RespostaCertificarExpedientRDTO respostaCertificarExpedientRDTO = null;
+		RespostaEstatDigitalitzacioRDTO respostaEstatDigitalitzacioRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ESTAT_DOCUMENT_DIGITALITZACIO_EXPEDIENT);
 
@@ -3858,10 +3849,13 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO,
 					Resultat.ERROR_ESTAT_DOCUMENT_DIGITALITZACIO_EXPEDIENT);
 
-			// TODO llamar a metodo de digitalitzacio status
+			// llamar a metodo de digitalitzacio status
 			EstatDigitalitzacioDocumentRDTO estat = serveisService.obtenirEstatDigitalitzacioDocument(idDocument);
 
-			// TODO mapper y devolucion
+			RespostaEstatDigitalitzacioBDTO respostaEstatDigitalitzacioBDTO = new RespostaEstatDigitalitzacioBDTO(
+					dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO,
+					estat != null ? estat.getMessage() : null, estat != null ? estat.getStatus() : null);
+			respostaEstatDigitalitzacioRDTO = modelMapper.map(respostaEstatDigitalitzacioBDTO, RespostaEstatDigitalitzacioRDTO.class);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("obtenirEstatDigitalitzacio(String, BigDecimal)", e); // $NON-NLS-1$
@@ -3876,6 +3870,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			log.debug("obtenirEstatDigitalitzacio(String, BigDecimal) - fi"); //$NON-NLS-1$
 		}
 
-		return respostaCertificarExpedientRDTO;
+		return respostaEstatDigitalitzacioRDTO;
 	}
 }

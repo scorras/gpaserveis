@@ -21,5 +21,8 @@ public class RespostaEstatDigitalitzacioRDTO {
 	private ResultatRespostaDTO resultat;
 	@ApiModelProperty("Expedient")
 	private ExpedientAccioRDTO expedient;
-
+	@ApiModelProperty("Estat de digitalitzacio")
+	private String estatDigitalitzacio;
+	@ApiModelProperty("Message")
+	private String message;
 }
