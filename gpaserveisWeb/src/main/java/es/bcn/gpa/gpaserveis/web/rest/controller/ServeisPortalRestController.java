@@ -566,6 +566,13 @@ public class ServeisPortalRestController extends BaseRestController {
 			}
 		}
 
+		// no se mostraran las acciones disponibles para el estado en
+		// preparacion desde portal
+		if (dadesExpedientBDTO.getExpedientsRDTO() != null && dadesExpedientBDTO.getExpedientsRDTO().getIdEstat()
+				.compareTo(EstatTramitadorApiParamValue.EN_PREPARACIO.getInternalValue()) == NumberUtils.INTEGER_ZERO) {
+			expedientConsultaRDTO.setAccionsDisponibles(null);
+		}
+
 		respostaConsultaExpedientsRDTO.setExpedient(expedientConsultaRDTO);
 
 		return respostaConsultaExpedientsRDTO;
