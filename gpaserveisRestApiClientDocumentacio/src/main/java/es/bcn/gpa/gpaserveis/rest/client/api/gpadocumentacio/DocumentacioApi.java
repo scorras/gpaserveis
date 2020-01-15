@@ -30,6 +30,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitaci
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRegistrarComunicat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatDigitalitzacioDocumentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequerimentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
@@ -2248,6 +2249,56 @@ public class DocumentacioApi {
 		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
 		};
 		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+				returnType);
+	}
+
+	/**
+	 * Obtenir estat de digitalització del document
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param idDocumentacio
+	 *            idDocumentacio
+	 * @return EstatDigitalitzacioDocumentRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public EstatDigitalitzacioDocumentRDTO estatDigitalitzacio(Long idDocumentacio) throws RestClientException {
+		Object postBody = null;
+
+		// verify the required parameter 'idDocumentacio' is set
+		if (idDocumentacio == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+					"Missing the required parameter 'idDocumentacio' when calling estatDigitalitzacio");
+		}
+
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("idDocumentacio", idDocumentacio);
+		String path = UriComponentsBuilder.fromPath("/documentacio/{idDocumentacio}/estatDigitalitzacio").buildAndExpand(uriVariables)
+				.toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = {};
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<EstatDigitalitzacioDocumentRDTO> returnType = new ParameterizedTypeReference<EstatDigitalitzacioDocumentRDTO>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
 				returnType);
 	}
 }

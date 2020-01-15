@@ -33,6 +33,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatDigitalitzacioDocumentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
@@ -525,4 +526,11 @@ public interface DocumentsService {
 	 */
 	void obrirRequerimentsExpedient(BigDecimal idDocumentacio) throws GPAServeisServiceException;
 
+	/**
+	 * Obtenir estat de digitalització del document
+	 * 
+	 * @param idDocumentacio
+	 * @throws GPAServeisServiceException
+	 */
+	EstatDigitalitzacioDocumentRDTO obtenirEstatDigitalitzacioDocument(Long idDocumentacio) throws GPAServeisServiceException;
 }

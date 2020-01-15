@@ -175,7 +175,11 @@ public enum Resultat {
 
 	OK_ACTUALITZAR_ID_GESTOR_DOCUMENTAL_EXPEDIENT("OK", "Identificador del gestor documental actualitzat correctament"),
 
-	ERROR_ACTUALITZAR_ID_GESTOR_DOCUMENTAL_EXPEDIENT("ERROR", "No s'ha pogut actualitzar l'identificador del gestor documental");
+	ERROR_ACTUALITZAR_ID_GESTOR_DOCUMENTAL_EXPEDIENT("ERROR", "No s'ha pogut actualitzar l'identificador del gestor documental"),
+
+	OK_ESTAT_DOCUMENT_DIGITALITZACIO_EXPEDIENT("OK", "Estat de digitalització d'un document obtingut correctament"),
+
+	ERROR_ESTAT_DOCUMENT_DIGITALITZACIO_EXPEDIENT("ERROR", "No s'ha pogut obtenir l'estat de digitalització del document");
 
 	private String codi;
 
