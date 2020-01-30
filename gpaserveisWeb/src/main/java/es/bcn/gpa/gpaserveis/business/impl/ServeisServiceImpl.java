@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.bcn.gpa.gpaserveis.business.DadesOperacioService;
 import es.bcn.gpa.gpaserveis.business.DocumentsService;
@@ -16,6 +17,7 @@ import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDeclaracioResponsableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentTramitacioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarNotificacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDeclaracioResponsableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaDigitalitzarBDTO;
@@ -62,7 +64,6 @@ import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.business.impl.helper.ServeisServiceHelper;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ActualitzarNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
@@ -94,6 +95,12 @@ import lombok.extern.apachecommons.CommonsLog;
  * The Class ServeisServiceImpl.
  */
 @Service
+
+/** The Constant log. */
+
+/** The Constant log. */
+
+/** The Constant log. */
 
 /** The Constant log. */
 
@@ -1361,25 +1368,19 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.crearNotificacio(documentCrearNotificacioBDTO);
 	}
 
-	/**
-	 * Callback notificacio.
-	 *
-	 * @param actualitzarNotificacio
-	 *            the actualitzar notificacio
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ServeisService#actualitzarNotificacio(es.
-	 * bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.
-	 * ActualitzarNotificacionDocument)
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#callbackNotificacio(es.bcn.
+	 * gpa.gpaserveis.business.dto.documents.ActualitzarNotificacioBDTO,
+	 * org.springframework.web.multipart.MultipartFile,
+	 * org.springframework.web.multipart.MultipartFile)
 	 */
 	@Override
-	public void callbackNotificacio(ActualitzarNotificacio actualitzarNotificacio) throws GPAServeisServiceException {
-		documentsService.callbackNotificacio(actualitzarNotificacio);
+	public void callbackNotificacio(ActualitzarNotificacioBDTO actualitzarNotificacio, MultipartFile docEvidenciaElectronic,
+			MultipartFile docEvidenciaPaper) throws GPAServeisServiceException {
+		documentsService.callbackNotificacio(actualitzarNotificacio, docEvidenciaElectronic, docEvidenciaPaper);
 
 	}
 
@@ -1862,6 +1863,12 @@ public class ServeisServiceImpl implements ServeisService {
 		return expedientsService.obtenirPerInteroperabilitat(obtenirPerInteroperabilitatBDTO);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * obtenirEstatDigitalitzacioDocument(java.lang.Long)
+	 */
 	@Override
 	public EstatDigitalitzacioDocumentRDTO obtenirEstatDigitalitzacioDocument(Long idDocument) throws GPAServeisServiceException {
 

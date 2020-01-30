@@ -821,6 +821,7 @@ public class DocumentacioApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
+	@Ignore
 	public void estatDigitalitzacioTest() {
 		Long idDocumentacio = null;
 		EstatDigitalitzacioDocumentRDTO response = api.estatDigitalitzacio(idDocumentacio);
