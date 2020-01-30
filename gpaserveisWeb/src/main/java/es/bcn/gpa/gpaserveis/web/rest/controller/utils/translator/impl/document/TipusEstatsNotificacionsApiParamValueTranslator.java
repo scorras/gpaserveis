@@ -12,6 +12,6 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.ApiParamV
 public class TipusEstatsNotificacionsApiParamValueTranslator
 		extends ApiParamValueTranslator<TipusEstatsNotificacionsApiParamValue, BigDecimal> {
 
-	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "Pendent de processar, Registrada, Dipositada, Visualitzada, Rebutjada, Acceptada, Rebutjada sense acces, Rebutjada sense accio, Error";
+	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "Pendent de processar, Registrada, Dipositada, Visualitzada, Rebutjada, Acceptada, Rebutjada sense accés, Rebutjada sense acció, Error";
 
 }

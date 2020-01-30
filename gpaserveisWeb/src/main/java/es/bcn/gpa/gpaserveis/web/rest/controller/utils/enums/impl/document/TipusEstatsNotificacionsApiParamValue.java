@@ -28,10 +28,10 @@ public enum TipusEstatsNotificacionsApiParamValue implements BaseApiParamValue {
 	ACCEPTADA("Acceptada", BigDecimal.valueOf(13)),
 
 	/** The rebutjada sense acces. */
-	REBUTJADA_SENSE_ACCES("Rebutjada sense acces", BigDecimal.valueOf(18)),
+	REBUTJADA_SENSE_ACCES("Rebutjada sense accés", BigDecimal.valueOf(18)),
 
 	/** The rebutjada sense accio. */
-	REBUTJADA_SENSE_ACCIO("Rebutjada sense accio", BigDecimal.valueOf(19));
+	REBUTJADA_SENSE_ACCIO("Rebutjada sense acció", BigDecimal.valueOf(19));
 
 	/** The api param value. */
 	private String apiParamValue;
