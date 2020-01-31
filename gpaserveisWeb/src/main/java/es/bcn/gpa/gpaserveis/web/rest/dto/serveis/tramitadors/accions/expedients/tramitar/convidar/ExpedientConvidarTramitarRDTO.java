@@ -1,5 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.tramitar.convidar;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -10,13 +12,13 @@ import lombok.Setter;
 
 @ApiModel(value = "ExpedientConvidarTramitar")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "codiUnitatGestora", "comentari" })
+@JsonPropertyOrder({ "codiUnitatGestoraList", "comentari" })
 @Getter
 @Setter
 public class ExpedientConvidarTramitarRDTO {
 
-	@ApiModelProperty(value = "Codi de la Unitat Gestora", required = true)
-	private String codiUnitatGestora;
+	@ApiModelProperty(value = "Llista de codis de Unitat Gestora", required = true)
+	private List<String> codiUnitatGestoraList;
 
 	@ApiModelProperty(value = "Comentari associat a la invitació a tramitar.")
 	private String comentari;

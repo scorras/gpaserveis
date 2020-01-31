@@ -17,6 +17,8 @@ public enum ErrorPrincipal {
 
 	ERROR_UNITATS_ASSIGNADA("1004", "La unitat gestora indicada ja està assignada a l'expedient"),
 
+	ERROR_UNITATS_CONVIDADA_ASSIGNADA("1005", "La unitat gestora convidada indicada ja està assignada a l'expedient"),
+
 	/* Procediments */
 	ERROR_PROCEDIMENTS_NOT_FOUND("2001", "No s'ha trobat el procediment"),
 

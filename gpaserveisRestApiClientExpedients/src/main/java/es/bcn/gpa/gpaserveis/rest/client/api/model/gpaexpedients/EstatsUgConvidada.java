@@ -22,50 +22,50 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 
 /**
- * TipusDocumentIdentitat
+ * EstatsUgConvidada
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-01-29T17:29:47.132+01:00")
-public class TipusDocumentIdentitat {
-  @JsonProperty("descripcio")
-  private String descripcio = null;
+public class EstatsUgConvidada {
+  @JsonProperty("estats")
+  private BigDecimal estats = null;
 
-  @JsonProperty("id")
-  private BigDecimal id = null;
+  @JsonProperty("ugConvidadaIdext")
+  private BigDecimal ugConvidadaIdext = null;
 
-  public TipusDocumentIdentitat descripcio(String descripcio) {
-    this.descripcio = descripcio;
+  public EstatsUgConvidada estats(BigDecimal estats) {
+    this.estats = estats;
     return this;
   }
 
    /**
-   * Get descripcio
-   * @return descripcio
+   * Get estats
+   * @return estats
   **/
   @ApiModelProperty(value = "")
-  public String getDescripcio() {
-    return descripcio;
+  public BigDecimal getEstats() {
+    return estats;
   }
 
-  public void setDescripcio(String descripcio) {
-    this.descripcio = descripcio;
+  public void setEstats(BigDecimal estats) {
+    this.estats = estats;
   }
 
-  public TipusDocumentIdentitat id(BigDecimal id) {
-    this.id = id;
+  public EstatsUgConvidada ugConvidadaIdext(BigDecimal ugConvidadaIdext) {
+    this.ugConvidadaIdext = ugConvidadaIdext;
     return this;
   }
 
    /**
-   * Get id
-   * @return id
+   * Get ugConvidadaIdext
+   * @return ugConvidadaIdext
   **/
   @ApiModelProperty(value = "")
-  public BigDecimal getId() {
-    return id;
+  public BigDecimal getUgConvidadaIdext() {
+    return ugConvidadaIdext;
   }
 
-  public void setId(BigDecimal id) {
-    this.id = id;
+  public void setUgConvidadaIdext(BigDecimal ugConvidadaIdext) {
+    this.ugConvidadaIdext = ugConvidadaIdext;
   }
 
 
@@ -77,24 +77,24 @@ public class TipusDocumentIdentitat {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TipusDocumentIdentitat tipusDocumentIdentitat = (TipusDocumentIdentitat) o;
-    return Objects.equals(this.descripcio, tipusDocumentIdentitat.descripcio) &&
-        Objects.equals(this.id, tipusDocumentIdentitat.id);
+    EstatsUgConvidada estatsUgConvidada = (EstatsUgConvidada) o;
+    return Objects.equals(this.estats, estatsUgConvidada.estats) &&
+        Objects.equals(this.ugConvidadaIdext, estatsUgConvidada.ugConvidadaIdext);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(descripcio, id);
+    return Objects.hash(estats, ugConvidadaIdext);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TipusDocumentIdentitat {\n");
+    sb.append("class EstatsUgConvidada {\n");
     
-    sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    estats: ").append(toIndentedString(estats)).append("\n");
+    sb.append("    ugConvidadaIdext: ").append(toIndentedString(ugConvidadaIdext)).append("\n");
     sb.append("}");
     return sb.toString();
   }
