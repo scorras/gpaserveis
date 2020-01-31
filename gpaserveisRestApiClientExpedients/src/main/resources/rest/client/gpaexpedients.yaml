@@ -1531,10 +1531,12 @@ definitions:
   ConvidarTramitarRDTO:
     type: "object"
     properties:
+      codiUnitatGestoraList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DropdownItemBDTO"
       comentari:
         $ref: "#/definitions/Comentaris"
-      unitatGestoraConvidada:
-        $ref: "#/definitions/DropdownItemBDTO"
     title: "ConvidarTramitarRDTO"
   CrearRegistre:
     type: "object"
@@ -1651,8 +1653,6 @@ definitions:
         type: "number"
       id:
         type: "number"
-      ugConvidadaIdext:
-        type: "number"
       unitatGestoraIdext:
         type: "number"
       usuari:
@@ -1685,6 +1685,14 @@ definitions:
       idEstatAnterior:
         type: "number"
     title: "EstatsRDTO"
+  EstatsUgConvidada:
+    type: "object"
+    properties:
+      estats:
+        type: "number"
+      ugConvidadaIdext:
+        type: "number"
+    title: "EstatsUgConvidada"
   ExpedientCanviEstat:
     type: "object"
     properties:
@@ -1830,8 +1838,10 @@ definitions:
         type: "number"
       tramitador:
         type: "string"
-      ugConvidadaIdext:
-        type: "number"
+      ugConvidadaIdextList:
+        type: "array"
+        items:
+          $ref: "#/definitions/EstatsUgConvidada"
       ultimaModificacio:
         type: "number"
       unitatGestoraIdext:

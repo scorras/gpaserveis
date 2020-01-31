@@ -35,7 +35,7 @@ import org.joda.time.DateTime;
 /**
  * DocsTramitacioRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-17T18:22:49.037+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-01-28T16:04:49.801+01:00")
 public class DocsTramitacioRDTO {
   @JsonProperty("canalComunicat")
   private BigDecimal canalComunicat = null;

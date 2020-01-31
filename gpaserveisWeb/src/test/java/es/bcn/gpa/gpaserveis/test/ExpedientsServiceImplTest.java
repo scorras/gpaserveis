@@ -4,7 +4,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -325,11 +327,15 @@ public class ExpedientsServiceImplTest extends RestServerParentTest {
 		comentari.setTitol("testStage05");
 		comentari.setDescripcio("convidarTramitarExpedient()");
 
+		List<DropdownItemBDTO> llistaUnitatGestoraConvidada = new ArrayList<>();
+
 		DropdownItemBDTO unitatGestoraConvidada = new DropdownItemBDTO();
 		unitatGestoraConvidada.setDescripcio("UG_testStage05_convidarTramitarExpedient()");
+		llistaUnitatGestoraConvidada.add(unitatGestoraConvidada);
 
 		ConvidarTramitarRDTO convidarTramitarRDTO = new ConvidarTramitarRDTO();
-		convidarTramitarRDTO.setUnitatGestoraConvidada(unitatGestoraConvidada);
+		// convidarTramitarRDTO.setUnitatGestoraConvidada(unitatGestoraConvidada);
+		convidarTramitarRDTO.setCodiUnitatGestoraList(llistaUnitatGestoraConvidada);
 		convidarTramitarRDTO.setComentari(comentari);
 
 		ExpedientsConvidarTramitarBDTO expedientsConvidarTramitarBDTO = new ExpedientsConvidarTramitarBDTO(new BigDecimal(1),

@@ -17,8 +17,10 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
+import java.io.File;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -30,7 +32,6 @@ import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ActualitzarNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
 
@@ -45,22 +46,19 @@ public class NotificacionsApiTest extends ParentTest {
 	private NotificacionsApi api = new NotificacionsApi();
 
 	/**
-	 * actualitzarNotificacio
-	 *
-	 * 
-	 *
-	 * @throws RestClientException
-	 *             if the Api call fails
+	 * Callback notificacio test.
 	 */
 	@Test
-	public void actualitzarNotificacioTest() throws RestClientException {
+	public void callbackNotificacioTest() {
 		when(apiClient.invokeAPI(eq("/notificacions"), eq(HttpMethod.PUT), any(MultiValueMap.class), any(Object.class),
 				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 				any(ParameterizedTypeReference.class))).thenReturn(null);
+		String actualitzarNotificacionDocument = StringUtils.EMPTY;
 
-		ActualitzarNotificacio actualitzarNotificacionDocumentRDTO = new ActualitzarNotificacio();
-		api.callbackNotificacio(actualitzarNotificacionDocumentRDTO);
+		File docEvidenciaElectronic = null;
+		File docEvidenciaPaper = null;
 
+		api.callbackNotificacio(actualitzarNotificacionDocument, docEvidenciaElectronic, docEvidenciaPaper);
 		assertTrue(true);
 	}
 

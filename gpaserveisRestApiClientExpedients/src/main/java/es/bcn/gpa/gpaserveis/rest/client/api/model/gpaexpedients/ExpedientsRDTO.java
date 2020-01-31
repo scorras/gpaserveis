@@ -19,17 +19,20 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Bloquejos;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Estats;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsUgConvidada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Sollicituds;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import org.joda.time.DateTime;
 
 /**
  * ExpedientsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-18T09:30:38.826+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-01-29T17:29:47.132+01:00")
 public class ExpedientsRDTO {
   @JsonProperty("accioEstatIdext")
   private BigDecimal accioEstatIdext = null;
@@ -187,8 +190,8 @@ public class ExpedientsRDTO {
   @JsonProperty("tramitador")
   private String tramitador = null;
 
-  @JsonProperty("ugConvidadaIdext")
-  private BigDecimal ugConvidadaIdext = null;
+  @JsonProperty("ugConvidadaIdextList")
+  private List<EstatsUgConvidada> ugConvidadaIdextList = null;
 
   @JsonProperty("ultimaModificacio")
   private BigDecimal ultimaModificacio = null;
@@ -1132,22 +1135,30 @@ public class ExpedientsRDTO {
     this.tramitador = tramitador;
   }
 
-  public ExpedientsRDTO ugConvidadaIdext(BigDecimal ugConvidadaIdext) {
-    this.ugConvidadaIdext = ugConvidadaIdext;
+  public ExpedientsRDTO ugConvidadaIdextList(List<EstatsUgConvidada> ugConvidadaIdextList) {
+    this.ugConvidadaIdextList = ugConvidadaIdextList;
+    return this;
+  }
+
+  public ExpedientsRDTO addUgConvidadaIdextListItem(EstatsUgConvidada ugConvidadaIdextListItem) {
+    if (this.ugConvidadaIdextList == null) {
+      this.ugConvidadaIdextList = new ArrayList<EstatsUgConvidada>();
+    }
+    this.ugConvidadaIdextList.add(ugConvidadaIdextListItem);
     return this;
   }
 
    /**
-   * Get ugConvidadaIdext
-   * @return ugConvidadaIdext
+   * Get ugConvidadaIdextList
+   * @return ugConvidadaIdextList
   **/
   @ApiModelProperty(value = "")
-  public BigDecimal getUgConvidadaIdext() {
-    return ugConvidadaIdext;
+  public List<EstatsUgConvidada> getUgConvidadaIdextList() {
+    return ugConvidadaIdextList;
   }
 
-  public void setUgConvidadaIdext(BigDecimal ugConvidadaIdext) {
-    this.ugConvidadaIdext = ugConvidadaIdext;
+  public void setUgConvidadaIdextList(List<EstatsUgConvidada> ugConvidadaIdextList) {
+    this.ugConvidadaIdextList = ugConvidadaIdextList;
   }
 
   public ExpedientsRDTO ultimaModificacio(BigDecimal ultimaModificacio) {
@@ -1248,14 +1259,14 @@ public class ExpedientsRDTO {
         Objects.equals(this.sollicituds, expedientsRDTO.sollicituds) &&
         Objects.equals(this.tipusAvis, expedientsRDTO.tipusAvis) &&
         Objects.equals(this.tramitador, expedientsRDTO.tramitador) &&
-        Objects.equals(this.ugConvidadaIdext, expedientsRDTO.ugConvidadaIdext) &&
+        Objects.equals(this.ugConvidadaIdextList, expedientsRDTO.ugConvidadaIdextList) &&
         Objects.equals(this.ultimaModificacio, expedientsRDTO.ultimaModificacio) &&
         Objects.equals(this.unitatGestoraIdext, expedientsRDTO.unitatGestoraIdext);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accioEstatIdext, aplicacioNegoci, bloqueig, bloquejos, codi, codiLlarg, configuracioDocumentacioProc, criticitatAvis, darreraModificacio, dataAllegacio, dataEsmena, dataPresentacio, dataPresentacioDes, dataPresentacioFinsA, descEstat, descEstatCastella, descEstatCatala, descEstatCiutada, descEstatCiutadaCastella, descEstatCiutadaCatala, descUGConvidada, descUnitatGestora, diesTerminiAllegacio, diesTerminiRequeriment, documentacioIdext, editable, estat, estatActual, expedientObjecteDeRecursId, id, idEstat, idRelacionat, isOge, migracioIdOrigen, nomDescUGConvidada, nomDescUnitatGestora, nomProcediment, nomProcedimentCastella, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, procedimentCodi, procedimentIdext, procedimentVersio, relacioTipusRelacio, representantPrincipal, seleccionable, sollicitant, sollicitantPrincipal, sollicitud, sollicituds, tipusAvis, tramitador, ugConvidadaIdext, ultimaModificacio, unitatGestoraIdext);
+    return Objects.hash(accioEstatIdext, aplicacioNegoci, bloqueig, bloquejos, codi, codiLlarg, configuracioDocumentacioProc, criticitatAvis, darreraModificacio, dataAllegacio, dataEsmena, dataPresentacio, dataPresentacioDes, dataPresentacioFinsA, descEstat, descEstatCastella, descEstatCatala, descEstatCiutada, descEstatCiutadaCastella, descEstatCiutadaCatala, descUGConvidada, descUnitatGestora, diesTerminiAllegacio, diesTerminiRequeriment, documentacioIdext, editable, estat, estatActual, expedientObjecteDeRecursId, id, idEstat, idRelacionat, isOge, migracioIdOrigen, nomDescUGConvidada, nomDescUnitatGestora, nomProcediment, nomProcedimentCastella, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, procedimentCodi, procedimentIdext, procedimentVersio, relacioTipusRelacio, representantPrincipal, seleccionable, sollicitant, sollicitantPrincipal, sollicitud, sollicituds, tipusAvis, tramitador, ugConvidadaIdextList, ultimaModificacio, unitatGestoraIdext);
   }
 
 
@@ -1316,7 +1327,7 @@ public class ExpedientsRDTO {
     sb.append("    sollicituds: ").append(toIndentedString(sollicituds)).append("\n");
     sb.append("    tipusAvis: ").append(toIndentedString(tipusAvis)).append("\n");
     sb.append("    tramitador: ").append(toIndentedString(tramitador)).append("\n");
-    sb.append("    ugConvidadaIdext: ").append(toIndentedString(ugConvidadaIdext)).append("\n");
+    sb.append("    ugConvidadaIdextList: ").append(toIndentedString(ugConvidadaIdextList)).append("\n");
     sb.append("    ultimaModificacio: ").append(toIndentedString(ultimaModificacio)).append("\n");
     sb.append("    unitatGestoraIdext: ").append(toIndentedString(unitatGestoraIdext)).append("\n");
     sb.append("}");

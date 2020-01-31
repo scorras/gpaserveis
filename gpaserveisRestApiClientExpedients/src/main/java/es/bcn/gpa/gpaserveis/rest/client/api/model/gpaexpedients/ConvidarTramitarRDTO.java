@@ -17,12 +17,15 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ConvidarTramitarRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-18T09:30:38.826+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-01-29T17:29:47.132+01:00")
 public class ConvidarTramitarRDTO {
+<<<<<<< HEAD
 	@JsonProperty("comentari")
 	private Comentaris comentari = null;
 
@@ -106,5 +109,98 @@ public class ConvidarTramitarRDTO {
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
+=======
+  @JsonProperty("codiUnitatGestoraList")
+  private List<DropdownItemBDTO> codiUnitatGestoraList = null;
+
+  @JsonProperty("comentari")
+  private Comentaris comentari = null;
+
+  public ConvidarTramitarRDTO codiUnitatGestoraList(List<DropdownItemBDTO> codiUnitatGestoraList) {
+    this.codiUnitatGestoraList = codiUnitatGestoraList;
+    return this;
+  }
+
+  public ConvidarTramitarRDTO addCodiUnitatGestoraListItem(DropdownItemBDTO codiUnitatGestoraListItem) {
+    if (this.codiUnitatGestoraList == null) {
+      this.codiUnitatGestoraList = new ArrayList<DropdownItemBDTO>();
+    }
+    this.codiUnitatGestoraList.add(codiUnitatGestoraListItem);
+    return this;
+  }
+
+   /**
+   * Get codiUnitatGestoraList
+   * @return codiUnitatGestoraList
+  **/
+  @ApiModelProperty(value = "")
+  public List<DropdownItemBDTO> getCodiUnitatGestoraList() {
+    return codiUnitatGestoraList;
+  }
+
+  public void setCodiUnitatGestoraList(List<DropdownItemBDTO> codiUnitatGestoraList) {
+    this.codiUnitatGestoraList = codiUnitatGestoraList;
+  }
+
+  public ConvidarTramitarRDTO comentari(Comentaris comentari) {
+    this.comentari = comentari;
+    return this;
+  }
+
+   /**
+   * Get comentari
+   * @return comentari
+  **/
+  @ApiModelProperty(value = "")
+  public Comentaris getComentari() {
+    return comentari;
+  }
+
+  public void setComentari(Comentaris comentari) {
+    this.comentari = comentari;
+  }
+
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ConvidarTramitarRDTO convidarTramitarRDTO = (ConvidarTramitarRDTO) o;
+    return Objects.equals(this.codiUnitatGestoraList, convidarTramitarRDTO.codiUnitatGestoraList) &&
+        Objects.equals(this.comentari, convidarTramitarRDTO.comentari);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(codiUnitatGestoraList, comentari);
+  }
+
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ConvidarTramitarRDTO {\n");
+    
+    sb.append("    codiUnitatGestoraList: ").append(toIndentedString(codiUnitatGestoraList)).append("\n");
+    sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+>>>>>>> origin/master
 
 }
