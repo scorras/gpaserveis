@@ -3,6 +3,7 @@ package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.RelacioPersonaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusPersonaApiParamValueTranslator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,7 +12,7 @@ import lombok.Setter;
 
 @ApiModel(value = "Persona")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "tipusPersona", "nomRaoSocial", "cognom1", "cognom2", "documentIndentitat", "dadesNotificacio" })
+@JsonPropertyOrder({ "tipusPersona", "nomRaoSocial", "cognom1", "cognom2", "documentIndentitat", "dadesNotificacio", "relacio"})
 @Getter
 @Setter
 public class PersonesRDTO {
@@ -28,4 +29,6 @@ public class PersonesRDTO {
 	private DocumentsIdentitatRDTO documentIndentitat;
 	@ApiModelProperty(value = "Dades de notificació de la persona", required = false)
 	private DadesContacteRDTO dadesNotificacio;
+	@ApiModelProperty(value = "Relacio de la persona", allowableValues = RelacioPersonaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = false)
+	private String relacio;
 }
