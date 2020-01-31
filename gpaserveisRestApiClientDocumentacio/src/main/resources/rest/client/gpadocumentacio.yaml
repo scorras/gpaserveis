@@ -1748,6 +1748,35 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /documentacio/{idDocumentacio}/estatDigitalitzacio:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Obtenir estat de digitalització del document"
+      operationId: "estatDigitalitzacio"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDocumentacio"
+        in: "path"
+        description: "idDocumentacio"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/EstatDigitalitzacioDocumentRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /documentacio/{id}:
     get:
       tags:
@@ -1809,22 +1838,33 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-    put:
+  /notificacions/retornNotificacio:
+    post:
       tags:
       - "Notificacions"
       summary: "Actualitzar una notificació"
       operationId: "callbackNotificacio"
       consumes:
-      - "application/json"
+      - "multipart/form-data"
       produces:
       - "*/*"
       parameters:
-      - in: "body"
-        name: "actualitzarNotificacionDocumentRDTO"
-        description: "actualitzarNotificacionDocumentRDTO"
+      - in: "formData"
+        name: "actualitzarNotificacionDocument"
+        description: "actualitzarNotificacionDocument"
         required: true
         schema:
-          $ref: "#/definitions/ActualitzarNotificacio"
+          type: "string"
+      - name: "docEvidenciaElectronic"
+        in: "formData"
+        description: "docEvidenciaElectronic"
+        required: false
+        type: "file"
+      - name: "docEvidenciaPaper"
+        in: "formData"
+        description: "docEvidenciaPaper"
+        required: false
+        type: "file"
       responses:
         200:
           description: "OK"
@@ -1840,61 +1880,6 @@ paths:
       x-imi-roles:
         gestor: "Perfil usuari gestor"
 definitions:
-  ActualitzarNotificacio:
-    type: "object"
-    properties:
-      codiError:
-        type: "integer"
-        format: "int32"
-        description: "Codi de l'error"
-      dataAcusamentRebuda:
-        type: "string"
-        format: "date-time"
-        description: "Data d'acusament rebuda. Format: dd/MM/yyyy hh:mm:ss"
-      dataEnviament:
-        type: "string"
-        format: "date-time"
-        description: "Data d'enviament. Format: dd/MM/yyyy hh:mm:ss"
-      dataHoraAceptacioRebuig:
-        type: "string"
-        format: "date-time"
-        description: "Data i hora d'aceptació o rebuig. Format: dd/MM/yyyy hh:mm:ss"
-      dataHoraDiposit:
-        type: "string"
-        format: "date-time"
-        description: "Data i hora de diposit. Format: dd/MM/yyyy hh:mm:ss"
-      dataHoraRegistre:
-        type: "string"
-        format: "date-time"
-        description: "Data en la que ha estat registrada la notificació. Format: dd/MM/yyyy\
-          \ hh:mm:ss"
-      dataHoraVisualitzacio:
-        type: "string"
-        format: "date-time"
-        description: "Data i hora de visualitzacio. Format: dd/MM/yyyy hh:mm:ss"
-      dataLimit:
-        type: "string"
-        format: "date-time"
-        description: "Data limit. Format: dd/MM/yyyy"
-      descripcioError:
-        type: "string"
-        description: "Descripció de l'error"
-      docEvidenciaElectronic:
-        type: "string"
-        description: "Document de la evidència electrònica de la notificació"
-      docEvidenciaPaper:
-        type: "string"
-        description: "Document de la evidència en paper de la notificació"
-      estat:
-        type: "string"
-        description: "Estat de la notificació"
-      notificacioId:
-        type: "number"
-        description: "Identificador de la notificació"
-      numRegistre:
-        type: "string"
-        description: "Número de registre de la notificació"
-    title: "ActualitzarNotificacio"
   AtributsDocs:
     type: "object"
     properties:
@@ -2746,6 +2731,14 @@ definitions:
       tipusDocumentIdentitat:
         $ref: "#/definitions/TipusDocumentIdentitat"
     title: "DocumentsIdentitat"
+  EstatDigitalitzacioDocumentRDTO:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+      status:
+        type: "string"
+    title: "EstatDigitalitzacioDocumentRDTO"
   Estats:
     type: "object"
     properties:
@@ -2839,10 +2832,6 @@ definitions:
       dataVisualitzacio:
         type: "string"
         format: "date-time"
-      docEvidenciaElectronic:
-        type: "string"
-      docEvidenciaPaper:
-        type: "string"
       id:
         type: "number"
       missatgeError:
@@ -2878,10 +2867,6 @@ definitions:
       dataVisualitzacio:
         type: "string"
         format: "date-time"
-      docEvidenciaElectronic:
-        type: "string"
-      docEvidenciaPaper:
-        type: "string"
       id:
         type: "number"
       missatgeError:

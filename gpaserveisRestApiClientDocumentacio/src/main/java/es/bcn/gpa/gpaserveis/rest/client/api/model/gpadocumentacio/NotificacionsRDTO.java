@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 /**
  * NotificacionsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-17T18:22:49.037+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-01-28T16:04:49.801+01:00")
 public class NotificacionsRDTO {
   @JsonProperty("codiError")
   private String codiError = null;
@@ -50,12 +50,6 @@ public class NotificacionsRDTO {
 
   @JsonProperty("dataVisualitzacio")
   private DateTime dataVisualitzacio = null;
-
-  @JsonProperty("docEvidenciaElectronic")
-  private String docEvidenciaElectronic = null;
-
-  @JsonProperty("docEvidenciaPaper")
-  private String docEvidenciaPaper = null;
 
   @JsonProperty("id")
   private BigDecimal id = null;
@@ -213,42 +207,6 @@ public class NotificacionsRDTO {
     this.dataVisualitzacio = dataVisualitzacio;
   }
 
-  public NotificacionsRDTO docEvidenciaElectronic(String docEvidenciaElectronic) {
-    this.docEvidenciaElectronic = docEvidenciaElectronic;
-    return this;
-  }
-
-   /**
-   * Get docEvidenciaElectronic
-   * @return docEvidenciaElectronic
-  **/
-  @ApiModelProperty(value = "")
-  public String getDocEvidenciaElectronic() {
-    return docEvidenciaElectronic;
-  }
-
-  public void setDocEvidenciaElectronic(String docEvidenciaElectronic) {
-    this.docEvidenciaElectronic = docEvidenciaElectronic;
-  }
-
-  public NotificacionsRDTO docEvidenciaPaper(String docEvidenciaPaper) {
-    this.docEvidenciaPaper = docEvidenciaPaper;
-    return this;
-  }
-
-   /**
-   * Get docEvidenciaPaper
-   * @return docEvidenciaPaper
-  **/
-  @ApiModelProperty(value = "")
-  public String getDocEvidenciaPaper() {
-    return docEvidenciaPaper;
-  }
-
-  public void setDocEvidenciaPaper(String docEvidenciaPaper) {
-    this.docEvidenciaPaper = docEvidenciaPaper;
-  }
-
   public NotificacionsRDTO id(BigDecimal id) {
     this.id = id;
     return this;
@@ -339,8 +297,6 @@ public class NotificacionsRDTO {
         Objects.equals(this.dataLimit, notificacionsRDTO.dataLimit) &&
         Objects.equals(this.dataRegistre, notificacionsRDTO.dataRegistre) &&
         Objects.equals(this.dataVisualitzacio, notificacionsRDTO.dataVisualitzacio) &&
-        Objects.equals(this.docEvidenciaElectronic, notificacionsRDTO.docEvidenciaElectronic) &&
-        Objects.equals(this.docEvidenciaPaper, notificacionsRDTO.docEvidenciaPaper) &&
         Objects.equals(this.id, notificacionsRDTO.id) &&
         Objects.equals(this.missatgeError, notificacionsRDTO.missatgeError) &&
         Objects.equals(this.notificacioId, notificacionsRDTO.notificacioId) &&
@@ -349,7 +305,7 @@ public class NotificacionsRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(codiError, dataAceptacioRebuig, dataAcusamentRebuda, dataDiposit, dataEnviament, dataLimit, dataRegistre, dataVisualitzacio, docEvidenciaElectronic, docEvidenciaPaper, id, missatgeError, notificacioId, numRegistre);
+    return Objects.hash(codiError, dataAceptacioRebuig, dataAcusamentRebuda, dataDiposit, dataEnviament, dataLimit, dataRegistre, dataVisualitzacio, id, missatgeError, notificacioId, numRegistre);
   }
 
 
@@ -366,8 +322,6 @@ public class NotificacionsRDTO {
     sb.append("    dataLimit: ").append(toIndentedString(dataLimit)).append("\n");
     sb.append("    dataRegistre: ").append(toIndentedString(dataRegistre)).append("\n");
     sb.append("    dataVisualitzacio: ").append(toIndentedString(dataVisualitzacio)).append("\n");
-    sb.append("    docEvidenciaElectronic: ").append(toIndentedString(docEvidenciaElectronic)).append("\n");
-    sb.append("    docEvidenciaPaper: ").append(toIndentedString(docEvidenciaPaper)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    missatgeError: ").append(toIndentedString(missatgeError)).append("\n");
     sb.append("    notificacioId: ").append(toIndentedString(notificacioId)).append("\n");

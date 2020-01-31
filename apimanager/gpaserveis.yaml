@@ -58,16 +58,25 @@ paths:
       summary: "Retorn de l'estat de les notificacions"
       operationId: "retornEstatNotificacioUsingPOST"
       consumes:
-      - "application/json"
+      - "multipart/form-data"
       produces:
       - "application/json"
       parameters:
-      - in: "body"
-        name: "retornNotificacioRDTO"
+      - name: "docEvidenciaElectronic"
+        in: "formData"
+        description: "Document de la evidència electrònica de la notificació"
+        required: false
+        type: "file"
+      - name: "docEvidenciaPaper"
+        in: "formData"
+        description: "Document de la evidència en paper de la notificació"
+        required: false
+        type: "file"
+      - name: "retornNotificacio"
+        in: "formData"
         description: "Resposta del servei de notificacions"
         required: true
-        schema:
-          $ref: "#/definitions/RetornNotificacio"
+        type: "string"
       responses:
         200:
           description: "OK"
@@ -1521,6 +1530,44 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /serveis/tramitadors/expedients/{codiExpedient}/documentacio/aportar:
+    post:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Aportar documentació a l'expedient"
+      operationId: "aportarDocumentacioExpedientUsingPOST_1"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codiExpedient"
+        in: "path"
+        description: "Codi de l'expedient"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "documentacioAportar"
+        description: "Dades de la creació del document"
+        required: false
+        schema:
+          $ref: "#/definitions/DocumentacioAportar"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaAportarDocumentacio"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /serveis/tramitadors/expedients/{codiExpedient}/documentacio/declaracio/responsable:
     post:
       tags:
@@ -1846,6 +1893,40 @@ paths:
             $ref: "#/definitions/RespostaEsborrarDocument"
         201:
           description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /serveis/tramitadors/expedients/{codiExpedient}/documentacio/{idDocument}/estatDigitalitzacio:
+    get:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Obtenir estat de digitalitzacio d'un document"
+      operationId: "obtenirEstatDigitalitzacioUsingGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codiExpedient"
+        in: "path"
+        description: "Codi de l'expedient"
+        required: true
+        type: "string"
+      - name: "idDocument"
+        in: "path"
+        description: "Identificador del document"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaEstatDigitalitzacio"
         401:
           description: "Unauthorized"
         403:
@@ -3777,11 +3858,13 @@ definitions:
   ExpedientConvidarTramitar:
     type: "object"
     required:
-    - "codiUnitatGestora"
+    - "codiUnitatGestoraList"
     properties:
-      codiUnitatGestora:
-        type: "string"
-        description: "Codi de la Unitat Gestora"
+      codiUnitatGestoraList:
+        type: "array"
+        description: "Llista de codis de Unitat Gestora"
+        items:
+          type: "string"
       comentari:
         type: "string"
         description: "Comentari associat a la invitació a tramitar."
@@ -4774,6 +4857,22 @@ definitions:
         description: "Resultat de l'operació"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaEsmenarExpedient"
+  RespostaEstatDigitalitzacio:
+    type: "object"
+    properties:
+      estatDigitalitzacio:
+        type: "string"
+        description: "Estat de digitalitzacio"
+      expedient:
+        description: "Expedient"
+        $ref: "#/definitions/ExpedientAccio"
+      message:
+        type: "string"
+        description: "Message"
+      resultat:
+        description: "Resultat de l'operació"
+        $ref: "#/definitions/ResultatResposta"
+    title: "RespostaEstatDigitalitzacio"
   RespostaEvidenciaDigitalitzacio:
     type: "object"
     properties:
@@ -5075,69 +5174,6 @@ definitions:
         description: "En cas d'ocórrer, detall de l'error"
         $ref: "#/definitions/Error"
     title: "ResultatResposta"
-  RetornNotificacio:
-    type: "object"
-    properties:
-      codiError:
-        type: "integer"
-        format: "int32"
-        description: "codi de l'error"
-      dataAcusamentRebuda:
-        type: "string"
-        description: "Data de l'acussament de rebuda de la notificació. Format: dd/MM/yyyy\
-          \ HH:mm:ss"
-      dataEnviament:
-        type: "string"
-        description: "Data d'enviament de la notificació. Format: dd/MM/yyyy HH:mm:ss"
-      dataHoraAceptacioRebuig:
-        type: "string"
-        description: "Data en la que ha estat acceptada/rebutjada la notificació.\
-          \ Format: dd/MM/yyyy HH:mm:ss"
-      dataHoraDiposit:
-        type: "string"
-        description: "Data en la que ha estat diposada la notificació. Format: dd/MM/yyyy\
-          \ HH:mm:ss"
-      dataHoraRegistre:
-        type: "string"
-        description: "Data en la que ha estat registrada la notificació. Format: dd/MM/yyyy\
-          \ HH:mm:ss"
-      dataHoraVisualitzacio:
-        type: "string"
-        description: "Data en la que ha estat visualitzada la notificació. Format:\
-          \ dd/MM/yyyy HH:mm:ss"
-      dataLimit:
-        type: "string"
-        description: "Data límit de la notificació. Format: dd/MM/yyyy HH:mm:ss"
-      descripcioError:
-        type: "string"
-        description: "Descripció de l'error"
-      docEvidenciaElectronic:
-        type: "string"
-        description: "Document de la evidència electrònica de la notificació"
-      docEvidenciaPaper:
-        type: "string"
-        description: "Document de la evidència en paper de la notificació"
-      estat:
-        type: "string"
-        description: "Estat de la notificació"
-        enum:
-        - "Pendent de processar"
-        - "Registrada"
-        - "Dipositada"
-        - "Visualitzada"
-        - "Rebutjada"
-        - "Acceptada"
-        - "Rebutjada sense accés"
-        - "Rebutjada sense acció"
-        - "Error"
-      notificacioId:
-        type: "integer"
-        format: "int64"
-        description: "Identificador de la notificació"
-      numRegistre:
-        type: "string"
-        description: "Número de registre de la notificació."
-    title: "RetornNotificacio"
   TerminisDuracio:
     type: "object"
     properties:

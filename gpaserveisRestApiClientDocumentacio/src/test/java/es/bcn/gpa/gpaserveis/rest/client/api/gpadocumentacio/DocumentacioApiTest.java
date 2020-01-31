@@ -51,6 +51,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitaci
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRegistrarComunicat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatDigitalitzacioDocumentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequerimentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
@@ -807,6 +808,23 @@ public class DocumentacioApiTest extends ParentTest {
 	public void revisarDocumentacioEntradaMassiuTest() {
 		DocumentRevisio documentRevisioRDTO = null;
 		api.revisarDocumentacioEntradaMassiu(documentRevisioRDTO);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Obtenir estat de digitalització del document
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	@Ignore
+	public void estatDigitalitzacioTest() {
+		Long idDocumentacio = null;
+		EstatDigitalitzacioDocumentRDTO response = api.estatDigitalitzacio(idDocumentacio);
 
 		// TODO: test validations
 	}

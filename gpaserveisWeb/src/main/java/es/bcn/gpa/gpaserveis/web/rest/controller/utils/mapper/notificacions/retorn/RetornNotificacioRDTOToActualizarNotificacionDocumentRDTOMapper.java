@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ActualitzarNotificacio;
+import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarNotificacioBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.DataHoraToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.DataToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToBigDecimalConverter;
@@ -16,7 +16,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.notificacions.estat.RetornNoti
  */
 @Component("notificacioRetornNotificacioRDTOToActualizarNotificacionDocumentRDTOMapper")
 public class RetornNotificacioRDTOToActualizarNotificacionDocumentRDTOMapper
-        extends PropertyMap<RetornNotificacioRDTO, ActualitzarNotificacio> {
+		extends PropertyMap<RetornNotificacioRDTO, ActualitzarNotificacioBDTO> {
 
 	private DataToInternalConverter dataToInternalConverter;
 	private DataHoraToInternalConverter dataHoraToInternalConverter;
@@ -24,9 +24,9 @@ public class RetornNotificacioRDTOToActualizarNotificacionDocumentRDTOMapper
 
 	@Autowired
 	public RetornNotificacioRDTOToActualizarNotificacionDocumentRDTOMapper(
-	        @Qualifier("dataHoraToInternalConverter") DataHoraToInternalConverter dataHoraToInternalConverter,
-	        @Qualifier("dataToInternalConverter") DataToInternalConverter dataToInternalConverter,
-	        @Qualifier("internalToBigDecimalConverter") InternalToBigDecimalConverter internalToBigDecimalConverter) {
+			@Qualifier("dataHoraToInternalConverter") DataHoraToInternalConverter dataHoraToInternalConverter,
+			@Qualifier("dataToInternalConverter") DataToInternalConverter dataToInternalConverter,
+			@Qualifier("internalToBigDecimalConverter") InternalToBigDecimalConverter internalToBigDecimalConverter) {
 
 		this.dataHoraToInternalConverter = dataHoraToInternalConverter;
 		this.dataToInternalConverter = dataToInternalConverter;
@@ -45,8 +45,6 @@ public class RetornNotificacioRDTOToActualizarNotificacionDocumentRDTOMapper
 		map().setNumRegistre(source.getNumRegistre());
 		map().setCodiError(source.getCodiError());
 		map().setDescripcioError(source.getDescripcioError());
-		map().setDocEvidenciaElectronic(source.getDocEvidenciaElectronic());
-		map().setDocEvidenciaPaper(source.getDocEvidenciaPaper());
 		using(dataHoraToInternalConverter).map(source.getDataEnviament()).setDataEnviament(null);
 		using(dataHoraToInternalConverter).map(source.getDataLimit()).setDataLimit(null);
 	}

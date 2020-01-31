@@ -388,6 +388,8 @@ public abstract class ParentTest {
 
 			when(notificacionsApi.crearNotificacio(any(CrearNotificacio.class))).thenReturn(TestsConfigHelper.crearNotificacioResponse());
 
+			doNothing().when(notificacionsApi).callbackNotificacio(any(String.class), any(File.class), any(File.class));
+
 			when(documentacioApi.actualitzarDocumentTramitacio(any(DocsTramitacioRDTO.class), any(BigDecimal.class)))
 					.thenReturn(TestsConfigHelper.actualitzarDocumentTramitacioResponse());
 

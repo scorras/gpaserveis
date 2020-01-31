@@ -13,8 +13,7 @@ import lombok.ToString;
 @ApiModel(value = "RetornNotificacio")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "notificacioId", "estat", "codiError", "descripcioError", "numRegistre", "dataHoraRegistre", "dataHoraDiposit",
-        "dataHoraVisualitzacio", "dataHoraAceptacioRebuig", "dataLimit", "docEvidenciaElectronic", "dataEnviament", "dataAcusamentRebuda",
-        "docEvidenciaPaper" })
+		"dataHoraVisualitzacio", "dataHoraAceptacioRebuig", "dataLimit", "dataEnviament", "dataAcusamentRebuda" })
 @Getter
 @Setter
 @ToString
@@ -40,13 +39,8 @@ public class RetornNotificacioRDTO {
 	private String dataHoraAceptacioRebuig;
 	@ApiModelProperty(value = "Data límit de la notificació. Format: dd/MM/yyyy HH:mm:ss")
 	private String dataLimit;
-	@ApiModelProperty(value = "Document de la evidència electrònica de la notificació")
-	private String docEvidenciaElectronic;
 	@ApiModelProperty(value = "Data d'enviament de la notificació. Format: dd/MM/yyyy HH:mm:ss")
 	private String dataEnviament;
 	@ApiModelProperty(value = "Data de l'acussament de rebuda de la notificació. Format: dd/MM/yyyy HH:mm:ss")
 	private String dataAcusamentRebuda;
-	@ApiModelProperty(value = "Document de la evidència en paper de la notificació")
-	private String docEvidenciaPaper;
-
 }
