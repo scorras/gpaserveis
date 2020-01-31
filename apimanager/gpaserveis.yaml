@@ -3858,11 +3858,13 @@ definitions:
   ExpedientConvidarTramitar:
     type: "object"
     required:
-    - "codiUnitatGestora"
+    - "codiUnitatGestoraList"
     properties:
-      codiUnitatGestora:
-        type: "string"
-        description: "Codi de la Unitat Gestora"
+      codiUnitatGestoraList:
+        type: "array"
+        description: "Llista de codis de Unitat Gestora"
+        items:
+          type: "string"
       comentari:
         type: "string"
         description: "Comentari associat a la invitació a tramitar."
