@@ -879,6 +879,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			docsTramitacioRDTO.setIdioma(IdiomaApiParamValue.CATALA.getInternalValue());
 			docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 			docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
+			docsTramitacioRDTO.setDocsTercers(1);
 			CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
 					dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
 			respostaCrearJustificant = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
@@ -1021,6 +1022,7 @@ public class ServeisPortalRestController extends BaseRestController {
 							: docsEntradaRDTO.getOrigen());
 					docsEntradaRDTO.setNou(NumberUtils.INTEGER_ONE);
 					docsEntradaRDTO.setConfigDocEntrada(map.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
+					docsEntradaRDTO.setDocsTercers(NumberUtils.INTEGER_ONE);
 
 					if (BooleanUtils.isTrue(documentAportatCrearRDTO.getDeclaracioResponsable())) {
 						CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO = new CrearDeclaracioResponsableBDTO(
@@ -1068,6 +1070,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				docsTramitacioRDTO.setIdioma(IdiomaApiParamValue.CATALA.getInternalValue());
 				docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 				docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
+				docsTramitacioRDTO.setDocsTercers(1);
 				CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
 						dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
 				respostaCrearJustificant = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
@@ -1398,6 +1401,7 @@ public class ServeisPortalRestController extends BaseRestController {
 							: docsEntradaRDTO.getOrigen());
 					docsEntradaRDTO.setNou(NumberUtils.INTEGER_ONE);
 					docsEntradaRDTO.setConfigDocEntrada(map.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
+					docsEntradaRDTO.setDocsTercers(NumberUtils.INTEGER_ONE);
 
 					// TODO En la esmena no se pueden aportar DR?
 					CrearDocumentEntradaBDTO crearDocumentEntradaBDTO = new CrearDocumentEntradaBDTO(
@@ -1447,6 +1451,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				docsTramitacioRDTO.setIdioma(IdiomaApiParamValue.CATALA.getInternalValue());
 				docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 				docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
+				docsTramitacioRDTO.setDocsTercers(1);
 				CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
 						dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
 				respostaCrearJustificant = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
@@ -1740,6 +1745,7 @@ public class ServeisPortalRestController extends BaseRestController {
 							: docsEntradaRDTO.getOrigen());
 					docsEntradaRDTO.setNou(NumberUtils.INTEGER_ONE);
 					docsEntradaRDTO.setConfigDocEntrada(map.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
+					docsEntradaRDTO.setDocsTercers(NumberUtils.INTEGER_ONE);
 
 					CrearDocumentEntradaDigitalitzarBDTO crearDocumentEntradaDigitalitzarBDTO = new CrearDocumentEntradaDigitalitzarBDTO(
 							dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
@@ -1781,6 +1787,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				docsTramitacioRDTO.setIdioma(IdiomaApiParamValue.CATALA.getInternalValue());
 				docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 				docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
+				docsTramitacioRDTO.setDocsTercers(1);
 				CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
 						dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
 				respostaCrearJustificant = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);

@@ -622,7 +622,7 @@ public class ServeisRestControllerValidationHelper {
 			if (dadesOperacionsValidacio.getDadesOperacionsValidValors().size() > INTEGER_ONE) {
 				// Es necesario comprobar la validación atendiendo al ordre
 				dadesOperValidVal1 = dadesOperacionsValidacio.getDadesOperacionsValidValors().get(INTEGER_ONE);
-				validVal1 =  new BigDecimal(numberFormat.parse(dadesOperValidVal1.getValor()).toString());
+				validVal1 = new BigDecimal(numberFormat.parse(dadesOperValidVal1.getValor()).toString());
 				if (dadesOperValidVal0.getOrdre().longValue() < dadesOperValidVal1.getOrdre().longValue()) {
 					validValArray = new BigDecimal[] { validVal0, validVal1 };
 				} else {
@@ -851,6 +851,44 @@ public class ServeisRestControllerValidationHelper {
 
 		if (!docsEntradaRDTO.getDocumentacio().equals(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext())) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_EXPEDIENT);
+		}
+	}
+
+	/**
+	 * Validate document aportat esborrar.
+	 *
+	 * @param docsEntradaRDTO
+	 *            the docs entrada RDTO
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateDocumentAportatEsborrar(DocsEntradaRDTO docsEntradaRDTO, DadesExpedientBDTO dadesExpedientBDTO,
+			Resultat resultatError) throws GPAApiParamValidationException {
+		if (NumberUtils.INTEGER_ONE.compareTo(docsEntradaRDTO.getOrigen()) != 0) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_ORIGEN_EXTERN);
+		}
+	}
+
+	/**
+	 * Validate document generat esborrar.
+	 *
+	 * @param docsTramitacioRDTO
+	 *            the docs tramitacio RDTO
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateDocumentGeneratEsborrar(DocsTramitacioRDTO docsTramitacioRDTO, DadesExpedientBDTO dadesExpedientBDTO,
+			Resultat resultatError) throws GPAApiParamValidationException {
+		if (NumberUtils.INTEGER_ONE.compareTo(docsTramitacioRDTO.getOrigen()) != 0) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_ORIGEN_EXTERN);
 		}
 	}
 
@@ -1448,10 +1486,16 @@ public class ServeisRestControllerValidationHelper {
 	}
 
 	/**
-	 * Valida que uno de los dos parametros no sea nulo
-	 * 
+	 * Valida que uno de los dos parametros no sea nulo.
+	 *
 	 * @param file
+	 *            the file
 	 * @param idGestorDocumental
+	 *            the id gestor documental
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
 	 */
 	public static void validateEntradaUpload(MultipartFile file, String idGestorDocumental, Resultat resultatError)
 			throws GPAApiParamValidationException {
