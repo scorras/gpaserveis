@@ -881,6 +881,44 @@ public class ServeisRestControllerValidationHelper {
 	}
 
 	/**
+	 * Validate document aportat esborrar.
+	 *
+	 * @param docsEntradaRDTO
+	 *            the docs entrada RDTO
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateDocumentAportatEsborrar(DocsEntradaRDTO docsEntradaRDTO, DadesExpedientBDTO dadesExpedientBDTO,
+			Resultat resultatError) throws GPAApiParamValidationException {
+		if (NumberUtils.INTEGER_ONE.compareTo(docsEntradaRDTO.getOrigen()) != 0) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_ORIGEN_EXTERN);
+		}
+	}
+
+	/**
+	 * Validate document generat esborrar.
+	 *
+	 * @param docsTramitacioRDTO
+	 *            the docs tramitacio RDTO
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateDocumentGeneratEsborrar(DocsTramitacioRDTO docsTramitacioRDTO, DadesExpedientBDTO dadesExpedientBDTO,
+			Resultat resultatError) throws GPAApiParamValidationException {
+		if (NumberUtils.INTEGER_ONE.compareTo(docsTramitacioRDTO.getOrigen()) != 0) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_ORIGEN_EXTERN);
+		}
+	}
+
+	/**
 	 * Validate document upload.
 	 *
 	 * @param docsEntradaRDTO
@@ -1474,10 +1512,16 @@ public class ServeisRestControllerValidationHelper {
 	}
 
 	/**
-	 * Valida que uno de los dos parametros no sea nulo
-	 * 
+	 * Valida que uno de los dos parametros no sea nulo.
+	 *
 	 * @param file
+	 *            the file
 	 * @param idGestorDocumental
+	 *            the id gestor documental
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
 	 */
 	public static void validateEntradaUpload(MultipartFile file, String idGestorDocumental, Resultat resultatError)
 			throws GPAApiParamValidationException {

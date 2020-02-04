@@ -1849,12 +1849,11 @@ paths:
       produces:
       - "*/*"
       parameters:
-      - in: "formData"
-        name: "actualitzarNotificacionDocument"
+      - name: "actualitzarNotificacionDocument"
+        in: "formData"
         description: "actualitzarNotificacionDocument"
         required: true
-        schema:
-          type: "string"
+        type: "string"
       - name: "docEvidenciaElectronic"
         in: "formData"
         description: "docEvidenciaElectronic"
@@ -2368,6 +2367,9 @@ definitions:
         $ref: "#/definitions/DocsFisics"
       docsFisicsNom:
         type: "string"
+      docsTercers:
+        type: "integer"
+        format: "int32"
       documentFisic:
         type: "number"
       documentacio:
@@ -2596,6 +2598,9 @@ definitions:
         type: "string"
       docsSignatures:
         $ref: "#/definitions/DocsSignatures"
+      docsTercers:
+        type: "integer"
+        format: "int32"
       documentFisic:
         type: "number"
       documentacio:
@@ -2832,6 +2837,10 @@ definitions:
       dataVisualitzacio:
         type: "string"
         format: "date-time"
+      docEvidenciaElectronic:
+        type: "number"
+      docEvidenciaPaper:
+        type: "number"
       id:
         type: "number"
       missatgeError:
@@ -2867,6 +2876,10 @@ definitions:
       dataVisualitzacio:
         type: "string"
         format: "date-time"
+      docEvidenciaElectronic:
+        type: "number"
+      docEvidenciaPaper:
+        type: "number"
       id:
         type: "number"
       missatgeError:

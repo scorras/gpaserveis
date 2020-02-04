@@ -3476,6 +3476,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO,
 						Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT);
 
+				ServeisRestControllerValidationHelper.validateDocumentAportatEsborrar(docsEntradaRDTO, dadesExpedientBDTO,
+						Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT);
+
 				// Se construye el modelo para la llamada a la operación de
 				// esborrar
 				// document
@@ -3488,6 +3491,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				// indicado
 				docsTramitacioRDTO = serveisService.consultarDadesDocumentGenerat(idDocument);
 				ServeisRestControllerValidationHelper.validateDocumentGenerat(docsTramitacioRDTO, dadesExpedientBDTO,
+						Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT);
+
+				ServeisRestControllerValidationHelper.validateDocumentGeneratEsborrar(docsTramitacioRDTO, dadesExpedientBDTO,
 						Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT);
 
 				// Se construye el modelo para la llamada a la operación de
@@ -3808,6 +3814,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				docsTramitacioRDTO.setIdioma(IdiomaApiParamValue.CATALA.getInternalValue());
 				docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 				docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
+				docsTramitacioRDTO.setDocsTercers(1);
 				CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
 						dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
 				respostaCrearJustificant = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
