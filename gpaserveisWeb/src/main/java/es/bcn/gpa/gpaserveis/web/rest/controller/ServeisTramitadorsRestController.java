@@ -1336,15 +1336,27 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					.consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
 
 			// El codi de la unitat gestora debe existir y estar vigente
-			UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(
-					expedientConvidarTramitarRDTO.getCodiUnitatGestora());
-			UnitatsGestoresRDTO unitatsGestoresRDTO = serveisService.consultarDadesUnitatGestora(unitatsGestoresCercaBDTO);
-			ServeisRestControllerValidationHelper.validateUnitatGestora(unitatsGestoresRDTO, dadesProcedimentBDTO,
-					Resultat.ERROR_CONVIDAR_TRAMITAR_EXPEDIENT);
+			UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = null;
+			UnitatsGestoresRDTO unitatsGestoresRDTO = null;
+			List<UnitatsGestoresRDTO> llistaUnitatsGestoresRDTO = new ArrayList<>();
+			for (String codUnitatGestora : expedientConvidarTramitarRDTO.getCodiUnitatGestoraList()) {
+				unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(codUnitatGestora);
+				unitatsGestoresRDTO = serveisService.consultarDadesUnitatGestora(unitatsGestoresCercaBDTO);
+				ServeisRestControllerValidationHelper.validateUnitatGestora(unitatsGestoresRDTO, dadesProcedimentBDTO,
+						Resultat.ERROR_CONVIDAR_TRAMITAR_EXPEDIENT);
 
-			// La UG convidada debe ser diferente a la UG principal
-			ServeisRestControllerValidationHelper.validateUnitatGestoraConvidada(unitatsGestoresRDTO.getId(),
-					dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext(), Resultat.ERROR_CONVIDAR_TRAMITAR_EXPEDIENT);
+				// La UG convidada debe ser diferente a la UG principal
+				ServeisRestControllerValidationHelper.validateUnitatGestoraConvidada(unitatsGestoresRDTO.getId(),
+						dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext(), Resultat.ERROR_CONVIDAR_TRAMITAR_EXPEDIENT);
+
+				// metermos en una lista unitatsGestoresRDTO
+				llistaUnitatsGestoresRDTO.add(unitatsGestoresRDTO);
+			}
+
+			// las unidades convidadas que vengan no pueden ya existir para el
+			// expediente
+			ServeisRestControllerValidationHelper.validateNoExistUnitatGestoraConvidada(expedientConvidarTramitarRDTO, dadesExpedientBDTO,
+					Resultat.ERROR_CONVIDAR_TRAMITAR_EXPEDIENT);
 
 			// Invitar a tramitar el expediente si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
@@ -1354,13 +1366,21 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			Comentaris comentaris = new Comentaris();
 			comentaris.setDescripcio(expedientConvidarTramitarRDTO.getComentari());
 
-			DropdownItemBDTO dropdownItemBDTO = new DropdownItemBDTO();
-			dropdownItemBDTO.setId(unitatsGestoresRDTO.getId());
-			dropdownItemBDTO.setDescripcio(unitatsGestoresRDTO.getDescripcio());
+			DropdownItemBDTO dropdownItemBDTO = null;
+			List<DropdownItemBDTO> llistaDropdownItemBDTO = new ArrayList<>();
+			for (UnitatsGestoresRDTO unitatGestorRDTO : llistaUnitatsGestoresRDTO) {
+				dropdownItemBDTO = new DropdownItemBDTO();
+
+				dropdownItemBDTO.setId(unitatGestorRDTO.getId());
+				dropdownItemBDTO.setDescripcio(unitatGestorRDTO.getDescripcio());
+
+				llistaDropdownItemBDTO.add(dropdownItemBDTO);
+			}
 
 			ConvidarTramitarRDTO convidarTramitarRDTO = new ConvidarTramitarRDTO();
 			convidarTramitarRDTO.setComentari(comentaris);
-			convidarTramitarRDTO.setUnitatGestoraConvidada(dropdownItemBDTO);
+			// convidarTramitarRDTO.setUnitatGestoraConvidada(dropdownItemBDTO);
+			convidarTramitarRDTO.setCodiUnitatGestoraList(llistaDropdownItemBDTO);
 
 			// Cambio de estado del expediente en función del estado origen
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
@@ -3456,6 +3476,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO,
 						Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT);
 
+				ServeisRestControllerValidationHelper.validateDocumentAportatEsborrar(docsEntradaRDTO, dadesExpedientBDTO,
+						Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT);
+
 				// Se construye el modelo para la llamada a la operación de
 				// esborrar
 				// document
@@ -3468,6 +3491,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				// indicado
 				docsTramitacioRDTO = serveisService.consultarDadesDocumentGenerat(idDocument);
 				ServeisRestControllerValidationHelper.validateDocumentGenerat(docsTramitacioRDTO, dadesExpedientBDTO,
+						Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT);
+
+				ServeisRestControllerValidationHelper.validateDocumentGeneratEsborrar(docsTramitacioRDTO, dadesExpedientBDTO,
 						Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT);
 
 				// Se construye el modelo para la llamada a la operación de
@@ -3788,6 +3814,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				docsTramitacioRDTO.setIdioma(IdiomaApiParamValue.CATALA.getInternalValue());
 				docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 				docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
+				docsTramitacioRDTO.setDocsTercers(1);
 				CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
 						dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
 				respostaCrearJustificant = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);

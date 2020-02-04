@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 /**
  * Notificacions
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-17T18:22:49.037+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-03T12:24:18.517+01:00")
 public class Notificacions {
   @JsonProperty("codiError")
   private String codiError = null;
@@ -52,10 +52,10 @@ public class Notificacions {
   private DateTime dataVisualitzacio = null;
 
   @JsonProperty("docEvidenciaElectronic")
-  private String docEvidenciaElectronic = null;
+  private BigDecimal docEvidenciaElectronic = null;
 
   @JsonProperty("docEvidenciaPaper")
-  private String docEvidenciaPaper = null;
+  private BigDecimal docEvidenciaPaper = null;
 
   @JsonProperty("id")
   private BigDecimal id = null;
@@ -213,7 +213,7 @@ public class Notificacions {
     this.dataVisualitzacio = dataVisualitzacio;
   }
 
-  public Notificacions docEvidenciaElectronic(String docEvidenciaElectronic) {
+  public Notificacions docEvidenciaElectronic(BigDecimal docEvidenciaElectronic) {
     this.docEvidenciaElectronic = docEvidenciaElectronic;
     return this;
   }
@@ -223,15 +223,15 @@ public class Notificacions {
    * @return docEvidenciaElectronic
   **/
   @ApiModelProperty(value = "")
-  public String getDocEvidenciaElectronic() {
+  public BigDecimal getDocEvidenciaElectronic() {
     return docEvidenciaElectronic;
   }
 
-  public void setDocEvidenciaElectronic(String docEvidenciaElectronic) {
+  public void setDocEvidenciaElectronic(BigDecimal docEvidenciaElectronic) {
     this.docEvidenciaElectronic = docEvidenciaElectronic;
   }
 
-  public Notificacions docEvidenciaPaper(String docEvidenciaPaper) {
+  public Notificacions docEvidenciaPaper(BigDecimal docEvidenciaPaper) {
     this.docEvidenciaPaper = docEvidenciaPaper;
     return this;
   }
@@ -241,11 +241,11 @@ public class Notificacions {
    * @return docEvidenciaPaper
   **/
   @ApiModelProperty(value = "")
-  public String getDocEvidenciaPaper() {
+  public BigDecimal getDocEvidenciaPaper() {
     return docEvidenciaPaper;
   }
 
-  public void setDocEvidenciaPaper(String docEvidenciaPaper) {
+  public void setDocEvidenciaPaper(BigDecimal docEvidenciaPaper) {
     this.docEvidenciaPaper = docEvidenciaPaper;
   }
 

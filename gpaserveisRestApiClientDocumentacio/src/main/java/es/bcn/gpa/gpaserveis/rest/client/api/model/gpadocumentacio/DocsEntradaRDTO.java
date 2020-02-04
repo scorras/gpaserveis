@@ -31,7 +31,7 @@ import org.joda.time.DateTime;
 /**
  * DocsEntradaRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-17T18:22:49.037+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-03T12:24:18.517+01:00")
 public class DocsEntradaRDTO {
   @JsonProperty("codi")
   private String codi = null;
@@ -77,6 +77,9 @@ public class DocsEntradaRDTO {
 
   @JsonProperty("docsFisicsNom")
   private String docsFisicsNom = null;
+
+  @JsonProperty("docsTercers")
+  private Integer docsTercers = null;
 
   @JsonProperty("documentFisic")
   private BigDecimal documentFisic = null;
@@ -427,6 +430,24 @@ public class DocsEntradaRDTO {
 
   public void setDocsFisicsNom(String docsFisicsNom) {
     this.docsFisicsNom = docsFisicsNom;
+  }
+
+  public DocsEntradaRDTO docsTercers(Integer docsTercers) {
+    this.docsTercers = docsTercers;
+    return this;
+  }
+
+   /**
+   * Get docsTercers
+   * @return docsTercers
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getDocsTercers() {
+    return docsTercers;
+  }
+
+  public void setDocsTercers(Integer docsTercers) {
+    this.docsTercers = docsTercers;
   }
 
   public DocsEntradaRDTO documentFisic(BigDecimal documentFisic) {
@@ -948,6 +969,7 @@ public class DocsEntradaRDTO {
         Objects.equals(this.digitalitzat, docsEntradaRDTO.digitalitzat) &&
         Objects.equals(this.docsFisics, docsEntradaRDTO.docsFisics) &&
         Objects.equals(this.docsFisicsNom, docsEntradaRDTO.docsFisicsNom) &&
+        Objects.equals(this.docsTercers, docsEntradaRDTO.docsTercers) &&
         Objects.equals(this.documentFisic, docsEntradaRDTO.documentFisic) &&
         Objects.equals(this.documentacio, docsEntradaRDTO.documentacio) &&
         Objects.equals(this.editable, docsEntradaRDTO.editable) &&
@@ -979,7 +1001,7 @@ public class DocsEntradaRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(codi, comentari, configDocEntrada, configuracioDocsEntrada, configuracioDocsEntradaId, configuracioDocsEntradaNom, configuracioDocsEntradaNomCastella, dataCreacio, dataDigitalitzacio, dataPresentacio, dataUltimaModificacio, declaracioResponsable, digitalitzat, docsFisics, docsFisicsNom, documentFisic, documentacio, editable, eliminat, estatDigitalitzacio, id, idIdiomaPlantilla, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, nou, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreCodi, registreIdext, requerit, revisio, seleccionable, tipusMimeDescripcio, tramitOvtIdext, ultimaModificacioIdext, urlDigitalitzacio, usuariIdext);
+    return Objects.hash(codi, comentari, configDocEntrada, configuracioDocsEntrada, configuracioDocsEntradaId, configuracioDocsEntradaNom, configuracioDocsEntradaNomCastella, dataCreacio, dataDigitalitzacio, dataPresentacio, dataUltimaModificacio, declaracioResponsable, digitalitzat, docsFisics, docsFisicsNom, docsTercers, documentFisic, documentacio, editable, eliminat, estatDigitalitzacio, id, idIdiomaPlantilla, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, nou, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreCodi, registreIdext, requerit, revisio, seleccionable, tipusMimeDescripcio, tramitOvtIdext, ultimaModificacioIdext, urlDigitalitzacio, usuariIdext);
   }
 
 
@@ -1003,6 +1025,7 @@ public class DocsEntradaRDTO {
     sb.append("    digitalitzat: ").append(toIndentedString(digitalitzat)).append("\n");
     sb.append("    docsFisics: ").append(toIndentedString(docsFisics)).append("\n");
     sb.append("    docsFisicsNom: ").append(toIndentedString(docsFisicsNom)).append("\n");
+    sb.append("    docsTercers: ").append(toIndentedString(docsTercers)).append("\n");
     sb.append("    documentFisic: ").append(toIndentedString(documentFisic)).append("\n");
     sb.append("    documentacio: ").append(toIndentedString(documentacio)).append("\n");
     sb.append("    editable: ").append(toIndentedString(editable)).append("\n");

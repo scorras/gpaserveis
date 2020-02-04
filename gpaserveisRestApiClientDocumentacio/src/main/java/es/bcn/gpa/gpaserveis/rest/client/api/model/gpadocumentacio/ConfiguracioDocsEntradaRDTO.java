@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * ConfiguracioDocsEntradaRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-17T18:22:49.037+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-03T12:24:18.517+01:00")
 public class ConfiguracioDocsEntradaRDTO {
   @JsonProperty("atributDoc")
   private BigDecimal atributDoc = null;

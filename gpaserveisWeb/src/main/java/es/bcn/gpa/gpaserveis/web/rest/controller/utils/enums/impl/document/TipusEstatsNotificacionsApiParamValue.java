@@ -9,7 +9,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.BaseApiParamValue;
  */
 public enum TipusEstatsNotificacionsApiParamValue implements BaseApiParamValue {
 
-    /** The pendent de processar. */
+	/** The pendent de processar. */
 	PENDENT_DE_PROCESSAR("Pendent de processar", BigDecimal.valueOf(7)),
 
 	/** The registrada. */

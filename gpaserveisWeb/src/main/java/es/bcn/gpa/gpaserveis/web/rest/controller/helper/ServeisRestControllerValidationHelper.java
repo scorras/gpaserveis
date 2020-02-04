@@ -31,6 +31,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsUgConvidada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
@@ -71,6 +72,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentac
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.preparar.requeriment.DadaOperacioRequeritRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.preparar.requeriment.RequerimentPreparatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.presentar.declaracio.responsable.DeclaracioResponsablePresentadaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.tramitar.convidar.ExpedientConvidarTramitarRDTO;
 
 /**
  * The Class ServeisRestControllerValidationHelper.
@@ -155,6 +157,30 @@ public class ServeisRestControllerValidationHelper {
 		// asignada el expediente
 		if (idUnitatGestoraConvidada.compareTo(idUnitatGestoraExpedient) == NumberUtils.INTEGER_ZERO) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_UNITATS_ASSIGNADA);
+		}
+	}
+
+	/**
+	 * Validate no exist unitat gestora convidada.
+	 *
+	 * @param idUnitatGestoraConvidada
+	 *            the id unitat gestora convidada
+	 * @param idUnitatGestoraExpedient
+	 *            the id unitat gestora expedient
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateNoExistUnitatGestoraConvidada(ExpedientConvidarTramitarRDTO expedientConvidarTramitarRDTO,
+			DadesExpedientBDTO dadesExpedientBDTO, Resultat resultatError) throws GPAApiParamValidationException {
+
+		for (EstatsUgConvidada estatsUgConvidada : dadesExpedientBDTO.getExpedientsRDTO().getUgConvidadaIdextList()) {
+			if (expedientConvidarTramitarRDTO.getCodiUnitatGestoraList()
+					.contains(String.valueOf(estatsUgConvidada.getUgConvidadaIdext()))) {
+				throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_UNITATS_CONVIDADA_ASSIGNADA);
+			}
+
 		}
 	}
 
@@ -622,7 +648,7 @@ public class ServeisRestControllerValidationHelper {
 			if (dadesOperacionsValidacio.getDadesOperacionsValidValors().size() > INTEGER_ONE) {
 				// Es necesario comprobar la validación atendiendo al ordre
 				dadesOperValidVal1 = dadesOperacionsValidacio.getDadesOperacionsValidValors().get(INTEGER_ONE);
-				validVal1 =  new BigDecimal(numberFormat.parse(dadesOperValidVal1.getValor()).toString());
+				validVal1 = new BigDecimal(numberFormat.parse(dadesOperValidVal1.getValor()).toString());
 				if (dadesOperValidVal0.getOrdre().longValue() < dadesOperValidVal1.getOrdre().longValue()) {
 					validValArray = new BigDecimal[] { validVal0, validVal1 };
 				} else {
@@ -851,6 +877,44 @@ public class ServeisRestControllerValidationHelper {
 
 		if (!docsEntradaRDTO.getDocumentacio().equals(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext())) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_EXPEDIENT);
+		}
+	}
+
+	/**
+	 * Validate document aportat esborrar.
+	 *
+	 * @param docsEntradaRDTO
+	 *            the docs entrada RDTO
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateDocumentAportatEsborrar(DocsEntradaRDTO docsEntradaRDTO, DadesExpedientBDTO dadesExpedientBDTO,
+			Resultat resultatError) throws GPAApiParamValidationException {
+		if (NumberUtils.INTEGER_ONE.compareTo(docsEntradaRDTO.getOrigen()) != 0) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_ORIGEN_EXTERN);
+		}
+	}
+
+	/**
+	 * Validate document generat esborrar.
+	 *
+	 * @param docsTramitacioRDTO
+	 *            the docs tramitacio RDTO
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateDocumentGeneratEsborrar(DocsTramitacioRDTO docsTramitacioRDTO, DadesExpedientBDTO dadesExpedientBDTO,
+			Resultat resultatError) throws GPAApiParamValidationException {
+		if (NumberUtils.INTEGER_ONE.compareTo(docsTramitacioRDTO.getOrigen()) != 0) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_ORIGEN_EXTERN);
 		}
 	}
 
@@ -1448,10 +1512,16 @@ public class ServeisRestControllerValidationHelper {
 	}
 
 	/**
-	 * Valida que uno de los dos parametros no sea nulo
-	 * 
+	 * Valida que uno de los dos parametros no sea nulo.
+	 *
 	 * @param file
+	 *            the file
 	 * @param idGestorDocumental
+	 *            the id gestor documental
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
 	 */
 	public static void validateEntradaUpload(MultipartFile file, String idGestorDocumental, Resultat resultatError)
 			throws GPAApiParamValidationException {

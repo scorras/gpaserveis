@@ -21,17 +21,45 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Comentaris;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownItemBDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ConvidarTramitarRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-18T09:30:38.826+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-01-29T17:29:47.132+01:00")
 public class ConvidarTramitarRDTO {
+  @JsonProperty("codiUnitatGestoraList")
+  private List<DropdownItemBDTO> codiUnitatGestoraList = null;
+
   @JsonProperty("comentari")
   private Comentaris comentari = null;
 
-  @JsonProperty("unitatGestoraConvidada")
-  private DropdownItemBDTO unitatGestoraConvidada = null;
+  public ConvidarTramitarRDTO codiUnitatGestoraList(List<DropdownItemBDTO> codiUnitatGestoraList) {
+    this.codiUnitatGestoraList = codiUnitatGestoraList;
+    return this;
+  }
+
+  public ConvidarTramitarRDTO addCodiUnitatGestoraListItem(DropdownItemBDTO codiUnitatGestoraListItem) {
+    if (this.codiUnitatGestoraList == null) {
+      this.codiUnitatGestoraList = new ArrayList<DropdownItemBDTO>();
+    }
+    this.codiUnitatGestoraList.add(codiUnitatGestoraListItem);
+    return this;
+  }
+
+   /**
+   * Get codiUnitatGestoraList
+   * @return codiUnitatGestoraList
+  **/
+  @ApiModelProperty(value = "")
+  public List<DropdownItemBDTO> getCodiUnitatGestoraList() {
+    return codiUnitatGestoraList;
+  }
+
+  public void setCodiUnitatGestoraList(List<DropdownItemBDTO> codiUnitatGestoraList) {
+    this.codiUnitatGestoraList = codiUnitatGestoraList;
+  }
 
   public ConvidarTramitarRDTO comentari(Comentaris comentari) {
     this.comentari = comentari;
@@ -51,24 +79,6 @@ public class ConvidarTramitarRDTO {
     this.comentari = comentari;
   }
 
-  public ConvidarTramitarRDTO unitatGestoraConvidada(DropdownItemBDTO unitatGestoraConvidada) {
-    this.unitatGestoraConvidada = unitatGestoraConvidada;
-    return this;
-  }
-
-   /**
-   * Get unitatGestoraConvidada
-   * @return unitatGestoraConvidada
-  **/
-  @ApiModelProperty(value = "")
-  public DropdownItemBDTO getUnitatGestoraConvidada() {
-    return unitatGestoraConvidada;
-  }
-
-  public void setUnitatGestoraConvidada(DropdownItemBDTO unitatGestoraConvidada) {
-    this.unitatGestoraConvidada = unitatGestoraConvidada;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -79,13 +89,13 @@ public class ConvidarTramitarRDTO {
       return false;
     }
     ConvidarTramitarRDTO convidarTramitarRDTO = (ConvidarTramitarRDTO) o;
-    return Objects.equals(this.comentari, convidarTramitarRDTO.comentari) &&
-        Objects.equals(this.unitatGestoraConvidada, convidarTramitarRDTO.unitatGestoraConvidada);
+    return Objects.equals(this.codiUnitatGestoraList, convidarTramitarRDTO.codiUnitatGestoraList) &&
+        Objects.equals(this.comentari, convidarTramitarRDTO.comentari);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comentari, unitatGestoraConvidada);
+    return Objects.hash(codiUnitatGestoraList, comentari);
   }
 
 
@@ -94,8 +104,8 @@ public class ConvidarTramitarRDTO {
     StringBuilder sb = new StringBuilder();
     sb.append("class ConvidarTramitarRDTO {\n");
     
+    sb.append("    codiUnitatGestoraList: ").append(toIndentedString(codiUnitatGestoraList)).append("\n");
     sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
-    sb.append("    unitatGestoraConvidada: ").append(toIndentedString(unitatGestoraConvidada)).append("\n");
     sb.append("}");
     return sb.toString();
   }

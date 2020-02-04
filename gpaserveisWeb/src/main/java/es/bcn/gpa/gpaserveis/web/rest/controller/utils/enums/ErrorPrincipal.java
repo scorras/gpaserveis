@@ -17,6 +17,8 @@ public enum ErrorPrincipal {
 
 	ERROR_UNITATS_ASSIGNADA("1004", "La unitat gestora indicada ja està assignada a l'expedient"),
 
+	ERROR_UNITATS_CONVIDADA_ASSIGNADA("1005", "La unitat gestora convidada indicada ja està assignada a l'expedient"),
+
 	/* Procediments */
 	ERROR_PROCEDIMENTS_NOT_FOUND("2001", "No s'ha trobat el procediment"),
 
@@ -76,7 +78,9 @@ public enum ErrorPrincipal {
 
 	ERROR_DOCUMENTS_EMMAGATZEMAR_FITXER("4007", "No s'ha pogut emmagatzemar el fitxer"),
 
-	ERROR_ENTRADA_DOCUMENTS_UPLOAD("4007", "No s'ha rebut arxiu per a pujar ni identificador de gestor documental per a actualitzar"),
+	ERROR_ENTRADA_DOCUMENTS_UPLOAD("4008", "No s'ha rebut arxiu per a pujar ni identificador de gestor documental per a actualitzar"),
+
+	ERROR_DOCUMENTS_ORIGEN_EXTERN("4009", "No pot esborrar documents d'origen extern"),
 
 	/* Integracions */
 	ERROR_ARIADNA("5001", ""),

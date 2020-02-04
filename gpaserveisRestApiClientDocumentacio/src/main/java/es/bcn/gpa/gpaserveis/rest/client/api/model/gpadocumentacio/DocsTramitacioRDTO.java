@@ -35,7 +35,7 @@ import org.joda.time.DateTime;
 /**
  * DocsTramitacioRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-17T18:22:49.037+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-03T12:24:18.517+01:00")
 public class DocsTramitacioRDTO {
   @JsonProperty("canalComunicat")
   private BigDecimal canalComunicat = null;
@@ -84,6 +84,9 @@ public class DocsTramitacioRDTO {
 
   @JsonProperty("docsSignatures")
   private DocsSignatures docsSignatures = null;
+
+  @JsonProperty("docsTercers")
+  private Integer docsTercers = null;
 
   @JsonProperty("documentFisic")
   private BigDecimal documentFisic = null;
@@ -470,6 +473,24 @@ public class DocsTramitacioRDTO {
 
   public void setDocsSignatures(DocsSignatures docsSignatures) {
     this.docsSignatures = docsSignatures;
+  }
+
+  public DocsTramitacioRDTO docsTercers(Integer docsTercers) {
+    this.docsTercers = docsTercers;
+    return this;
+  }
+
+   /**
+   * Get docsTercers
+   * @return docsTercers
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getDocsTercers() {
+    return docsTercers;
+  }
+
+  public void setDocsTercers(Integer docsTercers) {
+    this.docsTercers = docsTercers;
   }
 
   public DocsTramitacioRDTO documentFisic(BigDecimal documentFisic) {
@@ -1100,6 +1121,7 @@ public class DocsTramitacioRDTO {
         Objects.equals(this.docsFisics, docsTramitacioRDTO.docsFisics) &&
         Objects.equals(this.docsFisicsNom, docsTramitacioRDTO.docsFisicsNom) &&
         Objects.equals(this.docsSignatures, docsTramitacioRDTO.docsSignatures) &&
+        Objects.equals(this.docsTercers, docsTramitacioRDTO.docsTercers) &&
         Objects.equals(this.documentFisic, docsTramitacioRDTO.documentFisic) &&
         Objects.equals(this.documentacio, docsTramitacioRDTO.documentacio) &&
         Objects.equals(this.editable, docsTramitacioRDTO.editable) &&
@@ -1137,7 +1159,7 @@ public class DocsTramitacioRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(canalComunicat, codi, comentari, comunicat, configDocTramitacio, configuracioDocsTramitacio, configuracioDocsTramitacioNom, dataComunicat, dataCreacio, dataDigitalitzacio, dataUltimaModificacio, descripcioEstat, digitalitzat, docsFisics, docsFisicsNom, docsSignatures, documentFisic, documentacio, editable, eliminat, estat, estatAnterior, estatDigitalitzacio, estatDocsTramitacio, estatsDocsTramitacio, id, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, missatgeComunicat, notificacio, notificacions, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, publicarInfoPublica, registreAssentament, registreIdext, requereixSignatura, requeriments, seleccionable, tipusMimeDescripcio, ultimaModificacioIdext, ultimaSignatura, urlDigitalitzacio, usuariIdext, usuariSignaturaNom);
+    return Objects.hash(canalComunicat, codi, comentari, comunicat, configDocTramitacio, configuracioDocsTramitacio, configuracioDocsTramitacioNom, dataComunicat, dataCreacio, dataDigitalitzacio, dataUltimaModificacio, descripcioEstat, digitalitzat, docsFisics, docsFisicsNom, docsSignatures, docsTercers, documentFisic, documentacio, editable, eliminat, estat, estatAnterior, estatDigitalitzacio, estatDocsTramitacio, estatsDocsTramitacio, id, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, missatgeComunicat, notificacio, notificacions, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, publicarInfoPublica, registreAssentament, registreIdext, requereixSignatura, requeriments, seleccionable, tipusMimeDescripcio, ultimaModificacioIdext, ultimaSignatura, urlDigitalitzacio, usuariIdext, usuariSignaturaNom);
   }
 
 
@@ -1162,6 +1184,7 @@ public class DocsTramitacioRDTO {
     sb.append("    docsFisics: ").append(toIndentedString(docsFisics)).append("\n");
     sb.append("    docsFisicsNom: ").append(toIndentedString(docsFisicsNom)).append("\n");
     sb.append("    docsSignatures: ").append(toIndentedString(docsSignatures)).append("\n");
+    sb.append("    docsTercers: ").append(toIndentedString(docsTercers)).append("\n");
     sb.append("    documentFisic: ").append(toIndentedString(documentFisic)).append("\n");
     sb.append("    documentacio: ").append(toIndentedString(documentacio)).append("\n");
     sb.append("    editable: ").append(toIndentedString(editable)).append("\n");

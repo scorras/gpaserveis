@@ -12,6 +12,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -22,6 +23,7 @@ import es.bcn.gpa.gpaserveis.business.DocumentsService;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDeclaracioResponsableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentTramitacioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarNotificacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDeclaracioResponsableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaDigitalitzarBDTO;
@@ -46,7 +48,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ActualitzarNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
@@ -68,6 +69,12 @@ import lombok.extern.apachecommons.CommonsLog;
  * The Class DocumentsServiceImpl.
  */
 @Service
+/** The Constant log. */
+
+/** The Constant log. */
+
+/** The Constant log. */
+
 /** The Constant log. */
 @CommonsLog
 public class DocumentsServiceImpl implements DocumentsService {
@@ -1610,27 +1617,47 @@ public class DocumentsServiceImpl implements DocumentsService {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * es.bcn.gpa.gpaserveis.business.DocumentsService#callbackNotificacio(es.
-	 * bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.
-	 * ActualitzarNotificacio)
-	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackActualitzarNotificacio")
-	public void callbackNotificacio(ActualitzarNotificacio actualitzarNotificacio) throws GPAServeisServiceException {
+	// @HystrixCommand(fallbackMethod = "fallbackCallbackNotificacio")
+	public void callbackNotificacio(ActualitzarNotificacioBDTO actualitzarNotificacio, MultipartFile docEvidenciaElectronic,
+			MultipartFile docEvidenciaPaper) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("actualitzarNotificacio(ActualitzarNotificacionDocument) - inici"); //$NON-NLS-1$
+			log.debug("actualitzarNotificacio(ActualitzarNotificacionDocument, MultipartFile, MultipartFile) - inici"); //$NON-NLS-1$
 		}
 		try {
-			notificacionsApi.callbackNotificacio(actualitzarNotificacio);
+			File docEvidenciaPaperFile = null;
+			File docEvidenciaElectronicFile = null;
+
+			ObjectMapper jsonMapper = new ObjectMapper();
+			jsonMapper.registerModule(new JodaModule());
+			ObjectWriter jsonWriter = jsonMapper.writer();
+
+			if (docEvidenciaPaper != null) {
+				docEvidenciaPaperFile = new File(docEvidenciaPaper.getOriginalFilename());
+				docEvidenciaPaper.transferTo(docEvidenciaPaperFile);
+			}
+
+			if (docEvidenciaElectronic != null) {
+				docEvidenciaElectronicFile = new File(docEvidenciaElectronic.getOriginalFilename());
+				docEvidenciaElectronic.transferTo(docEvidenciaElectronicFile);
+			}
+
+			String actualitzarNotificacionDocument = jsonWriter.writeValueAsString(actualitzarNotificacio);
+
+			notificacionsApi.callbackNotificacio(actualitzarNotificacionDocument, docEvidenciaElectronicFile, docEvidenciaPaperFile);
 
 			if (log.isDebugEnabled()) {
-				log.debug("actualitzarNotificacio(ActualitzarNotificacionDocument) - fi"); //$NON-NLS-1$
+				log.debug("actualitzarNotificacio(ActualitzarNotificacionDocument, MultipartFile, MultipartFile) - fi"); //$NON-NLS-1$
 			}
 		} catch (RestClientException e) {
+			log.error("actualitzarNotificacio(ActualitzarNotificacionDocument)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		} catch (IllegalStateException e) {
+			log.error("actualitzarNotificacio(ActualitzarNotificacionDocument)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		} catch (IOException e) {
 			log.error("actualitzarNotificacio(ActualitzarNotificacionDocument)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
@@ -1638,23 +1665,30 @@ public class DocumentsServiceImpl implements DocumentsService {
 	}
 
 	/**
-	 * Fallback actualitzar notificacio.
+	 * Fallback callback notificacio.
 	 *
 	 * @param actualitzarNotificacio
 	 *            the actualitzar notificacio
+	 * @param docEvidenciaElectronic
+	 *            the doc evidencia electronic
+	 * @param docEvidenciaPaper
+	 *            the doc evidencia paper
 	 * @param e
 	 *            the e
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public void fallbackActualitzarNotificacio(ActualitzarNotificacio actualitzarNotificacio, Throwable e)
-			throws GPAServeisServiceException {
-		if (log.isDebugEnabled()) {
-			log.debug("fallbackActualitzarNotificacio(ActualitzarNotificacionDocument, Throwable) - inici"); //$NON-NLS-1$
-		}
-
-		ServeisServiceExceptionHandler.handleException(e);
-	}
+	// public void fallbackCallbackNotificacio(ActualitzarNotificacio
+	// actualitzarNotificacio, MultipartFile docEvidenciaElectronic,
+	// MultipartFile docEvidenciaPaper, Throwable e) throws
+	// GPAServeisServiceException {
+	// if (log.isDebugEnabled()) {
+	// log.debug("fallbackCallbackNotificacio(ActualitzarNotificacionDocument,MultipartFile,
+	// MultipartFile, Throwable) - inici"); //$NON-NLS-1$
+	// }
+	//
+	// ServeisServiceExceptionHandler.handleException(e);
+	// }
 
 	/*
 	 * (non-Javadoc)
@@ -2081,8 +2115,12 @@ public class DocumentsServiceImpl implements DocumentsService {
 	}
 
 	/**
-	 * (non-Javadoc)
-	 * 
+	 * (non-Javadoc).
+	 *
+	 * @param documentActualizarRegistreRDTO
+	 *            the document actualizar registre RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
 	 *      desassociarRegistreDocumentacioExpedient(es.bcn.gpa.gpaserveis.rest.
 	 *      client. api.model.gpadocumentacio.DocumentActualizarRegistre)
@@ -2131,6 +2169,12 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 	/**
 	 * comprovarDocumentsSignatsExpedient(java.math.BigDecimal)
+	 *
+	 * @param idDocumentacio
+	 *            the id documentacio
+	 * @return the boolean
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackComprovarDocumentsSignatsExpedient")
@@ -2302,10 +2346,11 @@ public class DocumentsServiceImpl implements DocumentsService {
 	/**
 	 * Fallback estat de digitalització del document.
 	 *
-	 * @param idDocumentacio
-	 *            the id documentacio
+	 * @param idDocument
+	 *            the id document
 	 * @param e
 	 *            the e
+	 * @return the estat digitalitzacio document RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
