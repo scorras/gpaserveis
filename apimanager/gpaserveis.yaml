@@ -1521,6 +1521,44 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /serveis/tramitadors/expedients/{codiExpedient}/documentacio/aportar:
+    post:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Aportar documentació a l'expedient"
+      operationId: "aportarDocumentacioExpedientUsingPOST_1"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codiExpedient"
+        in: "path"
+        description: "Codi de l'expedient"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "documentacioAportar"
+        description: "Dades de la creació del document"
+        required: false
+        schema:
+          $ref: "#/definitions/DocumentacioAportar"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaAportarDocumentacio"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /serveis/tramitadors/expedients/{codiExpedient}/documentacio/declaracio/responsable:
     post:
       tags:
@@ -1846,6 +1884,40 @@ paths:
             $ref: "#/definitions/RespostaEsborrarDocument"
         201:
           description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /serveis/tramitadors/expedients/{codiExpedient}/documentacio/{idDocument}/estatDigitalitzacio:
+    get:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Obtenir estat de digitalitzacio d'un document"
+      operationId: "obtenirEstatDigitalitzacioUsingGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codiExpedient"
+        in: "path"
+        description: "Codi de l'expedient"
+        required: true
+        type: "string"
+      - name: "idDocument"
+        in: "path"
+        description: "Identificador del document"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaEstatDigitalitzacio"
         401:
           description: "Unauthorized"
         403:
@@ -4286,6 +4358,14 @@ definitions:
       nomRaoSocial:
         type: "string"
         description: "Nom o raó social de la persona"
+      relacio:
+        type: "string"
+        description: "Relacio de la persona"
+        enum:
+        - "SOLLICITANT"
+        - "REPRESENTANT"
+        - "TESTIMONI"
+        - "ALTRES"
       tipusPersona:
         type: "string"
         description: "Tipus de persona"
@@ -4774,6 +4854,22 @@ definitions:
         description: "Resultat de l'operació"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaEsmenarExpedient"
+  RespostaEstatDigitalitzacio:
+    type: "object"
+    properties:
+      estatDigitalitzacio:
+        type: "string"
+        description: "Estat de digitalitzacio"
+      expedient:
+        description: "Expedient"
+        $ref: "#/definitions/ExpedientAccio"
+      message:
+        type: "string"
+        description: "Message"
+      resultat:
+        description: "Resultat de l'operació"
+        $ref: "#/definitions/ResultatResposta"
+    title: "RespostaEstatDigitalitzacio"
   RespostaEvidenciaDigitalitzacio:
     type: "object"
     properties:
