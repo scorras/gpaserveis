@@ -10,398 +10,400 @@
  * Do not edit the class manually.
  */
 
-
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitud;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentament;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import org.joda.time.DateTime;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Sollicituds
  */
-<<<<<<< HEAD
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-01-29T17:29:47.132+01:00")
-=======
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-04T12:57:36.515+01:00")
->>>>>>> feature/GPA-2988
 public class Sollicituds {
-  @JsonProperty("comentari")
-  private BigDecimal comentari = null;
+	@JsonProperty("comentari")
+	private BigDecimal comentari = null;
 
-  @JsonProperty("dataPresentacio")
-  private DateTime dataPresentacio = null;
+	@JsonProperty("dataPresentacio")
+	private DateTime dataPresentacio = null;
 
-  @JsonProperty("dataSollicitud")
-  private DateTime dataSollicitud = null;
+	@JsonProperty("dataSollicitud")
+	private DateTime dataSollicitud = null;
 
-  @JsonProperty("expedient")
-  private BigDecimal expedient = null;
+	@JsonProperty("expedient")
+	private BigDecimal expedient = null;
 
-  @JsonProperty("id")
-  private BigDecimal id = null;
+	@JsonProperty("id")
+	private BigDecimal id = null;
 
-  @JsonProperty("iniciacio")
-  private BigDecimal iniciacio = null;
+	@JsonProperty("iniciacio")
+	private BigDecimal iniciacio = null;
 
-  @JsonProperty("iniciacioNom")
-  private String iniciacioNom = null;
+	@JsonProperty("iniciacioNom")
+	private String iniciacioNom = null;
 
-  @JsonProperty("personesSollicitudList")
-  private List<PersonesSollicitud> personesSollicitudList = null;
+	@JsonProperty("personesSollicitudList")
+	private List<PersonesSollicitud> personesSollicitudList = null;
 
-  @JsonProperty("procedimentIdext")
-  private BigDecimal procedimentIdext = null;
+	@JsonProperty("procedimentIdext")
+	private BigDecimal procedimentIdext = null;
 
-  @JsonProperty("registre")
-  private BigDecimal registre = null;
+	@JsonProperty("registre")
+	private BigDecimal registre = null;
 
-  @JsonProperty("registreAssentament")
-  private RegistreAssentament registreAssentament = null;
+	@JsonProperty("registreAssentament")
+	private RegistreAssentament registreAssentament = null;
 
-  @JsonProperty("tramitOvtIdext")
-  private BigDecimal tramitOvtIdext = null;
+	@JsonProperty("tramitOvtIdext")
+	private BigDecimal tramitOvtIdext = null;
 
-  @JsonProperty("tramitador")
-  private String tramitador = null;
+	@JsonProperty("tramitador")
+	private String tramitador = null;
 
-  @JsonProperty("unitatGestoraIdext")
-  private BigDecimal unitatGestoraIdext = null;
+	@JsonProperty("unitatGestoraIdext")
+	private BigDecimal unitatGestoraIdext = null;
 
-  public Sollicituds comentari(BigDecimal comentari) {
-    this.comentari = comentari;
-    return this;
-  }
+	public Sollicituds comentari(BigDecimal comentari) {
+		this.comentari = comentari;
+		return this;
+	}
 
-   /**
-   * Get comentari
-   * @return comentari
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getComentari() {
-    return comentari;
-  }
+	/**
+	 * Get comentari
+	 * 
+	 * @return comentari
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getComentari() {
+		return comentari;
+	}
 
-  public void setComentari(BigDecimal comentari) {
-    this.comentari = comentari;
-  }
+	public void setComentari(BigDecimal comentari) {
+		this.comentari = comentari;
+	}
 
-  public Sollicituds dataPresentacio(DateTime dataPresentacio) {
-    this.dataPresentacio = dataPresentacio;
-    return this;
-  }
+	public Sollicituds dataPresentacio(DateTime dataPresentacio) {
+		this.dataPresentacio = dataPresentacio;
+		return this;
+	}
 
-   /**
-   * Get dataPresentacio
-   * @return dataPresentacio
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getDataPresentacio() {
-    return dataPresentacio;
-  }
+	/**
+	 * Get dataPresentacio
+	 * 
+	 * @return dataPresentacio
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getDataPresentacio() {
+		return dataPresentacio;
+	}
 
-  public void setDataPresentacio(DateTime dataPresentacio) {
-    this.dataPresentacio = dataPresentacio;
-  }
+	public void setDataPresentacio(DateTime dataPresentacio) {
+		this.dataPresentacio = dataPresentacio;
+	}
 
-  public Sollicituds dataSollicitud(DateTime dataSollicitud) {
-    this.dataSollicitud = dataSollicitud;
-    return this;
-  }
+	public Sollicituds dataSollicitud(DateTime dataSollicitud) {
+		this.dataSollicitud = dataSollicitud;
+		return this;
+	}
 
-   /**
-   * Get dataSollicitud
-   * @return dataSollicitud
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getDataSollicitud() {
-    return dataSollicitud;
-  }
+	/**
+	 * Get dataSollicitud
+	 * 
+	 * @return dataSollicitud
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getDataSollicitud() {
+		return dataSollicitud;
+	}
 
-  public void setDataSollicitud(DateTime dataSollicitud) {
-    this.dataSollicitud = dataSollicitud;
-  }
+	public void setDataSollicitud(DateTime dataSollicitud) {
+		this.dataSollicitud = dataSollicitud;
+	}
 
-  public Sollicituds expedient(BigDecimal expedient) {
-    this.expedient = expedient;
-    return this;
-  }
+	public Sollicituds expedient(BigDecimal expedient) {
+		this.expedient = expedient;
+		return this;
+	}
 
-   /**
-   * Get expedient
-   * @return expedient
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getExpedient() {
-    return expedient;
-  }
+	/**
+	 * Get expedient
+	 * 
+	 * @return expedient
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getExpedient() {
+		return expedient;
+	}
 
-  public void setExpedient(BigDecimal expedient) {
-    this.expedient = expedient;
-  }
+	public void setExpedient(BigDecimal expedient) {
+		this.expedient = expedient;
+	}
 
-  public Sollicituds id(BigDecimal id) {
-    this.id = id;
-    return this;
-  }
+	public Sollicituds id(BigDecimal id) {
+		this.id = id;
+		return this;
+	}
 
-   /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getId() {
-    return id;
-  }
+	/**
+	 * Get id
+	 * 
+	 * @return id
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getId() {
+		return id;
+	}
 
-  public void setId(BigDecimal id) {
-    this.id = id;
-  }
+	public void setId(BigDecimal id) {
+		this.id = id;
+	}
 
-  public Sollicituds iniciacio(BigDecimal iniciacio) {
-    this.iniciacio = iniciacio;
-    return this;
-  }
+	public Sollicituds iniciacio(BigDecimal iniciacio) {
+		this.iniciacio = iniciacio;
+		return this;
+	}
 
-   /**
-   * Get iniciacio
-   * @return iniciacio
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getIniciacio() {
-    return iniciacio;
-  }
+	/**
+	 * Get iniciacio
+	 * 
+	 * @return iniciacio
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getIniciacio() {
+		return iniciacio;
+	}
 
-  public void setIniciacio(BigDecimal iniciacio) {
-    this.iniciacio = iniciacio;
-  }
+	public void setIniciacio(BigDecimal iniciacio) {
+		this.iniciacio = iniciacio;
+	}
 
-  public Sollicituds iniciacioNom(String iniciacioNom) {
-    this.iniciacioNom = iniciacioNom;
-    return this;
-  }
+	public Sollicituds iniciacioNom(String iniciacioNom) {
+		this.iniciacioNom = iniciacioNom;
+		return this;
+	}
 
-   /**
-   * Get iniciacioNom
-   * @return iniciacioNom
-  **/
-  @ApiModelProperty(value = "")
-  public String getIniciacioNom() {
-    return iniciacioNom;
-  }
+	/**
+	 * Get iniciacioNom
+	 * 
+	 * @return iniciacioNom
+	 **/
+	@ApiModelProperty(value = "")
+	public String getIniciacioNom() {
+		return iniciacioNom;
+	}
 
-  public void setIniciacioNom(String iniciacioNom) {
-    this.iniciacioNom = iniciacioNom;
-  }
+	public void setIniciacioNom(String iniciacioNom) {
+		this.iniciacioNom = iniciacioNom;
+	}
 
-  public Sollicituds personesSollicitudList(List<PersonesSollicitud> personesSollicitudList) {
-    this.personesSollicitudList = personesSollicitudList;
-    return this;
-  }
+	public Sollicituds personesSollicitudList(List<PersonesSollicitud> personesSollicitudList) {
+		this.personesSollicitudList = personesSollicitudList;
+		return this;
+	}
 
-  public Sollicituds addPersonesSollicitudListItem(PersonesSollicitud personesSollicitudListItem) {
-    if (this.personesSollicitudList == null) {
-      this.personesSollicitudList = new ArrayList<PersonesSollicitud>();
-    }
-    this.personesSollicitudList.add(personesSollicitudListItem);
-    return this;
-  }
+	public Sollicituds addPersonesSollicitudListItem(PersonesSollicitud personesSollicitudListItem) {
+		if (this.personesSollicitudList == null) {
+			this.personesSollicitudList = new ArrayList<PersonesSollicitud>();
+		}
+		this.personesSollicitudList.add(personesSollicitudListItem);
+		return this;
+	}
 
-   /**
-   * Get personesSollicitudList
-   * @return personesSollicitudList
-  **/
-  @ApiModelProperty(value = "")
-  public List<PersonesSollicitud> getPersonesSollicitudList() {
-    return personesSollicitudList;
-  }
+	/**
+	 * Get personesSollicitudList
+	 * 
+	 * @return personesSollicitudList
+	 **/
+	@ApiModelProperty(value = "")
+	public List<PersonesSollicitud> getPersonesSollicitudList() {
+		return personesSollicitudList;
+	}
 
-  public void setPersonesSollicitudList(List<PersonesSollicitud> personesSollicitudList) {
-    this.personesSollicitudList = personesSollicitudList;
-  }
+	public void setPersonesSollicitudList(List<PersonesSollicitud> personesSollicitudList) {
+		this.personesSollicitudList = personesSollicitudList;
+	}
 
-  public Sollicituds procedimentIdext(BigDecimal procedimentIdext) {
-    this.procedimentIdext = procedimentIdext;
-    return this;
-  }
+	public Sollicituds procedimentIdext(BigDecimal procedimentIdext) {
+		this.procedimentIdext = procedimentIdext;
+		return this;
+	}
 
-   /**
-   * Get procedimentIdext
-   * @return procedimentIdext
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getProcedimentIdext() {
-    return procedimentIdext;
-  }
+	/**
+	 * Get procedimentIdext
+	 * 
+	 * @return procedimentIdext
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getProcedimentIdext() {
+		return procedimentIdext;
+	}
 
-  public void setProcedimentIdext(BigDecimal procedimentIdext) {
-    this.procedimentIdext = procedimentIdext;
-  }
+	public void setProcedimentIdext(BigDecimal procedimentIdext) {
+		this.procedimentIdext = procedimentIdext;
+	}
 
-  public Sollicituds registre(BigDecimal registre) {
-    this.registre = registre;
-    return this;
-  }
+	public Sollicituds registre(BigDecimal registre) {
+		this.registre = registre;
+		return this;
+	}
 
-   /**
-   * Get registre
-   * @return registre
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getRegistre() {
-    return registre;
-  }
+	/**
+	 * Get registre
+	 * 
+	 * @return registre
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getRegistre() {
+		return registre;
+	}
 
-  public void setRegistre(BigDecimal registre) {
-    this.registre = registre;
-  }
+	public void setRegistre(BigDecimal registre) {
+		this.registre = registre;
+	}
 
-  public Sollicituds registreAssentament(RegistreAssentament registreAssentament) {
-    this.registreAssentament = registreAssentament;
-    return this;
-  }
+	public Sollicituds registreAssentament(RegistreAssentament registreAssentament) {
+		this.registreAssentament = registreAssentament;
+		return this;
+	}
 
-   /**
-   * Get registreAssentament
-   * @return registreAssentament
-  **/
-  @ApiModelProperty(value = "")
-  public RegistreAssentament getRegistreAssentament() {
-    return registreAssentament;
-  }
+	/**
+	 * Get registreAssentament
+	 * 
+	 * @return registreAssentament
+	 **/
+	@ApiModelProperty(value = "")
+	public RegistreAssentament getRegistreAssentament() {
+		return registreAssentament;
+	}
 
-  public void setRegistreAssentament(RegistreAssentament registreAssentament) {
-    this.registreAssentament = registreAssentament;
-  }
+	public void setRegistreAssentament(RegistreAssentament registreAssentament) {
+		this.registreAssentament = registreAssentament;
+	}
 
-  public Sollicituds tramitOvtIdext(BigDecimal tramitOvtIdext) {
-    this.tramitOvtIdext = tramitOvtIdext;
-    return this;
-  }
+	public Sollicituds tramitOvtIdext(BigDecimal tramitOvtIdext) {
+		this.tramitOvtIdext = tramitOvtIdext;
+		return this;
+	}
 
-   /**
-   * Get tramitOvtIdext
-   * @return tramitOvtIdext
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getTramitOvtIdext() {
-    return tramitOvtIdext;
-  }
+	/**
+	 * Get tramitOvtIdext
+	 * 
+	 * @return tramitOvtIdext
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getTramitOvtIdext() {
+		return tramitOvtIdext;
+	}
 
-  public void setTramitOvtIdext(BigDecimal tramitOvtIdext) {
-    this.tramitOvtIdext = tramitOvtIdext;
-  }
+	public void setTramitOvtIdext(BigDecimal tramitOvtIdext) {
+		this.tramitOvtIdext = tramitOvtIdext;
+	}
 
-  public Sollicituds tramitador(String tramitador) {
-    this.tramitador = tramitador;
-    return this;
-  }
+	public Sollicituds tramitador(String tramitador) {
+		this.tramitador = tramitador;
+		return this;
+	}
 
-   /**
-   * Get tramitador
-   * @return tramitador
-  **/
-  @ApiModelProperty(value = "")
-  public String getTramitador() {
-    return tramitador;
-  }
+	/**
+	 * Get tramitador
+	 * 
+	 * @return tramitador
+	 **/
+	@ApiModelProperty(value = "")
+	public String getTramitador() {
+		return tramitador;
+	}
 
-  public void setTramitador(String tramitador) {
-    this.tramitador = tramitador;
-  }
+	public void setTramitador(String tramitador) {
+		this.tramitador = tramitador;
+	}
 
-  public Sollicituds unitatGestoraIdext(BigDecimal unitatGestoraIdext) {
-    this.unitatGestoraIdext = unitatGestoraIdext;
-    return this;
-  }
+	public Sollicituds unitatGestoraIdext(BigDecimal unitatGestoraIdext) {
+		this.unitatGestoraIdext = unitatGestoraIdext;
+		return this;
+	}
 
-   /**
-   * Get unitatGestoraIdext
-   * @return unitatGestoraIdext
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getUnitatGestoraIdext() {
-    return unitatGestoraIdext;
-  }
+	/**
+	 * Get unitatGestoraIdext
+	 * 
+	 * @return unitatGestoraIdext
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getUnitatGestoraIdext() {
+		return unitatGestoraIdext;
+	}
 
-  public void setUnitatGestoraIdext(BigDecimal unitatGestoraIdext) {
-    this.unitatGestoraIdext = unitatGestoraIdext;
-  }
+	public void setUnitatGestoraIdext(BigDecimal unitatGestoraIdext) {
+		this.unitatGestoraIdext = unitatGestoraIdext;
+	}
 
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Sollicituds sollicituds = (Sollicituds) o;
+		return Objects.equals(this.comentari, sollicituds.comentari) && Objects.equals(this.dataPresentacio, sollicituds.dataPresentacio)
+				&& Objects.equals(this.dataSollicitud, sollicituds.dataSollicitud) && Objects.equals(this.expedient, sollicituds.expedient)
+				&& Objects.equals(this.id, sollicituds.id) && Objects.equals(this.iniciacio, sollicituds.iniciacio)
+				&& Objects.equals(this.iniciacioNom, sollicituds.iniciacioNom)
+				&& Objects.equals(this.personesSollicitudList, sollicituds.personesSollicitudList)
+				&& Objects.equals(this.procedimentIdext, sollicituds.procedimentIdext)
+				&& Objects.equals(this.registre, sollicituds.registre)
+				&& Objects.equals(this.registreAssentament, sollicituds.registreAssentament)
+				&& Objects.equals(this.tramitOvtIdext, sollicituds.tramitOvtIdext)
+				&& Objects.equals(this.tramitador, sollicituds.tramitador)
+				&& Objects.equals(this.unitatGestoraIdext, sollicituds.unitatGestoraIdext);
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Sollicituds sollicituds = (Sollicituds) o;
-    return Objects.equals(this.comentari, sollicituds.comentari) &&
-        Objects.equals(this.dataPresentacio, sollicituds.dataPresentacio) &&
-        Objects.equals(this.dataSollicitud, sollicituds.dataSollicitud) &&
-        Objects.equals(this.expedient, sollicituds.expedient) &&
-        Objects.equals(this.id, sollicituds.id) &&
-        Objects.equals(this.iniciacio, sollicituds.iniciacio) &&
-        Objects.equals(this.iniciacioNom, sollicituds.iniciacioNom) &&
-        Objects.equals(this.personesSollicitudList, sollicituds.personesSollicitudList) &&
-        Objects.equals(this.procedimentIdext, sollicituds.procedimentIdext) &&
-        Objects.equals(this.registre, sollicituds.registre) &&
-        Objects.equals(this.registreAssentament, sollicituds.registreAssentament) &&
-        Objects.equals(this.tramitOvtIdext, sollicituds.tramitOvtIdext) &&
-        Objects.equals(this.tramitador, sollicituds.tramitador) &&
-        Objects.equals(this.unitatGestoraIdext, sollicituds.unitatGestoraIdext);
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(comentari, dataPresentacio, dataSollicitud, expedient, id, iniciacio, iniciacioNom, personesSollicitudList,
+				procedimentIdext, registre, registreAssentament, tramitOvtIdext, tramitador, unitatGestoraIdext);
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(comentari, dataPresentacio, dataSollicitud, expedient, id, iniciacio, iniciacioNom, personesSollicitudList, procedimentIdext, registre, registreAssentament, tramitOvtIdext, tramitador, unitatGestoraIdext);
-  }
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class Sollicituds {\n");
 
+		sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
+		sb.append("    dataPresentacio: ").append(toIndentedString(dataPresentacio)).append("\n");
+		sb.append("    dataSollicitud: ").append(toIndentedString(dataSollicitud)).append("\n");
+		sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    iniciacio: ").append(toIndentedString(iniciacio)).append("\n");
+		sb.append("    iniciacioNom: ").append(toIndentedString(iniciacioNom)).append("\n");
+		sb.append("    personesSollicitudList: ").append(toIndentedString(personesSollicitudList)).append("\n");
+		sb.append("    procedimentIdext: ").append(toIndentedString(procedimentIdext)).append("\n");
+		sb.append("    registre: ").append(toIndentedString(registre)).append("\n");
+		sb.append("    registreAssentament: ").append(toIndentedString(registreAssentament)).append("\n");
+		sb.append("    tramitOvtIdext: ").append(toIndentedString(tramitOvtIdext)).append("\n");
+		sb.append("    tramitador: ").append(toIndentedString(tramitador)).append("\n");
+		sb.append("    unitatGestoraIdext: ").append(toIndentedString(unitatGestoraIdext)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Sollicituds {\n");
-    
-    sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
-    sb.append("    dataPresentacio: ").append(toIndentedString(dataPresentacio)).append("\n");
-    sb.append("    dataSollicitud: ").append(toIndentedString(dataSollicitud)).append("\n");
-    sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    iniciacio: ").append(toIndentedString(iniciacio)).append("\n");
-    sb.append("    iniciacioNom: ").append(toIndentedString(iniciacioNom)).append("\n");
-    sb.append("    personesSollicitudList: ").append(toIndentedString(personesSollicitudList)).append("\n");
-    sb.append("    procedimentIdext: ").append(toIndentedString(procedimentIdext)).append("\n");
-    sb.append("    registre: ").append(toIndentedString(registre)).append("\n");
-    sb.append("    registreAssentament: ").append(toIndentedString(registreAssentament)).append("\n");
-    sb.append("    tramitOvtIdext: ").append(toIndentedString(tramitOvtIdext)).append("\n");
-    sb.append("    tramitador: ").append(toIndentedString(tramitador)).append("\n");
-    sb.append("    unitatGestoraIdext: ").append(toIndentedString(unitatGestoraIdext)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
 }
-
