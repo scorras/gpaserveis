@@ -20,16 +20,19 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Bloquejos;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Estats;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitud;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Sollicituds;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import org.joda.time.DateTime;
 
 /**
  * ExpedientsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-18T09:30:38.826+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-04T12:57:36.515+01:00")
 public class ExpedientsRDTO {
   @JsonProperty("accioEstatIdext")
   private BigDecimal accioEstatIdext = null;
@@ -150,6 +153,12 @@ public class ExpedientsRDTO {
 
   @JsonProperty("numeroDocumentSollicitantEstricte")
   private String numeroDocumentSollicitantEstricte = null;
+
+  @JsonProperty("personesImplicades")
+  private List<PersonesSollicitudRDTO> personesImplicades = null;
+
+  @JsonProperty("personesInteressades")
+  private List<PersonesSollicitudRDTO> personesInteressades = null;
 
   @JsonProperty("procedimentCodi")
   private String procedimentCodi = null;
@@ -916,6 +925,58 @@ public class ExpedientsRDTO {
     this.numeroDocumentSollicitantEstricte = numeroDocumentSollicitantEstricte;
   }
 
+  public ExpedientsRDTO personesImplicades(List<PersonesSollicitudRDTO> personesImplicades) {
+    this.personesImplicades = personesImplicades;
+    return this;
+  }
+
+  public ExpedientsRDTO addPersonesImplicadesItem(PersonesSollicitudRDTO personesImplicadesItem) {
+    if (this.personesImplicades == null) {
+      this.personesImplicades = new ArrayList<PersonesSollicitudRDTO>();
+    }
+    this.personesImplicades.add(personesImplicadesItem);
+    return this;
+  }
+
+   /**
+   * Get personesImplicades
+   * @return personesImplicades
+  **/
+  @ApiModelProperty(value = "")
+  public List<PersonesSollicitudRDTO> getPersonesImplicades() {
+    return personesImplicades;
+  }
+
+  public void setPersonesImplicades(List<PersonesSollicitudRDTO> personesImplicades) {
+    this.personesImplicades = personesImplicades;
+  }
+
+  public ExpedientsRDTO personesInteressades(List<PersonesSollicitudRDTO> personesInteressades) {
+    this.personesInteressades = personesInteressades;
+    return this;
+  }
+
+  public ExpedientsRDTO addPersonesInteressadesItem(PersonesSollicitudRDTO personesInteressadesItem) {
+    if (this.personesInteressades == null) {
+      this.personesInteressades = new ArrayList<PersonesSollicitudRDTO>();
+    }
+    this.personesInteressades.add(personesInteressadesItem);
+    return this;
+  }
+
+   /**
+   * Get personesInteressades
+   * @return personesInteressades
+  **/
+  @ApiModelProperty(value = "")
+  public List<PersonesSollicitudRDTO> getPersonesInteressades() {
+    return personesInteressades;
+  }
+
+  public void setPersonesInteressades(List<PersonesSollicitudRDTO> personesInteressades) {
+    this.personesInteressades = personesInteressades;
+  }
+
   public ExpedientsRDTO procedimentCodi(String procedimentCodi) {
     this.procedimentCodi = procedimentCodi;
     return this;
@@ -1236,6 +1297,8 @@ public class ExpedientsRDTO {
         Objects.equals(this.nomProcedimentCastella, expedientsRDTO.nomProcedimentCastella) &&
         Objects.equals(this.numeroDocumentSollicitant, expedientsRDTO.numeroDocumentSollicitant) &&
         Objects.equals(this.numeroDocumentSollicitantEstricte, expedientsRDTO.numeroDocumentSollicitantEstricte) &&
+        Objects.equals(this.personesImplicades, expedientsRDTO.personesImplicades) &&
+        Objects.equals(this.personesInteressades, expedientsRDTO.personesInteressades) &&
         Objects.equals(this.procedimentCodi, expedientsRDTO.procedimentCodi) &&
         Objects.equals(this.procedimentIdext, expedientsRDTO.procedimentIdext) &&
         Objects.equals(this.procedimentVersio, expedientsRDTO.procedimentVersio) &&
@@ -1255,7 +1318,7 @@ public class ExpedientsRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accioEstatIdext, aplicacioNegoci, bloqueig, bloquejos, codi, codiLlarg, configuracioDocumentacioProc, criticitatAvis, darreraModificacio, dataAllegacio, dataEsmena, dataPresentacio, dataPresentacioDes, dataPresentacioFinsA, descEstat, descEstatCastella, descEstatCatala, descEstatCiutada, descEstatCiutadaCastella, descEstatCiutadaCatala, descUGConvidada, descUnitatGestora, diesTerminiAllegacio, diesTerminiRequeriment, documentacioIdext, editable, estat, estatActual, expedientObjecteDeRecursId, id, idEstat, idRelacionat, isOge, migracioIdOrigen, nomDescUGConvidada, nomDescUnitatGestora, nomProcediment, nomProcedimentCastella, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, procedimentCodi, procedimentIdext, procedimentVersio, relacioTipusRelacio, representantPrincipal, seleccionable, sollicitant, sollicitantPrincipal, sollicitud, sollicituds, tipusAvis, tramitador, ugConvidadaIdext, ultimaModificacio, unitatGestoraIdext);
+    return Objects.hash(accioEstatIdext, aplicacioNegoci, bloqueig, bloquejos, codi, codiLlarg, configuracioDocumentacioProc, criticitatAvis, darreraModificacio, dataAllegacio, dataEsmena, dataPresentacio, dataPresentacioDes, dataPresentacioFinsA, descEstat, descEstatCastella, descEstatCatala, descEstatCiutada, descEstatCiutadaCastella, descEstatCiutadaCatala, descUGConvidada, descUnitatGestora, diesTerminiAllegacio, diesTerminiRequeriment, documentacioIdext, editable, estat, estatActual, expedientObjecteDeRecursId, id, idEstat, idRelacionat, isOge, migracioIdOrigen, nomDescUGConvidada, nomDescUnitatGestora, nomProcediment, nomProcedimentCastella, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, personesImplicades, personesInteressades, procedimentCodi, procedimentIdext, procedimentVersio, relacioTipusRelacio, representantPrincipal, seleccionable, sollicitant, sollicitantPrincipal, sollicitud, sollicituds, tipusAvis, tramitador, ugConvidadaIdext, ultimaModificacio, unitatGestoraIdext);
   }
 
 
@@ -1304,6 +1367,8 @@ public class ExpedientsRDTO {
     sb.append("    nomProcedimentCastella: ").append(toIndentedString(nomProcedimentCastella)).append("\n");
     sb.append("    numeroDocumentSollicitant: ").append(toIndentedString(numeroDocumentSollicitant)).append("\n");
     sb.append("    numeroDocumentSollicitantEstricte: ").append(toIndentedString(numeroDocumentSollicitantEstricte)).append("\n");
+    sb.append("    personesImplicades: ").append(toIndentedString(personesImplicades)).append("\n");
+    sb.append("    personesInteressades: ").append(toIndentedString(personesInteressades)).append("\n");
     sb.append("    procedimentCodi: ").append(toIndentedString(procedimentCodi)).append("\n");
     sb.append("    procedimentIdext: ").append(toIndentedString(procedimentIdext)).append("\n");
     sb.append("    procedimentVersio: ").append(toIndentedString(procedimentVersio)).append("\n");

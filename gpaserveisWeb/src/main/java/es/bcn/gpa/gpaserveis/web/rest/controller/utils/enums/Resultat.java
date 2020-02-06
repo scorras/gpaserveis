@@ -5,6 +5,10 @@ package es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums;
  */
 public enum Resultat {
 
+	OK_CREAR_SOLLICITUD("OK", "Sol·licitud creat correctament"),
+
+	ERROR_CREAR_SOLLICITUD("ERROR", "No s'ha pogut crear la sol·licitud"),
+
 	OK_CREAR_EXPEDIENT("OK", "Expedient creat correctament"),
 
 	ERROR_CREAR_EXPEDIENT("ERROR", "No s'ha pogut crear l'expedient"),
