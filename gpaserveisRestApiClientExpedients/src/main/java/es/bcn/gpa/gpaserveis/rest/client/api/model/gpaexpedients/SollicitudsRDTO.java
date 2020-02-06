@@ -27,14 +27,10 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 /**
- * Sollicituds
+ * SollicitudsRDTO
  */
-<<<<<<< HEAD
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-01-29T17:29:47.132+01:00")
-=======
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-04T12:57:36.515+01:00")
->>>>>>> feature/GPA-2988
-public class Sollicituds {
+public class SollicitudsRDTO {
   @JsonProperty("comentari")
   private BigDecimal comentari = null;
 
@@ -77,7 +73,7 @@ public class Sollicituds {
   @JsonProperty("unitatGestoraIdext")
   private BigDecimal unitatGestoraIdext = null;
 
-  public Sollicituds comentari(BigDecimal comentari) {
+  public SollicitudsRDTO comentari(BigDecimal comentari) {
     this.comentari = comentari;
     return this;
   }
@@ -95,7 +91,7 @@ public class Sollicituds {
     this.comentari = comentari;
   }
 
-  public Sollicituds dataPresentacio(DateTime dataPresentacio) {
+  public SollicitudsRDTO dataPresentacio(DateTime dataPresentacio) {
     this.dataPresentacio = dataPresentacio;
     return this;
   }
@@ -113,7 +109,7 @@ public class Sollicituds {
     this.dataPresentacio = dataPresentacio;
   }
 
-  public Sollicituds dataSollicitud(DateTime dataSollicitud) {
+  public SollicitudsRDTO dataSollicitud(DateTime dataSollicitud) {
     this.dataSollicitud = dataSollicitud;
     return this;
   }
@@ -131,7 +127,7 @@ public class Sollicituds {
     this.dataSollicitud = dataSollicitud;
   }
 
-  public Sollicituds expedient(BigDecimal expedient) {
+  public SollicitudsRDTO expedient(BigDecimal expedient) {
     this.expedient = expedient;
     return this;
   }
@@ -149,7 +145,7 @@ public class Sollicituds {
     this.expedient = expedient;
   }
 
-  public Sollicituds id(BigDecimal id) {
+  public SollicitudsRDTO id(BigDecimal id) {
     this.id = id;
     return this;
   }
@@ -167,7 +163,7 @@ public class Sollicituds {
     this.id = id;
   }
 
-  public Sollicituds iniciacio(BigDecimal iniciacio) {
+  public SollicitudsRDTO iniciacio(BigDecimal iniciacio) {
     this.iniciacio = iniciacio;
     return this;
   }
@@ -185,7 +181,7 @@ public class Sollicituds {
     this.iniciacio = iniciacio;
   }
 
-  public Sollicituds iniciacioNom(String iniciacioNom) {
+  public SollicitudsRDTO iniciacioNom(String iniciacioNom) {
     this.iniciacioNom = iniciacioNom;
     return this;
   }
@@ -203,12 +199,12 @@ public class Sollicituds {
     this.iniciacioNom = iniciacioNom;
   }
 
-  public Sollicituds personesSollicitudList(List<PersonesSollicitud> personesSollicitudList) {
+  public SollicitudsRDTO personesSollicitudList(List<PersonesSollicitud> personesSollicitudList) {
     this.personesSollicitudList = personesSollicitudList;
     return this;
   }
 
-  public Sollicituds addPersonesSollicitudListItem(PersonesSollicitud personesSollicitudListItem) {
+  public SollicitudsRDTO addPersonesSollicitudListItem(PersonesSollicitud personesSollicitudListItem) {
     if (this.personesSollicitudList == null) {
       this.personesSollicitudList = new ArrayList<PersonesSollicitud>();
     }
@@ -229,7 +225,7 @@ public class Sollicituds {
     this.personesSollicitudList = personesSollicitudList;
   }
 
-  public Sollicituds procedimentIdext(BigDecimal procedimentIdext) {
+  public SollicitudsRDTO procedimentIdext(BigDecimal procedimentIdext) {
     this.procedimentIdext = procedimentIdext;
     return this;
   }
@@ -247,7 +243,7 @@ public class Sollicituds {
     this.procedimentIdext = procedimentIdext;
   }
 
-  public Sollicituds registre(BigDecimal registre) {
+  public SollicitudsRDTO registre(BigDecimal registre) {
     this.registre = registre;
     return this;
   }
@@ -265,7 +261,7 @@ public class Sollicituds {
     this.registre = registre;
   }
 
-  public Sollicituds registreAssentament(RegistreAssentament registreAssentament) {
+  public SollicitudsRDTO registreAssentament(RegistreAssentament registreAssentament) {
     this.registreAssentament = registreAssentament;
     return this;
   }
@@ -283,7 +279,7 @@ public class Sollicituds {
     this.registreAssentament = registreAssentament;
   }
 
-  public Sollicituds tramitOvtIdext(BigDecimal tramitOvtIdext) {
+  public SollicitudsRDTO tramitOvtIdext(BigDecimal tramitOvtIdext) {
     this.tramitOvtIdext = tramitOvtIdext;
     return this;
   }
@@ -301,7 +297,7 @@ public class Sollicituds {
     this.tramitOvtIdext = tramitOvtIdext;
   }
 
-  public Sollicituds tramitador(String tramitador) {
+  public SollicitudsRDTO tramitador(String tramitador) {
     this.tramitador = tramitador;
     return this;
   }
@@ -319,7 +315,7 @@ public class Sollicituds {
     this.tramitador = tramitador;
   }
 
-  public Sollicituds unitatGestoraIdext(BigDecimal unitatGestoraIdext) {
+  public SollicitudsRDTO unitatGestoraIdext(BigDecimal unitatGestoraIdext) {
     this.unitatGestoraIdext = unitatGestoraIdext;
     return this;
   }
@@ -346,21 +342,21 @@ public class Sollicituds {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Sollicituds sollicituds = (Sollicituds) o;
-    return Objects.equals(this.comentari, sollicituds.comentari) &&
-        Objects.equals(this.dataPresentacio, sollicituds.dataPresentacio) &&
-        Objects.equals(this.dataSollicitud, sollicituds.dataSollicitud) &&
-        Objects.equals(this.expedient, sollicituds.expedient) &&
-        Objects.equals(this.id, sollicituds.id) &&
-        Objects.equals(this.iniciacio, sollicituds.iniciacio) &&
-        Objects.equals(this.iniciacioNom, sollicituds.iniciacioNom) &&
-        Objects.equals(this.personesSollicitudList, sollicituds.personesSollicitudList) &&
-        Objects.equals(this.procedimentIdext, sollicituds.procedimentIdext) &&
-        Objects.equals(this.registre, sollicituds.registre) &&
-        Objects.equals(this.registreAssentament, sollicituds.registreAssentament) &&
-        Objects.equals(this.tramitOvtIdext, sollicituds.tramitOvtIdext) &&
-        Objects.equals(this.tramitador, sollicituds.tramitador) &&
-        Objects.equals(this.unitatGestoraIdext, sollicituds.unitatGestoraIdext);
+    SollicitudsRDTO sollicitudsRDTO = (SollicitudsRDTO) o;
+    return Objects.equals(this.comentari, sollicitudsRDTO.comentari) &&
+        Objects.equals(this.dataPresentacio, sollicitudsRDTO.dataPresentacio) &&
+        Objects.equals(this.dataSollicitud, sollicitudsRDTO.dataSollicitud) &&
+        Objects.equals(this.expedient, sollicitudsRDTO.expedient) &&
+        Objects.equals(this.id, sollicitudsRDTO.id) &&
+        Objects.equals(this.iniciacio, sollicitudsRDTO.iniciacio) &&
+        Objects.equals(this.iniciacioNom, sollicitudsRDTO.iniciacioNom) &&
+        Objects.equals(this.personesSollicitudList, sollicitudsRDTO.personesSollicitudList) &&
+        Objects.equals(this.procedimentIdext, sollicitudsRDTO.procedimentIdext) &&
+        Objects.equals(this.registre, sollicitudsRDTO.registre) &&
+        Objects.equals(this.registreAssentament, sollicitudsRDTO.registreAssentament) &&
+        Objects.equals(this.tramitOvtIdext, sollicitudsRDTO.tramitOvtIdext) &&
+        Objects.equals(this.tramitador, sollicitudsRDTO.tramitador) &&
+        Objects.equals(this.unitatGestoraIdext, sollicitudsRDTO.unitatGestoraIdext);
   }
 
   @Override
@@ -372,7 +368,7 @@ public class Sollicituds {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Sollicituds {\n");
+    sb.append("class SollicitudsRDTO {\n");
     
     sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
     sb.append("    dataPresentacio: ").append(toIndentedString(dataPresentacio)).append("\n");

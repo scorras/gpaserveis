@@ -27,16 +27,26 @@ import org.joda.time.DateTime;
 /**
  * DadesEspecifiquesValors
  */
+<<<<<<< HEAD
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-01-29T17:29:47.132+01:00")
+=======
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-04T12:57:36.515+01:00")
+>>>>>>> feature/GPA-2988
 public class DadesEspecifiquesValors {
   @JsonProperty("dadesEspecifiques")
   private BigDecimal dadesEspecifiques = null;
+
+  @JsonProperty("dsollicitud")
+  private BigDecimal dsollicitud = null;
 
   @JsonProperty("id")
   private BigDecimal id = null;
 
   @JsonProperty("notEmpty")
   private Boolean notEmpty = null;
+
+  @JsonProperty("sollicitud")
+  private BigDecimal sollicitud = null;
 
   @JsonProperty("valorBoolean")
   private Integer valorBoolean = null;
@@ -95,6 +105,24 @@ public class DadesEspecifiquesValors {
     this.dadesEspecifiques = dadesEspecifiques;
   }
 
+  public DadesEspecifiquesValors dsollicitud(BigDecimal dsollicitud) {
+    this.dsollicitud = dsollicitud;
+    return this;
+  }
+
+   /**
+   * Get dsollicitud
+   * @return dsollicitud
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getDsollicitud() {
+    return dsollicitud;
+  }
+
+  public void setDsollicitud(BigDecimal dsollicitud) {
+    this.dsollicitud = dsollicitud;
+  }
+
   public DadesEspecifiquesValors id(BigDecimal id) {
     this.id = id;
     return this;
@@ -129,6 +157,24 @@ public class DadesEspecifiquesValors {
 
   public void setNotEmpty(Boolean notEmpty) {
     this.notEmpty = notEmpty;
+  }
+
+  public DadesEspecifiquesValors sollicitud(BigDecimal sollicitud) {
+    this.sollicitud = sollicitud;
+    return this;
+  }
+
+   /**
+   * Get sollicitud
+   * @return sollicitud
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getSollicitud() {
+    return sollicitud;
+  }
+
+  public void setSollicitud(BigDecimal sollicitud) {
+    this.sollicitud = sollicitud;
   }
 
   public DadesEspecifiquesValors valorBoolean(Integer valorBoolean) {
@@ -384,8 +430,10 @@ public class DadesEspecifiquesValors {
     }
     DadesEspecifiquesValors dadesEspecifiquesValors = (DadesEspecifiquesValors) o;
     return Objects.equals(this.dadesEspecifiques, dadesEspecifiquesValors.dadesEspecifiques) &&
+        Objects.equals(this.dsollicitud, dadesEspecifiquesValors.dsollicitud) &&
         Objects.equals(this.id, dadesEspecifiquesValors.id) &&
         Objects.equals(this.notEmpty, dadesEspecifiquesValors.notEmpty) &&
+        Objects.equals(this.sollicitud, dadesEspecifiquesValors.sollicitud) &&
         Objects.equals(this.valorBoolean, dadesEspecifiquesValors.valorBoolean) &&
         Objects.equals(this.valorCalendar, dadesEspecifiquesValors.valorCalendar) &&
         Objects.equals(this.valorClob, dadesEspecifiquesValors.valorClob) &&
@@ -403,7 +451,7 @@ public class DadesEspecifiquesValors {
 
   @Override
   public int hashCode() {
-    return Objects.hash(dadesEspecifiques, id, notEmpty, valorBoolean, valorCalendar, valorClob, valorDouble, valorInteger, valorListaMultiple, valorListaMultipleList, valorListaSimple, valorMoneda, valorMunicipi, valorPais, valorProvincia, valorString);
+    return Objects.hash(dadesEspecifiques, dsollicitud, id, notEmpty, sollicitud, valorBoolean, valorCalendar, valorClob, valorDouble, valorInteger, valorListaMultiple, valorListaMultipleList, valorListaSimple, valorMoneda, valorMunicipi, valorPais, valorProvincia, valorString);
   }
 
 
@@ -413,8 +461,10 @@ public class DadesEspecifiquesValors {
     sb.append("class DadesEspecifiquesValors {\n");
     
     sb.append("    dadesEspecifiques: ").append(toIndentedString(dadesEspecifiques)).append("\n");
+    sb.append("    dsollicitud: ").append(toIndentedString(dsollicitud)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    notEmpty: ").append(toIndentedString(notEmpty)).append("\n");
+    sb.append("    sollicitud: ").append(toIndentedString(sollicitud)).append("\n");
     sb.append("    valorBoolean: ").append(toIndentedString(valorBoolean)).append("\n");
     sb.append("    valorCalendar: ").append(toIndentedString(valorCalendar)).append("\n");
     sb.append("    valorClob: ").append(toIndentedString(valorClob)).append("\n");

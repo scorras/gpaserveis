@@ -27,6 +27,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitaci
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ObtenirPerInteroperabilitatBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.sollicitud.SollicitudsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.business.handler.ServeisServiceExceptionHandler;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
@@ -40,6 +41,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.SollicitudsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
@@ -52,6 +54,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviar
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import lombok.extern.apachecommons.CommonsLog;
 
 /**
@@ -114,6 +117,10 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	/** The expedients relacionats api. */
 	@Autowired
 	private ExpedientsRelacionatsApi expedientsRelacionatsApi;
+
+	/** The sollicituds api. */
+	@Autowired
+	private SollicitudsApi sollicitudsApi;
 
 	/*
 	 * (non-Javadoc)
@@ -567,6 +574,39 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 			throws GPAServeisServiceException, JsonParseException, IOException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearSollicitudExpedient(ExpedientsCrearBDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackCrearSollicitud")
+	public SollicitudsRDTO crearSollicitud(SollicitudsCrearBDTO sollicitudCrearBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("crearSollicitudExpedient(SollicitudsCrearBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			SollicitudsRDTO returnSollicitudsRDTO = sollicitudsApi.crearSollicitud(sollicitudCrearBDTO.getSollicitudsRDTO());
+
+			if (log.isDebugEnabled()) {
+				log.debug("crearSollicitud(SollicitudsCrearBDTO) - fi"); //$NON-NLS-1$
+			}
+			return returnSollicitudsRDTO;
+		} catch (RestClientException e) {
+			log.error("crearSollicitud(SollicitudsCrearBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+
+	}
+
+	public SollicitudsRDTO fallbackCrearSollicitud(SollicitudsCrearBDTO sollicitudsCrearBDTO, Throwable e)
+			throws GPAServeisServiceException, JsonParseException, IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCrearSollicitud(SollicitudsCrearBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);

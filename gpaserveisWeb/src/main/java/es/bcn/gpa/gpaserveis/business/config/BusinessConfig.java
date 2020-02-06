@@ -23,6 +23,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.SollicitudsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesOperacionsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi;
@@ -309,6 +310,17 @@ public class BusinessConfig {
 		ExpedientsRelacionatsApi expedientsRelacionatsApi = new ExpedientsRelacionatsApi(apiClient);
 
 		return expedientsRelacionatsApi;
+	}
+
+	@Bean
+	public SollicitudsApi clientApiSollicituds() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_EXPEDIENTS);
+		incorporarInterceptorsExpedients(apiClient);
+
+		SollicitudsApi sollicitudsApi = new SollicitudsApi(apiClient);
+
+		return sollicitudsApi;
 	}
 
 	private void incorporarInterceptorsProcediments(es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient apiClient) {
