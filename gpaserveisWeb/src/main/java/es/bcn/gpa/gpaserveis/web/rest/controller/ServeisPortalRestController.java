@@ -1009,7 +1009,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			// Aportar documentación si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 					AccioTramitadorApiParamValue.APORTAR_DOCUMENTACIO, Resultat.ERROR_APORTAR_DOCUMENTACIO_EXPEDIENT);
-
+			
+			//TODO: A) idSOl = Crear nueva solicitud
+			BigDecimal sollicitudIdext = BigDecimal.ONE;
 			// Se construye el modelo para la llamada a la operación de aportar
 			// documentació
 			if (CollectionUtils.isNotEmpty(documentacioAportar.getDocumentacio())) {
@@ -1023,6 +1025,8 @@ public class ServeisPortalRestController extends BaseRestController {
 					docsEntradaRDTO.setNou(NumberUtils.INTEGER_ONE);
 					docsEntradaRDTO.setConfigDocEntrada(map.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
 					docsEntradaRDTO.setDocsTercers(NumberUtils.INTEGER_ONE);
+					//TODO B) set dosEntradaRDTO idSOl
+					docsEntradaRDTO.setSollicitudIdext(sollicitudIdext);
 
 					if (BooleanUtils.isTrue(documentAportatCrearRDTO.getDeclaracioResponsable())) {
 						CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO = new CrearDeclaracioResponsableBDTO(
@@ -1036,7 +1040,7 @@ public class ServeisPortalRestController extends BaseRestController {
 					docsEntradaRDTORespostaList.add(docsEntradaRDTOResposta);
 				}
 			}
-
+	
 			if (documentacioAportar.isRegistrar() && CollectionUtils.isNotEmpty(docsEntradaRDTORespostaList)) {
 				List<BigDecimal> idsDocsEnt = new ArrayList<>();
 				for (DocsEntradaRDTO docsEntrada : docsEntradaRDTORespostaList) {
