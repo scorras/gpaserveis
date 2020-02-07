@@ -23,6 +23,8 @@ tags:
   description: "Persones Sollicitud Rest Controller"
 - name: "registre-rest-controller"
   description: "Registre Rest Controller"
+- name: "sollicituds-rest-controller"
+  description: "Sollicituds Rest Controller"
 paths:
   /acumulacioExpedients/acumularExpedient:
     post:
@@ -1404,6 +1406,67 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /sollicituds:
+    post:
+      tags:
+      - "Sollicituds"
+      summary: "Creates the sollicitud"
+      operationId: "crearSollicitud"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "sollicitudsRDTO"
+        description: "sollicitudsRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/SollicitudsRDTO"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/SollicitudsRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /sollicituds/{id}:
+    get:
+      tags:
+      - "Sollicituds"
+      summary: "Returns the requested sollicitud"
+      operationId: "consultarDadesSollicituds"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/SollicitudsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
 definitions:
   ActualitzarDadesSollicitud:
     type: "object"
@@ -1574,10 +1637,14 @@ definitions:
     properties:
       dadesEspecifiques:
         type: "number"
+      dsollicitud:
+        type: "number"
       id:
         type: "number"
       notEmpty:
         type: "boolean"
+      sollicitud:
+        type: "number"
       valorBoolean:
         type: "integer"
         format: "int32"
@@ -1814,6 +1881,14 @@ definitions:
         type: "string"
       numeroDocumentSollicitantEstricte:
         type: "string"
+      personesImplicades:
+        type: "array"
+        items:
+          $ref: "#/definitions/PersonesSollicitudRDTO"
+      personesInteressades:
+        type: "array"
+        items:
+          $ref: "#/definitions/PersonesSollicitudRDTO"
       procedimentCodi:
         type: "string"
       procedimentIdext:
@@ -2155,12 +2230,16 @@ definitions:
   Sollicituds:
     type: "object"
     properties:
+      comentari:
+        type: "number"
       dataPresentacio:
         type: "string"
         format: "date-time"
       dataSollicitud:
         type: "string"
         format: "date-time"
+      expedient:
+        type: "number"
       id:
         type: "number"
       iniciacio:
@@ -2171,11 +2250,55 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/PersonesSollicitud"
+      procedimentIdext:
+        type: "number"
       registre:
         type: "number"
       registreAssentament:
         $ref: "#/definitions/RegistreAssentament"
+      tramitOvtIdext:
+        type: "number"
+      tramitador:
+        type: "string"
+      unitatGestoraIdext:
+        type: "number"
     title: "Sollicituds"
+  SollicitudsRDTO:
+    type: "object"
+    properties:
+      comentari:
+        type: "number"
+      dataPresentacio:
+        type: "string"
+        format: "date-time"
+      dataSollicitud:
+        type: "string"
+        format: "date-time"
+      expedient:
+        type: "number"
+      id:
+        type: "number"
+      iniciacio:
+        type: "number"
+      iniciacioNom:
+        type: "string"
+      personesSollicitudList:
+        type: "array"
+        items:
+          $ref: "#/definitions/PersonesSollicitud"
+      procedimentIdext:
+        type: "number"
+      registre:
+        type: "number"
+      registreAssentament:
+        $ref: "#/definitions/RegistreAssentament"
+      tramitOvtIdext:
+        type: "number"
+      tramitador:
+        type: "string"
+      unitatGestoraIdext:
+        type: "number"
+    title: "SollicitudsRDTO"
   SortInfo:
     type: "object"
     properties:
