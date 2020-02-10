@@ -161,6 +161,9 @@ public class DocsEntradaRDTO {
 
   @JsonProperty("usuariIdext")
   private BigDecimal usuariIdext = null;
+  
+  @JsonProperty("sollicitudIdext")
+  private BigDecimal sollicitudIdext = null;
 
   public DocsEntradaRDTO codi(String codi) {
     this.codi = codi;
@@ -944,8 +947,16 @@ public class DocsEntradaRDTO {
     this.usuariIdext = usuariIdext;
   }
 
+  @ApiModelProperty(value = "")
+  public BigDecimal getSollicitudIdext() {
+	return sollicitudIdext;
+ }
 
-  @Override
+public void setSollicitudIdext(BigDecimal sollicitudIdext) {
+	this.sollicitudIdext = sollicitudIdext;
+}
+
+@Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
       return true;
@@ -996,12 +1007,13 @@ public class DocsEntradaRDTO {
         Objects.equals(this.tramitOvtIdext, docsEntradaRDTO.tramitOvtIdext) &&
         Objects.equals(this.ultimaModificacioIdext, docsEntradaRDTO.ultimaModificacioIdext) &&
         Objects.equals(this.urlDigitalitzacio, docsEntradaRDTO.urlDigitalitzacio) &&
-        Objects.equals(this.usuariIdext, docsEntradaRDTO.usuariIdext);
+        Objects.equals(this.usuariIdext, docsEntradaRDTO.usuariIdext) &&
+        Objects.equals(this.sollicitudIdext, docsEntradaRDTO.sollicitudIdext);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(codi, comentari, configDocEntrada, configuracioDocsEntrada, configuracioDocsEntradaId, configuracioDocsEntradaNom, configuracioDocsEntradaNomCastella, dataCreacio, dataDigitalitzacio, dataPresentacio, dataUltimaModificacio, declaracioResponsable, digitalitzat, docsFisics, docsFisicsNom, docsTercers, documentFisic, documentacio, editable, eliminat, estatDigitalitzacio, id, idIdiomaPlantilla, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, nou, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreCodi, registreIdext, requerit, revisio, seleccionable, tipusMimeDescripcio, tramitOvtIdext, ultimaModificacioIdext, urlDigitalitzacio, usuariIdext);
+    return Objects.hash(codi, comentari, configDocEntrada, configuracioDocsEntrada, configuracioDocsEntradaId, configuracioDocsEntradaNom, configuracioDocsEntradaNomCastella, dataCreacio, dataDigitalitzacio, dataPresentacio, dataUltimaModificacio, declaracioResponsable, digitalitzat, docsFisics, docsFisicsNom, docsTercers, documentFisic, documentacio, editable, eliminat, estatDigitalitzacio, id, idIdiomaPlantilla, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, nou, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreCodi, registreIdext, requerit, revisio, seleccionable, tipusMimeDescripcio, tramitOvtIdext, ultimaModificacioIdext, urlDigitalitzacio, usuariIdext, sollicitudIdext);
   }
 
 
@@ -1053,6 +1065,7 @@ public class DocsEntradaRDTO {
     sb.append("    ultimaModificacioIdext: ").append(toIndentedString(ultimaModificacioIdext)).append("\n");
     sb.append("    urlDigitalitzacio: ").append(toIndentedString(urlDigitalitzacio)).append("\n");
     sb.append("    usuariIdext: ").append(toIndentedString(usuariIdext)).append("\n");
+    sb.append("    sollicitudIdext: ").append(toIndentedString(sollicitudIdext)).append("\n");
     sb.append("}");
     return sb.toString();
   }
