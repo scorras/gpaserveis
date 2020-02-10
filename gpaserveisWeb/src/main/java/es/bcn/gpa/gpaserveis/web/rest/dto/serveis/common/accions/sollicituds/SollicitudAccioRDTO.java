@@ -10,14 +10,14 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "ExpedientAccio")
+@ApiModel(value = "SollicitudAccio")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "codi" })
+@JsonPropertyOrder({ "id"})
 @Getter
 @Setter
 public class SollicitudAccioRDTO {
 
-	@ApiModelProperty("Identificador de la sollicitud")
+	@ApiModelProperty("Identificador de la sol·licitud")
 	private BigDecimal id;
 
 }
