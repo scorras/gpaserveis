@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.16.2"
+  version: "1.17.0"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -2151,6 +2151,10 @@ definitions:
     properties:
       comentari:
         $ref: "#/definitions/Comentaris"
+      llistaUGConvidadas:
+        type: "array"
+        items:
+          type: "number"
     title: "RetornarTramitacioRDTO"
   Sollicituds:
     type: "object"

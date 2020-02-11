@@ -857,6 +857,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			RetornarTramitacioRDTO retornarTramitacioRDTO = new RetornarTramitacioRDTO();
 			Comentaris comentaris = new Comentaris();
 			comentaris.setDescripcio(expedientRetornRDTO.getComentari());
+			retornarTramitacioRDTO.setLlistaUGConvidadas(expedientRetornRDTO.getLlistaUGConvidadas());
 			retornarTramitacioRDTO.setComentari(comentaris);
 
 			// Cambio de estado del expediente en función del estado origen
