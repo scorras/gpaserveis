@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.business.dto.sollicitud;
+package es.bcn.gpa.gpaserveis.business.dto.sollicituds;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import lombok.AllArgsConstructor;

@@ -10,58 +10,70 @@
  * Do not edit the class manually.
  */
 
-
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
-import java.math.BigDecimal;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
-import org.junit.Test;
-import org.junit.Ignore;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
+
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
+
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 
 /**
  * API tests for SollicitudsApi
  */
-@Ignore
-public class SollicitudsApiTest {
+@SuppressWarnings("unchecked")
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class SollicitudsApiTest extends ParentTest {
 
-    private final SollicitudsApi api = new SollicitudsApi();
+	private final SollicitudsApi api = new SollicitudsApi();
 
-    
-    /**
-     * Returns the requested sollicitud
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void consultarDadesSollicitudsTest() {
-        BigDecimal id = null;
-        SollicitudsRDTO response = api.consultarDadesSollicituds(id);
+	/**
+	 * Returns the requested sollicitud
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void consultarDadesSollicitudsTest() {
+		BigDecimal id = null;
+		SollicitudsRDTO response = api.consultarDadesSollicituds(id);
 
-        // TODO: test validations
-    }
-    
-    /**
-     * Creates the sollicitud
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void crearSollicitudTest() {
-        SollicitudsRDTO sollicitudsRDTO = null;
-        SollicitudsRDTO response = api.crearSollicitud(sollicitudsRDTO);
+		// TODO: test validations
+	}
 
-        // TODO: test validations
-    }
-    
+	/**
+	 * Creates the sollicitud
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void crearSollicitudTest() {
+		when(apiClient.invokeAPI(eq("/sollicituds"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new SollicitudsRDTO());
+
+		SollicitudsRDTO sollicitudsRDTO = new SollicitudsRDTO();
+		SollicitudsRDTO response = api.crearSollicitud(sollicitudsRDTO);
+
+		assertTrue(response != null);
+	}
+
 }
