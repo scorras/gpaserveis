@@ -1,6 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.converter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ public class StringToRespostaNotificacioRDTOConverter implements Converter<Strin
 	public RespostaNotificacioRDTO convert(String from) {
 		RespostaNotificacioRDTO respostaNotificacioRDTO = null;
 		try {
-			respostaNotificacioRDTO = new ObjectMapper().readValue(from.getBytes(), RespostaNotificacioRDTO.class);
+			respostaNotificacioRDTO = new ObjectMapper().readValue(from.getBytes(StandardCharsets.UTF_8), RespostaNotificacioRDTO.class);
 		} catch (IOException e) {
 			throw new GPAServeisRuntimeException(e);
 		}

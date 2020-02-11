@@ -1,6 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.converter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,8 @@ public class StringToRequerimentPreparacioRDTOConverter implements Converter<Str
 	public RequerimentPreparacioRDTO convert(String from) {
 		RequerimentPreparacioRDTO requerimentPreparacioRDTO = null;
 		try {
-			requerimentPreparacioRDTO = new ObjectMapper().readValue(from.getBytes(), RequerimentPreparacioRDTO.class);
+			requerimentPreparacioRDTO = new ObjectMapper().readValue(from.getBytes(StandardCharsets.UTF_8),
+					RequerimentPreparacioRDTO.class);
 		} catch (IOException e) {
 			throw new GPAServeisRuntimeException(e);
 		}
