@@ -8,12 +8,12 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.math.NumberUtils;
-import org.joda.time.DateTime;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +29,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaAportarDocumentExped
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesSollicitudBDTO;
+import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsCrearBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
@@ -38,6 +39,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.handler.ServeisRestControllerExceptionHandler;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerValidationHelper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.OrigenApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.RevisioApiParamValue;
@@ -46,6 +48,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.sollicituds.Sol
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentacioAportarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.RespostaSollicitudAportarDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.RespostaConsultaSollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.SollicitudConsultaRDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -171,27 +175,35 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	}
 
 	/**
-	 * Crear sollicitud by dades expedient.
+	 * Consultar dades sollicitud.
 	 *
-	 * @param dadesExpedientBDTO
-	 *            the dades expedient BDTO
-	 * @return the sollicituds crear BDTO
+	 * @param idSollicitud
+	 *            the id sollicitud
+	 * @return the resposta consulta sollicituds RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
 	 */
-	public SollicitudsCrearBDTO crearSollicitudByDadesExpedient(DadesExpedientBDTO dadesExpedientBDTO, BigDecimal tramitOvtIdext) {
-		SollicitudsRDTO sollicitud = new SollicitudsRDTO();
+	@GetMapping("/sollicituds/{idSollicitud}")
+	@ApiOperation(value = "Consultar les dades de la sol·licitud", tags = { "Serveis Portal API" }, extensions = {
+	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	public RespostaConsultaSollicitudsRDTO consultarDadesSollicitud(
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable BigDecimal idSollicitud)
+	        throws GPAServeisServiceException {
 
-		if (dadesExpedientBDTO.getExpedientsRDTO() != null) {
-			sollicitud.setExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
-			sollicitud.setTramitador(dadesExpedientBDTO.getExpedientsRDTO().getTramitador());
-			sollicitud.setProcedimentIdext(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
-			sollicitud.setUnitatGestoraIdext(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
+		RespostaConsultaSollicitudsRDTO respostaConsultaSollicitudsRDTO = new RespostaConsultaSollicitudsRDTO();
+
+		// Datos principales de la solicitud
+		DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
+
+		// El identificador de la solicitud debe ser válido
+		if (dadesSollicitudBDTO.getSollicitudsRDTO() == null) {
+			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_SOLLICITUDS_NOT_FOUND.getDescripcio());
 		}
-		DateTime currentDateTime = new DateTime();
-		sollicitud.setDataSollicitud(currentDateTime);
-		sollicitud.setDataPresentacio(currentDateTime);
-		sollicitud.setTramitOvtIdext(tramitOvtIdext);
+		SollicitudConsultaRDTO sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
 
-		return new SollicitudsCrearBDTO(sollicitud);
+		respostaConsultaSollicitudsRDTO.setSollicitud(sollicitudConsultaRDTO);
+
+		return respostaConsultaSollicitudsRDTO;
 	}
 
 }
