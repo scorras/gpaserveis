@@ -876,7 +876,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
 			ConfiguracioDocsTramitacio configuracioDocsTramitacio = new ConfiguracioDocsTramitacio();
 			configuracioDocsTramitacio.setSuportEnllac(respostaPlantillaDocVinculada.getPlantilla());
-			// configuracioDocsTramitacio.setId(respostaPlantillaDocVinculada.getId());
+			configuracioDocsTramitacio.setId(respostaPlantillaDocVinculada.getId());
 			// setear la politica que nos devuelve el registro de ariadna
 			configuracioDocsTramitacio.setPoliticaSignatura(respostaCrearRegistreExpedient.getPolitic());
 
@@ -891,7 +891,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			// expediente
 			SignarSegellDocument signarSegellDocumentRDTO = new SignarSegellDocument();
 			signarSegellDocumentRDTO.setIdDocument(respostaCrearJustificant.getId());
-			serveisService.signarSegellDocument(signarSegellDocumentRDTO);
+			SignarSegellDocument signarSegellDocumentResponse = serveisService.signarSegellDocument(signarSegellDocumentRDTO);
+
+			// TODO tratar respuesta y si la firma no es valida lanzar el error
 
 			// Vincular Justificante en Ariadna
 			RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
