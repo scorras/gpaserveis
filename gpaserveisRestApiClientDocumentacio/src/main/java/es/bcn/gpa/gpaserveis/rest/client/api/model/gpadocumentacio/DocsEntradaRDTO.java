@@ -1046,8 +1046,7 @@ public class DocsEntradaRDTO {
 		        && Objects.equals(this.tramitOvtIdext, docsEntradaRDTO.tramitOvtIdext)
 		        && Objects.equals(this.ultimaModificacioIdext, docsEntradaRDTO.ultimaModificacioIdext)
 		        && Objects.equals(this.urlDigitalitzacio, docsEntradaRDTO.urlDigitalitzacio)
-		        && Objects.equals(this.usuariIdext, docsEntradaRDTO.usuariIdext)
-		        && Objects.equals(this.sollicitudIdext, docsEntradaRDTO.sollicitudIdext);
+		        && Objects.equals(this.usuariIdext, docsEntradaRDTO.usuariIdext);
 	}
 
 	@Override
@@ -1110,7 +1109,6 @@ public class DocsEntradaRDTO {
 		sb.append("    ultimaModificacioIdext: ").append(toIndentedString(ultimaModificacioIdext)).append("\n");
 		sb.append("    urlDigitalitzacio: ").append(toIndentedString(urlDigitalitzacio)).append("\n");
 		sb.append("    usuariIdext: ").append(toIndentedString(usuariIdext)).append("\n");
-		sb.append("    sollicitudIdext: ").append(toIndentedString(sollicitudIdext)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
