@@ -44,6 +44,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.OrigenApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.RevisioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.sollicituds.SollicitudAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentacioAportarRDTO;
@@ -90,7 +91,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	 *            the documentacio aportar
 	 * @return the resposta sollicitud aportar document RDTO
 	 */
-	@PostMapping("/sollicitud/{idSollicitud}/documentacio")
+	@PostMapping("/sollicituds/{idSollicitud}/documentacio")
 	@ApiOperation(value = "Aportar documentació a la sol·licitud", tags = { "Serveis Portal API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaSollicitudAportarDocumentRDTO sollicitudAportarDocumentacioExpedient(
@@ -103,9 +104,11 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		List<DocsEntradaRDTO> docsEntradaRDTORespostaList = null;
 		DocsTramitacioRDTO respostaCrearJustificant = null;
 		RespostaCrearRegistreExpedient respostaCrearRegistreExpedient = null;
+		String tipus = null;
 		try {
 			// Buscar la sol y a partir de la sol obtener el expedient
 			DadesSollicitudBDTO sol = serveisService.consultarDadesSollicitud(idSollicitud);
+			tipus = String.valueOf(sol.getSollicitudsRDTO().getTramitOvtIdext());
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(sol.getExpedientsRDTO().getId());
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_APORTAR_DOCUMENTACIO_EXPEDIENT);
 
@@ -169,6 +172,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		        RespostaSollicitudAportarDocumentRDTO.class);
 		SollicitudAccioRDTO sollicitudAccio = new SollicitudAccioRDTO();
 		sollicitudAccio.setId(idSollicitud);
+		sollicitudAccio.setTipus(tipus);
 		respostaSollicitudAportarDocumentRDTO.setSollicitud(sollicitudAccio);
 
 		return respostaSollicitudAportarDocumentRDTO;
