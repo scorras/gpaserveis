@@ -320,6 +320,36 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /expedients/dadesEspecifiques/sollicitud/{idSollicitud}:
+    get:
+      tags:
+      - "Dades Especifiques"
+      summary: "Returns the requested dades especifiques by Sol·licitud"
+      operationId: "consultarDadesEspecifiquesSollicitud"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idSollicitud"
+        in: "path"
+        description: "idSollicitud"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/DadesEspecifiquesRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /expedients/dadesEspecifiques/{idExpedient}:
     get:
       tags:
@@ -1594,12 +1624,10 @@ definitions:
   ConvidarTramitarRDTO:
     type: "object"
     properties:
-      codiUnitatGestoraList:
-        type: "array"
-        items:
-          $ref: "#/definitions/DropdownItemBDTO"
       comentari:
         $ref: "#/definitions/Comentaris"
+      unitatGestoraConvidada:
+        $ref: "#/definitions/DropdownItemBDTO"
     title: "ConvidarTramitarRDTO"
   CrearRegistre:
     type: "object"
@@ -1619,6 +1647,10 @@ definitions:
       campIdext:
         type: "number"
       dadesEspecifiquesValorsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesEspecifiquesValors"
+      dadesEspecifiquesValorsSollicitudList:
         type: "array"
         items:
           $ref: "#/definitions/DadesEspecifiquesValors"
@@ -1720,6 +1752,8 @@ definitions:
         type: "number"
       id:
         type: "number"
+      ugConvidadaIdext:
+        type: "number"
       unitatGestoraIdext:
         type: "number"
       usuari:
@@ -1752,14 +1786,6 @@ definitions:
       idEstatAnterior:
         type: "number"
     title: "EstatsRDTO"
-  EstatsUgConvidada:
-    type: "object"
-    properties:
-      estats:
-        type: "number"
-      ugConvidadaIdext:
-        type: "number"
-    title: "EstatsUgConvidada"
   ExpedientCanviEstat:
     type: "object"
     properties:

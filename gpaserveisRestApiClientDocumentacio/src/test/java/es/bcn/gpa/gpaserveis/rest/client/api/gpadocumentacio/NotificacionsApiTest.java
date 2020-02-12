@@ -15,25 +15,31 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.FixMethodOrder;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient.CollectionFormat;
 
 /**
  * API tests for NotificacionsApi
@@ -45,18 +51,29 @@ public class NotificacionsApiTest extends ParentTest {
 	@InjectMocks
 	private NotificacionsApi api = new NotificacionsApi();
 
+	/** The test folder. */
+	@Rule
+	public TemporaryFolder testFolder = new TemporaryFolder();
+
 	/**
-	 * Callback notificacio test.
+	 * Actualitzar una notificació
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
 	 */
 	@Test
-	public void callbackNotificacioTest() {
-		when(apiClient.invokeAPI(eq("/notificacions"), eq(HttpMethod.PUT), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(null);
-		String actualitzarNotificacionDocument = StringUtils.EMPTY;
+	public void callbackNotificacioTest() throws RestClientException, IOException {
+		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
+		        .thenReturn(new LinkedMultiValueMap<String, String>());
+		when(apiClient.invokeAPI(eq("/notificacions/retornNotificacio"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		File docEvidenciaElectronic = null;
-		File docEvidenciaPaper = null;
+		String actualitzarNotificacionDocument = StringUtils.EMPTY;
+		File docEvidenciaElectronic = testFolder.newFolder("docEvidenciaElectronic");
+		File docEvidenciaPaper = testFolder.newFolder("docEvidenciaPaper");
 
 		api.callbackNotificacio(actualitzarNotificacionDocument, docEvidenciaElectronic, docEvidenciaPaper);
 		assertTrue(true);
@@ -73,8 +90,8 @@ public class NotificacionsApiTest extends ParentTest {
 	@Test
 	public void crearNotificacioTest() throws RestClientException {
 		when(apiClient.invokeAPI(eq("/notificacions"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(new NotificacionsRDTO());
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new NotificacionsRDTO());
 
 		CrearNotificacio crearNotificacioRDTO = new CrearNotificacio();
 		NotificacionsRDTO response = api.crearNotificacio(crearNotificacioRDTO);

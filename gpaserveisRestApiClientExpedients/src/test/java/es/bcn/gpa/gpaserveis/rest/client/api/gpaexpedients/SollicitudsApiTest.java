@@ -12,6 +12,7 @@
 
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
+import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -23,6 +24,7 @@ import java.util.List;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.mockito.InjectMocks;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -38,7 +40,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SollicitudsApiTest extends ParentTest {
 
-	private final SollicitudsApi api = new SollicitudsApi();
+	@InjectMocks
+	private SollicitudsApi api = new SollicitudsApi();
 
 	/**
 	 * Returns the requested sollicitud
@@ -50,10 +53,14 @@ public class SollicitudsApiTest extends ParentTest {
 	 */
 	@Test
 	public void consultarDadesSollicitudsTest() {
-		BigDecimal id = null;
+		when(apiClient.invokeAPI(eq("/sollicituds/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new SollicitudsRDTO());
+
+		BigDecimal id = ONE;
 		SollicitudsRDTO response = api.consultarDadesSollicituds(id);
 
-		// TODO: test validations
+		assertTrue(response != null);
 	}
 
 	/**

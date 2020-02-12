@@ -1316,69 +1316,69 @@ public class ExpedientsRDTO {
 		}
 		ExpedientsRDTO expedientsRDTO = (ExpedientsRDTO) o;
 		return Objects.equals(this.accioEstatIdext, expedientsRDTO.accioEstatIdext)
-				&& Objects.equals(this.aplicacioNegoci, expedientsRDTO.aplicacioNegoci)
-				&& Objects.equals(this.bloqueig, expedientsRDTO.bloqueig) && Objects.equals(this.bloquejos, expedientsRDTO.bloquejos)
-				&& Objects.equals(this.codi, expedientsRDTO.codi) && Objects.equals(this.codiLlarg, expedientsRDTO.codiLlarg)
-				&& Objects.equals(this.configuracioDocumentacioProc, expedientsRDTO.configuracioDocumentacioProc)
-				&& Objects.equals(this.criticitatAvis, expedientsRDTO.criticitatAvis)
-				&& Objects.equals(this.darreraModificacio, expedientsRDTO.darreraModificacio)
-				&& Objects.equals(this.dataAllegacio, expedientsRDTO.dataAllegacio)
-				&& Objects.equals(this.dataEsmena, expedientsRDTO.dataEsmena)
-				&& Objects.equals(this.dataPresentacio, expedientsRDTO.dataPresentacio)
-				&& Objects.equals(this.dataPresentacioDes, expedientsRDTO.dataPresentacioDes)
-				&& Objects.equals(this.dataPresentacioFinsA, expedientsRDTO.dataPresentacioFinsA)
-				&& Objects.equals(this.descEstat, expedientsRDTO.descEstat)
-				&& Objects.equals(this.descEstatCastella, expedientsRDTO.descEstatCastella)
-				&& Objects.equals(this.descEstatCatala, expedientsRDTO.descEstatCatala)
-				&& Objects.equals(this.descEstatCiutada, expedientsRDTO.descEstatCiutada)
-				&& Objects.equals(this.descEstatCiutadaCastella, expedientsRDTO.descEstatCiutadaCastella)
-				&& Objects.equals(this.descEstatCiutadaCatala, expedientsRDTO.descEstatCiutadaCatala)
-				&& Objects.equals(this.descUGConvidada, expedientsRDTO.descUGConvidada)
-				&& Objects.equals(this.descUnitatGestora, expedientsRDTO.descUnitatGestora)
-				&& Objects.equals(this.diesTerminiAllegacio, expedientsRDTO.diesTerminiAllegacio)
-				&& Objects.equals(this.diesTerminiRequeriment, expedientsRDTO.diesTerminiRequeriment)
-				&& Objects.equals(this.documentacioIdext, expedientsRDTO.documentacioIdext)
-				&& Objects.equals(this.editable, expedientsRDTO.editable) && Objects.equals(this.estat, expedientsRDTO.estat)
-				&& Objects.equals(this.estatActual, expedientsRDTO.estatActual)
-				&& Objects.equals(this.expedientObjecteDeRecursId, expedientsRDTO.expedientObjecteDeRecursId)
-				&& Objects.equals(this.id, expedientsRDTO.id) && Objects.equals(this.idEstat, expedientsRDTO.idEstat)
-				&& Objects.equals(this.idRelacionat, expedientsRDTO.idRelacionat) && Objects.equals(this.isOge, expedientsRDTO.isOge)
-				&& Objects.equals(this.migracioIdOrigen, expedientsRDTO.migracioIdOrigen)
-				&& Objects.equals(this.nomDescUGConvidada, expedientsRDTO.nomDescUGConvidada)
-				&& Objects.equals(this.nomDescUnitatGestora, expedientsRDTO.nomDescUnitatGestora)
-				&& Objects.equals(this.nomProcediment, expedientsRDTO.nomProcediment)
-				&& Objects.equals(this.nomProcedimentCastella, expedientsRDTO.nomProcedimentCastella)
-				&& Objects.equals(this.numeroDocumentSollicitant, expedientsRDTO.numeroDocumentSollicitant)
-				&& Objects.equals(this.numeroDocumentSollicitantEstricte, expedientsRDTO.numeroDocumentSollicitantEstricte)
-				&& Objects.equals(this.personesImplicades, expedientsRDTO.personesImplicades)
-				&& Objects.equals(this.personesInteressades, expedientsRDTO.personesInteressades)
-				&& Objects.equals(this.procedimentCodi, expedientsRDTO.procedimentCodi)
-				&& Objects.equals(this.procedimentIdext, expedientsRDTO.procedimentIdext)
-				&& Objects.equals(this.procedimentVersio, expedientsRDTO.procedimentVersio)
-				&& Objects.equals(this.relacioTipusRelacio, expedientsRDTO.relacioTipusRelacio)
-				&& Objects.equals(this.representantPrincipal, expedientsRDTO.representantPrincipal)
-				&& Objects.equals(this.seleccionable, expedientsRDTO.seleccionable)
-				&& Objects.equals(this.sollicitant, expedientsRDTO.sollicitant)
-				&& Objects.equals(this.sollicitantPrincipal, expedientsRDTO.sollicitantPrincipal)
-				&& Objects.equals(this.sollicitud, expedientsRDTO.sollicitud)
-				&& Objects.equals(this.sollicituds, expedientsRDTO.sollicituds) && Objects.equals(this.tipusAvis, expedientsRDTO.tipusAvis)
-				&& Objects.equals(this.tramitador, expedientsRDTO.tramitador)
-				&& Objects.equals(this.ugConvidadaIdextList, expedientsRDTO.ugConvidadaIdextList)
-				&& Objects.equals(this.ultimaModificacio, expedientsRDTO.ultimaModificacio)
-				&& Objects.equals(this.unitatGestoraIdext, expedientsRDTO.unitatGestoraIdext);
+		        && Objects.equals(this.aplicacioNegoci, expedientsRDTO.aplicacioNegoci)
+		        && Objects.equals(this.bloqueig, expedientsRDTO.bloqueig) && Objects.equals(this.bloquejos, expedientsRDTO.bloquejos)
+		        && Objects.equals(this.codi, expedientsRDTO.codi) && Objects.equals(this.codiLlarg, expedientsRDTO.codiLlarg)
+		        && Objects.equals(this.configuracioDocumentacioProc, expedientsRDTO.configuracioDocumentacioProc)
+		        && Objects.equals(this.criticitatAvis, expedientsRDTO.criticitatAvis)
+		        && Objects.equals(this.darreraModificacio, expedientsRDTO.darreraModificacio)
+		        && Objects.equals(this.dataAllegacio, expedientsRDTO.dataAllegacio)
+		        && Objects.equals(this.dataEsmena, expedientsRDTO.dataEsmena)
+		        && Objects.equals(this.dataPresentacio, expedientsRDTO.dataPresentacio)
+		        && Objects.equals(this.dataPresentacioDes, expedientsRDTO.dataPresentacioDes)
+		        && Objects.equals(this.dataPresentacioFinsA, expedientsRDTO.dataPresentacioFinsA)
+		        && Objects.equals(this.descEstat, expedientsRDTO.descEstat)
+		        && Objects.equals(this.descEstatCastella, expedientsRDTO.descEstatCastella)
+		        && Objects.equals(this.descEstatCatala, expedientsRDTO.descEstatCatala)
+		        && Objects.equals(this.descEstatCiutada, expedientsRDTO.descEstatCiutada)
+		        && Objects.equals(this.descEstatCiutadaCastella, expedientsRDTO.descEstatCiutadaCastella)
+		        && Objects.equals(this.descEstatCiutadaCatala, expedientsRDTO.descEstatCiutadaCatala)
+		        && Objects.equals(this.descUGConvidada, expedientsRDTO.descUGConvidada)
+		        && Objects.equals(this.descUnitatGestora, expedientsRDTO.descUnitatGestora)
+		        && Objects.equals(this.diesTerminiAllegacio, expedientsRDTO.diesTerminiAllegacio)
+		        && Objects.equals(this.diesTerminiRequeriment, expedientsRDTO.diesTerminiRequeriment)
+		        && Objects.equals(this.documentacioIdext, expedientsRDTO.documentacioIdext)
+		        && Objects.equals(this.editable, expedientsRDTO.editable) && Objects.equals(this.estat, expedientsRDTO.estat)
+		        && Objects.equals(this.estatActual, expedientsRDTO.estatActual)
+		        && Objects.equals(this.expedientObjecteDeRecursId, expedientsRDTO.expedientObjecteDeRecursId)
+		        && Objects.equals(this.id, expedientsRDTO.id) && Objects.equals(this.idEstat, expedientsRDTO.idEstat)
+		        && Objects.equals(this.idRelacionat, expedientsRDTO.idRelacionat) && Objects.equals(this.isOge, expedientsRDTO.isOge)
+		        && Objects.equals(this.migracioIdOrigen, expedientsRDTO.migracioIdOrigen)
+		        && Objects.equals(this.nomDescUGConvidada, expedientsRDTO.nomDescUGConvidada)
+		        && Objects.equals(this.nomDescUnitatGestora, expedientsRDTO.nomDescUnitatGestora)
+		        && Objects.equals(this.nomProcediment, expedientsRDTO.nomProcediment)
+		        && Objects.equals(this.nomProcedimentCastella, expedientsRDTO.nomProcedimentCastella)
+		        && Objects.equals(this.numeroDocumentSollicitant, expedientsRDTO.numeroDocumentSollicitant)
+		        && Objects.equals(this.numeroDocumentSollicitantEstricte, expedientsRDTO.numeroDocumentSollicitantEstricte)
+		        && Objects.equals(this.personesImplicades, expedientsRDTO.personesImplicades)
+		        && Objects.equals(this.personesInteressades, expedientsRDTO.personesInteressades)
+		        && Objects.equals(this.procedimentCodi, expedientsRDTO.procedimentCodi)
+		        && Objects.equals(this.procedimentIdext, expedientsRDTO.procedimentIdext)
+		        && Objects.equals(this.procedimentVersio, expedientsRDTO.procedimentVersio)
+		        && Objects.equals(this.relacioTipusRelacio, expedientsRDTO.relacioTipusRelacio)
+		        && Objects.equals(this.representantPrincipal, expedientsRDTO.representantPrincipal)
+		        && Objects.equals(this.seleccionable, expedientsRDTO.seleccionable)
+		        && Objects.equals(this.sollicitant, expedientsRDTO.sollicitant)
+		        && Objects.equals(this.sollicitantPrincipal, expedientsRDTO.sollicitantPrincipal)
+		        && Objects.equals(this.sollicitud, expedientsRDTO.sollicitud)
+		        && Objects.equals(this.sollicituds, expedientsRDTO.sollicituds) && Objects.equals(this.tipusAvis, expedientsRDTO.tipusAvis)
+		        && Objects.equals(this.tramitador, expedientsRDTO.tramitador)
+		        && Objects.equals(this.ugConvidadaIdextList, expedientsRDTO.ugConvidadaIdextList)
+		        && Objects.equals(this.ultimaModificacio, expedientsRDTO.ultimaModificacio)
+		        && Objects.equals(this.unitatGestoraIdext, expedientsRDTO.unitatGestoraIdext);
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(accioEstatIdext, aplicacioNegoci, bloqueig, bloquejos, codi, codiLlarg, configuracioDocumentacioProc,
-				criticitatAvis, darreraModificacio, dataAllegacio, dataEsmena, dataPresentacio, dataPresentacioDes, dataPresentacioFinsA,
-				descEstat, descEstatCastella, descEstatCatala, descEstatCiutada, descEstatCiutadaCastella, descEstatCiutadaCatala,
-				descUGConvidada, descUnitatGestora, diesTerminiAllegacio, diesTerminiRequeriment, documentacioIdext, editable, estat,
-				estatActual, expedientObjecteDeRecursId, id, idEstat, idRelacionat, isOge, migracioIdOrigen, nomDescUGConvidada,
-				nomDescUnitatGestora, nomProcediment, nomProcedimentCastella, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte,
-				personesImplicades, personesInteressades, procedimentCodi, procedimentIdext, procedimentVersio, relacioTipusRelacio,
-				representantPrincipal, seleccionable, sollicitant, sollicitantPrincipal, sollicitud, sollicituds, tipusAvis, tramitador,
-				ugConvidadaIdextList, ultimaModificacio, unitatGestoraIdext);
+		        criticitatAvis, darreraModificacio, dataAllegacio, dataEsmena, dataPresentacio, dataPresentacioDes, dataPresentacioFinsA,
+		        descEstat, descEstatCastella, descEstatCatala, descEstatCiutada, descEstatCiutadaCastella, descEstatCiutadaCatala,
+		        descUGConvidada, descUnitatGestora, diesTerminiAllegacio, diesTerminiRequeriment, documentacioIdext, editable, estat,
+		        estatActual, expedientObjecteDeRecursId, id, idEstat, idRelacionat, isOge, migracioIdOrigen, nomDescUGConvidada,
+		        nomDescUnitatGestora, nomProcediment, nomProcedimentCastella, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte,
+		        personesImplicades, personesInteressades, procedimentCodi, procedimentIdext, procedimentVersio, relacioTipusRelacio,
+		        representantPrincipal, seleccionable, sollicitant, sollicitantPrincipal, sollicitud, sollicituds, tipusAvis, tramitador,
+		        ugConvidadaIdextList, ultimaModificacio, unitatGestoraIdext);
 	}
 
 	@Override
@@ -1458,4 +1458,3 @@ public class ExpedientsRDTO {
 		return o.toString().replace("\n", "\n    ");
 	}
 
-}

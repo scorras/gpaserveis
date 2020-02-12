@@ -27,13 +27,16 @@ import java.util.List;
 /**
  * DadesEspecifiquesRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-01-29T17:29:47.132+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-10T13:14:45.834+01:00")
 public class DadesEspecifiquesRDTO {
   @JsonProperty("campIdext")
   private BigDecimal campIdext = null;
 
   @JsonProperty("dadesEspecifiquesValorsList")
   private List<DadesEspecifiquesValors> dadesEspecifiquesValorsList = null;
+
+  @JsonProperty("dadesEspecifiquesValorsSollicitudList")
+  private List<DadesEspecifiquesValors> dadesEspecifiquesValorsSollicitudList = null;
 
   @JsonProperty("expedient")
   private BigDecimal expedient = null;
@@ -89,6 +92,32 @@ public class DadesEspecifiquesRDTO {
 
   public void setDadesEspecifiquesValorsList(List<DadesEspecifiquesValors> dadesEspecifiquesValorsList) {
     this.dadesEspecifiquesValorsList = dadesEspecifiquesValorsList;
+  }
+
+  public DadesEspecifiquesRDTO dadesEspecifiquesValorsSollicitudList(List<DadesEspecifiquesValors> dadesEspecifiquesValorsSollicitudList) {
+    this.dadesEspecifiquesValorsSollicitudList = dadesEspecifiquesValorsSollicitudList;
+    return this;
+  }
+
+  public DadesEspecifiquesRDTO addDadesEspecifiquesValorsSollicitudListItem(DadesEspecifiquesValors dadesEspecifiquesValorsSollicitudListItem) {
+    if (this.dadesEspecifiquesValorsSollicitudList == null) {
+      this.dadesEspecifiquesValorsSollicitudList = new ArrayList<DadesEspecifiquesValors>();
+    }
+    this.dadesEspecifiquesValorsSollicitudList.add(dadesEspecifiquesValorsSollicitudListItem);
+    return this;
+  }
+
+   /**
+   * Get dadesEspecifiquesValorsSollicitudList
+   * @return dadesEspecifiquesValorsSollicitudList
+  **/
+  @ApiModelProperty(value = "")
+  public List<DadesEspecifiquesValors> getDadesEspecifiquesValorsSollicitudList() {
+    return dadesEspecifiquesValorsSollicitudList;
+  }
+
+  public void setDadesEspecifiquesValorsSollicitudList(List<DadesEspecifiquesValors> dadesEspecifiquesValorsSollicitudList) {
+    this.dadesEspecifiquesValorsSollicitudList = dadesEspecifiquesValorsSollicitudList;
   }
 
   public DadesEspecifiquesRDTO expedient(BigDecimal expedient) {
@@ -175,6 +204,7 @@ public class DadesEspecifiquesRDTO {
     DadesEspecifiquesRDTO dadesEspecifiquesRDTO = (DadesEspecifiquesRDTO) o;
     return Objects.equals(this.campIdext, dadesEspecifiquesRDTO.campIdext) &&
         Objects.equals(this.dadesEspecifiquesValorsList, dadesEspecifiquesRDTO.dadesEspecifiquesValorsList) &&
+        Objects.equals(this.dadesEspecifiquesValorsSollicitudList, dadesEspecifiquesRDTO.dadesEspecifiquesValorsSollicitudList) &&
         Objects.equals(this.expedient, dadesEspecifiquesRDTO.expedient) &&
         Objects.equals(this.id, dadesEspecifiquesRDTO.id) &&
         Objects.equals(this.nou, dadesEspecifiquesRDTO.nou) &&
@@ -183,7 +213,7 @@ public class DadesEspecifiquesRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(campIdext, dadesEspecifiquesValorsList, expedient, id, nou, tipus);
+    return Objects.hash(campIdext, dadesEspecifiquesValorsList, dadesEspecifiquesValorsSollicitudList, expedient, id, nou, tipus);
   }
 
 
@@ -194,6 +224,7 @@ public class DadesEspecifiquesRDTO {
     
     sb.append("    campIdext: ").append(toIndentedString(campIdext)).append("\n");
     sb.append("    dadesEspecifiquesValorsList: ").append(toIndentedString(dadesEspecifiquesValorsList)).append("\n");
+    sb.append("    dadesEspecifiquesValorsSollicitudList: ").append(toIndentedString(dadesEspecifiquesValorsSollicitudList)).append("\n");
     sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    nou: ").append(toIndentedString(nou)).append("\n");
