@@ -79,19 +79,18 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	@Value("${expedients.id.organ}")
 	private String expedientsIdOrgan;
 
+
 	/**
-	 * Aportar documentacio sol·licitud.
+	 * A aportar documentacio sollicitud.
 	 *
-	 * @param idSollicitud
-	 *            the codi sollicitud
-	 * @param documentacioAportar
-	 *            the documentacio aportar
+	 * @param idSollicitud the id sollicitud
+	 * @param documentacioAportar the documentacio aportar
 	 * @return the resposta sollicitud aportar document RDTO
 	 */
 	@PostMapping("/sollicituds/{idSollicitud}/documentacio")
 	@ApiOperation(value = "Aportar documentació a la sol·licitud", tags = { "Serveis Portal API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	public RespostaSollicitudAportarDocumentRDTO sollicitudAportarDocumentacioExpedient(
+	public RespostaSollicitudAportarDocumentRDTO aportarDocumentacioSollicitud(
 	        @ApiParam(value = "Codi de la sol·licitud", required = true) @PathVariable BigDecimal idSollicitud,
 	        @ApiParam(value = "Dades de la creació del document") @RequestBody DocumentacioAportarRDTO documentacioAportar) {
 
@@ -136,7 +135,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					docsEntradaRDTO.setNou(NumberUtils.INTEGER_ONE);
 					docsEntradaRDTO.setConfigDocEntrada(map.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
 					docsEntradaRDTO.setDocsTercers(NumberUtils.INTEGER_ONE);
-					// docsEntradaRDTO.setSollicitudIdext(idSollicitud);
+					docsEntradaRDTO.setSollicitudIdext(idSollicitud);
 
 					if (BooleanUtils.isTrue(documentAportatCrearRDTO.getDeclaracioResponsable())) {
 						CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO = new CrearDeclaracioResponsableBDTO(
