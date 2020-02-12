@@ -636,13 +636,13 @@ public class ServeisPortalRestController extends BaseRestController {
 			// El codi del expediente debe existir
 			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
-			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_DESCARREGAR_DOCUMENT_EXPEDIENT);
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_DESCARREGAR_DOCUMENT);
 
 			// El id del documento debe existir y pertenecer al expediente
 			// indicado
 			DocsRDTO docsRDTO = serveisService.consultarDadesDocument(idDocument);
 			ServeisRestControllerValidationHelper.validateDocument(docsRDTO, dadesExpedientBDTO,
-			        Resultat.ERROR_DESCARREGAR_DOCUMENT_EXPEDIENT);
+			        Resultat.ERROR_DESCARREGAR_DOCUMENT);
 
 			// Se construye el modelo para la llamada a la operación de
 			// descarregar document
@@ -985,7 +985,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	        @ApiParam(value = "Dades de la creació del document") @RequestBody DocumentacioAportarRDTO documentacioAportar) {
 
 		RespostaAportarDocumentRDTO respostaAportarDocumentRDTO = null;
-		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_APORTAR_DOCUMENTACIO_EXPEDIENT);
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_APORTAR_DOCUMENTACIO);
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		List<DocsEntradaRDTO> docsEntradaRDTORespostaList = null;
 		DocsTramitacioRDTO respostaCrearJustificant = null;
@@ -994,7 +994,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
-			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_APORTAR_DOCUMENTACIO_EXPEDIENT);
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_APORTAR_DOCUMENTACIO);
 
 			// Las configuraciones de documentación indicadas deben estar
 			// asociadas al procedimiento del expediente
@@ -1004,11 +1004,11 @@ public class ServeisPortalRestController extends BaseRestController {
 			        .cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);
 			HashMap<String, ConfiguracioDocsEntradaRDTO> map = ServeisRestControllerValidationHelper
 			        .validateConfiguracioDocumentacioAportada(respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList(),
-			                documentacioAportar.getDocumentacio(), Resultat.ERROR_APORTAR_DOCUMENTACIO_EXPEDIENT);
+			                documentacioAportar.getDocumentacio(), Resultat.ERROR_APORTAR_DOCUMENTACIO);
 
 			// Aportar documentación si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
-			        AccioTramitadorApiParamValue.APORTAR_DOCUMENTACIO, Resultat.ERROR_APORTAR_DOCUMENTACIO_EXPEDIENT);
+			        AccioTramitadorApiParamValue.APORTAR_DOCUMENTACIO, Resultat.ERROR_APORTAR_DOCUMENTACIO);
 
 			// Se construye el modelo para la llamada a la operación de aportar
 			// documentació
@@ -1086,7 +1086,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 		} catch (Exception e) {
 			log.error("aportarDocumentacioExpedient(BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
-			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_APORTAR_DOCUMENTACIO_EXPEDIENT, e);
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_APORTAR_DOCUMENTACIO, e);
 		}
 
 		RespostaAportarDocumentExpedientBDTO respostaAportarDocumentExpedientBDTO = new RespostaAportarDocumentExpedientBDTO(
@@ -1124,18 +1124,18 @@ public class ServeisPortalRestController extends BaseRestController {
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		DocsEntradaRDTO docsEntradaRDTO = null;
 		DocsEntradaRDTO docsEntradaRDTOResposta = null;
-		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_SUBSTITUIR_DOCUMENT_EXPEDIENT);
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_SUBSTITUIR_DOCUMENT);
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
-			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_SUBSTITUIR_DOCUMENT_EXPEDIENT);
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_SUBSTITUIR_DOCUMENT);
 
 			// El id del documento debe existir y pertenecer al expediente
 			// indicado
 			docsEntradaRDTO = serveisService.consultarDadesDocumentAportat(idDocument);
 			ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO,
-			        Resultat.ERROR_SUBSTITUIR_DOCUMENT_EXPEDIENT);
+			        Resultat.ERROR_SUBSTITUIR_DOCUMENT);
 
 			// La configuración de documentación indicada debe estar asociada al
 			// procedimiento del expediente
@@ -1145,11 +1145,11 @@ public class ServeisPortalRestController extends BaseRestController {
 			        .cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);
 			HashMap<String, ConfiguracioDocsEntradaRDTO> map = ServeisRestControllerValidationHelper
 			        .validateConfiguracioDocumentacioSubstituir(respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList(),
-			                documentSubstituir, Resultat.ERROR_SUBSTITUIR_DOCUMENT_EXPEDIENT);
+			                documentSubstituir, Resultat.ERROR_SUBSTITUIR_DOCUMENT);
 
 			// Substituir el document si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
-			        AccioTramitadorApiParamValue.SUBSTITUIR_DOCUMENT, Resultat.ERROR_SUBSTITUIR_DOCUMENT_EXPEDIENT);
+			        AccioTramitadorApiParamValue.SUBSTITUIR_DOCUMENT, Resultat.ERROR_SUBSTITUIR_DOCUMENT);
 
 			// Se construye el modelo para la llamada a la operación de aportar
 			// documentació
@@ -1178,7 +1178,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 		} catch (Exception e) {
 			log.error("substituirDocumentExpedient(BigDecimal, BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
-			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_SUBSTITUIR_DOCUMENT_EXPEDIENT, e);
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_SUBSTITUIR_DOCUMENT, e);
 		}
 
 		RespostaSubstituirDocumentExpedientBDTO respostaSubstituirDocumentExpedientBDTO = new RespostaSubstituirDocumentExpedientBDTO(
@@ -1216,29 +1216,29 @@ public class ServeisPortalRestController extends BaseRestController {
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		DocsEntradaRDTO docsEntradaRDTOResposta = null;
 		DocsEntradaRDTO docsEntradaRDTO = null;
-		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_UPLOAD_DOCUMENT_EXPEDIENT);
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_UPLOAD_DOCUMENT);
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
-			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_UPLOAD_DOCUMENT_EXPEDIENT);
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_UPLOAD_DOCUMENT);
 
 			// El id del documento debe existir y pertenecer al expediente
 			// indicado
 			docsEntradaRDTO = serveisService.consultarDadesDocumentAportat(idDocument);
 			ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO,
-			        Resultat.ERROR_UPLOAD_DOCUMENT_EXPEDIENT);
+			        Resultat.ERROR_UPLOAD_DOCUMENT);
 
 			// Se valida que venga file o idgestor documental para decidir que
 			// operacion realizar
-			ServeisRestControllerValidationHelper.validateEntradaUpload(file, idGestorDocumental, Resultat.ERROR_UPLOAD_DOCUMENT_EXPEDIENT);
+			ServeisRestControllerValidationHelper.validateEntradaUpload(file, idGestorDocumental, Resultat.ERROR_UPLOAD_DOCUMENT);
 
 			// No hay una acción asociada al upload
 
 			if (null != file) {
 				// No se debe permitir subir un fichero a una Declaración
 				// Responsable
-				ServeisRestControllerValidationHelper.validateDocumentUpload(docsEntradaRDTO, Resultat.ERROR_UPLOAD_DOCUMENT_EXPEDIENT);
+				ServeisRestControllerValidationHelper.validateDocumentUpload(docsEntradaRDTO, Resultat.ERROR_UPLOAD_DOCUMENT);
 
 				// Se construye el modelo para la llamada a la operación de
 				// upload
@@ -1258,7 +1258,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 		} catch (Exception e) {
 			log.error("uploadDocumentExpedient(BigDecimal, BigDecimal, MultipartFile)", e); //$NON-NLS-1$
-			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_UPLOAD_DOCUMENT_EXPEDIENT, e);
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_UPLOAD_DOCUMENT, e);
 		}
 
 		RespostaUploadDocumentExpedientBDTO respostaUploadDocumentExpedientBDTO = new RespostaUploadDocumentExpedientBDTO(
@@ -1292,22 +1292,22 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaEsborrarDocumentRDTO respostaEsborrarDocumentRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		DocsEntradaRDTO docsEntradaRDTO = null;
-		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ESBORRAR_DOCUMENT_EXPEDIENT);
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ESBORRAR_DOCUMENT);
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
-			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT);
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_ESBORRAR_DOCUMENT);
 
 			// El id del documento debe existir y pertenecer al expediente
 			// indicado
 			docsEntradaRDTO = serveisService.consultarDadesDocumentAportat(idDocument);
 			ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO,
-			        Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT);
+			        Resultat.ERROR_ESBORRAR_DOCUMENT);
 
 			// Esborrar document si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
-			        AccioTramitadorApiParamValue.ESBORRAR_DOCUMENT, Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT);
+			        AccioTramitadorApiParamValue.ESBORRAR_DOCUMENT, Resultat.ERROR_ESBORRAR_DOCUMENT);
 
 			// Se construye el modelo para la llamada a la operación de esborrar
 			// document
@@ -1321,7 +1321,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 		} catch (Exception e) {
 			log.error("esborrarDocument(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
-			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ESBORRAR_DOCUMENT_EXPEDIENT, e);
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ESBORRAR_DOCUMENT, e);
 		}
 
 		ExpedientsRDTO expedientsRDTO = (dadesExpedientBDTO != null) ? dadesExpedientBDTO.getExpedientsRDTO() : null;

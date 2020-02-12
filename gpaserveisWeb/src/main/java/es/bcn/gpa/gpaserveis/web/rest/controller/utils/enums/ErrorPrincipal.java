@@ -83,6 +83,8 @@ public enum ErrorPrincipal {
 	ERROR_ENTRADA_DOCUMENTS_UPLOAD("4008", "No s'ha rebut arxiu per a pujar ni identificador de gestor documental per a actualitzar"),
 
 	ERROR_DOCUMENTS_ORIGEN_EXTERN("4009", "No pot esborrar documents d'origen extern"),
+	
+	ERROR_DOCUMENTS_NOT_IN_SOLLICITUD("4010", "El document indicat no està associat a la sol·licitud"),
 
 	/* Integracions */
 	ERROR_ARIADNA("5001", ""),

@@ -23,6 +23,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
@@ -200,6 +201,20 @@ public class ServeisRestControllerValidationHelper {
 			throws GPAApiParamValidationException {
 		if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND);
+		}
+	}
+	
+	/**
+	 * Validate sollicitud.
+	 *
+	 * @param dadesSollicitudBDTO the dades sollicitud BDTO
+	 * @param resultatError the resultat error
+	 * @throws GPAApiParamValidationException the GPA api param validation exception
+	 */
+	public static void validateSollicitud(DadesSollicitudBDTO dadesSollicitudBDTO, Resultat resultatError)
+			throws GPAApiParamValidationException {
+		if (dadesSollicitudBDTO.getSollicitudsRDTO() == null) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_SOLLICITUDS_NOT_FOUND);
 		}
 	}
 
@@ -879,6 +894,26 @@ public class ServeisRestControllerValidationHelper {
 
 		if (!docsEntradaRDTO.getDocumentacio().equals(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext())) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_EXPEDIENT);
+		}
+	}
+	
+
+	/**
+	 * Validate document aportat.
+	 *
+	 * @param docsEntradaRDTO the docs entrada RDTO
+	 * @param dadesSollicitudBDTO the dades sollicitud BDTO
+	 * @param resultatError the resultat error
+	 * @throws GPAApiParamValidationException the GPA api param validation exception
+	 */
+	public static void validateDocumentAportat(DocsEntradaRDTO docsEntradaRDTO, DadesSollicitudBDTO dadesSollicitudBDTO,
+			Resultat resultatError) throws GPAApiParamValidationException {
+		if (docsEntradaRDTO == null) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND);
+		}
+
+		if (!docsEntradaRDTO.getSollicitudIdext().equals(dadesSollicitudBDTO.getSollicitudsRDTO().getId())) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_SOLLICITUD);
 		}
 	}
 
