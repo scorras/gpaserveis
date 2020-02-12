@@ -93,17 +93,6 @@ public class BusinessConfig {
 	}
 
 	@Bean
-	public SollicitudsApi clientApiSollicituds() {
-		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient();
-		apiClient.setBasePath(URL_SERVICES_EXPEDIENTS);
-		incorporarInterceptorsExpedients(apiClient);
-
-		SollicitudsApi sollicitudsApi = new SollicitudsApi(apiClient);
-
-		return sollicitudsApi;
-	}
-
-	@Bean
 	public Expedients_Api clientApiExpedients_() {
 		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient();
 		apiClient.setBasePath(URL_SERVICES_EXPEDIENTS);

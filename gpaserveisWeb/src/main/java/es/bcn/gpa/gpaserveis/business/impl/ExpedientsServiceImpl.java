@@ -64,10 +64,6 @@ import lombok.extern.apachecommons.CommonsLog;
 @CommonsLog
 public class ExpedientsServiceImpl implements ExpedientsService {
 
-	/** The sollicituds api. */
-	@Autowired
-	private SollicitudsApi sollicitudsApi;
-
 	/** The expedients api. */
 	@Autowired
 	private Expedients_Api expedients_Api;
@@ -698,7 +694,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	}
 
 	public SollicitudsRDTO fallbackCrearSollicitud(SollicitudsCrearBDTO sollicitudsCrearBDTO, Throwable e)
-			throws GPAServeisServiceException, JsonParseException, IOException {
+	        throws GPAServeisServiceException, JsonParseException, IOException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearSollicitud(SollicitudsCrearBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}

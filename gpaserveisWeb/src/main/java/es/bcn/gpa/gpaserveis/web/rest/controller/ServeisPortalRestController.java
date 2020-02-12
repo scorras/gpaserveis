@@ -68,8 +68,8 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaProcedimentsCercaBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.sollicitud.RespostaSollicitudCrearBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.sollicitud.SollicitudsCrearBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.sollicituds.RespostaSollicitudCrearBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
@@ -792,10 +792,10 @@ public class ServeisPortalRestController extends BaseRestController {
 	 */
 	@PostMapping("/sollicituds")
 	@ApiOperation(value = "Crear una sol·licitud d'un expedient", tags = { "Serveis Portal API" }, extensions = {
-			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaCrearSollicitudRDTO crearSolicitud(
-			@ApiParam(value = "Dades de la creació de la sol·licitud") @RequestBody SollicitudCrearRDTO sollicitudCrearRDTO)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Dades de la creació de la sol·licitud") @RequestBody SollicitudCrearRDTO sollicitudCrearRDTO)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("crearSolicitud(SollicitudCrearRDTO) - inici"); //$NON-NLS-1$
 		}
@@ -807,7 +807,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			// El id del procedimiento debe existir y el procedimiento debe
 			// encontrarse en estado Publicat
 			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
-					.consultarDadesBasiquesProcediment(sollicitudCrearRDTO.getProcediment().getId());
+			        .consultarDadesBasiquesProcediment(sollicitudCrearRDTO.getProcediment().getId());
 			ServeisRestControllerValidationHelper.validateProcedimentCrearSolicitudExpedient(dadesProcedimentBDTO);
 
 			// El codi de la unitat gestora, opcional, debe existir y estar
@@ -815,10 +815,10 @@ public class ServeisPortalRestController extends BaseRestController {
 			BigDecimal idUnitatGestora = null;
 			if (sollicitudCrearRDTO.getUnitatGestora() != null) {
 				UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(
-						sollicitudCrearRDTO.getUnitatGestora().getCodi());
+				        sollicitudCrearRDTO.getUnitatGestora().getCodi());
 				UnitatsGestoresRDTO unitatsGestoresRDTO = serveisService.consultarDadesUnitatGestora(unitatsGestoresCercaBDTO);
 				ServeisRestControllerValidationHelper.validateUnitatGestora(unitatsGestoresRDTO, dadesProcedimentBDTO,
-						Resultat.ERROR_CREAR_SOLLICITUD);
+				        Resultat.ERROR_CREAR_SOLLICITUD);
 				idUnitatGestora = unitatsGestoresRDTO.getId();
 			} else {
 				// Si no se indica, se establece la UGR del procedimiento
@@ -856,7 +856,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		RespostaSollicitudCrearBDTO respostaSollicitudCrearBDTO = new RespostaSollicitudCrearBDTO(returnSollicitudsRDTO,
-				respostaResultatBDTO);
+		        respostaResultatBDTO);
 		respostaCrearSollicitudRDTO = modelMapper.map(respostaSollicitudCrearBDTO, RespostaCrearSollicitudRDTO.class);
 
 		if (log.isDebugEnabled()) {
@@ -1163,7 +1163,7 @@ public class ServeisPortalRestController extends BaseRestController {
 					docsEntradaRDTORespostaList.add(docsEntradaRDTOResposta);
 				}
 			}
-	
+
 			if (documentacioAportar.isRegistrar() && CollectionUtils.isNotEmpty(docsEntradaRDTORespostaList)) {
 				List<BigDecimal> idsDocsEnt = new ArrayList<>();
 				for (DocsEntradaRDTO docsEntrada : docsEntradaRDTORespostaList) {
