@@ -40,6 +40,7 @@ public class SollicitudCrearHelperToSollicitudsRDTOMapper extends PropertyMap<So
 	@Override
 	protected void configure() {
 		map().setTramitOvtIdext(source.getIdTramitsOvt());
+		map().setExpedient(source.getIdExpedient());
 		using(personaSollicitudToInternalListConverter).map(source.getPersonesSollicitud()).setPersonesSollicitudList(null);
 	}
 

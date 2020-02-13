@@ -19,8 +19,11 @@ public class SollicitudCrearHelper {
 
 	private BigDecimal idTramitsOvt;
 
-	public SollicitudCrearHelper(SollicitudCrearRDTO sollicitudCrearRDTO, BigDecimal idTramitOvt) {
+	private BigDecimal idExpedient;
+
+	public SollicitudCrearHelper(SollicitudCrearRDTO sollicitudCrearRDTO, BigDecimal idTramitOvt, BigDecimal idExpedient) {
 		super();
+		this.idExpedient = idExpedient;
 		this.idTramitsOvt = idTramitOvt;
 		this.sollicitudCrearRDTO = sollicitudCrearRDTO;
 		this.personesSollicitud = new ArrayList<>();
