@@ -51,6 +51,17 @@ public interface ExpedientsService {
 	PageDataOfExpedientsRDTO cercaExpedients(ExpedientsCercaBDTO expedientsCercaBDTO) throws GPAServeisServiceException;
 
 	/**
+	 * Consultar dades sollicitud.
+	 *
+	 * @param id
+	 *            the id
+	 * @return the sollicituds RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	SollicitudsRDTO consultarDadesSollicitud(BigDecimal id) throws GPAServeisServiceException;
+
+	/**
 	 * Consultar dades expedient.
 	 *
 	 * @param id
@@ -115,7 +126,18 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	PageDataOfPersonesSollicitudRDTO donarAccesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
+
+	/**
+	 * Cerca dades especifiques sollicitud.
+	 *
+	 * @param idSollicitud
+	 *            the id sollicitud
+	 * @return the list
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	List<DadesEspecifiquesRDTO> cercaDadesEspecifiquesSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException;
 
 	/**
 	 * Cerca dades especifiques expedient.
@@ -162,7 +184,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaCrearRegistreExpedient crearRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO, BigDecimal tipusDocVinculada)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Canviar estat expedient.
@@ -174,7 +196,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaCanviarEstatAccioExpedient canviarEstatExpedient(ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Crear comentari accio.
@@ -247,7 +269,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	void canviarUnitatGestoraExpedient(ExpedientsCanviarUnitatGestoraBDTO expedientsCanviarUnitatGestoraBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	/**
 	 * Consultar dades registre assentament.
@@ -354,7 +376,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaInteroperabilitat obtenirPerInteroperabilitat(ObtenirPerInteroperabilitatBDTO obtenirPerInteroperabilitatBDTO)
-			throws GPAServeisServiceException;
+	        throws GPAServeisServiceException;
 
 	SollicitudsRDTO crearSollicitud(SollicitudsCrearBDTO sollicitudsCrearBDTO) throws GPAServeisServiceException;
 
