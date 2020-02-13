@@ -78,7 +78,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AvisCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
@@ -887,11 +886,14 @@ public class ServeisPortalRestController extends BaseRestController {
 					dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
 			respostaCrearJustificant = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
 
+			// TODO descomentar para siguiente version
 			// se llama a segell para firmar el justificante de registro del
 			// expediente
-			SignarSegellDocument signarSegellDocumentRDTO = new SignarSegellDocument();
-			signarSegellDocumentRDTO.setIdDocument(respostaCrearJustificant.getId());
-			SignarSegellDocument signarSegellDocumentResponse = serveisService.signarSegellDocument(signarSegellDocumentRDTO);
+			// signarsegelldocument signarsegelldocumentrdto = new
+			// signarsegelldocument();
+			// signarsegelldocumentrdto.setiddocument(respostacrearjustificant.getid());
+			// signarSegellDocument signarSegellDocumentResponse =
+			// serveisService.signarSegellDocument(signarSegellDocumentRDTO);
 
 			// TODO tratar respuesta y si la firma no es valida lanzar el error
 
