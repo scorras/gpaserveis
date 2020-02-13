@@ -47,6 +47,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssenta
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Sollicituds;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperTramitsOvt;
@@ -453,6 +454,51 @@ public class TestsConfigHelper {
 		pageDataOfExpedientsRDTO.setSortInfo(sortInfo);
 
 		return pageDataOfExpedientsRDTO;
+	}
+
+	public static SollicitudsRDTO consultarDadesSollicitudResponse() {
+		SollicitudsRDTO sollicitudsRDTO = new SollicitudsRDTO();
+
+		sollicitudsRDTO.setId(ONE);
+		sollicitudsRDTO.setComentari(ONE);
+		sollicitudsRDTO.setDataPresentacio(now());
+		sollicitudsRDTO.setDataSollicitud(now());
+		sollicitudsRDTO.setExpedient(ONE);
+		sollicitudsRDTO.setIniciacio(ONE);
+		sollicitudsRDTO.setRegistre(ONE);
+
+		RegistreAssentament registreAssentament = new RegistreAssentament();
+		registreAssentament.setId(ONE);
+		registreAssentament.setCodi("REG01");
+		registreAssentament.setTipus(ONE);
+		registreAssentament.setDataRegistre(now());
+
+		Persones persones = new Persones();
+		persones.setId(ONE);
+		persones.setTipusPersona(ONE);
+		persones.setNomRaoSocial("NomRaoSocial");
+		persones.setCognom1("Cognom1");
+		persones.setCognom2("Cognom2");
+
+		DocumentsIdentitat documentsIdentitat = new DocumentsIdentitat();
+		documentsIdentitat.setId(ONE);
+		documentsIdentitat.setNumeroDocument("12345678H");
+
+		TipusDocumentIdentitat tipusDocumentIdentitat = new TipusDocumentIdentitat();
+		tipusDocumentIdentitat.setId(ONE);
+		tipusDocumentIdentitat.setDescripcio("NIF");
+
+		PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
+		personesDadescontacte.setId(ONE);
+
+		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
+		documentsIdentitat.setPais("108");
+		persones.setDocumentsIdentitat(documentsIdentitat);
+		persones.setPersonesDadescontacte(personesDadescontacte);
+		registreAssentament.setPersones(persones);
+		sollicitudsRDTO.setRegistreAssentament(registreAssentament);
+
+		return sollicitudsRDTO;
 	}
 
 	/**

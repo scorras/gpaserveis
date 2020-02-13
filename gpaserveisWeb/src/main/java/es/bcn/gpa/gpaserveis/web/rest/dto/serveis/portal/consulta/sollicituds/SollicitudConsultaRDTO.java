@@ -3,6 +3,10 @@ package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -22,6 +26,8 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id", "tramit", "dataSollicitud", "dataPresentacio", "expedient", "registre", "sollicitant", "representant",
         "personesInteressades", "personesImplicades", "documentsAportats", "dadesOperacio", "comentari" })
+@XmlRootElement(name = "sollicitud")
+@XmlAccessorType(XmlAccessType.FIELD)
 @Getter
 @Setter
 public class SollicitudConsultaRDTO {

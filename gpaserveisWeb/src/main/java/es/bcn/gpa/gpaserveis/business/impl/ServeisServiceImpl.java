@@ -1,10 +1,19 @@
 package es.bcn.gpa.gpaserveis.business.impl;
 
+import java.io.StringWriter;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.namespace.QName;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.bcn.gpa.gpaserveis.business.DadesOperacioService;
@@ -93,6 +102,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.SollicitudConsultaRDTO;
 import lombok.extern.apachecommons.CommonsLog;
 
 /**
@@ -1029,6 +1039,36 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public void revisarDocumentacioEntrada(DocumentAportatValidarBDTO documentAportatValidarBDTO) throws GPAServeisServiceException {
 		documentsService.revisarDocumentacioEntrada(documentAportatValidarBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#crearXmlDadesSollicitud(es.
+	 * bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.
+	 * SollicitudConsultaRDTO)
+	 */
+	@Override
+	public String crearXmlDadesSollicitud(SollicitudConsultaRDTO sollicitudConsultaRDTO) throws GPAServeisServiceException {
+		StringWriter stringWriter = null;
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(SollicitudConsultaRDTO.class);
+			Marshaller marshaller = jaxbContext.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+
+			JAXBElement<SollicitudConsultaRDTO> jaxbElement = new JAXBElement<SollicitudConsultaRDTO>(new QName(null, "sollicitud"),
+			        SollicitudConsultaRDTO.class, sollicitudConsultaRDTO);
+			stringWriter = new StringWriter();
+			marshaller.marshal(jaxbElement, stringWriter);
+		} catch (JAXBException e) {
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+
+		String dadesXmlBase64 = Base64Utils.encodeToString(stringWriter.toString().getBytes(StandardCharsets.UTF_8));
+
+		return dadesXmlBase64;
 	}
 
 	/**
