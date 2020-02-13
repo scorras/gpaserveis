@@ -17,17 +17,16 @@ public class SollicitudCrearHelper {
 
 	private List<PersonesRDTO> personesSollicitud;
 
-	private BigDecimal unitatGestoraId;
+	private BigDecimal idTramitsOvt;
 
-	public SollicitudCrearHelper(SollicitudCrearRDTO sollicitudCrearRDTO, BigDecimal unitatGestoraId) {
+	public SollicitudCrearHelper(SollicitudCrearRDTO sollicitudCrearRDTO, BigDecimal idTramitOvt) {
 		super();
+		this.idTramitsOvt = idTramitOvt;
 		this.sollicitudCrearRDTO = sollicitudCrearRDTO;
-		this.unitatGestoraId = unitatGestoraId;
 		this.personesSollicitud = new ArrayList<>();
 		this.personesSollicitud.add(sollicitudCrearRDTO.getSollicitant());
 		this.personesSollicitud.add(sollicitudCrearRDTO.getRepresentant());
-		this.personesSollicitud.addAll(sollicitudCrearRDTO.getPersonesInteressades());
-		this.personesSollicitud.addAll(sollicitudCrearRDTO.getPersonesImplicades());
+
 	}
 
 }
