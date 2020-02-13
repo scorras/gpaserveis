@@ -11,6 +11,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.AccioCiutadaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.RegistreRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.SollicitudsExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.ConfiguracioDocumentacioRequeridaConsultaRDTO;
@@ -24,8 +25,9 @@ import lombok.Setter;
 @ApiModel(value = "ExpedientConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id", "codi", "accionsDisponibles", "dataPresentacio", "dataModificacio", "dataLimitAllegacions", "dataLimitEsmena",
-        "unitatGestora", "estat", "estatCastella", "historics", "procediment", "registre", "sollicitant", "representant",
-        "personesInteressades", "personesImplicades", "documentsAportats", "configuracioDocumentacioRequerida", "dadesOperacio" })
+		"unitatGestora", "estat", "estatCastella", "historics", "procediment", "registre", "sollicitant", "representant",
+		"personesInteressades", "personesImplicades", "documentsAportats", "configuracioDocumentacioRequerida", "dadesOperacio",
+		"sollicituds" })
 @Getter
 @Setter
 public class ExpedientConsultaRDTO {
@@ -76,4 +78,6 @@ public class ExpedientConsultaRDTO {
 	private List<DadesAtributsExpedientsRDTO> dadesOperacio;
 	@ApiModelProperty(value = "Atributs requerits per l'expedient")
 	private List<DadesAtributsRequeritsRDTO> atributsRequerits;
+	@ApiModelProperty(value = "Sol·licituds de l'expedient")
+	private List<SollicitudsExpedientRDTO> sollicituds;
 }

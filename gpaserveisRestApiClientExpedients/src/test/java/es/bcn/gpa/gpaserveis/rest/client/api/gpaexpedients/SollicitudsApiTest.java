@@ -19,6 +19,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.FixMethodOrder;
@@ -34,28 +35,24 @@ import org.springframework.util.MultiValueMap;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 
 /**
- * API tests for SollicitudsApi
+ * API tests for SollicitudsApi.
  */
 @SuppressWarnings("unchecked")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SollicitudsApiTest extends ParentTest {
 
+	/** The api. */
 	@InjectMocks
 	private SollicitudsApi api = new SollicitudsApi();
 
 	/**
-	 * Returns the requested sollicitud
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
+	 * Returns the requested sollicitud.
 	 */
 	@Test
 	public void consultarDadesSollicitudsTest() {
 		when(apiClient.invokeAPI(eq("/sollicituds/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new SollicitudsRDTO());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new SollicitudsRDTO());
 
 		BigDecimal id = ONE;
 		SollicitudsRDTO response = api.consultarDadesSollicituds(id);
@@ -64,12 +61,7 @@ public class SollicitudsApiTest extends ParentTest {
 	}
 
 	/**
-	 * Creates the sollicitud
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
+	 * Creates the sollicitud.
 	 */
 	@Test
 	public void crearSollicitudTest() {
@@ -80,6 +72,20 @@ public class SollicitudsApiTest extends ParentTest {
 		SollicitudsRDTO sollicitudsRDTO = new SollicitudsRDTO();
 		SollicitudsRDTO response = api.crearSollicitud(sollicitudsRDTO);
 
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Consultar sollicituds expedient test.
+	 */
+	@Test
+	public void consultarSollicitudsExpedientTest() {
+		when(apiClient.invokeAPI(eq("/sollicituds/consultarSollicitudsExpedient/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<SollicitudsRDTO>());
+
+		BigDecimal idExpedient = ONE;
+		List<SollicitudsRDTO> response = api.consultarSollicitudsExpedient(idExpedient);
 		assertTrue(response != null);
 	}
 

@@ -31,7 +31,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsUgConvidada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
@@ -174,14 +173,17 @@ public class ServeisRestControllerValidationHelper {
 	 */
 	public static void validateNoExistUnitatGestoraConvidada(ExpedientConvidarTramitarRDTO expedientConvidarTramitarRDTO,
 			DadesExpedientBDTO dadesExpedientBDTO, Resultat resultatError) throws GPAApiParamValidationException {
+		// TODO GPA-2901
+		// for (EstatsUgConvidada estatsUgConvidada :
+		// dadesExpedientBDTO.getExpedientsRDTO().getUgConvidadaIdextList()) {
+		// if (expedientConvidarTramitarRDTO.getCodiUnitatGestoraList()
+		// .contains(String.valueOf(estatsUgConvidada.getUgConvidadaIdext()))) {
+		// throw new GPAApiParamValidationException(resultatError,
+		// ErrorPrincipal.ERROR_UNITATS_CONVIDADA_ASSIGNADA);
+		// }
+		//
+		// }
 
-		for (EstatsUgConvidada estatsUgConvidada : dadesExpedientBDTO.getExpedientsRDTO().getUgConvidadaIdextList()) {
-			if (expedientConvidarTramitarRDTO.getCodiUnitatGestoraList()
-					.contains(String.valueOf(estatsUgConvidada.getUgConvidadaIdext()))) {
-				throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_UNITATS_CONVIDADA_ASSIGNADA);
-			}
-
-		}
 	}
 
 	/**
