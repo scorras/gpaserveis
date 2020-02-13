@@ -876,12 +876,26 @@ public class ServeisPortalRestController extends BaseRestController {
 			ConfiguracioDocsTramitacio configuracioDocsTramitacio = new ConfiguracioDocsTramitacio();
 			configuracioDocsTramitacio.setSuportEnllac(respostaPlantillaDocVinculada.getPlantilla());
 			configuracioDocsTramitacio.setId(respostaPlantillaDocVinculada.getId());
+			// setear la politica que nos devuelve el registro de ariadna
+			configuracioDocsTramitacio.setPoliticaSignatura(respostaCrearRegistreExpedient.getPolitic());
+
 			docsTramitacioRDTO.setIdioma(IdiomaApiParamValue.CATALA.getInternalValue());
 			docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 			docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
 			CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
 					dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
 			respostaCrearJustificant = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
+
+			// TODO descomentar para siguiente version
+			// se llama a segell para firmar el justificante de registro del
+			// expediente
+			// signarsegelldocument signarsegelldocumentrdto = new
+			// signarsegelldocument();
+			// signarsegelldocumentrdto.setiddocument(respostacrearjustificant.getid());
+			// signarSegellDocument signarSegellDocumentResponse =
+			// serveisService.signarSegellDocument(signarSegellDocumentRDTO);
+
+			// TODO tratar respuesta y si la firma no es valida lanzar el error
 
 			// Vincular Justificante en Ariadna
 			RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();

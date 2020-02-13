@@ -63,6 +63,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfCon
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import lombok.extern.apachecommons.CommonsLog;
 
 /**
@@ -1511,6 +1512,57 @@ public class DocumentsServiceImpl implements DocumentsService {
 	public PeticionsPortasig fallbackSignarValidarDocument(SignarDocument signarDocument, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackSignarValidarDocument(SignarDocument, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#signarSegellDocument(es.
+	 * bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegell)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackSignarSegellDocument")
+	public SignarSegellDocument signarSegellDocument(SignarSegellDocument signarSegellDocumentRDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("signarSegellDocument(SignarSegellDocument) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			SignarSegellDocument signarSegellDocument = documentacioApi.signarSegell(signarSegellDocumentRDTO);
+
+			if (log.isDebugEnabled()) {
+				log.debug("signarSegellDocument(SignarSegellDocument) - fi"); //$NON-NLS-1$
+			}
+			return signarSegellDocument;
+
+		} catch (RestClientException e) {
+			log.error("signarSegellDocument(SignarSegellDocument)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback signar segell document.
+	 *
+	 * @param signarSegellDocument
+	 *            the signar segelldocument
+	 * @param e
+	 *            the e
+	 * @return the SignarSegellDocument
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public SignarSegellDocument fallbackSignarSegellDocument(SignarSegellDocument signarSegellDocument, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackSignarSegellDocument(SignarSegellDocument, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
