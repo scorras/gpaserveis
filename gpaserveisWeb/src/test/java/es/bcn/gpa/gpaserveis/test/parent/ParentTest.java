@@ -405,7 +405,10 @@ public abstract class ParentTest {
 			        .thenReturn(TestsConfigHelper.obtenirTransicionsCanviEstat());
 
 			when(sollicitudsApi.consultarDadesSollicituds(eq(BigDecimal.ONE)))
-			        .thenReturn(TestsConfigHelper.consultarDadesSollicitudResponse());
+			        .thenReturn(TestsConfigHelper.consultarDadesSollicitudResponse(BigDecimal.ONE, true));
+			
+			when(sollicitudsApi.consultarDadesSollicituds(eq(BigDecimal.valueOf(2))))
+	        .thenReturn(TestsConfigHelper.consultarDadesSollicitudResponse(BigDecimal.valueOf(2), false));
 
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$

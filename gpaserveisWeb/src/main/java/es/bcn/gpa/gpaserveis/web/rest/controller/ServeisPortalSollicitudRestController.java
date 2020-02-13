@@ -28,7 +28,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDeclaracioResponsableBD
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaAportarDocumentExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaAportarDocumentSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaEsborrarDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
@@ -39,9 +39,7 @@ import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.handler.ServeisRestControllerExceptionHandler;
@@ -57,7 +55,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.consulta.atributs.
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.sollicituds.SollicitudAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentacioAportarRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.RespostaSollicitudAportarDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.RespostaAportarDocumentSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.esborrar.RespostaSollicitudEsborrarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.crear.RespostaCrearSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.crear.SollicitudCrearRDTO;
@@ -115,38 +113,32 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	@PostMapping(BASE_MAPPING_SOLLICITUD_DOCUMENTACIO)
 	@ApiOperation(value = "Aportar documentació a la sol·licitud", tags = { "Serveis Portal API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	public RespostaSollicitudAportarDocumentRDTO aportarDocumentacioSollicitud(
+	public RespostaAportarDocumentSollicitudRDTO aportarDocumentacioSollicitud(
 	        @ApiParam(value = "Codi de la sol·licitud", required = true) @PathVariable BigDecimal idSollicitud,
 	        @ApiParam(value = "Dades de la creació del document") @RequestBody DocumentacioAportarRDTO documentacioAportar) {
 
-		RespostaSollicitudAportarDocumentRDTO respostaSollicitudAportarDocumentRDTO = null;
+		RespostaAportarDocumentSollicitudRDTO respostaAportarDocumentSollicitudRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_APORTAR_DOCUMENTACIO);
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		List<DocsEntradaRDTO> docsEntradaRDTORespostaList = null;
-		DocsTramitacioRDTO respostaCrearJustificant = null;
-		RespostaCrearRegistreExpedient respostaCrearRegistreExpedient = null;
-		String tipus = null;
+		DadesSollicitudBDTO dadesSollicitudBDTO = null; 
 		try {
 			// Buscar la sol y a partir de la sol obtener el expedient
-			DadesSollicitudBDTO sol = serveisService.consultarDadesSollicitud(idSollicitud);
-			tipus = String.valueOf(sol.getSollicitudsRDTO().getTramitOvtIdext());
-			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(sol.getExpedientsRDTO().getId());
-			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_APORTAR_DOCUMENTACIO);
-
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
+			ServeisRestControllerValidationHelper.validateSollicitud(dadesSollicitudBDTO, Resultat.ERROR_APORTAR_DOCUMENTACIO);
+			//dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(dadesSollicitudBDTO.getExpedientsRDTO().getId());
+			
 			// Las configuraciones de documentación indicadas deben estar
 			// asociadas al procedimiento del expediente
 			DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(
-			        dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc(), null);
+					dadesSollicitudBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc(), null);
 			RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = serveisService
 			        .cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);
 			HashMap<String, ConfiguracioDocsEntradaRDTO> map = ServeisRestControllerValidationHelper
 			        .validateConfiguracioDocumentacioAportada(respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList(),
 			                documentacioAportar.getDocumentacio(), Resultat.ERROR_APORTAR_DOCUMENTACIO);
 
-			// Aportar documentación si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
-			        AccioTramitadorApiParamValue.APORTAR_DOCUMENTACIO, Resultat.ERROR_APORTAR_DOCUMENTACIO);
-
+			
 			// Se construye el modelo para la llamada a la operación de aportar
 			// documentació
 			if (CollectionUtils.isNotEmpty(documentacioAportar.getDocumentacio())) {
@@ -165,11 +157,11 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 					if (BooleanUtils.isTrue(documentAportatCrearRDTO.getDeclaracioResponsable())) {
 						CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO = new CrearDeclaracioResponsableBDTO(
-						        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
+								dadesSollicitudBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
 						docsEntradaRDTOResposta = serveisService.crearDeclaracioResponsable(crearDeclaracioResponsableBDTO);
 					} else {
 						CrearDocumentEntradaBDTO crearDocumentEntradaBDTO = new CrearDocumentEntradaBDTO(
-						        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
+								dadesSollicitudBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
 						docsEntradaRDTOResposta = serveisService.crearDocumentEntrada(crearDocumentEntradaBDTO);
 					}
 					docsEntradaRDTORespostaList.add(docsEntradaRDTOResposta);
@@ -183,21 +175,13 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_APORTAR_DOCUMENTACIO, e);
 		}
 
-		RespostaAportarDocumentExpedientBDTO respostaAportarDocumentExpedientBDTO = new RespostaAportarDocumentExpedientBDTO(
+		RespostaAportarDocumentSollicitudBDTO respostaAportarDocumentSollicitudBDTO = new RespostaAportarDocumentSollicitudBDTO(
 		        docsEntradaRDTORespostaList,
 		        (dadesExpedientBDTO != null && dadesExpedientBDTO.getExpedientsRDTO() != null) ? dadesExpedientBDTO.getExpedientsRDTO()
-		                : null,
-		        (respostaCrearRegistreExpedient != null && respostaCrearRegistreExpedient.getRegistreAssentament() != null)
-		                ? respostaCrearRegistreExpedient.getRegistreAssentament() : null,
-		        respostaCrearJustificant != null ? respostaCrearJustificant.getId() : null, respostaResultatBDTO);
-		respostaSollicitudAportarDocumentRDTO = modelMapper.map(respostaAportarDocumentExpedientBDTO,
-		        RespostaSollicitudAportarDocumentRDTO.class);
-		SollicitudAccioRDTO sollicitudAccio = new SollicitudAccioRDTO();
-		sollicitudAccio.setId(idSollicitud);
-		sollicitudAccio.setTipus(tipus);
-		respostaSollicitudAportarDocumentRDTO.setSollicitud(sollicitudAccio);
-
-		return respostaSollicitudAportarDocumentRDTO;
+		                : null,(dadesSollicitudBDTO != null? dadesSollicitudBDTO.getSollicitudsRDTO() : null),respostaResultatBDTO);
+		respostaAportarDocumentSollicitudRDTO = modelMapper.map(respostaAportarDocumentSollicitudBDTO, RespostaAportarDocumentSollicitudRDTO.class);
+		
+		return respostaAportarDocumentSollicitudRDTO;
 	}
 	
 	/**

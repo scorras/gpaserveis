@@ -456,16 +456,16 @@ public class TestsConfigHelper {
 		return pageDataOfExpedientsRDTO;
 	}
 
-	public static SollicitudsRDTO consultarDadesSollicitudResponse() {
+	public static SollicitudsRDTO consultarDadesSollicitudResponse(BigDecimal id, boolean esRegistrado) {
 		SollicitudsRDTO sollicitudsRDTO = new SollicitudsRDTO();
 
-		sollicitudsRDTO.setId(ONE);
+		sollicitudsRDTO.setId(id);
 		sollicitudsRDTO.setComentari(ONE);
 		sollicitudsRDTO.setDataPresentacio(now());
 		sollicitudsRDTO.setDataSollicitud(now());
 		sollicitudsRDTO.setExpedient(ONE);
 		sollicitudsRDTO.setIniciacio(ONE);
-		sollicitudsRDTO.setRegistre(ONE);
+		
 
 		RegistreAssentament registreAssentament = new RegistreAssentament();
 		registreAssentament.setId(ONE);
@@ -496,7 +496,13 @@ public class TestsConfigHelper {
 		persones.setDocumentsIdentitat(documentsIdentitat);
 		persones.setPersonesDadescontacte(personesDadescontacte);
 		registreAssentament.setPersones(persones);
-		sollicitudsRDTO.setRegistreAssentament(registreAssentament);
+		if (esRegistrado){
+			sollicitudsRDTO.setRegistreAssentament(registreAssentament);
+			sollicitudsRDTO.setRegistre(ONE);
+		}else{
+			sollicitudsRDTO.setRegistreAssentament(null);
+			sollicitudsRDTO.setRegistre(null);
+		}
 
 		return sollicitudsRDTO;
 	}

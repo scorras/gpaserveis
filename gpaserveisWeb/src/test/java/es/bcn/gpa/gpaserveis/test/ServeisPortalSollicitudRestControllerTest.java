@@ -11,7 +11,6 @@ import org.junit.runners.MethodSorters;
 import org.springframework.http.MediaType;
 
 import es.bcn.gpa.gpaserveis.test.parent.RestServerParentTest;
-import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 
 /**
  * The Class ServeisPortalSollicitudRestControllerTest.
@@ -48,7 +47,7 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	 */
 	@Test
 	public void testStage02_PostAportarDocumentacioSollicitud() throws Exception {
-		String url = BASE_URL + "/sollicituds/1/documentacio";
+		String url = BASE_URL + "/sollicituds/2/documentacio";
 		String body = "{\"documentacio\": [{\"configuracioDocumentacio\": \"42\",\"origen\": \"EXTERN\",\"comentari\": \"Document aportat des de portal de tramitació\",\"idioma\": \"CATALA\",\"fitxer\": {\"nom\": \"DNI.pdf\",\"format\": \"PDF\"}},{\"configuracioDocumentacio\": \"43\",\"origen\": \"EXTERN\",\"comentari\": \"Document de declaració responsable\",\"idioma\": \"CATALA\",\"declaracioResponsable\": \"true\"}],\"registrar\": false}";
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(body)).andExpect(status().isOk()).andDo(print());
 
@@ -85,7 +84,7 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	 */
 	@Test
 	public void testStage05_PostAportarDocumentacioSollicitudGPAApiParamValidationException() throws Exception {
-		String url = BASE_URL + "/sollicituds/1/documentacio";
+		String url = BASE_URL + "/sollicituds/2/documentacio";
 		String body = "{\"documentacio\": [{\"configuracioDocumentacio\": \"1\",\"origen\": \"EXTERN\",\"comentari\": \"Document aportat des de portal de tramitació\",\"idioma\": \"CATALA\",\"fitxer\": {\"nom\": \"DNI.pdf\",\"format\": \"PDF\"}},{\"configuracioDocumentacio\": \"2\",\"origen\": \"EXTERN\",\"comentari\": \"Document de declaració responsable\",\"idioma\": \"CATALA\",\"declaracioResponsable\": \"true\"}],\"registrar\": false}";
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(body)).andExpect(status().isOk()).andDo(print());
 

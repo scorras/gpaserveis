@@ -63,6 +63,10 @@ public enum ErrorPrincipal {
 	ERROR_EXPEDIENTS_TRANSICION_ESTAT_NOT_VALID("3017", "No existeix transició de canvi d'estat vàlida per a aquesta acció"),
 
 	ERROR_SOLLICITUDS_NOT_FOUND("3018", "No s'ha trobat la sol·licitud"),
+	
+	ERROR_SOLLICITUDS_REGISTRADA("3019", "La sol·licitud ja està registrada"),
+	
+	ERROR_SOLLICITUDS_TIPUS_NOT_VALID("3020", "El tipus de la sol·licitud no és vàlid"),
 
 	/* Documents */
 	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document"),

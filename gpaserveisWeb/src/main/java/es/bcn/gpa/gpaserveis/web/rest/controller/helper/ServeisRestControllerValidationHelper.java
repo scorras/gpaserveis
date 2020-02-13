@@ -53,6 +53,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.Tipu
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.EstatApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TipusCampApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TipusValidacioApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusRelacioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TipusCampApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TipusValidacioApiParamValueTranslator;
@@ -215,6 +216,26 @@ public class ServeisRestControllerValidationHelper {
 			throws GPAApiParamValidationException {
 		if (dadesSollicitudBDTO.getSollicitudsRDTO() == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_SOLLICITUDS_NOT_FOUND);
+		}
+		
+		if (dadesSollicitudBDTO.getSollicitudsRDTO().getRegistre() != null) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_SOLLICITUDS_REGISTRADA);
+		}
+		
+		validateTipusSollicitud(dadesSollicitudBDTO, resultatError);
+	}
+
+	/**
+	 * Validate tipus sollicitud.
+	 *
+	 * @param dadesSollicitudBDTO the dades sollicitud BDTO
+	 * @param resultatError the resultat error
+	 * @throws GPAApiParamValidationException the GPA api param validation exception
+	 */
+	public static void validateTipusSollicitud(DadesSollicitudBDTO dadesSollicitudBDTO, Resultat resultatError)
+			throws GPAApiParamValidationException {
+		if (dadesSollicitudBDTO.getSollicitudsRDTO().getTramitOvtIdext() == TramitOvtApiParamValue.SOL.getInternalValue()) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_SOLLICITUDS_TIPUS_NOT_VALID);
 		}
 	}
 
