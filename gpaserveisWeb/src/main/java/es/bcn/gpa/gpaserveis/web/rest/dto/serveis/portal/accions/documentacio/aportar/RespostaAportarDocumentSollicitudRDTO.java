@@ -1,6 +1,5 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -18,7 +17,7 @@ import lombok.Setter;
 
 @ApiModel(value = "RespostaAportarDocumentSollicitud")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "resultat", "documentacioAportada", "registre", "expedient", "sollicitud", "comprovant" })
+@JsonPropertyOrder({ "resultat", "documentacioAportada", "registre", "expedient", "sollicitud" })
 @Getter
 @Setter
 
