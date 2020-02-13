@@ -1,6 +1,7 @@
 package es.bcn.gpa.gpaserveis.test;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -10,6 +11,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.http.MediaType;
 
 import es.bcn.gpa.gpaserveis.test.parent.RestServerParentTest;
+import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 
 /**
  * The Class ServeisPortalSollicitudRestControllerTest.
@@ -23,6 +25,7 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	/** The Constant BASE_URL. */
 	private final static String BASE_URL = "/rest/serveis/portal";
 
+
 	/**
 	 * Test stage 01 post aportar documentacio sollicitud.
 	 *
@@ -30,23 +33,23 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	 *             the exception
 	 */
 	@Test
-	public void testStage01_PostAportarDocumentacioSollicitud() throws Exception {
-		String url = BASE_URL + "/sollicituds/1/documentacio";
-		String body = "{\"documentacio\": [{\"configuracioDocumentacio\": \"30354\",\"origen\": \"EXTERN\",\"comentari\": \"Document aportat des de portal de tramitació\",\"idioma\": \"CATALA\",\"fitxer\": {\"nom\": \"DNI.pdf\",\"format\": \"PDF\"}},{\"configuracioDocumentacio\": \"30347\",\"origen\": \"EXTERN\",\"comentari\": \"Document de declaració responsable\",\"idioma\": \"CATALA\",\"declaracioResponsable\": \"true\"}],\"registrar\": false}";
+	public void testStage01_PostCrearSollicitud() throws Exception {
+		String url = BASE_URL + "/expedients/2019_EXP_0001/sollicituds";
+		String body = "{\"codiTramit\": \"APO\",\"sollicitant\": {\"nomRaoSocial\": \"Hernán\",\"cognom1\": \"Pérez de Inestrosa\",\"cognom2\": \"Sánchez\",\"sexe\": \"HOME\",\"tipusPersona\": \"FISICA\",\"dadesNotificacio\": {\"bloc\": \"string\",\"codiPostal\": \"string\",\"email\": \"string\",\"escala\": \"string\",\"fax\": \"string\",\"mobil\": \"string\",\"municipi\": \"9045\",\"municipiEstranger\": \"9045\",\"nomVia\": \"string\",\"numero\": \"string\",\"pais\": \"108\",\"pis\": \"string\",\"porta\": \"string\",\"provincia\": \"008\",\"provinciaEstranger\": \"008\",\"telefon\": \"string\",\"tipusVia\": \"FAGEDA\"},\"documentIndentitat\": {\"numeroDocument\": \"05686723L\",\"pais\": \"108\",\"tipusDocument\": \"NIF\"}},\"representant\": {\"nomRaoSocial\": \"Rosa María\",\"cognom1\": \"Díaz\",\"cognom2\": \"Gómez\",\"sexe\": \"DONA\",\"tipusPersona\": \"FISICA\",\"dadesNotificacio\": {\"bloc\": \"string\", \"codiPostal\": \"string\",\"email\": \"string\",\"escala\": \"string\", \"fax\": \"string\",\"mobil\": \"string\",\"municipi\": \"9045\",\"municipiEstranger\": \"9045\",\"nomVia\": \"string\",\"numero\": \"string\",\"pais\": \"108\",\"pis\": \"string\",\"porta\": \"string\",\"provincia\": \"008\",\"provinciaEstranger\": \"008\",\"telefon\": \"string\",\"tipusVia\": \"FAGEDA\"},\"documentIndentitat\": {\"numeroDocument\": \"81322159R\",\"pais\": \"108\",\"tipusDocument\": \"NIF\"}}}";
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(body)).andExpect(status().isOk()).andDo(print());
 
 	}
-
+	
 	/**
-	 * Test stage 01 post aportar documentacio sollicitud.
+	 * Test stage 02 post aportar documentacio sollicitud.
 	 *
 	 * @throws Exception
 	 *             the exception
 	 */
 	@Test
-	public void testStage02_PostCrearSollicitud() throws Exception {
-		String url = BASE_URL + "/expedients/2019_EXP_0001/sollicituds";
-		String body = "{\"codiTramit\": \"APO\",\"sollicitant\": {\"nomRaoSocial\": \"Hernán\",\"cognom1\": \"Pérez de Inestrosa\",\"cognom2\": \"Sánchez\",\"sexe\": \"HOME\",\"tipusPersona\": \"FISICA\",\"dadesNotificacio\": {\"bloc\": \"string\",\"codiPostal\": \"string\",\"email\": \"string\",\"escala\": \"string\",\"fax\": \"string\",\"mobil\": \"string\",\"municipi\": \"9045\",\"municipiEstranger\": \"9045\",\"nomVia\": \"string\",\"numero\": \"string\",\"pais\": \"108\",\"pis\": \"string\",\"porta\": \"string\",\"provincia\": \"008\",\"provinciaEstranger\": \"008\",\"telefon\": \"string\",\"tipusVia\": \"FAGEDA\"},\"documentIndentitat\": {\"numeroDocument\": \"05686723L\",\"pais\": \"108\",\"tipusDocument\": \"NIF\"}},\"representant\": {\"nomRaoSocial\": \"Rosa María\",\"cognom1\": \"Díaz\",\"cognom2\": \"Gómez\",\"sexe\": \"DONA\",\"tipusPersona\": \"FISICA\",\"dadesNotificacio\": {\"bloc\": \"string\", \"codiPostal\": \"string\",\"email\": \"string\",\"escala\": \"string\", \"fax\": \"string\",\"mobil\": \"string\",\"municipi\": \"9045\",\"municipiEstranger\": \"9045\",\"nomVia\": \"string\",\"numero\": \"string\",\"pais\": \"108\",\"pis\": \"string\",\"porta\": \"string\",\"provincia\": \"008\",\"provinciaEstranger\": \"008\",\"telefon\": \"string\",\"tipusVia\": \"FAGEDA\"},\"documentIndentitat\": {\"numeroDocument\": \"81322159R\",\"pais\": \"108\",\"tipusDocument\": \"NIF\"}}}";
+	public void testStage02_PostAportarDocumentacioSollicitud() throws Exception {
+		String url = BASE_URL + "/sollicituds/1/documentacio";
+		String body = "{\"documentacio\": [{\"configuracioDocumentacio\": \"42\",\"origen\": \"EXTERN\",\"comentari\": \"Document aportat des de portal de tramitació\",\"idioma\": \"CATALA\",\"fitxer\": {\"nom\": \"DNI.pdf\",\"format\": \"PDF\"}},{\"configuracioDocumentacio\": \"43\",\"origen\": \"EXTERN\",\"comentari\": \"Document de declaració responsable\",\"idioma\": \"CATALA\",\"declaracioResponsable\": \"true\"}],\"registrar\": false}";
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(body)).andExpect(status().isOk()).andDo(print());
 
 	}
@@ -73,6 +76,32 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	public void testStage04_GetExportarDadesSollicitudXml() throws Exception {
 		String url = BASE_URL + "/sollicituds/1/report/exportacio-xml";
 		getMockMvc().perform(get(url).accept(MediaType.TEXT_PLAIN_VALUE)).andDo(print()).andExpect(status().isOk());
+	}
+	
+	/**
+	 * Test stage 05 post aportar documentacio sollicitud GPA api param validation exception.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testStage05_PostAportarDocumentacioSollicitudGPAApiParamValidationException() throws Exception {
+		String url = BASE_URL + "/sollicituds/1/documentacio";
+		String body = "{\"documentacio\": [{\"configuracioDocumentacio\": \"1\",\"origen\": \"EXTERN\",\"comentari\": \"Document aportat des de portal de tramitació\",\"idioma\": \"CATALA\",\"fitxer\": {\"nom\": \"DNI.pdf\",\"format\": \"PDF\"}},{\"configuracioDocumentacio\": \"2\",\"origen\": \"EXTERN\",\"comentari\": \"Document de declaració responsable\",\"idioma\": \"CATALA\",\"declaracioResponsable\": \"true\"}],\"registrar\": false}";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(body)).andExpect(status().isOk()).andDo(print());
+
+	}
+	
+	/**
+	 * Test stage 06 post aportar documentacio sollicitud exception.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testStage06_PostAportarDocumentacioSollicitudException() throws Exception {
+		String url = BASE_URL + "/sollicituds/100/documentacio";
+		String body = "{\"documentacio\": [{\"configuracioDocumentacio\": \"1\",\"origen\": \"EXTERN\",\"comentari\": \"Document aportat des de portal de tramitació\",\"idioma\": \"CATALA\",\"fitxer\": {\"nom\": \"DNI.pdf\",\"format\": \"PDF\"}},{\"configuracioDocumentacio\": \"2\",\"origen\": \"EXTERN\",\"comentari\": \"Document de declaració responsable\",\"idioma\": \"CATALA\",\"declaracioResponsable\": \"true\"}],\"registrar\": false}";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(body)).andExpect(status().isOk()).andDo(print());
+
 	}
 
 }
