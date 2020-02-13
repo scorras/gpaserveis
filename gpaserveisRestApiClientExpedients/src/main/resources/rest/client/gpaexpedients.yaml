@@ -2115,6 +2115,9 @@ definitions:
   RespostaCrearRegistreExpedient:
     type: "object"
     properties:
+      politic:
+        type: "string"
+        description: "Política de signatura"
       registreAssentament:
         description: "Dades del registre de l'expedient"
         $ref: "#/definitions/RegistreAssentamentRDTO"

@@ -76,6 +76,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Notificacions
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
@@ -1238,6 +1239,27 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public PeticionsPortasig signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException {
 		return documentsService.signarValidarDocument(signarDocument);
+	}
+
+	/**
+	 * Signar segell document.
+	 *
+	 * @param signarSegellDocument
+	 *            the signar segell document
+	 * @return the signar segell documents id
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#signarValidarDocument(es.
+	 * bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument)
+	 */
+	@Override
+	public SignarSegellDocument signarSegellDocument(SignarSegellDocument signarSegellDocumentRDTO) throws GPAServeisServiceException {
+		return documentsService.signarSegellDocument(signarSegellDocumentRDTO);
 	}
 
 	/**
