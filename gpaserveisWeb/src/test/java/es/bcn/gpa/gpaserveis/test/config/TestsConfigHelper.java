@@ -1754,4 +1754,15 @@ public class TestsConfigHelper {
 		return INTEGER_ONE;
 	}
 
+	/**
+	 * Consultar dades document aportats response.
+	 *
+	 * @return the docs entrada RDTO
+	 */
+	public static DocsEntradaRDTO consultarDadesDocumentAportatsResponse() {
+		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
+		docsEntradaRDTO.setSollicitudIdext(BigDecimal.valueOf(2));
+		return docsEntradaRDTO;
+	}
+
 }

@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.test;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -100,6 +101,42 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 		String url = BASE_URL + "/sollicituds/100/documentacio";
 		String body = "{\"documentacio\": [{\"configuracioDocumentacio\": \"1\",\"origen\": \"EXTERN\",\"comentari\": \"Document aportat des de portal de tramitació\",\"idioma\": \"CATALA\",\"fitxer\": {\"nom\": \"DNI.pdf\",\"format\": \"PDF\"}},{\"configuracioDocumentacio\": \"2\",\"origen\": \"EXTERN\",\"comentari\": \"Document de declaració responsable\",\"idioma\": \"CATALA\",\"declaracioResponsable\": \"true\"}],\"registrar\": false}";
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(body)).andExpect(status().isOk()).andDo(print());
+
+	}
+	
+	/**
+	 * Test stage 07 delete esborrar document.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testStage07_DeleteEsborrarDocument() throws Exception {
+		String url = BASE_URL + "/sollicituds/2/documentacio/1";
+		getMockMvc().perform(delete(url).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(print());
+
+	}
+	
+	/**
+	 * Test stage 08 delete esborrar document GPA api param validation exception.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testStage08_DeleteEsborrarDocumentGPAApiParamValidationException() throws Exception {
+		String url = BASE_URL + "/sollicituds/1/documentacio/1";
+		getMockMvc().perform(delete(url).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(print());
+
+	}
+	
+	/**
+	 * Test stage 09 delete esborrar document exception.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testStage09_DeleteEsborrarDocumentException() throws Exception {
+		String url = BASE_URL + "/sollicituds/3/documentacio/2";
+		getMockMvc().perform(delete(url).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(print());
 
 	}
 

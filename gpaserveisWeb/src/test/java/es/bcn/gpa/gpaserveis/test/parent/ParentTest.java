@@ -408,7 +408,13 @@ public abstract class ParentTest {
 			        .thenReturn(TestsConfigHelper.consultarDadesSollicitudResponse(BigDecimal.ONE, true));
 			
 			when(sollicitudsApi.consultarDadesSollicituds(eq(BigDecimal.valueOf(2))))
-	        .thenReturn(TestsConfigHelper.consultarDadesSollicitudResponse(BigDecimal.valueOf(2), false));
+	        		.thenReturn(TestsConfigHelper.consultarDadesSollicitudResponse(BigDecimal.valueOf(2), false));
+			
+			when(sollicitudsApi.consultarDadesSollicituds(eq(BigDecimal.valueOf(3))))
+	        		.thenReturn(null);
+			
+			when(documentacioApi.consultarDadesDocumentAportat(eq(BigDecimal.ONE)))
+	        .thenReturn(TestsConfigHelper.consultarDadesDocumentAportatsResponse());
 
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$
