@@ -2409,6 +2409,9 @@ definitions:
       eliminat:
         type: "integer"
         format: "int32"
+      esborrany:
+        type: "integer"
+        format: "int32"
       estatDigitalitzacio:
         type: "number"
       id:

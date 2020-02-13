@@ -147,6 +147,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					docsEntradaRDTO.setConfigDocEntrada(map.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
 					docsEntradaRDTO.setDocsTercers(NumberUtils.INTEGER_ONE);
 					docsEntradaRDTO.setSollicitudIdext(idSollicitud);
+					docsEntradaRDTO.setDataPresentacio(null);
 
 					if (BooleanUtils.isTrue(documentAportatCrearRDTO.getDeclaracioResponsable())) {
 						CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO = new CrearDeclaracioResponsableBDTO(
