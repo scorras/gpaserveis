@@ -1379,8 +1379,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			ConvidarTramitarRDTO convidarTramitarRDTO = new ConvidarTramitarRDTO();
 			convidarTramitarRDTO.setComentari(comentaris);
-			// convidarTramitarRDTO.setUnitatGestoraConvidada(dropdownItemBDTO);
-			convidarTramitarRDTO.setCodiUnitatGestoraList(llistaDropdownItemBDTO);
+			// TODO GPA-2901
+			convidarTramitarRDTO.setUnitatGestoraConvidada(dropdownItemBDTO);
+			// convidarTramitarRDTO.setCodiUnitatGestoraList(llistaDropdownItemBDTO);
 
 			// Cambio de estado del expediente en función del estado origen
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);

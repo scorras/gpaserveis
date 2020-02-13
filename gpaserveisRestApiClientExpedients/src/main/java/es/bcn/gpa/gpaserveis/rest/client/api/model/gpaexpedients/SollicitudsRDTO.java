@@ -29,7 +29,7 @@ import org.joda.time.DateTime;
 /**
  * SollicitudsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-10T13:14:45.834+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-12T16:26:20.375+01:00")
 public class SollicitudsRDTO {
   @JsonProperty("comentari")
   private BigDecimal comentari = null;

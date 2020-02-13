@@ -1469,6 +1469,36 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /sollicituds/consultarSollicitudsExpedient/{idExpedient}:
+    get:
+      tags:
+      - "Sollicituds"
+      summary: "Returns the requested sollicitud of expedient"
+      operationId: "consultarSollicitudsExpedient"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/SollicitudsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /sollicituds/{id}:
     get:
       tags:
@@ -1668,8 +1698,6 @@ definitions:
     type: "object"
     properties:
       dadesEspecifiques:
-        type: "number"
-      dsollicitud:
         type: "number"
       id:
         type: "number"
@@ -1939,10 +1967,8 @@ definitions:
         type: "number"
       tramitador:
         type: "string"
-      ugConvidadaIdextList:
-        type: "array"
-        items:
-          $ref: "#/definitions/EstatsUgConvidada"
+      ugConvidadaIdext:
+        type: "number"
       ultimaModificacio:
         type: "number"
       unitatGestoraIdext:

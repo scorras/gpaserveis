@@ -13,21 +13,21 @@
 
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients;
 
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 import org.joda.time.DateTime;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * DadesEspecifiquesValors
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-10T13:14:45.834+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-12T16:26:20.375+01:00")
 public class DadesEspecifiquesValors {
   @JsonProperty("dadesEspecifiques")
   private BigDecimal dadesEspecifiques = null;
@@ -466,5 +466,5 @@ public class DadesEspecifiquesValors {
     return o.toString().replace("\n", "\n    ");
   }
 
-
 }
+

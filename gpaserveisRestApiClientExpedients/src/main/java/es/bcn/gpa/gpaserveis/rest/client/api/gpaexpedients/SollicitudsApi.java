@@ -24,7 +24,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-10T13:14:45.834+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-12T16:26:20.375+01:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.SollicitudsApi")
 public class SollicitudsApi {
     private ApiClient apiClient;
@@ -84,6 +84,46 @@ public class SollicitudsApi {
         String[] authNames = new String[] {  };
 
         ParameterizedTypeReference<SollicitudsRDTO> returnType = new ParameterizedTypeReference<SollicitudsRDTO>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Returns the requested sollicitud of expedient
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param idExpedient idExpedient
+     * @return List&lt;SollicitudsRDTO&gt;
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public List<SollicitudsRDTO> consultarSollicitudsExpedient(BigDecimal idExpedient) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'idExpedient' is set
+        if (idExpedient == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idExpedient' when calling consultarSollicitudsExpedient");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("idExpedient", idExpedient);
+        String path = UriComponentsBuilder.fromPath("/sollicituds/consultarSollicitudsExpedient/{idExpedient}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<List<SollicitudsRDTO>> returnType = new ParameterizedTypeReference<List<SollicitudsRDTO>>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
