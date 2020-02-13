@@ -42,6 +42,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfCon
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 
 /**
  * The Interface DocumentsService.
@@ -345,6 +346,17 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	PeticionsPortasig signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException;
+
+	/**
+	 * Signar segell document.
+	 *
+	 * @param signarSegellDocument
+	 *            the signar segell document
+	 * @return the signar segell documents id
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	SignarSegellDocument signarSegellDocument(SignarSegellDocument signarSegellDocumentRDTO) throws GPAServeisServiceException;
 
 	/**
 	 * Obtenir docs tramitacio by notification id.
