@@ -641,7 +641,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			// El id del documento debe existir y pertenecer al expediente
 			// indicado
 			DocsRDTO docsRDTO = serveisService.consultarDadesDocument(idDocument);
-			ServeisRestControllerValidationHelper.validateDocument(docsRDTO, dadesExpedientBDTO,
+			ServeisRestControllerValidationHelper.validateDocument(docsRDTO, dadesExpedientBDTO.getExpedientsRDTO(),
 			        Resultat.ERROR_DESCARREGAR_DOCUMENT);
 
 			// Se construye el modelo para la llamada a la operación de
