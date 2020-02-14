@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * DropdownItemBDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-10T13:14:45.834+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-14T12:29:56.498+01:00")
 public class DropdownItemBDTO {
   @JsonProperty("descripcio")
   private String descripcio = null;

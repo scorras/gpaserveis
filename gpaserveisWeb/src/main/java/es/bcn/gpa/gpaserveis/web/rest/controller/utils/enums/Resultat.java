@@ -45,7 +45,11 @@ public enum Resultat {
 
 	ERROR_DESISTIR_RENUNCIAR_EXPEDIENT("ERROR", "No s'ha pogut desistit/renunciat l'expedient"),
 
+	OK_REGISTRAR_SOLLICITUD("OK", "Sol·licitud registrada correctament"),
+
 	OK_REGISTRAR_EXPEDIENT("OK", "Expedient registrat correctament"),
+
+	ERROR_REGISTRAR_SOLLICITUD("ERROR", "No s'ha pogut registrar la sol·licitud"),
 
 	ERROR_REGISTRAR_EXPEDIENT("ERROR", "No s'ha pogut registrar l'expedient"),
 

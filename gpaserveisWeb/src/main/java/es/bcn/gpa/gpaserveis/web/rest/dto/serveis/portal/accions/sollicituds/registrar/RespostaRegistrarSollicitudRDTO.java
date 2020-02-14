@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.RegistreRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ResultatRespostaDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.ExpedientAccioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.sollicituds.SollicitudAccioRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import lombok.Setter;
 
 @ApiModel(value = "RespostaRegistrarSollicitud")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "resultat", "expedient", "registre", "comprovant" })
+@JsonPropertyOrder({ "resultat", "expedient", "sollicitud", "registre", "comprovant" })
 @Getter
 @Setter
 public class RespostaRegistrarSollicitudRDTO {
@@ -25,6 +26,9 @@ public class RespostaRegistrarSollicitudRDTO {
 
 	@ApiModelProperty("Expedient")
 	private ExpedientAccioRDTO expedient;
+
+	@ApiModelProperty("Sollicitud")
+	private SollicitudAccioRDTO sollicitud;
 
 	@ApiModelProperty("Dades del registre de l'expedient")
 	private RegistreRDTO registre;

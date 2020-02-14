@@ -11,15 +11,14 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.Inter
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToExpedientAccioConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.registrar.RespostaRegistrarSollicitudRDTO;
 
-/**
- * The Class
- * RespostaSollicitudsRegistrarBDTOToRespostaRegistrarSollicitudRDTOMapper.
- */
 @Component("respostaSollicitudsRegistrarBDTOToRespostaRegistrarSollicitudRDTOMapper")
 public class RespostaSollicitudsRegistrarBDTOToRespostaRegistrarSollicitudRDTOMapper
-		extends PropertyMap<RespostaSollicitudsRegistrarBDTO, RespostaRegistrarSollicitudRDTO> {
+        extends PropertyMap<RespostaSollicitudsRegistrarBDTO, RespostaRegistrarSollicitudRDTO> {
 
 	private InternalToExpedientAccioConverter internalToExpedientAccioConverter;
+
+	// private InternalToSollicitudAccioConverter
+	// internalToSollicitudAccioConverter;
 
 	private InternalRDTOToRegistreConverter internalRDTOToRegistreConverter;
 
@@ -27,9 +26,9 @@ public class RespostaSollicitudsRegistrarBDTOToRespostaRegistrarSollicitudRDTOMa
 
 	@Autowired
 	public RespostaSollicitudsRegistrarBDTOToRespostaRegistrarSollicitudRDTOMapper(
-			@Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
-			@Qualifier("expedientInternalRDTOToRegistreConverter") InternalRDTOToRegistreConverter internalRDTOToRegistreConverter,
-			@Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
+	        @Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
+	        @Qualifier("expedientInternalRDTOToRegistreConverter") InternalRDTOToRegistreConverter internalRDTOToRegistreConverter,
+	        @Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
 		this.internalToExpedientAccioConverter = internalToExpedientAccioConverter;
 		this.internalRDTOToRegistreConverter = internalRDTOToRegistreConverter;
 		this.internalToResultatRespostaConverter = internalToResultatRespostaConverter;

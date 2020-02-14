@@ -54,6 +54,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviar
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import lombok.extern.apachecommons.CommonsLog;
 
@@ -1688,4 +1689,50 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
+	 * associarRegistreSollicitud(es.bcn.gpa.gpaserveis.rest.client.api.model.
+	 * gpaexpedients.SollicitudActualitzarRegistre)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackAssociarRegistreSollicitud")
+	public void associarRegistreSollicitud(SollicitudActualitzarRegistre sollicitudActualitzarRegistre) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("associarRegistreSollicitud(SollicitudActualitzarRegistre) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			sollicitudsApi.associarRegistreSollicitud(sollicitudActualitzarRegistre);
+
+			if (log.isDebugEnabled()) {
+				log.debug("associarRegistreSollicitud(SollicitudActualitzarRegistre) - fi"); //$NON-NLS-1$
+			}
+
+		} catch (RestClientException e) {
+			log.error("associarRegistreSollicitud(SollicitudActualitzarRegistre)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback associar registre sollicitud.
+	 *
+	 * @param sollicitudActualitzarRegistre
+	 *            the sollicitud actualitzar registre
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackAssociarRegistreSollicitud(SollicitudActualitzarRegistre sollicitudActualitzarRegistre, Throwable e)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackAssociarRegistreSollicitud(SollicitudActualitzarRegistre, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+	}
 }
