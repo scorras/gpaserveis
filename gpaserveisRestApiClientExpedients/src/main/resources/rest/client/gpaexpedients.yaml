@@ -1469,6 +1469,37 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /sollicituds/associarRegistreSollicitud:
+    post:
+      tags:
+      - "Sollicituds"
+      summary: "Associa el registre a la sol·licitud"
+      operationId: "associarRegistreSollicitud"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "sollicitudActualitzarRegistreRDTO"
+        description: "sollicitudActualitzarRegistreRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/SollicitudActualitzarRegistre"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /sollicituds/consultarSollicitudsExpedient/{idExpedient}:
     get:
       tags:
@@ -2279,6 +2310,16 @@ definitions:
       comentari:
         $ref: "#/definitions/Comentaris"
     title: "RetornarTramitacioRDTO"
+  SollicitudActualitzarRegistre:
+    type: "object"
+    properties:
+      idRegistre:
+        type: "number"
+        description: "Identificador del registre"
+      idSollicitud:
+        type: "number"
+        description: "Identificador de la sol·licitud"
+    title: "SollicitudActualitzarRegistre"
   Sollicituds:
     type: "object"
     properties:
@@ -2302,8 +2343,6 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/PersonesSollicitud"
-      procedimentIdext:
-        type: "number"
       registre:
         type: "number"
       registreAssentament:
@@ -2312,8 +2351,6 @@ definitions:
         type: "number"
       tramitador:
         type: "string"
-      unitatGestoraIdext:
-        type: "number"
     title: "Sollicituds"
   SollicitudsRDTO:
     type: "object"
@@ -2338,8 +2375,6 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/PersonesSollicitud"
-      procedimentIdext:
-        type: "number"
       registre:
         type: "number"
       registreAssentament:
@@ -2348,8 +2383,6 @@ definitions:
         type: "number"
       tramitador:
         type: "string"
-      unitatGestoraIdext:
-        type: "number"
     title: "SollicitudsRDTO"
   SortInfo:
     type: "object"

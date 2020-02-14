@@ -29,7 +29,7 @@ import org.joda.time.DateTime;
 /**
  * SollicitudsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-12T16:26:20.375+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-14T12:29:56.498+01:00")
 public class SollicitudsRDTO {
   @JsonProperty("comentari")
   private BigDecimal comentari = null;
@@ -55,9 +55,6 @@ public class SollicitudsRDTO {
   @JsonProperty("personesSollicitudList")
   private List<PersonesSollicitud> personesSollicitudList = null;
 
-  @JsonProperty("procedimentIdext")
-  private BigDecimal procedimentIdext = null;
-
   @JsonProperty("registre")
   private BigDecimal registre = null;
 
@@ -69,9 +66,6 @@ public class SollicitudsRDTO {
 
   @JsonProperty("tramitador")
   private String tramitador = null;
-
-  @JsonProperty("unitatGestoraIdext")
-  private BigDecimal unitatGestoraIdext = null;
 
   public SollicitudsRDTO comentari(BigDecimal comentari) {
     this.comentari = comentari;
@@ -225,24 +219,6 @@ public class SollicitudsRDTO {
     this.personesSollicitudList = personesSollicitudList;
   }
 
-  public SollicitudsRDTO procedimentIdext(BigDecimal procedimentIdext) {
-    this.procedimentIdext = procedimentIdext;
-    return this;
-  }
-
-   /**
-   * Get procedimentIdext
-   * @return procedimentIdext
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getProcedimentIdext() {
-    return procedimentIdext;
-  }
-
-  public void setProcedimentIdext(BigDecimal procedimentIdext) {
-    this.procedimentIdext = procedimentIdext;
-  }
-
   public SollicitudsRDTO registre(BigDecimal registre) {
     this.registre = registre;
     return this;
@@ -315,24 +291,6 @@ public class SollicitudsRDTO {
     this.tramitador = tramitador;
   }
 
-  public SollicitudsRDTO unitatGestoraIdext(BigDecimal unitatGestoraIdext) {
-    this.unitatGestoraIdext = unitatGestoraIdext;
-    return this;
-  }
-
-   /**
-   * Get unitatGestoraIdext
-   * @return unitatGestoraIdext
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getUnitatGestoraIdext() {
-    return unitatGestoraIdext;
-  }
-
-  public void setUnitatGestoraIdext(BigDecimal unitatGestoraIdext) {
-    this.unitatGestoraIdext = unitatGestoraIdext;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -351,17 +309,15 @@ public class SollicitudsRDTO {
         Objects.equals(this.iniciacio, sollicitudsRDTO.iniciacio) &&
         Objects.equals(this.iniciacioNom, sollicitudsRDTO.iniciacioNom) &&
         Objects.equals(this.personesSollicitudList, sollicitudsRDTO.personesSollicitudList) &&
-        Objects.equals(this.procedimentIdext, sollicitudsRDTO.procedimentIdext) &&
         Objects.equals(this.registre, sollicitudsRDTO.registre) &&
         Objects.equals(this.registreAssentament, sollicitudsRDTO.registreAssentament) &&
         Objects.equals(this.tramitOvtIdext, sollicitudsRDTO.tramitOvtIdext) &&
-        Objects.equals(this.tramitador, sollicitudsRDTO.tramitador) &&
-        Objects.equals(this.unitatGestoraIdext, sollicitudsRDTO.unitatGestoraIdext);
+        Objects.equals(this.tramitador, sollicitudsRDTO.tramitador);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comentari, dataPresentacio, dataSollicitud, expedient, id, iniciacio, iniciacioNom, personesSollicitudList, procedimentIdext, registre, registreAssentament, tramitOvtIdext, tramitador, unitatGestoraIdext);
+    return Objects.hash(comentari, dataPresentacio, dataSollicitud, expedient, id, iniciacio, iniciacioNom, personesSollicitudList, registre, registreAssentament, tramitOvtIdext, tramitador);
   }
 
 
@@ -378,12 +334,10 @@ public class SollicitudsRDTO {
     sb.append("    iniciacio: ").append(toIndentedString(iniciacio)).append("\n");
     sb.append("    iniciacioNom: ").append(toIndentedString(iniciacioNom)).append("\n");
     sb.append("    personesSollicitudList: ").append(toIndentedString(personesSollicitudList)).append("\n");
-    sb.append("    procedimentIdext: ").append(toIndentedString(procedimentIdext)).append("\n");
     sb.append("    registre: ").append(toIndentedString(registre)).append("\n");
     sb.append("    registreAssentament: ").append(toIndentedString(registreAssentament)).append("\n");
     sb.append("    tramitOvtIdext: ").append(toIndentedString(tramitOvtIdext)).append("\n");
     sb.append("    tramitador: ").append(toIndentedString(tramitador)).append("\n");
-    sb.append("    unitatGestoraIdext: ").append(toIndentedString(unitatGestoraIdext)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -68,6 +68,10 @@ public enum ErrorPrincipal {
 	
 	ERROR_SOLLICITUDS_TIPUS_NOT_VALID("3020", "El tipus de la sol·licitud no és vàlid"),
 
+	ERROR_SOLLICITUDS_REGISTRADA("3019", "La sol·licitud ja està registrada"),
+
+	ERROR_SOLLICITUDS_TIPUS_NOT_VALID("3020", "El tipus de la sol·licitud no és vàlid"),
+
 	/* Documents */
 	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document"),
 
