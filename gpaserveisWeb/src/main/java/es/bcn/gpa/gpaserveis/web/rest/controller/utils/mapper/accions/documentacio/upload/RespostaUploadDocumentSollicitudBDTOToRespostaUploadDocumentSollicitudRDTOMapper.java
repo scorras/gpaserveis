@@ -33,7 +33,7 @@ public class RespostaUploadDocumentSollicitudBDTOToRespostaUploadDocumentSollici
 	        @Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
 	        @Qualifier("internalToDocumentAportatAccioConverter") InternalToDocumentAportatAccioConverter internalToDocumentAportatAccioConverter,
 	        @Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter,
-	        @Qualifier("internalToSollicitudAccioConverter") InternalToSollicitudAccioConverter internalToSollicitudAccioConverter) {
+	        @Qualifier("sollicitudInternalToSollicitudAccioConverter") InternalToSollicitudAccioConverter internalToSollicitudAccioConverter) {
 		this.internalToExpedientAccioConverter = internalToExpedientAccioConverter;
 		this.internalToDocumentAportatAccioConverter = internalToDocumentAportatAccioConverter;
 		this.internalToResultatRespostaConverter = internalToResultatRespostaConverter;

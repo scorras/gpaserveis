@@ -1,6 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.converter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ public class StringToDocumentIncorporacioNouRDTOConverter implements Converter<S
 	public DocumentIncorporacioNouRDTO convert(String from) {
 		DocumentIncorporacioNouRDTO documentIncorporacioNouRDTO = null;
 		try {
-			documentIncorporacioNouRDTO = new ObjectMapper().readValue(from.getBytes(), DocumentIncorporacioNouRDTO.class);
+			documentIncorporacioNouRDTO = new ObjectMapper().readValue(from.getBytes(StandardCharsets.UTF_8), DocumentIncorporacioNouRDTO.class);
 		} catch (IOException e) {
 			throw new GPAServeisRuntimeException(e);
 		}
