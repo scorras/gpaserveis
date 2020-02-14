@@ -63,9 +63,9 @@ public enum ErrorPrincipal {
 	ERROR_EXPEDIENTS_TRANSICION_ESTAT_NOT_VALID("3017", "No existeix transició de canvi d'estat vàlida per a aquesta acció"),
 
 	ERROR_SOLLICITUDS_NOT_FOUND("3018", "No s'ha trobat la sol·licitud"),
-	
+
 	ERROR_SOLLICITUDS_REGISTRADA("3019", "La sol·licitud ja està registrada"),
-	
+
 	ERROR_SOLLICITUDS_TIPUS_NOT_VALID("3020", "El tipus de la sol·licitud no és vàlid"),
 
 	/* Documents */
@@ -87,7 +87,7 @@ public enum ErrorPrincipal {
 	ERROR_ENTRADA_DOCUMENTS_UPLOAD("4008", "No s'ha rebut arxiu per a pujar ni identificador de gestor documental per a actualitzar"),
 
 	ERROR_DOCUMENTS_ORIGEN_EXTERN("4009", "No pot esborrar documents d'origen extern"),
-	
+
 	ERROR_DOCUMENTS_NOT_IN_SOLLICITUD("4010", "El document indicat no està associat a la sol·licitud"),
 
 	/* Integracions */

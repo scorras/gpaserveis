@@ -32,6 +32,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviar
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 
 /**
@@ -378,6 +379,25 @@ public interface ExpedientsService {
 	RespostaInteroperabilitat obtenirPerInteroperabilitat(ObtenirPerInteroperabilitatBDTO obtenirPerInteroperabilitatBDTO)
 	        throws GPAServeisServiceException;
 
+	/**
+	 * Crear sollicitud.
+	 *
+	 * @param sollicitudsCrearBDTO
+	 *            the sollicituds crear BDTO
+	 * @return the sollicituds RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	SollicitudsRDTO crearSollicitud(SollicitudsCrearBDTO sollicitudsCrearBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Associar registre sollicitud.
+	 *
+	 * @param sollicitudActualitzarRegistre
+	 *            the sollicitud actualitzar registre
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void associarRegistreSollicitud(SollicitudActualitzarRegistre sollicitudActualitzarRegistre) throws GPAServeisServiceException;
 
 }

@@ -32,6 +32,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 
 /**
@@ -66,15 +67,15 @@ public class SollicitudsApiTest extends ParentTest {
 	@Test
 	public void crearSollicitudTest() {
 		when(apiClient.invokeAPI(eq("/sollicituds"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(new SollicitudsRDTO());
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new SollicitudsRDTO());
 
 		SollicitudsRDTO sollicitudsRDTO = new SollicitudsRDTO();
 		SollicitudsRDTO response = api.crearSollicitud(sollicitudsRDTO);
 
 		assertTrue(response != null);
 	}
-
+	
 	/**
 	 * Consultar sollicituds expedient test.
 	 */
@@ -88,5 +89,26 @@ public class SollicitudsApiTest extends ParentTest {
 		List<SollicitudsRDTO> response = api.consultarSollicitudsExpedient(idExpedient);
 		assertTrue(response != null);
 	}
+
+	/**
+	 * Associa el registre a la sol·licitud
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void associarRegistreSollicitudTest() {
+		when(apiClient.invokeAPI(eq("/sollicituds/associarRegistreSollicitud"), eq(HttpMethod.POST), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		SollicitudActualitzarRegistre sollicitudActualitzarRegistreRDTO = new SollicitudActualitzarRegistre();
+		api.associarRegistreSollicitud(sollicitudActualitzarRegistreRDTO);
+
+		assertTrue(true);
+	}
+	
 
 }
