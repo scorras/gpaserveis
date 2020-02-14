@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,6 +31,7 @@ import es.bcn.gpa.gpaserveis.business.dto.RespostaResultatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDeclaracioResponsableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.DescarregarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentEntradaFitxerBDTO;
@@ -50,6 +52,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
@@ -349,6 +352,57 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		return respostaUploadDocumentSollicitudRDTO;
 	}
 
+	/**
+	 * Descarregar document expedient.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param idDocument
+	 *            the id document
+	 * @return the response entity
+	 */
+	@GetMapping(value = BASE_MAPPING_SOLLICITUD_DOCUMENTACIO + "/{idDocument}", produces = "*/*")
+	@ApiOperation(value = "Descarregar document de la sol·licitud", tags = { "Serveis Portal API" }, extensions = {
+	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	public ResponseEntity<byte[]> descarregarDocumentSollicitud(
+			@ApiParam(value = "Id de la sol·licitud", required = true) @PathVariable BigDecimal idSollicitud,
+	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument) {
+		
+		DadesSollicitudBDTO dadesSollicitudBDTO = null;
+		try {
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
+			ServeisRestControllerValidationHelper.validateSollicitud(dadesSollicitudBDTO, Resultat.ERROR_DESCARREGAR_DOCUMENT);
+
+			// El id del documento debe existir y pertenecer al expediente de la solicitud
+			DocsRDTO docsRDTO = serveisService.consultarDadesDocument(idDocument);
+			ServeisRestControllerValidationHelper.validateDocument(docsRDTO, dadesSollicitudBDTO.getExpedientsRDTO(),
+			        Resultat.ERROR_DESCARREGAR_DOCUMENT);
+
+			// Se construye el modelo para la llamada a la operación de descarregar document
+			DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO = new DescarregarDocumentExpedientBDTO(
+					dadesSollicitudBDTO.getExpedientsRDTO().getId(), idDocument);
+			byte[] result = serveisService.descarregarDocumentExpedient(descarregarDocumentExpedientBDTO);
+
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+			headers.add("Pragma", "no-cache");
+			headers.add("Expires", "0");
+			headers.add("Content-Length", String.valueOf(result.length));
+			headers.add("Content-Type", MediaType.APPLICATION_OCTET_STREAM_VALUE);
+			String filename = docsRDTO.getDocsFisics().getNom();
+			headers.add("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+
+			return new ResponseEntity<byte[]>(result, headers, HttpStatus.OK);
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("descarregarDocumentSollicitud(BigDecimal, BigDecimal)", e); //$NON-NLS-1$ type
+			return new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+			log.error("descarregarDocumentSollicitud(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
+			return new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	/**
 	 * Crear solicitud expedient.
 	 *

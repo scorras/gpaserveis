@@ -155,5 +155,46 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 				.andExpect(status().isOk()).andDo(print());
 
 	}
+	
+	/**
+	 * Test stage 11 post upload document sollicitud GPA api param validation exception.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testStage11_PostUploadDocumentSollicitudGPAApiParamValidationException() throws Exception {
+		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
+		String url = BASE_URL + "/sollicituds/3/documentacio/3/upload";
+		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile).contentType(MediaType.MULTIPART_FORM_DATA))
+				.andExpect(status().isOk()).andDo(print());
+
+	}
+	
+	
+	/**
+	 * Test stage 12 get descarregar document sollicitud.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testStage12_GetDescarregarDocumentSollicitud() throws Exception {
+		String url = BASE_URL + "/sollicituds/2/documentacio/1";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+
+	}
+	
+	/**
+	 * Test stage 13 get descarregar document sollicitud GPA api param validation exception.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testStage13_GetDescarregarDocumentSollicitudGPAApiParamValidationException() throws Exception {
+		String url = BASE_URL + "/sollicituds/3/documentacio/3";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().is4xxClientError());
+
+	}
+	
+	
 
 }

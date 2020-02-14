@@ -883,20 +883,20 @@ public class ServeisRestControllerValidationHelper {
 	 *
 	 * @param docsRDTO
 	 *            the docs RDTO
-	 * @param dadesExpedientBDTO
-	 *            the dades expedient BDTO
+	 * @param expedientsRDTO
+	 *            the expedients RDTO
 	 * @param resultatError
 	 *            the resultat error
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
-	public static void validateDocument(DocsRDTO docsRDTO, DadesExpedientBDTO dadesExpedientBDTO, Resultat resultatError)
+	public static void validateDocument(DocsRDTO docsRDTO, ExpedientsRDTO expedientsRDTO, Resultat resultatError)
 	        throws GPAApiParamValidationException {
 		if (docsRDTO == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND);
 		}
 
-		if (!docsRDTO.getDocumentacio().equals(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext())) {
+		if (!docsRDTO.getDocumentacio().equals(expedientsRDTO.getDocumentacioIdext())) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_EXPEDIENT);
 		}
 	}
