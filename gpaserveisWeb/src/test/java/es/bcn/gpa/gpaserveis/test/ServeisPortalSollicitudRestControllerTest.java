@@ -10,6 +10,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import es.bcn.gpa.gpaserveis.test.parent.RestServerParentTest;
 
@@ -137,6 +139,20 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	public void testStage09_DeleteEsborrarDocumentException() throws Exception {
 		String url = BASE_URL + "/sollicituds/3/documentacio/2";
 		getMockMvc().perform(delete(url).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(print());
+
+	}
+	
+	/**
+	 * Test stage 10 post upload document sollicitud.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testStage10_PostUploadDocumentSollicitud() throws Exception {
+		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
+		String url = BASE_URL + "/sollicituds/2/documentacio/1/upload";
+		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile).contentType(MediaType.MULTIPART_FORM_DATA))
+				.andExpect(status().isOk()).andDo(print());
 
 	}
 

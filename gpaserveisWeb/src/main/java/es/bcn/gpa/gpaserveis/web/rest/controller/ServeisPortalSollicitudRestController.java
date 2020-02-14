@@ -261,7 +261,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	@ApiImplicitParams(@ApiImplicitParam(name = "idGestorDocumental", value = "idGestorDocumental", dataType = "string", paramType = "form", required = false))
-	public RespostaUploadDocumentSollicitudRDTO uploadDocumentExpedient(
+	public RespostaUploadDocumentSollicitudRDTO uploadDocumentSollicitud(
 	        @ApiParam(value = "Id de la sol·licitud", required = true) @PathVariable BigDecimal idSollicitud,
 	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
 	        @ApiParam(value = "Fitxer") @RequestParam(name = "file", required = false) MultipartFile file,
