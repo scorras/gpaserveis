@@ -47,10 +47,10 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 	@ApiOperation(value = "Resultat de l'estat de les peticions", tags = { "Serveis Portasignatures API" })
 	public MciPortasigResultatPeticioRespostaDTO resultatEstatPeticio(
 	        @ApiParam(value = "Resultat del portasignatures a una petició de vist-i-plau/signatura", required = true) @RequestBody MciPortasigResultatPeticioDTO resultatPeticio) {
-
-		if (log.isDebugEnabled()) {
-			log.debug("resultatEstatPeticio(MciPortasigResultatPeticioDTO) - inici"); //$NON-NLS-1$
-			log.debug(resultatPeticio); // $NON-NLS-1$
+		
+		if (log.isInfoEnabled()) {
+			log.info("resultatEstatPeticio(MciPortasigResultatPeticioDTO) - inici"); //$NON-NLS-1$
+			log.info(resultatPeticio); // $NON-NLS-1$
 		}
 
 		MciPortasigResultatPeticioRespostaDTO resposta = new MciPortasigResultatPeticioRespostaDTO();
@@ -83,8 +83,8 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 			resposta.setDescError(ExceptionUtils.getFullStackTrace(e));
 		}
 
-		if (log.isDebugEnabled()) {
-			log.debug("resultatPeticio(MciPortasigResultatPeticioDTO) - fi"); //$NON-NLS-1$
+		if (log.isInfoEnabled()) {
+			log.info("resultatPeticio(MciPortasigResultatPeticioDTO) - fi"); //$NON-NLS-1$
 		}
 		return resposta;
 	}
