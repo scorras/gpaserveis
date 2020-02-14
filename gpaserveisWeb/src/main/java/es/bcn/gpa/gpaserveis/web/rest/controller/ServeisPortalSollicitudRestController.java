@@ -396,6 +396,14 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		}
 	}
 	
+	/**
+	 * Substituir document sollicitud.
+	 *
+	 * @param idSollicitud the id sollicitud
+	 * @param idDocument the id document
+	 * @param documentSubstituir the document substituir
+	 * @return the resposta substituir document sollicitud RDTO
+	 */
 	@PostMapping(BASE_MAPPING_SOLLICITUD_DOCUMENTACIO + "/{idDocument}/substituir")
 	@ApiOperation(value = "Substituir les dades d'un document de la sol·licitud", tags = { "Serveis Portal API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
@@ -470,7 +478,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	 * Crear solicitud expedient.
 	 *
 	 * @param codiExpedient the codi expedient
-	 * @param sollicitudCrearRDTO the sollicitud crear RDTO
+	 * @param sollicitudCrearRDTO the sollicitud crear RDTO 
 	 * @return the resposta crear expedient RDTO
 	 * @throws GPAServeisServiceException             the GPA serveis service exception
 	 */

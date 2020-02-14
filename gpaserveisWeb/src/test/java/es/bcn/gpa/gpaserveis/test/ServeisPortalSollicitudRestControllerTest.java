@@ -183,15 +183,6 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 
 	}
 	
-	@Test
-	public void testStage14_PostSubstituirDocumentSollicitud() throws Exception {
-		String url = BASE_URL + "/sollicituds/1/documentacio/1/substituir";
-		getMockMvc()
-				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-						"{ \"configuracioDocumentacio\": \"43\", \"origen\": \"EXTERN\", \"comentari\": \"Document substituït des de portal de tramitació\", \"idioma\": \"CASTELLA\", \"fitxer\": {\t\"nom\": \"DNI_H.pdf\",\t\"format\": \"PDF\" }}"))
-				.andExpect(status().isOk()).andDo(print());
-
-	}
 	
 	/**
 	 * Test stage 13 get descarregar document sollicitud GPA api param validation exception.
@@ -202,6 +193,22 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	public void testStage13_GetDescarregarDocumentSollicitudGPAApiParamValidationException() throws Exception {
 		String url = BASE_URL + "/sollicituds/3/documentacio/3";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().is4xxClientError());
+
+	}
+	
+	
+	/**
+	 * Test stage 14 post substituir document sollicitud.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testStage14_PostSubstituirDocumentSollicitud() throws Exception {
+		String url = BASE_URL + "/sollicituds/1/documentacio/1/substituir";
+		getMockMvc()
+				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+						"{ \"configuracioDocumentacio\": \"43\", \"origen\": \"EXTERN\", \"comentari\": \"Document substituït des de portal de tramitació\", \"idioma\": \"CASTELLA\", \"fitxer\": {\t\"nom\": \"DNI_H.pdf\",\t\"format\": \"PDF\" }}"))
+				.andExpect(status().isOk()).andDo(print());
 
 	}
 	

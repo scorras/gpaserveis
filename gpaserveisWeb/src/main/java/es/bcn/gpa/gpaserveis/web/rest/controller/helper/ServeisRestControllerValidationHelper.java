@@ -916,7 +916,7 @@ public class ServeisRestControllerValidationHelper {
 		if (!docsEntradaRDTO.getDocumentacio().equals(expedientsRDTO.getDocumentacioIdext())) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_EXPEDIENT);
 		}
-	}
+	} 
 	
 
 	/**
