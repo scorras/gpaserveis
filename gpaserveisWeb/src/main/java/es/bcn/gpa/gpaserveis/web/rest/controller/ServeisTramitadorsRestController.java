@@ -1169,7 +1169,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// El id del documento debe existir y pertenecer al expediente
 			// indicado
 			docsEntradaRDTO = serveisService.consultarDadesDocumentAportat(idDocument);
-			ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO,
+			ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO.getExpedientsRDTO(),
 					Resultat.ERROR_VALIDAR_DOCUMENT_EXPEDIENT);
 
 			// Validar documento si la acción es permitida
@@ -1253,7 +1253,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// El id del documento debe existir y pertenecer al expediente
 			// indicado
 			docsEntradaRDTO = serveisService.consultarDadesDocumentAportat(idDocument);
-			ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO,
+			ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO.getExpedientsRDTO(),
 					Resultat.ERROR_REBUTJAR_DOCUMENT_EXPEDIENT);
 
 			// Validar documento si la acción es permitida
@@ -1921,7 +1921,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				docsEntradaRDTO = serveisService.consultarDadesDocumentAportat(idDocument);
 				documentacioId = docsEntradaRDTO.getDocumentacio();
 				declaracioResponsable = docsEntradaRDTO.getDeclaracioResponsable();
-				ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO,
+				ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO.getExpedientsRDTO(),
 						Resultat.ERROR_COMPLETAR_DOCUMENT_EXPEDIENT);
 			} else {
 				DocsTramitacioRDTO docsTramitacioRDTO = serveisService.consultarDadesDocumentGenerat(idDocument);
@@ -3474,7 +3474,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				// El id del documento debe existir y pertenecer al expediente
 				// indicado
 				docsEntradaRDTO = serveisService.consultarDadesDocumentAportat(idDocument);
-				ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO,
+				ServeisRestControllerValidationHelper.validateDocumentAportat(docsEntradaRDTO, dadesExpedientBDTO.getExpedientsRDTO(),
 						Resultat.ERROR_ESBORRAR_DOCUMENT);
 
 				ServeisRestControllerValidationHelper.validateDocumentAportatEsborrar(docsEntradaRDTO, dadesExpedientBDTO,

@@ -900,20 +900,20 @@ public class ServeisRestControllerValidationHelper {
 	 *
 	 * @param docsEntradaRDTO
 	 *            the docs entrada RDTO
-	 * @param dadesExpedientBDTO
-	 *            the dades expedient BDTO
+	 * @param expedientsRDTO
+	 *            the expedients RDTO
 	 * @param resultatError
 	 *            the resultat error
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
-	public static void validateDocumentAportat(DocsEntradaRDTO docsEntradaRDTO, DadesExpedientBDTO dadesExpedientBDTO,
+	public static void validateDocumentAportat(DocsEntradaRDTO docsEntradaRDTO, ExpedientsRDTO expedientsRDTO,
 			Resultat resultatError) throws GPAApiParamValidationException {
 		if (docsEntradaRDTO == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND);
 		}
 
-		if (!docsEntradaRDTO.getDocumentacio().equals(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext())) {
+		if (!docsEntradaRDTO.getDocumentacio().equals(expedientsRDTO.getDocumentacioIdext())) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_EXPEDIENT);
 		}
 	}
