@@ -17,6 +17,10 @@ public enum Resultat {
 
 	ERROR_ACTUALITZAR_EXPEDIENT("ERROR", "No s'ha pogut actualitzar l'expedient"),
 
+	OK_ACTUALITZAR_SOLLICITUD("OK", "Sol·licitud actualitzat correctament"),
+
+	ERROR_ACTUALITZAR_SOLLICITUD("ERROR", "No s'ha pogut actualitzar la sol·licitud"),
+
 	OK_APORTAR_DOCUMENTACIO("OK", "Documentació aportat correctament"),
 
 	ERROR_APORTAR_DOCUMENTACIO("ERROR", "No s'ha pogut aportar la documentació"),

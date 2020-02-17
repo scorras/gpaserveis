@@ -203,13 +203,16 @@ public class ServeisRestControllerValidationHelper {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND);
 		}
 	}
-	
+
 	/**
 	 * Validate sollicitud.
 	 *
-	 * @param dadesSollicitudBDTO the dades sollicitud BDTO
-	 * @param resultatError the resultat error
-	 * @throws GPAApiParamValidationException the GPA api param validation exception
+	 * @param dadesSollicitudBDTO
+	 *            the dades sollicitud BDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
 	 */
 	public static void validateSollicitud(DadesSollicitudBDTO dadesSollicitudBDTO, Resultat resultatError)
 			throws GPAApiParamValidationException {
@@ -896,15 +899,18 @@ public class ServeisRestControllerValidationHelper {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_EXPEDIENT);
 		}
 	}
-	
 
 	/**
 	 * Validate document aportat.
 	 *
-	 * @param docsEntradaRDTO the docs entrada RDTO
-	 * @param dadesSollicitudBDTO the dades sollicitud BDTO
-	 * @param resultatError the resultat error
-	 * @throws GPAApiParamValidationException the GPA api param validation exception
+	 * @param docsEntradaRDTO
+	 *            the docs entrada RDTO
+	 * @param dadesSollicitudBDTO
+	 *            the dades sollicitud BDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
 	 */
 	public static void validateDocumentAportat(DocsEntradaRDTO docsEntradaRDTO, DadesSollicitudBDTO dadesSollicitudBDTO,
 			Resultat resultatError) throws GPAApiParamValidationException {

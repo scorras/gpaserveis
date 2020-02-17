@@ -1,6 +1,7 @@
 package es.bcn.gpa.gpaserveis.test;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -50,7 +51,7 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(body)).andExpect(status().isOk()).andDo(print());
 
 	}
-	
+
 	/**
 	 * Test stage 03 get consultar dades sollicitud.
 	 *
