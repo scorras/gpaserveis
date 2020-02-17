@@ -14,18 +14,18 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actu
  * The Class
  * RespostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDTOMapper.
  */
-@Component("respostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDTOMapper")
-public class RespostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDTOMapper
-        extends PropertyMap<RespostaExpedientsActualitzarBDTO, RespostaActualitzarExpedientRDTO> {
+@Component("respostaSollicitudsActualitzarBDTOToRespostaActualitzarSollicitudsRDTOMapper")
+public class RespostaSollicitudsActualitzarBDTOToRespostaActualitzarSollicitudsRDTOMapper
+		extends PropertyMap<RespostaExpedientsActualitzarBDTO, RespostaActualitzarExpedientRDTO> {
 
 	private InternalToExpedientAccioConverter internalToExpedientAccioConverter;
 
 	private InternalToResultatRespostaConverter internalToResultatRespostaConverter;
 
 	@Autowired
-	public RespostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDTOMapper(
-	        @Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
-	        @Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
+	public RespostaSollicitudsActualitzarBDTOToRespostaActualitzarSollicitudsRDTOMapper(
+			@Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
+			@Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
 		this.internalToExpedientAccioConverter = internalToExpedientAccioConverter;
 		this.internalToResultatRespostaConverter = internalToResultatRespostaConverter;
 	}
