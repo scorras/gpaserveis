@@ -13,25 +13,29 @@ public enum Resultat {
 
 	ERROR_ACTUALITZAR_EXPEDIENT("ERROR", "No s'ha pogut actualitzar l'expedient"),
 
-	OK_APORTAR_DOCUMENTACIO_EXPEDIENT("OK", "Documentació aportat correctament"),
+	OK_ACTUALITZAR_SOLLICITUD("OK", "Sol·licitud actualitzat correctament"),
 
-	ERROR_APORTAR_DOCUMENTACIO_EXPEDIENT("ERROR", "No s'ha pogut aportar la documentació"),
+	ERROR_ACTUALITZAR_SOLLICITUD("ERROR", "No s'ha pogut actualitzar la sol·licitud"),
 
-	OK_SUBSTITUIR_DOCUMENT_EXPEDIENT("OK", "Document actualitzat correctament"),
+	OK_APORTAR_DOCUMENTACIO("OK", "Documentació aportat correctament"),
 
-	ERROR_SUBSTITUIR_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut actualitzar el document"),
+	ERROR_APORTAR_DOCUMENTACIO("ERROR", "No s'ha pogut aportar la documentació"),
 
-	OK_ESBORRAR_DOCUMENT_EXPEDIENT("OK", "Document donat de baixa correctament"),
+	OK_SUBSTITUIR_DOCUMENT("OK", "Document actualitzat correctament"),
 
-	ERROR_ESBORRAR_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut donar de baixa el document"),
+	ERROR_SUBSTITUIR_DOCUMENT("ERROR", "No s'ha pogut actualitzar el document"),
 
-	OK_UPLOAD_DOCUMENT_EXPEDIENT("OK", "Document pujat correctament"),
+	OK_ESBORRAR_DOCUMENT("OK", "Document donat de baixa correctament"),
 
-	ERROR_UPLOAD_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut pujar el document"),
+	ERROR_ESBORRAR_DOCUMENT("ERROR", "No s'ha pogut donar de baixa el document"),
 
-	OK_DESCARREGAR_DOCUMENT_EXPEDIENT("OK", "Document descarregat correctament"),
+	OK_UPLOAD_DOCUMENT("OK", "Document pujat correctament"),
 
-	ERROR_DESCARREGAR_DOCUMENT_EXPEDIENT("ERROR", "No s'ha pogut descarregar el document"),
+	ERROR_UPLOAD_DOCUMENT("ERROR", "No s'ha pogut pujar el document"),
+
+	OK_DESCARREGAR_DOCUMENT("OK", "Document descarregat correctament"),
+
+	ERROR_DESCARREGAR_DOCUMENT("ERROR", "No s'ha pogut descarregar el document"),
 
 	OK_ESMENAR_EXPEDIENT("OK", "Requeriments de l’expedient incorporats correctament"),
 
@@ -41,7 +45,11 @@ public enum Resultat {
 
 	ERROR_DESISTIR_RENUNCIAR_EXPEDIENT("ERROR", "No s'ha pogut desistit/renunciat l'expedient"),
 
+	OK_REGISTRAR_SOLLICITUD("OK", "Sol·licitud registrada correctament"),
+
 	OK_REGISTRAR_EXPEDIENT("OK", "Expedient registrat correctament"),
+
+	ERROR_REGISTRAR_SOLLICITUD("ERROR", "No s'ha pogut registrar la sol·licitud"),
 
 	ERROR_REGISTRAR_EXPEDIENT("ERROR", "No s'ha pogut registrar l'expedient"),
 

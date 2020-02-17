@@ -4369,6 +4369,14 @@ definitions:
       nomRaoSocial:
         type: "string"
         description: "Nom o raó social de la persona"
+      relacio:
+        type: "string"
+        description: "Relacio de la persona"
+        enum:
+        - "SOLLICITANT"
+        - "REPRESENTANT"
+        - "TESTIMONI"
+        - "ALTRES"
       tipusPersona:
         type: "string"
         description: "Tipus de persona"

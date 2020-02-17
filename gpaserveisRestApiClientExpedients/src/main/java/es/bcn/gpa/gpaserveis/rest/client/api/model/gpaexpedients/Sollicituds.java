@@ -29,7 +29,7 @@ import org.joda.time.DateTime;
 /**
  * Sollicituds
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-11T09:54:05.532+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-14T12:29:56.498+01:00")
 public class Sollicituds {
   @JsonProperty("dataPresentacio")
   private DateTime dataPresentacio = null;
@@ -54,6 +54,30 @@ public class Sollicituds {
 
   @JsonProperty("registreAssentament")
   private RegistreAssentament registreAssentament = null;
+
+  @JsonProperty("tramitOvtIdext")
+  private BigDecimal tramitOvtIdext = null;
+
+  @JsonProperty("tramitador")
+  private String tramitador = null;
+
+  public Sollicituds comentari(BigDecimal comentari) {
+    this.comentari = comentari;
+    return this;
+  }
+
+   /**
+   * Get comentari
+   * @return comentari
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getComentari() {
+    return comentari;
+  }
+
+  public void setComentari(BigDecimal comentari) {
+    this.comentari = comentari;
+  }
 
   public Sollicituds dataPresentacio(DateTime dataPresentacio) {
     this.dataPresentacio = dataPresentacio;
@@ -207,6 +231,42 @@ public class Sollicituds {
     this.registreAssentament = registreAssentament;
   }
 
+  public Sollicituds tramitOvtIdext(BigDecimal tramitOvtIdext) {
+    this.tramitOvtIdext = tramitOvtIdext;
+    return this;
+  }
+
+   /**
+   * Get tramitOvtIdext
+   * @return tramitOvtIdext
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getTramitOvtIdext() {
+    return tramitOvtIdext;
+  }
+
+  public void setTramitOvtIdext(BigDecimal tramitOvtIdext) {
+    this.tramitOvtIdext = tramitOvtIdext;
+  }
+
+  public Sollicituds tramitador(String tramitador) {
+    this.tramitador = tramitador;
+    return this;
+  }
+
+   /**
+   * Get tramitador
+   * @return tramitador
+  **/
+  @ApiModelProperty(value = "")
+  public String getTramitador() {
+    return tramitador;
+  }
+
+  public void setTramitador(String tramitador) {
+    this.tramitador = tramitador;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -224,12 +284,14 @@ public class Sollicituds {
         Objects.equals(this.iniciacioNom, sollicituds.iniciacioNom) &&
         Objects.equals(this.personesSollicitudList, sollicituds.personesSollicitudList) &&
         Objects.equals(this.registre, sollicituds.registre) &&
-        Objects.equals(this.registreAssentament, sollicituds.registreAssentament);
+        Objects.equals(this.registreAssentament, sollicituds.registreAssentament) &&
+        Objects.equals(this.tramitOvtIdext, sollicituds.tramitOvtIdext) &&
+        Objects.equals(this.tramitador, sollicituds.tramitador);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dataPresentacio, dataSollicitud, id, iniciacio, iniciacioNom, personesSollicitudList, registre, registreAssentament);
+    return Objects.hash(comentari, dataPresentacio, dataSollicitud, expedient, id, iniciacio, iniciacioNom, personesSollicitudList, registre, registreAssentament, tramitOvtIdext, tramitador);
   }
 
 
@@ -246,6 +308,8 @@ public class Sollicituds {
     sb.append("    personesSollicitudList: ").append(toIndentedString(personesSollicitudList)).append("\n");
     sb.append("    registre: ").append(toIndentedString(registre)).append("\n");
     sb.append("    registreAssentament: ").append(toIndentedString(registreAssentament)).append("\n");
+    sb.append("    tramitOvtIdext: ").append(toIndentedString(tramitOvtIdext)).append("\n");
+    sb.append("    tramitador: ").append(toIndentedString(tramitador)).append("\n");
     sb.append("}");
     return sb.toString();
   }

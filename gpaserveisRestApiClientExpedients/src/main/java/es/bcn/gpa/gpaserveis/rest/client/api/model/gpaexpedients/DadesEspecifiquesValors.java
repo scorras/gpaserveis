@@ -27,7 +27,7 @@ import org.joda.time.DateTime;
 /**
  * DadesEspecifiquesValors
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-11T09:54:05.532+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-14T12:29:56.498+01:00")
 public class DadesEspecifiquesValors {
   @JsonProperty("dadesEspecifiques")
   private BigDecimal dadesEspecifiques = null;
@@ -37,6 +37,9 @@ public class DadesEspecifiquesValors {
 
   @JsonProperty("notEmpty")
   private Boolean notEmpty = null;
+
+  @JsonProperty("sollicitud")
+  private BigDecimal sollicitud = null;
 
   @JsonProperty("valorBoolean")
   private Integer valorBoolean = null;
@@ -129,6 +132,24 @@ public class DadesEspecifiquesValors {
 
   public void setNotEmpty(Boolean notEmpty) {
     this.notEmpty = notEmpty;
+  }
+
+  public DadesEspecifiquesValors sollicitud(BigDecimal sollicitud) {
+    this.sollicitud = sollicitud;
+    return this;
+  }
+
+   /**
+   * Get sollicitud
+   * @return sollicitud
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getSollicitud() {
+    return sollicitud;
+  }
+
+  public void setSollicitud(BigDecimal sollicitud) {
+    this.sollicitud = sollicitud;
   }
 
   public DadesEspecifiquesValors valorBoolean(Integer valorBoolean) {
@@ -386,6 +407,7 @@ public class DadesEspecifiquesValors {
     return Objects.equals(this.dadesEspecifiques, dadesEspecifiquesValors.dadesEspecifiques) &&
         Objects.equals(this.id, dadesEspecifiquesValors.id) &&
         Objects.equals(this.notEmpty, dadesEspecifiquesValors.notEmpty) &&
+        Objects.equals(this.sollicitud, dadesEspecifiquesValors.sollicitud) &&
         Objects.equals(this.valorBoolean, dadesEspecifiquesValors.valorBoolean) &&
         Objects.equals(this.valorCalendar, dadesEspecifiquesValors.valorCalendar) &&
         Objects.equals(this.valorClob, dadesEspecifiquesValors.valorClob) &&
@@ -403,7 +425,7 @@ public class DadesEspecifiquesValors {
 
   @Override
   public int hashCode() {
-    return Objects.hash(dadesEspecifiques, id, notEmpty, valorBoolean, valorCalendar, valorClob, valorDouble, valorInteger, valorListaMultiple, valorListaMultipleList, valorListaSimple, valorMoneda, valorMunicipi, valorPais, valorProvincia, valorString);
+    return Objects.hash(dadesEspecifiques, id, notEmpty, sollicitud, valorBoolean, valorCalendar, valorClob, valorDouble, valorInteger, valorListaMultiple, valorListaMultipleList, valorListaSimple, valorMoneda, valorMunicipi, valorPais, valorProvincia, valorString);
   }
 
 
@@ -415,6 +437,7 @@ public class DadesEspecifiquesValors {
     sb.append("    dadesEspecifiques: ").append(toIndentedString(dadesEspecifiques)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    notEmpty: ").append(toIndentedString(notEmpty)).append("\n");
+    sb.append("    sollicitud: ").append(toIndentedString(sollicitud)).append("\n");
     sb.append("    valorBoolean: ").append(toIndentedString(valorBoolean)).append("\n");
     sb.append("    valorCalendar: ").append(toIndentedString(valorCalendar)).append("\n");
     sb.append("    valorClob: ").append(toIndentedString(valorClob)).append("\n");

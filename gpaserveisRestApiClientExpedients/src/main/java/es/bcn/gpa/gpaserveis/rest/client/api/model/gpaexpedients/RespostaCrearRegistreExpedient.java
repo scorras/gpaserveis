@@ -21,7 +21,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * RespostaCrearRegistreExpedient
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-11T14:01:14.556+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-14T12:29:56.498+01:00")
 public class RespostaCrearRegistreExpedient {
 	@JsonProperty("politic")
 	private String politic = null;

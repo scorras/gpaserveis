@@ -334,8 +334,9 @@ public class ExpedientsServiceImplTest extends RestServerParentTest {
 		llistaUnitatGestoraConvidada.add(unitatGestoraConvidada);
 
 		ConvidarTramitarRDTO convidarTramitarRDTO = new ConvidarTramitarRDTO();
-		// convidarTramitarRDTO.setUnitatGestoraConvidada(unitatGestoraConvidada);
-		convidarTramitarRDTO.setCodiUnitatGestoraList(llistaUnitatGestoraConvidada);
+		// TODO GPA-2901
+		convidarTramitarRDTO.setUnitatGestoraConvidada(unitatGestoraConvidada);
+		// convidarTramitarRDTO.setCodiUnitatGestoraList(llistaUnitatGestoraConvidada);
 		convidarTramitarRDTO.setComentari(comentari);
 
 		ExpedientsConvidarTramitarBDTO expedientsConvidarTramitarBDTO = new ExpedientsConvidarTramitarBDTO(new BigDecimal(1),

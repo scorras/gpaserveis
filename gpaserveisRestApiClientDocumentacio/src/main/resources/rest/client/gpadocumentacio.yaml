@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.16.2"
+  version: "1.17.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -1059,6 +1059,36 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/entrada/sollicitud/{idSollicitud}:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Returns the requested documentacio entrada by Sol·licitud"
+      operationId: "cercaDocumentsEntradaPerSollicitud"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idSollicitud"
+        in: "path"
+        description: "idSollicitud"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/DocsEntradaRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /documentacio/entrada/{idExpedient}:
     post:
       tags:
@@ -2379,6 +2409,9 @@ definitions:
       eliminat:
         type: "integer"
         format: "int32"
+      esborrany:
+        type: "integer"
+        format: "int32"
       estatDigitalitzacio:
         type: "number"
       id:
@@ -2422,6 +2455,8 @@ definitions:
         format: "int32"
       seleccionable:
         type: "boolean"
+      sollicitudIdext:
+        type: "number"
       tipusMimeDescripcio:
         type: "string"
       tramitOvtIdext:

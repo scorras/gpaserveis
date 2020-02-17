@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * RetornarTramitacioRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-11T09:54:05.532+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-14T12:29:56.498+01:00")
 public class RetornarTramitacioRDTO {
   @JsonProperty("comentari")
   private Comentaris comentari = null;

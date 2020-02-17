@@ -1,10 +1,19 @@
 package es.bcn.gpa.gpaserveis.business.impl;
 
+import java.io.StringWriter;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.namespace.QName;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.bcn.gpa.gpaserveis.business.DadesOperacioService;
@@ -12,6 +21,7 @@ import es.bcn.gpa.gpaserveis.business.DocumentsService;
 import es.bcn.gpa.gpaserveis.business.ExpedientsService;
 import es.bcn.gpa.gpaserveis.business.ProcedimentsService;
 import es.bcn.gpa.gpaserveis.business.ServeisService;
+import es.bcn.gpa.gpaserveis.business.SollicitudsService;
 import es.bcn.gpa.gpaserveis.business.TramitsService;
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDeclaracioResponsableBDTO;
@@ -38,6 +48,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.AnotarOperacioComptableBDTO
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentCrearNotificacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentGeneratRegistrarComunicatBDTO;
@@ -60,6 +71,7 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioRequeritsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaProcedimentsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
@@ -87,37 +99,18 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviar
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.SollicitudConsultaRDTO;
 import lombok.extern.apachecommons.CommonsLog;
 
 /**
  * The Class ServeisServiceImpl.
  */
 @Service
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
 @CommonsLog
 public class ServeisServiceImpl implements ServeisService {
 
@@ -144,6 +137,9 @@ public class ServeisServiceImpl implements ServeisService {
 	/** The documents service. */
 	@Autowired
 	private DocumentsService documentsService;
+
+	@Autowired
+	private SollicitudsService sollicitudsService;
 
 	/**
 	 * Cerca procediments.
@@ -466,6 +462,20 @@ public class ServeisServiceImpl implements ServeisService {
 		return respostaExpedientsCercaBDTO;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#consultarDadesSollicitud(
+	 * java.math.BigDecimal)
+	 */
+	@Override
+	public DadesSollicitudBDTO consultarDadesSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException {
+		DadesSollicitudBDTO dadesSollicitudBDTO = ServeisServiceHelper.loadDadesSollicitud(expedientsService, procedimentsService,
+				unitatsGestoresService, documentsService, dadesOperacioService, idSollicitud);
+		return dadesSollicitudBDTO;
+	}
+
 	/**
 	 * Consultar dades basiques expedient.
 	 *
@@ -528,7 +538,7 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public DadesExpedientBDTO consultarDadesExpedient(BigDecimal idExpedient) throws GPAServeisServiceException {
 		DadesExpedientBDTO dadesExpedientBDTO = ServeisServiceHelper.loadDadesExpedient(expedientsService, unitatsGestoresService,
-				tramitsService, documentsService, dadesOperacioService, idExpedient);
+				tramitsService, documentsService, dadesOperacioService, sollicitudsService, idExpedient);
 		return dadesExpedientBDTO;
 	}
 
@@ -550,7 +560,7 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public DadesExpedientBDTO consultarDadesExpedient(String codiExpedient) throws GPAServeisServiceException {
 		DadesExpedientBDTO dadesExpedientBDTO = ServeisServiceHelper.loadDadesExpedient(expedientsService, unitatsGestoresService,
-				tramitsService, documentsService, dadesOperacioService, codiExpedient);
+				tramitsService, documentsService, dadesOperacioService, sollicitudsService, codiExpedient);
 		return dadesExpedientBDTO;
 	}
 
@@ -573,6 +583,11 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public ExpedientsRDTO crearSollicitudExpedient(ExpedientsCrearBDTO expedientsCrearBDTO) throws GPAServeisServiceException {
 		return expedientsService.crearSollicitudExpedient(expedientsCrearBDTO);
+	}
+
+	@Override
+	public SollicitudsRDTO crearSollicitud(SollicitudsCrearBDTO sollicitudsCrearBDTO) throws GPAServeisServiceException {
+		return expedientsService.crearSollicitud(sollicitudsCrearBDTO);
 	}
 
 	/**
@@ -1028,6 +1043,36 @@ public class ServeisServiceImpl implements ServeisService {
 		documentsService.revisarDocumentacioEntrada(documentAportatValidarBDTO);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#crearXmlDadesSollicitud(es.
+	 * bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.
+	 * SollicitudConsultaRDTO)
+	 */
+	@Override
+	public String crearXmlDadesSollicitud(SollicitudConsultaRDTO sollicitudConsultaRDTO) throws GPAServeisServiceException {
+		StringWriter stringWriter = null;
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(SollicitudConsultaRDTO.class);
+			Marshaller marshaller = jaxbContext.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+
+			JAXBElement<SollicitudConsultaRDTO> jaxbElement = new JAXBElement<SollicitudConsultaRDTO>(new QName(null, "sollicitud"),
+			        SollicitudConsultaRDTO.class, sollicitudConsultaRDTO);
+			stringWriter = new StringWriter();
+			marshaller.marshal(jaxbElement, stringWriter);
+		} catch (JAXBException e) {
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+
+		String dadesXmlBase64 = Base64Utils.encodeToString(stringWriter.toString().getBytes(StandardCharsets.UTF_8));
+
+		return dadesXmlBase64;
+	}
+
 	/**
 	 * Crear data xml expedient.
 	 *
@@ -1135,6 +1180,19 @@ public class ServeisServiceImpl implements ServeisService {
 	public void canviarUnitatGestoraExpedient(ExpedientsCanviarUnitatGestoraBDTO expedientsCanviarUnitatGestoraBDTO)
 			throws GPAServeisServiceException {
 		expedientsService.canviarUnitatGestoraExpedient(expedientsCanviarUnitatGestoraBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#associarRegistreSollicitud(
+	 * es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.
+	 * SollicitudActualitzarRegistre)
+	 */
+	@Override
+	public void associarRegistreSollicitud(SollicitudActualitzarRegistre sollicitudActualitzarRegistre) throws GPAServeisServiceException {
+		expedientsService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
 	}
 
 	/**
