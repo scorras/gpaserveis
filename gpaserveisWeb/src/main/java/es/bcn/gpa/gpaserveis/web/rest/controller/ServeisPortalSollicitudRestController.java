@@ -81,6 +81,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.Rela
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.consulta.atributs.DadesOperacioApiParamToInternalMapper;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.sollicituds.SollicitudAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentacioAportarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.RespostaAportarDocumentSollicitudRDTO;
@@ -90,6 +91,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.su
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.upload.RespostaUploadDocumentSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.crear.RespostaCrearSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.crear.SollicitudCrearRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.helper.SollicitudActualitzarHelper;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.helper.SollicitudCrearHelper;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.registrar.RespostaRegistrarSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.RespostaConsultaSollicitudsRDTO;
@@ -118,11 +120,10 @@ import net.opentrends.openframe.services.rest.http.ResponseEntity;
 @CommonsLog
 @EntornPropertySource(value = { "classpath:/app/config/gpaserveis.properties" })
 public class ServeisPortalSollicitudRestController extends BaseRestController {
-	
-	
+
 	/** The Constant BASE_MAPPING_SOLLICITUD. */
 	private static final String BASE_MAPPING_SOLLICITUD = "/sollicituds/{idSollicitud}";
-	
+
 	/** The Constant BASE_MAPPING_SOLLICITUD_DOCUMENTACIO. */
 	private static final String BASE_MAPPING_SOLLICITUD_DOCUMENTACIO = BASE_MAPPING_SOLLICITUD + "/documentacio";
 
@@ -141,8 +142,10 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	/**
 	 * A aportar documentacio sollicitud.
 	 *
-	 * @param idSollicitud the id sollicitud
-	 * @param documentacioAportar the documentacio aportar
+	 * @param idSollicitud
+	 *            the id sollicitud
+	 * @param documentacioAportar
+	 *            the documentacio aportar
 	 * @return the resposta sollicitud aportar document RDTO
 	 */
 	@PostMapping(BASE_MAPPING_SOLLICITUD_DOCUMENTACIO)
@@ -218,12 +221,14 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		
 		return respostaAportarDocumentSollicitudRDTO;
 	}
-	
+
 	/**
 	 * Esborrar document.
 	 *
-	 * @param idSollicitud the id sollicitud
-	 * @param idDocument the id document
+	 * @param idSollicitud
+	 *            the id sollicitud
+	 * @param idDocument
+	 *            the id document
 	 * @return the resposta esborrar document RDTO
 	 */
 	@DeleteMapping(BASE_MAPPING_SOLLICITUD_DOCUMENTACIO + "/{idDocument}")
@@ -477,10 +482,13 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	/**
 	 * Crear solicitud expedient.
 	 *
-	 * @param codiExpedient the codi expedient
-	 * @param sollicitudCrearRDTO the sollicitud crear RDTO 
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param sollicitudCrearRDTO
+	 *            the sollicitud crear RDTO
 	 * @return the resposta crear expedient RDTO
-	 * @throws GPAServeisServiceException             the GPA serveis service exception
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
 	 */
 	@PostMapping("expedients/{codiExpedient}/sollicituds")
 	@ApiOperation(value = "Crear una sol·licitud", tags = { "Serveis Portal API" }, extensions = {
@@ -502,6 +510,24 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
 					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_CREAR_SOLLICITUD);
+
+			// TODO: Validaciones
+			// 1- Validar que no haya otra solicitud del mismo tipo abierta
+			// ServeisRestControllerValidationHelper.validateTipusSollicitud(dadesSollicitudBDTO,
+			// Resultat.ERROR_APORTAR_DOCUMENTACIO);
+			// 2- Validar que la solicitud que llega no sea SOL (Pedir a Longi)
+			// 3- Validar que la acción es permitida en función del tipo de
+			// solicitud:
+			// APO
+			// Aportar documentación si la acción es permitida
+			// ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			// AccioTramitadorApiParamValue.APORTAR_DOCUMENTACIO,
+			// Resultat.ERROR_APORTAR_DOCUMENTACIO);
+			// REQ / ALE
+			// Esmenar expedient si la acción es permitida
+			// ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			// AccioTramitadorApiParamValue.RESPONDRE_REQUERIMENT_O_TRAMIT_ALLEGACIONS_O_IP,
+			// Resultat.ERROR_ESMENAR_EXPEDIENT);
 
 			// Información del Trámite
 			TramitsOvtCercaBDTO tramitsOvtCercaBDTO = new TramitsOvtCercaBDTO(
@@ -556,6 +582,104 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	}
 
 	/**
+	 * Actualitzar solicitud expedient.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param solicitudExpedient
+	 *            the solicitud expedient
+	 * @return the resposta actualitzar expedient RDTO
+	 */
+	@PostMapping("/sollicituds/{idSollicitud}")
+	@ApiOperation(value = "Actualitzar dades de la sol·licitud de la sol·licitud", tags = { "Serveis Portal API" }, extensions = {
+			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaActualitzarSollicitudRDTO actualitzarSollicitud(
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable BigDecimal idSollicitud,
+			@ApiParam(value = "Dades de la actualització de l'expedient") @RequestBody SollicitudActualitzarRDTO sollicitudActualitzar) {
+		if (log.isDebugEnabled()) {
+			log.debug("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		RespostaActualitzarSollicitudRDTO respostaActualitzarSollicitudsRDTO = null;
+		SollicitudsRDTO returnSollicitudsRDTO = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACTUALITZAR_SOLLICITUD);
+		try {
+			// El Id de sol·licitud debe existir
+			DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
+			ServeisRestControllerValidationHelper.validateSollicitud(dadesSollicitudBDTO, Resultat.ERROR_ACTUALITZAR_SOLLICITUD);
+
+			// Recuperamos los dadesExpedientBDTO para la validación del estado
+			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesExpedient(dadesSollicitudBDTO.getExpedientsRDTO().getId());
+
+			// Si se indica alguna persona al menos debe indicarse el
+			// Solicitante
+			ServeisRestControllerValidationHelper.validateSollicitantActualitzarSolicitudExpedient(sollicitudActualitzar.getSollicitant(),
+					sollicitudActualitzar.getRepresentant());
+
+			// Actualizar Solicitante / Representante / Dades d'Operació si se
+			// incluyen en los datos de la petición y si la acción es permitida
+			if (sollicitudActualitzar.getSollicitant() != null || CollectionUtils.isNotEmpty(sollicitudActualitzar.getDadesOperacio())) {
+				ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+						AccioTramitadorApiParamValue.INFORMAR_DADES_EXPEDIENT, Resultat.ERROR_ACTUALITZAR_SOLLICITUD);
+			}
+
+			// Se obtienen los Dades d'Operació del procedimiento y se valida
+			// que los códigos indicados existen. Se aprovecha para recuperar
+			// los identificadores de los campos
+			ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
+			if (CollectionUtils.isNotEmpty(sollicitudActualitzar.getDadesOperacio())) {
+				DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(
+						dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
+				RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = serveisService.cercaDadesOperacio(dadesOperacioCercaBDTO);
+				dadesEspecifiquesRDTOList = ServeisRestControllerValidationHelper.validateDadesOperacioActualitzarSolicitudExpedient(
+						sollicitudActualitzar.getDadesOperacio(), respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList(),
+						dadesExpedientBDTO.getExpedientsRDTO().getId(), true);
+			}
+
+			// Aplicamos el campo de Relación correspondiente a las personas que
+			// se relacionan
+			sollicitudActualitzar.getSollicitant().setRelacio(RelacioPersonaApiParamValue.SOLLICITANT.getApiParamValue());
+			sollicitudActualitzar.getRepresentant().setRelacio(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue());
+
+			SollicitudActualitzarHelper sollicitudActualitzarHelper = new SollicitudActualitzarHelper(sollicitudActualitzar);
+
+			// Se construye el modelo para la llamada a la operación de
+			// actualización
+			SollicitudsRDTO sollicitudsRDTO = modelMapper.map(sollicitudActualitzarHelper, SollicitudsRDTO.class);
+			// Se indica el id del Expediente recibido como path variable
+			sollicitudsRDTO.setId(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
+
+			// TODO: Pendiente de generar cliente y terminar el método
+
+			ActualitzarDadesSollicitud actualitzarDadesSollicitud = new ActualitzarDadesSollicitud();
+			// actualitzarDadesSollicitud.set(expedientsRDTO);
+			actualitzarDadesSollicitud.setDadesEspecifiques(dadesEspecifiquesRDTOList);
+			ExpedientsActualitzarBDTO expedientsActualitzarBDTO = new ExpedientsActualitzarBDTO(actualitzarDadesSollicitud);
+			// returnSollicitudsRDTO =
+			// serveisService.actualitzarSolicitud(expedientsActualitzarBDTO);
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO)", e); //$NON-NLS-1$
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO)", e); //$NON-NLS-1$
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT, e);
+		}
+
+		// RespostaExpedientsActualitzarBDTO respostaExpedientsActualitzarBDTO =
+		// new RespostaExpedientsActualitzarBDTO(returnExpedientsRDTO,
+		// respostaResultatBDTO);
+		// respostaActualitzarSollicitudsRDTO =
+		// modelMapper.map(respostaExpedientsActualitzarBDTO,
+		// RespostaActualitzarExpedientRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("actualitzarSolicitudExpedient(BigDecimal, SolicitudsActualitzarRDTO) - fi"); //$NON-NLS-1$
+		}
+		return null;
+	}
+
+	/**
 	 * Consultar dades sollicitud.
 	 *
 	 * @param idSollicitud
@@ -568,8 +692,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	@ApiOperation(value = "Consultar les dades de la sol·licitud", tags = { "Serveis Portal API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaSollicitudsRDTO consultarDadesSollicitud(
-	        @ApiParam(value = "Identificador de la sol·licitud", required = true) @PathVariable BigDecimal idSollicitud)
-	        throws GPAServeisServiceException {
+			@ApiParam(value = "Identificador de la sol·licitud", required = true) @PathVariable BigDecimal idSollicitud)
+			throws GPAServeisServiceException {
 
 		RespostaConsultaSollicitudsRDTO respostaConsultaSollicitudsRDTO = new RespostaConsultaSollicitudsRDTO();
 
@@ -598,10 +722,10 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	 */
 	@GetMapping(value = "/sollicituds/{idSollicitud}/report/exportacio-xml", produces = MediaType.TEXT_PLAIN_VALUE)
 	@ApiOperation(value = "Exporta les dades de la sol·licitud en format XML", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public ResponseEntity<String> exportarDadesSollicitudXml(
-	        @ApiParam(value = "Identificador de la sol·licitud", required = true) @PathVariable BigDecimal idSollicitud)
-	        throws GPAServeisServiceException {
+			@ApiParam(value = "Identificador de la sol·licitud", required = true) @PathVariable BigDecimal idSollicitud)
+			throws GPAServeisServiceException {
 
 		// Datos principales de la solicitud
 		DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
