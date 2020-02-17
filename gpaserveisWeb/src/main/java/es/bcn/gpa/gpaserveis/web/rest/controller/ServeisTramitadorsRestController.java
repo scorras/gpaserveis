@@ -154,6 +154,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviar
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Sollicituds;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TornarEnrereRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
@@ -3054,6 +3055,14 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// Se debe indicar el id de la Unitat Gestora recuperada
 			expedientsRDTO.setUnitatGestoraIdext(idUnitatGestora);
 			ExpedientsCrearBDTO expedientsCrearBDTO = new ExpedientsCrearBDTO(expedientsRDTO);
+			if(StringUtils.isNotEmpty(expedientRevisar.getNumeroRegistre())){
+				Sollicituds sollicituds = new Sollicituds();
+				es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentament registreAssentament = 
+						new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentament();
+				registreAssentament.setCodi(expedientRevisar.getNumeroRegistre());
+				sollicituds.setRegistreAssentament(registreAssentament);
+				expedientsCrearBDTO.getExpedientsRDTO().setSollicituds(sollicituds);
+			}
 
 			returnExpedientsRDTO = serveisService.crearSollicitudExpedient(expedientsCrearBDTO);
 		} catch (GPAApiParamValidationException e) {
