@@ -46,7 +46,7 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 	@PostMapping("/resultat_peticio")
 	@ApiOperation(value = "Resultat de l'estat de les peticions", tags = { "Serveis Portasignatures API" })
 	public MciPortasigResultatPeticioRespostaDTO resultatEstatPeticio(
-	        @ApiParam(value = "Resultat del portasignatures a una petició de vist-i-plau/signatura", required = true) @RequestBody MciPortasigResultatPeticioDTO resultatPeticio) {
+			@ApiParam(value = "Resultat del portasignatures a una petició de vist-i-plau/signatura", required = true) @RequestBody MciPortasigResultatPeticioDTO resultatPeticio) {
 
 		if (log.isDebugEnabled()) {
 			log.debug("resultatEstatPeticio(MciPortasigResultatPeticioDTO) - inici"); //$NON-NLS-1$
@@ -66,7 +66,7 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 			callbackPortaSig.setTicketPeticio(mciPortasigSignatarisDTO.getTicketPeticio());
 			callbackPortaSig.setTipusPeticio(mciPortasigSignatarisDTO.getTipusPeticio());
 
-			if (mciPortasigSignatarisDTO.getCodiEstat().equals(TipusCodiEstatPortasigApiParamValue.COMPLETADA.getApiParamValue())) {
+			if (mciPortasigSignatarisDTO.getCodiEstat().equals(TipusCodiEstatPortasigApiParamValue.SIGNADA.getApiParamValue())) {
 				DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
 				callbackPortaSig.setInstantSignatura(dataHoraFormatter.parseDateTime(mciPortasigSignatarisDTO.getInstantSignatura()));
 			} else if (mciPortasigSignatarisDTO.getCodiEstat().equals(TipusCodiEstatPortasigApiParamValue.CADUCADA.getApiParamValue())) {
