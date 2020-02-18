@@ -841,12 +841,15 @@ public class DocumentacioApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	@Ignore
 	public void estatDigitalitzacioTest() {
-		Long idDocumentacio = null;
+		
+		when(apiClient.invokeAPI(eq("/documentacio/1/estatDigitalitzacio"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new EstatDigitalitzacioDocumentRDTO());
+		
+		Long idDocumentacio = 1L;
 		EstatDigitalitzacioDocumentRDTO response = api.estatDigitalitzacio(idDocumentacio);
-
-		// TODO: test validations
+		assertTrue(response != null);
 	}
 
 	/**
@@ -858,11 +861,12 @@ public class DocumentacioApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	@Ignore
 	public void storageModeTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/storageMode"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(StringUtils.EMPTY);
 		String response = api.storageMode();
-
-		// TODO: test validations
+		assertTrue(response != null);
 	}
 
 }
