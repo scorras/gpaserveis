@@ -27,7 +27,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -807,12 +806,14 @@ public class DocumentacioApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	@Ignore
 	public void revisarDocumentacioEntradaTest() {
-		DocumentRevisio documentRevisioRDTO = null;
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/revisar"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(null);
+		
+		DocumentRevisio documentRevisioRDTO = new DocumentRevisio();
 		api.revisarDocumentacioEntrada(documentRevisioRDTO);
-
-		// TODO: test validations
+		assertTrue(true);
 	}
 
 	/**
@@ -824,12 +825,13 @@ public class DocumentacioApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	@Ignore
 	public void revisarDocumentacioEntradaMassiuTest() {
-		DocumentRevisio documentRevisioRDTO = null;
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/revisarMassiu"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(null);
+		DocumentRevisio documentRevisioRDTO = new DocumentRevisio();
 		api.revisarDocumentacioEntradaMassiu(documentRevisioRDTO);
-
-		// TODO: test validations
+		assertTrue(true);
 	}
 
 	/**
@@ -841,12 +843,15 @@ public class DocumentacioApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	@Ignore
 	public void estatDigitalitzacioTest() {
-		Long idDocumentacio = null;
+		
+		when(apiClient.invokeAPI(eq("/documentacio/1/estatDigitalitzacio"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new EstatDigitalitzacioDocumentRDTO());
+		
+		Long idDocumentacio = 1L;
 		EstatDigitalitzacioDocumentRDTO response = api.estatDigitalitzacio(idDocumentacio);
-
-		// TODO: test validations
+		assertTrue(response != null);
 	}
 
 	/**
@@ -858,11 +863,12 @@ public class DocumentacioApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	@Ignore
 	public void storageModeTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/storageMode"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(StringUtils.EMPTY);
 		String response = api.storageMode();
-
-		// TODO: test validations
+		assertTrue(response != null);
 	}
 
 }
