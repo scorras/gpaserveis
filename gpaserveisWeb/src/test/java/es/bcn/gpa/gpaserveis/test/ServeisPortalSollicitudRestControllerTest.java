@@ -63,7 +63,7 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	 */
 	@Test
 	public void testStage03_GetConsultarDadesSollicitud() throws Exception {
-		String url = BASE_URL + "/sollicituds/1";
+		String url = BASE_URL + "/sollicituds/4";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 
@@ -75,7 +75,7 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	 */
 	@Test
 	public void testStage04_GetExportarDadesSollicitudXml() throws Exception {
-		String url = BASE_URL + "/sollicituds/1/report/exportacio-xml";
+		String url = BASE_URL + "/sollicituds/4/report/exportacio-xml";
 		getMockMvc().perform(get(url).accept(MediaType.TEXT_PLAIN_VALUE)).andDo(print()).andExpect(status().isOk());
 	}
 
@@ -230,7 +230,7 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	 */
 	@Test
 	public void testStage15_PostRegistrarSolicitud() throws Exception {
-		String url = BASE_URL + "/sollicituds/2/registre";
+		String url = BASE_URL + "/sollicituds/4/registre";
 		getMockMvc().perform(post(url)).andExpect(status().isOk()).andDo(print());
 
 	}

@@ -412,13 +412,16 @@ public abstract class ParentTest {
 
 			when(sollicitudsApi.consultarDadesSollicituds(eq(BigDecimal.valueOf(3)))).thenReturn(null);
 
-			when(documentacioApi.consultarDadesDocumentAportat(eq(BigDecimal.ONE)))
+			when(sollicitudsApi.consultarDadesSollicituds(eq(BigDecimal.valueOf(4))))
+			        .thenReturn(TestsConfigHelper.consultarDadesSollicitudResponse(BigDecimal.valueOf(4), false));
+
+			when(documentacioApi.consultarDadesDocumentAportat(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesDocumentAportatsResponse());
 
-			when(documentacioApi.cercaDocumentsEntradaPerSollicitud(eq(BigDecimal.valueOf(2))))
+			when(documentacioApi.cercaDocumentsEntradaPerSollicitud(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.cercaDocumentsEntradaPerSollicitudResponse());
 
-			when(dadesEspecifiquesApi.consultarDadesEspecifiquesSollicitud(eq(BigDecimal.valueOf(2))))
+			when(dadesEspecifiquesApi.consultarDadesEspecifiquesSollicitud(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesEspecifiquesExpedientResponse());
 
 		} catch (Exception e) {

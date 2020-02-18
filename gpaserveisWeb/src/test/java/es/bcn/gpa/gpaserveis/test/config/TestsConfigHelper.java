@@ -465,6 +465,7 @@ public class TestsConfigHelper {
 		sollicitudsRDTO.setDataSollicitud(now());
 		sollicitudsRDTO.setExpedient(ONE);
 		sollicitudsRDTO.setIniciacio(ONE);
+		sollicitudsRDTO.setTramitOvtIdext(new BigDecimal(3));
 
 		RegistreAssentament registreAssentament = new RegistreAssentament();
 		registreAssentament.setId(ONE);
