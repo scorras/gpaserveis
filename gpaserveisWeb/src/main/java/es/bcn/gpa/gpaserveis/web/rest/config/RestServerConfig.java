@@ -15,7 +15,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import es.bcn.gpa.gpaserveis.web.rest.controller.converter.StringToDocumentComplecioRDTOConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.converter.StringToDocumentIncorporacioNouRDTOConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.converter.StringToRequerimentPreparacioRDTOConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.converter.StringToRespostaNotificacioRDTOConverter;
 import net.opentrends.openframe.services.rest.apidocs.config.RestServiceDefaultSwaggerConfiguration;
 import net.opentrends.openframe.services.rest.http.ResponseEntity;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -86,7 +85,6 @@ public class RestServerConfig extends RestServiceDefaultSwaggerConfiguration {
 		registry.addConverter(new StringToDocumentIncorporacioNouRDTOConverter());
 		registry.addConverter(new StringToRequerimentPreparacioRDTOConverter());
 		registry.addConverter(new StringToDocumentComplecioRDTOConverter());
-		registry.addConverter(new StringToRespostaNotificacioRDTOConverter());
 	}
 
 }
