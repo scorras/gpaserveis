@@ -27,42 +27,54 @@ public class ServeisNotificacionsRestControllerTest extends RestServerParentTest
 	@Test
 	public void testStage01_PostRetornEstatNotificacioRegistrada() throws Exception {
 		String url = String.format("%s/%s", BASE_URL, "retorn_notificacio");
-		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
-		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile)
-				.param("retornNotificacio",
-						"{ \"retornNotificacio\": { \"notificacioId\": 1, \"estat\": \"Registrada\", \"numRegistre\": \"1\", \"dataHoraRegistre\": \"25/08/2019 09:32:12\", \"dataEnviament\": \"25/08/2019 09:32:12\", \"dataAcusamentRebuda\": \"25/08/2019 09:32:12\"}}")
-				.contentType(MediaType.MULTIPART_FORM_DATA)).andExpect(status().isOk()).andDo(print());
+		MockMultipartFile mockMultipartFile = new MockMultipartFile("evidencian", "prova.txt", "text/plain", "prova".getBytes());
+		MockMultipartFile jsonFile = new MockMultipartFile("metadata", "", "application/json",
+				"{ \"notificacioId\": 1, \"estat\": \"Registrada\", \"numRegistre\": \"1\", \"dataHoraRegistre\": \"25/08/2019 09:32:12\", \"dataEnviament\": \"25/08/2019 09:32:12\", \"dataAcusamentRebuda\": \"25/08/2019 09:32:12\"}"
+						.getBytes());
+
+		getMockMvc().perform(
+				MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile).file(jsonFile).contentType(MediaType.MULTIPART_FORM_DATA))
+				.andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test
 	public void testStage02_PostRetornEstatNotificacioDipositada() throws Exception {
 		String url = String.format("%s/%s", BASE_URL, "retorn_notificacio");
-		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
-		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile)
-				.param("retornNotificacio",
-						"{ \"retornNotificacio\": { \"notificacioId\": 1, \"estat\": \"Dipositada\", \"numRegistre\": \"1\", \"dataHoraRegistre\": \"25/08/2019 09:32:12\", \"dataHoraDiposit\": \"25/08/2019 09:32:12\", \"dataEnviament\": \"25/08/2019 09:32:12\", \"dataAcusamentRebuda\": \"25/08/2019 09:32:12\"}}")
-				.contentType(MediaType.MULTIPART_FORM_DATA)).andExpect(status().isOk()).andDo(print());
+		MockMultipartFile mockMultipartFile = new MockMultipartFile("evidencian", "prova.txt", "text/plain", "prova".getBytes());
+		MockMultipartFile jsonFile = new MockMultipartFile("metadata", "", "application/json",
+				"{ \"notificacioId\": 1, \"estat\": \"Dipositada\", \"numRegistre\": \"1\", \"dataHoraRegistre\": \"25/08/2019 09:32:12\", \"dataHoraDiposit\": \"25/08/2019 09:32:12\", \"dataEnviament\": \"25/08/2019 09:32:12\", \"dataAcusamentRebuda\": \"25/08/2019 09:32:12\"}"
+						.getBytes());
+
+		getMockMvc().perform(
+				MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile).file(jsonFile).contentType(MediaType.MULTIPART_FORM_DATA))
+				.andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test
 	public void testStage03_PostRetornEstatNotificacioVisualitzada() throws Exception {
 		String url = String.format("%s/%s", BASE_URL, "retorn_notificacio");
-		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
-		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile)
-				.param("retornNotificacio",
-						"{ \"retornNotificacio\": { \"notificacioId\": 1, \"estat\": \"Visualitzada\", \"numRegistre\": \"1\", \"dataHoraRegistre\": \"25/08/2019 09:32:12\", \"dataHoraDiposit\": \"25/08/2019 09:32:12\", \"dataHoraVisualitzacio\": \"25/08/2019 09:32:12\", \"dataEnviament\": \"25/08/2019 09:32:12\", \"dataAcusamentRebuda\": \"25/08/2019 09:32:12\"}}")
-				.contentType(MediaType.MULTIPART_FORM_DATA)).andExpect(status().isOk()).andDo(print());
+		MockMultipartFile mockMultipartFile = new MockMultipartFile("evidencian", "prova.txt", "text/plain", "prova".getBytes());
+		MockMultipartFile jsonFile = new MockMultipartFile("metadata", "", "application/json",
+				"{ \"notificacioId\": 1, \"estat\": \"Visualitzada\", \"numRegistre\": \"1\", \"dataHoraRegistre\": \"25/08/2019 09:32:12\", \"dataHoraDiposit\": \"25/08/2019 09:32:12\", \"dataHoraVisualitzacio\": \"25/08/2019 09:32:12\", \"dataEnviament\": \"25/08/2019 09:32:12\", \"dataAcusamentRebuda\": \"25/08/2019 09:32:12\"}"
+						.getBytes());
+
+		getMockMvc().perform(
+				MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile).file(jsonFile).contentType(MediaType.MULTIPART_FORM_DATA))
+				.andExpect(status().isOk()).andDo(print());
+
 	}
 
 	@Test
 	public void testStage04_PostRetornEstatNotificacioRebutjada() throws Exception {
 		String url = String.format("%s/%s", BASE_URL, "retorn_notificacio");
-		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
-		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile)
-				.param("retornNotificacio",
-						"{ \"retornNotificacio\": { \"notificacioId\": 1, \"estat\": \"Rebutjada\", \"numRegistre\": \"1\", \"dataHoraRegistre\": \"25/08/2019 09:32:12\", \"dataHoraDiposit\": \"25/08/2019 09:32:12\", \"dataHoraVisualitzacio\": \"25/08/2019 09:32:12\", \"dataHoraAceptacioRebuig\": \"25/08/2019 09:32:12\", \"dataEnviament\": \"25/08/2019 09:32:12\", \"dataAcusamentRebuda\": \"25/08/2019 09:32:12\"}}")
-				.contentType(MediaType.MULTIPART_FORM_DATA)).andExpect(status().isOk()).andDo(print());
+		MockMultipartFile mockMultipartFile = new MockMultipartFile("evidencian", "prova.txt", "text/plain", "prova".getBytes());
+		MockMultipartFile jsonFile = new MockMultipartFile("metadata", "", "application/json",
+				"{ \"notificacioId\": 1, \"estat\": \"Rebutjada\", \"numRegistre\": \"1\", \"dataHoraRegistre\": \"25/08/2019 09:32:12\", \"dataHoraDiposit\": \"25/08/2019 09:32:12\", \"dataHoraVisualitzacio\": \"25/08/2019 09:32:12\", \"dataHoraAceptacioRebuig\": \"25/08/2019 09:32:12\", \"dataEnviament\": \"25/08/2019 09:32:12\", \"dataAcusamentRebuda\": \"25/08/2019 09:32:12\"}"
+						.getBytes());
 
+		getMockMvc().perform(
+				MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile).file(jsonFile).contentType(MediaType.MULTIPART_FORM_DATA))
+				.andExpect(status().isOk()).andDo(print());
 	}
 
 }
