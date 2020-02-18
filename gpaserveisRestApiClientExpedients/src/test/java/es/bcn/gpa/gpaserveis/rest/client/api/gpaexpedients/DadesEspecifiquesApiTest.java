@@ -84,4 +84,24 @@ public class DadesEspecifiquesApiTest extends ParentTest {
 		assertTrue(response != null);
 	}
 
+	/**
+	 * Save the specific data of a Sollicitud in the Expedient
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void guardarDadesEspecifiquesSollicitudTest() {
+		when(apiClient.invokeAPI(eq("/expedients/dadesEspecifiques/sollicitud/1"), eq(HttpMethod.POST), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		BigDecimal idSollicitud = ONE;
+		api.guardarDadesEspecifiquesSollicitud(idSollicitud);
+
+		assertTrue(true);
+	}
+
 }

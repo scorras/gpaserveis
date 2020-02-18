@@ -9,6 +9,7 @@ import es.bcn.gpa.gpaserveis.business.dto.sollicituds.RespostaSollicitudsRegistr
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToResultatRespostaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalRDTOToRegistreConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToExpedientAccioConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.sollicitud.InternalToSollicitudAccioConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.registrar.RespostaRegistrarSollicitudRDTO;
 
 @Component("respostaSollicitudsRegistrarBDTOToRespostaRegistrarSollicitudRDTOMapper")
@@ -17,8 +18,7 @@ public class RespostaSollicitudsRegistrarBDTOToRespostaRegistrarSollicitudRDTOMa
 
 	private InternalToExpedientAccioConverter internalToExpedientAccioConverter;
 
-	// private InternalToSollicitudAccioConverter
-	// internalToSollicitudAccioConverter;
+	private InternalToSollicitudAccioConverter internalToSollicitudAccioConverter;
 
 	private InternalRDTOToRegistreConverter internalRDTOToRegistreConverter;
 
@@ -27,9 +27,11 @@ public class RespostaSollicitudsRegistrarBDTOToRespostaRegistrarSollicitudRDTOMa
 	@Autowired
 	public RespostaSollicitudsRegistrarBDTOToRespostaRegistrarSollicitudRDTOMapper(
 	        @Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
+	        @Qualifier("sollicitudInternalToSollicitudAccioConverter") InternalToSollicitudAccioConverter internalToSollicitudAccioConverter,
 	        @Qualifier("expedientInternalRDTOToRegistreConverter") InternalRDTOToRegistreConverter internalRDTOToRegistreConverter,
 	        @Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
 		this.internalToExpedientAccioConverter = internalToExpedientAccioConverter;
+		this.internalToSollicitudAccioConverter = internalToSollicitudAccioConverter;
 		this.internalRDTOToRegistreConverter = internalRDTOToRegistreConverter;
 		this.internalToResultatRespostaConverter = internalToResultatRespostaConverter;
 	}
@@ -43,6 +45,7 @@ public class RespostaSollicitudsRegistrarBDTOToRespostaRegistrarSollicitudRDTOMa
 	protected void configure() {
 		using(internalToResultatRespostaConverter).map(source.getRespostaResultatBDTO()).setResultat(null);
 		using(internalToExpedientAccioConverter).map(source.getExpedientsRDTO()).setExpedient(null);
+		using(internalToSollicitudAccioConverter).map(source.getSollicitudsRDTO()).setSollicitud(null);
 		using(internalRDTOToRegistreConverter).map(source.getRespostaCrearRegistreExpedient().getRegistreAssentament()).setRegistre(null);
 		map().setComprovant(source.getDocsTramitacioRDTO().getId());
 	}

@@ -59,7 +59,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActual
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
@@ -793,7 +792,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_REGISTRAR_SOLLICITUD);
 		DocsTramitacioRDTO respostaCrearJustificant = null;
 		ExpedientsRegistrarBDTO expedientsRegistrarBDTO = null;
-		DocumentActualizarRegistre documentActualizarRegistreRDTO = null;
 		try {
 			// Datos principales de la solicitud
 			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
@@ -805,6 +803,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// TODO Obtener el XML y almacenarlo en el Gestor Documental.
 			// Asociar el código generado a nivel de Sollicitud, puesto que será
 			// el Objeto Documental a utilizar
+			SollicitudConsultaRDTO sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
+			String xmlDadesSollicitudBase64 = serveisService.crearXmlDadesSollicitud(sollicitudConsultaRDTO);
 
 			// Se construye el modelo para la llamada a la operación de registro
 			// TODO ¿Cómo procedemos para registrar el XML de la solicitud?
@@ -846,6 +846,22 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				serveisService.associarRegistreDocsEnt(docsEntActualizarRegistre);
 			}
 
+			// Duplicar los Valores de Datos Específicos para que quede por un
+			// lado la foto inmutable en la solicitud y los datos actualizados
+			// en el expediente
+			// A tener en cuenta:
+			// 1- Asociado a cada Dato Específico puede haber 1 o N Valores
+			// asociados
+			// 2- Si el expediente no tiene valores para el dato específico, se
+			// insertan con SOLLICITUD = null
+			// 3- Si el expediente ya tiene valores para el dato específico, se
+			// eliminan todos y se insertan los nuevos con SOLLICITUD = null
+			// 4- Si el expediente tiene valores para datos específicos que no
+			// se informan en la solicitud, ¿se deben mantener o eliminar? De
+			// momento no eliminamos (lo que viene es lo que hay sólo a nivel de
+			// solicitud)
+			serveisService.guardarDadesEspecifiquesSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
+
 			// Recoger plantilla del Justificante a generar
 			// TODO Comprobar que getConfiguracioDocumentacioProc() no es nulo y
 			// se está recuperando dentro de la consulta de dades sollicitud
@@ -870,6 +886,9 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
 			registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
 			serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
+
+			// Debe establecerse la data tancament de aquellos requerimientos
+			serveisService.tancarRequerimentsExpedient(dadesSollicitudBDTO.getExpedientsRDTO().getDocumentacioIdext());
 
 			// Cambio de estado del expediente:
 			// - APO: No hay transición
@@ -909,7 +928,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// respostaCrearRegistreExpedient, respostaCrearJustificant,
 			// expedientsRegistrarBDTO, documentActualizarRegistreRDTO);
 
-			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_REGISTRAR_EXPEDIENT, e);
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_REGISTRAR_SOLLICITUD, e);
 		}
 
 		RespostaSollicitudsRegistrarBDTO respostaSollicitudsRegistrarBDTO = new RespostaSollicitudsRegistrarBDTO(

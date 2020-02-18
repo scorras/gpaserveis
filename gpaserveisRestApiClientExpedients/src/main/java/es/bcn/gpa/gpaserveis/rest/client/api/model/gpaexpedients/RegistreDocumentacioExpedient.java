@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * RegistreDocumentacioExpedient
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-14T12:29:56.498+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-17T19:08:34.780+01:00")
 public class RegistreDocumentacioExpedient {
   @JsonProperty("idJustificant")
   private BigDecimal idJustificant = null;

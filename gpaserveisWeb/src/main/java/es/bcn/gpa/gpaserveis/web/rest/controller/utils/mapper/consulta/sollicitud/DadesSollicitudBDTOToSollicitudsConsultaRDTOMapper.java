@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToDataHoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToDocumentAportatConsultaListConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToDadesOperacioListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToExpedientAccioConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToPersonaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToPersonaListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToRegistreConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.sollicitud.InternalToDadesOperacioListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.tramit.InternalToTramitOvtConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.SollicitudConsultaRDTO;
 
@@ -76,7 +76,7 @@ public class DadesSollicitudBDTOToSollicitudsConsultaRDTOMapper extends Property
 	        @Qualifier("expedientInternalToPersonaConverter") InternalToPersonaConverter internalToPersonaConverter,
 	        @Qualifier("expedientInternalToPersonaListConverter") InternalToPersonaListConverter internalToPersonaListConverter,
 	        @Qualifier("internalToDocumentAportatConsultaListConverter") InternalToDocumentAportatConsultaListConverter internalToDocumentAportatConsultaListConverter,
-	        @Qualifier("expedientInternalToDadesOperacioListConverter") InternalToDadesOperacioListConverter internalToDadesOperacioListConverter) {
+	        @Qualifier("sollicitudInternalToDadesOperacioListConverter") InternalToDadesOperacioListConverter internalToDadesOperacioListConverter) {
 		this.internalToTramitOvtConverter = internalToTramitOvtConverter;
 		this.internalToDataHoraConverter = internalToDataHoraConverter;
 		this.internalToExpedientAccioConverter = internalToExpedientAccioConverter;
