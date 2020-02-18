@@ -162,7 +162,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 		RespostaAportarDocumentSollicitudRDTO respostaAportarDocumentSollicitudRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_APORTAR_DOCUMENTACIO);
-		DadesExpedientBDTO dadesExpedientBDTO = null;
 		List<DocsEntradaRDTO> docsEntradaRDTORespostaList = null;
 		DadesSollicitudBDTO dadesSollicitudBDTO = null;
 		try {
@@ -219,8 +218,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		}
 
 		RespostaAportarDocumentSollicitudBDTO respostaAportarDocumentSollicitudBDTO = new RespostaAportarDocumentSollicitudBDTO(
-		        docsEntradaRDTORespostaList, (dadesExpedientBDTO != null && dadesExpedientBDTO.getExpedientsRDTO() != null)
-		                ? dadesExpedientBDTO.getExpedientsRDTO() : null,
+		        docsEntradaRDTORespostaList, (dadesSollicitudBDTO != null && dadesSollicitudBDTO.getExpedientsRDTO() != null)
+		                ? dadesSollicitudBDTO.getExpedientsRDTO() : null,
 		        (dadesSollicitudBDTO != null ? dadesSollicitudBDTO.getSollicitudsRDTO() : null), respostaResultatBDTO);
 		respostaAportarDocumentSollicitudRDTO = modelMapper.map(respostaAportarDocumentSollicitudBDTO,
 		        RespostaAportarDocumentSollicitudRDTO.class);
@@ -278,7 +277,9 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 		ExpedientsRDTO expedientsRDTO = (dadesSollicitudBDTO != null) ? dadesSollicitudBDTO.getExpedientsRDTO() : null;
 		RespostaEsborrarDocumentEntradaSollicitudBDTO respostaEsborrarDocumentEntradaSollicitudBDTO = new RespostaEsborrarDocumentEntradaSollicitudBDTO(
-		        expedientsRDTO, docsEntradaRDTO, respostaResultatBDTO, dadesSollicitudBDTO.getSollicitudsRDTO());
+		        expedientsRDTO, docsEntradaRDTO, respostaResultatBDTO,
+		        (dadesSollicitudBDTO != null && dadesSollicitudBDTO.getSollicitudsRDTO() != null) ? dadesSollicitudBDTO.getSollicitudsRDTO()
+		                : null);
 		respostaEsborrarDocumentSollicitudRDTO = modelMapper.map(respostaEsborrarDocumentEntradaSollicitudBDTO,
 		        RespostaEsborrarDocumentSollicitudRDTO.class);
 
@@ -495,8 +496,11 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		}
 
 		RespostaSubstituirDocumentSollicitudBDTO respostaSubstituirDocumentSollicitudBDTO = new RespostaSubstituirDocumentSollicitudBDTO(
-		        docsEntradaRDTOResposta, (dadesSollicitudBDTO.getExpedientsRDTO() != null) ? dadesSollicitudBDTO.getExpedientsRDTO() : null,
-		        respostaResultatBDTO, (dadesSollicitudBDTO.getSollicitudsRDTO() != null) ? dadesSollicitudBDTO.getSollicitudsRDTO() : null);
+		        docsEntradaRDTOResposta,
+		        (dadesSollicitudBDTO != null && dadesSollicitudBDTO.getExpedientsRDTO() != null) ? dadesSollicitudBDTO.getExpedientsRDTO()
+		                : null,
+		        respostaResultatBDTO, (dadesSollicitudBDTO != null && dadesSollicitudBDTO.getSollicitudsRDTO() != null)
+		                ? dadesSollicitudBDTO.getSollicitudsRDTO() : null);
 		respostaSubstituirDocumentSollicitudRDTO = modelMapper.map(respostaSubstituirDocumentSollicitudBDTO,
 		        RespostaSubstituirDocumentSollicitudRDTO.class);
 
