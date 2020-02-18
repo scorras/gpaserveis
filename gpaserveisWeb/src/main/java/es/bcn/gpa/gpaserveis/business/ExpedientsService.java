@@ -400,4 +400,14 @@ public interface ExpedientsService {
 	 */
 	void associarRegistreSollicitud(SollicitudActualitzarRegistre sollicitudActualitzarRegistre) throws GPAServeisServiceException;
 
+	/**
+	 * Guardar dades especifiques sollicitud.
+	 *
+	 * @param idSollicitud
+	 *            the id sollicitud
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void guardarDadesEspecifiquesSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException;
+
 }

@@ -1052,6 +1052,25 @@ public interface ServeisService {
 	 */
 	EstatDigitalitzacioDocumentRDTO obtenirEstatDigitalitzacioDocument(Long idDocument) throws GPAServeisServiceException;
 
+	/**
+	 * Crear sollicitud.
+	 *
+	 * @param sollicitudCrearBDTO
+	 *            the sollicitud crear BDTO
+	 * @return the sollicituds RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	SollicitudsRDTO crearSollicitud(SollicitudsCrearBDTO sollicitudCrearBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Guardar dades especifiques sollicitud.
+	 *
+	 * @param idSollicitud
+	 *            the id sollicitud
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void guardarDadesEspecifiquesSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException;
 
 }

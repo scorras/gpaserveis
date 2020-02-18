@@ -1735,4 +1735,43 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		ServeisServiceExceptionHandler.handleException(e);
 	}
+
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackGuardarDadesEspecifiquesSollicitud")
+	public void guardarDadesEspecifiquesSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("guardarDadesEspecifiquesSollicitud(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			dadesEspecifiquesApi.guardarDadesEspecifiquesSollicitud(idSollicitud);
+
+			if (log.isDebugEnabled()) {
+				log.debug("guardarDadesEspecifiquesSollicitud(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+
+		} catch (RestClientException e) {
+			log.error("guardarDadesEspecifiquesSollicitud(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback guardar dades especifiques sollicitud.
+	 *
+	 * @param idSollicitud
+	 *            the id sollicitud
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackGuardarDadesEspecifiquesSollicitud(BigDecimal idSollicitud, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackGuardarDadesEspecifiquesSollicitud(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+	}
 }
