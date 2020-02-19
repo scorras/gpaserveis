@@ -68,6 +68,8 @@ public enum ErrorPrincipal {
 
 	ERROR_SOLLICITUDS_TIPUS_NOT_VALID("3020", "El tipus de la sol·licitud no és vàlid"),
 
+	ERROR_SOLLICITUDS_HI_HA_ESBORRANY("3021", "Hi ha sol·licituds del mateix tipus en estat esborrador"),
+
 	/* Documents */
 	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document"),
 

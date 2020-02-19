@@ -72,6 +72,8 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCerc
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioRequeritsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsActualitzarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.sollicituds.RespostaSollicitudsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
@@ -1971,6 +1973,18 @@ public class ServeisServiceImpl implements ServeisService {
 	public SollicitudsRDTO actualitzarDadesSollicitudSollicituds(SollicitudsActualitzarBDTO sollicitudsActualitzarBDTO)
 			throws GPAServeisServiceException {
 		return sollicitudsService.actualitzarDadesSollicitudSollicituds(sollicitudsActualitzarBDTO);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#cercaSollicituds(es.bcn.gpa
+	 * .gpaserveis.business.dto.sollicituds.SollicitudsCercaBDTO)
+	 */
+	@Override
+	public RespostaSollicitudsCercaBDTO cercaSollicituds(SollicitudsCercaBDTO sollicitudsCercaBDTO) throws GPAServeisServiceException {
+		RespostaSollicitudsCercaBDTO respostaSollicitudsCercaBDTO = ServeisServiceHelper.loadCercaSollicituds(expedientsService,
+		        sollicitudsCercaBDTO);
+		return respostaSollicitudsCercaBDTO;
 	}
 
 }

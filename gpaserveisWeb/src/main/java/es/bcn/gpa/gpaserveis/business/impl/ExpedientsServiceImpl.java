@@ -27,6 +27,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitaci
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ObtenirPerInteroperabilitatBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.business.handler.ServeisServiceExceptionHandler;
@@ -47,6 +48,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfSollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
@@ -1773,5 +1775,58 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#cercaSollicituds(es.bcn.
+	 * gpa.gpaserveis.business.dto.sollicituds.SollicitudsCercaBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackCercaSollicituds")
+	public PageDataOfSollicitudsRDTO cercaSollicituds(SollicitudsCercaBDTO sollicitudsCercaBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("cercaSollicituds(SollicitudsCercaBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			PageDataOfSollicitudsRDTO pageDataOfSollicitudsRDTO = sollicitudsApi.cercaSollicituds(null, null, null, null, null, null,
+			        sollicitudsCercaBDTO.getCurrentPageNumber(), sollicitudsCercaBDTO.getDir(), sollicitudsCercaBDTO.getId(),
+			        sollicitudsCercaBDTO.getIdExpedient(), sollicitudsCercaBDTO.getIdTramitOvt(), null, null,
+			        sollicitudsCercaBDTO.getPageSize(), null, sollicitudsCercaBDTO.getSort(), null, null);
+
+			if (log.isDebugEnabled()) {
+				log.debug("cercaSollicituds(SollicitudsCercaBDTO) - fi"); //$NON-NLS-1$
+			}
+			return pageDataOfSollicitudsRDTO;
+		} catch (RestClientException e) {
+			log.error("cercaSollicituds(SollicitudsCercaBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback cerca sollicituds.
+	 *
+	 * @param sollicitudsCercaBDTO
+	 *            the sollicituds cerca BDTO
+	 * @param e
+	 *            the e
+	 * @return the page data of expedients RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public PageDataOfExpedientsRDTO fallbackCercaSollicituds(SollicitudsCercaBDTO sollicitudsCercaBDTO, Throwable e)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCercaSollicituds(SollicitudsCercaBDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 }

@@ -54,6 +54,8 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCerc
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioRequeritsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsActualitzarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.sollicituds.RespostaSollicitudsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
@@ -1077,5 +1079,15 @@ public interface ServeisService {
 	 */
 	void guardarDadesEspecifiquesSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException;
 
+	/**
+	 * Cerca sollicituds.
+	 *
+	 * @param sollicitudsCercaBDTO
+	 *            the sollicituds cerca BDTO
+	 * @return the resposta sollicituds cerca BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	RespostaSollicitudsCercaBDTO cercaSollicituds(SollicitudsCercaBDTO sollicitudsCercaBDTO) throws GPAServeisServiceException;
 
 }
