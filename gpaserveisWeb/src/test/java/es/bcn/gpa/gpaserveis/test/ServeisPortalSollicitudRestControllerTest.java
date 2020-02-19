@@ -27,7 +27,6 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	/** The Constant BASE_URL. */
 	private final static String BASE_URL = "/rest/serveis/portal";
 
-
 	/**
 	 * Test stage 01 post aportar documentacio sollicitud.
 	 *
@@ -41,7 +40,7 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(body)).andExpect(status().isOk()).andDo(print());
 
 	}
-	
+
 	/**
 	 * Test stage 02 post aportar documentacio sollicitud.
 	 *
@@ -79,11 +78,13 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 		String url = BASE_URL + "/sollicituds/1/report/exportacio-xml";
 		getMockMvc().perform(get(url).accept(MediaType.TEXT_PLAIN_VALUE)).andDo(print()).andExpect(status().isOk());
 	}
-	
+
 	/**
-	 * Test stage 05 post aportar documentacio sollicitud GPA api param validation exception.
+	 * Test stage 05 post aportar documentacio sollicitud GPA api param
+	 * validation exception.
 	 *
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	@Test
 	public void testStage05_PostAportarDocumentacioSollicitudGPAApiParamValidationException() throws Exception {
@@ -92,11 +93,12 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(body)).andExpect(status().isOk()).andDo(print());
 
 	}
-	
+
 	/**
 	 * Test stage 06 post aportar documentacio sollicitud exception.
 	 *
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	@Test
 	public void testStage06_PostAportarDocumentacioSollicitudException() throws Exception {
@@ -105,11 +107,12 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(body)).andExpect(status().isOk()).andDo(print());
 
 	}
-	
+
 	/**
 	 * Test stage 07 delete esborrar document.
 	 *
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	@Test
 	public void testStage07_DeleteEsborrarDocument() throws Exception {
@@ -117,11 +120,13 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 		getMockMvc().perform(delete(url).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(print());
 
 	}
-	
+
 	/**
-	 * Test stage 08 delete esborrar document GPA api param validation exception.
+	 * Test stage 08 delete esborrar document GPA api param validation
+	 * exception.
 	 *
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	@Test
 	public void testStage08_DeleteEsborrarDocumentGPAApiParamValidationException() throws Exception {
@@ -129,11 +134,12 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 		getMockMvc().perform(delete(url).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(print());
 
 	}
-	
+
 	/**
 	 * Test stage 09 delete esborrar document exception.
 	 *
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	@Test
 	public void testStage09_DeleteEsborrarDocumentException() throws Exception {
@@ -141,11 +147,12 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 		getMockMvc().perform(delete(url).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(print());
 
 	}
-	
+
 	/**
 	 * Test stage 10 post upload document sollicitud.
 	 *
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	@Test
 	public void testStage10_PostUploadDocumentSollicitud() throws Exception {
@@ -155,11 +162,13 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 				.andExpect(status().isOk()).andDo(print());
 
 	}
-	
+
 	/**
-	 * Test stage 11 post upload document sollicitud GPA api param validation exception.
+	 * Test stage 11 post upload document sollicitud GPA api param validation
+	 * exception.
 	 *
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	@Test
 	public void testStage11_PostUploadDocumentSollicitudGPAApiParamValidationException() throws Exception {
@@ -169,12 +178,12 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 				.andExpect(status().isOk()).andDo(print());
 
 	}
-	
-	
+
 	/**
 	 * Test stage 12 get descarregar document sollicitud.
 	 *
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	@Test
 	public void testStage12_GetDescarregarDocumentSollicitud() throws Exception {
@@ -182,12 +191,13 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 
 	}
-	
-	
+
 	/**
-	 * Test stage 13 get descarregar document sollicitud GPA api param validation exception.
+	 * Test stage 13 get descarregar document sollicitud GPA api param
+	 * validation exception.
 	 *
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	@Test
 	public void testStage13_GetDescarregarDocumentSollicitudGPAApiParamValidationException() throws Exception {
@@ -195,12 +205,12 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().is4xxClientError());
 
 	}
-	
-	
+
 	/**
 	 * Test stage 14 post substituir document sollicitud.
 	 *
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	@Test
 	public void testStage14_PostSubstituirDocumentSollicitud() throws Exception {
@@ -211,7 +221,18 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 				.andExpect(status().isOk()).andDo(print());
 
 	}
-	
-	
+
+	/**
+	 * Test stage 15 post actualitzar sollicitud.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test
+	public void testStage15_PostActualitzarSollicitud() throws Exception {
+		String url = BASE_URL + "/sollicituds/2";
+		String body = "{\"sollicitant\": {\"nomRaoSocial\": \"Hernán\",\"cognom1\": \"Pérez de Inestrosa\",\"cognom2\": \"Sánchez\",\"sexe\": \"HOME\",\"tipusPersona\": \"FISICA\",\"dadesNotificacio\": {\"bloc\": \"string\",\"codiPostal\": \"string\",\"email\": \"string\",\"escala\": \"string\",\"fax\": \"string\",\"mobil\": \"string\",\"municipi\": \"9045\",\"municipiEstranger\": \"9045\",\"nomVia\": \"string\",\"numero\": \"string\",\"pais\": \"108\",\"pis\": \"string\",\"porta\": \"string\",\"provincia\": \"008\",\"provinciaEstranger\": \"008\",\"telefon\": \"string\",\"tipusVia\": \"FAGEDA\"},\"documentIndentitat\": {\"numeroDocument\": \"05686723L\",\"pais\": \"108\",\"tipusDocument\": \"NIF\"}},\"representant\": {\"nomRaoSocial\": \"Rosa María\",\"cognom1\": \"Díaz\",\"cognom2\": \"Gómez\",\"sexe\": \"DONA\",\"tipusPersona\": \"FISICA\",\"dadesNotificacio\": {\"bloc\": \"string\", \"codiPostal\": \"string\",\"email\": \"string\",\"escala\": \"string\", \"fax\": \"string\",\"mobil\": \"string\",\"municipi\": \"9045\",\"municipiEstranger\": \"9045\",\"nomVia\": \"string\",\"numero\": \"string\",\"pais\": \"108\",\"pis\": \"string\",\"porta\": \"string\",\"provincia\": \"008\",\"provinciaEstranger\": \"008\",\"telefon\": \"string\",\"tipusVia\": \"FAGEDA\"},\"documentIndentitat\": {\"numeroDocument\": \"81322159R\",\"pais\": \"108\",\"tipusDocument\": \"NIF\"}},\"dadesOperacio\":[{\"codi\":\"DO\",\"valor\":[\"35\"]}]}";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(body)).andExpect(status().isOk()).andDo(print());
+	}
 
 }

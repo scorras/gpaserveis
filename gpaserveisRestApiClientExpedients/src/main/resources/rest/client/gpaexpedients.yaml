@@ -1469,6 +1469,39 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /sollicituds/actualitzarDadesSollicitudSollicituds:
+    post:
+      tags:
+      - "Sollicituds"
+      summary: "Actualitza les dades de la sol·licitud"
+      operationId: "actualitzarDadesSollicitudSollicituds"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "actualitzarDadesSollicitudSollicitudsRDTO"
+        description: "actualitzarDadesSollicitudSollicitudsRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/ActualitzarDadesSollicitudSollicituds"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/SollicitudsRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /sollicituds/associarRegistreSollicitud:
     post:
       tags:
@@ -1580,6 +1613,21 @@ definitions:
         type: "string"
         description: "Tipus de iniciació sollicitud"
     title: "ActualitzarDadesSollicitud"
+  ActualitzarDadesSollicitudSollicituds:
+    type: "object"
+    properties:
+      comentari:
+        type: "string"
+        description: "Comentari associat a l'operació"
+      dadesEspecifiques:
+        type: "array"
+        description: "Valors d'atributs de l'expedient"
+        items:
+          $ref: "#/definitions/DadesEspecifiquesRDTO"
+      sollicitud:
+        description: "Dades de la sol·licitud"
+        $ref: "#/definitions/SollicitudsRDTO"
+    title: "ActualitzarDadesSollicitudSollicituds"
   AcumularExpedientRDTO:
     type: "object"
     properties:
@@ -1685,10 +1733,12 @@ definitions:
   ConvidarTramitarRDTO:
     type: "object"
     properties:
+      codiUnitatGestoraList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DropdownItemBDTO"
       comentari:
         $ref: "#/definitions/Comentaris"
-      unitatGestoraConvidada:
-        $ref: "#/definitions/DropdownItemBDTO"
     title: "ConvidarTramitarRDTO"
   CrearRegistre:
     type: "object"
@@ -1711,10 +1761,6 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/DadesEspecifiquesValors"
-      dadesEspecifiquesValorsSollicitudList:
-        type: "array"
-        items:
-          $ref: "#/definitions/DadesEspecifiquesValors"
       expedient:
         type: "number"
       id:
@@ -1732,8 +1778,6 @@ definitions:
         type: "number"
       id:
         type: "number"
-      notEmpty:
-        type: "boolean"
       sollicitud:
         type: "number"
       valorBoolean:
@@ -1811,8 +1855,6 @@ definitions:
         type: "number"
       id:
         type: "number"
-      ugConvidadaIdext:
-        type: "number"
       unitatGestoraIdext:
         type: "number"
       usuari:
@@ -1845,6 +1887,14 @@ definitions:
       idEstatAnterior:
         type: "number"
     title: "EstatsRDTO"
+  EstatsUgConvidada:
+    type: "object"
+    properties:
+      estats:
+        type: "number"
+      ugConvidadaIdext:
+        type: "number"
+    title: "EstatsUgConvidada"
   ExpedientCanviEstat:
     type: "object"
     properties:
@@ -1998,8 +2048,10 @@ definitions:
         type: "number"
       tramitador:
         type: "string"
-      ugConvidadaIdext:
-        type: "number"
+      ugConvidadaIdextList:
+        type: "array"
+        items:
+          $ref: "#/definitions/EstatsUgConvidada"
       ultimaModificacio:
         type: "number"
       unitatGestoraIdext:

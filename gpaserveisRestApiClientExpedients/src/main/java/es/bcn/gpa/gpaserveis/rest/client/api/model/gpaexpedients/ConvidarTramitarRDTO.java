@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * ConvidarTramitarRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-11T09:54:05.532+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-18T12:33:39.502+01:00")
 public class ConvidarTramitarRDTO {
   @JsonProperty("codiUnitatGestoraList")
   private List<DropdownItemBDTO> codiUnitatGestoraList = null;

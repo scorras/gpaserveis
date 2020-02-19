@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 /**
  * PersonesSollicitudRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-14T12:29:56.498+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-18T12:33:39.502+01:00")
 public class PersonesSollicitudRDTO {
   @JsonProperty("editable")
   private Boolean editable = null;

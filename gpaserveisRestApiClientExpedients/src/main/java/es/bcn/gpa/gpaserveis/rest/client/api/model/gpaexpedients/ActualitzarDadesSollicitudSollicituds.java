@@ -18,33 +18,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ActualitzarDadesSollicitud
+ * ActualitzarDadesSollicitudSollicituds
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-18T12:33:39.502+01:00")
-public class ActualitzarDadesSollicitud {
+public class ActualitzarDadesSollicitudSollicituds {
   @JsonProperty("comentari")
   private String comentari = null;
 
   @JsonProperty("dadesEspecifiques")
   private List<DadesEspecifiquesRDTO> dadesEspecifiques = null;
 
-  @JsonProperty("esmena")
-  private Boolean esmena = null;
+  @JsonProperty("sollicitud")
+  private SollicitudsRDTO sollicitud = null;
 
-  @JsonProperty("expedient")
-  private ExpedientsRDTO expedient = null;
-
-  @JsonProperty("tipusIniciacio")
-  private String tipusIniciacio = null;
-
-  public ActualitzarDadesSollicitud comentari(String comentari) {
+  public ActualitzarDadesSollicitudSollicituds comentari(String comentari) {
     this.comentari = comentari;
     return this;
   }
@@ -62,12 +56,12 @@ public class ActualitzarDadesSollicitud {
     this.comentari = comentari;
   }
 
-  public ActualitzarDadesSollicitud dadesEspecifiques(List<DadesEspecifiquesRDTO> dadesEspecifiques) {
+  public ActualitzarDadesSollicitudSollicituds dadesEspecifiques(List<DadesEspecifiquesRDTO> dadesEspecifiques) {
     this.dadesEspecifiques = dadesEspecifiques;
     return this;
   }
 
-  public ActualitzarDadesSollicitud addDadesEspecifiquesItem(DadesEspecifiquesRDTO dadesEspecifiquesItem) {
+  public ActualitzarDadesSollicitudSollicituds addDadesEspecifiquesItem(DadesEspecifiquesRDTO dadesEspecifiquesItem) {
     if (this.dadesEspecifiques == null) {
       this.dadesEspecifiques = new ArrayList<DadesEspecifiquesRDTO>();
     }
@@ -88,58 +82,22 @@ public class ActualitzarDadesSollicitud {
     this.dadesEspecifiques = dadesEspecifiques;
   }
 
-  public ActualitzarDadesSollicitud esmena(Boolean esmena) {
-    this.esmena = esmena;
+  public ActualitzarDadesSollicitudSollicituds sollicitud(SollicitudsRDTO sollicitud) {
+    this.sollicitud = sollicitud;
     return this;
   }
 
    /**
-   * Indica si es tracta de la resposta a un requeriment
-   * @return esmena
+   * Dades de la sol·licitud
+   * @return sollicitud
   **/
-  @ApiModelProperty(value = "Indica si es tracta de la resposta a un requeriment")
-  public Boolean isEsmena() {
-    return esmena;
+  @ApiModelProperty(value = "Dades de la sol·licitud")
+  public SollicitudsRDTO getSollicitud() {
+    return sollicitud;
   }
 
-  public void setEsmena(Boolean esmena) {
-    this.esmena = esmena;
-  }
-
-  public ActualitzarDadesSollicitud expedient(ExpedientsRDTO expedient) {
-    this.expedient = expedient;
-    return this;
-  }
-
-   /**
-   * Dades de l&#39;expedient
-   * @return expedient
-  **/
-  @ApiModelProperty(value = "Dades de l'expedient")
-  public ExpedientsRDTO getExpedient() {
-    return expedient;
-  }
-
-  public void setExpedient(ExpedientsRDTO expedient) {
-    this.expedient = expedient;
-  }
-
-  public ActualitzarDadesSollicitud tipusIniciacio(String tipusIniciacio) {
-    this.tipusIniciacio = tipusIniciacio;
-    return this;
-  }
-
-   /**
-   * Tipus de iniciació sollicitud
-   * @return tipusIniciacio
-  **/
-  @ApiModelProperty(value = "Tipus de iniciació sollicitud")
-  public String getTipusIniciacio() {
-    return tipusIniciacio;
-  }
-
-  public void setTipusIniciacio(String tipusIniciacio) {
-    this.tipusIniciacio = tipusIniciacio;
+  public void setSollicitud(SollicitudsRDTO sollicitud) {
+    this.sollicitud = sollicitud;
   }
 
 
@@ -151,30 +109,26 @@ public class ActualitzarDadesSollicitud {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ActualitzarDadesSollicitud actualitzarDadesSollicitud = (ActualitzarDadesSollicitud) o;
-    return Objects.equals(this.comentari, actualitzarDadesSollicitud.comentari) &&
-        Objects.equals(this.dadesEspecifiques, actualitzarDadesSollicitud.dadesEspecifiques) &&
-        Objects.equals(this.esmena, actualitzarDadesSollicitud.esmena) &&
-        Objects.equals(this.expedient, actualitzarDadesSollicitud.expedient) &&
-        Objects.equals(this.tipusIniciacio, actualitzarDadesSollicitud.tipusIniciacio);
+    ActualitzarDadesSollicitudSollicituds actualitzarDadesSollicitudSollicituds = (ActualitzarDadesSollicitudSollicituds) o;
+    return Objects.equals(this.comentari, actualitzarDadesSollicitudSollicituds.comentari) &&
+        Objects.equals(this.dadesEspecifiques, actualitzarDadesSollicitudSollicituds.dadesEspecifiques) &&
+        Objects.equals(this.sollicitud, actualitzarDadesSollicitudSollicituds.sollicitud);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comentari, dadesEspecifiques, esmena, expedient, tipusIniciacio);
+    return Objects.hash(comentari, dadesEspecifiques, sollicitud);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ActualitzarDadesSollicitud {\n");
+    sb.append("class ActualitzarDadesSollicitudSollicituds {\n");
     
     sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
     sb.append("    dadesEspecifiques: ").append(toIndentedString(dadesEspecifiques)).append("\n");
-    sb.append("    esmena: ").append(toIndentedString(esmena)).append("\n");
-    sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
-    sb.append("    tipusIniciacio: ").append(toIndentedString(tipusIniciacio)).append("\n");
+    sb.append("    sollicitud: ").append(toIndentedString(sollicitud)).append("\n");
     sb.append("}");
     return sb.toString();
   }
