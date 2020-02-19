@@ -1614,7 +1614,8 @@ public class ServeisRestControllerValidationHelper {
 	        throws GPAApiParamValidationException {
 		if (CollectionUtils.isNotEmpty(dadesSollicitudBDTOList)) {
 			for (DadesSollicitudBDTO dadesSollicitudBDTO : dadesSollicitudBDTOList) {
-				if (dadesSollicitudBDTO.getSollicitudsRDTO().getRegistre() != null) {
+				if (dadesSollicitudBDTO.getSollicitudsRDTO().getDataPresentacio() == null
+				        && dadesSollicitudBDTO.getSollicitudsRDTO().getRegistre() == null) {
 					throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_SOLLICITUDS_HI_HA_ESBORRANY);
 				}
 			}
