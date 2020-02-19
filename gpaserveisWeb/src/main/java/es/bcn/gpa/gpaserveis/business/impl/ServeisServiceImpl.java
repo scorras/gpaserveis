@@ -71,6 +71,7 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioRequeritsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaProcedimentsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
@@ -1061,7 +1062,7 @@ public class ServeisServiceImpl implements ServeisService {
 			marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 
 			JAXBElement<SollicitudConsultaRDTO> jaxbElement = new JAXBElement<SollicitudConsultaRDTO>(new QName(null, "sollicitud"),
-			        SollicitudConsultaRDTO.class, sollicitudConsultaRDTO);
+					SollicitudConsultaRDTO.class, sollicitudConsultaRDTO);
 			stringWriter = new StringWriter();
 			marshaller.marshal(jaxbElement, stringWriter);
 		} catch (JAXBException e) {
@@ -1964,6 +1965,12 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public void guardarDadesEspecifiquesSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException {
 		expedientsService.guardarDadesEspecifiquesSollicitud(idSollicitud);
+	}
+
+	@Override
+	public SollicitudsRDTO actualitzarDadesSollicitudSollicituds(SollicitudsActualitzarBDTO sollicitudsActualitzarBDTO)
+			throws GPAServeisServiceException {
+		return sollicitudsService.actualitzarDadesSollicitudSollicituds(sollicitudsActualitzarBDTO);
 	}
 
 }

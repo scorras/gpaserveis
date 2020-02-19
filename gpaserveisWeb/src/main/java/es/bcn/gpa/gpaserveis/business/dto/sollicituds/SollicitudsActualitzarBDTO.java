@@ -1,6 +1,6 @@
 package es.bcn.gpa.gpaserveis.business.dto.sollicituds;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitudSollicituds;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,5 +14,5 @@ import lombok.Setter;
 public class SollicitudsActualitzarBDTO {
 
 	/** The actualitzar dades sollicitud. */
-	private ActualitzarDadesSollicitud actualitzarDadesSollicitud;
+	private ActualitzarDadesSollicitudSollicituds actualitzarDadesSollicitudSollicituds;
 }

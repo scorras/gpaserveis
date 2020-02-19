@@ -10,6 +10,7 @@ import org.springframework.web.client.RestClientException;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import es.bcn.gpa.gpaserveis.business.SollicitudsService;
+import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.business.handler.ServeisServiceExceptionHandler;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.SollicitudsApi;
@@ -70,6 +71,37 @@ public class SollicitudsServiceImpl implements SollicitudsService {
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackConsultarSollicitudsExpedient(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+		}
+		ServeisServiceExceptionHandler.handleException(e);
+		return null;
+	}
+
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackActualitzarDadesSollicitudSollicituds")
+	public SollicitudsRDTO actualitzarDadesSollicitudSollicituds(SollicitudsActualitzarBDTO sollicitudsActualitzarBDTO)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarSollicitudsExpedient(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+		try {
+			SollicitudsRDTO sollicitudsRDTO = sollicitudsApi
+					.actualitzarDadesSollicitudSollicituds(sollicitudsActualitzarBDTO.getActualitzarDadesSollicitudSollicituds());
+
+			if (log.isDebugEnabled()) {
+				log.debug("consultarSollicitudsExpedient(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			return sollicitudsRDTO;
+		} catch (RestClientException e) {
+			log.error("consultarSollicitudsExpedient(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	public SollicitudsRDTO fallbackActualitzarDadesSollicitudSollicituds(SollicitudsActualitzarBDTO sollicitudsActualitzarBDTO, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackActualitzarDadesSollicitudSollicituds(SollicitudsActualitzarBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
 		ServeisServiceExceptionHandler.handleException(e);
 		return null;

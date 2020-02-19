@@ -43,16 +43,16 @@ public class DadesEspecifiquesApiTest extends ParentTest {
 
 	@InjectMocks
 	private DadesEspecifiquesApi api = new DadesEspecifiquesApi();
-
-	/**
+    
+    /**
 	 * Returns the requested dades especifiques by Sol·licitud
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
 	public void consultarDadesEspecifiquesSollicitudTest() {
 		when(apiClient.invokeAPI(eq("/expedients/dadesEspecifiques/sollicitud/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
@@ -62,17 +62,17 @@ public class DadesEspecifiquesApiTest extends ParentTest {
 		List<DadesEspecifiquesRDTO> response = api.consultarDadesEspecifiquesSollicitud(idSollicitud);
 
 		assertTrue(response != null);
-	}
-
-	/**
+    }
+    
+    /**
 	 * Returns the requested dades especifiques
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
 	public void consultarDadesEspecifiquesExpedientTest() {
 		when(apiClient.invokeAPI(eq("/expedients/dadesEspecifiques/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),

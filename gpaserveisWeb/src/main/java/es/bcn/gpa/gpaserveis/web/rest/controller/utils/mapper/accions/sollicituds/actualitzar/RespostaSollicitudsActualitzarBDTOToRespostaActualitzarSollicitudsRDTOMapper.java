@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsActualitzarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaSollicitudsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToResultatRespostaConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToExpedientAccioConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar.RespostaActualitzarExpedientRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.sollicitud.InternalToSollicitudAccioConverter;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.actualitzar.RespostaActualitzarSollicitudRDTO;
 
 /**
  * The Class
@@ -16,17 +16,17 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actu
  */
 @Component("respostaSollicitudsActualitzarBDTOToRespostaActualitzarSollicitudsRDTOMapper")
 public class RespostaSollicitudsActualitzarBDTOToRespostaActualitzarSollicitudsRDTOMapper
-		extends PropertyMap<RespostaExpedientsActualitzarBDTO, RespostaActualitzarExpedientRDTO> {
+		extends PropertyMap<RespostaSollicitudsActualitzarBDTO, RespostaActualitzarSollicitudRDTO> {
 
-	private InternalToExpedientAccioConverter internalToExpedientAccioConverter;
+	private InternalToSollicitudAccioConverter internalToSollicitudAccioConverter;
 
 	private InternalToResultatRespostaConverter internalToResultatRespostaConverter;
 
 	@Autowired
 	public RespostaSollicitudsActualitzarBDTOToRespostaActualitzarSollicitudsRDTOMapper(
-			@Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
+			@Qualifier("sollicitudInternalToSollicitudAccioConverter") InternalToSollicitudAccioConverter internalToSollicitudAccioConverter,
 			@Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
-		this.internalToExpedientAccioConverter = internalToExpedientAccioConverter;
+		this.internalToSollicitudAccioConverter = internalToSollicitudAccioConverter;
 		this.internalToResultatRespostaConverter = internalToResultatRespostaConverter;
 	}
 
@@ -37,7 +37,7 @@ public class RespostaSollicitudsActualitzarBDTOToRespostaActualitzarSollicitudsR
 	 */
 	@Override
 	protected void configure() {
-		using(internalToExpedientAccioConverter).map(source.getExpedientsRDTO()).setExpedient(null);
+		using(internalToSollicitudAccioConverter).map(source.getSollicitudsRDTO()).setSollicitud(null);
 		using(internalToResultatRespostaConverter).map(source.getRespostaResultatBDTO()).setResultat(null);
 	}
 

@@ -3,6 +3,7 @@ package es.bcn.gpa.gpaserveis.business;
 import java.math.BigDecimal;
 import java.util.List;
 
+import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 
@@ -22,4 +23,6 @@ public interface SollicitudsService {
 	 */
 	List<SollicitudsRDTO> consultarSollicitudsExpedient(BigDecimal idExpedient) throws GPAServeisServiceException;
 
+	SollicitudsRDTO actualitzarDadesSollicitudSollicituds(SollicitudsActualitzarBDTO sollicitudsActualitzarBDTO)
+			throws GPAServeisServiceException;
 }
