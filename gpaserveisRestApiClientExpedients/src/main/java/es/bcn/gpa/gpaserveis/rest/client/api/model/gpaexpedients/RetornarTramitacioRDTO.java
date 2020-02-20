@@ -20,14 +20,20 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Comentaris;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * RetornarTramitacioRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-11T14:01:14.556+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-19T13:09:48.036+01:00")
 public class RetornarTramitacioRDTO {
   @JsonProperty("comentari")
   private Comentaris comentari = null;
+
+  @JsonProperty("llistaUGConvidadas")
+  private List<BigDecimal> llistaUGConvidadas = null;
 
   public RetornarTramitacioRDTO comentari(Comentaris comentari) {
     this.comentari = comentari;
@@ -47,6 +53,32 @@ public class RetornarTramitacioRDTO {
     this.comentari = comentari;
   }
 
+  public RetornarTramitacioRDTO llistaUGConvidadas(List<BigDecimal> llistaUGConvidadas) {
+    this.llistaUGConvidadas = llistaUGConvidadas;
+    return this;
+  }
+
+  public RetornarTramitacioRDTO addLlistaUGConvidadasItem(BigDecimal llistaUGConvidadasItem) {
+    if (this.llistaUGConvidadas == null) {
+      this.llistaUGConvidadas = new ArrayList<BigDecimal>();
+    }
+    this.llistaUGConvidadas.add(llistaUGConvidadasItem);
+    return this;
+  }
+
+   /**
+   * Get llistaUGConvidadas
+   * @return llistaUGConvidadas
+  **/
+  @ApiModelProperty(value = "")
+  public List<BigDecimal> getLlistaUGConvidadas() {
+    return llistaUGConvidadas;
+  }
+
+  public void setLlistaUGConvidadas(List<BigDecimal> llistaUGConvidadas) {
+    this.llistaUGConvidadas = llistaUGConvidadas;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -57,12 +89,13 @@ public class RetornarTramitacioRDTO {
       return false;
     }
     RetornarTramitacioRDTO retornarTramitacioRDTO = (RetornarTramitacioRDTO) o;
-    return Objects.equals(this.comentari, retornarTramitacioRDTO.comentari);
+    return Objects.equals(this.comentari, retornarTramitacioRDTO.comentari) &&
+        Objects.equals(this.llistaUGConvidadas, retornarTramitacioRDTO.llistaUGConvidadas);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comentari);
+    return Objects.hash(comentari, llistaUGConvidadas);
   }
 
 
@@ -72,6 +105,7 @@ public class RetornarTramitacioRDTO {
     sb.append("class RetornarTramitacioRDTO {\n");
     
     sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
+    sb.append("    llistaUGConvidadas: ").append(toIndentedString(llistaUGConvidadas)).append("\n");
     sb.append("}");
     return sb.toString();
   }

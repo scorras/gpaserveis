@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * RespostaCanviarEstatAccioExpedient
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-11T14:01:14.556+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-19T13:09:48.036+01:00")
 public class RespostaCanviarEstatAccioExpedient {
   @JsonProperty("expedient")
   private ExpedientCanviarEstat expedient = null;

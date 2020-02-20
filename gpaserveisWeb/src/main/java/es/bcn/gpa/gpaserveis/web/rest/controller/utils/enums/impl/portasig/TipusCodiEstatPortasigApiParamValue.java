@@ -20,7 +20,10 @@ public enum TipusCodiEstatPortasigApiParamValue implements BaseApiParamValue {
 	RETORNADA("RETORNADA", BigDecimal.valueOf(3)),
 
 	/** The caducada. */
-	CADUCADA("CADUCADA", BigDecimal.valueOf(4));
+	CADUCADA("CADUCADA", BigDecimal.valueOf(4)),
+
+	/** The signada. */
+	SIGNADA("SIGNADA", BigDecimal.valueOf(5));
 
 	/** The api param value. */
 	private String apiParamValue;

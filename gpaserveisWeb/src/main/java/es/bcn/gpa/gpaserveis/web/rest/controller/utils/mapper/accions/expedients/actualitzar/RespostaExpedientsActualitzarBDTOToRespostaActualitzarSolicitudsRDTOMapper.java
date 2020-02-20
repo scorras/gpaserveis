@@ -3,7 +3,6 @@ package es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.accions.expedient
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToResultatRespostaConverter;
@@ -14,7 +13,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actu
  * The Class
  * RespostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDTOMapper.
  */
-@Component("respostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDTOMapper")
+// @Component("respostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDTOMapper")
 public class RespostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDTOMapper
         extends PropertyMap<RespostaExpedientsActualitzarBDTO, RespostaActualitzarExpedientRDTO> {
 

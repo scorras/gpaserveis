@@ -19,6 +19,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.Inter
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToPersonaListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToProcedimentConsultaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToRegistreConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToTramitOvtListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.ExpedientConsultaRDTO;
 
@@ -70,6 +71,9 @@ public class DadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 	/** The internal to codi converter. */
 	private InternalToCodiConverter internalToCodiConverter;
 
+	/** The internal to tramit ovt list converter. */
+	private InternalToTramitOvtListConverter internalToTramitOvtListConverter;
+
 	/**
 	 * Instantiates a new dades expedient BDTO to expedients consulta RDTO
 	 * mapper.
@@ -92,12 +96,18 @@ public class DadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 	 *            the internal to persona list converter
 	 * @param internalToAccioCiutadaListConverter
 	 *            the internal to accio ciutada list converter
-	 * @param internalToDocumentAportatListConverter
-	 *            the internal to document aportat list converter
+	 * @param internalToDocumentAportatConsultaListConverter
+	 *            the internal to document aportat consulta list converter
 	 * @param internalToDocumentsEntradaRequeritsListConverter
 	 *            the internal to documents entrada requerits list converter
 	 * @param internalToDadesOperacioListConverter
 	 *            the internal to dades operacio list converter
+	 * @param internalToDadesAtributsRequeritsListConverter
+	 *            the internal to dades atributs requerits list converter
+	 * @param internalToCodiConverter
+	 *            the internal to codi converter
+	 * @param internalToTramitOvtListConverter
+	 *            the internal to tramit ovt list converter
 	 */
 	@Autowired
 	public DadesExpedientBDTOToExpedientsConsultaRDTOMapper(
@@ -114,7 +124,8 @@ public class DadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 			@Qualifier("expedientInternalToDocumentsEntradaRequeritsListConverter") InternalToDocumentsEntradaRequeritsListConverter internalToDocumentsEntradaRequeritsListConverter,
 			@Qualifier("expedientInternalToDadesOperacioListConverter") InternalToDadesOperacioListConverter internalToDadesOperacioListConverter,
 			@Qualifier("expedientInternalToDadesAtributsRequeritsListConverter") InternalToDadesAtributsRequeritsListConverter internalToDadesAtributsRequeritsListConverter,
-			@Qualifier("expedientInternalToCodiConverter") InternalToCodiConverter internalToCodiConverter) {
+			@Qualifier("expedientInternalToCodiConverter") InternalToCodiConverter internalToCodiConverter,
+			@Qualifier("procedimentInternalToTramitOvtListConverter") InternalToTramitOvtListConverter internalToTramitOvtListConverter) {
 		this.internalToDataHoraConverter = internalToDataHoraConverter;
 		this.internalToUnitatGestoraConverter = internalToUnitatGestoraConverter;
 		this.internalToEstatCiutadaConverter = internalToEstatCiutadaConverter;
@@ -129,6 +140,7 @@ public class DadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 		this.internalToDadesOperacioListConverter = internalToDadesOperacioListConverter;
 		this.internalToDadesAtributsRequeritsListConverter = internalToDadesAtributsRequeritsListConverter;
 		this.internalToCodiConverter = internalToCodiConverter;
+		this.internalToTramitOvtListConverter = internalToTramitOvtListConverter;
 	}
 
 	/**
@@ -162,6 +174,7 @@ public class DadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 		using(internalToDadesOperacioListConverter).map(source.getDadesOperacio()).setDadesOperacio(null);
 		using(internalToDocumentsEntradaRequeritsListConverter).map(source).setConfiguracioDocumentacioRequerida(null);
 		using(internalToDadesAtributsRequeritsListConverter).map(source).setAtributsRequerits(null);
+		using(internalToTramitOvtListConverter).map(source.getSollicituds()).setSollicituds(null);
 	}
 
 }

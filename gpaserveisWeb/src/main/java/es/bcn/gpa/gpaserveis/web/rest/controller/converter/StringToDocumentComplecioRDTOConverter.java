@@ -1,6 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.converter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ public class StringToDocumentComplecioRDTOConverter implements Converter<String,
 	public DocumentComplecioRDTO convert(String from) {
 		DocumentComplecioRDTO documentComplecioRDTO = null;
 		try {
-			documentComplecioRDTO = new ObjectMapper().readValue(from.getBytes(), DocumentComplecioRDTO.class);
+			documentComplecioRDTO = new ObjectMapper().readValue(from.getBytes(StandardCharsets.UTF_8), DocumentComplecioRDTO.class);
 		} catch (IOException e) {
 			throw new GPAServeisRuntimeException(e);
 		}
