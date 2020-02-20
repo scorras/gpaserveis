@@ -339,7 +339,7 @@ public class ExpedientsServiceImplTest extends RestServerParentTest {
 		convidarTramitarRDTO.setComentari(comentari);
 
 		ExpedientsConvidarTramitarBDTO expedientsConvidarTramitarBDTO = new ExpedientsConvidarTramitarBDTO(new BigDecimal(1),
-				convidarTramitarRDTO);
+		        convidarTramitarRDTO);
 
 		expedientsService.convidarTramitarExpedient(expedientsConvidarTramitarBDTO);
 		assertTrue(true);

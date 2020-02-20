@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.17.0"
+  version: "1.18.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -662,6 +662,44 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /serveis/portal/expedients/{codiExpedient}/sollicituds:
+    post:
+      tags:
+      - "Serveis Portal API"
+      summary: "Crear una sol·licitud"
+      operationId: "crearSolicitudUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codiExpedient"
+        in: "path"
+        description: "Codi de l'expedient"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "sollicitudCrearRDTO"
+        description: "Dades de la creació de la sol·licitud"
+        required: false
+        schema:
+          $ref: "#/definitions/ExpedientCrear"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaCrearSolicitud"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /serveis/portal/expedients/{codiExpedient}/{accio}:
     post:
       tags:
@@ -1020,6 +1058,325 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/RespostaConsultaConfiguracioDocumentacioAportada"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /serveis/portal/sollicituds/{idSollicitud}:
+    get:
+      tags:
+      - "Serveis Portal API"
+      summary: "Consultar les dades de la sol·licitud"
+      operationId: "consultarDadesSollicitudUsingGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "idSollicitud"
+        in: "path"
+        description: "Identificador de la sol·licitud"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaConsultaSollicituds"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+    post:
+      tags:
+      - "Serveis Portal API"
+      summary: "Actualitzar dades de la sol·licitud de la sol·licitud"
+      operationId: "actualitzarSollicitudUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "idSollicitud"
+        in: "path"
+        description: "Codi de l'expedient"
+        required: true
+        type: "number"
+      - in: "body"
+        name: "sollicitudActualitzar"
+        description: "Dades de la actualització de l'expedient"
+        required: false
+        schema:
+          $ref: "#/definitions/SollicitudActualitzar"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaActualitzarSollicitud"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /serveis/portal/sollicituds/{idSollicitud}/documentacio:
+    post:
+      tags:
+      - "Serveis Portal API"
+      summary: "Aportar documentació a la sol·licitud"
+      operationId: "aportarDocumentacioSollicitudUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "documentacioAportar"
+        description: "Dades de la creació del document"
+        required: false
+        schema:
+          $ref: "#/definitions/DocumentacioAportar"
+      - name: "idSollicitud"
+        in: "path"
+        description: "Codi de la sol·licitud"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaAportarDocumentSollicitud"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /serveis/portal/sollicituds/{idSollicitud}/documentacio/{idDocument}:
+    get:
+      tags:
+      - "Serveis Portal API"
+      summary: "Descarregar document de la sol·licitud"
+      operationId: "descarregarDocumentSollicitudUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDocument"
+        in: "path"
+        description: "Identificador del document"
+        required: true
+        type: "number"
+      - name: "idSollicitud"
+        in: "path"
+        description: "Id de la sol·licitud"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "string"
+            format: "byte"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+    delete:
+      tags:
+      - "Serveis Portal API"
+      summary: "Esborrar un document de la sollicitud"
+      operationId: "esborrarDocumentUsingDELETE_1"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "idDocument"
+        in: "path"
+        description: "Identificador del document"
+        required: true
+        type: "number"
+      - name: "idSollicitud"
+        in: "path"
+        description: "Identificador de la sol·licitud"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaEsborrarDocumentSollicitud"
+        204:
+          description: "No Content"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /serveis/portal/sollicituds/{idSollicitud}/documentacio/{idDocument}/substituir:
+    post:
+      tags:
+      - "Serveis Portal API"
+      summary: "Substituir les dades d'un document de la sol·licitud"
+      operationId: "substituirDocumentSollicitudUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "documentSubstituir"
+        description: "Dades de la versió del document"
+        required: false
+        schema:
+          $ref: "#/definitions/DocumentAportatSubstituir"
+      - name: "idDocument"
+        in: "path"
+        description: "Identificador del document"
+        required: true
+        type: "number"
+      - name: "idSollicitud"
+        in: "path"
+        description: "Id de la sol·licitud"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostSubstituirDocument"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /serveis/portal/sollicituds/{idSollicitud}/documentacio/{idDocument}/upload:
+    post:
+      tags:
+      - "Serveis Portal API"
+      summary: "Pujar el contingut d'un document de la sol·licitud al gestor documental"
+      operationId: "uploadDocumentSollicitudUsingPOST"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "file"
+        in: "formData"
+        description: "Fitxer"
+        required: false
+        type: "file"
+      - name: "idDocument"
+        in: "path"
+        description: "Identificador del document"
+        required: true
+        type: "number"
+      - name: "idGestorDocumental"
+        in: "formData"
+        description: "idGestorDocumental"
+        required: false
+        type: "string"
+      - name: "idSollicitud"
+        in: "path"
+        description: "Id de la sol·licitud"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaUploadDocumentSollicitud"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /serveis/portal/sollicituds/{idSollicitud}/registre:
+    post:
+      tags:
+      - "Serveis Portal API"
+      summary: "Registrar la sol·licitud"
+      operationId: "registrarSolicitudUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "idSollicitud"
+        in: "path"
+        description: "Id de sollicitud"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaRegistrarSollicitud"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /serveis/portal/sollicituds/{idSollicitud}/report/exportacio-xml:
+    get:
+      tags:
+      - "Serveis Portal API"
+      summary: "Exporta les dades de la sol·licitud en format XML"
+      operationId: "exportarDadesSollicitudXmlUsingGET"
+      produces:
+      - "text/plain"
+      parameters:
+      - name: "idSollicitud"
+        in: "path"
+        description: "Identificador de la sol·licitud"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "string"
         401:
           description: "Unauthorized"
         403:
@@ -2821,6 +3178,30 @@ definitions:
         type: "string"
         description: "Títol de l'atribut en castellà"
     title: "AtributsRequerits"
+  AtributsSollicitud:
+    type: "object"
+    properties:
+      codi:
+        type: "string"
+        xml:
+          name: "codi"
+          attribute: false
+          wrapped: false
+        description: "Codi de l'atribut"
+      valor:
+        type: "array"
+        xml:
+          name: "valors"
+          attribute: false
+          wrapped: true
+        description: "Llista de valors de l'atribut"
+        items:
+          type: "string"
+    title: "AtributsSollicitud"
+    xml:
+      name: "dadaOperacio"
+      attribute: false
+      wrapped: false
   ComentariPerAInformacioPublica:
     type: "object"
     required:
@@ -2842,15 +3223,31 @@ definitions:
     properties:
       codi:
         type: "string"
+        xml:
+          name: "codi"
+          attribute: false
+          wrapped: false
         description: "Codi del document"
       codiNti:
         type: "string"
+        xml:
+          name: "codiNti"
+          attribute: false
+          wrapped: false
         description: "Codi Nti del document"
       descripcio:
         type: "string"
+        xml:
+          name: "descripcio"
+          attribute: false
+          wrapped: false
         description: "Descripció del document"
       descripcioCastella:
         type: "string"
+        xml:
+          name: "descripcioCastella"
+          attribute: false
+          wrapped: false
         description: "Descripció del document en castellà"
     title: "ConfiguracioDocumentacio"
   ConfiguracioDocumentacioRequeridaConsulta:
@@ -2858,18 +3255,34 @@ definitions:
     properties:
       codi:
         type: "string"
+        xml:
+          name: "codi"
+          attribute: false
+          wrapped: false
         description: "Codi del document"
       codiNti:
         type: "string"
+        xml:
+          name: "codiNti"
+          attribute: false
+          wrapped: false
         description: "Codi Nti del document"
       descripcio:
         type: "string"
+        xml:
+          name: "descripcio"
+          attribute: false
+          wrapped: false
         description: "Descripció del document"
       descripcioAmpliada:
         type: "string"
         description: "Descripció ampliada del document"
       descripcioCastella:
         type: "string"
+        xml:
+          name: "descripcioCastella"
+          attribute: false
+          wrapped: false
         description: "Descripció del document en castellà"
       suportConfeccio:
         type: "string"
@@ -2883,23 +3296,43 @@ definitions:
         type: "string"
         description: "Enllaç document de suport per a la confecció del document"
     title: "ConfiguracioDocumentacioRequeridaConsulta"
+    xml:
+      name: "configuracioDocumentacio"
+      attribute: false
+      wrapped: false
   ConfiguracionDocumentacioAportadaConsulta:
     type: "object"
     properties:
       codi:
         type: "string"
+        xml:
+          name: "codi"
+          attribute: false
+          wrapped: false
         description: "Codi del document"
       codiNti:
         type: "string"
+        xml:
+          name: "codiNti"
+          attribute: false
+          wrapped: false
         description: "Codi Nti del document"
       descripcio:
         type: "string"
+        xml:
+          name: "descripcio"
+          attribute: false
+          wrapped: false
         description: "Descripció del document"
       descripcioAmpliada:
         type: "string"
         description: "Descripció ampliada del document"
       descripcioCastella:
         type: "string"
+        xml:
+          name: "descripcioCastella"
+          attribute: false
+          wrapped: false
         description: "Descripció del document en castellà"
       obligatori:
         type: "boolean"
@@ -2919,59 +3352,131 @@ definitions:
         type: "string"
         description: "Enllaç document de suport per a la confecció del document"
     title: "ConfiguracionDocumentacioAportadaConsulta"
+    xml:
+      name: "configuracioDocumentacio"
+      attribute: false
+      wrapped: false
   DadesContacte:
     type: "object"
     properties:
       bloc:
         type: "string"
+        xml:
+          name: "bloc"
+          attribute: false
+          wrapped: false
         description: "Bloc"
       codiPostal:
         type: "string"
+        xml:
+          name: "codiPostal"
+          attribute: false
+          wrapped: false
         description: "Codi Postal"
       email:
         type: "string"
+        xml:
+          name: "email"
+          attribute: false
+          wrapped: false
         description: "Email"
       escala:
         type: "string"
+        xml:
+          name: "escala"
+          attribute: false
+          wrapped: false
         description: "Escala"
       fax:
         type: "string"
+        xml:
+          name: "fax"
+          attribute: false
+          wrapped: false
         description: "Fax"
       mobil:
         type: "string"
+        xml:
+          name: "mobil"
+          attribute: false
+          wrapped: false
         description: "Telèfon mobil"
       municipi:
         type: "string"
+        xml:
+          name: "municipi"
+          attribute: false
+          wrapped: false
         description: "Codi INE del Municipi"
       municipiEstranger:
         type: "string"
+        xml:
+          name: "municipiEstranger"
+          attribute: false
+          wrapped: false
         description: "Municipi estranger"
       nomVia:
         type: "string"
+        xml:
+          name: "nomVia"
+          attribute: false
+          wrapped: false
         description: "Nom de la via"
       numero:
         type: "string"
+        xml:
+          name: "numero"
+          attribute: false
+          wrapped: false
         description: "Número"
       pais:
         type: "string"
+        xml:
+          name: "pais"
+          attribute: false
+          wrapped: false
         description: "Codi INE del Pais"
       pis:
         type: "string"
+        xml:
+          name: "pis"
+          attribute: false
+          wrapped: false
         description: "Pis"
       porta:
         type: "string"
+        xml:
+          name: "porta"
+          attribute: false
+          wrapped: false
         description: "Porta"
       provincia:
         type: "string"
+        xml:
+          name: "provincia"
+          attribute: false
+          wrapped: false
         description: "Codi INE de la Província"
       provinciaEstranger:
         type: "string"
+        xml:
+          name: "provinciaEstranger"
+          attribute: false
+          wrapped: false
         description: "Provincia estrangera"
       telefon:
         type: "string"
+        xml:
+          name: "telefon"
+          attribute: false
+          wrapped: false
         description: "Telèfon fixe"
       tipusVia:
         type: "string"
+        xml:
+          name: "tipusVia"
+          attribute: false
+          wrapped: false
         description: "Codi INE del tipus de via"
     title: "DadesContacte"
   DadesContacteNotificacio:
@@ -3172,11 +3677,19 @@ definitions:
     type: "object"
     properties:
       configuracioDocumentacio:
+        xml:
+          name: "configuracioDocumentacio"
+          attribute: false
+          wrapped: false
         description: "Categoria a la qual pertany el document"
         $ref: "#/definitions/ConfiguracioDocumentacio"
       dataPresentacio:
         type: "string"
-        description: "Data de presentació del document"
+        xml:
+          name: "dataPresentacio"
+          attribute: false
+          wrapped: false
+        description: "Data de presentaciódel document"
       id:
         type: "number"
         description: "Id del document"
@@ -3188,24 +3701,44 @@ definitions:
         description: "Nom del document"
       origen:
         type: "string"
+        xml:
+          name: "origen"
+          attribute: false
+          wrapped: false
         description: "Origen del tipus de documentació."
         enum:
         - "INTERN"
         - "EXTERN"
       registre:
+        xml:
+          name: "registre"
+          attribute: false
+          wrapped: false
         description: "Registre del document"
         $ref: "#/definitions/Registre"
       revisio:
         type: "string"
+        xml:
+          name: "revisio"
+          attribute: false
+          wrapped: false
         description: "Estat de revisió del document"
         enum:
         - "CORRECTE"
         - "INCORRECTE"
         - "PENDENT"
       tramit:
+        xml:
+          name: "tramit"
+          attribute: false
+          wrapped: false
         description: "Tràmit"
         $ref: "#/definitions/TramitsOvt"
     title: "DocumentAportatConsulta"
+    xml:
+      name: "document"
+      attribute: false
+      wrapped: false
   DocumentAportatCrear:
     type: "object"
     required:
@@ -3436,12 +3969,24 @@ definitions:
     properties:
       numeroDocument:
         type: "string"
+        xml:
+          name: "numeroDocument"
+          attribute: false
+          wrapped: false
         description: "Número de document d'identitat de la persona"
       pais:
         type: "string"
+        xml:
+          name: "pais"
+          attribute: false
+          wrapped: false
         description: "Codi INE del país del document d'identitat de la persona"
       tipusDocument:
         type: "string"
+        xml:
+          name: "tipusDocument"
+          attribute: false
+          wrapped: false
         description: "Tipus de document d'identitat de la persona"
         enum:
         - "NIF"
@@ -3652,9 +4197,17 @@ definitions:
     properties:
       codi:
         type: "string"
+        xml:
+          name: "codi"
+          attribute: false
+          wrapped: false
         description: "Codi identificador de l'expedient"
       id:
         type: "number"
+        xml:
+          name: "id"
+          attribute: false
+          wrapped: false
         description: "Identificador de l'expedient"
     title: "ExpedientAccio"
   ExpedientAccioPausar:
@@ -3662,6 +4215,10 @@ definitions:
     properties:
       codi:
         type: "string"
+        xml:
+          name: "codi"
+          attribute: false
+          wrapped: false
         description: "Codi identificador de l'expedient"
       dataLimit:
         type: "string"
@@ -3671,21 +4228,41 @@ definitions:
         description: "Estat actual del expedient"
       id:
         type: "number"
+        xml:
+          name: "id"
+          attribute: false
+          wrapped: false
         description: "Identificador de l'expedient"
     title: "ExpedientAccioPausar"
+    xml:
+      name: "expedient"
+      attribute: false
+      wrapped: false
   ExpedientAccioUnitatGestora:
     type: "object"
     properties:
       codi:
         type: "string"
+        xml:
+          name: "codi"
+          attribute: false
+          wrapped: false
         description: "Codi identificador de l'expedient"
       id:
         type: "number"
+        xml:
+          name: "id"
+          attribute: false
+          wrapped: false
         description: "Identificador de l'expedient"
       unitatGestora:
         description: "Unitat Gestora de l'Expedient"
         $ref: "#/definitions/UnitatGestoraAccio"
     title: "ExpedientAccioUnitatGestora"
+    xml:
+      name: "expedient"
+      attribute: false
+      wrapped: false
   ExpedientActualitzar:
     type: "object"
     required:
@@ -3851,6 +4428,11 @@ definitions:
       sollicitant:
         description: "Sol·licitant principal de l'expedient"
         $ref: "#/definitions/Persona"
+      sollicituds:
+        type: "array"
+        description: "Sol·licituds de l'expedient"
+        items:
+          $ref: "#/definitions/SollicitudsExpedient"
       unitatGestora:
         description: "Unitat gestora"
         $ref: "#/definitions/UnitatGestora"
@@ -3872,21 +4454,23 @@ definitions:
   ExpedientCrear:
     type: "object"
     required:
-    - "procediment"
+    - "codiTramit"
     - "sollicitant"
     properties:
-      procediment:
-        description: "Procediment associat a la sol·licitud"
-        $ref: "#/definitions/ProcedimentExpedientCrear"
+      codiTramit:
+        type: "string"
+        description: "Codi Tramit OVT relacionat a la sol·licitud"
+        enum:
+        - "SOL"
+        - "APO"
+        - "REQ"
+        - "ALE"
       representant:
         description: "Persona representant"
         $ref: "#/definitions/Persona"
       sollicitant:
         description: "Persona sol·licitant"
         $ref: "#/definitions/Persona"
-      unitatGestora:
-        description: "Unitat Gestora que tramitarà inicialment la sol·licitud"
-        $ref: "#/definitions/UnitatGestoraExpedientCrear"
     title: "ExpedientCrear"
   ExpedientDocumentSignat:
     type: "object"
@@ -3971,6 +4555,11 @@ definitions:
       comentari:
         type: "string"
         description: "Comentari associat al retorn."
+      llistaUGConvidadas:
+        type: "array"
+        description: "llista de ug convidadas a eliminar"
+        items:
+          type: "number"
     title: "ExpedientRetorn"
   ExpedientRevisar:
     type: "object"
@@ -4356,21 +4945,57 @@ definitions:
     properties:
       cognom1:
         type: "string"
+        xml:
+          name: "cognom1"
+          attribute: false
+          wrapped: false
         description: "Cognom 1 de la persona"
       cognom2:
         type: "string"
+        xml:
+          name: "cognom2"
+          attribute: false
+          wrapped: false
         description: "Cognom 2 de la persona"
       dadesNotificacio:
+        xml:
+          name: "dadesNotificacio"
+          attribute: false
+          wrapped: false
         description: "Dades de notificació de la persona"
         $ref: "#/definitions/DadesContacte"
       documentIndentitat:
+        xml:
+          name: "documentIndentitat"
+          attribute: false
+          wrapped: false
         description: "Document d'identitat de la persona"
         $ref: "#/definitions/DocumentIdentitat"
       nomRaoSocial:
         type: "string"
+        xml:
+          name: "nomRaoSocial"
+          attribute: false
+          wrapped: false
         description: "Nom o raó social de la persona"
+      relacio:
+        type: "string"
+        xml:
+          name: "relacio"
+          attribute: false
+          wrapped: false
+        description: "Relacio de la persona"
+        enum:
+        - "SOLLICITANT"
+        - "REPRESENTANT"
+        - "TESTIMONI"
+        - "ALTRES"
       tipusPersona:
         type: "string"
+        xml:
+          name: "tipusPersona"
+          attribute: false
+          wrapped: false
         description: "Tipus de persona"
         enum:
         - "FISICA"
@@ -4568,11 +5193,23 @@ definitions:
     properties:
       dataRegistre:
         type: "string"
+        xml:
+          name: "dataRegistre"
+          attribute: false
+          wrapped: false
         description: "Data del registre"
       numRegistre:
         type: "string"
+        xml:
+          name: "numRegistre"
+          attribute: false
+          wrapped: false
         description: "Número del registre"
       persona:
+        xml:
+          name: "persona"
+          attribute: false
+          wrapped: false
         description: "Persona que ha efectuat el registre"
         $ref: "#/definitions/Persona"
     title: "Registre"
@@ -4607,12 +5244,12 @@ definitions:
       expedient:
         description: "Expedient del document"
         $ref: "#/definitions/ExpedientAccio"
-      registre:
-        description: "Registre del document"
-        $ref: "#/definitions/Registre"
       resultat:
         description: "Resultat de l'operació"
         $ref: "#/definitions/ResultatResposta"
+      sollicitud:
+        description: "Sollicitud del document"
+        $ref: "#/definitions/SollicitudAccio"
     title: "RespostSubstituirDocument"
   RespostaAbandonarExpedient:
     type: "object"
@@ -4644,6 +5281,19 @@ definitions:
         description: "Resultat de l'operació"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaActualitzarExpedient"
+  RespostaActualitzarSollicitud:
+    type: "object"
+    properties:
+      expedient:
+        description: "Expedient actualitzat"
+        $ref: "#/definitions/ExpedientAccio"
+      resultat:
+        description: "Resultat de l'operació"
+        $ref: "#/definitions/ResultatResposta"
+      sollicitud:
+        description: "Sollicitud actualitzat"
+        $ref: "#/definitions/SollicitudAccio"
+    title: "RespostaActualitzarSollicitud"
   RespostaAcumularExpedient:
     type: "object"
     properties:
@@ -4669,6 +5319,27 @@ definitions:
         description: "Resultat de l'operació"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaAnotarOperacioComptable"
+  RespostaAportarDocumentSollicitud:
+    type: "object"
+    properties:
+      documentacioAportada:
+        type: "array"
+        description: "Documentacio aportada a l'expedient"
+        items:
+          $ref: "#/definitions/DocumentAportatAccio"
+      expedient:
+        description: "Expedient del document"
+        $ref: "#/definitions/ExpedientAccio"
+      registre:
+        description: "Registre de la documentació"
+        $ref: "#/definitions/Registre"
+      resultat:
+        description: "Resultat de l'operació"
+        $ref: "#/definitions/ResultatResposta"
+      sollicitud:
+        description: "Sol·licitud del document"
+        $ref: "#/definitions/SollicitudAccio"
+    title: "RespostaAportarDocumentSollicitud"
   RespostaAportarDocumentacio:
     type: "object"
     properties:
@@ -4769,6 +5440,16 @@ definitions:
       procediment:
         $ref: "#/definitions/ProcedimentConsulta"
     title: "RespostaConsultaProcediments"
+  RespostaConsultaSollicituds:
+    type: "object"
+    properties:
+      resultat:
+        description: "Resultat de l'operació"
+        $ref: "#/definitions/ResultatResposta"
+      sollicitud:
+        description: "Sollicitud"
+        $ref: "#/definitions/SollicitudConsulta"
+    title: "RespostaConsultaSollicituds"
   RespostaConvidarTramitarExpedient:
     type: "object"
     properties:
@@ -4783,11 +5464,14 @@ definitions:
     type: "object"
     properties:
       expedient:
-        description: "Expedient creat en estat inicial"
+        description: "Sol·licitud creat en estat inicial"
         $ref: "#/definitions/ExpedientAccio"
       resultat:
         description: "Resultat de l'operació"
         $ref: "#/definitions/ResultatResposta"
+      sollicitud:
+        description: "Sol·licitud creat en estat inicial"
+        $ref: "#/definitions/SollicitudAccio"
     title: "RespostaCrearSolicitud"
   RespostaDadesOperacio:
     type: "object"
@@ -4838,6 +5522,22 @@ definitions:
         description: "Resultat de l'operació"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaEsborrarDocument"
+  RespostaEsborrarDocumentSollicitud:
+    type: "object"
+    properties:
+      document:
+        description: "Document esborrat"
+        $ref: "#/definitions/DocumentEsborratAccio"
+      expedient:
+        description: "Expedient del document"
+        $ref: "#/definitions/ExpedientAccio"
+      resultat:
+        description: "Resultat de l'operació"
+        $ref: "#/definitions/ResultatResposta"
+      sollicitud:
+        description: "Sol·licitud del document"
+        $ref: "#/definitions/SollicitudAccio"
+    title: "RespostaEsborrarDocumentSollicitud"
   RespostaEsmenarExpedient:
     type: "object"
     properties:
@@ -5065,6 +5765,26 @@ definitions:
         description: "Resultat de l'operació"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaRegistrarExpedient"
+  RespostaRegistrarSollicitud:
+    type: "object"
+    properties:
+      comprovant:
+        type: "number"
+        description: "Identificador del comprovant en PDF del registre del document\
+          \ incorporat"
+      expedient:
+        description: "Expedient"
+        $ref: "#/definitions/ExpedientAccio"
+      registre:
+        description: "Dades del registre de l'expedient"
+        $ref: "#/definitions/Registre"
+      resultat:
+        description: "Resultat de l'operació"
+        $ref: "#/definitions/ResultatResposta"
+      sollicitud:
+        description: "Sollicitud"
+        $ref: "#/definitions/SollicitudAccio"
+    title: "RespostaRegistrarSollicitud"
   RespostaResolucioValidarDocument:
     type: "object"
     properties:
@@ -5141,6 +5861,22 @@ definitions:
         description: "Resultat de l'operació"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaUploadDocument"
+  RespostaUploadDocumentSollicitud:
+    type: "object"
+    properties:
+      document:
+        description: "Upload document"
+        $ref: "#/definitions/DocumentAportatAccio"
+      expedient:
+        description: "Expedient del document"
+        $ref: "#/definitions/ExpedientAccio"
+      resultat:
+        description: "Resultat de l'operació"
+        $ref: "#/definitions/ResultatResposta"
+      sollicitud:
+        description: "Sol·licitud del document"
+        $ref: "#/definitions/SollicitudAccio"
+    title: "RespostaUploadDocumentSollicitud"
   RespostaValidarDocument:
     type: "object"
     properties:
@@ -5231,6 +5967,156 @@ definitions:
         type: "string"
         description: "Número de registre de la notificació."
     title: "RetornNotificacio"
+  SollicitudAccio:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+        description: "Identificador de la sol·licitud"
+      tipus:
+        type: "string"
+        description: "Tipus de la sol·licitud"
+    title: "SollicitudAccio"
+  SollicitudActualitzar:
+    type: "object"
+    properties:
+      dadesOperacio:
+        type: "array"
+        description: "Atributs"
+        items:
+          $ref: "#/definitions/AtributsActualitzar"
+      representant:
+        description: "Persona representant"
+        $ref: "#/definitions/Persona"
+      sollicitant:
+        description: "Persona sol·licitant"
+        $ref: "#/definitions/Persona"
+    title: "SollicitudActualitzar"
+  SollicitudConsulta:
+    type: "object"
+    properties:
+      comentari:
+        type: "string"
+        xml:
+          name: "comentari"
+          attribute: false
+          wrapped: false
+        description: "Comentari associat a la sol·licitud"
+      dadesOperacio:
+        type: "array"
+        xml:
+          name: "dadesOperacio"
+          attribute: false
+          wrapped: true
+        description: "Dades d'operació de la sol·licitud"
+        items:
+          $ref: "#/definitions/AtributsSollicitud"
+      dataPresentacio:
+        type: "string"
+        xml:
+          name: "dataPresentacio"
+          attribute: false
+          wrapped: false
+        description: "Data de presentació de la sol·licitud"
+      dataSollicitud:
+        type: "string"
+        xml:
+          name: "dataSollicitud"
+          attribute: false
+          wrapped: false
+        description: "Data de recepció de la sol·licitud"
+      documentsAportats:
+        type: "array"
+        xml:
+          name: "documentsAportats"
+          attribute: false
+          wrapped: true
+        description: "Documents aportats a la sol·licitud"
+        items:
+          $ref: "#/definitions/DocumentAportatConsulta"
+      expedient:
+        xml:
+          name: "expedient"
+          attribute: false
+          wrapped: false
+        description: "Expedient objecte de la sol·licitud"
+        $ref: "#/definitions/ExpedientAccio"
+      id:
+        type: "number"
+        xml:
+          name: "id"
+          attribute: false
+          wrapped: false
+        description: "Identificador de la sol·licitud"
+      personesImplicades:
+        type: "array"
+        xml:
+          name: "personesImplicades"
+          attribute: false
+          wrapped: true
+        description: "Persones implicades"
+        items:
+          $ref: "#/definitions/Persona"
+      personesInteressades:
+        type: "array"
+        xml:
+          name: "personesInteressades"
+          attribute: false
+          wrapped: true
+        description: "Altres persones interessades"
+        items:
+          $ref: "#/definitions/Persona"
+      registre:
+        xml:
+          name: "registre"
+          attribute: false
+          wrapped: false
+        description: "Registre de la sol·licitud"
+        $ref: "#/definitions/Registre"
+      representant:
+        xml:
+          name: "representant"
+          attribute: false
+          wrapped: false
+        description: "Representant principal de la sol·licitud"
+        $ref: "#/definitions/Persona"
+      sollicitant:
+        xml:
+          name: "sollicitant"
+          attribute: false
+          wrapped: false
+        description: "Sol·licitant principal de la sol·licitud"
+        $ref: "#/definitions/Persona"
+      tramit:
+        xml:
+          name: "tramit"
+          attribute: false
+          wrapped: false
+        description: "Dades del tràmit"
+        $ref: "#/definitions/TramitsOvt"
+    title: "SollicitudConsulta"
+    xml:
+      name: "sollicitud"
+      attribute: false
+      wrapped: false
+  SollicitudsExpedient:
+    type: "object"
+    required:
+    - "id"
+    - "tipus"
+    properties:
+      id:
+        type: "number"
+        description: "Identificador de la sol·licitud"
+      tipus:
+        type: "string"
+        description: "Tipus de la sol·licitud"
+        enum:
+        - "SOL"
+        - "APO"
+        - "REQ"
+        - "ALE"
+    title: "SollicitudsExpedient"
   TerminisDuracio:
     type: "object"
     properties:
@@ -5267,6 +6153,10 @@ definitions:
     properties:
       codi:
         type: "string"
+        xml:
+          name: "codi"
+          attribute: false
+          wrapped: false
         description: "Codi del tràmit"
         enum:
         - "SOL"
@@ -5275,8 +6165,16 @@ definitions:
         - "ALE"
       nom:
         type: "string"
+        xml:
+          name: "nom"
+          attribute: false
+          wrapped: false
         description: "Nom del tràmit"
     title: "TramitsOvt"
+    xml:
+      name: "tramit"
+      attribute: false
+      wrapped: false
   UnitatGestora:
     type: "object"
     properties:

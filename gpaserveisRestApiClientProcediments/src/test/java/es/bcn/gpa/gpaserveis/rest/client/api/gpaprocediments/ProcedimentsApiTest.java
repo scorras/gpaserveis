@@ -50,6 +50,9 @@ public class ProcedimentsApiTest extends ParentTest {
 	@InjectMocks
 	private Procediments_Api api_ = new Procediments_Api();
 
+	@InjectMocks
+	private Procediments_Api api_ = new Procediments_Api();
+
 	/**
 	 * Returns all procedures that meet the search criteria
 	 *
@@ -61,12 +64,12 @@ public class ProcedimentsApiTest extends ParentTest {
 	@Test
 	public void cercaProcedimentsTest() {
 		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
-		        .thenReturn(new LinkedMultiValueMap<String, String>());
+				.thenReturn(new LinkedMultiValueMap<String, String>());
 		when(apiClient.parameterToMultiValueMap(any(CollectionFormat.class), any(String.class), any(Object.class)))
-		        .thenReturn(new LinkedMultiValueMap<String, String>());
+				.thenReturn(new LinkedMultiValueMap<String, String>());
 		when(apiClient.invokeAPI(eq("/procediments/search"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfProcedimentsRDTO());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfProcedimentsRDTO());
 
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
@@ -97,10 +100,10 @@ public class ProcedimentsApiTest extends ParentTest {
 		Integer totalPages = null;
 		List<BigDecimal> ugos = null;
 		PageDataOfProcedimentsRDTO response = api.cercaProcediments(absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, activableFormatElectronic, actuacio, aplicacioNegoci, codi, competencies,
-		        currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir,
-		        estats, families, id, idUsuari, intern, nextPageNumber, nom, operador, organResolutori, pageSize, previousPageNumber, sort,
-		        totalElements, totalPages, ugos);
+				absoluteRowNumberOfLastRowInCurrentPage, activableFormatElectronic, actuacio, aplicacioNegoci, codi, competencies,
+				currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir,
+				estats, families, id, idUsuari, intern, nextPageNumber, nom, operador, organResolutori, pageSize, previousPageNumber, sort,
+				totalElements, totalPages, ugos);
 
 		assertTrue(response != null);
 	}
@@ -116,8 +119,8 @@ public class ProcedimentsApiTest extends ParentTest {
 	@Test
 	public void consultarDadesProcedimentTest() {
 		when(apiClient.invokeAPI(eq("/procediments/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new ProcedimentsRDTO());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new ProcedimentsRDTO());
 
 		BigDecimal id = ONE;
 		ProcedimentsRDTO response = api.consultarDadesProcediment(id);
@@ -136,8 +139,8 @@ public class ProcedimentsApiTest extends ParentTest {
 	@Test
 	public void consultarDadesProcedimentPerCodiTest() {
 		when(apiClient.invokeAPI(eq("/procediments/perCodi/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new ProcedimentsRDTO());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new ProcedimentsRDTO());
 
 		String codi = ONE.toString();
 		ProcedimentsRDTO response = api.consultarDadesProcedimentPerCodi(codi);
@@ -156,4 +159,14 @@ public class ProcedimentsApiTest extends ParentTest {
 		assertTrue(Boolean.TRUE);
 	}
 
+	@Test
+	public void desbloquejarTotsElsProcedimentsUsuari() {
+		when(apiClient.invokeAPI(eq("/procediments/desbloquejarTotsElsProcedimentsUsuari/1"), eq(HttpMethod.POST), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ProcedimentsRDTO());
+
+		api_.desbloquejarTotsElsProcedimentsUsuari();
+
+		assertTrue(Boolean.TRUE);
+	}
 }

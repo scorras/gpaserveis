@@ -30,6 +30,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.AnotarOperacioComptableBDTO
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentCrearNotificacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentGeneratRegistrarComunicatBDTO;
@@ -52,6 +53,10 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioRequeritsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaProcedimentsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsActualitzarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.sollicituds.RespostaSollicitudsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
@@ -77,8 +82,11 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviar
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.SollicitudConsultaRDTO;
 
 /**
  * The Interface ServeisPortalService.
@@ -244,6 +252,17 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaExpedientsCercaBDTO cercaExpedients(ExpedientsCercaBDTO expedientsCercaBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar dades sollicitud.
+	 *
+	 * @param idSollicitud
+	 *            the id sollicitud
+	 * @return the dades sollicitud BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DadesSollicitudBDTO consultarDadesSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException;
 
 	/**
 	 * Consultar dades basiques expedient.
@@ -531,6 +550,17 @@ public interface ServeisService {
 	void revisarDocumentacioEntrada(DocumentAportatValidarBDTO documentAportatValidarBDTO) throws GPAServeisServiceException;
 
 	/**
+	 * Crear xml dades sollicitud.
+	 *
+	 * @param sollicitudConsultaRDTO
+	 *            the sollicitud consulta RDTO
+	 * @return the string
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	String crearXmlDadesSollicitud(SollicitudConsultaRDTO sollicitudConsultaRDTO) throws GPAServeisServiceException;
+
+	/**
 	 * Crear data xml expedient.
 	 *
 	 * @param id
@@ -554,6 +584,16 @@ public interface ServeisService {
 	 */
 	RespostaPlantillaDocVinculada getPlantillaDocVinculada(BigDecimal idConfDoc, BigDecimal idDocVinculada)
 			throws GPAServeisServiceException;
+
+	/**
+	 * Associar registre sollicitud.
+	 *
+	 * @param sollicitudActualitzarRegistre
+	 *            the sollicitud actualitzar registre
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void associarRegistreSollicitud(SollicitudActualitzarRegistre sollicitudActualitzarRegistre) throws GPAServeisServiceException;
 
 	/**
 	 * Associar registre documentacio expedient.
@@ -1014,4 +1054,40 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	EstatDigitalitzacioDocumentRDTO obtenirEstatDigitalitzacioDocument(Long idDocument) throws GPAServeisServiceException;
+
+	/**
+	 * Crear sollicitud.
+	 *
+	 * @param sollicitudCrearBDTO
+	 *            the sollicitud crear BDTO
+	 * @return the sollicituds RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	SollicitudsRDTO crearSollicitud(SollicitudsCrearBDTO sollicitudCrearBDTO) throws GPAServeisServiceException;
+
+	SollicitudsRDTO actualitzarDadesSollicitudSollicituds(SollicitudsActualitzarBDTO sollicitudsActualitzarBDTO)
+			throws GPAServeisServiceException;
+
+	/**
+	 * Guardar dades especifiques sollicitud.
+	 *
+	 * @param idSollicitud
+	 *            the id sollicitud
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void guardarDadesEspecifiquesSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException;
+
+	/**
+	 * Cerca sollicituds.
+	 *
+	 * @param sollicitudsCercaBDTO
+	 *            the sollicituds cerca BDTO
+	 * @return the resposta sollicituds cerca BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	RespostaSollicitudsCercaBDTO cercaSollicituds(SollicitudsCercaBDTO sollicitudsCercaBDTO) throws GPAServeisServiceException;
+
 }
