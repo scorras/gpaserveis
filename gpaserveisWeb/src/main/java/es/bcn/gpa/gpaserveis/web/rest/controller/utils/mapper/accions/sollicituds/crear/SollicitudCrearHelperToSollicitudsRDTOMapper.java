@@ -28,7 +28,7 @@ public class SollicitudCrearHelperToSollicitudsRDTOMapper extends PropertyMap<So
 	 */
 	@Autowired
 	public SollicitudCrearHelperToSollicitudsRDTOMapper(
-			@Qualifier("sollicitudPersonaSollicitudToInternalListConverter") PersonaSollicitudToInternalListConverter personaSollicitudToInternalListConverter) {
+	        @Qualifier("sollicitudPersonaSollicitudToInternalListConverter") PersonaSollicitudToInternalListConverter personaSollicitudToInternalListConverter) {
 		this.personaSollicitudToInternalListConverter = personaSollicitudToInternalListConverter;
 	}
 

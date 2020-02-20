@@ -424,6 +424,12 @@ public abstract class ParentTest {
 			when(dadesEspecifiquesApi.consultarDadesEspecifiquesSollicitud(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesEspecifiquesExpedientResponse());
 
+			when(sollicitudsApi.cercaSollicituds(isNull(Integer.class), isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class),
+			        isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class), isNull(String.class), isNull(BigDecimal.class),
+			        any(BigDecimal.class), any(BigDecimal.class), isNull(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
+			        isNull(Integer.class), isNull(String.class), isNull(Long.class), isNull(Integer.class)))
+			                .thenReturn(TestsConfigHelper.cercaSollicitudsResponse());
+
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$
 

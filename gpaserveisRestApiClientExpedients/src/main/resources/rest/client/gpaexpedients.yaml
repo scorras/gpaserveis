@@ -1592,6 +1592,113 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /sollicituds/search:
+    get:
+      tags:
+      - "Sollicituds"
+      summary: "Returns all the sollicituds that meet the search criteria"
+      operationId: "cercaSollicituds"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "query"
+        description: "Identificador pel qual es realitza la cerca"
+        required: false
+        type: "number"
+      - name: "idExpedient"
+        in: "query"
+        description: "Identificador del expedient"
+        required: false
+        type: "number"
+      - name: "idTramitOvt"
+        in: "query"
+        description: "Identificador del tràmit OVT"
+        required: false
+        type: "number"
+      - name: "idUsuari"
+        in: "query"
+        description: "Identificador d'usuari pel qual es realitza la cerca"
+        required: false
+        type: "number"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfSollicitudsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /sollicituds/{id}:
     get:
       tags:
@@ -2123,6 +2230,18 @@ definitions:
       sortInfo:
         $ref: "#/definitions/SortInfo"
     title: "PageDataOfPersonesSollicitudRDTO"
+  PageDataOfSollicitudsRDTO:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/SollicitudsRDTO"
+      page:
+        $ref: "#/definitions/PaginationAttributes"
+      sortInfo:
+        $ref: "#/definitions/SortInfo"
+    title: "PageDataOfSollicitudsRDTO"
   PaginationAttributes:
     type: "object"
     properties:

@@ -39,6 +39,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanvia
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfSollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesDadescontacte;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitud;
@@ -1868,6 +1869,53 @@ public class TestsConfigHelper {
 		dadesEspecifiquesRDTOList.add(dadesEspecifiquesRDTO3);
 
 		return dadesEspecifiquesRDTOList;
+	}
+
+	/**
+	 * Cerca sollicituds response.
+	 *
+	 * @return the page data of sollicituds RDTO
+	 */
+	public static PageDataOfSollicitudsRDTO cercaSollicitudsResponse() {
+		PageDataOfSollicitudsRDTO pageDataOfSollicitudsRDTO = new PageDataOfSollicitudsRDTO();
+
+		// Data
+		ArrayList<SollicitudsRDTO> sollicitudsRDTOList = new ArrayList<SollicitudsRDTO>();
+		SollicitudsRDTO sollicitudsRDTO = new SollicitudsRDTO();
+		sollicitudsRDTO.setId(ONE);
+		sollicitudsRDTO.setDataSollicitud(now());
+		sollicitudsRDTO.setDataPresentacio(null);
+		sollicitudsRDTO.setExpedient(ONE);
+		sollicitudsRDTO.setRegistre(null);
+		sollicitudsRDTO.setRegistreAssentament(null);
+		sollicitudsRDTO.setTramitOvtIdext(ONE);
+
+		sollicitudsRDTOList.add(sollicitudsRDTO);
+		pageDataOfSollicitudsRDTO.setData(sollicitudsRDTOList);
+
+		// Page
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaginationAttributes paginationAttributes = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaginationAttributes();
+		paginationAttributes.setAbsoluteRowNumberOfFirstRowInCurrentPage(INTEGER_ONE);
+		paginationAttributes.setAbsoluteRowNumberOfLastRowInCurrentPage(INTEGER_ONE);
+		paginationAttributes.setCurrentPageHasNextPage(FALSE);
+		paginationAttributes.setCurrentPageHasPreviousPage(FALSE);
+		paginationAttributes.setCurrentPageIsFirstPage(TRUE);
+		paginationAttributes.setCurrentPageIsLastPage(TRUE);
+		paginationAttributes.setCurrentPageNumber(INTEGER_ONE);
+		paginationAttributes.setNextPageNumber(INTEGER_ZERO);
+		paginationAttributes.setPageSize(new Integer(20));
+		paginationAttributes.setPreviousPageNumber(INTEGER_ZERO);
+		paginationAttributes.setTotalElements(LONG_ONE);
+		paginationAttributes.setTotalPages(INTEGER_ONE);
+		pageDataOfSollicitudsRDTO.setPage(paginationAttributes);
+
+		// SortInfo
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SortInfo sortInfo = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SortInfo();
+		sortInfo.setSort("codi");
+		sortInfo.setDir("asc");
+		pageDataOfSollicitudsRDTO.setSortInfo(sortInfo);
+
+		return pageDataOfSollicitudsRDTO;
 	}
 
 }

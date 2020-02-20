@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaginationAttributes;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SortInfo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,12 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * PageDataOfPersonesSollicitudRDTO
+ * PageDataOfSollicitudsRDTO
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-19T13:09:48.036+01:00")
-public class PageDataOfPersonesSollicitudRDTO {
+public class PageDataOfSollicitudsRDTO {
   @JsonProperty("data")
-  private List<PersonesSollicitudRDTO> data = null;
+  private List<SollicitudsRDTO> data = null;
 
   @JsonProperty("page")
   private PaginationAttributes page = null;
@@ -39,14 +39,14 @@ public class PageDataOfPersonesSollicitudRDTO {
   @JsonProperty("sortInfo")
   private SortInfo sortInfo = null;
 
-  public PageDataOfPersonesSollicitudRDTO data(List<PersonesSollicitudRDTO> data) {
+  public PageDataOfSollicitudsRDTO data(List<SollicitudsRDTO> data) {
     this.data = data;
     return this;
   }
 
-  public PageDataOfPersonesSollicitudRDTO addDataItem(PersonesSollicitudRDTO dataItem) {
+  public PageDataOfSollicitudsRDTO addDataItem(SollicitudsRDTO dataItem) {
     if (this.data == null) {
-      this.data = new ArrayList<PersonesSollicitudRDTO>();
+      this.data = new ArrayList<SollicitudsRDTO>();
     }
     this.data.add(dataItem);
     return this;
@@ -57,15 +57,15 @@ public class PageDataOfPersonesSollicitudRDTO {
    * @return data
   **/
   @ApiModelProperty(value = "")
-  public List<PersonesSollicitudRDTO> getData() {
+  public List<SollicitudsRDTO> getData() {
     return data;
   }
 
-  public void setData(List<PersonesSollicitudRDTO> data) {
+  public void setData(List<SollicitudsRDTO> data) {
     this.data = data;
   }
 
-  public PageDataOfPersonesSollicitudRDTO page(PaginationAttributes page) {
+  public PageDataOfSollicitudsRDTO page(PaginationAttributes page) {
     this.page = page;
     return this;
   }
@@ -83,7 +83,7 @@ public class PageDataOfPersonesSollicitudRDTO {
     this.page = page;
   }
 
-  public PageDataOfPersonesSollicitudRDTO sortInfo(SortInfo sortInfo) {
+  public PageDataOfSollicitudsRDTO sortInfo(SortInfo sortInfo) {
     this.sortInfo = sortInfo;
     return this;
   }
@@ -110,10 +110,10 @@ public class PageDataOfPersonesSollicitudRDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = (PageDataOfPersonesSollicitudRDTO) o;
-    return Objects.equals(this.data, pageDataOfPersonesSollicitudRDTO.data) &&
-        Objects.equals(this.page, pageDataOfPersonesSollicitudRDTO.page) &&
-        Objects.equals(this.sortInfo, pageDataOfPersonesSollicitudRDTO.sortInfo);
+    PageDataOfSollicitudsRDTO pageDataOfSollicitudsRDTO = (PageDataOfSollicitudsRDTO) o;
+    return Objects.equals(this.data, pageDataOfSollicitudsRDTO.data) &&
+        Objects.equals(this.page, pageDataOfSollicitudsRDTO.page) &&
+        Objects.equals(this.sortInfo, pageDataOfSollicitudsRDTO.sortInfo);
   }
 
   @Override
@@ -125,7 +125,7 @@ public class PageDataOfPersonesSollicitudRDTO {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PageDataOfPersonesSollicitudRDTO {\n");
+    sb.append("class PageDataOfSollicitudsRDTO {\n");
     
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    page: ").append(toIndentedString(page)).append("\n");
