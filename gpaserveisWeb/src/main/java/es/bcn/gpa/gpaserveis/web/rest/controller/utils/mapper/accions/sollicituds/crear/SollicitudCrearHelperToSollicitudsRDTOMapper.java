@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.sollicitud.PersonaSollicitudToInternalListConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.sollicitud.TipusIniciacioSollicitudToInternalConverter;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.TipusIniciacioSollicitudApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.helper.SollicitudCrearHelper;
 
 /**
@@ -20,9 +18,6 @@ public class SollicitudCrearHelperToSollicitudsRDTOMapper extends PropertyMap<So
 	/** The persona sollicitant to internal converter. */
 	private PersonaSollicitudToInternalListConverter personaSollicitudToInternalListConverter;
 
-	/** The tipus iniciacio sollicitud to internal converter. */
-	private TipusIniciacioSollicitudToInternalConverter tipusIniciacioSollicitudToInternalConverter;
-
 	/**
 	 * Instantiates a new solicituds crear RDTO to expedients RDTO mapper.
 	 *
@@ -33,10 +28,8 @@ public class SollicitudCrearHelperToSollicitudsRDTOMapper extends PropertyMap<So
 	 */
 	@Autowired
 	public SollicitudCrearHelperToSollicitudsRDTOMapper(
-	        @Qualifier("sollicitudPersonaSollicitudToInternalListConverter") PersonaSollicitudToInternalListConverter personaSollicitudToInternalListConverter,
-	        @Qualifier("sollicitudTipusIniciacioSollicitudToInternalConverter") TipusIniciacioSollicitudToInternalConverter tipusIniciacioSollicitudToInternalConverter) {
+	        @Qualifier("sollicitudPersonaSollicitudToInternalListConverter") PersonaSollicitudToInternalListConverter personaSollicitudToInternalListConverter) {
 		this.personaSollicitudToInternalListConverter = personaSollicitudToInternalListConverter;
-		this.tipusIniciacioSollicitudToInternalConverter = tipusIniciacioSollicitudToInternalConverter;
 	}
 
 	/*
@@ -48,8 +41,6 @@ public class SollicitudCrearHelperToSollicitudsRDTOMapper extends PropertyMap<So
 	protected void configure() {
 		map().setTramitOvtIdext(source.getIdTramitsOvt());
 		map().setExpedient(source.getIdExpedient());
-		using(tipusIniciacioSollicitudToInternalConverter).map(TipusIniciacioSollicitudApiParamValue.SOLLICITUD.getApiParamValue())
-		        .setIniciacio(null);
 		using(personaSollicitudToInternalListConverter).map(source.getPersonesSollicitud()).setPersonesSollicitudList(null);
 	}
 
