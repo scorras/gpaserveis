@@ -1,7 +1,6 @@
 package es.bcn.gpa.gpaserveis.business.dto.documents;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import org.joda.time.DateTime;
 
@@ -40,7 +39,7 @@ public class ActualitzarNotificacioBDTO {
 	private DateTime dataHoraAceptacioRebuig;
 
 	/** The data limit. */
-	private Date dataLimit;
+	private DateTime dataLimit;
 
 	/** The data enviament. */
 	private DateTime dataEnviament;
