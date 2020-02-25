@@ -21,7 +21,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotifica
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-13T13:30:08.356+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-25T12:45:49.430+01:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi")
 public class NotificacionsApi {
 	private ApiClient apiClient;
@@ -67,14 +67,14 @@ public class NotificacionsApi {
 	 *             if an error occurs while attempting to invoke the API
 	 */
 	public void callbackNotificacio(String actualitzarNotificacionDocument, File docEvidenciaElectronic, File docEvidenciaPaper)
-	        throws RestClientException {
+			throws RestClientException {
 		Object postBody = null;
 
 		// verify the required parameter 'actualitzarNotificacionDocument' is
 		// set
 		if (actualitzarNotificacionDocument == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'actualitzarNotificacionDocument' when calling callbackNotificacio");
+					"Missing the required parameter 'actualitzarNotificacionDocument' when calling callbackNotificacio");
 		}
 
 		String path = UriComponentsBuilder.fromPath("/notificacions/retornNotificacio").build().toUriString();
@@ -84,6 +84,7 @@ public class NotificacionsApi {
 		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
 		formParams.add("actualitzarNotificacionDocument", actualitzarNotificacionDocument);
+
 		if (docEvidenciaElectronic != null)
 			formParams.add("docEvidenciaElectronic", new FileSystemResource(docEvidenciaElectronic));
 		if (docEvidenciaPaper != null)
@@ -99,7 +100,7 @@ public class NotificacionsApi {
 		ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {
 		};
 		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 
 	/**
@@ -128,7 +129,7 @@ public class NotificacionsApi {
 		// verify the required parameter 'crearNotificacioRDTO' is set
 		if (crearNotificacioRDTO == null) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
-			        "Missing the required parameter 'crearNotificacioRDTO' when calling crearNotificacio");
+					"Missing the required parameter 'crearNotificacioRDTO' when calling crearNotificacio");
 		}
 
 		String path = UriComponentsBuilder.fromPath("/notificacions").build().toUriString();
@@ -147,6 +148,6 @@ public class NotificacionsApi {
 		ParameterizedTypeReference<NotificacionsRDTO> returnType = new ParameterizedTypeReference<NotificacionsRDTO>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
-		        returnType);
+				returnType);
 	}
 }
