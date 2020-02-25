@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.17.0"
+  version: "1.18.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -658,6 +658,35 @@ paths:
       - name: "idExpedient"
         in: "path"
         description: "idExpedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "string"
+            format: "byte"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /documentacio/descarregarDocumentExpedientSignat/{idUltimaSignatura}:
+    get:
+      tags:
+      - "Download"
+      summary: "downloadUltimaSignatura"
+      operationId: "descarregarDocumentExpedientSignat"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idUltimaSignatura"
+        in: "path"
+        description: "idUltimaSignatura"
         required: true
         type: "number"
       responses:
@@ -2214,6 +2243,8 @@ definitions:
         type: "string"
       documentacioVinculada:
         type: "number"
+      editable:
+        type: "boolean"
       fase:
         type: "integer"
         format: "int32"
@@ -2233,6 +2264,8 @@ definitions:
       requereixSignatura:
         type: "integer"
         format: "int32"
+      seleccionable:
+        type: "boolean"
       suportConfeccio:
         type: "integer"
         format: "int32"
@@ -2274,6 +2307,8 @@ definitions:
         type: "string"
       documentacioVinculada:
         type: "number"
+      editable:
+        type: "boolean"
       fase:
         type: "integer"
         format: "int32"
@@ -2293,6 +2328,8 @@ definitions:
       requereixSignatura:
         type: "integer"
         format: "int32"
+      seleccionable:
+        type: "boolean"
       suportConfeccio:
         type: "integer"
         format: "int32"
