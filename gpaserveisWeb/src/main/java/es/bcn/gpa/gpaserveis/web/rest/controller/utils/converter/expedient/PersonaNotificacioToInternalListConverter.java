@@ -13,6 +13,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusDocumentIdentitatApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusPersonaApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusViaNotificacioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.notificar.PersonesNotificacioRDTO;
 
 /**
@@ -29,6 +30,10 @@ public class PersonaNotificacioToInternalListConverter extends AbstractConverter
 	@Qualifier("expedientTipusDocumentIdentitatApiParamValueTranslator")
 	private TipusDocumentIdentitatApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator;
 
+	@Autowired
+	@Qualifier("expedientTipusViaNotificacioApiParamValueTranslator")
+	private TipusViaNotificacioApiParamValueTranslator tipusViaNotificacioApiParamValueTranslator;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -40,8 +45,9 @@ public class PersonaNotificacioToInternalListConverter extends AbstractConverter
 		if (CollectionUtils.isNotEmpty(source)) {
 			personesList = new ArrayList<Persones>();
 			for (PersonesNotificacioRDTO personesNotificacioRDTO : source) {
-				personesList.add(ConverterHelper.buildPersonesNotificacioExpedient(personesNotificacioRDTO,
-				        tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator));
+				personesList
+						.add(ConverterHelper.buildPersonesNotificacioExpedient(personesNotificacioRDTO, tipusPersonaApiParamValueTranslator,
+								tipusDocumentIdentitatApiParamValueTranslator, tipusViaNotificacioApiParamValueTranslator));
 			}
 		}
 		return personesList;

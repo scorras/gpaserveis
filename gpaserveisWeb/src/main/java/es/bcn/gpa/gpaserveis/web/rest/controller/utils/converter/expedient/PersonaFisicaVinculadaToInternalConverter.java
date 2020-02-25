@@ -9,6 +9,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusDocumentIdentitatApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusPersonaApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusViaNotificacioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.notificar.PersonesNotificacioRDTO;
 
 /**
@@ -25,6 +26,10 @@ public class PersonaFisicaVinculadaToInternalConverter extends AbstractConverter
 	@Qualifier("expedientTipusDocumentIdentitatApiParamValueTranslator")
 	private TipusDocumentIdentitatApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator;
 
+	@Autowired
+	@Qualifier("expedientTipusViaNotificacioApiParamValueTranslator")
+	private TipusViaNotificacioApiParamValueTranslator tipusViaNotificacioApiParamValueTranslator;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -35,7 +40,7 @@ public class PersonaFisicaVinculadaToInternalConverter extends AbstractConverter
 		Persones persona = null;
 		if (source != null) {
 			persona = ConverterHelper.buildPersonesNotificacioExpedient(source, tipusPersonaApiParamValueTranslator,
-					tipusDocumentIdentitatApiParamValueTranslator);
+					tipusDocumentIdentitatApiParamValueTranslator, tipusViaNotificacioApiParamValueTranslator);
 		}
 		return persona;
 	}

@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -42,6 +43,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.common.Bo
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusDocumentIdentitatApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusPersonaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusSexeApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusViaNotificacioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ConfiguracioDocumentacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.DadesContacteRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.DocumentsIdentitatRDTO;
@@ -322,7 +324,8 @@ public class ConverterHelper {
 	 */
 	public static es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones buildPersonesNotificacioExpedient(
 			PersonesNotificacioRDTO personesNotificacioRDTO, TipusPersonaApiParamValueTranslator tipusPersonaApiParamValueTranslator,
-			TipusDocumentIdentitatApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator) {
+			TipusDocumentIdentitatApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
+			TipusViaNotificacioApiParamValueTranslator tipusViaNotificacioApiParamValueTranslator) {
 		if (personesNotificacioRDTO == null) {
 			return null;
 		}
@@ -330,11 +333,26 @@ public class ConverterHelper {
 		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones persones = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones();
 		persones.setTipusPersona(
 				tipusPersonaApiParamValueTranslator.getInternalValueByApiParamValue(personesNotificacioRDTO.getTipusPersona()));
-		persones.setNomPresentacio(String.format("%s %s %s", personesNotificacioRDTO.getNom(), personesNotificacioRDTO.getCognom1(),
-				personesNotificacioRDTO.getCognom2()));
-		persones.setNomRaoSocial(personesNotificacioRDTO.getNom());
-		persones.setCognom1(personesNotificacioRDTO.getCognom1());
-		persones.setCognom2(personesNotificacioRDTO.getCognom2());
+		StringBuffer stringBuffer = new StringBuffer();
+		if (StringUtils.isNotEmpty(personesNotificacioRDTO.getNom())) {
+			stringBuffer.append(personesNotificacioRDTO.getNom() + " ");
+			persones.setNomRaoSocial(personesNotificacioRDTO.getNom());
+		} else {
+			persones.setNomRaoSocial(StringUtils.EMPTY);
+		}
+		if (StringUtils.isNotEmpty(personesNotificacioRDTO.getCognom1())) {
+			stringBuffer.append(personesNotificacioRDTO.getCognom1() + " ");
+			persones.setCognom1(personesNotificacioRDTO.getCognom1());
+		} else {
+			persones.setCognom1(StringUtils.EMPTY);
+		}
+		if (StringUtils.isNotEmpty(personesNotificacioRDTO.getCognom2())) {
+			stringBuffer.append(personesNotificacioRDTO.getCognom2());
+			persones.setCognom2(personesNotificacioRDTO.getCognom2());
+		} else {
+			persones.setCognom2(StringUtils.EMPTY);
+		}
+		persones.setNomPresentacio(stringBuffer.toString());
 
 		if (personesNotificacioRDTO.getDadesNotificacio() != null) {
 			es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PersonesDadescontacte personesDadescontacte = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PersonesDadescontacte();
@@ -350,6 +368,8 @@ public class ConverterHelper {
 			personesDadescontacte.setCodiPostal(personesNotificacioRDTO.getDadesNotificacio().getCodiPostal());
 			personesDadescontacte.setMunicipiValor(personesNotificacioRDTO.getDadesNotificacio().getMunicipi());
 			personesDadescontacte.setProvinciaValor(personesNotificacioRDTO.getDadesNotificacio().getProvincia());
+			personesDadescontacte.setNotificacioPaper((int) tipusViaNotificacioApiParamValueTranslator
+					.getInternalValueByApiParamValue(personesNotificacioRDTO.getDadesNotificacio().getViaNotificacio()));
 
 			persones.setPersonesDadescontacte(personesDadescontacte);
 		}
