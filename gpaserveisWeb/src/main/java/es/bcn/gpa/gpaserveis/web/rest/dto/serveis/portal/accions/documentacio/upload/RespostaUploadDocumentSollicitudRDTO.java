@@ -14,7 +14,7 @@ import lombok.Setter;
 
 @ApiModel(value = "RespostaUploadDocumentSollicitud")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "resultat", "document", "expedient", "sollicitud"})
+@JsonPropertyOrder({ "resultat", "document", "expedient", "sollicitud" })
 @Getter
 @Setter
 public class RespostaUploadDocumentSollicitudRDTO {
@@ -28,7 +28,6 @@ public class RespostaUploadDocumentSollicitudRDTO {
 	@ApiModelProperty(value = "Expedient del document")
 	private ExpedientAccioRDTO expedient;
 
-	
 	@ApiModelProperty(value = "Sol·licitud del document")
 	private SollicitudAccioRDTO sollicitud;
 }
