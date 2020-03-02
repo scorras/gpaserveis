@@ -6,7 +6,7 @@ package es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums;
 public enum ErrorPrincipal {
 
 	/* Generic */
-	ERROR_GENERIC("9999", "S'ha produit una incidencia"),
+	ERROR_GENERIC("9999", "S'ha produït una incidència"),
 
 	/* Unitats */
 	ERROR_UNITATS_NOT_FOUND("1001", "No s'ha trobat la unitat gestora"),
