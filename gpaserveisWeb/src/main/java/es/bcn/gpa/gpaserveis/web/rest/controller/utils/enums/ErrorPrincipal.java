@@ -70,6 +70,8 @@ public enum ErrorPrincipal {
 
 	ERROR_SOLLICITUDS_HI_HA_ESBORRANY("3021", "Hi ha sol·licituds del mateix tipus en estat esborrador"),
 
+	ERROR_SOLLICITUDS_DADES_OPERACIO_APO("3022", "No és possible actualitzar les dades d'operació a una sol·licitud d'aportació."),
+
 	/* Documents */
 	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document"),
 

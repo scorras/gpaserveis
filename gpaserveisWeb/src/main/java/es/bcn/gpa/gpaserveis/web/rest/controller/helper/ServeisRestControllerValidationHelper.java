@@ -65,6 +65,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.su
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar.AtributsActualitzarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.AtributRequeritRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.DocumentRequeritCrearRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.actualitzar.SollicitudActualitzarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.completar.DocumentCompletatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.digitalitzar.DocumentDigitalitzatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.DocumentIncorporatNouRDTO;
@@ -1646,6 +1647,28 @@ public class ServeisRestControllerValidationHelper {
 					throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_SOLLICITUDS_HI_HA_ESBORRANY);
 				}
 			}
+		}
+	}
+
+	/**
+	 * Validate actualitzar sollicitud.
+	 *
+	 * @param dadesSollicitudBDTO
+	 *            the dades sollicitud BDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateActualitzarSollicitud(DadesSollicitudBDTO dadesSollicitudBDTO,
+			SollicitudActualitzarRDTO sollicitudActualitzar, Resultat resultatError) throws GPAApiParamValidationException {
+
+		validateSollicitud(dadesSollicitudBDTO, resultatError);
+
+		if (dadesSollicitudBDTO.getSollicitudsRDTO().getTramitOvtIdext()
+				.compareTo(TramitOvtApiParamValue.APO.getInternalValue()) == NumberUtils.INTEGER_ZERO
+				&& CollectionUtils.isNotEmpty(sollicitudActualitzar.getDadesOperacio())) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_SOLLICITUDS_DADES_OPERACIO_APO);
 		}
 	}
 }
