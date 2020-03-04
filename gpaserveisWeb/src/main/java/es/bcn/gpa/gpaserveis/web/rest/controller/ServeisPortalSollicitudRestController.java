@@ -839,7 +839,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// el Objeto Documental a utilizar
 			SollicitudConsultaRDTO sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
 			String xmlDadesSollicitudBase64 = serveisService.crearXmlDadesSollicitud(sollicitudConsultaRDTO);
-
+			
 			// Se construye el modelo para la llamada a la operación de registro
 			// TODO ¿Cómo procedemos para registrar el XML de la solicitud?
 			ArrayList<BigDecimal> idDocsEntradaList = new ArrayList<BigDecimal>();
@@ -918,6 +918,13 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
 					dadesSollicitudBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
 			respostaCrearJustificant = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
+			
+			//Se almacena en pos1 del justificante el XML:
+			String xmlSolicitud = new String (Base64Utils.decodeFromString(xmlDadesSollicitudBase64), StandardCharsets.UTF_8);
+			String idDocumentum = respostaCrearJustificant.getMigracioIdOrigen();
+			//Guardamos XML en pos 1 de documentum asociado al pdf (pdf: pos 0, xml: pos 1)
+			serveisService.guardarXmlSollicitud(idDocumentum, xmlSolicitud);
+
 
 			// se llama a segell para firmar el justificante de registro del
 			// expediente
