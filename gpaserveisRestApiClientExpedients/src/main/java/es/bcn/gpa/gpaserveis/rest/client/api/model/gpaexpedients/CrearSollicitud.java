@@ -17,7 +17,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
@@ -25,22 +25,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * CrearRegistre
+ * CrearSollicitud
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-02T16:48:00.836+01:00")
-public class CrearRegistre {
+public class CrearSollicitud {
   @JsonProperty("documents")
   private List<BigDecimal> documents = null;
 
-  @JsonProperty("expedient")
-  private ExpedientsRDTO expedient = null;
+  @JsonProperty("sollicitud")
+  private SollicitudsRDTO sollicitud = null;
 
-  public CrearRegistre documents(List<BigDecimal> documents) {
+  public CrearSollicitud documents(List<BigDecimal> documents) {
     this.documents = documents;
     return this;
   }
 
-  public CrearRegistre addDocumentsItem(BigDecimal documentsItem) {
+  public CrearSollicitud addDocumentsItem(BigDecimal documentsItem) {
     if (this.documents == null) {
       this.documents = new ArrayList<BigDecimal>();
     }
@@ -61,22 +61,22 @@ public class CrearRegistre {
     this.documents = documents;
   }
 
-  public CrearRegistre expedient(ExpedientsRDTO expedient) {
-    this.expedient = expedient;
+  public CrearSollicitud sollicitud(SollicitudsRDTO sollicitud) {
+    this.sollicitud = sollicitud;
     return this;
   }
 
    /**
-   * Dades de l&#39;expedient
-   * @return expedient
+   * Dades de sollicitud
+   * @return sollicitud
   **/
-  @ApiModelProperty(value = "Dades de l'expedient")
-  public ExpedientsRDTO getExpedient() {
-    return expedient;
+  @ApiModelProperty(value = "Dades de sollicitud")
+  public SollicitudsRDTO getSollicitud() {
+    return sollicitud;
   }
 
-  public void setExpedient(ExpedientsRDTO expedient) {
-    this.expedient = expedient;
+  public void setSollicitud(SollicitudsRDTO sollicitud) {
+    this.sollicitud = sollicitud;
   }
 
 
@@ -88,24 +88,24 @@ public class CrearRegistre {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CrearRegistre crearRegistre = (CrearRegistre) o;
-    return Objects.equals(this.documents, crearRegistre.documents) &&
-        Objects.equals(this.expedient, crearRegistre.expedient);
+    CrearSollicitud crearSollicitud = (CrearSollicitud) o;
+    return Objects.equals(this.documents, crearSollicitud.documents) &&
+        Objects.equals(this.sollicitud, crearSollicitud.sollicitud);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(documents, expedient);
+    return Objects.hash(documents, sollicitud);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CrearRegistre {\n");
+    sb.append("class CrearSollicitud {\n");
     
     sb.append("    documents: ").append(toIndentedString(documents)).append("\n");
-    sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
+    sb.append("    sollicitud: ").append(toIndentedString(sollicitud)).append("\n");
     sb.append("}");
     return sb.toString();
   }

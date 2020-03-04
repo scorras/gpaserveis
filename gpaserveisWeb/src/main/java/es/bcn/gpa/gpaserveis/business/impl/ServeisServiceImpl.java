@@ -60,6 +60,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
@@ -980,6 +981,30 @@ public class ServeisServiceImpl implements ServeisService {
 	public RespostaCrearRegistreExpedient crearRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO, BigDecimal tipusDocVinculada)
 			throws GPAServeisServiceException {
 		return expedientsService.crearRegistre(expedientsRegistrarBDTO, tipusDocVinculada);
+	}
+
+	/**
+	 * Crear registre sollicitud.
+	 *
+	 * @param expedientsRegistrarBDTO
+	 *            the expedients registrar sollicitud BDTO
+	 * @param tipusDocVinculada
+	 *            the tipus doc vinculada
+	 * @return the resposta crear registre sollicitud
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * crearRegistreSolicitud(es.bcn.gpa.gpaserveis.business.dto.
+	 * expedients.ExpedientsRegistrarSollicitudBDTO)
+	 */
+	@Override
+	public RespostaCrearRegistreExpedient crearRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO,
+			BigDecimal tipusDocVinculada) throws GPAServeisServiceException {
+		return expedientsService.crearRegistreSollicitud(expedientsRegistrarSollicitudBDTO, tipusDocVinculada);
 	}
 
 	/**
