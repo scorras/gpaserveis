@@ -55,6 +55,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsAbandonarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCercaBDTO;
@@ -82,11 +83,13 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDade
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AvisCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
@@ -611,7 +614,7 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		// Datos principales de la solicitud SOL
 		DadesSollicitudBDTO dadesSollicitudBDTO = serveisService
-		        .consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
+				.consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
 
 		SollicitudConsultaRDTO sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
 
@@ -848,8 +851,10 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaCrearRegistreExpedient respostaCrearRegistreExpedient = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_REGISTRAR_EXPEDIENT);
 		DocsTramitacioRDTO respostaCrearJustificant = null;
-		ExpedientsRegistrarBDTO expedientsRegistrarBDTO = null;
+		// ExpedientsRegistrarBDTO expedientsRegistrarBDTO = null;
 		DocumentActualizarRegistre documentActualizarRegistreRDTO = null;
+		DadesSollicitudBDTO dadesSollicitudBDTO = null;
+		ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO = null;
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
@@ -861,11 +866,26 @@ public class ServeisPortalRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.REGISTRAR_SOLLICITUD, Resultat.ERROR_REGISTRAR_EXPEDIENT);
 
 			// Se construye el modelo para la llamada a la operación de registro
-			CrearRegistre registreCreacioSolicitudExpedient = new CrearRegistre();
-			registreCreacioSolicitudExpedient.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
-			expedientsRegistrarBDTO = new ExpedientsRegistrarBDTO(registreCreacioSolicitudExpedient);
-			respostaCrearRegistreExpedient = serveisService.crearRegistre(expedientsRegistrarBDTO,
+			// CrearRegistre registreCreacioSolicitudExpedient = new
+			// CrearRegistre();
+			// registreCreacioSolicitudExpedient.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
+			// expedientsRegistrarBDTO = new
+			// ExpedientsRegistrarBDTO(registreCreacioSolicitudExpedient);
+
+			// ahora se realiza el registro de la solicitud como tal
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
+			CrearSollicitud registreCreacioSolicitud = new CrearSollicitud();
+			registreCreacioSolicitud.setSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO());
+			expedientsRegistrarSollicitudBDTO = new ExpedientsRegistrarSollicitudBDTO(registreCreacioSolicitud);
+
+			respostaCrearRegistreExpedient = serveisService.crearRegistreSollicitud(expedientsRegistrarSollicitudBDTO,
 					TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_SOLLICITUD.getInternalValue());
+
+			// Asociar registre de la solicitud a la propia solicitud
+			SollicitudActualitzarRegistre sollicitudActualitzarRegistre = new SollicitudActualitzarRegistre();
+			sollicitudActualitzarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
+			sollicitudActualitzarRegistre.setIdSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
+			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
 
 			// Asociar registre del expediente a la documentacio
 			documentActualizarRegistreRDTO = new DocumentActualizarRegistre();
@@ -940,7 +960,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			log.error("registrarSolicitudExpedient(BigDecimal)", e);
 
 			sagaRegistrarSolicitudExpedient(dadesExpedientBDTO, respostaCrearRegistreExpedient, respostaCrearJustificant,
-					expedientsRegistrarBDTO, documentActualizarRegistreRDTO);
+					documentActualizarRegistreRDTO);
 
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_REGISTRAR_EXPEDIENT, e);
 		}
@@ -959,11 +979,15 @@ public class ServeisPortalRestController extends BaseRestController {
 
 	private void sagaRegistrarSolicitudExpedient(DadesExpedientBDTO dadesExpedientBDTO,
 			RespostaCrearRegistreExpedient respostaCrearRegistreExpedient, DocsTramitacioRDTO respostaCrearJustificant,
-			ExpedientsRegistrarBDTO expedientsRegistrarBDTO, DocumentActualizarRegistre documentActualizarRegistreRDTO) {
+			DocumentActualizarRegistre documentActualizarRegistreRDTO) {
 
 		try {
 			if (respostaCrearRegistreExpedient != null && respostaCrearRegistreExpedient.getRegistreAssentament() != null
 					&& StringUtils.isNotEmpty(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi())) {
+
+				CrearRegistre registreCreacioSolicitudExpedient = new CrearRegistre();
+				registreCreacioSolicitudExpedient.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
+				ExpedientsRegistrarBDTO expedientsRegistrarBDTO = new ExpedientsRegistrarBDTO(registreCreacioSolicitudExpedient);
 
 				serveisService.esborrarRegistre(expedientsRegistrarBDTO);
 				// ponemos a nulo los valores para no incluirlos en la respuesta
