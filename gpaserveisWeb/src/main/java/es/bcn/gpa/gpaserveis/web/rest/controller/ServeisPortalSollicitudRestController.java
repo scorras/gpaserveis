@@ -47,7 +47,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaUploadDocumentSollic
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaSollicitudsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCercaBDTO;
@@ -68,7 +68,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitaci
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitudSollicituds;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
@@ -825,7 +825,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		RespostaCrearRegistreExpedient respostaCrearRegistreExpedient = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_REGISTRAR_SOLLICITUD);
 		DocsTramitacioRDTO respostaCrearJustificant = null;
-		ExpedientsRegistrarBDTO expedientsRegistrarBDTO = null;
+		ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO = null;
 		try {
 			// Datos principales de la solicitud
 			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
@@ -848,10 +848,10 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					idDocsEntradaList.add(docsEntradaRDTO.getId());
 				}
 			}
-			CrearRegistre registreCreacioSolicitudExpedient = new CrearRegistre();
-			registreCreacioSolicitudExpedient.setExpedient(dadesSollicitudBDTO.getExpedientsRDTO());
-			registreCreacioSolicitudExpedient.setDocuments(idDocsEntradaList);
-			expedientsRegistrarBDTO = new ExpedientsRegistrarBDTO(registreCreacioSolicitudExpedient);
+			CrearSollicitud registreCreacioSolicitud = new CrearSollicitud();
+			registreCreacioSolicitud.setSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO());
+			registreCreacioSolicitud.setDocuments(idDocsEntradaList);
+			expedientsRegistrarSollicitudBDTO = new ExpedientsRegistrarSollicitudBDTO(registreCreacioSolicitud);
 			// La documentación vinculada a generar se determina por el tipo de
 			// solicitud
 			BigDecimal tipusDocumentacioVinculadaInternalValue = (dadesSollicitudBDTO.getSollicitudsRDTO().getTramitOvtIdext()
@@ -861,7 +861,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 									.compareTo(TramitOvtApiParamValue.REQ.getInternalValue()) == NumberUtils.INTEGER_ZERO)
 											? TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_ESMENA.getInternalValue()
 											: (TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_ALLEGACIO.getInternalValue()));
-			respostaCrearRegistreExpedient = serveisService.crearRegistre(expedientsRegistrarBDTO, tipusDocumentacioVinculadaInternalValue);
+			respostaCrearRegistreExpedient = serveisService.crearRegistreSollicitud(expedientsRegistrarSollicitudBDTO,
+					tipusDocumentacioVinculadaInternalValue);
 
 			// Asociar registre de la solicitud a la propia solicitud
 			// TODO se puede incluir aquí el duplicado de los dades especifiques

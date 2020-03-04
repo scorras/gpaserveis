@@ -1069,6 +1069,44 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /expedients/registre/crearSollicitud/{accio}:
+    post:
+      tags:
+      - "Sollicituds"
+      summary: "Register the provided sollicitud"
+      operationId: "crearRegistreSolicitud"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "accio"
+        in: "path"
+        description: "accio"
+        required: true
+        type: "number"
+      - in: "body"
+        name: "registrarSolicitudRDTO"
+        description: "registrarSolicitudRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/CrearSollicitud"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaCrearRegistreExpedient"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/registre/esborrar:
     post:
       tags:
@@ -1920,6 +1958,18 @@ definitions:
         description: "Dades de l'expedient"
         $ref: "#/definitions/ExpedientsRDTO"
     title: "CrearRegistre"
+  CrearSollicitud:
+    type: "object"
+    properties:
+      documents:
+        type: "array"
+        description: "Identificador dels documents"
+        items:
+          type: "number"
+      sollicitud:
+        description: "Dades de sollicitud"
+        $ref: "#/definitions/SollicitudsRDTO"
+    title: "CrearSollicitud"
   DadesEspecifiquesRDTO:
     type: "object"
     properties:
