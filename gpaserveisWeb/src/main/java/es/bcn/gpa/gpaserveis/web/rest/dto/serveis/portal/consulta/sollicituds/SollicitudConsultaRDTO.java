@@ -27,7 +27,7 @@ import lombok.Setter;
 @ApiModel(value = "SollicitudConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id", "tramit", "dataSollicitud", "dataPresentacio", "expedient", "registre", "sollicitant", "representant",
-        "personesInteressades", "personesImplicades", "documentsAportats", "dadesOperacio", "comentari" })
+        "personesInteressades", "personesImplicades", "documentsAportats", "dadesOperacio", "comentari", "hash" })
 @XmlRootElement(name = "sollicitud")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Getter
@@ -79,5 +79,8 @@ public class SollicitudConsultaRDTO {
 	@ApiModelProperty(value = "Comentari associat a la sol·licitud")
 	@XmlElement(name = "comentari")
 	private String comentari;
+	@ApiModelProperty(value = "Hash del xml associat a la sol·licitud")
+	@XmlElement(name = "hash")
+	private String hash;
 
 }

@@ -1829,4 +1829,46 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		return null;
 	}
+
+	/* (non-Javadoc)
+	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#updateSollicitud(es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackUpdateSollicitud")
+	public SollicitudsRDTO updateSollicitud(SollicitudsRDTO sollicitudRDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("updateSollicitud(SollicitudsRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			SollicitudsRDTO returnSollicitudsRDTO = sollicitudsApi.updateSollicitud(sollicitudRDTO);
+
+			if (log.isDebugEnabled()) {
+				log.debug("updateSollicitud(SollicitudsRDTO) - fi"); //$NON-NLS-1$
+			}
+			return returnSollicitudsRDTO;
+		} catch (RestClientException e) {
+			log.error("updateSollicitud(SollicitudsRDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+	}
+	
+	/**
+	 * Fallback update sollicitud.
+	 *
+	 * @param sollicitudRDTO the sollicitud RDTO
+	 * @param e the e
+	 * @return the sollicituds RDTO
+	 * @throws GPAServeisServiceException the GPA serveis service exception
+	 */
+	public SollicitudsRDTO fallbackUpdateSollicitud(SollicitudsRDTO sollicitudRDTO, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackUpdateSollicitud(SollicitudsRDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
 }

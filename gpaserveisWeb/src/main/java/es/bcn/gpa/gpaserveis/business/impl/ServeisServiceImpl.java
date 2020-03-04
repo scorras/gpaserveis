@@ -2015,4 +2015,20 @@ public class ServeisServiceImpl implements ServeisService {
 		return respostaSollicitudsCercaBDTO;
 	}
 
+	/* (non-Javadoc)
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#guardarXmlSollicitud(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void guardarXmlSollicitud(String idDocumentum, String xmlSolicitud) throws GPAServeisServiceException {
+		documentsService.guardarXmlSollicitud(idDocumentum, xmlSolicitud);
+	}
+
+	/* (non-Javadoc)
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#updateSollicitud(es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO)
+	 */
+	@Override
+	public SollicitudsRDTO updateSollicitud(SollicitudsRDTO sollicitudRDTO) throws GPAServeisServiceException {
+		return expedientsService.updateSollicitud(sollicitudRDTO);
+	}
+
 }

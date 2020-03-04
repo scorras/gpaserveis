@@ -1076,6 +1076,15 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	SollicitudsRDTO crearSollicitud(SollicitudsCrearBDTO sollicitudCrearBDTO) throws GPAServeisServiceException;
+	
+	/**
+	 * Update sollicitud.
+	 *
+	 * @param sollicitudRDTO the sollicitud RDTO
+	 * @return the sollicituds RDTO
+	 * @throws GPAServeisServiceException the GPA serveis service exception
+	 */
+	SollicitudsRDTO updateSollicitud(SollicitudsRDTO sollicitudRDTO) throws GPAServeisServiceException;
 
 	SollicitudsRDTO actualitzarDadesSollicitudSollicituds(SollicitudsActualitzarBDTO sollicitudsActualitzarBDTO)
 			throws GPAServeisServiceException;
@@ -1100,5 +1109,14 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaSollicitudsCercaBDTO cercaSollicituds(SollicitudsCercaBDTO sollicitudsCercaBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Guardar xml sollicitud.
+	 *
+	 * @param idDocumentum the id documentum
+	 * @param xmlSolicitud the xml solicitud
+	 * @throws GPAServeisServiceException 
+	 */
+	void guardarXmlSollicitud(String idDocumentum, String xmlSolicitud) throws GPAServeisServiceException;
 
 }

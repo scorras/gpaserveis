@@ -3,6 +3,7 @@ package es.bcn.gpa.gpaserveis.business.impl;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -837,6 +838,59 @@ public class DocumentsServiceImpl implements DocumentsService {
 		ServeisServiceExceptionHandler.handleException(e);
 
 		return null;
+	}
+	
+	
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackGuardarXmlSollicitud")
+	public void guardarXmlSollicitud(String idDocumentum, String xmlSollicitud) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		File file = null;
+		ObjectMapper jsonMapper = new ObjectMapper();
+		jsonMapper.registerModule(new JodaModule());
+		ObjectWriter jsonWriter = jsonMapper.writer();
+		try {
+			Path tempFile = Files.createTempFile("upload-temp-file", ".xml");
+			file = tempFile.toFile();
+			FileUtils.writeStringToFile(file, xmlSollicitud,StandardCharsets.UTF_8.toString());
+
+			
+			documentacioApi.guardarXmlSollicitud(idDocumentum, file);
+
+			if (log.isDebugEnabled()) {
+				log.debug("guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException | IOException e) {
+			log.error("guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage(), e);
+		} finally {
+			if (file != null) {
+				FileUtils.deleteQuietly(file);
+			}
+		}
+	}
+
+	
+	/**
+	 * Fallback guardar xml sollicitud.
+	 *
+	 * @param idDocumentum the id documentum
+	 * @param xmlSollicitud the xml sollicitud
+	 * @param e the e
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException the GPA serveis service exception
+	 */
+	public void fallbackGuardarXmlSollicitud(String idDocumentum, String xmlSollicitud, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackGuardarXmlSollicitud(String, String, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
 	}
 
 	/*

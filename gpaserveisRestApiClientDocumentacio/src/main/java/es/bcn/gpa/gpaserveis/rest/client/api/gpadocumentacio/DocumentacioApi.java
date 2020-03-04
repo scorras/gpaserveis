@@ -2351,4 +2351,43 @@ public class DocumentacioApi {
 		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
 				returnType);
 	}
+
+	public void guardarXmlSollicitud(String idDocumentum, File file) {
+		Object postBody = null;
+		// verify the required parameter 'idDocumentum' is set
+		if (idDocumentum == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+					"Missing the required parameter 'idDocumentum' when calling guardarXmlSollicitud");
+		}
+		// verify the required parameter 'file' is set
+		if (file == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+					"Missing the required parameter 'file' when calling guardarXmlSollicitud");
+		}
+		
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("idDocumentum", idDocumentum);
+		String path = UriComponentsBuilder.fromPath("/documentacio/xml/sollicitud/{idDocumentum}").buildAndExpand(uriVariables)
+				.toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		formParams.add("file", new FileSystemResource(file));
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "multipart/form-data" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<DocsEntradaRDTO> returnType = new ParameterizedTypeReference<DocsEntradaRDTO>() {
+		};
+		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+				returnType);
+
+	}
 }

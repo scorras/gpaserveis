@@ -423,4 +423,14 @@ public interface ExpedientsService {
 	 */
 	PageDataOfSollicitudsRDTO cercaSollicituds(SollicitudsCercaBDTO sollicitudsCercaBDTO) throws GPAServeisServiceException;
 
+	/**
+	 * Update sollicitud.
+	 *
+	 * @param sollicitudRDTO the sollicitud RDTO
+	 * @return the sollicituds RDTO
+	 * @throws GPAServeisServiceException the GPA serveis service exception
+	 */
+	SollicitudsRDTO updateSollicitud(SollicitudsRDTO sollicitudRDTO) throws GPAServeisServiceException;
+;
+
 }

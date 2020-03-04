@@ -576,4 +576,14 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	EstatDigitalitzacioDocumentRDTO obtenirEstatDigitalitzacioDocument(Long idDocumentacio) throws GPAServeisServiceException;
+
+
+	/**
+	 * Guardar xml sollicitud.
+	 *
+	 * @param idDocumentum the id documentum
+	 * @param xmlSolicitud the xml solicitud
+	 * @throws GPAServeisServiceException the GPA serveis service exception
+	 */
+	void guardarXmlSollicitud(String idDocumentum, String xmlSolicitud)  throws GPAServeisServiceException;
 }
