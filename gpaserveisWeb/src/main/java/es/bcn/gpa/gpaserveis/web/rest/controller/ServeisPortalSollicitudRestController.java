@@ -1,10 +1,12 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller;
 
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -88,6 +91,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.Tipus
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.RelacioPersonaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.TipusIniciacioSollicitudApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.SuportConfeccioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.consulta.atributs.DadesOperacioApiParamToInternalMapper;
@@ -348,6 +352,21 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(
 						dadesSollicitudBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, file, null);
 				docsEntradaRDTOResposta = serveisService.guardarDocumentEntradaFitxer(guardarDocumentEntradaFitxerBDTO);
+				
+				//Preparar datos para registro
+				if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null && SuportConfeccioApiParamValue.PLANTILLA.getInternalValue().equals(docsEntradaRDTO.getConfiguracioDocsEntrada().getSuportConfeccio()) ){
+					ResponseEntity<String> respuestaPeticionXmlSollicitud = exportarDadesSollicitudXml(idSollicitud);
+					String xmlSolicitud = new String (Base64Utils.decodeFromString(respuestaPeticionXmlSollicitud.getBody()), StandardCharsets.UTF_8);
+					String idDocumentum = docsEntradaRDTOResposta.getMigracioIdOrigen();
+					//Guardamos XML en pos 1 de documentum asociado al pdf (pdf: pos 0, xml: pos 1)
+					serveisService.guardarXmlSollicitud(idDocumentum, xmlSolicitud);
+					//calculamos el hash del XML y actualizamos la solicitud con el hash
+					String hash = DigestUtils.sha256Hex(xmlSolicitud);
+					SollicitudsRDTO sollicitud = dadesSollicitudBDTO.getSollicitudsRDTO();
+					sollicitud.setHash(hash);
+					serveisService.updateSollicitud(sollicitud);
+					
+				}
 			}
 			if (StringUtils.isNotEmpty(idGestorDocumental)) {
 				GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(

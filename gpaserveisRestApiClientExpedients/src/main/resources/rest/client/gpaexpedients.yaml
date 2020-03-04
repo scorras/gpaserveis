@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.17.0"
+  version: "1.18.0"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -1498,6 +1498,38 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+    put:
+      tags:
+      - "Sollicituds"
+      summary: "Updates the sollicitud"
+      operationId: "updateSollicitud"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "sollicitudsRDTO"
+        description: "sollicitudsRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/SollicitudsRDTO"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/SollicitudsRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /sollicituds/actualitzarDadesSollicitudSollicituds:
     post:
       tags:
@@ -2540,6 +2572,8 @@ definitions:
         format: "date-time"
       expedient:
         type: "number"
+      hash:
+        type: "string"
       id:
         type: "number"
       iniciacio:
@@ -2572,6 +2606,8 @@ definitions:
         format: "date-time"
       expedient:
         type: "number"
+      hash:
+        type: "string"
       id:
         type: "number"
       iniciacio:
