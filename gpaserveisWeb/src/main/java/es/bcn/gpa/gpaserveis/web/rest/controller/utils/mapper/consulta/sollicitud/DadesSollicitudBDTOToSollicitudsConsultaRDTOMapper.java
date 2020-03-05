@@ -95,6 +95,7 @@ public class DadesSollicitudBDTOToSollicitudsConsultaRDTOMapper extends Property
 	@Override
 	protected void configure() {
 		map().setId(source.getSollicitudsRDTO().getId());
+		map().setHash(source.getSollicitudsRDTO().getHash());
 		using(internalToTramitOvtConverter).map(source.getSollicitudsRDTO().getTramitOvtIdext()).setTramit(null);
 		using(internalToDataHoraConverter).map(source.getSollicitudsRDTO().getDataSollicitud()).setDataSollicitud(null);
 		using(internalToDataHoraConverter).map(source.getSollicitudsRDTO().getDataPresentacio()).setDataPresentacio(null);
