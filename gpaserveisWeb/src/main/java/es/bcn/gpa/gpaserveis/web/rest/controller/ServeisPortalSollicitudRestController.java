@@ -834,12 +834,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// tipo SOL y no debe estar ya registrada
 			ServeisRestControllerValidationHelper.validateSollicitud(dadesSollicitudBDTO, Resultat.ERROR_REGISTRAR_SOLLICITUD);
 
-			// TODO Obtener el XML y almacenarlo en el Gestor Documental.
-			// Asociar el código generado a nivel de Sollicitud, puesto que será
-			// el Objeto Documental a utilizar
-			SollicitudConsultaRDTO sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
-			String xmlDadesSollicitudBase64 = serveisService.crearXmlDadesSollicitud(sollicitudConsultaRDTO);
-			
 			// Se construye el modelo para la llamada a la operación de registro
 			// TODO ¿Cómo procedemos para registrar el XML de la solicitud?
 			ArrayList<BigDecimal> idDocsEntradaList = new ArrayList<BigDecimal>();
@@ -919,7 +913,11 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					dadesSollicitudBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
 			respostaCrearJustificant = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
 			
-			//Se almacena en pos1 del justificante el XML:
+			// Obtener el XML y almacenarlo en el Gestor Documental .
+			// Asociar el código generado a nivel de Sollicitud, puesto que será
+			// el Objeto Documental a utilizar
+			SollicitudConsultaRDTO sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
+			String xmlDadesSollicitudBase64 = serveisService.crearXmlDadesSollicitud(sollicitudConsultaRDTO);
 			String xmlSolicitud = new String (Base64Utils.decodeFromString(xmlDadesSollicitudBase64), StandardCharsets.UTF_8);
 			String idDocumentum = respostaCrearJustificant.getMigracioIdOrigen();
 			//Guardamos XML en pos 1 de documentum asociado al pdf (pdf: pos 0, xml: pos 1)
