@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * CrearSollicitud
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-02T16:48:00.836+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-06T14:11:58.043+01:00")
 public class CrearSollicitud {
   @JsonProperty("documents")
   private List<BigDecimal> documents = null;

@@ -7,11 +7,15 @@ import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import org.joda.time.DateTime;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MunicipisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ProvinciesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusViesRDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +36,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-03T17:19:08.225+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-06T14:11:58.043+01:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api")
 public class Expedients_Api {
     private ApiClient apiClient;
@@ -349,6 +353,173 @@ public class Expedients_Api {
         String[] authNames = new String[] {  };
 
         ParameterizedTypeReference<BigDecimal> returnType = new ParameterizedTypeReference<BigDecimal>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Returns the requested municipi
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param codiMunicipi codiMunicipi
+     * @param codiProvincia codiProvincia
+     * @return MunicipisRDTO
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public MunicipisRDTO consultarMunicipiByCodi(String codiMunicipi, String codiProvincia) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'codiMunicipi' is set
+        if (codiMunicipi == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'codiMunicipi' when calling consultarMunicipiByCodi");
+        }
+        
+        // verify the required parameter 'codiProvincia' is set
+        if (codiProvincia == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'codiProvincia' when calling consultarMunicipiByCodi");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("codiMunicipi", codiMunicipi);
+        uriVariables.put("codiProvincia", codiProvincia);
+        String path = UriComponentsBuilder.fromPath("/geoCod/municipis/{codiProvincia}/{codiMunicipi}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<MunicipisRDTO> returnType = new ParameterizedTypeReference<MunicipisRDTO>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Returns the requested pais
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param codi codi
+     * @return PaisosRDTO
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public PaisosRDTO consultarPaisosByCodi(String codi) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'codi' is set
+        if (codi == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'codi' when calling consultarPaisosByCodi");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("codi", codi);
+        String path = UriComponentsBuilder.fromPath("/geoCod/paisos/{codi}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<PaisosRDTO> returnType = new ParameterizedTypeReference<PaisosRDTO>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Returns the requested provincia
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param codi codi
+     * @return ProvinciesRDTO
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public ProvinciesRDTO consultarProvinciesByCodi(String codi) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'codi' is set
+        if (codi == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'codi' when calling consultarProvinciesByCodi");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("codi", codi);
+        String path = UriComponentsBuilder.fromPath("/geoCod/provincies/{codi}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<ProvinciesRDTO> returnType = new ParameterizedTypeReference<ProvinciesRDTO>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Returns the requested tipus vies
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param codi codi
+     * @return TipusViesRDTO
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public TipusViesRDTO consultarTipusViesByCodi(String codi) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'codi' is set
+        if (codi == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'codi' when calling consultarTipusViesByCodi");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("codi", codi);
+        String path = UriComponentsBuilder.fromPath("/geoCod/tipusVies/{codi}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<TipusViesRDTO> returnType = new ParameterizedTypeReference<TipusViesRDTO>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**

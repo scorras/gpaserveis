@@ -19,6 +19,8 @@ tags:
   description: "Comentaris Rest Controller"
 - name: "expedients-rest-controller"
   description: "Expedients Rest Controller"
+- name: "geo-cod-rest-controller"
+  description: "Geo Cod Rest Controller"
 - name: "persones-sollicitud-rest-controller"
   description: "Persones Sollicitud Rest Controller"
 - name: "registre-rest-controller"
@@ -1503,6 +1505,123 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /geoCod/municipis/{codiProvincia}/{codiMunicipi}:
+    get:
+      tags:
+      - "Expedients "
+      summary: "Returns the requested municipi"
+      operationId: "consultarMunicipiByCodi"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codiMunicipi"
+        in: "path"
+        description: "codiMunicipi"
+        required: true
+        type: "string"
+      - name: "codiProvincia"
+        in: "path"
+        description: "codiProvincia"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/MunicipisRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /geoCod/paisos/{codi}:
+    get:
+      tags:
+      - "Expedients "
+      summary: "Returns the requested pais"
+      operationId: "consultarPaisosByCodi"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codi"
+        in: "path"
+        description: "codi"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PaisosRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /geoCod/provincies/{codi}:
+    get:
+      tags:
+      - "Expedients "
+      summary: "Returns the requested provincia"
+      operationId: "consultarProvinciesByCodi"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codi"
+        in: "path"
+        description: "codi"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProvinciesRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /geoCod/tipusVies/{codi}:
+    get:
+      tags:
+      - "Expedients "
+      summary: "Returns the requested tipus vies"
+      operationId: "consultarTipusViesByCodi"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codi"
+        in: "path"
+        description: "codi"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/TipusViesRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /sollicituds:
     post:
       tags:
@@ -2281,6 +2400,22 @@ definitions:
       comentari:
         $ref: "#/definitions/Comentaris"
     title: "InscriureEnRegistreRDTO"
+  MunicipisRDTO:
+    type: "object"
+    properties:
+      codiIne:
+        type: "string"
+      codiMunicipi:
+        type: "string"
+      nom:
+        type: "string"
+      nomCastella:
+        type: "string"
+      nomCatala:
+        type: "string"
+      provincia:
+        type: "string"
+    title: "MunicipisRDTO"
   ObtenirPerInteroperabilitat:
     type: "object"
     properties:
@@ -2360,6 +2495,20 @@ definitions:
         type: "integer"
         format: "int32"
     title: "PaginationAttributes"
+  PaisosRDTO:
+    type: "object"
+    properties:
+      codiIne:
+        type: "string"
+      codiIso:
+        type: "string"
+      nom:
+        type: "string"
+      nomCastella:
+        type: "string"
+      nomCatala:
+        type: "string"
+    title: "PaisosRDTO"
   Persones:
     type: "object"
     properties:
@@ -2501,6 +2650,20 @@ definitions:
         type: "integer"
         format: "int32"
     title: "PersonesSollicitudRDTO"
+  ProvinciesRDTO:
+    type: "object"
+    properties:
+      codiIne:
+        type: "string"
+      nom:
+        type: "string"
+      nomCastella:
+        type: "string"
+      nomCatala:
+        type: "string"
+      pais:
+        type: "string"
+    title: "ProvinciesRDTO"
   RegistreAssentament:
     type: "object"
     properties:
@@ -2693,6 +2856,14 @@ definitions:
       id:
         type: "number"
     title: "TipusDocumentIdentitat"
+  TipusViesRDTO:
+    type: "object"
+    properties:
+      codiArvato:
+        type: "string"
+      nom:
+        type: "string"
+    title: "TipusViesRDTO"
   TornarEnrereRDTO:
     type: "object"
     properties:

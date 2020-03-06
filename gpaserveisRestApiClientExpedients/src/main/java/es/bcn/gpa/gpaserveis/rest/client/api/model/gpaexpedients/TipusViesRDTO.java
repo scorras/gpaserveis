@@ -21,29 +21,50 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * AvisCreacioAccio
+ * TipusViesRDTO
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-06T14:11:58.043+01:00")
-public class AvisCreacioAccio {
-  @JsonProperty("operacio")
-  private String operacio = null;
+public class TipusViesRDTO {
+  @JsonProperty("codiArvato")
+  private String codiArvato = null;
 
-  public AvisCreacioAccio operacio(String operacio) {
-    this.operacio = operacio;
+  @JsonProperty("nom")
+  private String nom = null;
+
+  public TipusViesRDTO codiArvato(String codiArvato) {
+    this.codiArvato = codiArvato;
     return this;
   }
 
    /**
-   * Operació concreta en l&#39;execució de l&#39;acció
-   * @return operacio
+   * Get codiArvato
+   * @return codiArvato
   **/
-  @ApiModelProperty(value = "Operació concreta en l'execució de l'acció")
-  public String getOperacio() {
-    return operacio;
+  @ApiModelProperty(value = "")
+  public String getCodiArvato() {
+    return codiArvato;
   }
 
-  public void setOperacio(String operacio) {
-    this.operacio = operacio;
+  public void setCodiArvato(String codiArvato) {
+    this.codiArvato = codiArvato;
+  }
+
+  public TipusViesRDTO nom(String nom) {
+    this.nom = nom;
+    return this;
+  }
+
+   /**
+   * Get nom
+   * @return nom
+  **/
+  @ApiModelProperty(value = "")
+  public String getNom() {
+    return nom;
+  }
+
+  public void setNom(String nom) {
+    this.nom = nom;
   }
 
 
@@ -55,22 +76,24 @@ public class AvisCreacioAccio {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AvisCreacioAccio avisCreacioAccio = (AvisCreacioAccio) o;
-    return Objects.equals(this.operacio, avisCreacioAccio.operacio);
+    TipusViesRDTO tipusViesRDTO = (TipusViesRDTO) o;
+    return Objects.equals(this.codiArvato, tipusViesRDTO.codiArvato) &&
+        Objects.equals(this.nom, tipusViesRDTO.nom);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(operacio);
+    return Objects.hash(codiArvato, nom);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AvisCreacioAccio {\n");
+    sb.append("class TipusViesRDTO {\n");
     
-    sb.append("    operacio: ").append(toIndentedString(operacio)).append("\n");
+    sb.append("    codiArvato: ").append(toIndentedString(codiArvato)).append("\n");
+    sb.append("    nom: ").append(toIndentedString(nom)).append("\n");
     sb.append("}");
     return sb.toString();
   }
