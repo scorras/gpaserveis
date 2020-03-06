@@ -1551,11 +1551,7 @@ public class ServeisPortalRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.RESPONDRE_REQUERIMENT_O_TRAMIT_ALLEGACIONS_O_IP.getInternalValue());
 			idComentario = serveisService.crearComentariAccio(comentarisCrearAccioBDTO);
 
-			// 5. Debe establecerse la data tancament de aquellos requerimientos
-			// que estén aún abiertos (puede haber varios)
-			serveisService.tancarRequerimentsExpedient(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
-
-			// 6. Cambiar el estado del expediente
+			// 5. Cambiar el estado del expediente
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
 
 			// obtenemos el idAccioEstat futuro

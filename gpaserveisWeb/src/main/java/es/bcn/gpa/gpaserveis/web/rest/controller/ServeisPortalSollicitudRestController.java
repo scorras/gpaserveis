@@ -352,18 +352,21 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(
 						dadesSollicitudBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, file, null);
 				docsEntradaRDTOResposta = serveisService.guardarDocumentEntradaFitxer(guardarDocumentEntradaFitxerBDTO);
-				
-				//Preparar datos para registro
-				if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null && SuportConfeccioApiParamValue.PLANTILLA.getInternalValue().equals(docsEntradaRDTO.getConfiguracioDocsEntrada().getSuportConfeccio()) ){
+
+				// Preparar datos para registro
+				if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null && SuportConfeccioApiParamValue.PLANTILLA.getInternalValue()
+						.equals(docsEntradaRDTO.getConfiguracioDocsEntrada().getSuportConfeccio())) {
 					String idDocumentum = docsEntradaRDTOResposta.getMigracioIdOrigen();
-					//Guardamo solicitud en pos 1 del doc de entrada en documentum y devuelve el xml de sol
+					// Guardamo solicitud en pos 1 del doc de entrada en
+					// documentum y devuelve el xml de sol
 					String xmlSolicitud = guardarXMLSollicitud(dadesSollicitudBDTO, idDocumentum);
-					//calculamos el hash del XML y actualizamos la solicitud con el hash
+					// calculamos el hash del XML y actualizamos la solicitud
+					// con el hash
 					String hash = DigestUtils.sha256Hex(xmlSolicitud);
 					SollicitudsRDTO sollicitud = dadesSollicitudBDTO.getSollicitudsRDTO();
 					sollicitud.setHash(hash);
 					serveisService.updateSollicitud(sollicitud);
-					
+
 				}
 			}
 			if (StringUtils.isNotEmpty(idGestorDocumental)) {
@@ -910,15 +913,15 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
 					dadesSollicitudBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
 			respostaCrearJustificant = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
-			
+
 			// Obtener el XML y almacenarlo en el Gestor Documental .
 			// Asociar el código generado a nivel de Sollicitud, puesto que será
 			// el Objeto Documental a utilizar
 			String idDocumentum = respostaCrearJustificant.getMigracioIdOrigen();
-			//Buscamos de nuevo la solicitud para que incluya los datos de registro
+			// Buscamos de nuevo la solicitud para que incluya los datos de
+			// registro
 			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
 			guardarXMLSollicitud(dadesSollicitudBDTO, idDocumentum);
-
 
 			// se llama a segell para firmar el justificante de registro del
 			// expediente
@@ -939,9 +942,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
 			registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
 			serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
-
-			// Debe establecerse la data tancament de aquellos requerimientos
-			serveisService.tancarRequerimentsExpedient(dadesSollicitudBDTO.getExpedientsRDTO().getDocumentacioIdext());
 
 			// Cambio de estado del expediente:
 			// - APO: No hay transición
@@ -1000,17 +1000,20 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	/**
 	 * Guardar XML sollicitud.
 	 *
-	 * @param dadesSollicitudBDTO the dades sollicitud BDTO
-	 * @param idDocumentum the id documentum
+	 * @param dadesSollicitudBDTO
+	 *            the dades sollicitud BDTO
+	 * @param idDocumentum
+	 *            the id documentum
 	 * @return the string
-	 * @throws GPAServeisServiceException the GPA serveis service exception
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
 	 */
-	private String  guardarXMLSollicitud(DadesSollicitudBDTO dadesSollicitudBDTO, String idDocumentum)
-			throws GPAServeisServiceException {
+	private String guardarXMLSollicitud(DadesSollicitudBDTO dadesSollicitudBDTO, String idDocumentum) throws GPAServeisServiceException {
 		SollicitudConsultaRDTO sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
 		String xmlDadesSollicitudBase64 = serveisService.crearXmlDadesSollicitud(sollicitudConsultaRDTO);
-		String xmlSolicitud = new String (Base64Utils.decodeFromString(xmlDadesSollicitudBase64), StandardCharsets.UTF_8);
-		//Guardamos XML en pos 1 de documentum asociado al pdf (pdf: pos 0, xml: pos 1)
+		String xmlSolicitud = new String(Base64Utils.decodeFromString(xmlDadesSollicitudBase64), StandardCharsets.UTF_8);
+		// Guardamos XML en pos 1 de documentum asociado al pdf (pdf: pos 0,
+		// xml: pos 1)
 		serveisService.guardarXmlSollicitud(idDocumentum, xmlSolicitud);
 		return xmlSolicitud;
 	}
