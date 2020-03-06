@@ -915,6 +915,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// Asociar el código generado a nivel de Sollicitud, puesto que será
 			// el Objeto Documental a utilizar
 			String idDocumentum = respostaCrearJustificant.getMigracioIdOrigen();
+			//Buscamos de nuevo la solicitud para que incluya los datos de registro
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
 			guardarXMLSollicitud(dadesSollicitudBDTO, idDocumentum);
 
 
