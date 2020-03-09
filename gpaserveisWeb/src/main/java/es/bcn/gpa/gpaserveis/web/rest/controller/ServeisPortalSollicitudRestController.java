@@ -601,7 +601,9 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// Aplicamos el campo de Relación correspondiente a las personas que
 			// se relacionan
 			sollicitudCrearRDTO.getSollicitant().setRelacio(RelacioPersonaApiParamValue.SOLLICITANT.getApiParamValue());
-			sollicitudCrearRDTO.getRepresentant().setRelacio(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue());
+			if (sollicitudCrearRDTO.getRepresentant() != null){
+				sollicitudCrearRDTO.getRepresentant().setRelacio(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue());
+			}
 
 			// TODO: descomentar lo siguiente cuando se añadan las listas de
 			// implicades e interessades a las sol·licituds

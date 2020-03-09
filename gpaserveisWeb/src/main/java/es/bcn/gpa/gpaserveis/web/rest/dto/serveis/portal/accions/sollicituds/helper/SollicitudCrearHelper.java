@@ -28,7 +28,9 @@ public class SollicitudCrearHelper {
 		this.sollicitudCrearRDTO = sollicitudCrearRDTO;
 		this.personesSollicitud = new ArrayList<>();
 		this.personesSollicitud.add(sollicitudCrearRDTO.getSollicitant());
-		this.personesSollicitud.add(sollicitudCrearRDTO.getRepresentant());
+		if (sollicitudCrearRDTO.getRepresentant() != null){
+			this.personesSollicitud.add(sollicitudCrearRDTO.getRepresentant());
+		}
 
 	}
 
