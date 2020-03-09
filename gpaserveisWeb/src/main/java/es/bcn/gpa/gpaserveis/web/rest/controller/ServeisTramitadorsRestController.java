@@ -1641,7 +1641,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 
 					CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
-							dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
+					        dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
+					        docsTramitacioRDTO);
 					docsTramitacioRDTOResult = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
 				} else {
 					GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO = new GuardarDocumentTramitacioFitxerBDTO(
@@ -3831,7 +3832,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
 				docsTramitacioRDTO.setDocsTercers(1);
 				CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
-						dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
+				        dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
+				        docsTramitacioRDTO);
 				respostaCrearJustificant = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
 
 				// Vincular Justificante en Ariadna

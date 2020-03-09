@@ -15,6 +15,9 @@ public class CrearDocumentTramitacioBDTO {
 	/** The id expedient. */
 	private BigDecimal idExpedient;
 
+	/** The id sollicitud. */
+	private BigDecimal idSollicitud;
+
 	/** The docs tramitacio RDTO. */
 	private DocsTramitacioRDTO docsTramitacioRDTO;
 
