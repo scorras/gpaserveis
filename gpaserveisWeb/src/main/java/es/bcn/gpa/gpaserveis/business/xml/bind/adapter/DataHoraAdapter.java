@@ -2,6 +2,7 @@ package es.bcn.gpa.gpaserveis.business.xml.bind.adapter;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -51,12 +52,13 @@ public class DataHoraAdapter extends XmlAdapter<DataHoraAdapted, String> {
 	 */
 	@Override
 	public DataHoraAdapted marshal(String sourceValue) throws Exception {
-		DateTime dateTime = dateTimeFormatter.parseDateTime(sourceValue);
-
-		DataHoraAdapted dataHoraAdapted = new DataHoraAdapted();
-		dataHoraAdapted.setData(dateFormatter.print(dateTime));
-		dataHoraAdapted.setHora(timeFormatter.print(dateTime));
-
+		DataHoraAdapted dataHoraAdapted = null;
+		if (StringUtils.isNotEmpty(sourceValue)){
+			DateTime dateTime = dateTimeFormatter.parseDateTime(sourceValue);
+			dataHoraAdapted = new DataHoraAdapted();
+			dataHoraAdapted.setData(dateFormatter.print(dateTime));
+			dataHoraAdapted.setHora(timeFormatter.print(dateTime));
+		}
 		return dataHoraAdapted;
 	}
 

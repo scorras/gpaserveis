@@ -226,7 +226,19 @@ public class ServeisRestControllerValidationHelper {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_SOLLICITUDS_REGISTRADA);
 		}
 
-		if (dadesSollicitudBDTO.getSollicitudsRDTO().getTramitOvtIdext() == TramitOvtApiParamValue.SOL.getInternalValue()) {
+	}
+	
+	/**
+	 * Validate registre sollicitud.
+	 *
+	 * @param dadesSollicitudBDTO the dades sollicitud BDTO
+	 * @param resultatError the resultat error
+	 * @throws GPAApiParamValidationException the GPA api param validation exception
+	 */
+	public static void validateRegistreSollicitud(DadesSollicitudBDTO dadesSollicitudBDTO, Resultat resultatError)
+			throws GPAApiParamValidationException {
+		validateSollicitud( dadesSollicitudBDTO, resultatError);
+		if (TramitOvtApiParamValue.SOL.getInternalValue().compareTo(dadesSollicitudBDTO.getSollicitudsRDTO().getTramitOvtIdext()) == 0){
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_SOLLICITUDS_TIPUS_NOT_VALID);
 		}
 	}

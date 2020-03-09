@@ -706,7 +706,9 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// Aplicamos el campo de Relación correspondiente a las personas que
 			// se relacionan
 			sollicitudActualitzar.getSollicitant().setRelacio(RelacioPersonaApiParamValue.SOLLICITANT.getApiParamValue());
-			sollicitudActualitzar.getRepresentant().setRelacio(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue());
+			if (sollicitudActualitzar.getRepresentant() != null){
+				sollicitudActualitzar.getRepresentant().setRelacio(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue());
+			}
 
 			SollicitudActualitzarHelper sollicitudActualitzarHelper = new SollicitudActualitzarHelper(sollicitudActualitzar);
 
@@ -835,7 +837,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 			// El identificador de la solicitud debe ser válido, no debe ser de
 			// tipo SOL y no debe estar ya registrada
-			ServeisRestControllerValidationHelper.validateSollicitud(dadesSollicitudBDTO, Resultat.ERROR_REGISTRAR_SOLLICITUD);
+			ServeisRestControllerValidationHelper.validateRegistreSollicitud(dadesSollicitudBDTO, Resultat.ERROR_REGISTRAR_SOLLICITUD);
 
 			// Se construye el modelo para la llamada a la operación de registro
 			// TODO ¿Cómo procedemos para registrar el XML de la solicitud?
