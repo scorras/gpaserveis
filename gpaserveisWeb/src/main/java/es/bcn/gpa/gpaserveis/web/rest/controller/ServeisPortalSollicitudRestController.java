@@ -683,7 +683,9 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// Aplicamos el campo de Relación correspondiente a las personas que
 			// se relacionan
 			sollicitudActualitzar.getSollicitant().setRelacio(RelacioPersonaApiParamValue.SOLLICITANT.getApiParamValue());
-			sollicitudActualitzar.getRepresentant().setRelacio(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue());
+			if (sollicitudActualitzar.getRepresentant() != null) {
+				sollicitudActualitzar.getRepresentant().setRelacio(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue());
+			}
 
 			SollicitudActualitzarHelper sollicitudActualitzarHelper = new SollicitudActualitzarHelper(sollicitudActualitzar);
 
