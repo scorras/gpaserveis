@@ -4,29 +4,26 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MunicipisRDTO;
 
-@Component
-@Configurable
+/**
+ * The Class MunicipiAdapter.
+ */
 public class MunicipiAdapter extends XmlAdapter<String, String> {
 
 	/** The serveis service. */
-	private static ServeisService serveisService;
+	protected final ServeisService serveisService;
 
 	/**
-	 * Inits the serveis service.
+	 * Instantiates a new municipi adapter.
 	 *
 	 * @param serveisService
 	 *            the serveis service
 	 */
-	@Autowired
-	public void initServeisService(ServeisService serveisService) {
-		MunicipiAdapter.serveisService = serveisService;
+	public MunicipiAdapter(ServeisService serveisService) {
+		this.serveisService = serveisService;
 	}
 
 	/*

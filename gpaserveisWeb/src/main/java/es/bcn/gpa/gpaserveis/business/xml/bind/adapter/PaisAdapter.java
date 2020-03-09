@@ -3,9 +3,6 @@ package es.bcn.gpa.gpaserveis.business.xml.bind.adapter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
@@ -13,22 +10,19 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 /**
  * The Class PaisAdapter.
  */
-@Component
-@Configurable
 public class PaisAdapter extends XmlAdapter<String, String> {
 
 	/** The serveis service. */
-	private static ServeisService serveisService;
+	protected final ServeisService serveisService;
 
 	/**
-	 * Inits the serveis service.
+	 * Instantiates a new pais adapter.
 	 *
 	 * @param serveisService
 	 *            the serveis service
 	 */
-	@Autowired
-	public void initServeisService(ServeisService serveisService) {
-		PaisAdapter.serveisService = serveisService;
+	public PaisAdapter(ServeisService serveisService) {
+		this.serveisService = serveisService;
 	}
 
 	/*

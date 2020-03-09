@@ -34,6 +34,7 @@ import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitudSollicituds;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfSollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
@@ -58,8 +59,8 @@ public class SollicitudsApiTest extends ParentTest {
 	@Test
 	public void consultarDadesSollicitudsTest() {
 		when(apiClient.invokeAPI(eq("/sollicituds/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(new SollicitudsRDTO());
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new SollicitudsRDTO());
 
 		BigDecimal id = ONE;
 		SollicitudsRDTO response = api.consultarDadesSollicituds(id);
@@ -73,8 +74,8 @@ public class SollicitudsApiTest extends ParentTest {
 	@Test
 	public void crearSollicitudTest() {
 		when(apiClient.invokeAPI(eq("/sollicituds"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(new SollicitudsRDTO());
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new SollicitudsRDTO());
 
 		SollicitudsRDTO sollicitudsRDTO = new SollicitudsRDTO();
 		SollicitudsRDTO response = api.crearSollicitud(sollicitudsRDTO);
@@ -88,8 +89,8 @@ public class SollicitudsApiTest extends ParentTest {
 	@Test
 	public void consultarSollicitudsExpedientTest() {
 		when(apiClient.invokeAPI(eq("/sollicituds/consultarSollicitudsExpedient/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
-				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<SollicitudsRDTO>());
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<SollicitudsRDTO>());
 
 		BigDecimal idExpedient = ONE;
 		List<SollicitudsRDTO> response = api.consultarSollicitudsExpedient(idExpedient);
@@ -107,8 +108,8 @@ public class SollicitudsApiTest extends ParentTest {
 	@Test
 	public void associarRegistreSollicitudTest() {
 		when(apiClient.invokeAPI(eq("/sollicituds/associarRegistreSollicitud"), eq(HttpMethod.POST), any(MultiValueMap.class),
-				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		SollicitudActualitzarRegistre sollicitudActualitzarRegistreRDTO = new SollicitudActualitzarRegistre();
 		api.associarRegistreSollicitud(sollicitudActualitzarRegistreRDTO);
@@ -127,12 +128,12 @@ public class SollicitudsApiTest extends ParentTest {
 	@Test
 	public void cercaSollicitudsTest() {
 		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
-				.thenReturn(new LinkedMultiValueMap<String, String>());
+		        .thenReturn(new LinkedMultiValueMap<String, String>());
 		when(apiClient.parameterToMultiValueMap(any(CollectionFormat.class), any(String.class), any(Object.class)))
-				.thenReturn(new LinkedMultiValueMap<String, String>());
+		        .thenReturn(new LinkedMultiValueMap<String, String>());
 		when(apiClient.invokeAPI(eq("/sollicituds/search"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfSollicitudsRDTO());
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfSollicitudsRDTO());
 
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
@@ -153,9 +154,9 @@ public class SollicitudsApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		PageDataOfSollicitudsRDTO response = api.cercaSollicituds(absoluteRowNumberOfFirstRowInCurrentPage,
-				absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
-				currentPageIsLastPage, currentPageNumber, dir, id, idExpedient, idTramitOvt, idUsuari, nextPageNumber, pageSize,
-				previousPageNumber, sort, totalElements, totalPages);
+		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
+		        currentPageIsLastPage, currentPageNumber, dir, id, idExpedient, idTramitOvt, idUsuari, nextPageNumber, pageSize,
+		        previousPageNumber, sort, totalElements, totalPages);
 
 		assertTrue(response != null);
 	}
@@ -172,12 +173,42 @@ public class SollicitudsApiTest extends ParentTest {
 	public void crearRegistreSolicitudTest() {
 
 		when(apiClient.invokeAPI(eq("/expedients/registre/crearSollicitud/1"), eq(HttpMethod.POST), any(MultiValueMap.class),
-				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new RespostaCrearRegistreExpedient());
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new RespostaCrearRegistreExpedient());
 
 		BigDecimal accio = ONE;
 		CrearSollicitud registrarSolicitudRDTO = new CrearSollicitud();
 		RespostaCrearRegistreExpedient response = api.crearRegistreSolicitud(accio, registrarSolicitudRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Actualitzar dades sollicitud sollicituds.
+	 */
+	@Test
+	public void actualitzarDadesSollicitudSollicitudsTest() {
+		when(apiClient.invokeAPI(eq("/sollicituds/actualitzarDadesSollicitudSollicituds"), eq(HttpMethod.POST), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new SollicitudsRDTO());
+
+		ActualitzarDadesSollicitudSollicituds actualitzarDadesSollicitudSollicitudsRDTO = new ActualitzarDadesSollicitudSollicituds();
+		SollicitudsRDTO response = api.actualitzarDadesSollicitudSollicituds(actualitzarDadesSollicitudSollicitudsRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Update sollicitud.
+	 */
+	@Test
+	public void updateSollicitudTest() {
+		when(apiClient.invokeAPI(eq("/sollicituds"), eq(HttpMethod.PUT), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new SollicitudsRDTO());
+
+		SollicitudsRDTO sollicitudsRDTO = new SollicitudsRDTO();
+		SollicitudsRDTO response = api.updateSollicitud(sollicitudsRDTO);
 
 		assertTrue(response != null);
 	}

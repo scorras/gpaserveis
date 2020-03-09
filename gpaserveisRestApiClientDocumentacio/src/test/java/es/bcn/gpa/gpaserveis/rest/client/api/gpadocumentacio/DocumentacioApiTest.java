@@ -893,4 +893,27 @@ public class DocumentacioApiTest extends ParentTest {
 		assertTrue(response != null);
 	}
 
+	/**
+	 * saves the xml sollicitud.
+	 *
+	 * @throws RestClientException
+	 *             if the Api call fails
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
+	@Test
+	public void guardarXmlSollicitudTest() throws RestClientException, IOException {
+		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
+		        .thenReturn(new LinkedMultiValueMap<String, String>());
+		when(apiClient.invokeAPI(eq("/documentacio/xml/sollicitud/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		String idDocumentum = ONE.toString();
+		File file = testFolder.newFolder("test");
+		api.guardarXmlSollicitud(idDocumentum, file);
+
+		assertTrue(true);
+	}
+
 }

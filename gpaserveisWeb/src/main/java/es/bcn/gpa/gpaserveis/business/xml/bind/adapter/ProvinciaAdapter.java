@@ -3,29 +3,26 @@ package es.bcn.gpa.gpaserveis.business.xml.bind.adapter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ProvinciesRDTO;
 
-@Component
-@Configurable
+/**
+ * The Class ProvinciaAdapter.
+ */
 public class ProvinciaAdapter extends XmlAdapter<String, String> {
 
 	/** The serveis service. */
-	private static ServeisService serveisService;
+	protected final ServeisService serveisService;
 
 	/**
-	 * Inits the serveis service.
+	 * Instantiates a new provincia adapter.
 	 *
 	 * @param serveisService
 	 *            the serveis service
 	 */
-	@Autowired
-	public void initServeisService(ServeisService serveisService) {
-		ProvinciaAdapter.serveisService = serveisService;
+	public ProvinciaAdapter(ServeisService serveisService) {
+		this.serveisService = serveisService;
 	}
 
 	/*
