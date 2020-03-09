@@ -15,6 +15,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import es.bcn.gpa.gpaserveis.business.xml.bind.adapter.AdrecaAdapter;
+import es.bcn.gpa.gpaserveis.business.xml.bind.adapter.MunicipiAdapter;
+import es.bcn.gpa.gpaserveis.business.xml.bind.adapter.PaisAdapter;
+import es.bcn.gpa.gpaserveis.business.xml.bind.adapter.ProvinciaAdapter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -25,7 +28,8 @@ import lombok.Setter;
 @JsonPropertyOrder({ "email", "telefon", "mobil", "fax", "tipusVia", "nomVia", "numero", "escala", "bloc", "porta", "pis", "codiPostal",
         "municipi", "provincia", "pais", "municipiEstranger", "provinciaEstranger" })
 @XmlRootElement(name = "DADES_NOTIFICACIO")
-@XmlType(name = "DadesContacte", propOrder = { "email", "telefon", "mobil", "fax", "adreca" })
+@XmlType(name = "DadesContacte", propOrder = { "email", "telefon", "mobil", "fax", "adreca", "codiPostal", "municipiProvincia", "provincia",
+        "pais", "municipiEstranger", "provinciaEstranger" })
 @XmlAccessorType(XmlAccessType.NONE)
 @Getter
 @Setter
@@ -67,29 +71,25 @@ public class DadesContacteRDTO {
 	private String pis;
 
 	@ApiModelProperty(value = "Codi Postal")
-	// @XmlElement(name = "codiPostal")
-	@XmlTransient
+	@XmlElement(name = "CODI_POSTAL", required = false, type = String.class)
 	private String codiPostal;
 	@ApiModelProperty(value = "Codi INE del Municipi")
-	// @XmlElement(name = "municipi")
 	@XmlTransient
 	private String municipi;
 	@ApiModelProperty(value = "Codi INE de la Província")
-	// @XmlElement(name = "provincia")
-	@XmlTransient
+	@XmlElement(name = "PROVINCIA", required = false)
+	@XmlJavaTypeAdapter(ProvinciaAdapter.class)
 	private String provincia;
 	@ApiModelProperty(value = "Codi INE del Pais")
-	// @XmlElement(name = "pais")
-	@XmlTransient
+	@XmlElement(name = "PAIS", required = false)
+	@XmlJavaTypeAdapter(PaisAdapter.class)
 	private String pais;
 
 	@ApiModelProperty(value = "Municipi estranger")
-	// @XmlElement(name = "municipiEstranger")
-	@XmlTransient
+	@XmlElement(name = "MUNICIPI_ESTRANGER", required = false, type = String.class)
 	private String municipiEstranger;
 	@ApiModelProperty(value = "Provincia estrangera")
-	// @XmlElement(name = "provinciaEstranger")
-	@XmlTransient
+	@XmlElement(name = "PROVINCIA_ESTRANGER", required = false, type = String.class)
 	private String provinciaEstranger;
 
 	@JsonIgnore
@@ -97,6 +97,13 @@ public class DadesContacteRDTO {
 	@XmlJavaTypeAdapter(AdrecaAdapter.class)
 	public String getAdreca() {
 		return StringUtils.join(new String[] { tipusVia, nomVia, numero, bloc, escala, pis, porta }, " ");
+	}
+
+	@JsonIgnore
+	@XmlElement(name = "MUNICIPI", required = false)
+	@XmlJavaTypeAdapter(MunicipiAdapter.class)
+	public String getMunicipiProvincia() {
+		return StringUtils.join(new String[] { provincia, municipi }, " ");
 	}
 
 }

@@ -1,14 +1,15 @@
 package es.bcn.gpa.gpaserveis.business.xml.bind.adapter;
 
-import java.math.BigDecimal;
-
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.business.ServeisService;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MunicipisRDTO;
 
 @Component
 @Configurable
@@ -47,6 +48,13 @@ public class MunicipiAdapter extends XmlAdapter<String, String> {
 	 */
 	@Override
 	public String marshal(String sourceValue) throws Exception {
-		return serveisService.crearDataXmlExpedient(new BigDecimal(21)).getDadesXml();
+		String[] sourceValueArray = StringUtils.split(sourceValue);
+		if (ArrayUtils.isNotEmpty(sourceValueArray) && sourceValueArray.length == 2) {
+			MunicipisRDTO municipisRDTO = serveisService.consultarMunicipisByCodi(sourceValueArray[1], sourceValueArray[0]);
+			if (municipisRDTO != null) {
+				return municipisRDTO.getNom();
+			}
+		}
+		return sourceValue;
 	}
 }

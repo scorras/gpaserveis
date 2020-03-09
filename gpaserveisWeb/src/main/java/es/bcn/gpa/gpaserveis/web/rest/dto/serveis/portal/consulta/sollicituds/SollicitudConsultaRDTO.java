@@ -6,8 +6,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -32,7 +32,9 @@ import lombok.Setter;
 @JsonPropertyOrder({ "id", "tramit", "dataSollicitud", "dataPresentacio", "expedient", "registre", "sollicitant", "representant",
         "personesInteressades", "personesImplicades", "documentsAportats", "dadesOperacio", "comentari" })
 @XmlRootElement(name = "SOLLICITUD")
-@XmlType(name = "SollicitudConsulta", propOrder = { "id", "tramit", "dataSollicitud", "dataPresentacio", "expedient", "registre" })
+@XmlType(name = "SollicitudConsulta", propOrder = { "id", "tramit", "dataSollicitud", "dataPresentacio", "expedient", "registre",
+        "sollicitant", "representant", "personesInteressades", "personesImplicades", "documentsAportats", "dadesOperacio", "comentari",
+        "hash" })
 @XmlAccessorType(XmlAccessType.NONE)
 @Getter
 @Setter
@@ -61,39 +63,32 @@ public class SollicitudConsultaRDTO {
 	@XmlElement(name = "REGISTRE", required = false, type = RegistreRDTO.class)
 	private RegistreRDTO registre;
 	@ApiModelProperty(value = "Sol·licitant principal de la sol·licitud")
-	// @XmlElement(name = "sollicitant")
-	@XmlTransient
+	@XmlElement(name = "SOLLICITANT", required = true, type = PersonesRDTO.class)
 	private PersonesRDTO sollicitant;
 	@ApiModelProperty(value = "Representant principal de la sol·licitud")
-	// @XmlElement(name = "representant")
-	@XmlTransient
+	@XmlElement(name = "REPRESENTANT", required = false, type = PersonesRDTO.class)
 	private PersonesRDTO representant;
 	@ApiModelProperty(value = "Altres persones interessades")
-	// @XmlElementWrapper(name = "personesInteressades")
-	// @XmlElement(name = "personaInteressada")
-	@XmlTransient
+	@XmlElementWrapper(name = "PERSONES_INTERESSADES")
+	@XmlElement(name = "PERSONA_INTERESSADA")
 	private List<PersonesRDTO> personesInteressades;
 	@ApiModelProperty(value = "Persones implicades")
-	// @XmlElementWrapper(name = "personesImplicades")
-	// @XmlElement(name = "personaImplicada")
-	@XmlTransient
+	@XmlElementWrapper(name = "PERSONES_IMPLICADES")
+	@XmlElement(name = "PERSONA_IMPLICADA")
 	private List<PersonesRDTO> personesImplicades;
 	@ApiModelProperty(value = "Documents aportats a la sol·licitud")
-	// @XmlElementWrapper(name = "documentsAportats")
-	// @XmlElement(name = "document")
-	@XmlTransient
+	@XmlElementWrapper(name = "DOCUMENTS_APORTATS")
+	@XmlElement(name = "DOCUMENT")
 	private List<DocumentAportatConsultaRDTO> documentsAportats;
 	@ApiModelProperty(value = "Dades d'operació de la sol·licitud")
-	// @XmlElementWrapper(name = "dadesOperacio")
-	// @XmlElement(name = "dadaOperacio")
-	@XmlTransient
+	@XmlElementWrapper(name = "DADES_OPERACIO")
+	@XmlElement(name = "DADA_OPERACIO")
 	private List<DadesAtributsSollicitudsRDTO> dadesOperacio;
 	@ApiModelProperty(value = "Comentari associat a la sol·licitud")
-	// @XmlElement(name = "comentari")
-	@XmlTransient
+	@XmlElement(name = "COMENTARI", required = false, type = String.class)
 	private String comentari;
 	@ApiModelProperty(value = "Hash del xml associat a la sol·licitud")
-	@XmlElement(name = "hash")
+	@XmlElement(name = "HASH", required = false, type = String.class)
 	private String hash;
 
 }

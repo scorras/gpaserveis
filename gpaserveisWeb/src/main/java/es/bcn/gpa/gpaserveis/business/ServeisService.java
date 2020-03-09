@@ -75,8 +75,11 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlant
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MunicipisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ProvinciesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
@@ -85,6 +88,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInterop
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusViesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.SollicitudConsultaRDTO;
@@ -530,7 +534,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaCrearRegistreExpedient crearRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO,
-			BigDecimal tipusDocVinculada) throws GPAServeisServiceException;
+	        BigDecimal tipusDocVinculada) throws GPAServeisServiceException;
 
 	/**
 	 * Canviar estat expedient.
@@ -1103,13 +1107,15 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	SollicitudsRDTO crearSollicitud(SollicitudsCrearBDTO sollicitudCrearBDTO) throws GPAServeisServiceException;
-	
+
 	/**
 	 * Update sollicitud.
 	 *
-	 * @param sollicitudRDTO the sollicitud RDTO
+	 * @param sollicitudRDTO
+	 *            the sollicitud RDTO
 	 * @return the sollicituds RDTO
-	 * @throws GPAServeisServiceException the GPA serveis service exception
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
 	 */
 	SollicitudsRDTO updateSollicitud(SollicitudsRDTO sollicitudRDTO) throws GPAServeisServiceException;
 
@@ -1140,10 +1146,57 @@ public interface ServeisService {
 	/**
 	 * Guardar xml sollicitud.
 	 *
-	 * @param idDocumentum the id documentum
-	 * @param xmlSolicitud the xml solicitud
-	 * @throws GPAServeisServiceException 
+	 * @param idDocumentum
+	 *            the id documentum
+	 * @param xmlSolicitud
+	 *            the xml solicitud
+	 * @throws GPAServeisServiceException
 	 */
 	void guardarXmlSollicitud(String idDocumentum, String xmlSolicitud) throws GPAServeisServiceException;
 
+	/**
+	 * Consultar tipus vies by codi.
+	 *
+	 * @param codi
+	 *            the codi
+	 * @return the tipus vies RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	TipusViesRDTO consultarTipusViesByCodi(String codi) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar paisos by codi.
+	 *
+	 * @param codi
+	 *            the codi
+	 * @return the paisos RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	PaisosRDTO consultarPaisosByCodi(String codi) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar provincies by codi.
+	 *
+	 * @param codi
+	 *            the codi
+	 * @return the provincies RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	ProvinciesRDTO consultarProvinciesByCodi(String codi) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar municipis by codi.
+	 *
+	 * @param codiMunicipi
+	 *            the codi municipi
+	 * @param codiProvincia
+	 *            the codi provincia
+	 * @return the municipis RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	MunicipisRDTO consultarMunicipisByCodi(String codiMunicipi, String codiProvincia) throws GPAServeisServiceException;
 }

@@ -79,7 +79,7 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 						}
 					}
 				}
-				dadesAtributsSollicitudsRDTO.setValor(valorList);
+				dadesAtributsSollicitudsRDTO.setValors(valorList);
 				dadesAtributsSollicitudsRDTOList.add(dadesAtributsSollicitudsRDTO);
 			}
 

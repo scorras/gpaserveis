@@ -1,14 +1,15 @@
 package es.bcn.gpa.gpaserveis.business.xml.bind.adapter;
 
-import java.math.BigDecimal;
-
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.business.ServeisService;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusViesRDTO;
 
 @Component
 @Configurable
@@ -47,6 +48,14 @@ public class AdrecaAdapter extends XmlAdapter<String, String> {
 	 */
 	@Override
 	public String marshal(String sourceValue) throws Exception {
-		return serveisService.crearDataXmlExpedient(new BigDecimal(21)).getDadesXml();
+		String[] sourceValueArray = StringUtils.split(sourceValue);
+		if (ArrayUtils.isNotEmpty(sourceValueArray)) {
+			TipusViesRDTO tipusViesRDTO = serveisService.consultarTipusViesByCodi(sourceValueArray[0]);
+			if (tipusViesRDTO != null) {
+				sourceValueArray[0] = tipusViesRDTO.getNom();
+				return StringUtils.join(sourceValueArray, " ");
+			}
+		}
+		return sourceValue;
 	}
 }

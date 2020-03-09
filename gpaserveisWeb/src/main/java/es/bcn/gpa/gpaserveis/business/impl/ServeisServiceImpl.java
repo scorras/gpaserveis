@@ -88,9 +88,12 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlant
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MunicipisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ProvinciesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
@@ -99,6 +102,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInterop
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusViesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
@@ -1002,7 +1006,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public RespostaCrearRegistreExpedient crearRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO,
-			BigDecimal tipusDocVinculada) throws GPAServeisServiceException {
+	        BigDecimal tipusDocVinculada) throws GPAServeisServiceException {
 		return expedientsService.crearRegistreSollicitud(expedientsRegistrarSollicitudBDTO, tipusDocVinculada);
 	}
 
@@ -2038,20 +2042,76 @@ public class ServeisServiceImpl implements ServeisService {
 		return respostaSollicitudsCercaBDTO;
 	}
 
-	/* (non-Javadoc)
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#guardarXmlSollicitud(java.lang.String, java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#guardarXmlSollicitud(java.
+	 * lang.String, java.lang.String)
 	 */
 	@Override
 	public void guardarXmlSollicitud(String idDocumentum, String xmlSolicitud) throws GPAServeisServiceException {
 		documentsService.guardarXmlSollicitud(idDocumentum, xmlSolicitud);
 	}
 
-	/* (non-Javadoc)
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#updateSollicitud(es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#updateSollicitud(es.bcn.gpa
+	 * .gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO)
 	 */
 	@Override
 	public SollicitudsRDTO updateSollicitud(SollicitudsRDTO sollicitudRDTO) throws GPAServeisServiceException {
 		return expedientsService.updateSollicitud(sollicitudRDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#consultarTipusViesByCodi(
+	 * java.lang.String)
+	 */
+	@Override
+	public TipusViesRDTO consultarTipusViesByCodi(String codi) throws GPAServeisServiceException {
+		return expedientsService.consultarTipusViesByCodi(codi);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#consultarPaisosByCodi(java.
+	 * lang.String)
+	 */
+	@Override
+	public PaisosRDTO consultarPaisosByCodi(String codi) throws GPAServeisServiceException {
+		return expedientsService.consultarPaisosByCodi(codi);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#consultarProvinciesByCodi(
+	 * java.lang.String)
+	 */
+	@Override
+	public ProvinciesRDTO consultarProvinciesByCodi(String codi) throws GPAServeisServiceException {
+		return expedientsService.consultarProvinciesByCodi(codi);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#consultarMunicipisByCodi(
+	 * java.lang.String, java.lang.String)
+	 */
+	@Override
+	public MunicipisRDTO consultarMunicipisByCodi(String codiMunicipi, String codiProvincia) throws GPAServeisServiceException {
+		return expedientsService.consultarMunicipisByCodi(codiMunicipi, codiProvincia);
 	}
 
 }
