@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -16,23 +17,24 @@ import lombok.Setter;
 @ApiModel(value = "ConfiguracioDocumentacio")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "codi", "descripcio", "descripcioCastella" })
-@XmlRootElement(name = "configuracioDocumentacio")
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "CONFIGURACIO_DOCUMENTACIO")
+@XmlType(name = "ConfiguracioDocumentacio", propOrder = { "codi", "descripcio", "descripcioCastella", "codiNti" })
+@XmlAccessorType(XmlAccessType.NONE)
 @Getter
 @Setter
 public class ConfiguracioDocumentacioRDTO {
 
 	@ApiModelProperty(value = "Codi del document")
-	@XmlElement(name = "codi")
+	@XmlElement(name = "CODI", required = true, type = String.class)
 	private String codi;
 	@ApiModelProperty(value = "Descripció del document")
-	@XmlElement(name = "descripcio")
+	@XmlElement(name = "DESCRIPCIO", required = true, type = String.class)
 	private String descripcio;
 	@ApiModelProperty(value = "Descripció del document en castellà")
-	@XmlElement(name = "descripcioCastella")
+	@XmlElement(name = "DESCRIPCIO_CASTELLA", required = true, type = String.class)
 	private String descripcioCastella;
 	@ApiModelProperty(value = "Codi Nti del document")
-	@XmlElement(name = "codiNti")
+	@XmlElement(name = "CODI_NTI", required = false, type = String.class)
 	private String codiNti;
 
 }

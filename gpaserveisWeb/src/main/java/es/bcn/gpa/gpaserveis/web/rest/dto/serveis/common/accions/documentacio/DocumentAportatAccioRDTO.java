@@ -16,7 +16,7 @@ import lombok.Setter;
 @ApiModel(value = "DocumentAportatAccio")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id", "idGestorDocumental", "nom", "configuracioDocumentacio", "origen", "revisio", "dataPresentacio",
-		"dataModificacio" })
+        "dataModificacio", "hash" })
 @Getter
 @Setter
 public class DocumentAportatAccioRDTO {
@@ -37,5 +37,7 @@ public class DocumentAportatAccioRDTO {
 	private String dataPresentacio;
 	@ApiModelProperty(value = "Data de modificacio del document")
 	private String dataModificacio;
+	@ApiModelProperty(value = "Hash del document")
+	private String hash;
 
 }

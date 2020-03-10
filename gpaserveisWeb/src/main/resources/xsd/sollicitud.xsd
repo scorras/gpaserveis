@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="sollicitud" type="sollicitudConsultaRDTO" />
+	
+	<xs:complexType name="sollicitudConsultaRDTO">
+		<xs:sequence>
+			<xs:element name="id" type="xs:decimal" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="tramit" maxOccurs="1" minOccurs="1" />
+			<xs:element name="dataSollicitud" type="xs:string" maxOccurs="1" minOccurs="1" />
+			<xs:element name="dataPresentacio" type="xs:string" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="expedient" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="registre" maxOccurs="1" minOccurs="0" />
+			<xs:element name="sollicitant" type="personesRDTO" maxOccurs="1" minOccurs="1" />
+			<xs:element name="representant" type="personesRDTO" maxOccurs="1" minOccurs="0" />
+			<xs:element name="personesInteressades" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="personaInteressada" type="personesRDTO"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="personesImplicades" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="personaImplicada" type="personesRDTO"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="documentsAportats" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="document" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="dadesOperacio" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="dadaOperacio" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="comentari" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="tramit" type="tramitsOvtRDTO" />
+	
+	<xs:complexType name="tramitsOvtRDTO">
+		<xs:sequence>
+			<xs:element name="codi" type="xs:string" maxOccurs="1" minOccurs="1" />
+			<xs:element name="nom" type="xs:string" maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="expedient" type="expedientAccioRDTO" />
+	
+	<xs:complexType name="expedientAccioRDTO">
+		<xs:sequence>
+			<xs:element name="id" type="xs:decimal" maxOccurs="1" minOccurs="1" />
+			<xs:element name="codi" type="xs:string" maxOccurs="1" minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="registre" type="registreRDTO" />
+	
+	<xs:complexType name="registreRDTO">
+		<xs:sequence>
+			<xs:element name="numRegistre" type="xs:string" maxOccurs="1" minOccurs="1" />
+			<xs:element name="dataRegistre" type="xs:string" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="persona" maxOccurs="1" minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="persona" type="personesRDTO" />
+	
+	<xs:complexType name="personesRDTO">
+		<xs:sequence>
+			<xs:element name="tipusPersona" type="xs:string" maxOccurs="1" minOccurs="1" />
+			<xs:element name="nomRaoSocial" type="xs:string" maxOccurs="1" minOccurs="1" />
+			<xs:element name="cognom1" type="xs:string" maxOccurs="1" minOccurs="0" />
+			<xs:element name="cognom2" type="xs:string" maxOccurs="1" minOccurs="0" />
+			<xs:element ref="documentIndentitat" maxOccurs="1" minOccurs="1" />
+			<xs:element ref="dadesNotificacio" minOccurs="0" />
+			<xs:element name="relacio" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!--  -->
+
+	<xs:element name="configuracioDocumentacio" type="configuracioDocumentacioRDTO" />
+
+	<xs:element name="dadaOperacio" type="dadesAtributsSollicitudsRDTO" />
+
+	<xs:element name="dadesNotificacio" type="dadesContacteRDTO" />
+
+	<xs:element name="document" type="documentAportatConsultaRDTO" />
+
+	<xs:element name="documentIndentitat" type="documentsIdentitatRDTO" />
+
+	
+
+	
+
+	
+
+<!--  -->
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	<xs:complexType name="documentsIdentitatRDTO">
+		<xs:sequence>
+			<xs:element name="tipusDocument" type="xs:string"
+				minOccurs="0" />
+			<xs:element name="numeroDocument" type="xs:string"
+				minOccurs="0" />
+			<xs:element name="pais" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="dadesContacteRDTO">
+		<xs:sequence>
+			<xs:element name="email" type="xs:string" minOccurs="0" />
+			<xs:element name="telefon" type="xs:string" minOccurs="0" />
+			<xs:element name="mobil" type="xs:string" minOccurs="0" />
+			<xs:element name="fax" type="xs:string" minOccurs="0" />
+			<xs:element name="tipusVia" type="xs:string" minOccurs="0" />
+			<xs:element name="nomVia" type="xs:string" minOccurs="0" />
+			<xs:element name="numero" type="xs:string" minOccurs="0" />
+			<xs:element name="escala" type="xs:string" minOccurs="0" />
+			<xs:element name="bloc" type="xs:string" minOccurs="0" />
+			<xs:element name="porta" type="xs:string" minOccurs="0" />
+			<xs:element name="pis" type="xs:string" minOccurs="0" />
+			<xs:element name="codiPostal" type="xs:string" minOccurs="0" />
+			<xs:element name="municipi" type="xs:string" minOccurs="0" />
+			<xs:element name="provincia" type="xs:string" minOccurs="0" />
+			<xs:element name="pais" type="xs:string" minOccurs="0" />
+			<xs:element name="municipiEstranger" type="xs:string"
+				minOccurs="0" />
+			<xs:element name="provinciaEstranger" type="xs:string"
+				minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="documentAportatConsultaRDTO">
+		<xs:complexContent>
+			<xs:extension base="documentRDTO">
+				<xs:sequence>
+					<xs:element ref="configuracioDocumentacio" minOccurs="0" />
+					<xs:element name="dataPresentacio" type="xs:string"
+						minOccurs="0" />
+					<xs:element ref="registre" minOccurs="0" />
+					<xs:element name="revisio" type="xs:string" minOccurs="0" />
+					<xs:element name="origen" type="xs:string" minOccurs="0" />
+					<xs:element name="hash" type="xs:string" minOccurs="0" />
+					<xs:element ref="tramit" minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="documentRDTO">
+		<xs:sequence>
+			<xs:element name="id" type="xs:decimal" minOccurs="0" />
+			<xs:element name="idGestorDocumental" type="xs:string"
+				minOccurs="0" />
+			<xs:element name="nom" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="configuracioDocumentacioRDTO">
+		<xs:sequence>
+			<xs:element name="codi" type="xs:string" minOccurs="0" />
+			<xs:element name="descripcio" type="xs:string" minOccurs="0" />
+			<xs:element name="descripcioCastella" type="xs:string"
+				minOccurs="0" />
+			<xs:element name="codiNti" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="dadesAtributsSollicitudsRDTO">
+		<xs:sequence>
+			<xs:element name="codi" type="xs:string" minOccurs="0" />
+			<xs:element name="valors" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="valor" type="xs:string" minOccurs="0"
+							maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
+

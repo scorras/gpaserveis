@@ -293,6 +293,16 @@ public interface DocumentsService {
 	        throws GPAServeisServiceException;
 
 	/**
+	 * Descarregar document expedient signat.
+	 *
+	 * @param idUltimaSignatura
+	 * @return the byte[]
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	byte[] descarregarDocumentExpedientSignat(BigDecimal idUltimaSignatura) throws GPAServeisServiceException;
+
+	/**
 	 * Cerca dades operacio requerits.
 	 *
 	 * @param documentacioIdext
@@ -439,6 +449,18 @@ public interface DocumentsService {
 	        throws GPAServeisServiceException;
 
 	/**
+	 * Guardar document tramitacio justificant plantilla.
+	 *
+	 * @param crearDocumentTramitacioBDTO
+	 *            the crear document tramitacio BDTO
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsTramitacioRDTO guardarDocumentTramitacioJustificantPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
+	        throws GPAServeisServiceException;
+
+	/**
 	 * Crear document entrada digitalitzat.
 	 *
 	 * @param crearDocumentEntradaDigitalitzarBDTO
@@ -566,4 +588,14 @@ public interface DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	EstatDigitalitzacioDocumentRDTO obtenirEstatDigitalitzacioDocument(Long idDocumentacio) throws GPAServeisServiceException;
+
+
+	/**
+	 * Guardar xml sollicitud.
+	 *
+	 * @param idDocumentum the id documentum
+	 * @param xmlSolicitud the xml solicitud
+	 * @throws GPAServeisServiceException the GPA serveis service exception
+	 */
+	void guardarXmlSollicitud(String idDocumentum, String xmlSolicitud)  throws GPAServeisServiceException;
 }

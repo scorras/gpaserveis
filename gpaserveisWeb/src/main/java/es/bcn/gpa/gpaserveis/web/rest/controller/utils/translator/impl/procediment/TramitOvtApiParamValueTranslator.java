@@ -17,4 +17,6 @@ public class TramitOvtApiParamValueTranslator extends ApiParamValueTranslator<Tr
 	/** The Constant REQUEST_PARAM_ALLOWABLE_VALUES. */
 	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "SOL, APO, REQ, ALE";
 
+	public static final String REQUEST_PARAM_ALLOWABLE_VALUES_SOLLICITUDS = "APO, REQ, ALE";
+
 }

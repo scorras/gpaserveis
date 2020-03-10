@@ -34,7 +34,10 @@ import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitudSollicituds;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfSollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient.CollectionFormat;
@@ -158,4 +161,55 @@ public class SollicitudsApiTest extends ParentTest {
 		assertTrue(response != null);
 	}
 
+	/**
+	 * Register the provided sollicitud
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void crearRegistreSolicitudTest() {
+
+		when(apiClient.invokeAPI(eq("/expedients/registre/crearSollicitud/1"), eq(HttpMethod.POST), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new RespostaCrearRegistreExpedient());
+
+		BigDecimal accio = ONE;
+		CrearSollicitud registrarSolicitudRDTO = new CrearSollicitud();
+		RespostaCrearRegistreExpedient response = api.crearRegistreSolicitud(accio, registrarSolicitudRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Actualitzar dades sollicitud sollicituds.
+	 */
+	@Test
+	public void actualitzarDadesSollicitudSollicitudsTest() {
+		when(apiClient.invokeAPI(eq("/sollicituds/actualitzarDadesSollicitudSollicituds"), eq(HttpMethod.POST), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new SollicitudsRDTO());
+
+		ActualitzarDadesSollicitudSollicituds actualitzarDadesSollicitudSollicitudsRDTO = new ActualitzarDadesSollicitudSollicituds();
+		SollicitudsRDTO response = api.actualitzarDadesSollicitudSollicituds(actualitzarDadesSollicitudSollicitudsRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Update sollicitud.
+	 */
+	@Test
+	public void updateSollicitudTest() {
+		when(apiClient.invokeAPI(eq("/sollicituds"), eq(HttpMethod.PUT), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new SollicitudsRDTO());
+
+		SollicitudsRDTO sollicitudsRDTO = new SollicitudsRDTO();
+		SollicitudsRDTO response = api.updateSollicitud(sollicitudsRDTO);
+
+		assertTrue(response != null);
+	}
 }

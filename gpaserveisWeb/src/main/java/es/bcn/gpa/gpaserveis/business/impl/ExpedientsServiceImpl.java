@@ -23,6 +23,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
@@ -46,10 +47,13 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.SollicitudsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MunicipisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfSollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ProvinciesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
@@ -58,6 +62,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInterop
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusViesRDTO;
 import lombok.extern.apachecommons.CommonsLog;
 
 /**
@@ -809,6 +814,64 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	        BigDecimal tipusDocVinculada, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearRegistre(ExpedientsRegistrarBDTO, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#crearRegistreSollicitud(
+	 * es.bcn.gpa
+	 * .gpaserveis.business.dto.expedients.ExpedientsRegistrarSollicitudBDTO,
+	 * java.math.BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackCrearRegistreSollicitud")
+	public RespostaCrearRegistreExpedient crearRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO,
+	        BigDecimal tipusDocVinculada) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("crearRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO, BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			RespostaCrearRegistreExpedient respostaCrearRegistreSolicitudExpedient = sollicitudsApi
+			        .crearRegistreSolicitud(tipusDocVinculada, expedientsRegistrarSollicitudBDTO.getCrearSollicitud());
+
+			if (log.isDebugEnabled()) {
+				log.debug("crearRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO, BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			return respostaCrearRegistreSolicitudExpedient;
+		} catch (RestClientException e) {
+			log.error("crearRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO, BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+
+	}
+
+	/**
+	 * Fallback crear registre sollicitud.
+	 *
+	 * @param expedientsRegistrarBDTO
+	 *            the expedients registrar sollicitud BDTO
+	 * @param tipusDocVinculada
+	 *            the tipus doc vinculada
+	 * @param e
+	 *            the e
+	 * @return the resposta crear registre sollicitud
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public RespostaCrearRegistreExpedient fallbackCrearRegistreSollicitud(
+	        ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO, BigDecimal tipusDocVinculada, Throwable e)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCrearRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
@@ -1828,5 +1891,267 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		ServeisServiceExceptionHandler.handleException(e);
 
 		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#updateSollicitud(es.bcn.
+	 * gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackUpdateSollicitud")
+	public SollicitudsRDTO updateSollicitud(SollicitudsRDTO sollicitudRDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("updateSollicitud(SollicitudsRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			SollicitudsRDTO returnSollicitudsRDTO = sollicitudsApi.updateSollicitud(sollicitudRDTO);
+
+			if (log.isDebugEnabled()) {
+				log.debug("updateSollicitud(SollicitudsRDTO) - fi"); //$NON-NLS-1$
+			}
+			return returnSollicitudsRDTO;
+		} catch (RestClientException e) {
+			log.error("updateSollicitud(SollicitudsRDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+	}
+
+	/**
+	 * Fallback update sollicitud.
+	 *
+	 * @param sollicitudRDTO
+	 *            the sollicitud RDTO
+	 * @param e
+	 *            the e
+	 * @return the sollicituds RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public SollicitudsRDTO fallbackUpdateSollicitud(SollicitudsRDTO sollicitudRDTO, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackUpdateSollicitud(SollicitudsRDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/**
+	 * Consultar tipus vies by codi.
+	 *
+	 * @param codi
+	 *            the codi
+	 * @return the tipus vies RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackConsultarTipusViesByCodi")
+	public TipusViesRDTO consultarTipusViesByCodi(String codi) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarTipusViesByCodi(String) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			TipusViesRDTO tipusViesRDTO = expedients_Api.consultarTipusViesByCodi(codi);
+			if (log.isDebugEnabled()) {
+				log.debug("consultarTipusViesByCodi(String) - fi"); //$NON-NLS-1$
+			}
+			return tipusViesRDTO;
+		} catch (RestClientException e) {
+			log.error("consultarTipusViesByCodi(String)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+	}
+
+	/**
+	 * Consultar tipus vies by codi.
+	 *
+	 * @param codi
+	 *            the codi
+	 * @param e
+	 *            the e
+	 * @return the tipus vies RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public TipusViesRDTO fallbackConsultarTipusViesByCodi(String codi, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackConsultarTipusViesByCodi(String, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		log.error("fallbackConsultarTipusViesByCodi(String, Throwable)", e); //$NON-NLS-1$
+
+		TipusViesRDTO tipusViesRDTO = new TipusViesRDTO();
+		tipusViesRDTO.setCodiArvato(codi);
+		tipusViesRDTO.setNom(codi);
+
+		return tipusViesRDTO;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#consultarPaisosByCodi(
+	 * java.lang.String)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackConsultarPaisosByCodi")
+	public PaisosRDTO consultarPaisosByCodi(String codi) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarPaisosByCodi(String) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			PaisosRDTO paisosRDTO = expedients_Api.consultarPaisosByCodi(codi);
+			if (log.isDebugEnabled()) {
+				log.debug("consultarPaisosByCodi(String) - fi"); //$NON-NLS-1$
+			}
+			return paisosRDTO;
+		} catch (RestClientException e) {
+			log.error("consultarPaisosByCodi(String)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+	}
+
+	/**
+	 * Fallback consultar paisos by codi.
+	 *
+	 * @param codi
+	 *            the codi
+	 * @param e
+	 *            the e
+	 * @return the paisos RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public PaisosRDTO fallbackConsultarPaisosByCodi(String codi, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackConsultarPaisosByCodi(String, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		log.error("fallbackConsultarPaisosByCodi(String, Throwable)", e); //$NON-NLS-1$
+
+		PaisosRDTO paisosRDTO = new PaisosRDTO();
+		paisosRDTO.setCodiIne(codi);
+		paisosRDTO.setNom(codi);
+
+		return paisosRDTO;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
+	 * consultarProvinciesByCodi(java.lang.String)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackConsultarProvinciesByCodi")
+	public ProvinciesRDTO consultarProvinciesByCodi(String codi) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarProvinciesByCodi(String) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			ProvinciesRDTO provinciesRDTO = expedients_Api.consultarProvinciesByCodi(codi);
+			if (log.isDebugEnabled()) {
+				log.debug("consultarProvinciesByCodi(String) - fi"); //$NON-NLS-1$
+			}
+			return provinciesRDTO;
+		} catch (RestClientException e) {
+			log.error("consultarProvinciesByCodi(String)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+	}
+
+	/**
+	 * Fallback consultar provincies by codi.
+	 *
+	 * @param codi
+	 *            the codi
+	 * @param e
+	 *            the e
+	 * @return the provincies RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public ProvinciesRDTO fallbackConsultarProvinciesByCodi(String codi, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackConsultarProvinciesByCodi(String, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		log.error("fallbackConsultarProvinciesByCodi(String, Throwable)", e); //$NON-NLS-1$
+
+		ProvinciesRDTO provinciesRDTO = new ProvinciesRDTO();
+		provinciesRDTO.setCodiIne(codi);
+		provinciesRDTO.setNom(codi);
+
+		return provinciesRDTO;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#consultarMunicipisByCodi
+	 * (java.lang.String, java.lang.String)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackConsultarMunicipisByCodi")
+	public MunicipisRDTO consultarMunicipisByCodi(String codiMunicipi, String codiProvincia) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarMunicipisByCodi(String, String) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			MunicipisRDTO municipisRDTO = expedients_Api.consultarMunicipiByCodi(codiMunicipi, codiProvincia);
+			if (log.isDebugEnabled()) {
+				log.debug("consultarMunicipisByCodi(String, String) - fi"); //$NON-NLS-1$
+			}
+			return municipisRDTO;
+		} catch (RestClientException e) {
+			log.error("consultarMunicipisByCodi(String, String)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+	}
+
+	/**
+	 * Fallback consultar municipis by codi.
+	 *
+	 * @param codiMunicipi
+	 *            the codi municipi
+	 * @param codiProvincia
+	 *            the codi provincia
+	 * @param e
+	 *            the e
+	 * @return the municipis RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public MunicipisRDTO fallbackConsultarMunicipisByCodi(String codiMunicipi, String codiProvincia, Throwable e)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackConsultarMunicipisByCodi(String, String, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		log.error("fallbackConsultarMunicipisByCodi(String, Throwable)", e); //$NON-NLS-1$
+
+		MunicipisRDTO municipisRDTO = new MunicipisRDTO();
+		municipisRDTO.setProvincia(codiProvincia);
+		municipisRDTO.setCodiIne(codiMunicipi);
+		municipisRDTO.setNom(codiMunicipi);
+
+		return municipisRDTO;
 	}
 }

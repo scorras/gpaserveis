@@ -191,7 +191,11 @@ public enum Resultat {
 
 	OK_ESTAT_DOCUMENT_DIGITALITZACIO_EXPEDIENT("OK", "Estat de digitalització d'un document obtingut correctament"),
 
-	ERROR_ESTAT_DOCUMENT_DIGITALITZACIO_EXPEDIENT("ERROR", "No s'ha pogut obtenir l'estat de digitalització del document");
+	ERROR_ESTAT_DOCUMENT_DIGITALITZACIO_EXPEDIENT("ERROR", "No s'ha pogut obtenir l'estat de digitalització del document"),
+
+	OK_DESCARREGAR_DOCUMENT_EXPEDIENT_SIGNAT("OK", "Document signat descarregat correctament"),
+
+	ERROR_DESCARREGAR_DOCUMENT_EXPEDIENT_SIGNAT("ERROR", "No s'ha pogut descarregar el document signat");
 
 	private String codi;
 

@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -18,17 +19,18 @@ import lombok.Setter;
 @ApiModel(value = "ExpedientAccio")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id", "codi" })
-@XmlRootElement(name = "expedient")
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "EXPEDIENT")
+@XmlType(name = "ExpedientAccio", propOrder = { "id", "codi" })
+@XmlAccessorType(XmlAccessType.NONE)
 @Getter
 @Setter
 public class ExpedientAccioRDTO {
 
 	@ApiModelProperty("Identificador de l'expedient")
-	@XmlElement(name = "id")
+	@XmlElement(name = "ID", required = true, type = BigDecimal.class)
 	private BigDecimal id;
 	@ApiModelProperty("Codi identificador de l'expedient")
-	@XmlElement(name = "codi")
+	@XmlElement(name = "CODI", required = true, type = String.class)
 	private String codi;
 
 }

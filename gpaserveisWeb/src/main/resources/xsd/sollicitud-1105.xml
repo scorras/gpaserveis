@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sollicitud>
+    <id>1105</id>
+    <tramit/>
+    <dataSollicitud>08/05/2019 16:25:19</dataSollicitud>
+    <dataPresentacio>06/09/2018 10:22:00</dataPresentacio>
+    <expedient>
+        <id>1105</id>
+        <codi>2019_EXP_18234</codi>
+    </expedient>
+    <registre>
+        <numRegistre>12/2019</numRegistre>
+        <dataRegistre>06/09/2018 10:22:00</dataRegistre>
+        <persona>
+            <tipusPersona>FISICA</tipusPersona>
+            <nomRaoSocial>Maria</nomRaoSocial>
+            <cognom1>Martin</cognom1>
+            <cognom2>Mora</cognom2>
+            <documentIndentitat>
+                <tipusDocument>NIF</tipusDocument>
+                <numeroDocument>12345668H</numeroDocument>
+            </documentIndentitat>
+            <dadesNotificacio/>
+        </persona>
+    </registre>
+    <sollicitant>
+        <tipusPersona>FISICA</tipusPersona>
+        <nomRaoSocial>prova jurid</nomRaoSocial>
+        <documentIndentitat>
+            <tipusDocument>NIE</tipusDocument>
+            <numeroDocument>00000000T</numeroDocument>
+            <pais>108</pais>
+        </documentIndentitat>
+        <dadesNotificacio>
+            <email>aaa@bbb.es</email>
+            <telefon>999999999</telefon>
+            <mobil>666666699</mobil>
+            <tipusVia>Bar</tipusVia>
+            <nomVia>barri</nomVia>
+            <numero>12</numero>
+            <bloc>F</bloc>
+            <porta>77</porta>
+            <pis>21</pis>
+            <codiPostal>3334</codiPostal>
+            <pais>401</pais>
+            <municipiEstranger>Municipi extranger 1</municipiEstranger>
+            <provinciaEstranger>Província estrangera 1</provinciaEstranger>
+        </dadesNotificacio>
+    </sollicitant>
+    <representant>
+        <tipusPersona>FISICA</tipusPersona>
+        <nomRaoSocial>Nom núm representant</nomRaoSocial>
+        <documentIndentitat>
+            <tipusDocument>NIF</tipusDocument>
+            <numeroDocument>00000000T</numeroDocument>
+            <pais>108</pais>
+        </documentIndentitat>
+        <dadesNotificacio>
+            <email>aaa@ggg.es</email>
+            <telefon>600000000</telefon>
+            <tipusVia>Bnc</tipusVia>
+            <nomVia>adreça amb ñ</nomVia>
+            <numero>23</numero>
+            <bloc>3FG</bloc>
+            <porta>67</porta>
+            <pis>43</pis>
+            <codiPostal>44444</codiPostal>
+            <municipi>005</municipi>
+            <provincia>015</provincia>
+            <pais>108</pais>
+        </dadesNotificacio>
+    </representant>
+    <personesInteressades>
+        <personaInteressada>
+            <tipusPersona>JURIDICA</tipusPersona>
+            <nomRaoSocial>entitat representant 2</nomRaoSocial>
+            <documentIndentitat>
+                <tipusDocument>NIF</tipusDocument>
+                <numeroDocument>U6668245A</numeroDocument>
+                <pais>108</pais>
+            </documentIndentitat>
+            <dadesNotificacio>
+                <email>aaa@bvc.cat</email>
+                <telefon>333333</telefon>
+                <mobil>444444</mobil>
+                <tipusVia>Bar</tipusVia>
+                <nomVia>adreça amb la ñññ</nomVia>
+                <numero>56</numero>
+                <bloc>AA</bloc>
+                <porta>33</porta>
+                <pis>2</pis>
+                <codiPostal>444444</codiPostal>
+                <municipi>001901</municipi>
+                <provincia>001</provincia>
+                <pais>108</pais>
+            </dadesNotificacio>
+        </personaInteressada>
+    </personesInteressades>
+</sollicitud>

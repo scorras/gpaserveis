@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.18.0"
+  version: "1.19.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -142,7 +142,7 @@ paths:
         collectionFormat: "multi"
         allowEmptyValue: false
         enum:
-        - "REBUT"
+        - "ESBORRANY"
         - "EN_CURS"
         - "PENDENT_ESMENES"
         - "PENDENT_ALEGACIONS"
@@ -536,6 +536,40 @@ paths:
       - "Serveis Portal API"
       summary: "Descarregar document de l'expedient"
       operationId: "descarregarDocumentExpedientUsingGET"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codiExpedient"
+        in: "path"
+        description: "Codi de l'expedient"
+        required: true
+        type: "string"
+      - name: "idDocument"
+        in: "path"
+        description: "Identificador del document"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "string"
+            format: "byte"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /serveis/portal/expedients/{codiExpedient}/documents/{idDocument}/signat:
+    get:
+      tags:
+      - "Serveis Portal API"
+      summary: "Descarregar document signat de l'expedient"
+      operationId: "descarregarDocumentSignatExpedientUsingGET"
       produces:
       - "*/*"
       parameters:
@@ -1144,11 +1178,11 @@ paths:
       - "application/json"
       parameters:
       - in: "body"
-        name: "documentacioAportar"
+        name: "documentacioAportarSollicitud"
         description: "Dades de la creació del document"
         required: false
         schema:
-          $ref: "#/definitions/DocumentacioAportar"
+          $ref: "#/definitions/DocumentacioAportarSollicitud"
       - name: "idSollicitud"
         in: "path"
         description: "Codi de la sol·licitud"
@@ -1470,7 +1504,7 @@ paths:
         collectionFormat: "multi"
         allowEmptyValue: false
         enum:
-        - "REBUT"
+        - "ESBORRANY"
         - "EN_CURS"
         - "PENDENT_ESMENES"
         - "PENDENT_ALEGACIONS"
@@ -3184,14 +3218,14 @@ definitions:
       codi:
         type: "string"
         xml:
-          name: "codi"
+          name: "CODI"
           attribute: false
           wrapped: false
         description: "Codi de l'atribut"
-      valor:
+      valors:
         type: "array"
         xml:
-          name: "valors"
+          name: "VALORS"
           attribute: false
           wrapped: true
         description: "Llista de valors de l'atribut"
@@ -3199,7 +3233,7 @@ definitions:
           type: "string"
     title: "AtributsSollicitud"
     xml:
-      name: "dadaOperacio"
+      name: "DADA_OPERACIO"
       attribute: false
       wrapped: false
   ComentariPerAInformacioPublica:
@@ -3224,28 +3258,28 @@ definitions:
       codi:
         type: "string"
         xml:
-          name: "codi"
+          name: "CODI"
           attribute: false
           wrapped: false
         description: "Codi del document"
       codiNti:
         type: "string"
         xml:
-          name: "codiNti"
+          name: "CODI_NTI"
           attribute: false
           wrapped: false
         description: "Codi Nti del document"
       descripcio:
         type: "string"
         xml:
-          name: "descripcio"
+          name: "DESCRIPCIO"
           attribute: false
           wrapped: false
         description: "Descripció del document"
       descripcioCastella:
         type: "string"
         xml:
-          name: "descripcioCastella"
+          name: "DESCRIPCIO_CASTELLA"
           attribute: false
           wrapped: false
         description: "Descripció del document en castellà"
@@ -3256,21 +3290,21 @@ definitions:
       codi:
         type: "string"
         xml:
-          name: "codi"
+          name: "CODI"
           attribute: false
           wrapped: false
         description: "Codi del document"
       codiNti:
         type: "string"
         xml:
-          name: "codiNti"
+          name: "CODI_NTI"
           attribute: false
           wrapped: false
         description: "Codi Nti del document"
       descripcio:
         type: "string"
         xml:
-          name: "descripcio"
+          name: "DESCRIPCIO"
           attribute: false
           wrapped: false
         description: "Descripció del document"
@@ -3280,7 +3314,7 @@ definitions:
       descripcioCastella:
         type: "string"
         xml:
-          name: "descripcioCastella"
+          name: "DESCRIPCIO_CASTELLA"
           attribute: false
           wrapped: false
         description: "Descripció del document en castellà"
@@ -3297,7 +3331,7 @@ definitions:
         description: "Enllaç document de suport per a la confecció del document"
     title: "ConfiguracioDocumentacioRequeridaConsulta"
     xml:
-      name: "configuracioDocumentacio"
+      name: "CONFIGURACIO_DOCUMENTACIO"
       attribute: false
       wrapped: false
   ConfiguracionDocumentacioAportadaConsulta:
@@ -3306,21 +3340,21 @@ definitions:
       codi:
         type: "string"
         xml:
-          name: "codi"
+          name: "CODI"
           attribute: false
           wrapped: false
         description: "Codi del document"
       codiNti:
         type: "string"
         xml:
-          name: "codiNti"
+          name: "CODI_NTI"
           attribute: false
           wrapped: false
         description: "Codi Nti del document"
       descripcio:
         type: "string"
         xml:
-          name: "descripcio"
+          name: "DESCRIPCIO"
           attribute: false
           wrapped: false
         description: "Descripció del document"
@@ -3330,7 +3364,7 @@ definitions:
       descripcioCastella:
         type: "string"
         xml:
-          name: "descripcioCastella"
+          name: "DESCRIPCIO_CASTELLA"
           attribute: false
           wrapped: false
         description: "Descripció del document en castellà"
@@ -3353,7 +3387,7 @@ definitions:
         description: "Enllaç document de suport per a la confecció del document"
     title: "ConfiguracionDocumentacioAportadaConsulta"
     xml:
-      name: "configuracioDocumentacio"
+      name: "CONFIGURACIO_DOCUMENTACIO"
       attribute: false
       wrapped: false
   DadesContacte:
@@ -3361,122 +3395,90 @@ definitions:
     properties:
       bloc:
         type: "string"
-        xml:
-          name: "bloc"
-          attribute: false
-          wrapped: false
         description: "Bloc"
       codiPostal:
         type: "string"
         xml:
-          name: "codiPostal"
+          name: "CODI_POSTAL"
           attribute: false
           wrapped: false
         description: "Codi Postal"
       email:
         type: "string"
         xml:
-          name: "email"
+          name: "EMAIL"
           attribute: false
           wrapped: false
         description: "Email"
       escala:
         type: "string"
-        xml:
-          name: "escala"
-          attribute: false
-          wrapped: false
         description: "Escala"
       fax:
         type: "string"
         xml:
-          name: "fax"
+          name: "FAX"
           attribute: false
           wrapped: false
         description: "Fax"
       mobil:
         type: "string"
         xml:
-          name: "mobil"
+          name: "MOBIL"
           attribute: false
           wrapped: false
         description: "Telèfon mobil"
       municipi:
         type: "string"
-        xml:
-          name: "municipi"
-          attribute: false
-          wrapped: false
         description: "Codi INE del Municipi"
       municipiEstranger:
         type: "string"
         xml:
-          name: "municipiEstranger"
+          name: "MUNICIPI_ESTRANGER"
           attribute: false
           wrapped: false
         description: "Municipi estranger"
       nomVia:
         type: "string"
-        xml:
-          name: "nomVia"
-          attribute: false
-          wrapped: false
         description: "Nom de la via"
       numero:
         type: "string"
-        xml:
-          name: "numero"
-          attribute: false
-          wrapped: false
         description: "Número"
       pais:
         type: "string"
         xml:
-          name: "pais"
+          name: "PAIS"
           attribute: false
           wrapped: false
         description: "Codi INE del Pais"
       pis:
         type: "string"
-        xml:
-          name: "pis"
-          attribute: false
-          wrapped: false
         description: "Pis"
       porta:
         type: "string"
-        xml:
-          name: "porta"
-          attribute: false
-          wrapped: false
         description: "Porta"
       provincia:
         type: "string"
         xml:
-          name: "provincia"
+          name: "PROVINCIA"
           attribute: false
           wrapped: false
         description: "Codi INE de la Província"
       provinciaEstranger:
         type: "string"
         xml:
-          name: "provinciaEstranger"
+          name: "PROVINCIA_ESTRANGER"
           attribute: false
           wrapped: false
         description: "Provincia estrangera"
       telefon:
         type: "string"
         xml:
-          name: "telefon"
+          name: "TELEFON"
           attribute: false
           wrapped: false
         description: "Telèfon fixe"
       tipusVia:
         type: "string"
-        xml:
-          name: "tipusVia"
-          attribute: false
-          wrapped: false
         description: "Codi INE del tipus de via"
     title: "DadesContacte"
   DadesContacteNotificacio:
@@ -3650,6 +3652,9 @@ definitions:
       dataPresentacio:
         type: "string"
         description: "Data de presentació del document"
+      hash:
+        type: "string"
+        description: "Hash del document"
       id:
         type: "number"
         description: "Id del document"
@@ -3678,7 +3683,7 @@ definitions:
     properties:
       configuracioDocumentacio:
         xml:
-          name: "configuracioDocumentacio"
+          name: "CONFIGURACIO_DOCUMENTACIO"
           attribute: false
           wrapped: false
         description: "Categoria a la qual pertany el document"
@@ -3686,23 +3691,42 @@ definitions:
       dataPresentacio:
         type: "string"
         xml:
-          name: "dataPresentacio"
+          name: "DATA_PRESENTACIO"
           attribute: false
           wrapped: false
         description: "Data de presentaciódel document"
+      hash:
+        type: "string"
+        xml:
+          name: "HASH"
+          attribute: false
+          wrapped: false
+        description: "Hash del document"
       id:
         type: "number"
+        xml:
+          name: "ID"
+          attribute: false
+          wrapped: false
         description: "Id del document"
       idGestorDocumental:
         type: "string"
+        xml:
+          name: "ID_GESTOR_DOCUMENTAL"
+          attribute: false
+          wrapped: false
         description: "Id del gestor documental"
       nom:
         type: "string"
+        xml:
+          name: "NOM"
+          attribute: false
+          wrapped: false
         description: "Nom del document"
       origen:
         type: "string"
         xml:
-          name: "origen"
+          name: "ORIGEN"
           attribute: false
           wrapped: false
         description: "Origen del tipus de documentació."
@@ -3711,7 +3735,7 @@ definitions:
         - "EXTERN"
       registre:
         xml:
-          name: "registre"
+          name: "REGISTRE"
           attribute: false
           wrapped: false
         description: "Registre del document"
@@ -3719,7 +3743,7 @@ definitions:
       revisio:
         type: "string"
         xml:
-          name: "revisio"
+          name: "REVISIO"
           attribute: false
           wrapped: false
         description: "Estat de revisió del document"
@@ -3728,15 +3752,11 @@ definitions:
         - "INCORRECTE"
         - "PENDENT"
       tramit:
-        xml:
-          name: "tramit"
-          attribute: false
-          wrapped: false
         description: "Tràmit"
         $ref: "#/definitions/TramitsOvt"
     title: "DocumentAportatConsulta"
     xml:
-      name: "document"
+      name: "DOCUMENT"
       attribute: false
       wrapped: false
   DocumentAportatCrear:
@@ -3970,21 +3990,21 @@ definitions:
       numeroDocument:
         type: "string"
         xml:
-          name: "numeroDocument"
+          name: "NUMERO_DOCUMENT"
           attribute: false
           wrapped: false
         description: "Número de document d'identitat de la persona"
       pais:
         type: "string"
         xml:
-          name: "pais"
+          name: "PAIS"
           attribute: false
           wrapped: false
         description: "Codi INE del país del document d'identitat de la persona"
       tipusDocument:
         type: "string"
         xml:
-          name: "tipusDocument"
+          name: "TIPUS_DOCUMENT"
           attribute: false
           wrapped: false
         description: "Tipus de document d'identitat de la persona"
@@ -4137,6 +4157,17 @@ definitions:
         type: "boolean"
         description: "Indicador per registrar els documents aportats."
     title: "DocumentacioAportar"
+  DocumentacioAportarSollicitud:
+    type: "object"
+    required:
+    - "documentacio"
+    properties:
+      documentacio:
+        type: "array"
+        description: "Llista de documentació"
+        items:
+          $ref: "#/definitions/DocumentAportatCrear"
+    title: "DocumentacioAportarSollicitud"
   DocumentacioEsborrar:
     type: "object"
     required:
@@ -4198,14 +4229,14 @@ definitions:
       codi:
         type: "string"
         xml:
-          name: "codi"
+          name: "CODI"
           attribute: false
           wrapped: false
         description: "Codi identificador de l'expedient"
       id:
         type: "number"
         xml:
-          name: "id"
+          name: "ID"
           attribute: false
           wrapped: false
         description: "Identificador de l'expedient"
@@ -4216,7 +4247,7 @@ definitions:
       codi:
         type: "string"
         xml:
-          name: "codi"
+          name: "CODI"
           attribute: false
           wrapped: false
         description: "Codi identificador de l'expedient"
@@ -4229,13 +4260,13 @@ definitions:
       id:
         type: "number"
         xml:
-          name: "id"
+          name: "ID"
           attribute: false
           wrapped: false
         description: "Identificador de l'expedient"
     title: "ExpedientAccioPausar"
     xml:
-      name: "expedient"
+      name: "EXPEDIENT"
       attribute: false
       wrapped: false
   ExpedientAccioUnitatGestora:
@@ -4244,14 +4275,14 @@ definitions:
       codi:
         type: "string"
         xml:
-          name: "codi"
+          name: "CODI"
           attribute: false
           wrapped: false
         description: "Codi identificador de l'expedient"
       id:
         type: "number"
         xml:
-          name: "id"
+          name: "ID"
           attribute: false
           wrapped: false
         description: "Identificador de l'expedient"
@@ -4260,7 +4291,7 @@ definitions:
         $ref: "#/definitions/UnitatGestoraAccio"
     title: "ExpedientAccioUnitatGestora"
     xml:
-      name: "expedient"
+      name: "EXPEDIENT"
       attribute: false
       wrapped: false
   ExpedientActualitzar:
@@ -4461,7 +4492,6 @@ definitions:
         type: "string"
         description: "Codi Tramit OVT relacionat a la sol·licitud"
         enum:
-        - "SOL"
         - "APO"
         - "REQ"
         - "ALE"
@@ -4945,43 +4975,31 @@ definitions:
     properties:
       cognom1:
         type: "string"
-        xml:
-          name: "cognom1"
-          attribute: false
-          wrapped: false
         description: "Cognom 1 de la persona"
       cognom2:
         type: "string"
-        xml:
-          name: "cognom2"
-          attribute: false
-          wrapped: false
         description: "Cognom 2 de la persona"
       dadesNotificacio:
         xml:
-          name: "dadesNotificacio"
+          name: "DADES_NOTIFICACIO"
           attribute: false
           wrapped: false
         description: "Dades de notificació de la persona"
         $ref: "#/definitions/DadesContacte"
       documentIndentitat:
         xml:
-          name: "documentIndentitat"
+          name: "DOCUMENT_INDENTITAT"
           attribute: false
           wrapped: false
         description: "Document d'identitat de la persona"
         $ref: "#/definitions/DocumentIdentitat"
       nomRaoSocial:
         type: "string"
-        xml:
-          name: "nomRaoSocial"
-          attribute: false
-          wrapped: false
         description: "Nom o raó social de la persona"
       relacio:
         type: "string"
         xml:
-          name: "relacio"
+          name: "RELACIO"
           attribute: false
           wrapped: false
         description: "Relacio de la persona"
@@ -4993,7 +5011,7 @@ definitions:
       tipusPersona:
         type: "string"
         xml:
-          name: "tipusPersona"
+          name: "TIPUS_PERSONA"
           attribute: false
           wrapped: false
         description: "Tipus de persona"
@@ -5120,6 +5138,10 @@ definitions:
     properties:
       codi:
         type: "string"
+        xml:
+          name: "CODI"
+          attribute: false
+          wrapped: false
         description: "Codi del procediment"
       dadesIdentificacio:
         description: "Dades d'identificació del procediment"
@@ -5138,6 +5160,10 @@ definitions:
         description: "Estat actual del procediment en castellà"
       id:
         type: "number"
+        xml:
+          name: "ID"
+          attribute: false
+          wrapped: false
         description: "Identificador del procediment"
       inici:
         type: "array"
@@ -5151,6 +5177,10 @@ definitions:
           - "ALTRES"
       nom:
         type: "string"
+        xml:
+          name: "NOM"
+          attribute: false
+          wrapped: false
         description: "Nom del procediment"
       nomCastella:
         type: "string"
@@ -5168,8 +5198,16 @@ definitions:
         $ref: "#/definitions/UnitatGestora"
       versio:
         type: "number"
+        xml:
+          name: "VERSIO"
+          attribute: false
+          wrapped: false
         description: "Versió del procediment"
     title: "ProcedimentConsulta"
+    xml:
+      name: "PROCEDIMENT"
+      attribute: false
+      wrapped: false
   ProcedimentExpedientCrear:
     type: "object"
     required:
@@ -5194,20 +5232,20 @@ definitions:
       dataRegistre:
         type: "string"
         xml:
-          name: "dataRegistre"
+          name: "DATA_REGISTRE"
           attribute: false
           wrapped: false
         description: "Data del registre"
       numRegistre:
         type: "string"
         xml:
-          name: "numRegistre"
+          name: "NUM_REGISTRE"
           attribute: false
           wrapped: false
         description: "Número del registre"
       persona:
         xml:
-          name: "persona"
+          name: "PERSONA"
           attribute: false
           wrapped: false
         description: "Persona que ha efectuat el registre"
@@ -5330,9 +5368,6 @@ definitions:
       expedient:
         description: "Expedient del document"
         $ref: "#/definitions/ExpedientAccio"
-      registre:
-        description: "Registre de la documentació"
-        $ref: "#/definitions/Registre"
       resultat:
         description: "Resultat de l'operació"
         $ref: "#/definitions/ResultatResposta"
@@ -5998,14 +6033,14 @@ definitions:
       comentari:
         type: "string"
         xml:
-          name: "comentari"
+          name: "COMENTARI"
           attribute: false
           wrapped: false
         description: "Comentari associat a la sol·licitud"
       dadesOperacio:
         type: "array"
         xml:
-          name: "dadesOperacio"
+          name: "DADES_OPERACIO"
           attribute: false
           wrapped: true
         description: "Dades d'operació de la sol·licitud"
@@ -6014,21 +6049,21 @@ definitions:
       dataPresentacio:
         type: "string"
         xml:
-          name: "dataPresentacio"
+          name: "DATA_PRESENTACIO"
           attribute: false
           wrapped: false
         description: "Data de presentació de la sol·licitud"
       dataSollicitud:
         type: "string"
         xml:
-          name: "dataSollicitud"
+          name: "DATA_SOLLICITUD"
           attribute: false
           wrapped: false
         description: "Data de recepció de la sol·licitud"
       documentsAportats:
         type: "array"
         xml:
-          name: "documentsAportats"
+          name: "DOCUMENTS_APORTATS"
           attribute: false
           wrapped: true
         description: "Documents aportats a la sol·licitud"
@@ -6036,22 +6071,29 @@ definitions:
           $ref: "#/definitions/DocumentAportatConsulta"
       expedient:
         xml:
-          name: "expedient"
+          name: "EXPEDIENT"
           attribute: false
           wrapped: false
         description: "Expedient objecte de la sol·licitud"
         $ref: "#/definitions/ExpedientAccio"
+      hash:
+        type: "string"
+        xml:
+          name: "HASH"
+          attribute: false
+          wrapped: false
+        description: "Hash del xml associat a la sol·licitud"
       id:
         type: "number"
         xml:
-          name: "id"
+          name: "ID"
           attribute: false
           wrapped: false
         description: "Identificador de la sol·licitud"
       personesImplicades:
         type: "array"
         xml:
-          name: "personesImplicades"
+          name: "PERSONES_IMPLICADES"
           attribute: false
           wrapped: true
         description: "Persones implicades"
@@ -6060,43 +6102,57 @@ definitions:
       personesInteressades:
         type: "array"
         xml:
-          name: "personesInteressades"
+          name: "PERSONES_INTERESSADES"
           attribute: false
           wrapped: true
         description: "Altres persones interessades"
         items:
           $ref: "#/definitions/Persona"
+      procediment:
+        xml:
+          name: "PROCEDIMENT"
+          attribute: false
+          wrapped: false
+        description: "Dades del procediment"
+        $ref: "#/definitions/ProcedimentConsulta"
       registre:
         xml:
-          name: "registre"
+          name: "REGISTRE"
           attribute: false
           wrapped: false
         description: "Registre de la sol·licitud"
         $ref: "#/definitions/Registre"
       representant:
         xml:
-          name: "representant"
+          name: "REPRESENTANT"
           attribute: false
           wrapped: false
         description: "Representant principal de la sol·licitud"
         $ref: "#/definitions/Persona"
       sollicitant:
         xml:
-          name: "sollicitant"
+          name: "SOLLICITANT"
           attribute: false
           wrapped: false
         description: "Sol·licitant principal de la sol·licitud"
         $ref: "#/definitions/Persona"
       tramit:
         xml:
-          name: "tramit"
+          name: "TRAMIT"
           attribute: false
           wrapped: false
         description: "Dades del tràmit"
         $ref: "#/definitions/TramitsOvt"
+      unitatGestora:
+        xml:
+          name: "UNITAT_GESTORA"
+          attribute: false
+          wrapped: false
+        description: "Unitat gestora"
+        $ref: "#/definitions/UnitatGestora"
     title: "SollicitudConsulta"
     xml:
-      name: "sollicitud"
+      name: "SOLLICITUD"
       attribute: false
       wrapped: false
   SollicitudsExpedient:
@@ -6154,7 +6210,7 @@ definitions:
       codi:
         type: "string"
         xml:
-          name: "codi"
+          name: "CODI"
           attribute: false
           wrapped: false
         description: "Codi del tràmit"
@@ -6166,13 +6222,13 @@ definitions:
       nom:
         type: "string"
         xml:
-          name: "nom"
+          name: "NOM"
           attribute: false
           wrapped: false
         description: "Nom del tràmit"
     title: "TramitsOvt"
     xml:
-      name: "tramit"
+      name: "TRAMIT"
       attribute: false
       wrapped: false
   UnitatGestora:
@@ -6180,9 +6236,17 @@ definitions:
     properties:
       codi:
         type: "string"
+        xml:
+          name: "CODI"
+          attribute: false
+          wrapped: false
         description: "Codi de la Unitat Gestora"
       nom:
         type: "string"
+        xml:
+          name: "NOM"
+          attribute: false
+          wrapped: false
         description: "Nom de la Unitat Gestora"
     title: "UnitatGestora"
   UnitatGestoraAccio:
