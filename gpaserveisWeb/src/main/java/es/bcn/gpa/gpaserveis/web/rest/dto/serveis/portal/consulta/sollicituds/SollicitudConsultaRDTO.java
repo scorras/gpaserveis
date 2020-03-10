@@ -20,8 +20,10 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.RegistreRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.ExpedientAccioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.DocumentAportatConsultaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.ProcedimentsConsultaRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -29,12 +31,12 @@ import lombok.Setter;
 
 @ApiModel(value = "SollicitudConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "tramit", "dataSollicitud", "dataPresentacio", "expedient", "registre", "sollicitant", "representant",
-        "personesInteressades", "personesImplicades", "documentsAportats", "dadesOperacio", "comentari" })
+@JsonPropertyOrder({ "id", "tramit", "dataSollicitud", "dataPresentacio", "procediment", "unitatGestora", "expedient", "registre",
+        "sollicitant", "representant", "personesInteressades", "personesImplicades", "documentsAportats", "dadesOperacio", "comentari" })
 @XmlRootElement(name = "SOLLICITUD")
-@XmlType(name = "SollicitudConsulta", propOrder = { "id", "tramit", "dataSollicitud", "dataPresentacio", "expedient", "registre",
-        "sollicitant", "representant", "personesInteressades", "personesImplicades", "documentsAportats", "dadesOperacio", "comentari",
-        "hash" })
+@XmlType(name = "SollicitudConsulta", propOrder = { "id", "tramit", "dataSollicitud", "dataPresentacio", "procediment", "unitatGestora",
+        "expedient", "registre", "sollicitant", "representant", "personesInteressades", "personesImplicades", "documentsAportats",
+        "dadesOperacio", "comentari", "hash" })
 @XmlAccessorType(XmlAccessType.NONE)
 @Getter
 @Setter
@@ -56,6 +58,12 @@ public class SollicitudConsultaRDTO {
 	@XmlElement(name = "DATA_PRESENTACIO", required = false)
 	@XmlJavaTypeAdapter(DataHoraAdapter.class)
 	private String dataPresentacio;
+	@ApiModelProperty(value = "Dades del procediment")
+	@XmlElement(name = "PROCEDIMENT", required = true, type = ProcedimentsConsultaRDTO.class)
+	private ProcedimentsConsultaRDTO procediment;
+	@ApiModelProperty(value = "Unitat gestora")
+	@XmlElement(name = "UNITAT_GESTORA", required = true, type = UnitatGestoraRDTO.class)
+	private UnitatGestoraRDTO unitatGestora;
 	@ApiModelProperty("Expedient objecte de la sol·licitud")
 	@XmlElement(name = "EXPEDIENT", required = true, type = ExpedientAccioRDTO.class)
 	private ExpedientAccioRDTO expedient;

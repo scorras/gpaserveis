@@ -328,6 +328,7 @@ public class ServeisServiceHelper {
 
 		if (dadesSollicitudBDTO.getSollicitudsRDTO() != null) {
 			loadExpedients(expedientsService, dadesSollicitudBDTO, dadesSollicitudBDTO.getSollicitudsRDTO().getExpedient());
+			loadUnitatGestora(unitatsGestoresService, dadesSollicitudBDTO, dadesSollicitudBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
 			loadPersonesInteressades(expedientsService, dadesSollicitudBDTO, dadesSollicitudBDTO.getSollicitudsRDTO().getId());
 			loadAltresPersonesImplicades(expedientsService, dadesSollicitudBDTO, dadesSollicitudBDTO.getSollicitudsRDTO().getId());
 			loadDocumentsAportats(documentsService, dadesSollicitudBDTO);
@@ -603,6 +604,24 @@ public class ServeisServiceHelper {
 			}
 		}
 		dadesProcedimentBDTO.setUgoRDTOList(ugoRDTOList);
+	}
+
+	/**
+	 * Load unitat gestora.
+	 *
+	 * @param unitatsGestoresService
+	 *            the unitats gestores service
+	 * @param dadesSollicitudBDTO
+	 *            the dades sollicitud BDTO
+	 * @param idUnitatGestora
+	 *            the id unitat gestora
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public static void loadUnitatGestora(UnitatsGestoresService unitatsGestoresService, DadesSollicitudBDTO dadesSollicitudBDTO,
+	        BigDecimal idUnitatGestora) throws GPAServeisServiceException {
+		UnitatsGestoresRDTO unitatsGestoresRDTO = unitatsGestoresService.consultarDadesUnitatGestora(idUnitatGestora);
+		dadesSollicitudBDTO.setUnitatsGestoresRDTO(unitatsGestoresRDTO);
 	}
 
 	/**

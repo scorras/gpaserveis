@@ -11,9 +11,11 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.Intern
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToExpedientAccioConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToPersonaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToPersonaListConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToProcedimentConsultaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToRegistreConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.sollicitud.InternalToDadesOperacioListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.tramit.InternalToTramitOvtConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.SollicitudConsultaRDTO;
 
 /**
@@ -46,6 +48,12 @@ public class DadesSollicitudBDTOToSollicitudsConsultaRDTOMapper extends Property
 	/** The internal to dades operacio list converter. */
 	private InternalToDadesOperacioListConverter internalToDadesOperacioListConverter;
 
+	/** The internal to procediment consulta converter. */
+	private InternalToProcedimentConsultaConverter internalToProcedimentConsultaConverter;
+
+	/** The internal to unitat gestora converter. */
+	private InternalToUnitatGestoraConverter internalToUnitatGestoraConverter;
+
 	/**
 	 * Instantiates a new dades sollicitud BDTO to sollicituds consulta RDTO
 	 * mapper.
@@ -66,6 +74,10 @@ public class DadesSollicitudBDTOToSollicitudsConsultaRDTOMapper extends Property
 	 *            the internal to document aportat consulta list converter
 	 * @param internalToDadesOperacioListConverter
 	 *            the internal to dades operacio list converter
+	 * @param internalToProcedimentConsultaConverter
+	 *            the internal to procediment consulta converter
+	 * @param internalToUnitatGestoraConverter
+	 *            the internal to unitat gestora converter
 	 */
 	@Autowired
 	public DadesSollicitudBDTOToSollicitudsConsultaRDTOMapper(
@@ -76,7 +88,9 @@ public class DadesSollicitudBDTOToSollicitudsConsultaRDTOMapper extends Property
 	        @Qualifier("expedientInternalToPersonaConverter") InternalToPersonaConverter internalToPersonaConverter,
 	        @Qualifier("expedientInternalToPersonaListConverter") InternalToPersonaListConverter internalToPersonaListConverter,
 	        @Qualifier("internalToDocumentAportatConsultaListConverter") InternalToDocumentAportatConsultaListConverter internalToDocumentAportatConsultaListConverter,
-	        @Qualifier("sollicitudInternalToDadesOperacioListConverter") InternalToDadesOperacioListConverter internalToDadesOperacioListConverter) {
+	        @Qualifier("sollicitudInternalToDadesOperacioListConverter") InternalToDadesOperacioListConverter internalToDadesOperacioListConverter,
+	        @Qualifier("expedientInternalToProcedimentConsultaConverter") InternalToProcedimentConsultaConverter internalToProcedimentConsultaConverter,
+	        @Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter) {
 		this.internalToTramitOvtConverter = internalToTramitOvtConverter;
 		this.internalToDataHoraConverter = internalToDataHoraConverter;
 		this.internalToExpedientAccioConverter = internalToExpedientAccioConverter;
@@ -85,6 +99,8 @@ public class DadesSollicitudBDTOToSollicitudsConsultaRDTOMapper extends Property
 		this.internalToPersonaListConverter = internalToPersonaListConverter;
 		this.internalToDocumentAportatConsultaListConverter = internalToDocumentAportatConsultaListConverter;
 		this.internalToDadesOperacioListConverter = internalToDadesOperacioListConverter;
+		this.internalToProcedimentConsultaConverter = internalToProcedimentConsultaConverter;
+		this.internalToUnitatGestoraConverter = internalToUnitatGestoraConverter;
 	}
 
 	/*
@@ -107,6 +123,8 @@ public class DadesSollicitudBDTOToSollicitudsConsultaRDTOMapper extends Property
 		using(internalToPersonaListConverter).map(source.getPersonesImplicades()).setPersonesImplicades(null);
 		using(internalToDocumentAportatConsultaListConverter).map(source.getDocumentsAportats()).setDocumentsAportats(null);
 		using(internalToDadesOperacioListConverter).map(source.getDadesOperacio()).setDadesOperacio(null);
+		using(internalToProcedimentConsultaConverter).map(source.getExpedientsRDTO()).setProcediment(null);
+		using(internalToUnitatGestoraConverter).map(source.getUnitatsGestoresRDTO()).setUnitatGestora(null);
 	}
 
 }
