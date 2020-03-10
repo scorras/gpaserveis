@@ -7,6 +7,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +20,9 @@ public class DadesSollicitudBDTO {
 
 	/** The sollicituds RDTO. */
 	private SollicitudsRDTO sollicitudsRDTO;
+
+	/** The unitats gestores RDTO. */
+	private UnitatsGestoresRDTO unitatsGestoresRDTO;
 
 	/** The expedients RDTO. */
 	private ExpedientsRDTO expedientsRDTO;

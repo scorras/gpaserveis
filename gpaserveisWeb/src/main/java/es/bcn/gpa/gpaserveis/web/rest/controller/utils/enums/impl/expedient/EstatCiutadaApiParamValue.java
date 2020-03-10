@@ -9,8 +9,8 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.BaseApiParamValue;
  */
 public enum EstatCiutadaApiParamValue implements BaseApiParamValue {
 
-    /** The rebut. */
-	REBUT("REBUT", new BigDecimal(1)),
+	/** The esborrany. */
+	ESBORRANY("ESBORRANY", new BigDecimal(1)),
 
 	/** The en curs sol licitud en revisio. */
 	EN_CURS_SOL_LICITUD_EN_REVISIO("EN_CURS", new BigDecimal(2)),

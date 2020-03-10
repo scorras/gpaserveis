@@ -16,7 +16,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actu
  */
 @Component("respostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDTOMapper")
 public class RespostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDTOMapper
-        extends PropertyMap<RespostaExpedientsActualitzarBDTO, RespostaActualitzarExpedientRDTO> {
+		extends PropertyMap<RespostaExpedientsActualitzarBDTO, RespostaActualitzarExpedientRDTO> {
 
 	private InternalToExpedientAccioConverter internalToExpedientAccioConverter;
 
@@ -24,8 +24,8 @@ public class RespostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDT
 
 	@Autowired
 	public RespostaExpedientsActualitzarBDTOToRespostaActualitzarSolicitudsRDTOMapper(
-	        @Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
-	        @Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
+			@Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
+			@Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
 		this.internalToExpedientAccioConverter = internalToExpedientAccioConverter;
 		this.internalToResultatRespostaConverter = internalToResultatRespostaConverter;
 	}

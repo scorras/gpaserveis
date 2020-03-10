@@ -7,12 +7,14 @@ import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 
+import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.security.core.userdetails.ImiUserDetails;
 import net.opentrends.openframe.services.security.util.SecurityUtils;
 
 /**
  * The Class ImiAuthHeaderRestTemplateInterceptor.
  */
+@CommonsLog
 public class ImiAuthHeaderRestTemplateInterceptor implements ClientHttpRequestInterceptor {
 
 	/** The auth imi header. */
@@ -37,7 +39,13 @@ public class ImiAuthHeaderRestTemplateInterceptor implements ClientHttpRequestIn
 			if (authHeader != null) {
 				request.getHeaders().add(AUTH_IMI_HEADER, authHeader);
 			}
+			if (log.isInfoEnabled()) {
+				log.info("Usuari logueado: " + imiUser.getPayload() + " - " + request.getURI().getPath());
+			}
 		} else {
+			if (log.isInfoEnabled()) {
+				log.info("No s'ha trobat usuari logueado, s'usa l'usuari per defecte: T000000 - " + request.getURI().getPath());
+			}
 			request.getHeaders().add(AUTH_IMI_HEADER, "{\"user\": \"T000000\", \"grp\" : null}");
 		}
 		return execution.execute(request, body);

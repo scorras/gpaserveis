@@ -4,7 +4,9 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitudSollicituds;
 import java.math.BigDecimal;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfSollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 
@@ -27,7 +29,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-19T13:09:48.036+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-06T14:11:58.043+01:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.SollicitudsApi")
 public class SollicitudsApi {
     private ApiClient apiClient;
@@ -277,6 +279,55 @@ public class SollicitudsApi {
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
+     * Register the provided sollicitud
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>201</b> - Created
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param accio accio
+     * @param registrarSolicitudRDTO registrarSolicitudRDTO
+     * @return RespostaCrearRegistreExpedient
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public RespostaCrearRegistreExpedient crearRegistreSolicitud(BigDecimal accio, CrearSollicitud registrarSolicitudRDTO) throws RestClientException {
+        Object postBody = registrarSolicitudRDTO;
+        
+        // verify the required parameter 'accio' is set
+        if (accio == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'accio' when calling crearRegistreSolicitud");
+        }
+        
+        // verify the required parameter 'registrarSolicitudRDTO' is set
+        if (registrarSolicitudRDTO == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'registrarSolicitudRDTO' when calling crearRegistreSolicitud");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("accio", accio);
+        String path = UriComponentsBuilder.fromPath("/expedients/registre/crearSollicitud/{accio}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { 
+            "application/json"
+        };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<RespostaCrearRegistreExpedient> returnType = new ParameterizedTypeReference<RespostaCrearRegistreExpedient>() {};
+        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
      * Creates the sollicitud
      * 
      * <p><b>200</b> - OK
@@ -315,5 +366,45 @@ public class SollicitudsApi {
 
         ParameterizedTypeReference<SollicitudsRDTO> returnType = new ParameterizedTypeReference<SollicitudsRDTO>() {};
         return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Updates the sollicitud
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>201</b> - Created
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param sollicitudsRDTO sollicitudsRDTO
+     * @return SollicitudsRDTO
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public SollicitudsRDTO updateSollicitud(SollicitudsRDTO sollicitudsRDTO) throws RestClientException {
+        Object postBody = sollicitudsRDTO;
+        
+        // verify the required parameter 'sollicitudsRDTO' is set
+        if (sollicitudsRDTO == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'sollicitudsRDTO' when calling updateSollicitud");
+        }
+        
+        String path = UriComponentsBuilder.fromPath("/sollicituds").build().toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { 
+            "application/json"
+        };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<SollicitudsRDTO> returnType = new ParameterizedTypeReference<SollicitudsRDTO>() {};
+        return apiClient.invokeAPI(path, HttpMethod.PUT, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }

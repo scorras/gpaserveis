@@ -37,7 +37,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-13T13:30:08.356+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-03T19:20:05.061+01:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi")
 public class DocumentacioApi {
 	private ApiClient apiClient;
@@ -1796,6 +1796,77 @@ public class DocumentacioApi {
 	 *            docsTramitacioRDTO
 	 * @param idExpedient
 	 *            idExpedient
+	 * @param idSollicitud
+	 *            idSollicitud
+	 * @return DocsTramitacioRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public DocsTramitacioRDTO guardarDocumentTramitacioJustificantPlantilla(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient,
+	        BigDecimal idSollicitud) throws RestClientException {
+		Object postBody = docsTramitacioRDTO;
+
+		// verify the required parameter 'docsTramitacioRDTO' is set
+		if (docsTramitacioRDTO == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'docsTramitacioRDTO' when calling guardarDocumentTramitacioJustificantPlantilla");
+		}
+
+		// verify the required parameter 'idExpedient' is set
+		if (idExpedient == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'idExpedient' when calling guardarDocumentTramitacioJustificantPlantilla");
+		}
+
+		// verify the required parameter 'idSollicitud' is set
+		if (idSollicitud == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'idSollicitud' when calling guardarDocumentTramitacioJustificantPlantilla");
+		}
+
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("idExpedient", idExpedient);
+		uriVariables.put("idSollicitud", idSollicitud);
+		String path = UriComponentsBuilder
+		        .fromPath("/documentacio/tramitacio/justificant/plantilla/{idExpedient}/sollicitud/{idSollicitud}")
+		        .buildAndExpand(uriVariables).toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "application/json" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<DocsTramitacioRDTO> returnType = new ParameterizedTypeReference<DocsTramitacioRDTO>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+	}
+
+	/**
+	 * save the doc tramitacio i plantilla
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>201</b> - Created
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param docsTramitacioRDTO
+	 *            docsTramitacioRDTO
+	 * @param idExpedient
+	 *            idExpedient
 	 * @return DocsTramitacioRDTO
 	 * @throws RestClientException
 	 *             if an error occurs while attempting to invoke the API
@@ -2350,5 +2421,44 @@ public class DocumentacioApi {
 		};
 		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
 		        returnType);
+	}
+
+	public void guardarXmlSollicitud(String idDocumentum, File file) {
+		Object postBody = null;
+		// verify the required parameter 'idDocumentum' is set
+		if (idDocumentum == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'idDocumentum' when calling guardarXmlSollicitud");
+		}
+		// verify the required parameter 'file' is set
+		if (file == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'file' when calling guardarXmlSollicitud");
+		}
+
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("idDocumentum", idDocumentum);
+		String path = UriComponentsBuilder.fromPath("/documentacio/xml/sollicitud/{idDocumentum}").buildAndExpand(uriVariables)
+		        .toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		formParams.add("file", new FileSystemResource(file));
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "multipart/form-data" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<DocsEntradaRDTO> returnType = new ParameterizedTypeReference<DocsEntradaRDTO>() {
+		};
+		apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+
 	}
 }

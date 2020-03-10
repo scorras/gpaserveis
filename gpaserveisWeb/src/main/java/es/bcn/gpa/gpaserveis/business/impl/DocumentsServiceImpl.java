@@ -3,6 +3,7 @@ package es.bcn.gpa.gpaserveis.business.impl;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -620,6 +621,59 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * guardarDocumentTramitacioJustificantPlantilla(
+	 * CrearDocumentTramitacioBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackGuardarDocumentTramitacioJustificantPlantilla")
+	public DocsTramitacioRDTO guardarDocumentTramitacioJustificantPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("guardarDocumentTramitacioJustificantPlantilla(CrearDocumentTramitacioBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarDocumentTramitacioJustificantPlantilla(
+			        crearDocumentTramitacioBDTO.getDocsTramitacioRDTO(), crearDocumentTramitacioBDTO.getIdExpedient(),
+			        crearDocumentTramitacioBDTO.getIdSollicitud());
+
+			if (log.isDebugEnabled()) {
+				log.debug("guardarDocumentTramitacioJustificantPlantilla(CrearDocumentTramitacioBDTO) - fi"); //$NON-NLS-1$
+			}
+			return docsTramitacioRDTO;
+		} catch (RestClientException e) {
+			log.error("guardarDocumentTramitacioJustificantPlantilla(CrearDocumentTramitacioBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+	}
+
+	/**
+	 * Fallback guardar document tramitacio justificant plantilla.
+	 *
+	 * @param crearDocumentTramitacioBDTO
+	 *            the crear document tramitacio BDTO
+	 * @param e
+	 *            the e
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsTramitacioRDTO fallbackGuardarDocumentTramitacioJustificantPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO,
+	        Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackGuardarDocumentTramitacioJustificantPlantilla(CrearDocumentTramitacioBDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
 	 * actualitzarDocumentEntrada(es.bcn.gpa.gpaserveis.business.dto.documents.
 	 * ActualitzarDocumentEntradaBDTO)
 	 */
@@ -837,6 +891,59 @@ public class DocumentsServiceImpl implements DocumentsService {
 		ServeisServiceExceptionHandler.handleException(e);
 
 		return null;
+	}
+	
+	
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackGuardarXmlSollicitud")
+	public void guardarXmlSollicitud(String idDocumentum, String xmlSollicitud) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		File file = null;
+		ObjectMapper jsonMapper = new ObjectMapper();
+		jsonMapper.registerModule(new JodaModule());
+		ObjectWriter jsonWriter = jsonMapper.writer();
+		try {
+			Path tempFile = Files.createTempFile("upload-temp-file", ".xml");
+			file = tempFile.toFile();
+			FileUtils.writeStringToFile(file, xmlSollicitud,StandardCharsets.UTF_8.toString());
+
+			
+			documentacioApi.guardarXmlSollicitud(idDocumentum, file);
+
+			if (log.isDebugEnabled()) {
+				log.debug("guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException | IOException e) {
+			log.error("guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage(), e);
+		} finally {
+			if (file != null) {
+				FileUtils.deleteQuietly(file);
+			}
+		}
+	}
+
+	
+	/**
+	 * Fallback guardar xml sollicitud.
+	 *
+	 * @param idDocumentum the id documentum
+	 * @param xmlSollicitud the xml sollicitud
+	 * @param e the e
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException the GPA serveis service exception
+	 */
+	public void fallbackGuardarXmlSollicitud(String idDocumentum, String xmlSollicitud, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackGuardarXmlSollicitud(String, String, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
 	}
 
 	/*
@@ -1275,6 +1382,55 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * descarregarDocumentExpedient(BigDecimal idUltimaSignatura)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackDescarregarDocumentExpedientSignat")
+	public byte[] descarregarDocumentExpedientSignat(BigDecimal idUltimaSignatura) throws GPAServeisServiceException {
+
+		if (log.isDebugEnabled()) {
+			log.debug("descarregarDocumentExpedientSignat(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+
+			byte[] documentByteArray = downloadApi.descarregarDocumentExpedientSignat(idUltimaSignatura);
+
+			if (log.isDebugEnabled()) {
+				log.debug("descarregarDocumentExpedientSignat(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			return documentByteArray;
+		} catch (RestClientException e) {
+			log.error("descarregarDocumentExpedientSignat(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback descarregar document expedient signat.
+	 *
+	 * @param idUltimaSignatura
+	 * @param e
+	 *            the e
+	 * @return the byte[]
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public byte[] fallbackDescarregarDocumentExpedientSignat(BigDecimal idUltimaSignatura, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackDescarregarDocumentExpedientSignat(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
 	 * cercaDadesOperacioRequerits(java.math.BigDecimal)
 	 */
 	@Override
@@ -1609,7 +1765,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public SignarSegellDocument fallbackSignarSegellDocument(SignarSegellDocument signarSegellDocument, Throwable e)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackSignarSegellDocument(SignarSegellDocument, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -2465,4 +2621,5 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		return null;
 	}
+
 }

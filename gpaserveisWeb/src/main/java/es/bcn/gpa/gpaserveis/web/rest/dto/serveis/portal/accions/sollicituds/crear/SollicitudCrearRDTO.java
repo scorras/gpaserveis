@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 public class SollicitudCrearRDTO {
 
-	@ApiModelProperty(value = "Codi Tramit OVT relacionat a la sol·licitud", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true)
+	@ApiModelProperty(value = "Codi Tramit OVT relacionat a la sol·licitud", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES_SOLLICITUDS, required = true)
 	private String codiTramit;
 	@ApiModelProperty(value = "Persona sol·licitant", required = true)
 	private PersonesRDTO sollicitant;

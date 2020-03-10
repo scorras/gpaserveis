@@ -18,6 +18,6 @@ public class EstatCiutadaApiParamValueTranslator extends ApiParamValueTranslator
 	public static final String REQUEST_PARAM_NAME = "estat";
 
 	/** The Constant REQUEST_PARAM_ALLOWABLE_VALUES. */
-	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "REBUT, EN_CURS, PENDENT_ESMENES, PENDENT_ALEGACIONS, RESOLT, TANCAT";
+	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "ESBORRANY, EN_CURS, PENDENT_ESMENES, PENDENT_ALEGACIONS, RESOLT, TANCAT";
 
 }

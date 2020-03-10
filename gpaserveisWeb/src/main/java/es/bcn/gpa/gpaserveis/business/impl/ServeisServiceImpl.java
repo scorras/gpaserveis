@@ -1,15 +1,8 @@
 package es.bcn.gpa.gpaserveis.business.impl;
 
-import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.namespace.QName;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +53,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
@@ -79,6 +73,7 @@ import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.business.impl.helper.ServeisServiceHelper;
+import es.bcn.gpa.gpaserveis.business.xml.bind.Jaxb2MarshallerWrapper;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
@@ -93,9 +88,12 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlant
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MunicipisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ProvinciesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
@@ -104,6 +102,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInterop
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusViesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
@@ -141,8 +140,13 @@ public class ServeisServiceImpl implements ServeisService {
 	@Autowired
 	private DocumentsService documentsService;
 
+	/** The sollicituds service. */
 	@Autowired
 	private SollicitudsService sollicitudsService;
+
+	/** The jaxb 2 marshaller wrapper. */
+	@Autowired
+	private Jaxb2MarshallerWrapper jaxb2MarshallerWrapper;
 
 	/**
 	 * Cerca procediments.
@@ -940,6 +944,25 @@ public class ServeisServiceImpl implements ServeisService {
 	}
 
 	/**
+	 * Descarregar document entrada expedient sigant.
+	 *
+	 * @param idUltimaSignatura
+	 * @return the byte[]
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * descarregarDocumentExpedient(BigDecimal idUltimaSignatura)
+	 */
+	@Override
+	public byte[] descarregarDocumentExpedientSignat(BigDecimal idUltimaSignatura) throws GPAServeisServiceException {
+		return documentsService.descarregarDocumentExpedientSignat(idUltimaSignatura);
+	}
+
+	/**
 	 * Crear registre.
 	 *
 	 * @param expedientsRegistrarBDTO
@@ -961,6 +984,30 @@ public class ServeisServiceImpl implements ServeisService {
 	public RespostaCrearRegistreExpedient crearRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO, BigDecimal tipusDocVinculada)
 	        throws GPAServeisServiceException {
 		return expedientsService.crearRegistre(expedientsRegistrarBDTO, tipusDocVinculada);
+	}
+
+	/**
+	 * Crear registre sollicitud.
+	 *
+	 * @param expedientsRegistrarBDTO
+	 *            the expedients registrar sollicitud BDTO
+	 * @param tipusDocVinculada
+	 *            the tipus doc vinculada
+	 * @return the resposta crear registre sollicitud
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * crearRegistreSolicitud(es.bcn.gpa.gpaserveis.business.dto.
+	 * expedients.ExpedientsRegistrarSollicitudBDTO)
+	 */
+	@Override
+	public RespostaCrearRegistreExpedient crearRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO,
+	        BigDecimal tipusDocVinculada) throws GPAServeisServiceException {
+		return expedientsService.crearRegistreSollicitud(expedientsRegistrarSollicitudBDTO, tipusDocVinculada);
 	}
 
 	/**
@@ -1056,24 +1103,10 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public String crearXmlDadesSollicitud(SollicitudConsultaRDTO sollicitudConsultaRDTO) throws GPAServeisServiceException {
-		StringWriter stringWriter = null;
-		try {
-			JAXBContext jaxbContext = JAXBContext.newInstance(SollicitudConsultaRDTO.class);
-			Marshaller marshaller = jaxbContext.createMarshaller();
-			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+		String xmlDadesSollicitud = jaxb2MarshallerWrapper.marshallXml(sollicitudConsultaRDTO);
+		String xmlDadesSollicitudBase64 = Base64Utils.encodeToString(xmlDadesSollicitud.getBytes(StandardCharsets.UTF_8));
 
-			JAXBElement<SollicitudConsultaRDTO> jaxbElement = new JAXBElement<SollicitudConsultaRDTO>(new QName(null, "sollicitud"),
-			        SollicitudConsultaRDTO.class, sollicitudConsultaRDTO);
-			stringWriter = new StringWriter();
-			marshaller.marshal(jaxbElement, stringWriter);
-		} catch (JAXBException e) {
-			throw new GPAServeisServiceException("S'ha produït una incidència", e);
-		}
-
-		String dadesXmlBase64 = Base64Utils.encodeToString(stringWriter.toString().getBytes(StandardCharsets.UTF_8));
-
-		return dadesXmlBase64;
+		return xmlDadesSollicitudBase64;
 	}
 
 	/**
@@ -1528,6 +1561,19 @@ public class ServeisServiceImpl implements ServeisService {
 	public DocsTramitacioRDTO guardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
 	        throws GPAServeisServiceException {
 		return documentsService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * guardarDocumentTramitacioJustificantPlantilla(es.bcn.gpa.gpaserveis.
+	 * business.dto.documents.CrearDocumentTramitacioBDTO)
+	 */
+	@Override
+	public DocsTramitacioRDTO guardarDocumentTramitacioJustificantPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
+	        throws GPAServeisServiceException {
+		return documentsService.guardarDocumentTramitacioJustificantPlantilla(crearDocumentTramitacioBDTO);
 	}
 
 	/**
@@ -1994,6 +2040,78 @@ public class ServeisServiceImpl implements ServeisService {
 		RespostaSollicitudsCercaBDTO respostaSollicitudsCercaBDTO = ServeisServiceHelper.loadCercaSollicituds(expedientsService,
 		        sollicitudsCercaBDTO);
 		return respostaSollicitudsCercaBDTO;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#guardarXmlSollicitud(java.
+	 * lang.String, java.lang.String)
+	 */
+	@Override
+	public void guardarXmlSollicitud(String idDocumentum, String xmlSolicitud) throws GPAServeisServiceException {
+		documentsService.guardarXmlSollicitud(idDocumentum, xmlSolicitud);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#updateSollicitud(es.bcn.gpa
+	 * .gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO)
+	 */
+	@Override
+	public SollicitudsRDTO updateSollicitud(SollicitudsRDTO sollicitudRDTO) throws GPAServeisServiceException {
+		return expedientsService.updateSollicitud(sollicitudRDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#consultarTipusViesByCodi(
+	 * java.lang.String)
+	 */
+	@Override
+	public TipusViesRDTO consultarTipusViesByCodi(String codi) throws GPAServeisServiceException {
+		return expedientsService.consultarTipusViesByCodi(codi);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#consultarPaisosByCodi(java.
+	 * lang.String)
+	 */
+	@Override
+	public PaisosRDTO consultarPaisosByCodi(String codi) throws GPAServeisServiceException {
+		return expedientsService.consultarPaisosByCodi(codi);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#consultarProvinciesByCodi(
+	 * java.lang.String)
+	 */
+	@Override
+	public ProvinciesRDTO consultarProvinciesByCodi(String codi) throws GPAServeisServiceException {
+		return expedientsService.consultarProvinciesByCodi(codi);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#consultarMunicipisByCodi(
+	 * java.lang.String, java.lang.String)
+	 */
+	@Override
+	public MunicipisRDTO consultarMunicipisByCodi(String codiMunicipi, String codiProvincia) throws GPAServeisServiceException {
+		return expedientsService.consultarMunicipisByCodi(codiMunicipi, codiProvincia);
 	}
 
 }

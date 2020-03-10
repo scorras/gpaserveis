@@ -425,6 +425,28 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
+	 * save the doc tramitacio i plantilla
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void guardarDocumentTramitacioJustificantPlantillaTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/justificant/plantilla/1/sollicitud/1"), eq(HttpMethod.POST),
+		        any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class),
+		        any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
+
+		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
+		BigDecimal idExpedient = ONE;
+		BigDecimal idSollicitud = ONE;
+		DocsTramitacioRDTO response = api.guardarDocumentTramitacioJustificantPlantilla(docsTramitacioRDTO, idExpedient, idSollicitud);
+
+		assertTrue(response != null);
+	}
+
+	/**
 	 * updates the doc entrada responsable.
 	 *
 	 * @throws RestClientException
@@ -810,7 +832,7 @@ public class DocumentacioApiTest extends ParentTest {
 		when(apiClient.invokeAPI(eq("/documentacio/entrada/revisar"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(null);
-		
+
 		DocumentRevisio documentRevisioRDTO = new DocumentRevisio();
 		api.revisarDocumentacioEntrada(documentRevisioRDTO);
 		assertTrue(true);
@@ -826,9 +848,9 @@ public class DocumentacioApiTest extends ParentTest {
 	 */
 	@Test
 	public void revisarDocumentacioEntradaMassiuTest() {
-		when(apiClient.invokeAPI(eq("/documentacio/entrada/revisarMassiu"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(null);
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/revisarMassiu"), eq(HttpMethod.POST), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
 		DocumentRevisio documentRevisioRDTO = new DocumentRevisio();
 		api.revisarDocumentacioEntradaMassiu(documentRevisioRDTO);
 		assertTrue(true);
@@ -844,11 +866,11 @@ public class DocumentacioApiTest extends ParentTest {
 	 */
 	@Test
 	public void estatDigitalitzacioTest() {
-		
+
 		when(apiClient.invokeAPI(eq("/documentacio/1/estatDigitalitzacio"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(new EstatDigitalitzacioDocumentRDTO());
-		
+
 		Long idDocumentacio = 1L;
 		EstatDigitalitzacioDocumentRDTO response = api.estatDigitalitzacio(idDocumentacio);
 		assertTrue(response != null);
@@ -869,6 +891,29 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(ParameterizedTypeReference.class))).thenReturn(StringUtils.EMPTY);
 		String response = api.storageMode();
 		assertTrue(response != null);
+	}
+
+	/**
+	 * saves the xml sollicitud.
+	 *
+	 * @throws RestClientException
+	 *             if the Api call fails
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
+	@Test
+	public void guardarXmlSollicitudTest() throws RestClientException, IOException {
+		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
+		        .thenReturn(new LinkedMultiValueMap<String, String>());
+		when(apiClient.invokeAPI(eq("/documentacio/xml/sollicitud/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		String idDocumentum = ONE.toString();
+		File file = testFolder.newFolder("test");
+		api.guardarXmlSollicitud(idDocumentum, file);
+
+		assertTrue(true);
 	}
 
 }
