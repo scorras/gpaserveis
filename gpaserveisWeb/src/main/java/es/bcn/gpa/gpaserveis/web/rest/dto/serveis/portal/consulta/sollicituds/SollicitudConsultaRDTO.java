@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -31,8 +32,8 @@ import lombok.Setter;
 
 @ApiModel(value = "SollicitudConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "tramit", "dataSollicitud", "dataPresentacio", "procediment", "unitatGestora", "expedient", "registre",
-        "sollicitant", "representant", "personesInteressades", "personesImplicades", "documentsAportats", "dadesOperacio", "comentari" })
+@JsonPropertyOrder({ "id", "tramit", "estat", "dataSollicitud", "dataPresentacio", "procediment", "unitatGestora", "expedient", "registre",
+        "sollicitant", "representant", "personesInteressades", "personesImplicades", "documentsAportats", "dadesOperacio", "comentari", "hash"})
 @XmlRootElement(name = "SOLLICITUD")
 @XmlType(name = "SollicitudConsulta", propOrder = { "id", "tramit", "dataSollicitud", "dataPresentacio", "procediment", "unitatGestora",
         "expedient", "registre", "sollicitant", "representant", "personesInteressades", "personesImplicades", "documentsAportats",
@@ -98,5 +99,8 @@ public class SollicitudConsultaRDTO {
 	@ApiModelProperty(value = "Hash del xml associat a la sol·licitud")
 	@XmlElement(name = "HASH", required = false, type = String.class)
 	private String hash;
+	@ApiModelProperty(value = "Estat de la sol·licitud")
+	@XmlTransient
+	private String estat;
 
 }

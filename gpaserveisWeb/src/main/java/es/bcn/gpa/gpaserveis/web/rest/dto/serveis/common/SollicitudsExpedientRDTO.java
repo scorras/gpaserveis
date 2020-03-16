@@ -13,7 +13,7 @@ import lombok.Setter;
 
 @ApiModel(value = "SollicitudsExpedient")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "tipus" })
+@JsonPropertyOrder({ "id", "tipus", "estat" })
 @Getter
 @Setter
 public class SollicitudsExpedientRDTO {
@@ -22,4 +22,6 @@ public class SollicitudsExpedientRDTO {
 	private BigDecimal id;
 	@ApiModelProperty(value = "Tipus de la sol·licitud", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true)
 	private String tipus;
+	@ApiModelProperty(value = "Estat de la sol·licitud", required = true)
+	private String estat;
 }
