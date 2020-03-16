@@ -749,7 +749,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 *             the GPA serveis service exception
 	 */
 	@PostMapping("/expedients/{codiExpedient}/arxivar")
-	@ApiOperation(value = "Arxivar sol·licitud incompleta", tags = { "Serveis Tramitadors API" }, extensions = {
+	@ApiOperation(value = Constants.DESCRIPCIO_ACCIO_ARXIVAR, tags = { "Serveis Tramitadors API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaArxivarExpedientRDTO arxivarSolicitudExpedient(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,

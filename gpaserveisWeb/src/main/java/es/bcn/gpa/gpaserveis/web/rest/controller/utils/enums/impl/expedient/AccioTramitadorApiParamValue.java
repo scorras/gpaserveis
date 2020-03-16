@@ -2,6 +2,7 @@ package es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient;
 
 import java.math.BigDecimal;
 
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.BaseApiParamValue;
 
 /**
@@ -53,7 +54,7 @@ public enum AccioTramitadorApiParamValue implements BaseApiParamValue {
 
 	REGISTRAR_COMUNICACIO("Registrar comunicació", new BigDecimal(22)),
 
-	ARXIVAR_SOLLICITUD_INCOMPLETA("Arxivar sol·licitud incomplerta", new BigDecimal(23)),
+	ARXIVAR_SOLLICITUD_INCOMPLETA(Constants.DESCRIPCIO_ACCIO_ARXIVAR, new BigDecimal(23)),
 
 	VALIDAR_SOLLICITUD("Validar sol·licitud", new BigDecimal(24)),
 
