@@ -89,5 +89,8 @@ public class Constants {
 	
 	/** The Constant DESCRIPCIO_ESTAT_REGISTRAT. */
 	public static final String DESCRIPCIO_ESTAT_REGISTRAT = "REGISTRAT";
+	
+	/** The Constant DESCRIPCIO_ACCIO_ARXIVAR. */
+	public static final String DESCRIPCIO_ACCIO_ARXIVAR = "Arxivar per incomplerta o inadequada";
 
 }
