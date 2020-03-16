@@ -21,6 +21,7 @@ import java.util.TimeZone;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
@@ -37,6 +38,8 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -44,6 +47,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.auth.ApiKeyAuth;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.auth.Authentication;
@@ -394,7 +400,8 @@ public class ApiClient {
 	 *            The parameter's value
 	 * @return a Map containing the String value(s) of the input parameter
 	 */
-	public MultiValueMap<String, String> parameterToMultiValueMap(CollectionFormat collectionFormat, String name, Object value) {
+	public MultiValueMap<String, String> parameterToMultiValueMap(CollectionFormat collectionFormat, String name,
+			Object value) {
 		final MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 
 		if (name == null || name.isEmpty() || value == null) {
@@ -463,8 +470,8 @@ public class ApiClient {
 	 * @return boolean true if the MediaType represents JSON, false otherwise
 	 */
 	public boolean isJsonMime(MediaType mediaType) {
-		return mediaType != null
-		        && (MediaType.APPLICATION_JSON.isCompatibleWith(mediaType) || mediaType.getSubtype().matches("^.*\\+json[;]?\\s*$"));
+		return mediaType != null && (MediaType.APPLICATION_JSON.isCompatibleWith(mediaType)
+				|| mediaType.getSubtype().matches("^.*\\+json[;]?\\s*$"));
 	}
 
 	/**
@@ -525,7 +532,7 @@ public class ApiClient {
 	 */
 	protected Object selectBody(Object obj, MultiValueMap<String, Object> formParams, MediaType contentType) {
 		boolean isForm = MediaType.MULTIPART_FORM_DATA.isCompatibleWith(contentType)
-		        || MediaType.APPLICATION_FORM_URLENCODED.isCompatibleWith(contentType);
+				|| MediaType.APPLICATION_FORM_URLENCODED.isCompatibleWith(contentType);
 		return isForm ? formParams : obj;
 	}
 
@@ -556,9 +563,10 @@ public class ApiClient {
 	 *            The return type into which to deserialize the response
 	 * @return The response body in chosen type
 	 */
-	public <T> T invokeAPI(String path, HttpMethod method, MultiValueMap<String, String> queryParams, Object body, HttpHeaders headerParams,
-	        MultiValueMap<String, Object> formParams, List<MediaType> accept, MediaType contentType, String[] authNames,
-	        ParameterizedTypeReference<T> returnType) throws RestClientException {
+	public <T> T invokeAPI(String path, HttpMethod method, MultiValueMap<String, String> queryParams, Object body,
+			HttpHeaders headerParams, MultiValueMap<String, Object> formParams, List<MediaType> accept,
+			MediaType contentType, String[] authNames, ParameterizedTypeReference<T> returnType)
+			throws RestClientException {
 		updateParamsForAuth(authNames, queryParams, headerParams);
 
 		final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(basePath).path(path);
@@ -594,7 +602,8 @@ public class ApiClient {
 		} else {
 			// The error handler built into the RestTemplate should handle 400
 			// and 500 series errors.
-			throw new RestClientException("API returned " + statusCode + " and it wasn't handled by the RestTemplate error handler");
+			throw new RestClientException(
+					"API returned " + statusCode + " and it wasn't handled by the RestTemplate error handler");
 		}
 	}
 
@@ -628,7 +637,14 @@ public class ApiClient {
 		RestTemplate restTemplate = new RestTemplate(requestFactory);
 		restTemplate.getMessageConverters().add(new FormHttpMessageConverter());
 		restTemplate.setErrorHandler(new ExpedientsResponseErrorHandler());
-
+		for (HttpMessageConverter<?> converter : restTemplate.getMessageConverters()) {
+			if (converter instanceof AbstractJackson2HttpMessageConverter) {
+				ObjectMapper mapper = ((AbstractJackson2HttpMessageConverter) converter).getObjectMapper();
+				SimpleModule module = new SimpleModule();
+				module.addDeserializer(DateTime.class, new CustomDateTimeDeserializer(DateTime.class));
+				mapper.registerModule(module);
+			}
+		}
 		return restTemplate;
 	}
 
@@ -651,7 +667,8 @@ public class ApiClient {
 	 * @param headerParams
 	 *            The header parameters
 	 */
-	private void updateParamsForAuth(String[] authNames, MultiValueMap<String, String> queryParams, HttpHeaders headerParams) {
+	private void updateParamsForAuth(String[] authNames, MultiValueMap<String, String> queryParams,
+			HttpHeaders headerParams) {
 		for (String authName : authNames) {
 			Authentication auth = authentications.get(authName);
 			if (auth == null) {
@@ -667,7 +684,8 @@ public class ApiClient {
 		private final Log log = LogFactory.getLog(ApiClientHttpRequestInterceptor.class);
 
 		@Override
-		public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+		public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
+				throws IOException {
 			logRequest(request, body);
 			ClientHttpResponse response = execution.execute(request, body);
 			logResponse(response);
@@ -696,11 +714,11 @@ public class ApiClient {
 					builder.append(value).append(",");
 				}
 				builder.setLength(builder.length() - 1); // Get rid of trailing
-				                                         // comma
+															// comma
 				builder.append("],");
 			}
 			builder.setLength(builder.length() - 1); // Get rid of trailing
-			                                         // comma
+														// comma
 			return builder.toString();
 		}
 
