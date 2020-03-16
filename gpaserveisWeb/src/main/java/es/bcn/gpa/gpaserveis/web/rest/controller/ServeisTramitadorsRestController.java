@@ -1641,8 +1641,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 
 					CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
-					        dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
-					        docsTramitacioRDTO);
+							dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
+							docsTramitacioRDTO);
 					docsTramitacioRDTOResult = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
 				} else {
 					GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO = new GuardarDocumentTramitacioFitxerBDTO(
@@ -3832,8 +3832,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
 				docsTramitacioRDTO.setDocsTercers(1);
 				CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
-				        dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
-				        docsTramitacioRDTO);
+						dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
+						docsTramitacioRDTO);
 				respostaCrearJustificant = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
 
 				// Vincular Justificante en Ariadna
@@ -3884,6 +3884,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 		RespostaEstatDigitalitzacioRDTO respostaEstatDigitalitzacioRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
+		EstatDigitalitzacioDocumentRDTO estat = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ESTAT_DOCUMENT_DIGITALITZACIO_EXPEDIENT);
 
 		try {
@@ -3894,12 +3895,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					Resultat.ERROR_ESTAT_DOCUMENT_DIGITALITZACIO_EXPEDIENT);
 
 			// llamar a metodo de digitalitzacio status
-			EstatDigitalitzacioDocumentRDTO estat = serveisService.obtenirEstatDigitalitzacioDocument(idDocument);
-
-			RespostaEstatDigitalitzacioBDTO respostaEstatDigitalitzacioBDTO = new RespostaEstatDigitalitzacioBDTO(
-					dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO,
-					estat != null ? estat.getMessage() : null, estat != null ? estat.getStatus() : null);
-			respostaEstatDigitalitzacioRDTO = modelMapper.map(respostaEstatDigitalitzacioBDTO, RespostaEstatDigitalitzacioRDTO.class);
+			estat = serveisService.obtenirEstatDigitalitzacioDocument(idDocument);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("obtenirEstatDigitalitzacio(String, BigDecimal)", e); // $NON-NLS-1$
@@ -3909,6 +3905,11 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler
 					.handleException(Resultat.ERROR_ESTAT_DOCUMENT_DIGITALITZACIO_EXPEDIENT, e);
 		}
+
+		RespostaEstatDigitalitzacioBDTO respostaEstatDigitalitzacioBDTO = new RespostaEstatDigitalitzacioBDTO(
+				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO,
+				estat != null ? estat.getMessage() : null, estat != null ? estat.getStatus() : null);
+		respostaEstatDigitalitzacioRDTO = modelMapper.map(respostaEstatDigitalitzacioBDTO, RespostaEstatDigitalitzacioRDTO.class);
 
 		if (log.isDebugEnabled()) {
 			log.debug("obtenirEstatDigitalitzacio(String, BigDecimal) - fi"); //$NON-NLS-1$
