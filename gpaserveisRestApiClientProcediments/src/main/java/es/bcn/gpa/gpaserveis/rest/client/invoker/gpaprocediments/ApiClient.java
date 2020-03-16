@@ -21,6 +21,7 @@ import java.util.TimeZone;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
@@ -37,6 +38,8 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -44,6 +47,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.auth.ApiKeyAuth;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.auth.Authentication;
@@ -628,6 +634,14 @@ public class ApiClient {
 		RestTemplate restTemplate = new RestTemplate(requestFactory);
 		restTemplate.getMessageConverters().add(new FormHttpMessageConverter());
 		restTemplate.setErrorHandler(new ProcedimentsResponseErrorHandler());
+		for (HttpMessageConverter<?> converter : restTemplate.getMessageConverters()) {
+			if (converter instanceof AbstractJackson2HttpMessageConverter) {
+				ObjectMapper mapper = ((AbstractJackson2HttpMessageConverter) converter).getObjectMapper();
+				SimpleModule module = new SimpleModule();
+				module.addDeserializer(DateTime.class, new CustomDateTimeDeserializer(DateTime.class));
+				mapper.registerModule(module);
+			}
+		}
 		return restTemplate;
 	}
 
