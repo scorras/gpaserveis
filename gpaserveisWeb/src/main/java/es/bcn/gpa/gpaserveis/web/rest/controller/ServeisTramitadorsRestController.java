@@ -2646,6 +2646,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			crearNotificacio.setIdsAnnexosList(expedientNotificacio.getIdsAnnexosList());
 			crearNotificacio.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
 			crearNotificacio.setCodiProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentCodi());
+			crearNotificacio.setComunicar(expedientNotificacio.getComunicar());
 			DocumentCrearNotificacioBDTO documentCrearNotificacioBDTO = new DocumentCrearNotificacioBDTO(crearNotificacio);
 			notificacionsRDTO = serveisService.crearNotificacio(documentCrearNotificacioBDTO);
 			idNotificacio = notificacionsRDTO.getNotificacioId();
