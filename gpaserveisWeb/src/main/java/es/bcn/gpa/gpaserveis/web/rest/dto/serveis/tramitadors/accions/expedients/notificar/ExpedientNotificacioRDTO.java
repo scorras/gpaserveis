@@ -27,4 +27,7 @@ public class ExpedientNotificacioRDTO {
 	@ApiModelProperty(value = "Llista d'identificadors dels annexo.")
 	private List<BigDecimal> idsAnnexosList;
 
+	@ApiModelProperty(value = "Pasar a Comunicar")
+	private Boolean comunicar;
+
 }
