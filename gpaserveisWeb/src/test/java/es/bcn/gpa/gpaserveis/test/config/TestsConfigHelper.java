@@ -1119,7 +1119,7 @@ public class TestsConfigHelper {
 
 		AccionsEstatsRDTO accionsEstatsRDTO11 = new AccionsEstatsRDTO();
 		accionsEstatsRDTO11.setId(ONE);
-		accionsEstatsRDTO11.setNomAccio("Arxivar sol·licitud incomplerta");
+		accionsEstatsRDTO11.setNomAccio(Constants.DESCRIPCIO_ACCIO_ARXIVAR);
 		accionsEstatsRDTO11.setAccio(new BigDecimal(23));
 		accionsEstatsRDTOList.add(accionsEstatsRDTO11);
 

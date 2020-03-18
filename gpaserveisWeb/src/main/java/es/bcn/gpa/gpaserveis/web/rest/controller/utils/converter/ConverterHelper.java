@@ -1188,6 +1188,18 @@ public class ConverterHelper {
 		sollicitudsExpedientRDTO.setId(sollicitudsRDTO.getId());
 		sollicitudsExpedientRDTO
 		        .setTipus(tramitOvtApiParamValueTranslator.getApiParamValueByInternalValue(sollicitudsRDTO.getTramitOvtIdext()));
+		sollicitudsExpedientRDTO.setEstat(ConverterHelper.getEstatSollicitudByIdRegistre(sollicitudsRDTO.getRegistre()));
 		return sollicitudsExpedientRDTO;
 	}
+	
+	/**
+	 * Gets the estat sollicitud by id registre.
+	 *
+	 * @param idRegistre the id registre
+	 * @return the estat sollicitud by id registre
+	 */
+	public static String getEstatSollicitudByIdRegistre(BigDecimal idRegistre){
+		return (idRegistre == null)?Constants.DESCRIPCIO_ESTAT_ESBORRANY:Constants.DESCRIPCIO_ESTAT_REGISTRAT;
+	}
+
 }

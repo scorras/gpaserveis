@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.18.0"
+  version: "1.19.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -660,6 +660,46 @@ paths:
         description: "idExpedient"
         required: true
         type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "string"
+            format: "byte"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /documentacio/descarregarDocumentByPos/{idExpedient}/{idDoc}/{pos}:
+    get:
+      tags:
+      - "Download"
+      summary: "Downloads the document by pos"
+      operationId: "descarregarDocumentExpedientByPos"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDoc"
+        in: "path"
+        description: "idDoc"
+        required: true
+        type: "number"
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      - name: "pos"
+        in: "path"
+        description: "pos"
+        required: true
+        type: "integer"
+        format: "int32"
       responses:
         200:
           description: "OK"
@@ -1820,6 +1860,41 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/xml/sollicitud/{idDocumentum}:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "saves the xml sollicitud"
+      operationId: "guardarXmlSollicitud"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "file"
+        in: "formData"
+        description: "file"
+        required: true
+        type: "file"
+      - name: "idDocumentum"
+        in: "path"
+        description: "idDocumentum"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /documentacio/{idDocumentacio}/entrada/agrupatPerTramitOvt:
     get:
       tags:
@@ -2394,6 +2469,9 @@ definitions:
       codiProcediment:
         type: "string"
         description: "Codi del procediment de l'expedient"
+      comunicar:
+        type: "boolean"
+        description: "Pasar a Comunicar"
       idDocumentPrincipal:
         type: "number"
         description: "Identificador del document principal de tramitació"
