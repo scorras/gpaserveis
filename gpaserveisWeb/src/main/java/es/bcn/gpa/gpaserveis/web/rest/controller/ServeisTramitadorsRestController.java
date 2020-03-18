@@ -749,7 +749,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 *             the GPA serveis service exception
 	 */
 	@PostMapping("/expedients/{codiExpedient}/arxivar")
-	@ApiOperation(value = "Arxivar sol·licitud incompleta", tags = { "Serveis Tramitadors API" }, extensions = {
+	@ApiOperation(value = Constants.DESCRIPCIO_ACCIO_ARXIVAR, tags = { "Serveis Tramitadors API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaArxivarExpedientRDTO arxivarSolicitudExpedient(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
@@ -1641,8 +1641,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 
 					CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
-					        dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
-					        docsTramitacioRDTO);
+							dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
+							docsTramitacioRDTO);
 					docsTramitacioRDTOResult = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
 				} else {
 					GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO = new GuardarDocumentTramitacioFitxerBDTO(
@@ -1828,10 +1828,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 		} catch (Exception e) {
 			log.error("signarDocument(String, BigDecimal, PersonaSignarDocumentRDTO)", e); // $NON-NLS-1$
-			String missatgeError = e.getMessage();
-			if (!missatgeError.startsWith(Constants.MISSATGE_ERROR_PORTASIG)) {
-				e = new Exception(Constants.MISSATGE_ERROR_PORTASIG + missatgeError);
-			}
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_SIGNAR_DOCUMENT, e);
 		}
 
@@ -2651,6 +2647,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			crearNotificacio.setIdsAnnexosList(expedientNotificacio.getIdsAnnexosList());
 			crearNotificacio.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
 			crearNotificacio.setCodiProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentCodi());
+			crearNotificacio.setComunicar(expedientNotificacio.getComunicar());
 			DocumentCrearNotificacioBDTO documentCrearNotificacioBDTO = new DocumentCrearNotificacioBDTO(crearNotificacio);
 			notificacionsRDTO = serveisService.crearNotificacio(documentCrearNotificacioBDTO);
 			idNotificacio = notificacionsRDTO.getNotificacioId();
@@ -3832,8 +3829,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
 				docsTramitacioRDTO.setDocsTercers(1);
 				CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
-				        dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
-				        docsTramitacioRDTO);
+						dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
+						docsTramitacioRDTO);
 				respostaCrearJustificant = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
 
 				// Vincular Justificante en Ariadna
@@ -3884,6 +3881,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 		RespostaEstatDigitalitzacioRDTO respostaEstatDigitalitzacioRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
+		EstatDigitalitzacioDocumentRDTO estat = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ESTAT_DOCUMENT_DIGITALITZACIO_EXPEDIENT);
 
 		try {
@@ -3894,12 +3892,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					Resultat.ERROR_ESTAT_DOCUMENT_DIGITALITZACIO_EXPEDIENT);
 
 			// llamar a metodo de digitalitzacio status
-			EstatDigitalitzacioDocumentRDTO estat = serveisService.obtenirEstatDigitalitzacioDocument(idDocument);
-
-			RespostaEstatDigitalitzacioBDTO respostaEstatDigitalitzacioBDTO = new RespostaEstatDigitalitzacioBDTO(
-					dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO,
-					estat != null ? estat.getMessage() : null, estat != null ? estat.getStatus() : null);
-			respostaEstatDigitalitzacioRDTO = modelMapper.map(respostaEstatDigitalitzacioBDTO, RespostaEstatDigitalitzacioRDTO.class);
+			estat = serveisService.obtenirEstatDigitalitzacioDocument(idDocument);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("obtenirEstatDigitalitzacio(String, BigDecimal)", e); // $NON-NLS-1$
@@ -3909,6 +3902,11 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler
 					.handleException(Resultat.ERROR_ESTAT_DOCUMENT_DIGITALITZACIO_EXPEDIENT, e);
 		}
+
+		RespostaEstatDigitalitzacioBDTO respostaEstatDigitalitzacioBDTO = new RespostaEstatDigitalitzacioBDTO(
+				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO,
+				estat != null ? estat.getMessage() : null, estat != null ? estat.getStatus() : null);
+		respostaEstatDigitalitzacioRDTO = modelMapper.map(respostaEstatDigitalitzacioBDTO, RespostaEstatDigitalitzacioRDTO.class);
 
 		if (log.isDebugEnabled()) {
 			log.debug("obtenirEstatDigitalitzacio(String, BigDecimal) - fi"); //$NON-NLS-1$

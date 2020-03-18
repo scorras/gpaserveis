@@ -43,37 +43,37 @@ public class Constants {
 	public static final String CODI_ISO_PAIS_PER_DEFECTE = "ES";
 
 	/** The Constant MISSATGE_ERROR_ARIADNA. */
-	public static final String MISSATGE_ERROR_ARIADNA = "Error Ariadna:";
+	public static final String MISSATGE_ERROR_ARIADNA = "ariadna";
 
 	/** The Constant MISSATGE_ERROR_CATALEG. */
-	public static final String MISSATGE_ERROR_CATALEG = "Error Cataleg:";
+	public static final String MISSATGE_ERROR_CATALEG = "Cataleg:";
 
 	/** The Constant MISSATGE_ERROR_CTRLUSER. */
-	public static final String MISSATGE_ERROR_CTRLUSER = "Error CtrlUser:";
+	public static final String MISSATGE_ERROR_CTRLUSER = "CtrlUser:";
 
 	/** The Constant MISSATGE_ERROR_DIGITALITZACIO. */
-	public static final String MISSATGE_ERROR_DIGITALITZACIO = "Error Digitalització:";
+	public static final String MISSATGE_ERROR_DIGITALITZACIO = "Digitalització:";
 
-	/** The Constant MISSATGE_ERROR_GEOCOD. */
-	public static final String MISSATGE_ERROR_GEOCOD = "Error GeoCod:";
+	/** The Constant MISSATGE_ERROR_GEOREST. */
+	public static final String MISSATGE_ERROR_GEOREST = "Georest:";
 
 	/** The Constant MISSATGE_ERROR_NOTIFICADOR. */
-	public static final String MISSATGE_ERROR_NOTIFICADOR = "Error Notificador:";
+	public static final String MISSATGE_ERROR_NOTIFICADOR = "Notificador:";
 
 	/** The Constant MISSATGE_ERROR_OPENTEXT. */
-	public static final String MISSATGE_ERROR_OPENTEXT = "Error OpenText:";
+	public static final String MISSATGE_ERROR_OPENTEXT = "OpenText:";
 
 	/** The Constant MISSATGE_ERROR_DOCUMENTUM. */
-	public static final String MISSATGE_ERROR_DOCUMENTUM = "Error Documentum:";
+	public static final String MISSATGE_ERROR_DOCUMENTUM = "Documentum:";
 
 	/** The Constant MISSATGE_ERROR_PDFGESTOR. */
-	public static final String MISSATGE_ERROR_PDFGESTOR = "Error PdfGestor:";
+	public static final String MISSATGE_ERROR_PDFGESTOR = "PdfGestor:";
 
 	/** The Constant MISSATGE_ERROR_PORTASIG. */
-	public static final String MISSATGE_ERROR_PORTASIG = "Error PortaSig:";
+	public static final String MISSATGE_ERROR_PORTASIG = "PortaSig:";
 
 	/** The Constant MISSATGE_ERROR_SIGNATURES. */
-	public static final String MISSATGE_ERROR_SIGNATURES = "Error Signatures:";
+	public static final String MISSATGE_ERROR_SIGNATURES = "Signatures:";
 
 	/** The Constant MISSATGE_ERROR_SERVEI_INTEROPERABILITAT. */
 	public static final String MISSATGE_ERROR_SERVEI_INTEROPERABILITAT = "Error Servei Interoperabilitat:";
@@ -83,5 +83,14 @@ public class Constants {
 
 	/** The Constant ESTAT_EXPEDIENT_SOLLICITUD_EN_REVISIO. */
 	public static final BigDecimal ESTAT_EXPEDIENT_SOLLICITUD_EN_REVISIO = new BigDecimal(2);
+	
+	/** The Constant DESCRIPCIO_ESTAT_ESBORRANY. */
+	public static final String DESCRIPCIO_ESTAT_ESBORRANY = "ESBORRANY";
+	
+	/** The Constant DESCRIPCIO_ESTAT_REGISTRAT. */
+	public static final String DESCRIPCIO_ESTAT_REGISTRAT = "REGISTRAT";
+	
+	/** The Constant DESCRIPCIO_ACCIO_ARXIVAR. */
+	public static final String DESCRIPCIO_ACCIO_ARXIVAR = "Arxivar per incomplerta o inadequada";
 
 }

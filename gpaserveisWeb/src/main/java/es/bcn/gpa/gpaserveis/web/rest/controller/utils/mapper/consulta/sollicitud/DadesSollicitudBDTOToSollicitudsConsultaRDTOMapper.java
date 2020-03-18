@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesSollicitudBDTO;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToDataHoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToDocumentAportatConsultaListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToExpedientAccioConverter;
@@ -14,6 +15,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.Inter
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToProcedimentConsultaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToRegistreConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.sollicitud.InternalToDadesOperacioListConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.sollicitud.InternalToEstatSollicitudConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.tramit.InternalToTramitOvtConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.SollicitudConsultaRDTO;
@@ -53,6 +55,8 @@ public class DadesSollicitudBDTOToSollicitudsConsultaRDTOMapper extends Property
 
 	/** The internal to unitat gestora converter. */
 	private InternalToUnitatGestoraConverter internalToUnitatGestoraConverter;
+	
+	private InternalToEstatSollicitudConverter internalToEstatSollicitudConverter;
 
 	/**
 	 * Instantiates a new dades sollicitud BDTO to sollicituds consulta RDTO
@@ -90,7 +94,8 @@ public class DadesSollicitudBDTOToSollicitudsConsultaRDTOMapper extends Property
 	        @Qualifier("internalToDocumentAportatConsultaListConverter") InternalToDocumentAportatConsultaListConverter internalToDocumentAportatConsultaListConverter,
 	        @Qualifier("sollicitudInternalToDadesOperacioListConverter") InternalToDadesOperacioListConverter internalToDadesOperacioListConverter,
 	        @Qualifier("expedientInternalToProcedimentConsultaConverter") InternalToProcedimentConsultaConverter internalToProcedimentConsultaConverter,
-	        @Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter) {
+	        @Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter, 
+	        @Qualifier("internalToEstatSollicitudConverter") InternalToEstatSollicitudConverter internalToEstatSollicitudConverter) {
 		this.internalToTramitOvtConverter = internalToTramitOvtConverter;
 		this.internalToDataHoraConverter = internalToDataHoraConverter;
 		this.internalToExpedientAccioConverter = internalToExpedientAccioConverter;
@@ -101,6 +106,7 @@ public class DadesSollicitudBDTOToSollicitudsConsultaRDTOMapper extends Property
 		this.internalToDadesOperacioListConverter = internalToDadesOperacioListConverter;
 		this.internalToProcedimentConsultaConverter = internalToProcedimentConsultaConverter;
 		this.internalToUnitatGestoraConverter = internalToUnitatGestoraConverter;
+		this.internalToEstatSollicitudConverter = internalToEstatSollicitudConverter;
 	}
 
 	/*
@@ -125,6 +131,7 @@ public class DadesSollicitudBDTOToSollicitudsConsultaRDTOMapper extends Property
 		using(internalToDadesOperacioListConverter).map(source.getDadesOperacio()).setDadesOperacio(null);
 		using(internalToProcedimentConsultaConverter).map(source.getExpedientsRDTO()).setProcediment(null);
 		using(internalToUnitatGestoraConverter).map(source.getUnitatsGestoresRDTO()).setUnitatGestora(null);
+		using(internalToEstatSollicitudConverter).map(source.getSollicitudsRDTO().getRegistre()).setEstat(Constants.DESCRIPCIO_ESTAT_ESBORRANY);
 	}
 
 }

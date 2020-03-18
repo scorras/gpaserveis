@@ -105,7 +105,7 @@ public enum ErrorPrincipal {
 
 	ERROR_DIGITALITZACIO("5004", ""),
 
-	ERROR_GEOCOD("5005", ""),
+	ERROR_GEOREST("5005", ""),
 
 	ERROR_NOTIFICADOR("5006", ""),
 
