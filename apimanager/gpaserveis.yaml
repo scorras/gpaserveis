@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.19.0"
+  version: "1.20.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -1817,7 +1817,7 @@ paths:
     post:
       tags:
       - "Serveis Tramitadors API"
-      summary: "Arxivar sol·licitud incompleta"
+      summary: "Arxivar per incomplerta o inadequada"
       operationId: "arxivarSolicitudExpedientUsingPOST"
       consumes:
       - "application/json"
@@ -4531,6 +4531,9 @@ definitions:
     required:
     - "destinataris"
     properties:
+      comunicar:
+        type: "boolean"
+        description: "Pasar a Comunicar"
       destinataris:
         type: "array"
         description: "Destinataris de la notificació."
@@ -6069,6 +6072,9 @@ definitions:
         description: "Documents aportats a la sol·licitud"
         items:
           $ref: "#/definitions/DocumentAportatConsulta"
+      estat:
+        type: "string"
+        description: "Estat de la sol·licitud"
       expedient:
         xml:
           name: "EXPEDIENT"
@@ -6158,9 +6164,13 @@ definitions:
   SollicitudsExpedient:
     type: "object"
     required:
+    - "estat"
     - "id"
     - "tipus"
     properties:
+      estat:
+        type: "string"
+        description: "Estat de la sol·licitud"
       id:
         type: "number"
         description: "Identificador de la sol·licitud"
