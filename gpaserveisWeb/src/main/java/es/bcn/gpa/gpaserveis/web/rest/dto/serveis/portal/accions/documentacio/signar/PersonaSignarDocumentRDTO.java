@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @ApiModel(value = "PersonaSignarDocument")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "matricula", "documentIdentitat", "nom" })
+@JsonPropertyOrder({ "matricula", "documentIdentitat", "nom", "idTabletUsuari" })
 @Getter
 @Setter
 public class PersonaSignarDocumentRDTO {
@@ -22,4 +22,7 @@ public class PersonaSignarDocumentRDTO {
 
 	@ApiModelProperty(value = "Nom de la persona que va a signar el document", required = true)
 	private String nom;
+
+	@ApiModelProperty(value = "Identificador de la tauleta on signarà l'usuari", required = false)
+	private String idTabletUsuari;
 }

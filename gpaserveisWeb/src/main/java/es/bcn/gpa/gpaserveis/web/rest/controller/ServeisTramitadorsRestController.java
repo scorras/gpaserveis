@@ -172,6 +172,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.Orige
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.RevisioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusAccionsPortaSigApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusDocumentacioVinculadaApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusSignaturaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.MotiuPausaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.TipusCanalComunicacioApiParamValue;
@@ -179,6 +180,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.Tran
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.ConfiguracioApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.TipusSignaturaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatCiutadaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.MotiuPausaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusCanalComunicacioApiParamValueTranslator;
@@ -1785,7 +1787,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	public RespostaSignarDocumentRDTO signarDocument(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
-			@ApiParam(value = "Persona que signa el document", required = true) @RequestBody PersonaSignarDocumentRDTO persona) {
+			@ApiParam(value = "Persona que signa el document", required = true) @RequestBody PersonaSignarDocumentRDTO persona,
+			@ApiParam(value = "Tipus de signatura", allowableValues = TipusSignaturaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = TipusSignaturaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tipusSignatura) {
 
 		if (log.isDebugEnabled()) {
 			log.debug("signarDocument(String, BigDecimal, PersonaSignarDocumentRDTO) - inici"); //$NON-NLS-1$
@@ -1807,21 +1810,28 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateDocumentGenerat(docsTramitacioRDTO, dadesExpedientBDTO,
 					Resultat.ERROR_COMPLETAR_DOCUMENT_EXPEDIENT);
 
-			// Registrar expediente si la acción es permitida
+			// Comprobar si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 					AccioTramitadorApiParamValue.SIGNAR_DOCUMENT, Resultat.ERROR_SIGNAR_DOCUMENT);
 
-			// Firmar documento
-			SignarDocument signarDocument = new SignarDocument();
-			signarDocument.idDocument(idDocument);
-			signarDocument.setAccio(TipusAccionsPortaSigApiParamValue.SIGNAR_DOCUMENT.getInternalValue());
-			signarDocument.setUnitatGestoraIdext(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
-			UsuariPortaSig usuariPortaSig = new UsuariPortaSig();
-			usuariPortaSig.setMatricula(persona.getMatricula());
-			usuariPortaSig.setDocumentIdentitat(persona.getDocumentIdentitat());
-			usuariPortaSig.setNom(persona.getNom());
-			signarDocument.setUsuariPortaSig(usuariPortaSig);
-			peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
+			// TODO diferenciar los tipos de firma, para mantener comportamiento
+			// anterior, si no viene tipo, se realiza la llamada a portasig
+			if (StringUtils.isBlank(tipusSignatura)
+					|| tipusSignatura.equalsIgnoreCase(TipusSignaturaApiParamValue.PORTASIGNATURES.getApiParamValue())) {
+				// Firmar documento
+				SignarDocument signarDocument = new SignarDocument();
+				signarDocument.idDocument(idDocument);
+				signarDocument.setAccio(TipusAccionsPortaSigApiParamValue.SIGNAR_DOCUMENT.getInternalValue());
+				signarDocument.setUnitatGestoraIdext(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
+				UsuariPortaSig usuariPortaSig = new UsuariPortaSig();
+				usuariPortaSig.setMatricula(persona.getMatricula());
+				usuariPortaSig.setDocumentIdentitat(persona.getDocumentIdentitat());
+				usuariPortaSig.setNom(persona.getNom());
+				signarDocument.setUsuariPortaSig(usuariPortaSig);
+				peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
+			} else if (tipusSignatura.equalsIgnoreCase(TipusSignaturaApiParamValue.SEGELL.getApiParamValue())) {
+
+			}
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("signarDocument(String, BigDecimal, PersonaSignarDocumentRDTO)", e); // $NON-NLS-1$
