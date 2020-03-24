@@ -131,6 +131,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RegistreAssen
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Requeriments;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.UsuariPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
@@ -180,7 +181,6 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.Tran
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.ConfiguracioApiParamValueTranslator;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.TipusSignaturaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatCiutadaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.MotiuPausaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusCanalComunicacioApiParamValueTranslator;
@@ -193,7 +193,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.ap
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.esborrar.RespostaEsborrarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.resolucio.validar.PersonaValidarResolucioDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.resolucio.validar.RespostaResolucioValidarDocumentRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.PersonaSignarDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.DataSignarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.RespostaSignarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar.RespostaActualitzarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.recurs.RecursExpedientRDTO;
@@ -1787,8 +1787,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	public RespostaSignarDocumentRDTO signarDocument(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
-			@ApiParam(value = "Persona que signa el document", required = true) @RequestBody PersonaSignarDocumentRDTO persona,
-			@ApiParam(value = "Tipus de signatura", allowableValues = TipusSignaturaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = TipusSignaturaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tipusSignatura) {
+			@ApiParam(value = "Informació addicional per a la signatura", required = true) @RequestBody DataSignarDocumentRDTO dataSignarDocument) {
 
 		if (log.isDebugEnabled()) {
 			log.debug("signarDocument(String, BigDecimal, PersonaSignarDocumentRDTO) - inici"); //$NON-NLS-1$
@@ -1816,21 +1815,33 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// TODO diferenciar los tipos de firma, para mantener comportamiento
 			// anterior, si no viene tipo, se realiza la llamada a portasig
-			if (StringUtils.isBlank(tipusSignatura)
-					|| tipusSignatura.equalsIgnoreCase(TipusSignaturaApiParamValue.PORTASIGNATURES.getApiParamValue())) {
+			if (StringUtils.isBlank(dataSignarDocument.getModalitatSignatura()) || dataSignarDocument.getModalitatSignatura()
+					.equalsIgnoreCase(TipusSignaturaApiParamValue.PORTASIGNATURES.getApiParamValue())) {
+
 				// Firmar documento
 				SignarDocument signarDocument = new SignarDocument();
 				signarDocument.idDocument(idDocument);
 				signarDocument.setAccio(TipusAccionsPortaSigApiParamValue.SIGNAR_DOCUMENT.getInternalValue());
 				signarDocument.setUnitatGestoraIdext(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
 				UsuariPortaSig usuariPortaSig = new UsuariPortaSig();
-				usuariPortaSig.setMatricula(persona.getMatricula());
-				usuariPortaSig.setDocumentIdentitat(persona.getDocumentIdentitat());
-				usuariPortaSig.setNom(persona.getNom());
+				usuariPortaSig.setMatricula(dataSignarDocument.getPersonaSignarDocument().getMatricula());
+				usuariPortaSig.setDocumentIdentitat(dataSignarDocument.getPersonaSignarDocument().getDocumentIdentitat());
+				usuariPortaSig.setNom(dataSignarDocument.getPersonaSignarDocument().getNom());
 				signarDocument.setUsuariPortaSig(usuariPortaSig);
 				peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
-			} else if (tipusSignatura.equalsIgnoreCase(TipusSignaturaApiParamValue.SEGELL.getApiParamValue())) {
 
+			} else if (dataSignarDocument.getModalitatSignatura().equalsIgnoreCase(TipusSignaturaApiParamValue.SEGELL.getApiParamValue())) {
+
+				SignarSegellDocument signarSegellDocumentRDTO = new SignarSegellDocument();
+				signarSegellDocumentRDTO.setIdDocument(idDocument);
+				SignarSegellDocument signarSegellDocumentResponse = serveisService.signarSegellDocument(signarSegellDocumentRDTO);
+
+				if (signarSegellDocumentResponse != null && StringUtils.isNotEmpty(signarSegellDocumentResponse.getDescError())) {
+
+					StringBuilder strMessageError = new StringBuilder(Constants.MISSATGE_ERROR_SIGNATURES);
+					throw new GPAServeisServiceException(strMessageError.append(": ").append(signarSegellDocumentResponse.getCodiError())
+							.append(": ").append(signarSegellDocumentResponse.getDescError()).toString());
+				}
 			}
 
 		} catch (GPAApiParamValidationException e) {
