@@ -15,6 +15,11 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.ApiParamV
 public class AccioCiutadaApiParamValueTranslator extends ApiParamValueTranslator<AccioCiutadaApiParamValue, BigDecimal> {
 
 	/** The Constant REQUEST_PARAM_ALLOWABLE_VALUES. */
-	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "REQUERIMENT_ESMENA, APORTAR_DOCUMENTACIO, ALEGACIONS, RENUNCIA, DESISTIMENT";
+	// public static final String REQUEST_PARAM_ALLOWABLE_VALUES =
+	// "REQUERIMENT_ESMENA, APORTAR_DOCUMENTACIO, ALEGACIONS, RENUNCIA,
+	// DESISTIMENT";
+	// De momento se eliminan las opciones de RENUNCIA y DESISTIMENT. Se
+	// volverán a incorporar cuando se implemente este trámite OVT.
+	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "REQUERIMENT_ESMENA, APORTAR_DOCUMENTACIO, ALEGACIONS";
 
 }
