@@ -116,6 +116,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotificacio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DataSignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsAssociatsIntra;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
@@ -132,6 +133,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Requeriments;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.UsuariPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
@@ -1731,11 +1734,13 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			signarDocument.idDocument(idDocResolucio);
 			signarDocument.setAccio(TipusAccionsPortaSigApiParamValue.VALIDAR_DOCUMENT.getInternalValue());
 			signarDocument.setUnitatGestoraIdext(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
+			DataSignarDocument dataSignarDocument = new DataSignarDocument();
 			UsuariPortaSig usuariPortaSig = new UsuariPortaSig();
 			usuariPortaSig.setMatricula(persona.getMatricula());
 			usuariPortaSig.setDocumentIdentitat(persona.getDocumentIdentitat());
 			usuariPortaSig.setNom(persona.getNom());
-			signarDocument.setUsuariPortaSig(usuariPortaSig);
+			dataSignarDocument.setUsuariPortaSig(usuariPortaSig);
+			signarDocument.setDataSignarDocument(dataSignarDocument);
 			peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
 
 		} catch (GPAApiParamValidationException e) {
@@ -1787,7 +1792,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	public RespostaSignarDocumentRDTO signarDocument(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
-			@ApiParam(value = "Informació addicional per a la signatura", required = true) @RequestBody DataSignarDocumentRDTO dataSignarDocument) {
+			@ApiParam(value = "Informació addicional per a la signatura", required = true) @RequestBody DataSignarDocumentRDTO dataSignarDocumentRDTO) {
 
 		if (log.isDebugEnabled()) {
 			log.debug("signarDocument(String, BigDecimal, PersonaSignarDocumentRDTO) - inici"); //$NON-NLS-1$
@@ -1815,7 +1820,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// TODO diferenciar los tipos de firma, para mantener comportamiento
 			// anterior, si no viene tipo, se realiza la llamada a portasig
-			if (StringUtils.isBlank(dataSignarDocument.getModalitatSignatura()) || dataSignarDocument.getModalitatSignatura()
+			if (StringUtils.isBlank(dataSignarDocumentRDTO.getModalitatSignatura()) || dataSignarDocumentRDTO.getModalitatSignatura()
 					.equalsIgnoreCase(TipusSignaturaApiParamValue.PORTASIGNATURES.getApiParamValue())) {
 
 				// Firmar documento
@@ -1823,14 +1828,17 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				signarDocument.idDocument(idDocument);
 				signarDocument.setAccio(TipusAccionsPortaSigApiParamValue.SIGNAR_DOCUMENT.getInternalValue());
 				signarDocument.setUnitatGestoraIdext(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
+				DataSignarDocument dataSignarDocument = new DataSignarDocument();
 				UsuariPortaSig usuariPortaSig = new UsuariPortaSig();
-				usuariPortaSig.setMatricula(dataSignarDocument.getPersonaSignarDocument().getMatricula());
-				usuariPortaSig.setDocumentIdentitat(dataSignarDocument.getPersonaSignarDocument().getDocumentIdentitat());
-				usuariPortaSig.setNom(dataSignarDocument.getPersonaSignarDocument().getNom());
-				signarDocument.setUsuariPortaSig(usuariPortaSig);
+				usuariPortaSig.setMatricula(dataSignarDocumentRDTO.getPersonaSignarDocument().getMatricula());
+				usuariPortaSig.setDocumentIdentitat(dataSignarDocumentRDTO.getPersonaSignarDocument().getDocumentIdentitat());
+				usuariPortaSig.setNom(dataSignarDocumentRDTO.getPersonaSignarDocument().getNom());
+				dataSignarDocument.setUsuariPortaSig(usuariPortaSig);
+				signarDocument.setDataSignarDocument(dataSignarDocument);
 				peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
 
-			} else if (dataSignarDocument.getModalitatSignatura().equalsIgnoreCase(TipusSignaturaApiParamValue.SEGELL.getApiParamValue())) {
+			} else if (dataSignarDocumentRDTO.getModalitatSignatura()
+					.equalsIgnoreCase(TipusSignaturaApiParamValue.SEGELL.getApiParamValue())) {
 
 				SignarSegellDocument signarSegellDocumentRDTO = new SignarSegellDocument();
 				signarSegellDocumentRDTO.setIdDocument(idDocument);
@@ -1841,6 +1849,23 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					StringBuilder strMessageError = new StringBuilder(Constants.MISSATGE_ERROR_SIGNATURES);
 					throw new GPAServeisServiceException(strMessageError.append(": ").append(signarSegellDocumentResponse.getCodiError())
 							.append(": ").append(signarSegellDocumentResponse.getDescError()).toString());
+				}
+			} else if (dataSignarDocumentRDTO.getModalitatSignatura()
+					.equalsIgnoreCase(TipusSignaturaApiParamValue.MANUSCRITA.getApiParamValue())) {
+
+				SignarTabletDocument signarTabletDocumentRDTO = new SignarTabletDocument();
+				signarTabletDocumentRDTO.setIdDocument(idDocument);
+
+				// TODO completar con todos los datos que sean necesarios para
+				// la firma en tablet
+
+				SignarTabletDocumentResponse signarTabletDocumentResponse = serveisService.signarTabletDocument(signarTabletDocumentRDTO);
+
+				if (signarTabletDocumentResponse != null && StringUtils.isNotEmpty(signarTabletDocumentResponse.getDescError())) {
+
+					StringBuilder strMessageError = new StringBuilder(Constants.MISSATGE_ERROR_SIGNATURES);
+					throw new GPAServeisServiceException(strMessageError.append(": ").append(signarTabletDocumentResponse.getCodiError())
+							.append(": ").append(signarTabletDocumentResponse.getDescError()).toString());
 				}
 			}
 

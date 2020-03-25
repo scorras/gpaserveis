@@ -21,7 +21,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotifica
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-17T12:03:26.798+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-25T13:12:16.537+01:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi")
 public class NotificacionsApi {
 	private ApiClient apiClient;

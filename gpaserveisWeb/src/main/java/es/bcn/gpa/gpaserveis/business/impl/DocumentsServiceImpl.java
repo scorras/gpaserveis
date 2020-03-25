@@ -65,6 +65,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPort
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocumentResponse;
 import lombok.extern.apachecommons.CommonsLog;
 
 /**
@@ -1768,6 +1770,58 @@ public class DocumentsServiceImpl implements DocumentsService {
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackSignarSegellDocument(SignarSegellDocument, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#signarTabletDocument(es.
+	 * bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTablet)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackSignarTabletDocument")
+	public SignarTabletDocumentResponse signarTabletDocument(SignarTabletDocument signarTabletDocumentRDTO)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("signarTabletDocument(SignarTabletDocument) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			SignarTabletDocumentResponse signarTabletDocumentResponse = documentacioApi.signarTablet(signarTabletDocumentRDTO);
+
+			if (log.isDebugEnabled()) {
+				log.debug("signarTabletDocument(SignarTabletDocument) - fi"); //$NON-NLS-1$
+			}
+			return signarTabletDocumentResponse;
+
+		} catch (RestClientException e) {
+			log.error("signarTabletDocument(SignarTabletDocument)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback signar tablet document.
+	 *
+	 * @param signarTabletDocument
+	 *            the signar tablet document
+	 * @param e
+	 *            the e
+	 * @return the SignarTabletDocument
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public SignarSegellDocument fallbackSignarTabletDocument(SignarTabletDocument signarTabletDocumentRDTO, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackSignarTabletDocument(SignarTabletDocument, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);

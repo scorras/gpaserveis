@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.19.0"
+  version: "1.20.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -1476,6 +1476,39 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/signarTablet:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "Crear una petició per signar un document en la tablet"
+      operationId: "signarTablet"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "signarTabletDocumentRDTO"
+        description: "signarTabletDocumentRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/SignarTabletDocument"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/SignarTabletDocumentResponse"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /documentacio/storageMode:
     get:
       tags:
@@ -2492,6 +2525,16 @@ definitions:
         items:
           $ref: "#/definitions/Persones"
     title: "CrearNotificacio"
+  DataSignarDocument:
+    type: "object"
+    properties:
+      modalitatSignatura:
+        type: "string"
+        description: "Tipus de signatura"
+      usuariPortaSig:
+        description: "Usuari que va realitzar l'acció"
+        $ref: "#/definitions/UsuariPortaSig"
+    title: "DataSignarDocument"
   DocsAssociatsIntra:
     type: "object"
     properties:
@@ -3297,15 +3340,15 @@ definitions:
       accio:
         type: "number"
         description: "Acció a realitzar per l'portafirmas"
+      dataSignarDocument:
+        description: "Informació addicional per a la signatura"
+        $ref: "#/definitions/DataSignarDocument"
       idDocument:
         type: "number"
         description: "identificador del document"
       unitatGestoraIdext:
         type: "number"
         description: "Identificador de la unitat gestora"
-      usuariPortaSig:
-        description: "Usuari que va realitzar l'acció"
-        $ref: "#/definitions/UsuariPortaSig"
     title: "SignarDocument"
   SignarSegellDocument:
     type: "object"
@@ -3321,6 +3364,27 @@ definitions:
         type: "number"
         description: "Identificador del document"
     title: "SignarSegellDocument"
+  SignarTabletDocument:
+    type: "object"
+    properties:
+      dataSignarDocument:
+        description: "Informació addicional per a la signatura"
+        $ref: "#/definitions/DataSignarDocument"
+      idDocument:
+        type: "number"
+        description: "identificador del document"
+    title: "SignarTabletDocument"
+  SignarTabletDocumentResponse:
+    type: "object"
+    properties:
+      codiError:
+        type: "integer"
+        format: "int32"
+        description: "Codi de l'error"
+      descError:
+        type: "string"
+        description: "Descripció de l'error"
+    title: "SignarTabletDocumentResponse"
   SortInfo:
     type: "object"
     properties:
@@ -3352,6 +3416,9 @@ definitions:
       documentIdentitat:
         type: "string"
         description: "Document d'identitat de la persona que va a signar el document"
+      idTabletUsuari:
+        type: "string"
+        description: "Identificador de la tauleta on signarà l'usuari"
       matricula:
         type: "string"
         description: "Matrícula de la persona que va a signar el document"
