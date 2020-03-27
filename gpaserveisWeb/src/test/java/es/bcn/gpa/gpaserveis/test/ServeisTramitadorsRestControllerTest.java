@@ -688,4 +688,13 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 				.andExpect(status().isOk()).andDo(print());
 	}
 
+	@Test
+	public void testStage82_PostAportarDocumentExpedient() throws Exception {
+
+		String url = BASE_URL + "/expedients/a/documentacio/aportar";
+		String body = "{\"documentacio\": [{\"configuracioDocumentacio\": \"42\",\"origen\": \"EXTERN\",\"comentari\": \"Document aportat des de portal de tramitació\",\"idioma\": \"CATALA\",\"fitxer\": {\"nom\": \"DNI.pdf\",\"format\": \"PDF\"}},{\"configuracioDocumentacio\": \"43\",\"origen\": \"EXTERN\",\"comentari\": \"Document de declaració responsable\",\"idioma\": \"CATALA\",\"declaracioResponsable\": \"true\"}],\"registrar\": false}";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(body)).andExpect(status().isOk()).andDo(print());
+
+	}
+
 }

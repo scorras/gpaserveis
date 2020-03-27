@@ -54,6 +54,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatDigitali
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequerimentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient.CollectionFormat;
 
 /**
@@ -659,6 +661,27 @@ public class DocumentacioApiTest extends ParentTest {
 
 		SignarSegellDocument signarSegellDocumentRDTO = new SignarSegellDocument();
 		SignarSegellDocument response = api.signarSegell(signarSegellDocumentRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Crear una petició per signar un document en la tablet
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void signarTabletTest() {
+
+		when(apiClient.invokeAPI(eq("/documentacio/signarTablet"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new SignarTabletDocumentResponse());
+
+		SignarTabletDocument signarTabletDocumentRDTO = new SignarTabletDocument();
+		SignarTabletDocumentResponse response = api.signarTablet(signarTabletDocumentRDTO);
 
 		assertTrue(response != null);
 	}

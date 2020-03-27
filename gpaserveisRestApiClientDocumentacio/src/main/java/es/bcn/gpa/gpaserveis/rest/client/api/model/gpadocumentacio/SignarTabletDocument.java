@@ -17,70 +17,50 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DataSignarDocument;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 
 /**
- * SignarSegellDocument
+ * SignarTabletDocument
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-25T13:12:16.537+01:00")
-public class SignarSegellDocument {
-  @JsonProperty("codiError")
-  private Integer codiError = null;
-
-  @JsonProperty("descError")
-  private String descError = null;
+public class SignarTabletDocument {
+  @JsonProperty("dataSignarDocument")
+  private DataSignarDocument dataSignarDocument = null;
 
   @JsonProperty("idDocument")
   private BigDecimal idDocument = null;
 
-  public SignarSegellDocument codiError(Integer codiError) {
-    this.codiError = codiError;
+  public SignarTabletDocument dataSignarDocument(DataSignarDocument dataSignarDocument) {
+    this.dataSignarDocument = dataSignarDocument;
     return this;
   }
 
    /**
-   * Codi de l&#39;error
-   * @return codiError
+   * Informació addicional per a la signatura
+   * @return dataSignarDocument
   **/
-  @ApiModelProperty(value = "Codi de l'error")
-  public Integer getCodiError() {
-    return codiError;
+  @ApiModelProperty(value = "Informació addicional per a la signatura")
+  public DataSignarDocument getDataSignarDocument() {
+    return dataSignarDocument;
   }
 
-  public void setCodiError(Integer codiError) {
-    this.codiError = codiError;
+  public void setDataSignarDocument(DataSignarDocument dataSignarDocument) {
+    this.dataSignarDocument = dataSignarDocument;
   }
 
-  public SignarSegellDocument descError(String descError) {
-    this.descError = descError;
-    return this;
-  }
-
-   /**
-   * Descripció de l&#39;error
-   * @return descError
-  **/
-  @ApiModelProperty(value = "Descripció de l'error")
-  public String getDescError() {
-    return descError;
-  }
-
-  public void setDescError(String descError) {
-    this.descError = descError;
-  }
-
-  public SignarSegellDocument idDocument(BigDecimal idDocument) {
+  public SignarTabletDocument idDocument(BigDecimal idDocument) {
     this.idDocument = idDocument;
     return this;
   }
 
    /**
-   * Identificador del document
+   * identificador del document
    * @return idDocument
   **/
-  @ApiModelProperty(value = "Identificador del document")
+  @ApiModelProperty(value = "identificador del document")
   public BigDecimal getIdDocument() {
     return idDocument;
   }
@@ -98,25 +78,23 @@ public class SignarSegellDocument {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SignarSegellDocument signarSegellDocument = (SignarSegellDocument) o;
-    return Objects.equals(this.codiError, signarSegellDocument.codiError) &&
-        Objects.equals(this.descError, signarSegellDocument.descError) &&
-        Objects.equals(this.idDocument, signarSegellDocument.idDocument);
+    SignarTabletDocument signarTabletDocument = (SignarTabletDocument) o;
+    return Objects.equals(this.dataSignarDocument, signarTabletDocument.dataSignarDocument) &&
+        Objects.equals(this.idDocument, signarTabletDocument.idDocument);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(codiError, descError, idDocument);
+    return Objects.hash(dataSignarDocument, idDocument);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SignarSegellDocument {\n");
+    sb.append("class SignarTabletDocument {\n");
     
-    sb.append("    codiError: ").append(toIndentedString(codiError)).append("\n");
-    sb.append("    descError: ").append(toIndentedString(descError)).append("\n");
+    sb.append("    dataSignarDocument: ").append(toIndentedString(dataSignarDocument)).append("\n");
     sb.append("    idDocument: ").append(toIndentedString(idDocument)).append("\n");
     sb.append("}");
     return sb.toString();

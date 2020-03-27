@@ -19,23 +19,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
 
 /**
- * SignarSegellDocument
+ * SignarTabletDocumentResponse
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-25T13:12:16.537+01:00")
-public class SignarSegellDocument {
+public class SignarTabletDocumentResponse {
   @JsonProperty("codiError")
   private Integer codiError = null;
 
   @JsonProperty("descError")
   private String descError = null;
 
-  @JsonProperty("idDocument")
-  private BigDecimal idDocument = null;
-
-  public SignarSegellDocument codiError(Integer codiError) {
+  public SignarTabletDocumentResponse codiError(Integer codiError) {
     this.codiError = codiError;
     return this;
   }
@@ -53,7 +49,7 @@ public class SignarSegellDocument {
     this.codiError = codiError;
   }
 
-  public SignarSegellDocument descError(String descError) {
+  public SignarTabletDocumentResponse descError(String descError) {
     this.descError = descError;
     return this;
   }
@@ -71,24 +67,6 @@ public class SignarSegellDocument {
     this.descError = descError;
   }
 
-  public SignarSegellDocument idDocument(BigDecimal idDocument) {
-    this.idDocument = idDocument;
-    return this;
-  }
-
-   /**
-   * Identificador del document
-   * @return idDocument
-  **/
-  @ApiModelProperty(value = "Identificador del document")
-  public BigDecimal getIdDocument() {
-    return idDocument;
-  }
-
-  public void setIdDocument(BigDecimal idDocument) {
-    this.idDocument = idDocument;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -98,26 +76,24 @@ public class SignarSegellDocument {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SignarSegellDocument signarSegellDocument = (SignarSegellDocument) o;
-    return Objects.equals(this.codiError, signarSegellDocument.codiError) &&
-        Objects.equals(this.descError, signarSegellDocument.descError) &&
-        Objects.equals(this.idDocument, signarSegellDocument.idDocument);
+    SignarTabletDocumentResponse signarTabletDocumentResponse = (SignarTabletDocumentResponse) o;
+    return Objects.equals(this.codiError, signarTabletDocumentResponse.codiError) &&
+        Objects.equals(this.descError, signarTabletDocumentResponse.descError);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(codiError, descError, idDocument);
+    return Objects.hash(codiError, descError);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SignarSegellDocument {\n");
+    sb.append("class SignarTabletDocumentResponse {\n");
     
     sb.append("    codiError: ").append(toIndentedString(codiError)).append("\n");
     sb.append("    descError: ").append(toIndentedString(descError)).append("\n");
-    sb.append("    idDocument: ").append(toIndentedString(idDocument)).append("\n");
     sb.append("}");
     return sb.toString();
   }

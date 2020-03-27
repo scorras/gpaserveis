@@ -35,9 +35,11 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequer
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-17T12:03:26.798+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-25T13:12:16.537+01:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi")
 public class DocumentacioApi {
 	private ApiClient apiClient;
@@ -2390,6 +2392,54 @@ public class DocumentacioApi {
 		String[] authNames = new String[] {};
 
 		ParameterizedTypeReference<SignarSegellDocument> returnType = new ParameterizedTypeReference<SignarSegellDocument>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+				returnType);
+	}
+
+	/**
+	 * Crear una petició per signar un document en la tablet
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>201</b> - Created
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param signarTabletDocumentRDTO
+	 *            signarTabletDocumentRDTO
+	 * @return SignarTabletDocumentResponse
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public SignarTabletDocumentResponse signarTablet(SignarTabletDocument signarTabletDocumentRDTO) throws RestClientException {
+		Object postBody = signarTabletDocumentRDTO;
+
+		// verify the required parameter 'signarTabletDocumentRDTO' is set
+		if (signarTabletDocumentRDTO == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+					"Missing the required parameter 'signarTabletDocumentRDTO' when calling signarTablet");
+		}
+
+		String path = UriComponentsBuilder.fromPath("/documentacio/signarTablet").build().toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = { "application/json" };
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<SignarTabletDocumentResponse> returnType = new ParameterizedTypeReference<SignarTabletDocumentResponse>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
 				returnType);

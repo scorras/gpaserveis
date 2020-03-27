@@ -18,8 +18,8 @@ public enum TipusSignaturaApiParamValue implements BaseApiParamValue {
 	/** The portasignatures. */
 	PORTASIGNATURES("PORTASIGNATURES", new BigDecimal(3)),
 
-	/** The sognatura_imi. */
-	SIGNATURA_IMI("SIGNATURA_IMI", new BigDecimal(4));
+	/** The sognatura_oge. */
+	SIGNATURA_OGE("SIGNATURA_OGE", new BigDecimal(4));
 
 	/** The api param value. */
 	private String apiParamValue;
