@@ -10,337 +10,369 @@
  * Do not edit the class manually.
  */
 
-
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
+import java.util.Objects;
+
 import org.joda.time.DateTime;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * DocsSignatures
  */
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-25T13:12:16.537+01:00")
 public class DocsSignatures {
-  @JsonProperty("codiPeticio")
-  private String codiPeticio = null;
+	@JsonProperty("codiPeticio")
+	private String codiPeticio = null;
 
-  @JsonProperty("dataCaducitat")
-  private DateTime dataCaducitat = null;
+	@JsonProperty("dataCaducitat")
+	private DateTime dataCaducitat = null;
 
-  @JsonProperty("dataSignatura")
-  private DateTime dataSignatura = null;
+	@JsonProperty("dataSignatura")
+	private DateTime dataSignatura = null;
 
-  @JsonProperty("dataVistiplau")
-  private DateTime dataVistiplau = null;
+	@JsonProperty("dataVistiplau")
+	private DateTime dataVistiplau = null;
 
-  @JsonProperty("docFisicSignat")
-  private BigDecimal docFisicSignat = null;
+	@JsonProperty("docFisicSignat")
+	private BigDecimal docFisicSignat = null;
 
-  @JsonProperty("docsFisics")
-  private DocsFisics docsFisics = null;
+	@JsonProperty("docsFisics")
+	private DocsFisics docsFisics = null;
 
-  @JsonProperty("documentTramitacio")
-  private BigDecimal documentTramitacio = null;
+	@JsonProperty("documentTramitacio")
+	private BigDecimal documentTramitacio = null;
 
-  @JsonProperty("id")
-  private BigDecimal id = null;
+	@JsonProperty("id")
+	private BigDecimal id = null;
 
-  @JsonProperty("signat")
-  private Integer signat = null;
+	@JsonProperty("modalitatSignatura")
+	private BigDecimal modalitatSignatura = null;
 
-  @JsonProperty("signatManualment")
-  private Integer signatManualment = null;
+	@JsonProperty("signat")
+	private Integer signat = null;
 
-  @JsonProperty("ticketPeticio")
-  private BigDecimal ticketPeticio = null;
+	@JsonProperty("signatManualment")
+	private Integer signatManualment = null;
 
-  @JsonProperty("usuariSignaturaIdext")
-  private BigDecimal usuariSignaturaIdext = null;
+	@JsonProperty("ticketPeticio")
+	private BigDecimal ticketPeticio = null;
 
-  public DocsSignatures codiPeticio(String codiPeticio) {
-    this.codiPeticio = codiPeticio;
-    return this;
-  }
+	@JsonProperty("usuariSignaturaIdext")
+	private BigDecimal usuariSignaturaIdext = null;
 
-   /**
-   * Get codiPeticio
-   * @return codiPeticio
-  **/
-  @ApiModelProperty(value = "")
-  public String getCodiPeticio() {
-    return codiPeticio;
-  }
+	public DocsSignatures codiPeticio(String codiPeticio) {
+		this.codiPeticio = codiPeticio;
+		return this;
+	}
 
-  public void setCodiPeticio(String codiPeticio) {
-    this.codiPeticio = codiPeticio;
-  }
+	/**
+	 * Get codiPeticio
+	 * 
+	 * @return codiPeticio
+	 **/
+	@ApiModelProperty(value = "")
+	public String getCodiPeticio() {
+		return codiPeticio;
+	}
 
-  public DocsSignatures dataCaducitat(DateTime dataCaducitat) {
-    this.dataCaducitat = dataCaducitat;
-    return this;
-  }
+	public void setCodiPeticio(String codiPeticio) {
+		this.codiPeticio = codiPeticio;
+	}
 
-   /**
-   * Get dataCaducitat
-   * @return dataCaducitat
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getDataCaducitat() {
-    return dataCaducitat;
-  }
+	public DocsSignatures dataCaducitat(DateTime dataCaducitat) {
+		this.dataCaducitat = dataCaducitat;
+		return this;
+	}
 
-  public void setDataCaducitat(DateTime dataCaducitat) {
-    this.dataCaducitat = dataCaducitat;
-  }
+	/**
+	 * Get dataCaducitat
+	 * 
+	 * @return dataCaducitat
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getDataCaducitat() {
+		return dataCaducitat;
+	}
 
-  public DocsSignatures dataSignatura(DateTime dataSignatura) {
-    this.dataSignatura = dataSignatura;
-    return this;
-  }
+	public void setDataCaducitat(DateTime dataCaducitat) {
+		this.dataCaducitat = dataCaducitat;
+	}
 
-   /**
-   * Get dataSignatura
-   * @return dataSignatura
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getDataSignatura() {
-    return dataSignatura;
-  }
+	public DocsSignatures dataSignatura(DateTime dataSignatura) {
+		this.dataSignatura = dataSignatura;
+		return this;
+	}
 
-  public void setDataSignatura(DateTime dataSignatura) {
-    this.dataSignatura = dataSignatura;
-  }
+	/**
+	 * Get dataSignatura
+	 * 
+	 * @return dataSignatura
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getDataSignatura() {
+		return dataSignatura;
+	}
 
-  public DocsSignatures dataVistiplau(DateTime dataVistiplau) {
-    this.dataVistiplau = dataVistiplau;
-    return this;
-  }
+	public void setDataSignatura(DateTime dataSignatura) {
+		this.dataSignatura = dataSignatura;
+	}
 
-   /**
-   * Get dataVistiplau
-   * @return dataVistiplau
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getDataVistiplau() {
-    return dataVistiplau;
-  }
+	public DocsSignatures dataVistiplau(DateTime dataVistiplau) {
+		this.dataVistiplau = dataVistiplau;
+		return this;
+	}
 
-  public void setDataVistiplau(DateTime dataVistiplau) {
-    this.dataVistiplau = dataVistiplau;
-  }
+	/**
+	 * Get dataVistiplau
+	 * 
+	 * @return dataVistiplau
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getDataVistiplau() {
+		return dataVistiplau;
+	}
 
-  public DocsSignatures docFisicSignat(BigDecimal docFisicSignat) {
-    this.docFisicSignat = docFisicSignat;
-    return this;
-  }
+	public void setDataVistiplau(DateTime dataVistiplau) {
+		this.dataVistiplau = dataVistiplau;
+	}
 
-   /**
-   * Get docFisicSignat
-   * @return docFisicSignat
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getDocFisicSignat() {
-    return docFisicSignat;
-  }
+	public DocsSignatures docFisicSignat(BigDecimal docFisicSignat) {
+		this.docFisicSignat = docFisicSignat;
+		return this;
+	}
 
-  public void setDocFisicSignat(BigDecimal docFisicSignat) {
-    this.docFisicSignat = docFisicSignat;
-  }
+	/**
+	 * Get docFisicSignat
+	 * 
+	 * @return docFisicSignat
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getDocFisicSignat() {
+		return docFisicSignat;
+	}
 
-  public DocsSignatures docsFisics(DocsFisics docsFisics) {
-    this.docsFisics = docsFisics;
-    return this;
-  }
+	public void setDocFisicSignat(BigDecimal docFisicSignat) {
+		this.docFisicSignat = docFisicSignat;
+	}
 
-   /**
-   * Get docsFisics
-   * @return docsFisics
-  **/
-  @ApiModelProperty(value = "")
-  public DocsFisics getDocsFisics() {
-    return docsFisics;
-  }
+	public DocsSignatures docsFisics(DocsFisics docsFisics) {
+		this.docsFisics = docsFisics;
+		return this;
+	}
 
-  public void setDocsFisics(DocsFisics docsFisics) {
-    this.docsFisics = docsFisics;
-  }
+	/**
+	 * Get docsFisics
+	 * 
+	 * @return docsFisics
+	 **/
+	@ApiModelProperty(value = "")
+	public DocsFisics getDocsFisics() {
+		return docsFisics;
+	}
 
-  public DocsSignatures documentTramitacio(BigDecimal documentTramitacio) {
-    this.documentTramitacio = documentTramitacio;
-    return this;
-  }
+	public void setDocsFisics(DocsFisics docsFisics) {
+		this.docsFisics = docsFisics;
+	}
 
-   /**
-   * Get documentTramitacio
-   * @return documentTramitacio
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getDocumentTramitacio() {
-    return documentTramitacio;
-  }
+	public DocsSignatures documentTramitacio(BigDecimal documentTramitacio) {
+		this.documentTramitacio = documentTramitacio;
+		return this;
+	}
 
-  public void setDocumentTramitacio(BigDecimal documentTramitacio) {
-    this.documentTramitacio = documentTramitacio;
-  }
+	/**
+	 * Get documentTramitacio
+	 * 
+	 * @return documentTramitacio
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getDocumentTramitacio() {
+		return documentTramitacio;
+	}
 
-  public DocsSignatures id(BigDecimal id) {
-    this.id = id;
-    return this;
-  }
+	public void setDocumentTramitacio(BigDecimal documentTramitacio) {
+		this.documentTramitacio = documentTramitacio;
+	}
 
-   /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getId() {
-    return id;
-  }
+	public DocsSignatures id(BigDecimal id) {
+		this.id = id;
+		return this;
+	}
 
-  public void setId(BigDecimal id) {
-    this.id = id;
-  }
+	/**
+	 * Get id
+	 * 
+	 * @return id
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getId() {
+		return id;
+	}
 
-  public DocsSignatures signat(Integer signat) {
-    this.signat = signat;
-    return this;
-  }
+	public void setId(BigDecimal id) {
+		this.id = id;
+	}
 
-   /**
-   * Get signat
-   * @return signat
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getSignat() {
-    return signat;
-  }
+	public DocsSignatures modalitatSignatura(BigDecimal modalitatSignatura) {
+		this.modalitatSignatura = modalitatSignatura;
+		return this;
+	}
 
-  public void setSignat(Integer signat) {
-    this.signat = signat;
-  }
+	/**
+	 * Get modalitatSignatura
+	 * 
+	 * @return modalitatSignatura
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getModalitatSignatura() {
+		return modalitatSignatura;
+	}
 
-  public DocsSignatures signatManualment(Integer signatManualment) {
-    this.signatManualment = signatManualment;
-    return this;
-  }
+	public void setModalitatSignatura(BigDecimal modalitatSignatura) {
+		this.modalitatSignatura = modalitatSignatura;
+	}
 
-   /**
-   * Get signatManualment
-   * @return signatManualment
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getSignatManualment() {
-    return signatManualment;
-  }
+	public DocsSignatures signat(Integer signat) {
+		this.signat = signat;
+		return this;
+	}
 
-  public void setSignatManualment(Integer signatManualment) {
-    this.signatManualment = signatManualment;
-  }
+	/**
+	 * Get signat
+	 * 
+	 * @return signat
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getSignat() {
+		return signat;
+	}
 
-  public DocsSignatures ticketPeticio(BigDecimal ticketPeticio) {
-    this.ticketPeticio = ticketPeticio;
-    return this;
-  }
+	public void setSignat(Integer signat) {
+		this.signat = signat;
+	}
 
-   /**
-   * Get ticketPeticio
-   * @return ticketPeticio
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getTicketPeticio() {
-    return ticketPeticio;
-  }
+	public DocsSignatures signatManualment(Integer signatManualment) {
+		this.signatManualment = signatManualment;
+		return this;
+	}
 
-  public void setTicketPeticio(BigDecimal ticketPeticio) {
-    this.ticketPeticio = ticketPeticio;
-  }
+	/**
+	 * Get signatManualment
+	 * 
+	 * @return signatManualment
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getSignatManualment() {
+		return signatManualment;
+	}
 
-  public DocsSignatures usuariSignaturaIdext(BigDecimal usuariSignaturaIdext) {
-    this.usuariSignaturaIdext = usuariSignaturaIdext;
-    return this;
-  }
+	public void setSignatManualment(Integer signatManualment) {
+		this.signatManualment = signatManualment;
+	}
 
-   /**
-   * Get usuariSignaturaIdext
-   * @return usuariSignaturaIdext
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getUsuariSignaturaIdext() {
-    return usuariSignaturaIdext;
-  }
+	public DocsSignatures ticketPeticio(BigDecimal ticketPeticio) {
+		this.ticketPeticio = ticketPeticio;
+		return this;
+	}
 
-  public void setUsuariSignaturaIdext(BigDecimal usuariSignaturaIdext) {
-    this.usuariSignaturaIdext = usuariSignaturaIdext;
-  }
+	/**
+	 * Get ticketPeticio
+	 * 
+	 * @return ticketPeticio
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getTicketPeticio() {
+		return ticketPeticio;
+	}
 
+	public void setTicketPeticio(BigDecimal ticketPeticio) {
+		this.ticketPeticio = ticketPeticio;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    DocsSignatures docsSignatures = (DocsSignatures) o;
-    return Objects.equals(this.codiPeticio, docsSignatures.codiPeticio) &&
-        Objects.equals(this.dataCaducitat, docsSignatures.dataCaducitat) &&
-        Objects.equals(this.dataSignatura, docsSignatures.dataSignatura) &&
-        Objects.equals(this.dataVistiplau, docsSignatures.dataVistiplau) &&
-        Objects.equals(this.docFisicSignat, docsSignatures.docFisicSignat) &&
-        Objects.equals(this.docsFisics, docsSignatures.docsFisics) &&
-        Objects.equals(this.documentTramitacio, docsSignatures.documentTramitacio) &&
-        Objects.equals(this.id, docsSignatures.id) &&
-        Objects.equals(this.signat, docsSignatures.signat) &&
-        Objects.equals(this.signatManualment, docsSignatures.signatManualment) &&
-        Objects.equals(this.ticketPeticio, docsSignatures.ticketPeticio) &&
-        Objects.equals(this.usuariSignaturaIdext, docsSignatures.usuariSignaturaIdext);
-  }
+	public DocsSignatures usuariSignaturaIdext(BigDecimal usuariSignaturaIdext) {
+		this.usuariSignaturaIdext = usuariSignaturaIdext;
+		return this;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(codiPeticio, dataCaducitat, dataSignatura, dataVistiplau, docFisicSignat, docsFisics, documentTramitacio, id, signat, signatManualment, ticketPeticio, usuariSignaturaIdext);
-  }
+	/**
+	 * Get usuariSignaturaIdext
+	 * 
+	 * @return usuariSignaturaIdext
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getUsuariSignaturaIdext() {
+		return usuariSignaturaIdext;
+	}
 
+	public void setUsuariSignaturaIdext(BigDecimal usuariSignaturaIdext) {
+		this.usuariSignaturaIdext = usuariSignaturaIdext;
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class DocsSignatures {\n");
-    
-    sb.append("    codiPeticio: ").append(toIndentedString(codiPeticio)).append("\n");
-    sb.append("    dataCaducitat: ").append(toIndentedString(dataCaducitat)).append("\n");
-    sb.append("    dataSignatura: ").append(toIndentedString(dataSignatura)).append("\n");
-    sb.append("    dataVistiplau: ").append(toIndentedString(dataVistiplau)).append("\n");
-    sb.append("    docFisicSignat: ").append(toIndentedString(docFisicSignat)).append("\n");
-    sb.append("    docsFisics: ").append(toIndentedString(docsFisics)).append("\n");
-    sb.append("    documentTramitacio: ").append(toIndentedString(documentTramitacio)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    signat: ").append(toIndentedString(signat)).append("\n");
-    sb.append("    signatManualment: ").append(toIndentedString(signatManualment)).append("\n");
-    sb.append("    ticketPeticio: ").append(toIndentedString(ticketPeticio)).append("\n");
-    sb.append("    usuariSignaturaIdext: ").append(toIndentedString(usuariSignaturaIdext)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		DocsSignatures docsSignatures = (DocsSignatures) o;
+		return Objects.equals(this.codiPeticio, docsSignatures.codiPeticio)
+				&& Objects.equals(this.dataCaducitat, docsSignatures.dataCaducitat)
+				&& Objects.equals(this.dataSignatura, docsSignatures.dataSignatura)
+				&& Objects.equals(this.dataVistiplau, docsSignatures.dataVistiplau)
+				&& Objects.equals(this.docFisicSignat, docsSignatures.docFisicSignat)
+				&& Objects.equals(this.docsFisics, docsSignatures.docsFisics)
+				&& Objects.equals(this.documentTramitacio, docsSignatures.documentTramitacio) && Objects.equals(this.id, docsSignatures.id)
+				&& Objects.equals(this.modalitatSignatura, docsSignatures.modalitatSignatura)
+				&& Objects.equals(this.signat, docsSignatures.signat)
+				&& Objects.equals(this.signatManualment, docsSignatures.signatManualment)
+				&& Objects.equals(this.ticketPeticio, docsSignatures.ticketPeticio)
+				&& Objects.equals(this.usuariSignaturaIdext, docsSignatures.usuariSignaturaIdext);
+	}
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(codiPeticio, dataCaducitat, dataSignatura, dataVistiplau, docFisicSignat, docsFisics, documentTramitacio, id,
+				modalitatSignatura, signat, signatManualment, ticketPeticio, usuariSignaturaIdext);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class DocsSignatures {\n");
+
+		sb.append("    codiPeticio: ").append(toIndentedString(codiPeticio)).append("\n");
+		sb.append("    dataCaducitat: ").append(toIndentedString(dataCaducitat)).append("\n");
+		sb.append("    dataSignatura: ").append(toIndentedString(dataSignatura)).append("\n");
+		sb.append("    dataVistiplau: ").append(toIndentedString(dataVistiplau)).append("\n");
+		sb.append("    docFisicSignat: ").append(toIndentedString(docFisicSignat)).append("\n");
+		sb.append("    docsFisics: ").append(toIndentedString(docsFisics)).append("\n");
+		sb.append("    documentTramitacio: ").append(toIndentedString(documentTramitacio)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    modalitatSignatura: ").append(toIndentedString(modalitatSignatura)).append("\n");
+		sb.append("    signat: ").append(toIndentedString(signat)).append("\n");
+		sb.append("    signatManualment: ").append(toIndentedString(signatManualment)).append("\n");
+		sb.append("    ticketPeticio: ").append(toIndentedString(ticketPeticio)).append("\n");
+		sb.append("    usuariSignaturaIdext: ").append(toIndentedString(usuariSignaturaIdext)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
 }
-
