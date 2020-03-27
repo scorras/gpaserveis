@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.19.0"
+  version: "1.20.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -2478,6 +2478,9 @@ definitions:
       idExpedient:
         type: "number"
         description: "Identificador de l'expedient"
+      idProcediment:
+        type: "number"
+        description: "Identificador del procediment de l'expedient"
       idsAnnexosList:
         type: "array"
         description: "llista d'identificadors dels annexos"
@@ -2742,6 +2745,8 @@ definitions:
       documentTramitacio:
         type: "number"
       id:
+        type: "number"
+      modalitatSignatura:
         type: "number"
       signat:
         type: "integer"
