@@ -83,8 +83,7 @@ public class NotificacionsApi {
 		final HttpHeaders headerParams = new HttpHeaders();
 		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-		if (actualitzarNotificacionDocument != null)
-			formParams.add("actualitzarNotificacionDocument", actualitzarNotificacionDocument);
+		formParams.add("actualitzarNotificacionDocument", actualitzarNotificacionDocument);
 		if (docEvidenciaElectronic != null)
 			formParams.add("docEvidenciaElectronic", new FileSystemResource(docEvidenciaElectronic));
 		if (docEvidenciaPaper != null)
