@@ -1818,7 +1818,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public SignarSegellDocument fallbackSignarTabletDocument(SignarTabletDocument signarTabletDocumentRDTO, Throwable e)
+	public SignarTabletDocumentResponse fallbackSignarTabletDocument(SignarTabletDocument signarTabletDocumentRDTO, Throwable e)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackSignarTabletDocument(SignarTabletDocument, Throwable) - inici"); //$NON-NLS-1$
