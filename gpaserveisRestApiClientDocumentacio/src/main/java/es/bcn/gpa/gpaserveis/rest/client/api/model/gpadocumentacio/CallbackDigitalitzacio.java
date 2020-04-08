@@ -10,198 +10,224 @@
  * Do not edit the class manually.
  */
 
-
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
+import java.util.Objects;
+
 import org.joda.time.DateTime;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * CallbackDigitalitzacio
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-16T13:52:12.142+02:00")
 public class CallbackDigitalitzacio {
-  @JsonProperty("codiError")
-  private String codiError = null;
+	@JsonProperty("codiError")
+	private String codiError = null;
 
-  @JsonProperty("dataDigitalitzacio")
-  private DateTime dataDigitalitzacio = null;
+	@JsonProperty("dataDigitalitzacio")
+	private DateTime dataDigitalitzacio = null;
 
-  @JsonProperty("descripcioError")
-  private String descripcioError = null;
+	@JsonProperty("descripcioError")
+	private String descripcioError = null;
 
-  @JsonProperty("estat")
-  private BigDecimal estat = null;
+	@JsonProperty("estat")
+	private BigDecimal estat = null;
 
-  @JsonProperty("idDocScan")
-  private String idDocScan = null;
+	@JsonProperty("idDocScan")
+	private String idDocScan = null;
 
-  @JsonProperty("idioma")
-  private BigDecimal idioma = null;
+	@JsonProperty("idioma")
+	private BigDecimal idioma = null;
 
-  public CallbackDigitalitzacio codiError(String codiError) {
-    this.codiError = codiError;
-    return this;
-  }
+	@JsonProperty("idPeticio")
+	private String idPeticio = null;
 
-   /**
-   * Codi de l&#39;error si el resultat es KO
-   * @return codiError
-  **/
-  @ApiModelProperty(value = "Codi de l'error si el resultat es KO")
-  public String getCodiError() {
-    return codiError;
-  }
+	public CallbackDigitalitzacio codiError(String codiError) {
+		this.codiError = codiError;
+		return this;
+	}
 
-  public void setCodiError(String codiError) {
-    this.codiError = codiError;
-  }
+	/**
+	 * Codi de l&#39;error si el resultat es KO
+	 * 
+	 * @return codiError
+	 **/
+	@ApiModelProperty(value = "Codi de l'error si el resultat es KO")
+	public String getCodiError() {
+		return codiError;
+	}
 
-  public CallbackDigitalitzacio dataDigitalitzacio(DateTime dataDigitalitzacio) {
-    this.dataDigitalitzacio = dataDigitalitzacio;
-    return this;
-  }
+	public void setCodiError(String codiError) {
+		this.codiError = codiError;
+	}
 
-   /**
-   * Data i hora de digitalització del document si el resultat es OK
-   * @return dataDigitalitzacio
-  **/
-  @ApiModelProperty(value = "Data i hora de digitalització del document si el resultat es OK")
-  public DateTime getDataDigitalitzacio() {
-    return dataDigitalitzacio;
-  }
+	public CallbackDigitalitzacio dataDigitalitzacio(DateTime dataDigitalitzacio) {
+		this.dataDigitalitzacio = dataDigitalitzacio;
+		return this;
+	}
 
-  public void setDataDigitalitzacio(DateTime dataDigitalitzacio) {
-    this.dataDigitalitzacio = dataDigitalitzacio;
-  }
+	/**
+	 * Data i hora de digitalització del document si el resultat es OK
+	 * 
+	 * @return dataDigitalitzacio
+	 **/
+	@ApiModelProperty(value = "Data i hora de digitalització del document si el resultat es OK")
+	public DateTime getDataDigitalitzacio() {
+		return dataDigitalitzacio;
+	}
 
-  public CallbackDigitalitzacio descripcioError(String descripcioError) {
-    this.descripcioError = descripcioError;
-    return this;
-  }
+	public void setDataDigitalitzacio(DateTime dataDigitalitzacio) {
+		this.dataDigitalitzacio = dataDigitalitzacio;
+	}
 
-   /**
-   * Descripció de l&#39;error si el resultat es KO
-   * @return descripcioError
-  **/
-  @ApiModelProperty(value = "Descripció de l'error si el resultat es KO")
-  public String getDescripcioError() {
-    return descripcioError;
-  }
+	public CallbackDigitalitzacio descripcioError(String descripcioError) {
+		this.descripcioError = descripcioError;
+		return this;
+	}
 
-  public void setDescripcioError(String descripcioError) {
-    this.descripcioError = descripcioError;
-  }
+	/**
+	 * Descripció de l&#39;error si el resultat es KO
+	 * 
+	 * @return descripcioError
+	 **/
+	@ApiModelProperty(value = "Descripció de l'error si el resultat es KO")
+	public String getDescripcioError() {
+		return descripcioError;
+	}
 
-  public CallbackDigitalitzacio estat(BigDecimal estat) {
-    this.estat = estat;
-    return this;
-  }
+	public void setDescripcioError(String descripcioError) {
+		this.descripcioError = descripcioError;
+	}
 
-   /**
-   * Estat del document escanejat. 2: OK, 3: KO
-   * @return estat
-  **/
-  @ApiModelProperty(value = "Estat del document escanejat. 2: OK, 3: KO")
-  public BigDecimal getEstat() {
-    return estat;
-  }
+	public CallbackDigitalitzacio estat(BigDecimal estat) {
+		this.estat = estat;
+		return this;
+	}
 
-  public void setEstat(BigDecimal estat) {
-    this.estat = estat;
-  }
+	/**
+	 * Estat del document escanejat. 2: OK, 3: KO
+	 * 
+	 * @return estat
+	 **/
+	@ApiModelProperty(value = "Estat del document escanejat. 2: OK, 3: KO")
+	public BigDecimal getEstat() {
+		return estat;
+	}
 
-  public CallbackDigitalitzacio idDocScan(String idDocScan) {
-    this.idDocScan = idDocScan;
-    return this;
-  }
+	public void setEstat(BigDecimal estat) {
+		this.estat = estat;
+	}
 
-   /**
-   * Identificador d&#39;opentext del document
-   * @return idDocScan
-  **/
-  @ApiModelProperty(value = "Identificador d'opentext del document")
-  public String getIdDocScan() {
-    return idDocScan;
-  }
+	public CallbackDigitalitzacio idDocScan(String idDocScan) {
+		this.idDocScan = idDocScan;
+		return this;
+	}
 
-  public void setIdDocScan(String idDocScan) {
-    this.idDocScan = idDocScan;
-  }
+	/**
+	 * Identificador d&#39;opentext del document
+	 * 
+	 * @return idDocScan
+	 **/
+	@ApiModelProperty(value = "Identificador d'opentext del document")
+	public String getIdDocScan() {
+		return idDocScan;
+	}
 
-  public CallbackDigitalitzacio idioma(BigDecimal idioma) {
-    this.idioma = idioma;
-    return this;
-  }
+	public void setIdDocScan(String idDocScan) {
+		this.idDocScan = idDocScan;
+	}
 
-   /**
-   * Idioma del document escanejat
-   * @return idioma
-  **/
-  @ApiModelProperty(value = "Idioma del document escanejat")
-  public BigDecimal getIdioma() {
-    return idioma;
-  }
+	public CallbackDigitalitzacio idioma(BigDecimal idioma) {
+		this.idioma = idioma;
+		return this;
+	}
 
-  public void setIdioma(BigDecimal idioma) {
-    this.idioma = idioma;
-  }
+	/**
+	 * Idioma del document escanejat
+	 * 
+	 * @return idioma
+	 **/
+	@ApiModelProperty(value = "Idioma del document escanejat")
+	public BigDecimal getIdioma() {
+		return idioma;
+	}
 
+	public void setIdioma(BigDecimal idioma) {
+		this.idioma = idioma;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    CallbackDigitalitzacio callbackDigitalitzacio = (CallbackDigitalitzacio) o;
-    return Objects.equals(this.codiError, callbackDigitalitzacio.codiError) &&
-        Objects.equals(this.dataDigitalitzacio, callbackDigitalitzacio.dataDigitalitzacio) &&
-        Objects.equals(this.descripcioError, callbackDigitalitzacio.descripcioError) &&
-        Objects.equals(this.estat, callbackDigitalitzacio.estat) &&
-        Objects.equals(this.idDocScan, callbackDigitalitzacio.idDocScan) &&
-        Objects.equals(this.idioma, callbackDigitalitzacio.idioma);
-  }
+	public CallbackDigitalitzacio idPeticio(String idPeticio) {
+		this.idPeticio = idPeticio;
+		return this;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(codiError, dataDigitalitzacio, descripcioError, estat, idDocScan, idioma);
-  }
+	/**
+	 * Identificador de la petició de digitalització
+	 * 
+	 * @return idioma
+	 **/
+	@ApiModelProperty(value = "Identificador de la petició de digitalització")
+	public String getIdPeticio() {
+		return idPeticio;
+	}
 
+	public void setIdPeticio(String idPeticio) {
+		this.idPeticio = idPeticio;
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CallbackDigitalitzacio {\n");
-    
-    sb.append("    codiError: ").append(toIndentedString(codiError)).append("\n");
-    sb.append("    dataDigitalitzacio: ").append(toIndentedString(dataDigitalitzacio)).append("\n");
-    sb.append("    descripcioError: ").append(toIndentedString(descripcioError)).append("\n");
-    sb.append("    estat: ").append(toIndentedString(estat)).append("\n");
-    sb.append("    idDocScan: ").append(toIndentedString(idDocScan)).append("\n");
-    sb.append("    idioma: ").append(toIndentedString(idioma)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		CallbackDigitalitzacio callbackDigitalitzacio = (CallbackDigitalitzacio) o;
+		return Objects.equals(this.codiError, callbackDigitalitzacio.codiError)
+		        && Objects.equals(this.dataDigitalitzacio, callbackDigitalitzacio.dataDigitalitzacio)
+		        && Objects.equals(this.descripcioError, callbackDigitalitzacio.descripcioError)
+		        && Objects.equals(this.estat, callbackDigitalitzacio.estat)
+		        && Objects.equals(this.idDocScan, callbackDigitalitzacio.idDocScan)
+		        && Objects.equals(this.idioma, callbackDigitalitzacio.idioma)
+		        && Objects.equals(this.idPeticio, callbackDigitalitzacio.idPeticio);
+	}
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(codiError, dataDigitalitzacio, descripcioError, estat, idDocScan, idioma, idPeticio);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class CallbackDigitalitzacio {\n");
+
+		sb.append("    codiError: ").append(toIndentedString(codiError)).append("\n");
+		sb.append("    dataDigitalitzacio: ").append(toIndentedString(dataDigitalitzacio)).append("\n");
+		sb.append("    descripcioError: ").append(toIndentedString(descripcioError)).append("\n");
+		sb.append("    estat: ").append(toIndentedString(estat)).append("\n");
+		sb.append("    idDocScan: ").append(toIndentedString(idDocScan)).append("\n");
+		sb.append("    idioma: ").append(toIndentedString(idioma)).append("\n");
+		sb.append("    idPeticio: ").append(toIndentedString(idPeticio)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
 }
-

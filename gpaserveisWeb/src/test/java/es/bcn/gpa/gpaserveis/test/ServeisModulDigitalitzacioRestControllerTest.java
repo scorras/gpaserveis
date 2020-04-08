@@ -32,9 +32,9 @@ public class ServeisModulDigitalitzacioRestControllerTest extends RestServerPare
 	public void testStage01_PostRespostaNotificacioEscaneig() throws Exception {
 		String url = String.format("%s/%s", BASE_URL, "evidencia_digitalitzacio");
 		getMockMvc()
-				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-						"{ \"idDocScan\": \"ES_LO1080193_2019_000000000000000000000000018588\", \"resultat\": \"OK\", \"dataDigitalitzacio\": \"2019-06-06T17:25:00.123Z\", \"idioma\": \"CATALA\"}"))
-				.andExpect(status().isOk()).andDo(print());
+		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+		                "{ \"idDocumentum\": [\"0907a13480249616\",\"0907a13480249617\"], \"idPeticio\": \"1\", \"estatECompulsa\": \"OK\" }"))
+		        .andExpect(status().isOk()).andDo(print());
 
 	}
 
