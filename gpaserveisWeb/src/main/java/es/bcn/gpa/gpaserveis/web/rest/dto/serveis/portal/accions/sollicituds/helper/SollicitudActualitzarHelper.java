@@ -20,8 +20,10 @@ public class SollicitudActualitzarHelper {
 		super();
 		this.sollicitudActualitzarRDTO = sollicitudActualitzarRDTO;
 		this.personesSollicitud = new ArrayList<>();
-		this.personesSollicitud.add(sollicitudActualitzarRDTO.getSollicitant());
-		if (sollicitudActualitzarRDTO.getRepresentant() != null){
+		if (sollicitudActualitzarRDTO.getSollicitant() != null) {
+			this.personesSollicitud.add(sollicitudActualitzarRDTO.getSollicitant());
+		}
+		if (sollicitudActualitzarRDTO.getRepresentant() != null) {
 			this.personesSollicitud.add(sollicitudActualitzarRDTO.getRepresentant());
 		}
 

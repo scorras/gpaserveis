@@ -52,6 +52,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarUnitatGest
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRedireccionarAssentamentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
@@ -1010,6 +1011,20 @@ public class ServeisServiceImpl implements ServeisService {
 	public RespostaCrearRegistreExpedient crearRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO,
 			BigDecimal tipusDocVinculada) throws GPAServeisServiceException {
 		return expedientsService.crearRegistreSollicitud(expedientsRegistrarSollicitudBDTO, tipusDocVinculada);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#redireccionarRegistre(es.
+	 * bcn.gpa.gpaserveis.business.dto.expedients.
+	 * ExpedientsRedireccionarAssentamentBDTO)
+	 */
+	@Override
+	public void redireccionarRegistre(ExpedientsRedireccionarAssentamentBDTO expedientsRedireccionarAssentamentBDTO)
+	        throws GPAServeisServiceException {
+		expedientsService.redireccionarRegistre(expedientsRedireccionarAssentamentBDTO);
 	}
 
 	/**
