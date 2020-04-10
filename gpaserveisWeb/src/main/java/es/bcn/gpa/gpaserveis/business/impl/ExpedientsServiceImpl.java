@@ -22,6 +22,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarUnitatGest
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRedireccionarAssentamentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
@@ -877,6 +878,55 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		ServeisServiceExceptionHandler.handleException(e);
 
 		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#redireccionarRegistre(es
+	 * .bcn.gpa.gpaserveis.business.dto.expedients.
+	 * ExpedientsRedireccionarAssentamentBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackRedireccionarRegistre")
+	public void redireccionarRegistre(ExpedientsRedireccionarAssentamentBDTO expedientsRedireccionarAssentamentBDTO)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("redireccionarRegistre(ExpedientsRedireccionarAssentamentBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			expedientsApi.redireccionarRegistre(expedientsRedireccionarAssentamentBDTO.getRedireccioAssentament());
+
+			if (log.isDebugEnabled()) {
+				log.debug("redireccionarRegistre(ExpedientsRedireccionarAssentamentBDTO) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("redireccionarRegistre(ExpedientsRedireccionarAssentamentBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+
+	}
+
+	/**
+	 * Fallback redireccionar registre.
+	 *
+	 * @param expedientsRedireccionarAssentamentBDTO
+	 *            the expedients redireccionar assentament BDTO
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackRedireccionarRegistre(ExpedientsRedireccionarAssentamentBDTO expedientsRedireccionarAssentamentBDTO, Throwable e)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackRedireccionarRegistre(ExpedientsRedireccionarAssentamentBDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
 	}
 
 	/*

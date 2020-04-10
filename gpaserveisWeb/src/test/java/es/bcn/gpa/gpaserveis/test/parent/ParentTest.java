@@ -59,6 +59,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RedireccioAssentament;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.test.config.TestsConfigHelper;
 import lombok.extern.apachecommons.CommonsLog;
@@ -337,6 +338,8 @@ public abstract class ParentTest {
 
 			when(expedients_Api.crearRegistreSolicitudExpedient(any(BigDecimal.class), any(CrearRegistre.class)))
 			        .thenReturn(TestsConfigHelper.crearRegistreSolicitudExpedientResponse());
+
+			doNothing().when(expedientsApi).redireccionarRegistre(any(RedireccioAssentament.class));
 
 			when(configuracioDocumentacioApi.consultarPlantillaDocumentacioVinculada(any(BigDecimal.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.getPlantillaDocVinculadaResponse());
