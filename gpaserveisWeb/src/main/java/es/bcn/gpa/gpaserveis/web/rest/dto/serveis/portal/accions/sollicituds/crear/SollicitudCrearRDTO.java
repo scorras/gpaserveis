@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "ExpedientCrear")
+@ApiModel(value = "SollicitudCrear")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "codiTramit", "sollicitant", "representant" })
 @Getter
