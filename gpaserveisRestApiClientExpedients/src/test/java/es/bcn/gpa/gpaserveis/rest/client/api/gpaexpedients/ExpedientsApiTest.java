@@ -38,6 +38,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegistreRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ObtenirPerInteroperabilitat;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RedireccioAssentament;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
@@ -58,8 +59,8 @@ public class ExpedientsApiTest extends ParentTest {
 	public void canviarEstatExpedientTest() {
 
 		when(apiClient.invokeAPI(eq("/expedients/1/canviEstat"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(new RespostaCanviarEstatAccioExpedient());
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new RespostaCanviarEstatAccioExpedient());
 
 		BigDecimal idExpedient = ONE;
 		ExpedientCanviEstat expedientCanviEstatRDTO = new ExpedientCanviEstat();
@@ -80,8 +81,8 @@ public class ExpedientsApiTest extends ParentTest {
 	public void anotarOperacioComptableTest() {
 
 		when(apiClient.invokeAPI(eq("/expedients/anotarOperacioComptable/1"), eq(HttpMethod.POST), any(MultiValueMap.class),
-				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		BigDecimal idExpedient = ONE;
 		AnotarOperacioComptableRDTO anotarOperacioComptableRDTO = new AnotarOperacioComptableRDTO();
@@ -101,12 +102,14 @@ public class ExpedientsApiTest extends ParentTest {
 	@Test
 	public void inscriureEnRegistreTest() {
 		when(apiClient.invokeAPI(eq("/expedients/inscriureEnRegistre/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(null);
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		BigDecimal idExpedient = ONE;
 		InscriureEnRegistreRDTO inscriureEnRegistreRDTO = new InscriureEnRegistreRDTO();
 		api.inscriureEnRegistre(idExpedient, inscriureEnRegistreRDTO);
+
+		assertTrue(true);
 	}
 
 	/**
@@ -120,8 +123,8 @@ public class ExpedientsApiTest extends ParentTest {
 	@Test
 	public void retornarTramitacioExpedientTest() {
 		when(apiClient.invokeAPI(eq("/expedients/retornarTramitacio/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(null);
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		BigDecimal idExpedient = ONE;
 		RetornarTramitacioRDTO retornarTramitacioRDTO = new RetornarTramitacioRDTO();
@@ -141,8 +144,8 @@ public class ExpedientsApiTest extends ParentTest {
 	@Test
 	public void convidarTramitarExpedientTest() {
 		when(apiClient.invokeAPI(eq("/expedients/convidarTramitar/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(null);
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		ConvidarTramitarRDTO convidarTramitarRDTO = new ConvidarTramitarRDTO();
 		BigDecimal idExpedient = ONE;
@@ -162,8 +165,8 @@ public class ExpedientsApiTest extends ParentTest {
 	@Test
 	public void canviarUnitatGestoraExpedientTest() {
 		when(apiClient.invokeAPI(eq("/expedients/canviUnitatGestora"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(null);
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		CanviUnitatGestoraRDTO canviUnitatGestoraRDTO = new CanviUnitatGestoraRDTO();
 		BigDecimal idExpedient = ONE;
@@ -184,8 +187,8 @@ public class ExpedientsApiTest extends ParentTest {
 	public void esborrarRegistreSolicitudExpedientTest() {
 
 		when(apiClient.invokeAPI(eq("/expedients/registre/esborrar"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(new RespostaCrearRegistreExpedient());
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new RespostaCrearRegistreExpedient());
 
 		CrearRegistre registrarSolicitudExpedientRDTO = new CrearRegistre();
 		api.esborrarRegistreSolicitudExpedient(registrarSolicitudExpedientRDTO);
@@ -204,8 +207,8 @@ public class ExpedientsApiTest extends ParentTest {
 	@Test
 	public void tornarEnrereTest() {
 		when(apiClient.invokeAPI(eq("/expedients/1/tornarEnrere"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(null);
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		BigDecimal idExpedient = ONE;
 		TornarEnrereRDTO tornarEnrereRDTO = new TornarEnrereRDTO();
@@ -225,12 +228,32 @@ public class ExpedientsApiTest extends ParentTest {
 	@Test
 	public void obtenirPerInteroperabilitatTest() {
 		when(apiClient.invokeAPI(eq("/expedients/obtenirPerInteroperabilitat/1"), eq(HttpMethod.POST), any(MultiValueMap.class),
-				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new RespostaInteroperabilitat());
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new RespostaInteroperabilitat());
 
 		BigDecimal idExpedient = ONE;
 		ObtenirPerInteroperabilitat obtenirPerInteroperabilitat = new ObtenirPerInteroperabilitat();
 		RespostaInteroperabilitat response = api.obtenirPerInteroperabilitat(idExpedient, obtenirPerInteroperabilitat);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Redireccionar registre
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void redireccionarRegistreTest() {
+		when(apiClient.invokeAPI(eq("/expedients/registre/redireccionar"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		RedireccioAssentament redireccioAssentamentRDTO = new RedireccioAssentament();
+		api.redireccionarRegistre(redireccioAssentamentRDTO);
 
 		assertTrue(true);
 	}

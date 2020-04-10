@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.20.0"
+  version: "1.20.2"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -717,7 +717,7 @@ paths:
         description: "Dades de la creació de la sol·licitud"
         required: false
         schema:
-          $ref: "#/definitions/ExpedientCrear"
+          $ref: "#/definitions/SollicitudCrear"
       responses:
         200:
           description: "OK"
@@ -4386,8 +4386,6 @@ definitions:
           - "REQUERIMENT_ESMENA"
           - "APORTAR_DOCUMENTACIO"
           - "ALEGACIONS"
-          - "RENUNCIA"
-          - "DESISTIMENT"
       atributsRequerits:
         type: "array"
         description: "Atributs requerits per l'expedient"
@@ -4485,22 +4483,21 @@ definitions:
   ExpedientCrear:
     type: "object"
     required:
-    - "codiTramit"
+    - "procediment"
     - "sollicitant"
     properties:
-      codiTramit:
-        type: "string"
-        description: "Codi Tramit OVT relacionat a la sol·licitud"
-        enum:
-        - "APO"
-        - "REQ"
-        - "ALE"
+      procediment:
+        description: "Procediment associat a la sol·licitud"
+        $ref: "#/definitions/ProcedimentExpedientCrear"
       representant:
         description: "Persona representant"
         $ref: "#/definitions/Persona"
       sollicitant:
         description: "Persona sol·licitant"
         $ref: "#/definitions/Persona"
+      unitatGestora:
+        description: "Unitat Gestora que tramitarà inicialment la sol·licitud"
+        $ref: "#/definitions/UnitatGestoraExpedientCrear"
     title: "ExpedientCrear"
   ExpedientDocumentSignat:
     type: "object"
@@ -6161,6 +6158,26 @@ definitions:
       name: "SOLLICITUD"
       attribute: false
       wrapped: false
+  SollicitudCrear:
+    type: "object"
+    required:
+    - "codiTramit"
+    - "sollicitant"
+    properties:
+      codiTramit:
+        type: "string"
+        description: "Codi Tramit OVT relacionat a la sol·licitud"
+        enum:
+        - "APO"
+        - "REQ"
+        - "ALE"
+      representant:
+        description: "Persona representant"
+        $ref: "#/definitions/Persona"
+      sollicitant:
+        description: "Persona sol·licitant"
+        $ref: "#/definitions/Persona"
+    title: "SollicitudCrear"
   SollicitudsExpedient:
     type: "object"
     required:
