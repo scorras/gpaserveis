@@ -75,7 +75,6 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarUnitatGest
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRedireccionarAssentamentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
@@ -153,7 +152,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegi
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ObtenirPerInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RedireccioAssentament;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
@@ -1513,13 +1511,18 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			serveisService.canviarUnitatGestoraExpedient(expedientsCanviarUnitatGestoraBDTO);
 
 			// Redirección del Asiento de Registro
-			RedireccioAssentament redireccioAssentament = new RedireccioAssentament();
-			redireccioAssentament.setCodiUnitatGestora(unitatsGestoresRDTO.getNom());
-			redireccioAssentament
-			        .setNumeroAssentament(dadesExpedientBDTO.getExpedientsRDTO().getSollicituds().getRegistreAssentament().getCodi());
-			ExpedientsRedireccionarAssentamentBDTO expedientsRedireccionarAssentamentBDTO = new ExpedientsRedireccionarAssentamentBDTO(
-			        redireccioAssentament);
-			serveisService.redireccionarRegistre(expedientsRedireccionarAssentamentBDTO);
+			// TODO Descomentar cuando se resuelva el problema de pérdida del
+			// usuario autenticado en las peticiones que atacan a la capa
+			// RedireccioAssentament redireccioAssentament = new
+			// RedireccioAssentament();
+			// redireccioAssentament.setCodiUnitatGestora(unitatsGestoresRDTO.getNom());
+			// redireccioAssentament
+			// .setNumeroAssentament(dadesExpedientBDTO.getExpedientsRDTO().getSollicituds().getRegistreAssentament().getCodi());
+			// ExpedientsRedireccionarAssentamentBDTO
+			// expedientsRedireccionarAssentamentBDTO = new
+			// ExpedientsRedireccionarAssentamentBDTO(
+			// redireccioAssentament);
+			// serveisService.redireccionarRegistre(expedientsRedireccionarAssentamentBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("canviarUnitatGestoraExpedient(String, ExpedientCanviUnitatGestoraRDTO)", e); // $NON-NLS-1$
