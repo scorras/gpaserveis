@@ -102,7 +102,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusViesRDTO;
@@ -1124,27 +1123,6 @@ public class ServeisServiceImpl implements ServeisService {
 		String xmlDadesSollicitudBase64 = Base64Utils.encodeToString(xmlDadesSollicitud.getBytes(StandardCharsets.UTF_8));
 
 		return xmlDadesSollicitudBase64;
-	}
-
-	/**
-	 * Crear data xml expedient.
-	 *
-	 * @param idExpedient
-	 *            the id expedient
-	 * @return the resposta obtenir xml expedient
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ServeisService#crearDataXmlExpedient(java.
-	 * math.BigDecimal)
-	 */
-	@Override
-	public RespostaObtenirXmlExpedient crearDataXmlExpedient(BigDecimal idExpedient) throws GPAServeisServiceException {
-		return expedientsService.crearDataXmlExpedient(idExpedient);
 	}
 
 	/**

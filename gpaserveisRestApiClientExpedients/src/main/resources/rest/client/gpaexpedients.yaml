@@ -2,6 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
+
   version: "1.20.4"
   title: "API gpaexpedients"
   contact:
@@ -668,34 +669,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /expedients/obtenirXmlEvaluate/{idExpedient}:
-    get:
-      tags:
-      - "Expedients "
-      summary: "Retorna el xml de la informació de l'expedient"
-      operationId: "obtenirXmlExpedient"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idExpedient"
-        in: "path"
-        description: "idExpedient"
-        required: true
-        type: "number"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaObtenirXmlExpedient"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
   /expedients/perCodi/{codi}:
     get:
       tags:
@@ -2776,16 +2749,6 @@ definitions:
         description: "Resposta del servei DGT"
         $ref: "#/definitions/RespostaServeiDgtRDTO"
     title: "RespostaInteroperabilitat"
-  RespostaObtenirXmlExpedient:
-    type: "object"
-    properties:
-      dadesXml:
-        type: "string"
-        description: "Informació de l'expedient en format xml"
-      id:
-        type: "number"
-        description: "Identificador de l'expedient"
-    title: "RespostaObtenirXmlExpedient"
   RespostaServeiDgtRDTO:
     type: "object"
     properties:
