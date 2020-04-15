@@ -28,10 +28,10 @@ import lombok.Setter;
 @ApiModel(value = "DocumentAportatConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id", "idGestorDocumental", "nom", "configuracioDocumentacio", "dataPresentacio", "registre", "revisio", "hash",
-        "tramit" })
+		"codiCSV", "tramit" })
 @XmlRootElement(name = "DOCUMENT")
 @XmlType(name = "DocumentAportatConsulta", propOrder = { "configuracioDocumentacio", "dataPresentacio", "registre", "revisio", "origen",
-        "hash" })
+		"hash", "codiCSV" })
 @XmlAccessorType(XmlAccessType.NONE)
 @Getter
 @Setter
@@ -57,6 +57,9 @@ public class DocumentAportatConsultaRDTO extends DocumentRDTO {
 	@ApiModelProperty(value = "Hash del document")
 	@XmlElement(name = "HASH", required = false, type = String.class)
 	private String hash;
+	@ApiModelProperty(value = "Codi CSV del document")
+	@XmlElement(name = "CODI_CSV", required = false, type = String.class)
+	private String codiCSV;
 	@ApiModelProperty(value = "Tràmit")
 	@XmlTransient
 	private TramitsOvtRDTO tramit;

@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.20.0"
+  version: "1.20.1"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -2216,6 +2216,18 @@ definitions:
       uniqueId:
         type: "string"
     title: "ConfDocEntradaRequeritRDTO"
+  ConfDocsTramPolitiquesSig:
+    type: "object"
+    properties:
+      configuracioDocsTramitacio:
+        type: "number"
+      modalitatIdext:
+        type: "number"
+      ordre:
+        type: "number"
+      politicaSignatura:
+        type: "string"
+    title: "ConfDocsTramPolitiquesSig"
   ConfdocsentEstatsExp:
     type: "object"
     properties:
@@ -2374,6 +2386,10 @@ definitions:
         $ref: "#/definitions/AtributsDocs"
       codiNti:
         type: "string"
+      confDocsTramPolitiquesSigList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfDocsTramPolitiquesSig"
       confdocstramEstatsExpList:
         type: "array"
         items:
@@ -2410,8 +2426,6 @@ definitions:
       origen:
         type: "integer"
         format: "int32"
-      politicaSignatura:
-        type: "string"
       requereixSignatura:
         type: "integer"
         format: "int32"
@@ -2438,6 +2452,10 @@ definitions:
         $ref: "#/definitions/AtributsDocs"
       codiNti:
         type: "string"
+      confDocsTramPolitiquesSigList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfDocsTramPolitiquesSig"
       confdocstramEstatsExpList:
         type: "array"
         items:
@@ -2474,8 +2492,6 @@ definitions:
       origen:
         type: "integer"
         format: "int32"
-      politicaSignatura:
-        type: "string"
       requereixSignatura:
         type: "integer"
         format: "int32"
@@ -2578,6 +2594,8 @@ definitions:
       configuracioDocsEntradaNom:
         type: "string"
       configuracioDocsEntradaNomCastella:
+        type: "string"
+      csv:
         type: "string"
       dataCreacio:
         type: "string"
@@ -2819,6 +2837,8 @@ definitions:
       configuracioDocsTramitacio:
         $ref: "#/definitions/ConfiguracioDocsTramitacio"
       configuracioDocsTramitacioNom:
+        type: "string"
+      csv:
         type: "string"
       dataComunicat:
         type: "string"
