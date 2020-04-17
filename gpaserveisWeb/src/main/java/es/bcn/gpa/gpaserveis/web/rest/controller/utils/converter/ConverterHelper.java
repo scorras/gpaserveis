@@ -260,14 +260,23 @@ public class ConverterHelper {
 			RelacioPersonaApiParamValue relacioPersonaApiParamValue,
 			TipusPersonaApiParamValueTranslator tipusPersonaApiParamValueTranslator,
 			TipusDocumentIdentitatApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
-			TipusSexeApiParamValueTranslator tipusSexeApiParamValueTranslator) {
+			BooleanApiParamValueTranslator booleanApiParamValueTranslator,
+			TipusSexeApiParamValueTranslator tipusSexeApiParamValueTranslator, boolean relacionPrincipal) {
 		PersonesSollicitud personesSollicitud = null;
 
 		if (personesRDTO != null) {
 			personesSollicitud = new PersonesSollicitud();
-			personesSollicitud.setEsInteressada(BooleanApiParamValue.TRUE.getInternalValue());
+			personesSollicitud.setEsInteressada(BooleanApiParamValue.FALSE.getInternalValue());
+			if (relacioPersonaApiParamValue.getInternalValue().compareTo(RelacioPersonaApiParamValue.SOLLICITANT.getInternalValue()) == 0
+					|| relacioPersonaApiParamValue.getInternalValue()
+							.compareTo(RelacioPersonaApiParamValue.REPRESENTANT.getInternalValue()) == 0) {
+				personesSollicitud.setEsInteressada(BooleanApiParamValue.TRUE.getInternalValue());
+			}
 			personesSollicitud.setRelacio(relacioPersonaApiParamValue.getInternalValue());
-			personesSollicitud.setRelacioPrincipal(BooleanApiParamValue.TRUE.getInternalValue());
+			personesSollicitud
+					.setRelacioPrincipal(booleanApiParamValueTranslator.getInternalValueByApiParamValueAsBoolean(relacionPrincipal));
+			personesSollicitud.setVisibilitatOvt(
+					booleanApiParamValueTranslator.getInternalValueByApiParamValueAsBoolean(personesRDTO.getVisibilitatOvt()));
 			Persones persones = new Persones();
 			persones.setTipusPersona(tipusPersonaApiParamValueTranslator.getInternalValueByApiParamValue(personesRDTO.getTipusPersona()));
 			persones.setNomRaoSocial(personesRDTO.getNomRaoSocial());

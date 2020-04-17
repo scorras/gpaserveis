@@ -45,6 +45,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ProvinciesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusViesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient.CollectionFormat;
 
@@ -238,6 +239,26 @@ public class Expedients_ApiTest extends ParentTest {
 
 		ActualitzarDadesSollicitud actualitzarDadesSollicitudRDTO = new ActualitzarDadesSollicitud();
 		ExpedientsRDTO response = api.actualitzarDadesSollicitud(actualitzarDadesSollicitudRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Retorna el xml de la informació de l&#39;expedient
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void obtenirXmlExpedientTest() {
+		when(apiClient.invokeAPI(eq("/expedients/obtenirXmlEvaluate/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new RespostaObtenirXmlExpedient());
+
+		BigDecimal idExpedient = ONE;
+		RespostaObtenirXmlExpedient response = api.obtenirXmlExpedient(idExpedient);
 
 		assertTrue(response != null);
 	}

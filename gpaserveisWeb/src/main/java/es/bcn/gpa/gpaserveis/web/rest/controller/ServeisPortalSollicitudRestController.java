@@ -96,6 +96,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.Su
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.consulta.atributs.DadesOperacioApiParamToInternalMapper;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentacioAportarSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.RespostaAportarDocumentSollicitudRDTO;
@@ -593,6 +594,14 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 						AccioTramitadorApiParamValue.RESPONDRE_REQUERIMENT_O_TRAMIT_ALLEGACIONS_O_IP, Resultat.ERROR_CREAR_SOLLICITUD);
 			}
 
+			// se valida que si la relacion es de persona interesada, solo
+			// permita valores sollicitant y representant y si
+			// la relacion es de persona implicada, solo permita los valores
+			// testimoni y Altres
+			ServeisRestControllerValidationHelper.validatePersonesImplicadesInteressadesExpedient(
+					sollicitudCrearRDTO.getPersonesImplicades(), sollicitudCrearRDTO.getPersonesInteressades(),
+					Resultat.ERROR_CREAR_SOLLICITUD);
+
 			// Información del Trámite
 			TramitsOvtCercaBDTO tramitsOvtCercaBDTO = new TramitsOvtCercaBDTO(
 					DadesOperacioApiParamToInternalMapper.getTramitOvtInternalValue(sollicitudCrearRDTO.getCodiTramit()));
@@ -606,19 +615,19 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				sollicitudCrearRDTO.getRepresentant().setRelacio(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue());
 			}
 
-			// TODO: descomentar lo siguiente cuando se añadan las listas de
-			// implicades e interessades a las sol·licituds
-			// for (PersonesRDTO personaSollicitud :
-			// sollicitudCrearRDTO.getPersonesImplicades()) {
-			// if (personaSollicitud.getRelacio() == null)
-			// personaSollicitud.setRelacio(RelacioPersonaApiParamValue.ALTRES.getApiParamValue());
-			// }
-			//
-			// for (PersonesRDTO personaSollicitud :
-			// sollicitudCrearRDTO.getPersonesInteressades()) {
-			// if (personaSollicitud.getRelacio() == null)
-			// personaSollicitud.setRelacio(RelacioPersonaApiParamValue.ALTRES.getApiParamValue());
-			// }
+			if (sollicitudCrearRDTO.getPersonesImplicades() != null) {
+				for (PersonesRDTO personaSollicitud : sollicitudCrearRDTO.getPersonesImplicades()) {
+					if (personaSollicitud.getRelacio() == null)
+						personaSollicitud.setRelacio(RelacioPersonaApiParamValue.ALTRES.getApiParamValue());
+				}
+			}
+
+			if (sollicitudCrearRDTO.getPersonesInteressades() != null) {
+				for (PersonesRDTO personaSollicitud : sollicitudCrearRDTO.getPersonesInteressades()) {
+					if (personaSollicitud.getRelacio() == null)
+						personaSollicitud.setRelacio(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue());
+				}
+			}
 
 			SollicitudCrearHelper sollicitudCrearHelper = new SollicitudCrearHelper(sollicitudCrearRDTO, internalTramitsOvtRDTO.getId(),
 					dadesExpedientBDTO.getExpedientsRDTO().getId());
@@ -684,6 +693,14 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateSollicitantActualitzarSolicitudExpedient(sollicitudActualitzar.getSollicitant(),
 					sollicitudActualitzar.getRepresentant());
 
+			// se valida que si la relacion es de persona interesada, solo
+			// permita valores sollicitant y representant y si
+			// la relacion es de persona implicada, solo permita los valores
+			// testimoni y Altres
+			ServeisRestControllerValidationHelper.validatePersonesImplicadesInteressadesExpedient(
+					sollicitudActualitzar.getPersonesImplicades(), sollicitudActualitzar.getPersonesInteressades(),
+					Resultat.ERROR_ACTUALITZAR_SOLLICITUD);
+
 			// Actualizar Solicitante / Representante / Dades d'Operació si se
 			// incluyen en los datos de la petición y si la acción es permitida
 			if (sollicitudActualitzar.getSollicitant() != null || CollectionUtils.isNotEmpty(sollicitudActualitzar.getDadesOperacio())) {
@@ -700,7 +717,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 						dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
 				RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = serveisService.cercaDadesOperacio(dadesOperacioCercaBDTO);
 				dadesEspecifiquesRDTOList = ServeisRestControllerValidationHelper.validateDadesOperacioActualitzarSolicitudExpedient(
-
 						sollicitudActualitzar.getDadesOperacio(), respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList(),
 						dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesSollicitudBDTO.getSollicitudsRDTO().getId(), true);
 
@@ -708,13 +724,25 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 			// Aplicamos el campo de Relación correspondiente a las personas que
 			// se relacionan
-
 			if (sollicitudActualitzar.getSollicitant() != null) {
 				sollicitudActualitzar.getSollicitant().setRelacio(RelacioPersonaApiParamValue.SOLLICITANT.getApiParamValue());
 			}
-
 			if (sollicitudActualitzar.getRepresentant() != null) {
 				sollicitudActualitzar.getRepresentant().setRelacio(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue());
+			}
+
+			if (sollicitudActualitzar.getPersonesImplicades() != null) {
+				for (PersonesRDTO personaSollicitud : sollicitudActualitzar.getPersonesImplicades()) {
+					if (personaSollicitud.getRelacio() == null)
+						personaSollicitud.setRelacio(RelacioPersonaApiParamValue.ALTRES.getApiParamValue());
+				}
+			}
+
+			if (sollicitudActualitzar.getPersonesInteressades() != null) {
+				for (PersonesRDTO personaSollicitud : sollicitudActualitzar.getPersonesInteressades()) {
+					if (personaSollicitud.getRelacio() == null)
+						personaSollicitud.setRelacio(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue());
+				}
 			}
 
 			SollicitudActualitzarHelper sollicitudActualitzarHelper = new SollicitudActualitzarHelper(sollicitudActualitzar);
