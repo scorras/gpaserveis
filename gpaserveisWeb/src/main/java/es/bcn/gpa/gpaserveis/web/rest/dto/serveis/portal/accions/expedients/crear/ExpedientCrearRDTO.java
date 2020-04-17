@@ -1,5 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.crear;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -11,7 +13,7 @@ import lombok.Setter;
 
 @ApiModel(value = "ExpedientCrear")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "procediment", "unitatGestora", "sollicitant", "representant" })
+@JsonPropertyOrder({ "procediment", "unitatGestora", "sollicitant", "representant", "personesInteressades", "personesImplicades" })
 @Getter
 @Setter
 public class ExpedientCrearRDTO {
@@ -24,5 +26,8 @@ public class ExpedientCrearRDTO {
 	private PersonesRDTO sollicitant;
 	@ApiModelProperty(value = "Persona representant", required = false)
 	private PersonesRDTO representant;
-
+	@ApiModelProperty(value = "Persones interessades", required = false)
+	private List<PersonesRDTO> personesInteressades;
+	@ApiModelProperty(value = "Persones implicades", required = false)
+	private List<PersonesRDTO> personesImplicades;
 }

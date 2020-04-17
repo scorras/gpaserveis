@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.18.0"
+  version: "1.20.3"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -2793,6 +2793,14 @@ definitions:
         type: "number"
       iniciacioNom:
         type: "string"
+      personesImplicades:
+        type: "array"
+        items:
+          $ref: "#/definitions/PersonesSollicitudRDTO"
+      personesInteressades:
+        type: "array"
+        items:
+          $ref: "#/definitions/PersonesSollicitudRDTO"
       personesSollicitudList:
         type: "array"
         items:
@@ -2827,6 +2835,14 @@ definitions:
         type: "number"
       iniciacioNom:
         type: "string"
+      personesImplicades:
+        type: "array"
+        items:
+          $ref: "#/definitions/PersonesSollicitudRDTO"
+      personesInteressades:
+        type: "array"
+        items:
+          $ref: "#/definitions/PersonesSollicitudRDTO"
       personesSollicitudList:
         type: "array"
         items:

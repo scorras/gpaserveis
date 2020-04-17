@@ -190,6 +190,8 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.VersioProcedimentApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ErrorDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ResultatRespostaDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar.ExpedientActualitzarRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar.RespostaActualitzarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentacioAportarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.RespostaAportarDocumentRDTO;
@@ -198,7 +200,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.re
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.resolucio.validar.RespostaResolucioValidarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.DataSignarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.RespostaSignarDocumentRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar.RespostaActualitzarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.recurs.RecursExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.recurs.RespostaRecursExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.revisar.ExpedientRevisarRDTO;
@@ -231,7 +232,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.abandonar.RespostaAbandonarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.acces.ExpedientAccesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.acces.RespostaAccesExpedientRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.actualitzar.ExpedientActualitzarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.acumular.ExpedientAcumulacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.acumular.RespostaAcumularExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.anotar.operacio.comptable.OperacioComptableRDTO;
@@ -3086,6 +3086,13 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					.consultarDadesBasiquesProcediment(expedientRevisar.getProcediment().getId());
 			ServeisRestControllerValidationHelper.validateProcedimentCrearSolicitudExpedient(dadesProcedimentBDTO);
 
+			// se valida que si la relacion es de persona interesada, solo
+			// permita valores sollicitant y representant y si
+			// la relacion es de persona implicada, solo permita los valores
+			// testimoni y Altres
+			ServeisRestControllerValidationHelper.validatePersonesImplicadesInteressadesExpedient(expedientRevisar.getPersonesImplicades(),
+					expedientRevisar.getPersonesInteressades(), Resultat.ERROR_REVISAR_EXPEDIENT);
+
 			// El codi de la unitat gestora, opcional, debe existir y estar
 			// vigente
 			BigDecimal idUnitatGestora = null;
@@ -3105,6 +3112,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// Se debe indicar el id de la Unitat Gestora recuperada
 			expedientsRDTO.setUnitatGestoraIdext(idUnitatGestora);
 			ExpedientsCrearBDTO expedientsCrearBDTO = new ExpedientsCrearBDTO(expedientsRDTO);
+
 			if (StringUtils.isNotEmpty(expedientRevisar.getNumeroRegistre())) {
 				Sollicituds sollicituds = new Sollicituds();
 				es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentament registreAssentament = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentament();
@@ -3191,8 +3199,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			expedientsRDTO.setUnitatGestoraIdext(idUnitatGestora);
 			// Indicamos también el id del expediente objeto de recurso
 			expedientsRDTO.setExpedientObjecteDeRecursId(dadesExpedientBDTO.getExpedientsRDTO().getId());
-			ExpedientsCrearBDTO expedientsCrearBDTO = new ExpedientsCrearBDTO(expedientsRDTO);
 
+			ExpedientsCrearBDTO expedientsCrearBDTO = new ExpedientsCrearBDTO(expedientsRDTO);
 			returnExpedientsRDTO = serveisService.crearSollicitudExpedient(expedientsCrearBDTO);
 		} catch (GPAApiParamValidationException e) {
 			log.error("revisarSolicitudExpedient(ExpedientRevisarRDTO)", e); //$NON-NLS-1$
@@ -3244,6 +3252,14 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// Solicitante
 			ServeisRestControllerValidationHelper.validateSollicitantActualitzarSolicitudExpedient(solicitudExpedient.getSollicitant(),
 					solicitudExpedient.getRepresentant());
+
+			// se valida que si la relacion es de persona interesada, solo
+			// permita valores sollicitant y representant y si
+			// la relacion es de persona implicada, solo permita los valores
+			// testimoni y Altres
+			ServeisRestControllerValidationHelper.validatePersonesImplicadesInteressadesExpedient(
+					solicitudExpedient.getPersonesImplicades(), solicitudExpedient.getPersonesInteressades(),
+					Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
 
 			// Actualizar Solicitante / Representante / Dades d'Operació si se
 			// incluyen en los datos de la petición y si la acción es permitida

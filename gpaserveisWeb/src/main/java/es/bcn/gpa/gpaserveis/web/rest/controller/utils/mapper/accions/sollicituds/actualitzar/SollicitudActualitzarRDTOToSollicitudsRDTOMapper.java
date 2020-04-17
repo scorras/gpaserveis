@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.ListPersonesImplicadesToListInternalConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.ListPersonesInteressadesToListInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.sollicitud.PersonaSollicitudToInternalListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.helper.SollicitudActualitzarHelper;
 
@@ -18,6 +20,12 @@ public class SollicitudActualitzarRDTOToSollicitudsRDTOMapper extends PropertyMa
 	/** The persona sollicitant to internal converter. */
 	private PersonaSollicitudToInternalListConverter personaSollicitudToInternalListConverter;
 
+	/** The list persona sollicitant to list internal converter. */
+	private ListPersonesInteressadesToListInternalConverter listPersonesInteressadesToListInternalConverter;
+
+	/** The list persona representant to list internal converter. */
+	private ListPersonesImplicadesToListInternalConverter listPersonesImplicadesToListInternalConverter;
+
 	/**
 	 * Instantiates a new solicituds crear RDTO to expedients RDTO mapper.
 	 *
@@ -28,8 +36,12 @@ public class SollicitudActualitzarRDTOToSollicitudsRDTOMapper extends PropertyMa
 	 */
 	@Autowired
 	public SollicitudActualitzarRDTOToSollicitudsRDTOMapper(
-			@Qualifier("sollicitudPersonaSollicitudToInternalListConverter") PersonaSollicitudToInternalListConverter personaSollicitudToInternalListConverter) {
+			@Qualifier("sollicitudPersonaSollicitudToInternalListConverter") PersonaSollicitudToInternalListConverter personaSollicitudToInternalListConverter,
+			@Qualifier("expedientListPersonesInteressadesToListInternalConverter") ListPersonesInteressadesToListInternalConverter listPersonesInteressadesToListInternalConverter,
+			@Qualifier("expedientListPersonesImplicadesToListInternalConverter") ListPersonesImplicadesToListInternalConverter listPersonesImplicadesToListInternalConverter) {
 		this.personaSollicitudToInternalListConverter = personaSollicitudToInternalListConverter;
+		this.listPersonesInteressadesToListInternalConverter = listPersonesInteressadesToListInternalConverter;
+		this.listPersonesImplicadesToListInternalConverter = listPersonesImplicadesToListInternalConverter;
 	}
 
 	/*
@@ -40,6 +52,8 @@ public class SollicitudActualitzarRDTOToSollicitudsRDTOMapper extends PropertyMa
 	@Override
 	protected void configure() {
 		using(personaSollicitudToInternalListConverter).map(source.getPersonesSollicitud()).setPersonesSollicitudList(null);
+		using(listPersonesInteressadesToListInternalConverter).map(source.getPersonesInteressades()).setPersonesInteressades(null);
+		using(listPersonesImplicadesToListInternalConverter).map(source.getPersonesImplicades()).setPersonesImplicades(null);
 	}
 
 }

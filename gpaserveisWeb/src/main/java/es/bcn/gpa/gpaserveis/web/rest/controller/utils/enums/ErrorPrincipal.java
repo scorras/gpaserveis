@@ -72,6 +72,11 @@ public enum ErrorPrincipal {
 
 	ERROR_SOLLICITUDS_DADES_OPERACIO_APO("3022", "No és possible actualitzar les dades d'operació a una sol·licitud d'aportació."),
 
+	ERROR_EXPEDIENTS_PERSONA_INTERESADA_RELACIO("3023",
+			"Les persones interessades només poden tenir relació com a sol·licitant o representant"),
+
+	ERROR_EXPEDIENTS_PERSONA_IMPLICADA_RELACIO("3024", "Les persones implicades només poden tenir relació com a testimoni o altres"),
+
 	/* Documents */
 	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document"),
 

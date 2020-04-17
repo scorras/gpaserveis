@@ -22,7 +22,8 @@ import lombok.Setter;
 
 @ApiModel(value = "Persona")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "relacio", "tipusPersona", "nomRaoSocial", "cognom1", "cognom2", "documentIndentitat", "dadesNotificacio" })
+@JsonPropertyOrder({ "relacio", "visibilitatOvt", "tipusPersona", "nomRaoSocial", "cognom1", "cognom2", "documentIndentitat",
+		"dadesNotificacio" })
 @XmlRootElement(name = "PERSONA")
 @XmlType(name = "Persones", propOrder = { "relacio", "tipusPersona", "nomComplet", "documentIndentitat", "dadesNotificacio" })
 @XmlAccessorType(XmlAccessType.NONE)
@@ -33,6 +34,8 @@ public class PersonesRDTO {
 	@ApiModelProperty(value = "Relacio de la persona", allowableValues = RelacioPersonaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = false)
 	@XmlElement(name = "RELACIO", required = true, type = String.class)
 	private String relacio;
+	@ApiModelProperty(value = "Visibilitat Ovt", required = false)
+	private Boolean visibilitatOvt;
 	@ApiModelProperty(value = "Tipus de persona", allowableValues = TipusPersonaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true)
 	@XmlElement(name = "TIPUS_PERSONA", required = true, type = String.class)
 	private String tipusPersona;
