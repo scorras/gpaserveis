@@ -1,6 +1,7 @@
 package es.bcn.gpa.gpaserveis.test.parent;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.doNothing;
@@ -396,6 +397,9 @@ public abstract class ParentTest {
 			doNothing().when(documentacioApi).registrarComunicatDocumentTramitacio(any(DocumentRegistrarComunicat.class));
 
 			doNothing().when(documentacioApi).callbackDigitalitzacio(any(CallbackDigitalitzacio.class));
+
+			when(documentacioApi.consultarEstatDigitalitzacio(anyString()))
+			        .thenReturn(TestsConfigHelper.consultarEstatDigitalitzacioResponse());
 
 			when(notificacionsApi.crearNotificacio(any(CrearNotificacio.class))).thenReturn(TestsConfigHelper.crearNotificacioResponse());
 

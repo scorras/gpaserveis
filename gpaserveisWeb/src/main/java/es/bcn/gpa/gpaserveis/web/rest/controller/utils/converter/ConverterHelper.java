@@ -335,16 +335,16 @@ public class ConverterHelper {
 	 *         persones
 	 */
 	public static es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones buildPersonesNotificacioExpedient(
-			PersonesNotificacioRDTO personesNotificacioRDTO, TipusPersonaApiParamValueTranslator tipusPersonaApiParamValueTranslator,
-			TipusDocumentIdentitatApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
-			TipusViaNotificacioApiParamValueTranslator tipusViaNotificacioApiParamValueTranslator) {
+	        PersonesNotificacioRDTO personesNotificacioRDTO, TipusPersonaApiParamValueTranslator tipusPersonaApiParamValueTranslator,
+	        TipusDocumentIdentitatApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
+	        TipusViaNotificacioApiParamValueTranslator tipusViaNotificacioApiParamValueTranslator) {
 		if (personesNotificacioRDTO == null) {
 			return null;
 		}
 
 		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones persones = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones();
 		persones.setTipusPersona(
-				tipusPersonaApiParamValueTranslator.getInternalValueByApiParamValue(personesNotificacioRDTO.getTipusPersona()));
+		        tipusPersonaApiParamValueTranslator.getInternalValueByApiParamValue(personesNotificacioRDTO.getTipusPersona()));
 		StringBuffer stringBuffer = new StringBuffer();
 		if (StringUtils.isNotEmpty(personesNotificacioRDTO.getNom())) {
 			stringBuffer.append(personesNotificacioRDTO.getNom() + " ");
@@ -381,7 +381,7 @@ public class ConverterHelper {
 			personesDadescontacte.setMunicipiValor(personesNotificacioRDTO.getDadesNotificacio().getMunicipi());
 			personesDadescontacte.setProvinciaValor(personesNotificacioRDTO.getDadesNotificacio().getProvincia());
 			personesDadescontacte.setNotificacioPaper((int) tipusViaNotificacioApiParamValueTranslator
-					.getInternalValueByApiParamValue(personesNotificacioRDTO.getDadesNotificacio().getViaNotificacio()));
+			        .getInternalValueByApiParamValue(personesNotificacioRDTO.getDadesNotificacio().getViaNotificacio()));
 
 			persones.setPersonesDadescontacte(personesDadescontacte);
 		}
@@ -1135,6 +1135,7 @@ public class ConverterHelper {
 		if (docsEntradaRDTO != null) {
 			documentDigitalitzarAccioRDTO = new DocumentDigitalitzarAccioRDTO();
 			documentDigitalitzarAccioRDTO.setId(docsEntradaRDTO.getId());
+			documentDigitalitzarAccioRDTO.setNom(docsEntradaRDTO.getDocsFisics().getNom());
 			if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null) {
 				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = buildConfiguracioDocumentacioRDTO(docsEntradaRDTO);
 				documentDigitalitzarAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);

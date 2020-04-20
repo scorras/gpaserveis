@@ -29,6 +29,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitaci
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsDigitalitzacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
@@ -1968,6 +1969,18 @@ public class TestsConfigHelper {
 		docsTramitacioRDTO.setDocumentacio(ONE);
 
 		return docsTramitacioRDTO;
+	}
+	
+	 * Consultar estat digitalitzacio response.
+	 *
+	 * @return the peticions digitalitzacio RDTO
+	 */
+	public static PeticionsDigitalitzacioRDTO consultarEstatDigitalitzacioResponse() {
+		PeticionsDigitalitzacioRDTO peticionsDigitalitzacioRDTO = new PeticionsDigitalitzacioRDTO();
+		peticionsDigitalitzacioRDTO.setCodiScan(ONE.toString());
+		peticionsDigitalitzacioRDTO.setDocumentsCodi("0907a13480249616,0907a13480249617");
+		peticionsDigitalitzacioRDTO.setEstatPeticio(new BigDecimal(2));
+		return peticionsDigitalitzacioRDTO;
 	}
 
 }
