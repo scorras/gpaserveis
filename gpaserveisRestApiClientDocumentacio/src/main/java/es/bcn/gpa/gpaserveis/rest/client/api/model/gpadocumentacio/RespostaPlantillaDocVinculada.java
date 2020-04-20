@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * RespostaPlantillaDocVinculada
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-15T11:02:22.203+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-16T13:52:12.142+02:00")
 public class RespostaPlantillaDocVinculada {
   @JsonProperty("id")
   private BigDecimal id = null;

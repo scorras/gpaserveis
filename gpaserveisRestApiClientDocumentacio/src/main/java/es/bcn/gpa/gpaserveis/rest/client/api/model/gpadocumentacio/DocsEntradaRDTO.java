@@ -31,7 +31,7 @@ import org.joda.time.DateTime;
 /**
  * DocsEntradaRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-15T12:29:54.597+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-16T13:52:12.142+02:00")
 public class DocsEntradaRDTO {
   @JsonProperty("codi")
   private String codi = null;

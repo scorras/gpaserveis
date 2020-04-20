@@ -436,6 +436,12 @@ public abstract class ParentTest {
 					isNull(Integer.class), isNull(String.class), isNull(Long.class), isNull(Integer.class)))
 							.thenReturn(TestsConfigHelper.cercaSollicitudsResponse());
 
+			when(documentacioApi.consultarDadesDocumentAportatPerCodiCSV(any(String.class)))
+					.thenReturn(TestsConfigHelper.consultarDadesDocumentAportatPerCodiCSVResponse());
+
+			when(documentacioApi.consultarDadesDocumentGeneratPerCodiCSV(any(String.class)))
+					.thenReturn(TestsConfigHelper.consultarDadesDocumentGeneratPerCodiCSVResponse());
+
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$
 

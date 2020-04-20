@@ -35,7 +35,7 @@ import org.joda.time.DateTime;
 /**
  * DocsTramitacioRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-15T12:29:54.597+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-16T13:52:12.142+02:00")
 public class DocsTramitacioRDTO {
   @JsonProperty("canalComunicat")
   private BigDecimal canalComunicat = null;
@@ -57,6 +57,9 @@ public class DocsTramitacioRDTO {
 
   @JsonProperty("configuracioDocsTramitacioNom")
   private String configuracioDocsTramitacioNom = null;
+
+  @JsonProperty("configuracioDocsTramitacioNomCastella")
+  private String configuracioDocsTramitacioNomCastella = null;
 
   @JsonProperty("csv")
   private String csv = null;
@@ -317,6 +320,24 @@ public class DocsTramitacioRDTO {
 
   public void setConfiguracioDocsTramitacioNom(String configuracioDocsTramitacioNom) {
     this.configuracioDocsTramitacioNom = configuracioDocsTramitacioNom;
+  }
+
+  public DocsTramitacioRDTO configuracioDocsTramitacioNomCastella(String configuracioDocsTramitacioNomCastella) {
+    this.configuracioDocsTramitacioNomCastella = configuracioDocsTramitacioNomCastella;
+    return this;
+  }
+
+   /**
+   * Get configuracioDocsTramitacioNomCastella
+   * @return configuracioDocsTramitacioNomCastella
+  **/
+  @ApiModelProperty(value = "")
+  public String getConfiguracioDocsTramitacioNomCastella() {
+    return configuracioDocsTramitacioNomCastella;
+  }
+
+  public void setConfiguracioDocsTramitacioNomCastella(String configuracioDocsTramitacioNomCastella) {
+    this.configuracioDocsTramitacioNomCastella = configuracioDocsTramitacioNomCastella;
   }
 
   public DocsTramitacioRDTO csv(String csv) {
@@ -1154,6 +1175,7 @@ public class DocsTramitacioRDTO {
         Objects.equals(this.configDocTramitacio, docsTramitacioRDTO.configDocTramitacio) &&
         Objects.equals(this.configuracioDocsTramitacio, docsTramitacioRDTO.configuracioDocsTramitacio) &&
         Objects.equals(this.configuracioDocsTramitacioNom, docsTramitacioRDTO.configuracioDocsTramitacioNom) &&
+        Objects.equals(this.configuracioDocsTramitacioNomCastella, docsTramitacioRDTO.configuracioDocsTramitacioNomCastella) &&
         Objects.equals(this.csv, docsTramitacioRDTO.csv) &&
         Objects.equals(this.dataComunicat, docsTramitacioRDTO.dataComunicat) &&
         Objects.equals(this.dataCreacio, docsTramitacioRDTO.dataCreacio) &&
@@ -1203,7 +1225,7 @@ public class DocsTramitacioRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(canalComunicat, codi, comentari, comunicat, configDocTramitacio, configuracioDocsTramitacio, configuracioDocsTramitacioNom, csv, dataComunicat, dataCreacio, dataDigitalitzacio, dataUltimaModificacio, descripcioEstat, digitalitzat, docsFisics, docsFisicsNom, docsSignatures, docsTercers, documentFisic, documentacio, editable, eliminat, estat, estatAnterior, estatDigitalitzacio, estatDocsTramitacio, estatsDocsTramitacio, hash, id, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, missatgeComunicat, notificacio, notificacions, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, publicarInfoPublica, registreAssentament, registreIdext, requereixSignatura, requeriments, seleccionable, tipusMimeDescripcio, ultimaModificacioIdext, ultimaSignatura, urlDigitalitzacio, usuariIdext, usuariSignaturaNom);
+    return Objects.hash(canalComunicat, codi, comentari, comunicat, configDocTramitacio, configuracioDocsTramitacio, configuracioDocsTramitacioNom, configuracioDocsTramitacioNomCastella, csv, dataComunicat, dataCreacio, dataDigitalitzacio, dataUltimaModificacio, descripcioEstat, digitalitzat, docsFisics, docsFisicsNom, docsSignatures, docsTercers, documentFisic, documentacio, editable, eliminat, estat, estatAnterior, estatDigitalitzacio, estatDocsTramitacio, estatsDocsTramitacio, hash, id, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, missatgeComunicat, notificacio, notificacions, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, publicarInfoPublica, registreAssentament, registreIdext, requereixSignatura, requeriments, seleccionable, tipusMimeDescripcio, ultimaModificacioIdext, ultimaSignatura, urlDigitalitzacio, usuariIdext, usuariSignaturaNom);
   }
 
 
@@ -1219,6 +1241,7 @@ public class DocsTramitacioRDTO {
     sb.append("    configDocTramitacio: ").append(toIndentedString(configDocTramitacio)).append("\n");
     sb.append("    configuracioDocsTramitacio: ").append(toIndentedString(configuracioDocsTramitacio)).append("\n");
     sb.append("    configuracioDocsTramitacioNom: ").append(toIndentedString(configuracioDocsTramitacioNom)).append("\n");
+    sb.append("    configuracioDocsTramitacioNomCastella: ").append(toIndentedString(configuracioDocsTramitacioNomCastella)).append("\n");
     sb.append("    csv: ").append(toIndentedString(csv)).append("\n");
     sb.append("    dataComunicat: ").append(toIndentedString(dataComunicat)).append("\n");
     sb.append("    dataCreacio: ").append(toIndentedString(dataCreacio)).append("\n");

@@ -263,4 +263,30 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 				.andExpect(status().isOk()).andDo(print());
 
 	}
+
+	/**
+	 * Test stage 18 consultar dades document aportat.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test
+	public void testStage18_ConsultarDadesDocumentAportat() throws Exception {
+		String url = BASE_URL + "/expedients/1/documentacio/APORTADA/779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+
+	}
+
+	/**
+	 * Test stage 19 consultar dades document generat.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test
+	public void testStage19_ConsultarDadesDocumentGenerat() throws Exception {
+		String url = BASE_URL + "/expedients/1/documentacio/GENERADA/779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+
+	}
 }
