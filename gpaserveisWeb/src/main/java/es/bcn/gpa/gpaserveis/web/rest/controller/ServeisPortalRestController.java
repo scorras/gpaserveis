@@ -101,6 +101,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.BooleanApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.ConfiguracioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.IdiomaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.OrigenApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.RevisioApiParamValue;
@@ -111,6 +112,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.Ex
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.procediment.ProcedimentsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.consulta.atributs.DadesOperacioApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.consulta.documents.DocumentsApiParamToInternalMapper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.ConfiguracioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.AccioAbandonarApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatCiutadaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.VersioProcedimentApiParamValueTranslator;
@@ -151,6 +153,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.Respo
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.ConfiguracioDocumentacioAportadaConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.DocumentAportatConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.RespostaConsultaConfiguracioDocumentacioAportadaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.RespostaConsultaDocumentacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.ExpedientConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.RespostaConsultaExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.ProcedimentsConsultaRDTO;
@@ -931,6 +934,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			docsTramitacioRDTO.setIdioma(IdiomaApiParamValue.CATALA.getInternalValue());
 			docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 			docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
+			docsTramitacioRDTO.setOrigen(2);
 			docsTramitacioRDTO.setDocsTercers(1);
 			CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
 					dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
@@ -1143,6 +1147,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				docsTramitacioRDTO.setIdioma(IdiomaApiParamValue.CATALA.getInternalValue());
 				docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 				docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
+				docsTramitacioRDTO.setOrigen(2);
 				docsTramitacioRDTO.setDocsTercers(1);
 				CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
 						dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
@@ -1526,6 +1531,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				docsTramitacioRDTO.setIdioma(IdiomaApiParamValue.CATALA.getInternalValue());
 				docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 				docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
+				docsTramitacioRDTO.setOrigen(2);
 				docsTramitacioRDTO.setDocsTercers(1);
 				CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
 						dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
@@ -1859,6 +1865,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				docsTramitacioRDTO.setIdioma(IdiomaApiParamValue.CATALA.getInternalValue());
 				docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 				docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
+				docsTramitacioRDTO.setOrigen(2);
 				docsTramitacioRDTO.setDocsTercers(1);
 				CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
 						dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
@@ -1946,5 +1953,79 @@ public class ServeisPortalRestController extends BaseRestController {
 			log.error("descarregarDocumentSignatExpedient(String, BigDecimal)", e); //$NON-NLS-1$
 			return new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	/**
+	 * Consultar dades document.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param configuracio
+	 *            the configuracio
+	 * @param csvDocument
+	 *            the csv document
+	 * @return the resposta consulta documentacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@GetMapping("/expedients/{codiExpedient}/documentacio/{configuracio}/{csvDocument}")
+	@ApiOperation(value = "Consultar les dades del document", tags = { "Serveis Portal API" }, extensions = {
+			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	public RespostaConsultaDocumentacioRDTO consultarDadesDocument(
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Indicador per a especificar si la documentació és aportada o generada", required = true) @PathVariable String configuracio,
+			@ApiParam(value = "Codi CSV del document", required = true) @PathVariable String csvDocument)
+			throws GPAServeisServiceException {
+
+		Boolean esAportada = null;
+		DocsEntradaRDTO docsEntradaRDTO = null;
+		DocsTramitacioRDTO docsTramitacioRDTO = null;
+
+		RespostaConsultaDocumentacioRDTO respostaConsultaDocumentacioRDTO = new RespostaConsultaDocumentacioRDTO();
+
+		// Datos principales del expedient
+		DadesExpedientBDTO dadesExpedientBDTO = serveisService
+				.consultarDadesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+		// El código del expediente debe ser válido
+		if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
+			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
+		}
+
+		ConfiguracioApiParamValueTranslator configuracioApiParamValueTranslator = new ConfiguracioApiParamValueTranslator();
+		ConfiguracioApiParamValue configuracioApiParamValue = configuracioApiParamValueTranslator.getEnumByApiParamValue(configuracio);
+		switch (configuracioApiParamValue) {
+		case APORTADA:
+			esAportada = Boolean.TRUE;
+
+			break;
+		case GENERADA:
+			esAportada = Boolean.FALSE;
+
+			break;
+		default:
+			break;
+		}
+
+		if (BooleanUtils.isTrue(esAportada)) {
+			docsEntradaRDTO = serveisService.consultarDadesDocumentAportatPerCodiCSV(csvDocument);
+			if (docsEntradaRDTO == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND.getDescripcio());
+			}
+			if (!docsEntradaRDTO.getDocumentacio().equals(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext())) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_EXPEDIENT.getDescripcio());
+			}
+			respostaConsultaDocumentacioRDTO = modelMapper.map(docsEntradaRDTO, RespostaConsultaDocumentacioRDTO.class);
+
+		} else {
+			docsTramitacioRDTO = serveisService.consultarDadesDocumentGeneratPerCodiCSV(csvDocument);
+			if (docsTramitacioRDTO == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND.getDescripcio());
+			}
+			if (!docsTramitacioRDTO.getDocumentacio().equals(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext())) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_EXPEDIENT.getDescripcio());
+			}
+			respostaConsultaDocumentacioRDTO = modelMapper.map(docsTramitacioRDTO, RespostaConsultaDocumentacioRDTO.class);
+		}
+		return respostaConsultaDocumentacioRDTO;
 	}
 }

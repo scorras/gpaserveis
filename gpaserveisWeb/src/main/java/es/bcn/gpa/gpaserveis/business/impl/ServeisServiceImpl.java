@@ -903,6 +903,17 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.consultarDadesDocumentAportat(idDocument);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * consultarDadesDocumentAportatPerCodiCSV(java.lang.String)
+	 */
+	@Override
+	public DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String csvDocument) throws GPAServeisServiceException {
+		return documentsService.consultarDadesDocumentAportatPerCodiCSV(csvDocument);
+	}
+
 	/**
 	 * Consultar dades document generat.
 	 *
@@ -921,6 +932,17 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public DocsTramitacioRDTO consultarDadesDocumentGenerat(BigDecimal idDocument) throws GPAServeisServiceException {
 		return documentsService.consultarDadesDocumentGenerat(idDocument);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * consultarDadesDocumentGeneratPerCodiCSV(java.lang.String)
+	 */
+	@Override
+	public DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument) throws GPAServeisServiceException {
+		return documentsService.consultarDadesDocumentGeneratPerCodiCSV(csvDocument);
 	}
 
 	/**
@@ -1022,7 +1044,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public void redireccionarRegistre(ExpedientsRedireccionarAssentamentBDTO expedientsRedireccionarAssentamentBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		expedientsService.redireccionarRegistre(expedientsRedireccionarAssentamentBDTO);
 	}
 

@@ -939,4 +939,48 @@ public class DocumentacioApiTest extends ParentTest {
 		assertTrue(true);
 	}
 
+	/**
+	 * Returns the requested document
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void consultarDadesDocumentAportatPerCodiCSVTest() {
+		when(apiClient.invokeAPI(
+				eq("/documentacio/entrada/consultarDadesDocument/779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53"),
+				eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class),
+				any(List.class), any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
+						.thenReturn(new DocsEntradaRDTO());
+
+		String codiCSV = "779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53";
+		DocsEntradaRDTO response = api.consultarDadesDocumentAportatPerCodiCSV(codiCSV);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested document
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void consultarDadesDocumentGeneratPerCodiCSVTest() {
+		when(apiClient.invokeAPI(
+				eq("/documentacio/tramitacio/consultarDadesDocument/54ef9ee001c5af241af5bdf192cc9b71e46b8c90a7138c86db49223dd4ea38ce"),
+				eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class),
+				any(List.class), any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
+						.thenReturn(new DocsTramitacioRDTO());
+
+		String codiCSV = "54ef9ee001c5af241af5bdf192cc9b71e46b8c90a7138c86db49223dd4ea38ce";
+		DocsTramitacioRDTO response = api.consultarDadesDocumentGeneratPerCodiCSV(codiCSV);
+
+		assertTrue(response != null);
+	}
+
 }

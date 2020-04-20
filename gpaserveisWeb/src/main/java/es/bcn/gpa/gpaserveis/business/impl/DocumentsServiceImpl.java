@@ -80,6 +80,8 @@ import lombok.extern.apachecommons.CommonsLog;
 /** The Constant log. */
 
 /** The Constant log. */
+
+/** The Constant log. */
 @CommonsLog
 public class DocumentsServiceImpl implements DocumentsService {
 
@@ -895,6 +897,13 @@ public class DocumentsServiceImpl implements DocumentsService {
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#guardarXmlSollicitud(java
+	 * .lang.String, java.lang.String)
+	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackGuardarXmlSollicitud")
 	public void guardarXmlSollicitud(String idDocumentum, String xmlSollicitud) throws GPAServeisServiceException {
@@ -1284,6 +1293,55 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * consultarDadesDocumentAportatPerCodiCSV(java.lang.String)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesDocumentAportatPerCodiCSV")
+	public DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String csvDocument) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarDadesDocumentAportatPerCodiCSV(String) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.consultarDadesDocumentAportatPerCodiCSV(csvDocument);
+
+			if (log.isDebugEnabled()) {
+				log.debug("consultarDadesDocumentAportatPerCodiCSV(String) - fi"); //$NON-NLS-1$
+			}
+			return docsEntradaRDTO;
+		} catch (RestClientException e) {
+			log.error("consultarDadesDocumentAportatPerCodiCSV(String)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback consultar dades document aportat per codi CSV.
+	 *
+	 * @param csvDocument
+	 *            the csv document
+	 * @param e
+	 *            the e
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsEntradaRDTO fallbackConsultarDadesDocumentAportatPerCodiCSV(String csvDocument, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackConsultarDadesDocumentAportatPerCodiCSV(String, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
 	 * consultarDadesDocumentGenerat(java.math.BigDecimal)
 	 */
 	@Override
@@ -1321,6 +1379,55 @@ public class DocumentsServiceImpl implements DocumentsService {
 	public DocsTramitacioRDTO fallbackConsultarDadesDocumentGenerat(BigDecimal id, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackConsultarDadesDocumentGenerat(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * consultarDadesDocumentGeneratPerCodiCSV(java.lang.String)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesDocumentGeneratPerCodiCSV")
+	public DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarDadesDocumentGeneratPerCodiCSV(String) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.consultarDadesDocumentGeneratPerCodiCSV(csvDocument);
+
+			if (log.isDebugEnabled()) {
+				log.debug("consultarDadesDocumentGeneratPerCodiCSV(String) - fi"); //$NON-NLS-1$
+			}
+			return docsTramitacioRDTO;
+		} catch (RestClientException e) {
+			log.error("consultarDadesDocumentGeneratPerCodiCSV(String)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback consultar dades document generat per codi CSV.
+	 *
+	 * @param csvDocument
+	 *            the csv document
+	 * @param e
+	 *            the e
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsTramitacioRDTO fallbackConsultarDadesDocumentGeneratPerCodiCSV(String csvDocument, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackConsultarDadesDocumentGeneratPerCodiCSV(String, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
@@ -1413,6 +1520,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * Fallback descarregar document expedient signat.
 	 *
 	 * @param idUltimaSignatura
+	 *            the id ultima signatura
 	 * @param e
 	 *            the e
 	 * @return the byte[]
@@ -1810,8 +1918,8 @@ public class DocumentsServiceImpl implements DocumentsService {
 	/**
 	 * Fallback signar tablet document.
 	 *
-	 * @param signarTabletDocument
-	 *            the signar tablet document
+	 * @param signarTabletDocumentRDTO
+	 *            the signar tablet document RDTO
 	 * @param e
 	 *            the e
 	 * @return the SignarTabletDocument
@@ -1928,6 +2036,15 @@ public class DocumentsServiceImpl implements DocumentsService {
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#callbackNotificacio(es.
+	 * bcn.gpa.gpaserveis.business.dto.documents.ActualitzarNotificacioBDTO,
+	 * org.springframework.web.multipart.MultipartFile,
+	 * org.springframework.web.multipart.MultipartFile)
+	 */
 	@Override
 	// @HystrixCommand(fallbackMethod = "fallbackCallbackNotificacio")
 	public void callbackNotificacio(ActualitzarNotificacioBDTO actualitzarNotificacio, MultipartFile docEvidenciaElectronic,
@@ -1978,14 +2095,8 @@ public class DocumentsServiceImpl implements DocumentsService {
 	/**
 	 * Fallback callback notificacio.
 	 *
-	 * @param actualitzarNotificacio
-	 *            the actualitzar notificacio
-	 * @param docEvidenciaElectronic
-	 *            the doc evidencia electronic
-	 * @param docEvidenciaPaper
-	 *            the doc evidencia paper
-	 * @param e
-	 *            the e
+	 * @param idDocumentacio
+	 *            the id documentacio
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */

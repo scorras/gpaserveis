@@ -34,7 +34,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id", "tramit", "estat", "dataSollicitud", "dataPresentacio", "procediment", "unitatGestora", "expedient", "registre",
 		"sollicitant", "representant", "personesInteressades", "personesImplicades", "documentsAportats", "dadesOperacio", "comentari",
-		"hash" })
+		"hash", "codiCSV" })
 @XmlRootElement(name = "SOLLICITUD")
 @XmlType(name = "SollicitudConsulta", propOrder = { "id", "tramit", "dataSollicitud", "dataPresentacio", "procediment", "unitatGestora",
 		"expedient", "registre", "sollicitant", "representant", "personesInteressades", "personesImplicades", "documentsAportats",

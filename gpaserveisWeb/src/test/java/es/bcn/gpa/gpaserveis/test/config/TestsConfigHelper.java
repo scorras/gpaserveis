@@ -1918,4 +1918,56 @@ public class TestsConfigHelper {
 		return pageDataOfSollicitudsRDTO;
 	}
 
+	/**
+	 * Consultar dades document aportat per codi CSV response.
+	 *
+	 * @return the docs entrada RDTO
+	 */
+	public static DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSVResponse() {
+		DocsFisics docsFisics = new DocsFisics();
+		docsFisics.setNom("prova.txt");
+		ConfiguracioDocsEntrada configuracioDocsEntrada = new ConfiguracioDocsEntrada();
+		configuracioDocsEntrada.setId(ONE);
+		configuracioDocsEntrada.setNom("Nom");
+		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
+		docsEntradaRDTO.setId(ONE);
+		docsEntradaRDTO.setDocsFisics(docsFisics);
+		docsEntradaRDTO.setConfiguracioDocsEntrada(configuracioDocsEntrada);
+		docsEntradaRDTO.setConfiguracioDocsEntradaNom("Nom");
+		docsEntradaRDTO.setOrigen(INTEGER_ONE);
+		docsEntradaRDTO.setRevisio(INTEGER_ONE);
+		docsEntradaRDTO.setDataPresentacio(now());
+		docsEntradaRDTO.setDataCreacio(now());
+		docsEntradaRDTO.setDataUltimaModificacio(now());
+		docsEntradaRDTO.setDocumentacio(ONE);
+		docsEntradaRDTO.setDeclaracioResponsable(NumberUtils.INTEGER_ZERO);
+
+		return docsEntradaRDTO;
+	}
+
+	/**
+	 * Consultar dades document generat per codi CSV response.
+	 *
+	 * @return the docs tramitacio RDTO
+	 */
+	public static DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSVResponse() {
+		DocsFisics docsFisics = new DocsFisics();
+		docsFisics.setNom("prova.txt");
+		ConfiguracioDocsTramitacio configuracioDocsTramitacio = new ConfiguracioDocsTramitacio();
+		configuracioDocsTramitacio.setId(ONE);
+		configuracioDocsTramitacio.setNom("Nom");
+		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
+		docsTramitacioRDTO.setId(ONE);
+		docsTramitacioRDTO.setDocsFisics(docsFisics);
+		docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
+		docsTramitacioRDTO.setConfiguracioDocsTramitacioNom("Nom");
+		docsTramitacioRDTO.setOrigen(INTEGER_ONE);
+		docsTramitacioRDTO.setDataCreacio(now());
+		docsTramitacioRDTO.setDataDigitalitzacio(now());
+		docsTramitacioRDTO.setDataUltimaModificacio(now());
+		docsTramitacioRDTO.setDocumentacio(ONE);
+
+		return docsTramitacioRDTO;
+	}
+
 }
