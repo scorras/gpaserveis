@@ -1970,7 +1970,8 @@ public class TestsConfigHelper {
 
 		return docsTramitacioRDTO;
 	}
-	
+
+	/**
 	 * Consultar estat digitalitzacio response.
 	 *
 	 * @return the peticions digitalitzacio RDTO
