@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 
 import es.bcn.gpa.gpaserveis.business.DadesOperacioService;
 import es.bcn.gpa.gpaserveis.business.DocumentsService;
@@ -63,7 +64,9 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.EstatTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.TipusRelacioApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatTramitadorApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusRelacioApiParamValueTranslator;
 
 /**
@@ -858,7 +861,17 @@ public class ServeisServiceHelper {
 	 */
 	private static void loadDocumentsAportats(DocumentsService documentsService, TramitsService tramitsService,
 	        DadesExpedientBDTO dadesExpedientBDTO, BigDecimal documentacioIdext) throws GPAServeisServiceException {
-		List<DocsEntradaRDTO> docsEntradaRDTOList = documentsService.cercaDocumentsEntradaAgrupatsPerTramitOvt(documentacioIdext);
+		EstatTramitadorApiParamValueTranslator estatTramitadorApiParamValueTranslator = new EstatTramitadorApiParamValueTranslator();
+		String estatTramitadorApiParamValueExpedient = estatTramitadorApiParamValueTranslator
+		        .getApiParamValueByInternalValue(dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+		List<DocsEntradaRDTO> docsEntradaRDTOList = null;
+		if (StringUtils.equals(estatTramitadorApiParamValueExpedient, EstatTramitadorApiParamValue.EN_PREPARACIO.getApiParamValue())) {
+			docsEntradaRDTOList = documentsService
+			        .cercaDocumentsEntradaPerSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
+		} else {
+			docsEntradaRDTOList = documentsService.cercaDocumentsEntradaAgrupatsPerTramitOvt(documentacioIdext);
+		}
+
 		dadesExpedientBDTO.setDocumentsAportats(docsEntradaRDTOList);
 
 		// Es necesario recuperar el código y la descripción de los trámites OVT
@@ -995,7 +1008,17 @@ public class ServeisServiceHelper {
 	        DadesExpedientBDTO dadesExpedientBDTO, BigDecimal idExpedient) throws GPAServeisServiceException {
 		ArrayList<DadaEspecificaBDTO> dadaEspecificaBDTOList = null;
 		DadaEspecificaBDTO dadaEspecificaBDTO = null;
-		List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = expedientsService.cercaDadesEspecifiquesExpedient(idExpedient);
+		EstatTramitadorApiParamValueTranslator estatTramitadorApiParamValueTranslator = new EstatTramitadorApiParamValueTranslator();
+		String estatTramitadorApiParamValueExpedient = estatTramitadorApiParamValueTranslator
+		        .getApiParamValueByInternalValue(dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+		List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
+		if (StringUtils.equals(estatTramitadorApiParamValueExpedient, EstatTramitadorApiParamValue.EN_PREPARACIO.getApiParamValue())) {
+			dadesEspecifiquesRDTOList = expedientsService
+			        .cercaDadesEspecifiquesSollicitud((dadesExpedientBDTO.getExpedientsRDTO().getSollicitud()));
+		} else {
+			dadesEspecifiquesRDTOList = expedientsService.cercaDadesEspecifiquesExpedient(idExpedient);
+		}
+
 		if (CollectionUtils.isNotEmpty(dadesEspecifiquesRDTOList)) {
 			dadaEspecificaBDTOList = new ArrayList<DadaEspecificaBDTO>();
 			HashMap<BigDecimal, DadesOperacions> dadesOperacionsMap = new HashMap<BigDecimal, DadesOperacions>();
