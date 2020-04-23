@@ -139,6 +139,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.crea
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.DocumentRequeritCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.ExpedientEsmenaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.RespostaEsmenarExpedientRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.registrar.ExpedientRegistrarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.registrar.RespostaRegistrarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.PaginacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.expedients.ExpedientsCercaRDTO;
@@ -835,13 +836,16 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *
 	 * @param codiExpedient
 	 *            the codi expedient
+	 * @param expedientRegistrarRDTO
+	 *            the expedient registrar RDTO
 	 * @return the resposta registrar expedient RDTO
 	 */
 	@PostMapping("/expedients/{codiExpedient}/registre")
 	@ApiOperation(value = "Registrar la sol·licitud de l'expedient", tags = { "Serveis Portal API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaRegistrarExpedientRDTO registrarSolicitudExpedient(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient) {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Dades de l'registre de l'expedient") @RequestBody ExpedientRegistrarRDTO expedientRegistrarRDTO) {
 		if (log.isDebugEnabled()) {
 			log.debug("registrarSolicitudExpedient(BigDecimal) - inici"); //$NON-NLS-1$
 		}
@@ -950,6 +954,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
 			registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
 			serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
+
+			// TODO Pendiente de guardar en nuestro modelo de datos
+			// expedientRegistrarRDTO.getSignaturaSolicitud();
 
 			// Cambiar el estado del expediente
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
