@@ -36,6 +36,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
@@ -55,7 +56,6 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.auth.Authentication;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.auth.HttpBasicAuth;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.auth.OAuth;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.exception.handler.TramitsResponseErrorHandler;
-import net.opentrends.openframe.services.rest.client.builders.RestTemplateBuilder;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-08-14T14:05:54.907+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiClient")
@@ -629,27 +629,9 @@ public class ApiClient {
 	 * @return RestTemplate
 	 */
 	protected RestTemplate buildRestTemplate() {
-		// SimpleClientHttpRequestFactory requestFactory = new
-		// SimpleClientHttpRequestFactory();
-		// requestFactory.setBufferRequestBody(false);
-		// RestTemplate restTemplate = new RestTemplate(requestFactory);
-		// restTemplate.getMessageConverters().add(new
-		// FormHttpMessageConverter());
-		// restTemplate.setErrorHandler(new TramitsResponseErrorHandler());
-		// for (HttpMessageConverter<?> converter :
-		// restTemplate.getMessageConverters()) {
-		// if (converter instanceof AbstractJackson2HttpMessageConverter) {
-		// ObjectMapper mapper = ((AbstractJackson2HttpMessageConverter)
-		// converter).getObjectMapper();
-		// SimpleModule module = new SimpleModule();
-		// module.addDeserializer(DateTime.class, new
-		// CustomDateTimeDeserializer(DateTime.class));
-		// mapper.registerModule(module);
-		// }
-		// }
-		// return restTemplate;
-		LOGGER.info("Inicializando RestTemplate con withApiConnectAuth...");
-		net.opentrends.openframe.services.rest.client.RestTemplate restTemplate = new RestTemplateBuilder().withApiConnectAuth().build();
+		SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+		requestFactory.setBufferRequestBody(false);
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
 		restTemplate.getMessageConverters().add(new FormHttpMessageConverter());
 		restTemplate.setErrorHandler(new TramitsResponseErrorHandler());
 		for (HttpMessageConverter<?> converter : restTemplate.getMessageConverters()) {
@@ -660,8 +642,6 @@ public class ApiClient {
 				mapper.registerModule(module);
 			}
 		}
-		LOGGER.info("Inicializado OK!");
-
 		return restTemplate;
 	}
 
