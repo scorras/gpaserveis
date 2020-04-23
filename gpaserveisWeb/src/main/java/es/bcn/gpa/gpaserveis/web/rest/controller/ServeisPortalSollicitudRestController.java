@@ -111,6 +111,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.cre
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.helper.SollicitudActualitzarHelper;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.helper.SollicitudCrearHelper;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.registrar.RespostaRegistrarSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.registrar.SollicitudRegistrarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.RespostaConsultaSollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.SollicitudConsultaRDTO;
 import io.swagger.annotations.Api;
@@ -856,7 +857,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	@ApiOperation(value = "Registrar la sol·licitud", tags = { "Serveis Portal API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaRegistrarSollicitudRDTO registrarSolicitud(
-	        @ApiParam(value = "Id de sollicitud", required = true) @PathVariable BigDecimal idSollicitud) {
+	        @ApiParam(value = "Id de sollicitud", required = true) @PathVariable BigDecimal idSollicitud,
+	        @ApiParam(value = "Dades de l'registre de la sol·licitud") @RequestBody SollicitudRegistrarRDTO sollicitudRegistrarRDTO) {
 		if (log.isDebugEnabled()) {
 			log.debug("registrarSolicitud(BigDecimal) - inici"); //$NON-NLS-1$
 		}
@@ -988,6 +990,9 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
 			registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
 			serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
+
+			// TODO Pendiente de guardar en nuestro modelo de datos
+			// sollicitudRegistrarRDTO.getSignaturaSolicitud();
 
 			// Cambio de estado del expediente:
 			// - APO: No hay transición

@@ -142,7 +142,8 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	@Test
 	public void testStage09_PostRegistrarSolicitud() throws Exception {
 		String url = BASE_URL + "/expedients/1/registre";
-		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(print());
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{ \"signaturaSolicitud\": \"1\" }"))
+		        .andExpect(status().isOk()).andDo(print());
 
 	}
 

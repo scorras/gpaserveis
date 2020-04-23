@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.20.2"
+  version: "1.20.4"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -691,6 +691,12 @@ paths:
         description: "Codi de l'expedient"
         required: true
         type: "string"
+      - in: "body"
+        name: "expedientRegistrarRDTO"
+        description: "Dades de l'registre de l'expedient"
+        required: false
+        schema:
+          $ref: "#/definitions/ExpedientRegistrar"
       responses:
         200:
           description: "OK"
@@ -1415,6 +1421,12 @@ paths:
         description: "Id de sollicitud"
         required: true
         type: "number"
+      - in: "body"
+        name: "sollicitudRegistrarRDTO"
+        description: "Dades de l'registre de la sol·licitud"
+        required: false
+        schema:
+          $ref: "#/definitions/SollicitudRegistrar"
       responses:
         200:
           description: "OK"
@@ -4722,6 +4734,15 @@ definitions:
         type: "string"
         description: "Comentari associat a la reactivació."
     title: "ExpedientReactivacio"
+  ExpedientRegistrar:
+    type: "object"
+    required:
+    - "signaturaSolicitud"
+    properties:
+      signaturaSolicitud:
+        type: "number"
+        description: "Identificador de la signatura de la sol·licitud"
+    title: "ExpedientRegistrar"
   ExpedientRetorn:
     type: "object"
     properties:
@@ -6338,6 +6359,15 @@ definitions:
         description: "Persona sol·licitant"
         $ref: "#/definitions/Persona"
     title: "SollicitudCrear"
+  SollicitudRegistrar:
+    type: "object"
+    required:
+    - "signaturaSolicitud"
+    properties:
+      signaturaSolicitud:
+        type: "number"
+        description: "Identificador de la signatura de la sol·licitud"
+    title: "SollicitudRegistrar"
   SollicitudsExpedient:
     type: "object"
     required:
