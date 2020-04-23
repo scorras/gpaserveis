@@ -9,7 +9,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.BaseApiParamValue;
  */
 public enum TipusSignaturaApiParamValue implements BaseApiParamValue {
 
-	/** The segell. */
+    /** The segell. */
 	SEGELL("SEGELL", new BigDecimal(1)),
 
 	/** The manuscrita. */
@@ -18,8 +18,8 @@ public enum TipusSignaturaApiParamValue implements BaseApiParamValue {
 	/** The portasignatures. */
 	PORTASIGNATURES("PORTASIGNATURES", new BigDecimal(3)),
 
-	/** The sognatura_oge. */
-	SIGNATURA_OGE("SIGNATURA_OGE", new BigDecimal(4));
+	/** The imi valid. */
+	IMI_VALID("IMI_VALID", new BigDecimal(4));
 
 	/** The api param value. */
 	private String apiParamValue;

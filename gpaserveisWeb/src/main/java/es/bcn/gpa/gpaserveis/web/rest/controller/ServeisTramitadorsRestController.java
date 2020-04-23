@@ -1823,7 +1823,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 					AccioTramitadorApiParamValue.SIGNAR_DOCUMENT, Resultat.ERROR_SIGNAR_DOCUMENT);
 
-			// TODO diferenciar los tipos de firma, para mantener comportamiento
+			// Diferenciar los tipos de firma, para mantener comportamiento
 			// anterior, si no viene tipo, se realiza la llamada a portasig
 			if (StringUtils.isBlank(dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getModalitatIdext().toString())
 					|| dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getModalitatIdext().toString()
@@ -1882,6 +1882,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					throw new GPAServeisServiceException(strMessageError.append(": ").append(signarTabletDocumentResponse.getCodiError())
 							.append(": ").append(signarTabletDocumentResponse.getDescError()).toString());
 				}
+			} else if (dataSignarDocumentRDTO.getModalitatSignatura()
+			        .equalsIgnoreCase(TipusSignaturaApiParamValue.IMI_VALID.getApiParamValue())) {
+
 			}
 
 		} catch (GPAApiParamValidationException e) {
