@@ -846,7 +846,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					dadesExpedientBDTO.getExpedientsRDTO().getId(), retornarTramitacioRDTO);
 			retornTramitacio = serveisService.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO);
 
-			if (StringUtils.isEmpty(retornTramitacio.getMissatgeError())) {
+			if (retornTramitacio != null && StringUtils.isEmpty(retornTramitacio.getMissatgeError())) {
 				// Comprobamos si existe una transicion posible para el estado
 				// actual y de ser así se cambia el estado al expediente
 				boolean canviarEstat = ServeisRestControllerValidationHelper.validateCanviarEstatExpedient(accionsEstatsRDTOList,
@@ -869,7 +869,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_RETORNAR_TRAMITACIO_EXPEDIENT, e);
 		}
 
-		if (StringUtils.isNotEmpty(retornTramitacio.getMissatgeError())) {
+		if (retornTramitacio != null && StringUtils.isNotEmpty(retornTramitacio.getMissatgeError())) {
 			ErrorDTO errorDTO = new ErrorDTO();
 			errorDTO.setCodi(Constants.ERROR_STR);
 			errorDTO.setDescripcio(retornTramitacio.getMissatgeError());

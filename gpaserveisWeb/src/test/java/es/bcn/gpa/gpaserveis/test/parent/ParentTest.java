@@ -366,7 +366,8 @@ public abstract class ParentTest {
 			when(documentacioApi.crearPeticioPortaSig(any(SignarDocument.class)))
 					.thenReturn(TestsConfigHelper.crearPeticioPortaSigResponse());
 
-			doNothing().when(expedientsApi).retornarTramitacioExpedient(any(BigDecimal.class), any(RetornarTramitacioRDTO.class));
+			when(expedientsApi.retornarTramitacioExpedient(any(BigDecimal.class), any(RetornarTramitacioRDTO.class)))
+					.thenReturn(TestsConfigHelper.obtenirRetornTramitacio());
 
 			doNothing().when(expedientsApi).convidarTramitarExpedient(any(ConvidarTramitarRDTO.class), any(BigDecimal.class));
 
@@ -399,7 +400,7 @@ public abstract class ParentTest {
 			doNothing().when(documentacioApi).callbackDigitalitzacio(any(CallbackDigitalitzacio.class));
 
 			when(documentacioApi.consultarEstatDigitalitzacio(anyString()))
-			        .thenReturn(TestsConfigHelper.consultarEstatDigitalitzacioResponse());
+					.thenReturn(TestsConfigHelper.consultarEstatDigitalitzacioResponse());
 
 			when(notificacionsApi.crearNotificacio(any(CrearNotificacio.class))).thenReturn(TestsConfigHelper.crearNotificacioResponse());
 
@@ -445,6 +446,8 @@ public abstract class ParentTest {
 
 			when(documentacioApi.consultarDadesDocumentGeneratPerCodiCSV(any(String.class)))
 					.thenReturn(TestsConfigHelper.consultarDadesDocumentGeneratPerCodiCSVResponse());
+
+			when(documentacioApi.comprovarDocumentsSignatsExpedient(any(BigDecimal.class))).thenReturn(Boolean.TRUE);
 
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$
