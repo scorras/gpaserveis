@@ -2,7 +2,6 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-
   version: "1.20.4"
   title: "API gpaexpedients"
   contact:
@@ -1200,6 +1199,8 @@ paths:
       responses:
         200:
           description: "OK"
+          schema:
+            $ref: "#/definitions/RetornTramitacio"
         201:
           description: "Created"
         401:
@@ -2759,15 +2760,27 @@ definitions:
       missatgeError:
         type: "string"
     title: "RespostaServeiDgtRDTO"
+  RetornTramitacio:
+    type: "object"
+    properties:
+      esUsuariPrincipalExpedient:
+        type: "boolean"
+        description: "Indica si l'usuari que realitza a l'acció és l'usuari principal\
+          \ de l'expedient"
+      nomDescUGConvidadas:
+        type: "string"
+        description: "Nom i descripció de les unitats gestores convidadas de l'expedient"
+      unitatsGestoresConvidadas:
+        type: "array"
+        description: "Llista de les unitats gestores convidadas de l'expedient"
+        items:
+          $ref: "#/definitions/EstatsUgConvidada"
+    title: "RetornTramitacio"
   RetornarTramitacioRDTO:
     type: "object"
     properties:
       comentari:
         $ref: "#/definitions/Comentaris"
-      llistaUGConvidadas:
-        type: "array"
-        items:
-          type: "number"
     title: "RetornarTramitacioRDTO"
   SollicitudActualitzarRegistre:
     type: "object"
@@ -2800,6 +2813,14 @@ definitions:
         type: "number"
       iniciacioNom:
         type: "string"
+      personesImplicades:
+        type: "array"
+        items:
+          $ref: "#/definitions/PersonesSollicitudRDTO"
+      personesInteressades:
+        type: "array"
+        items:
+          $ref: "#/definitions/PersonesSollicitudRDTO"
       personesSollicitudList:
         type: "array"
         items:
@@ -2834,6 +2855,14 @@ definitions:
         type: "number"
       iniciacioNom:
         type: "string"
+      personesImplicades:
+        type: "array"
+        items:
+          $ref: "#/definitions/PersonesSollicitudRDTO"
+      personesInteressades:
+        type: "array"
+        items:
+          $ref: "#/definitions/PersonesSollicitudRDTO"
       personesSollicitudList:
         type: "array"
         items:

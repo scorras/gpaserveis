@@ -60,7 +60,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornTramitacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusViesRDTO;
@@ -1081,28 +1081,6 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		ServeisServiceExceptionHandler.handleException(e);
 	}
 
-	/**
-	 * Fallback crear data xml expedient.
-	 *
-	 * @param idExpedient
-	 *            the id expedient
-	 * @param e
-	 *            the e
-	 * @return the resposta obtenir xml expedient
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	public RespostaObtenirXmlExpedient fallbackCrearDataXmlExpedient(BigDecimal idExpedient, Throwable e)
-			throws GPAServeisServiceException {
-		if (log.isDebugEnabled()) {
-			log.debug("fallbackCrearDataXmlExpedient(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
-		}
-
-		ServeisServiceExceptionHandler.handleException(e);
-
-		return null;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1159,24 +1137,25 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackRetornarTramitacioExpedient")
-	public void retornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO)
+	public RetornTramitacio retornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("retornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO) - inici"); //$NON-NLS-1$
 		}
-
 		try {
-			expedientsApi.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO.getIdExpedient(),
+			RetornTramitacio retornTramitacio = expedientsApi.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO.getIdExpedient(),
 					expedientsRetornarTramitacioBDTO.getRetornarTramitacioRDTO());
 
 			if (log.isDebugEnabled()) {
 				log.debug("retornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO) - fi"); //$NON-NLS-1$
 			}
+			return retornTramitacio;
 		} catch (RestClientException e) {
 			log.error("retornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
+
 	}
 
 	/**
@@ -1186,16 +1165,18 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 *            the expedients retornar tramitacio BDTO
 	 * @param e
 	 *            the e
+	 * @return the retorn tramitacio
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public void fallbackRetornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO, Throwable e)
-			throws GPAServeisServiceException {
+	public RetornTramitacio fallbackRetornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO,
+			Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackRetornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
+		return null;
 	}
 
 	/*

@@ -1,8 +1,5 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.tramitar.retornar;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -20,8 +17,5 @@ public class ExpedientRetornRDTO {
 
 	@ApiModelProperty(value = "Comentari associat al retorn.")
 	private String comentari;
-	
-	@ApiModelProperty(value = "llista de ug convidadas a eliminar")
-	private List<BigDecimal> llistaUGConvidadas;
 
 }

@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * ExpedientCanviarEstat
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-10T10:19:04.448+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-23T11:48:23.548+02:00")
 public class ExpedientCanviarEstat {
   @JsonProperty("codi")
   private String codi = null;

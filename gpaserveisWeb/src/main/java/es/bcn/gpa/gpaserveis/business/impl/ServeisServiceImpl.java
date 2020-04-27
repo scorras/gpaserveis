@@ -102,6 +102,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornTramitacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusViesRDTO;
@@ -1192,14 +1193,6 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.getPlantillaDocVinculada(idConfDoc, idDocVinculada);
 	}
 
-	/**
-	 * Retornar tramitacio expedient.
-	 *
-	 * @param expedientsRetornarTramitacioBDTO
-	 *            the expedients retornar tramitacio BDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1209,9 +1202,9 @@ public class ServeisServiceImpl implements ServeisService {
 	 * ExpedientsRetornarTramitacioBDTO)
 	 */
 	@Override
-	public void retornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO)
+	public RetornTramitacio retornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO)
 			throws GPAServeisServiceException {
-		expedientsService.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO);
+		return expedientsService.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO);
 	}
 
 	/**
