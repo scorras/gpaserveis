@@ -76,7 +76,6 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ObtenirPerInteroperabilitatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaAnotarOperacioComptableBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaConsultaExpedientsBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsAbandonarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsAccesBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsActualitzarBDTO;
@@ -107,52 +106,6 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCerc
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioRequeritsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotificacio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DataSignarDocument;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsAssociatsIntra;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRegistrarComunicat;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequerimentExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RegistreAssentament;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Requeriments;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocument;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocumentResponse;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.UsuariPortaSig;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AnotarOperacioComptableRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Comentaris;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownItemBDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegistreRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ObtenirPerInteroperabilitat;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornTramitacio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarTramitacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Sollicituds;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TornarEnrereRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.handler.ServeisRestControllerExceptionHandler;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerValidationHelper;
@@ -191,6 +144,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.revi
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.PaginacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.expedients.ExpedientsCercaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.expedients.RespostaCercaExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.DocumentAportatConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.ExpedientConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.RespostaConsultaExpedientsRDTO;
@@ -404,53 +358,37 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			log.debug("consultar(String) - inici"); //$NON-NLS-1$
 		}
 
-		RespostaConsultaExpedientsRDTO respostaConsultaExpedientsRDTO = null;
-		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_OBTENIR_EXPEDIENT);
-		DadesExpedientBDTO dadesExpedientBDTO = null;
-		ExpedientConsultaRDTO expedientConsultaRDTO = null;
+		RespostaConsultaExpedientsRDTO respostaConsultaExpedientsRDTO = new RespostaConsultaExpedientsRDTO();
 
-		try {
-			// Datos principales del expedient
-			dadesExpedientBDTO = serveisService
-					.consultarDadesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
-			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_VALIDAR_EXPEDIENT);
+		// Datos principales del expedient
+		DadesExpedientBDTO dadesExpedientBDTO = serveisService
+				.consultarDadesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+		// El código del expediente debe ser válido
+		if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
+			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
+		}
+		ExpedientConsultaRDTO expedientConsultaRDTO = modelMapper.map(dadesExpedientBDTO, ExpedientConsultaRDTO.class);
 
-			// consultar el expediente si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
-					AccioTramitadorApiParamValue.CONSULTAR_EXPEDIENT_DOCUMENT_FUNCIONARI, Resultat.ERROR_OBTENIR_EXPEDIENT);
-
-			expedientConsultaRDTO = modelMapper.map(dadesExpedientBDTO, ExpedientConsultaRDTO.class);
-
-			// Datos de cada tràmit OVT asociado a los documents aportats
-			HashMap<String, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO> tramitsOvtRDTOMap = null;
-			es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = null;
-			if (MapUtils.isNotEmpty(dadesExpedientBDTO.getTramitsOvtMap())) {
-				tramitsOvtRDTOMap = new HashMap<String, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO>();
-				for (Entry<BigDecimal, TramitsOvtRDTO> tramitsOvtRDTOEntry : dadesExpedientBDTO.getTramitsOvtMap().entrySet()) {
-					tramitsOvtRDTO = modelMapper.map(tramitsOvtRDTOEntry.getValue(),
-							es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
-					tramitsOvtRDTOMap.put(tramitsOvtRDTO.getCodi(), tramitsOvtRDTO);
-				}
-				if (CollectionUtils.isNotEmpty(expedientConsultaRDTO.getDocumentsAportats()) && MapUtils.isNotEmpty(tramitsOvtRDTOMap)) {
-					for (DocumentAportatConsultaRDTO documentAportatConsultaRDTO : expedientConsultaRDTO.getDocumentsAportats()) {
-						if (documentAportatConsultaRDTO.getTramit() != null) {
-							documentAportatConsultaRDTO.setTramit(tramitsOvtRDTOMap.get(documentAportatConsultaRDTO.getTramit().getCodi()));
-						}
+		// Datos de cada tràmit OVT asociado a los documents aportats
+		HashMap<String, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO> tramitsOvtRDTOMap = null;
+		es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = null;
+		if (MapUtils.isNotEmpty(dadesExpedientBDTO.getTramitsOvtMap())) {
+			tramitsOvtRDTOMap = new HashMap<String, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO>();
+			for (Entry<BigDecimal, TramitsOvtRDTO> tramitsOvtRDTOEntry : dadesExpedientBDTO.getTramitsOvtMap().entrySet()) {
+				tramitsOvtRDTO = modelMapper.map(tramitsOvtRDTOEntry.getValue(),
+						es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
+				tramitsOvtRDTOMap.put(tramitsOvtRDTO.getCodi(), tramitsOvtRDTO);
+			}
+			if (CollectionUtils.isNotEmpty(expedientConsultaRDTO.getDocumentsAportats()) && MapUtils.isNotEmpty(tramitsOvtRDTOMap)) {
+				for (DocumentAportatConsultaRDTO documentAportatConsultaRDTO : expedientConsultaRDTO.getDocumentsAportats()) {
+					if (documentAportatConsultaRDTO.getTramit() != null) {
+						documentAportatConsultaRDTO.setTramit(tramitsOvtRDTOMap.get(documentAportatConsultaRDTO.getTramit().getCodi()));
 					}
 				}
 			}
-
-		} catch (GPAApiParamValidationException e) {
-			log.error("consultar(String)", e); // $NON-NLS-1$
-			respostaResultatBDTO = new RespostaResultatBDTO(e);
-		} catch (Exception e) {
-			log.error("consultar(String)", e); // $NON-NLS-1$
-			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_OBTENIR_EXPEDIENT, e);
 		}
 
-		RespostaConsultaExpedientsBDTO respostaConsultaExpedientsBDTO = new RespostaConsultaExpedientsBDTO(
-				dadesExpedientBDTO != null ? expedientConsultaRDTO : null, respostaResultatBDTO);
-		respostaConsultaExpedientsRDTO = modelMapper.map(respostaConsultaExpedientsBDTO, RespostaConsultaExpedientsRDTO.class);
+		respostaConsultaExpedientsRDTO.setExpedient(expedientConsultaRDTO);
 
 		if (log.isDebugEnabled()) {
 			log.debug("consultar(String) - fi"); //$NON-NLS-1$
