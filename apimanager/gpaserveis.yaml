@@ -6199,8 +6199,6 @@ definitions:
     title: "SollicitudCrear"
   SollicitudRegistrar:
     type: "object"
-    required:
-    - "signaturaSolicitud"
     properties:
       signaturaSolicitud:
         type: "number"
