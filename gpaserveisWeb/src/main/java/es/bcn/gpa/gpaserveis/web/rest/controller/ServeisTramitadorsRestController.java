@@ -1884,7 +1884,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				}
 			} else if (dataSignarDocumentRDTO.getModalitatSignatura()
 			        .equalsIgnoreCase(TipusSignaturaApiParamValue.IMI_VALID.getApiParamValue())) {
-
+serveisService.signarTabletDocument
 			}
 
 		} catch (GPAApiParamValidationException e) {
