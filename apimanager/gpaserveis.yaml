@@ -4736,8 +4736,6 @@ definitions:
     title: "ExpedientReactivacio"
   ExpedientRegistrar:
     type: "object"
-    required:
-    - "signaturaSolicitud"
     properties:
       signaturaSolicitud:
         type: "number"
@@ -6361,8 +6359,6 @@ definitions:
     title: "SollicitudCrear"
   SollicitudRegistrar:
     type: "object"
-    required:
-    - "signaturaSolicitud"
     properties:
       signaturaSolicitud:
         type: "number"
