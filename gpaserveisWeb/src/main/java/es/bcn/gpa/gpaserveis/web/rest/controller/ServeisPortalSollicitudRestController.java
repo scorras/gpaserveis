@@ -824,7 +824,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaRegistrarSollicitudRDTO registrarSolicitud(
 	        @ApiParam(value = "Id de sollicitud", required = true) @PathVariable BigDecimal idSollicitud,
-	        @ApiParam(value = "Dades de l'registre de la sol·licitud") @RequestBody SollicitudRegistrarRDTO sollicitudRegistrarRDTO) {
+	        @ApiParam(value = "Dades de l'registre de la sol·licitud", required = false) @RequestBody(required = false) SollicitudRegistrarRDTO sollicitudRegistrarRDTO) {
 		if (log.isDebugEnabled()) {
 			log.debug("registrarSolicitud(BigDecimal) - inici"); //$NON-NLS-1$
 		}
