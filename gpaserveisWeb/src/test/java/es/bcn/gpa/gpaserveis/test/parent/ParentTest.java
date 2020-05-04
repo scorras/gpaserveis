@@ -291,13 +291,13 @@ public abstract class ParentTest {
 			when(accionsEstatsApi.cercaAccionsPossibles(any(BigDecimal.class)))
 					.thenReturn(TestsConfigHelper.cercaAccionsPossiblesResponse());
 
-			when(documentacioApi.cercaDocumentsEntradaAgrupatsPerTramitOvt(any(BigDecimal.class)))
+			when(documentacioApi.cercaDocumentsEntradaAgrupatsPerTramitOvt(any(BigDecimal.class), any(BigDecimal.class)))
 					.thenReturn(TestsConfigHelper.cercaDocumentsEntradaAgrupatsPerTramitOvtResponse());
 
 			when(documentacioRequeritApi.cercaConfiguracioDocumentacioEntradaRequerida(any(BigDecimal.class)))
 					.thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntradaRequeridaResponse());
 
-			when(dadesEspecifiquesApi.consultarDadesEspecifiquesExpedient(any(BigDecimal.class)))
+			when(dadesEspecifiquesApi.consultarDadesEspecifiquesExpedient(any(BigDecimal.class), any(BigDecimal.class)))
 					.thenReturn(TestsConfigHelper.consultarDadesEspecifiquesExpedientResponse());
 
 			when(unitatsGestoresApi.consultarDadesUnitatGestoraPerNom(any(String.class)))
@@ -429,10 +429,10 @@ public abstract class ParentTest {
 			when(documentacioApi.consultarDadesDocumentAportat(any(BigDecimal.class)))
 					.thenReturn(TestsConfigHelper.consultarDadesDocumentAportatsResponse());
 
-			when(documentacioApi.cercaDocumentsEntradaPerSollicitud(any(BigDecimal.class)))
+			when(documentacioApi.cercaDocumentsEntradaPerSollicitud(any(BigDecimal.class), any(BigDecimal.class)))
 					.thenReturn(TestsConfigHelper.cercaDocumentsEntradaPerSollicitudResponse());
 
-			when(dadesEspecifiquesApi.consultarDadesEspecifiquesSollicitud(any(BigDecimal.class)))
+			when(dadesEspecifiquesApi.consultarDadesEspecifiquesSollicitud(any(BigDecimal.class), any(BigDecimal.class)))
 					.thenReturn(TestsConfigHelper.consultarDadesEspecifiquesExpedientResponse());
 
 			when(sollicitudsApi.cercaSollicituds(isNull(Integer.class), isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class),
@@ -441,10 +441,10 @@ public abstract class ParentTest {
 					isNull(Integer.class), isNull(String.class), isNull(Long.class), isNull(Integer.class)))
 							.thenReturn(TestsConfigHelper.cercaSollicitudsResponse());
 
-			when(documentacioApi.consultarDadesDocumentAportatPerCodiCSV(any(String.class)))
+			when(documentacioApi.consultarDadesDocumentAportatPerCodiCSV(any(String.class), any(BigDecimal.class)))
 					.thenReturn(TestsConfigHelper.consultarDadesDocumentAportatPerCodiCSVResponse());
 
-			when(documentacioApi.consultarDadesDocumentGeneratPerCodiCSV(any(String.class)))
+			when(documentacioApi.consultarDadesDocumentGeneratPerCodiCSV(any(String.class), any(BigDecimal.class)))
 					.thenReturn(TestsConfigHelper.consultarDadesDocumentGeneratPerCodiCSVResponse());
 
 			when(documentacioApi.comprovarDocumentsSignatsExpedient(any(BigDecimal.class))).thenReturn(Boolean.TRUE);

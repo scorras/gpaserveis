@@ -92,22 +92,28 @@ public interface DocumentsService {
 	 *
 	 * @param idSollicitud
 	 *            the id sollicitud
+	 * @param visibilitat
+	 *            the visibilitat persona
 	 * @return the list
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	List<DocsEntradaRDTO> cercaDocumentsEntradaPerSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException;
+	List<DocsEntradaRDTO> cercaDocumentsEntradaPerSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat)
+			throws GPAServeisServiceException;
 
 	/**
 	 * Cerca documents entrada agrupats per tramit ovt.
 	 *
 	 * @param idDocumentacio
 	 *            the id documentacio
+	 * @param visibilitat
+	 *            the visibilitat persona
 	 * @return the list
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	List<DocsEntradaRDTO> cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal idDocumentacio) throws GPAServeisServiceException;
+	List<DocsEntradaRDTO> cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal idDocumentacio, BigDecimal visibilitat)
+			throws GPAServeisServiceException;
 
 	/**
 	 * Cerca configuracio documentacio entrada requerida.
@@ -276,11 +282,13 @@ public interface DocumentsService {
 	 *
 	 * @param csvDocument
 	 *            the csv document
+	 * @param visibilitat
+	 *            the visibilitat
 	 * @return the docs entrada RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String csvDocument) throws GPAServeisServiceException;
+	DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String csvDocument, BigDecimal visibilitat) throws GPAServeisServiceException;
 
 	/**
 	 * Consultar dades document generat.
@@ -298,11 +306,14 @@ public interface DocumentsService {
 	 *
 	 * @param csvDocument
 	 *            the csv document
+	 * @param visibilitat
+	 *            the visibilitat
 	 * @return the docs tramitacio RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument) throws GPAServeisServiceException;
+	DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument, BigDecimal visibilitat)
+			throws GPAServeisServiceException;
 
 	/**
 	 * Descarregar document expedient.
@@ -320,6 +331,7 @@ public interface DocumentsService {
 	 * Descarregar document expedient signat.
 	 *
 	 * @param idUltimaSignatura
+	 *            the id ultima signatura
 	 * @return the byte[]
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
@@ -395,8 +407,8 @@ public interface DocumentsService {
 	/**
 	 * Signar segell document.
 	 *
-	 * @param signarSegellDocument
-	 *            the signar segell document
+	 * @param signarSegellDocumentRDTO
+	 *            the signar segell document RDTO
 	 * @return the signar segell documents id
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
@@ -406,8 +418,8 @@ public interface DocumentsService {
 	/**
 	 * Signar tablet document.
 	 *
-	 * @param signarTabletDocument
-	 *            the signar tablet document
+	 * @param signarTabletDocumentRDTO
+	 *            the signar tablet document RDTO
 	 * @return the signar tablet documents id
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception

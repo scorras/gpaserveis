@@ -266,11 +266,24 @@ public interface ServeisService {
 	 *
 	 * @param idSollicitud
 	 *            the id sollicitud
+	 * @param visibilitat
+	 *            the visibilitat persona
 	 * @return the dades sollicitud BDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	DadesSollicitudBDTO consultarDadesSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException;
+	DadesSollicitudBDTO consultarDadesSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar dades sollicitud per visibilitat.
+	 *
+	 * @param idSollicitud
+	 *            the id sollicitud
+	 * @return the dades sollicitud BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DadesSollicitudBDTO consultarDadesSollicitudPerVisibilitat(BigDecimal idSollicitud) throws GPAServeisServiceException;
 
 	/**
 	 * Consultar dades basiques expedient.
@@ -295,18 +308,7 @@ public interface ServeisService {
 	DadesExpedientBDTO consultarDadesBasiquesExpedient(String codiExpedient) throws GPAServeisServiceException;
 
 	/**
-	 * Consultar dades expedient.
-	 *
-	 * @param idExpedient
-	 *            the id expedient
-	 * @return the dades expedient BDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	DadesExpedientBDTO consultarDadesExpedient(BigDecimal idExpedient) throws GPAServeisServiceException;
-
-	/**
-	 * Consultar dades expedient.
+	 * Consultar dades basiques per visibilitat expedient.
 	 *
 	 * @param codiExpedient
 	 *            the codi expedient
@@ -314,7 +316,33 @@ public interface ServeisService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	DadesExpedientBDTO consultarDadesExpedient(String codiExpedient) throws GPAServeisServiceException;
+	DadesExpedientBDTO consultarDadesBasiquesPerVisibilitatExpedient(String codiExpedient) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar dades expedient.
+	 *
+	 * @param idExpedient
+	 *            the id expedient
+	 * @param visibilitat
+	 *            the visibilitat persona
+	 * @return the dades expedient BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DadesExpedientBDTO consultarDadesExpedient(BigDecimal idExpedient, BigDecimal visibilitat) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar dades expedient.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param visibilitat
+	 *            the visibilitat persona
+	 * @return the dades expedient BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DadesExpedientBDTO consultarDadesExpedient(String codiExpedient, BigDecimal visibilitat) throws GPAServeisServiceException;
 
 	/**
 	 * Crear sollicitud expedient.
@@ -482,11 +510,13 @@ public interface ServeisService {
 	 *
 	 * @param csvDocument
 	 *            the csv document
+	 * @param visibilitat
+	 *            the visibilitat persona
 	 * @return the docs entrada RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String csvDocument) throws GPAServeisServiceException;
+	DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String csvDocument, BigDecimal visibilitat) throws GPAServeisServiceException;
 
 	/**
 	 * Consultar dades document generat.
@@ -504,11 +534,14 @@ public interface ServeisService {
 	 *
 	 * @param csvDocument
 	 *            the csv document
+	 * @param visibilitat
+	 *            the visibilitat persona
 	 * @return the docs tramitacio RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument) throws GPAServeisServiceException;
+	DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument, BigDecimal visibilitat)
+			throws GPAServeisServiceException;
 
 	/**
 	 * Descarregar document expedient.
@@ -526,7 +559,7 @@ public interface ServeisService {
 	 * Descarregar document expedient signat.
 	 *
 	 * @param idUltimaSignatura
-	 * 
+	 *            the id ultima signatura
 	 * @return the byte[]
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
@@ -694,8 +727,8 @@ public interface ServeisService {
 	/**
 	 * Signar segell document.
 	 *
-	 * @param signarSegellDocument
-	 *            the signar segell document
+	 * @param signarSegellDocumentRDTO
+	 *            the signar segell document RDTO
 	 * @return the signar segell documents id
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
@@ -705,8 +738,8 @@ public interface ServeisService {
 	/**
 	 * Signar tablet document.
 	 *
-	 * @param signarTabletDocument
-	 *            the signar tablet document
+	 * @param signarTabletlDocumentRDTO
+	 *            the signar tabletl document RDTO
 	 * @return the signar tablet documents response
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
@@ -1157,6 +1190,15 @@ public interface ServeisService {
 	 */
 	SollicitudsRDTO updateSollicitud(SollicitudsRDTO sollicitudRDTO) throws GPAServeisServiceException;
 
+	/**
+	 * Actualitzar dades sollicitud sollicituds.
+	 *
+	 * @param sollicitudsActualitzarBDTO
+	 *            the sollicituds actualitzar BDTO
+	 * @return the sollicituds RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	SollicitudsRDTO actualitzarDadesSollicitudSollicituds(SollicitudsActualitzarBDTO sollicitudsActualitzarBDTO)
 			throws GPAServeisServiceException;
 
@@ -1189,6 +1231,7 @@ public interface ServeisService {
 	 * @param xmlSolicitud
 	 *            the xml solicitud
 	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
 	 */
 	void guardarXmlSollicitud(String idDocumentum, String xmlSolicitud) throws GPAServeisServiceException;
 

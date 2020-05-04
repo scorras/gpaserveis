@@ -1,0 +1,89 @@
+package es.bcn.gpa.gpaserveis.web.rest.controller.helper;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import es.bcn.gpa.gpaserveis.business.ServeisService;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesSollicitudBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
+import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPersones;
+import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
+
+/**
+ * The Class ServeisRestControllerVisibilitatHelper.
+ */
+public class ServeisRestControllerVisibilitatHelper {
+
+	/**
+	 * Obtenir visibilitat expedient.
+	 *
+	 * @param serveisService
+	 *            the serveis service
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param expedientsIdOrgan
+	 *            the expedients id organ
+	 * @return the big decimal
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static BigDecimal obtenirVisibilitatExpedient(ServeisService serveisService, String codiExpedient, String expedientsIdOrgan)
+			throws GPAServeisServiceException, GPAApiParamValidationException {
+
+		BigDecimal visibilitat = BigDecimal.ONE;
+
+		DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesBasiquesPerVisibilitatExpedient(
+				ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+
+		// validamos que el usuario logado pertenezca al expediente
+		String relacioTerceraPersona = ServeisRestControllerValidationHelper.validateUsuariLogueadoExpedient(
+				dadesExpedientBDTO.getPersonesInteressades(), dadesExpedientBDTO.getPersonesImplicades(),
+				dadesExpedientBDTO.getExpedientsRDTO().getSollicitantPrincipal(),
+				dadesExpedientBDTO.getExpedientsRDTO().getRepresentantPrincipal(), Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
+
+		if (relacioTerceraPersona != null) {
+			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
+					.consultarDadesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
+
+			List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
+
+			ProcedimentPersones procedimentPersones = ServeisRestControllerValidationHelper.validateVisibilitatImplicado(
+					relacioTerceraPersona, null, procedimentPersonesList, Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
+
+			if (procedimentPersones != null) {
+				visibilitat = procedimentPersones.getNivellVisibilitat();
+			}
+		}
+		return visibilitat;
+	}
+
+	/**
+	 * Obtenir visibilitat sollicitud.
+	 *
+	 * @param serveisService
+	 *            the serveis service
+	 * @param idSollicitud
+	 *            the id sollicitud
+	 * @param expedientsIdOrgan
+	 *            the expedients id organ
+	 * @return the big decimal
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static BigDecimal obtenirVisibilitatSollicitud(ServeisService serveisService, BigDecimal idSollicitud, String expedientsIdOrgan)
+			throws GPAServeisServiceException, GPAApiParamValidationException {
+
+		DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitudPerVisibilitat(idSollicitud);
+
+		return obtenirVisibilitatExpedient(serveisService, dadesSollicitudBDTO.getExpedientsRDTO().getCodi(), expedientsIdOrgan);
+	}
+
+}

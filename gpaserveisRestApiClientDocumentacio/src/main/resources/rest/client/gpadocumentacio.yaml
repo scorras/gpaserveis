@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.20.1"
+  version: "1.20.3"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -803,7 +803,7 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /documentacio/entrada/consultarDadesDocument/{codiCSV}:
+  /documentacio/entrada/consultarDadesDocument/{codiCSV}/{visibilitat}:
     get:
       tags:
       - "Documentacio"
@@ -817,6 +817,11 @@ paths:
         description: "codiCSV"
         required: true
         type: "string"
+      - name: "visibilitat"
+        in: "path"
+        description: "visibilitat"
+        required: true
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -1156,7 +1161,7 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/entrada/sollicitud/{idSollicitud}:
+  /documentacio/entrada/sollicitud/{idSollicitud}/{visibilitat}:
     get:
       tags:
       - "Documentacio"
@@ -1168,6 +1173,11 @@ paths:
       - name: "idSollicitud"
         in: "path"
         description: "idSollicitud"
+        required: true
+        type: "number"
+      - name: "visibilitat"
+        in: "path"
+        description: "visibilitat"
         required: true
         type: "number"
       responses:
@@ -1323,6 +1333,34 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/estatDigitalitzacio/{idPeticio}:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Consultar l'estat d'una petició de digitalització"
+      operationId: "consultarEstatDigitalitzacio"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idPeticio"
+        in: "path"
+        description: "idPeticio"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PeticionsDigitalitzacioRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /documentacio/obrirRequeriments/{idDocumentacio}:
     post:
       tags:
@@ -1620,7 +1658,7 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/tramitacio/consultarDadesDocument/{codiCSV}:
+  /documentacio/tramitacio/consultarDadesDocument/{codiCSV}/{visibilitat}:
     get:
       tags:
       - "Documentacio"
@@ -1634,6 +1672,11 @@ paths:
         description: "codiCSV"
         required: true
         type: "string"
+      - name: "visibilitat"
+        in: "path"
+        description: "visibilitat"
+        required: true
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -1984,7 +2027,7 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/{idDocumentacio}/entrada/agrupatPerTramitOvt:
+  /documentacio/{idDocumentacio}/entrada/agrupatPerTramitOvt/{visibilitat}:
     get:
       tags:
       - "Documentacio"
@@ -1998,6 +2041,11 @@ paths:
         description: "idDocumentacio"
         required: true
         type: "number"
+      - name: "visibilitat"
+        in: "path"
+        description: "visibilitat"
+        required: true
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -2005,35 +2053,6 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/DocsEntradaRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/{idDocumentacio}/estatDigitalitzacio:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Obtenir estat de digitalització del document"
-      operationId: "estatDigitalitzacio"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idDocumentacio"
-        in: "path"
-        description: "idDocumentacio"
-        required: true
-        type: "integer"
-        format: "int64"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/EstatDigitalitzacioDocumentRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -2194,7 +2213,11 @@ definitions:
         description: "Estat del document escanejat. 2: OK, 3: KO"
       idDocScan:
         type: "string"
-        description: "Identificador d'opentext del document"
+        description: "Identificadors en Documentum dels documents digitalitzats separats\
+          \ per comes"
+      idPeticio:
+        type: "string"
+        description: "Identificador de la petició de digitalització"
       idioma:
         type: "number"
         description: "Idioma del document escanejat"
@@ -2335,6 +2358,9 @@ definitions:
           $ref: "#/definitions/ConfdocsentTramitsOvt"
       configuracioDocumentacio:
         type: "number"
+      criticitatIdext:
+        type: "integer"
+        format: "int32"
       descripcioAmpliada:
         type: "string"
       detallOrigen:
@@ -2368,6 +2394,9 @@ definitions:
         type: "string"
       uniqueId:
         type: "number"
+      visibilitatPortal:
+        type: "integer"
+        format: "int32"
     title: "ConfiguracioDocsEntrada"
   ConfiguracioDocsEntradaRDTO:
     type: "object"
@@ -2388,6 +2417,9 @@ definitions:
           $ref: "#/definitions/ConfdocsentTramitsOvt"
       configuracioDocumentacio:
         type: "number"
+      criticitatIdext:
+        type: "integer"
+        format: "int32"
       descripcioAmpliada:
         type: "string"
       detallOrigen:
@@ -2421,6 +2453,9 @@ definitions:
         type: "string"
       uniqueId:
         type: "number"
+      visibilitatPortal:
+        type: "integer"
+        format: "int32"
     title: "ConfiguracioDocsEntradaRDTO"
   ConfiguracioDocsSignatura:
     type: "object"
@@ -2460,6 +2495,9 @@ definitions:
         type: "number"
       configuracioSignatura:
         type: "number"
+      criticitatIdext:
+        type: "integer"
+        format: "int32"
       descripcio:
         type: "string"
       detallOrigen:
@@ -2498,6 +2536,9 @@ definitions:
         type: "string"
       uniqueId:
         type: "number"
+      visibilitatPortal:
+        type: "integer"
+        format: "int32"
     title: "ConfiguracioDocsTramitacio"
   ConfiguracioDocsTramitacioRDTO:
     type: "object"
@@ -2526,6 +2567,9 @@ definitions:
         type: "number"
       configuracioSignatura:
         type: "number"
+      criticitatIdext:
+        type: "integer"
+        format: "int32"
       descripcio:
         type: "string"
       detallOrigen:
@@ -2564,6 +2608,9 @@ definitions:
         type: "string"
       uniqueId:
         type: "number"
+      visibilitatPortal:
+        type: "integer"
+        format: "int32"
     title: "ConfiguracioDocsTramitacioRDTO"
   CrearNotificacio:
     type: "object"
@@ -3061,14 +3108,6 @@ definitions:
       tipusDocumentIdentitat:
         $ref: "#/definitions/TipusDocumentIdentitat"
     title: "DocumentsIdentitat"
-  EstatDigitalitzacioDocumentRDTO:
-    type: "object"
-    properties:
-      message:
-        type: "string"
-      status:
-        type: "string"
-    title: "EstatDigitalitzacioDocumentRDTO"
   Estats:
     type: "object"
     properties:
@@ -3350,6 +3389,27 @@ definitions:
       tipusViesValor:
         type: "string"
     title: "PersonesDadescontacte"
+  PeticionsDigitalitzacioRDTO:
+    type: "object"
+    properties:
+      codiError:
+        type: "string"
+      codiScan:
+        type: "string"
+      dataDigitalitzacio:
+        type: "string"
+        format: "date-time"
+      documentsCodi:
+        type: "string"
+      estatPeticio:
+        type: "number"
+      id:
+        type: "number"
+      idioma:
+        type: "number"
+      missatgeError:
+        type: "string"
+    title: "PeticionsDigitalitzacioRDTO"
   PeticionsPortasig:
     type: "object"
     properties:

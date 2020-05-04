@@ -96,4 +96,16 @@ public class Constants {
 	/** The Constant ERROR_STR. */
 	public static final String ERROR_STR = "ERROR";
 
+	/** The Constant NIVELL_VISIBILITAT_BAIXA. */
+	public static final BigDecimal NIVELL_VISIBILITAT_BAIXA = new BigDecimal(2);
+
+	/** The Constant NIVELL_VISIBILITAT_NULLA. */
+	public static final BigDecimal NIVELL_VISIBILITAT_NULLA = new BigDecimal(3);
+
+	/** The Constant NIVELL_CRITICITAT_BAIX. */
+	public static final Integer NIVELL_CRITICITAT_BAIX = NumberUtils.INTEGER_ZERO;
+
+	/** The Constant NIVELL_CRITICITAT_ALT. */
+	public static final Integer NIVELL_CRITICITAT_ALT = NumberUtils.INTEGER_ONE;
+
 }
