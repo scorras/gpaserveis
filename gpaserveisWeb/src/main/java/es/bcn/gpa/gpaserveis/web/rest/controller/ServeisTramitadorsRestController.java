@@ -106,6 +106,7 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCerc
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioRequeritsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocsTramPolitiquesSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
@@ -1790,7 +1791,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			@ApiParam(value = "Informació addicional per a la signatura", required = true) @RequestBody DataSignarDocumentRDTO dataSignarDocumentRDTO) {
 
 		if (log.isDebugEnabled()) {
-			log.debug("signarDocument(String, BigDecimal, PersonaSignarDocumentRDTO) - inici"); //$NON-NLS-1$
+			log.debug("signarDocument(String, BigDecimal, UsuariPortaSigRDTO) - inici"); //$NON-NLS-1$
 		}
 
 		RespostaSignarDocumentRDTO respostaSignarDocumentRDTO = null;
@@ -1815,7 +1816,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// TODO diferenciar los tipos de firma, para mantener comportamiento
 			// anterior, si no viene tipo, se realiza la llamada a portasig
-			if (StringUtils.isBlank(dataSignarDocumentRDTO.getModalitatSignatura()) || dataSignarDocumentRDTO.getModalitatSignatura()
+			if (StringUtils.isBlank(dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getModalitatIdext().toString())
+					|| dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getModalitatIdext().toString()
 					.equalsIgnoreCase(TipusSignaturaApiParamValue.PORTASIGNATURES.getApiParamValue())) {
 
 				// Firmar documento
@@ -1825,14 +1827,23 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				signarDocument.setUnitatGestoraIdext(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
 				DataSignarDocument dataSignarDocument = new DataSignarDocument();
 				UsuariPortaSig usuariPortaSig = new UsuariPortaSig();
-				usuariPortaSig.setMatricula(dataSignarDocumentRDTO.getPersonaSignarDocument().getMatricula());
-				usuariPortaSig.setDocumentIdentitat(dataSignarDocumentRDTO.getPersonaSignarDocument().getDocumentIdentitat());
-				usuariPortaSig.setNom(dataSignarDocumentRDTO.getPersonaSignarDocument().getNom());
+				usuariPortaSig.setMatricula(dataSignarDocumentRDTO.getUsuariPortaSig().getMatricula());
+				usuariPortaSig.setDocumentIdentitat(dataSignarDocumentRDTO.getUsuariPortaSig().getDocumentIdentitat());
+				usuariPortaSig.setNom(dataSignarDocumentRDTO.getUsuariPortaSig().getNom());
+				ConfDocsTramPolitiquesSig confDocsTramPolitiquesSigRDTO = new ConfDocsTramPolitiquesSig();
+				confDocsTramPolitiquesSigRDTO.setConfiguracioDocsTramitacio(
+						dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getConfiguracioDocsTramitacio());
+				confDocsTramPolitiquesSigRDTO.setModalitatIdext(TipusSignaturaApiParamValue.PORTASIGNATURES.getApiParamValue());
+				confDocsTramPolitiquesSigRDTO
+						.setPoliticaSignatura(dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getPoliticaSignatura());
+				confDocsTramPolitiquesSigRDTO.setId(dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getId());
+				confDocsTramPolitiquesSigRDTO.setOrdre(dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getOrdre());
+				dataSignarDocument.setConfDocsTramPolitiquesSig(confDocsTramPolitiquesSigRDTO);
 				dataSignarDocument.setUsuariPortaSig(usuariPortaSig);
 				signarDocument.setDataSignarDocument(dataSignarDocument);
 				peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
 
-			} else if (dataSignarDocumentRDTO.getModalitatSignatura()
+			} else if (dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getModalitatIdext().toString()
 					.equalsIgnoreCase(TipusSignaturaApiParamValue.SEGELL.getApiParamValue())) {
 
 				SignarSegellDocument signarSegellDocumentRDTO = new SignarSegellDocument();
@@ -1845,7 +1856,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					throw new GPAServeisServiceException(strMessageError.append(": ").append(signarSegellDocumentResponse.getCodiError())
 							.append(": ").append(signarSegellDocumentResponse.getDescError()).toString());
 				}
-			} else if (dataSignarDocumentRDTO.getModalitatSignatura()
+			} else if (dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getModalitatIdext().toString()
 					.equalsIgnoreCase(TipusSignaturaApiParamValue.MANUSCRITA.getApiParamValue())) {
 
 				SignarTabletDocument signarTabletDocumentRDTO = new SignarTabletDocument();
@@ -1865,10 +1876,10 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			}
 
 		} catch (GPAApiParamValidationException e) {
-			log.error("signarDocument(String, BigDecimal, PersonaSignarDocumentRDTO)", e); // $NON-NLS-1$
+			log.error("signarDocument(String, BigDecimal, UsuariPortaSigRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 		} catch (Exception e) {
-			log.error("signarDocument(String, BigDecimal, PersonaSignarDocumentRDTO)", e); // $NON-NLS-1$
+			log.error("signarDocument(String, BigDecimal, UsuariPortaSigRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_SIGNAR_DOCUMENT, e);
 		}
 
@@ -1888,7 +1899,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			respostaSignarDocumentRDTO = modelMapper.map(respostaSignarDocumentBDTO, RespostaSignarDocumentRDTO.class);
 		}
 		if (log.isDebugEnabled()) {
-			log.debug("signarDocument(String, BigDecimal, PersonaSignarDocumentRDTO) - fi"); //$NON-NLS-1$
+			log.debug("signarDocument(String, BigDecimal, UsuariPortaSigRDTO) - fi"); //$NON-NLS-1$
 		}
 
 		return respostaSignarDocumentRDTO;

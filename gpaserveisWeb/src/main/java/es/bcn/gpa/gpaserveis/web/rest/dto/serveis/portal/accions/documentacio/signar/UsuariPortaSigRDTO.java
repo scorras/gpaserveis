@@ -8,12 +8,12 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "PersonaSignarDocument")
+@ApiModel(value = "UsuariPortaSig")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "matricula", "documentIdentitat", "nom", "idTabletUsuari" })
 @Getter
 @Setter
-public class PersonaSignarDocumentRDTO {
+public class UsuariPortaSigRDTO {
 	@ApiModelProperty(value = "Matrícula de la persona que va a signar el document", required = true)
 	private String matricula;
 

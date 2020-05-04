@@ -26,10 +26,13 @@ import org.joda.time.DateTime;
 /**
  * DocsSignatures
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-16T13:52:12.142+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-30T19:13:23.947+02:00")
 public class DocsSignatures {
   @JsonProperty("codiPeticio")
   private String codiPeticio = null;
+
+  @JsonProperty("confDocsTramPolitiquesSig")
+  private BigDecimal confDocsTramPolitiquesSig = null;
 
   @JsonProperty("dataCaducitat")
   private DateTime dataCaducitat = null;
@@ -51,9 +54,6 @@ public class DocsSignatures {
 
   @JsonProperty("id")
   private BigDecimal id = null;
-
-  @JsonProperty("modalitatSignatura")
-  private BigDecimal modalitatSignatura = null;
 
   @JsonProperty("signat")
   private Integer signat = null;
@@ -83,6 +83,24 @@ public class DocsSignatures {
 
   public void setCodiPeticio(String codiPeticio) {
     this.codiPeticio = codiPeticio;
+  }
+
+  public DocsSignatures confDocsTramPolitiquesSig(BigDecimal confDocsTramPolitiquesSig) {
+    this.confDocsTramPolitiquesSig = confDocsTramPolitiquesSig;
+    return this;
+  }
+
+   /**
+   * Get confDocsTramPolitiquesSig
+   * @return confDocsTramPolitiquesSig
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getConfDocsTramPolitiquesSig() {
+    return confDocsTramPolitiquesSig;
+  }
+
+  public void setConfDocsTramPolitiquesSig(BigDecimal confDocsTramPolitiquesSig) {
+    this.confDocsTramPolitiquesSig = confDocsTramPolitiquesSig;
   }
 
   public DocsSignatures dataCaducitat(DateTime dataCaducitat) {
@@ -211,24 +229,6 @@ public class DocsSignatures {
     this.id = id;
   }
 
-  public DocsSignatures modalitatSignatura(BigDecimal modalitatSignatura) {
-    this.modalitatSignatura = modalitatSignatura;
-    return this;
-  }
-
-   /**
-   * Get modalitatSignatura
-   * @return modalitatSignatura
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getModalitatSignatura() {
-    return modalitatSignatura;
-  }
-
-  public void setModalitatSignatura(BigDecimal modalitatSignatura) {
-    this.modalitatSignatura = modalitatSignatura;
-  }
-
   public DocsSignatures signat(Integer signat) {
     this.signat = signat;
     return this;
@@ -312,6 +312,7 @@ public class DocsSignatures {
     }
     DocsSignatures docsSignatures = (DocsSignatures) o;
     return Objects.equals(this.codiPeticio, docsSignatures.codiPeticio) &&
+        Objects.equals(this.confDocsTramPolitiquesSig, docsSignatures.confDocsTramPolitiquesSig) &&
         Objects.equals(this.dataCaducitat, docsSignatures.dataCaducitat) &&
         Objects.equals(this.dataSignatura, docsSignatures.dataSignatura) &&
         Objects.equals(this.dataVistiplau, docsSignatures.dataVistiplau) &&
@@ -319,7 +320,6 @@ public class DocsSignatures {
         Objects.equals(this.docsFisics, docsSignatures.docsFisics) &&
         Objects.equals(this.documentTramitacio, docsSignatures.documentTramitacio) &&
         Objects.equals(this.id, docsSignatures.id) &&
-        Objects.equals(this.modalitatSignatura, docsSignatures.modalitatSignatura) &&
         Objects.equals(this.signat, docsSignatures.signat) &&
         Objects.equals(this.signatManualment, docsSignatures.signatManualment) &&
         Objects.equals(this.ticketPeticio, docsSignatures.ticketPeticio) &&
@@ -328,7 +328,7 @@ public class DocsSignatures {
 
   @Override
   public int hashCode() {
-    return Objects.hash(codiPeticio, dataCaducitat, dataSignatura, dataVistiplau, docFisicSignat, docsFisics, documentTramitacio, id, modalitatSignatura, signat, signatManualment, ticketPeticio, usuariSignaturaIdext);
+    return Objects.hash(codiPeticio, confDocsTramPolitiquesSig, dataCaducitat, dataSignatura, dataVistiplau, docFisicSignat, docsFisics, documentTramitacio, id, signat, signatManualment, ticketPeticio, usuariSignaturaIdext);
   }
 
 
@@ -338,6 +338,7 @@ public class DocsSignatures {
     sb.append("class DocsSignatures {\n");
     
     sb.append("    codiPeticio: ").append(toIndentedString(codiPeticio)).append("\n");
+    sb.append("    confDocsTramPolitiquesSig: ").append(toIndentedString(confDocsTramPolitiquesSig)).append("\n");
     sb.append("    dataCaducitat: ").append(toIndentedString(dataCaducitat)).append("\n");
     sb.append("    dataSignatura: ").append(toIndentedString(dataSignatura)).append("\n");
     sb.append("    dataVistiplau: ").append(toIndentedString(dataVistiplau)).append("\n");
@@ -345,7 +346,6 @@ public class DocsSignatures {
     sb.append("    docsFisics: ").append(toIndentedString(docsFisics)).append("\n");
     sb.append("    documentTramitacio: ").append(toIndentedString(documentTramitacio)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    modalitatSignatura: ").append(toIndentedString(modalitatSignatura)).append("\n");
     sb.append("    signat: ").append(toIndentedString(signat)).append("\n");
     sb.append("    signatManualment: ").append(toIndentedString(signatManualment)).append("\n");
     sb.append("    ticketPeticio: ").append(toIndentedString(ticketPeticio)).append("\n");

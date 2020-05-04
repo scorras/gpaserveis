@@ -24,13 +24,16 @@ import java.math.BigDecimal;
 /**
  * ConfDocsTramPolitiquesSig
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-16T13:52:12.142+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-30T19:13:23.947+02:00")
 public class ConfDocsTramPolitiquesSig {
   @JsonProperty("configuracioDocsTramitacio")
   private BigDecimal configuracioDocsTramitacio = null;
 
+  @JsonProperty("id")
+  private BigDecimal id = null;
+
   @JsonProperty("modalitatIdext")
-  private BigDecimal modalitatIdext = null;
+  private String modalitatIdext = null;
 
   @JsonProperty("ordre")
   private BigDecimal ordre = null;
@@ -44,10 +47,10 @@ public class ConfDocsTramPolitiquesSig {
   }
 
    /**
-   * Get configuracioDocsTramitacio
+   * Identificador de la configuració del document de tramitació
    * @return configuracioDocsTramitacio
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Identificador de la configuració del document de tramitació")
   public BigDecimal getConfiguracioDocsTramitacio() {
     return configuracioDocsTramitacio;
   }
@@ -56,21 +59,39 @@ public class ConfDocsTramPolitiquesSig {
     this.configuracioDocsTramitacio = configuracioDocsTramitacio;
   }
 
-  public ConfDocsTramPolitiquesSig modalitatIdext(BigDecimal modalitatIdext) {
+  public ConfDocsTramPolitiquesSig id(BigDecimal id) {
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * Identificador de la relació configuració - política - modalitat
+   * @return id
+  **/
+  @ApiModelProperty(value = "Identificador de la relació configuració - política - modalitat")
+  public BigDecimal getId() {
+    return id;
+  }
+
+  public void setId(BigDecimal id) {
+    this.id = id;
+  }
+
+  public ConfDocsTramPolitiquesSig modalitatIdext(String modalitatIdext) {
     this.modalitatIdext = modalitatIdext;
     return this;
   }
 
    /**
-   * Get modalitatIdext
+   * Nom de la modalitat de signatura
    * @return modalitatIdext
   **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getModalitatIdext() {
+  @ApiModelProperty(value = "Nom de la modalitat de signatura")
+  public String getModalitatIdext() {
     return modalitatIdext;
   }
 
-  public void setModalitatIdext(BigDecimal modalitatIdext) {
+  public void setModalitatIdext(String modalitatIdext) {
     this.modalitatIdext = modalitatIdext;
   }
 
@@ -80,10 +101,10 @@ public class ConfDocsTramPolitiquesSig {
   }
 
    /**
-   * Get ordre
+   * Posició de la política en la seqüència de signatures
    * @return ordre
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Posició de la política en la seqüència de signatures")
   public BigDecimal getOrdre() {
     return ordre;
   }
@@ -98,10 +119,10 @@ public class ConfDocsTramPolitiquesSig {
   }
 
    /**
-   * Get politicaSignatura
+   * Nom de la política de signatura
    * @return politicaSignatura
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Nom de la política de signatura")
   public String getPoliticaSignatura() {
     return politicaSignatura;
   }
@@ -121,6 +142,7 @@ public class ConfDocsTramPolitiquesSig {
     }
     ConfDocsTramPolitiquesSig confDocsTramPolitiquesSig = (ConfDocsTramPolitiquesSig) o;
     return Objects.equals(this.configuracioDocsTramitacio, confDocsTramPolitiquesSig.configuracioDocsTramitacio) &&
+        Objects.equals(this.id, confDocsTramPolitiquesSig.id) &&
         Objects.equals(this.modalitatIdext, confDocsTramPolitiquesSig.modalitatIdext) &&
         Objects.equals(this.ordre, confDocsTramPolitiquesSig.ordre) &&
         Objects.equals(this.politicaSignatura, confDocsTramPolitiquesSig.politicaSignatura);
@@ -128,7 +150,7 @@ public class ConfDocsTramPolitiquesSig {
 
   @Override
   public int hashCode() {
-    return Objects.hash(configuracioDocsTramitacio, modalitatIdext, ordre, politicaSignatura);
+    return Objects.hash(configuracioDocsTramitacio, id, modalitatIdext, ordre, politicaSignatura);
   }
 
 
@@ -138,6 +160,7 @@ public class ConfDocsTramPolitiquesSig {
     sb.append("class ConfDocsTramPolitiquesSig {\n");
     
     sb.append("    configuracioDocsTramitacio: ").append(toIndentedString(configuracioDocsTramitacio)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    modalitatIdext: ").append(toIndentedString(modalitatIdext)).append("\n");
     sb.append("    ordre: ").append(toIndentedString(ordre)).append("\n");
     sb.append("    politicaSignatura: ").append(toIndentedString(politicaSignatura)).append("\n");
