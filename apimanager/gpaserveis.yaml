@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.20.4"
+  version: "1.21.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -22,6 +22,35 @@ tags:
 - name: "Serveis Tramitadors API"
   description: "Serveis Tramitadors Rest Controller"
 paths:
+  /serveis/mds/estat_digitalitzacio/{idPeticio}:
+    get:
+      tags:
+      - "Serveis Tramitadors API"
+      - "Serveis MDS API"
+      summary: "Consultar l'estat d'una petició de digitalització"
+      operationId: "consultarEstatDigitalitzacioUsingGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "idPeticio"
+        in: "path"
+        description: "Identificador de la petició de digitalització"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaConsultaEstatDigitalitzacio"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /serveis/mds/evidencia_digitalitzacio:
     post:
       tags:
@@ -34,11 +63,11 @@ paths:
       - "application/json"
       parameters:
       - in: "body"
-        name: "respostaEvidenciaDigitalitzacioRDTO"
+        name: "respostaEvidenciaDigitalitzacioECompulsaRDTO"
         description: "Resposta del MDS a una peticion d'escaneig"
         required: true
         schema:
-          $ref: "#/definitions/RespostaEvidenciaDigitalitzacio"
+          $ref: "#/definitions/RespostaEvidenciaDigitalitzacioECompulsa"
       responses:
         200:
           description: "OK"
@@ -358,44 +387,6 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/RespostaAportarDocumentacio"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /serveis/portal/expedients/{codiExpedient}/documentacio/digitalitzar:
-    post:
-      tags:
-      - "Serveis Portal API"
-      summary: "Digitalitzar documentació a l'expedient"
-      operationId: "digitalitzarDocumentacioExpedientUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "codiExpedient"
-        in: "path"
-        description: "Codi de l'expedient"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "documentDigitalitzar"
-        description: "Dades de la creació del document"
-        required: false
-        schema:
-          $ref: "#/definitions/DocumentDigitalitzar"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaDigitalitzarDocument"
         201:
           description: "Created"
         401:
@@ -1977,44 +1968,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /serveis/tramitadors/expedients/{codiExpedient}/documentacio/aportar:
-    post:
-      tags:
-      - "Serveis Tramitadors API"
-      summary: "Aportar documentació a l'expedient"
-      operationId: "aportarDocumentacioExpedientUsingPOST_1"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "codiExpedient"
-        in: "path"
-        description: "Codi de l'expedient"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "documentacioAportar"
-        description: "Dades de la creació del document"
-        required: false
-        schema:
-          $ref: "#/definitions/DocumentacioAportar"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaAportarDocumentacio"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /serveis/tramitadors/expedients/{codiExpedient}/documentacio/declaracio/responsable:
     post:
       tags:
@@ -2340,40 +2293,6 @@ paths:
             $ref: "#/definitions/RespostaEsborrarDocument"
         201:
           description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /serveis/tramitadors/expedients/{codiExpedient}/documentacio/{idDocument}/estatDigitalitzacio:
-    get:
-      tags:
-      - "Serveis Tramitadors API"
-      summary: "Obtenir estat de digitalitzacio d'un document"
-      operationId: "obtenirEstatDigitalitzacioUsingGET"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "codiExpedient"
-        in: "path"
-        description: "Codi de l'expedient"
-        required: true
-        type: "string"
-      - name: "idDocument"
-        in: "path"
-        description: "Identificador del document"
-        required: true
-        type: "integer"
-        format: "int64"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaEstatDigitalitzacio"
         401:
           description: "Unauthorized"
         403:
@@ -3308,6 +3227,25 @@ definitions:
         type: "string"
         description: "Títol del comentari."
     title: "ComentariPerAInformacioPublica"
+  ConfDocsTramPolitiquesSig:
+    type: "object"
+    properties:
+      configuracioDocsTramitacio:
+        type: "number"
+        description: "Identificador de la configuració del document de tramitació"
+      id:
+        type: "number"
+        description: "Identificador de la relació configuració - política - modalitat"
+      modalitatIdext:
+        type: "string"
+        description: "Nom de la modalitat de signatura"
+      ordre:
+        type: "number"
+        description: "Posició de la política en la seqüència de signatures"
+      politicaSignatura:
+        type: "string"
+        description: "Nom de la política de signatura"
+    title: "ConfDocsTramPolitiquesSig"
   ConfiguracioDocumentacio:
     type: "object"
     properties:
@@ -3622,17 +3560,12 @@ definitions:
   DataSignarDocument:
     type: "object"
     properties:
-      modalitatSignatura:
-        type: "string"
-        description: "Tipus de signatura"
-        enum:
-        - "SEGELL"
-        - "MANUSCRITA"
-        - "PORTASIGNATURES"
-        - "SIGNATURA_IMI"
-      personaSignarDocument:
+      confDocsTramPolitiquesSig:
+        description: "Configuracio de modalitat i signatura"
+        $ref: "#/definitions/ConfDocsTramPolitiquesSig"
+      usuariPortaSig:
         description: "Persona que signa el document"
-        $ref: "#/definitions/PersonaSignarDocument"
+        $ref: "#/definitions/UsuariPortaSig"
     title: "DataSignarDocument"
   DeclaracioResponsablePresentacio:
     type: "object"
@@ -4031,20 +3964,6 @@ definitions:
         description: "Document"
         $ref: "#/definitions/DocumentDigitalitzat"
     title: "DocumentDigitalitzacio"
-  DocumentDigitalitzar:
-    type: "object"
-    required:
-    - "documentacio"
-    properties:
-      documentacio:
-        type: "array"
-        description: "Llista de documentació"
-        items:
-          $ref: "#/definitions/DocumentDigitalitzarCrear"
-      registrar:
-        type: "boolean"
-        description: "Indicador per registrar els documents aportats."
-    title: "DocumentDigitalitzar"
   DocumentDigitalitzarAccio:
     type: "object"
     properties:
@@ -4080,32 +3999,19 @@ definitions:
         type: "string"
         description: "Url que ens retorna el servei de digitalització"
     title: "DocumentDigitalitzarAccio"
-  DocumentDigitalitzarCrear:
-    type: "object"
-    required:
-    - "configuracioDocumentacio"
-    - "origen"
-    properties:
-      comentari:
-        type: "string"
-        description: "Comentari del document."
-      configuracioDocumentacio:
-        type: "string"
-        description: "Codi corresponent a la configuració del document definit a RPA."
-      origen:
-        type: "string"
-        description: "Origen del tipus de documentació."
-        enum:
-        - "INTERN"
-        - "EXTERN"
-    title: "DocumentDigitalitzarCrear"
   DocumentDigitalitzat:
     type: "object"
     required:
     - "configuracio"
     - "configuracioDocumentacio"
+    - "fitxer"
     - "origen"
     properties:
+      codis:
+        type: "array"
+        description: "Llista de codis del gestor documental."
+        items:
+          type: "string"
       comentari:
         type: "string"
         description: "Comentari del document."
@@ -4118,12 +4024,38 @@ definitions:
       configuracioDocumentacio:
         type: "string"
         description: "Codi corresponent a la configuració del document definit a RPA."
+      digitalitzacio:
+        description: "Dades de digitalització."
+        $ref: "#/definitions/Digitalitzacio"
+      digitalitzat:
+        type: "boolean"
+        description: "Document digitalitzat."
+      fitxer:
+        description: "Fitxer."
+        $ref: "#/definitions/Fitxer"
+      idioma:
+        type: "string"
+        description: "Idioma del document."
+        enum:
+        - "CATALA"
+        - "CASTELLA"
+        - "ALTRES"
+      numeroRegistre:
+        type: "string"
+        description: "Número de registre."
       origen:
         type: "string"
         description: "Origen del tipus de documentació."
         enum:
         - "INTERN"
         - "EXTERN"
+      revisio:
+        type: "string"
+        description: "Revisió del document."
+        enum:
+        - "CORRECTE"
+        - "INCORRECTE"
+        - "PENDENT"
     title: "DocumentDigitalitzat"
   DocumentEsborratAccio:
     type: "object"
@@ -4364,6 +4296,14 @@ definitions:
         type: "string"
         description: "Descripció de l'error"
     title: "Error"
+  EstatsUgConvidada:
+    type: "object"
+    properties:
+      estats:
+        type: "number"
+      ugConvidadaIdext:
+        type: "number"
+    title: "EstatsUgConvidada"
   ExpedientAbandonament:
     type: "object"
     properties:
@@ -4470,10 +4410,10 @@ definitions:
         items:
           $ref: "#/definitions/Persona"
       representant:
-        description: "Persona representant"
+        description: "representant"
         $ref: "#/definitions/Persona"
       sollicitant:
-        description: "Persona sol·licitant"
+        description: "sol·licitant"
         $ref: "#/definitions/Persona"
       tipusIniciacio:
         type: "string"
@@ -4641,6 +4581,16 @@ definitions:
     - "procediment"
     - "sollicitant"
     properties:
+      personesImplicades:
+        type: "array"
+        description: "Persones implicades"
+        items:
+          $ref: "#/definitions/Persona"
+      personesInteressades:
+        type: "array"
+        description: "Persones interessades"
+        items:
+          $ref: "#/definitions/Persona"
       procediment:
         description: "Procediment associat a la sol·licitud"
         $ref: "#/definitions/ProcedimentExpedientCrear"
@@ -4747,11 +4697,6 @@ definitions:
       comentari:
         type: "string"
         description: "Comentari associat al retorn."
-      llistaUGConvidadas:
-        type: "array"
-        description: "llista de ug convidadas a eliminar"
-        items:
-          type: "number"
     title: "ExpedientRetorn"
   ExpedientRevisar:
     type: "object"
@@ -4765,6 +4710,16 @@ definitions:
       numeroRegistre:
         type: "string"
         description: "Número de registre."
+      personesImplicades:
+        type: "array"
+        description: "Persones implicades"
+        items:
+          $ref: "#/definitions/Persona"
+      personesInteressades:
+        type: "array"
+        description: "Persones interessades"
+        items:
+          $ref: "#/definitions/Persona"
       procediment:
         description: "Procediment associat a la sol·licitud"
         $ref: "#/definitions/ProcedimentExpedientRevisar"
@@ -5180,6 +5135,9 @@ definitions:
         enum:
         - "FISICA"
         - "JURIDICA"
+      visibilitatOvt:
+        type: "boolean"
+        description: "Visibilitat Ovt"
     title: "Persona"
   PersonaNotificacio:
     type: "object"
@@ -5212,26 +5170,6 @@ definitions:
         - "FISICA"
         - "JURIDICA"
     title: "PersonaNotificacio"
-  PersonaSignarDocument:
-    type: "object"
-    required:
-    - "documentIdentitat"
-    - "matricula"
-    - "nom"
-    properties:
-      documentIdentitat:
-        type: "string"
-        description: "Document d'identitat de la persona que va a signar el document"
-      idTabletUsuari:
-        type: "string"
-        description: "Identificador de la tauleta on signarà l'usuari"
-      matricula:
-        type: "string"
-        description: "Matrícula de la persona que va a signar el document"
-      nom:
-        type: "string"
-        description: "Nom de la persona que va a signar el document"
-    title: "PersonaSignarDocument"
   PersonaValidarResolucioDocument:
     type: "object"
     required:
@@ -5608,9 +5546,6 @@ definitions:
       expedient:
         description: "Expedient"
         $ref: "#/definitions/ExpedientAccio"
-      resultat:
-        description: "Resultat de l'operació"
-        $ref: "#/definitions/ResultatResposta"
     title: "RespostaCertificarExpedient"
   RespostaConsultaConfiguracioDocumentacioAportada:
     type: "object"
@@ -5631,15 +5566,28 @@ definitions:
         description: "Document"
         $ref: "#/definitions/Document"
     title: "RespostaConsultaDocumentacio"
+  RespostaConsultaEstatDigitalitzacio:
+    type: "object"
+    properties:
+      codiDocuments:
+        type: "array"
+        description: "Identificadors en Documentum dels documents digitalitzats separats\
+          \ per comes"
+        items:
+          type: "string"
+      estat:
+        type: "string"
+        description: "Estat del document escanejat. 2: OK, 3: KO"
+      idPeticio:
+        type: "string"
+        description: "Identificador de la petició de digitalització"
+    title: "RespostaConsultaEstatDigitalitzacio"
   RespostaConsultaExpedients:
     type: "object"
     properties:
       expedient:
         description: "Expedient"
         $ref: "#/definitions/ExpedientConsulta"
-      resultat:
-        description: "Resultat de l'operació"
-        $ref: "#/definitions/ResultatResposta"
     title: "RespostaConsultaExpedients"
   RespostaConsultaProcediments:
     type: "object"
@@ -5650,9 +5598,6 @@ definitions:
   RespostaConsultaSollicituds:
     type: "object"
     properties:
-      resultat:
-        description: "Resultat de l'operació"
-        $ref: "#/definitions/ResultatResposta"
       sollicitud:
         description: "Sollicitud"
         $ref: "#/definitions/SollicitudConsulta"
@@ -5693,7 +5638,7 @@ definitions:
   RespostaDigitalitzarDocument:
     type: "object"
     properties:
-      documentDigitalitzarAccioRDTO:
+      document:
         description: "Document digitalizat"
         $ref: "#/definitions/DocumentDigitalitzarAccio"
       expedient:
@@ -5764,53 +5709,25 @@ definitions:
         description: "Resultat de l'operació"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaEsmenarExpedient"
-  RespostaEstatDigitalitzacio:
+  RespostaEvidenciaDigitalitzacioECompulsa:
     type: "object"
     properties:
-      estatDigitalitzacio:
-        type: "string"
-        description: "Estat de digitalitzacio"
-      expedient:
-        description: "Expedient"
-        $ref: "#/definitions/ExpedientAccio"
-      message:
-        type: "string"
-        description: "Message"
-      resultat:
-        description: "Resultat de l'operació"
-        $ref: "#/definitions/ResultatResposta"
-    title: "RespostaEstatDigitalitzacio"
-  RespostaEvidenciaDigitalitzacio:
-    type: "object"
-    properties:
-      codiError:
-        type: "string"
-        description: "Codi de l'error si el resultat es KO"
-      dataDigitalitzacio:
-        type: "string"
-        description: "Data i hora de digitalització del document si el resultat es\
-          \ OK"
-      descripcioError:
-        type: "string"
-        description: "Descripció de l'error si el resultat es KO"
-      idDocScan:
-        type: "string"
-        description: "Identificador d'opentext del document"
-      idioma:
-        type: "string"
-        description: "Idioma del document escanejat"
-        enum:
-        - "CATALA"
-        - "CASTELLA"
-        - "ALTRES"
-      resultat:
+      estatECompulsa:
         type: "string"
         description: "\"OK\" si l'escaneig s'ha realitzat correctament o \"KO\" en\
           \ cas contrari."
         enum:
         - "OK"
         - "KO"
-    title: "RespostaEvidenciaDigitalitzacio"
+      idDocumentum:
+        type: "array"
+        description: "Identificadors en documentum dels documents digitalitzats"
+        items:
+          type: "string"
+      idPeticio:
+        type: "string"
+        description: "Identificador de la petició de digitalització"
+    title: "RespostaEvidenciaDigitalitzacioECompulsa"
   RespostaIncorporarNouDocument:
     type: "object"
     properties:
@@ -6011,6 +5928,9 @@ definitions:
       resultat:
         description: "Resultat de l'operació"
         $ref: "#/definitions/ResultatResposta"
+      retornTramitacio:
+        description: "Retorn tramitació"
+        $ref: "#/definitions/RetornTramitacio"
     title: "RespostaRetornarExpedien"
   RespostaRevisarSolicitud:
     type: "object"
@@ -6174,6 +6094,25 @@ definitions:
         type: "string"
         description: "Número de registre de la notificació."
     title: "RetornNotificacio"
+  RetornTramitacio:
+    type: "object"
+    properties:
+      esUsuariPrincipalExpedient:
+        type: "boolean"
+        description: "Indica si l'usuari que realitza a l'acció és l'usuari principal\
+          \ de l'expedient"
+      missatgeError:
+        type: "string"
+        description: "Missatge d'error"
+      nomDescUGConvidadas:
+        type: "string"
+        description: "Nom i descripció de les unitats gestores convidadas de l'expedient"
+      unitatsGestoresConvidadas:
+        type: "array"
+        description: "Llista de les unitats gestores convidadas de l'expedient"
+        items:
+          $ref: "#/definitions/EstatsUgConvidada"
+    title: "RetornTramitacio"
   SollicitudAccio:
     type: "object"
     properties:
@@ -6192,6 +6131,16 @@ definitions:
         description: "Atributs"
         items:
           $ref: "#/definitions/AtributsActualitzar"
+      personesImplicades:
+        type: "array"
+        description: "Persones implicades"
+        items:
+          $ref: "#/definitions/Persona"
+      personesInteressades:
+        type: "array"
+        description: "Persones interessades"
+        items:
+          $ref: "#/definitions/Persona"
       representant:
         description: "Persona representant"
         $ref: "#/definitions/Persona"
@@ -6350,6 +6299,16 @@ definitions:
         - "APO"
         - "REQ"
         - "ALE"
+      personesImplicades:
+        type: "array"
+        description: "Persones implicades"
+        items:
+          $ref: "#/definitions/Persona"
+      personesInteressades:
+        type: "array"
+        description: "Persones interessades"
+        items:
+          $ref: "#/definitions/Persona"
       representant:
         description: "Persona representant"
         $ref: "#/definitions/Persona"
@@ -6478,6 +6437,26 @@ definitions:
         type: "string"
         description: "Codi de la Unitat Gestora"
     title: "UnitatGestoraExpedientCrear"
+  UsuariPortaSig:
+    type: "object"
+    required:
+    - "documentIdentitat"
+    - "matricula"
+    - "nom"
+    properties:
+      documentIdentitat:
+        type: "string"
+        description: "Document d'identitat de la persona que va a signar el document"
+      idTabletUsuari:
+        type: "string"
+        description: "Identificador de la tauleta on signarà l'usuari"
+      matricula:
+        type: "string"
+        description: "Matrícula de la persona que va a signar el document"
+      nom:
+        type: "string"
+        description: "Nom de la persona que va a signar el document"
+    title: "UsuariPortaSig"
   Validacions:
     type: "object"
     properties:
