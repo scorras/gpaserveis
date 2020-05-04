@@ -614,7 +614,7 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		// Datos principales de la solicitud SOL
 		DadesSollicitudBDTO dadesSollicitudBDTO = serveisService
-		        .consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
+				.consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
 
 		SollicitudConsultaRDTO sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
 
@@ -710,12 +710,22 @@ public class ServeisPortalRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateProcedimentCrearSolicitudExpedient(dadesProcedimentBDTO);
 
 			// se valida que si la relacion es de persona interesada, solo
-			// permita valores sollicitant y representant y si
-			// la relacion es de persona implicada, solo permita los valores
-			// testimoni y Altres
-			ServeisRestControllerValidationHelper.validatePersonesImplicadesInteressadesExpedient(
-					solicitudExpedient.getPersonesImplicades(), solicitudExpedient.getPersonesInteressades(),
+			// permita valores sollicitant y representant
+			ServeisRestControllerValidationHelper.validatePersonesInteressadesExpedient(solicitudExpedient.getPersonesInteressades(),
 					Resultat.ERROR_CREAR_EXPEDIENT);
+
+			// 1 - validar que la persona logueada esta dentro de los
+			// interesados
+			// 2 - validar que si hay lista de implicados, tengan
+			// relacioTerceraPersona y coincida alguna definida en el
+			// procedimiento
+			// TODO GPA-2923
+			// ServeisRestControllerValidationHelper.validateUsuariLogueadoInteressadesExpedient(solicitudExpedient.getPersonesInteressades(),
+			// solicitudExpedient.getSollicitant(),
+			// solicitudExpedient.getRepresentant(),
+			// Resultat.ERROR_CREAR_EXPEDIENT);
+			// ServeisRestControllerValidationHelper.validateTerceresPersonesProcediment(solicitudExpedient.getPersonesImplicades(),
+			// dadesProcedimentBDTO, Resultat.ERROR_CREAR_EXPEDIENT);
 
 			// El codi de la unitat gestora, opcional, debe existir y estar
 			// vigente
@@ -777,25 +787,23 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		RespostaActualitzarExpedientRDTO respostaActualitzarSolicitudsRDTO = null;
 		ExpedientsRDTO returnExpedientsRDTO = null;
+		RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACTUALITZAR_EXPEDIENT);
 		try {
 			// El codi del expediente debe existir
-			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
+			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesBasiquesPerVisibilitatExpedient(
 					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
 
 			// Si se indica alguna persona al menos debe indicarse el
 			// Solicitante
-			ServeisRestControllerValidationHelper.validateSollicitantActualitzarSolicitudExpedient(solicitudExpedient.getSollicitant(),
-					solicitudExpedient.getRepresentant());
+			// ServeisRestControllerValidationHelper.validateSollicitantActualitzarSolicitudExpedient(solicitudExpedient.getSollicitant(),
+			// solicitudExpedient.getRepresentant());
 
 			// se valida que si la relacion es de persona interesada, solo
-			// permita valores sollicitant y representant y si
-			// la relacion es de persona implicada, solo permita los valores
-			// testimoni y Altres
-			ServeisRestControllerValidationHelper.validatePersonesImplicadesInteressadesExpedient(
-					solicitudExpedient.getPersonesImplicades(), solicitudExpedient.getPersonesInteressades(),
-					Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
+			// permita valores sollicitant y representant
+			// ServeisRestControllerValidationHelper.validatePersonesInteressadesExpedient(solicitudExpedient.getPersonesInteressades(),
+			// Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
 
 			// Actualizar Solicitante / Representante / Dades d'Operació si se
 			// incluyen en los datos de la petición y si la acción es permitida
@@ -809,13 +817,22 @@ public class ServeisPortalRestController extends BaseRestController {
 			// los identificadores de los campos
 			ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
 			if (CollectionUtils.isNotEmpty(solicitudExpedient.getDadesOperacio())) {
+
 				DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(
 						dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
-				RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = serveisService.cercaDadesOperacio(dadesOperacioCercaBDTO);
+				respostaDadesOperacioCercaBDTO = serveisService.cercaDadesOperacio(dadesOperacioCercaBDTO);
+
 				dadesEspecifiquesRDTOList = ServeisRestControllerValidationHelper.validateDadesOperacioActualitzarSolicitudExpedient(
 						solicitudExpedient.getDadesOperacio(), respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList(),
-						dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getId(), true);
+						dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(), true);
 			}
+
+			// 1 - validamos que el usuario logado pertenezca al expediente
+			// 2 - validamos si es tercera persona su visibilidad
+			// TODO GPA-2923
+			// ServeisRestControllerVisibilitatHelper.validateVisibilitatTerceresPersones(serveisService,
+			// respostaDadesOperacioCercaBDTO,
+			// dadesExpedientBDTO, Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
 
 			// Se construye el modelo para la llamada a la operación de
 			// actualización
@@ -859,8 +876,8 @@ public class ServeisPortalRestController extends BaseRestController {
 	@ApiOperation(value = "Registrar la sol·licitud de l'expedient", tags = { "Serveis Portal API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaRegistrarExpedientRDTO registrarSolicitudExpedient(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Dades de l'registre de l'expedient") @RequestBody ExpedientRegistrarRDTO expedientRegistrarRDTO) {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Dades de l'registre de l'expedient") @RequestBody ExpedientRegistrarRDTO expedientRegistrarRDTO) {
 		if (log.isDebugEnabled()) {
 			log.debug("registrarSolicitudExpedient(BigDecimal) - inici"); //$NON-NLS-1$
 		}
@@ -898,7 +915,11 @@ public class ServeisPortalRestController extends BaseRestController {
 			expedientsRegistrarSollicitudBDTO = new ExpedientsRegistrarSollicitudBDTO(registreCreacioSolicitud);
 
 			respostaCrearRegistreExpedient = serveisService.crearRegistreSollicitud(expedientsRegistrarSollicitudBDTO,
-			        TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_SOLLICITUD.getInternalValue());
+					TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_SOLLICITUD.getInternalValue());
+
+			if (respostaCrearRegistreExpedient == null) {
+				throw new GPAApiParamValidationException(Resultat.ERROR_REGISTRAR_EXPEDIENT, ErrorPrincipal.ERROR_GENERIC);
+			}
 
 			// Asociar registre de la solicitud a la propia solicitud
 			SollicitudActualitzarRegistre sollicitudActualitzarRegistre = new SollicitudActualitzarRegistre();
@@ -1005,7 +1026,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			log.error("registrarSolicitudExpedient(BigDecimal)", e);
 
 			sagaRegistrarSolicitudExpedient(dadesExpedientBDTO, respostaCrearRegistreExpedient, respostaCrearJustificant,
-			        documentActualizarRegistreRDTO);
+					documentActualizarRegistreRDTO);
 
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_REGISTRAR_EXPEDIENT, e);
 		}
@@ -1023,8 +1044,8 @@ public class ServeisPortalRestController extends BaseRestController {
 	}
 
 	private void sagaRegistrarSolicitudExpedient(DadesExpedientBDTO dadesExpedientBDTO,
-	        RespostaCrearRegistreExpedient respostaCrearRegistreExpedient, DocsTramitacioRDTO respostaCrearJustificant,
-	        DocumentActualizarRegistre documentActualizarRegistreRDTO) {
+			RespostaCrearRegistreExpedient respostaCrearRegistreExpedient, DocsTramitacioRDTO respostaCrearJustificant,
+			DocumentActualizarRegistre documentActualizarRegistreRDTO) {
 
 		try {
 			if (respostaCrearRegistreExpedient != null && respostaCrearRegistreExpedient.getRegistreAssentament() != null

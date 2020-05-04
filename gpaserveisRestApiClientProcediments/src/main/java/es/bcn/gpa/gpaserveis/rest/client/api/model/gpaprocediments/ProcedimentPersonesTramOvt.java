@@ -22,50 +22,50 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 
 /**
- * ProcedimentsUgos
+ * ProcedimentPersonesTramOvt
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-28T13:42:52.767+02:00")
-public class ProcedimentsUgos {
-  @JsonProperty("procediment")
-  private BigDecimal procediment = null;
+public class ProcedimentPersonesTramOvt {
+  @JsonProperty("procedimentPersone")
+  private BigDecimal procedimentPersone = null;
 
-  @JsonProperty("ugoIdext")
-  private BigDecimal ugoIdext = null;
+  @JsonProperty("tramitOvtIdext")
+  private BigDecimal tramitOvtIdext = null;
 
-  public ProcedimentsUgos procediment(BigDecimal procediment) {
-    this.procediment = procediment;
+  public ProcedimentPersonesTramOvt procedimentPersone(BigDecimal procedimentPersone) {
+    this.procedimentPersone = procedimentPersone;
     return this;
   }
 
    /**
-   * Get procediment
-   * @return procediment
+   * Get procedimentPersone
+   * @return procedimentPersone
   **/
   @ApiModelProperty(value = "")
-  public BigDecimal getProcediment() {
-    return procediment;
+  public BigDecimal getProcedimentPersone() {
+    return procedimentPersone;
   }
 
-  public void setProcediment(BigDecimal procediment) {
-    this.procediment = procediment;
+  public void setProcedimentPersone(BigDecimal procedimentPersone) {
+    this.procedimentPersone = procedimentPersone;
   }
 
-  public ProcedimentsUgos ugoIdext(BigDecimal ugoIdext) {
-    this.ugoIdext = ugoIdext;
+  public ProcedimentPersonesTramOvt tramitOvtIdext(BigDecimal tramitOvtIdext) {
+    this.tramitOvtIdext = tramitOvtIdext;
     return this;
   }
 
    /**
-   * Get ugoIdext
-   * @return ugoIdext
+   * Get tramitOvtIdext
+   * @return tramitOvtIdext
   **/
   @ApiModelProperty(value = "")
-  public BigDecimal getUgoIdext() {
-    return ugoIdext;
+  public BigDecimal getTramitOvtIdext() {
+    return tramitOvtIdext;
   }
 
-  public void setUgoIdext(BigDecimal ugoIdext) {
-    this.ugoIdext = ugoIdext;
+  public void setTramitOvtIdext(BigDecimal tramitOvtIdext) {
+    this.tramitOvtIdext = tramitOvtIdext;
   }
 
 
@@ -77,24 +77,24 @@ public class ProcedimentsUgos {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ProcedimentsUgos procedimentsUgos = (ProcedimentsUgos) o;
-    return Objects.equals(this.procediment, procedimentsUgos.procediment) &&
-        Objects.equals(this.ugoIdext, procedimentsUgos.ugoIdext);
+    ProcedimentPersonesTramOvt procedimentPersonesTramOvt = (ProcedimentPersonesTramOvt) o;
+    return Objects.equals(this.procedimentPersone, procedimentPersonesTramOvt.procedimentPersone) &&
+        Objects.equals(this.tramitOvtIdext, procedimentPersonesTramOvt.tramitOvtIdext);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(procediment, ugoIdext);
+    return Objects.hash(procedimentPersone, tramitOvtIdext);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ProcedimentsUgos {\n");
+    sb.append("class ProcedimentPersonesTramOvt {\n");
     
-    sb.append("    procediment: ").append(toIndentedString(procediment)).append("\n");
-    sb.append("    ugoIdext: ").append(toIndentedString(ugoIdext)).append("\n");
+    sb.append("    procedimentPersone: ").append(toIndentedString(procedimentPersone)).append("\n");
+    sb.append("    tramitOvtIdext: ").append(toIndentedString(tramitOvtIdext)).append("\n");
     sb.append("}");
     return sb.toString();
   }

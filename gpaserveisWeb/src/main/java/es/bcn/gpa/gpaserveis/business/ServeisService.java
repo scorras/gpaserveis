@@ -1238,4 +1238,19 @@ public interface ServeisService {
 	 */
 	MunicipisRDTO consultarMunicipisByCodi(String codiMunicipi, String codiProvincia) throws GPAServeisServiceException;
 
+	/**
+	 * 
+	 * @param codiExpedient
+	 * @return
+	 * @throws GPAServeisServiceException
+	 */
+	DadesExpedientBDTO consultarDadesBasiquesPerVisibilitatExpedient(String codiExpedient) throws GPAServeisServiceException;
+
+	/**
+	 * 
+	 * @param idSollicitud
+	 * @return
+	 * @throws GPAServeisServiceException
+	 */
+	DadesSollicitudBDTO consultarDadesSollicitudPerVisibilitat(BigDecimal idSollicitud) throws GPAServeisServiceException;
 }

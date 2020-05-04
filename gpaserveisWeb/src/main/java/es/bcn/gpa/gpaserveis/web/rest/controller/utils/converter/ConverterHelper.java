@@ -239,6 +239,7 @@ public class ConverterHelper {
 		}
 		personesRDTO.setDocumentIndentitat(documentsIdentitatRDTO);
 		personesRDTO.setRelacio(relacioPersonaApiParamValueTranslator.getApiParamValueByInternalValue(personesSol.getRelacio()));
+		personesRDTO.setRelacioTerceraPersona(personesSol.getRelacioImplicada());
 		return personesRDTO;
 	}
 
@@ -268,12 +269,15 @@ public class ConverterHelper {
 		if (personesRDTO != null) {
 			personesSollicitud = new PersonesSollicitud();
 			personesSollicitud.setEsInteressada(BooleanApiParamValue.FALSE.getInternalValue());
-			if (relacioPersonaApiParamValue.getInternalValue().compareTo(RelacioPersonaApiParamValue.SOLLICITANT.getInternalValue()) == 0
+			if (relacioPersonaApiParamValue != null && (relacioPersonaApiParamValue.getInternalValue()
+					.compareTo(RelacioPersonaApiParamValue.SOLLICITANT.getInternalValue()) == 0
 					|| relacioPersonaApiParamValue.getInternalValue()
-							.compareTo(RelacioPersonaApiParamValue.REPRESENTANT.getInternalValue()) == 0) {
+							.compareTo(RelacioPersonaApiParamValue.REPRESENTANT.getInternalValue()) == 0)) {
 				personesSollicitud.setEsInteressada(BooleanApiParamValue.TRUE.getInternalValue());
+
+				personesSollicitud.setRelacio(relacioPersonaApiParamValue.getInternalValue());
 			}
-			personesSollicitud.setRelacio(relacioPersonaApiParamValue.getInternalValue());
+			personesSollicitud.setRelacioImplicada(personesRDTO.getRelacioTerceraPersona());
 			personesSollicitud
 					.setRelacioPrincipal(booleanApiParamValueTranslator.getInternalValueByApiParamValueAsBoolean(relacionPrincipal));
 			personesSollicitud.setVisibilitatOvt(
@@ -335,16 +339,16 @@ public class ConverterHelper {
 	 *         persones
 	 */
 	public static es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones buildPersonesNotificacioExpedient(
-	        PersonesNotificacioRDTO personesNotificacioRDTO, TipusPersonaApiParamValueTranslator tipusPersonaApiParamValueTranslator,
-	        TipusDocumentIdentitatApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
-	        TipusViaNotificacioApiParamValueTranslator tipusViaNotificacioApiParamValueTranslator) {
+			PersonesNotificacioRDTO personesNotificacioRDTO, TipusPersonaApiParamValueTranslator tipusPersonaApiParamValueTranslator,
+			TipusDocumentIdentitatApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
+			TipusViaNotificacioApiParamValueTranslator tipusViaNotificacioApiParamValueTranslator) {
 		if (personesNotificacioRDTO == null) {
 			return null;
 		}
 
 		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones persones = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones();
 		persones.setTipusPersona(
-		        tipusPersonaApiParamValueTranslator.getInternalValueByApiParamValue(personesNotificacioRDTO.getTipusPersona()));
+				tipusPersonaApiParamValueTranslator.getInternalValueByApiParamValue(personesNotificacioRDTO.getTipusPersona()));
 		StringBuffer stringBuffer = new StringBuffer();
 		if (StringUtils.isNotEmpty(personesNotificacioRDTO.getNom())) {
 			stringBuffer.append(personesNotificacioRDTO.getNom() + " ");
@@ -381,7 +385,7 @@ public class ConverterHelper {
 			personesDadescontacte.setMunicipiValor(personesNotificacioRDTO.getDadesNotificacio().getMunicipi());
 			personesDadescontacte.setProvinciaValor(personesNotificacioRDTO.getDadesNotificacio().getProvincia());
 			personesDadescontacte.setNotificacioPaper((int) tipusViaNotificacioApiParamValueTranslator
-			        .getInternalValueByApiParamValue(personesNotificacioRDTO.getDadesNotificacio().getViaNotificacio()));
+					.getInternalValueByApiParamValue(personesNotificacioRDTO.getDadesNotificacio().getViaNotificacio()));
 
 			persones.setPersonesDadescontacte(personesDadescontacte);
 		}

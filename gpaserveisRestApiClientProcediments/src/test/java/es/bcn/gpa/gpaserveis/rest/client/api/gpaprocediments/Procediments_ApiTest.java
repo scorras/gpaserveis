@@ -13,7 +13,6 @@
 
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments;
 
-import java.math.BigDecimal;
 import org.junit.Test;
 import org.junit.Ignore;
 
@@ -23,16 +22,16 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * API tests for NumeradorsApi
+ * API tests for Procediments_Api
  */
 @Ignore
-public class NumeradorsApiTest {
+public class Procediments_ApiTest {
 
-    private final NumeradorsApi api = new NumeradorsApi();
+    private final Procediments_Api api = new Procediments_Api();
 
     
     /**
-     * Returns the next val of the procediment sequence
+     * DesbloquejarTotsElsProcedimentsUsuari
      *
      * 
      *
@@ -40,9 +39,8 @@ public class NumeradorsApiTest {
      *          if the Api call fails
      */
     @Test
-    public void getSequenceNextValExpUsingGETTest() {
-        BigDecimal idProcediment = null;
-        String response = api.getSequenceNextValExpUsingGET(idProcediment);
+    public void desbloquejarTotsElsProcedimentsUsuariTest() {
+        api.desbloquejarTotsElsProcedimentsUsuari();
 
         // TODO: test validations
     }

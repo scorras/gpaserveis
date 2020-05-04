@@ -155,6 +155,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDT
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.handler.ServeisRestControllerExceptionHandler;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerValidationHelper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerVisibilitatHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
@@ -2937,11 +2938,20 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateProcedimentCrearSolicitudExpedient(dadesProcedimentBDTO);
 
 			// se valida que si la relacion es de persona interesada, solo
-			// permita valores sollicitant y representant y si
-			// la relacion es de persona implicada, solo permita los valores
-			// testimoni y Altres
-			ServeisRestControllerValidationHelper.validatePersonesImplicadesInteressadesExpedient(expedientRevisar.getPersonesImplicades(),
-					expedientRevisar.getPersonesInteressades(), Resultat.ERROR_REVISAR_EXPEDIENT);
+			// permita valores sollicitant y representant
+			ServeisRestControllerValidationHelper.validatePersonesInteressadesExpedient(expedientRevisar.getPersonesInteressades(),
+					Resultat.ERROR_REVISAR_EXPEDIENT);
+
+			// 1 - validar que la persona logueada esta dentro de los
+			// interesados
+			// 2 - validar que si hay lista de implicados, tengan
+			// relacioTerceraPersona y coincida alguna definida en el
+			// procedimiento
+			// TODO GPA-2923
+			ServeisRestControllerValidationHelper.validateUsuariLogueadoInteressadesExpedient(expedientRevisar.getPersonesInteressades(),
+					expedientRevisar.getSollicitant(), expedientRevisar.getRepresentant(), Resultat.ERROR_REVISAR_EXPEDIENT);
+			ServeisRestControllerValidationHelper.validateTerceresPersonesProcediment(expedientRevisar.getPersonesImplicades(),
+					dadesProcedimentBDTO, Resultat.ERROR_REVISAR_EXPEDIENT);
 
 			// El codi de la unitat gestora, opcional, debe existir y estar
 			// vigente
@@ -3091,10 +3101,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 		RespostaActualitzarExpedientRDTO respostaActualitzarSolicitudsRDTO = null;
 		ExpedientsRDTO returnExpedientsRDTO = null;
+		String relacioTerceraPersona = null;
+		RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACTUALITZAR_EXPEDIENT);
 		try {
 			// El codi del expediente debe existir
-			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
+			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesBasiquesPerVisibilitatExpedient(
 					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
 
@@ -3104,11 +3116,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					solicitudExpedient.getRepresentant());
 
 			// se valida que si la relacion es de persona interesada, solo
-			// permita valores sollicitant y representant y si
-			// la relacion es de persona implicada, solo permita los valores
-			// testimoni y Altres
-			ServeisRestControllerValidationHelper.validatePersonesImplicadesInteressadesExpedient(
-					solicitudExpedient.getPersonesImplicades(), solicitudExpedient.getPersonesInteressades(),
+			// permita valores sollicitant y representant
+			ServeisRestControllerValidationHelper.validatePersonesInteressadesExpedient(solicitudExpedient.getPersonesInteressades(),
 					Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
 
 			// Actualizar Solicitante / Representante / Dades d'Operació si se
@@ -3125,11 +3134,17 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			if (CollectionUtils.isNotEmpty(solicitudExpedient.getDadesOperacio())) {
 				DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(
 						dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
-				RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = serveisService.cercaDadesOperacio(dadesOperacioCercaBDTO);
+				respostaDadesOperacioCercaBDTO = serveisService.cercaDadesOperacio(dadesOperacioCercaBDTO);
 				dadesEspecifiquesRDTOList = ServeisRestControllerValidationHelper.validateDadesOperacioActualitzarSolicitudExpedient(
 						solicitudExpedient.getDadesOperacio(), respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList(),
 						dadesExpedientBDTO.getExpedientsRDTO().getId(), null, false);
 			}
+
+			// 1 - validamos que el usuario logado pertenezca al expediente
+			// 2 - validamos si es tercera persona su visibilidad
+			// TODO GPA-2923
+			ServeisRestControllerVisibilitatHelper.validateVisibilitatTerceresPersones(serveisService, respostaDadesOperacioCercaBDTO,
+					dadesExpedientBDTO, Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
 
 			// Se construye el modelo para la llamada a la operación de
 			// actualización

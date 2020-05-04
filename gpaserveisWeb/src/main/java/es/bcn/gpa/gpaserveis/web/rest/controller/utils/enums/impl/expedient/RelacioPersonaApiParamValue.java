@@ -9,17 +9,11 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.BaseApiParamValue;
  */
 public enum RelacioPersonaApiParamValue implements BaseApiParamValue {
 
-    /** The sollicitant. */
+	/** The sollicitant. */
 	SOLLICITANT("SOLLICITANT", new BigDecimal(1)),
 
 	/** The representant. */
-	REPRESENTANT("REPRESENTANT", new BigDecimal(2)),
-
-	/** The testimoni. */
-	TESTIMONI("TESTIMONI", new BigDecimal(3)),
-
-	/** The altres. */
-	ALTRES("ALTRES", new BigDecimal(4));
+	REPRESENTANT("REPRESENTANT", new BigDecimal(2));
 
 	/** The api param value. */
 	private String apiParamValue;
