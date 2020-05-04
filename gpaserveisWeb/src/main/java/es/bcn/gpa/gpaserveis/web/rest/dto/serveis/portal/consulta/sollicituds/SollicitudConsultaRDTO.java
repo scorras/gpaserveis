@@ -33,11 +33,12 @@ import lombok.Setter;
 @ApiModel(value = "SollicitudConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id", "tramit", "estat", "dataSollicitud", "dataPresentacio", "procediment", "unitatGestora", "expedient", "registre",
-        "sollicitant", "representant", "personesInteressades", "personesImplicades", "documentsAportats", "dadesOperacio", "comentari", "hash"})
+		"sollicitant", "representant", "personesInteressades", "personesImplicades", "documentsAportats", "dadesOperacio", "comentari",
+		"hash", "codiCSV" })
 @XmlRootElement(name = "SOLLICITUD")
 @XmlType(name = "SollicitudConsulta", propOrder = { "id", "tramit", "dataSollicitud", "dataPresentacio", "procediment", "unitatGestora",
-        "expedient", "registre", "sollicitant", "representant", "personesInteressades", "personesImplicades", "documentsAportats",
-        "dadesOperacio", "comentari", "hash" })
+		"expedient", "registre", "sollicitant", "representant", "personesInteressades", "personesImplicades", "documentsAportats",
+		"dadesOperacio", "comentari", "hash", "codiCSV" })
 @XmlAccessorType(XmlAccessType.NONE)
 @Getter
 @Setter
@@ -99,6 +100,9 @@ public class SollicitudConsultaRDTO {
 	@ApiModelProperty(value = "Hash del xml associat a la sol·licitud")
 	@XmlElement(name = "HASH", required = false, type = String.class)
 	private String hash;
+	@ApiModelProperty(value = "Codi CSV del document")
+	@XmlElement(name = "CODI_CSV", required = false, type = String.class)
+	private String codiCSV;
 	@ApiModelProperty(value = "Estat de la sol·licitud")
 	@XmlTransient
 	private String estat;

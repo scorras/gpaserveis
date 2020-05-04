@@ -249,19 +249,49 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 
 	}
 
+	// TODO Pendiente de ser modificado para que se pueda digitalizar desde Open
+	// Text
+	// @Test
+	// public void testStage17_PostDigitalitzarDocumentacioExpedient() throws
+	// Exception {
+	// String url = BASE_URL + "/expedients/1/documentacio/digitalitzar";
+	// getMockMvc()
+	// .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+	// "{ \"documentacio\": [ { \"configuracioDocumentacio\": \"42\",\t
+	// \"origen\": \"EXTERN\",\t \"comentari\": \"Document aportat des de portal
+	// de tramitació\",\t \"idioma\": \"CATALA\", \"fitxer\": {\t \"nom\":
+	// \"DNI.pdf\", \"format\": \"PDF\" } },\t{ \"configuracioDocumentacio\":
+	// \"43\",\t \"origen\": \"INTERN\",\t \"comentari\": \"Document aportat des
+	// de portal de tramitació\",\t \"idioma\": \"CASTELLA\", \"fitxer\": {\t
+	// \"nom\": \"DNI.pdf\", \"format\": \"PDF\" } } ], \"registrar\": true}"))
+	// .andExpect(status().isOk()).andDo(print());
+	//
+	// }
+
 	/**
-	 * Test stage 17 post digitalitzar documentacio expedient.
+	 * Test stage 18 consultar dades document aportat.
 	 *
 	 * @throws Exception
 	 *             the exception
 	 */
 	@Test
-	public void testStage17_PostDigitalitzarDocumentacioExpedient() throws Exception {
-		String url = BASE_URL + "/expedients/1/documentacio/digitalitzar";
-		getMockMvc()
-		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-		                "{ \"documentacio\": [ { \"configuracioDocumentacio\": \"42\",\t \"origen\": \"EXTERN\",\t \"comentari\": \"Document aportat des de portal de tramitació\",\t \"idioma\": \"CATALA\", \"fitxer\": {\t \"nom\": \"DNI.pdf\", \"format\": \"PDF\" } },\t{ \"configuracioDocumentacio\": \"43\",\t \"origen\": \"INTERN\",\t \"comentari\": \"Document aportat des de portal de tramitació\",\t \"idioma\": \"CASTELLA\", \"fitxer\": {\t \"nom\": \"DNI.pdf\", \"format\": \"PDF\" } } ], \"registrar\": true}"))
-		        .andExpect(status().isOk()).andDo(print());
+	public void testStage18_ConsultarDadesDocumentAportat() throws Exception {
+		String url = BASE_URL + "/expedients/1/documentacio/APORTADA/779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 
 	}
+
+	/**
+	 * Test stage 19 consultar dades document generat.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test
+	public void testStage19_ConsultarDadesDocumentGenerat() throws Exception {
+		String url = BASE_URL + "/expedients/1/documentacio/GENERADA/779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+
+	}
+	
 }

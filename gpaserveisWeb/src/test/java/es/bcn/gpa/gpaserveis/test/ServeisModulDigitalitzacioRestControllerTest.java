@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.test;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -32,9 +33,16 @@ public class ServeisModulDigitalitzacioRestControllerTest extends RestServerPare
 	public void testStage01_PostRespostaNotificacioEscaneig() throws Exception {
 		String url = String.format("%s/%s", BASE_URL, "evidencia_digitalitzacio");
 		getMockMvc()
-				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-						"{ \"idDocScan\": \"ES_LO1080193_2019_000000000000000000000000018588\", \"resultat\": \"OK\", \"dataDigitalitzacio\": \"2019-06-06T17:25:00.123Z\", \"idioma\": \"CATALA\"}"))
-				.andExpect(status().isOk()).andDo(print());
+		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+		                "{ \"idDocumentum\": [\"0907a13480249616\",\"0907a13480249617\"], \"idPeticio\": \"1\", \"estatECompulsa\": \"OK\" }"))
+		        .andExpect(status().isOk()).andDo(print());
+
+	}
+
+	@Test
+	public void testStage02_GetconsultarEstatDigitalitzacio() throws Exception {
+		String url = String.format("%s/%s", BASE_URL, "/estat_digitalitzacio/1");
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 
 	}
 

@@ -17,6 +17,10 @@ public class SollicitudCrearHelper {
 
 	private List<PersonesRDTO> personesSollicitud;
 
+	private List<PersonesRDTO> personesInteressades;
+
+	private List<PersonesRDTO> personesImplicades;
+
 	private BigDecimal idTramitsOvt;
 
 	private BigDecimal idExpedient;
@@ -27,11 +31,19 @@ public class SollicitudCrearHelper {
 		this.idTramitsOvt = idTramitOvt;
 		this.sollicitudCrearRDTO = sollicitudCrearRDTO;
 		this.personesSollicitud = new ArrayList<>();
+		this.personesInteressades = new ArrayList<>();
+		this.personesImplicades = new ArrayList<>();
 		this.personesSollicitud.add(sollicitudCrearRDTO.getSollicitant());
+
 		if (sollicitudCrearRDTO.getRepresentant() != null) {
 			this.personesSollicitud.add(sollicitudCrearRDTO.getRepresentant());
 		}
-
+		if (sollicitudCrearRDTO.getPersonesImplicades() != null) {
+			this.personesImplicades.addAll(sollicitudCrearRDTO.getPersonesImplicades());
+		}
+		if (sollicitudCrearRDTO.getPersonesInteressades() != null) {
+			this.personesInteressades.addAll(sollicitudCrearRDTO.getPersonesInteressades());
+		}
 	}
 
 }

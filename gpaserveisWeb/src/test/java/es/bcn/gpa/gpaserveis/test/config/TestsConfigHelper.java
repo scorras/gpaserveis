@@ -29,6 +29,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitaci
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsDigitalitzacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
@@ -47,6 +48,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollici
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentament;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornTramitacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Sollicituds;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat;
@@ -1055,6 +1057,7 @@ public class TestsConfigHelper {
 	 * @return the list
 	 */
 	public static List<AccionsEstatsRDTO> cercaAccionsPossiblesResponse() {
+
 		ArrayList<AccionsEstatsRDTO> accionsEstatsRDTOList = new ArrayList<AccionsEstatsRDTO>();
 
 		AccionsEstatsRDTO accionsEstatsRDTO1 = new AccionsEstatsRDTO();
@@ -1242,6 +1245,12 @@ public class TestsConfigHelper {
 		accionsEstatsRDTO31.setNomAccio("Obtenir un document per intraoperabilitat");
 		accionsEstatsRDTO31.setAccio(new BigDecimal(33));
 		accionsEstatsRDTOList.add(accionsEstatsRDTO31);
+
+		AccionsEstatsRDTO accionsEstatsRDTO32 = new AccionsEstatsRDTO();
+		accionsEstatsRDTO32.setId(ONE);
+		accionsEstatsRDTO32.setNomAccio("Presentar recurs");
+		accionsEstatsRDTO32.setAccio(new BigDecimal(6));
+		accionsEstatsRDTOList.add(accionsEstatsRDTO32);
 
 		return accionsEstatsRDTOList;
 	}
@@ -1916,6 +1925,83 @@ public class TestsConfigHelper {
 		pageDataOfSollicitudsRDTO.setSortInfo(sortInfo);
 
 		return pageDataOfSollicitudsRDTO;
+	}
+
+	/**
+	 * Consultar dades document aportat per codi CSV response.
+	 *
+	 * @return the docs entrada RDTO
+	 */
+	public static DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSVResponse() {
+		DocsFisics docsFisics = new DocsFisics();
+		docsFisics.setNom("prova.txt");
+		ConfiguracioDocsEntrada configuracioDocsEntrada = new ConfiguracioDocsEntrada();
+		configuracioDocsEntrada.setId(ONE);
+		configuracioDocsEntrada.setNom("Nom");
+		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
+		docsEntradaRDTO.setId(ONE);
+		docsEntradaRDTO.setDocsFisics(docsFisics);
+		docsEntradaRDTO.setConfiguracioDocsEntrada(configuracioDocsEntrada);
+		docsEntradaRDTO.setConfiguracioDocsEntradaNom("Nom");
+		docsEntradaRDTO.setOrigen(INTEGER_ONE);
+		docsEntradaRDTO.setRevisio(INTEGER_ONE);
+		docsEntradaRDTO.setDataPresentacio(now());
+		docsEntradaRDTO.setDataCreacio(now());
+		docsEntradaRDTO.setDataUltimaModificacio(now());
+		docsEntradaRDTO.setDocumentacio(ONE);
+		docsEntradaRDTO.setDeclaracioResponsable(NumberUtils.INTEGER_ZERO);
+
+		return docsEntradaRDTO;
+	}
+
+	/**
+	 * Consultar dades document generat per codi CSV response.
+	 *
+	 * @return the docs tramitacio RDTO
+	 */
+	public static DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSVResponse() {
+		DocsFisics docsFisics = new DocsFisics();
+		docsFisics.setNom("prova.txt");
+		ConfiguracioDocsTramitacio configuracioDocsTramitacio = new ConfiguracioDocsTramitacio();
+		configuracioDocsTramitacio.setId(ONE);
+		configuracioDocsTramitacio.setNom("Nom");
+		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
+		docsTramitacioRDTO.setId(ONE);
+		docsTramitacioRDTO.setDocsFisics(docsFisics);
+		docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
+		docsTramitacioRDTO.setConfiguracioDocsTramitacioNom("Nom");
+		docsTramitacioRDTO.setOrigen(INTEGER_ONE);
+		docsTramitacioRDTO.setDataCreacio(now());
+		docsTramitacioRDTO.setDataDigitalitzacio(now());
+		docsTramitacioRDTO.setDataUltimaModificacio(now());
+		docsTramitacioRDTO.setDocumentacio(ONE);
+
+		return docsTramitacioRDTO;
+	}
+
+	/**
+	 * Consultar estat digitalitzacio response.
+	 *
+	 * @return the peticions digitalitzacio RDTO
+	 */
+	public static PeticionsDigitalitzacioRDTO consultarEstatDigitalitzacioResponse() {
+		PeticionsDigitalitzacioRDTO peticionsDigitalitzacioRDTO = new PeticionsDigitalitzacioRDTO();
+		peticionsDigitalitzacioRDTO.setCodiScan(ONE.toString());
+		peticionsDigitalitzacioRDTO.setDocumentsCodi("0907a13480249616,0907a13480249617");
+		peticionsDigitalitzacioRDTO.setEstatPeticio(new BigDecimal(2));
+		return peticionsDigitalitzacioRDTO;
+	}
+
+	/**
+	 * Obtenir retorn tramitacio.
+	 *
+	 * @return the retorn tramitacio
+	 */
+	public static RetornTramitacio obtenirRetornTramitacio() {
+		RetornTramitacio retornTramitacio = new RetornTramitacio();
+		retornTramitacio.setEsUsuariPrincipalExpedient(TRUE);
+		return retornTramitacio;
+
 	}
 
 }

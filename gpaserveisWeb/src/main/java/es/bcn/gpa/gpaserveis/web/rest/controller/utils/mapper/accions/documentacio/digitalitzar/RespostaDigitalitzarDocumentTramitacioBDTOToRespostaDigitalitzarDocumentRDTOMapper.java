@@ -14,7 +14,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentac
 
 @Component("respostaDigitalitzarDocumentTramitacioBDTOToRespostaDigitalitzarDocumentRDTOMapper")
 public class RespostaDigitalitzarDocumentTramitacioBDTOToRespostaDigitalitzarDocumentRDTOMapper
-		extends PropertyMap<RespostaDigitalitzarDocumentTramitacioBDTO, RespostaDigitalitzarDocumentRDTO> {
+        extends PropertyMap<RespostaDigitalitzarDocumentTramitacioBDTO, RespostaDigitalitzarDocumentRDTO> {
 
 	private InternalToExpedientAccioConverter internalToExpedientAccioConverter;
 
@@ -26,10 +26,10 @@ public class RespostaDigitalitzarDocumentTramitacioBDTOToRespostaDigitalitzarDoc
 
 	@Autowired
 	public RespostaDigitalitzarDocumentTramitacioBDTOToRespostaDigitalitzarDocumentRDTOMapper(
-			@Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
-			@Qualifier("expedientInternalRDTOToRegistreConverter") InternalRDTOToRegistreConverter internalRDTOToRegistreConverter,
-			@Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter,
-			@Qualifier("internalToDocumentTramitacioDigitalitzarConverter") InternalToDocumentTramitacioDigitalitzarConverter internalToDocumentTramitacioDigitalitzarConverter) {
+	        @Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
+	        @Qualifier("expedientInternalRDTOToRegistreConverter") InternalRDTOToRegistreConverter internalRDTOToRegistreConverter,
+	        @Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter,
+	        @Qualifier("internalToDocumentTramitacioDigitalitzarConverter") InternalToDocumentTramitacioDigitalitzarConverter internalToDocumentTramitacioDigitalitzarConverter) {
 		this.internalToExpedientAccioConverter = internalToExpedientAccioConverter;
 		this.internalRDTOToRegistreConverter = internalRDTOToRegistreConverter;
 		this.internalToResultatRespostaConverter = internalToResultatRespostaConverter;
@@ -46,7 +46,7 @@ public class RespostaDigitalitzarDocumentTramitacioBDTOToRespostaDigitalitzarDoc
 		using(internalToResultatRespostaConverter).map(source.getRespostaResultatBDTO()).setResultat(null);
 		using(internalToExpedientAccioConverter).map(source.getExpedientsRDTO()).setExpedient(null);
 		using(internalRDTOToRegistreConverter).map(source.getRegistreAssentamentRDTO()).setRegistre(null);
-		using(internalToDocumentTramitacioDigitalitzarConverter).map(source.getDocsTramitacioRDTO()).setDocumentDigitalitzarAccioRDTO(null);
+		using(internalToDocumentTramitacioDigitalitzarConverter).map(source.getDocsTramitacioRDTO()).setDocument(null);
 	}
 
 }

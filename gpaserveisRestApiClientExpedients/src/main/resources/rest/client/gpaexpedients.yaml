@@ -668,34 +668,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /expedients/obtenirXmlEvaluate/{idExpedient}:
-    get:
-      tags:
-      - "Expedients "
-      summary: "Retorna el xml de la informació de l'expedient"
-      operationId: "obtenirXmlExpedient"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idExpedient"
-        in: "path"
-        description: "idExpedient"
-        required: true
-        type: "number"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaObtenirXmlExpedient"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
   /expedients/perCodi/{codi}:
     get:
       tags:
@@ -1227,6 +1199,8 @@ paths:
       responses:
         200:
           description: "OK"
+          schema:
+            $ref: "#/definitions/RetornTramitacio"
         201:
           description: "Created"
         401:
@@ -2776,16 +2750,6 @@ definitions:
         description: "Resposta del servei DGT"
         $ref: "#/definitions/RespostaServeiDgtRDTO"
     title: "RespostaInteroperabilitat"
-  RespostaObtenirXmlExpedient:
-    type: "object"
-    properties:
-      dadesXml:
-        type: "string"
-        description: "Informació de l'expedient en format xml"
-      id:
-        type: "number"
-        description: "Identificador de l'expedient"
-    title: "RespostaObtenirXmlExpedient"
   RespostaServeiDgtRDTO:
     type: "object"
     properties:
@@ -2796,15 +2760,27 @@ definitions:
       missatgeError:
         type: "string"
     title: "RespostaServeiDgtRDTO"
+  RetornTramitacio:
+    type: "object"
+    properties:
+      esUsuariPrincipalExpedient:
+        type: "boolean"
+        description: "Indica si l'usuari que realitza a l'acció és l'usuari principal\
+          \ de l'expedient"
+      nomDescUGConvidadas:
+        type: "string"
+        description: "Nom i descripció de les unitats gestores convidadas de l'expedient"
+      unitatsGestoresConvidadas:
+        type: "array"
+        description: "Llista de les unitats gestores convidadas de l'expedient"
+        items:
+          $ref: "#/definitions/EstatsUgConvidada"
+    title: "RetornTramitacio"
   RetornarTramitacioRDTO:
     type: "object"
     properties:
       comentari:
         $ref: "#/definitions/Comentaris"
-      llistaUGConvidadas:
-        type: "array"
-        items:
-          type: "number"
     title: "RetornarTramitacioRDTO"
   SollicitudActualitzarRegistre:
     type: "object"
@@ -2837,6 +2813,14 @@ definitions:
         type: "number"
       iniciacioNom:
         type: "string"
+      personesImplicades:
+        type: "array"
+        items:
+          $ref: "#/definitions/PersonesSollicitudRDTO"
+      personesInteressades:
+        type: "array"
+        items:
+          $ref: "#/definitions/PersonesSollicitudRDTO"
       personesSollicitudList:
         type: "array"
         items:
@@ -2871,6 +2855,14 @@ definitions:
         type: "number"
       iniciacioNom:
         type: "string"
+      personesImplicades:
+        type: "array"
+        items:
+          $ref: "#/definitions/PersonesSollicitudRDTO"
+      personesInteressades:
+        type: "array"
+        items:
+          $ref: "#/definitions/PersonesSollicitudRDTO"
       personesSollicitudList:
         type: "array"
         items:

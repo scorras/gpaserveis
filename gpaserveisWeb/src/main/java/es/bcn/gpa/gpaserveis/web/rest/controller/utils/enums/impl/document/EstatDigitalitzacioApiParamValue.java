@@ -5,11 +5,11 @@ import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.BaseApiParamValue;
 
 /**
- * The Enum EstatDigitalizaApiParamValue.
+ * The Enum EstatDigitalitzacioApiParamValue.
  */
-public enum EstatDigitalizaApiParamValue implements BaseApiParamValue {
+public enum EstatDigitalitzacioApiParamValue implements BaseApiParamValue {
 
-	/** The ok. */
+    /** The ok. */
 	OK("OK", new BigDecimal(2)),
 
 	/** The ko. */
@@ -29,7 +29,7 @@ public enum EstatDigitalizaApiParamValue implements BaseApiParamValue {
 	 * @param internalValue
 	 *            the internal value
 	 */
-	EstatDigitalizaApiParamValue(String apiParamValue, BigDecimal internalValue) {
+	EstatDigitalitzacioApiParamValue(String apiParamValue, BigDecimal internalValue) {
 		this.apiParamValue = apiParamValue;
 		this.internalValue = internalValue;
 	}
@@ -45,11 +45,6 @@ public enum EstatDigitalizaApiParamValue implements BaseApiParamValue {
 		return apiParamValue;
 	}
 
-	/**
-	 * Gets the internal value.
-	 *
-	 * @return the internal value
-	 */
 	/*
 	 * (non-Javadoc)
 	 * 

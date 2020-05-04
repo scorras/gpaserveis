@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar;
+package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar;
 
 import java.util.List;
 

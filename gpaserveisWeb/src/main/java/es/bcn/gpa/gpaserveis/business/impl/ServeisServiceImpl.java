@@ -77,17 +77,20 @@ import es.bcn.gpa.gpaserveis.business.impl.helper.ServeisServiceHelper;
 import es.bcn.gpa.gpaserveis.business.xml.bind.Jaxb2MarshallerWrapper;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesSignatura;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatDigitalitzacioDocumentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsDigitalitzacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MunicipisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
@@ -100,7 +103,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornTramitacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusViesRDTO;
@@ -167,7 +170,7 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public RespostaProcedimentsCercaBDTO cercaProcediments(ProcedimentsCercaBDTO procedimentsCercaBDTO) throws GPAServeisServiceException {
 		RespostaProcedimentsCercaBDTO respostaProcedimentsCercaBDTO = ServeisServiceHelper.loadCercaProcediments(procedimentsService,
-		        unitatsGestoresService, procedimentsCercaBDTO);
+				unitatsGestoresService, procedimentsCercaBDTO);
 		return respostaProcedimentsCercaBDTO;
 	}
 
@@ -189,9 +192,9 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public List<UnitatsGestoresRDTO> cercaUnitatsGestores(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = ServeisServiceHelper.loadUnitatsGestoresList(unitatsGestoresService,
-		        unitatsGestoresCercaBDTO);
+				unitatsGestoresCercaBDTO);
 
 		return unitatsGestoresRDTOList;
 	}
@@ -236,7 +239,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public UnitatsGestoresRDTO consultarDadesUnitatGestora(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		UnitatsGestoresRDTO unitatsGestoresRDTO = ServeisServiceHelper.loadUnitatGestora(unitatsGestoresService, unitatsGestoresCercaBDTO);
 		return unitatsGestoresRDTO;
 	}
@@ -280,7 +283,7 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public DadesProcedimentBDTO consultarDadesProcediment(BigDecimal idProcediment) throws GPAServeisServiceException {
 		DadesProcedimentBDTO dadesProcedimentBDTO = ServeisServiceHelper.loadDadesProcediment(procedimentsService, unitatsGestoresService,
-		        idProcediment);
+				idProcediment);
 		return dadesProcedimentBDTO;
 	}
 
@@ -302,7 +305,7 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public DadesProcedimentBDTO consultarDadesProcediment(String codiProcediment) throws GPAServeisServiceException {
 		DadesProcedimentBDTO dadesProcedimentBDTO = ServeisServiceHelper.loadDadesProcediment(procedimentsService, unitatsGestoresService,
-		        codiProcediment);
+				codiProcediment);
 		return dadesProcedimentBDTO;
 	}
 
@@ -325,7 +328,7 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public TramitsOvtRDTO consultarDadesTramitOvt(TramitsOvtCercaBDTO tramitsOvtCercaBDTO) throws GPAServeisServiceException {
 		es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO internalTramitsOvtRDTO = ServeisServiceHelper
-		        .loadTramitsOvtRDTO(tramitsService, tramitsOvtCercaBDTO);
+				.loadTramitsOvtRDTO(tramitsService, tramitsOvtCercaBDTO);
 		return internalTramitsOvtRDTO;
 	}
 
@@ -346,9 +349,9 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public RespostaDadesOperacioCercaBDTO cercaDadesOperacio(DadesOperacioCercaBDTO dadesOperacioCercaBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = ServeisServiceHelper.loadCercaDadesOperacio(dadesOperacioService,
-		        dadesOperacioCercaBDTO);
+				dadesOperacioCercaBDTO);
 		return respostaDadesOperacioCercaBDTO;
 	}
 
@@ -370,9 +373,9 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public RespostaDadesOperacioRequeritsCercaBDTO cercaDadesOperacioRequerits(DadesOperacioCercaBDTO dadesOperacioCercaBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		RespostaDadesOperacioRequeritsCercaBDTO respostaDadesOperacioRequeritsCercaBDTO = ServeisServiceHelper
-		        .loadCercaDadesOperacioRequerits(dadesOperacioService, dadesOperacioCercaBDTO);
+				.loadCercaDadesOperacioRequerits(dadesOperacioService, dadesOperacioCercaBDTO);
 		return respostaDadesOperacioRequeritsCercaBDTO;
 	}
 
@@ -394,9 +397,9 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public RespostaDocumentsEntradaCercaBDTO cercaConfiguracioDocumentacioEntrada(DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = ServeisServiceHelper
-		        .loadCercaConfiguracioDocumentacioEntrada(documentsService, documentsEntradaCercaBDTO);
+				.loadCercaConfiguracioDocumentacioEntrada(documentsService, documentsEntradaCercaBDTO);
 		return respostaDocumentsEntradaCercaBDTO;
 	}
 
@@ -418,9 +421,9 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public RespostaDocumentsEntradaCercaBDTO cercaConfiguracioDocumentacioEntradaPerTramitOvt(
-	        DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO) throws GPAServeisServiceException {
+			DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO) throws GPAServeisServiceException {
 		RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = ServeisServiceHelper
-		        .loadCercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsService, documentsEntradaCercaBDTO);
+				.loadCercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsService, documentsEntradaCercaBDTO);
 		return respostaDocumentsEntradaCercaBDTO;
 	}
 
@@ -442,9 +445,9 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public RespostaDocumentsTramitacioCercaBDTO cercaConfiguracioDocumentacioTramitacio(
-	        DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO) throws GPAServeisServiceException {
+			DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO) throws GPAServeisServiceException {
 		RespostaDocumentsTramitacioCercaBDTO respostaDocumentsTramitacioCercaBDTO = ServeisServiceHelper
-		        .loadCercaConfiguracioDocumentacioTramitacio(documentsService, documentsTramitacioCercaBDTO);
+				.loadCercaConfiguracioDocumentacioTramitacio(documentsService, documentsTramitacioCercaBDTO);
 		return respostaDocumentsTramitacioCercaBDTO;
 	}
 
@@ -466,7 +469,7 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public RespostaExpedientsCercaBDTO cercaExpedients(ExpedientsCercaBDTO expedientsCercaBDTO) throws GPAServeisServiceException {
 		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = ServeisServiceHelper.loadCercaExpedients(expedientsService,
-		        unitatsGestoresService, expedientsCercaBDTO);
+				unitatsGestoresService, expedientsCercaBDTO);
 		return respostaExpedientsCercaBDTO;
 	}
 
@@ -480,7 +483,7 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public DadesSollicitudBDTO consultarDadesSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException {
 		DadesSollicitudBDTO dadesSollicitudBDTO = ServeisServiceHelper.loadDadesSollicitud(expedientsService, procedimentsService,
-		        unitatsGestoresService, documentsService, dadesOperacioService, idSollicitud);
+				unitatsGestoresService, documentsService, dadesOperacioService, idSollicitud);
 		return dadesSollicitudBDTO;
 	}
 
@@ -502,7 +505,7 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public DadesExpedientBDTO consultarDadesBasiquesExpedient(BigDecimal idExpedient) throws GPAServeisServiceException {
 		DadesExpedientBDTO dadesExpedientBDTO = ServeisServiceHelper.loadDadesBasiquesExpedient(expedientsService, tramitsService,
-		        idExpedient);
+				idExpedient);
 		return dadesExpedientBDTO;
 	}
 
@@ -524,7 +527,7 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public DadesExpedientBDTO consultarDadesBasiquesExpedient(String codiExpedient) throws GPAServeisServiceException {
 		DadesExpedientBDTO dadesExpedientBDTO = ServeisServiceHelper.loadDadesBasiquesExpedient(expedientsService, tramitsService,
-		        codiExpedient);
+				codiExpedient);
 		return dadesExpedientBDTO;
 	}
 
@@ -546,7 +549,7 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public DadesExpedientBDTO consultarDadesExpedient(BigDecimal idExpedient) throws GPAServeisServiceException {
 		DadesExpedientBDTO dadesExpedientBDTO = ServeisServiceHelper.loadDadesExpedient(expedientsService, unitatsGestoresService,
-		        tramitsService, documentsService, dadesOperacioService, sollicitudsService, idExpedient);
+				tramitsService, documentsService, dadesOperacioService, sollicitudsService, idExpedient);
 		return dadesExpedientBDTO;
 	}
 
@@ -568,7 +571,7 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public DadesExpedientBDTO consultarDadesExpedient(String codiExpedient) throws GPAServeisServiceException {
 		DadesExpedientBDTO dadesExpedientBDTO = ServeisServiceHelper.loadDadesExpedient(expedientsService, unitatsGestoresService,
-		        tramitsService, documentsService, dadesOperacioService, sollicitudsService, codiExpedient);
+				tramitsService, documentsService, dadesOperacioService, sollicitudsService, codiExpedient);
 		return dadesExpedientBDTO;
 	}
 
@@ -637,7 +640,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public ExpedientsRDTO actualitzarSolicitudExpedient(ExpedientsActualitzarBDTO expedientsActualitzarBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return expedientsService.actualitzarSolicitudExpedient(expedientsActualitzarBDTO);
 	}
 
@@ -681,7 +684,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public DocsEntradaRDTO crearDeclaracioResponsable(CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return documentsService.crearDeclaracioResponsable(crearDeclaracioResponsableBDTO);
 	}
 
@@ -703,7 +706,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public DocsTramitacioRDTO crearDocumentTramitacio(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return documentsService.crearDocumentTramitacio(crearDocumentTramitacioBDTO);
 	}
 
@@ -726,7 +729,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public DocsEntradaRDTO actualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO actualitzarDocumentEntradaBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return documentsService.actualitzarDocumentEntrada(actualitzarDocumentEntradaBDTO);
 	}
 
@@ -748,7 +751,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public DocsEntradaRDTO actualitzarDeclaracioResponsable(ActualitzarDeclaracioResponsableBDTO actualitzarDeclaracioResponsableBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return documentsService.actualitzarDeclaracioResponsable(actualitzarDeclaracioResponsableBDTO);
 	}
 
@@ -770,7 +773,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public DocsTramitacioRDTO actualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO actualitzarDocumentTramitacioBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return documentsService.actualitzarDocumentTramitacio(actualitzarDocumentTramitacioBDTO);
 	}
 
@@ -792,7 +795,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public DocsEntradaRDTO guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return documentsService.guardarDocumentEntradaFitxer(guardarDocumentEntradaFitxerBDTO);
 	}
 
@@ -814,7 +817,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public DocsTramitacioRDTO guardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return documentsService.guardarDocumentTramitacioFitxer(guardarDocumentTramitacioFitxerBDTO);
 	}
 
@@ -836,7 +839,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public DocsTramitacioRDTO guardarRequerimentFitxer(GuardarRequerimentFitxerBDTO guardarRequerimentFitxerBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return documentsService.guardarRequerimentFitxer(guardarRequerimentFitxerBDTO);
 	}
 
@@ -902,6 +905,17 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.consultarDadesDocumentAportat(idDocument);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * consultarDadesDocumentAportatPerCodiCSV(java.lang.String)
+	 */
+	@Override
+	public DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String csvDocument) throws GPAServeisServiceException {
+		return documentsService.consultarDadesDocumentAportatPerCodiCSV(csvDocument);
+	}
+
 	/**
 	 * Consultar dades document generat.
 	 *
@@ -922,6 +936,17 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.consultarDadesDocumentGenerat(idDocument);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * consultarDadesDocumentGeneratPerCodiCSV(java.lang.String)
+	 */
+	@Override
+	public DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument) throws GPAServeisServiceException {
+		return documentsService.consultarDadesDocumentGeneratPerCodiCSV(csvDocument);
+	}
+
 	/**
 	 * Descarregar document entrada expedient.
 	 *
@@ -940,7 +965,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public byte[] descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return documentsService.descarregarDocumentExpedient(descarregarDocumentExpedientBDTO);
 	}
 
@@ -983,7 +1008,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public RespostaCrearRegistreExpedient crearRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO, BigDecimal tipusDocVinculada)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return expedientsService.crearRegistre(expedientsRegistrarBDTO, tipusDocVinculada);
 	}
 
@@ -1007,7 +1032,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public RespostaCrearRegistreExpedient crearRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO,
-	        BigDecimal tipusDocVinculada) throws GPAServeisServiceException {
+			BigDecimal tipusDocVinculada) throws GPAServeisServiceException {
 		return expedientsService.crearRegistreSollicitud(expedientsRegistrarSollicitudBDTO, tipusDocVinculada);
 	}
 
@@ -1021,7 +1046,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public void redireccionarRegistre(ExpedientsRedireccionarAssentamentBDTO expedientsRedireccionarAssentamentBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		expedientsService.redireccionarRegistre(expedientsRedireccionarAssentamentBDTO);
 	}
 
@@ -1043,7 +1068,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public RespostaCanviarEstatAccioExpedient canviarEstatExpedient(ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return expedientsService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 	}
 
@@ -1125,27 +1150,6 @@ public class ServeisServiceImpl implements ServeisService {
 	}
 
 	/**
-	 * Crear data xml expedient.
-	 *
-	 * @param idExpedient
-	 *            the id expedient
-	 * @return the resposta obtenir xml expedient
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ServeisService#crearDataXmlExpedient(java.
-	 * math.BigDecimal)
-	 */
-	@Override
-	public RespostaObtenirXmlExpedient crearDataXmlExpedient(BigDecimal idExpedient) throws GPAServeisServiceException {
-		return expedientsService.crearDataXmlExpedient(idExpedient);
-	}
-
-	/**
 	 * Convidar tramitar expedient.
 	 *
 	 * @param expedientsConvidarTramitarBDTO
@@ -1186,18 +1190,10 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public RespostaPlantillaDocVinculada getPlantillaDocVinculada(BigDecimal idConfDoc, BigDecimal idDocVinculada)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return documentsService.getPlantillaDocVinculada(idConfDoc, idDocVinculada);
 	}
 
-	/**
-	 * Retornar tramitacio expedient.
-	 *
-	 * @param expedientsRetornarTramitacioBDTO
-	 *            the expedients retornar tramitacio BDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1207,9 +1203,9 @@ public class ServeisServiceImpl implements ServeisService {
 	 * ExpedientsRetornarTramitacioBDTO)
 	 */
 	@Override
-	public void retornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO)
-	        throws GPAServeisServiceException {
-		expedientsService.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO);
+	public RetornTramitacio retornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO)
+			throws GPAServeisServiceException {
+		return expedientsService.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO);
 	}
 
 	/**
@@ -1229,7 +1225,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public void canviarUnitatGestoraExpedient(ExpedientsCanviarUnitatGestoraBDTO expedientsCanviarUnitatGestoraBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		expedientsService.canviarUnitatGestoraExpedient(expedientsCanviarUnitatGestoraBDTO);
 	}
 
@@ -1263,7 +1259,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public void associarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		documentsService.associarRegistreDocumentacioExpedient(documentActualizarRegistreRDTO);
 	}
 
@@ -1363,12 +1359,36 @@ public class ServeisServiceImpl implements ServeisService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ServeisService#signarValidarDocument(es.
-	 * bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument)
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#signarSegellDocument(es.
+	 * bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.
+	 * SignarSegellDocument)
 	 */
 	@Override
 	public SignarSegellDocument signarSegellDocument(SignarSegellDocument signarSegellDocumentRDTO) throws GPAServeisServiceException {
 		return documentsService.signarSegellDocument(signarSegellDocumentRDTO);
+	}
+
+	/**
+	 * Signar tablet document.
+	 *
+	 * @param signarTabletDocument
+	 *            the signar tablet document
+	 * @return the signar tablet documents id
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#signarTabletDocument(es.
+	 * bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.
+	 * SignarTabletDocument)
+	 */
+	@Override
+	public SignarTabletDocumentResponse signarTabletDocument(SignarTabletDocument signarTabletlDocumentRDTO)
+			throws GPAServeisServiceException {
+		return documentsService.signarTabletDocument(signarTabletlDocumentRDTO);
 	}
 
 	/**
@@ -1410,7 +1430,7 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public List<ExpedientsRDTO> cercaExpedientsAcumulats(BigDecimal idExpedient) throws GPAServeisServiceException {
 		List<ExpedientsRDTO> expedientsAcumulatsRDTOList = ServeisServiceHelper.loadCercaExpedientsAcumulats(expedientsService,
-		        idExpedient);
+				idExpedient);
 		return expedientsAcumulatsRDTOList;
 	}
 
@@ -1432,9 +1452,9 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public List<PersonesSollicitudRDTO> actualitzarDadesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = expedientsService
-		        .donarAccesAltraPersonaImplicada(personesSollicitudRDTO);
+				.donarAccesAltraPersonaImplicada(personesSollicitudRDTO);
 		return pageDataOfPersonesSollicitudRDTO.getData();
 	}
 
@@ -1510,7 +1530,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public void callbackNotificacio(ActualitzarNotificacioBDTO actualitzarNotificacio, MultipartFile docEvidenciaElectronic,
-	        MultipartFile docEvidenciaPaper) throws GPAServeisServiceException {
+			MultipartFile docEvidenciaPaper) throws GPAServeisServiceException {
 		documentsService.callbackNotificacio(actualitzarNotificacio, docEvidenciaElectronic, docEvidenciaPaper);
 
 	}
@@ -1574,7 +1594,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public DocsTramitacioRDTO guardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return documentsService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
 	}
 
@@ -1587,7 +1607,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public DocsTramitacioRDTO guardarDocumentTramitacioJustificantPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return documentsService.guardarDocumentTramitacioJustificantPlantilla(crearDocumentTramitacioBDTO);
 	}
 
@@ -1609,7 +1629,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public DocsEntradaRDTO crearDocumentEntradaDigitalitzat(CrearDocumentEntradaDigitalitzarBDTO crearDocumentEntradaDigitalitzarBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return documentsService.crearDocumentEntradaDigitalitzat(crearDocumentEntradaDigitalitzarBDTO);
 	}
 
@@ -1631,7 +1651,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public DocsTramitacioRDTO crearDocumentTramitacioDigitalitzat(
-	        CrearDocumentTramitacioDigitalitzarBDTO crearDocumentTramitacioDigitalitzarBDTO) throws GPAServeisServiceException {
+			CrearDocumentTramitacioDigitalitzarBDTO crearDocumentTramitacioDigitalitzarBDTO) throws GPAServeisServiceException {
 		return documentsService.crearDocumentTramitacioDigitalitzat(crearDocumentTramitacioDigitalitzarBDTO);
 	}
 
@@ -1652,7 +1672,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public void registrarComunicatDocumentTramitacio(DocumentGeneratRegistrarComunicatBDTO documentGeneratRegistrarComunicatBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		documentsService.registrarComunicatDocumentTramitacio(documentGeneratRegistrarComunicatBDTO);
 	}
 
@@ -1848,7 +1868,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public List<AccionsEstatsRDTO> cercaTransicioCanviEstat(BigDecimal idAccio, BigDecimal idEstatActual)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 
 		return tramitsService.cercaTransicioCanviEstat(idAccio, idEstatActual);
 
@@ -1892,7 +1912,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public void desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		documentsService.desassociarRegistreDocumentacioExpedient(documentActualizarRegistreRDTO);
 	}
 
@@ -1931,7 +1951,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public DocsEntradaRDTO guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return documentsService.guardarDocumentEntradaGestorDocumental(guardarDocumentEntradaFitxerBDTO);
 	}
 
@@ -2003,7 +2023,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public RespostaInteroperabilitat obtenirPerInteroperabilitat(ObtenirPerInteroperabilitatBDTO obtenirPerInteroperabilitatBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return expedientsService.obtenirPerInteroperabilitat(obtenirPerInteroperabilitatBDTO);
 	}
 
@@ -2011,12 +2031,12 @@ public class ServeisServiceImpl implements ServeisService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
-	 * obtenirEstatDigitalitzacioDocument(java.lang.Long)
+	 * consultarEstatDigitalitzacio(java.lang.String)
 	 */
 	@Override
-	public EstatDigitalitzacioDocumentRDTO obtenirEstatDigitalitzacioDocument(Long idDocument) throws GPAServeisServiceException {
+	public PeticionsDigitalitzacioRDTO consultarEstatDigitalitzacio(String idPeticio) throws GPAServeisServiceException {
 
-		return documentsService.obtenirEstatDigitalitzacioDocument(idDocument);
+		return documentsService.consultarEstatDigitalitzacio(idPeticio);
 	}
 
 	/*
@@ -2039,7 +2059,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public SollicitudsRDTO actualitzarDadesSollicitudSollicituds(SollicitudsActualitzarBDTO sollicitudsActualitzarBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		return sollicitudsService.actualitzarDadesSollicitudSollicituds(sollicitudsActualitzarBDTO);
 	}
 
@@ -2053,7 +2073,7 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public RespostaSollicitudsCercaBDTO cercaSollicituds(SollicitudsCercaBDTO sollicitudsCercaBDTO) throws GPAServeisServiceException {
 		RespostaSollicitudsCercaBDTO respostaSollicitudsCercaBDTO = ServeisServiceHelper.loadCercaSollicituds(expedientsService,
-		        sollicitudsCercaBDTO);
+				sollicitudsCercaBDTO);
 		return respostaSollicitudsCercaBDTO;
 	}
 
@@ -2127,6 +2147,11 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public MunicipisRDTO consultarMunicipisByCodi(String codiMunicipi, String codiProvincia) throws GPAServeisServiceException {
 		return expedientsService.consultarMunicipisByCodi(codiMunicipi, codiProvincia);
+	}
+
+	@Override
+	public DadesSignatura consultarDadesSignaturaByCodiPeticio(String codiPeticio) throws GPAServeisServiceException {
+		return documentsService.consultarDadesSignaturaByCodiPeticio(codiPeticio);
 	}
 
 }

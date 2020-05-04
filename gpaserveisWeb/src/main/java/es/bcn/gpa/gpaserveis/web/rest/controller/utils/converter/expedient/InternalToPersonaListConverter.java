@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.common.BooleanApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.PersonesRDTO;
 
 /**
@@ -32,6 +33,10 @@ public class InternalToPersonaListConverter extends AbstractConverter<List<Perso
 	@Qualifier("expedientTipusSexeApiParamValueTranslator")
 	private BaseApiParamValueTranslator tipusSexeApiParamValueTranslator;
 
+	@Autowired
+	@Qualifier("booleanApiParamValueTranslator")
+	private BooleanApiParamValueTranslator booleanApiParamValueTranslator;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -42,10 +47,15 @@ public class InternalToPersonaListConverter extends AbstractConverter<List<Perso
 		ArrayList<PersonesRDTO> personesRDTOList = null;
 		if (CollectionUtils.isNotEmpty(source)) {
 			personesRDTOList = new ArrayList<PersonesRDTO>();
+			PersonesRDTO personesRDTO = null;
 			for (PersonesSollicitudRDTO personesSollicitudRDTO : source) {
-				personesRDTOList.add(ConverterHelper.buildPersonesRDTOExpedient(personesSollicitudRDTO.getPersones(),
-				        tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator,
-				        tipusSexeApiParamValueTranslator));
+				personesRDTO = ConverterHelper.buildPersonesRDTOExpedient(personesSollicitudRDTO.getPersones(),
+						tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator,
+						tipusSexeApiParamValueTranslator);
+
+				personesRDTO.setVisibilitatOvt(booleanApiParamValueTranslator
+						.getApiParamValueAsBooleanByInternalValue(personesSollicitudRDTO.getVisibilitatOvt()));
+				personesRDTOList.add(personesRDTO);
 			}
 		}
 		return personesRDTOList;
