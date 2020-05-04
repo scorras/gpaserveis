@@ -38,9 +38,11 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegistreRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ObtenirPerInteroperabilitat;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RedireccioAssentament;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornTramitacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TornarEnrereRDTO;
 
@@ -107,6 +109,8 @@ public class ExpedientsApiTest extends ParentTest {
 		BigDecimal idExpedient = ONE;
 		InscriureEnRegistreRDTO inscriureEnRegistreRDTO = new InscriureEnRegistreRDTO();
 		api.inscriureEnRegistre(idExpedient, inscriureEnRegistreRDTO);
+
+		assertTrue(true);
 	}
 
 	/**
@@ -121,13 +125,13 @@ public class ExpedientsApiTest extends ParentTest {
 	public void retornarTramitacioExpedientTest() {
 		when(apiClient.invokeAPI(eq("/expedients/retornarTramitacio/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
 				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(null);
+				any(ParameterizedTypeReference.class))).thenReturn(new RetornTramitacio());
 
 		BigDecimal idExpedient = ONE;
 		RetornarTramitacioRDTO retornarTramitacioRDTO = new RetornarTramitacioRDTO();
-		api.retornarTramitacioExpedient(idExpedient, retornarTramitacioRDTO);
+		RetornTramitacio retornTramitacio = api.retornarTramitacioExpedient(idExpedient, retornarTramitacioRDTO);
 
-		assertTrue(true);
+		assertTrue(retornTramitacio != null);
 	}
 
 	/**
@@ -231,6 +235,26 @@ public class ExpedientsApiTest extends ParentTest {
 		BigDecimal idExpedient = ONE;
 		ObtenirPerInteroperabilitat obtenirPerInteroperabilitat = new ObtenirPerInteroperabilitat();
 		RespostaInteroperabilitat response = api.obtenirPerInteroperabilitat(idExpedient, obtenirPerInteroperabilitat);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Redireccionar registre
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void redireccionarRegistreTest() {
+		when(apiClient.invokeAPI(eq("/expedients/registre/redireccionar"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		RedireccioAssentament redireccioAssentamentRDTO = new RedireccioAssentament();
+		api.redireccionarRegistre(redireccioAssentamentRDTO);
 
 		assertTrue(true);
 	}

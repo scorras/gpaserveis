@@ -23,7 +23,7 @@ public class RespostaDigitalitzarDocumentRDTO {
 	private ResultatRespostaDTO resultat;
 
 	@ApiModelProperty(value = "Document digitalizat")
-	private DocumentDigitalitzarAccioRDTO documentDigitalitzarAccioRDTO;
+	private DocumentDigitalitzarAccioRDTO document;
 
 	@ApiModelProperty(value = "Registre de la documentació")
 	private RegistreRDTO registre;

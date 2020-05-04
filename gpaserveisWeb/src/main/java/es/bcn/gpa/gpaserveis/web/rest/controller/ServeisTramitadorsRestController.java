@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.modelmapper.ModelMapper;
@@ -33,7 +32,6 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDeclaracioRespons
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDeclaracioResponsableBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaDigitalitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioDigitalitzarBDTO;
@@ -45,7 +43,6 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.EsborrarDocumentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentEntradaFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarDocumentTramitacioFitxerBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarRequerimentFitxerBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaAportarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaCompletarDocumentEntradaExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaCompletarDocumentTramitacioExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDigitalitzarDocumentEntradaBDTO;
@@ -54,7 +51,6 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCerc
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaEsborrarDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaEsborrarDocumentTramitacioBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaEstatDigitalitzacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaIncorporarNouDocumentEntradaExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaIncorporarNouDocumentTramitacioExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaObtenirDocumentEntradaIntraoperabilitatExpedientRDTO;
@@ -75,13 +71,11 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarUnitatGest
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ObtenirPerInteroperabilitatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaAnotarOperacioComptableBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaConsultaExpedientsBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsAbandonarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsAccesBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsActualitzarBDTO;
@@ -112,25 +106,27 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCerc
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioRequeritsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocsTramPolitiquesSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotificacio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DataSignarDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsAssociatsIntra;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRegistrarComunicat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatDigitalitzacioDocumentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequerimentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RegistreAssentament;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Requeriments;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.UsuariPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
@@ -139,7 +135,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGest
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Comentaris;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownItemBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
@@ -149,10 +144,9 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ObtenirPerInter
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornTramitacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Sollicituds;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TornarEnrereRDTO;
@@ -167,11 +161,9 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.BooleanApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.ConfiguracioApiParamValue;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.IdiomaApiParamValue;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.OrigenApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.RevisioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusAccionsPortaSigApiParamValue;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusDocumentacioVinculadaApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusSignaturaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.MotiuPausaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.TipusCanalComunicacioApiParamValue;
@@ -185,15 +177,13 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.VersioProcedimentApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ErrorDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ResultatRespostaDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentacioAportarRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.RespostaAportarDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar.ExpedientActualitzarRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar.RespostaActualitzarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.esborrar.RespostaEsborrarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.resolucio.validar.PersonaValidarResolucioDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.resolucio.validar.RespostaResolucioValidarDocumentRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.PersonaSignarDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.DataSignarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.RespostaSignarDocumentRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar.RespostaActualitzarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.recurs.RecursExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.recurs.RespostaRecursExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.revisar.ExpedientRevisarRDTO;
@@ -209,7 +199,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentac
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.digitalitzar.DocumentDigitalitzacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.digitalitzar.RespostaDigitalitzarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.esborrar.DocumentacioEsborrarRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.estatDigitalitzacio.RespostaEstatDigitalitzacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.DocumentIncorporacioNouRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.RespostaIncorporarNouDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.intraoperabilitat.DocumentIntraoperabilitatRDTO;
@@ -226,7 +215,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.abandonar.RespostaAbandonarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.acces.ExpedientAccesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.acces.RespostaAccesExpedientRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.actualitzar.ExpedientActualitzarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.acumular.ExpedientAcumulacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.acumular.RespostaAcumularExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.anotar.operacio.comptable.OperacioComptableRDTO;
@@ -416,53 +404,37 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			log.debug("consultar(String) - inici"); //$NON-NLS-1$
 		}
 
-		RespostaConsultaExpedientsRDTO respostaConsultaExpedientsRDTO = null;
-		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_OBTENIR_EXPEDIENT);
-		DadesExpedientBDTO dadesExpedientBDTO = null;
-		ExpedientConsultaRDTO expedientConsultaRDTO = null;
+		RespostaConsultaExpedientsRDTO respostaConsultaExpedientsRDTO = new RespostaConsultaExpedientsRDTO();
 
-		try {
-			// Datos principales del expedient
-			dadesExpedientBDTO = serveisService
-					.consultarDadesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
-			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_VALIDAR_EXPEDIENT);
+		// Datos principales del expedient
+		DadesExpedientBDTO dadesExpedientBDTO = serveisService
+				.consultarDadesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+		// El código del expediente debe ser válido
+		if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
+			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
+		}
+		ExpedientConsultaRDTO expedientConsultaRDTO = modelMapper.map(dadesExpedientBDTO, ExpedientConsultaRDTO.class);
 
-			// consultar el expediente si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
-					AccioTramitadorApiParamValue.CONSULTAR_EXPEDIENT_DOCUMENT_FUNCIONARI, Resultat.ERROR_OBTENIR_EXPEDIENT);
-
-			expedientConsultaRDTO = modelMapper.map(dadesExpedientBDTO, ExpedientConsultaRDTO.class);
-
-			// Datos de cada tràmit OVT asociado a los documents aportats
-			HashMap<String, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO> tramitsOvtRDTOMap = null;
-			es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = null;
-			if (MapUtils.isNotEmpty(dadesExpedientBDTO.getTramitsOvtMap())) {
-				tramitsOvtRDTOMap = new HashMap<String, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO>();
-				for (Entry<BigDecimal, TramitsOvtRDTO> tramitsOvtRDTOEntry : dadesExpedientBDTO.getTramitsOvtMap().entrySet()) {
-					tramitsOvtRDTO = modelMapper.map(tramitsOvtRDTOEntry.getValue(),
-							es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
-					tramitsOvtRDTOMap.put(tramitsOvtRDTO.getCodi(), tramitsOvtRDTO);
-				}
-				if (CollectionUtils.isNotEmpty(expedientConsultaRDTO.getDocumentsAportats()) && MapUtils.isNotEmpty(tramitsOvtRDTOMap)) {
-					for (DocumentAportatConsultaRDTO documentAportatConsultaRDTO : expedientConsultaRDTO.getDocumentsAportats()) {
-						if (documentAportatConsultaRDTO.getTramit() != null) {
-							documentAportatConsultaRDTO.setTramit(tramitsOvtRDTOMap.get(documentAportatConsultaRDTO.getTramit().getCodi()));
-						}
+		// Datos de cada tràmit OVT asociado a los documents aportats
+		HashMap<String, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO> tramitsOvtRDTOMap = null;
+		es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = null;
+		if (MapUtils.isNotEmpty(dadesExpedientBDTO.getTramitsOvtMap())) {
+			tramitsOvtRDTOMap = new HashMap<String, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO>();
+			for (Entry<BigDecimal, TramitsOvtRDTO> tramitsOvtRDTOEntry : dadesExpedientBDTO.getTramitsOvtMap().entrySet()) {
+				tramitsOvtRDTO = modelMapper.map(tramitsOvtRDTOEntry.getValue(),
+						es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
+				tramitsOvtRDTOMap.put(tramitsOvtRDTO.getCodi(), tramitsOvtRDTO);
+			}
+			if (CollectionUtils.isNotEmpty(expedientConsultaRDTO.getDocumentsAportats()) && MapUtils.isNotEmpty(tramitsOvtRDTOMap)) {
+				for (DocumentAportatConsultaRDTO documentAportatConsultaRDTO : expedientConsultaRDTO.getDocumentsAportats()) {
+					if (documentAportatConsultaRDTO.getTramit() != null) {
+						documentAportatConsultaRDTO.setTramit(tramitsOvtRDTOMap.get(documentAportatConsultaRDTO.getTramit().getCodi()));
 					}
 				}
 			}
-
-		} catch (GPAApiParamValidationException e) {
-			log.error("consultar(String)", e); // $NON-NLS-1$
-			respostaResultatBDTO = new RespostaResultatBDTO(e);
-		} catch (Exception e) {
-			log.error("consultar(String)", e); // $NON-NLS-1$
-			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_OBTENIR_EXPEDIENT, e);
 		}
 
-		RespostaConsultaExpedientsBDTO respostaConsultaExpedientsBDTO = new RespostaConsultaExpedientsBDTO(
-				dadesExpedientBDTO != null ? expedientConsultaRDTO : null, respostaResultatBDTO);
-		respostaConsultaExpedientsRDTO = modelMapper.map(respostaConsultaExpedientsBDTO, RespostaConsultaExpedientsRDTO.class);
+		respostaConsultaExpedientsRDTO.setExpedient(expedientConsultaRDTO);
 
 		if (log.isDebugEnabled()) {
 			log.debug("consultar(String) - fi"); //$NON-NLS-1$
@@ -843,6 +815,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		RespostaRetornarExpedientRDTO respostaRetornarExpedientRDTO = null;
+		RetornTramitacio retornTramitacio = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_RETORNAR_TRAMITACIO_EXPEDIENT);
 		try {
@@ -859,7 +832,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			RetornarTramitacioRDTO retornarTramitacioRDTO = new RetornarTramitacioRDTO();
 			Comentaris comentaris = new Comentaris();
 			comentaris.setDescripcio(expedientRetornRDTO.getComentari());
-			retornarTramitacioRDTO.setLlistaUGConvidadas(expedientRetornRDTO.getLlistaUGConvidadas());
 			retornarTramitacioRDTO.setComentari(comentaris);
 
 			// Cambio de estado del expediente en función del estado origen
@@ -871,22 +843,24 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.RETORNAR_TRAMITACIO.getInternalValue(),
 					dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
 
-			// Comprobamos si existe una transicion posible para el estado
-			// actual y de ser así se cambia el estado al expediente
-			boolean canviarEstat = ServeisRestControllerValidationHelper.validateCanviarEstatExpedient(accionsEstatsRDTOList,
-					AccioTramitadorApiParamValue.RETORNAR_TRAMITACIO, Resultat.ERROR_RETORNAR_TRAMITACIO_EXPEDIENT);
-
-			if (canviarEstat) {
-				expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
-
-				ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
-						dadesExpedientBDTO.getExpedientsRDTO().getId());
-				serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
-			}
-
 			ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO = new ExpedientsRetornarTramitacioBDTO(
 					dadesExpedientBDTO.getExpedientsRDTO().getId(), retornarTramitacioRDTO);
-			serveisService.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO);
+			retornTramitacio = serveisService.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO);
+
+			if (retornTramitacio != null && StringUtils.isEmpty(retornTramitacio.getMissatgeError())) {
+				// Comprobamos si existe una transicion posible para el estado
+				// actual y de ser así se cambia el estado al expediente
+				boolean canviarEstat = ServeisRestControllerValidationHelper.validateCanviarEstatExpedient(accionsEstatsRDTOList,
+						AccioTramitadorApiParamValue.RETORNAR_TRAMITACIO, Resultat.ERROR_RETORNAR_TRAMITACIO_EXPEDIENT);
+
+				if (canviarEstat) {
+					expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+
+					ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
+							dadesExpedientBDTO.getExpedientsRDTO().getId());
+					serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
+				}
+			}
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("retornarExpedient(String, ExpedientRetornRDTO)", e); // $NON-NLS-1$
@@ -896,9 +870,22 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_RETORNAR_TRAMITACIO_EXPEDIENT, e);
 		}
 
-		RespostaExpedientsRetornarBDTO respostaExpedientsRetornarBDTO = new RespostaExpedientsRetornarBDTO(
-				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
-		respostaRetornarExpedientRDTO = modelMapper.map(respostaExpedientsRetornarBDTO, RespostaRetornarExpedientRDTO.class);
+		if (retornTramitacio != null && StringUtils.isNotEmpty(retornTramitacio.getMissatgeError())) {
+			ErrorDTO errorDTO = new ErrorDTO();
+			errorDTO.setCodi(Constants.ERROR_STR);
+			errorDTO.setDescripcio(retornTramitacio.getMissatgeError());
+
+			ResultatRespostaDTO resultatRespostaDTO = new ResultatRespostaDTO();
+			resultatRespostaDTO.setDetallError(errorDTO);
+
+			respostaRetornarExpedientRDTO = new RespostaRetornarExpedientRDTO();
+			respostaRetornarExpedientRDTO.setResultat(resultatRespostaDTO);
+		} else {
+			RespostaExpedientsRetornarBDTO respostaExpedientsRetornarBDTO = new RespostaExpedientsRetornarBDTO(
+					dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
+			respostaRetornarExpedientRDTO = modelMapper.map(respostaExpedientsRetornarBDTO, RespostaRetornarExpedientRDTO.class);
+		}
+		respostaRetornarExpedientRDTO.setRetornTramitacio(retornTramitacio);
 
 		if (log.isDebugEnabled()) {
 			log.debug("retornarExpedient(String, ExpedientRetornRDTO) - fi"); //$NON-NLS-1$
@@ -1505,6 +1492,20 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					dadesExpedientBDTO.getExpedientsRDTO().getId(), canviUnitatGestoraRDTO);
 			serveisService.canviarUnitatGestoraExpedient(expedientsCanviarUnitatGestoraBDTO);
 
+			// Redirección del Asiento de Registro
+			// TODO Descomentar cuando se resuelva el problema de pérdida del
+			// usuario autenticado en las peticiones que atacan a la capa
+			// RedireccioAssentament redireccioAssentament = new
+			// RedireccioAssentament();
+			// redireccioAssentament.setCodiUnitatGestora(unitatsGestoresRDTO.getNom());
+			// redireccioAssentament
+			// .setNumeroAssentament(dadesExpedientBDTO.getExpedientsRDTO().getSollicituds().getRegistreAssentament().getCodi());
+			// ExpedientsRedireccionarAssentamentBDTO
+			// expedientsRedireccionarAssentamentBDTO = new
+			// ExpedientsRedireccionarAssentamentBDTO(
+			// redireccioAssentament);
+			// serveisService.redireccionarRegistre(expedientsRedireccionarAssentamentBDTO);
+
 		} catch (GPAApiParamValidationException e) {
 			log.error("canviarUnitatGestoraExpedient(String, ExpedientCanviUnitatGestoraRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
@@ -1729,11 +1730,13 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			signarDocument.idDocument(idDocResolucio);
 			signarDocument.setAccio(TipusAccionsPortaSigApiParamValue.VALIDAR_DOCUMENT.getInternalValue());
 			signarDocument.setUnitatGestoraIdext(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
+			DataSignarDocument dataSignarDocument = new DataSignarDocument();
 			UsuariPortaSig usuariPortaSig = new UsuariPortaSig();
 			usuariPortaSig.setMatricula(persona.getMatricula());
 			usuariPortaSig.setDocumentIdentitat(persona.getDocumentIdentitat());
 			usuariPortaSig.setNom(persona.getNom());
-			signarDocument.setUsuariPortaSig(usuariPortaSig);
+			dataSignarDocument.setUsuariPortaSig(usuariPortaSig);
+			signarDocument.setDataSignarDocument(dataSignarDocument);
 			peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
 
 		} catch (GPAApiParamValidationException e) {
@@ -1785,10 +1788,10 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	public RespostaSignarDocumentRDTO signarDocument(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
-			@ApiParam(value = "Persona que signa el document", required = true) @RequestBody PersonaSignarDocumentRDTO persona) {
+			@ApiParam(value = "Informació addicional per a la signatura", required = true) @RequestBody DataSignarDocumentRDTO dataSignarDocumentRDTO) {
 
 		if (log.isDebugEnabled()) {
-			log.debug("signarDocument(String, BigDecimal, PersonaSignarDocumentRDTO) - inici"); //$NON-NLS-1$
+			log.debug("signarDocument(String, BigDecimal, UsuariPortaSigRDTO) - inici"); //$NON-NLS-1$
 		}
 
 		RespostaSignarDocumentRDTO respostaSignarDocumentRDTO = null;
@@ -1807,27 +1810,76 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateDocumentGenerat(docsTramitacioRDTO, dadesExpedientBDTO,
 					Resultat.ERROR_COMPLETAR_DOCUMENT_EXPEDIENT);
 
-			// Registrar expediente si la acción es permitida
+			// Comprobar si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 					AccioTramitadorApiParamValue.SIGNAR_DOCUMENT, Resultat.ERROR_SIGNAR_DOCUMENT);
 
-			// Firmar documento
-			SignarDocument signarDocument = new SignarDocument();
-			signarDocument.idDocument(idDocument);
-			signarDocument.setAccio(TipusAccionsPortaSigApiParamValue.SIGNAR_DOCUMENT.getInternalValue());
-			signarDocument.setUnitatGestoraIdext(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
-			UsuariPortaSig usuariPortaSig = new UsuariPortaSig();
-			usuariPortaSig.setMatricula(persona.getMatricula());
-			usuariPortaSig.setDocumentIdentitat(persona.getDocumentIdentitat());
-			usuariPortaSig.setNom(persona.getNom());
-			signarDocument.setUsuariPortaSig(usuariPortaSig);
-			peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
+			// TODO diferenciar los tipos de firma, para mantener comportamiento
+			// anterior, si no viene tipo, se realiza la llamada a portasig
+			if (StringUtils.isBlank(dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getModalitatIdext().toString())
+					|| dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getModalitatIdext().toString()
+					.equalsIgnoreCase(TipusSignaturaApiParamValue.PORTASIGNATURES.getApiParamValue())) {
+
+				// Firmar documento
+				SignarDocument signarDocument = new SignarDocument();
+				signarDocument.idDocument(idDocument);
+				signarDocument.setAccio(TipusAccionsPortaSigApiParamValue.SIGNAR_DOCUMENT.getInternalValue());
+				signarDocument.setUnitatGestoraIdext(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
+				DataSignarDocument dataSignarDocument = new DataSignarDocument();
+				UsuariPortaSig usuariPortaSig = new UsuariPortaSig();
+				usuariPortaSig.setMatricula(dataSignarDocumentRDTO.getUsuariPortaSig().getMatricula());
+				usuariPortaSig.setDocumentIdentitat(dataSignarDocumentRDTO.getUsuariPortaSig().getDocumentIdentitat());
+				usuariPortaSig.setNom(dataSignarDocumentRDTO.getUsuariPortaSig().getNom());
+				ConfDocsTramPolitiquesSig confDocsTramPolitiquesSigRDTO = new ConfDocsTramPolitiquesSig();
+				confDocsTramPolitiquesSigRDTO.setConfiguracioDocsTramitacio(
+						dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getConfiguracioDocsTramitacio());
+				confDocsTramPolitiquesSigRDTO.setModalitatIdext(TipusSignaturaApiParamValue.PORTASIGNATURES.getApiParamValue());
+				confDocsTramPolitiquesSigRDTO
+						.setPoliticaSignatura(dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getPoliticaSignatura());
+				confDocsTramPolitiquesSigRDTO.setId(dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getId());
+				confDocsTramPolitiquesSigRDTO.setOrdre(dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getOrdre());
+				dataSignarDocument.setConfDocsTramPolitiquesSig(confDocsTramPolitiquesSigRDTO);
+				dataSignarDocument.setUsuariPortaSig(usuariPortaSig);
+				signarDocument.setDataSignarDocument(dataSignarDocument);
+				peticionsPortasig = serveisService.signarValidarDocument(signarDocument);
+
+			} else if (dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getModalitatIdext().toString()
+					.equalsIgnoreCase(TipusSignaturaApiParamValue.SEGELL.getApiParamValue())) {
+
+				SignarSegellDocument signarSegellDocumentRDTO = new SignarSegellDocument();
+				signarSegellDocumentRDTO.setIdDocument(idDocument);
+				SignarSegellDocument signarSegellDocumentResponse = serveisService.signarSegellDocument(signarSegellDocumentRDTO);
+
+				if (signarSegellDocumentResponse != null && StringUtils.isNotEmpty(signarSegellDocumentResponse.getDescError())) {
+
+					StringBuilder strMessageError = new StringBuilder(Constants.MISSATGE_ERROR_SIGNATURES);
+					throw new GPAServeisServiceException(strMessageError.append(": ").append(signarSegellDocumentResponse.getCodiError())
+							.append(": ").append(signarSegellDocumentResponse.getDescError()).toString());
+				}
+			} else if (dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getModalitatIdext().toString()
+					.equalsIgnoreCase(TipusSignaturaApiParamValue.MANUSCRITA.getApiParamValue())) {
+
+				SignarTabletDocument signarTabletDocumentRDTO = new SignarTabletDocument();
+				signarTabletDocumentRDTO.setIdDocument(idDocument);
+
+				// TODO completar con todos los datos que sean necesarios para
+				// la firma en tablet
+
+				SignarTabletDocumentResponse signarTabletDocumentResponse = serveisService.signarTabletDocument(signarTabletDocumentRDTO);
+
+				if (signarTabletDocumentResponse != null && StringUtils.isNotEmpty(signarTabletDocumentResponse.getDescError())) {
+
+					StringBuilder strMessageError = new StringBuilder(Constants.MISSATGE_ERROR_SIGNATURES);
+					throw new GPAServeisServiceException(strMessageError.append(": ").append(signarTabletDocumentResponse.getCodiError())
+							.append(": ").append(signarTabletDocumentResponse.getDescError()).toString());
+				}
+			}
 
 		} catch (GPAApiParamValidationException e) {
-			log.error("signarDocument(String, BigDecimal, PersonaSignarDocumentRDTO)", e); // $NON-NLS-1$
+			log.error("signarDocument(String, BigDecimal, UsuariPortaSigRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 		} catch (Exception e) {
-			log.error("signarDocument(String, BigDecimal, PersonaSignarDocumentRDTO)", e); // $NON-NLS-1$
+			log.error("signarDocument(String, BigDecimal, UsuariPortaSigRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_SIGNAR_DOCUMENT, e);
 		}
 
@@ -1847,7 +1899,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			respostaSignarDocumentRDTO = modelMapper.map(respostaSignarDocumentBDTO, RespostaSignarDocumentRDTO.class);
 		}
 		if (log.isDebugEnabled()) {
-			log.debug("signarDocument(String, BigDecimal, PersonaSignarDocumentRDTO) - fi"); //$NON-NLS-1$
+			log.debug("signarDocument(String, BigDecimal, UsuariPortaSigRDTO) - fi"); //$NON-NLS-1$
 		}
 
 		return respostaSignarDocumentRDTO;
@@ -1945,7 +1997,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				registreAssentamentRDTO = serveisService
 						.consultarDadesRegistreAssentament(documentComplecio.getDocument().getNumeroRegistre());
 				ServeisRestControllerValidationHelper.validateRegistreAssentament(registreAssentamentRDTO,
-						Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
+						Resultat.ERROR_COMPLETAR_DOCUMENT_EXPEDIENT);
 			}
 
 			// Completar documento si la acción es permitida
@@ -2646,6 +2698,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			crearNotificacio.setIdDocumentPrincipal(idDocumentPrincipal);
 			crearNotificacio.setIdsAnnexosList(expedientNotificacio.getIdsAnnexosList());
 			crearNotificacio.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
+			crearNotificacio.setIdProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
 			crearNotificacio.setCodiProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentCodi());
 			crearNotificacio.setComunicar(expedientNotificacio.getComunicar());
 			DocumentCrearNotificacioBDTO documentCrearNotificacioBDTO = new DocumentCrearNotificacioBDTO(crearNotificacio);
@@ -2753,151 +2806,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		return respostaDocumentSignatExpedientRDTO;
-	}
-
-	/**
-	 * Digitalitzar document expedient.
-	 *
-	 * @param codiExpedient
-	 *            the codi expedient
-	 * @param documentDigitalitzacio
-	 *            the document digitalitzacio
-	 * @return the resposta digitalitzar document RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	@PostMapping("/expedients/{codiExpedient}/documentacio/digitalitzar")
-	@ApiOperation(value = "Força el canvi d'estat de l'expedient a Finzalizado i Comunicat després de la signatura dels documents", tags = {
-			"Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
-					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	public RespostaDigitalitzarDocumentRDTO digitalitzarDocumentExpedient(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades de la digitalització del document de l'expedient") @RequestBody DocumentDigitalitzacioRDTO documentDigitalitzacio)
-			throws GPAServeisServiceException {
-
-		if (log.isDebugEnabled()) {
-			log.debug("digitalitzarDocumentExpedient(String, DocumentDigitalitzacioRDTO) - inici"); //$NON-NLS-1$
-		}
-
-		RespostaDigitalitzarDocumentRDTO respostaDigitalitzarDocumentRDTO = null;
-		DadesExpedientBDTO dadesExpedientBDTO = null;
-		RegistreAssentamentRDTO registreAssentamentRDTO = null;
-		DocsEntradaRDTO docsEntradaRDTOResult = null;
-		DocsTramitacioRDTO docsTramitacioRDTOResult = null;
-		Boolean esAportada = null;
-		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_DOCUMENT_DIGITALITZAT_EXPEDIENT);
-		try {
-			ConfiguracioApiParamValueTranslator configuracioApiParamValueTranslator = new ConfiguracioApiParamValueTranslator();
-			ConfiguracioApiParamValue configuracioApiParamValue = configuracioApiParamValueTranslator
-					.getEnumByApiParamValue(documentDigitalitzacio.getDocument().getConfiguracio());
-			switch (configuracioApiParamValue) {
-			case APORTADA:
-				esAportada = Boolean.TRUE;
-				break;
-			case GENERADA:
-				esAportada = Boolean.FALSE;
-				break;
-			default:
-				break;
-			}
-
-			// El codi del expediente debe existir
-			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
-					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
-			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT);
-
-			// El número de registro indicado debe existir
-			// TODO Confirmar que el núemro de registro no se debe enviar en el
-			// modelo de petición. Es Digitalización el que lo crea y lo
-			// devuelve
-			// registreAssentamentRDTO = serveisService
-			// .consultarDadesRegistreAssentament(documentDigitalitzacio.getDocument().getNumeroRegistre());
-			// ServeisRestControllerValidationHelper.validateRegistreAssentament(registreAssentamentRDTO,
-			// Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
-
-			// Digitalizar documento si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
-					AccioTramitadorApiParamValue.DIGITALITZAR_DOCUMENT, Resultat.ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT);
-
-			// Digitalizar un documento, pudiéndose tratar de entrada o
-			// tramitación
-			// La configuración de documentación indicada debe estar asociada al
-			// procedimiento del expediente
-			if (BooleanUtils.isTrue(esAportada)) {
-				// El número de registro indicado debe existir
-				// TODO Confirmar que el núemro de registro no se debe enviar en
-				// el
-				// modelo de petición. Es Digitalización el que lo crea y lo
-				// devuelve
-				// registreAssentamentRDTO = serveisService
-				// .consultarDadesRegistreAssentament(documentDigitalitzacio.getDocument().getNumeroRegistre());
-				// ServeisRestControllerValidationHelper.validateRegistreAssentament(registreAssentamentRDTO,
-				// Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
-
-				DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(
-						dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc(), null);
-				RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = serveisService
-						.cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);
-				HashMap<String, ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaMap = ServeisRestControllerValidationHelper
-						.validateConfiguracioDocumentacioEntradaDigitalitzar(
-								respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList(),
-								documentDigitalitzacio.getDocument(), Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
-
-				DocsEntradaRDTO docsEntradaRDTO = modelMapper.map(documentDigitalitzacio.getDocument(), DocsEntradaRDTO.class);
-				docsEntradaRDTO
-						.setConfigDocEntrada(configuracioDocsEntradaMap.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
-				// TODO Incorporar número de registro en la petición cuando se
-				// aborde la integración con OGE
-				// docsEntradaRDTO.setRegistreIdext(registreAssentamentRDTO.getId());
-
-				CrearDocumentEntradaDigitalitzarBDTO crearDocumentEntradaDigitalitzarBDTO = new CrearDocumentEntradaDigitalitzarBDTO(
-						dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
-				docsEntradaRDTOResult = serveisService.crearDocumentEntradaDigitalitzat(crearDocumentEntradaDigitalitzarBDTO);
-			} else {
-				DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO = new DocumentsTramitacioCercaBDTO(
-						dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc());
-				RespostaDocumentsTramitacioCercaBDTO respostaDocumentsTramitacioCercaBDTO = serveisService
-						.cercaConfiguracioDocumentacioTramitacio(documentsTramitacioCercaBDTO);
-				HashMap<String, ConfiguracioDocsTramitacioRDTO> configuracioDocsTramitacioMap = ServeisRestControllerValidationHelper
-						.validateConfiguracioDocumentacioTramitacioDigitalitzar(
-								respostaDocumentsTramitacioCercaBDTO.getConfiguracioDocsTramitacioRDTOList(),
-								documentDigitalitzacio.getDocument(), Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
-
-				DocsTramitacioRDTO docsTramitacioRDTO = modelMapper.map(documentDigitalitzacio.getDocument(), DocsTramitacioRDTO.class);
-				docsTramitacioRDTO.setConfigDocTramitacio(
-						configuracioDocsTramitacioMap.get(String.valueOf(docsTramitacioRDTO.getConfigDocTramitacio())).getId());
-				CrearDocumentTramitacioDigitalitzarBDTO crearDocumentTramitacioDigitalitzarBDTO = new CrearDocumentTramitacioDigitalitzarBDTO(
-						dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
-				docsTramitacioRDTOResult = serveisService.crearDocumentTramitacioDigitalitzat(crearDocumentTramitacioDigitalitzarBDTO);
-			}
-
-		} catch (GPAApiParamValidationException e) {
-			log.error("digitalitzarDocumentExpedient(String, DocumentDigitalitzacioRDTO)", e); // $NON-NLS-1$
-			respostaResultatBDTO = new RespostaResultatBDTO(e);
-		} catch (Exception e) {
-			log.error("digitalitzarDocumentExpedient(String, DocumentDigitalitzacioRDTO)", e); // $NON-NLS-1$
-			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT, e);
-		}
-
-		if (BooleanUtils.isTrue(esAportada)) {
-			RespostaDigitalitzarDocumentEntradaBDTO respostaDigitalitzarDocumentExpedientBDTO = new RespostaDigitalitzarDocumentEntradaBDTO(
-					docsEntradaRDTOResult, dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null,
-					registreAssentamentRDTO, respostaResultatBDTO);
-			respostaDigitalitzarDocumentRDTO = modelMapper.map(respostaDigitalitzarDocumentExpedientBDTO,
-					RespostaDigitalitzarDocumentRDTO.class);
-		} else {
-			RespostaDigitalitzarDocumentTramitacioBDTO respostaDigitalitzarDocumentTramitacioBDTO = new RespostaDigitalitzarDocumentTramitacioBDTO(
-					docsTramitacioRDTOResult, dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null,
-					registreAssentamentRDTO, respostaResultatBDTO);
-			respostaDigitalitzarDocumentRDTO = modelMapper.map(respostaDigitalitzarDocumentTramitacioBDTO,
-					RespostaDigitalitzarDocumentRDTO.class);
-		}
-
-		if (log.isDebugEnabled()) {
-			log.debug("digitalitzarDocumentExpedient(String, DocumentDigitalitzacioRDTO) - fi"); //$NON-NLS-1$
-		}
-
-		return respostaDigitalitzarDocumentRDTO;
 	}
 
 	/**
@@ -3039,6 +2947,13 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					.consultarDadesBasiquesProcediment(expedientRevisar.getProcediment().getId());
 			ServeisRestControllerValidationHelper.validateProcedimentCrearSolicitudExpedient(dadesProcedimentBDTO);
 
+			// se valida que si la relacion es de persona interesada, solo
+			// permita valores sollicitant y representant y si
+			// la relacion es de persona implicada, solo permita los valores
+			// testimoni y Altres
+			ServeisRestControllerValidationHelper.validatePersonesImplicadesInteressadesExpedient(expedientRevisar.getPersonesImplicades(),
+					expedientRevisar.getPersonesInteressades(), Resultat.ERROR_REVISAR_EXPEDIENT);
+
 			// El codi de la unitat gestora, opcional, debe existir y estar
 			// vigente
 			BigDecimal idUnitatGestora = null;
@@ -3058,6 +2973,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// Se debe indicar el id de la Unitat Gestora recuperada
 			expedientsRDTO.setUnitatGestoraIdext(idUnitatGestora);
 			ExpedientsCrearBDTO expedientsCrearBDTO = new ExpedientsCrearBDTO(expedientsRDTO);
+
 			if (StringUtils.isNotEmpty(expedientRevisar.getNumeroRegistre())) {
 				Sollicituds sollicituds = new Sollicituds();
 				es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentament registreAssentament = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentament();
@@ -3144,8 +3060,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			expedientsRDTO.setUnitatGestoraIdext(idUnitatGestora);
 			// Indicamos también el id del expediente objeto de recurso
 			expedientsRDTO.setExpedientObjecteDeRecursId(dadesExpedientBDTO.getExpedientsRDTO().getId());
-			ExpedientsCrearBDTO expedientsCrearBDTO = new ExpedientsCrearBDTO(expedientsRDTO);
 
+			ExpedientsCrearBDTO expedientsCrearBDTO = new ExpedientsCrearBDTO(expedientsRDTO);
 			returnExpedientsRDTO = serveisService.crearSollicitudExpedient(expedientsCrearBDTO);
 		} catch (GPAApiParamValidationException e) {
 			log.error("revisarSolicitudExpedient(ExpedientRevisarRDTO)", e); //$NON-NLS-1$
@@ -3198,6 +3114,14 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateSollicitantActualitzarSolicitudExpedient(solicitudExpedient.getSollicitant(),
 					solicitudExpedient.getRepresentant());
 
+			// se valida que si la relacion es de persona interesada, solo
+			// permita valores sollicitant y representant y si
+			// la relacion es de persona implicada, solo permita los valores
+			// testimoni y Altres
+			ServeisRestControllerValidationHelper.validatePersonesImplicadesInteressadesExpedient(
+					solicitudExpedient.getPersonesImplicades(), solicitudExpedient.getPersonesInteressades(),
+					Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
+
 			// Actualizar Solicitante / Representante / Dades d'Operació si se
 			// incluyen en los datos de la petición y si la acción es permitida
 			if (solicitudExpedient.getSollicitant() != null || CollectionUtils.isNotEmpty(solicitudExpedient.getDadesOperacio())) {
@@ -3215,7 +3139,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = serveisService.cercaDadesOperacio(dadesOperacioCercaBDTO);
 				dadesEspecifiquesRDTOList = ServeisRestControllerValidationHelper.validateDadesOperacioActualitzarSolicitudExpedient(
 						solicitudExpedient.getDadesOperacio(), respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList(),
-						dadesExpedientBDTO.getExpedientsRDTO().getId(), false);
+						dadesExpedientBDTO.getExpedientsRDTO().getId(), null, false);
 			}
 
 			// Se construye el modelo para la llamada a la operación de
@@ -3727,191 +3651,152 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	}
 
 	/**
-	 * Aportar documentacio expedient.
+	 * Digitalitzar document expedient.
 	 *
 	 * @param codiExpedient
 	 *            the codi expedient
-	 * @param documentacioAportar
-	 *            the documentacio aportar
-	 * @return the resposta aportar document RDTO
-	 */
-	@PostMapping("/expedients/{codiExpedient}/documentacio/aportar")
-	@ApiOperation(value = "Aportar documentació a l'expedient", tags = { "Serveis Tramitadors API" }, extensions = {
-			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	public RespostaAportarDocumentRDTO aportarDocumentacioExpedient(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades de la creació del document") @RequestBody DocumentacioAportarRDTO documentacioAportar) {
-
-		RespostaAportarDocumentRDTO respostaAportarDocumentRDTO = null;
-		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_APORTAR_DOCUMENTACIO);
-		DadesExpedientBDTO dadesExpedientBDTO = null;
-		List<DocsEntradaRDTO> docsEntradaRDTORespostaList = null;
-		DocsTramitacioRDTO respostaCrearJustificant = null;
-		RespostaCrearRegistreExpedient respostaCrearRegistreExpedient = null;
-		try {
-			// El codi del expediente debe existir
-			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
-					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
-			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_APORTAR_DOCUMENTACIO);
-
-			// Las configuraciones de documentación indicadas deben estar
-			// asociadas al procedimiento del expediente
-			DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(
-					dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc(), null);
-			RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = serveisService
-					.cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);
-			HashMap<String, ConfiguracioDocsEntradaRDTO> map = ServeisRestControllerValidationHelper
-					.validateConfiguracioDocumentacioAportada(respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList(),
-							documentacioAportar.getDocumentacio(), Resultat.ERROR_APORTAR_DOCUMENTACIO);
-
-			// Aportar documentación si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
-					AccioTramitadorApiParamValue.APORTAR_DOCUMENTACIO, Resultat.ERROR_APORTAR_DOCUMENTACIO);
-
-			// Se construye el modelo para la llamada a la operación de aportar
-			// documentació
-			if (CollectionUtils.isNotEmpty(documentacioAportar.getDocumentacio())) {
-				docsEntradaRDTORespostaList = new ArrayList<DocsEntradaRDTO>();
-				DocsEntradaRDTO docsEntradaRDTOResposta = null;
-				for (DocumentAportatCrearRDTO documentAportatCrearRDTO : documentacioAportar.getDocumentacio()) {
-					DocsEntradaRDTO docsEntradaRDTO = modelMapper.map(documentAportatCrearRDTO, DocsEntradaRDTO.class);
-					docsEntradaRDTO.setRevisio(RevisioApiParamValue.PENDENT.getInternalValue());
-					docsEntradaRDTO.setOrigen(docsEntradaRDTO.getOrigen() == null ? OrigenApiParamValue.EXTERN.getInternalValue()
-							: docsEntradaRDTO.getOrigen());
-					docsEntradaRDTO.setNou(NumberUtils.INTEGER_ONE);
-					docsEntradaRDTO.setConfigDocEntrada(map.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
-
-					if (BooleanUtils.isTrue(documentAportatCrearRDTO.getDeclaracioResponsable())) {
-						CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO = new CrearDeclaracioResponsableBDTO(
-								dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
-						docsEntradaRDTOResposta = serveisService.crearDeclaracioResponsable(crearDeclaracioResponsableBDTO);
-					} else {
-						CrearDocumentEntradaBDTO crearDocumentEntradaBDTO = new CrearDocumentEntradaBDTO(
-								dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
-						docsEntradaRDTOResposta = serveisService.crearDocumentEntrada(crearDocumentEntradaBDTO);
-					}
-					docsEntradaRDTORespostaList.add(docsEntradaRDTOResposta);
-				}
-			}
-
-			if (documentacioAportar.isRegistrar() && CollectionUtils.isNotEmpty(docsEntradaRDTORespostaList)) {
-				List<BigDecimal> idsDocsEnt = new ArrayList<>();
-				for (DocsEntradaRDTO docsEntrada : docsEntradaRDTORespostaList) {
-					idsDocsEnt.add(docsEntrada.getId());
-				}
-
-				// Registrar en Ariadna y coger el ID
-				CrearRegistre registreCreacioSolicitudExpedient = new CrearRegistre();
-				registreCreacioSolicitudExpedient.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
-				registreCreacioSolicitudExpedient.setDocuments(idsDocsEnt);
-				ExpedientsRegistrarBDTO expedientsRegistrarBDTO = new ExpedientsRegistrarBDTO(registreCreacioSolicitudExpedient);
-				respostaCrearRegistreExpedient = serveisService.crearRegistre(expedientsRegistrarBDTO,
-						TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_APORTACIO.getInternalValue());
-
-				// Actualizar la lista de documentos
-				DocsEntActualizarRegistre docsEntActualizarRegistre = new DocsEntActualizarRegistre();
-				docsEntActualizarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
-				docsEntActualizarRegistre.setListIdsDocsEnt(idsDocsEnt);
-				serveisService.associarRegistreDocsEnt(docsEntActualizarRegistre);
-
-				// Recoger Plantilla
-				RespostaPlantillaDocVinculada respostaPlantillaDocVinculada = serveisService.getPlantillaDocVinculada(
-						dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc(),
-						TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_APORTACIO.getInternalValue());
-
-				// Generar Justificant
-				DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
-				ConfiguracioDocsTramitacio configuracioDocsTramitacio = new ConfiguracioDocsTramitacio();
-				configuracioDocsTramitacio.setSuportEnllac(respostaPlantillaDocVinculada.getPlantilla());
-				configuracioDocsTramitacio.setId(respostaPlantillaDocVinculada.getId());
-				docsTramitacioRDTO.setIdioma(IdiomaApiParamValue.CATALA.getInternalValue());
-				docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
-				docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
-				docsTramitacioRDTO.setDocsTercers(1);
-				CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
-						dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
-						docsTramitacioRDTO);
-				respostaCrearJustificant = serveisService.guardarDocumentTramitacioPlantilla(crearDocumentTramitacioBDTO);
-
-				// Vincular Justificante en Ariadna
-				RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
-				registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
-				registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
-				serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
-			}
-		} catch (GPAApiParamValidationException e) {
-			log.error("aportarDocumentacioExpedient(BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
-			respostaResultatBDTO = new RespostaResultatBDTO(e);
-		} catch (Exception e) {
-			log.error("aportarDocumentacioExpedient(BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
-			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_APORTAR_DOCUMENTACIO, e);
-		}
-
-		RespostaAportarDocumentExpedientBDTO respostaAportarDocumentExpedientBDTO = new RespostaAportarDocumentExpedientBDTO(
-				docsEntradaRDTORespostaList,
-				(dadesExpedientBDTO != null && dadesExpedientBDTO.getExpedientsRDTO() != null) ? dadesExpedientBDTO.getExpedientsRDTO()
-						: null,
-				(respostaCrearRegistreExpedient != null && respostaCrearRegistreExpedient.getRegistreAssentament() != null)
-						? respostaCrearRegistreExpedient.getRegistreAssentament() : null,
-				respostaCrearJustificant != null ? respostaCrearJustificant.getId() : null, respostaResultatBDTO);
-		respostaAportarDocumentRDTO = modelMapper.map(respostaAportarDocumentExpedientBDTO, RespostaAportarDocumentRDTO.class);
-
-		return respostaAportarDocumentRDTO;
-	}
-
-	/**
-	 * Obtenir estat de digitalitzacio d'un document.
-	 *
-	 * @param codiExpedient
-	 *            the codi expedient
-	 * @return the resposta certificar expedient RDTO
+	 * @param documentDigitalitzacio
+	 *            the document digitalitzacio
+	 * @return the resposta digitalitzar document RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	@GetMapping(value = "/expedients/{codiExpedient}/documentacio/{idDocument}/estatDigitalitzacio")
-	@ApiOperation(value = "Obtenir estat de digitalitzacio d'un document", tags = { "Serveis Tramitadors API" }, extensions = {
-			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	public RespostaEstatDigitalitzacioRDTO obtenirEstatDigitalitzacio(
+	@PostMapping("/expedients/{codiExpedient}/documentacio/digitalitzar")
+	@ApiOperation(value = "Força el canvi d'estat de l'expedient a Finzalizado i Comunicat després de la signatura dels documents", tags = {
+			"Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaDigitalitzarDocumentRDTO digitalitzarDocumentExpedient(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Identificador del document", required = true) @PathVariable Long idDocument)
+			@ApiParam(value = "Dades de la digitalització del document de l'expedient") @RequestBody DocumentDigitalitzacioRDTO documentDigitalitzacio)
 			throws GPAServeisServiceException {
+
 		if (log.isDebugEnabled()) {
-			log.debug("obtenirEstatDigitalitzacio(String, BigDecimal) - inici"); //$NON-NLS-1$
+			log.debug("digitalitzarDocumentExpedient(String, DocumentDigitalitzacioRDTO) - inici"); //$NON-NLS-1$
 		}
 
-		RespostaEstatDigitalitzacioRDTO respostaEstatDigitalitzacioRDTO = null;
+		RespostaDigitalitzarDocumentRDTO respostaDigitalitzarDocumentRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
-		EstatDigitalitzacioDocumentRDTO estat = null;
-		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ESTAT_DOCUMENT_DIGITALITZACIO_EXPEDIENT);
-
+		RegistreAssentamentRDTO registreAssentamentRDTO = null;
+		DocsEntradaRDTO docsEntradaRDTOResult = null;
+		DocsTramitacioRDTO docsTramitacioRDTOResult = null;
+		Boolean esAportada = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_DOCUMENT_DIGITALITZAT_EXPEDIENT);
 		try {
+			ConfiguracioApiParamValueTranslator configuracioApiParamValueTranslator = new ConfiguracioApiParamValueTranslator();
+			ConfiguracioApiParamValue configuracioApiParamValue = configuracioApiParamValueTranslator
+					.getEnumByApiParamValue(documentDigitalitzacio.getDocument().getConfiguracio());
+			switch (configuracioApiParamValue) {
+			case APORTADA:
+				esAportada = Boolean.TRUE;
+				break;
+			case GENERADA:
+				esAportada = Boolean.FALSE;
+				break;
+			default:
+				break;
+			}
+
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
 					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
-			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO,
-					Resultat.ERROR_ESTAT_DOCUMENT_DIGITALITZACIO_EXPEDIENT);
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT);
 
-			// llamar a metodo de digitalitzacio status
-			estat = serveisService.obtenirEstatDigitalitzacioDocument(idDocument);
+			// El número de registro indicado debe existir
+			if (esAportada) {
+				// El número de registro indicado debe existir
+				registreAssentamentRDTO = serveisService
+						.consultarDadesRegistreAssentament(documentDigitalitzacio.getDocument().getNumeroRegistre());
+				ServeisRestControllerValidationHelper.validateRegistreAssentament(registreAssentamentRDTO,
+						Resultat.ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT);
+			}
+
+			// Digitalizar documento si la acción es permitida
+			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+					AccioTramitadorApiParamValue.DIGITALITZAR_DOCUMENT, Resultat.ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT);
+
+			// Digitalizar un documento, pudiéndose tratar de entrada o
+			// tramitación
+			// La configuración de documentación indicada debe estar asociada al
+			// procedimiento del expediente
+			if (BooleanUtils.isTrue(esAportada)) {
+				DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(
+						dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc(), null);
+				RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = serveisService
+						.cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);
+				HashMap<String, ConfiguracioDocsEntradaRDTO> configuracioDocsEntradaMap = ServeisRestControllerValidationHelper
+						.validateConfiguracioDocumentacioEntradaDigitalitzar(
+								respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList(),
+								documentDigitalitzacio.getDocument(), Resultat.ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT);
+
+				DocsEntradaRDTO docsEntradaRDTO = modelMapper.map(documentDigitalitzacio.getDocument(), DocsEntradaRDTO.class);
+				docsEntradaRDTO
+						.setConfigDocEntrada(configuracioDocsEntradaMap.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
+
+				if (registreAssentamentRDTO != null) {
+					RegistreAssentament registreAssentament = new RegistreAssentament();
+					registreAssentament.setId(registreAssentamentRDTO.getId());
+					docsEntradaRDTO.setRegistreAssentament(registreAssentament);
+				}
+
+				CrearDocumentEntradaDigitalitzarBDTO crearDocumentEntradaDigitalitzarBDTO = new CrearDocumentEntradaDigitalitzarBDTO(
+						dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
+				// TODO ¿Se crea un documento por cada uno de los códigos de
+				// Gestor Documental obtenidos?
+				for (String codi : documentDigitalitzacio.getDocument().getCodis()) {
+					crearDocumentEntradaDigitalitzarBDTO.getDocsEntradaRDTO().setCodi(codi);
+					docsEntradaRDTOResult = serveisService.crearDocumentEntradaDigitalitzat(crearDocumentEntradaDigitalitzarBDTO);
+				}
+			} else {
+				DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO = new DocumentsTramitacioCercaBDTO(
+						dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc());
+				RespostaDocumentsTramitacioCercaBDTO respostaDocumentsTramitacioCercaBDTO = serveisService
+						.cercaConfiguracioDocumentacioTramitacio(documentsTramitacioCercaBDTO);
+				HashMap<String, ConfiguracioDocsTramitacioRDTO> configuracioDocsTramitacioMap = ServeisRestControllerValidationHelper
+						.validateConfiguracioDocumentacioTramitacioDigitalitzar(
+								respostaDocumentsTramitacioCercaBDTO.getConfiguracioDocsTramitacioRDTOList(),
+								documentDigitalitzacio.getDocument(), Resultat.ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT);
+
+				DocsTramitacioRDTO docsTramitacioRDTO = modelMapper.map(documentDigitalitzacio.getDocument(), DocsTramitacioRDTO.class);
+				docsTramitacioRDTO.setConfigDocTramitacio(
+						configuracioDocsTramitacioMap.get(String.valueOf(docsTramitacioRDTO.getConfigDocTramitacio())).getId());
+
+				CrearDocumentTramitacioDigitalitzarBDTO crearDocumentTramitacioDigitalitzarBDTO = new CrearDocumentTramitacioDigitalitzarBDTO(
+						dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO);
+				// TODO ¿Se crea un documento por cada uno de los códigos de
+				// Gestor Documental obtenidos?
+				for (String codi : documentDigitalitzacio.getDocument().getCodis()) {
+					crearDocumentTramitacioDigitalitzarBDTO.getDocsTramitacioRDTO().setCodi(codi);
+					docsTramitacioRDTOResult = serveisService.crearDocumentTramitacioDigitalitzat(crearDocumentTramitacioDigitalitzarBDTO);
+				}
+			}
 
 		} catch (GPAApiParamValidationException e) {
-			log.error("obtenirEstatDigitalitzacio(String, BigDecimal)", e); // $NON-NLS-1$
+			log.error("digitalitzarDocumentExpedient(String, DocumentDigitalitzacioRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 		} catch (Exception e) {
-			log.error("obtenirEstatDigitalitzacio(String, BigDecimal)", e); // $NON-NLS-1$
-			respostaResultatBDTO = ServeisRestControllerExceptionHandler
-					.handleException(Resultat.ERROR_ESTAT_DOCUMENT_DIGITALITZACIO_EXPEDIENT, e);
+			log.error("digitalitzarDocumentExpedient(String, DocumentDigitalitzacioRDTO)", e); // $NON-NLS-1$
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT, e);
 		}
 
-		RespostaEstatDigitalitzacioBDTO respostaEstatDigitalitzacioBDTO = new RespostaEstatDigitalitzacioBDTO(
-				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO,
-				estat != null ? estat.getMessage() : null, estat != null ? estat.getStatus() : null);
-		respostaEstatDigitalitzacioRDTO = modelMapper.map(respostaEstatDigitalitzacioBDTO, RespostaEstatDigitalitzacioRDTO.class);
+		if (BooleanUtils.isTrue(esAportada)) {
+			RespostaDigitalitzarDocumentEntradaBDTO respostaDigitalitzarDocumentExpedientBDTO = new RespostaDigitalitzarDocumentEntradaBDTO(
+					docsEntradaRDTOResult, dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null,
+					registreAssentamentRDTO, respostaResultatBDTO);
+			respostaDigitalitzarDocumentRDTO = modelMapper.map(respostaDigitalitzarDocumentExpedientBDTO,
+					RespostaDigitalitzarDocumentRDTO.class);
+		} else {
+			RespostaDigitalitzarDocumentTramitacioBDTO respostaDigitalitzarDocumentTramitacioBDTO = new RespostaDigitalitzarDocumentTramitacioBDTO(
+					docsTramitacioRDTOResult, dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null,
+					registreAssentamentRDTO, respostaResultatBDTO);
+			respostaDigitalitzarDocumentRDTO = modelMapper.map(respostaDigitalitzarDocumentTramitacioBDTO,
+					RespostaDigitalitzarDocumentRDTO.class);
+		}
 
 		if (log.isDebugEnabled()) {
-			log.debug("obtenirEstatDigitalitzacio(String, BigDecimal) - fi"); //$NON-NLS-1$
+			log.debug("digitalitzarDocumentExpedient(String, DocumentDigitalitzacioRDTO) - fi"); //$NON-NLS-1$
 		}
 
-		return respostaEstatDigitalitzacioRDTO;
+		return respostaDigitalitzarDocumentRDTO;
 	}
+
 }

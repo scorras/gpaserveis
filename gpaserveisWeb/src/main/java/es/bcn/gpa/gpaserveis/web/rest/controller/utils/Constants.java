@@ -83,14 +83,17 @@ public class Constants {
 
 	/** The Constant ESTAT_EXPEDIENT_SOLLICITUD_EN_REVISIO. */
 	public static final BigDecimal ESTAT_EXPEDIENT_SOLLICITUD_EN_REVISIO = new BigDecimal(2);
-	
+
 	/** The Constant DESCRIPCIO_ESTAT_ESBORRANY. */
 	public static final String DESCRIPCIO_ESTAT_ESBORRANY = "ESBORRANY";
-	
+
 	/** The Constant DESCRIPCIO_ESTAT_REGISTRAT. */
 	public static final String DESCRIPCIO_ESTAT_REGISTRAT = "REGISTRAT";
-	
+
 	/** The Constant DESCRIPCIO_ACCIO_ARXIVAR. */
 	public static final String DESCRIPCIO_ACCIO_ARXIVAR = "Arxivar per incomplerta o inadequada";
+
+	/** The Constant ERROR_STR. */
+	public static final String ERROR_STR = "ERROR";
 
 }

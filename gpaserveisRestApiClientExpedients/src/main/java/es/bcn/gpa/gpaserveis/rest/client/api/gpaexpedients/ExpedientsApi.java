@@ -10,8 +10,10 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegistreRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ObtenirPerInteroperabilitat;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RedireccioAssentament;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornTramitacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TornarEnrereRDTO;
 
@@ -34,7 +36,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-06T14:11:58.043+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-23T11:48:23.548+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi")
 public class ExpedientsApi {
     private ApiClient apiClient;
@@ -371,6 +373,45 @@ public class ExpedientsApi {
         return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
+     * Redireccionar registre
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>201</b> - Created
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param redireccioAssentamentRDTO redireccioAssentamentRDTO
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public void redireccionarRegistre(RedireccioAssentament redireccioAssentamentRDTO) throws RestClientException {
+        Object postBody = redireccioAssentamentRDTO;
+        
+        // verify the required parameter 'redireccioAssentamentRDTO' is set
+        if (redireccioAssentamentRDTO == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'redireccioAssentamentRDTO' when calling redireccionarRegistre");
+        }
+        
+        String path = UriComponentsBuilder.fromPath("/expedients/registre/redireccionar").build().toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { 
+            "application/json"
+        };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {};
+        apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
      * RetornarTramitacio
      * 
      * <p><b>200</b> - OK
@@ -380,9 +421,10 @@ public class ExpedientsApi {
      * <p><b>404</b> - Not Found
      * @param idExpedient Identificador de l&#39;expedient
      * @param retornarTramitacioRDTO retornarTramitacioRDTO
+     * @return RetornTramitacio
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void retornarTramitacioExpedient(BigDecimal idExpedient, RetornarTramitacioRDTO retornarTramitacioRDTO) throws RestClientException {
+    public RetornTramitacio retornarTramitacioExpedient(BigDecimal idExpedient, RetornarTramitacioRDTO retornarTramitacioRDTO) throws RestClientException {
         Object postBody = retornarTramitacioRDTO;
         
         // verify the required parameter 'idExpedient' is set
@@ -415,8 +457,8 @@ public class ExpedientsApi {
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {};
-        apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+        ParameterizedTypeReference<RetornTramitacio> returnType = new ParameterizedTypeReference<RetornTramitacio>() {};
+        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
      * TornarEnrere expedient

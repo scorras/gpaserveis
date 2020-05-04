@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.bcn.gpa.gpaserveis.business.ServeisService;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesSignatura;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.portasig.TipusCodiEstatPortasigApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mciportasig.notificacions.MciPortasigResultatPeticioDTO;
@@ -73,6 +75,14 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 				DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
 				callbackPortaSig.setDataCaducitat(dataHoraFormatter.parseDateTime(mciPortasigSignatarisDTO.getDataCaducitat()));
 			}
+
+			DadesSignatura dadesSignatura = serveisService.consultarDadesSignaturaByCodiPeticio(callbackPortaSig.getCodiPeticio());
+
+			DadesExpedientBDTO dadesExpedientBDTO = serveisService
+					.consultarDadesBasiquesExpedientByIdDocumentacio(dadesSignatura.getIdDocumentacio());
+
+			callbackPortaSig.setUnitatGestoraIdext(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
+			callbackPortaSig.setDadesSignaturaDocumentRDTO(dadesSignatura);
 
 			serveisService.callbackPortaSig(callbackPortaSig);
 

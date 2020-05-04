@@ -6,7 +6,7 @@ package es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums;
 public enum ErrorPrincipal {
 
 	/* Generic */
-	ERROR_GENERIC("9999", "S'ha produït una incidència"),
+	ERROR_GENERIC("9999", "S'ha produït una incidència: "),
 
 	/* Unitats */
 	ERROR_UNITATS_NOT_FOUND("1001", "No s'ha trobat la unitat gestora"),
@@ -71,6 +71,11 @@ public enum ErrorPrincipal {
 	ERROR_SOLLICITUDS_HI_HA_ESBORRANY("3021", "Hi ha sol·licituds del mateix tipus en estat esborrador"),
 
 	ERROR_SOLLICITUDS_DADES_OPERACIO_APO("3022", "No és possible actualitzar les dades d'operació a una sol·licitud d'aportació."),
+
+	ERROR_EXPEDIENTS_PERSONA_INTERESADA_RELACIO("3023",
+			"Les persones interessades només poden tenir relació com a sol·licitant o representant"),
+
+	ERROR_EXPEDIENTS_PERSONA_IMPLICADA_RELACIO("3024", "Les persones implicades només poden tenir relació com a testimoni o altres"),
 
 	/* Documents */
 	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document"),

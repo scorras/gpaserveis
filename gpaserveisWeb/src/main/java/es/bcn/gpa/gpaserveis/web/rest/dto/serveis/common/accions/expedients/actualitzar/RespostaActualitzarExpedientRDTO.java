@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.estatDigitalitzacio;
+package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -10,19 +10,22 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "RespostaEstatDigitalitzacio")
+
+@ApiModel(value="RespostaActualitzarExpedient")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "resultat", "expedient" })
+@JsonPropertyOrder({
+    "resultat",
+    "expedient"
+})
 @Getter
 @Setter
-public class RespostaEstatDigitalitzacioRDTO {
-
+public class RespostaActualitzarExpedientRDTO {
+    
 	@ApiModelProperty("Resultat de l'operació")
 	private ResultatRespostaDTO resultat;
-	@ApiModelProperty("Expedient")
+	@ApiModelProperty("Expedient actualitzat")
 	private ExpedientAccioRDTO expedient;
-	@ApiModelProperty("Estat de digitalitzacio")
-	private String estatDigitalitzacio;
-	@ApiModelProperty("Message")
-	private String message;
+	
 }
+
+

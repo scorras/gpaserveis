@@ -16,15 +16,29 @@ public class SollicitudActualitzarHelper {
 
 	private List<PersonesRDTO> personesSollicitud;
 
+	private List<PersonesRDTO> personesInteressades;
+
+	private List<PersonesRDTO> personesImplicades;
+
 	public SollicitudActualitzarHelper(SollicitudActualitzarRDTO sollicitudActualitzarRDTO) {
 		super();
 		this.sollicitudActualitzarRDTO = sollicitudActualitzarRDTO;
 		this.personesSollicitud = new ArrayList<>();
-		this.personesSollicitud.add(sollicitudActualitzarRDTO.getSollicitant());
-		if (sollicitudActualitzarRDTO.getRepresentant() != null){
+		this.personesInteressades = new ArrayList<>();
+		this.personesImplicades = new ArrayList<>();
+
+		if (sollicitudActualitzarRDTO.getSollicitant() != null) {
+			this.personesSollicitud.add(sollicitudActualitzarRDTO.getSollicitant());
+		}
+		if (sollicitudActualitzarRDTO.getRepresentant() != null) {
 			this.personesSollicitud.add(sollicitudActualitzarRDTO.getRepresentant());
 		}
-
+		if (sollicitudActualitzarRDTO.getPersonesImplicades() != null) {
+			this.personesImplicades.addAll(sollicitudActualitzarRDTO.getPersonesImplicades());
+		}
+		if (sollicitudActualitzarRDTO.getPersonesInteressades() != null) {
+			this.personesInteressades.addAll(sollicitudActualitzarRDTO.getPersonesInteressades());
+		}
 	}
 
 }
