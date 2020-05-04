@@ -77,6 +77,7 @@ import es.bcn.gpa.gpaserveis.business.impl.helper.ServeisServiceHelper;
 import es.bcn.gpa.gpaserveis.business.xml.bind.Jaxb2MarshallerWrapper;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesSignatura;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
@@ -2146,6 +2147,11 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public MunicipisRDTO consultarMunicipisByCodi(String codiMunicipi, String codiProvincia) throws GPAServeisServiceException {
 		return expedientsService.consultarMunicipisByCodi(codiMunicipi, codiProvincia);
+	}
+
+	@Override
+	public DadesSignatura consultarDadesSignaturaByCodiPeticio(String codiPeticio) throws GPAServeisServiceException {
+		return documentsService.consultarDadesSignaturaByCodiPeticio(codiPeticio);
 	}
 
 }

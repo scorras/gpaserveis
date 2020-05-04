@@ -104,6 +104,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.Idiom
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.OrigenApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.RevisioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusDocumentacioVinculadaApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusSignaturaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.EstatTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
@@ -614,7 +615,7 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		// Datos principales de la solicitud SOL
 		DadesSollicitudBDTO dadesSollicitudBDTO = serveisService
-		        .consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
+				.consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
 
 		SollicitudConsultaRDTO sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
 
@@ -898,7 +899,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			expedientsRegistrarSollicitudBDTO = new ExpedientsRegistrarSollicitudBDTO(registreCreacioSolicitud);
 
 			respostaCrearRegistreExpedient = serveisService.crearRegistreSollicitud(expedientsRegistrarSollicitudBDTO,
-			        TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_SOLLICITUD.getInternalValue());
+					TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_SOLLICITUD.getInternalValue());
 
 			// Asociar registre de la solicitud a la propia solicitud
 			SollicitudActualitzarRegistre sollicitudActualitzarRegistre = new SollicitudActualitzarRegistre();
@@ -943,7 +944,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			confDocsTramPolitiquesSig.setConfiguracioDocsTramitacio(configuracioDocsTramitacio.getId());
 			confDocsTramPolitiquesSig.setOrdre(new BigDecimal(NumberUtils.INTEGER_ONE));
 			confDocsTramPolitiquesSig.setPoliticaSignatura(respostaCrearRegistreExpedient.getPolitic());
-			confDocsTramPolitiquesSig.setModalitatIdext(new BigDecimal(NumberUtils.INTEGER_ONE));
+			confDocsTramPolitiquesSig.setModalitatIdext(TipusSignaturaApiParamValue.SEGELL.getApiParamValue());
 			configuracioDocsTramitacio.addConfDocsTramPolitiquesSigListItem(confDocsTramPolitiquesSig);
 
 			docsTramitacioRDTO.setIdioma(IdiomaApiParamValue.CATALA.getInternalValue());
@@ -1005,7 +1006,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			log.error("registrarSolicitudExpedient(BigDecimal)", e);
 
 			sagaRegistrarSolicitudExpedient(dadesExpedientBDTO, respostaCrearRegistreExpedient, respostaCrearJustificant,
-			        documentActualizarRegistreRDTO);
+					documentActualizarRegistreRDTO);
 
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_REGISTRAR_EXPEDIENT, e);
 		}
@@ -1023,8 +1024,8 @@ public class ServeisPortalRestController extends BaseRestController {
 	}
 
 	private void sagaRegistrarSolicitudExpedient(DadesExpedientBDTO dadesExpedientBDTO,
-	        RespostaCrearRegistreExpedient respostaCrearRegistreExpedient, DocsTramitacioRDTO respostaCrearJustificant,
-	        DocumentActualizarRegistre documentActualizarRegistreRDTO) {
+			RespostaCrearRegistreExpedient respostaCrearRegistreExpedient, DocsTramitacioRDTO respostaCrearJustificant,
+			DocumentActualizarRegistre documentActualizarRegistreRDTO) {
 
 		try {
 			if (respostaCrearRegistreExpedient != null && respostaCrearRegistreExpedient.getRegistreAssentament() != null

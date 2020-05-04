@@ -52,6 +52,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesSignatura;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
@@ -115,15 +116,15 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCercaConfiguracioDocumentacioEntrada")
 	public PageDataOfConfiguracioDocsEntradaRDTO cercaConfiguracioDocumentacioEntrada(DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("cercaConfiguracioDocumentacioEntrada(DocumentsEntradaCercaBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			PageDataOfConfiguracioDocsEntradaRDTO pageDataOfConfiguracioDocsEntradaRDTO = configuracioDocumentacioApi
-			        .cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO.getIdConfiguracioDocumentacio(), null, null, null, null,
-			                null, null, null, null, null, null, null, null, null, null);
+					.cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO.getIdConfiguracioDocumentacio(), null, null, null, null,
+							null, null, null, null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaConfiguracioDocumentacioEntrada(DocumentsEntradaCercaBDTO) - fi"); //$NON-NLS-1$
@@ -148,7 +149,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public PageDataOfConfiguracioDocsEntradaRDTO fallbackCercaConfiguracioDocumentacioEntrada(
-	        DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO, Throwable e) throws GPAServeisServiceException {
+			DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaConfiguracioDocumentacioEntrada(DocumentsEntradaCercaBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -168,16 +169,16 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCercaConfiguracioDocumentacioEntradaPerTramitOvt")
 	public PageDataOfConfiguracioDocsEntradaRDTO cercaConfiguracioDocumentacioEntradaPerTramitOvt(
-	        DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO) throws GPAServeisServiceException {
+			DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("cercaConfiguracioDocumentacioEntradaPerTramitOvt(DocumentsEntradaCercaBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			PageDataOfConfiguracioDocsEntradaRDTO pageDataOfConfiguracioDocsEntradaRDTO = configuracioDocumentacioApi
-			        .cercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsEntradaCercaBDTO.getIdConfiguracioDocumentacio(),
-			                documentsEntradaCercaBDTO.getIdTramitOvt(), null, null, null, null, null, null, null, null, null, null, null,
-			                null, null, null);
+					.cercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsEntradaCercaBDTO.getIdConfiguracioDocumentacio(),
+							documentsEntradaCercaBDTO.getIdTramitOvt(), null, null, null, null, null, null, null, null, null, null, null,
+							null, null, null);
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaConfiguracioDocumentacioEntradaPerTramitOvt(DocumentsEntradaCercaBDTO) - fi"); //$NON-NLS-1$
@@ -202,7 +203,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public PageDataOfConfiguracioDocsEntradaRDTO fallbackCercaConfiguracioDocumentacioEntradaPerTramitOvt(
-	        DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO, Throwable e) throws GPAServeisServiceException {
+			DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaConfiguracioDocumentacioEntradaPerTramitOvt(DocumentsEntradaCercaBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -222,15 +223,15 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCercaConfiguracioDocumentacioTramitacio")
 	public PageDataOfConfiguracioDocsTramitacioRDTO cercaConfiguracioDocumentacioTramitacio(
-	        DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO) throws GPAServeisServiceException {
+			DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("cercaConfiguracioDocumentacioTramitacio(DocumentsTramitacioCercaBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			PageDataOfConfiguracioDocsTramitacioRDTO pageDataOfConfiguracioDocsTramitacioRDTO = configuracioDocumentacioApi
-			        .cercaConfiguracioDocumentacioTramitacio(documentsTramitacioCercaBDTO.getIdConfiguracioDocumentacio(), null, null, null,
-			                null, null, null, null, null, null, null, null, null, null, null);
+					.cercaConfiguracioDocumentacioTramitacio(documentsTramitacioCercaBDTO.getIdConfiguracioDocumentacio(), null, null, null,
+							null, null, null, null, null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaConfiguracioDocumentacioTramitacio(DocumentsTramitacioCercaBDTO) - fi"); //$NON-NLS-1$
@@ -255,7 +256,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public PageDataOfConfiguracioDocsTramitacioRDTO fallbackCercaConfiguracioDocumentacioTramitacio(
-	        DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO, Throwable e) throws GPAServeisServiceException {
+			DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaConfiguracioDocumentacioTramitacio(DocumentsTramitacioCercaBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -304,7 +305,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public List<DocsEntradaRDTO> fallbackCercaDocumentsEntradaPerSollicitud(BigDecimal idSollicitud, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaDocumentsEntradaPerSollicitud(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -353,7 +354,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public List<DocsEntradaRDTO> fallbackCercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal idDocumentacio, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -372,14 +373,14 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCercaConfiguracioDocumentacioEntradaRequerida")
 	public List<ConfDocEntradaRequeritRDTO> cercaConfiguracioDocumentacioEntradaRequerida(BigDecimal idDocumentacio)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("cercaConfiguracioDocumentacioEntradaRequerida(BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			List<ConfDocEntradaRequeritRDTO> confDocEntradaRequeritRDTOList = documentacioRequeritApi
-			        .cercaConfiguracioDocumentacioEntradaRequerida(idDocumentacio);
+					.cercaConfiguracioDocumentacioEntradaRequerida(idDocumentacio);
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaConfiguracioDocumentacioEntradaRequerida(BigDecimal) - fi"); //$NON-NLS-1$
@@ -404,7 +405,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public List<ConfDocEntradaRequeritRDTO> fallbackCercaConfiguracioDocumentacioEntradaRequerida(BigDecimal idDocumentacio, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaConfiguracioDocumentacioEntradaRequerida(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -430,7 +431,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.crearDocumentEntrada(crearDocumentEntradaBDTO.getDocsEntradaRDTO(),
-			        crearDocumentEntradaBDTO.getIdExpedient());
+					crearDocumentEntradaBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearDocumentEntrada(CrearDocumentEntradaBDTO) - fi"); //$NON-NLS-1$
@@ -455,7 +456,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public DocsEntradaRDTO fallbackCrearDocumentEntrada(CrearDocumentEntradaBDTO crearDocumentEntradaBDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearDocumentEntrada(CrearDocumentEntradaBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -475,14 +476,14 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCrearDeclaracioResponsable")
 	public DocsEntradaRDTO crearDeclaracioResponsable(CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("crearDeclaracioResponsable(CrearDeclaracioResponsableBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.crearDeclaracioResponsable(
-			        crearDeclaracioResponsableBDTO.getDocsEntradaRDTO(), crearDeclaracioResponsableBDTO.getIdExpedient());
+					crearDeclaracioResponsableBDTO.getDocsEntradaRDTO(), crearDeclaracioResponsableBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearDeclaracioResponsable(CrearDeclaracioResponsableBDTO) - fi"); //$NON-NLS-1$
@@ -507,7 +508,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public DocsEntradaRDTO fallbackCrearDeclaracioResponsable(CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearDeclaracioResponsable(CrearDeclaracioResponsableBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -527,14 +528,14 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCrearDocumentTramitacio")
 	public DocsTramitacioRDTO crearDocumentTramitacio(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("crearDocumentTramitacio(CrearDocumentTramitacioBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.crearDocumentTramitacio(
-			        crearDocumentTramitacioBDTO.getDocsTramitacioRDTO(), crearDocumentTramitacioBDTO.getIdExpedient());
+					crearDocumentTramitacioBDTO.getDocsTramitacioRDTO(), crearDocumentTramitacioBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearDocumentTramitacio(CrearDocumentTramitacioBDTO) - fi"); //$NON-NLS-1$
@@ -559,7 +560,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public DocsTramitacioRDTO fallbackCrearDocumentTramitacio(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearDocumentTramitacio(CrearDocumentTramitacioBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -579,14 +580,14 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackGuardarDocumentTramitacioPlantilla")
 	public DocsTramitacioRDTO guardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("guardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarDocumentTramitacioPlantilla(
-			        crearDocumentTramitacioBDTO.getDocsTramitacioRDTO(), crearDocumentTramitacioBDTO.getIdExpedient());
+					crearDocumentTramitacioBDTO.getDocsTramitacioRDTO(), crearDocumentTramitacioBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO) - fi"); //$NON-NLS-1$
@@ -611,7 +612,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public DocsTramitacioRDTO fallbackGuardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO,
-	        Throwable e) throws GPAServeisServiceException {
+			Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearDocumentTramitacio(CrearDocumentTramitacioBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -631,15 +632,15 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackGuardarDocumentTramitacioJustificantPlantilla")
 	public DocsTramitacioRDTO guardarDocumentTramitacioJustificantPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("guardarDocumentTramitacioJustificantPlantilla(CrearDocumentTramitacioBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarDocumentTramitacioJustificantPlantilla(
-			        crearDocumentTramitacioBDTO.getDocsTramitacioRDTO(), crearDocumentTramitacioBDTO.getIdExpedient(),
-			        crearDocumentTramitacioBDTO.getIdSollicitud());
+					crearDocumentTramitacioBDTO.getDocsTramitacioRDTO(), crearDocumentTramitacioBDTO.getIdExpedient(),
+					crearDocumentTramitacioBDTO.getIdSollicitud());
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarDocumentTramitacioJustificantPlantilla(CrearDocumentTramitacioBDTO) - fi"); //$NON-NLS-1$
@@ -664,7 +665,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public DocsTramitacioRDTO fallbackGuardarDocumentTramitacioJustificantPlantilla(CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO,
-	        Throwable e) throws GPAServeisServiceException {
+			Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackGuardarDocumentTramitacioJustificantPlantilla(CrearDocumentTramitacioBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -684,14 +685,14 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackActualitzarDocumentEntrada")
 	public DocsEntradaRDTO actualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO actualitzarDocumentEntradaBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.actualitzarDocumentEntrada(
-			        actualitzarDocumentEntradaBDTO.getDocsEntradaRDTO(), actualitzarDocumentEntradaBDTO.getIdExpedient());
+					actualitzarDocumentEntradaBDTO.getDocsEntradaRDTO(), actualitzarDocumentEntradaBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("actualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO) - fi"); //$NON-NLS-1$
@@ -716,7 +717,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public DocsEntradaRDTO fallbackActualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO actualitzarDocumentEntradaBDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackActualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -736,14 +737,14 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackActualitzarDeclaracioResponsable")
 	public DocsEntradaRDTO actualitzarDeclaracioResponsable(ActualitzarDeclaracioResponsableBDTO actualitzarDeclaracioResponsableBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarDeclaracioResponsable(ActualitzarDeclaracioResponsableBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.actualitzarDeclaracioResponsable(
-			        actualitzarDeclaracioResponsableBDTO.getDocsEntradaRDTO(), actualitzarDeclaracioResponsableBDTO.getIdExpedient());
+					actualitzarDeclaracioResponsableBDTO.getDocsEntradaRDTO(), actualitzarDeclaracioResponsableBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("actualitzarDeclaracioResponsable(ActualitzarDeclaracioResponsableBDTO) - fi"); //$NON-NLS-1$
@@ -768,7 +769,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public DocsEntradaRDTO fallbackActualitzarDeclaracioResponsable(
-	        ActualitzarDeclaracioResponsableBDTO actualitzarDeclaracioResponsableBDTO, Throwable e) throws GPAServeisServiceException {
+			ActualitzarDeclaracioResponsableBDTO actualitzarDeclaracioResponsableBDTO, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackActualitzarDeclaracioResponsable(ActualitzarDeclaracioResponsableBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -788,14 +789,14 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackActualitzarDocumentTramitacio")
 	public DocsTramitacioRDTO actualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO actualitzarDocumentTramitacioBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.actualitzarDocumentTramitacio(
-			        actualitzarDocumentTramitacioBDTO.getDocsTramitacioRDTO(), actualitzarDocumentTramitacioBDTO.getIdExpedient());
+					actualitzarDocumentTramitacioBDTO.getDocsTramitacioRDTO(), actualitzarDocumentTramitacioBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("actualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO) - fi"); //$NON-NLS-1$
@@ -820,7 +821,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public DocsTramitacioRDTO fallbackActualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO actualitzarDocumentTramitacioBDTO,
-	        Throwable e) throws GPAServeisServiceException {
+			Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackActualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -840,7 +841,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackGuardarDocumentEntradaFitxer")
 	public DocsEntradaRDTO guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO) - inici"); //$NON-NLS-1$
 		}
@@ -858,7 +859,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 			String docsEntrada = jsonWriter.writeValueAsString(guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO());
 
 			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.guardarDocumentEntradaFitxer(docsEntrada, file,
-			        guardarDocumentEntradaFitxerBDTO.getIdExpedient());
+					guardarDocumentEntradaFitxerBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO) - fi"); //$NON-NLS-1$
@@ -887,7 +888,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public DocsEntradaRDTO fallbackGuardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO,
-	        Throwable e) throws GPAServeisServiceException {
+			Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackGuardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -967,7 +968,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackGuardarDocumentTramitacioFitxer")
 	public DocsTramitacioRDTO guardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("guardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO) - inici"); //$NON-NLS-1$
 		}
@@ -985,7 +986,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 			String docsTramitacio = jsonWriter.writeValueAsString(guardarDocumentTramitacioFitxerBDTO.getDocsTramitacioRDTO());
 
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarDocumentTramitacioFitxer(docsTramitacio, file,
-			        guardarDocumentTramitacioFitxerBDTO.getIdExpedient());
+					guardarDocumentTramitacioFitxerBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO) - fi"); //$NON-NLS-1$
@@ -1014,7 +1015,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public DocsTramitacioRDTO fallbackGuardarDocumentTramitacioFitxer(
-	        GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO, Throwable e) throws GPAServeisServiceException {
+			GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackGuardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -1035,7 +1036,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackGuardarRequerimentFitxer")
 	public DocsTramitacioRDTO guardarRequerimentFitxer(GuardarRequerimentFitxerBDTO guardarRequerimentFitxerBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("guardarRequerimentFitxer(GuardarRequerimentFitxerBDTO) - inici"); //$NON-NLS-1$
 		}
@@ -1053,7 +1054,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 			String requeriment = jsonWriter.writeValueAsString(guardarRequerimentFitxerBDTO.getGuardarRequerimentExpedient());
 
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarRequerimentFitxer(file,
-			        guardarRequerimentFitxerBDTO.getIdExpedient(), requeriment);
+					guardarRequerimentFitxerBDTO.getIdExpedient(), requeriment);
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarRequerimentFitxer(GuardarRequerimentFitxerBDTO) - fi"); //$NON-NLS-1$
@@ -1082,7 +1083,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public DocsTramitacioRDTO fallbackGuardarRequerimentFitxer(GuardarRequerimentFitxerBDTO guardarRequerimentFitxerBDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackGuardarRequerimentFitxer(GuardarRequerimentFitxerBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -1108,7 +1109,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarRequerimentPlantilla(
-			        crearRequerimentBDTO.getGuardarRequerimentExpedient(), crearRequerimentBDTO.getIdExpedient());
+					crearRequerimentBDTO.getGuardarRequerimentExpedient(), crearRequerimentBDTO.getIdExpedient());
 			if (log.isDebugEnabled()) {
 				log.debug("guardarRequerimentPlantilla(CrearRequerimentBDTO) - fi"); //$NON-NLS-1$
 			}
@@ -1132,7 +1133,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public DocsTramitacioRDTO fallbackGuardarRequerimentPlantilla(CrearRequerimentBDTO crearRequerimentBDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackGuardarRequerimentPlantilla(CrearRequerimentBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -1158,7 +1159,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi
-			        .actualitzarRequeriment(crearRequerimentBDTO.getGuardarRequerimentExpedient(), crearRequerimentBDTO.getIdExpedient());
+					.actualitzarRequeriment(crearRequerimentBDTO.getGuardarRequerimentExpedient(), crearRequerimentBDTO.getIdExpedient());
 			if (log.isDebugEnabled()) {
 				log.debug("actualitzarRequeriment(CrearRequerimentBDTO) - fi"); //$NON-NLS-1$
 			}
@@ -1182,7 +1183,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public DocsTramitacioRDTO fallbackActualitzarRequeriment(CrearRequerimentBDTO crearRequerimentBDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackActualitzarRequeriment(CrearRequerimentBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -1445,14 +1446,14 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackDescarregarDocumentExpedient")
 	public byte[] descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			byte[] documentByteArray = downloadApi.descarregarDocumentExpedient(descarregarDocumentExpedientBDTO.getIdDocument(),
-			        descarregarDocumentExpedientBDTO.getIdExpedient());
+					descarregarDocumentExpedientBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO) - fi"); //$NON-NLS-1$
@@ -1477,7 +1478,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public byte[] fallbackDescarregarDocumentExpedient(DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackDescarregarDocumentExpedient(DescarregarDocumentExpedientBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -1576,7 +1577,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public List<BigDecimal> fallbackCercaDadesOperacioRequerits(BigDecimal documentacioIdext, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaDadesOperacioRequerits(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -1624,7 +1625,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public void fallbackRevisarDocumentacioEntrada(DocumentAportatValidarBDTO documentAportatValidarBDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackRevisarDocumentacioEntrada(DocumentAportatValidarBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -1642,14 +1643,14 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackGetPlantillaDocVinculada")
 	public RespostaPlantillaDocVinculada getPlantillaDocVinculada(BigDecimal idConfDoc, BigDecimal idDocVinculada)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("getPlantillaDocVinculada(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			RespostaPlantillaDocVinculada respostaPlantillaDocVinculada = configuracioDocumentacioApi
-			        .consultarPlantillaDocumentacioVinculada(idConfDoc, idDocVinculada);
+					.consultarPlantillaDocumentacioVinculada(idConfDoc, idDocVinculada);
 
 			if (log.isDebugEnabled()) {
 				log.debug("getPlantillaDocVinculada(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
@@ -1677,7 +1678,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public RespostaPlantillaDocVinculada fallbackGetPlantillaDocVinculada(BigDecimal idConfDoc, BigDecimal idDocVinculada, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackGetPlantillaDocVinculada(BigDecimal, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -1697,7 +1698,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackAssociarRegistreDocumentacioExpedient")
 	public void associarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("associarRegistreDocumentacioExpedient(DocumentActualizarRegistre) - inici"); //$NON-NLS-1$
 		}
@@ -1728,7 +1729,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public void fallbackAssociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackaAssociarRegistreDocumentacioExpedient(DocumentActualizarRegistre, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -1776,7 +1777,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public void fallbackAssociarRegistreDocsEnt(DocsEntActualizarRegistre docsEntActualizarRegistre, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackaAssociarRegistreDocsEnt(DocsEntActualizarRegistre, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -1875,7 +1876,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public SignarSegellDocument fallbackSignarSegellDocument(SignarSegellDocument signarSegellDocument, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackSignarSegellDocument(SignarSegellDocument, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -1952,7 +1953,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi
-			        .obtenirDocsTramitacioByNotificationId(BigDecimal.valueOf(notificacioId));
+					.obtenirDocsTramitacioByNotificationId(BigDecimal.valueOf(notificacioId));
 
 			if (log.isDebugEnabled()) {
 				log.debug("obtenirDocsTramitacioByNotificationId(Long) - fi"); //$NON-NLS-1$
@@ -1977,7 +1978,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public DocsTramitacioRDTO fallbackObtenirDocsTramitacioByNotificationId(Long notificacioId, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackObtenirDocsTramitacioByNotificationId(Long, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -2026,7 +2027,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public NotificacionsRDTO fallbackCrearNotificacio(DocumentCrearNotificacioBDTO documentCrearNotificacioBDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearNotificacio(DocumentCrearNotificacioBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -2048,7 +2049,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	// @HystrixCommand(fallbackMethod = "fallbackCallbackNotificacio")
 	public void callbackNotificacio(ActualitzarNotificacioBDTO actualitzarNotificacio, MultipartFile docEvidenciaElectronic,
-	        MultipartFile docEvidenciaPaper) throws GPAServeisServiceException {
+			MultipartFile docEvidenciaPaper) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarNotificacio(ActualitzarNotificacionDocument, MultipartFile, MultipartFile) - inici"); //$NON-NLS-1$
 		}
@@ -2211,14 +2212,14 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCrearDocumentEntradaDigitalitzat")
 	public DocsEntradaRDTO crearDocumentEntradaDigitalitzat(CrearDocumentEntradaDigitalitzarBDTO crearDocumentEntradaDigitalitzarBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("crearDocumentEntradaDigitalitzat(CrearDocumentEntradaDigitalitzarBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.crearDocumentEntradaDigitalitzat(
-			        crearDocumentEntradaDigitalitzarBDTO.getDocsEntradaRDTO(), crearDocumentEntradaDigitalitzarBDTO.getIdExpedient());
+					crearDocumentEntradaDigitalitzarBDTO.getDocsEntradaRDTO(), crearDocumentEntradaDigitalitzarBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearDocumentEntradaDigitalitzat(CrearDocumentEntradaDigitalitzarBDTO) - fi"); //$NON-NLS-1$
@@ -2243,7 +2244,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public DocsEntradaRDTO fallbackCrearDocumentEntradaDigitalitzat(
-	        CrearDocumentEntradaDigitalitzarBDTO crearDocumentEntradaDigitalitzarBDTO, Throwable e) throws GPAServeisServiceException {
+			CrearDocumentEntradaDigitalitzarBDTO crearDocumentEntradaDigitalitzarBDTO, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearDocumentEntradaDigitalitzat(CrearDocumentEntradaDigitalitzarBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -2263,15 +2264,15 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCrearDocumentTramitacioDigitalitzat")
 	public DocsTramitacioRDTO crearDocumentTramitacioDigitalitzat(
-	        CrearDocumentTramitacioDigitalitzarBDTO crearDocumentTramitacioDigitalitzarBDTO) throws GPAServeisServiceException {
+			CrearDocumentTramitacioDigitalitzarBDTO crearDocumentTramitacioDigitalitzarBDTO) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("crearDocumentTramitacioDigitalitzat(CrearDocumentTramitacioDigitalitzarBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.crearDocumentTramitacioDigitalitzat(
-			        crearDocumentTramitacioDigitalitzarBDTO.getDocsTramitacioRDTO(),
-			        crearDocumentTramitacioDigitalitzarBDTO.getIdExpedient());
+					crearDocumentTramitacioDigitalitzarBDTO.getDocsTramitacioRDTO(),
+					crearDocumentTramitacioDigitalitzarBDTO.getIdExpedient());
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearDocumentTramitacioDigitalitzat(CrearDocumentEntradaDigitalitzarBDTO) - fi"); //$NON-NLS-1$
@@ -2296,8 +2297,8 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public DocsTramitacioRDTO fallbackCrearDocumentTramitacioDigitalitzat(
-	        CrearDocumentTramitacioDigitalitzarBDTO crearDocumentTramitacioDigitalitzarBDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			CrearDocumentTramitacioDigitalitzarBDTO crearDocumentTramitacioDigitalitzarBDTO, Throwable e)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCrearDocumentEntradaDigitalitzat(CrearDocumentTramitacioDigitalitzarBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -2317,7 +2318,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackRegistrarComunicatDocumentTramitacio")
 	public void registrarComunicatDocumentTramitacio(DocumentGeneratRegistrarComunicatBDTO documentGeneratRegistrarComunicatBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("registrarComunicatDocumentTramitacio(DocumentGeneratRegistrarComunicatBDTO) - inici"); //$NON-NLS-1$
 		}
@@ -2346,7 +2347,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public void fallbackRegistrarComunicatDocumentTramitacio(DocumentGeneratRegistrarComunicatBDTO documentGeneratRegistrarComunicatBDTO,
-	        Throwable e) throws GPAServeisServiceException {
+			Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackRegistrarComunicatDocumentTramitacio(DocumentGeneratRegistrarComunicatBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -2394,7 +2395,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public void fallbackcallbackDigitalitzacio(CallbackDigitalitzacio callbackDigitalitzacio, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackcallbackDigitalitzacio(CallbackDigitalitzacio, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -2440,7 +2441,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public void fallbackcallbackAssociatsDocsIntra(DocsAssociatsIntraBDTO docsAssociatsIntraBDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackcallbackAssociatsDocsIntra(DocsAssociatsIntraBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -2485,7 +2486,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public void fallbackEsBorrarDocumentacioEntrada(EsborrarDocumentBDTO esborrarDocumentBDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackEsBorrarDocumentacioEntrada(EsborrarDocumentBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -2529,7 +2530,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public void fallbackEsBorrarDocumentacioTramitacio(EsborrarDocumentBDTO esborrarDocumentBDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackEsBorrarDocumentacioTramitacio(EsborrarDocumentBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -2550,7 +2551,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackDesssociarRegistreDocumentacioExpedient")
 	public void desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("desassociarRegistreDocumentacioExpedient(DocumentActualizarRegistre) - inici"); //$NON-NLS-1$
 		}
@@ -2581,7 +2582,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public void fallbackDesssociarRegistreDocumentacioExpedient(DocumentActualizarRegistre documentActualizarRegistreRDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackDesssociarRegistreDocumentacioExpedient(DocumentActualizarRegistre, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -2648,15 +2649,15 @@ public class DocumentsServiceImpl implements DocumentsService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackGuardarDocumentEntradaGestorDocumental")
 	public DocsEntradaRDTO guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.guardarDocumentEntradaGestorDocumental(
-			        guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO(), guardarDocumentEntradaFitxerBDTO.getIdExpedient(),
-			        guardarDocumentEntradaFitxerBDTO.getIdGestorDocumental());
+					guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO(), guardarDocumentEntradaFitxerBDTO.getIdExpedient(),
+					guardarDocumentEntradaFitxerBDTO.getIdGestorDocumental());
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO) - fi"); //$NON-NLS-1$
@@ -2681,7 +2682,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public DocsEntradaRDTO fallbackGuardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO,
-	        Throwable e) throws GPAServeisServiceException {
+			Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackGuardarDocumentEntradaGestorDocumental(GuardarDocumentEntradaFitxerBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -2776,9 +2777,43 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public PeticionsDigitalitzacioRDTO fallbackConsultarEstatDigitalitzacio(String idPeticio, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackConsultarEstatDigitalitzacio(String, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackconsultarDataSignaturaByCodiPeticio")
+	public DadesSignatura consultarDadesSignaturaByCodiPeticio(String codiPeticio) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("obtenirEstatDigitalitzacioDocument(Long) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			// DadesSignaturaRDTO dadesSignaturaRDTO =
+			// documentacioApi.consultarDadesSignatura(codiPeticio);
+			DadesSignatura dadesSignatura = documentacioApi.consultarDadesSignatura(codiPeticio);
+
+			if (log.isDebugEnabled()) {
+				log.debug("obtenirEstatDigitalitzacioDocument(Long) - fi"); //$NON-NLS-1$
+			}
+
+			return dadesSignatura;
+		} catch (RestClientException e) {
+			log.error("obtenirEstatDigitalitzacioDocument(Long)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	public DadesSignatura fallbackconsultarDataSignaturaByCodiPeticio(String codiPeticio, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackconsultarDataSignaturaByCodiPeticio(String, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);

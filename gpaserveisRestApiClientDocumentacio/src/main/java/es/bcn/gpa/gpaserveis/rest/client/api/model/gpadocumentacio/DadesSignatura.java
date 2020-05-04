@@ -18,22 +18,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocsTramPolitiquesSig;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.UsuariPortaSig;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 
 /**
- * DataSignarDocument
+ * DadesSignatura
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-30T19:13:23.947+02:00")
-public class DataSignarDocument {
+public class DadesSignatura {
   @JsonProperty("confDocsTramPolitiquesSig")
   private ConfDocsTramPolitiquesSig confDocsTramPolitiquesSig = null;
 
-  @JsonProperty("usuariPortaSig")
-  private UsuariPortaSig usuariPortaSig = null;
+  @JsonProperty("idDocumentacio")
+  private BigDecimal idDocumentacio = null;
 
-  public DataSignarDocument confDocsTramPolitiquesSig(ConfDocsTramPolitiquesSig confDocsTramPolitiquesSig) {
+  public DadesSignatura confDocsTramPolitiquesSig(ConfDocsTramPolitiquesSig confDocsTramPolitiquesSig) {
     this.confDocsTramPolitiquesSig = confDocsTramPolitiquesSig;
     return this;
   }
@@ -51,22 +51,22 @@ public class DataSignarDocument {
     this.confDocsTramPolitiquesSig = confDocsTramPolitiquesSig;
   }
 
-  public DataSignarDocument usuariPortaSig(UsuariPortaSig usuariPortaSig) {
-    this.usuariPortaSig = usuariPortaSig;
+  public DadesSignatura idDocumentacio(BigDecimal idDocumentacio) {
+    this.idDocumentacio = idDocumentacio;
     return this;
   }
 
    /**
-   * Usuari que va realitzar l&#39;acció
-   * @return usuariPortaSig
+   * Id Documentacio de l&#39;expedient
+   * @return idDocumentacio
   **/
-  @ApiModelProperty(value = "Usuari que va realitzar l'acció")
-  public UsuariPortaSig getUsuariPortaSig() {
-    return usuariPortaSig;
+  @ApiModelProperty(value = "Id Documentacio de l'expedient")
+  public BigDecimal getIdDocumentacio() {
+    return idDocumentacio;
   }
 
-  public void setUsuariPortaSig(UsuariPortaSig usuariPortaSig) {
-    this.usuariPortaSig = usuariPortaSig;
+  public void setIdDocumentacio(BigDecimal idDocumentacio) {
+    this.idDocumentacio = idDocumentacio;
   }
 
 
@@ -78,24 +78,24 @@ public class DataSignarDocument {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DataSignarDocument dataSignarDocument = (DataSignarDocument) o;
-    return Objects.equals(this.confDocsTramPolitiquesSig, dataSignarDocument.confDocsTramPolitiquesSig) &&
-        Objects.equals(this.usuariPortaSig, dataSignarDocument.usuariPortaSig);
+    DadesSignatura dadesSignatura = (DadesSignatura) o;
+    return Objects.equals(this.confDocsTramPolitiquesSig, dadesSignatura.confDocsTramPolitiquesSig) &&
+        Objects.equals(this.idDocumentacio, dadesSignatura.idDocumentacio);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(confDocsTramPolitiquesSig, usuariPortaSig);
+    return Objects.hash(confDocsTramPolitiquesSig, idDocumentacio);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DataSignarDocument {\n");
+    sb.append("class DadesSignatura {\n");
     
     sb.append("    confDocsTramPolitiquesSig: ").append(toIndentedString(confDocsTramPolitiquesSig)).append("\n");
-    sb.append("    usuariPortaSig: ").append(toIndentedString(usuariPortaSig)).append("\n");
+    sb.append("    idDocumentacio: ").append(toIndentedString(idDocumentacio)).append("\n");
     sb.append("}");
     return sb.toString();
   }
