@@ -1818,7 +1818,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// anterior, si no viene tipo, se realiza la llamada a portasig
 			if (StringUtils.isBlank(dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getModalitatIdext().toString())
 					|| dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getModalitatIdext().toString()
-					.equalsIgnoreCase(TipusSignaturaApiParamValue.PORTASIGNATURES.getApiParamValue())) {
+							.equalsIgnoreCase(TipusSignaturaApiParamValue.PORTASIGNATURES.getApiParamValue())) {
 
 				// Firmar documento
 				SignarDocument signarDocument = new SignarDocument();
@@ -1833,7 +1833,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				ConfDocsTramPolitiquesSig confDocsTramPolitiquesSigRDTO = new ConfDocsTramPolitiquesSig();
 				confDocsTramPolitiquesSigRDTO.setConfiguracioDocsTramitacio(
 						dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getConfiguracioDocsTramitacio());
-				confDocsTramPolitiquesSigRDTO.setModalitatIdext(TipusSignaturaApiParamValue.PORTASIGNATURES.getApiParamValue());
+				confDocsTramPolitiquesSigRDTO.setModalitatIdext(TipusSignaturaApiParamValue.PORTASIGNATURES.getInternalValue());
 				confDocsTramPolitiquesSigRDTO
 						.setPoliticaSignatura(dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getPoliticaSignatura());
 				confDocsTramPolitiquesSigRDTO.setId(dataSignarDocumentRDTO.getConfDocsTramPolitiquesSig().getId());
