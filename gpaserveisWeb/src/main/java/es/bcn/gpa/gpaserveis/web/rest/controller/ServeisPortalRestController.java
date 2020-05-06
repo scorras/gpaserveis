@@ -710,6 +710,11 @@ public class ServeisPortalRestController extends BaseRestController {
 					.consultarDadesBasiquesProcediment(solicitudExpedient.getProcediment().getId());
 			ServeisRestControllerValidationHelper.validateProcedimentCrearSolicitudExpedient(dadesProcedimentBDTO);
 
+			// Si se indica alguna persona al menos debe indicarse el
+			// Solicitante
+			ServeisRestControllerValidationHelper.validateSollicitantCrearSolicitudExpedient(solicitudExpedient.getSollicitant(),
+					Resultat.ERROR_CREAR_EXPEDIENT);
+
 			// se valida que si la relacion es de persona interesada, solo
 			// permita valores sollicitant y representant y si
 			// la relacion es de persona implicada, solo permita los valores

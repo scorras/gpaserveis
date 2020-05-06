@@ -569,6 +569,11 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_CREAR_SOLLICITUD);
 
+			// Si se indica alguna persona al menos debe indicarse el
+			// Solicitante
+			ServeisRestControllerValidationHelper.validateSollicitantCrearSolicitudExpedient(sollicitudCrearRDTO.getSollicitant(),
+					Resultat.ERROR_CREAR_SOLLICITUD);
+
 			// Validaciones
 			// 1- Validar que no haya otra solicitud del mismo tipo abierta
 			SollicitudsCercaBDTO sollicitudsCercaBDTO = new SollicitudsCercaBDTO(null, dadesExpedientBDTO.getExpedientsRDTO().getId(),
