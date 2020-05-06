@@ -15,6 +15,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPe
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
+import net.opentrends.openframe.services.security.core.userdetails.ImiUserDetails;
+import net.opentrends.openframe.services.security.util.SecurityUtils;
 
 public class ServeisRestControllerVisibilitatHelper {
 
@@ -81,24 +83,30 @@ public class ServeisRestControllerVisibilitatHelper {
 			RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO, DadesExpedientBDTO dadesExpedientBDTO, Resultat resultatError)
 			throws GPAApiParamValidationException, GPAServeisServiceException {
 
-		String relacioTerceraPersona = "";
+		// TODO GPA-2923 (se controla la ejecucion de la validacion hasta que
+		// tengamos datos del usuario)
+		ImiUserDetails imiUser = SecurityUtils.getLoggedUserDetails();
+		if (imiUser != null) {
 
-		relacioTerceraPersona = ServeisRestControllerValidationHelper.validateUsuariLogueadoExpedient(
-				dadesExpedientBDTO.getPersonesInteressades(), dadesExpedientBDTO.getPersonesImplicades(),
-				dadesExpedientBDTO.getExpedientsRDTO().getSollicitantPrincipal(),
-				dadesExpedientBDTO.getExpedientsRDTO().getRepresentantPrincipal(), resultatError);
+			String relacioTerceraPersona = "";
 
-		// pruebas relacioTerceraPersona =
-		// dadesExpedientBDTO.getPersonesImplicades().get(0).getRelacioImplicada();
+			relacioTerceraPersona = ServeisRestControllerValidationHelper.validateUsuariLogueadoExpedient(
+					dadesExpedientBDTO.getPersonesInteressades(), dadesExpedientBDTO.getPersonesImplicades(),
+					dadesExpedientBDTO.getExpedientsRDTO().getSollicitantPrincipal(),
+					dadesExpedientBDTO.getExpedientsRDTO().getRepresentantPrincipal(), resultatError);
 
-		if (StringUtils.isNotEmpty(relacioTerceraPersona)) {
-			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
-					.consultarDadesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
+			// pruebas relacioTerceraPersona =
+			// dadesExpedientBDTO.getPersonesImplicades().get(0).getRelacioImplicada();
 
-			List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
+			if (StringUtils.isNotEmpty(relacioTerceraPersona)) {
+				DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
+						.consultarDadesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
 
-			ServeisRestControllerValidationHelper.validateVisibilitatImplicado(relacioTerceraPersona, respostaDadesOperacioCercaBDTO,
-					procedimentPersonesList, resultatError);
+				List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
+
+				ServeisRestControllerValidationHelper.validateVisibilitatImplicado(relacioTerceraPersona, respostaDadesOperacioCercaBDTO,
+						procedimentPersonesList, resultatError);
+			}
 		}
 	}
 }

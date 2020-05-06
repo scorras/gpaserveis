@@ -1813,24 +1813,31 @@ public class ServeisRestControllerValidationHelper {
 
 		ImiUserDetails imiUser = SecurityUtils.getLoggedUserDetails();
 
-		for (PersonesRDTO personesSollicitud : personesInteressades) {
-			if (personesSollicitud.getDocumentIndentitat() != null
-					&& StringUtils.equals(personesSollicitud.getDocumentIndentitat().getNumeroDocument(), imiUser.getIdentityDocument())) {
-				return personesSollicitud;
+		// TODO GPA-2923 (se controla la ejecucion de la validacion hasta que
+		// tengamos datos del usuario)
+		if (imiUser != null) {
+
+			for (PersonesRDTO personesSollicitud : personesInteressades) {
+				if (personesSollicitud.getDocumentIndentitat() != null && StringUtils
+						.equals(personesSollicitud.getDocumentIndentitat().getNumeroDocument(), imiUser.getIdentityDocument())) {
+					return personesSollicitud;
+				}
 			}
-		}
 
-		if (sollicitantPrincipal.getDocumentIndentitat() != null
-				&& StringUtils.equals(sollicitantPrincipal.getDocumentIndentitat().getNumeroDocument(), imiUser.getIdentityDocument())) {
-			return sollicitantPrincipal;
-		}
+			if (sollicitantPrincipal.getDocumentIndentitat() != null && StringUtils
+					.equals(sollicitantPrincipal.getDocumentIndentitat().getNumeroDocument(), imiUser.getIdentityDocument())) {
+				return sollicitantPrincipal;
+			}
 
-		if (representantPrincipal.getDocumentIndentitat() != null
-				&& StringUtils.equals(representantPrincipal.getDocumentIndentitat().getNumeroDocument(), imiUser.getIdentityDocument())) {
-			return representantPrincipal;
-		}
+			if (representantPrincipal.getDocumentIndentitat() != null && StringUtils
+					.equals(representantPrincipal.getDocumentIndentitat().getNumeroDocument(), imiUser.getIdentityDocument())) {
+				return representantPrincipal;
+			}
 
-		throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_FOUND);
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_FOUND);
+		} else {
+			return null;
+		}
 
 	}
 

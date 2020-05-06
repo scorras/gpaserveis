@@ -2947,7 +2947,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// 2 - validar que si hay lista de implicados, tengan
 			// relacioTerceraPersona y coincida alguna definida en el
 			// procedimiento
-			// TODO GPA-2923
 			ServeisRestControllerValidationHelper.validateUsuariLogueadoInteressadesExpedient(expedientRevisar.getPersonesInteressades(),
 					expedientRevisar.getSollicitant(), expedientRevisar.getRepresentant(), Resultat.ERROR_REVISAR_EXPEDIENT);
 			ServeisRestControllerValidationHelper.validateTerceresPersonesProcediment(expedientRevisar.getPersonesImplicades(),
@@ -3101,7 +3100,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 		RespostaActualitzarExpedientRDTO respostaActualitzarSolicitudsRDTO = null;
 		ExpedientsRDTO returnExpedientsRDTO = null;
-		String relacioTerceraPersona = null;
 		RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACTUALITZAR_EXPEDIENT);
 		try {
@@ -3142,7 +3140,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// 1 - validamos que el usuario logado pertenezca al expediente
 			// 2 - validamos si es tercera persona su visibilidad
-			// TODO GPA-2923
 			ServeisRestControllerVisibilitatHelper.validateVisibilitatTerceresPersones(serveisService, respostaDadesOperacioCercaBDTO,
 					dadesExpedientBDTO, Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
 
