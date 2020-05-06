@@ -77,6 +77,8 @@ public enum ErrorPrincipal {
 
 	ERROR_EXPEDIENTS_PERSONA_IMPLICADA_RELACIO("3024", "Les persones implicades només poden tenir relació com a testimoni o altres"),
 
+	ERROR_EXPEDIENTS_SOLLICITANT_OBLIGATORI("3003", "El sol·licitant és obligatori"),
+
 	/* Documents */
 	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document"),
 
