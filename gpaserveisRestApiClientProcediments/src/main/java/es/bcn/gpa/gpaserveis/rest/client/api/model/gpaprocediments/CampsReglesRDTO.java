@@ -1,6 +1,6 @@
 /*
- * API gpadocumentacio
- * API gpadocumentacio
+ * API gpaprocediments
+ * API gpaprocediments
  *
  * OpenAPI spec version: 1.21.0
  * Contact: sergio.corras@iecisa.com
@@ -11,7 +11,7 @@
  */
 
 
-package es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio;
+package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,17 +22,23 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 
 /**
- * TipusDocumentIdentitat
+ * CampsReglesRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-07T16:15:12.475+02:00")
-public class TipusDocumentIdentitat {
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-07T16:05:26.803+02:00")
+public class CampsReglesRDTO {
   @JsonProperty("descripcio")
   private String descripcio = null;
 
   @JsonProperty("id")
   private BigDecimal id = null;
 
-  public TipusDocumentIdentitat descripcio(String descripcio) {
+  @JsonProperty("origen")
+  private Integer origen = null;
+
+  @JsonProperty("tipus")
+  private Integer tipus = null;
+
+  public CampsReglesRDTO descripcio(String descripcio) {
     this.descripcio = descripcio;
     return this;
   }
@@ -50,7 +56,7 @@ public class TipusDocumentIdentitat {
     this.descripcio = descripcio;
   }
 
-  public TipusDocumentIdentitat id(BigDecimal id) {
+  public CampsReglesRDTO id(BigDecimal id) {
     this.id = id;
     return this;
   }
@@ -68,6 +74,42 @@ public class TipusDocumentIdentitat {
     this.id = id;
   }
 
+  public CampsReglesRDTO origen(Integer origen) {
+    this.origen = origen;
+    return this;
+  }
+
+   /**
+   * Get origen
+   * @return origen
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getOrigen() {
+    return origen;
+  }
+
+  public void setOrigen(Integer origen) {
+    this.origen = origen;
+  }
+
+  public CampsReglesRDTO tipus(Integer tipus) {
+    this.tipus = tipus;
+    return this;
+  }
+
+   /**
+   * Get tipus
+   * @return tipus
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getTipus() {
+    return tipus;
+  }
+
+  public void setTipus(Integer tipus) {
+    this.tipus = tipus;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -77,24 +119,28 @@ public class TipusDocumentIdentitat {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TipusDocumentIdentitat tipusDocumentIdentitat = (TipusDocumentIdentitat) o;
-    return Objects.equals(this.descripcio, tipusDocumentIdentitat.descripcio) &&
-        Objects.equals(this.id, tipusDocumentIdentitat.id);
+    CampsReglesRDTO campsReglesRDTO = (CampsReglesRDTO) o;
+    return Objects.equals(this.descripcio, campsReglesRDTO.descripcio) &&
+        Objects.equals(this.id, campsReglesRDTO.id) &&
+        Objects.equals(this.origen, campsReglesRDTO.origen) &&
+        Objects.equals(this.tipus, campsReglesRDTO.tipus);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(descripcio, id);
+    return Objects.hash(descripcio, id, origen, tipus);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TipusDocumentIdentitat {\n");
+    sb.append("class CampsReglesRDTO {\n");
     
     sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    origen: ").append(toIndentedString(origen)).append("\n");
+    sb.append("    tipus: ").append(toIndentedString(tipus)).append("\n");
     sb.append("}");
     return sb.toString();
   }
