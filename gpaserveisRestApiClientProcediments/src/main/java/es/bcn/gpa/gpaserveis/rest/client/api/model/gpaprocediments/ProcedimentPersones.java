@@ -10,231 +10,231 @@
  * Do not edit the class manually.
  */
 
-
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPersonesTramOvt;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * ProcedimentPersones
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-28T13:42:52.767+02:00")
 public class ProcedimentPersones {
-  @JsonProperty("editable")
-  private Boolean editable = null;
+	@JsonProperty("editable")
+	private Boolean editable = null;
 
-  @JsonProperty("id")
-  private BigDecimal id = null;
+	@JsonProperty("id")
+	private BigDecimal id = null;
 
-  @JsonProperty("nivellVisibilitat")
-  private BigDecimal nivellVisibilitat = null;
+	@JsonProperty("nivellVisibilitat")
+	private BigDecimal nivellVisibilitat = null;
 
-  @JsonProperty("procediment")
-  private BigDecimal procediment = null;
+	@JsonProperty("procediment")
+	private BigDecimal procediment = null;
 
-  @JsonProperty("relacio")
-  private String relacio = null;
+	@JsonProperty("relacio")
+	private String relacio = null;
 
-  @JsonProperty("seleccionable")
-  private Boolean seleccionable = null;
+	@JsonProperty("seleccionable")
+	private Boolean seleccionable = null;
 
-  @JsonProperty("tramitsOvtList")
-  private List<ProcedimentPersonesTramOvt> tramitsOvtList = null;
+	@JsonProperty("tramitsOvtList")
+	private List<ProcedimentPersonesTramOvt> tramitsOvtList = null;
 
-  public ProcedimentPersones editable(Boolean editable) {
-    this.editable = editable;
-    return this;
-  }
+	public ProcedimentPersones editable(Boolean editable) {
+		this.editable = editable;
+		return this;
+	}
 
-   /**
-   * Get editable
-   * @return editable
-  **/
-  @ApiModelProperty(value = "")
-  public Boolean isEditable() {
-    return editable;
-  }
+	/**
+	 * Get editable
+	 * 
+	 * @return editable
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isEditable() {
+		return editable;
+	}
 
-  public void setEditable(Boolean editable) {
-    this.editable = editable;
-  }
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
+	}
 
-  public ProcedimentPersones id(BigDecimal id) {
-    this.id = id;
-    return this;
-  }
+	public ProcedimentPersones id(BigDecimal id) {
+		this.id = id;
+		return this;
+	}
 
-   /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getId() {
-    return id;
-  }
+	/**
+	 * Get id
+	 * 
+	 * @return id
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getId() {
+		return id;
+	}
 
-  public void setId(BigDecimal id) {
-    this.id = id;
-  }
+	public void setId(BigDecimal id) {
+		this.id = id;
+	}
 
-  public ProcedimentPersones nivellVisibilitat(BigDecimal nivellVisibilitat) {
-    this.nivellVisibilitat = nivellVisibilitat;
-    return this;
-  }
+	public ProcedimentPersones nivellVisibilitat(BigDecimal nivellVisibilitat) {
+		this.nivellVisibilitat = nivellVisibilitat;
+		return this;
+	}
 
-   /**
-   * Get nivellVisibilitat
-   * @return nivellVisibilitat
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getNivellVisibilitat() {
-    return nivellVisibilitat;
-  }
+	/**
+	 * Get nivellVisibilitat
+	 * 
+	 * @return nivellVisibilitat
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getNivellVisibilitat() {
+		return nivellVisibilitat;
+	}
 
-  public void setNivellVisibilitat(BigDecimal nivellVisibilitat) {
-    this.nivellVisibilitat = nivellVisibilitat;
-  }
+	public void setNivellVisibilitat(BigDecimal nivellVisibilitat) {
+		this.nivellVisibilitat = nivellVisibilitat;
+	}
 
-  public ProcedimentPersones procediment(BigDecimal procediment) {
-    this.procediment = procediment;
-    return this;
-  }
+	public ProcedimentPersones procediment(BigDecimal procediment) {
+		this.procediment = procediment;
+		return this;
+	}
 
-   /**
-   * Get procediment
-   * @return procediment
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getProcediment() {
-    return procediment;
-  }
+	/**
+	 * Get procediment
+	 * 
+	 * @return procediment
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getProcediment() {
+		return procediment;
+	}
 
-  public void setProcediment(BigDecimal procediment) {
-    this.procediment = procediment;
-  }
+	public void setProcediment(BigDecimal procediment) {
+		this.procediment = procediment;
+	}
 
-  public ProcedimentPersones relacio(String relacio) {
-    this.relacio = relacio;
-    return this;
-  }
+	public ProcedimentPersones relacio(String relacio) {
+		this.relacio = relacio;
+		return this;
+	}
 
-   /**
-   * Get relacio
-   * @return relacio
-  **/
-  @ApiModelProperty(value = "")
-  public String getRelacio() {
-    return relacio;
-  }
+	/**
+	 * Get relacio
+	 * 
+	 * @return relacio
+	 **/
+	@ApiModelProperty(value = "")
+	public String getRelacio() {
+		return relacio;
+	}
 
-  public void setRelacio(String relacio) {
-    this.relacio = relacio;
-  }
+	public void setRelacio(String relacio) {
+		this.relacio = relacio;
+	}
 
-  public ProcedimentPersones seleccionable(Boolean seleccionable) {
-    this.seleccionable = seleccionable;
-    return this;
-  }
+	public ProcedimentPersones seleccionable(Boolean seleccionable) {
+		this.seleccionable = seleccionable;
+		return this;
+	}
 
-   /**
-   * Get seleccionable
-   * @return seleccionable
-  **/
-  @ApiModelProperty(value = "")
-  public Boolean isSeleccionable() {
-    return seleccionable;
-  }
+	/**
+	 * Get seleccionable
+	 * 
+	 * @return seleccionable
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isSeleccionable() {
+		return seleccionable;
+	}
 
-  public void setSeleccionable(Boolean seleccionable) {
-    this.seleccionable = seleccionable;
-  }
+	public void setSeleccionable(Boolean seleccionable) {
+		this.seleccionable = seleccionable;
+	}
 
-  public ProcedimentPersones tramitsOvtList(List<ProcedimentPersonesTramOvt> tramitsOvtList) {
-    this.tramitsOvtList = tramitsOvtList;
-    return this;
-  }
+	public ProcedimentPersones tramitsOvtList(List<ProcedimentPersonesTramOvt> tramitsOvtList) {
+		this.tramitsOvtList = tramitsOvtList;
+		return this;
+	}
 
-  public ProcedimentPersones addTramitsOvtListItem(ProcedimentPersonesTramOvt tramitsOvtListItem) {
-    if (this.tramitsOvtList == null) {
-      this.tramitsOvtList = new ArrayList<ProcedimentPersonesTramOvt>();
-    }
-    this.tramitsOvtList.add(tramitsOvtListItem);
-    return this;
-  }
+	public ProcedimentPersones addTramitsOvtListItem(ProcedimentPersonesTramOvt tramitsOvtListItem) {
+		if (this.tramitsOvtList == null) {
+			this.tramitsOvtList = new ArrayList<ProcedimentPersonesTramOvt>();
+		}
+		this.tramitsOvtList.add(tramitsOvtListItem);
+		return this;
+	}
 
-   /**
-   * Get tramitsOvtList
-   * @return tramitsOvtList
-  **/
-  @ApiModelProperty(value = "")
-  public List<ProcedimentPersonesTramOvt> getTramitsOvtList() {
-    return tramitsOvtList;
-  }
+	/**
+	 * Get tramitsOvtList
+	 * 
+	 * @return tramitsOvtList
+	 **/
+	@ApiModelProperty(value = "")
+	public List<ProcedimentPersonesTramOvt> getTramitsOvtList() {
+		return tramitsOvtList;
+	}
 
-  public void setTramitsOvtList(List<ProcedimentPersonesTramOvt> tramitsOvtList) {
-    this.tramitsOvtList = tramitsOvtList;
-  }
+	public void setTramitsOvtList(List<ProcedimentPersonesTramOvt> tramitsOvtList) {
+		this.tramitsOvtList = tramitsOvtList;
+	}
 
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		ProcedimentPersones procedimentPersones = (ProcedimentPersones) o;
+		return Objects.equals(this.editable, procedimentPersones.editable) && Objects.equals(this.id, procedimentPersones.id)
+				&& Objects.equals(this.nivellVisibilitat, procedimentPersones.nivellVisibilitat)
+				&& Objects.equals(this.procediment, procedimentPersones.procediment)
+				&& Objects.equals(this.relacio, procedimentPersones.relacio)
+				&& Objects.equals(this.seleccionable, procedimentPersones.seleccionable)
+				&& Objects.equals(this.tramitsOvtList, procedimentPersones.tramitsOvtList);
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ProcedimentPersones procedimentPersones = (ProcedimentPersones) o;
-    return Objects.equals(this.editable, procedimentPersones.editable) &&
-        Objects.equals(this.id, procedimentPersones.id) &&
-        Objects.equals(this.nivellVisibilitat, procedimentPersones.nivellVisibilitat) &&
-        Objects.equals(this.procediment, procedimentPersones.procediment) &&
-        Objects.equals(this.relacio, procedimentPersones.relacio) &&
-        Objects.equals(this.seleccionable, procedimentPersones.seleccionable) &&
-        Objects.equals(this.tramitsOvtList, procedimentPersones.tramitsOvtList);
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(editable, id, nivellVisibilitat, procediment, relacio, seleccionable, tramitsOvtList);
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(editable, id, nivellVisibilitat, procediment, relacio, seleccionable, tramitsOvtList);
-  }
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class ProcedimentPersones {\n");
 
+		sb.append("    editable: ").append(toIndentedString(editable)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    nivellVisibilitat: ").append(toIndentedString(nivellVisibilitat)).append("\n");
+		sb.append("    procediment: ").append(toIndentedString(procediment)).append("\n");
+		sb.append("    relacio: ").append(toIndentedString(relacio)).append("\n");
+		sb.append("    seleccionable: ").append(toIndentedString(seleccionable)).append("\n");
+		sb.append("    tramitsOvtList: ").append(toIndentedString(tramitsOvtList)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ProcedimentPersones {\n");
-    
-    sb.append("    editable: ").append(toIndentedString(editable)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    nivellVisibilitat: ").append(toIndentedString(nivellVisibilitat)).append("\n");
-    sb.append("    procediment: ").append(toIndentedString(procediment)).append("\n");
-    sb.append("    relacio: ").append(toIndentedString(relacio)).append("\n");
-    sb.append("    seleccionable: ").append(toIndentedString(seleccionable)).append("\n");
-    sb.append("    tramitsOvtList: ").append(toIndentedString(tramitsOvtList)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
 }
-

@@ -117,6 +117,8 @@ import lombok.extern.apachecommons.CommonsLog;
  * The Class ServeisServiceImpl.
  */
 @Service
+
+/** The Constant log. */
 @CommonsLog
 public class ServeisServiceImpl implements ServeisService {
 
@@ -478,13 +480,26 @@ public class ServeisServiceImpl implements ServeisService {
 	 * 
 	 * @see
 	 * es.bcn.gpa.gpaserveis.business.ServeisService#consultarDadesSollicitud(
-	 * java.math.BigDecimal)
+	 * java.math.BigDecimal, java.math.BigDecimal)
 	 */
 	@Override
-	public DadesSollicitudBDTO consultarDadesSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException {
+	public DadesSollicitudBDTO consultarDadesSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat) throws GPAServeisServiceException {
 		DadesSollicitudBDTO dadesSollicitudBDTO = ServeisServiceHelper.loadDadesSollicitud(expedientsService, procedimentsService,
-				unitatsGestoresService, documentsService, dadesOperacioService, idSollicitud);
+				unitatsGestoresService, documentsService, dadesOperacioService, idSollicitud, visibilitat);
 		return dadesSollicitudBDTO;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * consultarDadesSollicitudPerVisibilitat(java.math.BigDecimal)
+	 */
+	@Override
+	public DadesSollicitudBDTO consultarDadesSollicitudPerVisibilitat(BigDecimal idSollicitud) throws GPAServeisServiceException {
+		DadesSollicitudBDTO dadesSollicitudBDTO = ServeisServiceHelper.loadDadesSollicitudPerVisibilitat(expedientsService, idSollicitud);
+		return dadesSollicitudBDTO;
+
 	}
 
 	/**
@@ -531,47 +546,44 @@ public class ServeisServiceImpl implements ServeisService {
 		return dadesExpedientBDTO;
 	}
 
-	/**
-	 * Consultar dades expedient.
-	 *
-	 * @param idExpedient
-	 *            the id expedient
-	 * @return the dades expedient BDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
-	 * consultarDadesExpedient(java.math.BigDecimal)
+	 * consultarDadesBasiquesPerVisibilitatExpedient(java.lang.String)
 	 */
 	@Override
-	public DadesExpedientBDTO consultarDadesExpedient(BigDecimal idExpedient) throws GPAServeisServiceException {
-		DadesExpedientBDTO dadesExpedientBDTO = ServeisServiceHelper.loadDadesExpedient(expedientsService, unitatsGestoresService,
-				tramitsService, documentsService, dadesOperacioService, sollicitudsService, idExpedient);
+	public DadesExpedientBDTO consultarDadesBasiquesPerVisibilitatExpedient(String codiExpedient) throws GPAServeisServiceException {
+		DadesExpedientBDTO dadesExpedientBDTO = ServeisServiceHelper.loadDadesBasiquesExpedientPerVisibilitat(expedientsService,
+				tramitsService, codiExpedient);
 		return dadesExpedientBDTO;
 	}
 
-	/**
-	 * Consultar dades expedient.
-	 *
-	 * @param codiExpedient
-	 *            the codi expedient
-	 * @return the dades expedient BDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
-	 * consultarDadesExpedient(java.lang.String)
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#consultarDadesExpedient(
+	 * java.math.BigDecimal, java.math.BigDecimal)
 	 */
 	@Override
-	public DadesExpedientBDTO consultarDadesExpedient(String codiExpedient) throws GPAServeisServiceException {
+	public DadesExpedientBDTO consultarDadesExpedient(BigDecimal idExpedient, BigDecimal visibilitat) throws GPAServeisServiceException {
 		DadesExpedientBDTO dadesExpedientBDTO = ServeisServiceHelper.loadDadesExpedient(expedientsService, unitatsGestoresService,
-				tramitsService, documentsService, dadesOperacioService, sollicitudsService, codiExpedient);
+				tramitsService, documentsService, dadesOperacioService, sollicitudsService, idExpedient, visibilitat);
+		return dadesExpedientBDTO;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#consultarDadesExpedient(
+	 * java.lang.String, java.math.BigDecimal)
+	 */
+	@Override
+	public DadesExpedientBDTO consultarDadesExpedient(String codiExpedient, BigDecimal visibilitat) throws GPAServeisServiceException {
+		DadesExpedientBDTO dadesExpedientBDTO = ServeisServiceHelper.loadDadesExpedient(expedientsService, unitatsGestoresService,
+				tramitsService, documentsService, dadesOperacioService, sollicitudsService, codiExpedient, visibilitat);
 		return dadesExpedientBDTO;
 	}
 
@@ -596,6 +608,13 @@ public class ServeisServiceImpl implements ServeisService {
 		return expedientsService.crearSollicitudExpedient(expedientsCrearBDTO);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#crearSollicitud(es.bcn.gpa.
+	 * gpaserveis.business.dto.sollicituds.SollicitudsCrearBDTO)
+	 */
 	@Override
 	public SollicitudsRDTO crearSollicitud(SollicitudsCrearBDTO sollicitudsCrearBDTO) throws GPAServeisServiceException {
 		return expedientsService.crearSollicitud(sollicitudsCrearBDTO);
@@ -905,15 +924,10 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.consultarDadesDocumentAportat(idDocument);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
-	 * consultarDadesDocumentAportatPerCodiCSV(java.lang.String)
-	 */
 	@Override
-	public DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String csvDocument) throws GPAServeisServiceException {
-		return documentsService.consultarDadesDocumentAportatPerCodiCSV(csvDocument);
+	public DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String csvDocument, BigDecimal visibilitat)
+			throws GPAServeisServiceException {
+		return documentsService.consultarDadesDocumentAportatPerCodiCSV(csvDocument, visibilitat);
 	}
 
 	/**
@@ -940,11 +954,13 @@ public class ServeisServiceImpl implements ServeisService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
-	 * consultarDadesDocumentGeneratPerCodiCSV(java.lang.String)
+	 * consultarDadesDocumentGeneratPerCodiCSV(java.lang.String,
+	 * java.math.BigDecimal)
 	 */
 	@Override
-	public DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument) throws GPAServeisServiceException {
-		return documentsService.consultarDadesDocumentGeneratPerCodiCSV(csvDocument);
+	public DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument, BigDecimal visibilitat)
+			throws GPAServeisServiceException {
+		return documentsService.consultarDadesDocumentGeneratPerCodiCSV(csvDocument, visibilitat);
 	}
 
 	/**
@@ -973,6 +989,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 * Descarregar document entrada expedient sigant.
 	 *
 	 * @param idUltimaSignatura
+	 *            the id ultima signatura
 	 * @return the byte[]
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
@@ -1015,7 +1032,7 @@ public class ServeisServiceImpl implements ServeisService {
 	/**
 	 * Crear registre sollicitud.
 	 *
-	 * @param expedientsRegistrarBDTO
+	 * @param expedientsRegistrarSollicitudBDTO
 	 *            the expedients registrar sollicitud BDTO
 	 * @param tipusDocVinculada
 	 *            the tipus doc vinculada
@@ -1349,8 +1366,8 @@ public class ServeisServiceImpl implements ServeisService {
 	/**
 	 * Signar segell document.
 	 *
-	 * @param signarSegellDocument
-	 *            the signar segell document
+	 * @param signarSegellDocumentRDTO
+	 *            the signar segell document RDTO
 	 * @return the signar segell documents id
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
@@ -1371,8 +1388,8 @@ public class ServeisServiceImpl implements ServeisService {
 	/**
 	 * Signar tablet document.
 	 *
-	 * @param signarTabletDocument
-	 *            the signar tablet document
+	 * @param signarTabletlDocumentRDTO
+	 *            the signar tabletl document RDTO
 	 * @return the signar tablet documents id
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
@@ -2154,23 +2171,4 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.consultarDadesSignaturaByCodiPeticio(codiPeticio);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
-	 * consultarDadesBasiquesPerVisibilitatExpedient(java.lang.String)
-	 */
-	@Override
-	public DadesExpedientBDTO consultarDadesBasiquesPerVisibilitatExpedient(String codiExpedient) throws GPAServeisServiceException {
-		DadesExpedientBDTO dadesExpedientBDTO = ServeisServiceHelper.loadDadesBasiquesExpedientPerVisibilitat(expedientsService,
-				tramitsService, codiExpedient);
-		return dadesExpedientBDTO;
-	}
-
-	@Override
-	public DadesSollicitudBDTO consultarDadesSollicitudPerVisibilitat(BigDecimal idSollicitud) throws GPAServeisServiceException {
-		DadesSollicitudBDTO dadesSollicitudBDTO = ServeisServiceHelper.loadDadesSollicitudPerVisibilitat(expedientsService, idSollicitud);
-		return dadesSollicitudBDTO;
-
-	}
 }

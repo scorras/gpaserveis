@@ -544,9 +544,23 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		RespostaConsultaExpedientsRDTO respostaConsultaExpedientsRDTO = new RespostaConsultaExpedientsRDTO();
 
+		BigDecimal visibilitat = BigDecimal.ONE;
+
+		try {
+			// TODO GPA-2923
+			visibilitat = ServeisRestControllerVisibilitatHelper.obtenirVisibilitatExpedient(serveisService, codiExpedient,
+					expedientsIdOrgan);
+		} catch (GPAApiParamValidationException e) {
+			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
+			throw new GPAServeisServiceException(e.getResultat().getDescripcio());
+		} catch (Exception e) {
+			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+
 		// Datos principales del expedient
-		DadesExpedientBDTO dadesExpedientBDTO = serveisService
-				.consultarDadesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+		DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesExpedient(
+				ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
 		// El código del expediente debe ser válido
 		if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
 			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
@@ -600,9 +614,23 @@ public class ServeisPortalRestController extends BaseRestController {
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient)
 			throws GPAServeisServiceException {
 
+		BigDecimal visibilitat = BigDecimal.ONE;
+
+		try {
+			// TODO GPA-2923
+			visibilitat = ServeisRestControllerVisibilitatHelper.obtenirVisibilitatExpedient(serveisService, codiExpedient,
+					expedientsIdOrgan);
+		} catch (GPAApiParamValidationException e) {
+			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
+			throw new GPAServeisServiceException(e.getResultat().getDescripcio());
+		} catch (Exception e) {
+			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+
 		// Datos principales del expedient
-		DadesExpedientBDTO dadesExpedientBDTO = serveisService
-				.consultarDadesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+		DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesExpedient(
+				ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
 		// El código del expediente debe ser válido
 		if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
 			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
@@ -616,7 +644,7 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		// Datos principales de la solicitud SOL
 		DadesSollicitudBDTO dadesSollicitudBDTO = serveisService
-				.consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
+				.consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(), visibilitat);
 
 		SollicitudConsultaRDTO sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
 
@@ -894,6 +922,9 @@ public class ServeisPortalRestController extends BaseRestController {
 		DadesSollicitudBDTO dadesSollicitudBDTO = null;
 		ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO = null;
 		try {
+			// TODO GPA-2923
+			BigDecimal visibilitat = BigDecimal.ONE;
+
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
 					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
@@ -911,7 +942,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			// ExpedientsRegistrarBDTO(registreCreacioSolicitudExpedient);
 
 			// ahora se realiza el registro de la solicitud como tal
-			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
+					visibilitat);
 			CrearSollicitud registreCreacioSolicitud = new CrearSollicitud();
 			registreCreacioSolicitud.setSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO());
 			expedientsRegistrarSollicitudBDTO = new ExpedientsRegistrarSollicitudBDTO(registreCreacioSolicitud);
@@ -1487,9 +1519,12 @@ public class ServeisPortalRestController extends BaseRestController {
 		ActualitzarDadesSollicitud actualitzarDadesSollicitud = null;
 		List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOListBBDD = null;
 		try {
+			// TODO GPA-2923
+			BigDecimal visibilitat = BigDecimal.ONE;
+
 			// El codi del expediente debe existir
-			dadesExpedientBDTO = serveisService
-					.consultarDadesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			dadesExpedientBDTO = serveisService.consultarDadesExpedient(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_ESMENAR_EXPEDIENT);
 
 			// Las configuraciones de documentación indicadas deben estar
@@ -1886,9 +1921,23 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		RespostaConsultaDocumentacioRDTO respostaConsultaDocumentacioRDTO = new RespostaConsultaDocumentacioRDTO();
 
+		BigDecimal visibilitat = BigDecimal.ONE;
+
+		try {
+			// TODO GPA-2923
+			visibilitat = ServeisRestControllerVisibilitatHelper.obtenirVisibilitatExpedient(serveisService, codiExpedient,
+					expedientsIdOrgan);
+		} catch (GPAApiParamValidationException e) {
+			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
+			throw new GPAServeisServiceException(e.getResultat().getDescripcio());
+		} catch (Exception e) {
+			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+
 		// Datos principales del expedient
-		DadesExpedientBDTO dadesExpedientBDTO = serveisService
-				.consultarDadesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+		DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesExpedient(
+				ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
 		// El código del expediente debe ser válido
 		if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
 			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
@@ -1910,7 +1959,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		if (BooleanUtils.isTrue(esAportada)) {
-			docsEntradaRDTO = serveisService.consultarDadesDocumentAportatPerCodiCSV(csvDocument);
+			docsEntradaRDTO = serveisService.consultarDadesDocumentAportatPerCodiCSV(csvDocument, visibilitat);
 			if (docsEntradaRDTO == null) {
 				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND.getDescripcio());
 			}
@@ -1920,7 +1969,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			respostaConsultaDocumentacioRDTO = modelMapper.map(docsEntradaRDTO, RespostaConsultaDocumentacioRDTO.class);
 
 		} else {
-			docsTramitacioRDTO = serveisService.consultarDadesDocumentGeneratPerCodiCSV(csvDocument);
+			docsTramitacioRDTO = serveisService.consultarDadesDocumentGeneratPerCodiCSV(csvDocument, visibilitat);
 			if (docsTramitacioRDTO == null) {
 				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND.getDescripcio());
 			}

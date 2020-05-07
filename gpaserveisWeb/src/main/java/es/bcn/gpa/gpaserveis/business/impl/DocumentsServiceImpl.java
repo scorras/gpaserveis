@@ -270,24 +270,26 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
-	 * cercaDocumentsEntradaPerSollicitud(java.math.BigDecimal)
+	 * cercaDocumentsEntradaPerSollicitud(java.math.BigDecimal,
+	 * java.math.BigDecimal)
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCercaDocumentsEntradaPerSollicitud")
-	public List<DocsEntradaRDTO> cercaDocumentsEntradaPerSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException {
+	public List<DocsEntradaRDTO> cercaDocumentsEntradaPerSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("cercaDocumentsEntradaPerSollicitud(BigDecimal) - inici"); //$NON-NLS-1$
+			log.debug("cercaDocumentsEntradaPerSollicitud(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			List<DocsEntradaRDTO> docsEntradaRDTOList = documentacioApi.cercaDocumentsEntradaPerSollicitud(idSollicitud);
+			List<DocsEntradaRDTO> docsEntradaRDTOList = documentacioApi.cercaDocumentsEntradaPerSollicitud(idSollicitud, visibilitat);
 
 			if (log.isDebugEnabled()) {
-				log.debug("cercaDocumentsEntradaPerSollicitud(BigDecimal) - fi"); //$NON-NLS-1$
+				log.debug("cercaDocumentsEntradaPerSollicitud(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return docsEntradaRDTOList;
 		} catch (RestClientException e) {
-			log.error("cercaDocumentsEntradaPerSollicitud(BigDecimal)", e); //$NON-NLS-1$
+			log.error("cercaDocumentsEntradaPerSollicitud(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
@@ -304,10 +306,10 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public List<DocsEntradaRDTO> fallbackCercaDocumentsEntradaPerSollicitud(BigDecimal idSollicitud, Throwable e)
+	public List<DocsEntradaRDTO> fallbackCercaDocumentsEntradaPerSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat, Throwable e)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackCercaDocumentsEntradaPerSollicitud(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+			log.debug("fallbackCercaDocumentsEntradaPerSollicitud(BigDecimal, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
@@ -319,24 +321,27 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
-	 * cercaDocumentsEntradaAgrupatsPerTramitOvt(java.math.BigDecimal)
+	 * cercaDocumentsEntradaAgrupatsPerTramitOvt(java.math.BigDecimal,
+	 * java.math.BigDecimal)
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCercaDocumentsEntradaAgrupatsPerTramitOvt")
-	public List<DocsEntradaRDTO> cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal idDocumentacio) throws GPAServeisServiceException {
+	public List<DocsEntradaRDTO> cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal idDocumentacio, BigDecimal visibilitat)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal) - inici"); //$NON-NLS-1$
+			log.debug("cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			List<DocsEntradaRDTO> docsEntradaRDTOList = documentacioApi.cercaDocumentsEntradaAgrupatsPerTramitOvt(idDocumentacio);
+			List<DocsEntradaRDTO> docsEntradaRDTOList = documentacioApi.cercaDocumentsEntradaAgrupatsPerTramitOvt(idDocumentacio,
+					visibilitat);
 
 			if (log.isDebugEnabled()) {
-				log.debug("cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal) - fi"); //$NON-NLS-1$
+				log.debug("cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return docsEntradaRDTOList;
 		} catch (RestClientException e) {
-			log.error("cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal)", e); //$NON-NLS-1$
+			log.error("cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
@@ -353,10 +358,10 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public List<DocsEntradaRDTO> fallbackCercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal idDocumentacio, Throwable e)
-			throws GPAServeisServiceException {
+	public List<DocsEntradaRDTO> fallbackCercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal idDocumentacio, BigDecimal visibilitat,
+			Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackCercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+			log.debug("fallbackCercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
@@ -1294,24 +1299,26 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
-	 * consultarDadesDocumentAportatPerCodiCSV(java.lang.String)
+	 * consultarDadesDocumentAportatPerCodiCSV(java.lang.String,
+	 * java.math.BigDecimal)
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesDocumentAportatPerCodiCSV")
-	public DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String csvDocument) throws GPAServeisServiceException {
+	public DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String csvDocument, BigDecimal visibilitat)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("consultarDadesDocumentAportatPerCodiCSV(String) - inici"); //$NON-NLS-1$
+			log.debug("consultarDadesDocumentAportatPerCodiCSV(String, BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.consultarDadesDocumentAportatPerCodiCSV(csvDocument);
+			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.consultarDadesDocumentAportatPerCodiCSV(csvDocument, visibilitat);
 
 			if (log.isDebugEnabled()) {
-				log.debug("consultarDadesDocumentAportatPerCodiCSV(String) - fi"); //$NON-NLS-1$
+				log.debug("consultarDadesDocumentAportatPerCodiCSV(String, BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return docsEntradaRDTO;
 		} catch (RestClientException e) {
-			log.error("consultarDadesDocumentAportatPerCodiCSV(String)", e); //$NON-NLS-1$
+			log.error("consultarDadesDocumentAportatPerCodiCSV(String, BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
@@ -1328,10 +1335,10 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public DocsEntradaRDTO fallbackConsultarDadesDocumentAportatPerCodiCSV(String csvDocument, Throwable e)
+	public DocsEntradaRDTO fallbackConsultarDadesDocumentAportatPerCodiCSV(String csvDocument, BigDecimal visibilitat, Throwable e)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackConsultarDadesDocumentAportatPerCodiCSV(String, Throwable) - inici"); //$NON-NLS-1$
+			log.debug("fallbackConsultarDadesDocumentAportatPerCodiCSV(String, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
@@ -1391,24 +1398,26 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
-	 * consultarDadesDocumentGeneratPerCodiCSV(java.lang.String)
+	 * consultarDadesDocumentGeneratPerCodiCSV(java.lang.String,
+	 * java.math.BigDecimal)
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesDocumentGeneratPerCodiCSV")
-	public DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument) throws GPAServeisServiceException {
+	public DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument, BigDecimal visibilitat)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("consultarDadesDocumentGeneratPerCodiCSV(String) - inici"); //$NON-NLS-1$
+			log.debug("consultarDadesDocumentGeneratPerCodiCSV(String, BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.consultarDadesDocumentGeneratPerCodiCSV(csvDocument);
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.consultarDadesDocumentGeneratPerCodiCSV(csvDocument, visibilitat);
 
 			if (log.isDebugEnabled()) {
-				log.debug("consultarDadesDocumentGeneratPerCodiCSV(String) - fi"); //$NON-NLS-1$
+				log.debug("consultarDadesDocumentGeneratPerCodiCSV(String, BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return docsTramitacioRDTO;
 		} catch (RestClientException e) {
-			log.error("consultarDadesDocumentGeneratPerCodiCSV(String)", e); //$NON-NLS-1$
+			log.error("consultarDadesDocumentGeneratPerCodiCSV(String, BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
@@ -1425,10 +1434,10 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public DocsTramitacioRDTO fallbackConsultarDadesDocumentGeneratPerCodiCSV(String csvDocument, Throwable e)
+	public DocsTramitacioRDTO fallbackConsultarDadesDocumentGeneratPerCodiCSV(String csvDocument, BigDecimal visibilitat, Throwable e)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackConsultarDadesDocumentGeneratPerCodiCSV(String, Throwable) - inici"); //$NON-NLS-1$
+			log.debug("fallbackConsultarDadesDocumentGeneratPerCodiCSV(String, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);

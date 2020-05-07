@@ -407,9 +407,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 		RespostaConsultaExpedientsRDTO respostaConsultaExpedientsRDTO = new RespostaConsultaExpedientsRDTO();
 
+		// desde tramitadors no se controla la visibilidad, solo afecta a portal
+		BigDecimal visibilitat = BigDecimal.ONE;
+
 		// Datos principales del expedient
-		DadesExpedientBDTO dadesExpedientBDTO = serveisService
-				.consultarDadesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+		DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesExpedient(
+				ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
 		// El código del expediente debe ser válido
 		if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
 			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
@@ -1082,9 +1085,14 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_TORNAR_ENRERE_EXPEDIENT);
 		try {
+
+			// desde tramitadors no se controla la visibilidad, solo afecta a
+			// portal
+			BigDecimal visibilitat = BigDecimal.ONE;
+
 			// El codi del expediente debe existir
-			dadesExpedientBDTO = serveisService
-					.consultarDadesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			dadesExpedientBDTO = serveisService.consultarDadesExpedient(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_TORNAR_ENRERE_EXPEDIENT);
 
 			// Volver atrás si la acción es permitida
@@ -2515,9 +2523,14 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		PersonesSollicitudRDTO personesSollicitudRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACCES_EXPEDIENT);
 		try {
+
+			// desde tramitadors no se controla la visibilidad, solo afecta a
+			// portal
+			BigDecimal visibilitat = BigDecimal.ONE;
+
 			// El codi del expediente debe existir
-			dadesExpedientBDTO = serveisService
-					.consultarDadesExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			dadesExpedientBDTO = serveisService.consultarDadesExpedient(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_ACCES_EXPEDIENT);
 
 			// El documento de identidad debe corresponderse con el de una

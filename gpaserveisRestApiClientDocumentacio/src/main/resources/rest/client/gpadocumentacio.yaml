@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.20.1"
+  version: "1.20.3"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -831,7 +831,7 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /documentacio/entrada/consultarDadesDocument/{codiCSV}:
+  /documentacio/entrada/consultarDadesDocument/{codiCSV}/{visibilitat}:
     get:
       tags:
       - "Documentacio"
@@ -845,6 +845,11 @@ paths:
         description: "codiCSV"
         required: true
         type: "string"
+      - name: "visibilitat"
+        in: "path"
+        description: "visibilitat"
+        required: true
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -1184,7 +1189,7 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/entrada/sollicitud/{idSollicitud}:
+  /documentacio/entrada/sollicitud/{idSollicitud}/{visibilitat}:
     get:
       tags:
       - "Documentacio"
@@ -1196,6 +1201,11 @@ paths:
       - name: "idSollicitud"
         in: "path"
         description: "idSollicitud"
+        required: true
+        type: "number"
+      - name: "visibilitat"
+        in: "path"
+        description: "visibilitat"
         required: true
         type: "number"
       responses:
@@ -1676,7 +1686,7 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/tramitacio/consultarDadesDocument/{codiCSV}:
+  /documentacio/tramitacio/consultarDadesDocument/{codiCSV}/{visibilitat}:
     get:
       tags:
       - "Documentacio"
@@ -1690,6 +1700,11 @@ paths:
         description: "codiCSV"
         required: true
         type: "string"
+      - name: "visibilitat"
+        in: "path"
+        description: "visibilitat"
+        required: true
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -2040,7 +2055,7 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/{idDocumentacio}/entrada/agrupatPerTramitOvt:
+  /documentacio/{idDocumentacio}/entrada/agrupatPerTramitOvt/{visibilitat}:
     get:
       tags:
       - "Documentacio"
@@ -2052,6 +2067,11 @@ paths:
       - name: "idDocumentacio"
         in: "path"
         description: "idDocumentacio"
+        required: true
+        type: "number"
+      - name: "visibilitat"
+        in: "path"
+        description: "visibilitat"
         required: true
         type: "number"
       responses:
@@ -2379,6 +2399,9 @@ definitions:
           $ref: "#/definitions/ConfdocsentTramitsOvt"
       configuracioDocumentacio:
         type: "number"
+      criticitatIdext:
+        type: "integer"
+        format: "int32"
       descripcioAmpliada:
         type: "string"
       detallOrigen:
@@ -2412,6 +2435,9 @@ definitions:
         type: "string"
       uniqueId:
         type: "number"
+      visibilitatPortal:
+        type: "integer"
+        format: "int32"
     title: "ConfiguracioDocsEntrada"
   ConfiguracioDocsEntradaRDTO:
     type: "object"
@@ -2432,6 +2458,9 @@ definitions:
           $ref: "#/definitions/ConfdocsentTramitsOvt"
       configuracioDocumentacio:
         type: "number"
+      criticitatIdext:
+        type: "integer"
+        format: "int32"
       descripcioAmpliada:
         type: "string"
       detallOrigen:
@@ -2465,6 +2494,9 @@ definitions:
         type: "string"
       uniqueId:
         type: "number"
+      visibilitatPortal:
+        type: "integer"
+        format: "int32"
     title: "ConfiguracioDocsEntradaRDTO"
   ConfiguracioDocsSignatura:
     type: "object"
@@ -2504,6 +2536,9 @@ definitions:
         type: "number"
       configuracioSignatura:
         type: "number"
+      criticitatIdext:
+        type: "integer"
+        format: "int32"
       descripcio:
         type: "string"
       detallOrigen:
@@ -2542,6 +2577,9 @@ definitions:
         type: "string"
       uniqueId:
         type: "number"
+      visibilitatPortal:
+        type: "integer"
+        format: "int32"
     title: "ConfiguracioDocsTramitacio"
   ConfiguracioDocsTramitacioRDTO:
     type: "object"
@@ -2570,6 +2608,9 @@ definitions:
         type: "number"
       configuracioSignatura:
         type: "number"
+      criticitatIdext:
+        type: "integer"
+        format: "int32"
       descripcio:
         type: "string"
       detallOrigen:
@@ -2608,6 +2649,9 @@ definitions:
         type: "string"
       uniqueId:
         type: "number"
+      visibilitatPortal:
+        type: "integer"
+        format: "int32"
     title: "ConfiguracioDocsTramitacioRDTO"
   CrearNotificacio:
     type: "object"

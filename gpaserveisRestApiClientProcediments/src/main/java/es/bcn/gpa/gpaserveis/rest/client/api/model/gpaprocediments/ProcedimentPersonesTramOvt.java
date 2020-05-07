@@ -10,105 +10,102 @@
  * Do not edit the class manually.
  */
 
-
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * ProcedimentPersonesTramOvt
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-28T13:42:52.767+02:00")
 public class ProcedimentPersonesTramOvt {
-  @JsonProperty("procedimentPersone")
-  private BigDecimal procedimentPersone = null;
+	@JsonProperty("procedimentPersone")
+	private BigDecimal procedimentPersone = null;
 
-  @JsonProperty("tramitOvtIdext")
-  private BigDecimal tramitOvtIdext = null;
+	@JsonProperty("tramitOvtIdext")
+	private BigDecimal tramitOvtIdext = null;
 
-  public ProcedimentPersonesTramOvt procedimentPersone(BigDecimal procedimentPersone) {
-    this.procedimentPersone = procedimentPersone;
-    return this;
-  }
+	public ProcedimentPersonesTramOvt procedimentPersone(BigDecimal procedimentPersone) {
+		this.procedimentPersone = procedimentPersone;
+		return this;
+	}
 
-   /**
-   * Get procedimentPersone
-   * @return procedimentPersone
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getProcedimentPersone() {
-    return procedimentPersone;
-  }
+	/**
+	 * Get procedimentPersone
+	 * 
+	 * @return procedimentPersone
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getProcedimentPersone() {
+		return procedimentPersone;
+	}
 
-  public void setProcedimentPersone(BigDecimal procedimentPersone) {
-    this.procedimentPersone = procedimentPersone;
-  }
+	public void setProcedimentPersone(BigDecimal procedimentPersone) {
+		this.procedimentPersone = procedimentPersone;
+	}
 
-  public ProcedimentPersonesTramOvt tramitOvtIdext(BigDecimal tramitOvtIdext) {
-    this.tramitOvtIdext = tramitOvtIdext;
-    return this;
-  }
+	public ProcedimentPersonesTramOvt tramitOvtIdext(BigDecimal tramitOvtIdext) {
+		this.tramitOvtIdext = tramitOvtIdext;
+		return this;
+	}
 
-   /**
-   * Get tramitOvtIdext
-   * @return tramitOvtIdext
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getTramitOvtIdext() {
-    return tramitOvtIdext;
-  }
+	/**
+	 * Get tramitOvtIdext
+	 * 
+	 * @return tramitOvtIdext
+	 **/
+	@ApiModelProperty(value = "")
+	public BigDecimal getTramitOvtIdext() {
+		return tramitOvtIdext;
+	}
 
-  public void setTramitOvtIdext(BigDecimal tramitOvtIdext) {
-    this.tramitOvtIdext = tramitOvtIdext;
-  }
+	public void setTramitOvtIdext(BigDecimal tramitOvtIdext) {
+		this.tramitOvtIdext = tramitOvtIdext;
+	}
 
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		ProcedimentPersonesTramOvt procedimentPersonesTramOvt = (ProcedimentPersonesTramOvt) o;
+		return Objects.equals(this.procedimentPersone, procedimentPersonesTramOvt.procedimentPersone)
+				&& Objects.equals(this.tramitOvtIdext, procedimentPersonesTramOvt.tramitOvtIdext);
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ProcedimentPersonesTramOvt procedimentPersonesTramOvt = (ProcedimentPersonesTramOvt) o;
-    return Objects.equals(this.procedimentPersone, procedimentPersonesTramOvt.procedimentPersone) &&
-        Objects.equals(this.tramitOvtIdext, procedimentPersonesTramOvt.tramitOvtIdext);
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(procedimentPersone, tramitOvtIdext);
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(procedimentPersone, tramitOvtIdext);
-  }
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class ProcedimentPersonesTramOvt {\n");
 
+		sb.append("    procedimentPersone: ").append(toIndentedString(procedimentPersone)).append("\n");
+		sb.append("    tramitOvtIdext: ").append(toIndentedString(tramitOvtIdext)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ProcedimentPersonesTramOvt {\n");
-    
-    sb.append("    procedimentPersone: ").append(toIndentedString(procedimentPersone)).append("\n");
-    sb.append("    tramitOvtIdext: ").append(toIndentedString(tramitOvtIdext)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
 }
-
