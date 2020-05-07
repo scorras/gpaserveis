@@ -21,50 +21,29 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * TipusMime
+ * SignarValidDocumentResponse
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-07T13:34:04.064+02:00")
-public class TipusMime {
-  @JsonProperty("descripcio")
-  private String descripcio = null;
+public class SignarValidDocumentResponse {
+  @JsonProperty("missatgeError")
+  private String missatgeError = null;
 
-  @JsonProperty("id")
-  private Integer id = null;
-
-  public TipusMime descripcio(String descripcio) {
-    this.descripcio = descripcio;
+  public SignarValidDocumentResponse missatgeError(String missatgeError) {
+    this.missatgeError = missatgeError;
     return this;
   }
 
    /**
-   * Get descripcio
-   * @return descripcio
+   * Descripció de l&#39;error
+   * @return missatgeError
   **/
-  @ApiModelProperty(value = "")
-  public String getDescripcio() {
-    return descripcio;
+  @ApiModelProperty(value = "Descripció de l'error")
+  public String getMissatgeError() {
+    return missatgeError;
   }
 
-  public void setDescripcio(String descripcio) {
-    this.descripcio = descripcio;
-  }
-
-  public TipusMime id(Integer id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
+  public void setMissatgeError(String missatgeError) {
+    this.missatgeError = missatgeError;
   }
 
 
@@ -76,24 +55,22 @@ public class TipusMime {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TipusMime tipusMime = (TipusMime) o;
-    return Objects.equals(this.descripcio, tipusMime.descripcio) &&
-        Objects.equals(this.id, tipusMime.id);
+    SignarValidDocumentResponse signarValidDocumentResponse = (SignarValidDocumentResponse) o;
+    return Objects.equals(this.missatgeError, signarValidDocumentResponse.missatgeError);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(descripcio, id);
+    return Objects.hash(missatgeError);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TipusMime {\n");
+    sb.append("class SignarValidDocumentResponse {\n");
     
-    sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    missatgeError: ").append(toIndentedString(missatgeError)).append("\n");
     sb.append("}");
     return sb.toString();
   }

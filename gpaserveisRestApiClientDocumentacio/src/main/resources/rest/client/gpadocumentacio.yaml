@@ -1603,6 +1603,39 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/signarValid:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "Crear una petició per signar un document en IMI Valid"
+      operationId: "signarValid"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "signarValidDocumentRDTO"
+        description: "signarValidDocumentRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/SignarValidDocument"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/SignarValidDocumentResponse"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /documentacio/storageMode:
     get:
       tags:
@@ -3579,6 +3612,28 @@ definitions:
         type: "string"
         description: "Descripció de l'error"
     title: "SignarTabletDocumentResponse"
+  SignarValidDocument:
+    type: "object"
+    properties:
+      documents:
+        type: "array"
+        description: "Identificadors dels documents"
+        items:
+          type: "number"
+      informacioToken:
+        type: "string"
+        description: "Informació de token"
+      valorToken:
+        type: "string"
+        description: "Valor de token"
+    title: "SignarValidDocument"
+  SignarValidDocumentResponse:
+    type: "object"
+    properties:
+      missatgeError:
+        type: "string"
+        description: "Descripció de l'error"
+    title: "SignarValidDocumentResponse"
   SortInfo:
     type: "object"
     properties:

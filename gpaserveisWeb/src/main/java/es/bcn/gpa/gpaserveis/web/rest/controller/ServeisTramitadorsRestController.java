@@ -127,6 +127,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocumentResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.UsuariPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
@@ -172,6 +174,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.Tran
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.ConfiguracioApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.TipusSignaturaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatCiutadaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.MotiuPausaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusCanalComunicacioApiParamValueTranslator;
@@ -185,6 +188,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.re
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.resolucio.validar.RespostaResolucioValidarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.DataSignarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.RespostaSignarDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.SignaturaValidDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.recurs.RecursExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.recurs.RespostaRecursExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.revisar.ExpedientRevisarRDTO;
@@ -1912,6 +1916,74 @@ serveisService.signarTabletDocument
 		}
 		if (log.isDebugEnabled()) {
 			log.debug("signarDocument(String, BigDecimal, UsuariPortaSigRDTO) - fi"); //$NON-NLS-1$
+		}
+
+		return respostaSignarDocumentRDTO;
+	}
+
+	/**
+	 * Signar document online.
+	 *
+	 * @param idsDocument
+	 *            the ids document
+	 * @param signaturaValidDocument
+	 *            the signatura valid document
+	 * @return the resposta signar document RDTO
+	 */
+	@PostMapping("/expedients/documentacio/{idsDocument}/signar/online")
+	@ApiOperation(value = "Signar un document en línia", tags = { "Serveis Tramitadors API" }, extensions = {
+	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaSignarDocumentRDTO signarDocumentOnline(
+	        @ApiParam(value = "Identificadors dels documents", required = true) @PathVariable BigDecimal[] idsDocument,
+	        @ApiParam(value = "Informació addicional per a la signatura", required = true) @RequestBody SignaturaValidDocumentRDTO signaturaValidDocument) {
+
+		if (log.isDebugEnabled()) {
+			log.debug("signarDocumentOnline(BigDecimal[], SignaturaValidDocumentRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		RespostaSignarDocumentRDTO respostaSignarDocumentRDTO = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_SIGNAR_DOCUMENT);
+		try {
+			// Los ids de los documentos deben existir
+			ArrayList<DocsTramitacioRDTO> docsTramitacioRDTOList = new ArrayList<DocsTramitacioRDTO>();
+			DocsTramitacioRDTO docsTramitacioRDTO = null;
+			for (int i = 0; i < idsDocument.length; i++) {
+				docsTramitacioRDTO = serveisService.consultarDadesDocumentGenerat(idsDocument[i]);
+				ServeisRestControllerValidationHelper.validateDocumentGenerat(idsDocument[i], docsTramitacioRDTO,
+				        Resultat.ERROR_SIGNAR_DOCUMENT);
+				docsTramitacioRDTOList.add(docsTramitacioRDTO);
+			}
+
+			// Comprobar si la acción es permitida
+			// ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			// AccioTramitadorApiParamValue.SIGNAR_DOCUMENT,
+			// Resultat.ERROR_SIGNAR_DOCUMENT);
+
+			SignarValidDocument signarValidDocument = new SignarValidDocument();
+			signarValidDocument.setValorToken(signaturaValidDocument.getValorToken());
+			signarValidDocument.setInformacioToken(signaturaValidDocument.getInformacioToken());
+			signarValidDocument.setDocuments(Arrays.asList(idsDocument));
+			SignarValidDocumentResponse signarValidDocumentResponse = serveisService.signarValidDocument(signarValidDocument);
+
+			if (signarValidDocumentResponse != null && StringUtils.isNotEmpty(signarValidDocumentResponse.getMissatgeError())) {
+				StringBuffer stringBufferMessageError = new StringBuffer(Constants.MISSATGE_ERROR_SIGNATURES);
+				throw new GPAServeisServiceException(
+				        stringBufferMessageError.append(": ").append(signarValidDocumentResponse.getMissatgeError()).toString());
+			}
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("signarDocumentOnline(BigDecimal[], SignaturaValidDocumentRDTO)", e); // $NON-NLS-1$
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("signarDocumentOnline(BigDecimal[], SignaturaValidDocumentRDTO)", e); // $NON-NLS-1$
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_SIGNAR_DOCUMENT, e);
+		}
+
+		RespostaSignarDocumentBDTO respostaSignarDocumentBDTO = new RespostaSignarDocumentBDTO(null, respostaResultatBDTO);
+		respostaSignarDocumentRDTO = modelMapper.map(respostaSignarDocumentBDTO, RespostaSignarDocumentRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("signarDocumentOnline(BigDecimal[], SignaturaValidDocumentRDTO) - fi"); //$NON-NLS-1$
 		}
 
 		return respostaSignarDocumentRDTO;

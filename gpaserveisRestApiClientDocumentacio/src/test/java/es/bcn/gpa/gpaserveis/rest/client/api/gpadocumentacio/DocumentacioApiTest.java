@@ -56,6 +56,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocumentResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient.CollectionFormat;
 
 /**
@@ -679,8 +681,8 @@ public class DocumentacioApiTest extends ParentTest {
 	public void signarTabletTest() {
 
 		when(apiClient.invokeAPI(eq("/documentacio/signarTablet"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(new SignarTabletDocumentResponse());
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new SignarTabletDocumentResponse());
 
 		SignarTabletDocument signarTabletDocumentRDTO = new SignarTabletDocument();
 		SignarTabletDocumentResponse response = api.signarTablet(signarTabletDocumentRDTO);
@@ -952,10 +954,10 @@ public class DocumentacioApiTest extends ParentTest {
 	@Test
 	public void consultarDadesDocumentAportatPerCodiCSVTest() {
 		when(apiClient.invokeAPI(
-				eq("/documentacio/entrada/consultarDadesDocument/779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53"),
-				eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class),
-				any(List.class), any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
-						.thenReturn(new DocsEntradaRDTO());
+		        eq("/documentacio/entrada/consultarDadesDocument/779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53"),
+		        eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class),
+		        any(List.class), any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
+		                .thenReturn(new DocsEntradaRDTO());
 
 		String codiCSV = "779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53";
 		BigDecimal visibilitat = ONE;
@@ -975,14 +977,34 @@ public class DocumentacioApiTest extends ParentTest {
 	@Test
 	public void consultarDadesDocumentGeneratPerCodiCSVTest() {
 		when(apiClient.invokeAPI(
-				eq("/documentacio/tramitacio/consultarDadesDocument/54ef9ee001c5af241af5bdf192cc9b71e46b8c90a7138c86db49223dd4ea38ce"),
-				eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class),
-				any(List.class), any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
-						.thenReturn(new DocsTramitacioRDTO());
+		        eq("/documentacio/tramitacio/consultarDadesDocument/54ef9ee001c5af241af5bdf192cc9b71e46b8c90a7138c86db49223dd4ea38ce"),
+		        eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class),
+		        any(List.class), any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
+		                .thenReturn(new DocsTramitacioRDTO());
 
 		String codiCSV = "54ef9ee001c5af241af5bdf192cc9b71e46b8c90a7138c86db49223dd4ea38ce";
 		BigDecimal visibilitat = ONE;
 		DocsTramitacioRDTO response = api.consultarDadesDocumentGeneratPerCodiCSV(codiCSV, visibilitat);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Crear una petició per signar un document en IMI Valid
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void signarValidTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/signarValid"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new SignarValidDocumentResponse());
+
+		SignarValidDocument signarValidDocumentRDTO = new SignarValidDocument();
+		SignarValidDocumentResponse response = api.signarValid(signarValidDocumentRDTO);
 
 		assertTrue(response != null);
 	}

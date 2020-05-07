@@ -688,4 +688,13 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 				.andExpect(status().isOk()).andDo(print());
 	}
 
+	@Test
+	public void testStage83_PostSignarDocumentOnline() throws Exception {
+		String url = BASE_URL + "/expedients/documentacio/1,2/signar/online";
+		getMockMvc()
+		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+		                "{ \"valorToken\":\"1\", \"informacioToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\" }"))
+		        .andExpect(status().isOk()).andDo(print());
+	}
+
 }

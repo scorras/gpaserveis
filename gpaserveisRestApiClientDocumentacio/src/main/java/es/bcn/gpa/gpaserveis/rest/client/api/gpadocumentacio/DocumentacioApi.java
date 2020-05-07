@@ -2158,6 +2158,46 @@ public class DocumentacioApi {
         return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
+     * Crear una petició per signar un document en IMI Valid
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>201</b> - Created
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param signarValidDocumentRDTO signarValidDocumentRDTO
+     * @return SignarValidDocumentResponse
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public SignarValidDocumentResponse signarValid(SignarValidDocument signarValidDocumentRDTO) throws RestClientException {
+        Object postBody = signarValidDocumentRDTO;
+        
+        // verify the required parameter 'signarValidDocumentRDTO' is set
+        if (signarValidDocumentRDTO == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'signarValidDocumentRDTO' when calling signarValid");
+        }
+        
+        String path = UriComponentsBuilder.fromPath("/documentacio/signarValid").build().toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { 
+            "application/json"
+        };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<SignarValidDocumentResponse> returnType = new ParameterizedTypeReference<SignarValidDocumentResponse>() {};
+        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
      * Obté la manera d&#39;emmagatzematge en ús
      * 
      * <p><b>200</b> - OK

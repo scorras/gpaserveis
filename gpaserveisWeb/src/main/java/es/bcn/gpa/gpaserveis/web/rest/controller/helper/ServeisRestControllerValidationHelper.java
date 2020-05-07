@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -66,6 +68,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar.AtributsActualitzarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.digitalitzar.DocumentDigitalitzarCrearRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.SignaturaValidDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.substituir.DocumentAportatSubstituirRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.AtributRequeritRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.DocumentRequeritCrearRDTO;
@@ -86,6 +89,8 @@ import net.opentrends.openframe.services.security.util.SecurityUtils;
  * The Class ServeisRestControllerValidationHelper.
  */
 public class ServeisRestControllerValidationHelper {
+
+	private static final Pattern JWT_PATTERN = Pattern.compile("^[a-zA-Z0-9-_=-]+(?:\\.[a-zA-Z0-9-_=-]+){2}$");
 
 	/**
 	 * Validate procediment crear solicitud expedient.
@@ -245,7 +250,7 @@ public class ServeisRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static void validateRegistreSollicitud(DadesSollicitudBDTO dadesSollicitudBDTO, Resultat resultatError)
-			throws GPAApiParamValidationException {
+	        throws GPAApiParamValidationException {
 		validateSollicitud(dadesSollicitudBDTO, resultatError);
 		if (TramitOvtApiParamValue.SOL.getInternalValue().compareTo(dadesSollicitudBDTO.getSollicitudsRDTO().getTramitOvtIdext()) == 0) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_SOLLICITUDS_TIPUS_NOT_VALID);
@@ -1069,6 +1074,25 @@ public class ServeisRestControllerValidationHelper {
 
 		if (!docsTramitacioRDTO.getDocumentacio().equals(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext())) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_EXPEDIENT);
+		}
+	}
+
+	/**
+	 * Validate document generat.
+	 *
+	 * @param idDocument
+	 *            the id document
+	 * @param docsTramitacioRDTO
+	 *            the docs tramitacio RDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateDocumentGenerat(BigDecimal idDocument, DocsTramitacioRDTO docsTramitacioRDTO, Resultat resultatError)
+	        throws GPAApiParamValidationException {
+		if (docsTramitacioRDTO == null) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND, ": " + idDocument);
 		}
 	}
 
@@ -1993,4 +2017,34 @@ public class ServeisRestControllerValidationHelper {
 					resultatError);
 		}
 	}
+
+	/**
+	 * Validate signatura valid.
+	 *
+	 * @param signaturaValidDocumentRDTO
+	 *            the signatura valid document RDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateSignaturaValid(SignaturaValidDocumentRDTO signaturaValidDocumentRDTO, Resultat resultatError)
+	        throws GPAApiParamValidationException {
+
+		// Se valida el formato del token JWT
+		if (StringUtils.isBlank(signaturaValidDocumentRDTO.getInformacioToken())) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_TOKEN_JWT_SIGNAR_VALID);
+		}
+
+		String value = null;
+		String posibleToken = signaturaValidDocumentRDTO.getInformacioToken().trim();
+		for (Matcher matcher = JWT_PATTERN.matcher(posibleToken); matcher.find(); value = posibleToken.trim()) {
+			;
+		}
+
+		if (value == null) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_TOKEN_JWT_SIGNAR_VALID);
+		}
+	}
+	
 }

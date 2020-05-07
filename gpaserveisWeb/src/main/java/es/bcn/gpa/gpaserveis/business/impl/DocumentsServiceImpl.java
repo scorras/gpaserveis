@@ -68,6 +68,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocumen
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocumentResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocumentResponse;
 import lombok.extern.apachecommons.CommonsLog;
 
 /**
@@ -1899,13 +1901,65 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#signarValidDocument(es.
+	 * bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.
+	 * SignarValidDocument)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackSignarValidDocument")
+	public SignarValidDocumentResponse signarValidDocument(SignarValidDocument signarValidDocumentRDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("signarValidDocument(SignarValidDocument) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			SignarValidDocumentResponse signarValidDocumentResponse = documentacioApi.signarValid(signarValidDocumentRDTO);
+
+			if (log.isDebugEnabled()) {
+				log.debug("signarValidDocument(SignarValidDocument) - fi"); //$NON-NLS-1$
+			}
+			return signarValidDocumentResponse;
+
+		} catch (RestClientException e) {
+			log.error("signarValidDocument(SignarValidDocument)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback signar valid document.
+	 *
+	 * @param signarValidDocumentRDTO
+	 *            the signar valid document RDTO
+	 * @param e
+	 *            the e
+	 * @return the signar valid document response
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public SignarValidDocumentResponse fallbackSignarValidDocument(SignarValidDocument signarValidDocumentRDTO, Throwable e)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackSignarValidDocument(SignarValidDocument, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
 	 * es.bcn.gpa.gpaserveis.business.DocumentsService#signarTabletDocument(es.
 	 * bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTablet)
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackSignarTabletDocument")
 	public SignarTabletDocumentResponse signarTabletDocument(SignarTabletDocument signarTabletDocumentRDTO)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("signarTabletDocument(SignarTabletDocument) - inici"); //$NON-NLS-1$
 		}
@@ -1937,7 +1991,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 *             the GPA serveis service exception
 	 */
 	public SignarTabletDocumentResponse fallbackSignarTabletDocument(SignarTabletDocument signarTabletDocumentRDTO, Throwable e)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackSignarTabletDocument(SignarTabletDocument, Throwable) - inici"); //$NON-NLS-1$
 		}
