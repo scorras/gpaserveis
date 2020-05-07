@@ -34,7 +34,7 @@ public class ServeisRestControllerVisibilitatHelper {
 				dadesExpedientBDTO.getExpedientsRDTO().getSollicitantPrincipal(),
 				dadesExpedientBDTO.getExpedientsRDTO().getRepresentantPrincipal(), Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
 
-		if (relacioTerceraPersona != null) {
+		if (StringUtils.isNotEmpty(relacioTerceraPersona)) {
 			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
 					.consultarDadesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
 
@@ -86,7 +86,7 @@ public class ServeisRestControllerVisibilitatHelper {
 		// TODO GPA-2923 (se controla la ejecucion de la validacion hasta que
 		// tengamos datos del usuario)
 		ImiUserDetails imiUser = SecurityUtils.getLoggedUserDetails();
-		if (imiUser != null) {
+		if (imiUser != null && !imiUser.getUsername().equals("T000000")) {
 
 			String relacioTerceraPersona = "";
 
@@ -100,7 +100,7 @@ public class ServeisRestControllerVisibilitatHelper {
 
 			if (StringUtils.isNotEmpty(relacioTerceraPersona)) {
 				DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
-						.consultarDadesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
+						.consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
 
 				List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
 

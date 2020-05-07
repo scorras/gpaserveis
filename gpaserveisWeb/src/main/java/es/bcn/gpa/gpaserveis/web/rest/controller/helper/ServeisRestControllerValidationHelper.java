@@ -1705,7 +1705,8 @@ public class ServeisRestControllerValidationHelper {
 
 		if (personesInteressades != null) {
 			for (PersonesRDTO personeRDTO : personesInteressades) {
-				if (personeRDTO.getRelacio().compareTo(RelacioPersonaApiParamValue.SOLLICITANT.getApiParamValue()) != 0
+				if (personeRDTO.getRelacio() != null
+						&& personeRDTO.getRelacio().compareTo(RelacioPersonaApiParamValue.SOLLICITANT.getApiParamValue()) != 0
 						&& personeRDTO.getRelacio().compareTo(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue()) != 0) {
 
 					throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_INTERESADA_RELACIO);
@@ -1731,6 +1732,7 @@ public class ServeisRestControllerValidationHelper {
 
 		PersonesSollicitudRDTO interesado = null;
 		PersonesSollicitudRDTO implicado = null;
+		String resultado = "";
 
 		// Comprobar que la persona que realiza la accion pertenece al
 		// expediente (El documento de identidad debe corresponderse con el
@@ -1743,6 +1745,8 @@ public class ServeisRestControllerValidationHelper {
 
 		if (personesImplicades != null) {
 			implicado = validateUsuariLogueadoImplicadesExpedient(personesImplicades, resultatError);
+
+			resultado = implicado != null ? implicado.getRelacioImplicada() : "";
 		}
 
 		if (interesado == null && implicado == null) {
@@ -1757,7 +1761,7 @@ public class ServeisRestControllerValidationHelper {
 			}
 		}
 
-		return implicado.getRelacioImplicada();
+		return resultado;
 	}
 
 	/**
@@ -1815,21 +1819,23 @@ public class ServeisRestControllerValidationHelper {
 
 		// TODO GPA-2923 (se controla la ejecucion de la validacion hasta que
 		// tengamos datos del usuario)
-		if (imiUser != null) {
+		if (imiUser != null && !imiUser.getUsername().equals("T000000")) {
 
-			for (PersonesRDTO personesSollicitud : personesInteressades) {
-				if (personesSollicitud.getDocumentIndentitat() != null && StringUtils
-						.equals(personesSollicitud.getDocumentIndentitat().getNumeroDocument(), imiUser.getIdentityDocument())) {
-					return personesSollicitud;
+			if (personesInteressades != null) {
+				for (PersonesRDTO personesSollicitud : personesInteressades) {
+					if (personesSollicitud.getDocumentIndentitat() != null && StringUtils
+							.equals(personesSollicitud.getDocumentIndentitat().getNumeroDocument(), imiUser.getIdentityDocument())) {
+						return personesSollicitud;
+					}
 				}
 			}
 
-			if (sollicitantPrincipal.getDocumentIndentitat() != null && StringUtils
+			if (sollicitantPrincipal != null && sollicitantPrincipal.getDocumentIndentitat() != null && StringUtils
 					.equals(sollicitantPrincipal.getDocumentIndentitat().getNumeroDocument(), imiUser.getIdentityDocument())) {
 				return sollicitantPrincipal;
 			}
 
-			if (representantPrincipal.getDocumentIndentitat() != null && StringUtils
+			if (representantPrincipal != null && representantPrincipal.getDocumentIndentitat() != null && StringUtils
 					.equals(representantPrincipal.getDocumentIndentitat().getNumeroDocument(), imiUser.getIdentityDocument())) {
 				return representantPrincipal;
 			}
