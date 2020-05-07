@@ -826,7 +826,7 @@ public class TestsConfigHelper {
 		PersonesSollicitudRDTO personesSollicitudRDTO1 = new PersonesSollicitudRDTO();
 		personesSollicitudRDTO1.setId(ONE);
 		personesSollicitudRDTO1.setRelacioPrincipal(Constants.PERSONES_SOLLICITUD_RELACIO_NO_PRINCIPAL);
-		personesSollicitudRDTO1.setRelacio(Constants.PERSONES_SOLLICITUD_RELACIO_TESTIMONI);
+		personesSollicitudRDTO1.setRelacioImplicada("Testimoni");
 		personesSollicitudRDTO1.setPersona(ONE);
 		personesSollicitudRDTO1.setSollicitud(ONE);
 		personesSollicitudRDTO1.setPersones(buildPersones());
@@ -834,7 +834,7 @@ public class TestsConfigHelper {
 		PersonesSollicitudRDTO personesSollicitudRDTO2 = new PersonesSollicitudRDTO();
 		personesSollicitudRDTO2.setId(ONE);
 		personesSollicitudRDTO2.setRelacioPrincipal(Constants.PERSONES_SOLLICITUD_RELACIO_NO_PRINCIPAL);
-		personesSollicitudRDTO2.setRelacio(Constants.PERSONES_SOLLICITUD_RELACIO_ALTRES);
+		personesSollicitudRDTO2.setRelacioImplicada("Altres");
 		personesSollicitudRDTO2.setPersona(ONE);
 		personesSollicitudRDTO2.setSollicitud(ONE);
 		personesSollicitudRDTO2.setPersones(buildPersones());

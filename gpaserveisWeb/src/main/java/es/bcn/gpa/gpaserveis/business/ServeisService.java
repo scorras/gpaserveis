@@ -1241,4 +1241,19 @@ public interface ServeisService {
 
 	DadesSignatura consultarDadesSignaturaByCodiPeticio(String codiPeticio) throws GPAServeisServiceException;
 
+	/**
+	 * 
+	 * @param codiExpedient
+	 * @return
+	 * @throws GPAServeisServiceException
+	 */
+	DadesExpedientBDTO consultarDadesBasiquesPerVisibilitatExpedient(String codiExpedient) throws GPAServeisServiceException;
+
+	/**
+	 * 
+	 * @param idSollicitud
+	 * @return
+	 * @throws GPAServeisServiceException
+	 */
+	DadesSollicitudBDTO consultarDadesSollicitudPerVisibilitat(BigDecimal idSollicitud) throws GPAServeisServiceException;
 }

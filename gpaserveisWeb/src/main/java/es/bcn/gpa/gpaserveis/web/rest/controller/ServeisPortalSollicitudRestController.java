@@ -50,6 +50,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaSollicitudsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.sollicituds.RespostaSollicitudCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.sollicituds.RespostaSollicitudsCercaBDTO;
@@ -602,12 +603,13 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			}
 
 			// se valida que si la relacion es de persona interesada, solo
-			// permita valores sollicitant y representant y si
-			// la relacion es de persona implicada, solo permita los valores
-			// testimoni y Altres
-			ServeisRestControllerValidationHelper.validatePersonesImplicadesInteressadesExpedient(
-					sollicitudCrearRDTO.getPersonesImplicades(), sollicitudCrearRDTO.getPersonesInteressades(),
+			// permita valores sollicitant y representant
+			ServeisRestControllerValidationHelper.validatePersonesInteressadesExpedient(sollicitudCrearRDTO.getPersonesInteressades(),
 					Resultat.ERROR_CREAR_SOLLICITUD);
+			// 1 - validar que la persona logueada esta dentro de los
+			// interesados
+			ServeisRestControllerValidationHelper.validateUsuariLogueadoInteressadesExpedient(sollicitudCrearRDTO.getPersonesInteressades(),
+					sollicitudCrearRDTO.getSollicitant(), sollicitudCrearRDTO.getRepresentant(), Resultat.ERROR_CREAR_SOLLICITUD);
 
 			// Información del Trámite
 			TramitsOvtCercaBDTO tramitsOvtCercaBDTO = new TramitsOvtCercaBDTO(
@@ -622,11 +624,15 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				sollicitudCrearRDTO.getRepresentant().setRelacio(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue());
 			}
 
+			// 2 - validar que si hay lista de implicados, tengan
+			// relacioTerceraPersona y coincida alguna definida en el
+			// procedimiento
 			if (sollicitudCrearRDTO.getPersonesImplicades() != null) {
-				for (PersonesRDTO personaSollicitud : sollicitudCrearRDTO.getPersonesImplicades()) {
-					if (personaSollicitud.getRelacio() == null)
-						personaSollicitud.setRelacio(RelacioPersonaApiParamValue.ALTRES.getApiParamValue());
-				}
+				DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
+						.consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
+
+				ServeisRestControllerValidationHelper.validateTerceresPersonesProcediment(sollicitudCrearRDTO.getPersonesImplicades(),
+						dadesProcedimentBDTO, Resultat.ERROR_CREAR_SOLLICITUD);
 			}
 
 			if (sollicitudCrearRDTO.getPersonesInteressades() != null) {
@@ -701,11 +707,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					sollicitudActualitzar.getRepresentant());
 
 			// se valida que si la relacion es de persona interesada, solo
-			// permita valores sollicitant y representant y si
-			// la relacion es de persona implicada, solo permita los valores
-			// testimoni y Altres
-			ServeisRestControllerValidationHelper.validatePersonesImplicadesInteressadesExpedient(
-					sollicitudActualitzar.getPersonesImplicades(), sollicitudActualitzar.getPersonesInteressades(),
+			// permita valores sollicitant y representant
+			ServeisRestControllerValidationHelper.validatePersonesInteressadesExpedient(sollicitudActualitzar.getPersonesInteressades(),
 					Resultat.ERROR_ACTUALITZAR_SOLLICITUD);
 
 			// Actualizar Solicitante / Representante / Dades d'Operació si se
@@ -738,11 +741,15 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				sollicitudActualitzar.getRepresentant().setRelacio(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue());
 			}
 
+			// 2 - validar que si hay lista de implicados, tengan
+			// relacioTerceraPersona y coincida alguna definida en el
+			// procedimiento
 			if (sollicitudActualitzar.getPersonesImplicades() != null) {
-				for (PersonesRDTO personaSollicitud : sollicitudActualitzar.getPersonesImplicades()) {
-					if (personaSollicitud.getRelacio() == null)
-						personaSollicitud.setRelacio(RelacioPersonaApiParamValue.ALTRES.getApiParamValue());
-				}
+				DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
+						.consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
+
+				ServeisRestControllerValidationHelper.validateTerceresPersonesProcediment(sollicitudActualitzar.getPersonesImplicades(),
+						dadesProcedimentBDTO, Resultat.ERROR_CREAR_SOLLICITUD);
 			}
 
 			if (sollicitudActualitzar.getPersonesInteressades() != null) {

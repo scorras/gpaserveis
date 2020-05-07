@@ -2361,11 +2361,11 @@ definitions:
       personesImplicades:
         type: "array"
         items:
-          $ref: "#/definitions/PersonesSollicitudRDTO"
+          $ref: "#/definitions/PersonesSollicitud"
       personesInteressades:
         type: "array"
         items:
-          $ref: "#/definitions/PersonesSollicitudRDTO"
+          $ref: "#/definitions/PersonesSollicitud"
       procedimentCodi:
         type: "string"
       procedimentIdext:
@@ -2611,6 +2611,8 @@ definitions:
         $ref: "#/definitions/Persones"
       relacio:
         type: "number"
+      relacioImplicada:
+        type: "string"
       relacioPrincipal:
         type: "integer"
         format: "int32"
@@ -2644,6 +2646,8 @@ definitions:
         $ref: "#/definitions/Persones"
       relacio:
         type: "number"
+      relacioImplicada:
+        type: "string"
       relacioPrincipal:
         type: "integer"
         format: "int32"
@@ -2767,6 +2771,9 @@ definitions:
         type: "boolean"
         description: "Indica si l'usuari que realitza a l'acció és l'usuari principal\
           \ de l'expedient"
+      missatgeError:
+        type: "string"
+        description: "Missatge d'error"
       nomDescUGConvidadas:
         type: "string"
         description: "Nom i descripció de les unitats gestores convidadas de l'expedient"

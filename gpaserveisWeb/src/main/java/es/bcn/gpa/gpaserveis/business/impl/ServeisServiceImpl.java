@@ -2154,4 +2154,23 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.consultarDadesSignaturaByCodiPeticio(codiPeticio);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * consultarDadesBasiquesPerVisibilitatExpedient(java.lang.String)
+	 */
+	@Override
+	public DadesExpedientBDTO consultarDadesBasiquesPerVisibilitatExpedient(String codiExpedient) throws GPAServeisServiceException {
+		DadesExpedientBDTO dadesExpedientBDTO = ServeisServiceHelper.loadDadesBasiquesExpedientPerVisibilitat(expedientsService,
+				tramitsService, codiExpedient);
+		return dadesExpedientBDTO;
+	}
+
+	@Override
+	public DadesSollicitudBDTO consultarDadesSollicitudPerVisibilitat(BigDecimal idSollicitud) throws GPAServeisServiceException {
+		DadesSollicitudBDTO dadesSollicitudBDTO = ServeisServiceHelper.loadDadesSollicitudPerVisibilitat(expedientsService, idSollicitud);
+		return dadesSollicitudBDTO;
+
+	}
 }
