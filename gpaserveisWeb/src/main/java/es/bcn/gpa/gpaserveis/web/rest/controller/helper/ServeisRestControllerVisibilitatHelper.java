@@ -25,28 +25,35 @@ public class ServeisRestControllerVisibilitatHelper {
 
 		BigDecimal visibilitat = BigDecimal.ONE;
 
-		DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesBasiquesPerVisibilitatExpedient(
-				ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+		// TODO GPA-2923 (se controla la ejecucion de la validacion hasta que
+		// tengamos datos del usuario)
+		ImiUserDetails imiUser = SecurityUtils.getLoggedUserDetails();
+		if (imiUser != null && !imiUser.getUsername().equals("T000000")) {
 
-		// validamos que el usuario logado pertenezca al expediente
-		String relacioTerceraPersona = ServeisRestControllerValidationHelper.validateUsuariLogueadoExpedient(
-				dadesExpedientBDTO.getPersonesInteressades(), dadesExpedientBDTO.getPersonesImplicades(),
-				dadesExpedientBDTO.getExpedientsRDTO().getSollicitantPrincipal(),
-				dadesExpedientBDTO.getExpedientsRDTO().getRepresentantPrincipal(), Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
+			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesBasiquesPerVisibilitatExpedient(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 
-		if (StringUtils.isNotEmpty(relacioTerceraPersona)) {
-			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
-					.consultarDadesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
+			// validamos que el usuario logado pertenezca al expediente
+			String relacioTerceraPersona = ServeisRestControllerValidationHelper.validateUsuariLogueadoExpedient(
+					dadesExpedientBDTO.getPersonesInteressades(), dadesExpedientBDTO.getPersonesImplicades(),
+					dadesExpedientBDTO.getExpedientsRDTO().getSollicitantPrincipal(),
+					dadesExpedientBDTO.getExpedientsRDTO().getRepresentantPrincipal(), Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
 
-			List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
+			if (StringUtils.isNotEmpty(relacioTerceraPersona)) {
+				DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
+						.consultarDadesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
 
-			ProcedimentPersones procedimentPersones = ServeisRestControllerValidationHelper.validateVisibilitatImplicado(
-					relacioTerceraPersona, null, procedimentPersonesList, Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
+				List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
 
-			if (procedimentPersones != null) {
-				visibilitat = procedimentPersones.getNivellVisibilitat();
+				ProcedimentPersones procedimentPersones = ServeisRestControllerValidationHelper.validateVisibilitatImplicado(
+						relacioTerceraPersona, null, procedimentPersonesList, Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
+
+				if (procedimentPersones != null) {
+					visibilitat = procedimentPersones.getNivellVisibilitat();
+				}
 			}
 		}
+
 		return visibilitat;
 	}
 

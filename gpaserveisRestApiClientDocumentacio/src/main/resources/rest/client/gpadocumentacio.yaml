@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.20.3"
+  version: "1.21.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -2339,7 +2339,7 @@ definitions:
         type: "number"
         description: "Identificador de la relació configuració - política - modalitat"
       modalitatIdext:
-        type: "string"
+        type: "number"
         description: "Nom de la modalitat de signatura"
       ordre:
         type: "number"
