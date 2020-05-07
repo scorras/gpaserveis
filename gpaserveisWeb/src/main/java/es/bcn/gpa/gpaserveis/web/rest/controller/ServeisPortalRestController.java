@@ -551,7 +551,7 @@ public class ServeisPortalRestController extends BaseRestController {
 					expedientsIdOrgan);
 		} catch (GPAApiParamValidationException e) {
 			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
-			throw new GPAServeisServiceException(e.getMessage());
+			throw new GPAServeisServiceException(e.getResultat().getDescripcio());
 		} catch (Exception e) {
 			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
 			throw new GPAServeisServiceException(e.getMessage());
@@ -621,7 +621,7 @@ public class ServeisPortalRestController extends BaseRestController {
 					expedientsIdOrgan);
 		} catch (GPAApiParamValidationException e) {
 			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
-			throw new GPAServeisServiceException(e.getMessage());
+			throw new GPAServeisServiceException(e.getResultat().getDescripcio());
 		} catch (Exception e) {
 			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
 			throw new GPAServeisServiceException(e.getMessage());
@@ -1905,14 +1905,11 @@ public class ServeisPortalRestController extends BaseRestController {
 					expedientsIdOrgan);
 		} catch (GPAApiParamValidationException e) {
 			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
-			throw new GPAServeisServiceException(e.getMessage());
+			throw new GPAServeisServiceException(e.getResultat().getDescripcio());
 		} catch (Exception e) {
 			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
 			throw new GPAServeisServiceException(e.getMessage());
 		}
-
-		// TODO controlar que si es nulo no deje hacer la llamada al método de
-		// consulta
 
 		// Datos principales del expedient
 		DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesExpedient(
