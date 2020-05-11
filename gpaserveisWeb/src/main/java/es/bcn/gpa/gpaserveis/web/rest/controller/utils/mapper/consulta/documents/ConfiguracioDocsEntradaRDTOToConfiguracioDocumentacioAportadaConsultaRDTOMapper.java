@@ -10,6 +10,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.Internal
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToStringConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToObligatoriConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.document.InternalToSuportConfeccioConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToNivellCriticitatConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.ConfiguracioDocumentacioAportadaConsultaRDTO;
 
 @Component
@@ -28,16 +29,21 @@ public class ConfiguracioDocsEntradaRDTOToConfiguracioDocumentacioAportadaConsul
 	/** The internal to obligatori converter. */
 	private InternalToObligatoriConverter internalToObligatoriConverter;
 
+	/** The internal to nivell criticitat converter. */
+	private InternalToNivellCriticitatConverter internalToNivellCriticitatConverter;
+
 	@Autowired
 	public ConfiguracioDocsEntradaRDTOToConfiguracioDocumentacioAportadaConsultaRDTOMapper(
 			@Qualifier("internalToBooleanConverter") InternalToBooleanConverter internalToBooleanConverter,
 			@Qualifier("internalToSuportConfeccioConverter") InternalToSuportConfeccioConverter internalToSuportConfeccioConverter,
 			@Qualifier("internalToObligatoriConverter") InternalToObligatoriConverter internalToObligatoriConverter,
-			@Qualifier("internalToStringConverter") InternalToStringConverter internalToStringConverter) {
+			@Qualifier("internalToStringConverter") InternalToStringConverter internalToStringConverter,
+			@Qualifier("internalToNivellCriticitatConverter") InternalToNivellCriticitatConverter internalToNivellCriticitatConverter) {
 		this.internalToBooleanConverter = internalToBooleanConverter;
 		this.internalToSuportConfeccioConverter = internalToSuportConfeccioConverter;
 		this.internalToObligatoriConverter = internalToObligatoriConverter;
 		this.internalToStringConverter = internalToStringConverter;
+		this.internalToNivellCriticitatConverter = internalToNivellCriticitatConverter;
 	}
 
 	/*
@@ -55,6 +61,8 @@ public class ConfiguracioDocsEntradaRDTOToConfiguracioDocumentacioAportadaConsul
 		using(internalToBooleanConverter).map(source.getAtributsDocs().getRepetible()).setRepetible(null);
 		using(internalToSuportConfeccioConverter).map(source.getSuportConfeccio()).setSuportConfeccio(null);
 		map().setSuportEnllac(source.getSuportEnllac());
+		using(internalToBooleanConverter).map(source.getVisibilitatPortal()).setVisibilitat(null);
+		using(internalToNivellCriticitatConverter).map(source.getCriticitatIdext()).setCriticitat(null);
 	}
 
 }

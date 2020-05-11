@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.IniciacioApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ProcedimentPersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.DadesIdentificacioRDTO;
 import io.swagger.annotations.ApiModel;
@@ -24,7 +25,7 @@ import lombok.Setter;
 @ApiModel(value = "ProcedimentConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id", "codi", "versio", "nom", "nomCastella", "descripcio", "descripcioCastella", "ugr", "ugo", "organResolutori",
-        "inici", "estat", "estatCastella", "dadesIdentificacio" })
+		"inici", "estat", "estatCastella", "dadesIdentificacio", "terceresPersonesImplicades" })
 @XmlRootElement(name = "PROCEDIMENT")
 @XmlType(name = "ProcedimentsConsulta", propOrder = { "id", "codi", "versio", "nom" })
 @XmlAccessorType(XmlAccessType.NONE)
@@ -76,5 +77,7 @@ public class ProcedimentsConsultaRDTO {
 	@ApiModelProperty(value = "Dades d'identificació del procediment")
 	@XmlTransient
 	private DadesIdentificacioRDTO dadesIdentificacio;
+	@ApiModelProperty(value = "Llista de terceres persones implicades")
+	private List<ProcedimentPersonesRDTO> terceresPersonesImplicades;
 
 }

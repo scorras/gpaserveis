@@ -27,7 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
@@ -250,7 +249,7 @@ public class ServeisRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static void validateRegistreSollicitud(DadesSollicitudBDTO dadesSollicitudBDTO, Resultat resultatError)
-	        throws GPAApiParamValidationException {
+			throws GPAApiParamValidationException {
 		validateSollicitud(dadesSollicitudBDTO, resultatError);
 		if (TramitOvtApiParamValue.SOL.getInternalValue().compareTo(dadesSollicitudBDTO.getSollicitudsRDTO().getTramitOvtIdext()) == 0) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_SOLLICITUDS_TIPUS_NOT_VALID);
@@ -1090,7 +1089,7 @@ public class ServeisRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static void validateDocumentGenerat(BigDecimal idDocument, DocsTramitacioRDTO docsTramitacioRDTO, Resultat resultatError)
-	        throws GPAApiParamValidationException {
+			throws GPAApiParamValidationException {
 		if (docsTramitacioRDTO == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND, ": " + idDocument);
 		}
@@ -1819,22 +1818,27 @@ public class ServeisRestControllerValidationHelper {
 
 		ImiUserDetails imiUser = SecurityUtils.getLoggedUserDetails();
 
-		for (PersonesSollicitudRDTO personesSollicitud : personesInteressades) {
-			if (personesSollicitud.getPersones().getDocumentsIdentitat() != null && StringUtils
-					.equals(personesSollicitud.getPersones().getDocumentsIdentitat().getNumeroDocument(), imiUser.getIdentityDocument())) {
-				return personesSollicitud;
+		// TODO GPA-2923 (se controla la ejecucion de la validacion hasta que
+		// tengamos datos del usuario)
+		if (imiUser != null && !imiUser.getUsername().equals("T000000")) {
+
+			for (PersonesSollicitudRDTO personesSollicitud : personesInteressades) {
+				if (personesSollicitud.getPersones().getDocumentsIdentitat() != null && StringUtils.equals(
+						personesSollicitud.getPersones().getDocumentsIdentitat().getNumeroDocument(), imiUser.getIdentityDocument())) {
+					return personesSollicitud;
+				}
 			}
-		}
 
-		// solo necesitamos comprobar que existe
-		if (sollicitantPrincipal.getPersones().getDocumentsIdentitat() != null && StringUtils
-				.equals(sollicitantPrincipal.getPersones().getDocumentsIdentitat().getNumeroDocument(), imiUser.getIdentityDocument())) {
-			return new PersonesSollicitudRDTO();
-		}
+			// solo necesitamos comprobar que existe
+			if (sollicitantPrincipal.getPersones().getDocumentsIdentitat() != null && StringUtils.equals(
+					sollicitantPrincipal.getPersones().getDocumentsIdentitat().getNumeroDocument(), imiUser.getIdentityDocument())) {
+				return new PersonesSollicitudRDTO();
+			}
 
-		if (representantPrincipal.getPersones().getDocumentsIdentitat() != null && StringUtils
-				.equals(representantPrincipal.getPersones().getDocumentsIdentitat().getNumeroDocument(), imiUser.getIdentityDocument())) {
-			return new PersonesSollicitudRDTO();
+			if (representantPrincipal.getPersones().getDocumentsIdentitat() != null && StringUtils.equals(
+					representantPrincipal.getPersones().getDocumentsIdentitat().getNumeroDocument(), imiUser.getIdentityDocument())) {
+				return new PersonesSollicitudRDTO();
+			}
 		}
 
 		return null;
@@ -1954,11 +1958,13 @@ public class ServeisRestControllerValidationHelper {
 	 * 
 	 * @param implicado
 	 * @param respostaDadesOperacioCercaBDTO
+	 * @param respostaDocumentsEntradaCercaBDTO
+	 * @param docsEntradaRDTO
 	 * @param procedimentPersonesList
 	 */
-	public static ProcedimentPersones validateVisibilitatImplicado(String relacioTerceraPersona,
-			RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO, List<ProcedimentPersones> procedimentPersonesList,
-			Resultat resultatError) throws GPAApiParamValidationException {
+	public static ProcedimentPersones validateVisibilitatImplicado(String relacioTerceraPersona, List<DadesOperacions> dadesActualizar,
+			List<ConfiguracioDocsEntradaRDTO> configuacioActualizar, DocsEntradaRDTO docsEntradaRDTO,
+			List<ProcedimentPersones> procedimentPersonesList, Resultat resultatError) throws GPAApiParamValidationException {
 
 		if (procedimentPersonesList == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT);
@@ -1978,20 +1984,41 @@ public class ServeisRestControllerValidationHelper {
 							ErrorPrincipal.ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT_VISIBILITAT);
 				}
 
-				if (respostaDadesOperacioCercaBDTO != null) {
-					for (DadesGrupsRDTO dadesGrupsRDTO : respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList()) {
-						for (DadesOperacions dadesOperacions : dadesGrupsRDTO.getDadesOperacionsList()) {
-							if (dadesOperacions.getVisibilitatPortal().compareTo(INTEGER_ZERO) == 0) {
-								throw new GPAApiParamValidationException(resultatError,
-										ErrorPrincipal.ERROR_EXPEDIENTS_DADES_OPERACIO_PROCEDIMENT_VISIBILITAT_PORTAL);
-							} else if (procedimentPersonesFind.getNivellVisibilitat().compareTo(Constants.NIVELL_VISIBILITAT_BAIXA) == 0
-									&& dadesOperacions.getNivellCriticitat().compareTo(Constants.NIVELL_CRITICITAT_ALT) == 0) {
-								throw new GPAApiParamValidationException(resultatError,
-										ErrorPrincipal.ERROR_EXPEDIENTS_DADES_OPERACIO_PROCEDIMENT_CRITICITAT);
-							}
+				if (dadesActualizar != null) {
+					for (DadesOperacions dadesOperacions : dadesActualizar) {
+						if (dadesOperacions.getVisibilitatPortal().compareTo(INTEGER_ZERO) == 0) {
+							throw new GPAApiParamValidationException(resultatError,
+									ErrorPrincipal.ERROR_EXPEDIENTS_DADES_OPERACIO_PROCEDIMENT_VISIBILITAT_PORTAL);
+						} else if (procedimentPersonesFind.getNivellVisibilitat().compareTo(Constants.NIVELL_VISIBILITAT_BAIXA) == 0
+								&& dadesOperacions.getNivellCriticitat().compareTo(Constants.NIVELL_CRITICITAT_ALT) == 0) {
+							throw new GPAApiParamValidationException(resultatError,
+									ErrorPrincipal.ERROR_EXPEDIENTS_DADES_OPERACIO_PROCEDIMENT_CRITICITAT);
 						}
 					}
 				}
+				if (configuacioActualizar != null) {
+					for (ConfiguracioDocsEntradaRDTO configuracioDocsEntradaRDTO : configuacioActualizar) {
+						if (configuracioDocsEntradaRDTO.getVisibilitatPortal().compareTo(INTEGER_ZERO) == 0) {
+							throw new GPAApiParamValidationException(resultatError,
+									ErrorPrincipal.ERROR_EXPEDIENTS_DOC_ENTRADA_VISIBILITAT_PORTAL);
+						} else if (procedimentPersonesFind.getNivellVisibilitat().compareTo(Constants.NIVELL_VISIBILITAT_BAIXA) == 0
+								&& configuracioDocsEntradaRDTO.getCriticitatIdext().compareTo(Constants.NIVELL_CRITICITAT_ALT) == 0) {
+							throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_DOC_ENTRADA_CRITICITAT);
+						}
+					}
+				}
+
+				if (docsEntradaRDTO != null) {
+					if (docsEntradaRDTO.getConfiguracioDocsEntrada().getVisibilitatPortal().compareTo(INTEGER_ZERO) == 0) {
+						throw new GPAApiParamValidationException(resultatError,
+								ErrorPrincipal.ERROR_EXPEDIENTS_DOC_ENTRADA_VISIBILITAT_PORTAL);
+					} else if (procedimentPersonesFind.getNivellVisibilitat().compareTo(Constants.NIVELL_VISIBILITAT_BAIXA) == 0
+							&& docsEntradaRDTO.getConfiguracioDocsEntrada().getCriticitatIdext()
+									.compareTo(Constants.NIVELL_CRITICITAT_ALT) == 0) {
+						throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_DOC_ENTRADA_CRITICITAT);
+					}
+				}
+
 			}
 		}
 		if (procedimentPersonesFind == null) {
@@ -2029,7 +2056,7 @@ public class ServeisRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static void validateSignaturaValid(SignaturaValidDocumentRDTO signaturaValidDocumentRDTO, Resultat resultatError)
-	        throws GPAApiParamValidationException {
+			throws GPAApiParamValidationException {
 
 		// Se valida el formato del token JWT
 		if (StringUtils.isBlank(signaturaValidDocumentRDTO.getInformacioToken())) {
@@ -2046,5 +2073,5 @@ public class ServeisRestControllerValidationHelper {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_TOKEN_JWT_SIGNAR_VALID);
 		}
 	}
-	
+
 }

@@ -11,13 +11,15 @@ import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.common.BooleanApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.NivellCriticitatApiParamValueTranslator;
 
 /**
  * The Class InternalToDadesGrupListConverter.
  */
 @Component("procedimentInternalToDadesGrupListConverter")
 public class InternalToDadesGrupListConverter extends
-        AbstractConverter<List<es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO>, List<es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO>> {
+		AbstractConverter<List<es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO>, List<es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO>> {
 
 	/** The tipus camp api param value translator. */
 	@Autowired
@@ -34,6 +36,15 @@ public class InternalToDadesGrupListConverter extends
 	@Qualifier("expedientEstatTramitadorApiParamValueTranslator")
 	private BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator;
 
+	@Autowired
+	@Qualifier("nivellCriticitatApiParamValueTranslator")
+	private NivellCriticitatApiParamValueTranslator nivellCriticitatApiParamValueTranslator;
+
+	/** The boolean api param value translator. */
+	@Autowired
+	@Qualifier("booleanApiParamValueTranslator")
+	private BooleanApiParamValueTranslator booleanApiParamValueTranslator;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -41,13 +52,14 @@ public class InternalToDadesGrupListConverter extends
 	 */
 	@Override
 	protected List<es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO> convert(
-	        List<es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO> source) {
+			List<es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO> source) {
 		ArrayList<es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO> dadesGrupsRDTOList = new ArrayList<es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO>();
 		if (CollectionUtils.isNotEmpty(source)) {
 			for (es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO internalDadesGrupsRDTO : source) {
 				dadesGrupsRDTOList
-				        .add(ConverterHelper.buildDadesGrupsRDTOProcediment(internalDadesGrupsRDTO, tipusCampApiParamValueTranslator,
-				                tipusValidacioApiParamValueTranslator, expedientEstatTramitadorApiParamValueTranslator));
+						.add(ConverterHelper.buildDadesGrupsRDTOProcediment(internalDadesGrupsRDTO, tipusCampApiParamValueTranslator,
+								tipusValidacioApiParamValueTranslator, expedientEstatTramitadorApiParamValueTranslator,
+								nivellCriticitatApiParamValueTranslator, booleanApiParamValueTranslator));
 			}
 		}
 		return dadesGrupsRDTOList;

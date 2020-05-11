@@ -9,8 +9,10 @@ import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPersones;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
@@ -46,7 +48,7 @@ public class ServeisRestControllerVisibilitatHelper {
 				List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
 
 				ProcedimentPersones procedimentPersones = ServeisRestControllerValidationHelper.validateVisibilitatImplicado(
-						relacioTerceraPersona, null, procedimentPersonesList, Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
+						relacioTerceraPersona, null, null, null, procedimentPersonesList, Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
 
 				if (procedimentPersones != null) {
 					visibilitat = procedimentPersones.getNivellVisibilitat();
@@ -82,13 +84,14 @@ public class ServeisRestControllerVisibilitatHelper {
 
 	/**
 	 * @param respostaDadesOperacioCercaBDTO
+	 * @param docsEntradaRDTO
 	 * @param dadesExpedientBDTO
 	 * @throws GPAApiParamValidationException
 	 * @throws GPAServeisServiceException
 	 */
-	public static void validateVisibilitatTerceresPersones(ServeisService serveisService,
-			RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO, DadesExpedientBDTO dadesExpedientBDTO, Resultat resultatError)
-			throws GPAApiParamValidationException, GPAServeisServiceException {
+	public static void validateVisibilitatTerceresPersones(ServeisService serveisService, List<DadesOperacions> dadesActualizar,
+			List<ConfiguracioDocsEntradaRDTO> configuacioActualizar, DocsEntradaRDTO docsEntradaRDTO, DadesExpedientBDTO dadesExpedientBDTO,
+			Resultat resultatError) throws GPAApiParamValidationException, GPAServeisServiceException {
 
 		// TODO GPA-2923 (se controla la ejecucion de la validacion hasta que
 		// tengamos datos del usuario)
@@ -111,8 +114,8 @@ public class ServeisRestControllerVisibilitatHelper {
 
 				List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
 
-				ServeisRestControllerValidationHelper.validateVisibilitatImplicado(relacioTerceraPersona, respostaDadesOperacioCercaBDTO,
-						procedimentPersonesList, resultatError);
+				ServeisRestControllerValidationHelper.validateVisibilitatImplicado(relacioTerceraPersona, dadesActualizar,
+						configuacioActualizar, docsEntradaRDTO, procedimentPersonesList, resultatError);
 			}
 		}
 	}
