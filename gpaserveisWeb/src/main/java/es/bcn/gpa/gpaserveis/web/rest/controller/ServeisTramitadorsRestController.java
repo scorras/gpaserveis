@@ -262,6 +262,8 @@ import io.swagger.annotations.Extension;
 import io.swagger.annotations.ExtensionProperty;
 import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.configuration.annotation.EntornPropertySource;
+import net.opentrends.openframe.services.security.core.userdetails.ImiUserDetails;
+import net.opentrends.openframe.services.security.util.SecurityUtils;
 
 /**
  * The Class ServeisTramitadorsRestController.
