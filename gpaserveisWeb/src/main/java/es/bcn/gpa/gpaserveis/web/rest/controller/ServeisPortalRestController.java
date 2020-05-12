@@ -938,6 +938,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		DocumentActualizarRegistre documentActualizarRegistreRDTO = null;
 		DadesSollicitudBDTO dadesSollicitudBDTO = null;
 		ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO = null;
+		boolean registreDocumentacioAssociat = false;
+		boolean registreSollicitudAssociat = false;
 		try {
 			// TODO GPA-2923
 			BigDecimal visibilitat = BigDecimal.ONE;
@@ -977,12 +979,14 @@ public class ServeisPortalRestController extends BaseRestController {
 			sollicitudActualitzarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
 			sollicitudActualitzarRegistre.setIdSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
 			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
+			registreSollicitudAssociat = true;
 
 			// Asociar registre del expediente a la documentacio
 			documentActualizarRegistreRDTO = new DocumentActualizarRegistre();
 			documentActualizarRegistreRDTO.setIdDoc(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
 			documentActualizarRegistreRDTO.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
 			serveisService.associarRegistreDocumentacioExpedient(documentActualizarRegistreRDTO);
+			registreDocumentacioAssociat = true;
 
 			// Duplicar los Valores de Datos Específicos para que quede por un
 			// lado la foto inmutable en la solicitud y los datos actualizados
@@ -1076,8 +1080,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error("registrarSolicitudExpedient(BigDecimal)", e);
 
-			sagaRegistrarSolicitudExpedient(dadesExpedientBDTO, respostaCrearRegistreExpedient, respostaCrearJustificant,
-					documentActualizarRegistreRDTO);
+			sagaRegistrarSolicitudExpedient(dadesExpedientBDTO, respostaCrearRegistreExpedient, registreSollicitudAssociat,
+					respostaCrearJustificant, documentActualizarRegistreRDTO, registreDocumentacioAssociat);
 
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_REGISTRAR_EXPEDIENT, e);
 		}
@@ -1095,11 +1099,13 @@ public class ServeisPortalRestController extends BaseRestController {
 	}
 
 	private void sagaRegistrarSolicitudExpedient(DadesExpedientBDTO dadesExpedientBDTO,
-			RespostaCrearRegistreExpedient respostaCrearRegistreExpedient, DocsTramitacioRDTO respostaCrearJustificant,
-			DocumentActualizarRegistre documentActualizarRegistreRDTO) {
+			RespostaCrearRegistreExpedient respostaCrearRegistreExpedient, boolean registreSollicitudAssociat,
+			DocsTramitacioRDTO respostaCrearJustificant, DocumentActualizarRegistre documentActualizarRegistreRDTO,
+			boolean registreDocumentacioAssociat) {
 
 		try {
-			if (respostaCrearRegistreExpedient != null && respostaCrearRegistreExpedient.getRegistreAssentament() != null
+			if (registreSollicitudAssociat && respostaCrearRegistreExpedient != null
+					&& respostaCrearRegistreExpedient.getRegistreAssentament() != null
 					&& StringUtils.isNotEmpty(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi())) {
 
 				CrearRegistre registreCreacioSolicitudExpedient = new CrearRegistre();
@@ -1111,7 +1117,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				respostaCrearRegistreExpedient.getRegistreAssentament().setCodi(null);
 				respostaCrearRegistreExpedient.getRegistreAssentament().setDataRegistre(null);
 			}
-			if (documentActualizarRegistreRDTO != null) {
+			if (registreDocumentacioAssociat) {
 				serveisService.desassociarRegistreDocumentacioExpedient(documentActualizarRegistreRDTO);
 			}
 
