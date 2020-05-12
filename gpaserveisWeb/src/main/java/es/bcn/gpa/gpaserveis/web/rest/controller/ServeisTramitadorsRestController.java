@@ -403,7 +403,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		if (log.isDebugEnabled()) {
 			log.debug("consultar(String) - inici"); //$NON-NLS-1$
 		}
-
+        logImiUser();
 		RespostaConsultaExpedientsRDTO respostaConsultaExpedientsRDTO = new RespostaConsultaExpedientsRDTO();
 
 		// Datos principales del expedient
@@ -3099,7 +3099,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO) - inici"); //$NON-NLS-1$
 		}
-
+        logImiUser();
 		RespostaActualitzarExpedientRDTO respostaActualitzarSolicitudsRDTO = null;
 		ExpedientsRDTO returnExpedientsRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACTUALITZAR_EXPEDIENT);
@@ -3797,6 +3797,19 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		return respostaDigitalitzarDocumentRDTO;
+	}
+	
+	private void logImiUser() {
+		if (log.isInfoEnabled()) {
+			ImiUserDetails imiUser = SecurityUtils.getLoggedUserDetails();
+			log.info(String.format("---------> ImiUserDetails: %s", imiUser)); //$NON-NLS-1$Imi
+			if (imiUser != null) {
+				log.info(String.format("---------> imiUser.getPayload(): %s", imiUser.getPayload())); //$NON-NLS-1$Imi
+			}else{
+				log.info("---------> imiUser nulo"); //$NON-NLS-1$Imi
+			}
+			
+		}
 	}
 
 }
