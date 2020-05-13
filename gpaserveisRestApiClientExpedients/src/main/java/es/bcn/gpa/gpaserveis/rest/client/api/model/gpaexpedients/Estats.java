@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 /**
  * Estats
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-07T16:23:41.401+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-13T12:48:59.755+02:00")
 public class Estats {
   @JsonProperty("accioEstatIdext")
   private BigDecimal accioEstatIdext = null;

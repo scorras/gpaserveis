@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Usuaris
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-07T16:23:41.401+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-13T12:48:59.755+02:00")
 public class Usuaris {
   @JsonProperty("carrec")
   private String carrec = null;

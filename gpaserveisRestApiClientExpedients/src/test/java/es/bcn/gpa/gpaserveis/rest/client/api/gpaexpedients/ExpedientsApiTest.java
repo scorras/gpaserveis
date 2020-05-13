@@ -36,6 +36,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGest
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegistreRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ObtenirPerInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RedireccioAssentament;
@@ -255,6 +256,27 @@ public class ExpedientsApiTest extends ParentTest {
 
 		RedireccioAssentament redireccioAssentamentRDTO = new RedireccioAssentament();
 		api.redireccionarRegistre(redireccioAssentamentRDTO);
+
+		assertTrue(true);
+	}
+
+	/**
+	 * Actualitzar Expedient
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void actualitzarExpedientTest() {
+
+		when(apiClient.invokeAPI(eq("/expedients/actualitzarExpedient"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
+		api.actualitzarExpedient(expedientsRDTO);
 
 		assertTrue(true);
 	}

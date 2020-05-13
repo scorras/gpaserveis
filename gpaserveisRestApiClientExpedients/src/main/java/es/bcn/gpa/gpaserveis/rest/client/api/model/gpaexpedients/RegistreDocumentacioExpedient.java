@@ -19,20 +19,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
 
 /**
  * RegistreDocumentacioExpedient
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-07T16:23:41.401+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-13T12:48:59.755+02:00")
 public class RegistreDocumentacioExpedient {
   @JsonProperty("idJustificant")
-  private BigDecimal idJustificant = null;
+  private String idJustificant = null;
 
   @JsonProperty("numAss")
   private String numAss = null;
 
-  public RegistreDocumentacioExpedient idJustificant(BigDecimal idJustificant) {
+  public RegistreDocumentacioExpedient idJustificant(String idJustificant) {
     this.idJustificant = idJustificant;
     return this;
   }
@@ -42,11 +41,11 @@ public class RegistreDocumentacioExpedient {
    * @return idJustificant
   **/
   @ApiModelProperty(value = "Identificador del justificant a vincular")
-  public BigDecimal getIdJustificant() {
+  public String getIdJustificant() {
     return idJustificant;
   }
 
-  public void setIdJustificant(BigDecimal idJustificant) {
+  public void setIdJustificant(String idJustificant) {
     this.idJustificant = idJustificant;
   }
 

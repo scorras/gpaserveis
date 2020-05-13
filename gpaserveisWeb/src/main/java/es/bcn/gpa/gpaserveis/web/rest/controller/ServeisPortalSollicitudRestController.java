@@ -1053,9 +1053,23 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 			// Vincular Justificante en Ariadna
 			RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
-			registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
-			registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
-			serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
+			try {
+
+				registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getCodi());
+				registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
+
+				serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
+			} catch (Exception e) {
+				log.error("registrarSolicitudExpedient(BigDecimal): Error retornAssentament", e);// $NON-NLS-1$
+
+				// almacenamos el indicador de que esta pendiente el retorno en
+				// el
+				// expediente para que continue el registro o la accion
+				// correctamente
+
+				dadesSollicitudBDTO.getExpedientsRDTO().setPendentRetorn(NumberUtils.INTEGER_ONE);
+				serveisService.actualitzarExpedient(dadesSollicitudBDTO.getExpedientsRDTO());
+			}
 
 			// TODO Pendiente de guardar en nuestro modelo de datos
 			// sollicitudRegistrarRDTO.getSignaturaSolicitud();
