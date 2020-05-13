@@ -2167,4 +2167,48 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		return municipisRDTO;
 	}
+
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackActualitzarExpedient")
+	public void actualitzarExpedient(ExpedientsRDTO expedientsRDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("actualitzarExpedient(ExpedientsRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			expedientsApi.actualitzarExpedient(expedientsRDTO);
+
+			if (log.isDebugEnabled()) {
+				log.debug("actualitzarExpedient(ExpedientsRDTO) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("actualitzarExpedient(ExpedientsRDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+	}
+
+	/**
+	 * Fallback actualitzar expedient.
+	 *
+	 * @param expedientsRDTO
+	 *            the expedients RDTO
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 * @throws JsonParseException
+	 *             the json parse exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
+	public void fallbackActualitzarExpedient(ExpedientsRDTO expedientsRDTO, Throwable e)
+			throws GPAServeisServiceException, JsonParseException, IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackActualitzarExpedient(ExpedientsRDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+	}
 }

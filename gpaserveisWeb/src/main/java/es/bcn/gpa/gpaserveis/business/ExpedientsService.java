@@ -508,4 +508,13 @@ public interface ExpedientsService {
 	 */
 	MunicipisRDTO consultarMunicipisByCodi(String codiMunicipi, String codiProvincia) throws GPAServeisServiceException;
 
+	/**
+	 * Actualitzar expedient.
+	 *
+	 * @param expedientsCrearBDTO
+	 *            the expedients crear BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void actualitzarExpedient(ExpedientsRDTO expedientsRDTO) throws GPAServeisServiceException;
 }

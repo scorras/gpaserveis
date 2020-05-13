@@ -1046,11 +1046,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			}
 
 			// Vincular Justificante en Ariadna
-			RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
-			// TODO habría que pasar el objectId de documentum
-			registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
-			registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
-			serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
+			vincularJustificanteAriadna(dadesExpedientBDTO, respostaCrearRegistreExpedient, respostaCrearJustificant);
 
 			// TODO Pendiente de guardar en nuestro modelo de datos
 			// expedientRegistrarRDTO.getSignaturaSolicitud();
@@ -1268,11 +1264,7 @@ public class ServeisPortalRestController extends BaseRestController {
 						docsTramitacioRDTO);
 				respostaCrearJustificant = serveisService.guardarDocumentTramitacioJustificantPlantilla(crearDocumentTramitacioBDTO);
 
-				// Vincular Justificante en Ariadna
-				RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
-				registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
-				registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
-				serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
+				vincularJustificanteAriadna(dadesExpedientBDTO, respostaCrearRegistreExpedient, respostaCrearJustificant);
 			}
 		} catch (GPAApiParamValidationException e) {
 			log.error("aportarDocumentacioExpedient(BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
@@ -1686,11 +1678,7 @@ public class ServeisPortalRestController extends BaseRestController {
 						docsTramitacioRDTO);
 				respostaCrearJustificant = serveisService.guardarDocumentTramitacioJustificantPlantilla(crearDocumentTramitacioBDTO);
 
-				// Vincular Justificante en Ariadna
-				RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
-				registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
-				registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
-				serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
+				vincularJustificanteAriadna(dadesExpedientBDTO, respostaCrearRegistreExpedient, respostaCrearJustificant);
 			}
 
 			// Nos quedamos con una copia de los dades de operacio actuales del
@@ -2051,5 +2039,35 @@ public class ServeisPortalRestController extends BaseRestController {
 			respostaConsultaDocumentacioRDTO = modelMapper.map(docsTramitacioRDTO, RespostaConsultaDocumentacioRDTO.class);
 		}
 		return respostaConsultaDocumentacioRDTO;
+	}
+
+	/**
+	 * @param dadesExpedientBDTO
+	 * @param respostaCrearRegistreExpedient
+	 * @param respostaCrearJustificant
+	 * @throws GPAServeisServiceException
+	 */
+	private void vincularJustificanteAriadna(DadesExpedientBDTO dadesExpedientBDTO,
+			RespostaCrearRegistreExpedient respostaCrearRegistreExpedient, DocsTramitacioRDTO respostaCrearJustificant)
+			throws GPAServeisServiceException {
+
+		RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
+
+		try {
+
+			registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getCodi());
+			registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
+
+			serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
+		} catch (Exception e) {
+			log.error("registrarSolicitudExpedient(BigDecimal): Error retornAssentament", e);// $NON-NLS-1$
+
+			// almacenamos el indicador de que esta pendiente el retorno en el
+			// expediente para que continue el registro o la accion
+			// correctamente
+
+			dadesExpedientBDTO.getExpedientsRDTO().setPendentRetorn(NumberUtils.INTEGER_ONE);
+			serveisService.actualitzarExpedient(dadesExpedientBDTO.getExpedientsRDTO());
+		}
 	}
 }
