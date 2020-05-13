@@ -26,7 +26,7 @@ public class HystrixConfiguration {
 		AbstractConfiguration abstractConfiguration = ConfigurationManager.getConfigInstance();
 
 		// Execution
-		abstractConfiguration.setProperty("hystrix.command.default.execution.isolation.strategy", "THREAD");
+		abstractConfiguration.setProperty("hystrix.command.default.execution.isolation.strategy", "SEMAPHORE");
 		abstractConfiguration.setProperty("hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds",
 		        EXECUTION_ISOLATION_THREAD_TIMEOUTINMILLISECONDS);
 		abstractConfiguration.setProperty("hystrix.command.default.execution.timeout.enabled", "true");
