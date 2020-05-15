@@ -187,8 +187,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.es
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.resolucio.validar.RespostaResolucioValidarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.RespostaSignarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.SignaturaDocumentRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.SignaturaManuscritaDocumentRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.SignaturaPortasignaturesDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.SignaturaValidDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.UsuariPortasignaturesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.recurs.RecursExpedientRDTO;
@@ -1857,8 +1855,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 				SignarTabletDocument signarTabletDocumentRDTO = new SignarTabletDocument();
 				signarTabletDocumentRDTO.setIdDocument(idDocument);
-				signarTabletDocumentRDTO
-						.setIdTabletUsuari(((SignaturaManuscritaDocumentRDTO) signaturaDocument).getUsuari().getIdTabletUsuari());
+				signarTabletDocumentRDTO.setIdTabletUsuari(signaturaDocument.getUsuariManuscrita().getIdTabletUsuari());
 
 				SignarTabletDocumentResponse signarTabletDocumentResponse = serveisService.signarTabletDocument(signarTabletDocumentRDTO);
 
@@ -1877,8 +1874,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			default:
 
 				// El usuario indicado debe existir
-				UsuarisRDTO usuarisRDTO = serveisService
-						.consultarDadesUsuari(((SignaturaPortasignaturesDocumentRDTO) signaturaDocument).getUsuari().getMatricula());
+				UsuarisRDTO usuarisRDTO = serveisService.consultarDadesUsuari(signaturaDocument.getUsuariPortasig().getMatricula());
 				ServeisRestControllerValidationHelper.validateUsuari(usuarisRDTO, Resultat.ERROR_SIGNAR_DOCUMENT);
 
 				// Firmar documento
@@ -1891,8 +1887,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				signarPortasignaturesDocument.setCodiUnitatOrganigrama(unitatsOrganigramaRDTO.getCodi());
 				signarPortasignaturesDocument.setMatriculaUsuari(usuarisRDTO.getMatricula());
 				signarPortasignaturesDocument.setNomProcediment(dadesExpedientBDTO.getExpedientsRDTO().getNomProcediment());
-				signarPortasignaturesDocument
-						.setPoliticaSignatura(((SignaturaPortasignaturesDocumentRDTO) signaturaDocument).getPoliticaSignatura());
+				signarPortasignaturesDocument.setPoliticaSignatura(signaturaDocument.getPoliticaSignatura());
 
 				peticionsPortasig = serveisService.signarValidarDocument(signarPortasignaturesDocument);
 

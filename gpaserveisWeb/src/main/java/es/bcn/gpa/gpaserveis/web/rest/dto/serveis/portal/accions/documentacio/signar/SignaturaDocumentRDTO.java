@@ -12,10 +12,9 @@ import lombok.Setter;
 /**
  * The Class SignaturaDocumentRDTO.
  */
-@ApiModel(value = "SignaturaDocument", discriminator = "modalitatSignatura", subTypes = { SignaturaPortasignaturesDocumentRDTO.class,
-        SignaturaSegellDocumentRDTO.class, SignaturaManuscritaDocumentRDTO.class })
+@ApiModel(value = "SignaturaDocument", discriminator = "modalitatSignatura")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "modalitatSignatura", "politicaSignatura" })
+@JsonPropertyOrder({ "modalitatSignatura", "politicaSignatura", "usuariPortasig", "usuariManuscrita" })
 @Getter
 @Setter
 public class SignaturaDocumentRDTO {
@@ -27,5 +26,13 @@ public class SignaturaDocumentRDTO {
 	/** The politica signatura. */
 	@ApiModelProperty(value = "Política de signatura")
 	private String politicaSignatura = null;
+
+	/** The usuari. */
+	@ApiModelProperty(value = "Informació de l'usuari de Portasignatures", required = false)
+	private UsuariPortasignaturesRDTO usuariPortasig;
+
+	/** The usuari. */
+	@ApiModelProperty(value = "Informació de l'usuari de tablet", required = false)
+	private UsuariManuscritaRDTO usuariManuscrita;
 
 }
