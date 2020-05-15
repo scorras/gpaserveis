@@ -12,6 +12,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.SignaturesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
@@ -31,6 +32,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.AccionsEstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UsuarisApi;
 import es.bcn.gpa.gpaserveis.web.rest.interceptor.ImiAuthHeaderRestTemplateInterceptor;
 import es.bcn.gpa.gpaserveis.web.rest.interceptor.LocaleHeaderRestTemplateInterceptor;
 import net.opentrends.openframe.services.configuration.annotation.EntornPropertySource;
@@ -79,6 +81,17 @@ public class BusinessConfig {
 		UnitatsGestoresApi unitatsGestoresApi = new UnitatsGestoresApi(apiClient);
 
 		return unitatsGestoresApi;
+	}
+
+	@Bean
+	public UsuarisApi clientApiUsuaris() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaunitats.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaunitats.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_UNITATS);
+		incorporarInterceptorsUnitats(apiClient);
+
+		UsuarisApi usuarisApi = new UsuarisApi(apiClient);
+
+		return usuarisApi;
 	}
 
 	@Bean
@@ -200,6 +213,17 @@ public class BusinessConfig {
 		DocumentacioApi documentacioApi = new DocumentacioApi(apiClient);
 
 		return documentacioApi;
+	}
+
+	@Bean
+	public SignaturesApi clientApiSignatures() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_DOCUMENTACIO);
+		incorporarInterceptorsDocumentacio(apiClient);
+
+		SignaturesApi signaturesApi = new SignaturesApi(apiClient);
+
+		return signaturesApi;
 	}
 
 	@Bean

@@ -5,7 +5,7 @@ package es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums;
  */
 public enum ErrorPrincipal {
 
-	/* Generic */
+    /* Generic */
 	ERROR_GENERIC("9999", "S'ha produït una incidència: "),
 
 	/* Unitats */
@@ -18,6 +18,8 @@ public enum ErrorPrincipal {
 	ERROR_UNITATS_ASSIGNADA("1004", "La unitat gestora indicada ja està assignada a l'expedient"),
 
 	ERROR_UNITATS_CONVIDADA_ASSIGNADA("1005", "La unitat gestora convidada indicada ja està assignada a l'expedient"),
+
+	ERROR_UNITATS_USUARI_NOT_FOUND("1006", "No s'ha trobat l'usuari"),
 
 	/* Procediments */
 	ERROR_PROCEDIMENTS_NOT_FOUND("2001", "No s'ha trobat el procediment"),
@@ -80,25 +82,25 @@ public enum ErrorPrincipal {
 	ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_FOUND("3025", "No s'ha trobat la persona autenticada en l'expedient"),
 
 	ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_PERMIS("3026",
-			"La persona autenticada no té permisos per a realitzar tràmits OVT en l'expedient"),
+	        "La persona autenticada no té permisos per a realitzar tràmits OVT en l'expedient"),
 
 	ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT("3027",
-			"No s'han trobat tipus de relació definits en el procediment associat a l'expedient"),
+	        "No s'han trobat tipus de relació definits en el procediment associat a l'expedient"),
 
 	ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES("3028",
-			"S'ha d'especificar un tipus de relació per a les terceres persones implicades en l'expedient"),
+	        "S'ha d'especificar un tipus de relació per a les terceres persones implicades en l'expedient"),
 
 	ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT_NOT_FOUND("3029",
-			"El tipus de relació per a les terceres persones implicades ha d'existir en el procediment al qual està associat a l'expedient"),
+	        "El tipus de relació per a les terceres persones implicades ha d'existir en el procediment al qual està associat a l'expedient"),
 
 	ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT_VISIBILITAT("3030",
-			"L'usuari autenticat no té habilitada la visibilitat per a realitzar modificacions sobre alguns de les dades d'operació especificats en la petició"),
+	        "L'usuari autenticat no té habilitada la visibilitat per a realitzar modificacions sobre alguns de les dades d'operació especificats en la petició"),
 
 	ERROR_EXPEDIENTS_DADES_OPERACIO_PROCEDIMENT_VISIBILITAT_PORTAL("3031",
-			"La dada d'operació que es vol actualitzar no té configurada la visibilitat des de portal"),
+	        "La dada d'operació que es vol actualitzar no té configurada la visibilitat des de portal"),
 
 	ERROR_EXPEDIENTS_DADES_OPERACIO_PROCEDIMENT_CRITICITAT("3032",
-			"El nivell de visibilitat definit per a la persona autenticada no permet modificar les dades d'operació indicats en l'operació, la criticitat de la qual és alta"),
+	        "El nivell de visibilitat definit per a la persona autenticada no permet modificar les dades d'operació indicats en l'operació, la criticitat de la qual és alta"),
 
 	ERROR_EXPEDIENTS_SOLLICITANT_OBLIGATORI("3033", "El sol·licitant és obligatori"),
 

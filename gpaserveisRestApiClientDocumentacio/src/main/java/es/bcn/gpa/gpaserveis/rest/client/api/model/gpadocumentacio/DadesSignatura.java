@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 /**
  * DadesSignatura
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-07T16:15:12.475+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-15T00:37:46.386+02:00")
 public class DadesSignatura {
   @JsonProperty("confDocsTramPolitiquesSig")
   private ConfDocsTramPolitiquesSig confDocsTramPolitiquesSig = null;

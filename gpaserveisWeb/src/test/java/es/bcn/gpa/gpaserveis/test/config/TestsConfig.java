@@ -13,6 +13,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.SignaturesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
@@ -254,6 +255,20 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("documentacioApi() - fi"); //$NON-NLS-1$
 		}
 		return documentacioApi;
+	}
+
+	@Bean
+	public SignaturesApi signaturesApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("signaturesApi() - inici"); //$NON-NLS-1$
+		}
+
+		SignaturesApi signaturesApi = Mockito.mock(SignaturesApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("signaturesApi() - fi"); //$NON-NLS-1$
+		}
+		return signaturesApi;
 	}
 
 	@Bean

@@ -7,16 +7,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheKey;
-import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheResult;
 
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.business.handler.ServeisServiceExceptionHandler;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UsuarisApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsOrganigramaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UsuarisRDTO;
 import lombok.extern.apachecommons.CommonsLog;
 
 /**
@@ -32,6 +33,10 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 	@Autowired
 	private UnitatsGestoresApi unitatsGestoresApi;
 
+	/** The usuaris api. */
+	@Autowired
+	private UsuarisApi usuarisApi;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -42,15 +47,15 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCercaUnitatsGestores")
 	public PageDataOfUnitatsGestoresRDTO cercaUnitatsGestores(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("cercaUnitatsGestores(UnitatsGestoresCercaBDTO) - inici"); //$NON-NLS-1$
 		}
 
 		try {
 			PageDataOfUnitatsGestoresRDTO pageDataOfUnitatsGestoresRDTO = unitatsGestoresApi.cercaUnitatsGestores(null, null, null, null,
-					null, null, null, null, null, null, null, null, null, null, null, null, unitatsGestoresCercaBDTO.getCodi(), null, null,
-					null, null, null, null, null, null, null);
+			        null, null, null, null, null, null, null, null, null, null, null, null, null, unitatsGestoresCercaBDTO.getCodi(), null,
+			        null, null, null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaUnitatsGestores(UnitatsGestoresCercaBDTO) - fi"); //$NON-NLS-1$
@@ -75,7 +80,7 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 	 *             the GPA serveis service exception
 	 */
 	public PageDataOfUnitatsGestoresRDTO fallbackCercaUnitatsGestores(UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO, Throwable e)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaUnitatsGestores(UnitatsGestoresCercaBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -174,6 +179,86 @@ public class UnitatsGestoresServiceImpl implements UnitatsGestoresService {
 	public UnitatsGestoresRDTO fallbackConsultarDadesUnitatGestoraPerCodi(String codi, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackConsultarDadesUnitatGestoraPerCodi(String, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesUsuari")
+	public UsuarisRDTO consultarDadesUsuari(String matricula) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarDadesUsuari(String) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			UsuarisRDTO usuarisRDTO = usuarisApi.consultarDadesUsuari(matricula);
+
+			if (log.isDebugEnabled()) {
+				log.debug("consultarDadesUsuari(String) - fi"); //$NON-NLS-1$
+			}
+			return usuarisRDTO;
+		} catch (RestClientException e) {
+			log.error("consultarDadesUsuari(String)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	public UsuarisRDTO fallbackConsultarDadesUsuari(String matricula, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackConsultarDadesUsuari(String, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.UnitatsGestoresService#
+	 * consultarDadesUnitatOrganigrama(java.math.BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesUnitatOrganigrama")
+	public UnitatsOrganigramaRDTO consultarDadesUnitatOrganigrama(BigDecimal idUnitatGestora) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarDadesUnitatOrganigrama(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			UnitatsOrganigramaRDTO unitatsOrganigramaRDTO = unitatsGestoresApi.consultarUnitatOrganigrama(idUnitatGestora);
+
+			if (log.isDebugEnabled()) {
+				log.debug("consultarDadesUnitatOrganigrama(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			return unitatsOrganigramaRDTO;
+		} catch (RestClientException e) {
+			log.error("consultarDadesUnitatOrganigrama(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback consultar dades unitat organigrama.
+	 *
+	 * @param idUnitatGestora
+	 *            the id unitat gestora
+	 * @param e
+	 *            the e
+	 * @return the unitats organigrama RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public UnitatsOrganigramaRDTO fallbackConsultarDadesUnitatOrganigrama(BigDecimal idUnitatGestora, Throwable e)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackConsultarDadesUnitatOrganigrama(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
