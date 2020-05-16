@@ -33,6 +33,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.AccionsEstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UsuarisApi;
 import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.security.config.RootApplicationContextSecurityDefaultConfiguration;
 
@@ -423,6 +424,20 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("sollicitudsApi() - fi"); //$NON-NLS-1$
 		}
 		return sollicitudsApi;
+	}
+
+	@Bean
+	public UsuarisApi usuarisApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("usuarisApi() - inici"); //$NON-NLS-1$
+		}
+
+		UsuarisApi usuarisApi = Mockito.mock(UsuarisApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("usuarisApi() - fi"); //$NON-NLS-1$
+		}
+		return usuarisApi;
 	}
 
 }

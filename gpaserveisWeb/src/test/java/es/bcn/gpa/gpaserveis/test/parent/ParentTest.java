@@ -44,6 +44,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.AccionsEstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UsuarisApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
@@ -174,6 +175,10 @@ public abstract class ParentTest {
 	/** The sollicituds api. */
 	@Autowired
 	protected SollicitudsApi sollicitudsApi;
+
+	/** The usuaris api. */
+	@Autowired
+	protected UsuarisApi usuarisApi;
 
 	/**
 	 * Sets the up.
@@ -453,6 +458,11 @@ public abstract class ParentTest {
 			        .thenReturn(TestsConfigHelper.consultarDadesDocumentGeneratPerCodiCSVResponse());
 
 			when(documentacioApi.comprovarDocumentsSignatsExpedient(any(BigDecimal.class))).thenReturn(Boolean.TRUE);
+
+			when(usuarisApi.consultarDadesUsuari(any(String.class))).thenReturn(TestsConfigHelper.consultarDadesUsuariResponse());
+
+			when(unitatsGestoresApi.consultarUnitatOrganigrama(any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.consultarUnitatOrganigramaResponse());
 
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$

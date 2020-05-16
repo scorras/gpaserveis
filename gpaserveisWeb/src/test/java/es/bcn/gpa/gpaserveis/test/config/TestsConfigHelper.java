@@ -76,6 +76,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsOrganigramaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UsuarisRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 
 /**
@@ -2002,6 +2004,36 @@ public class TestsConfigHelper {
 		retornTramitacio.setEsUsuariPrincipalExpedient(TRUE);
 		return retornTramitacio;
 
+	}
+
+	/**
+	 * Consultar dades usuari response.
+	 *
+	 * @return the usuaris RDTO
+	 */
+	public static UsuarisRDTO consultarDadesUsuariResponse() {
+		UsuarisRDTO usuarisRDTO = new UsuarisRDTO();
+		usuarisRDTO.setNom("nom");
+		usuarisRDTO.setCognom1("cognom1");
+		usuarisRDTO.setCognom2("cognom2");
+		usuarisRDTO.setDocumentIdentitat("documentIdentitat");
+		usuarisRDTO.setId(ONE);
+
+		return usuarisRDTO;
+	}
+
+	/**
+	 * Consultar unitat organigrama response.
+	 *
+	 * @return the unitats organigrama RDTO
+	 */
+	public static UnitatsOrganigramaRDTO consultarUnitatOrganigramaResponse() {
+		UnitatsOrganigramaRDTO unitatsOrganigramaRDTO = new UnitatsOrganigramaRDTO();
+		unitatsOrganigramaRDTO.setId(ONE);
+		unitatsOrganigramaRDTO.setCodi("codi");
+		unitatsOrganigramaRDTO.setNom("nom");
+
+		return unitatsOrganigramaRDTO;
 	}
 
 }
