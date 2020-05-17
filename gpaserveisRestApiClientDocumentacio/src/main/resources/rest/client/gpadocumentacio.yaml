@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.19.0"
+  version: "1.21.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -17,6 +17,8 @@ tags:
   description: "Documentacio Rest Controller"
 - name: "notificacions-rest-controller"
   description: "Notificacions Rest Controller"
+- name: "signatures-rest-controller"
+  description: "Signatures Rest Controller"
 paths:
   /configuracioDocumentacio/docsEntradaRequerit/{idDoc}:
     get:
@@ -488,37 +490,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/callbackPortaSig:
-    post:
-      tags:
-      - "Documentacio"
-      summary: "Callback per actualitzar l'estat dels documents enviats a portasig"
-      operationId: "callbackPortaSig"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "callbackPortaSigRDTO"
-        description: "callbackPortaSigRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/CallbackPortaSig"
-      responses:
-        200:
-          description: "OK"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /documentacio/comprovarDocumentsSignatsExpedient/{idDocumentacio}:
     get:
       tags:
@@ -547,39 +518,6 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /documentacio/crearPeticioPortaSig:
-    post:
-      tags:
-      - "Documentacio"
-      summary: "Crear una petició per signar o validar un document"
-      operationId: "crearPeticioPortaSig"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "signarDocumentRDTO"
-        description: "signarDocumentRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/SignarDocument"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/PeticionsPortasig"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /documentacio/dadesOperRequerit/{idDoc}:
     get:
       tags:
@@ -715,35 +653,6 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /documentacio/descarregarDocumentExpedientSignat/{idUltimaSignatura}:
-    get:
-      tags:
-      - "Download"
-      summary: "downloadUltimaSignatura"
-      operationId: "descarregarDocumentExpedientSignat"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idUltimaSignatura"
-        in: "path"
-        description: "idUltimaSignatura"
-        required: true
-        type: "number"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "string"
-            format: "byte"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
   /documentacio/docsEntrada/associatsDocsIntra:
     post:
       tags:
@@ -794,6 +703,39 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/DocsTramitacioRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /documentacio/entrada/consultarDadesDocument/{codiCSV}/{visibilitat}:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Returns the requested document"
+      operationId: "consultarDadesDocumentAportatPerCodiCSV"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codiCSV"
+        in: "path"
+        description: "codiCSV"
+        required: true
+        type: "string"
+      - name: "visibilitat"
+        in: "path"
+        description: "visibilitat"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/DocsEntradaRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -1128,7 +1070,7 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/entrada/sollicitud/{idSollicitud}:
+  /documentacio/entrada/sollicitud/{idSollicitud}/{visibilitat}:
     get:
       tags:
       - "Documentacio"
@@ -1140,6 +1082,11 @@ paths:
       - name: "idSollicitud"
         in: "path"
         description: "idSollicitud"
+        required: true
+        type: "number"
+      - name: "visibilitat"
+        in: "path"
+        description: "visibilitat"
         required: true
         type: "number"
       responses:
@@ -1295,6 +1242,34 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/estatDigitalitzacio/{idPeticio}:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Consultar l'estat d'una petició de digitalització"
+      operationId: "consultarEstatDigitalitzacio"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idPeticio"
+        in: "path"
+        description: "idPeticio"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PeticionsDigitalitzacioRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /documentacio/obrirRequeriments/{idDocumentacio}:
     post:
       tags:
@@ -1443,39 +1418,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/signarSegell:
-    post:
-      tags:
-      - "Documentacio"
-      summary: "Crear una petició per signar un document"
-      operationId: "signarSegell"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "signarSegellDocumentRDTO"
-        description: "signarSegellDocumentRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/SignarSegellDocument"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/SignarSegellDocument"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /documentacio/storageMode:
     get:
       tags:
@@ -1559,6 +1501,39 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/tramitacio/consultarDadesDocument/{codiCSV}/{visibilitat}:
+    get:
+      tags:
+      - "Documentacio"
+      summary: "Returns the requested document"
+      operationId: "consultarDadesDocumentGeneratPerCodiCSV"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codiCSV"
+        in: "path"
+        description: "codiCSV"
+        required: true
+        type: "string"
+      - name: "visibilitat"
+        in: "path"
+        description: "visibilitat"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/DocsTramitacioRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /documentacio/tramitacio/dades/{id}:
     get:
       tags:
@@ -1895,7 +1870,7 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/{idDocumentacio}/entrada/agrupatPerTramitOvt:
+  /documentacio/{idDocumentacio}/entrada/agrupatPerTramitOvt/{visibilitat}:
     get:
       tags:
       - "Documentacio"
@@ -1909,6 +1884,11 @@ paths:
         description: "idDocumentacio"
         required: true
         type: "number"
+      - name: "visibilitat"
+        in: "path"
+        description: "visibilitat"
+        required: true
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -1916,35 +1896,6 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/DocsEntradaRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/{idDocumentacio}/estatDigitalitzacio:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Obtenir estat de digitalització del document"
-      operationId: "estatDigitalitzacio"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idDocumentacio"
-        in: "path"
-        description: "idDocumentacio"
-        required: true
-        type: "integer"
-        format: "int64"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/EstatDigitalitzacioDocumentRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -2055,6 +2006,226 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /signatures/callbackPortaSig:
+    post:
+      tags:
+      - "Signatures"
+      summary: "Callback per actualitzar l'estat dels documents enviats a portasig"
+      operationId: "callbackPortaSig"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "callbackPortaSigRDTO"
+        description: "callbackPortaSigRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/CallbackPortaSig"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /signatures/crearPeticioPortaSig:
+    post:
+      tags:
+      - "Signatures"
+      summary: "Crear una petició per signar o validar un document"
+      operationId: "crearPeticioPortaSig"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "signarPortasignaturesDocumentRDTO"
+        description: "signarPortasignaturesDocumentRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/SignarPortasignaturesDocument"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PeticionsPortasig"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /signatures/dadesSignatura/{codiPeticio}:
+    get:
+      tags:
+      - "Signatures"
+      summary: "Consultar dades signatura"
+      operationId: "consultarDadesSignatura"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codiPeticio"
+        in: "path"
+        description: "codiPeticio"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/DadesSignatura"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /signatures/descarregarDocumentExpedientSignat/{idUltimaSignatura}:
+    get:
+      tags:
+      - "Signatures"
+      summary: "downloadUltimaSignatura"
+      operationId: "descarregarDocumentExpedientSignat"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idUltimaSignatura"
+        in: "path"
+        description: "idUltimaSignatura"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "string"
+            format: "byte"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /signatures/signarSegell:
+    post:
+      tags:
+      - "Signatures"
+      summary: "Crear una petició per signar un document"
+      operationId: "signarSegell"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "signarSegellDocumentRDTO"
+        description: "signarSegellDocumentRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/SignarSegellDocument"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/SignarSegellDocument"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /signatures/signarTablet:
+    post:
+      tags:
+      - "Signatures"
+      summary: "Crear una petició per signar un document en la tablet"
+      operationId: "signarTablet"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "signarTabletDocumentRDTO"
+        description: "signarTabletDocumentRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/SignarTabletDocument"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/SignarTabletDocumentResponse"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /signatures/signarValid:
+    post:
+      tags:
+      - "Signatures"
+      summary: "Crear una petició per signar un document en IMI Valid"
+      operationId: "signarValid"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "signarValidDocumentRDTO"
+        description: "signarValidDocumentRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/SignarValidDocument"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/SignarValidDocumentResponse"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
 definitions:
   AtributsDocs:
     type: "object"
@@ -2105,7 +2276,11 @@ definitions:
         description: "Estat del document escanejat. 2: OK, 3: KO"
       idDocScan:
         type: "string"
-        description: "Identificador d'opentext del document"
+        description: "Identificadors en Documentum dels documents digitalitzats separats\
+          \ per comes"
+      idPeticio:
+        type: "string"
+        description: "Identificador de la petició de digitalització"
       idioma:
         type: "number"
         description: "Idioma del document escanejat"
@@ -2125,6 +2300,9 @@ definitions:
         type: "string"
         description: "Identificador ControlUser de l'usuari que ha de signar/validar\
           \ el document"
+      dadesSignaturaDocumentRDTO:
+        description: "Dades signatura del document."
+        $ref: "#/definitions/DadesSignatura"
       dataCaducitat:
         type: "string"
         format: "date-time"
@@ -2155,6 +2333,9 @@ definitions:
         type: "string"
         description: "Amb 2 valors possibles: SIGNATURA i VIST_I_PLAU, indicant si\
           \ es demana de l'usuari que signi o que validi el document"
+      unitatGestoraIdext:
+        type: "number"
+        description: "Identificador de la unitat gestora de l'expedient."
     title: "CallbackPortaSig"
   ConfDocEntradaRequeritRDTO:
     type: "object"
@@ -2183,6 +2364,25 @@ definitions:
       uniqueId:
         type: "string"
     title: "ConfDocEntradaRequeritRDTO"
+  ConfDocsTramPolitiquesSig:
+    type: "object"
+    properties:
+      configuracioDocsTramitacio:
+        type: "number"
+        description: "Identificador de la configuració del document de tramitació"
+      id:
+        type: "number"
+        description: "Identificador de la relació configuració - política - modalitat"
+      modalitatIdext:
+        type: "number"
+        description: "Nom de la modalitat de signatura"
+      ordre:
+        type: "number"
+        description: "Posició de la política en la seqüència de signatures"
+      politicaSignatura:
+        type: "string"
+        description: "Nom de la política de signatura"
+    title: "ConfDocsTramPolitiquesSig"
   ConfdocsentEstatsExp:
     type: "object"
     properties:
@@ -2234,6 +2434,9 @@ definitions:
           $ref: "#/definitions/ConfdocsentTramitsOvt"
       configuracioDocumentacio:
         type: "number"
+      criticitatIdext:
+        type: "integer"
+        format: "int32"
       descripcioAmpliada:
         type: "string"
       detallOrigen:
@@ -2267,6 +2470,9 @@ definitions:
         type: "string"
       uniqueId:
         type: "number"
+      visibilitatPortal:
+        type: "integer"
+        format: "int32"
     title: "ConfiguracioDocsEntrada"
   ConfiguracioDocsEntradaRDTO:
     type: "object"
@@ -2287,6 +2493,9 @@ definitions:
           $ref: "#/definitions/ConfdocsentTramitsOvt"
       configuracioDocumentacio:
         type: "number"
+      criticitatIdext:
+        type: "integer"
+        format: "int32"
       descripcioAmpliada:
         type: "string"
       detallOrigen:
@@ -2320,6 +2529,9 @@ definitions:
         type: "string"
       uniqueId:
         type: "number"
+      visibilitatPortal:
+        type: "integer"
+        format: "int32"
     title: "ConfiguracioDocsEntradaRDTO"
   ConfiguracioDocsSignatura:
     type: "object"
@@ -2341,6 +2553,10 @@ definitions:
         $ref: "#/definitions/AtributsDocs"
       codiNti:
         type: "string"
+      confDocsTramPolitiquesSigList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfDocsTramPolitiquesSig"
       confdocstramEstatsExpList:
         type: "array"
         items:
@@ -2355,6 +2571,9 @@ definitions:
         type: "number"
       configuracioSignatura:
         type: "number"
+      criticitatIdext:
+        type: "integer"
+        format: "int32"
       descripcio:
         type: "string"
       detallOrigen:
@@ -2377,8 +2596,6 @@ definitions:
       origen:
         type: "integer"
         format: "int32"
-      politicaSignatura:
-        type: "string"
       requereixSignatura:
         type: "integer"
         format: "int32"
@@ -2395,6 +2612,9 @@ definitions:
         type: "string"
       uniqueId:
         type: "number"
+      visibilitatPortal:
+        type: "integer"
+        format: "int32"
     title: "ConfiguracioDocsTramitacio"
   ConfiguracioDocsTramitacioRDTO:
     type: "object"
@@ -2405,6 +2625,10 @@ definitions:
         $ref: "#/definitions/AtributsDocs"
       codiNti:
         type: "string"
+      confDocsTramPolitiquesSigList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfDocsTramPolitiquesSig"
       confdocstramEstatsExpList:
         type: "array"
         items:
@@ -2419,6 +2643,9 @@ definitions:
         type: "number"
       configuracioSignatura:
         type: "number"
+      criticitatIdext:
+        type: "integer"
+        format: "int32"
       descripcio:
         type: "string"
       detallOrigen:
@@ -2441,8 +2668,6 @@ definitions:
       origen:
         type: "integer"
         format: "int32"
-      politicaSignatura:
-        type: "string"
       requereixSignatura:
         type: "integer"
         format: "int32"
@@ -2459,6 +2684,9 @@ definitions:
         type: "string"
       uniqueId:
         type: "number"
+      visibilitatPortal:
+        type: "integer"
+        format: "int32"
     title: "ConfiguracioDocsTramitacioRDTO"
   CrearNotificacio:
     type: "object"
@@ -2478,6 +2706,9 @@ definitions:
       idExpedient:
         type: "number"
         description: "Identificador de l'expedient"
+      idProcediment:
+        type: "number"
+        description: "Identificador del procediment de l'expedient"
       idsAnnexosList:
         type: "array"
         description: "llista d'identificadors dels annexos"
@@ -2492,6 +2723,16 @@ definitions:
         items:
           $ref: "#/definitions/Persones"
     title: "CrearNotificacio"
+  DadesSignatura:
+    type: "object"
+    properties:
+      confDocsTramPolitiquesSig:
+        description: "Configuracio de modalitat i signatura"
+        $ref: "#/definitions/ConfDocsTramPolitiquesSig"
+      idDocumentacio:
+        type: "number"
+        description: "Id Documentacio de l'expedient"
+    title: "DadesSignatura"
   DocsAssociatsIntra:
     type: "object"
     properties:
@@ -2532,6 +2773,8 @@ definitions:
       configuracioDocsEntradaNom:
         type: "string"
       configuracioDocsEntradaNomCastella:
+        type: "string"
+      csv:
         type: "string"
       dataCreacio:
         type: "string"
@@ -2726,6 +2969,10 @@ definitions:
     properties:
       codiPeticio:
         type: "string"
+      confDocsTramPolitiquesSig:
+        type: "number"
+      confDocsTramPolitiquesSigEntity:
+        $ref: "#/definitions/ConfDocsTramPolitiquesSig"
       dataCaducitat:
         type: "string"
         format: "date-time"
@@ -2743,6 +2990,8 @@ definitions:
         type: "number"
       id:
         type: "number"
+      idTabletUsuari:
+        type: "string"
       signat:
         type: "integer"
         format: "int32"
@@ -2771,6 +3020,10 @@ definitions:
       configuracioDocsTramitacio:
         $ref: "#/definitions/ConfiguracioDocsTramitacio"
       configuracioDocsTramitacioNom:
+        type: "string"
+      configuracioDocsTramitacioNomCastella:
+        type: "string"
+      csv:
         type: "string"
       dataComunicat:
         type: "string"
@@ -2935,14 +3188,6 @@ definitions:
       tipusDocumentIdentitat:
         $ref: "#/definitions/TipusDocumentIdentitat"
     title: "DocumentsIdentitat"
-  EstatDigitalitzacioDocumentRDTO:
-    type: "object"
-    properties:
-      message:
-        type: "string"
-      status:
-        type: "string"
-    title: "EstatDigitalitzacioDocumentRDTO"
   Estats:
     type: "object"
     properties:
@@ -3224,6 +3469,27 @@ definitions:
       tipusViesValor:
         type: "string"
     title: "PersonesDadescontacte"
+  PeticionsDigitalitzacioRDTO:
+    type: "object"
+    properties:
+      codiError:
+        type: "string"
+      codiScan:
+        type: "string"
+      dataDigitalitzacio:
+        type: "string"
+        format: "date-time"
+      documentsCodi:
+        type: "string"
+      estatPeticio:
+        type: "number"
+      id:
+        type: "number"
+      idioma:
+        type: "number"
+      missatgeError:
+        type: "string"
+    title: "PeticionsDigitalitzacioRDTO"
   PeticionsPortasig:
     type: "object"
     properties:
@@ -3291,22 +3557,30 @@ definitions:
         type: "string"
         description: "Plantilla de la documentació vinculada"
     title: "RespostaPlantillaDocVinculada"
-  SignarDocument:
+  SignarPortasignaturesDocument:
     type: "object"
+    required:
+    - "matriculaUsuari"
     properties:
       accio:
         type: "number"
-        description: "Acció a realitzar per l'portafirmas"
+        description: "Acció a realitzar en porta signatures: vistiplau o signatura"
+      codiUnitatOrganigrama:
+        type: "string"
+        description: "Codi de l'organigrama de la unitat gestora"
       idDocument:
         type: "number"
-        description: "identificador del document"
-      unitatGestoraIdext:
-        type: "number"
-        description: "Identificador de la unitat gestora"
-      usuariPortaSig:
-        description: "Usuari que va realitzar l'acció"
-        $ref: "#/definitions/UsuariPortaSig"
-    title: "SignarDocument"
+        description: "Identificador del document"
+      matriculaUsuari:
+        type: "string"
+        description: "Matrícula de la persona que va a signar el document"
+      nomProcediment:
+        type: "string"
+        description: "Nom de l'procediment de l'expedient"
+      politicaSignatura:
+        type: "string"
+        description: "Nom de la política de signatura"
+    title: "SignarPortasignaturesDocument"
   SignarSegellDocument:
     type: "object"
     properties:
@@ -3320,7 +3594,53 @@ definitions:
       idDocument:
         type: "number"
         description: "Identificador del document"
+      politicaSignatura:
+        type: "string"
+        description: "Nom de la política de signatura"
     title: "SignarSegellDocument"
+  SignarTabletDocument:
+    type: "object"
+    properties:
+      idDocument:
+        type: "number"
+        description: "identificador del document"
+      idTabletUsuari:
+        type: "string"
+        description: "Identificador de la tauleta on signarà l'usuari"
+    title: "SignarTabletDocument"
+  SignarTabletDocumentResponse:
+    type: "object"
+    properties:
+      codiError:
+        type: "integer"
+        format: "int32"
+        description: "Codi de l'error"
+      descError:
+        type: "string"
+        description: "Descripció de l'error"
+    title: "SignarTabletDocumentResponse"
+  SignarValidDocument:
+    type: "object"
+    properties:
+      documents:
+        type: "array"
+        description: "Identificadors dels documents"
+        items:
+          type: "number"
+      informacioToken:
+        type: "string"
+        description: "Informació de token"
+      valorToken:
+        type: "string"
+        description: "Valor de token"
+    title: "SignarValidDocument"
+  SignarValidDocumentResponse:
+    type: "object"
+    properties:
+      missatgeError:
+        type: "string"
+        description: "Descripció de l'error"
+    title: "SignarValidDocumentResponse"
   SortInfo:
     type: "object"
     properties:
@@ -3346,16 +3666,3 @@ definitions:
         type: "integer"
         format: "int32"
     title: "TipusMime"
-  UsuariPortaSig:
-    type: "object"
-    properties:
-      documentIdentitat:
-        type: "string"
-        description: "Document d'identitat de la persona que va a signar el document"
-      matricula:
-        type: "string"
-        description: "Matrícula de la persona que va a signar el document"
-      nom:
-        type: "string"
-        description: "Nom de la persona que va a signar el document"
-    title: "UsuariPortaSig"

@@ -21,7 +21,7 @@ import lombok.Setter;
 public class ExpedientRegistrarRDTO {
 
 	/** The signatura solicitud. */
-	@ApiModelProperty(value = "Identificador de la signatura de la sol·licitud", required = true)
+	@ApiModelProperty(value = "Identificador de la signatura de la sol·licitud")
 	private BigDecimal signaturaSolicitud;
 
 }

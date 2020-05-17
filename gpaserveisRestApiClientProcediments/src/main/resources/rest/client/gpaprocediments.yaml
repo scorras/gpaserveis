@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaprocediments"
-  version: "1.16.2"
+  version: "1.21.0"
   title: "API gpaprocediments"
   contact:
     name: "Sergio Corras"
@@ -465,6 +465,36 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /procediments/{id}/regles/camps:
+    get:
+      tags:
+      - "Dades Operacions"
+      summary: "Returns all the camps regles entries for the procedure"
+      operationId: "obtenirCampsRegles"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/CampsReglesRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
 definitions:
   Bloquejos:
     type: "object"
@@ -485,6 +515,20 @@ definitions:
       usuariBloquejo:
         $ref: "#/definitions/Usuaris"
     title: "Bloquejos"
+  CampsReglesRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+      origen:
+        type: "integer"
+        format: "int32"
+      tipus:
+        type: "integer"
+        format: "int32"
+    title: "CampsReglesRDTO"
   Comentaris:
     type: "object"
     properties:
@@ -496,12 +540,16 @@ definitions:
         format: "date-time"
       descripcio:
         type: "string"
+      editable:
+        type: "boolean"
       eliminat:
         type: "number"
       id:
         type: "number"
       procediment:
         type: "number"
+      seleccionable:
+        type: "boolean"
       titol:
         type: "string"
       ultimaModificacio:
@@ -522,8 +570,13 @@ definitions:
         type: "string"
       descripcioCastella:
         type: "string"
+      editable:
+        type: "boolean"
       id:
         type: "number"
+      interoperabilitat:
+        type: "integer"
+        format: "int32"
       nomColumnes:
         type: "integer"
         format: "int32"
@@ -531,6 +584,10 @@ definitions:
         type: "integer"
         format: "int32"
       procediment:
+        type: "number"
+      seleccionable:
+        type: "boolean"
+      serveiIdext:
         type: "number"
       titol:
         type: "string"
@@ -553,8 +610,13 @@ definitions:
         type: "string"
       descripcioCastella:
         type: "string"
+      editable:
+        type: "boolean"
       id:
         type: "number"
+      interoperabilitat:
+        type: "integer"
+        format: "int32"
       nomColumnes:
         type: "integer"
         format: "int32"
@@ -562,6 +624,10 @@ definitions:
         type: "integer"
         format: "int32"
       procediment:
+        type: "number"
+      seleccionable:
+        type: "boolean"
+      serveiIdext:
         type: "number"
       titol:
         type: "string"
@@ -655,14 +721,23 @@ definitions:
         type: "string"
       editable:
         type: "boolean"
+      entrada:
+        type: "integer"
+        format: "int32"
       grup:
         type: "number"
       id:
         type: "number"
+      interoperabilitat:
+        type: "integer"
+        format: "int32"
       itemsList:
         type: "array"
         items:
           $ref: "#/definitions/Items"
+      nivellCriticitat:
+        type: "integer"
+        format: "int32"
       obligatoriEnEstat:
         type: "boolean"
       ordre:
@@ -684,6 +759,9 @@ definitions:
       urlOrigen:
         type: "string"
       vigent:
+        type: "integer"
+        format: "int32"
+      visibilitatPortal:
         type: "integer"
         format: "int32"
     title: "DadesOperacions"
@@ -717,14 +795,23 @@ definitions:
         type: "string"
       editable:
         type: "boolean"
+      entrada:
+        type: "integer"
+        format: "int32"
       grup:
         type: "number"
       id:
         type: "number"
+      interoperabilitat:
+        type: "integer"
+        format: "int32"
       itemsList:
         type: "array"
         items:
           $ref: "#/definitions/Items"
+      nivellCriticitat:
+        type: "integer"
+        format: "int32"
       obligatoriEnEstat:
         type: "boolean"
       ordre:
@@ -746,6 +833,9 @@ definitions:
       urlOrigen:
         type: "string"
       vigent:
+        type: "integer"
+        format: "int32"
+      visibilitatPortal:
         type: "integer"
         format: "int32"
     title: "DadesOperacionsRDTO"
@@ -1167,6 +1257,34 @@ definitions:
         type: "integer"
         format: "int32"
     title: "PaginationAttributes"
+  ProcedimentPersones:
+    type: "object"
+    properties:
+      editable:
+        type: "boolean"
+      id:
+        type: "number"
+      nivellVisibilitat:
+        type: "number"
+      procediment:
+        type: "number"
+      relacio:
+        type: "string"
+      seleccionable:
+        type: "boolean"
+      tramitsOvtList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentPersonesTramOvt"
+    title: "ProcedimentPersones"
+  ProcedimentPersonesTramOvt:
+    type: "object"
+    properties:
+      procedimentPersone:
+        type: "number"
+      tramitOvtIdext:
+        type: "number"
+    title: "ProcedimentPersonesTramOvt"
   Procediments:
     type: "object"
     properties:
@@ -1208,6 +1326,8 @@ definitions:
         type: "string"
       descripcioRelacio:
         type: "string"
+      editable:
+        type: "boolean"
       estatProcediment:
         type: "number"
       estatsProcediment:
@@ -1217,6 +1337,8 @@ definitions:
         items:
           $ref: "#/definitions/Historics"
       id:
+        type: "number"
+      idRelacionat:
         type: "number"
       identificacio:
         type: "number"
@@ -1234,6 +1356,10 @@ definitions:
         type: "number"
       pathSerieDocumental:
         type: "string"
+      procedimentPersonesList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentPersones"
       procedimentsAssociatsList:
         type: "array"
         items:
@@ -1242,6 +1368,8 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/ProcedimentsRelacionats"
+      relacioTipusRelacio:
+        type: "string"
       reqOperatius:
         $ref: "#/definitions/RequerimentsOperatius"
       requerimentsOperatius:
@@ -1250,6 +1378,8 @@ definitions:
         type: "number"
       respostaRequeriment:
         type: "number"
+      seleccionable:
+        type: "boolean"
       serieDocumental:
         type: "string"
       tramitador:
@@ -1331,6 +1461,8 @@ definitions:
         type: "string"
       descripcioRelacio:
         type: "string"
+      editable:
+        type: "boolean"
       estatProcediment:
         type: "number"
       estatsProcediment:
@@ -1340,6 +1472,8 @@ definitions:
         items:
           $ref: "#/definitions/Historics"
       id:
+        type: "number"
+      idRelacionat:
         type: "number"
       identificacio:
         type: "number"
@@ -1357,6 +1491,10 @@ definitions:
         type: "number"
       pathSerieDocumental:
         type: "string"
+      procedimentPersonesList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentPersones"
       procedimentsAssociatsList:
         type: "array"
         items:
@@ -1365,6 +1503,8 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/ProcedimentsRelacionats"
+      relacioTipusRelacio:
+        type: "string"
       reqOperatius:
         $ref: "#/definitions/RequerimentsOperatius"
       requerimentsOperatius:
@@ -1373,6 +1513,8 @@ definitions:
         type: "number"
       respostaRequeriment:
         type: "number"
+      seleccionable:
+        type: "boolean"
       serieDocumental:
         type: "string"
       tramitador:

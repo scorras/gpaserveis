@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitud;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.common.BooleanApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.RelacioPersonaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusDocumentIdentitatApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusPersonaApiParamValueTranslator;
@@ -39,6 +40,10 @@ public class PersonaSollicitudToInternalListConverter extends AbstractConverter<
 	@Qualifier("expedientRelacioPersonaApiParamValueTranslator")
 	private RelacioPersonaApiParamValueTranslator relacioPersonaApiParamValueTranslator;
 
+	@Autowired
+	@Qualifier("booleanApiParamValueTranslator")
+	private BooleanApiParamValueTranslator booleanApiParamValueTranslator;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -52,8 +57,8 @@ public class PersonaSollicitudToInternalListConverter extends AbstractConverter<
 			for (PersonesRDTO personesRDTO : source) {
 				personesList.add(ConverterHelper.buildPersonesSollicitudExpedient(personesRDTO,
 						relacioPersonaApiParamValueTranslator.getEnumByApiParamValue(personesRDTO.getRelacio()),
-						tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator,
-						tipusSexeApiParamValueTranslator));
+						tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator, booleanApiParamValueTranslator,
+						tipusSexeApiParamValueTranslator, true));
 			}
 		}
 		return personesList;

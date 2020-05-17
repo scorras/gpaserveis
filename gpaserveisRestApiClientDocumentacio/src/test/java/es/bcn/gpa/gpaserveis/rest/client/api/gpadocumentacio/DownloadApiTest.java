@@ -13,6 +13,7 @@
 package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 
 import static java.math.BigDecimal.ONE;
+import static org.apache.commons.lang.math.NumberUtils.INTEGER_ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -52,8 +53,8 @@ public class DownloadApiTest extends ParentTest {
 	@Test
 	public void descarregarDocumentExpedientTest() {
 		when(apiClient.invokeAPI(eq("/documentacio/descarregarDocument/1/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
-				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn("prova".getBytes());
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn("prova".getBytes());
 
 		BigDecimal idDoc = ONE;
 		BigDecimal idExpedient = ONE;
@@ -63,7 +64,7 @@ public class DownloadApiTest extends ParentTest {
 	}
 
 	/**
-	 * downloadUltimaSignatura
+	 * Downloads the document by pos
 	 *
 	 * 
 	 *
@@ -71,13 +72,15 @@ public class DownloadApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void descarregarDocumentExpedientSignatTest() {
-		when(apiClient.invokeAPI(eq("/documentacio/descarregarDocumentExpedientSignat/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
-				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn("prova".getBytes());
+	public void descarregarDocumentExpedientByPosTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/descarregarDocumentByPos/1/1/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn("prova".getBytes());
 
-		BigDecimal idUltimaSignatura = ONE;
-		byte[] response = api.descarregarDocumentExpedientSignat(idUltimaSignatura);
+		BigDecimal idDoc = ONE;
+		BigDecimal idExpedient = ONE;
+		Integer pos = INTEGER_ONE;
+		byte[] response = api.descarregarDocumentExpedientByPos(idDoc, idExpedient, pos);
 
 		assertTrue(response != null);
 	}

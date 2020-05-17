@@ -24,7 +24,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-10T10:19:04.448+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-13T12:48:59.755+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi")
 public class DadesEspecifiquesApi {
     private ApiClient apiClient;
@@ -54,10 +54,11 @@ public class DadesEspecifiquesApi {
      * <p><b>403</b> - Forbidden
      * <p><b>404</b> - Not Found
      * @param idExpedient idExpedient
+     * @param visibilitat visibilitat
      * @return List&lt;DadesEspecifiquesRDTO&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<DadesEspecifiquesRDTO> consultarDadesEspecifiquesExpedient(BigDecimal idExpedient) throws RestClientException {
+    public List<DadesEspecifiquesRDTO> consultarDadesEspecifiquesExpedient(BigDecimal idExpedient, BigDecimal visibilitat) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idExpedient' is set
@@ -65,10 +66,16 @@ public class DadesEspecifiquesApi {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idExpedient' when calling consultarDadesEspecifiquesExpedient");
         }
         
+        // verify the required parameter 'visibilitat' is set
+        if (visibilitat == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'visibilitat' when calling consultarDadesEspecifiquesExpedient");
+        }
+        
         // create path and map variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("idExpedient", idExpedient);
-        String path = UriComponentsBuilder.fromPath("/expedients/dadesEspecifiques/{idExpedient}").buildAndExpand(uriVariables).toUriString();
+        uriVariables.put("visibilitat", visibilitat);
+        String path = UriComponentsBuilder.fromPath("/expedients/dadesEspecifiques/{idExpedient}/{visibilitat}").buildAndExpand(uriVariables).toUriString();
         
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();
@@ -94,10 +101,11 @@ public class DadesEspecifiquesApi {
      * <p><b>403</b> - Forbidden
      * <p><b>404</b> - Not Found
      * @param idSollicitud idSollicitud
+     * @param visibilitat visibilitat
      * @return List&lt;DadesEspecifiquesRDTO&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<DadesEspecifiquesRDTO> consultarDadesEspecifiquesSollicitud(BigDecimal idSollicitud) throws RestClientException {
+    public List<DadesEspecifiquesRDTO> consultarDadesEspecifiquesSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idSollicitud' is set
@@ -105,10 +113,16 @@ public class DadesEspecifiquesApi {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idSollicitud' when calling consultarDadesEspecifiquesSollicitud");
         }
         
+        // verify the required parameter 'visibilitat' is set
+        if (visibilitat == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'visibilitat' when calling consultarDadesEspecifiquesSollicitud");
+        }
+        
         // create path and map variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("idSollicitud", idSollicitud);
-        String path = UriComponentsBuilder.fromPath("/expedients/dadesEspecifiques/sollicitud/{idSollicitud}").buildAndExpand(uriVariables).toUriString();
+        uriVariables.put("visibilitat", visibilitat);
+        String path = UriComponentsBuilder.fromPath("/expedients/dadesEspecifiques/sollicitud/{idSollicitud}/{visibilitat}").buildAndExpand(uriVariables).toUriString();
         
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();

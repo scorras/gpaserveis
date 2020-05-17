@@ -9,6 +9,7 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToEstatConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToIdentificacioConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToIniciacioConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToProcedimentPersonesListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.tramit.InternalToTramitProcedimentListConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraListConverter;
@@ -38,6 +39,9 @@ public class DadesProcedimentBDTOToProcedimentsConsultaRDTOMapper extends Proper
 	/** The internal to identificacio converter. */
 	private InternalToIdentificacioConverter internalToIdentificacioConverter;
 
+	/** The list nivellVisibilitat to list internal converter. */
+	private InternalToProcedimentPersonesListConverter internalToProcedimentPersonesListConverter;
+
 	/**
 	 * Instantiates a new resposta dades procediment BDTO to procediments
 	 * consulta RDTO mapper.
@@ -57,18 +61,20 @@ public class DadesProcedimentBDTOToProcedimentsConsultaRDTOMapper extends Proper
 	 */
 	@Autowired
 	public DadesProcedimentBDTOToProcedimentsConsultaRDTOMapper(
-	        @Qualifier("procedimentInternalToEstatConverter") InternalToEstatConverter internalToEstatConverter,
-	        @Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
-	        @Qualifier("internalToUnitatGestoraListConverter") InternalToUnitatGestoraListConverter internalToUnitatGestoraListConverter,
-	        @Qualifier("procedimentInternalToIniciacioConverter") InternalToIniciacioConverter internalToIniciacioConverter,
-	        @Qualifier("internalToTramitProcedimentListConverter") InternalToTramitProcedimentListConverter internalToTramitProcedimentListConverter,
-	        @Qualifier("procedimentInternalToIdentificacioConverter") InternalToIdentificacioConverter internalToIdentificacioConverter) {
+			@Qualifier("procedimentInternalToEstatConverter") InternalToEstatConverter internalToEstatConverter,
+			@Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
+			@Qualifier("internalToUnitatGestoraListConverter") InternalToUnitatGestoraListConverter internalToUnitatGestoraListConverter,
+			@Qualifier("procedimentInternalToIniciacioConverter") InternalToIniciacioConverter internalToIniciacioConverter,
+			@Qualifier("internalToTramitProcedimentListConverter") InternalToTramitProcedimentListConverter internalToTramitProcedimentListConverter,
+			@Qualifier("procedimentInternalToIdentificacioConverter") InternalToIdentificacioConverter internalToIdentificacioConverter,
+			@Qualifier("internalToProcedimentPersonesListConverter") InternalToProcedimentPersonesListConverter internalToProcedimentPersonesListConverter) {
 		this.internalToEstatConverter = internalToEstatConverter;
 		this.internalToUnitatGestoraConverter = internalToUnitatGestoraConverter;
 		this.internalToUnitatGestoraListConverter = internalToUnitatGestoraListConverter;
 		this.internalToIniciacioConverter = internalToIniciacioConverter;
 		this.internalToTramitProcedimentListConverter = internalToTramitProcedimentListConverter;
 		this.internalToIdentificacioConverter = internalToIdentificacioConverter;
+		this.internalToProcedimentPersonesListConverter = internalToProcedimentPersonesListConverter;
 	}
 
 	/*
@@ -94,6 +100,9 @@ public class DadesProcedimentBDTOToProcedimentsConsultaRDTOMapper extends Proper
 		map().setEstatCastella(source.getProcedimentsRDTO().getDescripcioEstatCastella());
 		// using(internalToTramitProcedimentListConverter).map(source.getTramitsRDTOList()).setTramits(null);
 		using(internalToIdentificacioConverter).map(source.getProcedimentsRDTO().getIdentificacions()).setDadesIdentificacio(null);
+		using(internalToProcedimentPersonesListConverter).map(source.getProcedimentsRDTO().getProcedimentPersonesList())
+				.setTerceresPersonesImplicades(null);
+		;
 	}
 
 }

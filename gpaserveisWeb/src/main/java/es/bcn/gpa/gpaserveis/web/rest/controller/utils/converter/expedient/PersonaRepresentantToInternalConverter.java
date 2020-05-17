@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitud;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.RelacioPersonaApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.common.BooleanApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusDocumentIdentitatApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusPersonaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusSexeApiParamValueTranslator;
@@ -31,6 +32,10 @@ public class PersonaRepresentantToInternalConverter extends AbstractConverter<Pe
 	@Qualifier("expedientTipusSexeApiParamValueTranslator")
 	private TipusSexeApiParamValueTranslator tipusSexeApiParamValueTranslator;
 
+	@Autowired
+	@Qualifier("booleanApiParamValueTranslator")
+	private BooleanApiParamValueTranslator booleanApiParamValueTranslator;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -39,6 +44,7 @@ public class PersonaRepresentantToInternalConverter extends AbstractConverter<Pe
 	@Override
 	protected PersonesSollicitud convert(PersonesRDTO source) {
 		return ConverterHelper.buildPersonesSollicitudExpedient(source, RelacioPersonaApiParamValue.REPRESENTANT,
-		        tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator);
+				tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator, booleanApiParamValueTranslator,
+				tipusSexeApiParamValueTranslator, true);
 	}
 }

@@ -1,5 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.handler;
 
+import org.apache.commons.lang.StringUtils;
+
 import es.bcn.gpa.gpaserveis.business.dto.RespostaResultatBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
@@ -29,37 +31,37 @@ public class ServeisRestControllerExceptionHandler {
 			if (e.getMessage().toLowerCase().contains(Constants.MISSATGE_ERROR_ARIADNA)) {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_ARIADNA, e.getMessage());
 
-			} else if (e.getMessage().toLowerCase().contains(Constants.MISSATGE_ERROR_CATALEG)) {
+			} else if (StringUtils.containsIgnoreCase(e.getMessage(), Constants.MISSATGE_ERROR_CATALEG)) {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_CATALEG, e.getMessage());
 
-			} else if (e.getMessage().toLowerCase().contains(Constants.MISSATGE_ERROR_CTRLUSER)) {
+			} else if (StringUtils.containsIgnoreCase(e.getMessage(), Constants.MISSATGE_ERROR_CTRLUSER)) {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_CTRLUSER, e.getMessage());
 
-			} else if (e.getMessage().toLowerCase().contains(Constants.MISSATGE_ERROR_DIGITALITZACIO)) {
+			} else if (StringUtils.containsIgnoreCase(e.getMessage(), Constants.MISSATGE_ERROR_DIGITALITZACIO)) {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_DIGITALITZACIO, e.getMessage());
 
-			} else if (e.getMessage().toLowerCase().contains(Constants.MISSATGE_ERROR_GEOREST)) {
+			} else if (StringUtils.containsIgnoreCase(e.getMessage(), Constants.MISSATGE_ERROR_GEOREST)) {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_GEOREST, e.getMessage());
 
-			} else if (e.getMessage().toLowerCase().contains(Constants.MISSATGE_ERROR_NOTIFICADOR)) {
+			} else if (StringUtils.containsIgnoreCase(e.getMessage(), Constants.MISSATGE_ERROR_NOTIFICADOR)) {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_NOTIFICADOR, e.getMessage());
 
-			} else if (e.getMessage().toLowerCase().contains(Constants.MISSATGE_ERROR_OPENTEXT)) {
+			} else if (StringUtils.containsIgnoreCase(e.getMessage(), Constants.MISSATGE_ERROR_OPENTEXT)) {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_OPENTEXT, e.getMessage());
 
-			} else if (e.getMessage().toLowerCase().contains(Constants.MISSATGE_ERROR_DOCUMENTUM)) {
+			} else if (StringUtils.containsIgnoreCase(e.getMessage(), Constants.MISSATGE_ERROR_DOCUMENTUM)) {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_DOCUMENTUM, e.getMessage());
 
-			} else if (e.getMessage().toLowerCase().contains(Constants.MISSATGE_ERROR_PDFGESTOR)) {
+			} else if (StringUtils.containsIgnoreCase(e.getMessage(), Constants.MISSATGE_ERROR_PDFGESTOR)) {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_PDFGESTOR, e.getMessage());
 
-			} else if (e.getMessage().toLowerCase().contains(Constants.MISSATGE_ERROR_PORTASIG)) {
+			} else if (StringUtils.containsIgnoreCase(e.getMessage(), Constants.MISSATGE_ERROR_PORTASIG)) {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_PORTASIG, e.getMessage());
 
-			} else if (e.getMessage().toLowerCase().contains(Constants.MISSATGE_ERROR_SIGNATURES)) {
+			} else if (StringUtils.containsIgnoreCase(e.getMessage(), Constants.MISSATGE_ERROR_SIGNATURES)) {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_SIGNATURES, e.getMessage());
 
-			} else if (e.getMessage().contains(Constants.MISSATGE_ERROR_SERVEI_INTEROPERABILITAT)) {
+			} else if (StringUtils.containsIgnoreCase(e.getMessage(), Constants.MISSATGE_ERROR_SERVEI_INTEROPERABILITAT)) {
 				respostaResultatBDTO = new RespostaResultatBDTO(errorResultat, ErrorPrincipal.ERROR_SERVEI_INTEROPERABILITAT,
 						e.getMessage());
 			} else {

@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -33,6 +35,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitaci
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
@@ -40,15 +43,18 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperVali
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsValidacio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPersones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsUgos;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UsuarisRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.BooleanApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.RelacioPersonaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.TipusRelacioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.EstatApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TipusCampApiParamValue;
@@ -59,10 +65,11 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procedime
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TipusValidacioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.DocumentsIdentitatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.PersonesRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar.AtributsActualitzarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.digitalitzar.DocumentDigitalitzarCrearRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.SignaturaValidDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.substituir.DocumentAportatSubstituirRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar.AtributsActualitzarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.AtributRequeritRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.DocumentRequeritCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.actualitzar.SollicitudActualitzarRDTO;
@@ -75,11 +82,15 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentac
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.preparar.requeriment.RequerimentPreparatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.presentar.declaracio.responsable.DeclaracioResponsablePresentadaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.tramitar.convidar.ExpedientConvidarTramitarRDTO;
+import net.opentrends.openframe.services.security.core.userdetails.ImiUserDetails;
+import net.opentrends.openframe.services.security.util.SecurityUtils;
 
 /**
  * The Class ServeisRestControllerValidationHelper.
  */
 public class ServeisRestControllerValidationHelper {
+
+	private static final Pattern JWT_PATTERN = Pattern.compile("^[a-zA-Z0-9-_=-]+(?:\\.[a-zA-Z0-9-_=-]+){2}$");
 
 	/**
 	 * Validate procediment crear solicitud expedient.
@@ -239,7 +250,7 @@ public class ServeisRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static void validateRegistreSollicitud(DadesSollicitudBDTO dadesSollicitudBDTO, Resultat resultatError)
-	        throws GPAApiParamValidationException {
+			throws GPAApiParamValidationException {
 		validateSollicitud(dadesSollicitudBDTO, resultatError);
 		if (TramitOvtApiParamValue.SOL.getInternalValue().compareTo(dadesSollicitudBDTO.getSollicitudsRDTO().getTramitOvtIdext()) == 0) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_SOLLICITUDS_TIPUS_NOT_VALID);
@@ -400,6 +411,21 @@ public class ServeisRestControllerValidationHelper {
 		if (representant != null && sollicitant == null) {
 			throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
 			        ErrorPrincipal.ERROR_EXPEDIENTS_SOLLICITANT_REQUIRED);
+		}
+	}
+
+	/**
+	 * Validate sollicitant crear solicitud expedient.
+	 *
+	 * @param sollicitant
+	 *            the sollicitant
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateSollicitantCrearSolicitudExpedient(PersonesRDTO sollicitant, Resultat resultatError)
+	        throws GPAApiParamValidationException {
+		if (sollicitant == null) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_SOLLICITANT_OBLIGATORI);
 		}
 	}
 
@@ -943,7 +969,7 @@ public class ServeisRestControllerValidationHelper {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND);
 		}
 
-		if (!docsEntradaRDTO.getDocumentacio().equals(expedientsRDTO.getDocumentacioIdext())) {
+		if (docsEntradaRDTO.getDocumentacio() == null || !docsEntradaRDTO.getDocumentacio().equals(expedientsRDTO.getDocumentacioIdext())) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_EXPEDIENT);
 		}
 	}
@@ -1048,6 +1074,25 @@ public class ServeisRestControllerValidationHelper {
 
 		if (!docsTramitacioRDTO.getDocumentacio().equals(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext())) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_EXPEDIENT);
+		}
+	}
+
+	/**
+	 * Validate document generat.
+	 *
+	 * @param idDocument
+	 *            the id document
+	 * @param docsTramitacioRDTO
+	 *            the docs tramitacio RDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateDocumentGenerat(BigDecimal idDocument, DocsTramitacioRDTO docsTramitacioRDTO, Resultat resultatError)
+			throws GPAApiParamValidationException {
+		if (docsTramitacioRDTO == null) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND, ": " + idDocument);
 		}
 	}
 
@@ -1691,6 +1736,398 @@ public class ServeisRestControllerValidationHelper {
 		        .compareTo(TramitOvtApiParamValue.APO.getInternalValue()) == NumberUtils.INTEGER_ZERO
 		        && CollectionUtils.isNotEmpty(sollicitudActualitzar.getDadesOperacio())) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_SOLLICITUDS_DADES_OPERACIO_APO);
+		}
+	}
+
+	public static void validatePersonesInteressadesExpedient(List<PersonesRDTO> personesInteressades, Resultat resultatError)
+	        throws GPAApiParamValidationException {
+
+		if (personesInteressades != null) {
+			for (PersonesRDTO personeRDTO : personesInteressades) {
+				if (personeRDTO.getRelacio() != null
+				        && personeRDTO.getRelacio().compareTo(RelacioPersonaApiParamValue.SOLLICITANT.getApiParamValue()) != 0
+				        && personeRDTO.getRelacio().compareTo(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue()) != 0) {
+
+					throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_INTERESADA_RELACIO);
+				}
+			}
+		}
+
+	}
+
+	/**
+	 * Validate usuari logueado expedient.
+	 *
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static String validateUsuariLogueadoExpedient(List<PersonesSollicitudRDTO> personesInteressades,
+			List<PersonesSollicitudRDTO> personesImplicades, PersonesSollicitud sollicitantPrincipal,
+			PersonesSollicitud representantPrincipal, Resultat resultatError) throws GPAApiParamValidationException {
+
+		// Comprobar que la persona que realiza la accion pertenece al
+		// expediente (El documento de identidad debe corresponderse con el
+		// de una
+		// persona implicada en el expediente)
+
+		// TODO GPA-2923 descomentar cuando obtengamos la info del usuario que
+		// hace la peticion
+		/*
+		 * PersonesSollicitudRDTO interesado = null; PersonesSollicitudRDTO
+		 * implicado = null; String resultado = "";
+		 * 
+		 * if (personesInteressades != null) { interesado =
+		 * validateUsuariLogueadoInteressadesExpedient(personesInteressades,
+		 * sollicitantPrincipal, representantPrincipal, resultatError); }
+		 * 
+		 * if (personesImplicades != null) { implicado =
+		 * validateUsuariLogueadoImplicadesExpedient(personesImplicades,
+		 * resultatError);
+		 * 
+		 * resultado = implicado != null ? implicado.getRelacioImplicada() : "";
+		 * }
+		 * 
+		 * if (interesado == null && implicado == null) { throw new
+		 * GPAApiParamValidationException(resultatError,
+		 * ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_FOUND); } // se
+		 * entiende que si es solicitante o representante, si puede hacer //
+		 * cualquier accion if (implicado != null) { // Comprobar si tiene la
+		 * visibilidadOVT activada if (implicado.getVisibilitatOvt() == null ||
+		 * implicado.getVisibilitatOvt().compareTo(INTEGER_ZERO) == 0) { throw
+		 * new GPAApiParamValidationException(resultatError,
+		 * ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_PERMIS); } }
+		 * return resultado;
+		 */
+
+		return null;
+	}
+
+	/**
+	 * Validate usuari logueado interessades en expedient.
+	 *
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static PersonesSollicitudRDTO validateUsuariLogueadoInteressadesExpedient(List<PersonesSollicitudRDTO> personesInteressades,
+			PersonesSollicitud sollicitantPrincipal, PersonesSollicitud representantPrincipal, Resultat resultatError)
+			throws GPAApiParamValidationException {
+
+		ImiUserDetails imiUser = SecurityUtils.getLoggedUserDetails();
+
+		// TODO GPA-2923 (se controla la ejecucion de la validacion hasta que
+		// tengamos datos del usuario)
+		if (imiUser != null && !imiUser.getUsername().equals("T000000")) {
+
+			// TODO GPA-2923 descomentar cuando obtengamos la info del usuario
+			// que hace la peticion
+			/*
+			 * for (PersonesSollicitudRDTO personesSollicitud :
+			 * personesInteressades) { if
+			 * (personesSollicitud.getPersones().getDocumentsIdentitat() != null
+			 * && StringUtils.equals(
+			 * personesSollicitud.getPersones().getDocumentsIdentitat().
+			 * getNumeroDocument(), imiUser.getIdentityDocument())) { return
+			 * personesSollicitud; } }
+			 * 
+			 * // solo necesitamos comprobar que existe if
+			 * (sollicitantPrincipal.getPersones().getDocumentsIdentitat() !=
+			 * null && StringUtils.equals(
+			 * sollicitantPrincipal.getPersones().getDocumentsIdentitat().
+			 * getNumeroDocument(), imiUser.getIdentityDocument())) { return new
+			 * PersonesSollicitudRDTO(); }
+			 * 
+			 * if (representantPrincipal.getPersones().getDocumentsIdentitat()
+			 * != null && StringUtils.equals(
+			 * representantPrincipal.getPersones().getDocumentsIdentitat().
+			 * getNumeroDocument(), imiUser.getIdentityDocument())) { return new
+			 * PersonesSollicitudRDTO(); }
+			 */
+		}
+
+		return null;
+	}
+
+	/**
+	 * Validate usuari logueado interessades en expedient.
+	 *
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static PersonesRDTO validateUsuariLogueadoInteressadesExpedient(List<PersonesRDTO> personesInteressades,
+			PersonesRDTO sollicitantPrincipal, PersonesRDTO representantPrincipal, Resultat resultatError)
+			throws GPAApiParamValidationException {
+
+		ImiUserDetails imiUser = SecurityUtils.getLoggedUserDetails();
+
+		// TODO GPA-2923 (se controla la ejecucion de la validacion hasta que
+		// tengamos datos del usuario)
+		if (imiUser != null && !imiUser.getUsername().equals("T000000")) {
+
+			// TODO GPA-2923 descomentar cuando obtengamos la info del usuario
+			// que hace la peticion
+			/*
+			 * if (personesInteressades != null) { for (PersonesRDTO
+			 * personesSollicitud : personesInteressades) { if
+			 * (personesSollicitud.getDocumentIndentitat() != null &&
+			 * StringUtils .equals(personesSollicitud.getDocumentIndentitat().
+			 * getNumeroDocument(), imiUser.getIdentityDocument())) { return
+			 * personesSollicitud; } } }
+			 * 
+			 * if (sollicitantPrincipal != null &&
+			 * sollicitantPrincipal.getDocumentIndentitat() != null &&
+			 * StringUtils .equals(sollicitantPrincipal.getDocumentIndentitat().
+			 * getNumeroDocument(), imiUser.getIdentityDocument())) { return
+			 * sollicitantPrincipal; }
+			 * 
+			 * if (representantPrincipal != null &&
+			 * representantPrincipal.getDocumentIndentitat() != null &&
+			 * StringUtils
+			 * .equals(representantPrincipal.getDocumentIndentitat().
+			 * getNumeroDocument(), imiUser.getIdentityDocument())) { return
+			 * representantPrincipal; }
+			 * 
+			 * throw new GPAApiParamValidationException(resultatError,
+			 * ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_FOUND);
+			 */
+			return null;
+		} else {
+			return null;
+		}
+
+	}
+
+	/**
+	 * Validate terceres persones implicades en expedient.
+	 *
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateTerceresPersonesImplicadesExpedient(List<PersonesRDTO> personesImplicades,
+			List<ProcedimentPersones> procedimentPersonesList, Resultat resultatError) throws GPAApiParamValidationException {
+
+		// TODO GPA-2923 descomentar cuando obtengamos la info del usuario
+		// que hace la peticion
+
+		/*
+		 * if (procedimentPersonesList == null) { throw new
+		 * GPAApiParamValidationException(resultatError,
+		 * ErrorPrincipal.ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT
+		 * ); }
+		 * 
+		 * // tiene que existir y coincidir un tipo de relacion del
+		 * procedimiento // con cada una de las personas para darlo por valido
+		 * boolean existeRelacion = false; for (PersonesRDTO personesRDTO :
+		 * personesImplicades) { existeRelacion = false; if
+		 * (StringUtils.isEmpty(personesRDTO.getRelacioTerceraPersona())) {
+		 * throw new GPAApiParamValidationException(resultatError,
+		 * ErrorPrincipal.ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES); } for
+		 * (ProcedimentPersones procedimentPersones : procedimentPersonesList) {
+		 * if (procedimentPersones.getRelacio().equalsIgnoreCase(personesRDTO.
+		 * getRelacioTerceraPersona())) { existeRelacion = true; } } }
+		 * 
+		 * if (!existeRelacion) { throw new
+		 * GPAApiParamValidationException(resultatError, ErrorPrincipal.
+		 * ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT_NOT_FOUND); }
+		 */
+	}
+
+	/**
+	 * Validate usuari logueado implicades en expedient.
+	 *
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static PersonesSollicitudRDTO validateUsuariLogueadoImplicadesExpedient(List<PersonesSollicitudRDTO> personesImplicades,
+			Resultat resultatError) throws GPAApiParamValidationException {
+
+		// TODO GPA-2923 descomentar cuando obtengamos la info del usuario
+		// que hace la peticion
+		ImiUserDetails imiUser = SecurityUtils.getLoggedUserDetails();
+
+		/*
+		 * for (PersonesSollicitudRDTO personesSollicitud : personesImplicades)
+		 * { if (personesSollicitud.getPersones().getDocumentsIdentitat() !=
+		 * null && StringUtils
+		 * .equals(personesSollicitud.getPersones().getDocumentsIdentitat().
+		 * getNumeroDocument(), imiUser.getIdentityDocument())) { return
+		 * personesSollicitud; } }
+		 */
+
+		return null;
+	}
+
+	/**
+	 * validateVisibilitatImplicado
+	 * 
+	 * @param implicado
+	 * @param respostaDadesOperacioCercaBDTO
+	 * @param respostaDocumentsEntradaCercaBDTO
+	 * @param docsEntradaRDTO
+	 * @param procedimentPersonesList
+	 */
+	public static ProcedimentPersones validateVisibilitatImplicado(String relacioTerceraPersona, List<DadesOperacions> dadesActualizar,
+			List<ConfiguracioDocsEntradaRDTO> configuacioActualizar, DocsEntradaRDTO docsEntradaRDTO,
+			List<ProcedimentPersones> procedimentPersonesList, Resultat resultatError) throws GPAApiParamValidationException {
+
+		// TODO GPA-2923 descomentar cuando obtengamos la info del usuario
+		// que hace la peticion
+		/*
+		 * if (procedimentPersonesList == null) { throw new
+		 * GPAApiParamValidationException(resultatError,
+		 * ErrorPrincipal.ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT
+		 * ); }
+		 * 
+		 * if (StringUtils.isEmpty(relacioTerceraPersona)) { throw new
+		 * GPAApiParamValidationException(resultatError,
+		 * ErrorPrincipal.ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES); }
+		 * ProcedimentPersones procedimentPersonesFind = null; for
+		 * (ProcedimentPersones procedimentPersones : procedimentPersonesList) {
+		 * if (procedimentPersones.getRelacio().equalsIgnoreCase(
+		 * relacioTerceraPersona)) {
+		 * 
+		 * procedimentPersonesFind = procedimentPersones;
+		 * 
+		 * if (procedimentPersones.getNivellVisibilitat().compareTo(Constants.
+		 * NIVELL_VISIBILITAT_NULLA) == 0) { throw new
+		 * GPAApiParamValidationException(resultatError, ErrorPrincipal.
+		 * ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT_VISIBILITAT);
+		 * }
+		 * 
+		 * if (dadesActualizar != null) { for (DadesOperacions dadesOperacions :
+		 * dadesActualizar) { if
+		 * (dadesOperacions.getVisibilitatPortal().compareTo(INTEGER_ZERO) == 0)
+		 * { throw new GPAApiParamValidationException(resultatError,
+		 * ErrorPrincipal.
+		 * ERROR_EXPEDIENTS_DADES_OPERACIO_PROCEDIMENT_VISIBILITAT_PORTAL); }
+		 * else if
+		 * (procedimentPersonesFind.getNivellVisibilitat().compareTo(Constants.
+		 * NIVELL_VISIBILITAT_BAIXA) == 0 &&
+		 * dadesOperacions.getNivellCriticitat().compareTo(Constants.
+		 * NIVELL_CRITICITAT_ALT) == 0) { throw new
+		 * GPAApiParamValidationException(resultatError,
+		 * ErrorPrincipal.ERROR_EXPEDIENTS_DADES_OPERACIO_PROCEDIMENT_CRITICITAT
+		 * ); } } } if (configuacioActualizar != null) { for
+		 * (ConfiguracioDocsEntradaRDTO configuracioDocsEntradaRDTO :
+		 * configuacioActualizar) { if
+		 * (configuracioDocsEntradaRDTO.getVisibilitatPortal().compareTo(
+		 * INTEGER_ZERO) == 0) { throw new
+		 * GPAApiParamValidationException(resultatError,
+		 * ErrorPrincipal.ERROR_EXPEDIENTS_DOC_ENTRADA_VISIBILITAT_PORTAL); }
+		 * else if
+		 * (procedimentPersonesFind.getNivellVisibilitat().compareTo(Constants.
+		 * NIVELL_VISIBILITAT_BAIXA) == 0 &&
+		 * configuracioDocsEntradaRDTO.getCriticitatIdext().compareTo(Constants.
+		 * NIVELL_CRITICITAT_ALT) == 0) { throw new
+		 * GPAApiParamValidationException(resultatError,
+		 * ErrorPrincipal.ERROR_EXPEDIENTS_DOC_ENTRADA_CRITICITAT); } } }
+		 * 
+		 * if (docsEntradaRDTO != null) { if
+		 * (docsEntradaRDTO.getConfiguracioDocsEntrada().getVisibilitatPortal().
+		 * compareTo(INTEGER_ZERO) == 0) { throw new
+		 * GPAApiParamValidationException(resultatError,
+		 * ErrorPrincipal.ERROR_EXPEDIENTS_DOC_ENTRADA_VISIBILITAT_PORTAL); }
+		 * else if
+		 * (procedimentPersonesFind.getNivellVisibilitat().compareTo(Constants.
+		 * NIVELL_VISIBILITAT_BAIXA) == 0 &&
+		 * docsEntradaRDTO.getConfiguracioDocsEntrada().getCriticitatIdext()
+		 * .compareTo(Constants.NIVELL_CRITICITAT_ALT) == 0) { throw new
+		 * GPAApiParamValidationException(resultatError,
+		 * ErrorPrincipal.ERROR_EXPEDIENTS_DOC_ENTRADA_CRITICITAT); } }
+		 * 
+		 * } } if (procedimentPersonesFind == null) { throw new
+		 * GPAApiParamValidationException(resultatError, ErrorPrincipal.
+		 * ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT_NOT_FOUND); }
+		 * 
+		 * return procedimentPersonesFind;
+		 */
+
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param solicitudExpedient
+	 * @param dadesProcedimentBDTO
+	 * @throws GPAApiParamValidationException
+	 */
+	public static void validateTerceresPersonesProcediment(List<PersonesRDTO> personesImplicades, DadesProcedimentBDTO dadesProcedimentBDTO,
+			Resultat resultatError) throws GPAApiParamValidationException {
+
+		// TODO GPA-2923 descomentar cuando obtengamos la info del usuario
+		/*
+		 * if (personesImplicades != null) { List<ProcedimentPersones>
+		 * procedimentPersonesList =
+		 * dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList
+		 * ();
+		 * 
+		 * ServeisRestControllerValidationHelper.
+		 * validateTerceresPersonesImplicadesExpedient(personesImplicades,
+		 * procedimentPersonesList, resultatError); }
+		 */
+	}
+
+	/**
+	 * Validate signatura valid.
+	 *
+	 * @param signaturaValidDocumentRDTO
+	 *            the signatura valid document RDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateSignaturaValid(SignaturaValidDocumentRDTO signaturaValidDocumentRDTO, Resultat resultatError)
+			throws GPAApiParamValidationException {
+
+		// Se valida el formato del token JWT
+		if (StringUtils.isBlank(signaturaValidDocumentRDTO.getInformacioToken())) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_TOKEN_JWT_SIGNAR_VALID);
+		}
+
+		String value = null;
+		String posibleToken = signaturaValidDocumentRDTO.getInformacioToken().trim();
+		for (Matcher matcher = JWT_PATTERN.matcher(posibleToken); matcher.find(); value = posibleToken.trim()) {
+			;
+		}
+
+		if (value == null) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_TOKEN_JWT_SIGNAR_VALID);
+		}
+	}
+
+	/**
+	 * Validate usuari.
+	 *
+	 * @param usuarisRDTO
+	 *            the usuaris RDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateUsuari(UsuarisRDTO usuarisRDTO, Resultat resultatError) throws GPAApiParamValidationException {
+		if (usuarisRDTO == null) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_UNITATS_USUARI_NOT_FOUND);
 		}
 	}
 }

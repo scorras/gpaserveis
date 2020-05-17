@@ -39,7 +39,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPerso
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesDadescontacte;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaObtenirXmlExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TornarEnrereRDTO;
 import es.bcn.gpa.gpaserveis.test.parent.RestServerParentTest;
 import lombok.extern.apachecommons.CommonsLog;
@@ -145,46 +144,6 @@ public class ExpedientsServiceImplTest extends RestServerParentTest {
 		// cuando se le pasa un nulo
 
 		PageDataOfPersonesSollicitudRDTO result = expedientsService.donarAccesAltraPersonaImplicada(null);
-		assertTrue(result == null);
-
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - fi"); //$NON-NLS-1$
-		}
-	}
-
-	/**
-	 * Test stage 01 comprovar documents signats expedient.
-	 *
-	 * @throws Exception
-	 *             the exception
-	 */
-	@Test
-	public void testStage02_crearDataXmlExpedient() throws GPAServeisServiceException {
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - inici"); //$NON-NLS-1$
-		}
-
-		expedientsService.crearDataXmlExpedient(new BigDecimal(1));
-		assertTrue(true);
-
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - fi"); //$NON-NLS-1$
-		}
-	}
-
-	/**
-	 * Test stage 01 comprovar documents signats expedient.
-	 *
-	 * @throws Exception
-	 *             the exception
-	 */
-	@Test
-	public void testStage02_crearDataXmlExpedientKO() throws GPAServeisServiceException {
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - inici"); //$NON-NLS-1$
-		}
-
-		RespostaObtenirXmlExpedient result = expedientsService.crearDataXmlExpedient(null);
 		assertTrue(result == null);
 
 		if (LOGGER.isDebugEnabled()) {
@@ -339,7 +298,7 @@ public class ExpedientsServiceImplTest extends RestServerParentTest {
 		convidarTramitarRDTO.setComentari(comentari);
 
 		ExpedientsConvidarTramitarBDTO expedientsConvidarTramitarBDTO = new ExpedientsConvidarTramitarBDTO(new BigDecimal(1),
-		        convidarTramitarRDTO);
+				convidarTramitarRDTO);
 
 		expedientsService.convidarTramitarExpedient(expedientsConvidarTramitarBDTO);
 		assertTrue(true);
