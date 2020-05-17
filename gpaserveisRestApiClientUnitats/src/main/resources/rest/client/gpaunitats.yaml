@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaunitats"
-  version: "1.16.2"
+  version: "1.21.0"
   title: "API gpaunitats"
   contact:
     name: "Sergio Corras"
@@ -15,6 +15,8 @@ tags:
   description: "Contexte Seguretat Rest Controller"
 - name: "unitats-rest-controller"
   description: "Unitats Rest Controller"
+- name: "usuaris-rest-controller"
+  description: "Usuaris Rest Controller"
 paths:
   /autenticacioUsuaris/autenticat:
     get:
@@ -163,6 +165,10 @@ paths:
         in: "query"
         required: false
         type: "string"
+      - name: "editable"
+        in: "query"
+        required: false
+        type: "boolean"
       - name: "id"
         in: "query"
         required: false
@@ -195,6 +201,10 @@ paths:
         required: false
         type: "integer"
         format: "int32"
+      - name: "seleccionable"
+        in: "query"
+        required: false
+        type: "boolean"
       - name: "sort"
         in: "query"
         required: false
@@ -295,6 +305,34 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /usuaris/matricula/{matricula}:
+    get:
+      tags:
+      - "Usuaris"
+      summary: "Returns the requested usuari"
+      operationId: "consultarDadesUsuari"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "matricula"
+        in: "path"
+        description: "matricula"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/UsuarisRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
 definitions:
   PageDataOfUnitatsGestoresRDTO:
     type: "object"
@@ -368,6 +406,8 @@ definitions:
         type: "string"
       descripcio:
         type: "string"
+      editable:
+        type: "boolean"
       id:
         type: "number"
       idGrup:
@@ -377,6 +417,8 @@ definitions:
         type: "string"
       nomDescripcio:
         type: "string"
+      seleccionable:
+        type: "boolean"
       unitatOrganigrama:
         type: "number"
       unitatOrganigramaList:

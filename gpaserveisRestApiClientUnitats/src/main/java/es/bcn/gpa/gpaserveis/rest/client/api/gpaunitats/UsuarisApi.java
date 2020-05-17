@@ -23,7 +23,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-18T13:29:08.275+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-11T19:17:27.338+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UsuarisApi")
 public class UsuarisApi {
     private ApiClient apiClient;
@@ -45,6 +45,46 @@ public class UsuarisApi {
         this.apiClient = apiClient;
     }
 
+    /**
+     * Returns the requested usuari
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param matricula matricula
+     * @return UsuarisRDTO
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public UsuarisRDTO consultarDadesUsuari(String matricula) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'matricula' is set
+        if (matricula == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'matricula' when calling consultarDadesUsuari");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("matricula", matricula);
+        String path = UriComponentsBuilder.fromPath("/usuaris/matricula/{matricula}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<UsuarisRDTO> returnType = new ParameterizedTypeReference<UsuarisRDTO>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
     /**
      * Returns the requested usuari
      * 

@@ -76,6 +76,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsOrganigramaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UsuarisRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 
 /**
@@ -826,7 +828,7 @@ public class TestsConfigHelper {
 		PersonesSollicitudRDTO personesSollicitudRDTO1 = new PersonesSollicitudRDTO();
 		personesSollicitudRDTO1.setId(ONE);
 		personesSollicitudRDTO1.setRelacioPrincipal(Constants.PERSONES_SOLLICITUD_RELACIO_NO_PRINCIPAL);
-		personesSollicitudRDTO1.setRelacio(Constants.PERSONES_SOLLICITUD_RELACIO_TESTIMONI);
+		personesSollicitudRDTO1.setRelacioImplicada("Testimoni");
 		personesSollicitudRDTO1.setPersona(ONE);
 		personesSollicitudRDTO1.setSollicitud(ONE);
 		personesSollicitudRDTO1.setPersones(buildPersones());
@@ -834,7 +836,7 @@ public class TestsConfigHelper {
 		PersonesSollicitudRDTO personesSollicitudRDTO2 = new PersonesSollicitudRDTO();
 		personesSollicitudRDTO2.setId(ONE);
 		personesSollicitudRDTO2.setRelacioPrincipal(Constants.PERSONES_SOLLICITUD_RELACIO_NO_PRINCIPAL);
-		personesSollicitudRDTO2.setRelacio(Constants.PERSONES_SOLLICITUD_RELACIO_ALTRES);
+		personesSollicitudRDTO2.setRelacioImplicada("Altres");
 		personesSollicitudRDTO2.setPersona(ONE);
 		personesSollicitudRDTO2.setSollicitud(ONE);
 		personesSollicitudRDTO2.setPersones(buildPersones());
@@ -2002,6 +2004,36 @@ public class TestsConfigHelper {
 		retornTramitacio.setEsUsuariPrincipalExpedient(TRUE);
 		return retornTramitacio;
 
+	}
+
+	/**
+	 * Consultar dades usuari response.
+	 *
+	 * @return the usuaris RDTO
+	 */
+	public static UsuarisRDTO consultarDadesUsuariResponse() {
+		UsuarisRDTO usuarisRDTO = new UsuarisRDTO();
+		usuarisRDTO.setNom("nom");
+		usuarisRDTO.setCognom1("cognom1");
+		usuarisRDTO.setCognom2("cognom2");
+		usuarisRDTO.setDocumentIdentitat("documentIdentitat");
+		usuarisRDTO.setId(ONE);
+
+		return usuarisRDTO;
+	}
+
+	/**
+	 * Consultar unitat organigrama response.
+	 *
+	 * @return the unitats organigrama RDTO
+	 */
+	public static UnitatsOrganigramaRDTO consultarUnitatOrganigramaResponse() {
+		UnitatsOrganigramaRDTO unitatsOrganigramaRDTO = new UnitatsOrganigramaRDTO();
+		unitatsOrganigramaRDTO.setId(ONE);
+		unitatsOrganigramaRDTO.setCodi("codi");
+		unitatsOrganigramaRDTO.setNom("nom");
+
+		return unitatsOrganigramaRDTO;
 	}
 
 }

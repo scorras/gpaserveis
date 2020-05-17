@@ -17,6 +17,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.FixMethodOrder;
@@ -50,10 +51,30 @@ public class UsuarisApiTest extends ParentTest {
 	 *             if the Api call fails
 	 */
 	@Test
+	public void consultarDadesUsuariTest() {
+		when(apiClient.invokeAPI(eq("/usuaris/matricula/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new UsuarisRDTO());
+
+		String matricula = BigDecimal.ONE.toString();
+		UsuarisRDTO response = api.consultarDadesUsuari(matricula);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested usuari
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
 	public void obtenirUsuariAutenticatTest() {
 		when(apiClient.invokeAPI(eq("/autenticacioUsuaris/autenticat"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(new UsuarisRDTO());
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new UsuarisRDTO());
 
 		UsuarisRDTO response = api.obtenirUsuariAutenticat();
 		assertTrue(response != null);

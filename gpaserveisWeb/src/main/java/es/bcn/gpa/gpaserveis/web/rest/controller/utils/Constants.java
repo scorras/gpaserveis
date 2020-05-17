@@ -33,12 +33,6 @@ public class Constants {
 	/** The Constant PERSONES_SOLLICITUD_RELACIO_REPRESENTANT. */
 	public static final BigDecimal PERSONES_SOLLICITUD_RELACIO_REPRESENTANT = new BigDecimal(2);
 
-	/** The Constant PERSONES_SOLLICITUD_RELACIO_TESTIMONI. */
-	public static final BigDecimal PERSONES_SOLLICITUD_RELACIO_TESTIMONI = new BigDecimal(3);
-
-	/** The Constant PERSONES_SOLLICITUD_RELACIO_ALTRES. */
-	public static final BigDecimal PERSONES_SOLLICITUD_RELACIO_ALTRES = new BigDecimal(4);
-
 	/** The Constant CODI_ISO_PAIS_PER_DEFECTE. */
 	public static final String CODI_ISO_PAIS_PER_DEFECTE = "ES";
 
@@ -95,5 +89,17 @@ public class Constants {
 
 	/** The Constant ERROR_STR. */
 	public static final String ERROR_STR = "ERROR";
+
+	/** The Constant NIVELL_VISIBILITAT_BAIXA. */
+	public static final BigDecimal NIVELL_VISIBILITAT_BAIXA = new BigDecimal(2);
+
+	/** The Constant NIVELL_VISIBILITAT_NULLA. */
+	public static final BigDecimal NIVELL_VISIBILITAT_NULLA = new BigDecimal(3);
+
+	/** The Constant NIVELL_CRITICITAT_BAIX. */
+	public static final Integer NIVELL_CRITICITAT_BAIX = NumberUtils.INTEGER_ZERO;
+
+	/** The Constant NIVELL_CRITICITAT_ALT. */
+	public static final Integer NIVELL_CRITICITAT_ALT = NumberUtils.INTEGER_ONE;
 
 }

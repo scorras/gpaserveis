@@ -18,6 +18,9 @@ public class TipusSignaturaApiParamValueTranslator extends ApiParamValueTranslat
 	public static final String REQUEST_PARAM_NAME = "tipusSignatura";
 
 	/** The Constant REQUEST_PARAM_ALLOWABLE_VALUES. */
-	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "SEGELL, MANUSCRITA, PORTASIGNATURES, SIGNATURA_IMI";
+	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "SEGELL, MANUSCRITA, PORTASIGNATURES, IMI_VALID";
+
+	/** The Constant REQUEST_PARAM_ALLOWABLE_VALUES_OFFLINE. */
+	public static final String REQUEST_PARAM_ALLOWABLE_VALUES_OFFLINE = "SEGELL, MANUSCRITA, PORTASIGNATURES";
 
 }

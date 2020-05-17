@@ -531,24 +531,27 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
-	 * cercaDadesEspecifiquesSollicitud(java.math.BigDecimal)
+	 * cercaDadesEspecifiquesSollicitud(java.math.BigDecimal,
+	 * java.math.BigDecimal)
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCercaDadesEspecifiquesSollicitud")
-	public List<DadesEspecifiquesRDTO> cercaDadesEspecifiquesSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException {
+	public List<DadesEspecifiquesRDTO> cercaDadesEspecifiquesSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("cercaDadesEspecifiquesSollicitud(BigDecimal) - inici"); //$NON-NLS-1$
+			log.debug("cercaDadesEspecifiquesSollicitud(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = dadesEspecifiquesApi.consultarDadesEspecifiquesSollicitud(idSollicitud);
+			List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = dadesEspecifiquesApi.consultarDadesEspecifiquesSollicitud(idSollicitud,
+					visibilitat);
 
 			if (log.isDebugEnabled()) {
-				log.debug("cercaDadesEspecifiquesSollicitud(BigDecimal) - fi"); //$NON-NLS-1$
+				log.debug("cercaDadesEspecifiquesSollicitud(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return dadesEspecifiquesRDTOList;
 		} catch (RestClientException e) {
-			log.error("cercaDadesEspecifiquesSollicitud(BigDecimal)", e); //$NON-NLS-1$
+			log.error("cercaDadesEspecifiquesSollicitud(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
@@ -559,16 +562,18 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 *
 	 * @param idSollicitud
 	 *            the id sollicitud
+	 * @param visibilitat
+	 *            the visibilitat
 	 * @param e
 	 *            the e
 	 * @return the list
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public List<DadesEspecifiquesRDTO> fallbackCercaDadesEspecifiquesSollicitud(BigDecimal idSollicitud, Throwable e)
-			throws GPAServeisServiceException {
+	public List<DadesEspecifiquesRDTO> fallbackCercaDadesEspecifiquesSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat,
+			Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackCercaDadesEspecifiquesSollicitud(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+			log.debug("fallbackCercaDadesEspecifiquesSollicitud(BigDecimal, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
@@ -580,24 +585,27 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
-	 * cercaDadesEspecifiquesExpedient(java.math.BigDecimal)
+	 * cercaDadesEspecifiquesExpedient(java.math.BigDecimal,
+	 * java.math.BigDecimal)
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCercaDadesEspecifiquesExpedient")
-	public List<DadesEspecifiquesRDTO> cercaDadesEspecifiquesExpedient(BigDecimal idExpedient) throws GPAServeisServiceException {
+	public List<DadesEspecifiquesRDTO> cercaDadesEspecifiquesExpedient(BigDecimal idExpedient, BigDecimal visibilitat)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("cercaDadesEspecifiquesExpedient(BigDecimal) - inici"); //$NON-NLS-1$
+			log.debug("cercaDadesEspecifiquesExpedient(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = dadesEspecifiquesApi.consultarDadesEspecifiquesExpedient(idExpedient);
+			List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = dadesEspecifiquesApi.consultarDadesEspecifiquesExpedient(idExpedient,
+					visibilitat);
 
 			if (log.isDebugEnabled()) {
-				log.debug("cercaDadesEspecifiquesExpedient(BigDecimal) - fi"); //$NON-NLS-1$
+				log.debug("cercaDadesEspecifiquesExpedient(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return dadesEspecifiquesRDTOList;
 		} catch (RestClientException e) {
-			log.error("cercaDadesEspecifiquesExpedient(BigDecimal)", e); //$NON-NLS-1$
+			log.error("cercaDadesEspecifiquesExpedient(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
@@ -608,16 +616,18 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 *
 	 * @param idExpedient
 	 *            the id expedient
+	 * @param visibilitat
+	 *            the visibilitat
 	 * @param e
 	 *            the e
 	 * @return the list
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public List<DadesEspecifiquesRDTO> fallbackCercaDadesEspecifiquesExpedient(BigDecimal idExpedient, Throwable e)
+	public List<DadesEspecifiquesRDTO> fallbackCercaDadesEspecifiquesExpedient(BigDecimal idExpedient, BigDecimal visibilitat, Throwable e)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackCercaDadesEspecifiquesExpedient(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+			log.debug("fallbackCercaDadesEspecifiquesExpedient(BigDecimal, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
@@ -2156,5 +2166,49 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		municipisRDTO.setNom(codiMunicipi);
 
 		return municipisRDTO;
+	}
+
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackActualitzarExpedient")
+	public void actualitzarExpedient(ExpedientsRDTO expedientsRDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("actualitzarExpedient(ExpedientsRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			expedientsApi.actualitzarExpedient(expedientsRDTO);
+
+			if (log.isDebugEnabled()) {
+				log.debug("actualitzarExpedient(ExpedientsRDTO) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("actualitzarExpedient(ExpedientsRDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+	}
+
+	/**
+	 * Fallback actualitzar expedient.
+	 *
+	 * @param expedientsRDTO
+	 *            the expedients RDTO
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 * @throws JsonParseException
+	 *             the json parse exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
+	public void fallbackActualitzarExpedient(ExpedientsRDTO expedientsRDTO, Throwable e)
+			throws GPAServeisServiceException, JsonParseException, IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackActualitzarExpedient(ExpedientsRDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
 	}
 }
