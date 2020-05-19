@@ -973,6 +973,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			SollicitudActualitzarRegistre sollicitudActualitzarRegistre = new SollicitudActualitzarRegistre();
 			sollicitudActualitzarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
 			sollicitudActualitzarRegistre.setIdSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
+			sollicitudActualitzarRegistre.setSignaturaSollicitud(sollicitudRegistrarRDTO.getSignaturaSolicitud());
 			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
 
 			// Asociar registre de la solicitud a los posibles documentos
@@ -1070,9 +1071,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				dadesSollicitudBDTO.getExpedientsRDTO().setPendentRetorn(NumberUtils.INTEGER_ONE);
 				serveisService.actualitzarExpedient(dadesSollicitudBDTO.getExpedientsRDTO());
 			}
-
-			// TODO Pendiente de guardar en nuestro modelo de datos
-			// sollicitudRegistrarRDTO.getSignaturaSolicitud();
 
 			// Cambio de estado del expediente:
 			// - APO: No hay transición
