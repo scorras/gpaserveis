@@ -1895,7 +1895,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				break;
 
 			}
-
 		} catch (GPAApiParamValidationException e) {
 			log.error("signarDocument(String, BigDecimal, UsuariPortaSigRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
