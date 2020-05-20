@@ -101,11 +101,5 @@ public class Constants {
 
 	/** The Constant NIVELL_CRITICITAT_ALT. */
 	public static final Integer NIVELL_CRITICITAT_ALT = NumberUtils.INTEGER_ONE;
-	
-	/** The Constant ESTAT_OK_SIGNATURA_ONLINE. */
-	public static final String ESTAT_OK_SIGNATURA_ONLINE = "ok";
-
-	/** The Constant ESTAT_KO_SIGNATURA_ONLINE. */
-	public static final String ESTAT_KO_SIGNATURA_ONLINE = "ko";
 
 }
