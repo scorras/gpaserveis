@@ -188,7 +188,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.re
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.RespostaSignarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.SignaturaDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.SignaturaValidDocumentRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.UsuariPortasignaturesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.recurs.RecursExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.recurs.RespostaRecursExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.revisar.ExpedientRevisarRDTO;
@@ -1707,7 +1706,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	public RespostaResolucioValidarDocumentRDTO validarResolucioDocument(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocResolucio,
-			@ApiParam(value = "Persona que valida el document", required = true) @RequestBody UsuariPortasignaturesRDTO usuariPortasignatures) {
+			@ApiParam(value = "Informació addicional per a la signatura", required = true) @RequestBody SignaturaDocumentRDTO signaturaDocument) {
 
 		if (log.isDebugEnabled()) {
 			log.debug("validarResolucioDocument(String, BigDecimal, PersonaValidarResolucioDocumentRDTO) - inici"); //$NON-NLS-1$
@@ -1734,7 +1733,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.VALIDAR_DOCUMENT, Resultat.ERROR_VALIDAR_DOCUMENT);
 
 			// El usuario indicado debe existir
-			UsuarisRDTO usuarisRDTO = serveisService.consultarDadesUsuari(usuariPortasignatures.getMatricula());
+			UsuarisRDTO usuarisRDTO = serveisService.consultarDadesUsuari(signaturaDocument.getUsuariPortasig().getMatricula());
 			ServeisRestControllerValidationHelper.validateUsuari(usuarisRDTO, Resultat.ERROR_VALIDAR_DOCUMENT);
 
 			// Validar documento
@@ -1747,8 +1746,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			signarPortasignaturesDocument.setCodiUnitatOrganigrama(unitatsOrganigramaRDTO.getCodi());
 			signarPortasignaturesDocument.setMatriculaUsuari(usuarisRDTO.getMatricula());
 			signarPortasignaturesDocument.setNomProcediment(dadesExpedientBDTO.getExpedientsRDTO().getNomProcediment());
-			// TODO ¿Vistiplau no necesita política?
-			signarPortasignaturesDocument.setPoliticaSignatura(null);
+			signarPortasignaturesDocument.setPoliticaSignatura(signaturaDocument.getPoliticaSignatura());
 
 			peticionsPortasig = serveisService.signarValidarDocument(signarPortasignaturesDocument);
 
