@@ -868,7 +868,8 @@ public class ServeisPortalRestController extends BaseRestController {
 				for (AtributsActualitzarRDTO atributsActualitzarRDTO : solicitudExpedient.getDadesOperacio()) {
 					for (DadesGrupsRDTO dadesGrupsRDTO : respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList()) {
 						for (DadesOperacions dadesOperacions : dadesGrupsRDTO.getDadesOperacionsList()) {
-							if (dadesOperacions.getCodi().equalsIgnoreCase(atributsActualitzarRDTO.getCodi())) {
+							if (dadesOperacions.getCodi() != null
+									&& dadesOperacions.getCodi().equalsIgnoreCase(atributsActualitzarRDTO.getCodi())) {
 								dadesActualizar.add(dadesOperacions);
 							}
 						}
