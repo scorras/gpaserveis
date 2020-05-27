@@ -31,6 +31,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackManuscrita;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesSignatura;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
@@ -190,6 +191,46 @@ public class SignaturesApiTest extends ParentTest {
 		SignarValidDocumentResponse response = api.signarValid(signarValidDocumentRDTO);
 
 		assertTrue(response != null);
+	}
+
+	/**
+	 * Callback per actualitzar l&#39;estat dels documents enviats a tablet
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void finalitzarSignaturaTabletTest() {
+		when(apiClient.invokeAPI(eq("/signatures/finalitzarSignaturaTablet"), eq(HttpMethod.POST), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		CallbackManuscrita callbackManuscritaRDTO = new CallbackManuscrita();
+		api.finalitzarSignaturaTablet(callbackManuscritaRDTO);
+
+		assertTrue(true);
+	}
+
+	/**
+	 * Consultar si una petició de signatura tien documents signats
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void peticioAmbDocumentsSignatsTest() {
+		when(apiClient.invokeAPI(eq("/signatures/peticioAmbDocumentsSignats/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(Boolean.TRUE);
+
+		String idPeticio = ONE.toString();
+		Boolean response = api.peticioAmbDocumentsSignats(idPeticio);
+
+		assertTrue(response);
 	}
 
 }

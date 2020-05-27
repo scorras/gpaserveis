@@ -2187,19 +2187,62 @@ public class ServeisServiceImpl implements ServeisService {
 		return expedientsService.consultarMunicipisByCodi(codiMunicipi, codiProvincia);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * consultarDadesSignaturaByCodiPeticio(java.lang.String)
+	 */
 	@Override
 	public DadesSignatura consultarDadesSignaturaByCodiPeticio(String codiPeticio) throws GPAServeisServiceException {
 		return documentsService.consultarDadesSignaturaByCodiPeticio(codiPeticio);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * consultarDadesUnitatOrganigrama(java.math.BigDecimal)
+	 */
 	@Override
 	public UnitatsOrganigramaRDTO consultarDadesUnitatOrganigrama(BigDecimal idUnitatGestora) throws GPAServeisServiceException {
 		return unitatsGestoresService.consultarDadesUnitatOrganigrama(idUnitatGestora);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#actualitzarExpedient(es.bcn
+	 * .gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO)
+	 */
 	@Override
 	public void actualitzarExpedient(ExpedientsRDTO expedientsRDTO) throws GPAServeisServiceException {
 		expedientsService.actualitzarExpedient(expedientsRDTO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#peticioAmbDocumentsSignats(
+	 * java.lang.String)
+	 */
+	@Override
+	public Boolean peticioAmbDocumentsSignats(String idPeticio) throws GPAServeisServiceException {
+		return documentsService.peticioAmbDocumentsSignats(idPeticio);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#finalitzarSignaturaTablet(
+	 * java.lang.String)
+	 */
+	@Override
+	public void finalitzarSignaturaTablet(String idPeticio) throws GPAServeisServiceException {
+		documentsService.finalitzarSignaturaTablet(idPeticio);
 	}
 
 }

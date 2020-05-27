@@ -51,6 +51,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.SignaturesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackManuscrita;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesSignatura;
@@ -2857,16 +2858,20 @@ public class DocumentsServiceImpl implements DocumentsService {
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * consultarDadesSignaturaByCodiPeticio(java.lang.String)
+	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackconsultarDataSignaturaByCodiPeticio")
+	@HystrixCommand(fallbackMethod = "fallbackConsultarDataSignaturaByCodiPeticio")
 	public DadesSignatura consultarDadesSignaturaByCodiPeticio(String codiPeticio) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("obtenirEstatDigitalitzacioDocument(Long) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			// DadesSignaturaRDTO dadesSignaturaRDTO =
-			// documentacioApi.consultarDadesSignatura(codiPeticio);
 			DadesSignatura dadesSignatura = signaturesApi.consultarDadesSignatura(codiPeticio);
 
 			if (log.isDebugEnabled()) {
@@ -2881,7 +2886,18 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 	}
 
-	public DadesSignatura fallbackconsultarDataSignaturaByCodiPeticio(String codiPeticio, Throwable e) throws GPAServeisServiceException {
+	/**
+	 * Fallback Consultar data signatura by codi peticio.
+	 *
+	 * @param codiPeticio
+	 *            the codi peticio
+	 * @param e
+	 *            the e
+	 * @return the dades signatura
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DadesSignatura fallbackConsultarDataSignaturaByCodiPeticio(String codiPeticio, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackconsultarDataSignaturaByCodiPeticio(String, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -2889,6 +2905,102 @@ public class DocumentsServiceImpl implements DocumentsService {
 		ServeisServiceExceptionHandler.handleException(e);
 
 		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * peticioAmbDocumentsSignats(java.lang.String)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackPeticioAmbDocumentsSignats")
+	public Boolean peticioAmbDocumentsSignats(String idPeticio) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("peticioAmbDocumentsSignats(String) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			Boolean peticioAmbDocumentsSignatsResponse = signaturesApi.peticioAmbDocumentsSignats(idPeticio);
+
+			if (log.isDebugEnabled()) {
+				log.debug("peticioAmbDocumentsSignats(String) - fi"); //$NON-NLS-1$
+			}
+
+			return peticioAmbDocumentsSignatsResponse;
+		} catch (RestClientException e) {
+			log.error("peticioAmbDocumentsSignats(String)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback peticio amb documents signats.
+	 *
+	 * @param idPeticio
+	 *            the id peticio
+	 * @param e
+	 *            the e
+	 * @return the boolean
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public Boolean fallbackPeticioAmbDocumentsSignats(String idPeticio, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackPeticioAmbDocumentsSignats(String, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#finalitzarSignaturaTablet
+	 * (java.lang.String)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackFinalitzarSignaturaTablet")
+	public void finalitzarSignaturaTablet(String idPeticio) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("finalitzarSignaturaTablet(String) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			CallbackManuscrita callbackManuscrita = new CallbackManuscrita();
+			callbackManuscrita.setIdPeticio(idPeticio);
+			signaturesApi.finalitzarSignaturaTablet(callbackManuscrita);
+
+			if (log.isDebugEnabled()) {
+				log.debug("finalitzarSignaturaTablet(String) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("finalitzarSignaturaTablet(String)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback finalitzar signatura tablet.
+	 *
+	 * @param idPeticio
+	 *            the id peticio
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackFinalitzarSignaturaTablet(String idPeticio, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackFinalitzarSignaturaTablet(String, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
 	}
 
 }

@@ -21,50 +21,29 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * SortInfo
+ * CallbackManuscrita
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-27T16:00:10.249+02:00")
-public class SortInfo {
-  @JsonProperty("dir")
-  private String dir = null;
+public class CallbackManuscrita {
+  @JsonProperty("idPeticio")
+  private String idPeticio = null;
 
-  @JsonProperty("sort")
-  private String sort = null;
-
-  public SortInfo dir(String dir) {
-    this.dir = dir;
+  public CallbackManuscrita idPeticio(String idPeticio) {
+    this.idPeticio = idPeticio;
     return this;
   }
 
    /**
-   * Get dir
-   * @return dir
+   * Identificador assignat pel mòdul de Signatures en el moment d&#39;acceptar la petició
+   * @return idPeticio
   **/
-  @ApiModelProperty(value = "")
-  public String getDir() {
-    return dir;
+  @ApiModelProperty(value = "Identificador assignat pel mòdul de Signatures en el moment d'acceptar la petició")
+  public String getIdPeticio() {
+    return idPeticio;
   }
 
-  public void setDir(String dir) {
-    this.dir = dir;
-  }
-
-  public SortInfo sort(String sort) {
-    this.sort = sort;
-    return this;
-  }
-
-   /**
-   * Get sort
-   * @return sort
-  **/
-  @ApiModelProperty(value = "")
-  public String getSort() {
-    return sort;
-  }
-
-  public void setSort(String sort) {
-    this.sort = sort;
+  public void setIdPeticio(String idPeticio) {
+    this.idPeticio = idPeticio;
   }
 
 
@@ -76,24 +55,22 @@ public class SortInfo {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SortInfo sortInfo = (SortInfo) o;
-    return Objects.equals(this.dir, sortInfo.dir) &&
-        Objects.equals(this.sort, sortInfo.sort);
+    CallbackManuscrita callbackManuscrita = (CallbackManuscrita) o;
+    return Objects.equals(this.idPeticio, callbackManuscrita.idPeticio);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dir, sort);
+    return Objects.hash(idPeticio);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SortInfo {\n");
+    sb.append("class CallbackManuscrita {\n");
     
-    sb.append("    dir: ").append(toIndentedString(dir)).append("\n");
-    sb.append("    sort: ").append(toIndentedString(sort)).append("\n");
+    sb.append("    idPeticio: ").append(toIndentedString(idPeticio)).append("\n");
     sb.append("}");
     return sb.toString();
   }

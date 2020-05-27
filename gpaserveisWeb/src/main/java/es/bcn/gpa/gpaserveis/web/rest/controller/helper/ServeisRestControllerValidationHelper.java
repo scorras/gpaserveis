@@ -16,6 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.joda.time.DateTime;
@@ -250,7 +251,7 @@ public class ServeisRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static void validateRegistreSollicitud(DadesSollicitudBDTO dadesSollicitudBDTO, Resultat resultatError)
-			throws GPAApiParamValidationException {
+	        throws GPAApiParamValidationException {
 		validateSollicitud(dadesSollicitudBDTO, resultatError);
 		if (TramitOvtApiParamValue.SOL.getInternalValue().compareTo(dadesSollicitudBDTO.getSollicitudsRDTO().getTramitOvtIdext()) == 0) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_SOLLICITUDS_TIPUS_NOT_VALID);
@@ -1090,7 +1091,7 @@ public class ServeisRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static void validateDocumentGenerat(BigDecimal idDocument, DocsTramitacioRDTO docsTramitacioRDTO, Resultat resultatError)
-			throws GPAApiParamValidationException {
+	        throws GPAApiParamValidationException {
 		if (docsTramitacioRDTO == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND, ": " + idDocument);
 		}
@@ -1766,8 +1767,8 @@ public class ServeisRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static String validateUsuariLogueadoExpedient(List<PersonesSollicitudRDTO> personesInteressades,
-			List<PersonesSollicitudRDTO> personesImplicades, PersonesSollicitud sollicitantPrincipal,
-			PersonesSollicitud representantPrincipal, Resultat resultatError) throws GPAApiParamValidationException {
+	        List<PersonesSollicitudRDTO> personesImplicades, PersonesSollicitud sollicitantPrincipal,
+	        PersonesSollicitud representantPrincipal, Resultat resultatError) throws GPAApiParamValidationException {
 
 		// Comprobar que la persona que realiza la accion pertenece al
 		// expediente (El documento de identidad debe corresponderse con el
@@ -1817,8 +1818,8 @@ public class ServeisRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static PersonesSollicitudRDTO validateUsuariLogueadoInteressadesExpedient(List<PersonesSollicitudRDTO> personesInteressades,
-			PersonesSollicitud sollicitantPrincipal, PersonesSollicitud representantPrincipal, Resultat resultatError)
-			throws GPAApiParamValidationException {
+	        PersonesSollicitud sollicitantPrincipal, PersonesSollicitud representantPrincipal, Resultat resultatError)
+	        throws GPAApiParamValidationException {
 
 		ImiUserDetails imiUser = SecurityUtils.getLoggedUserDetails();
 
@@ -1866,8 +1867,8 @@ public class ServeisRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static PersonesRDTO validateUsuariLogueadoInteressadesExpedient(List<PersonesRDTO> personesInteressades,
-			PersonesRDTO sollicitantPrincipal, PersonesRDTO representantPrincipal, Resultat resultatError)
-			throws GPAApiParamValidationException {
+	        PersonesRDTO sollicitantPrincipal, PersonesRDTO representantPrincipal, Resultat resultatError)
+	        throws GPAApiParamValidationException {
 
 		ImiUserDetails imiUser = SecurityUtils.getLoggedUserDetails();
 
@@ -1919,7 +1920,7 @@ public class ServeisRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static void validateTerceresPersonesImplicadesExpedient(List<PersonesRDTO> personesImplicades,
-			List<ProcedimentPersones> procedimentPersonesList, Resultat resultatError) throws GPAApiParamValidationException {
+	        List<ProcedimentPersones> procedimentPersonesList, Resultat resultatError) throws GPAApiParamValidationException {
 
 		// TODO GPA-2923 descomentar cuando obtengamos la info del usuario
 		// que hace la peticion
@@ -1958,7 +1959,7 @@ public class ServeisRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static PersonesSollicitudRDTO validateUsuariLogueadoImplicadesExpedient(List<PersonesSollicitudRDTO> personesImplicades,
-			Resultat resultatError) throws GPAApiParamValidationException {
+	        Resultat resultatError) throws GPAApiParamValidationException {
 
 		// TODO GPA-2923 descomentar cuando obtengamos la info del usuario
 		// que hace la peticion
@@ -1986,8 +1987,8 @@ public class ServeisRestControllerValidationHelper {
 	 * @param procedimentPersonesList
 	 */
 	public static ProcedimentPersones validateVisibilitatImplicado(String relacioTerceraPersona, List<DadesOperacions> dadesActualizar,
-			List<ConfiguracioDocsEntradaRDTO> configuacioActualizar, DocsEntradaRDTO docsEntradaRDTO,
-			List<ProcedimentPersones> procedimentPersonesList, Resultat resultatError) throws GPAApiParamValidationException {
+	        List<ConfiguracioDocsEntradaRDTO> configuacioActualizar, DocsEntradaRDTO docsEntradaRDTO,
+	        List<ProcedimentPersones> procedimentPersonesList, Resultat resultatError) throws GPAApiParamValidationException {
 
 		// TODO GPA-2923 descomentar cuando obtengamos la info del usuario
 		// que hace la peticion
@@ -2071,7 +2072,7 @@ public class ServeisRestControllerValidationHelper {
 	 * @throws GPAApiParamValidationException
 	 */
 	public static void validateTerceresPersonesProcediment(List<PersonesRDTO> personesImplicades, DadesProcedimentBDTO dadesProcedimentBDTO,
-			Resultat resultatError) throws GPAApiParamValidationException {
+	        Resultat resultatError) throws GPAApiParamValidationException {
 
 		// TODO GPA-2923 descomentar cuando obtengamos la info del usuario
 		/*
@@ -2097,7 +2098,7 @@ public class ServeisRestControllerValidationHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static void validateSignaturaValid(SignaturaValidDocumentRDTO signaturaValidDocumentRDTO, Resultat resultatError)
-			throws GPAApiParamValidationException {
+	        throws GPAApiParamValidationException {
 
 		// Se valida el formato del token JWT
 		if (StringUtils.isBlank(signaturaValidDocumentRDTO.getInformacioToken())) {
@@ -2128,6 +2129,23 @@ public class ServeisRestControllerValidationHelper {
 	public static void validateUsuari(UsuarisRDTO usuarisRDTO, Resultat resultatError) throws GPAApiParamValidationException {
 		if (usuarisRDTO == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_UNITATS_USUARI_NOT_FOUND);
+		}
+	}
+
+	/**
+	 * Validate peticio amb documents signats.
+	 *
+	 * @param peticioAmbDocumentsSignats
+	 *            the peticio amb documents signats
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validatePeticioAmbDocumentsSignats(Boolean peticioAmbDocumentsSignats, Resultat resultatError)
+	        throws GPAApiParamValidationException {
+		if (BooleanUtils.isFalse(peticioAmbDocumentsSignats)) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_PETICIO_SIGNATURA_SENSE_DOCUMENTS_SIGNATS);
 		}
 	}
 }

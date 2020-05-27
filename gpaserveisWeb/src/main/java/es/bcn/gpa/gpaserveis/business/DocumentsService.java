@@ -662,5 +662,35 @@ public interface DocumentsService {
 	 */
 	void guardarXmlSollicitud(String idDocumentum, String xmlSolicitud) throws GPAServeisServiceException;
 
+	/**
+	 * Consultar dades signatura by codi peticio.
+	 *
+	 * @param codiPeticio
+	 *            the codi peticio
+	 * @return the dades signatura
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	DadesSignatura consultarDadesSignaturaByCodiPeticio(String codiPeticio) throws GPAServeisServiceException;
+
+	/**
+	 * Peticio amb documents signats.
+	 *
+	 * @param idPeticio
+	 *            the id peticio
+	 * @return the boolean
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	Boolean peticioAmbDocumentsSignats(String idPeticio) throws GPAServeisServiceException;
+
+	/**
+	 * Finalitzar signatura tablet.
+	 *
+	 * @param idPeticio
+	 *            the id peticio
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void finalitzarSignaturaTablet(String idPeticio) throws GPAServeisServiceException;
 }

@@ -96,6 +96,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsRetornarB
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsTancarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsValidarBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaFinalitzarSignarManuscritaDocumentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaInscriureEnRegistreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaObtenirPerInteroperabilitatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaPublicarPerAInformacioPublicaBDTO;
@@ -185,6 +186,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actu
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar.RespostaActualitzarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.esborrar.RespostaEsborrarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.resolucio.validar.RespostaResolucioValidarDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.FinalitzacioSignaturaManuscritaDocumentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.RespostaFinalitzarSignarManuscritaDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.RespostaSignarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.SignaturaDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.SignaturaValidDocumentRDTO;
@@ -1704,9 +1707,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	@ApiOperation(value = "Validar un document", tags = { "Serveis Tramitadors API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaResolucioValidarDocumentRDTO validarResolucioDocument(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocResolucio,
-			@ApiParam(value = "Informació addicional per a la signatura", required = true) @RequestBody SignaturaDocumentRDTO signaturaDocument) {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocResolucio,
+	        @ApiParam(value = "Informació addicional per a la signatura", required = true) @RequestBody SignaturaDocumentRDTO signaturaDocument) {
 
 		if (log.isDebugEnabled()) {
 			log.debug("validarResolucioDocument(String, BigDecimal, PersonaValidarResolucioDocumentRDTO) - inici"); //$NON-NLS-1$
@@ -1921,6 +1924,50 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		return respostaSignarDocumentRDTO;
+	}
+
+	@PostMapping("/expedients/documentacio/signar/manuscrita/finalitzar")
+	@ApiOperation(value = "Finalitzar una petició de signatura manuscrita", tags = { "Serveis Tramitadors API" }, extensions = {
+	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaFinalitzarSignarManuscritaDocumentRDTO finalitzarSignarManuscrita(
+	        @ApiParam(value = "Informació necessària per a finalitzar una petició de signatura manuscrita", required = true) @RequestBody FinalitzacioSignaturaManuscritaDocumentRDTO finalitzacioSignaturaManuscritaDocument) {
+
+		if (log.isDebugEnabled()) {
+			log.debug("finalitzarSignarManuscrita(FinalitzacioSignaturaManuscritaDocumentRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		RespostaFinalitzarSignarManuscritaDocumentRDTO respostaFinalitzarSignarManuscritaDocumentRDTO = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_SIGNAR_DOCUMENT);
+
+		try {
+			// Primero se lanza una validación que compruebe si la petición
+			// contiene documentos firmados
+			ServeisRestControllerValidationHelper.validatePeticioAmbDocumentsSignats(
+			        serveisService.peticioAmbDocumentsSignats(finalitzacioSignaturaManuscritaDocument.getIdPeticio()),
+			        Resultat.ERROR_SIGNAR_DOCUMENT);
+
+			// Si la petición contiene documentos firmados se procede con la
+			// finalización del proceso de firma
+			serveisService.finalitzarSignaturaTablet(finalitzacioSignaturaManuscritaDocument.getIdPeticio());
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("signarDocumentOnline(BigDecimal[], SignaturaValidDocumentRDTO)", e); // $NON-NLS-1$
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("signarDocumentOnline(BigDecimal[], SignaturaValidDocumentRDTO)", e); // $NON-NLS-1$
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_SIGNAR_DOCUMENT, e);
+		}
+
+		RespostaFinalitzarSignarManuscritaDocumentBDTO respostaFinalitzarSignarManuscritaDocumentBDTO = new RespostaFinalitzarSignarManuscritaDocumentBDTO(
+		        respostaResultatBDTO);
+		respostaFinalitzarSignarManuscritaDocumentRDTO = modelMapper.map(respostaFinalitzarSignarManuscritaDocumentBDTO,
+		        RespostaFinalitzarSignarManuscritaDocumentRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("signarDocumentOnline(BigDecimal[], SignaturaValidDocumentRDTO) - fi"); //$NON-NLS-1$
+		}
+
+		return respostaFinalitzarSignarManuscritaDocumentRDTO;
 	}
 
 	/**
