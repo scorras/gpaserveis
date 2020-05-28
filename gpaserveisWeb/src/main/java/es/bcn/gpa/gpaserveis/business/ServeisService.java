@@ -557,7 +557,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument, BigDecimal visibilitat)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Descarregar document expedient.
@@ -793,7 +793,7 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	RetornTramitacio retornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Canviar unitat gestora expedient.
@@ -1340,4 +1340,13 @@ public interface ServeisService {
 	 */
 	UnitatsOrganigramaRDTO consultarDadesUnitatOrganigrama(BigDecimal idUnitatGestora) throws GPAServeisServiceException;
 
+	/**
+	 * Incrementar reintents signatura.
+	 *
+	 * @param idDocument
+	 *            the idDocument to increment
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void incrementarReintentsSignatura(BigDecimal idDocument) throws GPAServeisServiceException;
 }

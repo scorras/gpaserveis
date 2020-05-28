@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.21.0"
+  version: "1.22.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -2127,6 +2127,36 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /signatures/incrementarReintentsSignatura/{idDocument}:
+    post:
+      tags:
+      - "Signatures"
+      summary: "Incrementa els reintents de la signatura"
+      operationId: "incrementarReintentsSignatura"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDocument"
+        in: "path"
+        description: "idDocument"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /signatures/signarSegell:
     post:
       tags:
@@ -2992,6 +3022,9 @@ definitions:
         type: "number"
       idTabletUsuari:
         type: "string"
+      reintents:
+        type: "integer"
+        format: "int32"
       signat:
         type: "integer"
         format: "int32"
@@ -3015,6 +3048,8 @@ definitions:
       comunicat:
         type: "integer"
         format: "int32"
+      confDocsTramPolitiquesSig:
+        $ref: "#/definitions/ConfDocsTramPolitiquesSig"
       configDocTramitacio:
         type: "number"
       configuracioDocsTramitacio:
@@ -3607,6 +3642,9 @@ definitions:
       idTabletUsuari:
         type: "string"
         description: "Identificador de la tauleta on signarà l'usuari"
+      politicaSignatura:
+        type: "string"
+        description: "Nom de la política de signatura"
     title: "SignarTabletDocument"
   SignarTabletDocumentResponse:
     type: "object"
@@ -3630,6 +3668,9 @@ definitions:
       informacioToken:
         type: "string"
         description: "Informació de token"
+      politicaSignatura:
+        type: "string"
+        description: "Nom de la política de signatura"
       valorToken:
         type: "string"
         description: "Valor de token"

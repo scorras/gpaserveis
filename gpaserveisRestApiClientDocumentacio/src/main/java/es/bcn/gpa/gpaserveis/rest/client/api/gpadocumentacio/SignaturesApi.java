@@ -32,7 +32,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-15T00:37:46.386+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-28T16:18:30.394+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.SignaturesApi")
 public class SignaturesApi {
     private ApiClient apiClient;
@@ -212,6 +212,48 @@ public class SignaturesApi {
 
         ParameterizedTypeReference<byte[]> returnType = new ParameterizedTypeReference<byte[]>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Incrementa els reintents de la signatura
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>201</b> - Created
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param idDocument idDocument
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public void incrementarReintentsSignatura(BigDecimal idDocument) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'idDocument' is set
+        if (idDocument == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idDocument' when calling incrementarReintentsSignatura");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("idDocument", idDocument);
+        String path = UriComponentsBuilder.fromPath("/signatures/incrementarReintentsSignatura/{idDocument}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { 
+            "application/json"
+        };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {};
+        apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
      * Crear una petició per signar un document
