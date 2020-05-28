@@ -708,9 +708,8 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 
 	@Test
 	public void testStage84_PostFinalitzarSignarManuscrita() throws Exception {
-		String url = BASE_URL + "/expedients/documentacio/signar/manuscrita/finalitzar";
-		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{ \"idPeticio\":\"1\" }")).andExpect(status().isOk())
-		        .andDo(print());
+		String url = BASE_URL + "/expedients/1/documentacio/1/signar/manuscrita/finalitzar";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("")).andExpect(status().isOk()).andDo(print());
 	}
 
 }

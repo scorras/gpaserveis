@@ -186,7 +186,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actu
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar.RespostaActualitzarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.esborrar.RespostaEsborrarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.resolucio.validar.RespostaResolucioValidarDocumentRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.FinalitzacioSignaturaManuscritaDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.RespostaFinalitzarSignarManuscritaDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.RespostaSignarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.SignaturaDocumentRDTO;
@@ -1822,7 +1821,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// indicado
 			DocsTramitacioRDTO docsTramitacioRDTO = serveisService.consultarDadesDocumentGenerat(idDocument);
 			ServeisRestControllerValidationHelper.validateDocumentGenerat(docsTramitacioRDTO, dadesExpedientBDTO,
-			        Resultat.ERROR_COMPLETAR_DOCUMENT_EXPEDIENT);
+			        Resultat.ERROR_SIGNAR_DOCUMENT);
 
 			// Comprobar si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
@@ -1926,35 +1925,60 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		return respostaSignarDocumentRDTO;
 	}
 
-	@PostMapping("/expedients/documentacio/signar/manuscrita/finalitzar")
+	/**
+	 * Finalitzar signar manuscrita.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param idDocument
+	 *            the id document
+	 * @return the resposta finalitzar signar manuscrita document RDTO
+	 */
+	@PostMapping("/expedients/{codiExpedient}/documentacio/{idDocument}/signar/manuscrita/finalitzar")
 	@ApiOperation(value = "Finalitzar una petició de signatura manuscrita", tags = { "Serveis Tramitadors API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaFinalitzarSignarManuscritaDocumentRDTO finalitzarSignarManuscrita(
-	        @ApiParam(value = "Informació necessària per a finalitzar una petició de signatura manuscrita", required = true) @RequestBody FinalitzacioSignaturaManuscritaDocumentRDTO finalitzacioSignaturaManuscritaDocument) {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument) {
 
 		if (log.isDebugEnabled()) {
-			log.debug("finalitzarSignarManuscrita(FinalitzacioSignaturaManuscritaDocumentRDTO) - inici"); //$NON-NLS-1$
+			log.debug("finalitzarSignarManuscrita() - inici"); //$NON-NLS-1$
 		}
 
 		RespostaFinalitzarSignarManuscritaDocumentRDTO respostaFinalitzarSignarManuscritaDocumentRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_SIGNAR_DOCUMENT);
 
 		try {
-			// Primero se lanza una validación que compruebe si la petición
+			// El codi del expediente debe existir
+			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
+			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_SIGNAR_DOCUMENT);
+
+			// El id del documento debe existir y pertenecer al expediente
+			// indicado
+			DocsTramitacioRDTO docsTramitacioRDTO = serveisService.consultarDadesDocumentGenerat(idDocument);
+			ServeisRestControllerValidationHelper.validateDocumentGenerat(docsTramitacioRDTO, dadesExpedientBDTO,
+			        Resultat.ERROR_SIGNAR_DOCUMENT);
+
+			// la modalidad de firma pendiente del documento debe ser Manuscrita
+			ServeisRestControllerValidationHelper.validateSeguentSignaturaManuscrita(docsTramitacioRDTO, Resultat.ERROR_SIGNAR_DOCUMENT);
+
+			// Se lanza una validación que compruebe si la petición
 			// contiene documentos firmados
-			ServeisRestControllerValidationHelper.validatePeticioAmbDocumentsSignats(
-			        serveisService.peticioAmbDocumentsSignats(finalitzacioSignaturaManuscritaDocument.getIdPeticio()),
+			String idPeticio = docsTramitacioRDTO.getDocsSignaturesPendents().get(0).getTicketPeticio().toString();
+			ServeisRestControllerValidationHelper.validatePeticioAmbDocumentsSignats(serveisService.peticioAmbDocumentsSignats(idPeticio),
 			        Resultat.ERROR_SIGNAR_DOCUMENT);
 
 			// Si la petición contiene documentos firmados se procede con la
 			// finalización del proceso de firma
-			serveisService.finalitzarSignaturaTablet(finalitzacioSignaturaManuscritaDocument.getIdPeticio());
+			serveisService.finalitzarSignaturaTablet(idPeticio);
 
 		} catch (GPAApiParamValidationException e) {
-			log.error("signarDocumentOnline(BigDecimal[], SignaturaValidDocumentRDTO)", e); // $NON-NLS-1$
+			log.error("finalitzarSignarManuscrita()", e); // $NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 		} catch (Exception e) {
-			log.error("signarDocumentOnline(BigDecimal[], SignaturaValidDocumentRDTO)", e); // $NON-NLS-1$
+			log.error("finalitzarSignarManuscrita()", e); // $NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_SIGNAR_DOCUMENT, e);
 		}
 
@@ -1964,7 +1988,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		        RespostaFinalitzarSignarManuscritaDocumentRDTO.class);
 
 		if (log.isDebugEnabled()) {
-			log.debug("signarDocumentOnline(BigDecimal[], SignaturaValidDocumentRDTO) - fi"); //$NON-NLS-1$
+			log.debug("finalitzarSignarManuscrita() - fi"); //$NON-NLS-1$
 		}
 
 		return respostaFinalitzarSignarManuscritaDocumentRDTO;

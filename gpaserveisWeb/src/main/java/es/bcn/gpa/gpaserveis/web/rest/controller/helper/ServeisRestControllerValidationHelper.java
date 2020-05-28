@@ -54,6 +54,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.BooleanApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusSignaturaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.RelacioPersonaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.TipusRelacioApiParamValue;
@@ -2146,6 +2147,25 @@ public class ServeisRestControllerValidationHelper {
 	        throws GPAApiParamValidationException {
 		if (BooleanUtils.isFalse(peticioAmbDocumentsSignats)) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_PETICIO_SIGNATURA_SENSE_DOCUMENTS_SIGNATS);
+		}
+	}
+
+	/**
+	 * Validate seguent signatura manuscrita.
+	 *
+	 * @param docsTramitacioRDTO
+	 *            the docs tramitacio RDTO
+	 * @param errorSignarDocument
+	 *            the error signar document
+	 * @throws GPAApiParamValidationException
+	 */
+	public static void validateSeguentSignaturaManuscrita(DocsTramitacioRDTO docsTramitacioRDTO, Resultat resultatError)
+	        throws GPAApiParamValidationException {
+		if (CollectionUtils.isEmpty(docsTramitacioRDTO.getDocsSignaturesPendents())
+		        || docsTramitacioRDTO.getDocsSignaturesPendents().get(0).getConfDocsTramPolitiquesSigEntity() == null
+		        || docsTramitacioRDTO.getDocsSignaturesPendents().get(0).getConfDocsTramPolitiquesSigEntity().getModalitatIdext()
+		                .compareTo(TipusSignaturaApiParamValue.MANUSCRITA.getInternalValue()) != NumberUtils.INTEGER_ZERO) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_SENSE_PETICIO_SIGNATURA_MANUSCRITA);
 		}
 	}
 }

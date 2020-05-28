@@ -138,7 +138,9 @@ public enum ErrorPrincipal {
 
 	ERROR_TOKEN_JWT_SIGNAR_VALID("4013", "El format de el token de Valid no és correcte"),
 
-	ERROR_PETICIO_SIGNATURA_SENSE_DOCUMENTS_SIGNATS("4014", "La petició de signatura no té documents signats associats"),
+	ERROR_SENSE_PETICIO_SIGNATURA_MANUSCRITA("4014", "El document no té una petició de signatura manuscrita associada"),
+
+	ERROR_PETICIO_SIGNATURA_SENSE_DOCUMENTS_SIGNATS("4015", "La petició de signatura no té documents signats associats"),
 
 	/* Integracions */
 	ERROR_ARIADNA("5001", ""),

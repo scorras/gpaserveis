@@ -18,6 +18,7 @@ import org.apache.commons.lang.math.NumberUtils;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AtributsDocs;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocsTramPolitiquesSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntrada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacio;
@@ -25,6 +26,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsSignatures;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
@@ -1452,6 +1454,11 @@ public class TestsConfigHelper {
 		ConfiguracioDocsTramitacio configuracioDocsTramitacio = new ConfiguracioDocsTramitacio();
 		configuracioDocsTramitacio.setId(ONE);
 		configuracioDocsTramitacio.setNom("Nom");
+		ConfDocsTramPolitiquesSig confDocsTramPolitiquesSig = new ConfDocsTramPolitiquesSig();
+		confDocsTramPolitiquesSig.setModalitatIdext(new BigDecimal(2));
+		DocsSignatures docsSignatures = new DocsSignatures();
+		docsSignatures.setTicketPeticio(ONE);
+		docsSignatures.setConfDocsTramPolitiquesSigEntity(confDocsTramPolitiquesSig);
 		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
 		docsTramitacioRDTO.setId(ONE);
 		docsTramitacioRDTO.setDocsFisics(docsFisics);
@@ -1462,6 +1469,7 @@ public class TestsConfigHelper {
 		docsTramitacioRDTO.setDataDigitalitzacio(now());
 		docsTramitacioRDTO.setDataUltimaModificacio(now());
 		docsTramitacioRDTO.setDocumentacio(ONE);
+		docsTramitacioRDTO.setDocsSignaturesPendents(Arrays.asList(docsSignatures));
 
 		return docsTramitacioRDTO;
 	}
