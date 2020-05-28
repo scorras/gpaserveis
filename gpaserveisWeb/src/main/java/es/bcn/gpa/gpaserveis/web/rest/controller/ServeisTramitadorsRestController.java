@@ -1810,6 +1810,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_SIGNAR_DOCUMENT);
 		PeticionsPortasig peticionsPortasig = null;
+		boolean signat = false;
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
@@ -1831,69 +1832,28 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			TipusSignaturaApiParamValueTranslator tipusSignaturaApiParamValueTranslator = new TipusSignaturaApiParamValueTranslator();
 			TipusSignaturaApiParamValue tipusSignaturaApiParamValue = tipusSignaturaApiParamValueTranslator
 					.getEnumByApiParamValue(signaturaDocument.getModalitatSignatura());
-			switch (tipusSignaturaApiParamValue) {
-			case SEGELL:
 
-				SignarSegellDocument signarSegellDocumentRDTO = new SignarSegellDocument();
-				signarSegellDocumentRDTO.setIdDocument(idDocument);
-				signarSegellDocumentRDTO.setPoliticaSignatura(signaturaDocument.getPoliticaSignatura());
-				SignarSegellDocument signarSegellDocumentResponse = serveisService.signarSegellDocument(signarSegellDocumentRDTO);
+			// se realizaran 3 intentos de firma si hay fallo dos en bucle para
+			// relanzar y el ultimo fuera para finalizar el ciclo
+			try {
+				for (int i = 0; i < 2 && !signat; i++) {
 
-				if (signarSegellDocumentResponse != null && StringUtils.isNotEmpty(signarSegellDocumentResponse.getDescError())) {
+					peticionsPortasig = processarSignatura(idDocument, signaturaDocument, dadesExpedientBDTO, peticionsPortasig,
+							tipusSignaturaApiParamValue);
 
-					// TODO Lanzar las excepciones de integración en los propios
-					// módulos de integración
-					StringBuilder strMessageError = new StringBuilder(Constants.MISSATGE_ERROR_SIGNATURES);
-					throw new GPAServeisServiceException(strMessageError.append(": ").append(signarSegellDocumentResponse.getCodiError())
-							.append(": ").append(signarSegellDocumentResponse.getDescError()).toString());
+					signat = true;
 				}
+			} catch (Exception e) {
+				log.error("signarDocument(String, BigDecimal, UsuariPortaSigRDTO)", e); // $NON-NLS-1$
 
-				break;
-
-			case MANUSCRITA:
-
-				SignarTabletDocument signarTabletDocumentRDTO = new SignarTabletDocument();
-				signarTabletDocumentRDTO.setIdDocument(idDocument);
-				signarTabletDocumentRDTO.setIdTabletUsuari(signaturaDocument.getUsuariManuscrita().getIdTabletUsuari());
-				signarTabletDocumentRDTO.setPoliticaSignatura(signaturaDocument.getPoliticaSignatura());
-
-				SignarTabletDocumentResponse signarTabletDocumentResponse = serveisService.signarTabletDocument(signarTabletDocumentRDTO);
-
-				if (signarTabletDocumentResponse != null && StringUtils.isNotEmpty(signarTabletDocumentResponse.getDescError())) {
-
-					// TODO Lanzar las excepciones de integración en los propios
-					// módulos de integración
-					StringBuilder strMessageError = new StringBuilder(Constants.MISSATGE_ERROR_SIGNATURES);
-					throw new GPAServeisServiceException(strMessageError.append(": ").append(signarTabletDocumentResponse.getCodiError())
-							.append(": ").append(signarTabletDocumentResponse.getDescError()).toString());
-				}
-
-				break;
-
-			case PORTASIGNATURES:
-			default:
-
-				// El usuario indicado debe existir
-				UsuarisRDTO usuarisRDTO = serveisService.consultarDadesUsuari(signaturaDocument.getUsuariPortasig().getMatricula());
-				ServeisRestControllerValidationHelper.validateUsuari(usuarisRDTO, Resultat.ERROR_SIGNAR_DOCUMENT);
-
-				// Firmar documento
-				UnitatsOrganigramaRDTO unitatsOrganigramaRDTO = serveisService
-						.consultarDadesUnitatOrganigrama(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
-
-				SignarPortasignaturesDocument signarPortasignaturesDocument = new SignarPortasignaturesDocument();
-				signarPortasignaturesDocument.setIdDocument(idDocument);
-				signarPortasignaturesDocument.setAccio(TipusAccionsPortaSigApiParamValue.SIGNAR_DOCUMENT.getInternalValue());
-				signarPortasignaturesDocument.setCodiUnitatOrganigrama(unitatsOrganigramaRDTO.getCodi());
-				signarPortasignaturesDocument.setMatriculaUsuari(usuarisRDTO.getMatricula());
-				signarPortasignaturesDocument.setNomProcediment(dadesExpedientBDTO.getExpedientsRDTO().getNomProcediment());
-				signarPortasignaturesDocument.setPoliticaSignatura(signaturaDocument.getPoliticaSignatura());
-
-				peticionsPortasig = serveisService.signarValidarDocument(signarPortasignaturesDocument);
-
-				break;
-
+				serveisService.incrementarReintentsSignatura(idDocument);
 			}
+
+			if (!signat) {
+				peticionsPortasig = processarSignatura(idDocument, signaturaDocument, dadesExpedientBDTO, peticionsPortasig,
+						tipusSignaturaApiParamValue);
+			}
+
 		} catch (GPAApiParamValidationException e) {
 			log.error("signarDocument(String, BigDecimal, UsuariPortaSigRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
@@ -1901,7 +1861,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			log.error("signarDocument(String, BigDecimal, UsuariPortaSigRDTO)", e); // $NON-NLS-1$
 
 			serveisService.incrementarReintentsSignatura(idDocument);
-
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_SIGNAR_DOCUMENT, e);
 		}
 
@@ -3911,4 +3870,82 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		return respostaDigitalitzarDocumentRDTO;
 	}
 
+	/**
+	 * @param idDocument
+	 * @param signaturaDocument
+	 * @param dadesExpedientBDTO
+	 * @param peticionsPortasig
+	 * @param tipusSignaturaApiParamValue
+	 * @return
+	 * @throws GPAServeisServiceException
+	 * @throws GPAApiParamValidationException
+	 */
+	private PeticionsPortasig processarSignatura(BigDecimal idDocument, SignaturaDocumentRDTO signaturaDocument,
+			DadesExpedientBDTO dadesExpedientBDTO, PeticionsPortasig peticionsPortasig,
+			TipusSignaturaApiParamValue tipusSignaturaApiParamValue) throws GPAServeisServiceException, GPAApiParamValidationException {
+		switch (tipusSignaturaApiParamValue) {
+		case SEGELL:
+
+			SignarSegellDocument signarSegellDocumentRDTO = new SignarSegellDocument();
+			signarSegellDocumentRDTO.setIdDocument(idDocument);
+			signarSegellDocumentRDTO.setPoliticaSignatura(signaturaDocument.getPoliticaSignatura());
+			SignarSegellDocument signarSegellDocumentResponse = serveisService.signarSegellDocument(signarSegellDocumentRDTO);
+
+			if (signarSegellDocumentResponse != null && StringUtils.isNotEmpty(signarSegellDocumentResponse.getDescError())) {
+
+				// TODO Lanzar las excepciones de integración en los propios
+				// módulos de integración
+				StringBuilder strMessageError = new StringBuilder(Constants.MISSATGE_ERROR_SIGNATURES);
+				throw new GPAServeisServiceException(strMessageError.append(": ").append(signarSegellDocumentResponse.getCodiError())
+						.append(": ").append(signarSegellDocumentResponse.getDescError()).toString());
+			}
+
+			break;
+
+		case MANUSCRITA:
+
+			SignarTabletDocument signarTabletDocumentRDTO = new SignarTabletDocument();
+			signarTabletDocumentRDTO.setIdDocument(idDocument);
+			signarTabletDocumentRDTO.setIdTabletUsuari(signaturaDocument.getUsuariManuscrita().getIdTabletUsuari());
+			signarTabletDocumentRDTO.setPoliticaSignatura(signaturaDocument.getPoliticaSignatura());
+
+			SignarTabletDocumentResponse signarTabletDocumentResponse = serveisService.signarTabletDocument(signarTabletDocumentRDTO);
+
+			if (signarTabletDocumentResponse != null && StringUtils.isNotEmpty(signarTabletDocumentResponse.getDescError())) {
+
+				// TODO Lanzar las excepciones de integración en los propios
+				// módulos de integración
+				StringBuilder strMessageError = new StringBuilder(Constants.MISSATGE_ERROR_SIGNATURES);
+				throw new GPAServeisServiceException(strMessageError.append(": ").append(signarTabletDocumentResponse.getCodiError())
+						.append(": ").append(signarTabletDocumentResponse.getDescError()).toString());
+			}
+
+			break;
+
+		case PORTASIGNATURES:
+		default:
+
+			// El usuario indicado debe existir
+			UsuarisRDTO usuarisRDTO = serveisService.consultarDadesUsuari(signaturaDocument.getUsuariPortasig().getMatricula());
+			ServeisRestControllerValidationHelper.validateUsuari(usuarisRDTO, Resultat.ERROR_SIGNAR_DOCUMENT);
+
+			// Firmar documento
+			UnitatsOrganigramaRDTO unitatsOrganigramaRDTO = serveisService
+					.consultarDadesUnitatOrganigrama(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
+
+			SignarPortasignaturesDocument signarPortasignaturesDocument = new SignarPortasignaturesDocument();
+			signarPortasignaturesDocument.setIdDocument(idDocument);
+			signarPortasignaturesDocument.setAccio(TipusAccionsPortaSigApiParamValue.SIGNAR_DOCUMENT.getInternalValue());
+			signarPortasignaturesDocument.setCodiUnitatOrganigrama(unitatsOrganigramaRDTO.getCodi());
+			signarPortasignaturesDocument.setMatriculaUsuari(usuarisRDTO.getMatricula());
+			signarPortasignaturesDocument.setNomProcediment(dadesExpedientBDTO.getExpedientsRDTO().getNomProcediment());
+			signarPortasignaturesDocument.setPoliticaSignatura(signaturaDocument.getPoliticaSignatura());
+
+			peticionsPortasig = serveisService.signarValidarDocument(signarPortasignaturesDocument);
+
+			break;
+
+		}
+		return peticionsPortasig;
+	}
 }
