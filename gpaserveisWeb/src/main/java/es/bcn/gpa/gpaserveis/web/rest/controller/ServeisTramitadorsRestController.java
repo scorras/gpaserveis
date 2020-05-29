@@ -1835,18 +1835,18 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// se realizaran 3 intentos de firma si hay fallo dos en bucle para
 			// relanzar y el ultimo fuera para finalizar el ciclo
-			try {
-				for (int i = 0; i < 2 && !signat; i++) {
-
+			for (int i = 0; i < 2 && !signat; i++) {
+				try {
 					peticionsPortasig = processarSignatura(idDocument, signaturaDocument, dadesExpedientBDTO, peticionsPortasig,
 							tipusSignaturaApiParamValue);
 
 					signat = true;
-				}
-			} catch (Exception e) {
-				log.error("signarDocument(String, BigDecimal, UsuariPortaSigRDTO)", e); // $NON-NLS-1$
 
-				serveisService.incrementarReintentsSignatura(idDocument);
+				} catch (Exception e) {
+					log.error("signarDocument(String, BigDecimal, UsuariPortaSigRDTO)", e); // $NON-NLS-1$
+
+					serveisService.incrementarReintentsSignatura(idDocument);
+				}
 			}
 
 			if (!signat) {
