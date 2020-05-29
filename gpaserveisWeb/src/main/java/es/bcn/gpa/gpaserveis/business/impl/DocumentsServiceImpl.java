@@ -49,7 +49,9 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.NotificacionsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.SignaturesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackManuscrita;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesSignatura;
@@ -64,10 +66,12 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfCon
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsDigitalitzacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarPortasignaturesDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocumentResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocumentResponse;
 import lombok.extern.apachecommons.CommonsLog;
 
 /**
@@ -93,6 +97,10 @@ public class DocumentsServiceImpl implements DocumentsService {
 	/** The documentacio api. */
 	@Autowired
 	private DocumentacioApi documentacioApi;
+
+	/** The signatures api. */
+	@Autowired
+	private SignaturesApi signaturesApi;
 
 	/** The documentacio requerit api. */
 	@Autowired
@@ -270,24 +278,26 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
-	 * cercaDocumentsEntradaPerSollicitud(java.math.BigDecimal)
+	 * cercaDocumentsEntradaPerSollicitud(java.math.BigDecimal,
+	 * java.math.BigDecimal)
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCercaDocumentsEntradaPerSollicitud")
-	public List<DocsEntradaRDTO> cercaDocumentsEntradaPerSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException {
+	public List<DocsEntradaRDTO> cercaDocumentsEntradaPerSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("cercaDocumentsEntradaPerSollicitud(BigDecimal) - inici"); //$NON-NLS-1$
+			log.debug("cercaDocumentsEntradaPerSollicitud(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			List<DocsEntradaRDTO> docsEntradaRDTOList = documentacioApi.cercaDocumentsEntradaPerSollicitud(idSollicitud);
+			List<DocsEntradaRDTO> docsEntradaRDTOList = documentacioApi.cercaDocumentsEntradaPerSollicitud(idSollicitud, visibilitat);
 
 			if (log.isDebugEnabled()) {
-				log.debug("cercaDocumentsEntradaPerSollicitud(BigDecimal) - fi"); //$NON-NLS-1$
+				log.debug("cercaDocumentsEntradaPerSollicitud(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return docsEntradaRDTOList;
 		} catch (RestClientException e) {
-			log.error("cercaDocumentsEntradaPerSollicitud(BigDecimal)", e); //$NON-NLS-1$
+			log.error("cercaDocumentsEntradaPerSollicitud(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
@@ -304,10 +314,10 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public List<DocsEntradaRDTO> fallbackCercaDocumentsEntradaPerSollicitud(BigDecimal idSollicitud, Throwable e)
+	public List<DocsEntradaRDTO> fallbackCercaDocumentsEntradaPerSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat, Throwable e)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackCercaDocumentsEntradaPerSollicitud(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+			log.debug("fallbackCercaDocumentsEntradaPerSollicitud(BigDecimal, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
@@ -319,24 +329,27 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
-	 * cercaDocumentsEntradaAgrupatsPerTramitOvt(java.math.BigDecimal)
+	 * cercaDocumentsEntradaAgrupatsPerTramitOvt(java.math.BigDecimal,
+	 * java.math.BigDecimal)
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackCercaDocumentsEntradaAgrupatsPerTramitOvt")
-	public List<DocsEntradaRDTO> cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal idDocumentacio) throws GPAServeisServiceException {
+	public List<DocsEntradaRDTO> cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal idDocumentacio, BigDecimal visibilitat)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal) - inici"); //$NON-NLS-1$
+			log.debug("cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			List<DocsEntradaRDTO> docsEntradaRDTOList = documentacioApi.cercaDocumentsEntradaAgrupatsPerTramitOvt(idDocumentacio);
+			List<DocsEntradaRDTO> docsEntradaRDTOList = documentacioApi.cercaDocumentsEntradaAgrupatsPerTramitOvt(idDocumentacio,
+					visibilitat);
 
 			if (log.isDebugEnabled()) {
-				log.debug("cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal) - fi"); //$NON-NLS-1$
+				log.debug("cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return docsEntradaRDTOList;
 		} catch (RestClientException e) {
-			log.error("cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal)", e); //$NON-NLS-1$
+			log.error("cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
@@ -353,10 +366,10 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public List<DocsEntradaRDTO> fallbackCercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal idDocumentacio, Throwable e)
-			throws GPAServeisServiceException {
+	public List<DocsEntradaRDTO> fallbackCercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal idDocumentacio, BigDecimal visibilitat,
+			Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackCercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+			log.debug("fallbackCercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
@@ -1294,24 +1307,26 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
-	 * consultarDadesDocumentAportatPerCodiCSV(java.lang.String)
+	 * consultarDadesDocumentAportatPerCodiCSV(java.lang.String,
+	 * java.math.BigDecimal)
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesDocumentAportatPerCodiCSV")
-	public DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String csvDocument) throws GPAServeisServiceException {
+	public DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String csvDocument, BigDecimal visibilitat)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("consultarDadesDocumentAportatPerCodiCSV(String) - inici"); //$NON-NLS-1$
+			log.debug("consultarDadesDocumentAportatPerCodiCSV(String, BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.consultarDadesDocumentAportatPerCodiCSV(csvDocument);
+			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.consultarDadesDocumentAportatPerCodiCSV(csvDocument, visibilitat);
 
 			if (log.isDebugEnabled()) {
-				log.debug("consultarDadesDocumentAportatPerCodiCSV(String) - fi"); //$NON-NLS-1$
+				log.debug("consultarDadesDocumentAportatPerCodiCSV(String, BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return docsEntradaRDTO;
 		} catch (RestClientException e) {
-			log.error("consultarDadesDocumentAportatPerCodiCSV(String)", e); //$NON-NLS-1$
+			log.error("consultarDadesDocumentAportatPerCodiCSV(String, BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
@@ -1328,10 +1343,10 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public DocsEntradaRDTO fallbackConsultarDadesDocumentAportatPerCodiCSV(String csvDocument, Throwable e)
+	public DocsEntradaRDTO fallbackConsultarDadesDocumentAportatPerCodiCSV(String csvDocument, BigDecimal visibilitat, Throwable e)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackConsultarDadesDocumentAportatPerCodiCSV(String, Throwable) - inici"); //$NON-NLS-1$
+			log.debug("fallbackConsultarDadesDocumentAportatPerCodiCSV(String, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
@@ -1391,24 +1406,26 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
-	 * consultarDadesDocumentGeneratPerCodiCSV(java.lang.String)
+	 * consultarDadesDocumentGeneratPerCodiCSV(java.lang.String,
+	 * java.math.BigDecimal)
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesDocumentGeneratPerCodiCSV")
-	public DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument) throws GPAServeisServiceException {
+	public DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument, BigDecimal visibilitat)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("consultarDadesDocumentGeneratPerCodiCSV(String) - inici"); //$NON-NLS-1$
+			log.debug("consultarDadesDocumentGeneratPerCodiCSV(String, BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.consultarDadesDocumentGeneratPerCodiCSV(csvDocument);
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.consultarDadesDocumentGeneratPerCodiCSV(csvDocument, visibilitat);
 
 			if (log.isDebugEnabled()) {
-				log.debug("consultarDadesDocumentGeneratPerCodiCSV(String) - fi"); //$NON-NLS-1$
+				log.debug("consultarDadesDocumentGeneratPerCodiCSV(String, BigDecimal) - fi"); //$NON-NLS-1$
 			}
 			return docsTramitacioRDTO;
 		} catch (RestClientException e) {
-			log.error("consultarDadesDocumentGeneratPerCodiCSV(String)", e); //$NON-NLS-1$
+			log.error("consultarDadesDocumentGeneratPerCodiCSV(String, BigDecimal)", e); //$NON-NLS-1$
 
 			throw new GPAServeisServiceException("S'ha produït una incidència", e);
 		}
@@ -1425,10 +1442,10 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public DocsTramitacioRDTO fallbackConsultarDadesDocumentGeneratPerCodiCSV(String csvDocument, Throwable e)
+	public DocsTramitacioRDTO fallbackConsultarDadesDocumentGeneratPerCodiCSV(String csvDocument, BigDecimal visibilitat, Throwable e)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
-			log.debug("fallbackConsultarDadesDocumentGeneratPerCodiCSV(String, Throwable) - inici"); //$NON-NLS-1$
+			log.debug("fallbackConsultarDadesDocumentGeneratPerCodiCSV(String, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
@@ -1504,7 +1521,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 
-			byte[] documentByteArray = downloadApi.descarregarDocumentExpedientSignat(idUltimaSignatura);
+			byte[] documentByteArray = signaturesApi.descarregarDocumentExpedientSignat(idUltimaSignatura);
 
 			if (log.isDebugEnabled()) {
 				log.debug("descarregarDocumentExpedientSignat(BigDecimal) - fi"); //$NON-NLS-1$
@@ -1794,13 +1811,14 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 */
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackSignarValidarDocument")
-	public PeticionsPortasig signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException {
+	public PeticionsPortasig signarValidarDocument(SignarPortasignaturesDocument signarPortasignaturesDocument)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("signarValidarDocument(SignarDocument) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			PeticionsPortasig crearPeticioPortaSig = documentacioApi.crearPeticioPortaSig(signarDocument);
+			PeticionsPortasig crearPeticioPortaSig = signaturesApi.crearPeticioPortaSig(signarPortasignaturesDocument);
 
 			if (log.isDebugEnabled()) {
 				log.debug("signarValidarDocument(SignarDocument) - fi"); //$NON-NLS-1$
@@ -1817,15 +1835,16 @@ public class DocumentsServiceImpl implements DocumentsService {
 	/**
 	 * Fallback signar validar document.
 	 *
-	 * @param signarDocument
-	 *            the signar document
+	 * @param signarPortasignaturesDocument
+	 *            the signar portasignatures document
 	 * @param e
 	 *            the e
-	 * @return the PeticionsPortasig
+	 * @return the peticions portasig
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public PeticionsPortasig fallbackSignarValidarDocument(SignarDocument signarDocument, Throwable e) throws GPAServeisServiceException {
+	public PeticionsPortasig fallbackSignarValidarDocument(SignarPortasignaturesDocument signarPortasignaturesDocument, Throwable e)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackSignarValidarDocument(SignarDocument, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -1850,7 +1869,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			SignarSegellDocument signarSegellDocument = documentacioApi.signarSegell(signarSegellDocumentRDTO);
+			SignarSegellDocument signarSegellDocument = signaturesApi.signarSegell(signarSegellDocumentRDTO);
 
 			if (log.isDebugEnabled()) {
 				log.debug("signarSegellDocument(SignarSegellDocument) - fi"); //$NON-NLS-1$
@@ -1890,6 +1909,58 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#signarValidDocument(es.
+	 * bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.
+	 * SignarValidDocument)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackSignarValidDocument")
+	public SignarValidDocumentResponse signarValidDocument(SignarValidDocument signarValidDocumentRDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("signarValidDocument(SignarValidDocument) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			SignarValidDocumentResponse signarValidDocumentResponse = signaturesApi.signarValid(signarValidDocumentRDTO);
+
+			if (log.isDebugEnabled()) {
+				log.debug("signarValidDocument(SignarValidDocument) - fi"); //$NON-NLS-1$
+			}
+			return signarValidDocumentResponse;
+
+		} catch (RestClientException e) {
+			log.error("signarValidDocument(SignarValidDocument)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback signar valid document.
+	 *
+	 * @param signarValidDocumentRDTO
+	 *            the signar valid document RDTO
+	 * @param e
+	 *            the e
+	 * @return the signar valid document response
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public SignarValidDocumentResponse fallbackSignarValidDocument(SignarValidDocument signarValidDocumentRDTO, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackSignarValidDocument(SignarValidDocument, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
 	 * es.bcn.gpa.gpaserveis.business.DocumentsService#signarTabletDocument(es.
 	 * bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTablet)
 	 */
@@ -1902,7 +1973,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			SignarTabletDocumentResponse signarTabletDocumentResponse = documentacioApi.signarTablet(signarTabletDocumentRDTO);
+			SignarTabletDocumentResponse signarTabletDocumentResponse = signaturesApi.signarTablet(signarTabletDocumentRDTO);
 
 			if (log.isDebugEnabled()) {
 				log.debug("signarTabletDocument(SignarTabletDocument) - fi"); //$NON-NLS-1$
@@ -2172,7 +2243,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			documentacioApi.callbackPortaSig(callbackPortaSig);
+			signaturesApi.callbackPortaSig(callbackPortaSig);
 
 			if (log.isDebugEnabled()) {
 				log.debug("callbackPortaSig(CallbackPortaSig) - fi"); //$NON-NLS-1$
@@ -2787,17 +2858,21 @@ public class DocumentsServiceImpl implements DocumentsService {
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * consultarDadesSignaturaByCodiPeticio(java.lang.String)
+	 */
 	@Override
-	@HystrixCommand(fallbackMethod = "fallbackconsultarDataSignaturaByCodiPeticio")
+	@HystrixCommand(fallbackMethod = "fallbackConsultarDataSignaturaByCodiPeticio")
 	public DadesSignatura consultarDadesSignaturaByCodiPeticio(String codiPeticio) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("obtenirEstatDigitalitzacioDocument(Long) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			// DadesSignaturaRDTO dadesSignaturaRDTO =
-			// documentacioApi.consultarDadesSignatura(codiPeticio);
-			DadesSignatura dadesSignatura = documentacioApi.consultarDadesSignatura(codiPeticio);
+			DadesSignatura dadesSignatura = signaturesApi.consultarDadesSignatura(codiPeticio);
 
 			if (log.isDebugEnabled()) {
 				log.debug("obtenirEstatDigitalitzacioDocument(Long) - fi"); //$NON-NLS-1$
@@ -2811,7 +2886,18 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 	}
 
-	public DadesSignatura fallbackconsultarDataSignaturaByCodiPeticio(String codiPeticio, Throwable e) throws GPAServeisServiceException {
+	/**
+	 * Fallback Consultar data signatura by codi peticio.
+	 *
+	 * @param codiPeticio
+	 *            the codi peticio
+	 * @param e
+	 *            the e
+	 * @return the dades signatura
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DadesSignatura fallbackConsultarDataSignaturaByCodiPeticio(String codiPeticio, Throwable e) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackconsultarDataSignaturaByCodiPeticio(String, Throwable) - inici"); //$NON-NLS-1$
 		}
@@ -2821,4 +2907,145 @@ public class DocumentsServiceImpl implements DocumentsService {
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * peticioAmbDocumentsSignats(java.lang.String)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackPeticioAmbDocumentsSignats")
+	public Boolean peticioAmbDocumentsSignats(String idPeticio) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("peticioAmbDocumentsSignats(String) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			Boolean peticioAmbDocumentsSignatsResponse = signaturesApi.peticioAmbDocumentsSignats(idPeticio);
+
+			if (log.isDebugEnabled()) {
+				log.debug("peticioAmbDocumentsSignats(String) - fi"); //$NON-NLS-1$
+			}
+
+			return peticioAmbDocumentsSignatsResponse;
+		} catch (RestClientException e) {
+			log.error("peticioAmbDocumentsSignats(String)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback peticio amb documents signats.
+	 *
+	 * @param idPeticio
+	 *            the id peticio
+	 * @param e
+	 *            the e
+	 * @return the boolean
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public Boolean fallbackPeticioAmbDocumentsSignats(String idPeticio, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackPeticioAmbDocumentsSignats(String, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#finalitzarSignaturaTablet
+	 * (java.lang.String)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackFinalitzarSignaturaTablet")
+	public void finalitzarSignaturaTablet(String idPeticio) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("finalitzarSignaturaTablet(String) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			CallbackManuscrita callbackManuscrita = new CallbackManuscrita();
+			callbackManuscrita.setIdPeticio(idPeticio);
+			signaturesApi.finalitzarSignaturaTablet(callbackManuscrita);
+
+			if (log.isDebugEnabled()) {
+				log.debug("finalitzarSignaturaTablet(String) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("finalitzarSignaturaTablet(String)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback finalitzar signatura tablet.
+	 *
+	 * @param idPeticio
+	 *            the id peticio
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackFinalitzarSignaturaTablet(String idPeticio, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackFinalitzarSignaturaTablet(String, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+	}
+
+	/**
+	 * Fallback callback notificacio.
+	 *
+	 * @param idDocumentacio
+	 *            the id documentacio
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackIncrementarReintentsSignatura")
+	public void incrementarReintentsSignatura(BigDecimal idDocument) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("incrementarReintentsSignatura(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			signaturesApi.incrementarReintentsSignatura(idDocument);
+
+			if (log.isDebugEnabled()) {
+				log.debug("incrementarReintentsSignatura(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("incrementarReintentsSignatura(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback incrementar seintents signatura
+	 *
+	 * @param idDocument
+	 *            the iddocument
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackIncrementarReintentsSignatura(BigDecimal idDocument, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackIncrementarReintentsSignatura(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+	}
 }

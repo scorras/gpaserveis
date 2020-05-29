@@ -42,10 +42,12 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfCon
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsDigitalitzacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarPortasignaturesDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocumentResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocumentResponse;
 
 /**
  * The Interface DocumentsService.
@@ -93,22 +95,28 @@ public interface DocumentsService {
 	 *
 	 * @param idSollicitud
 	 *            the id sollicitud
+	 * @param visibilitat
+	 *            the visibilitat persona
 	 * @return the list
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	List<DocsEntradaRDTO> cercaDocumentsEntradaPerSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException;
+	List<DocsEntradaRDTO> cercaDocumentsEntradaPerSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat)
+			throws GPAServeisServiceException;
 
 	/**
 	 * Cerca documents entrada agrupats per tramit ovt.
 	 *
 	 * @param idDocumentacio
 	 *            the id documentacio
+	 * @param visibilitat
+	 *            the visibilitat persona
 	 * @return the list
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	List<DocsEntradaRDTO> cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal idDocumentacio) throws GPAServeisServiceException;
+	List<DocsEntradaRDTO> cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal idDocumentacio, BigDecimal visibilitat)
+			throws GPAServeisServiceException;
 
 	/**
 	 * Cerca configuracio documentacio entrada requerida.
@@ -277,11 +285,13 @@ public interface DocumentsService {
 	 *
 	 * @param csvDocument
 	 *            the csv document
+	 * @param visibilitat
+	 *            the visibilitat
 	 * @return the docs entrada RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String csvDocument) throws GPAServeisServiceException;
+	DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String csvDocument, BigDecimal visibilitat) throws GPAServeisServiceException;
 
 	/**
 	 * Consultar dades document generat.
@@ -299,11 +309,14 @@ public interface DocumentsService {
 	 *
 	 * @param csvDocument
 	 *            the csv document
+	 * @param visibilitat
+	 *            the visibilitat
 	 * @return the docs tramitacio RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument) throws GPAServeisServiceException;
+	DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument, BigDecimal visibilitat)
+			throws GPAServeisServiceException;
 
 	/**
 	 * Descarregar document expedient.
@@ -321,6 +334,7 @@ public interface DocumentsService {
 	 * Descarregar document expedient signat.
 	 *
 	 * @param idUltimaSignatura
+	 *            the id ultima signatura
 	 * @return the byte[]
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
@@ -385,19 +399,19 @@ public interface DocumentsService {
 	/**
 	 * Signar validar document.
 	 *
-	 * @param signarDocument
-	 *            the signar document
+	 * @param signarPortasignaturesDocument
+	 *            the signar portasignatures document
 	 * @return the peticions portasig
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	PeticionsPortasig signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException;
+	PeticionsPortasig signarValidarDocument(SignarPortasignaturesDocument signarPortasignaturesDocument) throws GPAServeisServiceException;
 
 	/**
 	 * Signar segell document.
 	 *
-	 * @param signarSegellDocument
-	 *            the signar segell document
+	 * @param signarSegellDocumentRDTO
+	 *            the signar segell document RDTO
 	 * @return the signar segell documents id
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
@@ -405,10 +419,21 @@ public interface DocumentsService {
 	SignarSegellDocument signarSegellDocument(SignarSegellDocument signarSegellDocumentRDTO) throws GPAServeisServiceException;
 
 	/**
+	 * Signar valid document.
+	 *
+	 * @param signarValidDocumentRDTO
+	 *            the signar valid document RDTO
+	 * @return the signar valid document response
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	SignarValidDocumentResponse signarValidDocument(SignarValidDocument signarValidDocumentRDTO) throws GPAServeisServiceException;
+
+	/**
 	 * Signar tablet document.
 	 *
-	 * @param signarTabletDocument
-	 *            the signar tablet document
+	 * @param signarTabletDocumentRDTO
+	 *            the signar tablet document RDTO
 	 * @return the signar tablet documents id
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
@@ -637,5 +662,44 @@ public interface DocumentsService {
 	 */
 	void guardarXmlSollicitud(String idDocumentum, String xmlSolicitud) throws GPAServeisServiceException;
 
+	/**
+	 * Consultar dades signatura by codi peticio.
+	 *
+	 * @param codiPeticio
+	 *            the codi peticio
+	 * @return the dades signatura
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	DadesSignatura consultarDadesSignaturaByCodiPeticio(String codiPeticio) throws GPAServeisServiceException;
+
+	/**
+	 * Peticio amb documents signats.
+	 *
+	 * @param idPeticio
+	 *            the id peticio
+	 * @return the boolean
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	Boolean peticioAmbDocumentsSignats(String idPeticio) throws GPAServeisServiceException;
+
+	/**
+	 * Finalitzar signatura tablet.
+	 *
+	 * @param idPeticio
+	 *            the id peticio
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void finalitzarSignaturaTablet(String idPeticio) throws GPAServeisServiceException;
+
+	/**
+	 * incrementar reintents signatura
+	 * 
+	 * @param idDocument
+	 * @throws GPAServeisServiceException
+	 */
+	void incrementarReintentsSignatura(BigDecimal idDocument) throws GPAServeisServiceException;
+
 }

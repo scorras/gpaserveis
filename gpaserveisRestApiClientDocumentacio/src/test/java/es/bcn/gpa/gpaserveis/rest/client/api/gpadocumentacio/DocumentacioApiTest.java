@@ -41,7 +41,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsAssociatsIntra;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
@@ -52,10 +51,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRegis
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequerimentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsDigitalitzacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocument;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient.CollectionFormat;
 
 /**
@@ -125,12 +120,13 @@ public class DocumentacioApiTest extends ParentTest {
 	 */
 	@Test
 	public void cercaDocumentsEntradaPerSollicitudTest() {
-		when(apiClient.invokeAPI(eq("/documentacio/entrada/sollicitud/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DocsEntradaRDTO>());
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/sollicitud/1/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DocsEntradaRDTO>());
 
 		BigDecimal idSollicitud = ONE;
-		List<DocsEntradaRDTO> response = api.cercaDocumentsEntradaPerSollicitud(idSollicitud);
+		BigDecimal visibilitat = ONE;
+		List<DocsEntradaRDTO> response = api.cercaDocumentsEntradaPerSollicitud(idSollicitud, visibilitat);
 
 		assertTrue(response != null);
 	}
@@ -143,12 +139,13 @@ public class DocumentacioApiTest extends ParentTest {
 	 */
 	@Test
 	public void cercaDocumentsEntradaAgrupatsPerTramitOvtTest() throws RestClientException {
-		when(apiClient.invokeAPI(eq("/documentacio/1/entrada/agrupatPerTramitOvt"), eq(HttpMethod.GET), any(MultiValueMap.class),
-		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DocsEntradaRDTO>());
+		when(apiClient.invokeAPI(eq("/documentacio/1/entrada/agrupatPerTramitOvt/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DocsEntradaRDTO>());
 
 		BigDecimal idDocumentacio = ONE;
-		List<DocsEntradaRDTO> response = api.cercaDocumentsEntradaAgrupatsPerTramitOvt(idDocumentacio);
+		BigDecimal visibilitat = ONE;
+		List<DocsEntradaRDTO> response = api.cercaDocumentsEntradaAgrupatsPerTramitOvt(idDocumentacio, visibilitat);
 
 		assertTrue(response != null);
 	}
@@ -239,24 +236,6 @@ public class DocumentacioApiTest extends ParentTest {
 
 		DocumentActualizarRegistre documentActualizarRegistreRDTO = new DocumentActualizarRegistre();
 		api.associarRegistreDocumentacio(documentActualizarRegistreRDTO);
-
-		assertTrue(true);
-	}
-
-	/**
-	 * Crear peticio porta sig test.
-	 *
-	 * @throws RestClientException
-	 *             the api exception
-	 */
-	@Test
-	public void crearPeticioPortaSigTest() throws RestClientException {
-		when(apiClient.invokeAPI(eq("/documentacio/crearPeticioPortaSig"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(null);
-
-		SignarDocument signarDocumentRDTO = new SignarDocument();
-		api.crearPeticioPortaSig(signarDocumentRDTO);
 
 		assertTrue(true);
 	}
@@ -506,23 +485,6 @@ public class DocumentacioApiTest extends ParentTest {
 	}
 
 	/**
-	 * Callback per actualitzar l&#39;estat dels documents enviats a portasig.
-	 *
-	 * @throws RestClientException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void callbackPortaSigTest() throws RestClientException {
-		when(apiClient.invokeAPI(eq("/documentacio/callbackPortaSig"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(null);
-
-		CallbackPortaSig callbackPortaSigRDTO = new CallbackPortaSig();
-		api.callbackPortaSig(callbackPortaSigRDTO);
-		assertTrue(true);
-	}
-
-	/**
 	 * Closes the expedient&#39;s requirements.
 	 *
 	 * @throws RestClientException
@@ -648,42 +610,6 @@ public class DocumentacioApiTest extends ParentTest {
 		api.associatsDocsIntra(docsAssociatsIntraRDTO);
 
 		assertTrue(true);
-	}
-
-	/**
-	 * Signar segell test.
-	 */
-	@Test
-	public void signarSegellTest() {
-		when(apiClient.invokeAPI(eq("/documentacio/signarSegell"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new SignarSegellDocument());
-
-		SignarSegellDocument signarSegellDocumentRDTO = new SignarSegellDocument();
-		SignarSegellDocument response = api.signarSegell(signarSegellDocumentRDTO);
-
-		assertTrue(response != null);
-	}
-
-	/**
-	 * Crear una petició per signar un document en la tablet
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void signarTabletTest() {
-
-		when(apiClient.invokeAPI(eq("/documentacio/signarTablet"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-				any(ParameterizedTypeReference.class))).thenReturn(new SignarTabletDocumentResponse());
-
-		SignarTabletDocument signarTabletDocumentRDTO = new SignarTabletDocument();
-		SignarTabletDocumentResponse response = api.signarTablet(signarTabletDocumentRDTO);
-
-		assertTrue(response != null);
 	}
 
 	/**
@@ -950,13 +876,14 @@ public class DocumentacioApiTest extends ParentTest {
 	@Test
 	public void consultarDadesDocumentAportatPerCodiCSVTest() {
 		when(apiClient.invokeAPI(
-				eq("/documentacio/entrada/consultarDadesDocument/779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53"),
+				eq("/documentacio/entrada/consultarDadesDocument/779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53/1"),
 				eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class),
 				any(List.class), any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
 						.thenReturn(new DocsEntradaRDTO());
 
 		String codiCSV = "779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53";
-		DocsEntradaRDTO response = api.consultarDadesDocumentAportatPerCodiCSV(codiCSV);
+		BigDecimal visibilitat = ONE;
+		DocsEntradaRDTO response = api.consultarDadesDocumentAportatPerCodiCSV(codiCSV, visibilitat);
 
 		assertTrue(response != null);
 	}
@@ -972,13 +899,14 @@ public class DocumentacioApiTest extends ParentTest {
 	@Test
 	public void consultarDadesDocumentGeneratPerCodiCSVTest() {
 		when(apiClient.invokeAPI(
-				eq("/documentacio/tramitacio/consultarDadesDocument/54ef9ee001c5af241af5bdf192cc9b71e46b8c90a7138c86db49223dd4ea38ce"),
+				eq("/documentacio/tramitacio/consultarDadesDocument/54ef9ee001c5af241af5bdf192cc9b71e46b8c90a7138c86db49223dd4ea38ce/1"),
 				eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class),
 				any(List.class), any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
 						.thenReturn(new DocsTramitacioRDTO());
 
 		String codiCSV = "54ef9ee001c5af241af5bdf192cc9b71e46b8c90a7138c86db49223dd4ea38ce";
-		DocsTramitacioRDTO response = api.consultarDadesDocumentGeneratPerCodiCSV(codiCSV);
+		BigDecimal visibilitat = ONE;
+		DocsTramitacioRDTO response = api.consultarDadesDocumentGeneratPerCodiCSV(codiCSV, visibilitat);
 
 		assertTrue(response != null);
 	}

@@ -23,7 +23,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-04-30T19:13:23.947+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-27T16:00:10.249+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DownloadApi")
 public class DownloadApi {
     private ApiClient apiClient;
@@ -129,46 +129,6 @@ public class DownloadApi {
         uriVariables.put("idExpedient", idExpedient);
         uriVariables.put("pos", pos);
         String path = UriComponentsBuilder.fromPath("/documentacio/descarregarDocumentByPos/{idExpedient}/{idDoc}/{pos}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<byte[]> returnType = new ParameterizedTypeReference<byte[]>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * downloadUltimaSignatura
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param idUltimaSignatura idUltimaSignatura
-     * @return byte[]
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public byte[] descarregarDocumentExpedientSignat(BigDecimal idUltimaSignatura) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'idUltimaSignatura' is set
-        if (idUltimaSignatura == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idUltimaSignatura' when calling descarregarDocumentExpedientSignat");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idUltimaSignatura", idUltimaSignatura);
-        String path = UriComponentsBuilder.fromPath("/documentacio/descarregarDocumentExpedientSignat/{idUltimaSignatura}").buildAndExpand(uriVariables).toUriString();
         
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();

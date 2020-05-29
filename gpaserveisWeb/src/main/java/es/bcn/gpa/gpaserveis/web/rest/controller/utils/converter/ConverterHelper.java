@@ -30,6 +30,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacio
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsValidacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesoperEstatsExp;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPersones;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPersonesTramOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.BooleanApiParamValue;
@@ -40,10 +42,13 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.Ti
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.common.BooleanApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.NivellCriticitatApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusDocumentIdentitatApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusPersonaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusSexeApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusViaNotificacioApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.NivellVisibilitatApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TramitsOvtProcedimentsApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ConfiguracioDocumentacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.DadesContacteRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.DocumentsIdentitatRDTO;
@@ -61,6 +66,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValidacion
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValorsLlistaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValorsValidacionsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.HistoricsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ProcedimentPersonesRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.TramitsOvtProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.ConfiguracioDocumentacioRequeridaConsultaRDTO;
@@ -239,6 +246,7 @@ public class ConverterHelper {
 		}
 		personesRDTO.setDocumentIndentitat(documentsIdentitatRDTO);
 		personesRDTO.setRelacio(relacioPersonaApiParamValueTranslator.getApiParamValueByInternalValue(personesSol.getRelacio()));
+		personesRDTO.setRelacioTerceraPersona(personesSol.getRelacioImplicada());
 		return personesRDTO;
 	}
 
@@ -268,12 +276,15 @@ public class ConverterHelper {
 		if (personesRDTO != null) {
 			personesSollicitud = new PersonesSollicitud();
 			personesSollicitud.setEsInteressada(BooleanApiParamValue.FALSE.getInternalValue());
-			if (relacioPersonaApiParamValue.getInternalValue().compareTo(RelacioPersonaApiParamValue.SOLLICITANT.getInternalValue()) == 0
+			if (relacioPersonaApiParamValue != null && (relacioPersonaApiParamValue.getInternalValue()
+					.compareTo(RelacioPersonaApiParamValue.SOLLICITANT.getInternalValue()) == 0
 					|| relacioPersonaApiParamValue.getInternalValue()
-							.compareTo(RelacioPersonaApiParamValue.REPRESENTANT.getInternalValue()) == 0) {
+							.compareTo(RelacioPersonaApiParamValue.REPRESENTANT.getInternalValue()) == 0)) {
 				personesSollicitud.setEsInteressada(BooleanApiParamValue.TRUE.getInternalValue());
+
+				personesSollicitud.setRelacio(relacioPersonaApiParamValue.getInternalValue());
 			}
-			personesSollicitud.setRelacio(relacioPersonaApiParamValue.getInternalValue());
+			personesSollicitud.setRelacioImplicada(personesRDTO.getRelacioTerceraPersona());
 			personesSollicitud
 					.setRelacioPrincipal(booleanApiParamValueTranslator.getInternalValueByApiParamValueAsBoolean(relacionPrincipal));
 			personesSollicitud.setVisibilitatOvt(
@@ -335,16 +346,16 @@ public class ConverterHelper {
 	 *         persones
 	 */
 	public static es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones buildPersonesNotificacioExpedient(
-	        PersonesNotificacioRDTO personesNotificacioRDTO, TipusPersonaApiParamValueTranslator tipusPersonaApiParamValueTranslator,
-	        TipusDocumentIdentitatApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
-	        TipusViaNotificacioApiParamValueTranslator tipusViaNotificacioApiParamValueTranslator) {
+			PersonesNotificacioRDTO personesNotificacioRDTO, TipusPersonaApiParamValueTranslator tipusPersonaApiParamValueTranslator,
+			TipusDocumentIdentitatApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
+			TipusViaNotificacioApiParamValueTranslator tipusViaNotificacioApiParamValueTranslator) {
 		if (personesNotificacioRDTO == null) {
 			return null;
 		}
 
 		es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones persones = new es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Persones();
 		persones.setTipusPersona(
-		        tipusPersonaApiParamValueTranslator.getInternalValueByApiParamValue(personesNotificacioRDTO.getTipusPersona()));
+				tipusPersonaApiParamValueTranslator.getInternalValueByApiParamValue(personesNotificacioRDTO.getTipusPersona()));
 		StringBuffer stringBuffer = new StringBuffer();
 		if (StringUtils.isNotEmpty(personesNotificacioRDTO.getNom())) {
 			stringBuffer.append(personesNotificacioRDTO.getNom() + " ");
@@ -381,7 +392,7 @@ public class ConverterHelper {
 			personesDadescontacte.setMunicipiValor(personesNotificacioRDTO.getDadesNotificacio().getMunicipi());
 			personesDadescontacte.setProvinciaValor(personesNotificacioRDTO.getDadesNotificacio().getProvincia());
 			personesDadescontacte.setNotificacioPaper((int) tipusViaNotificacioApiParamValueTranslator
-			        .getInternalValueByApiParamValue(personesNotificacioRDTO.getDadesNotificacio().getViaNotificacio()));
+					.getInternalValueByApiParamValue(personesNotificacioRDTO.getDadesNotificacio().getViaNotificacio()));
 
 			persones.setPersonesDadescontacte(personesDadescontacte);
 		}
@@ -472,13 +483,17 @@ public class ConverterHelper {
 	 *            the tipus validacio api param value translator
 	 * @param expedientEstatTramitadorApiParamValueTranslator
 	 *            the expedient estat api param value translator
+	 * @param nivellCriticitatApiParamValueTranslator
+	 * @param booleanApiParamValueTranslator
 	 * @return the es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal. dades
 	 *         grups RDTO
 	 */
 	public static es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO buildDadesGrupsRDTOProcediment(
 			es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO internalDadesGrupsRDTO,
 			BaseApiParamValueTranslator tipusCampApiParamValueTranslator, BaseApiParamValueTranslator tipusValidacioApiParamValueTranslator,
-			BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator) {
+			BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator,
+			NivellCriticitatApiParamValueTranslator nivellCriticitatApiParamValueTranslator,
+			BooleanApiParamValueTranslator booleanApiParamValueTranslator) {
 
 		if (internalDadesGrupsRDTO == null) {
 			return null;
@@ -498,7 +513,8 @@ public class ConverterHelper {
 			for (DadesOperacions dadesOperacions : internalDadesGrupsRDTO.getDadesOperacionsList()) {
 				dadesAtributsRDTOList
 						.add(ConverterHelper.buildDadesAtributsRDTOProcediment(dadesOperacions, tipusCampApiParamValueTranslator,
-								tipusValidacioApiParamValueTranslator, expedientEstatTramitadorApiParamValueTranslator));
+								tipusValidacioApiParamValueTranslator, expedientEstatTramitadorApiParamValueTranslator,
+								nivellCriticitatApiParamValueTranslator, booleanApiParamValueTranslator));
 			}
 		}
 		dadesGrupsRDTO.setAtributs(dadesAtributsRDTOList);
@@ -516,11 +532,15 @@ public class ConverterHelper {
 	 *            the tipus validacio api param value translator
 	 * @param expedientEstatTramitadorApiParamValueTranslator
 	 *            the expedient estat api param value translator
+	 * @param nivellCriticitatApiParamValueTranslator
+	 * @param booleanApiParamValueTranslator
 	 * @return the dades atributs RDTO
 	 */
 	public static DadesAtributsRDTO buildDadesAtributsRDTOProcediment(DadesOperacions dadesOperacions,
 			BaseApiParamValueTranslator tipusCampApiParamValueTranslator, BaseApiParamValueTranslator tipusValidacioApiParamValueTranslator,
-			BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator) {
+			BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator,
+			NivellCriticitatApiParamValueTranslator nivellCriticitatApiParamValueTranslator,
+			BooleanApiParamValueTranslator booleanApiParamValueTranslator) {
 		DadesAtributsRDTO dadesAtributsRDTO = new DadesAtributsRDTO();
 		dadesAtributsRDTO.setCodi(dadesOperacions.getCodi());
 		dadesAtributsRDTO.setDescripcio(dadesOperacions.getDescripcio());
@@ -528,6 +548,10 @@ public class ConverterHelper {
 		dadesAtributsRDTO.setTitol(dadesOperacions.getTitol());
 		dadesAtributsRDTO.setTitolCastella(dadesOperacions.getTitolCastella());
 		dadesAtributsRDTO.setTipus(tipusCampApiParamValueTranslator.getApiParamValueByInternalValue(dadesOperacions.getTipus()));
+		dadesAtributsRDTO.setVisibilitat(
+				booleanApiParamValueTranslator.getApiParamValueAsBooleanByInternalValue(dadesOperacions.getVisibilitatPortal()));
+		dadesAtributsRDTO.setCriticitat(
+				nivellCriticitatApiParamValueTranslator.getApiParamValueByInternalValue(dadesOperacions.getNivellCriticitat()));
 		if (CollectionUtils.isNotEmpty(dadesOperacions.getItemsList())) {
 			ArrayList<DadesAtributsValorsLlistaRDTO> dadesAtributsValorsLlistaRDTOList = new ArrayList<DadesAtributsValorsLlistaRDTO>();
 			DadesAtributsValorsLlistaRDTO dadesAtributsValorsLlistaRDTO = null;
@@ -1335,6 +1359,35 @@ public class ConverterHelper {
 		documentGeneratConsultaRDTO.setCodiCSV(docsTramitacioRDTO.getCsv());
 
 		return documentGeneratConsultaRDTO;
+	}
+
+	public static ProcedimentPersonesRDTO buildProcedimentPersoneRDTOProcediments(
+			NivellVisibilitatApiParamValueTranslator nivellVisibilitatApiParamValueTranslator,
+			TramitsOvtProcedimentsApiParamValueTranslator tramitsOvtProcedimentsApiParamValueTranslator,
+			ProcedimentPersones procedimentPersones) {
+
+		ProcedimentPersonesRDTO procedimentPersonesRDTO = new ProcedimentPersonesRDTO();
+		procedimentPersonesRDTO.setTipus(procedimentPersones.getRelacio());
+		procedimentPersonesRDTO.setNivellVisibilitat(
+				nivellVisibilitatApiParamValueTranslator.getApiParamValueByInternalValue(procedimentPersones.getNivellVisibilitat()));
+
+		if (procedimentPersones.getTramitsOvtList() != null) {
+			TramitsOvtProcedimentsRDTO tramitsOvtProcedimentsRDTO = null;
+			ArrayList<TramitsOvtProcedimentsRDTO> tramitList = new ArrayList<TramitsOvtProcedimentsRDTO>();
+			for (ProcedimentPersonesTramOvt procedimentPersonesTramOvt : procedimentPersones.getTramitsOvtList()) {
+
+				tramitsOvtProcedimentsRDTO = new TramitsOvtProcedimentsRDTO();
+				tramitsOvtProcedimentsRDTO.setNom(tramitsOvtProcedimentsApiParamValueTranslator
+						.getApiParamValueByInternalValue(procedimentPersonesTramOvt.getTramitOvtIdext()));
+
+				tramitList.add(tramitsOvtProcedimentsRDTO);
+			}
+
+			procedimentPersonesRDTO.setTramits(tramitList);
+		}
+
+		return procedimentPersonesRDTO;
+
 	}
 
 }

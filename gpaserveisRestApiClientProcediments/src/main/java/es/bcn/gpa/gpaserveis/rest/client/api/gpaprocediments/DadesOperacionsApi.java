@@ -3,6 +3,7 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient;
 
 import java.math.BigDecimal;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.CampsReglesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesOperacionsRDTO;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-18T12:40:10.491+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-07T16:05:26.803+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesOperacionsApi")
 public class DadesOperacionsApi {
     private ApiClient apiClient;
@@ -113,6 +114,46 @@ public class DadesOperacionsApi {
         String[] authNames = new String[] {  };
 
         ParameterizedTypeReference<PageDataOfDadesOperacionsRDTO> returnType = new ParameterizedTypeReference<PageDataOfDadesOperacionsRDTO>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Returns all the camps regles entries for the procedure
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param id id
+     * @return List&lt;CampsReglesRDTO&gt;
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public List<CampsReglesRDTO> obtenirCampsRegles(BigDecimal id) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'id' when calling obtenirCampsRegles");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("id", id);
+        String path = UriComponentsBuilder.fromPath("/procediments/{id}/regles/camps").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<List<CampsReglesRDTO>> returnType = new ParameterizedTypeReference<List<CampsReglesRDTO>>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }

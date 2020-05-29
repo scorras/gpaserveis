@@ -27,7 +27,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-12-18T13:29:08.275+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-11T19:17:27.338+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi")
 public class UnitatsGestoresApi {
     private ApiClient apiClient;
@@ -69,6 +69,7 @@ public class UnitatsGestoresApi {
      * @param descUnitatOrganigrama The descUnitatOrganigrama parameter
      * @param descripcio The descripcio parameter
      * @param dir The dir parameter
+     * @param editable The editable parameter
      * @param id The id parameter
      * @param idGrup The idGrup parameter
      * @param nextPageNumber The nextPageNumber parameter
@@ -76,6 +77,7 @@ public class UnitatsGestoresApi {
      * @param nomDescripcio The nomDescripcio parameter
      * @param pageSize The pageSize parameter
      * @param previousPageNumber The previousPageNumber parameter
+     * @param seleccionable The seleccionable parameter
      * @param sort The sort parameter
      * @param totalElements The totalElements parameter
      * @param totalPages The totalPages parameter
@@ -85,7 +87,7 @@ public class UnitatsGestoresApi {
      * @return PageDataOfUnitatsGestoresRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public PageDataOfUnitatsGestoresRDTO cercaUnitatsGestores(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, DateTime darreraSincronitzacio, DateTime dataCreacio, DateTime dataModificacio, String descUnitatOrganigrama, String descripcio, String dir, BigDecimal id, Long idGrup, Integer nextPageNumber, String nom, String nomDescripcio, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages, BigDecimal unitatOrganigrama, List<BigDecimal> unitatOrganigramaList, Integer vigent) throws RestClientException {
+    public PageDataOfUnitatsGestoresRDTO cercaUnitatsGestores(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, DateTime darreraSincronitzacio, DateTime dataCreacio, DateTime dataModificacio, String descUnitatOrganigrama, String descripcio, String dir, Boolean editable, BigDecimal id, Long idGrup, Integer nextPageNumber, String nom, String nomDescripcio, Integer pageSize, Integer previousPageNumber, Boolean seleccionable, String sort, Long totalElements, Integer totalPages, BigDecimal unitatOrganigrama, List<BigDecimal> unitatOrganigramaList, Integer vigent) throws RestClientException {
         Object postBody = null;
         
         String path = UriComponentsBuilder.fromPath("/unitats/search").build().toUriString();
@@ -107,6 +109,7 @@ public class UnitatsGestoresApi {
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "descUnitatOrganigrama", descUnitatOrganigrama));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "descripcio", descripcio));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "dir", dir));
+        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "editable", editable));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "id", id));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "idGrup", idGrup));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nextPageNumber", nextPageNumber));
@@ -114,6 +117,7 @@ public class UnitatsGestoresApi {
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nomDescripcio", nomDescripcio));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "pageSize", pageSize));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "previousPageNumber", previousPageNumber));
+        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "seleccionable", seleccionable));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sort", sort));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalElements", totalElements));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalPages", totalPages));

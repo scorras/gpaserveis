@@ -50,6 +50,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaSollicitudsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.sollicituds.RespostaSollicitudCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.sollicituds.RespostaSollicitudsCercaBDTO;
@@ -81,6 +82,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.handler.ServeisRestControllerExceptionHandler;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerValidationHelper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerVisibilitatHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
@@ -179,8 +181,11 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		List<DocsEntradaRDTO> docsEntradaRDTORespostaList = null;
 		DadesSollicitudBDTO dadesSollicitudBDTO = null;
 		try {
+			// TODO GPA-2923
+			BigDecimal visibilitat = BigDecimal.ONE;
+
 			// Buscar la sol y a partir de la sol obtener el expedient
-			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
 			ServeisRestControllerValidationHelper.validateSollicitud(dadesSollicitudBDTO, Resultat.ERROR_APORTAR_DOCUMENTACIO);
 			// dadesExpedientBDTO =
 			// serveisService.consultarDadesBasiquesExpedient(dadesSollicitudBDTO.getExpedientsRDTO().getId());
@@ -265,7 +270,11 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ESBORRAR_DOCUMENT);
 		DadesSollicitudBDTO dadesSollicitudBDTO = null;
 		try {
-			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
+
+			// TODO GPA-2923
+			BigDecimal visibilitat = BigDecimal.ONE;
+
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
 			ServeisRestControllerValidationHelper.validateSollicitud(dadesSollicitudBDTO, Resultat.ERROR_ESBORRAR_DOCUMENT);
 
 			// El id del documento debe existir y pertenecer a la solicitud
@@ -332,7 +341,10 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_UPLOAD_DOCUMENT);
 		try {
 
-			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
+			// TODO GPA-2923
+			BigDecimal visibilitat = BigDecimal.ONE;
+
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
 			ServeisRestControllerValidationHelper.validateSollicitud(dadesSollicitudBDTO, Resultat.ERROR_UPLOAD_DOCUMENT);
 
 			// El id del documento debe existir y pertenecer a la solicitud
@@ -414,7 +426,10 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 		DadesSollicitudBDTO dadesSollicitudBDTO = null;
 		try {
-			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
+			// TODO GPA-2923
+			BigDecimal visibilitat = BigDecimal.ONE;
+
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
 			ServeisRestControllerValidationHelper.validateSollicitud(dadesSollicitudBDTO, Resultat.ERROR_DESCARREGAR_DOCUMENT);
 
 			// El id del documento debe existir y pertenecer al expediente de la
@@ -474,8 +489,11 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_SUBSTITUIR_DOCUMENT);
 		DadesSollicitudBDTO dadesSollicitudBDTO = null;
 		try {
+			// TODO GPA-2923
+			BigDecimal visibilitat = BigDecimal.ONE;
+
 			// El id de sollicitud debe existir
-			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
 			ServeisRestControllerValidationHelper.validateSollicitud(dadesSollicitudBDTO, Resultat.ERROR_SUBSTITUIR_DOCUMENT);
 
 			// El id del documento debe existir y pertenecer a la solicitud
@@ -602,12 +620,13 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			}
 
 			// se valida que si la relacion es de persona interesada, solo
-			// permita valores sollicitant y representant y si
-			// la relacion es de persona implicada, solo permita los valores
-			// testimoni y Altres
-			ServeisRestControllerValidationHelper.validatePersonesImplicadesInteressadesExpedient(
-					sollicitudCrearRDTO.getPersonesImplicades(), sollicitudCrearRDTO.getPersonesInteressades(),
+			// permita valores sollicitant y representant
+			ServeisRestControllerValidationHelper.validatePersonesInteressadesExpedient(sollicitudCrearRDTO.getPersonesInteressades(),
 					Resultat.ERROR_CREAR_SOLLICITUD);
+			// 1 - validar que la persona logueada esta dentro de los
+			// interesados
+			ServeisRestControllerValidationHelper.validateUsuariLogueadoInteressadesExpedient(sollicitudCrearRDTO.getPersonesInteressades(),
+					sollicitudCrearRDTO.getSollicitant(), sollicitudCrearRDTO.getRepresentant(), Resultat.ERROR_CREAR_SOLLICITUD);
 
 			// Información del Trámite
 			TramitsOvtCercaBDTO tramitsOvtCercaBDTO = new TramitsOvtCercaBDTO(
@@ -622,11 +641,15 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				sollicitudCrearRDTO.getRepresentant().setRelacio(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue());
 			}
 
+			// 2 - validar que si hay lista de implicados, tengan
+			// relacioTerceraPersona y coincida alguna definida en el
+			// procedimiento
 			if (sollicitudCrearRDTO.getPersonesImplicades() != null) {
-				for (PersonesRDTO personaSollicitud : sollicitudCrearRDTO.getPersonesImplicades()) {
-					if (personaSollicitud.getRelacio() == null)
-						personaSollicitud.setRelacio(RelacioPersonaApiParamValue.ALTRES.getApiParamValue());
-				}
+				DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
+						.consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
+
+				ServeisRestControllerValidationHelper.validateTerceresPersonesProcediment(sollicitudCrearRDTO.getPersonesImplicades(),
+						dadesProcedimentBDTO, Resultat.ERROR_CREAR_SOLLICITUD);
 			}
 
 			if (sollicitudCrearRDTO.getPersonesInteressades() != null) {
@@ -687,13 +710,17 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		SollicitudsRDTO returnSollicitudsRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACTUALITZAR_SOLLICITUD);
 		try {
+			// TODO GPA-2923
+			BigDecimal visibilitat = BigDecimal.ONE;
+
 			// El Id de sol·licitud debe existir
-			DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
+			DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
 			ServeisRestControllerValidationHelper.validateActualitzarSollicitud(dadesSollicitudBDTO, sollicitudActualitzar,
 					Resultat.ERROR_ACTUALITZAR_SOLLICITUD);
 
 			// Recuperamos los dadesExpedientBDTO para la validación del estado
-			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesExpedient(dadesSollicitudBDTO.getExpedientsRDTO().getId());
+			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesExpedient(dadesSollicitudBDTO.getExpedientsRDTO().getId(),
+					visibilitat);
 
 			// Si se indica alguna persona al menos debe indicarse el
 			// Solicitante
@@ -701,11 +728,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					sollicitudActualitzar.getRepresentant());
 
 			// se valida que si la relacion es de persona interesada, solo
-			// permita valores sollicitant y representant y si
-			// la relacion es de persona implicada, solo permita los valores
-			// testimoni y Altres
-			ServeisRestControllerValidationHelper.validatePersonesImplicadesInteressadesExpedient(
-					sollicitudActualitzar.getPersonesImplicades(), sollicitudActualitzar.getPersonesInteressades(),
+			// permita valores sollicitant y representant
+			ServeisRestControllerValidationHelper.validatePersonesInteressadesExpedient(sollicitudActualitzar.getPersonesInteressades(),
 					Resultat.ERROR_ACTUALITZAR_SOLLICITUD);
 
 			// Actualizar Solicitante / Representante / Dades d'Operació si se
@@ -738,11 +762,15 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				sollicitudActualitzar.getRepresentant().setRelacio(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue());
 			}
 
+			// 2 - validar que si hay lista de implicados, tengan
+			// relacioTerceraPersona y coincida alguna definida en el
+			// procedimiento
 			if (sollicitudActualitzar.getPersonesImplicades() != null) {
-				for (PersonesRDTO personaSollicitud : sollicitudActualitzar.getPersonesImplicades()) {
-					if (personaSollicitud.getRelacio() == null)
-						personaSollicitud.setRelacio(RelacioPersonaApiParamValue.ALTRES.getApiParamValue());
-				}
+				DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
+						.consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
+
+				ServeisRestControllerValidationHelper.validateTerceresPersonesProcediment(sollicitudActualitzar.getPersonesImplicades(),
+						dadesProcedimentBDTO, Resultat.ERROR_CREAR_SOLLICITUD);
 			}
 
 			if (sollicitudActualitzar.getPersonesInteressades() != null) {
@@ -802,8 +830,22 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 		RespostaConsultaSollicitudsRDTO respostaConsultaSollicitudsRDTO = new RespostaConsultaSollicitudsRDTO();
 
+		BigDecimal visibilitat = BigDecimal.ONE;
+
+		try {
+			// TODO GPA-2923
+			visibilitat = ServeisRestControllerVisibilitatHelper.obtenirVisibilitatSollicitud(serveisService, idSollicitud,
+					expedientsIdOrgan);
+		} catch (GPAApiParamValidationException e) {
+			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
+			throw new GPAServeisServiceException(e.getResultat().getDescripcio());
+		} catch (Exception e) {
+			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+
 		// Datos principales de la solicitud
-		DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
+		DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
 
 		// El identificador de la solicitud debe ser válido
 		if (dadesSollicitudBDTO.getSollicitudsRDTO() == null) {
@@ -832,8 +874,22 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			@ApiParam(value = "Identificador de la sol·licitud", required = true) @PathVariable BigDecimal idSollicitud,
 			@RequestParam(name = "codiCSV", required = false) String codiCSV) throws GPAServeisServiceException {
 
+		BigDecimal visibilitat = BigDecimal.ONE;
+
+		try {
+			// TODO GPA-2923
+			visibilitat = ServeisRestControllerVisibilitatHelper.obtenirVisibilitatSollicitud(serveisService, idSollicitud,
+					expedientsIdOrgan);
+		} catch (GPAApiParamValidationException e) {
+			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
+			throw new GPAServeisServiceException(e.getResultat().getDescripcio());
+		} catch (Exception e) {
+			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+
 		// Datos principales de la solicitud
-		DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
+		DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
 
 		// El identificador de la solicitud debe ser válido
 		if (dadesSollicitudBDTO.getSollicitudsRDTO() == null) {
@@ -876,8 +932,12 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		DocsTramitacioRDTO respostaCrearJustificant = null;
 		ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO = null;
 		try {
+
+			// TODO GPA-2923
+			BigDecimal visibilitat = BigDecimal.ONE;
+
 			// Datos principales de la solicitud
-			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
 
 			// El identificador de la solicitud debe ser válido, no debe ser de
 			// tipo SOL y no debe estar ya registrada
@@ -913,6 +973,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			SollicitudActualitzarRegistre sollicitudActualitzarRegistre = new SollicitudActualitzarRegistre();
 			sollicitudActualitzarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
 			sollicitudActualitzarRegistre.setIdSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
+			sollicitudActualitzarRegistre.setSignaturaSollicitud(sollicitudRegistrarRDTO.getSignaturaSolicitud());
 			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
 
 			// Asociar registre de la solicitud a los posibles documentos
@@ -974,7 +1035,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			String idDocumentum = respostaCrearJustificant.getMigracioIdOrigen();
 			// Buscamos de nuevo la solicitud para que incluya los datos de
 			// registro
-			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud);
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
 			guardarXMLSollicitud(dadesSollicitudBDTO, idDocumentum);
 
 			// se llama a segell para firmar el justificante de registro del
@@ -993,12 +1054,23 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 			// Vincular Justificante en Ariadna
 			RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
-			registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getId());
-			registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
-			serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
+			try {
 
-			// TODO Pendiente de guardar en nuestro modelo de datos
-			// sollicitudRegistrarRDTO.getSignaturaSolicitud();
+				registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getCodi());
+				registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
+
+				serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
+			} catch (Exception e) {
+				log.error("registrarSolicitudExpedient(BigDecimal): Error retornAssentament", e);// $NON-NLS-1$
+
+				// almacenamos el indicador de que esta pendiente el retorno en
+				// el
+				// expediente para que continue el registro o la accion
+				// correctamente
+
+				dadesSollicitudBDTO.getExpedientsRDTO().setPendentRetorn(NumberUtils.INTEGER_ONE);
+				serveisService.actualitzarExpedient(dadesSollicitudBDTO.getExpedientsRDTO());
+			}
 
 			// Cambio de estado del expediente:
 			// - APO: No hay transición

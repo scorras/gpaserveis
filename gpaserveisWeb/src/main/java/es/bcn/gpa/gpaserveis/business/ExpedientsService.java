@@ -142,22 +142,28 @@ public interface ExpedientsService {
 	 *
 	 * @param idSollicitud
 	 *            the id sollicitud
+	 * @param visibilitat
+	 *            the visibilitat
 	 * @return the list
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	List<DadesEspecifiquesRDTO> cercaDadesEspecifiquesSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException;
+	List<DadesEspecifiquesRDTO> cercaDadesEspecifiquesSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat)
+			throws GPAServeisServiceException;
 
 	/**
 	 * Cerca dades especifiques expedient.
 	 *
 	 * @param idExpedient
 	 *            the id expedient
+	 * @param visibilitat
+	 *            the visibilitat
 	 * @return the list
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	List<DadesEspecifiquesRDTO> cercaDadesEspecifiquesExpedient(BigDecimal idExpedient) throws GPAServeisServiceException;
+	List<DadesEspecifiquesRDTO> cercaDadesEspecifiquesExpedient(BigDecimal idExpedient, BigDecimal visibilitat)
+			throws GPAServeisServiceException;
 
 	/**
 	 * Crear sollicitud expedient.
@@ -502,4 +508,13 @@ public interface ExpedientsService {
 	 */
 	MunicipisRDTO consultarMunicipisByCodi(String codiMunicipi, String codiProvincia) throws GPAServeisServiceException;
 
+	/**
+	 * Actualitzar expedient.
+	 *
+	 * @param expedientsCrearBDTO
+	 *            the expedients crear BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void actualitzarExpedient(ExpedientsRDTO expedientsRDTO) throws GPAServeisServiceException;
 }

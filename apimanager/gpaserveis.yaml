@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.21.0"
+  version: "1.23.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -1675,6 +1675,44 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /serveis/tramitadors/expedients/documentacio/{idsDocument}/signar/online:
+    post:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Signar un document en línia"
+      operationId: "signarDocumentOnlineUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "idsDocument"
+        in: "path"
+        description: "Identificadors dels documents"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "signaturaValidDocument"
+        description: "Informació addicional per a la signatura"
+        required: true
+        schema:
+          $ref: "#/definitions/SignaturaValidDocument"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaSignarDocument"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /serveis/tramitadors/expedients/recurs:
     post:
       tags:
@@ -2404,12 +2442,49 @@ paths:
         description: "Codi de l'expedient"
         required: true
         type: "string"
+      - name: "idDocument"
+        in: "path"
+        description: "Identificador del document"
+        required: true
+        type: "number"
       - in: "body"
-        name: "dataSignarDocumentRDTO"
+        name: "signaturaDocument"
         description: "Informació addicional per a la signatura"
         required: true
         schema:
-          $ref: "#/definitions/DataSignarDocument"
+          $ref: "#/definitions/SignaturaDocument"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaSignarDocument"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /serveis/tramitadors/expedients/{codiExpedient}/documentacio/{idDocument}/signar/manuscrita/finalitzar:
+    post:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Finalitzar una petició de signatura manuscrita"
+      operationId: "finalitzarSignarManuscritaUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codiExpedient"
+        in: "path"
+        description: "Codi de l'expedient"
+        required: true
+        type: "string"
       - name: "idDocument"
         in: "path"
         description: "Identificador del document"
@@ -2419,7 +2494,7 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/RespostaSignarDocument"
+            $ref: "#/definitions/RespostaFinalitzarSignarManuscritaDocument"
         201:
           description: "Created"
         401:
@@ -2802,11 +2877,11 @@ paths:
         required: true
         type: "number"
       - in: "body"
-        name: "persona"
-        description: "Persona que valida el document"
+        name: "signaturaDocument"
+        description: "Informació addicional per a la signatura"
         required: true
         schema:
-          $ref: "#/definitions/PersonaValidarResolucioDocument"
+          $ref: "#/definitions/SignaturaDocument"
       responses:
         200:
           description: "OK"
@@ -3073,6 +3148,9 @@ definitions:
       codi:
         type: "string"
         description: "Codi de l'atribut"
+      criticitat:
+        type: "string"
+        description: "Criticitat"
       descripcio:
         type: "string"
         description: "Descripció de l'atribut"
@@ -3121,6 +3199,9 @@ definitions:
           \ llista"
         items:
           $ref: "#/definitions/ValorsLlista"
+      visibilitat:
+        type: "boolean"
+        description: "Visibilitat"
     title: "Atributs"
   AtributsActualitzar:
     type: "object"
@@ -3227,25 +3308,6 @@ definitions:
         type: "string"
         description: "Títol del comentari."
     title: "ComentariPerAInformacioPublica"
-  ConfDocsTramPolitiquesSig:
-    type: "object"
-    properties:
-      configuracioDocsTramitacio:
-        type: "number"
-        description: "Identificador de la configuració del document de tramitació"
-      id:
-        type: "number"
-        description: "Identificador de la relació configuració - política - modalitat"
-      modalitatIdext:
-        type: "string"
-        description: "Nom de la modalitat de signatura"
-      ordre:
-        type: "number"
-        description: "Posició de la política en la seqüència de signatures"
-      politicaSignatura:
-        type: "string"
-        description: "Nom de la política de signatura"
-    title: "ConfDocsTramPolitiquesSig"
   ConfiguracioDocumentacio:
     type: "object"
     properties:
@@ -3345,6 +3407,9 @@ definitions:
           attribute: false
           wrapped: false
         description: "Codi Nti del document"
+      criticitat:
+        type: "string"
+        description: "Criticitat"
       descripcio:
         type: "string"
         xml:
@@ -3379,6 +3444,9 @@ definitions:
       suportEnllac:
         type: "string"
         description: "Enllaç document de suport per a la confecció del document"
+      visibilitat:
+        type: "boolean"
+        description: "Visibilitat"
     title: "ConfiguracionDocumentacioAportadaConsulta"
     xml:
       name: "CONFIGURACIO_DOCUMENTACIO"
@@ -3557,16 +3625,6 @@ definitions:
         items:
           $ref: "#/definitions/Grups"
     title: "DadesOperacio"
-  DataSignarDocument:
-    type: "object"
-    properties:
-      confDocsTramPolitiquesSig:
-        description: "Configuracio de modalitat i signatura"
-        $ref: "#/definitions/ConfDocsTramPolitiquesSig"
-      usuariPortaSig:
-        description: "Persona que signa el document"
-        $ref: "#/definitions/UsuariPortaSig"
-    title: "DataSignarDocument"
   DeclaracioResponsablePresentacio:
     type: "object"
     required:
@@ -5123,8 +5181,9 @@ definitions:
         enum:
         - "SOLLICITANT"
         - "REPRESENTANT"
-        - "TESTIMONI"
-        - "ALTRES"
+      relacioTerceraPersona:
+        type: "string"
+        description: "Tipo de relacio de la persona implicada"
       tipusPersona:
         type: "string"
         xml:
@@ -5170,23 +5229,6 @@ definitions:
         - "FISICA"
         - "JURIDICA"
     title: "PersonaNotificacio"
-  PersonaValidarResolucioDocument:
-    type: "object"
-    required:
-    - "documentIdentitat"
-    - "matricula"
-    - "nom"
-    properties:
-      documentIdentitat:
-        type: "string"
-        description: "Document d'identitat de la persona que va a signar el document"
-      matricula:
-        type: "string"
-        description: "Matrícula de la persona que va a signar el document"
-      nom:
-        type: "string"
-        description: "Nom de la persona que va a signar el document"
-    title: "PersonaValidarResolucioDocument"
   ProcedimentCerca:
     type: "object"
     properties:
@@ -5291,6 +5333,11 @@ definitions:
       organResolutori:
         type: "string"
         description: "Òrgan resolutori"
+      terceresPersonesImplicades:
+        type: "array"
+        description: "Llista de terceres persones implicades"
+        items:
+          $ref: "#/definitions/ProcedimentPersones"
       ugo:
         type: "array"
         description: "Llista d'unitats gestores operatives"
@@ -5329,6 +5376,21 @@ definitions:
         type: "number"
         description: "Identificador del procediment"
     title: "ProcedimentExpedientRevisar"
+  ProcedimentPersones:
+    type: "object"
+    properties:
+      nivellVisibilitat:
+        type: "string"
+        description: "Nivell de Visibilitat"
+      tipus:
+        type: "string"
+        description: "Tipus de relació"
+      tramits:
+        type: "array"
+        description: "Llista de tramits OVT"
+        items:
+          $ref: "#/definitions/TramitsOvtProcediments"
+    title: "ProcedimentPersones"
   Registre:
     type: "object"
     properties:
@@ -5728,6 +5790,13 @@ definitions:
         type: "string"
         description: "Identificador de la petició de digitalització"
     title: "RespostaEvidenciaDigitalitzacioECompulsa"
+  RespostaFinalitzarSignarManuscritaDocument:
+    type: "object"
+    properties:
+      resultat:
+        description: "Resultat de l'operació"
+        $ref: "#/definitions/ResultatResposta"
+    title: "RespostaFinalitzarSignarManuscritaDocument"
   RespostaIncorporarNouDocument:
     type: "object"
     properties:
@@ -6113,6 +6182,44 @@ definitions:
         items:
           $ref: "#/definitions/EstatsUgConvidada"
     title: "RetornTramitacio"
+  SignaturaDocument:
+    type: "object"
+    discriminator: "modalitatSignatura"
+    properties:
+      modalitatSignatura:
+        type: "string"
+        description: "Modalitat de signatura"
+        enum:
+        - "SEGELL"
+        - "MANUSCRITA"
+        - "PORTASIGNATURES"
+      politicaSignatura:
+        type: "string"
+        description: "Política de signatura"
+      usuariManuscrita:
+        description: "Informació de l'usuari de tablet"
+        $ref: "#/definitions/UsuariManuscrita"
+      usuariPortasig:
+        description: "Informació de l'usuari de Portasignatures"
+        $ref: "#/definitions/UsuariPortasignatures"
+    title: "SignaturaDocument"
+  SignaturaValidDocument:
+    type: "object"
+    required:
+    - "informacioToken"
+    - "politicaSignatura"
+    - "valorToken"
+    properties:
+      informacioToken:
+        type: "string"
+        description: "Informació de l'token de Valid"
+      politicaSignatura:
+        type: "string"
+        description: "Política de signatura"
+      valorToken:
+        type: "string"
+        description: "Valor de l'token de Valid"
+    title: "SignaturaValidDocument"
   SollicitudAccio:
     type: "object"
     properties:
@@ -6403,6 +6510,13 @@ definitions:
       name: "TRAMIT"
       attribute: false
       wrapped: false
+  TramitsOvtProcediments:
+    type: "object"
+    properties:
+      nom:
+        type: "string"
+        description: "Nom del tràmit"
+    title: "TramitsOvtProcediments"
   UnitatGestora:
     type: "object"
     properties:
@@ -6437,26 +6551,22 @@ definitions:
         type: "string"
         description: "Codi de la Unitat Gestora"
     title: "UnitatGestoraExpedientCrear"
-  UsuariPortaSig:
+  UsuariManuscrita:
     type: "object"
-    required:
-    - "documentIdentitat"
-    - "matricula"
-    - "nom"
     properties:
-      documentIdentitat:
-        type: "string"
-        description: "Document d'identitat de la persona que va a signar el document"
       idTabletUsuari:
         type: "string"
         description: "Identificador de la tauleta on signarà l'usuari"
+    title: "UsuariManuscrita"
+  UsuariPortasignatures:
+    type: "object"
+    required:
+    - "matricula"
+    properties:
       matricula:
         type: "string"
         description: "Matrícula de la persona que va a signar el document"
-      nom:
-        type: "string"
-        description: "Nom de la persona que va a signar el document"
-    title: "UsuariPortaSig"
+    title: "UsuariPortasignatures"
   Validacions:
     type: "object"
     properties:

@@ -64,26 +64,6 @@ public class DownloadApiTest extends ParentTest {
 	}
 
 	/**
-	 * downloadUltimaSignatura
-	 *
-	 * 
-	 *
-	 * @throws ApiException
-	 *             if the Api call fails
-	 */
-	@Test
-	public void descarregarDocumentExpedientSignatTest() {
-		when(apiClient.invokeAPI(eq("/documentacio/descarregarDocumentExpedientSignat/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
-		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn("prova".getBytes());
-
-		BigDecimal idUltimaSignatura = ONE;
-		byte[] response = api.descarregarDocumentExpedientSignat(idUltimaSignatura);
-
-		assertTrue(response != null);
-	}
-
-	/**
 	 * Downloads the document by pos
 	 *
 	 * 

@@ -54,12 +54,13 @@ public class DadesEspecifiquesApiTest extends ParentTest {
 	 */
 	@Test
 	public void consultarDadesEspecifiquesSollicitudTest() {
-		when(apiClient.invokeAPI(eq("/expedients/dadesEspecifiques/sollicitud/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
-		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DadesEspecifiquesRDTO>());
+		when(apiClient.invokeAPI(eq("/expedients/dadesEspecifiques/sollicitud/1/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DadesEspecifiquesRDTO>());
 
 		BigDecimal idSollicitud = ONE;
-		List<DadesEspecifiquesRDTO> response = api.consultarDadesEspecifiquesSollicitud(idSollicitud);
+		BigDecimal visibilitat = ONE;
+		List<DadesEspecifiquesRDTO> response = api.consultarDadesEspecifiquesSollicitud(idSollicitud, visibilitat);
 
 		assertTrue(response != null);
 	}
@@ -74,12 +75,13 @@ public class DadesEspecifiquesApiTest extends ParentTest {
 	 */
 	@Test
 	public void consultarDadesEspecifiquesExpedientTest() {
-		when(apiClient.invokeAPI(eq("/expedients/dadesEspecifiques/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DadesEspecifiquesRDTO>());
+		when(apiClient.invokeAPI(eq("/expedients/dadesEspecifiques/1/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DadesEspecifiquesRDTO>());
 
 		BigDecimal idExpedient = ONE;
-		List<DadesEspecifiquesRDTO> response = api.consultarDadesEspecifiquesExpedient(idExpedient);
+		BigDecimal visibilitat = ONE;
+		List<DadesEspecifiquesRDTO> response = api.consultarDadesEspecifiquesExpedient(idExpedient, visibilitat);
 
 		assertTrue(response != null);
 	}
@@ -95,8 +97,8 @@ public class DadesEspecifiquesApiTest extends ParentTest {
 	@Test
 	public void guardarDadesEspecifiquesSollicitudTest() {
 		when(apiClient.invokeAPI(eq("/expedients/dadesEspecifiques/sollicitud/1"), eq(HttpMethod.POST), any(MultiValueMap.class),
-		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		BigDecimal idSollicitud = BigDecimal.ONE;
 		api.guardarDadesEspecifiquesSollicitud(idSollicitud);

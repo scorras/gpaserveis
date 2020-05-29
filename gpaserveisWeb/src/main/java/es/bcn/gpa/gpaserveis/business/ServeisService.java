@@ -74,10 +74,12 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Notificacions
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsDigitalitzacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarPortasignaturesDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocumentResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MunicipisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
@@ -95,12 +97,25 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusViesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsOrganigramaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UsuarisRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.SollicitudConsultaRDTO;
 
 /**
  * The Interface ServeisPortalService.
  */
 public interface ServeisService {
+
+	/**
+	 * Consultar dades usuari.
+	 *
+	 * @param matricula
+	 *            the matricula
+	 * @return the usuaris RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	UsuarisRDTO consultarDadesUsuari(String matricula) throws GPAServeisServiceException;
 
 	/**
 	 * Cerca procediments.
@@ -267,11 +282,24 @@ public interface ServeisService {
 	 *
 	 * @param idSollicitud
 	 *            the id sollicitud
+	 * @param visibilitat
+	 *            the visibilitat persona
 	 * @return the dades sollicitud BDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	DadesSollicitudBDTO consultarDadesSollicitud(BigDecimal idSollicitud) throws GPAServeisServiceException;
+	DadesSollicitudBDTO consultarDadesSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar dades sollicitud per visibilitat.
+	 *
+	 * @param idSollicitud
+	 *            the id sollicitud
+	 * @return the dades sollicitud BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DadesSollicitudBDTO consultarDadesSollicitudPerVisibilitat(BigDecimal idSollicitud) throws GPAServeisServiceException;
 
 	/**
 	 * Consultar dades basiques expedient.
@@ -296,18 +324,7 @@ public interface ServeisService {
 	DadesExpedientBDTO consultarDadesBasiquesExpedient(String codiExpedient) throws GPAServeisServiceException;
 
 	/**
-	 * Consultar dades expedient.
-	 *
-	 * @param idExpedient
-	 *            the id expedient
-	 * @return the dades expedient BDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	DadesExpedientBDTO consultarDadesExpedient(BigDecimal idExpedient) throws GPAServeisServiceException;
-
-	/**
-	 * Consultar dades expedient.
+	 * Consultar dades basiques per visibilitat expedient.
 	 *
 	 * @param codiExpedient
 	 *            the codi expedient
@@ -315,7 +332,33 @@ public interface ServeisService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	DadesExpedientBDTO consultarDadesExpedient(String codiExpedient) throws GPAServeisServiceException;
+	DadesExpedientBDTO consultarDadesBasiquesPerVisibilitatExpedient(String codiExpedient) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar dades expedient.
+	 *
+	 * @param idExpedient
+	 *            the id expedient
+	 * @param visibilitat
+	 *            the visibilitat persona
+	 * @return the dades expedient BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DadesExpedientBDTO consultarDadesExpedient(BigDecimal idExpedient, BigDecimal visibilitat) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar dades expedient.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @param visibilitat
+	 *            the visibilitat persona
+	 * @return the dades expedient BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DadesExpedientBDTO consultarDadesExpedient(String codiExpedient, BigDecimal visibilitat) throws GPAServeisServiceException;
 
 	/**
 	 * Crear sollicitud expedient.
@@ -483,11 +526,13 @@ public interface ServeisService {
 	 *
 	 * @param csvDocument
 	 *            the csv document
+	 * @param visibilitat
+	 *            the visibilitat persona
 	 * @return the docs entrada RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String csvDocument) throws GPAServeisServiceException;
+	DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String csvDocument, BigDecimal visibilitat) throws GPAServeisServiceException;
 
 	/**
 	 * Consultar dades document generat.
@@ -505,11 +550,14 @@ public interface ServeisService {
 	 *
 	 * @param csvDocument
 	 *            the csv document
+	 * @param visibilitat
+	 *            the visibilitat persona
 	 * @return the docs tramitacio RDTO
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument) throws GPAServeisServiceException;
+	DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String csvDocument, BigDecimal visibilitat)
+			throws GPAServeisServiceException;
 
 	/**
 	 * Descarregar document expedient.
@@ -527,7 +575,7 @@ public interface ServeisService {
 	 * Descarregar document expedient signat.
 	 *
 	 * @param idUltimaSignatura
-	 * 
+	 *            the id ultima signatura
 	 * @return the byte[]
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
@@ -684,19 +732,19 @@ public interface ServeisService {
 	/**
 	 * Signar validar document.
 	 *
-	 * @param signarDocument
-	 *            the signar document
+	 * @param signarPortasignaturesDocument
+	 *            the signar portasignatures document
 	 * @return the peticions portasig
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	PeticionsPortasig signarValidarDocument(SignarDocument signarDocument) throws GPAServeisServiceException;
+	PeticionsPortasig signarValidarDocument(SignarPortasignaturesDocument signarPortasignaturesDocument) throws GPAServeisServiceException;
 
 	/**
 	 * Signar segell document.
 	 *
-	 * @param signarSegellDocument
-	 *            the signar segell document
+	 * @param signarSegellDocumentRDTO
+	 *            the signar segell document RDTO
 	 * @return the signar segell documents id
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
@@ -704,10 +752,21 @@ public interface ServeisService {
 	SignarSegellDocument signarSegellDocument(SignarSegellDocument signarSegellDocumentRDTO) throws GPAServeisServiceException;
 
 	/**
+	 * Signar valid document.
+	 *
+	 * @param signarValidDocumentRDTO
+	 *            the signar valid document RDTO
+	 * @return the signar valid document response
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	SignarValidDocumentResponse signarValidDocument(SignarValidDocument signarValidDocumentRDTO) throws GPAServeisServiceException;
+
+	/**
 	 * Signar tablet document.
 	 *
-	 * @param signarTabletDocument
-	 *            the signar tablet document
+	 * @param signarTabletlDocumentRDTO
+	 *            the signar tabletl document RDTO
 	 * @return the signar tablet documents response
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
@@ -1158,6 +1217,15 @@ public interface ServeisService {
 	 */
 	SollicitudsRDTO updateSollicitud(SollicitudsRDTO sollicitudRDTO) throws GPAServeisServiceException;
 
+	/**
+	 * Actualitzar dades sollicitud sollicituds.
+	 *
+	 * @param sollicitudsActualitzarBDTO
+	 *            the sollicituds actualitzar BDTO
+	 * @return the sollicituds RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	SollicitudsRDTO actualitzarDadesSollicitudSollicituds(SollicitudsActualitzarBDTO sollicitudsActualitzarBDTO)
 			throws GPAServeisServiceException;
 
@@ -1190,6 +1258,7 @@ public interface ServeisService {
 	 * @param xmlSolicitud
 	 *            the xml solicitud
 	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
 	 */
 	void guardarXmlSollicitud(String idDocumentum, String xmlSolicitud) throws GPAServeisServiceException;
 
@@ -1239,6 +1308,66 @@ public interface ServeisService {
 	 */
 	MunicipisRDTO consultarMunicipisByCodi(String codiMunicipi, String codiProvincia) throws GPAServeisServiceException;
 
+	/**
+	 * Consultar dades signatura by codi peticio.
+	 *
+	 * @param codiPeticio
+	 *            the codi peticio
+	 * @return the dades signatura
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	DadesSignatura consultarDadesSignaturaByCodiPeticio(String codiPeticio) throws GPAServeisServiceException;
 
+	/**
+	 * Actualitzar expedient.
+	 *
+	 * @param expedientsCrearBDTO
+	 *            the expedients crear BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void actualitzarExpedient(ExpedientsRDTO expedientsRDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar dades unitat organigrama.
+	 *
+	 * @param idUnitatGestora
+	 *            the id unitat gestora
+	 * @return the unitats organigrama RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	UnitatsOrganigramaRDTO consultarDadesUnitatOrganigrama(BigDecimal idUnitatGestora) throws GPAServeisServiceException;
+
+	/**
+	 * Peticio amb documents signats.
+	 *
+	 * @param idPeticio
+	 *            the id peticio
+	 * @return the boolean
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	Boolean peticioAmbDocumentsSignats(String idPeticio) throws GPAServeisServiceException;
+
+	/**
+	 * Finalitzar signatura tablet.
+	 *
+	 * @param idPeticio
+	 *            the id peticio
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void finalitzarSignaturaTablet(String idPeticio) throws GPAServeisServiceException;
+
+	/**
+	 * Incrementar reintents signatura.
+	 *
+	 * @param idDocument
+	 *            the idDocument to increment
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void incrementarReintentsSignatura(BigDecimal idDocument) throws GPAServeisServiceException;
 }
