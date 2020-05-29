@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.21.0"
+  version: "1.22.0"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -2843,6 +2843,9 @@ definitions:
       idSollicitud:
         type: "number"
         description: "Identificador de la sol·licitud"
+      signaturaSollicitud:
+        type: "number"
+        description: "Identificador de la signatura de la sollicitud"
     title: "SollicitudActualitzarRegistre"
   Sollicituds:
     type: "object"
@@ -2881,6 +2884,8 @@ definitions:
         type: "number"
       registreAssentament:
         $ref: "#/definitions/RegistreAssentament"
+      signaturaSollicitud:
+        type: "number"
       tramitOvtIdext:
         type: "number"
       tramitador:
@@ -2923,6 +2928,8 @@ definitions:
         type: "number"
       registreAssentament:
         $ref: "#/definitions/RegistreAssentament"
+      signaturaSollicitud:
+        type: "number"
       tramitOvtIdext:
         type: "number"
       tramitador:

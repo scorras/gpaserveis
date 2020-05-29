@@ -706,4 +706,10 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 		        .andExpect(status().isOk()).andDo(print());
 	}
 
+	@Test
+	public void testStage84_PostFinalitzarSignarManuscrita() throws Exception {
+		String url = BASE_URL + "/expedients/1/documentacio/1/signar/manuscrita/finalitzar";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("")).andExpect(status().isOk()).andDo(print());
+	}
+
 }

@@ -46,6 +46,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UsuarisApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackManuscrita;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotificacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
@@ -463,6 +464,10 @@ public abstract class ParentTest {
 
 			when(unitatsGestoresApi.consultarUnitatOrganigrama(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarUnitatOrganigramaResponse());
+
+			when(signaturesApi.peticioAmbDocumentsSignats(any(String.class))).thenReturn(Boolean.TRUE);
+
+			doNothing().when(signaturesApi).finalitzarSignaturaTablet(any(CallbackManuscrita.class));
 
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$
