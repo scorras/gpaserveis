@@ -2158,6 +2158,36 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /signatures/incrementarReintentsSignatura/{idDocument}:
+    post:
+      tags:
+      - "Signatures"
+      summary: "Incrementa els reintents de la signatura"
+      operationId: "incrementarReintentsSignatura"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDocument"
+        in: "path"
+        description: "idDocument"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /signatures/peticioAmbDocumentsSignats/{idPeticio}:
     get:
       tags:
@@ -3059,6 +3089,9 @@ definitions:
         type: "number"
       idTabletUsuari:
         type: "string"
+      reintents:
+        type: "integer"
+        format: "int32"
       signat:
         type: "integer"
         format: "int32"
@@ -3082,6 +3115,8 @@ definitions:
       comunicat:
         type: "integer"
         format: "int32"
+      confDocsTramPolitiquesSig:
+        $ref: "#/definitions/ConfDocsTramPolitiquesSig"
       configDocTramitacio:
         type: "number"
       configuracioDocsTramitacio:
@@ -3115,6 +3150,10 @@ definitions:
         type: "string"
       docsSignatures:
         $ref: "#/definitions/DocsSignatures"
+      docsSignaturesPendents:
+        type: "array"
+        items:
+          $ref: "#/definitions/DocsSignatures"
       docsTercers:
         type: "integer"
         format: "int32"

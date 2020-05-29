@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio;
 
 import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
+
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -25,66 +23,65 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-27T16:00:10.249+02:00")
 public class CallbackManuscrita {
-  @JsonProperty("idPeticio")
-  private String idPeticio = null;
+	@JsonProperty("idPeticio")
+	private String idPeticio = null;
 
-  public CallbackManuscrita idPeticio(String idPeticio) {
-    this.idPeticio = idPeticio;
-    return this;
-  }
+	public CallbackManuscrita idPeticio(String idPeticio) {
+		this.idPeticio = idPeticio;
+		return this;
+	}
 
-   /**
-   * Identificador assignat pel mòdul de Signatures en el moment d&#39;acceptar la petició
-   * @return idPeticio
-  **/
-  @ApiModelProperty(value = "Identificador assignat pel mòdul de Signatures en el moment d'acceptar la petició")
-  public String getIdPeticio() {
-    return idPeticio;
-  }
+	/**
+	 * Identificador assignat pel mòdul de Signatures en el moment
+	 * d&#39;acceptar la petició
+	 * 
+	 * @return idPeticio
+	 **/
+	@ApiModelProperty(value = "Identificador assignat pel mòdul de Signatures en el moment d'acceptar la petició")
+	public String getIdPeticio() {
+		return idPeticio;
+	}
 
-  public void setIdPeticio(String idPeticio) {
-    this.idPeticio = idPeticio;
-  }
+	public void setIdPeticio(String idPeticio) {
+		this.idPeticio = idPeticio;
+	}
 
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		CallbackManuscrita callbackManuscrita = (CallbackManuscrita) o;
+		return Objects.equals(this.idPeticio, callbackManuscrita.idPeticio);
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    CallbackManuscrita callbackManuscrita = (CallbackManuscrita) o;
-    return Objects.equals(this.idPeticio, callbackManuscrita.idPeticio);
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(idPeticio);
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(idPeticio);
-  }
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class CallbackManuscrita {\n");
 
+		sb.append("    idPeticio: ").append(toIndentedString(idPeticio)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CallbackManuscrita {\n");
-    
-    sb.append("    idPeticio: ").append(toIndentedString(idPeticio)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
 }
-

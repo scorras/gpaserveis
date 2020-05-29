@@ -41,6 +41,9 @@ public class DocsTramitacioRDTO {
 	@JsonProperty("comunicat")
 	private Integer comunicat = null;
 
+	@JsonProperty("confDocsTramPolitiquesSig")
+	private ConfDocsTramPolitiquesSig confDocsTramPolitiquesSig = null;
+
 	@JsonProperty("configDocTramitacio")
 	private BigDecimal configDocTramitacio = null;
 
@@ -265,6 +268,25 @@ public class DocsTramitacioRDTO {
 
 	public void setComunicat(Integer comunicat) {
 		this.comunicat = comunicat;
+	}
+
+	public DocsTramitacioRDTO confDocsTramPolitiquesSig(ConfDocsTramPolitiquesSig confDocsTramPolitiquesSig) {
+		this.confDocsTramPolitiquesSig = confDocsTramPolitiquesSig;
+		return this;
+	}
+
+	/**
+	 * Get confDocsTramPolitiquesSig
+	 * 
+	 * @return confDocsTramPolitiquesSig
+	 **/
+	@ApiModelProperty(value = "")
+	public ConfDocsTramPolitiquesSig getConfDocsTramPolitiquesSig() {
+		return confDocsTramPolitiquesSig;
+	}
+
+	public void setConfDocsTramPolitiquesSig(ConfDocsTramPolitiquesSig confDocsTramPolitiquesSig) {
+		this.confDocsTramPolitiquesSig = confDocsTramPolitiquesSig;
 	}
 
 	public DocsTramitacioRDTO configDocTramitacio(BigDecimal configDocTramitacio) {
@@ -1235,67 +1257,68 @@ public class DocsTramitacioRDTO {
 		}
 		DocsTramitacioRDTO docsTramitacioRDTO = (DocsTramitacioRDTO) o;
 		return Objects.equals(this.canalComunicat, docsTramitacioRDTO.canalComunicat) && Objects.equals(this.codi, docsTramitacioRDTO.codi)
-		        && Objects.equals(this.comentari, docsTramitacioRDTO.comentari)
-		        && Objects.equals(this.comunicat, docsTramitacioRDTO.comunicat)
-		        && Objects.equals(this.configDocTramitacio, docsTramitacioRDTO.configDocTramitacio)
-		        && Objects.equals(this.configuracioDocsTramitacio, docsTramitacioRDTO.configuracioDocsTramitacio)
-		        && Objects.equals(this.configuracioDocsTramitacioNom, docsTramitacioRDTO.configuracioDocsTramitacioNom)
-		        && Objects.equals(this.configuracioDocsTramitacioNomCastella, docsTramitacioRDTO.configuracioDocsTramitacioNomCastella)
-		        && Objects.equals(this.csv, docsTramitacioRDTO.csv) && Objects.equals(this.dataComunicat, docsTramitacioRDTO.dataComunicat)
-		        && Objects.equals(this.dataCreacio, docsTramitacioRDTO.dataCreacio)
-		        && Objects.equals(this.dataDigitalitzacio, docsTramitacioRDTO.dataDigitalitzacio)
-		        && Objects.equals(this.dataUltimaModificacio, docsTramitacioRDTO.dataUltimaModificacio)
-		        && Objects.equals(this.descripcioEstat, docsTramitacioRDTO.descripcioEstat)
-		        && Objects.equals(this.digitalitzat, docsTramitacioRDTO.digitalitzat)
-		        && Objects.equals(this.docsFisics, docsTramitacioRDTO.docsFisics)
-		        && Objects.equals(this.docsFisicsNom, docsTramitacioRDTO.docsFisicsNom)
-		        && Objects.equals(this.docsSignatures, docsTramitacioRDTO.docsSignatures)
-		        && Objects.equals(this.docsSignaturesPendents, docsTramitacioRDTO.docsSignaturesPendents)
-		        && Objects.equals(this.docsTercers, docsTramitacioRDTO.docsTercers)
-		        && Objects.equals(this.documentFisic, docsTramitacioRDTO.documentFisic)
-		        && Objects.equals(this.documentacio, docsTramitacioRDTO.documentacio)
-		        && Objects.equals(this.editable, docsTramitacioRDTO.editable) && Objects.equals(this.eliminat, docsTramitacioRDTO.eliminat)
-		        && Objects.equals(this.estat, docsTramitacioRDTO.estat)
-		        && Objects.equals(this.estatAnterior, docsTramitacioRDTO.estatAnterior)
-		        && Objects.equals(this.estatDigitalitzacio, docsTramitacioRDTO.estatDigitalitzacio)
-		        && Objects.equals(this.estatDocsTramitacio, docsTramitacioRDTO.estatDocsTramitacio)
-		        && Objects.equals(this.estatsDocsTramitacio, docsTramitacioRDTO.estatsDocsTramitacio)
-		        && Objects.equals(this.hash, docsTramitacioRDTO.hash) && Objects.equals(this.id, docsTramitacioRDTO.id)
-		        && Objects.equals(this.idioma, docsTramitacioRDTO.idioma)
-		        && Objects.equals(this.idiomaDigitalitzacio, docsTramitacioRDTO.idiomaDigitalitzacio)
-		        && Objects.equals(this.metadata, docsTramitacioRDTO.metadata)
-		        && Objects.equals(this.migracioIdOrigen, docsTramitacioRDTO.migracioIdOrigen)
-		        && Objects.equals(this.missatgeComunicat, docsTramitacioRDTO.missatgeComunicat)
-		        && Objects.equals(this.notificacio, docsTramitacioRDTO.notificacio)
-		        && Objects.equals(this.notificacions, docsTramitacioRDTO.notificacions)
-		        && Objects.equals(this.numDocsConfiguracio, docsTramitacioRDTO.numDocsConfiguracio)
-		        && Objects.equals(this.obligatoriEnEstat, docsTramitacioRDTO.obligatoriEnEstat)
-		        && Objects.equals(this.origen, docsTramitacioRDTO.origen)
-		        && Objects.equals(this.plantillaPdf, docsTramitacioRDTO.plantillaPdf)
-		        && Objects.equals(this.publicarInfoPublica, docsTramitacioRDTO.publicarInfoPublica)
-		        && Objects.equals(this.registreAssentament, docsTramitacioRDTO.registreAssentament)
-		        && Objects.equals(this.registreIdext, docsTramitacioRDTO.registreIdext)
-		        && Objects.equals(this.requereixSignatura, docsTramitacioRDTO.requereixSignatura)
-		        && Objects.equals(this.requeriments, docsTramitacioRDTO.requeriments)
-		        && Objects.equals(this.seleccionable, docsTramitacioRDTO.seleccionable)
-		        && Objects.equals(this.tipusMimeDescripcio, docsTramitacioRDTO.tipusMimeDescripcio)
-		        && Objects.equals(this.ultimaModificacioIdext, docsTramitacioRDTO.ultimaModificacioIdext)
-		        && Objects.equals(this.ultimaSignatura, docsTramitacioRDTO.ultimaSignatura)
-		        && Objects.equals(this.urlDigitalitzacio, docsTramitacioRDTO.urlDigitalitzacio)
-		        && Objects.equals(this.usuariIdext, docsTramitacioRDTO.usuariIdext)
-		        && Objects.equals(this.usuariSignaturaNom, docsTramitacioRDTO.usuariSignaturaNom);
+				&& Objects.equals(this.comentari, docsTramitacioRDTO.comentari)
+				&& Objects.equals(this.comunicat, docsTramitacioRDTO.comunicat)
+				&& Objects.equals(this.confDocsTramPolitiquesSig, docsTramitacioRDTO.confDocsTramPolitiquesSig)
+				&& Objects.equals(this.configDocTramitacio, docsTramitacioRDTO.configDocTramitacio)
+				&& Objects.equals(this.configuracioDocsTramitacio, docsTramitacioRDTO.configuracioDocsTramitacio)
+				&& Objects.equals(this.configuracioDocsTramitacioNom, docsTramitacioRDTO.configuracioDocsTramitacioNom)
+				&& Objects.equals(this.configuracioDocsTramitacioNomCastella, docsTramitacioRDTO.configuracioDocsTramitacioNomCastella)
+				&& Objects.equals(this.csv, docsTramitacioRDTO.csv) && Objects.equals(this.dataComunicat, docsTramitacioRDTO.dataComunicat)
+				&& Objects.equals(this.dataCreacio, docsTramitacioRDTO.dataCreacio)
+				&& Objects.equals(this.dataDigitalitzacio, docsTramitacioRDTO.dataDigitalitzacio)
+				&& Objects.equals(this.dataUltimaModificacio, docsTramitacioRDTO.dataUltimaModificacio)
+				&& Objects.equals(this.descripcioEstat, docsTramitacioRDTO.descripcioEstat)
+				&& Objects.equals(this.digitalitzat, docsTramitacioRDTO.digitalitzat)
+				&& Objects.equals(this.docsFisics, docsTramitacioRDTO.docsFisics)
+				&& Objects.equals(this.docsFisicsNom, docsTramitacioRDTO.docsFisicsNom)
+				&& Objects.equals(this.docsSignatures, docsTramitacioRDTO.docsSignatures)
+				&& Objects.equals(this.docsSignaturesPendents, docsTramitacioRDTO.docsSignaturesPendents)
+				&& Objects.equals(this.docsTercers, docsTramitacioRDTO.docsTercers)
+				&& Objects.equals(this.documentFisic, docsTramitacioRDTO.documentFisic)
+				&& Objects.equals(this.documentacio, docsTramitacioRDTO.documentacio)
+				&& Objects.equals(this.editable, docsTramitacioRDTO.editable) && Objects.equals(this.eliminat, docsTramitacioRDTO.eliminat)
+				&& Objects.equals(this.estat, docsTramitacioRDTO.estat)
+				&& Objects.equals(this.estatAnterior, docsTramitacioRDTO.estatAnterior)
+				&& Objects.equals(this.estatDigitalitzacio, docsTramitacioRDTO.estatDigitalitzacio)
+				&& Objects.equals(this.estatDocsTramitacio, docsTramitacioRDTO.estatDocsTramitacio)
+				&& Objects.equals(this.estatsDocsTramitacio, docsTramitacioRDTO.estatsDocsTramitacio)
+				&& Objects.equals(this.hash, docsTramitacioRDTO.hash) && Objects.equals(this.id, docsTramitacioRDTO.id)
+				&& Objects.equals(this.idioma, docsTramitacioRDTO.idioma)
+				&& Objects.equals(this.idiomaDigitalitzacio, docsTramitacioRDTO.idiomaDigitalitzacio)
+				&& Objects.equals(this.metadata, docsTramitacioRDTO.metadata)
+				&& Objects.equals(this.migracioIdOrigen, docsTramitacioRDTO.migracioIdOrigen)
+				&& Objects.equals(this.missatgeComunicat, docsTramitacioRDTO.missatgeComunicat)
+				&& Objects.equals(this.notificacio, docsTramitacioRDTO.notificacio)
+				&& Objects.equals(this.notificacions, docsTramitacioRDTO.notificacions)
+				&& Objects.equals(this.numDocsConfiguracio, docsTramitacioRDTO.numDocsConfiguracio)
+				&& Objects.equals(this.obligatoriEnEstat, docsTramitacioRDTO.obligatoriEnEstat)
+				&& Objects.equals(this.origen, docsTramitacioRDTO.origen)
+				&& Objects.equals(this.plantillaPdf, docsTramitacioRDTO.plantillaPdf)
+				&& Objects.equals(this.publicarInfoPublica, docsTramitacioRDTO.publicarInfoPublica)
+				&& Objects.equals(this.registreAssentament, docsTramitacioRDTO.registreAssentament)
+				&& Objects.equals(this.registreIdext, docsTramitacioRDTO.registreIdext)
+				&& Objects.equals(this.requereixSignatura, docsTramitacioRDTO.requereixSignatura)
+				&& Objects.equals(this.requeriments, docsTramitacioRDTO.requeriments)
+				&& Objects.equals(this.seleccionable, docsTramitacioRDTO.seleccionable)
+				&& Objects.equals(this.tipusMimeDescripcio, docsTramitacioRDTO.tipusMimeDescripcio)
+				&& Objects.equals(this.ultimaModificacioIdext, docsTramitacioRDTO.ultimaModificacioIdext)
+				&& Objects.equals(this.ultimaSignatura, docsTramitacioRDTO.ultimaSignatura)
+				&& Objects.equals(this.urlDigitalitzacio, docsTramitacioRDTO.urlDigitalitzacio)
+				&& Objects.equals(this.usuariIdext, docsTramitacioRDTO.usuariIdext)
+				&& Objects.equals(this.usuariSignaturaNom, docsTramitacioRDTO.usuariSignaturaNom);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(canalComunicat, codi, comentari, comunicat, configDocTramitacio, configuracioDocsTramitacio,
-		        configuracioDocsTramitacioNom, configuracioDocsTramitacioNomCastella, csv, dataComunicat, dataCreacio, dataDigitalitzacio,
-		        dataUltimaModificacio, descripcioEstat, digitalitzat, docsFisics, docsFisicsNom, docsSignatures, docsSignaturesPendents,
-		        docsTercers, documentFisic, documentacio, editable, eliminat, estat, estatAnterior, estatDigitalitzacio,
-		        estatDocsTramitacio, estatsDocsTramitacio, hash, id, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen,
-		        missatgeComunicat, notificacio, notificacions, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf,
-		        publicarInfoPublica, registreAssentament, registreIdext, requereixSignatura, requeriments, seleccionable,
-		        tipusMimeDescripcio, ultimaModificacioIdext, ultimaSignatura, urlDigitalitzacio, usuariIdext, usuariSignaturaNom);
+		return Objects.hash(canalComunicat, codi, comentari, comunicat, confDocsTramPolitiquesSig, configDocTramitacio,
+				configuracioDocsTramitacio, configuracioDocsTramitacioNom, configuracioDocsTramitacioNomCastella, csv, dataComunicat,
+				dataCreacio, dataDigitalitzacio, dataUltimaModificacio, descripcioEstat, digitalitzat, docsFisics, docsFisicsNom,
+				docsSignatures, docsSignaturesPendents, docsTercers, documentFisic, documentacio, editable, eliminat, estat, estatAnterior,
+				estatDigitalitzacio, estatDocsTramitacio, estatsDocsTramitacio, hash, id, idioma, idiomaDigitalitzacio, metadata,
+				migracioIdOrigen, missatgeComunicat, notificacio, notificacions, numDocsConfiguracio, obligatoriEnEstat, origen,
+				plantillaPdf, publicarInfoPublica, registreAssentament, registreIdext, requereixSignatura, requeriments, seleccionable,
+				tipusMimeDescripcio, ultimaModificacioIdext, ultimaSignatura, urlDigitalitzacio, usuariIdext, usuariSignaturaNom);
 	}
 
 	@Override
@@ -1307,11 +1330,12 @@ public class DocsTramitacioRDTO {
 		sb.append("    codi: ").append(toIndentedString(codi)).append("\n");
 		sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
 		sb.append("    comunicat: ").append(toIndentedString(comunicat)).append("\n");
+		sb.append("    confDocsTramPolitiquesSig: ").append(toIndentedString(confDocsTramPolitiquesSig)).append("\n");
 		sb.append("    configDocTramitacio: ").append(toIndentedString(configDocTramitacio)).append("\n");
 		sb.append("    configuracioDocsTramitacio: ").append(toIndentedString(configuracioDocsTramitacio)).append("\n");
 		sb.append("    configuracioDocsTramitacioNom: ").append(toIndentedString(configuracioDocsTramitacioNom)).append("\n");
 		sb.append("    configuracioDocsTramitacioNomCastella: ").append(toIndentedString(configuracioDocsTramitacioNomCastella))
-		        .append("\n");
+				.append("\n");
 		sb.append("    csv: ").append(toIndentedString(csv)).append("\n");
 		sb.append("    dataComunicat: ").append(toIndentedString(dataComunicat)).append("\n");
 		sb.append("    dataCreacio: ").append(toIndentedString(dataCreacio)).append("\n");

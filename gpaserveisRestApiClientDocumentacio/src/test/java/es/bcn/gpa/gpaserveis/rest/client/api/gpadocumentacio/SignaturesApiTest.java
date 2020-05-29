@@ -64,8 +64,8 @@ public class SignaturesApiTest extends ParentTest {
 	@Test
 	public void callbackPortaSigTest() {
 		when(apiClient.invokeAPI(eq("/signatures/callbackPortaSig"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(null);
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		CallbackPortaSig callbackPortaSigRDTO = new CallbackPortaSig();
 		api.callbackPortaSig(callbackPortaSigRDTO);
@@ -84,8 +84,8 @@ public class SignaturesApiTest extends ParentTest {
 	@Test
 	public void consultarDadesSignaturaTest() {
 		when(apiClient.invokeAPI(eq("/signatures/dadesSignatura/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new DadesSignatura());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new DadesSignatura());
 
 		String codiPeticio = ONE.toString();
 		DadesSignatura response = api.consultarDadesSignatura(codiPeticio);
@@ -104,8 +104,8 @@ public class SignaturesApiTest extends ParentTest {
 	@Test
 	public void crearPeticioPortaSigTest() {
 		when(apiClient.invokeAPI(eq("/signatures/crearPeticioPortaSig"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new PeticionsPortasig());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new PeticionsPortasig());
 
 		SignarPortasignaturesDocument signarPortasignaturesDocumentRDTO = new SignarPortasignaturesDocument();
 		PeticionsPortasig response = api.crearPeticioPortaSig(signarPortasignaturesDocumentRDTO);
@@ -124,8 +124,8 @@ public class SignaturesApiTest extends ParentTest {
 	@Test
 	public void descarregarDocumentExpedientSignatTest() {
 		when(apiClient.invokeAPI(eq("/signatures/descarregarDocumentExpedientSignat/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
-		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn("prova".getBytes());
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn("prova".getBytes());
 
 		BigDecimal idUltimaSignatura = ONE;
 		byte[] response = api.descarregarDocumentExpedientSignat(idUltimaSignatura);
@@ -144,8 +144,8 @@ public class SignaturesApiTest extends ParentTest {
 	@Test
 	public void signarSegellTest() {
 		when(apiClient.invokeAPI(eq("/signatures/signarSegell"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new SignarSegellDocument());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new SignarSegellDocument());
 
 		SignarSegellDocument signarSegellDocumentRDTO = new SignarSegellDocument();
 		SignarSegellDocument response = api.signarSegell(signarSegellDocumentRDTO);
@@ -164,8 +164,8 @@ public class SignaturesApiTest extends ParentTest {
 	@Test
 	public void signarTabletTest() {
 		when(apiClient.invokeAPI(eq("/signatures/signarTablet"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new SignarTabletDocumentResponse());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new SignarTabletDocumentResponse());
 
 		SignarTabletDocument signarTabletDocumentRDTO = new SignarTabletDocument();
 		SignarTabletDocumentResponse response = api.signarTablet(signarTabletDocumentRDTO);
@@ -184,8 +184,8 @@ public class SignaturesApiTest extends ParentTest {
 	@Test
 	public void signarValidTest() {
 		when(apiClient.invokeAPI(eq("/signatures/signarValid"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new SignarValidDocumentResponse());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new SignarValidDocumentResponse());
 
 		SignarValidDocument signarValidDocumentRDTO = new SignarValidDocument();
 		SignarValidDocumentResponse response = api.signarValid(signarValidDocumentRDTO);
@@ -204,8 +204,8 @@ public class SignaturesApiTest extends ParentTest {
 	@Test
 	public void finalitzarSignaturaTabletTest() {
 		when(apiClient.invokeAPI(eq("/signatures/finalitzarSignaturaTablet"), eq(HttpMethod.POST), any(MultiValueMap.class),
-		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		CallbackManuscrita callbackManuscritaRDTO = new CallbackManuscrita();
 		api.finalitzarSignaturaTablet(callbackManuscritaRDTO);
@@ -224,8 +224,8 @@ public class SignaturesApiTest extends ParentTest {
 	@Test
 	public void peticioAmbDocumentsSignatsTest() {
 		when(apiClient.invokeAPI(eq("/signatures/peticioAmbDocumentsSignats/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
-		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(Boolean.TRUE);
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(Boolean.TRUE);
 
 		String idPeticio = ONE.toString();
 		Boolean response = api.peticioAmbDocumentsSignats(idPeticio);
@@ -233,4 +233,23 @@ public class SignaturesApiTest extends ParentTest {
 		assertTrue(response);
 	}
 
+	/**
+	 * Incrementa els reintents de la signatura
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void incrementarReintentsSignaturaTest() {
+
+		when(apiClient.invokeAPI(eq("/incrementarReintentsSignaturaTest/1"), eq(HttpMethod.POST), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		BigDecimal idDocument = ONE;
+		api.incrementarReintentsSignatura(idDocument);
+		assertTrue(true);
+	}
 }
