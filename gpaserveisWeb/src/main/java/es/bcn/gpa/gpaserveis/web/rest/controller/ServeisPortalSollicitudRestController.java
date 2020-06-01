@@ -973,7 +973,10 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			SollicitudActualitzarRegistre sollicitudActualitzarRegistre = new SollicitudActualitzarRegistre();
 			sollicitudActualitzarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
 			sollicitudActualitzarRegistre.setIdSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
-			sollicitudActualitzarRegistre.setSignaturaSollicitud(sollicitudRegistrarRDTO.getSignaturaSolicitud());
+			if (sollicitudRegistrarRDTO != null){
+				sollicitudActualitzarRegistre.setSignaturaSollicitud(sollicitudRegistrarRDTO.getSignaturaSolicitud());	
+			}
+			
 			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
 
 			// Asociar registre de la solicitud a los posibles documentos
