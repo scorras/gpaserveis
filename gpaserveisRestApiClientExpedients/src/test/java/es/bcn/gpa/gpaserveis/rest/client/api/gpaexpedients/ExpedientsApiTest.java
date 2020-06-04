@@ -35,6 +35,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AnotarOperacioC
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegistreRDTO;
@@ -194,6 +195,27 @@ public class ExpedientsApiTest extends ParentTest {
 
 		CrearRegistre registrarSolicitudExpedientRDTO = new CrearRegistre();
 		api.esborrarRegistreSolicitudExpedient(registrarSolicitudExpedientRDTO);
+
+		assertTrue(true);
+	}
+
+	/**
+	 * Esborrar registre solicitud
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void esborrarRegistreSolicitudTest() {
+
+		when(apiClient.invokeAPI(eq("/expedients/registre/esborrarSollicitud"), eq(HttpMethod.POST), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new RespostaCrearRegistreExpedient());
+
+		CrearSollicitud registrarSolicitudRDTO = new CrearSollicitud();
+		api.esborrarRegistreSollicitud(registrarSolicitudRDTO);
 
 		assertTrue(true);
 	}

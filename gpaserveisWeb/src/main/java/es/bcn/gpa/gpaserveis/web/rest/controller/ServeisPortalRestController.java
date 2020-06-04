@@ -96,6 +96,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.handler.ServeisRestControllerExceptionHandler;
+import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerSagaHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerValidationHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerVisibilitatHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
@@ -1077,8 +1078,9 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error("registrarSolicitudExpedient(BigDecimal)", e);
 
-			sagaRegistrarSolicitudExpedient(dadesExpedientBDTO, respostaCrearRegistreExpedient, registreSollicitudAssociat,
-					respostaCrearJustificant, documentActualizarRegistreRDTO, registreDocumentacioAssociat);
+			ServeisRestControllerSagaHelper.sagaRegistrarSolicitudExpedient(serveisService, dadesExpedientBDTO,
+					respostaCrearRegistreExpedient, registreSollicitudAssociat, respostaCrearJustificant, documentActualizarRegistreRDTO,
+					registreDocumentacioAssociat);
 
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_REGISTRAR_EXPEDIENT, e);
 		}
@@ -1093,47 +1095,6 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		return respostaRegistrarExpedientRDTO;
-	}
-
-	private void sagaRegistrarSolicitudExpedient(DadesExpedientBDTO dadesExpedientBDTO,
-			RespostaCrearRegistreExpedient respostaCrearRegistreExpedient, boolean registreSollicitudAssociat,
-			DocsTramitacioRDTO respostaCrearJustificant, DocumentActualizarRegistre documentActualizarRegistreRDTO,
-			boolean registreDocumentacioAssociat) {
-
-		try {
-			if (registreSollicitudAssociat && respostaCrearRegistreExpedient != null
-					&& respostaCrearRegistreExpedient.getRegistreAssentament() != null
-					&& StringUtils.isNotEmpty(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi())) {
-
-				CrearRegistre registreCreacioSolicitudExpedient = new CrearRegistre();
-				registreCreacioSolicitudExpedient.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
-				ExpedientsRegistrarBDTO expedientsRegistrarBDTO = new ExpedientsRegistrarBDTO(registreCreacioSolicitudExpedient);
-
-				serveisService.esborrarRegistre(expedientsRegistrarBDTO);
-				// ponemos a nulo los valores para no incluirlos en la respuesta
-				respostaCrearRegistreExpedient.getRegistreAssentament().setCodi(null);
-				respostaCrearRegistreExpedient.getRegistreAssentament().setDataRegistre(null);
-			}
-			if (registreDocumentacioAssociat) {
-				serveisService.desassociarRegistreDocumentacioExpedient(documentActualizarRegistreRDTO);
-			}
-
-			if (respostaCrearJustificant != null) {
-				EsborrarDocumentBDTO esborrarDocumentExpedientBDTO = new EsborrarDocumentBDTO(
-						dadesExpedientBDTO.getExpedientsRDTO().getId(), respostaCrearJustificant.getId());
-				serveisService.esBorrarDocumentacioTramitacio(esborrarDocumentExpedientBDTO);
-
-				// ponemos a nulo los valores para no incluirlos en la respuesta
-				// (comprovant)
-				respostaCrearJustificant.setId(null);
-
-			}
-
-		} catch (GPAServeisServiceException e1) {
-			log.error(
-					"sagaRegistrarSolicitudExpedient(DadesExpedientBDTO, RespostaCrearRegistreExpedient, DocsTramitacioRDTO, ExpedientsRegistrarBDTO, DocumentActualizarRegistre)",
-					e1);// $NON-NLS-1$
-		}
 	}
 
 	/**
