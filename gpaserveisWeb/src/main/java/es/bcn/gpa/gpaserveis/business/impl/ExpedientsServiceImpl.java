@@ -1621,6 +1621,54 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#esborrarRegistre(es.bcn.
+	 * gpa .gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackEsborrarRegistreSollicitud")
+	public void esborrarRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("esborrarRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			expedientsApi.esborrarRegistreSollicitud(expedientsRegistrarSollicitudBDTO.getCrearSollicitud());
+
+			if (log.isDebugEnabled()) {
+				log.debug("esborrarRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("esborrarRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+
+	}
+
+	/**
+	 * Fallback esborrar registre sollicitud.
+	 *
+	 * @param expedientsRegistrarSollicitudBDTO
+	 *            the expedients registrar sollicitud BDTO
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackEsborrarRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackEsborrarRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
 	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#esborrarComentari(java.
 	 * math.BigDecimal, java.math.BigDecimal)
 	 */
