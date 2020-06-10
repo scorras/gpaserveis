@@ -40,6 +40,7 @@ import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBD
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
@@ -86,7 +87,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static List<UnitatsGestoresRDTO> loadUnitatsGestoresList(UnitatsGestoresService unitatsGestoresService,
-			UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO) throws GPAServeisServiceException {
+	        UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO) throws GPAServeisServiceException {
 		PageDataOfUnitatsGestoresRDTO pageDataOfUnitatsGestoresRDTO = unitatsGestoresService.cercaUnitatsGestores(unitatsGestoresCercaBDTO);
 		List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = pageDataOfUnitatsGestoresRDTO.getData();
 		return unitatsGestoresRDTOList;
@@ -106,7 +107,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static RespostaProcedimentsCercaBDTO loadCercaProcediments(ProcedimentsService procedimentsService,
-			UnitatsGestoresService unitatsGestoresService, ProcedimentsCercaBDTO procedimentsCercaBDTO) throws GPAServeisServiceException {
+	        UnitatsGestoresService unitatsGestoresService, ProcedimentsCercaBDTO procedimentsCercaBDTO) throws GPAServeisServiceException {
 		RespostaProcedimentsCercaBDTO respostaProcedimentsCercaBDTO = new RespostaProcedimentsCercaBDTO();
 		ArrayList<DadesProcedimentBDTO> dadesProcedimentBDTOList = new ArrayList<DadesProcedimentBDTO>();
 		DadesProcedimentBDTO dadesProcedimentBDTO = null;
@@ -141,7 +142,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static DadesProcedimentBDTO loadDadesBasiquesProcediment(ProcedimentsService procedimentsService, BigDecimal idProcediment)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 		DadesProcedimentBDTO dadesProcedimentBDTO = new DadesProcedimentBDTO();
 
 		loadProcediments(procedimentsService, dadesProcedimentBDTO, idProcediment);
@@ -163,7 +164,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static DadesProcedimentBDTO loadDadesProcediment(ProcedimentsService procedimentsService,
-			UnitatsGestoresService unitatsGestoresService, BigDecimal idProcediment) throws GPAServeisServiceException {
+	        UnitatsGestoresService unitatsGestoresService, BigDecimal idProcediment) throws GPAServeisServiceException {
 		DadesProcedimentBDTO dadesProcedimentBDTO = new DadesProcedimentBDTO();
 
 		loadProcediments(procedimentsService, dadesProcedimentBDTO, idProcediment);
@@ -191,7 +192,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static DadesProcedimentBDTO loadDadesProcediment(ProcedimentsService procedimentsService,
-			UnitatsGestoresService unitatsGestoresService, String codiProcediment) throws GPAServeisServiceException {
+	        UnitatsGestoresService unitatsGestoresService, String codiProcediment) throws GPAServeisServiceException {
 		DadesProcedimentBDTO dadesProcedimentBDTO = new DadesProcedimentBDTO();
 
 		loadProcediments(procedimentsService, dadesProcedimentBDTO, codiProcediment);
@@ -219,7 +220,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static RespostaExpedientsCercaBDTO loadCercaExpedients(ExpedientsService expedientsService,
-			UnitatsGestoresService unitatsGestoresService, ExpedientsCercaBDTO expedientsCercaBDTO) throws GPAServeisServiceException {
+	        UnitatsGestoresService unitatsGestoresService, ExpedientsCercaBDTO expedientsCercaBDTO) throws GPAServeisServiceException {
 		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = new RespostaExpedientsCercaBDTO();
 		ArrayList<DadesExpedientBDTO> dadesExpedientBDTOList = new ArrayList<DadesExpedientBDTO>();
 		DadesExpedientBDTO dadesExpedientBDTO = null;
@@ -253,7 +254,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static List<ExpedientsRDTO> loadCercaExpedientsAcumulats(ExpedientsService expedientsService, BigDecimal idExpedient)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 
 		ArrayList<ExpedientsRDTO> expedientsAcumulatsRDTOList = new ArrayList<ExpedientsRDTO>();
 		PageDataOfExpedientsRDTO pageDataOfExpedientsRDTO = expedientsService.obtenirExpedientsRelacionats(idExpedient);
@@ -263,7 +264,7 @@ public class ServeisServiceHelper {
 		if (pageDataOfExpedientsRDTO != null && CollectionUtils.isNotEmpty(pageDataOfExpedientsRDTO.getData())) {
 			for (ExpedientsRDTO expedientsRDTO : pageDataOfExpedientsRDTO.getData()) {
 				tipusRelacioApiParamValue = tipusRelacioApiParamValueTranslator
-						.getEnumByInternalValue(expedientsRDTO.getRelacioTipusRelacio());
+				        .getEnumByInternalValue(expedientsRDTO.getRelacioTipusRelacio());
 				switch (tipusRelacioApiParamValue) {
 				case ACUMULAT:
 					expedientsAcumulatsRDTOList.add(expedientsRDTO);
@@ -298,13 +299,13 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static DadesSollicitudBDTO loadDadesSollicitud(ExpedientsService expedientsService, ProcedimentsService procedimentsService,
-			UnitatsGestoresService unitatsGestoresService, DocumentsService documentsService, DadesOperacioService dadesOperacioService,
-			BigDecimal idSollicitud, BigDecimal visibilitat) throws GPAServeisServiceException {
+	        UnitatsGestoresService unitatsGestoresService, DocumentsService documentsService, DadesOperacioService dadesOperacioService,
+	        BigDecimal idSollicitud, BigDecimal visibilitat) throws GPAServeisServiceException {
 		DadesSollicitudBDTO dadesSollicitudBDTO = new DadesSollicitudBDTO();
 
 		loadSollicituds(expedientsService, dadesSollicitudBDTO, idSollicitud);
 		loadDadesSollicitud(expedientsService, procedimentsService, unitatsGestoresService, documentsService, dadesOperacioService,
-				dadesSollicitudBDTO, visibilitat);
+		        dadesSollicitudBDTO, visibilitat);
 
 		return dadesSollicitudBDTO;
 	}
@@ -321,7 +322,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static DadesSollicitudBDTO loadDadesSollicitudPerVisibilitat(ExpedientsService expedientsService, BigDecimal idSollicitud)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 		DadesSollicitudBDTO dadesSollicitudBDTO = new DadesSollicitudBDTO();
 
 		loadSollicituds(expedientsService, dadesSollicitudBDTO, idSollicitud);
@@ -353,8 +354,8 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	private static void loadDadesSollicitud(ExpedientsService expedientsService, ProcedimentsService procedimentsService,
-			UnitatsGestoresService unitatsGestoresService, DocumentsService documentsService, DadesOperacioService dadesOperacioService,
-			DadesSollicitudBDTO dadesSollicitudBDTO, BigDecimal visibilitat) throws GPAServeisServiceException {
+	        UnitatsGestoresService unitatsGestoresService, DocumentsService documentsService, DadesOperacioService dadesOperacioService,
+	        DadesSollicitudBDTO dadesSollicitudBDTO, BigDecimal visibilitat) throws GPAServeisServiceException {
 
 		if (dadesSollicitudBDTO.getSollicitudsRDTO() != null) {
 			loadExpedients(expedientsService, dadesSollicitudBDTO, dadesSollicitudBDTO.getSollicitudsRDTO().getExpedient());
@@ -366,8 +367,8 @@ public class ServeisServiceHelper {
 				loadDocumentsAportats(documentsService, dadesSollicitudBDTO, visibilitat);
 
 				loadDadesEspecifiques(expedientsService, dadesOperacioService, dadesSollicitudBDTO,
-						dadesSollicitudBDTO.getSollicitudsRDTO().getId(), dadesSollicitudBDTO.getExpedientsRDTO().getProcedimentIdext(),
-						visibilitat);
+				        dadesSollicitudBDTO.getSollicitudsRDTO().getId(), dadesSollicitudBDTO.getExpedientsRDTO().getProcedimentIdext(),
+				        visibilitat);
 			}
 		}
 	}
@@ -396,13 +397,13 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static DadesExpedientBDTO loadDadesExpedient(ExpedientsService expedientsService, UnitatsGestoresService unitatsGestoresService,
-			TramitsService tramitsService, DocumentsService documentsService, DadesOperacioService dadesOperacioService,
-			SollicitudsService sollicitudsService, BigDecimal idExpedient, BigDecimal visibilitat) throws GPAServeisServiceException {
+	        TramitsService tramitsService, DocumentsService documentsService, DadesOperacioService dadesOperacioService,
+	        SollicitudsService sollicitudsService, BigDecimal idExpedient, BigDecimal visibilitat) throws GPAServeisServiceException {
 		DadesExpedientBDTO dadesExpedientBDTO = new DadesExpedientBDTO();
 
 		loadExpedients(expedientsService, dadesExpedientBDTO, idExpedient);
 		loadDadesExpedient(expedientsService, unitatsGestoresService, tramitsService, documentsService, dadesOperacioService,
-				sollicitudsService, dadesExpedientBDTO, visibilitat);
+		        sollicitudsService, dadesExpedientBDTO, visibilitat);
 
 		return dadesExpedientBDTO;
 	}
@@ -431,13 +432,13 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static DadesExpedientBDTO loadDadesExpedient(ExpedientsService expedientsService, UnitatsGestoresService unitatsGestoresService,
-			TramitsService tramitsService, DocumentsService documentsService, DadesOperacioService dadesOperacioService,
-			SollicitudsService sollicitudsService, String codiExpedient, BigDecimal visibilitat) throws GPAServeisServiceException {
+	        TramitsService tramitsService, DocumentsService documentsService, DadesOperacioService dadesOperacioService,
+	        SollicitudsService sollicitudsService, String codiExpedient, BigDecimal visibilitat) throws GPAServeisServiceException {
 		DadesExpedientBDTO dadesExpedientBDTO = new DadesExpedientBDTO();
 
 		loadExpedients(expedientsService, dadesExpedientBDTO, codiExpedient);
 		loadDadesExpedient(expedientsService, unitatsGestoresService, tramitsService, documentsService, dadesOperacioService,
-				sollicitudsService, dadesExpedientBDTO, visibilitat);
+		        sollicitudsService, dadesExpedientBDTO, visibilitat);
 
 		return dadesExpedientBDTO;
 	}
@@ -465,9 +466,9 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	private static void loadDadesExpedient(ExpedientsService expedientsService, UnitatsGestoresService unitatsGestoresService,
-			TramitsService tramitsService, DocumentsService documentsService, DadesOperacioService dadesOperacioService,
-			SollicitudsService sollicitudsService, DadesExpedientBDTO dadesExpedientBDTO, BigDecimal visibilitat)
-			throws GPAServeisServiceException {
+	        TramitsService tramitsService, DocumentsService documentsService, DadesOperacioService dadesOperacioService,
+	        SollicitudsService sollicitudsService, DadesExpedientBDTO dadesExpedientBDTO, BigDecimal visibilitat)
+	        throws GPAServeisServiceException {
 
 		if (dadesExpedientBDTO.getExpedientsRDTO() != null) {
 			loadUnitatGestora(unitatsGestoresService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
@@ -478,15 +479,18 @@ public class ServeisServiceHelper {
 
 			if (visibilitat != null) {
 				loadDocumentsAportats(documentsService, tramitsService, dadesExpedientBDTO,
-						dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext(), visibilitat);
+				        dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext(), visibilitat);
+
+				loadDocumentsGenerats(documentsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext(),
+				        visibilitat);
 
 				loadDadesEspecifiques(expedientsService, dadesOperacioService, dadesExpedientBDTO,
-						dadesExpedientBDTO.getExpedientsRDTO().getId(), visibilitat);
+				        dadesExpedientBDTO.getExpedientsRDTO().getId(), visibilitat);
 			}
 
 			loadDocumentsRequerits(documentsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
 			loadDadesOperacioRequerits(documentsService, dadesOperacioService, dadesExpedientBDTO,
-					dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
+			        dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
 			loadSollicituds(sollicitudsService, dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO);
 		}
 	}
@@ -505,7 +509,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static DadesExpedientBDTO loadDadesBasiquesExpedient(ExpedientsService expedientsService, TramitsService tramitsService,
-			BigDecimal idExpedient) throws GPAServeisServiceException {
+	        BigDecimal idExpedient) throws GPAServeisServiceException {
 		DadesExpedientBDTO dadesExpedientBDTO = new DadesExpedientBDTO();
 
 		loadExpedients(expedientsService, dadesExpedientBDTO, idExpedient);
@@ -528,7 +532,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static DadesExpedientBDTO loadDadesBasiquesExpedient(ExpedientsService expedientsService, TramitsService tramitsService,
-			String codiExpedient) throws GPAServeisServiceException {
+	        String codiExpedient) throws GPAServeisServiceException {
 		DadesExpedientBDTO dadesExpedientBDTO = new DadesExpedientBDTO();
 
 		loadExpedients(expedientsService, dadesExpedientBDTO, codiExpedient);
@@ -549,7 +553,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static DadesExpedientBDTO loadDadesBasiquesExpedientPerVisibilitat(ExpedientsService expedientsService,
-			TramitsService tramitsService, String codiExpedient) throws GPAServeisServiceException {
+	        TramitsService tramitsService, String codiExpedient) throws GPAServeisServiceException {
 		DadesExpedientBDTO dadesExpedientBDTO = new DadesExpedientBDTO();
 		loadExpedients(expedientsService, dadesExpedientBDTO, codiExpedient);
 		loadAccionsPossibles(tramitsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
@@ -571,7 +575,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	private static void loadDadesBasiquesExpedient(ExpedientsService expedientsService, TramitsService tramitsService,
-			DadesExpedientBDTO dadesExpedientBDTO) throws GPAServeisServiceException {
+	        DadesExpedientBDTO dadesExpedientBDTO) throws GPAServeisServiceException {
 		if (dadesExpedientBDTO.getExpedientsRDTO() != null) {
 			loadAccionsPossibles(tramitsService, dadesExpedientBDTO, dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
 		}
@@ -590,7 +594,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static void loadProcediments(ProcedimentsService procedimentsService, DadesProcedimentBDTO dadesProcedimentBDTO,
-			BigDecimal idProcediment) throws GPAServeisServiceException {
+	        BigDecimal idProcediment) throws GPAServeisServiceException {
 		ProcedimentsRDTO procedimentsRDTO = procedimentsService.consultarDadesProcediment(idProcediment);
 		dadesProcedimentBDTO.setProcedimentsRDTO(procedimentsRDTO);
 	}
@@ -608,7 +612,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static void loadProcediments(ProcedimentsService procedimentsService, DadesProcedimentBDTO dadesProcedimentBDTO,
-			String codiProcediment) throws GPAServeisServiceException {
+	        String codiProcediment) throws GPAServeisServiceException {
 		ProcedimentsRDTO procedimentsRDTO = procedimentsService.consultarDadesProcedimentPerCodi(codiProcediment);
 		dadesProcedimentBDTO.setProcedimentsRDTO(procedimentsRDTO);
 	}
@@ -626,7 +630,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static void loadTramitsList(TramitsService tramitsService, DadesProcedimentBDTO dadesProcedimentBDTO, BigDecimal idProcediment)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 		PageDataOfTramitsRDTO pageDataOfTramitsRDTO = tramitsService.cercaTramitsProcediment(idProcediment);
 		dadesProcedimentBDTO.setTramitsRDTOList(pageDataOfTramitsRDTO.getData());
 	}
@@ -644,7 +648,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static void loadUgr(UnitatsGestoresService unitatsGestoresService, DadesProcedimentBDTO dadesProcedimentBDTO, BigDecimal idUgr)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 		UnitatsGestoresRDTO ugrRDTO = unitatsGestoresService.consultarDadesUnitatGestora(idUgr);
 		dadesProcedimentBDTO.setUgrRDTO(ugrRDTO);
 	}
@@ -662,7 +666,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static void loadUgoList(UnitatsGestoresService unitatsGestoresService, DadesProcedimentBDTO dadesProcedimentBDTO,
-			List<ProcedimentsUgos> procedimentsUgosList) throws GPAServeisServiceException {
+	        List<ProcedimentsUgos> procedimentsUgosList) throws GPAServeisServiceException {
 		ArrayList<UnitatsGestoresRDTO> ugoRDTOList = new ArrayList<UnitatsGestoresRDTO>();
 		if (CollectionUtils.isNotEmpty(procedimentsUgosList)) {
 			UnitatsGestoresRDTO ugoRDTO = null;
@@ -687,7 +691,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static void loadUnitatGestora(UnitatsGestoresService unitatsGestoresService, DadesSollicitudBDTO dadesSollicitudBDTO,
-			BigDecimal idUnitatGestora) throws GPAServeisServiceException {
+	        BigDecimal idUnitatGestora) throws GPAServeisServiceException {
 		UnitatsGestoresRDTO unitatsGestoresRDTO = unitatsGestoresService.consultarDadesUnitatGestora(idUnitatGestora);
 		dadesSollicitudBDTO.setUnitatsGestoresRDTO(unitatsGestoresRDTO);
 	}
@@ -705,7 +709,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static void loadUnitatGestora(UnitatsGestoresService unitatsGestoresService, DadesExpedientBDTO dadesExpedientBDTO,
-			BigDecimal idUnitatGestora) throws GPAServeisServiceException {
+	        BigDecimal idUnitatGestora) throws GPAServeisServiceException {
 		UnitatsGestoresRDTO unitatsGestoresRDTO = unitatsGestoresService.consultarDadesUnitatGestora(idUnitatGestora);
 		dadesExpedientBDTO.setUnitatsGestoresRDTO(unitatsGestoresRDTO);
 	}
@@ -722,7 +726,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static UnitatsGestoresRDTO loadUnitatGestora(UnitatsGestoresService unitatsGestoresService, BigDecimal idUnitatGestora)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 		UnitatsGestoresRDTO unitatsGestoresRDTO = unitatsGestoresService.consultarDadesUnitatGestora(idUnitatGestora);
 		return unitatsGestoresRDTO;
 	}
@@ -739,9 +743,9 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static UnitatsGestoresRDTO loadUnitatGestora(UnitatsGestoresService unitatsGestoresService,
-			UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO) throws GPAServeisServiceException {
+	        UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO) throws GPAServeisServiceException {
 		UnitatsGestoresRDTO unitatsGestoresRDTO = unitatsGestoresService
-				.consultarDadesUnitatGestoraPerCodi(unitatsGestoresCercaBDTO.getCodi());
+		        .consultarDadesUnitatGestoraPerCodi(unitatsGestoresCercaBDTO.getCodi());
 		return unitatsGestoresRDTO;
 	}
 
@@ -758,7 +762,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	private static void loadHistoricsList(ExpedientsService expedientsService, DadesExpedientBDTO dadesExpedientBDTO,
-			BigDecimal idExpedient) throws GPAServeisServiceException {
+	        BigDecimal idExpedient) throws GPAServeisServiceException {
 		List<EstatsRDTO> estatsRDTOList = expedientsService.cercaHistoricsEstatsExpedient(idExpedient);
 		dadesExpedientBDTO.setHistoricsEstats(estatsRDTOList);
 	}
@@ -776,9 +780,9 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	private static void loadPersonesInteressades(ExpedientsService expedientsService, DadesExpedientBDTO dadesExpedientBDTO,
-			BigDecimal idSolicitud) throws GPAServeisServiceException {
+	        BigDecimal idSolicitud) throws GPAServeisServiceException {
 		PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = expedientsService
-				.cercaPersonesInteresadesExpedient(idSolicitud);
+		        .cercaPersonesInteresadesExpedient(idSolicitud);
 		// Se separan el solicitante principal y representante principal del
 		// resto de personas interesadas
 		Persones sollicitantPrincipal = null;
@@ -813,9 +817,9 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	private static void loadPersonesInteressades(ExpedientsService expedientsService, DadesSollicitudBDTO dadesSollicitudBDTO,
-			BigDecimal idSolicitud) throws GPAServeisServiceException {
+	        BigDecimal idSolicitud) throws GPAServeisServiceException {
 		PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = expedientsService
-				.cercaPersonesInteresadesExpedient(idSolicitud);
+		        .cercaPersonesInteresadesExpedient(idSolicitud);
 		// Se separan el solicitante principal y representante principal del
 		// resto de personas interesadas
 		Persones sollicitantPrincipal = null;
@@ -850,9 +854,9 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	private static void loadAltresPersonesImplicades(ExpedientsService expedientsService, DadesExpedientBDTO dadesExpedientBDTO,
-			BigDecimal idSolicitud) throws GPAServeisServiceException {
+	        BigDecimal idSolicitud) throws GPAServeisServiceException {
 		PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = expedientsService
-				.cercaAltresPersonesImplicadesExpedient(idSolicitud);
+		        .cercaAltresPersonesImplicadesExpedient(idSolicitud);
 		dadesExpedientBDTO.setPersonesImplicades(pageDataOfPersonesSollicitudRDTO.getData());
 	}
 
@@ -869,9 +873,9 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	private static void loadAltresPersonesImplicades(ExpedientsService expedientsService, DadesSollicitudBDTO dadesSollicitudBDTO,
-			BigDecimal idSolicitud) throws GPAServeisServiceException {
+	        BigDecimal idSolicitud) throws GPAServeisServiceException {
 		PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = expedientsService
-				.cercaAltresPersonesImplicadesExpedient(idSolicitud);
+		        .cercaAltresPersonesImplicadesExpedient(idSolicitud);
 		dadesSollicitudBDTO.setPersonesImplicades(pageDataOfPersonesSollicitudRDTO.getData());
 	}
 
@@ -888,7 +892,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	private static void loadAccionsPossibles(TramitsService tramitsService, DadesExpedientBDTO dadesExpedientBDTO, BigDecimal idEstat)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 		List<AccionsEstatsRDTO> accionsEstatsRDTOList = tramitsService.cercaAccionsPossibles(idEstat);
 		dadesExpedientBDTO.setAccionsDisponibles(accionsEstatsRDTOList);
 	}
@@ -906,9 +910,9 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	private static void loadDocumentsAportats(DocumentsService documentsService, DadesSollicitudBDTO dadesSollicitudBDTO,
-			BigDecimal visibilitat) throws GPAServeisServiceException {
+	        BigDecimal visibilitat) throws GPAServeisServiceException {
 		List<DocsEntradaRDTO> docsEntradaRDTOList = documentsService
-				.cercaDocumentsEntradaPerSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId(), visibilitat);
+		        .cercaDocumentsEntradaPerSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId(), visibilitat);
 		dadesSollicitudBDTO.setDocumentsAportats(docsEntradaRDTOList);
 	}
 
@@ -929,14 +933,14 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	private static void loadDocumentsAportats(DocumentsService documentsService, TramitsService tramitsService,
-			DadesExpedientBDTO dadesExpedientBDTO, BigDecimal documentacioIdext, BigDecimal visibilitat) throws GPAServeisServiceException {
+	        DadesExpedientBDTO dadesExpedientBDTO, BigDecimal documentacioIdext, BigDecimal visibilitat) throws GPAServeisServiceException {
 		EstatTramitadorApiParamValueTranslator estatTramitadorApiParamValueTranslator = new EstatTramitadorApiParamValueTranslator();
 		String estatTramitadorApiParamValueExpedient = estatTramitadorApiParamValueTranslator
-				.getApiParamValueByInternalValue(dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+		        .getApiParamValueByInternalValue(dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
 		List<DocsEntradaRDTO> docsEntradaRDTOList = null;
 		if (StringUtils.equals(estatTramitadorApiParamValueExpedient, EstatTramitadorApiParamValue.EN_PREPARACIO.getApiParamValue())) {
 			docsEntradaRDTOList = documentsService
-					.cercaDocumentsEntradaPerSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(), visibilitat);
+			        .cercaDocumentsEntradaPerSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(), visibilitat);
 		} else {
 			docsEntradaRDTOList = documentsService.cercaDocumentsEntradaAgrupatsPerTramitOvt(documentacioIdext, visibilitat);
 		}
@@ -953,12 +957,32 @@ public class ServeisServiceHelper {
 		TramitsOvtRDTO tramitsOvtRDTO = null;
 		for (DocsEntradaRDTO docsEntradaRDTO : docsEntradaRDTOList) {
 			if (docsEntradaRDTO.getTramitOvtIdext() != null
-					&& !dadesExpedientBDTO.getTramitsOvtMap().containsKey(docsEntradaRDTO.getTramitOvtIdext())) {
+			        && !dadesExpedientBDTO.getTramitsOvtMap().containsKey(docsEntradaRDTO.getTramitOvtIdext())) {
 				tramitsOvtCercaBDTO = new TramitsOvtCercaBDTO(docsEntradaRDTO.getTramitOvtIdext());
 				tramitsOvtRDTO = loadTramitsOvtRDTO(tramitsService, tramitsOvtCercaBDTO);
 				dadesExpedientBDTO.getTramitsOvtMap().put(docsEntradaRDTO.getTramitOvtIdext(), tramitsOvtRDTO);
 			}
 		}
+	}
+
+	/**
+	 * Load documents generats.
+	 *
+	 * @param documentsService
+	 *            the documents service
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param documentacioIdext
+	 *            the documentacio idext
+	 * @param visibilitat
+	 *            the visibilitat
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	private static void loadDocumentsGenerats(DocumentsService documentsService, DadesExpedientBDTO dadesExpedientBDTO,
+	        BigDecimal documentacioIdext, BigDecimal visibilitat) throws GPAServeisServiceException {
+		List<DocsTramitacioRDTO> docsTramitacioRDTOList = documentsService.cercaDocumentsTramitacio(documentacioIdext, visibilitat);
+		dadesExpedientBDTO.setDocumentsGenerats(docsTramitacioRDTOList);
 	}
 
 	/**
@@ -974,9 +998,9 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	private static void loadDocumentsRequerits(DocumentsService documentsService, DadesExpedientBDTO dadesExpedientBDTO,
-			BigDecimal documentacioIdext) throws GPAServeisServiceException {
+	        BigDecimal documentacioIdext) throws GPAServeisServiceException {
 		List<ConfDocEntradaRequeritRDTO> confDocEntradaRequeritRDTOList = documentsService
-				.cercaConfiguracioDocumentacioEntradaRequerida(documentacioIdext);
+		        .cercaConfiguracioDocumentacioEntradaRequerida(documentacioIdext);
 		dadesExpedientBDTO.setConfiguracioDocumentacioRequerida(confDocEntradaRequeritRDTOList);
 	}
 
@@ -995,12 +1019,12 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	private static void loadDadesOperacioRequerits(DocumentsService documentsService, DadesOperacioService dadesOperacioService,
-			DadesExpedientBDTO dadesExpedientBDTO, BigDecimal documentacioIdext) throws GPAServeisServiceException {
+	        DadesExpedientBDTO dadesExpedientBDTO, BigDecimal documentacioIdext) throws GPAServeisServiceException {
 		List<BigDecimal> dadesOperacioRequeritsIdList = documentsService.cercaDadesOperacioRequerits(documentacioIdext);
 		if (CollectionUtils.isNotEmpty(dadesOperacioRequeritsIdList)) {
 			ArrayList<DadesOperacions> dadesOperacioRequerits = new ArrayList<DadesOperacions>();
 			DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(
-					dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
+			        dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
 			PageDataOfDadesGrupsRDTO pageDataOfDadesGrupsRDTO = dadesOperacioService.cercaDadesOperacio(dadesOperacioCercaBDTO);
 			for (DadesGrupsRDTO dadesGrupsRDTO : pageDataOfDadesGrupsRDTO.getData()) {
 				for (DadesOperacions dadesOperacions : dadesGrupsRDTO.getDadesOperacionsList()) {
@@ -1032,12 +1056,12 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	private static void loadDadesEspecifiques(ExpedientsService expedientsService, DadesOperacioService dadesOperacioService,
-			DadesSollicitudBDTO dadesSollicitudBDTO, BigDecimal idSollicitud, BigDecimal idProcediment, BigDecimal visibilitat)
-			throws GPAServeisServiceException {
+	        DadesSollicitudBDTO dadesSollicitudBDTO, BigDecimal idSollicitud, BigDecimal idProcediment, BigDecimal visibilitat)
+	        throws GPAServeisServiceException {
 		ArrayList<DadaEspecificaBDTO> dadaEspecificaBDTOList = null;
 		DadaEspecificaBDTO dadaEspecificaBDTO = null;
 		List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = expedientsService
-				.cercaDadesEspecifiquesSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId(), visibilitat);
+		        .cercaDadesEspecifiquesSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId(), visibilitat);
 		if (CollectionUtils.isNotEmpty(dadesEspecifiquesRDTOList)) {
 			dadaEspecificaBDTOList = new ArrayList<DadaEspecificaBDTO>();
 			HashMap<BigDecimal, DadesOperacions> dadesOperacionsMap = new HashMap<BigDecimal, DadesOperacions>();
@@ -1079,16 +1103,16 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	private static void loadDadesEspecifiques(ExpedientsService expedientsService, DadesOperacioService dadesOperacioService,
-			DadesExpedientBDTO dadesExpedientBDTO, BigDecimal idExpedient, BigDecimal visibilitat) throws GPAServeisServiceException {
+	        DadesExpedientBDTO dadesExpedientBDTO, BigDecimal idExpedient, BigDecimal visibilitat) throws GPAServeisServiceException {
 		ArrayList<DadaEspecificaBDTO> dadaEspecificaBDTOList = null;
 		DadaEspecificaBDTO dadaEspecificaBDTO = null;
 		EstatTramitadorApiParamValueTranslator estatTramitadorApiParamValueTranslator = new EstatTramitadorApiParamValueTranslator();
 		String estatTramitadorApiParamValueExpedient = estatTramitadorApiParamValueTranslator
-				.getApiParamValueByInternalValue(dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+		        .getApiParamValueByInternalValue(dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
 		List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
 		if (StringUtils.equals(estatTramitadorApiParamValueExpedient, EstatTramitadorApiParamValue.EN_PREPARACIO.getApiParamValue())) {
 			dadesEspecifiquesRDTOList = expedientsService
-					.cercaDadesEspecifiquesSollicitud((dadesExpedientBDTO.getExpedientsRDTO().getSollicitud()), visibilitat);
+			        .cercaDadesEspecifiquesSollicitud((dadesExpedientBDTO.getExpedientsRDTO().getSollicitud()), visibilitat);
 		} else {
 			dadesEspecifiquesRDTOList = expedientsService.cercaDadesEspecifiquesExpedient(idExpedient, visibilitat);
 		}
@@ -1097,7 +1121,7 @@ public class ServeisServiceHelper {
 			dadaEspecificaBDTOList = new ArrayList<DadaEspecificaBDTO>();
 			HashMap<BigDecimal, DadesOperacions> dadesOperacionsMap = new HashMap<BigDecimal, DadesOperacions>();
 			DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(
-					dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
+			        dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
 			PageDataOfDadesGrupsRDTO pageDataOfDadesGrupsRDTO = dadesOperacioService.cercaDadesOperacio(dadesOperacioCercaBDTO);
 			if (CollectionUtils.isNotEmpty(pageDataOfDadesGrupsRDTO.getData())) {
 				for (DadesGrupsRDTO dadesGrupsRDTO : pageDataOfDadesGrupsRDTO.getData()) {
@@ -1131,7 +1155,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	private static void loadSollicituds(SollicitudsService sollicitudsService, BigDecimal idExpedient,
-			DadesExpedientBDTO dadesExpedientBDTO) throws GPAServeisServiceException {
+	        DadesExpedientBDTO dadesExpedientBDTO) throws GPAServeisServiceException {
 		List<SollicitudsRDTO> sollicitudsRDTOList = sollicitudsService.consultarSollicitudsExpedient(idExpedient);
 		dadesExpedientBDTO.setSollicituds(sollicitudsRDTOList);
 	}
@@ -1149,7 +1173,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static void loadSollicituds(ExpedientsService expedientsService, DadesSollicitudBDTO dadesSollicitudBDTO,
-			BigDecimal idSollicitud) throws GPAServeisServiceException {
+	        BigDecimal idSollicitud) throws GPAServeisServiceException {
 		SollicitudsRDTO sollicitudsRDTO = expedientsService.consultarDadesSollicitud(idSollicitud);
 		dadesSollicitudBDTO.setSollicitudsRDTO(sollicitudsRDTO);
 	}
@@ -1167,7 +1191,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static void loadExpedients(ExpedientsService expedientsService, DadesSollicitudBDTO dadesSollicitudBDTO, BigDecimal idExpedient)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 		ExpedientsRDTO expedientsRDTO = expedientsService.consultarDadesExpedient(idExpedient);
 		dadesSollicitudBDTO.setExpedientsRDTO(expedientsRDTO);
 	}
@@ -1185,7 +1209,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static void loadExpedients(ExpedientsService expedientsService, DadesExpedientBDTO dadesExpedientBDTO, BigDecimal idExpedient)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 		ExpedientsRDTO expedientsRDTO = expedientsService.consultarDadesExpedient(idExpedient);
 		dadesExpedientBDTO.setExpedientsRDTO(expedientsRDTO);
 	}
@@ -1203,7 +1227,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static void loadExpedients(ExpedientsService expedientsService, DadesExpedientBDTO dadesExpedientBDTO, String codiExpedient)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 		ExpedientsRDTO expedientsRDTO = expedientsService.consultarDadesExpedientPerCodi(codiExpedient);
 		dadesExpedientBDTO.setExpedientsRDTO(expedientsRDTO);
 	}
@@ -1220,7 +1244,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static RespostaDadesOperacioCercaBDTO loadCercaDadesOperacio(DadesOperacioService dadesOperacioService,
-			DadesOperacioCercaBDTO dadesOperacioCercaBDTO) throws GPAServeisServiceException {
+	        DadesOperacioCercaBDTO dadesOperacioCercaBDTO) throws GPAServeisServiceException {
 		RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = new RespostaDadesOperacioCercaBDTO();
 		PageDataOfDadesGrupsRDTO pageDataOfDadesGrupsRDTO = dadesOperacioService.cercaDadesOperacio(dadesOperacioCercaBDTO);
 		respostaDadesOperacioCercaBDTO.setDadesGrupsRDTOList(pageDataOfDadesGrupsRDTO.getData());
@@ -1239,10 +1263,10 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static RespostaDadesOperacioRequeritsCercaBDTO loadCercaDadesOperacioRequerits(DadesOperacioService dadesOperacioService,
-			DadesOperacioCercaBDTO dadesOperacioCercaBDTO) throws GPAServeisServiceException {
+	        DadesOperacioCercaBDTO dadesOperacioCercaBDTO) throws GPAServeisServiceException {
 		RespostaDadesOperacioRequeritsCercaBDTO respostaDadesOperacioRequeritsCercaBDTO = new RespostaDadesOperacioRequeritsCercaBDTO();
 		PageDataOfDadesOperacionsRDTO pageDataOfDadesOperacionsRDTO = dadesOperacioService
-				.cercaDadesOperacioRequerits(dadesOperacioCercaBDTO);
+		        .cercaDadesOperacioRequerits(dadesOperacioCercaBDTO);
 		respostaDadesOperacioRequeritsCercaBDTO.setDadesOperacionsRDTOList(pageDataOfDadesOperacionsRDTO.getData());
 		return respostaDadesOperacioRequeritsCercaBDTO;
 	}
@@ -1259,10 +1283,10 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static RespostaDocumentsEntradaCercaBDTO loadCercaConfiguracioDocumentacioEntrada(DocumentsService documentsService,
-			DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO) throws GPAServeisServiceException {
+	        DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO) throws GPAServeisServiceException {
 		RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = new RespostaDocumentsEntradaCercaBDTO();
 		PageDataOfConfiguracioDocsEntradaRDTO pageDataOfConfiguracioDocsEntradaRDTO = documentsService
-				.cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);
+		        .cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);
 		respostaDocumentsEntradaCercaBDTO.setConfiguracioDocsEntradaRDTOList(pageDataOfConfiguracioDocsEntradaRDTO.getData());
 		return respostaDocumentsEntradaCercaBDTO;
 	}
@@ -1279,10 +1303,10 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static RespostaDocumentsEntradaCercaBDTO loadCercaConfiguracioDocumentacioEntradaPerTramitOvt(DocumentsService documentsService,
-			DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO) throws GPAServeisServiceException {
+	        DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO) throws GPAServeisServiceException {
 		RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = new RespostaDocumentsEntradaCercaBDTO();
 		PageDataOfConfiguracioDocsEntradaRDTO pageDataOfConfiguracioDocsEntradaRDTO = documentsService
-				.cercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsEntradaCercaBDTO);
+		        .cercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsEntradaCercaBDTO);
 		respostaDocumentsEntradaCercaBDTO.setConfiguracioDocsEntradaRDTOList(pageDataOfConfiguracioDocsEntradaRDTO.getData());
 		return respostaDocumentsEntradaCercaBDTO;
 	}
@@ -1299,10 +1323,10 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static RespostaDocumentsTramitacioCercaBDTO loadCercaConfiguracioDocumentacioTramitacio(DocumentsService documentsService,
-			DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO) throws GPAServeisServiceException {
+	        DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO) throws GPAServeisServiceException {
 		RespostaDocumentsTramitacioCercaBDTO respostaDocumentsTramitacioCercaBDTO = new RespostaDocumentsTramitacioCercaBDTO();
 		PageDataOfConfiguracioDocsTramitacioRDTO pageDataOfConfiguracioDocsTramitacioRDTO = documentsService
-				.cercaConfiguracioDocumentacioTramitacio(documentsTramitacioCercaBDTO);
+		        .cercaConfiguracioDocumentacioTramitacio(documentsTramitacioCercaBDTO);
 		respostaDocumentsTramitacioCercaBDTO.setConfiguracioDocsTramitacioRDTOList(pageDataOfConfiguracioDocsTramitacioRDTO.getData());
 		return respostaDocumentsTramitacioCercaBDTO;
 	}
@@ -1319,7 +1343,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static TramitsOvtRDTO loadTramitsOvtRDTO(TramitsService tramitsService, TramitsOvtCercaBDTO tramitsOvtCercaBDTO)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 		return tramitsService.consultarDadesTramitOvt(tramitsOvtCercaBDTO.getId());
 	}
 
@@ -1335,7 +1359,7 @@ public class ServeisServiceHelper {
 	 *             the GPA serveis service exception
 	 */
 	public static RespostaSollicitudsCercaBDTO loadCercaSollicituds(ExpedientsService expedientsService,
-			SollicitudsCercaBDTO sollicitudsCercaBDTO) throws GPAServeisServiceException {
+	        SollicitudsCercaBDTO sollicitudsCercaBDTO) throws GPAServeisServiceException {
 		RespostaSollicitudsCercaBDTO respostaSollicitudsCercaBDTO = new RespostaSollicitudsCercaBDTO();
 		ArrayList<DadesSollicitudBDTO> dadesSollicitudBDTOList = new ArrayList<DadesSollicitudBDTO>();
 		DadesSollicitudBDTO dadesSollicitudBDTO = null;

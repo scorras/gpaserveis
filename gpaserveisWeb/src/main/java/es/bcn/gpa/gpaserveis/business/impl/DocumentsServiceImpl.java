@@ -382,6 +382,60 @@ public class DocumentsServiceImpl implements DocumentsService {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#cercaDocumentsTramitacio(
+	 * java.math.BigDecimal, java.math.BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackCercaDocumentsTramitacio")
+	public List<DocsTramitacioRDTO> cercaDocumentsTramitacio(BigDecimal idDocumentacio, BigDecimal visibilitat)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("cercaDocumentsTramitacio(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			List<DocsTramitacioRDTO> docsTramitacioRDTOList = documentacioApi.cercaDocumentsTramitacioComunicats(idDocumentacio,
+			        visibilitat);
+
+			if (log.isDebugEnabled()) {
+				log.debug("cercaDocumentsTramitacio(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			return docsTramitacioRDTOList;
+		} catch (RestClientException e) {
+			log.error("cercaDocumentsTramitacio(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback cerca documents tramitacio.
+	 *
+	 * @param idDocumentacio
+	 *            the id documentacio
+	 * @param visibilitat
+	 *            the visibilitat
+	 * @param e
+	 *            the e
+	 * @return the list
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public List<DocsTramitacioRDTO> fallbackCercaDocumentsTramitacio(BigDecimal idDocumentacio, BigDecimal visibilitat, Throwable e)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCercaDocumentsTramitacio(BigDecimal, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
 	 * cercaConfiguracioDocumentacioEntradaRequerida(java.math.BigDecimal)
 	 */
