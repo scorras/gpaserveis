@@ -305,6 +305,9 @@ public abstract class ParentTest {
 			when(documentacioApi.cercaDocumentsEntradaAgrupatsPerTramitOvt(any(BigDecimal.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.cercaDocumentsEntradaAgrupatsPerTramitOvtResponse());
 
+			when(documentacioApi.cercaDocumentsTramitacioComunicats(any(BigDecimal.class), any(BigDecimal.class)))
+			        .thenReturn(TestsConfigHelper.cercaDocumentsTramitacioComunicatsResponse());
+
 			when(documentacioRequeritApi.cercaConfiguracioDocumentacioEntradaRequerida(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntradaRequeridaResponse());
 

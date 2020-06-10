@@ -121,8 +121,8 @@ public class DocumentacioApiTest extends ParentTest {
 	@Test
 	public void cercaDocumentsEntradaPerSollicitudTest() {
 		when(apiClient.invokeAPI(eq("/documentacio/entrada/sollicitud/1/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
-				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DocsEntradaRDTO>());
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DocsEntradaRDTO>());
 
 		BigDecimal idSollicitud = ONE;
 		BigDecimal visibilitat = ONE;
@@ -140,8 +140,8 @@ public class DocumentacioApiTest extends ParentTest {
 	@Test
 	public void cercaDocumentsEntradaAgrupatsPerTramitOvtTest() throws RestClientException {
 		when(apiClient.invokeAPI(eq("/documentacio/1/entrada/agrupatPerTramitOvt/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
-				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
-				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DocsEntradaRDTO>());
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DocsEntradaRDTO>());
 
 		BigDecimal idDocumentacio = ONE;
 		BigDecimal visibilitat = ONE;
@@ -876,10 +876,10 @@ public class DocumentacioApiTest extends ParentTest {
 	@Test
 	public void consultarDadesDocumentAportatPerCodiCSVTest() {
 		when(apiClient.invokeAPI(
-				eq("/documentacio/entrada/consultarDadesDocument/779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53/1"),
-				eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class),
-				any(List.class), any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
-						.thenReturn(new DocsEntradaRDTO());
+		        eq("/documentacio/entrada/consultarDadesDocument/779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53/1"),
+		        eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class),
+		        any(List.class), any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
+		                .thenReturn(new DocsEntradaRDTO());
 
 		String codiCSV = "779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53";
 		BigDecimal visibilitat = ONE;
@@ -899,14 +899,35 @@ public class DocumentacioApiTest extends ParentTest {
 	@Test
 	public void consultarDadesDocumentGeneratPerCodiCSVTest() {
 		when(apiClient.invokeAPI(
-				eq("/documentacio/tramitacio/consultarDadesDocument/54ef9ee001c5af241af5bdf192cc9b71e46b8c90a7138c86db49223dd4ea38ce/1"),
-				eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class),
-				any(List.class), any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
-						.thenReturn(new DocsTramitacioRDTO());
+		        eq("/documentacio/tramitacio/consultarDadesDocument/54ef9ee001c5af241af5bdf192cc9b71e46b8c90a7138c86db49223dd4ea38ce/1"),
+		        eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class),
+		        any(List.class), any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
+		                .thenReturn(new DocsTramitacioRDTO());
 
 		String codiCSV = "54ef9ee001c5af241af5bdf192cc9b71e46b8c90a7138c86db49223dd4ea38ce";
 		BigDecimal visibilitat = ONE;
 		DocsTramitacioRDTO response = api.consultarDadesDocumentGeneratPerCodiCSV(codiCSV, visibilitat);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested documentacio tramitació
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void cercaDocumentsTramitacioComunicatsTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/1/tramitacio/comunicat/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DocsEntradaRDTO>());
+
+		BigDecimal idDocumentacio = ONE;
+		BigDecimal visibilitat = ONE;
+		List<DocsTramitacioRDTO> response = api.cercaDocumentsTramitacioComunicats(idDocumentacio, visibilitat);
 
 		assertTrue(response != null);
 	}

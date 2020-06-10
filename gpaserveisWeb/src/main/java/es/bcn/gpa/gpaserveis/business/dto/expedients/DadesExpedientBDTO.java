@@ -6,6 +6,7 @@ import java.util.Map;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
@@ -54,6 +55,8 @@ public class DadesExpedientBDTO {
 
 	/** The documents requerits. */
 	private List<ConfDocEntradaRequeritRDTO> configuracioDocumentacioRequerida;
+
+	private List<DocsTramitacioRDTO> documentsGenerats;
 
 	/** The dades operacio. */
 	private List<DadaEspecificaBDTO> dadesOperacio;

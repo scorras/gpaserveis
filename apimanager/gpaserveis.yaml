@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.23.0"
+  version: "1.23.3"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -4125,6 +4125,80 @@ definitions:
         type: "string"
         description: "Nom del document"
     title: "DocumentEsborratAccio"
+  DocumentGeneratConsulta:
+    type: "object"
+    properties:
+      codiCSV:
+        type: "string"
+        xml:
+          name: "CODI_CSV"
+          attribute: false
+          wrapped: false
+        description: "Codi CSV del document"
+      configuracioDocumentacio:
+        xml:
+          name: "CONFIGURACIO_DOCUMENTACIO"
+          attribute: false
+          wrapped: false
+        description: "Categoria a la qual pertany el document"
+        $ref: "#/definitions/ConfiguracioDocumentacio"
+      dataComunicat:
+        type: "string"
+        xml:
+          name: "DATA_COMUNICAT"
+          attribute: false
+          wrapped: false
+        description: "Data de comunicat del document"
+      dataCreacio:
+        type: "string"
+        xml:
+          name: "DATA_CREACIO"
+          attribute: false
+          wrapped: false
+        description: "Data de creació del document"
+      hash:
+        type: "string"
+        xml:
+          name: "HASH"
+          attribute: false
+          wrapped: false
+        description: "Hash del document"
+      id:
+        type: "number"
+        xml:
+          name: "ID"
+          attribute: false
+          wrapped: false
+        description: "Id del document"
+      idGestorDocumental:
+        type: "string"
+        xml:
+          name: "ID_GESTOR_DOCUMENTAL"
+          attribute: false
+          wrapped: false
+        description: "Id del gestor documental"
+      nom:
+        type: "string"
+        xml:
+          name: "NOM"
+          attribute: false
+          wrapped: false
+        description: "Nom del document"
+      origen:
+        type: "string"
+        xml:
+          name: "ORIGEN"
+          attribute: false
+          wrapped: false
+        description: "Origen del tipus de documentació."
+        enum:
+        - "INTERN"
+        - "EXTERN"
+    title: "DocumentGeneratConsulta"
+    xml:
+      name: "DOCUMENT"
+      attribute: false
+      wrapped: false
   DocumentIdentitat:
     type: "object"
     required:
@@ -4574,6 +4648,11 @@ definitions:
         description: "Documents aportats a l'expedient agrupats per tràmit"
         items:
           $ref: "#/definitions/DocumentAportatConsulta"
+      documentsGenerats:
+        type: "array"
+        description: "Documents generats en l'expedient"
+        items:
+          $ref: "#/definitions/DocumentGeneratConsulta"
       estat:
         type: "string"
         description: "Estat actual del expedient"
