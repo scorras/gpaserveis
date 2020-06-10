@@ -2044,4 +2044,27 @@ public class TestsConfigHelper {
 		return unitatsOrganigramaRDTO;
 	}
 
+	/**
+	 * Cerca documents tramitacio comunicats response.
+	 *
+	 * @return the list
+	 */
+	public static List<DocsTramitacioRDTO> cercaDocumentsTramitacioComunicatsResponse() {
+		ArrayList<DocsTramitacioRDTO> docsTramitacioRDTOList = new ArrayList<DocsTramitacioRDTO>();
+
+		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
+		docsTramitacioRDTO.setId(ONE);
+		docsTramitacioRDTO.setDataComunicat(now());
+		docsTramitacioRDTO.setDocsFisicsNom("fitxer.pdf");
+
+		ConfiguracioDocsTramitacio configuracioDocsTramitacio = new ConfiguracioDocsTramitacio();
+		configuracioDocsTramitacio.setId(ONE);
+		configuracioDocsTramitacio.setNom("nom");
+		docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
+
+		docsTramitacioRDTOList.add(docsTramitacioRDTO);
+
+		return docsTramitacioRDTOList;
+	}
+
 }

@@ -33,7 +33,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequer
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsDigitalitzacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-27T16:00:10.249+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-06-10T09:35:26.942+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi")
 public class DocumentacioApi {
 	private ApiClient apiClient;
@@ -770,6 +770,66 @@ public class DocumentacioApi {
 		String[] authNames = new String[] {};
 
 		ParameterizedTypeReference<List<DocsEntradaRDTO>> returnType = new ParameterizedTypeReference<List<DocsEntradaRDTO>>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+	}
+
+	/**
+	 * Returns the requested documentacio tramitació
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param idDocumentacio
+	 *            idDocumentacio
+	 * @param visibilitat
+	 *            visibilitat
+	 * @return List&lt;DocsTramitacioRDTO&gt;
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public List<DocsTramitacioRDTO> cercaDocumentsTramitacioComunicats(BigDecimal idDocumentacio, BigDecimal visibilitat)
+	        throws RestClientException {
+		Object postBody = null;
+
+		// verify the required parameter 'idDocumentacio' is set
+		if (idDocumentacio == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'idDocumentacio' when calling cercaDocumentsTramitacioComunicats");
+		}
+
+		// verify the required parameter 'visibilitat' is set
+		if (visibilitat == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'visibilitat' when calling cercaDocumentsTramitacioComunicats");
+		}
+
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("idDocumentacio", idDocumentacio);
+		uriVariables.put("visibilitat", visibilitat);
+		String path = UriComponentsBuilder.fromPath("/documentacio/{idDocumentacio}/tramitacio/comunicat/{visibilitat}")
+		        .buildAndExpand(uriVariables).toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = {};
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<List<DocsTramitacioRDTO>> returnType = new ParameterizedTypeReference<List<DocsTramitacioRDTO>>() {
 		};
 		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
 		        returnType);
