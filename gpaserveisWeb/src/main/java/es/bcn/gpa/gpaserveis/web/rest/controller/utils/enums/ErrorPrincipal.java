@@ -5,7 +5,7 @@ package es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums;
  */
 public enum ErrorPrincipal {
 
-    /* Generic */
+	/* Generic */
 	ERROR_GENERIC("9999", "S'ha produït una incidència: "),
 
 	/* Unitats */
@@ -42,7 +42,7 @@ public enum ErrorPrincipal {
 	ERROR_EXPEDIENTS_REGISTRE_ASSENTAMENT_NOT_FOUND("3007", "No es troba l'assentament de registre"),
 
 	ERROR_EXPEDIENTS_DADA_OPERACIO_REQUERIMENT_NOT_AVAILABLE("3008",
-	        "La dada d'operació no està disponible per a ser afegit al requeriment: "),
+			"La dada d'operació no està disponible per a ser afegit al requeriment: "),
 
 	ERROR_EXPEDIENTS_ACUMULADOR_NOT_FOUND("3009", "No s'ha trobat l'expedient acumulador"),
 
@@ -53,10 +53,10 @@ public enum ErrorPrincipal {
 	ERROR_EXPEDIENTS_ACUMULAT_NOT_VALID_MATEIX_EXPEDIENT("3012", "No és possible acumular un expedient a si mateix"),
 
 	ERROR_EXPEDIENTS_ACUMULAT_NOT_VALID_MATEIX_PROCEDIMENT("3013",
-	        "Els expedients acumulador i acumulat han d'estar associats al mateix procediment"),
+			"Els expedients acumulador i acumulat han d'estar associats al mateix procediment"),
 
 	ERROR_EXPEDIENTS_ACUMULAT_NOT_VALID_JA_ACUMULAT("3014",
-	        "L'expedient a acumular no és vàlid perquè ja ha estat acumulat a un altre expedient"),
+			"L'expedient a acumular no és vàlid perquè ja ha estat acumulat a un altre expedient"),
 
 	ERROR_EXPEDIENTS_PERSONA_IMPLICADA_NOT_FOUND("3015", "No s'ha trobat la persona implicada en l'expedient"),
 
@@ -70,45 +70,43 @@ public enum ErrorPrincipal {
 
 	ERROR_SOLLICITUDS_TIPUS_NOT_VALID("3020", "El tipus de la sol·licitud no és vàlid"),
 
-	ERROR_SOLLICITUDS_HI_HA_ESBORRANY("3021", "Hi ha sol·licituds del mateix tipus en estat esborrador"),
-
 	ERROR_SOLLICITUDS_DADES_OPERACIO_APO("3022", "No és possible actualitzar les dades d'operació a una sol·licitud d'aportació."),
 
 	ERROR_EXPEDIENTS_PERSONA_INTERESADA_RELACIO("3023",
-	        "Les persones interessades només poden tenir relació com a sol·licitant o representant"),
+			"Les persones interessades només poden tenir relació com a sol·licitant o representant"),
 
 	ERROR_EXPEDIENTS_PERSONA_IMPLICADA_RELACIO("3024", "Les persones implicades només poden tenir relació com a testimoni o altres"),
 
 	ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_FOUND("3025", "No s'ha trobat la persona autenticada en l'expedient"),
 
 	ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_PERMIS("3026",
-	        "La persona autenticada no té permisos per a realitzar tràmits OVT en l'expedient"),
+			"La persona autenticada no té permisos per a realitzar tràmits OVT en l'expedient"),
 
 	ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT("3027",
-	        "No s'han trobat tipus de relació definits en el procediment associat a l'expedient"),
+			"No s'han trobat tipus de relació definits en el procediment associat a l'expedient"),
 
 	ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES("3028",
-	        "S'ha d'especificar un tipus de relació per a les terceres persones implicades en l'expedient"),
+			"S'ha d'especificar un tipus de relació per a les terceres persones implicades en l'expedient"),
 
 	ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT_NOT_FOUND("3029",
-	        "El tipus de relació per a les terceres persones implicades ha d'existir en el procediment al qual està associat a l'expedient"),
+			"El tipus de relació per a les terceres persones implicades ha d'existir en el procediment al qual està associat a l'expedient"),
 
 	ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT_VISIBILITAT("3030",
-	        "L'usuari autenticat no té habilitada la visibilitat per a realitzar modificacions sobre alguns de les dades d'operació especificats en la petició"),
+			"L'usuari autenticat no té habilitada la visibilitat per a realitzar modificacions sobre alguns de les dades d'operació especificats en la petició"),
 
 	ERROR_EXPEDIENTS_DADES_OPERACIO_PROCEDIMENT_VISIBILITAT_PORTAL("3031",
-	        "La dada d'operació que es vol actualitzar no té configurada la visibilitat des de portal"),
+			"La dada d'operació que es vol actualitzar no té configurada la visibilitat des de portal"),
 
 	ERROR_EXPEDIENTS_DADES_OPERACIO_PROCEDIMENT_CRITICITAT("3032",
-	        "El nivell de visibilitat definit per a la persona autenticada no permet modificar les dades d'operació indicats en l'operació, la criticitat de la qual és alta"),
+			"El nivell de visibilitat definit per a la persona autenticada no permet modificar les dades d'operació indicats en l'operació, la criticitat de la qual és alta"),
 
 	ERROR_EXPEDIENTS_SOLLICITANT_OBLIGATORI("3033", "El sol·licitant és obligatori"),
 
 	ERROR_EXPEDIENTS_DOC_ENTRADA_VISIBILITAT_PORTAL("3034",
-	        "La documentació que es vol actualitzar no té configurada la visibilitat des de portal"),
+			"La documentació que es vol actualitzar no té configurada la visibilitat des de portal"),
 
 	ERROR_EXPEDIENTS_DOC_ENTRADA_CRITICITAT("3035",
-	        "El nivell de visibilitat definit per a la persona autenticada no permet operar sobre el document indicat en l'operació"),
+			"El nivell de visibilitat definit per a la persona autenticada no permet operar sobre el document indicat en l'operació"),
 
 	/* Documents */
 	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document: "),
@@ -118,7 +116,7 @@ public enum ErrorPrincipal {
 	ERROR_CONFIGURACIO_DOCUMENTACIO_NOT_IN_EXPEDIENT("4003", "La configuració de documentació indicada no està associada a l'expedient: "),
 
 	ERROR_CONFIGURACIO_DOCUMENTACIO_REQUERIMENT_NOT_AVAILABLE("4004",
-	        "La configuració de documentació no està disponible per a ser afegida al requeriment: "),
+			"La configuració de documentació no està disponible per a ser afegida al requeriment: "),
 
 	ERROR_DOCUMENTS_UPLOAD_DECLARACIO_RESPONSABLE_NOT_AVAILABLE("4005", "No és possible pujar un fitxer a una declaració responsable"),
 
@@ -141,6 +139,8 @@ public enum ErrorPrincipal {
 	ERROR_SENSE_PETICIO_SIGNATURA_MANUSCRITA("4014", "El document no té una petició de signatura manuscrita associada"),
 
 	ERROR_PETICIO_SIGNATURA_SENSE_DOCUMENTS_SIGNATS("4015", "La petició de signatura no té documents signats associats"),
+
+	ERROR_DOCUMENTS_POLITICA_SIGNATURA("4016", "Falta una política de signatura associada."),
 
 	/* Integracions */
 	ERROR_ARIADNA("5001", ""),

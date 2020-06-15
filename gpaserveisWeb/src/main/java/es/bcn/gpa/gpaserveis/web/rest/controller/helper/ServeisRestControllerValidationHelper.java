@@ -84,12 +84,14 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentac
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.preparar.requeriment.RequerimentPreparatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.presentar.declaracio.responsable.DeclaracioResponsablePresentadaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.tramitar.convidar.ExpedientConvidarTramitarRDTO;
+import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.security.core.userdetails.ImiUserDetails;
 import net.opentrends.openframe.services.security.util.SecurityUtils;
 
 /**
  * The Class ServeisRestControllerValidationHelper.
  */
+@CommonsLog
 public class ServeisRestControllerValidationHelper {
 
 	private static final Pattern JWT_PATTERN = Pattern.compile("^[a-zA-Z0-9-_=-]+(?:\\.[a-zA-Z0-9-_=-]+){2}$");
@@ -660,7 +662,19 @@ public class ServeisRestControllerValidationHelper {
 					}
 					break;
 				case MARCADOR:
-					dadesEspecifiquesValors.setValorBoolean(Integer.valueOf(atributEntry.getValue().get(INTEGER_ZERO)));
+					// Debe funcionar independientemente de lo que se envíe
+					// (1/0, true/false)
+					Boolean valorBoolean = null;
+					try {
+						valorBoolean = BooleanUtils.toBoolean(Integer.valueOf(atributEntry.getValue().get(INTEGER_ZERO)),
+						        NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO);
+					} catch (IllegalArgumentException e) {
+						log.info("Valor booleà no informat com Integer. Provant com a cadena...");
+						valorBoolean = BooleanUtils.toBoolean(atributEntry.getValue().get(INTEGER_ZERO), Boolean.TRUE.toString(),
+						        Boolean.FALSE.toString());
+					}
+					dadesEspecifiquesValors
+					        .setValorBoolean(BooleanUtils.toIntegerObject(valorBoolean, NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO));
 					break;
 				case PAIS:
 					if (atributEntry.getValue().get(0) != null) {
@@ -1698,28 +1712,6 @@ public class ServeisRestControllerValidationHelper {
 	}
 
 	/**
-	 * Validate no hi ha sollicitud esborrany.
-	 *
-	 * @param dadesSollicitudBDTOList
-	 *            the dades sollicitud BDTO list
-	 * @param resultatError
-	 *            the resultat error
-	 * @throws GPAApiParamValidationException
-	 *             the GPA api param validation exception
-	 */
-	public static void validateNoHiHaSollicitudEsborrany(List<DadesSollicitudBDTO> dadesSollicitudBDTOList, Resultat resultatError)
-	        throws GPAApiParamValidationException {
-		if (CollectionUtils.isNotEmpty(dadesSollicitudBDTOList)) {
-			for (DadesSollicitudBDTO dadesSollicitudBDTO : dadesSollicitudBDTOList) {
-				if (dadesSollicitudBDTO.getSollicitudsRDTO().getDataPresentacio() == null
-				        && dadesSollicitudBDTO.getSollicitudsRDTO().getRegistre() == null) {
-					throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_SOLLICITUDS_HI_HA_ESBORRANY);
-				}
-			}
-		}
-	}
-
-	/**
 	 * Validate actualitzar sollicitud.
 	 *
 	 * @param dadesSollicitudBDTO
@@ -2168,4 +2160,12 @@ public class ServeisRestControllerValidationHelper {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_SENSE_PETICIO_SIGNATURA_MANUSCRITA);
 		}
 	}
+
+	public static void validateDocumentPoliticaSignatura(String politicaSignatura, Resultat resultatError)
+	        throws GPAApiParamValidationException {
+		if (StringUtils.isEmpty(politicaSignatura)) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_POLITICA_SIGNATURA);
+		}
+	}
+
 }

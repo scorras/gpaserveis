@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.modelmapper.AbstractConverter;
@@ -52,7 +54,9 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 						} else {
 							valorStringBuffer = new StringBuffer();
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorBoolean() != null)
-							        ? dadesEspecifiquesValors.getValorBoolean() : StringUtils.EMPTY);
+							        ? BooleanUtils.toStringTrueFalse(BooleanUtils.toBoolean(dadesEspecifiquesValors.getValorBoolean(),
+							                NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO))
+							        : StringUtils.EMPTY);
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorCalendar() != null)
 							        ? dateTimeFormatter.print(dadesEspecifiquesValors.getValorCalendar()) : StringUtils.EMPTY);
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorClob() != null)
