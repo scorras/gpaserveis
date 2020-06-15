@@ -669,7 +669,7 @@ public class ServeisRestControllerValidationHelper {
 						valorBoolean = BooleanUtils.toBoolean(Integer.valueOf(atributEntry.getValue().get(INTEGER_ZERO)),
 						        NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO);
 					} catch (IllegalArgumentException e) {
-						log.info("Valor booleà no informat com Integer. Provant com a cadena...");
+						log.info("Valor booleà no informat com Integer. Provant com a cadena...", e);
 						valorBoolean = BooleanUtils.toBoolean(atributEntry.getValue().get(INTEGER_ZERO), Boolean.TRUE.toString(),
 						        Boolean.FALSE.toString());
 					}

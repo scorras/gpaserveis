@@ -167,7 +167,7 @@ public enum Resultat {
 
 	OK_REVISAR_EXPEDIENT("OK", "Expedient revisat correctament"),
 
-	ERROR_REVISAR_EXPEDIENT("ERROR", "No s'ha pogut revisar l'expedient"),
+	ERROR_REVISAR_EXPEDIENT("ERROR", "No s'ha pogut crear l'expedient"),
 
 	OK_RECURS_EXPEDIENT("OK", "Recurs d'Expedient creat correctament"),
 
