@@ -53,10 +53,8 @@ import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.sollicituds.RespostaSollicitudCrearBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.sollicituds.RespostaSollicitudsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.sollicituds.RespostaSollicitudsRegistrarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsActualitzarBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
@@ -593,17 +591,10 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					Resultat.ERROR_CREAR_SOLLICITUD);
 
 			// Validaciones
-			// 1- Validar que no haya otra solicitud del mismo tipo abierta
-			SollicitudsCercaBDTO sollicitudsCercaBDTO = new SollicitudsCercaBDTO(null, dadesExpedientBDTO.getExpedientsRDTO().getId(),
-					DadesOperacioApiParamToInternalMapper.getTramitOvtInternalValue(sollicitudCrearRDTO.getCodiTramit()), null, null, null,
-					null);
-			RespostaSollicitudsCercaBDTO respostaSollicitudsCercaBDTO = serveisService.cercaSollicituds(sollicitudsCercaBDTO);
-			ServeisRestControllerValidationHelper.validateNoHiHaSollicitudEsborrany(
-					respostaSollicitudsCercaBDTO.getDadesSollicitudBDTOList(), Resultat.ERROR_CREAR_SOLLICITUD);
-			// 2- Validar que la solicitud que llega no sea SOL (Pedir a Longi)
+			// 1- Validar que la solicitud que llega no sea SOL (Pedir a Longi)
 			ServeisRestControllerValidationHelper.validateTipusSollicitud(sollicitudCrearRDTO.getCodiTramit(),
 					Resultat.ERROR_CREAR_SOLLICITUD);
-			// 3- Validar que la acción es permitida en función del tipo de
+			// 2- Validar que la acción es permitida en función del tipo de
 			// solicitud:
 			// APO
 			// Aportar documentación si la acción es permitida
