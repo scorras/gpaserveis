@@ -376,6 +376,16 @@ public interface ExpedientsService {
 	void esborrarRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO) throws GPAServeisServiceException;
 
 	/**
+	 * Esborrar registre solicitud.
+	 *
+	 * @param expedientsRegistrarSollicitudBDTO
+	 *            the expedients registrar sollicitud BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void esborrarRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO) throws GPAServeisServiceException;
+
+	/**
 	 * Esborra comentari.
 	 *
 	 * @param idComentari

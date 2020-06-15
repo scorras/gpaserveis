@@ -79,6 +79,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.handler.ServeisRestControllerExceptionHandler;
+import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerSagaHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerValidationHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerVisibilitatHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
@@ -922,6 +923,10 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_REGISTRAR_SOLLICITUD);
 		DocsTramitacioRDTO respostaCrearJustificant = null;
 		ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO = null;
+		DocsEntActualizarRegistre docsEntActualizarRegistre = null;
+		boolean registreDocumentacioAssociat = false;
+		boolean registreSollicitudAssociat = false;
+		ArrayList<BigDecimal> idDocsEntradaList = new ArrayList<BigDecimal>();
 		try {
 
 			// TODO GPA-2923
@@ -936,7 +941,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 			// Se construye el modelo para la llamada a la operación de registro
 			// TODO ¿Cómo procedemos para registrar el XML de la solicitud?
-			ArrayList<BigDecimal> idDocsEntradaList = new ArrayList<BigDecimal>();
 			if (CollectionUtils.isNotEmpty(dadesSollicitudBDTO.getDocumentsAportats())) {
 				for (DocsEntradaRDTO docsEntradaRDTO : dadesSollicitudBDTO.getDocumentsAportats()) {
 					idDocsEntradaList.add(docsEntradaRDTO.getId());
@@ -957,6 +961,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 											: (TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_ALLEGACIO.getInternalValue()));
 			respostaCrearRegistreExpedient = serveisService.crearRegistreSollicitud(expedientsRegistrarSollicitudBDTO,
 					tipusDocumentacioVinculadaInternalValue);
+			registreSollicitudAssociat = true;
 
 			// Asociar registre de la solicitud a la propia solicitud
 			// TODO se puede incluir aquí el duplicado de los dades especifiques
@@ -972,10 +977,11 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// Asociar registre de la solicitud a los posibles documentos
 			// vinculados a la solicitud
 			if (CollectionUtils.isNotEmpty(idDocsEntradaList)) {
-				DocsEntActualizarRegistre docsEntActualizarRegistre = new DocsEntActualizarRegistre();
+				docsEntActualizarRegistre = new DocsEntActualizarRegistre();
 				docsEntActualizarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
 				docsEntActualizarRegistre.setListIdsDocsEnt(idDocsEntradaList);
 				serveisService.associarRegistreDocsEnt(docsEntActualizarRegistre);
+				registreDocumentacioAssociat = true;
 			}
 
 			// Duplicar los Valores de Datos Específicos para que quede por un
@@ -1098,10 +1104,9 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error("registrarSolicitud(BigDecimal)", e);
 
-			// TODO Introduccir Sagas / Acciones compensatorias
-			// sagaRegistrarSolicitudExpedient(dadesExpedientBDTO,
-			// respostaCrearRegistreExpedient, respostaCrearJustificant,
-			// expedientsRegistrarBDTO, documentActualizarRegistreRDTO);
+			ServeisRestControllerSagaHelper.sagaRegistrarSolicitud(serveisService, dadesSollicitudBDTO, respostaCrearRegistreExpedient,
+					registreSollicitudAssociat, respostaCrearJustificant, docsEntActualizarRegistre, registreDocumentacioAssociat,
+					idDocsEntradaList);
 
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_REGISTRAR_SOLLICITUD, e);
 		}

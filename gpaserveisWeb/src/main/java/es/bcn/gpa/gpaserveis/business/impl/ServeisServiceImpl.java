@@ -1950,6 +1950,28 @@ public class ServeisServiceImpl implements ServeisService {
 	}
 
 	/**
+	 * Esborrar registre sollicitud.
+	 *
+	 * @param expedientsRegistrarSollicitudBDTO
+	 *            the expedients registrar sollicitud BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * 
+	 * esborrarRegistre(es.bcn.gpa.gpaserveis.business.dto.
+	 * expedients.ExpedientsRegistrarBDTO)
+	 */
+	@Override
+	public void esborrarRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO)
+			throws GPAServeisServiceException {
+		expedientsService.esborrarRegistreSollicitud(expedientsRegistrarSollicitudBDTO);
+	}
+
+	/**
 	 * Desassociar registre documentacio expedient.
 	 *
 	 * @param documentActualizarRegistreRDTO
