@@ -84,12 +84,14 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentac
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.preparar.requeriment.RequerimentPreparatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.presentar.declaracio.responsable.DeclaracioResponsablePresentadaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.tramitar.convidar.ExpedientConvidarTramitarRDTO;
+import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.security.core.userdetails.ImiUserDetails;
 import net.opentrends.openframe.services.security.util.SecurityUtils;
 
 /**
  * The Class ServeisRestControllerValidationHelper.
  */
+@CommonsLog
 public class ServeisRestControllerValidationHelper {
 
 	private static final Pattern JWT_PATTERN = Pattern.compile("^[a-zA-Z0-9-_=-]+(?:\\.[a-zA-Z0-9-_=-]+){2}$");
@@ -667,6 +669,7 @@ public class ServeisRestControllerValidationHelper {
 						valorBoolean = BooleanUtils.toBoolean(Integer.valueOf(atributEntry.getValue().get(INTEGER_ZERO)),
 						        NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO);
 					} catch (IllegalArgumentException e) {
+						log.info("Valor booleà no informat com Integer. Provant com a cadena...");
 						valorBoolean = BooleanUtils.toBoolean(atributEntry.getValue().get(INTEGER_ZERO), Boolean.TRUE.toString(),
 						        Boolean.FALSE.toString());
 					}
