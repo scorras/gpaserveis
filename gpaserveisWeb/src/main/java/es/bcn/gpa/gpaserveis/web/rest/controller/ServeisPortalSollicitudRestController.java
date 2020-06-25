@@ -429,7 +429,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			BigDecimal visibilitat = BigDecimal.ONE;
 
 			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
-			ServeisRestControllerValidationHelper.validateSollicitud(dadesSollicitudBDTO, Resultat.ERROR_DESCARREGAR_DOCUMENT);
+			ServeisRestControllerValidationHelper.validateDescargaDocumentSollicitud(dadesSollicitudBDTO,
+					Resultat.ERROR_DESCARREGAR_DOCUMENT);
 
 			// El id del documento debe existir y pertenecer al expediente de la
 			// solicitud
