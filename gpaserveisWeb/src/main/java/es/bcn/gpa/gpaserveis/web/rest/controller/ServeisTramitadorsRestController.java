@@ -373,7 +373,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				ExpedientsApiParamToInternalMapper.getIdUnitatGestoraInternalValueList(unitatsGestoresRDTOList),
 				ExpedientsApiParamToInternalMapper.getTramitadorInternalValue(tramitador), aplicacioNegoci, numeroPagina,
 				resultatsPerPagina, ExpedientsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
-				ExpedientsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio));
+				ExpedientsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio), null);
 
 		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = serveisService.cercaExpedients(expedientsCercaBDTO);
 

@@ -21,6 +21,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDT
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatCiutadaApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.VersioProcedimentApiParamValueTranslator;
 
 /**
@@ -50,6 +51,9 @@ public class ExpedientsApiParamToInternalMapper {
 	/** The versio procediment api param value translator. */
 	private static VersioProcedimentApiParamValueTranslator versioProcedimentApiParamValueTranslator;
 
+	/** The nivell autenticacio api param value translator. */
+	private static NivellAutenticacioApiParamValueTranslator nivellAutenticacioApiParamValueTranslator;
+
 	/**
 	 * Instantiates a new expedients api param to internal mapper.
 	 *
@@ -66,16 +70,18 @@ public class ExpedientsApiParamToInternalMapper {
 	 */
 	@Autowired
 	public ExpedientsApiParamToInternalMapper(
-	        @Qualifier("expedientOrdenarPerApiParamValueTranslator") BaseApiParamValueTranslator ordenarPerApiParamValueTranslator,
-	        @Qualifier("expedientSentitOrdenacioApiParamValueTranslator") BaseApiParamValueTranslator sentitOrdenacioApiParamValueTranslator,
-	        @Qualifier("expedientEstatCiutadaApiParamValueTranslator") EstatCiutadaApiParamValueTranslator estatCiutadaApiParamValueTranslator,
-	        @Qualifier("expedientTramitadorApiParamValueTranslator") BaseApiParamValueTranslator tramitadorApiParamValueTranslator,
-	        @Qualifier("expedientVersioProcedimentApiParamValueTranslator") VersioProcedimentApiParamValueTranslator versioProcedimentApiParamValueTranslator) {
+			@Qualifier("expedientOrdenarPerApiParamValueTranslator") BaseApiParamValueTranslator ordenarPerApiParamValueTranslator,
+			@Qualifier("expedientSentitOrdenacioApiParamValueTranslator") BaseApiParamValueTranslator sentitOrdenacioApiParamValueTranslator,
+			@Qualifier("expedientEstatCiutadaApiParamValueTranslator") EstatCiutadaApiParamValueTranslator estatCiutadaApiParamValueTranslator,
+			@Qualifier("expedientTramitadorApiParamValueTranslator") BaseApiParamValueTranslator tramitadorApiParamValueTranslator,
+			@Qualifier("expedientVersioProcedimentApiParamValueTranslator") VersioProcedimentApiParamValueTranslator versioProcedimentApiParamValueTranslator,
+			@Qualifier("expedientNivellAutenticacioApiParamValueTranslator") NivellAutenticacioApiParamValueTranslator nivellAutenticacioApiParamValueTranslator) {
 		ExpedientsApiParamToInternalMapper.ordenarPerApiParamValueTranslator = ordenarPerApiParamValueTranslator;
 		ExpedientsApiParamToInternalMapper.sentitOrdenacioApiParamValueTranslator = sentitOrdenacioApiParamValueTranslator;
 		ExpedientsApiParamToInternalMapper.estatCiutadaApiParamValueTranslator = estatCiutadaApiParamValueTranslator;
 		ExpedientsApiParamToInternalMapper.tramitadorApiParamValueTranslator = tramitadorApiParamValueTranslator;
 		ExpedientsApiParamToInternalMapper.versioProcedimentApiParamValueTranslator = versioProcedimentApiParamValueTranslator;
+		ExpedientsApiParamToInternalMapper.nivellAutenticacioApiParamValueTranslator = nivellAutenticacioApiParamValueTranslator;
 	}
 
 	/**
@@ -118,7 +124,7 @@ public class ExpedientsApiParamToInternalMapper {
 		Matcher codiExpedientFormattedMatcher = codiExpedientFormattedPattern.matcher(codi);
 		if (codiExpedientFormattedMatcher.matches()) {
 			return String.format(CODI_EXPEDIENT_ORIGINAL_FORMAT, expedientsIdOrgan, codiExpedientFormattedMatcher.group(1),
-			        StringUtils.leftPad(codiExpedientFormattedMatcher.group(3), 30, "0"));
+					StringUtils.leftPad(codiExpedientFormattedMatcher.group(3), 30, "0"));
 		} else {
 			return codi;
 		}
@@ -230,5 +236,9 @@ public class ExpedientsApiParamToInternalMapper {
 			codiProcedimentInternalValueList = Arrays.asList(codiProcediment);
 		}
 		return codiProcedimentInternalValueList;
+	}
+
+	public static Integer getNivellAutenticacioInternalValue(String nivellAutenticacio) {
+		return nivellAutenticacioApiParamValueTranslator.getInternalValueByApiParamValue(nivellAutenticacio);
 	}
 }
