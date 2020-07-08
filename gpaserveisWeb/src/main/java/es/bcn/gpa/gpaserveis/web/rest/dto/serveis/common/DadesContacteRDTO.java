@@ -26,10 +26,10 @@ import lombok.Setter;
 @ApiModel(value = "DadesContacte")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "email", "telefon", "mobil", "fax", "tipusVia", "nomVia", "numero", "escala", "bloc", "porta", "pis", "codiPostal",
-        "municipi", "provincia", "pais", "municipiEstranger", "provinciaEstranger" })
+		"municipi", "provincia", "pais", "municipiEstranger", "provinciaEstranger", "notificacioPaper" })
 @XmlRootElement(name = "DADES_NOTIFICACIO")
 @XmlType(name = "DadesContacte", propOrder = { "email", "telefon", "mobil", "fax", "adreca", "codiPostal", "municipiProvincia", "provincia",
-        "pais", "municipiEstranger", "provinciaEstranger" })
+		"pais", "municipiEstranger", "provinciaEstranger", "notificacioPaper" })
 @XmlAccessorType(XmlAccessType.NONE)
 @Getter
 @Setter
@@ -106,4 +106,7 @@ public class DadesContacteRDTO {
 		return StringUtils.join(new String[] { provincia, municipi }, " ");
 	}
 
+	@ApiModelProperty(value = "Notificacio Paper")
+	@XmlElement(name = "NOTFICACIO_PAPER", required = false, type = Boolean.class)
+	private Boolean notificacioPaper;
 }

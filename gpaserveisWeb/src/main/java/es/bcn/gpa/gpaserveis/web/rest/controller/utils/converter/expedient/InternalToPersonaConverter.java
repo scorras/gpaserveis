@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.common.BooleanApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.PersonesRDTO;
 
 /**
@@ -28,6 +29,10 @@ public class InternalToPersonaConverter extends AbstractConverter<Persones, Pers
 	@Qualifier("expedientTipusSexeApiParamValueTranslator")
 	private BaseApiParamValueTranslator tipusSexeApiParamValueTranslator;
 
+	@Autowired
+	@Qualifier("booleanApiParamValueTranslator")
+	private BooleanApiParamValueTranslator booleanApiParamValueTranslator;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -36,6 +41,6 @@ public class InternalToPersonaConverter extends AbstractConverter<Persones, Pers
 	@Override
 	protected PersonesRDTO convert(Persones source) {
 		return ConverterHelper.buildPersonesRDTOExpedient(source, tipusPersonaApiParamValueTranslator,
-		        tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator);
+				tipusDocumentIdentitatApiParamValueTranslator, tipusSexeApiParamValueTranslator, booleanApiParamValueTranslator);
 	}
 }
