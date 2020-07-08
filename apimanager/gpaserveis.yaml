@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.24.2"
+  version: "1.24.3"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -3512,6 +3512,13 @@ definitions:
       nomVia:
         type: "string"
         description: "Nom de la via"
+      notificacioPaper:
+        type: "boolean"
+        xml:
+          name: "NOTFICACIO_PAPER"
+          attribute: false
+          wrapped: false
+        description: "Notificacio Paper"
       numero:
         type: "string"
         description: "Número"

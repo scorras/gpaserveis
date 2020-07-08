@@ -51,7 +51,7 @@ public class InternalToPersonaListConverter extends AbstractConverter<List<Perso
 			for (PersonesSollicitudRDTO personesSollicitudRDTO : source) {
 				personesRDTO = ConverterHelper.buildPersonesRDTOExpedient(personesSollicitudRDTO.getPersones(),
 						tipusPersonaApiParamValueTranslator, tipusDocumentIdentitatApiParamValueTranslator,
-						tipusSexeApiParamValueTranslator);
+						tipusSexeApiParamValueTranslator, booleanApiParamValueTranslator);
 
 				personesRDTO.setVisibilitatOvt(booleanApiParamValueTranslator
 						.getApiParamValueAsBooleanByInternalValue(personesSollicitudRDTO.getVisibilitatOvt()));
