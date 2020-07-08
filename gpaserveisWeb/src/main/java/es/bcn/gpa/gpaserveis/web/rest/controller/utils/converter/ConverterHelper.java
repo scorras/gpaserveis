@@ -136,7 +136,7 @@ public class ConverterHelper {
 	public static PersonesRDTO buildPersonesRDTOExpedient(Persones persones,
 			BaseApiParamValueTranslator tipusPersonaApiParamValueTranslator,
 			BaseApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
-			BaseApiParamValueTranslator tipusSexeApiParamValueTranslator) {
+			BaseApiParamValueTranslator tipusSexeApiParamValueTranslator, BooleanApiParamValueTranslator booleanApiParamValueTranslator) {
 
 		if (persones == null) {
 			return null;
@@ -166,6 +166,8 @@ public class ConverterHelper {
 			dadesContacte.setPais(persones.getPersonesDadescontacte().getPais());
 			dadesContacte.setMunicipiEstranger(persones.getPersonesDadescontacte().getMunicipiEstranger());
 			dadesContacte.setProvinciaEstranger(persones.getPersonesDadescontacte().getProvinciaEstranger());
+			dadesContacte.setNotificacioPaper(booleanApiParamValueTranslator
+					.getApiParamValueAsBooleanByInternalValue(persones.getPersonesDadescontacte().getNotificacioPaper()));
 
 			personesRDTO.setDadesNotificacio(dadesContacte);
 		}
@@ -323,6 +325,8 @@ public class ConverterHelper {
 				personesDadescontacte.setPais(personesRDTO.getDadesNotificacio().getPais());
 				personesDadescontacte.setMunicipiEstranger(personesRDTO.getDadesNotificacio().getMunicipiEstranger());
 				personesDadescontacte.setProvinciaEstranger(personesRDTO.getDadesNotificacio().getProvinciaEstranger());
+				personesDadescontacte.setNotificacioPaper(booleanApiParamValueTranslator
+						.getInternalValueByApiParamValueAsBoolean(personesRDTO.getDadesNotificacio().getNotificacioPaper()));
 				persones.setPersonesDadescontacte(personesDadescontacte);
 			}
 			personesSollicitud.setPersones(persones);
