@@ -3,8 +3,6 @@ package es.bcn.gpa.gpaserveis.business.dto.expedients;
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.joda.time.DateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,10 +22,10 @@ public class ExpedientsCercaBDTO {
 	private String nifSollicitant;
 
 	/** The data presentacio des. */
-	private DateTime dataPresentacioDes;
+	private String dataPresentacioDes;
 
 	/** The data presentacio fins A. */
-	private DateTime dataPresentacioFinsA;
+	private String dataPresentacioFinsA;
 
 	/** The procediment codis list. */
 	private List<String> procedimentCodisList;

@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.joda.time.DateTime;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -89,8 +88,8 @@ public class Expedients_ApiTest extends ParentTest {
 		Boolean currentPageIsFirstPage = null;
 		Boolean currentPageIsLastPage = null;
 		Integer currentPageNumber = null;
-		DateTime dataPresentacioDes = null;
-		DateTime dataPresentacioFinsA = null;
+		String dataPresentacioDes = null;
+		String dataPresentacioFinsA = null;
 		String dir = null;
 		List<BigDecimal> estatList = null;
 		BigDecimal id = null;

@@ -365,8 +365,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		// Expedients que cumplen los criterios de búsqueda
 		ExpedientsCercaBDTO expedientsCercaBDTO = new ExpedientsCercaBDTO(
 				ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), nifSollicitant,
-				ExpedientsApiParamToInternalMapper.getDataPresentacioIniciInternalValue(dataPresentacioInici),
-				ExpedientsApiParamToInternalMapper.getDataPresentacioFiInternalValue(dataPresentacioFi),
+				dataPresentacioInici, dataPresentacioFi,
 				ExpedientsApiParamToInternalMapper.getCodiProcedimentInternalValueList(codiProcediment),
 				ExpedientsApiParamToInternalMapper.getVersioProcedimentInternalValue(versioProcediment),
 				ExpedientsApiParamToInternalMapper.getEstatCiutadaInternalValueList(estat),

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
@@ -189,8 +188,8 @@ public class Expedients_Api {
 			Integer absoluteRowNumberOfLastRowInCurrentPage, String aplicacioNegoci, List<String> avisList, String codi,
 			BigDecimal criteriDeCercaDadesOperacioList0Id, BigDecimal criteriDeCercaDadesOperacioList0Tipus,
 			String criteriDeCercaDadesOperacioList0Valor, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage,
-			Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, DateTime dataPresentacioDes,
-			DateTime dataPresentacioFinsA, String dir, List<BigDecimal> estatList, BigDecimal id, BigDecimal idUsuari, Boolean isOge,
+			Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dataPresentacioDes,
+			String dataPresentacioFinsA, String dir, List<BigDecimal> estatList, BigDecimal id, BigDecimal idUsuari, Boolean isOge,
 			Integer nextPageNumber, String numeroDocumentSollicitant, String numeroDocumentSollicitantEstricte, Integer pageSize,
 			Integer previousPageNumber, List<String> procedimentCodisList, BigDecimal procedimentId, BigDecimal procedimentVersio,
 			String sort, Long totalElements, Integer totalPages, String tramitador, List<BigDecimal> unitatsGestoresList,
