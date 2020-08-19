@@ -1967,7 +1967,7 @@ public class ServeisServiceImpl implements ServeisService {
 	 */
 	@Override
 	public void esborrarRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO)
-			throws GPAServeisServiceException {
+	        throws GPAServeisServiceException {
 		expedientsService.esborrarRegistreSollicitud(expedientsRegistrarSollicitudBDTO);
 	}
 
@@ -2292,6 +2292,30 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public void incrementarReintentsSignatura(BigDecimal idDocument) throws GPAServeisServiceException {
 		documentsService.incrementarReintentsSignatura(idDocument);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#
+	 * consultarDadesPersonaSollicitud(java.math.BigDecimal)
+	 */
+	@Override
+	public PersonesSollicitudRDTO consultarDadesPersonaSollicitud(BigDecimal idPersona) throws GPAServeisServiceException {
+		return expedientsService.consultarDadesPersonaSollicitud(idPersona);
+	}
+
+	/**
+	 * Esborrar persona sollicitud.
+	 *
+	 * @param idPersonesSollicitud
+	 *            the id persones sollicitud
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@Override
+	public void esborrarPersonaSollicitud(BigDecimal idPersonesSollicitud) throws GPAServeisServiceException {
+		expedientsService.esborrarPersonaSollicitud(idPersonesSollicitud);
 	}
 
 }

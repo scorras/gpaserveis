@@ -2,7 +2,8 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
+import java.math.BigDecimal;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,16 +25,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-08-19T09:53:47.185+02:00")
-@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsApi")
-public class AcumulaciExpedientsApi {
+@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitud_Api")
+public class PersonesSollicitud_Api {
     private ApiClient apiClient;
 
-    public AcumulaciExpedientsApi() {
+    public PersonesSollicitud_Api() {
         this(new ApiClient());
     }
 
     @Autowired
-    public AcumulaciExpedientsApi(ApiClient apiClient) {
+    public PersonesSollicitud_Api(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -46,25 +47,28 @@ public class AcumulaciExpedientsApi {
     }
 
     /**
-     * Acumulació d&#39;expedients
+     * Returns the requested person
      * 
      * <p><b>200</b> - OK
-     * <p><b>201</b> - Created
      * <p><b>401</b> - Unauthorized
      * <p><b>403</b> - Forbidden
      * <p><b>404</b> - Not Found
-     * @param acumularExpedientRDTO acumularExpedientRDTO
+     * @param idPersonesSollicitud idPersonesSollicitud
+     * @return PersonesSollicitudRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void acumularExpedient(AcumularExpedientRDTO acumularExpedientRDTO) throws RestClientException {
-        Object postBody = acumularExpedientRDTO;
+    public PersonesSollicitudRDTO consultarDadesPersonaSollicitud(BigDecimal idPersonesSollicitud) throws RestClientException {
+        Object postBody = null;
         
-        // verify the required parameter 'acumularExpedientRDTO' is set
-        if (acumularExpedientRDTO == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'acumularExpedientRDTO' when calling acumularExpedient");
+        // verify the required parameter 'idPersonesSollicitud' is set
+        if (idPersonesSollicitud == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idPersonesSollicitud' when calling consultarDadesPersonaSollicitud");
         }
         
-        String path = UriComponentsBuilder.fromPath("/acumulacioExpedients/acumularExpedient").build().toUriString();
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("idPersonesSollicitud", idPersonesSollicitud);
+        String path = UriComponentsBuilder.fromPath("/expedients/personesSollicitud/{idPersonesSollicitud}").buildAndExpand(uriVariables).toUriString();
         
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();
@@ -74,14 +78,12 @@ public class AcumulaciExpedientsApi {
             "*/*"
         };
         final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { 
-            "application/json"
-        };
+        final String[] contentTypes = { };
         final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {};
-        apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+        ParameterizedTypeReference<PersonesSollicitudRDTO> returnType = new ParameterizedTypeReference<PersonesSollicitudRDTO>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }

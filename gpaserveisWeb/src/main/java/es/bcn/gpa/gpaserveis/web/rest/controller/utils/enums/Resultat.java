@@ -195,7 +195,11 @@ public enum Resultat {
 
 	OK_DESCARREGAR_DOCUMENT_EXPEDIENT_SIGNAT("OK", "Document signat descarregat correctament"),
 
-	ERROR_DESCARREGAR_DOCUMENT_EXPEDIENT_SIGNAT("ERROR", "No s'ha pogut descarregar el document signat");
+	ERROR_DESCARREGAR_DOCUMENT_EXPEDIENT_SIGNAT("ERROR", "No s'ha pogut descarregar el document signat"),
+
+	OK_ESBORRAR_TERCERA_PERSONA("OK", "Tercera persona donada de baixa correctament"),
+
+	ERROR_ESBORRAR_TERCERA_PERSONA("ERROR", "No s'ha pogut donar de baixa la tercera persona");
 
 	private String codi;
 

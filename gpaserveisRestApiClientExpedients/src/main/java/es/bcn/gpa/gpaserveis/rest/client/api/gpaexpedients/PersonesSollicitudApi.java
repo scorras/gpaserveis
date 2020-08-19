@@ -2,6 +2,7 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
+import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 
@@ -24,7 +25,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-06-02T12:31:03.999+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-08-19T09:53:47.185+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi")
 public class PersonesSollicitudApi {
     private ApiClient apiClient;
@@ -114,5 +115,44 @@ public class PersonesSollicitudApi {
 
         ParameterizedTypeReference<PageDataOfPersonesSollicitudRDTO> returnType = new ParameterizedTypeReference<PageDataOfPersonesSollicitudRDTO>() {};
         return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Deletes the requested personesSollicitud
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>204</b> - No Content
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * @param idPersonesSollicitud idPersonesSollicitud
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public void esborrarPersonaSollicitud(BigDecimal idPersonesSollicitud) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'idPersonesSollicitud' is set
+        if (idPersonesSollicitud == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idPersonesSollicitud' when calling esborrarPersonaSollicitud");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("idPersonesSollicitud", idPersonesSollicitud);
+        String path = UriComponentsBuilder.fromPath("/expedients/personesSollicitud/{idPersonesSollicitud}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {};
+        apiClient.invokeAPI(path, HttpMethod.DELETE, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }
