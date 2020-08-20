@@ -1,5 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -23,7 +25,7 @@ import lombok.Setter;
 @ApiModel(value = "Persona")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "relacio", "relacioTerceraPersona", "visibilitatOvt", "tipusPersona", "nomRaoSocial", "cognom1", "cognom2",
-		"documentIndentitat", "dadesNotificacio" })
+		"documentIndentitat", "dadesNotificacio", "id" })
 @XmlRootElement(name = "PERSONA")
 @XmlType(name = "Persones", propOrder = { "relacio", "tipusPersona", "nomComplet", "documentIndentitat", "dadesNotificacio" })
 @XmlAccessorType(XmlAccessType.NONE)
@@ -57,6 +59,8 @@ public class PersonesRDTO {
 	@ApiModelProperty(value = "Dades de notificació de la persona", required = false)
 	@XmlElement(name = "DADES_NOTIFICACIO", required = true, type = DadesContacteRDTO.class)
 	private DadesContacteRDTO dadesNotificacio;
+	@ApiModelProperty(value = "Identificador de la persona", required = false)
+	private BigDecimal id;
 
 	@JsonIgnore
 	@XmlElement(name = "NOM_COMPLET", required = true, type = String.class)

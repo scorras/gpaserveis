@@ -135,7 +135,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	PageDataOfPersonesSollicitudRDTO donarAccesAltraPersonaImplicada(PersonesSollicitudRDTO personesSollicitudRDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Cerca dades especifiques sollicitud.
@@ -149,7 +149,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	List<DadesEspecifiquesRDTO> cercaDadesEspecifiquesSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Cerca dades especifiques expedient.
@@ -163,7 +163,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	List<DadesEspecifiquesRDTO> cercaDadesEspecifiquesExpedient(BigDecimal idExpedient, BigDecimal visibilitat)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Crear sollicitud expedient.
@@ -199,7 +199,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaCrearRegistreExpedient crearRegistre(ExpedientsRegistrarBDTO expedientsRegistrarBDTO, BigDecimal tipusDocVinculada)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Crear registre solicitud sollicitud.
@@ -213,7 +213,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaCrearRegistreExpedient crearRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO,
-	        BigDecimal tipusDocVinculada) throws GPAServeisServiceException;
+			BigDecimal tipusDocVinculada) throws GPAServeisServiceException;
 
 	/**
 	 * Redireccionar registre.
@@ -224,7 +224,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	void redireccionarRegistre(ExpedientsRedireccionarAssentamentBDTO expedientsRedireccionarAssentamentBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Canviar estat expedient.
@@ -236,7 +236,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaCanviarEstatAccioExpedient canviarEstatExpedient(ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Crear comentari accio.
@@ -279,7 +279,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	RetornTramitacio retornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO expedientsRetornarTramitacioBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Registre documentacio ariadna.
@@ -300,7 +300,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	void canviarUnitatGestoraExpedient(ExpedientsCanviarUnitatGestoraBDTO expedientsCanviarUnitatGestoraBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Consultar dades registre assentament.
@@ -417,7 +417,7 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	RespostaInteroperabilitat obtenirPerInteroperabilitat(ObtenirPerInteroperabilitatBDTO obtenirPerInteroperabilitatBDTO)
-	        throws GPAServeisServiceException;
+			throws GPAServeisServiceException;
 
 	/**
 	 * Crear sollicitud.
@@ -548,4 +548,13 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	void esborrarPersonaSollicitud(BigDecimal idPersonesSollicitud) throws GPAServeisServiceException;
+
+	/**
+	 * incorporar Tercera Persona
+	 * 
+	 * @param personesSollicitud
+	 * @return
+	 * @throws GPAServeisServiceException
+	 */
+	PersonesSollicitudRDTO incorporarTerceraPersona(PersonesSollicitudRDTO personesSollicitud) throws GPAServeisServiceException;
 }

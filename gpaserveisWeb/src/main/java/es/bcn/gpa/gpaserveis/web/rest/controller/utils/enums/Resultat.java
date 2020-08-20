@@ -199,7 +199,15 @@ public enum Resultat {
 
 	OK_ESBORRAR_TERCERA_PERSONA("OK", "Tercera persona donada de baixa correctament"),
 
-	ERROR_ESBORRAR_TERCERA_PERSONA("ERROR", "No s'ha pogut donar de baixa la tercera persona");
+	ERROR_ESBORRAR_TERCERA_PERSONA("ERROR", "No s'ha pogut donar de baixa la tercera persona"),
+
+	OK_INCORPORAR_TERCERA_PERSONA_EXPEDIENT("OK", "Tercera persona incorporada correctament"),
+
+	ERROR_INCORPORAR_TERCERA_PERSONA_EXPEDIENT("ERROR", "No s'ha pogut incorporar la tercera persona a l'expedient"),
+
+	OK_ACTUALITZAR_TERCERA_PERSONA_EXPEDIENT("OK", "Tercera persona actualitzada correctament"),
+
+	ERROR_ACTUALITZAR_TERCERA_PERSONA_EXPEDIENT("ERROR", "No s'ha pogut actualitzar la tercera persona de l'expedient");
 
 	private String codi;
 
