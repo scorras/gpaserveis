@@ -24,7 +24,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-06-02T12:31:03.999+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-08-14T10:29:14.606+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi")
 public class PersonesSollicitudApi {
     private ApiClient apiClient;
@@ -113,6 +113,46 @@ public class PersonesSollicitudApi {
         String[] authNames = new String[] {  };
 
         ParameterizedTypeReference<PageDataOfPersonesSollicitudRDTO> returnType = new ParameterizedTypeReference<PageDataOfPersonesSollicitudRDTO>() {};
+        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Save the provided persone
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>201</b> - Created
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param personesSollicitudRDTO personesSollicitudRDTO
+     * @return PersonesSollicitudRDTO
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public PersonesSollicitudRDTO incorporarTerceraPersona(PersonesSollicitudRDTO personesSollicitudRDTO) throws RestClientException {
+        Object postBody = personesSollicitudRDTO;
+        
+        // verify the required parameter 'personesSollicitudRDTO' is set
+        if (personesSollicitudRDTO == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'personesSollicitudRDTO' when calling incorporarTerceraPersona");
+        }
+        
+        String path = UriComponentsBuilder.fromPath("/expedients/personesSollicitud/altresImplidades").build().toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { 
+            "application/json"
+        };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<PersonesSollicitudRDTO> returnType = new ParameterizedTypeReference<PersonesSollicitudRDTO>() {};
         return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }

@@ -85,4 +85,25 @@ public class PersonesSollicitudApiTest extends ParentTest {
 		assertTrue(response != null);
 	}
 
+	/**
+	 * Save the provided persone
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void incorporarTerceraPersonaTest() {
+
+		when(apiClient.invokeAPI(eq("/expedients/personesSollicitud/altresImplidades"), eq(HttpMethod.POST), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new PersonesSollicitudRDTO());
+
+		PersonesSollicitudRDTO personesSollicitudRDTO = new PersonesSollicitudRDTO();
+
+		PersonesSollicitudRDTO response = api.incorporarTerceraPersona(personesSollicitudRDTO);
+
+		assertTrue(response != null);
+	}
 }

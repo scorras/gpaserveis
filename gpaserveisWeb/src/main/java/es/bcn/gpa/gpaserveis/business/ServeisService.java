@@ -1380,4 +1380,15 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	void incrementarReintentsSignatura(BigDecimal idDocument) throws GPAServeisServiceException;
+
+	/**
+	 * Incorporar Tercera Persona.
+	 *
+	 * @param expedientsActualitzarBDTO
+	 *            the expedients actualitzar BDTO
+	 * @return the PersonesSollicitud RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	PersonesSollicitudRDTO incorporarTerceraPersona(PersonesSollicitudRDTO personesSollicitudRDTO) throws GPAServeisServiceException;
 }

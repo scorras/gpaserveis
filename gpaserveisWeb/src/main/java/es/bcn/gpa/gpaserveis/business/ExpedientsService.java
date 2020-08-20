@@ -527,4 +527,13 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	void actualitzarExpedient(ExpedientsRDTO expedientsRDTO) throws GPAServeisServiceException;
+
+	/**
+	 * incorporar Tercera Persona
+	 * 
+	 * @param personesSollicitud
+	 * @return
+	 * @throws GPAServeisServiceException
+	 */
+	PersonesSollicitudRDTO incorporarTerceraPersona(PersonesSollicitudRDTO personesSollicitud) throws GPAServeisServiceException;
 }

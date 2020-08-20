@@ -195,7 +195,15 @@ public enum Resultat {
 
 	OK_DESCARREGAR_DOCUMENT_EXPEDIENT_SIGNAT("OK", "Document signat descarregat correctament"),
 
-	ERROR_DESCARREGAR_DOCUMENT_EXPEDIENT_SIGNAT("ERROR", "No s'ha pogut descarregar el document signat");
+	ERROR_DESCARREGAR_DOCUMENT_EXPEDIENT_SIGNAT("ERROR", "No s'ha pogut descarregar el document signat"),
+
+	OK_INCORPORAR_TERCERA_PERSONA_EXPEDIENT("OK", "Tercera persona incorporada correctament"),
+
+	ERROR_INCORPORAR_TERCERA_PERSONA_EXPEDIENT("ERROR", "No s'ha pogut incorporar la tercera persona a l'expedient"),
+
+	OK_ACTUALITZAR_TERCERA_PERSONA_EXPEDIENT("OK", "Tercera persona actualitzada correctament"),
+
+	ERROR_ACTUALITZAR_TERCERA_PERSONA_EXPEDIENT("ERROR", "No s'ha pogut actualitzar la tercera persona de l'expedient");
 
 	private String codi;
 

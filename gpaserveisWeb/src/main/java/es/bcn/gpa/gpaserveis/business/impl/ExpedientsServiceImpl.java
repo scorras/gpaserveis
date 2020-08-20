@@ -142,10 +142,10 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 					expedientsCercaBDTO.getAplicacioNegoci(), null, expedientsCercaBDTO.getCodi(), null, null, null, null, null, null, null,
 					expedientsCercaBDTO.getCurrentPageNumber(), expedientsCercaBDTO.getDataPresentacioDes(),
 					expedientsCercaBDTO.getDataPresentacioFinsA(), expedientsCercaBDTO.getDir(), expedientsCercaBDTO.getEstatList(), null,
-					null, null, null, expedientsCercaBDTO.getNifSollicitant(), null, expedientsCercaBDTO.getPageSize(), null,
-					expedientsCercaBDTO.getProcedimentCodisList(), null, expedientsCercaBDTO.getProcedimentVersio(),
-					expedientsCercaBDTO.getSort(), null, null, expedientsCercaBDTO.getTramitador(),
-					expedientsCercaBDTO.getUnitatsGestoresList(), expedientsCercaBDTO.getNivellAutenticacio());
+					null, null, null, expedientsCercaBDTO.getNivellAutenticacio(), expedientsCercaBDTO.getNifSollicitant(), null,
+					expedientsCercaBDTO.getPageSize(), null, expedientsCercaBDTO.getProcedimentCodisList(), null,
+					expedientsCercaBDTO.getProcedimentVersio(), expedientsCercaBDTO.getSort(), null, null,
+					expedientsCercaBDTO.getTramitador(), expedientsCercaBDTO.getUnitatsGestoresList());
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaExpedients(ExpedientsCercaBDTO) - fi"); //$NON-NLS-1$
@@ -2266,5 +2266,56 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		ServeisServiceExceptionHandler.handleException(e);
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
+	 * incorporarTerceraPersona(es.bcn.gpa.gpaserveis.rest.client.api.model.
+	 * gpaexpedients.PersonesSollicitud)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackIncorporarTerceraPersona")
+	public PersonesSollicitudRDTO incorporarTerceraPersona(PersonesSollicitudRDTO personesSollicitud) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("incorporarTerceraPersona(PersonesSollicitudRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			PersonesSollicitudRDTO returnPersonesSollicitudRDTO = personesSollicitudApi.incorporarTerceraPersona(personesSollicitud);
+
+			if (log.isDebugEnabled()) {
+				log.debug("incorporarTerceraPersona(PersonesSollicitudRDTO) - fi"); //$NON-NLS-1$
+			}
+			return returnPersonesSollicitudRDTO;
+		} catch (RestClientException e) {
+			log.error("incorporarTerceraPersona(PersonesSollicitudRDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+
+	}
+
+	/**
+	 * Fallback Incorporar Tercera Persona.
+	 *
+	 * @param personesSollicitud
+	 *            the expedients actualitzar BDTO
+	 * @param e
+	 *            the e
+	 * @return the PersonesSollicitud RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public PersonesSollicitudRDTO fallbackIncorporarTerceraPersona(PersonesSollicitudRDTO personesSollicitud, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackIncorporarTerceraPersona(PersonesSollicitudRDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 }

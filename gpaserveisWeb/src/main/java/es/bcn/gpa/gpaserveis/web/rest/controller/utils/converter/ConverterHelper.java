@@ -61,6 +61,8 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.Do
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.DocumentDigitalitzarAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.DocumentIncorporatNouAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.RequerimentPreparatAccioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.TercerPersonaActualitzadaAccioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.TercerPersonaCreadaAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValidacionsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValorsLlistaRDTO;
@@ -1448,4 +1450,127 @@ public class ConverterHelper {
 
 	}
 
+	/**
+	 * Builds the persones sollicitud expedient.
+	 *
+	 * @param personesRDTO
+	 *            the persones RDTO
+	 * @param relacioPersonaApiParamValue
+	 *            the relacio persona api param value
+	 * @param tipusPersonaApiParamValueTranslator
+	 *            the tipus persona api param value translator
+	 * @param tipusDocumentIdentitatApiParamValueTranslator
+	 *            the tipus document identitat api param value translator
+	 * @param tipusSexeApiParamValueTranslator
+	 *            the tipus sexe api param value translator
+	 * @return the persones sollicitud
+	 */
+	public static PersonesSollicitudRDTO buildPersonesSollicitudRDTOExpedient(PersonesRDTO personesRDTO,
+			RelacioPersonaApiParamValue relacioPersonaApiParamValue,
+			TipusPersonaApiParamValueTranslator tipusPersonaApiParamValueTranslator,
+			TipusDocumentIdentitatApiParamValueTranslator tipusDocumentIdentitatApiParamValueTranslator,
+			BooleanApiParamValueTranslator booleanApiParamValueTranslator,
+			TipusSexeApiParamValueTranslator tipusSexeApiParamValueTranslator, boolean relacionPrincipal) {
+
+		PersonesSollicitudRDTO personesSollicitud = null;
+
+		if (personesRDTO != null) {
+			personesSollicitud = new PersonesSollicitudRDTO();
+
+			personesSollicitud.setId(personesRDTO.getId());
+
+			personesSollicitud.setEsInteressada(BooleanApiParamValue.FALSE.getInternalValue());
+			if (relacioPersonaApiParamValue != null && (relacioPersonaApiParamValue.getInternalValue()
+					.compareTo(RelacioPersonaApiParamValue.SOLLICITANT.getInternalValue()) == 0
+					|| relacioPersonaApiParamValue.getInternalValue()
+							.compareTo(RelacioPersonaApiParamValue.REPRESENTANT.getInternalValue()) == 0)) {
+				personesSollicitud.setEsInteressada(BooleanApiParamValue.TRUE.getInternalValue());
+
+				personesSollicitud.setRelacio(relacioPersonaApiParamValue.getInternalValue());
+			}
+			personesSollicitud.setRelacioImplicada(personesRDTO.getRelacioTerceraPersona());
+			personesSollicitud
+					.setRelacioPrincipal(booleanApiParamValueTranslator.getInternalValueByApiParamValueAsBoolean(relacionPrincipal));
+			personesSollicitud.setVisibilitatOvt(
+					booleanApiParamValueTranslator.getInternalValueByApiParamValueAsBoolean(personesRDTO.getVisibilitatOvt()));
+			Persones persones = new Persones();
+			persones.setTipusPersona(tipusPersonaApiParamValueTranslator.getInternalValueByApiParamValue(personesRDTO.getTipusPersona()));
+			persones.setNomRaoSocial(personesRDTO.getNomRaoSocial());
+			persones.setCognom1(personesRDTO.getCognom1());
+			persones.setCognom2(personesRDTO.getCognom2());
+			DocumentsIdentitat documentsIdentitat = new DocumentsIdentitat();
+			TipusDocumentIdentitat tipusDocumentIdentitat = new TipusDocumentIdentitat();
+			tipusDocumentIdentitat.setId(tipusDocumentIdentitatApiParamValueTranslator
+					.getInternalValueByApiParamValue(personesRDTO.getDocumentIndentitat().getTipusDocument()));
+			documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
+			documentsIdentitat.setTipus(tipusDocumentIdentitatApiParamValueTranslator
+					.getInternalValueByApiParamValue(personesRDTO.getDocumentIndentitat().getTipusDocument()));
+			documentsIdentitat.setNumeroDocument(personesRDTO.getDocumentIndentitat().getNumeroDocument());
+			documentsIdentitat.setPais(personesRDTO.getDocumentIndentitat().getPais());
+			persones.setDocumentsIdentitat(documentsIdentitat);
+			PersonesDadescontacte personesDadescontacte = new PersonesDadescontacte();
+			if (personesRDTO.getDadesNotificacio() != null) {
+				personesDadescontacte.setEmail(personesRDTO.getDadesNotificacio().getEmail());
+				personesDadescontacte.setTelefon(personesRDTO.getDadesNotificacio().getTelefon());
+				personesDadescontacte.setMobil(personesRDTO.getDadesNotificacio().getMobil());
+				personesDadescontacte.setFax(personesRDTO.getDadesNotificacio().getFax());
+				personesDadescontacte.setTipusVia(personesRDTO.getDadesNotificacio().getTipusVia());
+				personesDadescontacte.setDireccioPostal(personesRDTO.getDadesNotificacio().getNomVia());
+				personesDadescontacte.setNumero(personesRDTO.getDadesNotificacio().getNumero());
+				personesDadescontacte.setEscala(personesRDTO.getDadesNotificacio().getEscala());
+				personesDadescontacte.setBloc(personesRDTO.getDadesNotificacio().getBloc());
+				personesDadescontacte.setPorta(personesRDTO.getDadesNotificacio().getPorta());
+				personesDadescontacte.setPis(personesRDTO.getDadesNotificacio().getPis());
+				personesDadescontacte.setCodiPostal(personesRDTO.getDadesNotificacio().getCodiPostal());
+				personesDadescontacte.setMunicipi(personesRDTO.getDadesNotificacio().getMunicipi());
+				personesDadescontacte.setProvincia(personesRDTO.getDadesNotificacio().getProvincia());
+				personesDadescontacte.setPais(personesRDTO.getDadesNotificacio().getPais());
+				personesDadescontacte.setMunicipiEstranger(personesRDTO.getDadesNotificacio().getMunicipiEstranger());
+				personesDadescontacte.setProvinciaEstranger(personesRDTO.getDadesNotificacio().getProvinciaEstranger());
+				personesDadescontacte.setNotificacioPaper(booleanApiParamValueTranslator
+						.getInternalValueByApiParamValueAsBoolean(personesRDTO.getDadesNotificacio().getNotificacioPaper()));
+				persones.setPersonesDadescontacte(personesDadescontacte);
+			}
+			personesSollicitud.setPersones(persones);
+		}
+
+		return personesSollicitud;
+	}
+
+	/**
+	 * Builds the tercera persona accio RDTO expedient.
+	 * 
+	 * @param personesSollicitudRDTO
+	 * @return tercerPersonaCreadaAccioRDTO
+	 */
+	public static TercerPersonaCreadaAccioRDTO buildTercerPersonaCreadaAccioRDTO(PersonesSollicitudRDTO personesSollicitudRDTO) {
+		TercerPersonaCreadaAccioRDTO tercerPersonaCreadaAccioRDTO = null;
+
+		if (personesSollicitudRDTO != null) {
+			tercerPersonaCreadaAccioRDTO = new TercerPersonaCreadaAccioRDTO();
+
+			tercerPersonaCreadaAccioRDTO.setId(personesSollicitudRDTO.getId());
+		}
+
+		return tercerPersonaCreadaAccioRDTO;
+	}
+
+	/**
+	 * Builds the tercera persona accio RDTO expedient.
+	 * 
+	 * @param personesSollicitudRDTO
+	 * @return tercerPersonaCreadaAccioRDTO
+	 */
+	public static TercerPersonaActualitzadaAccioRDTO buildTercerPersonaActualitzadaAccioRDTO(
+			PersonesSollicitudRDTO personesSollicitudRDTO) {
+		TercerPersonaActualitzadaAccioRDTO tercerPersonaActualitzadaAccioRDTO = null;
+
+		if (personesSollicitudRDTO != null) {
+			tercerPersonaActualitzadaAccioRDTO = new TercerPersonaActualitzadaAccioRDTO();
+
+			tercerPersonaActualitzadaAccioRDTO.setId(personesSollicitudRDTO.getId());
+		}
+
+		return tercerPersonaActualitzadaAccioRDTO;
+	}
 }
