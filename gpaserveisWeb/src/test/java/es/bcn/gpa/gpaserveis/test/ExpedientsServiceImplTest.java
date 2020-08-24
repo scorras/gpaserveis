@@ -469,4 +469,25 @@ public class ExpedientsServiceImplTest extends RestServerParentTest {
 			LOGGER.debug("testStage08_actualitzarTerceraPersonaOK() - fi"); //$NON-NLS-1$
 		}
 	}
+
+	/**
+	 * Test stage 09 esborrar tercera persona.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test
+	public void testStage09_esborrarTerceraPersonaOK() throws GPAServeisServiceException {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage09_esborrarTerceraPersonaOK() - inici"); //$NON-NLS-1$
+		}
+
+		expedientsService.esborrarPersonaSollicitud(BigDecimal.ONE);
+
+		assertTrue(true);
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage09_esborrarTerceraPersonaOK() - fi"); //$NON-NLS-1$
+		}
+	}
 }
