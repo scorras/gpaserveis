@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.23.0"
+  version: "1.24.5"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -1402,6 +1402,12 @@ paths:
         required: false
         type: "integer"
         format: "int32"
+      - name: "nivellAutenticacio"
+        in: "query"
+        description: "Nivell d'autenticacio del procediment"
+        required: false
+        type: "integer"
+        format: "int32"
       - name: "numeroDocumentSollicitant"
         in: "query"
         description: "Numero de document d'identificació del sol·licitant"
@@ -2419,6 +2425,9 @@ definitions:
         type: "boolean"
       migracioIdOrigen:
         type: "string"
+      nivellAutenticacio:
+        type: "integer"
+        format: "int32"
       nomDescUGConvidada:
         type: "string"
       nomDescUnitatGestora:
@@ -2868,6 +2877,10 @@ definitions:
   SollicitudActualitzarRegistre:
     type: "object"
     properties:
+      dataPresentacio:
+        type: "string"
+        format: "date-time"
+        description: "Data presentacio"
       idRegistre:
         type: "number"
         description: "Identificador del registre"
