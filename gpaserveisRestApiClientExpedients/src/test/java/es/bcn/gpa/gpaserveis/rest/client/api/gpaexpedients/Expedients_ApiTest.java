@@ -114,9 +114,9 @@ public class Expedients_ApiTest extends ParentTest {
 				absoluteRowNumberOfLastRowInCurrentPage, aplicacioNegoci, avisList, codi, criteriDeCercaDadesOperacioList0Id,
 				criteriDeCercaDadesOperacioList0Tipus, criteriDeCercaDadesOperacioList0Valor, currentPageHasNextPage,
 				currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dataPresentacioDes,
-				dataPresentacioFinsA, dir, estatList, id, idUsuari, isOge, nextPageNumber, numeroDocumentSollicitant,
+				dataPresentacioFinsA, dir, estatList, id, idUsuari, isOge, nextPageNumber, nivellAutenticacio, numeroDocumentSollicitant,
 				numeroDocumentSollicitantEstricte, pageSize, previousPageNumber, procedimentCodisList, procedimentId, procedimentVersio,
-				sort, totalElements, totalPages, tramitador, unitatsGestoresList, nivellAutenticacio);
+				sort, totalElements, totalPages, tramitador, unitatsGestoresList);
 
 		assertTrue(response != null);
 	}
