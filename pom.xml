@@ -22,7 +22,7 @@
     <module>gpaserveisRestApiClientDocumentacio</module>
   </modules>
   <properties>
-    <revision>1.24.3</revision>
+    <revision>1.24.4</revision>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <build>
