@@ -67,12 +67,12 @@ public class Expedients_ApiTest extends ParentTest {
 	@Test
 	public void cercaExpedientsTest() {
 		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
-		        .thenReturn(new LinkedMultiValueMap<String, String>());
+				.thenReturn(new LinkedMultiValueMap<String, String>());
 		when(apiClient.parameterToMultiValueMap(any(CollectionFormat.class), any(String.class), any(Object.class)))
-		        .thenReturn(new LinkedMultiValueMap<String, String>());
+				.thenReturn(new LinkedMultiValueMap<String, String>());
 		when(apiClient.invokeAPI(eq("/expedients/search"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfExpedientsRDTO());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfExpedientsRDTO());
 
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
@@ -109,12 +109,12 @@ public class Expedients_ApiTest extends ParentTest {
 		String tramitador = null;
 		List<BigDecimal> unitatsGestoresList = null;
 		PageDataOfExpedientsRDTO response = api.cercaExpedients(absoluteRowNumberOfFirstRowInCurrentPage,
-		        absoluteRowNumberOfLastRowInCurrentPage, aplicacioNegoci, avisList, codi, criteriDeCercaDadesOperacioList0Id,
-		        criteriDeCercaDadesOperacioList0Tipus, criteriDeCercaDadesOperacioList0Valor, currentPageHasNextPage,
-		        currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dataPresentacioDes,
-		        dataPresentacioFinsA, dir, estatList, id, idUsuari, isOge, nextPageNumber, nivellAutenticacio, numeroDocumentSollicitant,
-		        numeroDocumentSollicitantEstricte, pageSize, previousPageNumber, procedimentCodisList, procedimentId, procedimentVersio,
-		        sort, totalElements, totalPages, tramitador, unitatsGestoresList);
+				absoluteRowNumberOfLastRowInCurrentPage, aplicacioNegoci, avisList, codi, criteriDeCercaDadesOperacioList0Id,
+				criteriDeCercaDadesOperacioList0Tipus, criteriDeCercaDadesOperacioList0Valor, currentPageHasNextPage,
+				currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dataPresentacioDes,
+				dataPresentacioFinsA, dir, estatList, id, idUsuari, isOge, nextPageNumber, nivellAutenticacio, numeroDocumentSollicitant,
+				numeroDocumentSollicitantEstricte, pageSize, previousPageNumber, procedimentCodisList, procedimentId, procedimentVersio,
+				sort, totalElements, totalPages, tramitador, unitatsGestoresList);
 
 		assertTrue(response != null);
 	}
@@ -130,8 +130,8 @@ public class Expedients_ApiTest extends ParentTest {
 	@Test
 	public void consultarDadesExpedientTest() {
 		when(apiClient.invokeAPI(eq("/expedients/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new ExpedientsRDTO());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new ExpedientsRDTO());
 
 		BigDecimal id = ONE;
 		ExpedientsRDTO response = api.consultarDadesExpedient(id);
@@ -150,8 +150,8 @@ public class Expedients_ApiTest extends ParentTest {
 	@Test
 	public void consultarDadesExpedientPerCodiTest() {
 		when(apiClient.invokeAPI(eq("/expedients/perCodi/Codi000001"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new ExpedientsRDTO());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new ExpedientsRDTO());
 
 		String codi = "Codi000001";
 		ExpedientsRDTO response = api.consultarDadesExpedientPerCodi(codi);
@@ -170,10 +170,10 @@ public class Expedients_ApiTest extends ParentTest {
 	@Test
 	public void consultarDadesRegistreAssentamentTest() {
 		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
-		        .thenReturn(new LinkedMultiValueMap<String, String>());
+				.thenReturn(new LinkedMultiValueMap<String, String>());
 		when(apiClient.invokeAPI(eq("/expedients/registre"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new RegistreAssentamentRDTO());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new RegistreAssentamentRDTO());
 
 		String codi = ONE.toString();
 		RegistreAssentamentRDTO response = api.consultarDadesRegistreAssentament(codi);
@@ -192,8 +192,8 @@ public class Expedients_ApiTest extends ParentTest {
 	@Test
 	public void consultarExpedientPerDocumentacioIdExtTest() {
 		when(apiClient.invokeAPI(eq("/expedients/expedientByIdDoc/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(ONE);
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(ONE);
 
 		BigDecimal idDocumentacio = ONE;
 		BigDecimal response = api.consultarExpedientPerDocumentacioIdExt(idDocumentacio);
@@ -212,8 +212,8 @@ public class Expedients_ApiTest extends ParentTest {
 	@Test
 	public void crearSollicitudExpedientTest() {
 		when(apiClient.invokeAPI(eq("/expedients"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new ExpedientsRDTO());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new ExpedientsRDTO());
 
 		ExpedientsRDTO expedientsRDTO = new ExpedientsRDTO();
 		ExpedientsRDTO response = api.crearSollicitudExpedient(expedientsRDTO);
@@ -232,8 +232,8 @@ public class Expedients_ApiTest extends ParentTest {
 	@Test
 	public void actualitzarDadesSollicitudTest() {
 		when(apiClient.invokeAPI(eq("/expedients/dadesSollicitud"), eq(HttpMethod.PUT), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new ExpedientsRDTO());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new ExpedientsRDTO());
 
 		ActualitzarDadesSollicitud actualitzarDadesSollicitudRDTO = new ActualitzarDadesSollicitud();
 		ExpedientsRDTO response = api.actualitzarDadesSollicitud(actualitzarDadesSollicitudRDTO);
@@ -252,8 +252,8 @@ public class Expedients_ApiTest extends ParentTest {
 	@Test
 	public void crearRegistreSolicitudExpedientTest() {
 		when(apiClient.invokeAPI(eq("/expedients/registre/crear/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new RespostaCrearRegistreExpedient());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new RespostaCrearRegistreExpedient());
 
 		BigDecimal accio = ONE;
 		CrearRegistre registrarSolicitudExpedientRDTO = new CrearRegistre();
@@ -273,8 +273,8 @@ public class Expedients_ApiTest extends ParentTest {
 	@Test
 	public void registreDocumentacioAriadnaTest() {
 		when(apiClient.invokeAPI(eq("/expedients/registre/registreDoc"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(null);
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		RegistreDocumentacioExpedient registreDocumentacioExpedientRDTO = new RegistreDocumentacioExpedient();
 		api.registreDocumentacioAriadna(registreDocumentacioExpedientRDTO);
@@ -293,8 +293,8 @@ public class Expedients_ApiTest extends ParentTest {
 	@Test
 	public void consultarMunicipiByCodiTest() {
 		when(apiClient.invokeAPI(eq("/geoCod/municipis/1/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new MunicipisRDTO());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new MunicipisRDTO());
 
 		String codiMunicipi = ONE.toString();
 		String codiProvincia = ONE.toString();
@@ -314,8 +314,8 @@ public class Expedients_ApiTest extends ParentTest {
 	@Test
 	public void consultarPaisosByCodiTest() {
 		when(apiClient.invokeAPI(eq("/geoCod/paisos/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new PaisosRDTO());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new PaisosRDTO());
 
 		String codi = ONE.toString();
 		PaisosRDTO response = api.consultarPaisosByCodi(codi);
@@ -334,8 +334,8 @@ public class Expedients_ApiTest extends ParentTest {
 	@Test
 	public void consultarProvinciesByCodiTest() {
 		when(apiClient.invokeAPI(eq("/geoCod/provincies/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new ProvinciesRDTO());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new ProvinciesRDTO());
 
 		String codi = ONE.toString();
 		ProvinciesRDTO response = api.consultarProvinciesByCodi(codi);
@@ -354,8 +354,8 @@ public class Expedients_ApiTest extends ParentTest {
 	@Test
 	public void consultarTipusViesByCodiTest() {
 		when(apiClient.invokeAPI(eq("/geoCod/tipusVies/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(new TipusViesRDTO());
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(new TipusViesRDTO());
 
 		String codi = ONE.toString();
 		TipusViesRDTO response = api.consultarTipusViesByCodi(codi);
