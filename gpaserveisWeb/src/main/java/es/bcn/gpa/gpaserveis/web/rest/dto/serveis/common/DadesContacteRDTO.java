@@ -96,14 +96,24 @@ public class DadesContacteRDTO {
 	@XmlElement(name = "ADRECA", required = false)
 	@XmlJavaTypeAdapter(AdrecaAdapter.class)
 	public String getAdreca() {
-		return StringUtils.join(new String[] { tipusVia, nomVia, numero, bloc, escala, pis, porta }, " ");
+		String adrecaResult = StringUtils.EMPTY;
+		if (StringUtils.isNotEmpty(tipusVia) || StringUtils.isNotEmpty(nomVia) || StringUtils.isNotEmpty(numero)
+				|| StringUtils.isNotEmpty(bloc) || StringUtils.isNotEmpty(escala) || StringUtils.isNotEmpty(pis)
+				|| StringUtils.isNotEmpty(porta)) {
+			adrecaResult = StringUtils.join(new String[] { tipusVia, nomVia, numero, bloc, escala, pis, porta }, " ");
+		}
+		return adrecaResult;
 	}
 
 	@JsonIgnore
 	@XmlElement(name = "MUNICIPI", required = false)
 	@XmlJavaTypeAdapter(MunicipiAdapter.class)
 	public String getMunicipiProvincia() {
-		return StringUtils.join(new String[] { provincia, municipi }, " ");
+		String municipiResult = StringUtils.EMPTY;
+		if (StringUtils.isNotEmpty(provincia) || StringUtils.isNotEmpty(municipi)) {
+			municipiResult = StringUtils.join(new String[] { provincia, municipi }, " ");
+		}
+		return municipiResult;
 	}
 
 	@ApiModelProperty(value = "Notificacio Paper")
