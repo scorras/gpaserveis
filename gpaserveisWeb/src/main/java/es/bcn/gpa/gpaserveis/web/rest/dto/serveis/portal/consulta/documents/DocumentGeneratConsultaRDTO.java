@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import es.bcn.gpa.gpaserveis.business.xml.bind.adapter.DataHoraAdapter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.RegistreRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DocumentRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,10 +22,10 @@ import lombok.Setter;
 
 @ApiModel(value = "DocumentGeneratConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "idGestorDocumental", "nom", "configuracioDocumentacio", "dataCreacio", "dataComunicat", "origen", "hash",
-		"codiCSV" })
+@JsonPropertyOrder({ "id", "idGestorDocumental", "nom", "configuracioDocumentacio", "dataCreacio", "dataComunicat", "registre", "origen",
+		"hash", "codiCSV" })
 @XmlRootElement(name = "DOCUMENT")
-@XmlType(name = "DocumentGeneratConsulta", propOrder = { "dataComunicat" })
+@XmlType(name = "DocumentGeneratConsulta", propOrder = { "dataComunicat", "registre" })
 @XmlAccessorType(XmlAccessType.NONE)
 @Getter
 @Setter
@@ -35,5 +36,8 @@ public class DocumentGeneratConsultaRDTO extends DocumentRDTO {
 	@XmlElement(name = "DATA_COMUNICAT", required = false)
 	@XmlJavaTypeAdapter(DataHoraAdapter.class)
 	private String dataComunicat;
+	@ApiModelProperty(value = "Registre del document")
+	@XmlElement(name = "REGISTRE", required = false, type = RegistreRDTO.class)
+	private RegistreRDTO registre;
 
 }

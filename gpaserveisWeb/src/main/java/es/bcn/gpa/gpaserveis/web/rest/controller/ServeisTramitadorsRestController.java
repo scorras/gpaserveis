@@ -17,9 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,6 +63,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaValidarDocumentExped
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AnotarOperacioComptableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentCrearNotificacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentGeneratRegistrarComunicatBDTO;
@@ -76,7 +79,10 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitaci
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ObtenirPerInteroperabilitatBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaActualitzarTerceraPersonaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaAnotarOperacioComptableBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaCrearTerceraPersonaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaEsborrarTerceraPersonaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsAbandonarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsAccesBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsActualitzarBDTO;
@@ -182,6 +188,9 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.VersioProcedimentApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ErrorDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ResultatRespostaDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.ActualitzarTerceraPersonaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.CrearTerceraPersonaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.TerceraPersonaSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar.ExpedientActualitzarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar.RespostaActualitzarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.esborrar.RespostaEsborrarDocumentRDTO;
@@ -237,6 +246,9 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.notificar.RespostaNotificarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.pausar.ExpedientPausaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.pausar.RespostaPausarExpedientRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.persones.RespostaActualitzarTerceraPersonaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.persones.RespostaCrearTerceraPersonaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.persones.RespostaEsborrarTerceraPersonaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.publicar.InformacioPublicaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.publicar.RespostaPublicarPerAInformacioPublicaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.reactivar.ExpedientReactivacioRDTO;
@@ -365,8 +377,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		// Expedients que cumplen los criterios de búsqueda
 		ExpedientsCercaBDTO expedientsCercaBDTO = new ExpedientsCercaBDTO(
 				ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), nifSollicitant,
-				ExpedientsApiParamToInternalMapper.getDataPresentacioIniciInternalValue(dataPresentacioInici),
-				ExpedientsApiParamToInternalMapper.getDataPresentacioFiInternalValue(dataPresentacioFi),
+				dataPresentacioInici, dataPresentacioFi,
 				ExpedientsApiParamToInternalMapper.getCodiProcedimentInternalValueList(codiProcediment),
 				ExpedientsApiParamToInternalMapper.getVersioProcedimentInternalValue(versioProcediment),
 				ExpedientsApiParamToInternalMapper.getEstatCiutadaInternalValueList(estat),
@@ -2667,7 +2678,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// El documento de identidad debe corresponderse con el de una
 			// persona implicada en el expediente
 			personesSollicitudRDTO = ServeisRestControllerValidationHelper.validatePersonaImplicadaExpedient(dadesExpedientBDTO,
-					expedientAcces.getDocumentsIdentitatRDTO(), Resultat.ERROR_ACCES_EXPEDIENT);
+					expedientAcces.getDocumentsIdentitatRDTO().getNumeroDocument(), Resultat.ERROR_ACCES_EXPEDIENT);
 
 			// Dar acceso al expediente si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
@@ -3978,6 +3989,135 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	}
 
 	/**
+	 * Incorporar tercera persona
+	 * 
+	 * @param codiExpedient
+	 * @param personaImplicada
+	 * @return
+	 */
+	@PostMapping("/expedients/{codiExpedient}/persones")
+	@ApiOperation(value = "Incorporar tercera persona a la sol·licitud de l'expedient", tags = { "Serveis Tramitadors API" }, extensions = {
+			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaCrearTerceraPersonaRDTO incorporarTerceraPersona(
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Dades de la actualització de l'expedient", required = true) @RequestBody CrearTerceraPersonaRDTO personaImplicada) {
+		if (log.isDebugEnabled()) {
+			log.debug("incorporarTerceraPersona(BigDecimal, CrearTerceraPersonaRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		RespostaCrearTerceraPersonaRDTO respostaCrearTerceraPersonaRDTO = null;
+		PersonesSollicitudRDTO returnPersonesSollicitudRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+		TerceraPersonaSollicitudRDTO terceraPersonaSollicitudRDTO = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_INCORPORAR_TERCERA_PERSONA_EXPEDIENT);
+		try {
+			// El codi del expediente debe existir
+			dadesExpedientBDTO = serveisService.consultarDadesBasiquesPerVisibilitatExpedient(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO,
+					Resultat.ERROR_INCORPORAR_TERCERA_PERSONA_EXPEDIENT);
+
+			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+					AccioTramitadorApiParamValue.INFORMAR_DADES_EXPEDIENT, Resultat.ERROR_INCORPORAR_TERCERA_PERSONA_EXPEDIENT);
+
+			// 1 - validamos que el usuario logado pertenezca al expediente
+
+			// TODO validar DNI
+
+			// Se construye el modelo para la llamada a la operación de
+			// actualización
+			terceraPersonaSollicitudRDTO = modelMapper.map(personaImplicada, TerceraPersonaSollicitudRDTO.class);
+
+			terceraPersonaSollicitudRDTO.getPersonesSollicitudRDTO().setSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
+			returnPersonesSollicitudRDTO = serveisService
+					.incorporarTerceraPersona(terceraPersonaSollicitudRDTO.getPersonesSollicitudRDTO());
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("incorporarTerceraPersona(BigDecimal, CrearTerceraPersonaRDTO)", e); //$NON-NLS-1$
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("incorporarTerceraPersona(BigDecimal, CrearTerceraPersonaRDTO)", e); //$NON-NLS-1$
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler
+					.handleException(Resultat.ERROR_INCORPORAR_TERCERA_PERSONA_EXPEDIENT, e);
+		}
+
+		RespostaCrearTerceraPersonaBDTO respostaCrearTerceraPersonaBDTO = new RespostaCrearTerceraPersonaBDTO(returnPersonesSollicitudRDTO,
+				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
+		respostaCrearTerceraPersonaRDTO = modelMapper.map(respostaCrearTerceraPersonaBDTO, RespostaCrearTerceraPersonaRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("incorporarTerceraPersona(BigDecimal, CrearTerceraPersonaRDTO) - fi"); //$NON-NLS-1$
+		}
+		return respostaCrearTerceraPersonaRDTO;
+	}
+
+	/**
+	 * Actualitzar tercera persona
+	 * 
+	 * @param codiExpedient
+	 * @param personaImplicada
+	 * @return
+	 */
+	@PutMapping("/expedients/{codiExpedient}/persones")
+	@ApiOperation(value = "Actualitza tercera persona en la sol·licitud de l'expedient", tags = {
+			"Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaActualitzarTerceraPersonaRDTO actualitzarTerceraPersona(
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Dades de la actualització de l'expedient", required = true) @RequestBody ActualitzarTerceraPersonaRDTO personaImplicada) {
+		if (log.isDebugEnabled()) {
+			log.debug("actualitzarTerceraPersona(BigDecimal, ActualitzarTerceraPersonaRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		RespostaActualitzarTerceraPersonaRDTO respostaActualitzarTerceraPersonaRDTO = null;
+		PersonesSollicitudRDTO returnPersonesSollicitudRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+		TerceraPersonaSollicitudRDTO terceraPersonaSollicitudRDTO = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACTUALITZAR_TERCERA_PERSONA_EXPEDIENT);
+		try {
+			// El codi del expediente debe existir
+			dadesExpedientBDTO = serveisService.consultarDadesBasiquesPerVisibilitatExpedient(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO,
+					Resultat.ERROR_ACTUALITZAR_TERCERA_PERSONA_EXPEDIENT);
+
+			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+					AccioTramitadorApiParamValue.INFORMAR_DADES_EXPEDIENT, Resultat.ERROR_ACTUALITZAR_TERCERA_PERSONA_EXPEDIENT);
+
+			// 1 - validamos que el usuario logado pertenezca al expediente
+
+			// TODO validar DNI
+
+			// Se construye el modelo para la llamada a la operación de
+			// actualización
+			terceraPersonaSollicitudRDTO = modelMapper.map(personaImplicada, TerceraPersonaSollicitudRDTO.class);
+
+			terceraPersonaSollicitudRDTO.getPersonesSollicitudRDTO().setSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
+			returnPersonesSollicitudRDTO = serveisService
+					.incorporarTerceraPersona(terceraPersonaSollicitudRDTO.getPersonesSollicitudRDTO());
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("actualitzarTerceraPersona(BigDecimal, ActualitzarTerceraPersonaRDTO)", e); //$NON-NLS-1$
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("actualitzarTerceraPersona(BigDecimal, ActualitzarTerceraPersonaRDTO)", e); //$NON-NLS-1$
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler
+					.handleException(Resultat.ERROR_ACTUALITZAR_TERCERA_PERSONA_EXPEDIENT, e);
+		}
+
+		RespostaActualitzarTerceraPersonaBDTO respostaActualitzarTerceraPersonaBDTO = new RespostaActualitzarTerceraPersonaBDTO(
+				returnPersonesSollicitudRDTO, dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null,
+				respostaResultatBDTO);
+		respostaActualitzarTerceraPersonaRDTO = modelMapper.map(respostaActualitzarTerceraPersonaBDTO,
+				RespostaActualitzarTerceraPersonaRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("actualitzarTerceraPersona(BigDecimal, ActualitzarTerceraPersonaRDTO) - fi"); //$NON-NLS-1$
+		}
+		return respostaActualitzarTerceraPersonaRDTO;
+	}
+
+	/**
 	 * @param idDocument
 	 * @param signaturaDocument
 	 * @param dadesExpedientBDTO
@@ -4054,5 +4194,62 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 		}
 		return peticionsPortasig;
+	}
+
+	@DeleteMapping("/expedients/{codiExpedient}/persones/{idPersona}")
+	@ApiOperation(value = "Esborrar una persona implicada en l'expedient", tags = { "Serveis Tramitadors API" }, extensions = {
+			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaEsborrarTerceraPersonaRDTO esborrarTerceraPersona(
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Identificador de la persona", required = true) @PathVariable BigDecimal idPersona) {
+		if (log.isDebugEnabled()) {
+			log.debug("esborrarTerceraPersona(String, BigDecimal) - inici"); //$NON-NLS-1$
+		}
+		RespostaEsborrarTerceraPersonaRDTO respostaEsborrarTerceraPersonaRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+		DadesSollicitudBDTO dadesSollicitudBDTO = null;
+		PersonesSollicitudRDTO personesSollicitudRDTO = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ESBORRAR_TERCERA_PERSONA);
+
+		try {
+			// desde tramitadors no se controla la visibilidad, solo afecta a
+			// portal
+			BigDecimal visibilitat = BigDecimal.ONE;
+
+			// El codi del expediente debe existir
+			dadesExpedientBDTO = serveisService.consultarDadesExpedient(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_ESBORRAR_TERCERA_PERSONA);
+
+			// El id de la tercera persona debe existir y corresponderse con una
+			// persona implicada en el expediente
+			personesSollicitudRDTO = serveisService.consultarDadesPersonaSollicitud(idPersona);
+			ServeisRestControllerValidationHelper.validatePersonaImplicadaExpedient(dadesExpedientBDTO,
+					personesSollicitudRDTO.getPersones().getDocumentsIdentitat().getNumeroDocument(),
+					Resultat.ERROR_ESBORRAR_TERCERA_PERSONA);
+
+			// Esborrar tercera persona si la acción es permitida
+			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+					AccioTramitadorApiParamValue.INFORMAR_DADES_EXPEDIENT, Resultat.ERROR_ESBORRAR_TERCERA_PERSONA);
+
+			serveisService.esborrarPersonaSollicitud(idPersona);
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("esborrarTerceraPersona(String, BigDecimal)", e); //$NON-NLS-1$
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+		} catch (Exception e) {
+			log.error("esborrarTerceraPersona(String, BigDecimal)", e); //$NON-NLS-1$
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ESBORRAR_TERCERA_PERSONA, e);
+		}
+
+		ExpedientsRDTO expedientsRDTO = (dadesExpedientBDTO != null) ? dadesExpedientBDTO.getExpedientsRDTO() : null;
+		RespostaEsborrarTerceraPersonaBDTO respostaEsborrarTerceraPersonaBDTO = new RespostaEsborrarTerceraPersonaBDTO(expedientsRDTO,
+				personesSollicitudRDTO, respostaResultatBDTO);
+		respostaEsborrarTerceraPersonaRDTO = modelMapper.map(respostaEsborrarTerceraPersonaBDTO, RespostaEsborrarTerceraPersonaRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("esborrarTerceraPersona(String, BigDecimal) - fi"); //$NON-NLS-1$
+		}
+		return respostaEsborrarTerceraPersonaRDTO;
 	}
 }

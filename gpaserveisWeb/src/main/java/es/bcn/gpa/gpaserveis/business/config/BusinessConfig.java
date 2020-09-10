@@ -23,6 +23,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsRelacionats
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitud_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.SollicitudsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
@@ -323,6 +324,17 @@ public class BusinessConfig {
 		PersonesSollicitudApi personesSollicitudApi = new PersonesSollicitudApi(apiClient);
 
 		return personesSollicitudApi;
+	}
+
+	@Bean
+	public PersonesSollicitud_Api clientApiPersonesSollicitud_() {
+		es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient apiClient = new es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient();
+		apiClient.setBasePath(URL_SERVICES_EXPEDIENTS);
+		incorporarInterceptorsExpedients(apiClient);
+
+		PersonesSollicitud_Api personesSollicitud_Api = new PersonesSollicitud_Api(apiClient);
+
+		return personesSollicitud_Api;
 	}
 
 	@Bean

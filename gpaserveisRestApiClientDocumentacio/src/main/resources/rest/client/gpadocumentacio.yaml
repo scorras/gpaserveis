@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.23.4"
+  version: "1.25.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -3029,6 +3029,8 @@ definitions:
         type: "string"
       comentari:
         type: "string"
+      csv:
+        type: "string"
       dataCreacio:
         type: "string"
         format: "date-time"
@@ -3087,6 +3089,8 @@ definitions:
         type: "number"
       seleccionable:
         type: "boolean"
+      sollicitudIdext:
+        type: "number"
       tipusMimeDescripcio:
         type: "string"
       ultimaModificacioIdext:
@@ -3256,6 +3260,8 @@ definitions:
         $ref: "#/definitions/Requeriments"
       seleccionable:
         type: "boolean"
+      sollicitudIdext:
+        type: "number"
       tipusMimeDescripcio:
         type: "string"
       ultimaModificacioIdext:

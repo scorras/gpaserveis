@@ -73,7 +73,8 @@ public class HystrixConfiguration {
 	@PostConstruct
 	public void init() {
 		HystrixPlugins.reset();
-		// Keeps references of existing Hystrix plugins.
+
+		// Mantenemos los otros plugins que existan
 		HystrixEventNotifier eventNotifier = HystrixPlugins.getInstance().getEventNotifier();
 		HystrixMetricsPublisher metricsPublisher = HystrixPlugins.getInstance().getMetricsPublisher();
 		HystrixPropertiesStrategy propertiesStrategy = HystrixPlugins.getInstance().getPropertiesStrategy();
@@ -81,14 +82,15 @@ public class HystrixConfiguration {
 
 		HystrixPlugins.reset();
 
-		// Registers existing plugins excepts the Concurrent Strategy plugin.
+		// Registramos plugins que habia e incluimos la nueva estrategia que
+		// mantiene el contexto de seguridad (aunque le pasemos uno nulo,
+		// utiliza SecurityContextHolder.getContext()
 		HystrixPlugins.getInstance().registerConcurrencyStrategy(new SecurityContextConcurrencyStrategy(existingConcurrencyStrategy));
 		HystrixPlugins.getInstance().registerEventNotifier(eventNotifier);
 		HystrixPlugins.getInstance().registerMetricsPublisher(metricsPublisher);
 		HystrixPlugins.getInstance().registerPropertiesStrategy(propertiesStrategy);
 		HystrixPlugins.getInstance().registerCommandExecutionHook(commandExecutionHook);
-		// HystrixPlugins.getInstance().registerCommandExecutionHook(new
-		// SecurityContextRegistratorCommandHook());
+
 	}
 
 }

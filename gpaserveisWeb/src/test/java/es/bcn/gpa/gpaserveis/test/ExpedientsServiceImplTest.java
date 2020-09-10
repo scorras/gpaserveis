@@ -382,4 +382,112 @@ public class ExpedientsServiceImplTest extends RestServerParentTest {
 			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - fi"); //$NON-NLS-1$
 		}
 	}
+
+	/**
+	 * Test stage 07 incorporar tercera persona.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test
+	public void testStage07_incorporarTerceraPersonaOK() throws GPAServeisServiceException {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage07_incorporarTerceraPersonaOK() - inici"); //$NON-NLS-1$
+		}
+
+		PersonesSollicitudRDTO persona = new PersonesSollicitudRDTO();
+		persona.setEsInteressada(0);
+		persona.setEditable(false);
+		persona.setRelacio(new BigDecimal(0));
+		persona.setRelacioImplicada("Testimoni");
+		Persones personesSollicitant = new Persones();
+		personesSollicitant.setCognom1("cognom1Sollicitant");
+		personesSollicitant.setCognom2("cognom2Sollicitant");
+		personesSollicitant.setNomRaoSocial("nomRaoSocialSollicitant");
+		personesSollicitant.setTipusPersona(BigDecimal.ZERO);
+		PersonesDadescontacte personesDadescontacteSollicitant = new PersonesDadescontacte();
+		personesSollicitant.setPersonesDadescontacte(personesDadescontacteSollicitant);
+		persona.setPersones(personesSollicitant);
+		persona.setEmail("testting@iecisa.com");
+		persona.setNumeroDocument("00000000T");
+		persona.setNomPresentacio("Hernan");
+		persona.setRelacio(new BigDecimal(0));
+		persona.setRelacioPrincipal(0);
+		persona.setSeleccionable(false);
+		persona.setVisibilitatOvt(1);
+		persona.setSollicitud(BigDecimal.ONE);
+
+		expedientsService.incorporarTerceraPersona(persona);
+
+		assertTrue(true);
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage07_incorporarTerceraPersonaOK() - fi"); //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * Test stage 08 incorporar tercera persona.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test
+	public void testStage08_actualitzarTerceraPersonaOK() throws GPAServeisServiceException {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage08_actualitzarTerceraPersonaOK() - inici"); //$NON-NLS-1$
+		}
+
+		PersonesSollicitudRDTO persona = new PersonesSollicitudRDTO();
+		persona.setId(BigDecimal.ONE);
+		persona.setEsInteressada(0);
+		persona.setEditable(false);
+		persona.setRelacio(new BigDecimal(0));
+		persona.setRelacioImplicada("Testimoni");
+		Persones personesSollicitant = new Persones();
+		personesSollicitant.setCognom1("cognom1Sollicitant");
+		personesSollicitant.setCognom2("cognom2Sollicitant");
+		personesSollicitant.setNomRaoSocial("nomRaoSocialSollicitant");
+		personesSollicitant.setTipusPersona(BigDecimal.ZERO);
+		PersonesDadescontacte personesDadescontacteSollicitant = new PersonesDadescontacte();
+		personesSollicitant.setPersonesDadescontacte(personesDadescontacteSollicitant);
+		persona.setPersones(personesSollicitant);
+		persona.setEmail("testting@iecisa.com");
+		persona.setNumeroDocument("00000000T");
+		persona.setNomPresentacio("Hernan");
+		persona.setRelacio(new BigDecimal(0));
+		persona.setRelacioPrincipal(0);
+		persona.setSeleccionable(false);
+		persona.setVisibilitatOvt(1);
+		persona.setSollicitud(BigDecimal.ONE);
+
+		expedientsService.incorporarTerceraPersona(persona);
+
+		assertTrue(true);
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage08_actualitzarTerceraPersonaOK() - fi"); //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * Test stage 09 esborrar tercera persona.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test
+	public void testStage09_esborrarTerceraPersonaOK() throws GPAServeisServiceException {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage09_esborrarTerceraPersonaOK() - inici"); //$NON-NLS-1$
+		}
+
+		expedientsService.esborrarPersonaSollicitud(BigDecimal.ONE);
+
+		assertTrue(true);
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage09_esborrarTerceraPersonaOK() - fi"); //$NON-NLS-1$
+		}
+	}
 }

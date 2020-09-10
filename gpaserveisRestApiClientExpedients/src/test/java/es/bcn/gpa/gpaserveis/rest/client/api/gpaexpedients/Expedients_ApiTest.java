@@ -20,10 +20,8 @@ import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.joda.time.DateTime;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -79,7 +77,7 @@ public class Expedients_ApiTest extends ParentTest {
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
 		String aplicacioNegoci = null;
-		List<String> avisList = new ArrayList<String>();
+		List<String> avisList = null;
 		String codi = null;
 		BigDecimal criteriDeCercaDadesOperacioList0Id = null;
 		BigDecimal criteriDeCercaDadesOperacioList0Tipus = null;
@@ -89,14 +87,15 @@ public class Expedients_ApiTest extends ParentTest {
 		Boolean currentPageIsFirstPage = null;
 		Boolean currentPageIsLastPage = null;
 		Integer currentPageNumber = null;
-		DateTime dataPresentacioDes = null;
-		DateTime dataPresentacioFinsA = null;
+		String dataPresentacioDes = null;
+		String dataPresentacioFinsA = null;
 		String dir = null;
 		List<BigDecimal> estatList = null;
 		BigDecimal id = null;
 		BigDecimal idUsuari = null;
 		Boolean isOge = null;
 		Integer nextPageNumber = null;
+		Integer nivellAutenticacio = null;
 		String numeroDocumentSollicitant = null;
 		String numeroDocumentSollicitantEstricte = null;
 		Integer pageSize = null;
@@ -109,7 +108,6 @@ public class Expedients_ApiTest extends ParentTest {
 		Integer totalPages = null;
 		String tramitador = null;
 		List<BigDecimal> unitatsGestoresList = null;
-		Integer nivellAutenticacio = null;
 		PageDataOfExpedientsRDTO response = api.cercaExpedients(absoluteRowNumberOfFirstRowInCurrentPage,
 				absoluteRowNumberOfLastRowInCurrentPage, aplicacioNegoci, avisList, codi, criteriDeCercaDadesOperacioList0Id,
 				criteriDeCercaDadesOperacioList0Tipus, criteriDeCercaDadesOperacioList0Valor, currentPageHasNextPage,

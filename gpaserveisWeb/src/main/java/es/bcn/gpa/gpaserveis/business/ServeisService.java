@@ -1380,4 +1380,37 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	void incrementarReintentsSignatura(BigDecimal idDocument) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar dades persona sollicitud.
+	 *
+	 * @param idPersona
+	 *            the id persona
+	 * @return the persones sollicitud RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	PersonesSollicitudRDTO consultarDadesPersonaSollicitud(BigDecimal idPersona) throws GPAServeisServiceException;
+
+	/**
+	 * Esborrar persona sollicitud.
+	 *
+	 * @param idPersonesSollicitud
+	 *            the id persones sollicitud
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void esborrarPersonaSollicitud(BigDecimal idPersonesSollicitud) throws GPAServeisServiceException;
+
+	/**
+	 * Incorporar Tercera Persona.
+	 *
+	 * @param expedientsActualitzarBDTO
+	 *            the expedients actualitzar BDTO
+	 * @return the PersonesSollicitud RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	PersonesSollicitudRDTO incorporarTerceraPersona(PersonesSollicitudRDTO personesSollicitudRDTO) throws GPAServeisServiceException;
+
 }

@@ -527,4 +527,34 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	void actualitzarExpedient(ExpedientsRDTO expedientsRDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar dades persona sollicitud.
+	 *
+	 * @param idPersona
+	 *            the id persona
+	 * @return the persones sollicitud RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	PersonesSollicitudRDTO consultarDadesPersonaSollicitud(BigDecimal idPersona) throws GPAServeisServiceException;
+
+	/**
+	 * Esborrar persona sollicitud.
+	 *
+	 * @param idPersonesSollicitud
+	 *            the id persones sollicitud
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void esborrarPersonaSollicitud(BigDecimal idPersonesSollicitud) throws GPAServeisServiceException;
+
+	/**
+	 * incorporar Tercera Persona
+	 * 
+	 * @param personesSollicitud
+	 * @return
+	 * @throws GPAServeisServiceException
+	 */
+	PersonesSollicitudRDTO incorporarTerceraPersona(PersonesSollicitudRDTO personesSollicitud) throws GPAServeisServiceException;
 }
