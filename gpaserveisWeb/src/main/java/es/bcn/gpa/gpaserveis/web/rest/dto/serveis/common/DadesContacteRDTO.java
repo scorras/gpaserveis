@@ -117,6 +117,6 @@ public class DadesContacteRDTO {
 	}
 
 	@ApiModelProperty(value = "Notificacio Paper")
-	@XmlElement(name = "NOTFICACIO_PAPER", required = false, type = Boolean.class)
+	@XmlElement(name = "NOTIFICACIO_PAPER", required = false, type = Boolean.class)
 	private Boolean notificacioPaper;
 }

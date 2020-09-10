@@ -43,6 +43,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsRelacionats
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitud_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.SollicitudsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
@@ -114,6 +115,10 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	/** The Persones sollicitud api. */
 	@Autowired
 	private PersonesSollicitudApi personesSollicitudApi;
+
+	/** The persones sollicitud api. */
+	@Autowired
+	private PersonesSollicitud_Api personesSollicitud_Api;
 
 	/** The expedients relacionats api. */
 	@Autowired
@@ -2266,5 +2271,155 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		ServeisServiceExceptionHandler.handleException(e);
 
+	}
+
+	/**
+	 * Consultar dades persona sollicitud.
+	 *
+	 * @param idPersona
+	 *            the id persona
+	 * @return the persones sollicitud RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesPersonaSollicitud")
+	public PersonesSollicitudRDTO consultarDadesPersonaSollicitud(BigDecimal idPersona) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarDadesPersonaSollicitud(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			PersonesSollicitudRDTO personesSollicitudRDTO = personesSollicitud_Api.consultarDadesPersonaSollicitud(idPersona);
+
+			if (log.isDebugEnabled()) {
+				log.debug("consultarDadesPersonaSollicitud(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			return personesSollicitudRDTO;
+		} catch (RestClientException e) {
+			log.error("consultarDadesPersonaSollicitud(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback consultar dades persona sollicitud.
+	 *
+	 * @param idPersona
+	 *            the id persona
+	 * @param e
+	 *            the e
+	 * @return the persones sollicitud RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public PersonesSollicitudRDTO fallbackConsultarDadesPersonaSollicitud(BigDecimal idPersona, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackConsultarDadesPersonaSollicitud(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/**
+	 * Esborrar persona sollicitud.
+	 *
+	 * @param idPersonesSollicitud
+	 *            the id persones sollicitud
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackEsborrarPersonaSollicitud")
+	public void esborrarPersonaSollicitud(BigDecimal idPersonesSollicitud) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("esborrarPersonaSollicitud(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			personesSollicitudApi.esborrarPersonaSollicitud(idPersonesSollicitud);
+
+			if (log.isDebugEnabled()) {
+				log.debug("esborrarPersonaSollicitud(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("esborrarPersonaSollicitud(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage());
+		}
+	}
+
+	/**
+	 * Fallback esborrar persona sollicitud.
+	 *
+	 * @param idPersonesSollicitud
+	 *            the id persones sollicitud
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackEsborrarPersonaSollicitud(BigDecimal idPersonesSollicitud, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackEsborrarPersonaSollicitud(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
+	 * incorporarTerceraPersona(es.bcn.gpa.gpaserveis.rest.client.api.model.
+	 * gpaexpedients.PersonesSollicitud)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackIncorporarTerceraPersona")
+	public PersonesSollicitudRDTO incorporarTerceraPersona(PersonesSollicitudRDTO personesSollicitud) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("incorporarTerceraPersona(PersonesSollicitudRDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			PersonesSollicitudRDTO returnPersonesSollicitudRDTO = personesSollicitudApi.incorporarTerceraPersona(personesSollicitud);
+
+			if (log.isDebugEnabled()) {
+				log.debug("incorporarTerceraPersona(PersonesSollicitudRDTO) - fi"); //$NON-NLS-1$
+			}
+			return returnPersonesSollicitudRDTO;
+		} catch (RestClientException e) {
+			log.error("incorporarTerceraPersona(PersonesSollicitudRDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+
+	}
+
+	/**
+	 * Fallback Incorporar Tercera Persona.
+	 *
+	 * @param personesSollicitud
+	 *            the expedients actualitzar BDTO
+	 * @param e
+	 *            the e
+	 * @return the PersonesSollicitud RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public PersonesSollicitudRDTO fallbackIncorporarTerceraPersona(PersonesSollicitudRDTO personesSollicitud, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackIncorporarTerceraPersona(PersonesSollicitudRDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 }

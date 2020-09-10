@@ -12,12 +12,14 @@
 
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
+import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.FixMethodOrder;
@@ -85,4 +87,45 @@ public class PersonesSollicitudApiTest extends ParentTest {
 		assertTrue(response != null);
 	}
 
+	/**
+	 * Deletes the requested personesSollicitud
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void esborrarPersonaSollicitudTest() {
+		when(apiClient.invokeAPI(eq("/expedients/personesSollicitud/1"), eq(HttpMethod.DELETE), any(MultiValueMap.class), any(Object.class),
+				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+				any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		BigDecimal idPersonesSollicitud = ONE;
+		api.esborrarPersonaSollicitud(idPersonesSollicitud);
+
+		assertTrue(true);
+	}
+
+	/**
+	 * Save the provided persone
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void incorporarTerceraPersonaTest() {
+
+		when(apiClient.invokeAPI(eq("/expedients/personesSollicitud/altresImplidades"), eq(HttpMethod.POST), any(MultiValueMap.class),
+				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new PersonesSollicitudRDTO());
+
+		PersonesSollicitudRDTO personesSollicitudRDTO = new PersonesSollicitudRDTO();
+
+		PersonesSollicitudRDTO response = api.incorporarTerceraPersona(personesSollicitudRDTO);
+
+		assertTrue(response != null);
+	}
 }

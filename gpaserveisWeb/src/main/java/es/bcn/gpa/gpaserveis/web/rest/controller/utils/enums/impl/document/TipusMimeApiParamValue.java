@@ -56,7 +56,10 @@ public enum TipusMimeApiParamValue implements BaseApiParamValue {
 	PNG("PNG", Integer.valueOf(16)),
 
 	/** The tiff. */
-	TIFF("TIFF", Integer.valueOf(17));
+	TIFF("TIFF", Integer.valueOf(17)),
+
+	/** The rtf. */
+	RTF("RTF", Integer.valueOf(18));
 
 	/** The api param value. */
 	private String apiParamValue;

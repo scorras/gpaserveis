@@ -27,8 +27,8 @@ public class InternalToTramitadorConverter extends AbstractConverter<String, Str
 	 */
 	@Override
 	protected String convert(String source) {
-		String internalValue = StringUtils.isEmpty(source) ? TramitadorApiParamValue.OGE.getInternalValue()
-		        : TramitadorApiParamValue.APLICACIO_DE_NEGOCI.getInternalValue();
+		String internalValue = StringUtils.isEmpty(source) || source.equals(TramitadorApiParamValue.OGE.getApiParamValue())
+				? TramitadorApiParamValue.OGE.getInternalValue() : TramitadorApiParamValue.APLICACIO_DE_NEGOCI.getInternalValue();
 
 		return tramitadorApiParamValueTranslator.getApiParamValueByInternalValue(internalValue);
 	}
