@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.24.5"
+  version: "1.25.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -25,7 +25,6 @@ paths:
   /serveis/mds/estat_digitalitzacio/{idPeticio}:
     get:
       tags:
-      - "Serveis Tramitadors API"
       - "Serveis MDS API"
       summary: "Consultar l'estat d'una petició de digitalització"
       operationId: "consultarEstatDigitalitzacioUsingGET"
@@ -2711,6 +2710,114 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /serveis/tramitadors/expedients/{codiExpedient}/persones:
+    post:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Incorporar tercera persona a la sol·licitud de l'expedient"
+      operationId: "incorporarTerceraPersonaUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codiExpedient"
+        in: "path"
+        description: "Codi de l'expedient"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "personaImplicada"
+        description: "Dades de la actualització de l'expedient"
+        required: true
+        schema:
+          $ref: "#/definitions/CrearTerceraPersona"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaCrearTerceraPersona"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+    put:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Actualitza tercera persona en la sol·licitud de l'expedient"
+      operationId: "actualitzarTerceraPersonaUsingPUT"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codiExpedient"
+        in: "path"
+        description: "Codi de l'expedient"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "personaImplicada"
+        description: "Dades de la actualització de l'expedient"
+        required: true
+        schema:
+          $ref: "#/definitions/ActualitzarTerceraPersona"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaActualitzarTerceraPersona"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /serveis/tramitadors/expedients/{codiExpedient}/persones/{idPersona}:
+    delete:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Esborrar una persona implicada en l'expedient"
+      operationId: "esborrarTerceraPersonaUsingDELETE"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codiExpedient"
+        in: "path"
+        description: "Codi de l'expedient"
+        required: true
+        type: "string"
+      - name: "idPersona"
+        in: "path"
+        description: "Identificador de la persona"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaEsborrarTerceraPersona"
+        204:
+          description: "No Content"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /serveis/tramitadors/expedients/{codiExpedient}/publicar:
     post:
       tags:
@@ -3137,6 +3244,20 @@ paths:
       x-imi-roles:
         gestor: "Perfil usuari gestor"
 definitions:
+  ActualitzarTerceraPersona:
+    type: "object"
+    properties:
+      persona:
+        xml:
+          name: "TERCERA_PERSONA"
+          attribute: false
+          wrapped: false
+        $ref: "#/definitions/Persona"
+    title: "ActualitzarTerceraPersona"
+    xml:
+      name: "ACTUALITZAR_TERCERA_PERSONA"
+      attribute: false
+      wrapped: false
   AtributRequerit:
     type: "object"
     required:
@@ -3462,6 +3583,20 @@ definitions:
       name: "CONFIGURACIO_DOCUMENTACIO"
       attribute: false
       wrapped: false
+  CrearTerceraPersona:
+    type: "object"
+    properties:
+      persona:
+        xml:
+          name: "TERCERA_PERSONA"
+          attribute: false
+          wrapped: false
+        $ref: "#/definitions/Persona"
+    title: "CrearTerceraPersona"
+    xml:
+      name: "TERCERA_PERSONA"
+      attribute: false
+      wrapped: false
   DadesContacte:
     type: "object"
     properties:
@@ -3515,7 +3650,7 @@ definitions:
       notificacioPaper:
         type: "boolean"
         xml:
-          name: "NOTFICACIO_PAPER"
+          name: "NOTIFICACIO_PAPER"
           attribute: false
           wrapped: false
         description: "Notificacio Paper"
@@ -4211,6 +4346,13 @@ definitions:
         enum:
         - "INTERN"
         - "EXTERN"
+      registre:
+        xml:
+          name: "REGISTRE"
+          attribute: false
+          wrapped: false
+        description: "Registre del document"
+        $ref: "#/definitions/Registre"
     title: "DocumentGeneratConsulta"
     xml:
       name: "DOCUMENT"
@@ -4977,6 +5119,7 @@ definitions:
         - "GIF"
         - "PNG"
         - "TIFF"
+        - "RTF"
       nom:
         type: "string"
         description: "Nom del fitxer"
@@ -5264,6 +5407,9 @@ definitions:
           wrapped: false
         description: "Document d'identitat de la persona"
         $ref: "#/definitions/DocumentIdentitat"
+      id:
+        type: "number"
+        description: "Identificador de la persona"
       nomRaoSocial:
         type: "string"
         description: "Nom o raó social de la persona"
@@ -5593,6 +5739,19 @@ definitions:
         description: "Sollicitud actualitzat"
         $ref: "#/definitions/SollicitudAccio"
     title: "RespostaActualitzarSollicitud"
+  RespostaActualitzarTerceraPersona:
+    type: "object"
+    properties:
+      expedient:
+        description: "Expedient del document"
+        $ref: "#/definitions/ExpedientAccio"
+      persona:
+        description: "Tercera persona actualitzada"
+        $ref: "#/definitions/TercerPersonaActualitzadaAccio"
+      resultat:
+        description: "Resultat de l'operació"
+        $ref: "#/definitions/ResultatResposta"
+    title: "RespostaActualitzarTerceraPersona"
   RespostaAcumularExpedient:
     type: "object"
     properties:
@@ -5783,6 +5942,19 @@ definitions:
         description: "Sol·licitud creat en estat inicial"
         $ref: "#/definitions/SollicitudAccio"
     title: "RespostaCrearSolicitud"
+  RespostaCrearTerceraPersona:
+    type: "object"
+    properties:
+      expedient:
+        description: "Expedient del document"
+        $ref: "#/definitions/ExpedientAccio"
+      persona:
+        description: "Tercera persona creada"
+        $ref: "#/definitions/TercerPersonaCreadaAccio"
+      resultat:
+        description: "Resultat de l'operació"
+        $ref: "#/definitions/ResultatResposta"
+    title: "RespostaCrearTerceraPersona"
   RespostaDadesOperacio:
     type: "object"
     properties:
@@ -5848,6 +6020,19 @@ definitions:
         description: "Sol·licitud del document"
         $ref: "#/definitions/SollicitudAccio"
     title: "RespostaEsborrarDocumentSollicitud"
+  RespostaEsborrarTerceraPersona:
+    type: "object"
+    properties:
+      expedient:
+        description: "Expedient de la persona"
+        $ref: "#/definitions/ExpedientAccio"
+      persona:
+        description: "Persona esborrada"
+        $ref: "#/definitions/TerceraPersonaEsborradaAccio"
+      resultat:
+        description: "Resultat de l'operació"
+        $ref: "#/definitions/ResultatResposta"
+    title: "RespostaEsborrarTerceraPersona"
   RespostaEsmenarExpedient:
     type: "object"
     properties:
@@ -6548,6 +6733,27 @@ definitions:
         - "REQ"
         - "ALE"
     title: "SollicitudsExpedient"
+  TercerPersonaActualitzadaAccio:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+        description: "Id de la persona"
+    title: "TercerPersonaActualitzadaAccio"
+  TercerPersonaCreadaAccio:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+        description: "Id de la persona"
+    title: "TercerPersonaCreadaAccio"
+  TerceraPersonaEsborradaAccio:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+        description: "Id de la persona"
+    title: "TerceraPersonaEsborradaAccio"
   TerminisDuracio:
     type: "object"
     properties:
