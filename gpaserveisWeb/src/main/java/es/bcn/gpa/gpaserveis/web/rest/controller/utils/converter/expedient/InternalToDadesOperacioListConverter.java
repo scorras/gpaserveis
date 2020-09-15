@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadaEspecificaBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DadesAtributsExpedientsRDTO;
 
@@ -66,9 +67,13 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorInteger() != null)
 							        ? dadesEspecifiquesValors.getValorInteger() : StringUtils.EMPTY);
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorListaMultiple() != null)
-							        ? dadesEspecifiquesValors.getValorListaMultiple() : StringUtils.EMPTY);
+							        ? obtenirDescripcioItemLlista(dadesEspecifiquesValors.getValorListaMultiple(),
+							                dadaEspecificaBDTO.getDadaOperacio().getItemsList())
+							        : StringUtils.EMPTY);
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorListaSimple() != null)
-							        ? dadesEspecifiquesValors.getValorListaSimple() : StringUtils.EMPTY);
+							        ? obtenirDescripcioItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
+							                dadaEspecificaBDTO.getDadaOperacio().getItemsList())
+							        : StringUtils.EMPTY);
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorMoneda() != null)
 							        ? dadesEspecifiquesValors.getValorMoneda() : StringUtils.EMPTY);
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorMunicipi() != null)
@@ -90,5 +95,23 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 		}
 
 		return dadesAtributsExpedientsRDTOList;
+	}
+
+	/**
+	 * Obtenir descripcio item llista.
+	 *
+	 * @param valorLlista
+	 *            the valor llista
+	 * @param itemsList
+	 *            the items list
+	 * @return the string
+	 */
+	private String obtenirDescripcioItemLlista(Integer valorLlista, List<Items> itemsList) {
+		for (Items items : itemsList) {
+			if (items.getItemId().intValue() == valorLlista.intValue()) {
+				return items.getItemDescripcio();
+			}
+		}
+		return null;
 	}
 }
