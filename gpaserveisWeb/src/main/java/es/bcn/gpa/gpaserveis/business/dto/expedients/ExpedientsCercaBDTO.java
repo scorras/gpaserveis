@@ -21,6 +21,9 @@ public class ExpedientsCercaBDTO {
 	/** The nif sollicitant. */
 	private String nifSollicitant;
 
+	/** The nom cognom sollicitant. */
+	private String nomCognomSollicitant;
+
 	/** The data presentacio des. */
 	private String dataPresentacioDes;
 
