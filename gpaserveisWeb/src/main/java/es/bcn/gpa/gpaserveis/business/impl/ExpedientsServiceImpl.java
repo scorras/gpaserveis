@@ -147,10 +147,11 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 					expedientsCercaBDTO.getAplicacioNegoci(), null, expedientsCercaBDTO.getCodi(), null, null, null, null, null, null, null,
 					expedientsCercaBDTO.getCurrentPageNumber(), expedientsCercaBDTO.getDataPresentacioDes(),
 					expedientsCercaBDTO.getDataPresentacioFinsA(), expedientsCercaBDTO.getDir(), expedientsCercaBDTO.getEstatList(), null,
-					null, null, null, expedientsCercaBDTO.getNivellAutenticacio(), expedientsCercaBDTO.getNifSollicitant(), null,
-					expedientsCercaBDTO.getPageSize(), null, expedientsCercaBDTO.getProcedimentCodisList(), null,
-					expedientsCercaBDTO.getProcedimentVersio(), expedientsCercaBDTO.getSort(), null, null,
-					expedientsCercaBDTO.getTramitador(), expedientsCercaBDTO.getUnitatsGestoresList());
+					null, null, null, expedientsCercaBDTO.getNivellAutenticacio(), expedientsCercaBDTO.getNomCognomSollicitant(),
+					expedientsCercaBDTO.getNifSollicitant(), null, expedientsCercaBDTO.getPageSize(), null,
+					expedientsCercaBDTO.getProcedimentCodisList(), null, expedientsCercaBDTO.getProcedimentVersio(),
+					expedientsCercaBDTO.getSort(), null, null, expedientsCercaBDTO.getTramitador(),
+					expedientsCercaBDTO.getUnitatsGestoresList());
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaExpedients(ExpedientsCercaBDTO) - fi"); //$NON-NLS-1$

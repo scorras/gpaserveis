@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.24.5"
+  version: "1.25.0"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -738,6 +738,39 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/personesSollicitud/altresImplidades:
+    post:
+      tags:
+      - "PersonesSollicitud"
+      summary: "Save the provided persone"
+      operationId: "incorporarTerceraPersona"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "personesSollicitudRDTO"
+        description: "personesSollicitudRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/PersonesSollicitudRDTO"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PersonesSollicitudRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/personesSollicitud/altresImplidades/{idSolicitud}:
     get:
       tags:
@@ -1019,6 +1052,59 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/personesSollicitud/{idPersonesSollicitud}:
+    get:
+      tags:
+      - "PersonesSollicitud "
+      summary: "Returns the requested person"
+      operationId: "consultarDadesPersonaSollicitud"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idPersonesSollicitud"
+        in: "path"
+        description: "idPersonesSollicitud"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PersonesSollicitudRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+    delete:
+      tags:
+      - "PersonesSollicitud"
+      summary: "Deletes the requested personesSollicitud"
+      operationId: "esborrarPersonaSollicitud"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idPersonesSollicitud"
+        in: "path"
+        description: "idPersonesSollicitud"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+        204:
+          description: "No Content"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /expedients/registre:
     get:
       tags:
@@ -1363,13 +1449,11 @@ paths:
         description: "Data presentació des de"
         required: false
         type: "string"
-        format: "date-time"
       - name: "dataPresentacioFinsA"
         in: "query"
         description: "Data presentació fins a"
         required: false
         type: "string"
-        format: "date-time"
       - name: "dir"
         in: "query"
         required: false
@@ -1408,6 +1492,11 @@ paths:
         required: false
         type: "integer"
         format: "int32"
+      - name: "nomCognomSollicitant"
+        in: "query"
+        description: "Nom i cognom del sol·licitant"
+        required: false
+        type: "string"
       - name: "numeroDocumentSollicitant"
         in: "query"
         description: "Numero de document d'identificació del sol·licitant"
