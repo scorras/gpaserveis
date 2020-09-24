@@ -111,7 +111,7 @@ public enum Resultat {
 
 	OK_SIGNAR_DOCUMENT("OK", "Acció realitzada correctament"),
 
-	ERROR_SIGNAR_DOCUMENT("OK", "No s'ha pogut signar el document"),
+	ERROR_SIGNAR_DOCUMENT("ERROR", "No s'ha pogut signar el document"),
 
 	OK_COMPLETAR_DOCUMENT_EXPEDIENT("OK", "Nou document completat correctament"),
 
