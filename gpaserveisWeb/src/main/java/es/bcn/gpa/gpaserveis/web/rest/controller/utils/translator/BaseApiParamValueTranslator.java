@@ -84,6 +84,19 @@ public interface BaseApiParamValueTranslator {
 	public <E extends Enum<E>> E getEnumByInternalValue(Object internalValue) throws GPAServeisRuntimeException;
 
 	/**
+	 * Gets the enum list by internal value.
+	 *
+	 * @param <E>
+	 *            the element type
+	 * @param internalValue
+	 *            the internal value
+	 * @return the enum list by internal value
+	 * @throws GPAServeisRuntimeException
+	 *             the GPA serveis runtime exception
+	 */
+	public <E extends Enum<E>> List<E> getEnumListByInternalValue(Object internalValue) throws GPAServeisRuntimeException;
+
+	/**
 	 * Gets the api param value by internal value.
 	 *
 	 * @param internalValue

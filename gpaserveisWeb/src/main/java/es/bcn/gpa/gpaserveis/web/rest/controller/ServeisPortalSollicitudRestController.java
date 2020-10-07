@@ -781,8 +781,11 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// Se construye el modelo para la llamada a la operación de
 			// actualización
 			SollicitudsRDTO sollicitudsRDTO = modelMapper.map(sollicitudActualitzarHelper, SollicitudsRDTO.class);
-			// Se indica el id del Expediente recibido como path variable
+			// Se indica el id de la Solicitud recibido como path variable
 			sollicitudsRDTO.setId(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
+			// También establecemos el id del Expediente, pues se usa para
+			// guardar el histórico
+			sollicitudsRDTO.setExpedient(dadesSollicitudBDTO.getExpedientsRDTO().getId());
 
 			ActualitzarDadesSollicitudSollicituds actualitzarDadesSollicitudSollicituds = new ActualitzarDadesSollicitudSollicituds();
 			actualitzarDadesSollicitudSollicituds.setSollicitud(sollicitudsRDTO);

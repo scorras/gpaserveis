@@ -177,7 +177,7 @@ public class DadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 		using(internalToPersonaConverter).map(source.getRepresentant()).setRepresentant(null);
 		using(internalToPersonaListConverter).map(source.getPersonesInteressades()).setPersonesInteressades(null);
 		using(internalToPersonaListConverter).map(source.getPersonesImplicades()).setPersonesImplicades(null);
-		using(internalToAccioCiutadaListConverter).map(source.getAccionsDisponibles()).setAccionsDisponibles(null);
+		using(internalToAccioCiutadaListConverter).map(source).setAccionsDisponibles(null);
 		using(internalToDocumentAportatConsultaListConverter).map(source.getDocumentsAportats()).setDocumentsAportats(null);
 		using(internalToDadesOperacioListConverter).map(source.getDadesOperacio()).setDadesOperacio(null);
 		using(internalToDocumentsEntradaRequeritsListConverter).map(source).setConfiguracioDocumentacioRequerida(null);
