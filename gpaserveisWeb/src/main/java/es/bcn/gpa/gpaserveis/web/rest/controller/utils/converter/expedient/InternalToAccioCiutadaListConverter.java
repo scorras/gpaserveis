@@ -9,18 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.AccioCiutadaApiParamValueTranslator;
 
 /**
  * The Class InternalToAccioCiutadaListConverter.
  */
 @Component("expedientInternalToAccioCiutadaListConverter")
-public class InternalToAccioCiutadaListConverter extends AbstractConverter<List<AccionsEstatsRDTO>, List<String>> {
+public class InternalToAccioCiutadaListConverter extends AbstractConverter<DadesExpedientBDTO, List<String>> {
 
 	@Autowired
 	@Qualifier("expedientAccioCiutadaApiParamValueTranslator")
-	private BaseApiParamValueTranslator accioCiutadaApiParamValueTranslator;
+	private AccioCiutadaApiParamValueTranslator accioCiutadaApiParamValueTranslator;
 
 	/*
 	 * (non-Javadoc)
@@ -28,11 +29,17 @@ public class InternalToAccioCiutadaListConverter extends AbstractConverter<List<
 	 * @see org.modelmapper.AbstractConverter#convert(java.lang.Object)
 	 */
 	@Override
-	protected List<String> convert(List<AccionsEstatsRDTO> source) {
+	protected List<String> convert(DadesExpedientBDTO source) {
 		ArrayList<String> accioList = new ArrayList<String>();
-		if (CollectionUtils.isNotEmpty(source)) {
-			for (AccionsEstatsRDTO accionsEstatsRDTO : source) {
-				accioList.addAll(accioCiutadaApiParamValueTranslator.getApiParamValueListByInternalValue(accionsEstatsRDTO.getAccio()));
+		if (CollectionUtils.isNotEmpty(source.getAccionsDisponibles())) {
+			String accioCiutadaApiParamValue = null;
+			for (AccionsEstatsRDTO accionsEstatsRDTO : source.getAccionsDisponibles()) {
+				accioCiutadaApiParamValue = accioCiutadaApiParamValueTranslator
+				        .getApiParamValueByInternalValueAndInternalValueIdEstatOrigen(accionsEstatsRDTO.getAccio(),
+				                source.getExpedientsRDTO().getIdEstat());
+				if (accioCiutadaApiParamValue != null) {
+					accioList.add(accioCiutadaApiParamValue);
+				}
 			}
 		}
 		return accioList;
