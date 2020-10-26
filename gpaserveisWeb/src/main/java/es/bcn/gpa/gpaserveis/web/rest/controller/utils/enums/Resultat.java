@@ -111,7 +111,11 @@ public enum Resultat {
 
 	OK_SIGNAR_DOCUMENT("OK", "Acció realitzada correctament"),
 
-	ERROR_SIGNAR_DOCUMENT("OK", "No s'ha pogut signar el document"),
+	ERROR_SIGNAR_DOCUMENT("ERROR", "No s'ha pogut signar el document"),
+
+	OK_PREPARAR_SIGNATURA_CRIPTOGRAFICA_DOCUMENT("OK", "Acció realitzada correctament"),
+
+	ERROR_PREPARAR_SIGNATURA_CRIPTOGRAFICA_DOCUMENT("ERROR", "No s'ha pogut preparar la signatura dels documents"),
 
 	OK_COMPLETAR_DOCUMENT_EXPEDIENT("OK", "Nou document completat correctament"),
 
@@ -127,7 +131,7 @@ public enum Resultat {
 
 	OK_VALIDAR_DOCUMENT("OK", "Acció realitzada correctament"),
 
-	ERROR_VALIDAR_DOCUMENT("OK", "No s'ha pogut validar el document"),
+	ERROR_VALIDAR_DOCUMENT("ERROR", "No s'ha pogut validar el document"),
 
 	OK_ACUMULAR_EXPEDIENT("OK", "Expedient acumulat correctament"),
 

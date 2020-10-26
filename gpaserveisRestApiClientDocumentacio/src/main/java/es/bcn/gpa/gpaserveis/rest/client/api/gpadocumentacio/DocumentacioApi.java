@@ -33,7 +33,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequer
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsDigitalitzacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-08-12T12:30:07.914+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-10-21T23:52:56.451+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi")
 public class DocumentacioApi {
 	private ApiClient apiClient;
@@ -1131,6 +1131,58 @@ public class DocumentacioApi {
 		uriVariables.put("codiCSV", codiCSV);
 		uriVariables.put("visibilitat", visibilitat);
 		String path = UriComponentsBuilder.fromPath("/documentacio/tramitacio/consultarDadesDocument/{codiCSV}/{visibilitat}")
+		        .buildAndExpand(uriVariables).toUriString();
+
+		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		final HttpHeaders headerParams = new HttpHeaders();
+		final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+		final String[] accepts = { "*/*" };
+		final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+		final String[] contentTypes = {};
+		final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+		String[] authNames = new String[] {};
+
+		ParameterizedTypeReference<DocsTramitacioRDTO> returnType = new ParameterizedTypeReference<DocsTramitacioRDTO>() {
+		};
+		return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames,
+		        returnType);
+	}
+
+	/**
+	 * Returns the requested document
+	 * 
+	 * <p>
+	 * <b>200</b> - OK
+	 * <p>
+	 * <b>401</b> - Unauthorized
+	 * <p>
+	 * <b>403</b> - Forbidden
+	 * <p>
+	 * <b>404</b> - Not Found
+	 * 
+	 * @param idDocumentGestorDocumental
+	 *            idDocumentGestorDocumental
+	 * @return DocsTramitacioRDTO
+	 * @throws RestClientException
+	 *             if an error occurs while attempting to invoke the API
+	 */
+	public DocsTramitacioRDTO consultarDadesDocumentGeneratPerIdGestorDocumental(String idDocumentGestorDocumental)
+	        throws RestClientException {
+		Object postBody = null;
+
+		// verify the required parameter 'idDocumentGestorDocumental' is set
+		if (idDocumentGestorDocumental == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
+			        "Missing the required parameter 'idDocumentGestorDocumental' when calling consultarDadesDocumentGeneratPerIdGestorDocumental");
+		}
+
+		// create path and map variables
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put("idDocumentGestorDocumental", idDocumentGestorDocumental);
+		String path = UriComponentsBuilder
+		        .fromPath("/documentacio/tramitacio/consultarDadesDocument/gestorDocumental/{idDocumentGestorDocumental}")
 		        .buildAndExpand(uriVariables).toUriString();
 
 		final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();

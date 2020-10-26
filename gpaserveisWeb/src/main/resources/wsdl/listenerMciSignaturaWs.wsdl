@@ -1,0 +1,62 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:sch="http://es.bcn.gpa.gpaserveis.web.ws.dto/schemas" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://es.bcn.gpa.gpaserveis.web.ws.dto/schemas"
+	targetNamespace="http://es.bcn.gpa.gpaserveis.web.ws.dto/schemas">
+	<wsdl:types>
+		<xs:schema xmlns:schemas="http://es.bcn.gpa.gpaserveis.web.ws.dto/schemas"
+			xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+			targetNamespace="http://es.bcn.gpa.gpaserveis.web.ws.dto/schemas">
+			<xs:element name="listenerMciSignaturaRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="1" minOccurs="1" name="idPeticio"
+							type="xs:string" />
+						<xs:element maxOccurs="1" minOccurs="1" name="idDocuments">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" name="idDocument"
+										type="xs:string" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="listenerMciSignaturaResponse">
+			</xs:element>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="listenerMciSignaturaResponse">
+		<wsdl:part element="tns:listenerMciSignaturaResponse" name="listenerMciSignaturaResponse" />
+	</wsdl:message>
+	<wsdl:message name="listenerMciSignaturaRequest">
+		<wsdl:part element="tns:listenerMciSignaturaRequest" name="listenerMciSignaturaRequest" />
+	</wsdl:message>
+	<wsdl:portType name="listenerMciSignatura">
+		<wsdl:operation name="listenerMciSignatura">
+			<wsdl:input message="tns:listenerMciSignaturaRequest"
+				name="listenerMciSignaturaRequest" />
+			<wsdl:output message="tns:listenerMciSignaturaResponse"
+				name="listenerMciSignaturaResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="listenerMciSignaturaSoap11" type="tns:listenerMciSignatura">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="listenerMciSignatura">
+			<soap:operation soapAction="" />
+			<wsdl:input name="listenerMciSignaturaRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="listenerMciSignaturaResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="listenerMciSignaturaService">
+		<wsdl:port binding="tns:listenerMciSignaturaSoap11" name="listenerMciSignaturaSoap11">
+			<soap:address
+				location="http://localhost:8080/gpaserveis/listenerMciSignaturaWs" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

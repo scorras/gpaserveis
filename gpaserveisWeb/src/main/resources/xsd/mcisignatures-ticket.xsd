@@ -1,0 +1,75 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="es.bcn.mci.signatura.webService.schemas.Ticket" type="es.bcn.mci.signatura.webService.schemas.TicketType"/>
+  <xs:complexType name="missatgeErrorType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="codiError" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="xs:string" name="descripcioError" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="estatSignaturaType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="codi" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="xs:string" name="descripcio" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="signTimeType">
+    <xs:sequence>
+      <xs:element type="xs:long" name="time" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="xs:string" name="timezone" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="metadadesType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="codi" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="xs:string" name="nom" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="xs:string" name="nif" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="xs:string" name="entitatCertificadora" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="xs:string" name="tipusSignatura" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="signTimeType" name="signTime" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="xs:string" name="vistiplau" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="signaturaResultatType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="idSignatura" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="xs:string" name="refDocumentSignat" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="estatSignaturaType" name="estatSignatura" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="metadadesType" name="metadades" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="es.bcn.mci.signatura.webService.schemas.DetallErrorsType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="idDocument" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="signaturaResultatType" name="signaturaResultat" minOccurs="0" maxOccurs="1"/>
+      <xs:element type="detallErrorType" name="detallError" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="signaturaOriginalType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="idSignatura" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="xs:string" name="refDocumentSignat" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="estatSignaturaType" name="estatSignatura" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="metadadesType" name="metadades" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="detallErrorType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="codiError" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="xs:string" name="descripcioError" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="signaturaOriginalType" name="signaturaOriginal" minOccurs="0" maxOccurs="1"/>
+      <xs:element type="xs:string" name="idPeticioOriginal" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="errorsType">
+    <xs:sequence>
+      <xs:element type="es.bcn.mci.signatura.webService.schemas.DetallErrorsType" name="es.bcn.mci.signatura.webService.schemas.DetallErrors" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="es.bcn.mci.signatura.webService.schemas.TicketType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="idPeticio" minOccurs="1" maxOccurs="1"/>
+      <xs:element type="missatgeErrorType" name="missatgeError" minOccurs="0" maxOccurs="1"/>
+      <xs:element type="errorsType" name="errors" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.25.2"
+  version: "1.25.3"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -19,6 +19,8 @@ tags:
   description: "Serveis Portal Rest Controller"
 - name: "Serveis Portasignatures API"
   description: "Serveis Porta Signatures Rest Controller"
+- name: "Serveis Signatures API"
+  description: "Serveis Signatures Rest Controller"
 - name: "Serveis Tramitadors API"
   description: "Serveis Tramitadors Rest Controller"
 paths:
@@ -1507,6 +1509,39 @@ paths:
         404:
           description: "Not Found"
       deprecated: false
+  /serveis/signatures/listenerMciSignatura:
+    post:
+      tags:
+      - "Serveis Signatures API"
+      summary: "Resultat de la signatura criptogràfica"
+      operationId: "listenerMciSignaturaUsingPOST"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "formSignResume"
+        in: "formData"
+        description: "formSignResume"
+        required: true
+        type: "string"
+      - name: "ticket"
+        in: "formData"
+        description: "ticket"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
   /serveis/tramitadors/expedients:
     get:
       tags:
@@ -1684,6 +1719,40 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /serveis/tramitadors/expedients/documentacio/preparar/signatura/online/criptografica:
+    post:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Preparar la signatura d'un conjunt de documents en línia amb modalitat\
+        \ criptogràfica"
+      operationId: "prepararSignaturaDocumentOnlineCriptograficaUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "preparacioSignaturaCriptograficaDocumentMassiu"
+        description: "Informació addicional per a la preparació de la signatura"
+        required: true
+        schema:
+          $ref: "#/definitions/PreparacioSignaturaCriptograficaDocumentMassiu"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaPrepararSignaturaDocument"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /serveis/tramitadors/expedients/documentacio/{idsDocument}/signar/online:
     post:
       tags:
@@ -5471,6 +5540,32 @@ definitions:
         - "FISICA"
         - "JURIDICA"
     title: "PersonaNotificacio"
+  PreparacioSignaturaCriptograficaDocument:
+    type: "object"
+    required:
+    - "idDocument"
+    - "politicaSignatura"
+    properties:
+      idDocument:
+        type: "number"
+        description: "Identificador de el document"
+      politicaSignatura:
+        type: "string"
+        description: "Política de signatura"
+    title: "PreparacioSignaturaCriptograficaDocument"
+  PreparacioSignaturaCriptograficaDocumentMassiu:
+    type: "object"
+    properties:
+      documents:
+        type: "array"
+        description: "Informació sobre la llista de documents a signar"
+        items:
+          $ref: "#/definitions/PreparacioSignaturaCriptograficaDocument"
+      urlRetorn:
+        type: "string"
+        description: "URL de redirecció per a l'execució de la signatura criptogrà\
+          fica online a client"
+    title: "PreparacioSignaturaCriptograficaDocumentMassiu"
   ProcedimentCerca:
     type: "object"
     properties:
@@ -6159,6 +6254,22 @@ definitions:
         description: "Resultat de l'operació"
         $ref: "#/definitions/ResultatResposta"
     title: "RespostaPrepararRequeriment"
+  RespostaPrepararSignaturaDocument:
+    type: "object"
+    properties:
+      expedient:
+        description: "Expedient"
+        $ref: "#/definitions/ExpedientAccio"
+      idPeticio:
+        type: "string"
+        description: "Identificador de la petició de signatura"
+      resultat:
+        description: "Resultat de l'operació"
+        $ref: "#/definitions/ResultatResposta"
+      urlSignaturaBrowser:
+        type: "string"
+        description: "URL de redirecció a client a la pàgina de signatura"
+    title: "RespostaPrepararSignaturaDocument"
   RespostaPresentarDeclaracioResponsable:
     type: "object"
     properties:

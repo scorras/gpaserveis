@@ -65,7 +65,11 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfCon
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsDigitalitzacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PrepararSignaturaCriptograficaDocumentMassiu;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PrepararSignaturaCriptograficaDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarCriptograficaDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarCriptograficaDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarPortasignaturesDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocument;
@@ -80,15 +84,6 @@ import net.opentrends.openframe.services.security.util.SecurityUtils;
  * The Class DocumentsServiceImpl.
  */
 @Service
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
-
-/** The Constant log. */
 @CommonsLog
 public class DocumentsServiceImpl implements DocumentsService {
 
@@ -3109,5 +3104,165 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * prepararSignaturaCriptograficaDocument(es.bcn.gpa.gpaserveis.rest.client.
+	 * api.model.gpadocumentacio.PrepararSignaturaCriptograficaDocumentMassiu)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackPrepararSignaturaCriptograficaDocument")
+	public PrepararSignaturaCriptograficaDocumentResponse prepararSignaturaCriptograficaDocument(
+	        PrepararSignaturaCriptograficaDocumentMassiu prepararSignaturaCriptograficaDocumentMassiu) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("prepararSignaturaCriptograficaDocument(PrepararSignaturaCriptograficaDocumentMassiu) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			PrepararSignaturaCriptograficaDocumentResponse prepararSignaturaCriptograficaDocumentResponse = signaturesApi
+			        .prepararSignaturaCriptografica(prepararSignaturaCriptograficaDocumentMassiu);
+
+			if (log.isDebugEnabled()) {
+				log.debug("prepararSignaturaCriptograficaDocument(PrepararSignaturaCriptograficaDocumentMassiu) - fi"); //$NON-NLS-1$
+			}
+			return prepararSignaturaCriptograficaDocumentResponse;
+
+		} catch (RestClientException e) {
+			log.error("prepararSignaturaCriptograficaDocument(PrepararSignaturaCriptograficaDocumentMassiu)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback preparar signatura criptografica document.
+	 *
+	 * @param prepararSignaturaCriptograficaDocumentMassiu
+	 *            the preparar signatura criptografica document massiu
+	 * @param e
+	 *            the e
+	 * @return the preparar signatura criptografica document response
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public PrepararSignaturaCriptograficaDocumentResponse fallbackPrepararSignaturaCriptograficaDocument(
+	        PrepararSignaturaCriptograficaDocumentMassiu prepararSignaturaCriptograficaDocumentMassiu, Throwable e)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackPrepararSignaturaCriptograficaDocument(PrepararSignaturaCriptograficaDocumentMassiu, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * signarCriptograficaDocument(es.bcn.gpa.gpaserveis.rest.client.api.model.
+	 * gpadocumentacio.SignarCriptograficaDocument)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackSignarCriptograficaDocument")
+	public SignarCriptograficaDocumentResponse signarCriptograficaDocument(SignarCriptograficaDocument signarCriptograficaDocument)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("signarCriptograficaDocument(SignarCriptograficaDocument) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			SignarCriptograficaDocumentResponse signarCriptograficaDocumentResponse = signaturesApi
+			        .signarCriptografica(signarCriptograficaDocument);
+
+			if (log.isDebugEnabled()) {
+				log.debug("signarCriptograficaDocument(SignarCriptograficaDocument) - fi"); //$NON-NLS-1$
+			}
+
+			return signarCriptograficaDocumentResponse;
+
+		} catch (RestClientException e) {
+			log.error("signarCriptograficaDocument(SignarCriptograficaDocument)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback signar criptografica document.
+	 *
+	 * @param signarCriptograficaDocument
+	 *            the signar criptografica document
+	 * @param e
+	 *            the e
+	 * @return the signar criptografica document response
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public SignarCriptograficaDocumentResponse fallbackSignarCriptograficaDocument(SignarCriptograficaDocument signarCriptograficaDocument,
+	        Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackSignarCriptograficaDocument(SignarCriptograficaDocument, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * consultarDadesDocumentGeneratPerIdGestorDocumental(java.lang.String)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackConsultarDadesDocumentGeneratPerIdGestorDocumental")
+	public DocsTramitacioRDTO consultarDadesDocumentGeneratPerIdGestorDocumental(String idDocumentGestorDocumental)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarDadesDocumentGeneratPerIdGestorDocumental(String) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi
+			        .consultarDadesDocumentGeneratPerIdGestorDocumental(idDocumentGestorDocumental);
+
+			if (log.isDebugEnabled()) {
+				log.debug("consultarDadesDocumentGeneratPerIdGestorDocumental(String) - fi"); //$NON-NLS-1$
+			}
+			return docsTramitacioRDTO;
+
+		} catch (RestClientException e) {
+			log.error("consultarDadesDocumentGeneratPerIdGestorDocumental(String)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback consultar dades document generat per id gestor documental.
+	 *
+	 * @param idDocumentGestorDocumental
+	 *            the id document gestor documental
+	 * @param e
+	 *            the e
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsTramitacioRDTO fallbackConsultarDadesDocumentGeneratPerIdGestorDocumental(String idDocumentGestorDocumental, Throwable e)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackConsultarDadesDocumentGeneratPerIdGestorDocumental(String, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 }
