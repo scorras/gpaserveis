@@ -1,0 +1,24 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" 
+	targetNamespace="http://es.bcn.gpa.gpaserveis.web.ws.dto/schemas"
+	xmlns:schemas="http://es.bcn.gpa.gpaserveis.web.ws.dto/schemas">
+
+	<xs:element name="listenerMciSignaturaRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="idPeticio" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
+				<xs:element name="idDocuments" type="xs:string" minOccurs="0" maxOccurs="unbounded"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="listenerMciSignaturaResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="codiError" type="xs:string" minOccurs="0" maxOccurs="1"></xs:element>
+				<xs:element name="descError" type="xs:string" minOccurs="0" maxOccurs="1"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

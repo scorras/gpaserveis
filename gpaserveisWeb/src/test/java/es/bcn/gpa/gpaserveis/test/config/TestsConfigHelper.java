@@ -33,7 +33,10 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfCon
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsDigitalitzacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PrepararSignaturaCriptograficaDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarCriptograficaDocumentResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat;
@@ -2065,6 +2068,40 @@ public class TestsConfigHelper {
 		docsTramitacioRDTOList.add(docsTramitacioRDTO);
 
 		return docsTramitacioRDTOList;
+	}
+
+	/**
+	 * Preparar signatura criptografica response.
+	 *
+	 * @return the preparar signatura criptografica document response
+	 */
+	public static PrepararSignaturaCriptograficaDocumentResponse prepararSignaturaCriptograficaResponse() {
+		PrepararSignaturaCriptograficaDocumentResponse prepararSignaturaCriptograficaDocumentResponse = new PrepararSignaturaCriptograficaDocumentResponse();
+
+		prepararSignaturaCriptograficaDocumentResponse.setIdPeticio("1");
+		prepararSignaturaCriptograficaDocumentResponse.setUrlSignaturaBrowser("https://urlSignaturaBrowser");
+
+		return prepararSignaturaCriptograficaDocumentResponse;
+	}
+
+	/**
+	 * Signar criptografica response.
+	 *
+	 * @return the signar criptografica document response
+	 */
+	public static SignarCriptograficaDocumentResponse signarCriptograficaResponse() {
+		SignarCriptograficaDocumentResponse signarCriptograficaDocumentResponse = new SignarCriptograficaDocumentResponse();
+		return signarCriptograficaDocumentResponse;
+	}
+
+	/**
+	 * Signar valid response.
+	 *
+	 * @return the signar valid document response
+	 */
+	public static SignarValidDocumentResponse signarValidResponse() {
+		SignarValidDocumentResponse signarValidDocumentResponse = new SignarValidDocumentResponse();
+		return signarValidDocumentResponse;
 	}
 
 }

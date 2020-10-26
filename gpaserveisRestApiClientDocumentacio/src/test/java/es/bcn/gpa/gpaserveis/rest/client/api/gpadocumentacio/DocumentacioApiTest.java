@@ -932,4 +932,24 @@ public class DocumentacioApiTest extends ParentTest {
 		assertTrue(response != null);
 	}
 
+	/**
+	 * Returns the requested document
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void consultarDadesDocumentGeneratPerIdGestorDocumentalTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/tramitacio/consultarDadesDocument/gestorDocumental/1"), eq(HttpMethod.GET),
+		        any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class),
+		        any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
+
+		String idDocumentGestorDocumental = ONE.toString();
+		DocsTramitacioRDTO response = api.consultarDadesDocumentGeneratPerIdGestorDocumental(idDocumentGestorDocumental);
+
+		assertTrue(response != null);
+	}
+
 }
