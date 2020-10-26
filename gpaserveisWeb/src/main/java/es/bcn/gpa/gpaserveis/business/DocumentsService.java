@@ -41,7 +41,11 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfCon
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsDigitalitzacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PrepararSignaturaCriptograficaDocumentMassiu;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PrepararSignaturaCriptograficaDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarCriptograficaDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarCriptograficaDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarPortasignaturesDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocument;
@@ -714,5 +718,41 @@ public interface DocumentsService {
 	 * @throws GPAServeisServiceException
 	 */
 	void incrementarReintentsSignatura(BigDecimal idDocument) throws GPAServeisServiceException;
+
+	/**
+	 * Preparar signatura criptografica document.
+	 *
+	 * @param prepararSignaturaCriptograficaDocumentMassiu
+	 *            the preparar signatura criptografica document massiu
+	 * @return the preparar signatura criptografica document response
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	PrepararSignaturaCriptograficaDocumentResponse prepararSignaturaCriptograficaDocument(
+	        PrepararSignaturaCriptograficaDocumentMassiu prepararSignaturaCriptograficaDocumentMassiu) throws GPAServeisServiceException;
+
+	/**
+	 * Signar criptografica document.
+	 *
+	 * @param signarCriptograficaDocument
+	 *            the signar criptografica document
+	 * @return the signar criptografica document response
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	SignarCriptograficaDocumentResponse signarCriptograficaDocument(SignarCriptograficaDocument signarCriptograficaDocument)
+	        throws GPAServeisServiceException;
+
+	/**
+	 * Consultar dades document generat per id gestor documental.
+	 *
+	 * @param idDocumentGestorDocumental
+	 *            the id document gestor documental
+	 * @return the docs tramitacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsTramitacioRDTO consultarDadesDocumentGeneratPerIdGestorDocumental(String idDocumentGestorDocumental)
+	        throws GPAServeisServiceException;
 
 }
