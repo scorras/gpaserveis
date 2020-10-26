@@ -7,6 +7,10 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackManus
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesSignatura;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PrepararSignaturaCriptograficaDocumentMassiu;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PrepararSignaturaCriptograficaDocumentResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarCriptograficaDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarCriptograficaDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarPortasignaturesDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocument;
@@ -33,7 +37,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-08-12T12:30:07.914+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-10-21T23:52:56.451+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.SignaturesApi")
 public class SignaturesApi {
     private ApiClient apiClient;
@@ -334,6 +338,86 @@ public class SignaturesApi {
 
         ParameterizedTypeReference<Boolean> returnType = new ParameterizedTypeReference<Boolean>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Crear una petició per signar una llista de documents amb signatura criptogràfica mitjançant el Mòdul Comú de Signatura
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>201</b> - Created
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param prepararSignaturaCriptograficaDocumentMassiuRDTO prepararSignaturaCriptograficaDocumentMassiuRDTO
+     * @return PrepararSignaturaCriptograficaDocumentResponse
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public PrepararSignaturaCriptograficaDocumentResponse prepararSignaturaCriptografica(PrepararSignaturaCriptograficaDocumentMassiu prepararSignaturaCriptograficaDocumentMassiuRDTO) throws RestClientException {
+        Object postBody = prepararSignaturaCriptograficaDocumentMassiuRDTO;
+        
+        // verify the required parameter 'prepararSignaturaCriptograficaDocumentMassiuRDTO' is set
+        if (prepararSignaturaCriptograficaDocumentMassiuRDTO == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'prepararSignaturaCriptograficaDocumentMassiuRDTO' when calling prepararSignaturaCriptografica");
+        }
+        
+        String path = UriComponentsBuilder.fromPath("/signatures/prepararSignaturaCriptografica").build().toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { 
+            "application/json"
+        };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<PrepararSignaturaCriptograficaDocumentResponse> returnType = new ParameterizedTypeReference<PrepararSignaturaCriptograficaDocumentResponse>() {};
+        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Actualitzar l&#39;estat dels documents enviats a MCI Signatura
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>201</b> - Created
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param signarCriptograficaDocumentRDTO signarCriptograficaDocumentRDTO
+     * @return SignarCriptograficaDocumentResponse
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public SignarCriptograficaDocumentResponse signarCriptografica(SignarCriptograficaDocument signarCriptograficaDocumentRDTO) throws RestClientException {
+        Object postBody = signarCriptograficaDocumentRDTO;
+        
+        // verify the required parameter 'signarCriptograficaDocumentRDTO' is set
+        if (signarCriptograficaDocumentRDTO == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'signarCriptograficaDocumentRDTO' when calling signarCriptografica");
+        }
+        
+        String path = UriComponentsBuilder.fromPath("/signatures/signarCriptografica").build().toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { 
+            "application/json"
+        };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<SignarCriptograficaDocumentResponse> returnType = new ParameterizedTypeReference<SignarCriptograficaDocumentResponse>() {};
+        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
      * Crear una petició per signar un document

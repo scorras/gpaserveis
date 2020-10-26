@@ -15,6 +15,7 @@ import es.bcn.gpa.gpaserveis.business.xml.bind.adapter.DataHoraAdapter;
 import es.bcn.gpa.gpaserveis.business.xml.bind.adapter.MunicipiAdapter;
 import es.bcn.gpa.gpaserveis.business.xml.bind.adapter.PaisAdapter;
 import es.bcn.gpa.gpaserveis.business.xml.bind.adapter.ProvinciaAdapter;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions.EsBcnMciSignaturaWebServiceSchemasTicketType;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.SollicitudConsultaRDTO;
 
 /**
@@ -36,7 +37,8 @@ public class Jaxb2MarshallerConfig {
 	@Bean(name = "jaxb2Marshaller")
 	public Jaxb2Marshaller jaxb2Marshaller() {
 		Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
-		jaxb2Marshaller.setClassesToBeBound(new Class[] { SollicitudConsultaRDTO.class });
+		jaxb2Marshaller
+		        .setClassesToBeBound(new Class[] { SollicitudConsultaRDTO.class, EsBcnMciSignaturaWebServiceSchemasTicketType.class });
 		jaxb2Marshaller.setMarshallerProperties(new HashMap<String, Object>() {
 			{
 				put(Marshaller.JAXB_FORMATTED_OUTPUT, true);
