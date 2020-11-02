@@ -356,7 +356,7 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 
 		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
 		GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(idExpedient,
-		        docsEntradaRDTO, mockMultipartFile, null);
+				docsEntradaRDTO, mockMultipartFile, null);
 		DocsEntradaRDTO docsEntradaRDTODB = documentsService.guardarDocumentEntradaFitxer(guardarDocumentEntradaFitxerBDTO);
 		;
 		assertNotNull(docsEntradaRDTODB.getId());
@@ -511,7 +511,7 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 		docsEntradaRDTO.setComentari("Comentaris");
 
 		ActualitzarDeclaracioResponsableBDTO actualitzarDeclaracioResponsable = new ActualitzarDeclaracioResponsableBDTO(idExpedient,
-		        docsEntradaRDTO);
+				docsEntradaRDTO);
 
 		documentsService.actualitzarDeclaracioResponsable(actualitzarDeclaracioResponsable);
 		assertTrue(true);
@@ -552,7 +552,7 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 
 		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
 		GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO = new GuardarDocumentTramitacioFitxerBDTO(idExpedient,
-		        docsTramitacioRDTO, mockMultipartFile);
+				docsTramitacioRDTO, mockMultipartFile);
 		DocsTramitacioRDTO docsTramitacioRDTODB = documentsService.guardarDocumentTramitacioFitxer(guardarDocumentTramitacioFitxerBDTO);
 		assertNotNull(docsTramitacioRDTODB.getId());
 
@@ -592,7 +592,7 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 		docsTramitacioRDTO.setEstatDocsTramitacio(BigDecimal.ONE);
 
 		ActualitzarDocumentTramitacioBDTO actualitzarDocumentTramitacio = new ActualitzarDocumentTramitacioBDTO(idExpedient,
-		        docsTramitacioRDTO);
+				docsTramitacioRDTO);
 
 		DocsTramitacioRDTO docsTramitacioRDTODB = documentsService.actualitzarDocumentTramitacio(actualitzarDocumentTramitacio);
 		assertNotNull(docsTramitacioRDTODB.getId());
@@ -631,10 +631,10 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 		docsTramitacioRDTO.setEstatDocsTramitacio(BigDecimal.ONE);
 
 		CrearDocumentTramitacioBDTO guardarDocumentTramitacioPlantillaBDTO = new CrearDocumentTramitacioBDTO(idExpedient, idSollicitud,
-		        docsTramitacioRDTO);
+				docsTramitacioRDTO);
 
 		DocsTramitacioRDTO docsTramitacioRDTODB = documentsService
-		        .guardarDocumentTramitacioPlantilla(guardarDocumentTramitacioPlantillaBDTO);
+				.guardarDocumentTramitacioPlantilla(guardarDocumentTramitacioPlantillaBDTO);
 		assertNotNull(docsTramitacioRDTODB.getId());
 
 		if (LOGGER.isDebugEnabled()) {
@@ -684,7 +684,7 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 		}
 
 		DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO = new DescarregarDocumentExpedientBDTO(new BigDecimal(1),
-		        new BigDecimal(1));
+				new BigDecimal(1));
 
 		byte[] resource = documentsService.descarregarDocumentExpedient(descarregarDocumentExpedientBDTO);
 		assertNotNull(resource);
@@ -734,7 +734,7 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 		guardarRequerimentExpedient.setIdsConfDocEntradaList(idsConfDocEntradaList);
 		guardarRequerimentExpedient.setIdsDadesOperList(idsDadesOperList);
 		GuardarRequerimentFitxerBDTO guardarRequerimentFitxerBDTO = new GuardarRequerimentFitxerBDTO(idExpedient,
-		        guardarRequerimentExpedient, mockMultipartFile);
+				guardarRequerimentExpedient, mockMultipartFile);
 		documentsService.guardarRequerimentFitxer(guardarRequerimentFitxerBDTO);
 		assertTrue(true);
 
@@ -983,7 +983,7 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 		docsEntradaRDTO.setComentari("Comentaris");
 
 		CrearDocumentEntradaDigitalitzarBDTO crearDocumentEntradaDigitalitzarBDTO = new CrearDocumentEntradaDigitalitzarBDTO(idExpedient,
-		        docsEntradaRDTO);
+				docsEntradaRDTO);
 
 		DocsEntradaRDTO docsEntradaRDTODB = documentsService.crearDocumentEntradaDigitalitzat(crearDocumentEntradaDigitalitzarBDTO);
 		assertNotNull(docsEntradaRDTODB.getId());
@@ -1052,10 +1052,10 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 		docsTramitacioRDTO.setComentari("Comentaris");
 
 		CrearDocumentTramitacioDigitalitzarBDTO crearDocumentTramitacioDigitalitzarBDTO = new CrearDocumentTramitacioDigitalitzarBDTO(
-		        idExpedient, docsTramitacioRDTO);
+				idExpedient, docsTramitacioRDTO);
 
 		DocsTramitacioRDTO docsTramitacioRDTODB = documentsService
-		        .crearDocumentTramitacioDigitalitzat(crearDocumentTramitacioDigitalitzarBDTO);
+				.crearDocumentTramitacioDigitalitzat(crearDocumentTramitacioDigitalitzarBDTO);
 		assertNotNull(docsTramitacioRDTODB.getId());
 
 		if (LOGGER.isDebugEnabled()) {
@@ -1082,7 +1082,7 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 		documentRegistrarComunicat.setMissatgeComunicat("Missatge comunicat");
 
 		DocumentGeneratRegistrarComunicatBDTO documentGeneratRegistrarComunicatBDTO = new DocumentGeneratRegistrarComunicatBDTO(
-		        documentRegistrarComunicat);
+				documentRegistrarComunicat);
 
 		documentsService.registrarComunicatDocumentTramitacio(documentGeneratRegistrarComunicatBDTO);
 		assertTrue(true);
@@ -1105,7 +1105,7 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 		}
 
 		CallbackDigitalitzacio callbackDigitalitzacioRDTO = new CallbackDigitalitzacio();
-		callbackDigitalitzacioRDTO.setIdDocScan("ES_LO1080193_2019_000000000000000000000000018588");
+		callbackDigitalitzacioRDTO.setIdDocScan("ES_L01080193_2019_000000000000000000000000018588");
 		callbackDigitalitzacioRDTO.setDataDigitalitzacio(new DateTime());
 		callbackDigitalitzacioRDTO.setEstat(BigDecimal.valueOf(2));
 		callbackDigitalitzacioRDTO.setIdioma(BigDecimal.ONE);
@@ -1386,7 +1386,7 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 		String idGestorDocumental = "12/2019";
 		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
 		GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(idExpedient,
-		        docsEntradaRDTO, mockMultipartFile, idGestorDocumental);
+				docsEntradaRDTO, mockMultipartFile, idGestorDocumental);
 
 		documentsService.guardarDocumentEntradaGestorDocumental(guardarDocumentEntradaFitxerBDTO);
 		assertTrue(true);
@@ -1427,7 +1427,7 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 		docsTramitacioRDTO.setEstatDocsTramitacio(BigDecimal.ONE);
 
 		CrearDocumentTramitacioBDTO actualitzarDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(idExpedient, idSollicitud,
-		        docsTramitacioRDTO);
+				docsTramitacioRDTO);
 
 		DocsTramitacioRDTO docsEntradaRDTODB = documentsService.crearDocumentTramitacio(actualitzarDocumentTramitacioBDTO);
 		assertTrue(true);
@@ -1472,7 +1472,7 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 		docsTramitacioRDTO.setEstatDocsTramitacio(BigDecimal.ONE);
 
 		ActualitzarDocumentTramitacioBDTO actualitzarDocumentTramitacioBDTO = new ActualitzarDocumentTramitacioBDTO(idExpedient,
-		        docsTramitacioRDTO);
+				docsTramitacioRDTO);
 
 		documentsService.actualitzarDocumentTramitacio(actualitzarDocumentTramitacioBDTO);
 		assertTrue(true);
@@ -1521,7 +1521,7 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 		DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(new BigDecimal(1), new BigDecimal(1));
 
 		PageDataOfConfiguracioDocsEntradaRDTO pageDataOfConfiguracioDocsEntradaRDTO = documentsService
-		        .cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);
+				.cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);
 		assertNotNull(pageDataOfConfiguracioDocsEntradaRDTO);
 
 		if (LOGGER.isDebugEnabled()) {
@@ -1546,7 +1546,7 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 		DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(new BigDecimal(1), new BigDecimal(1));
 
 		PageDataOfConfiguracioDocsEntradaRDTO pageDataOfConfiguracioDocsEntradaRDTO = documentsService
-		        .cercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsEntradaCercaBDTO);
+				.cercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsEntradaCercaBDTO);
 		assertNotNull(pageDataOfConfiguracioDocsEntradaRDTO);
 
 		if (LOGGER.isDebugEnabled()) {
@@ -1571,7 +1571,7 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 		DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO = new DocumentsTramitacioCercaBDTO(new BigDecimal(1));
 
 		PageDataOfConfiguracioDocsTramitacioRDTO pageDataOfConfiguracioDocsTramitacioRDTO = documentsService
-		        .cercaConfiguracioDocumentacioTramitacio(documentsTramitacioCercaBDTO);
+				.cercaConfiguracioDocumentacioTramitacio(documentsTramitacioCercaBDTO);
 		assertNotNull(pageDataOfConfiguracioDocsTramitacioRDTO);
 
 		if (LOGGER.isDebugEnabled()) {

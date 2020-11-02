@@ -948,6 +948,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		ExpedientsRegistrarSollicitudBDTO expedientsRegistrarSollicitudBDTO = null;
 		boolean registreDocumentacioAssociat = false;
 		boolean registreSollicitudAssociat = false;
+		ArrayList<BigDecimal> idDocsEntradaList = new ArrayList<BigDecimal>();
 		try {
 			// TODO GPA-2923
 			BigDecimal visibilitat = BigDecimal.ONE;
@@ -971,8 +972,17 @@ public class ServeisPortalRestController extends BaseRestController {
 			// ahora se realiza el registro de la solicitud como tal
 			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
 					visibilitat);
+
+			// Se construye el modelo para la llamada a la operación de registro
+			if (CollectionUtils.isNotEmpty(dadesSollicitudBDTO.getDocumentsAportats())) {
+				for (DocsEntradaRDTO docsEntradaRDTO : dadesSollicitudBDTO.getDocumentsAportats()) {
+					idDocsEntradaList.add(docsEntradaRDTO.getId());
+				}
+			}
+
 			CrearSollicitud registreCreacioSolicitud = new CrearSollicitud();
 			registreCreacioSolicitud.setSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO());
+			registreCreacioSolicitud.setDocuments(idDocsEntradaList);
 			expedientsRegistrarSollicitudBDTO = new ExpedientsRegistrarSollicitudBDTO(registreCreacioSolicitud);
 
 			respostaCrearRegistreExpedient = serveisService.crearRegistreSollicitud(expedientsRegistrarSollicitudBDTO,
