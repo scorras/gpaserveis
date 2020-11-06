@@ -1603,7 +1603,13 @@ paths:
         - "TANCAT"
       - name: "nifSollicitant"
         in: "query"
-        description: "Filtra expedients per sollicitant"
+        description: "Filtra expedients per document d'identificació del sollicitant"
+        required: false
+        type: "string"
+        allowEmptyValue: false
+      - name: "nomCognomSollicitant"
+        in: "query"
+        description: "Filtra expedients per nom i cognom del sollicitant"
         required: false
         type: "string"
         allowEmptyValue: false
@@ -5052,6 +5058,9 @@ definitions:
   ExpedientRegistrar:
     type: "object"
     properties:
+      matriculaInformador:
+        type: "string"
+        description: "Matrícula de l'informador."
       signaturaSolicitud:
         type: "number"
         description: "Identificador de la signatura de la sol·licitud"
@@ -6818,6 +6827,9 @@ definitions:
   SollicitudRegistrar:
     type: "object"
     properties:
+      matriculaInformador:
+        type: "string"
+        description: "Matrícula de l'informador."
       signaturaSolicitud:
         type: "number"
         description: "Identificador de la signatura de la sol·licitud"

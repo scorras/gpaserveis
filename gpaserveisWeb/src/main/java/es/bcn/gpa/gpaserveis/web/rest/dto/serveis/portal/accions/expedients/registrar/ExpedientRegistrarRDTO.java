@@ -24,4 +24,8 @@ public class ExpedientRegistrarRDTO {
 	@ApiModelProperty(value = "Identificador de la signatura de la sol·licitud")
 	private BigDecimal signaturaSolicitud;
 
+	/** The matricula informador. */
+	@ApiModelProperty(value = "Matrícula de l'informador.")
+	private String matriculaInformador;
+
 }
