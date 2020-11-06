@@ -999,6 +999,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			sollicitudActualitzarRegistre.setDataPresentacio(respostaCrearRegistreExpedient.getRegistreAssentament().getDataRegistre());
 			if (expedientRegistrarRDTO != null) {
 				sollicitudActualitzarRegistre.setSignaturaSollicitud(expedientRegistrarRDTO.getSignaturaSolicitud());
+				sollicitudActualitzarRegistre.setMatriculaInformador(expedientRegistrarRDTO.getMatriculaInformador());
 			}
 			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
 			registreSollicitudAssociat = true;
