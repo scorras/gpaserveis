@@ -328,6 +328,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 *            the codi expedient
 	 * @param nifSollicitant
 	 *            the nif sollicitant
+	 * @param nomCognomSollicitant
+	 *            the nom cognom sollicitant
 	 * @param dataPresentacioInici
 	 *            the data presentacio inici
 	 * @param dataPresentacioFi
@@ -357,7 +359,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			@ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
 			@ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio,
 			@ApiParam(value = "Filtra expedients per codi") @RequestParam(value = "codiExpedient", required = false) String codiExpedient,
-			@ApiParam(value = "Filtra expedients per sollicitant") @RequestParam(value = "nifSollicitant", required = false) String nifSollicitant,
+			@ApiParam(value = "Filtra expedients per document d'identificació del sollicitant") @RequestParam(value = "nifSollicitant", required = false) String nifSollicitant,
+			@ApiParam(value = "Filtra expedients per nom i cognom del sollicitant") @RequestParam(value = "nomCognomSollicitant", required = false) String nomCognomSollicitant,
 			@ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioInici", required = false) String dataPresentacioInici,
 			@ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioFi", required = false) String dataPresentacioFi,
 			@ApiParam(value = "Filtra expedients per un conjunt de codis de procediment") @RequestParam(value = "codiProcediment", required = false) String[] codiProcediment,
@@ -369,7 +372,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug(
-					"cercaExpedients(int, int, String, String, String, String, String, String, String[], String, String[], String, String, String) - inici"); //$NON-NLS-1$
+					"cercaExpedients(int, int, String, String, String, String, String, String, String, String[], String, String[], String, String, String) - inici"); //$NON-NLS-1$
 		}
 
 		RespostaCercaExpedientsRDTO resposta = new RespostaCercaExpedientsRDTO();
@@ -383,7 +386,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		// Expedients que cumplen los criterios de búsqueda
 		ExpedientsCercaBDTO expedientsCercaBDTO = new ExpedientsCercaBDTO(
 				ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), nifSollicitant,
-				dataPresentacioInici, dataPresentacioFi,
+				nomCognomSollicitant, dataPresentacioInici, dataPresentacioFi,
 				ExpedientsApiParamToInternalMapper.getCodiProcedimentInternalValueList(codiProcediment),
 				ExpedientsApiParamToInternalMapper.getVersioProcedimentInternalValue(versioProcediment),
 				ExpedientsApiParamToInternalMapper.getEstatCiutadaInternalValueList(estat),
