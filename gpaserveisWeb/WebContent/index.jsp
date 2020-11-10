@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="ca">
 	<head>
 		<title>gpaserveis</title>
 	</head>
