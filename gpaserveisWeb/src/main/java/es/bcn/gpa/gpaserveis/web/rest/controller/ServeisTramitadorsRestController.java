@@ -152,6 +152,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegistreRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ObtenirPerInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RedireccioAssentament;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
@@ -169,6 +170,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UsuarisRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.handler.ServeisRestControllerExceptionHandler;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerValidationHelper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerVisibilitatHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
@@ -1848,9 +1850,17 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					Resultat.ERROR_SIGNAR_DOCUMENT);
 
 			// El codi del expediente debe existir
-			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
-					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
-			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_SIGNAR_DOCUMENT);
+			if (StringUtils.equals(signaturaDocument.getModalitatSignatura(), TipusSignaturaApiParamValue.MANUSCRITA.getApiParamValue())) {
+				dadesExpedientBDTO = serveisService.consultarDadesExpedient(
+						ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan),
+						ServeisRestControllerVisibilitatHelper.obtenirVisibilitatExpedient(serveisService, codiExpedient,
+								expedientsIdOrgan));
+				ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_SIGNAR_DOCUMENT);
+			} else {
+				dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
+						ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+				ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_SIGNAR_DOCUMENT);
+			}
 
 			// El id del documento debe existir y pertenecer al expediente
 			// indicado
@@ -4239,10 +4249,17 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 		case MANUSCRITA:
 
+			Persones persones = serveisService.obtenirPersonaExpedientByDocumentIdentitat(dadesExpedientBDTO,
+					signaturaDocument.getUsuariManuscrita().getDocumentUsuari());
+
 			SignarTabletDocument signarTabletDocumentRDTO = new SignarTabletDocument();
 			signarTabletDocumentRDTO.setIdDocument(idDocument);
 			signarTabletDocumentRDTO.setIdTabletUsuari(signaturaDocument.getUsuariManuscrita().getIdTabletUsuari());
 			signarTabletDocumentRDTO.setPoliticaSignatura(signaturaDocument.getPoliticaSignatura());
+			signarTabletDocumentRDTO.setNomUsuari(persones.getNomPresentacio());
+			signarTabletDocumentRDTO.setDocumentIdentitatUsuari(persones.getDocumentsIdentitat().getNumeroDocument());
+			signarTabletDocumentRDTO
+					.setTipusDocumentIdentitat(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getDescripcio());
 
 			SignarTabletDocumentResponse signarTabletDocumentResponse = serveisService.signarTabletDocument(signarTabletDocumentRDTO);
 

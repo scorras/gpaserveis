@@ -13,7 +13,7 @@ import lombok.Setter;
  */
 @ApiModel(value = "UsuariManuscrita")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "idTabletUsuari" })
+@JsonPropertyOrder({ "idTabletUsuari", "documentUsuari" })
 @Getter
 @Setter
 public class UsuariManuscritaRDTO {
@@ -21,4 +21,7 @@ public class UsuariManuscritaRDTO {
 	/** The id tablet usuari. */
 	@ApiModelProperty(value = "Identificador de la tauleta on signarà l'usuari")
 	private String idTabletUsuari;
+	/** The id tablet usuari. */
+	@ApiModelProperty(value = "Document identitat de l'usuari")
+	private String documentUsuari;
 }
