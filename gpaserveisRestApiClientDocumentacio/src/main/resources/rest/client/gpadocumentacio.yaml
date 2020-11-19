@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.25.2"
+  version: "1.26.4"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -3219,6 +3219,8 @@ definitions:
         $ref: "#/definitions/DocsFisics"
       documentTramitacio:
         type: "number"
+      documentUsuariTablet:
+        type: "string"
       id:
         type: "number"
       idTabletUsuari:
@@ -3325,6 +3327,8 @@ definitions:
           items:
             type: "string"
       migracioIdOrigen:
+        type: "string"
+      migracioIdOrigenSignatura:
         type: "string"
       missatgeComunicat:
         type: "string"
@@ -3459,23 +3463,45 @@ definitions:
   ExpedientGestorDocumentalRDTO:
     type: "object"
     properties:
+      codiExpRelacionat:
+        type: "string"
       codiExpedient:
         type: "string"
       codiUnitatOrganigrama:
         type: "string"
+      dataRegistre:
+        type: "string"
+      descEstadoExp:
+        type: "string"
+      destinatariRegistre:
+        type: "string"
+      documentErroni:
+        type: "string"
       documentacioIdext:
         type: "number"
+      fechaFinExp:
+        type: "string"
+      fechaIniExp:
+        type: "string"
       idEstat:
         type: "number"
       migracioIdOrigen:
         type: "string"
+      motiuRelacio:
+        type: "string"
       nomProc:
+        type: "string"
+      nomUnitatOrganigrama:
         type: "string"
       numRegistre:
         type: "string"
       pathSerieDoc:
         type: "string"
       serieDoc:
+        type: "string"
+      tipusRegistre:
+        type: "string"
+      titularRegistre:
         type: "string"
     title: "ExpedientGestorDocumentalRDTO"
   GuardarRequerimentExpedient:
@@ -3903,15 +3929,24 @@ definitions:
   SignarTabletDocument:
     type: "object"
     properties:
+      documentIdentitatUsuari:
+        type: "string"
+        description: "Document identitat de l'usuari"
       idDocument:
         type: "number"
         description: "identificador del document"
       idTabletUsuari:
         type: "string"
         description: "Identificador de la tauleta on signarà l'usuari"
+      nomUsuari:
+        type: "string"
+        description: "Nom de l'usuari"
       politicaSignatura:
         type: "string"
         description: "Nom de la política de signatura"
+      tipusDocumentIdentitat:
+        type: "string"
+        description: "Tipus document identitat de l'usuari"
     title: "SignarTabletDocument"
   SignarTabletDocumentResponse:
     type: "object"
