@@ -6,7 +6,7 @@
 //
 
 
-package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions;
+package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions.protocolretorn0;
 
 import java.util.ArrayList;
 import java.util.List;

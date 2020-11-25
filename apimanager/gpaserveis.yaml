@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.26.1"
+  version: "1.26.2"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -1530,6 +1530,35 @@ paths:
         description: "ticket"
         required: true
         type: "string"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+  /serveis/signatures/resultatPeticio:
+    post:
+      tags:
+      - "Serveis Signatures API"
+      summary: "Resultat de la signatura criptogràfica"
+      operationId: "resultatPeticioUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "resultatPeticioDTO"
+        description: "Resultat de la signatura criptogràfica a una petició de vist-i-plau/signatura"
+        required: true
+        schema:
+          $ref: "#/definitions/resultatPeticioDTO"
       responses:
         200:
           description: "OK"
@@ -7039,3 +7068,159 @@ definitions:
         type: "string"
         description: "Valor aplicable a la validació"
     title: "ValorsValidacions"
+  detallErrorsDTO:
+    type: "object"
+    required:
+    - "detallError"
+    - "idDocument"
+    - "idPeticioOriginal"
+    - "signaturaResultat"
+    properties:
+      detallError:
+        description: "Objecte error"
+        $ref: "#/definitions/errorDTO"
+      idDocument:
+        type: "string"
+        description: "Identificador del document"
+      idPeticioOriginal:
+        type: "number"
+        description: "Identificador de la petició original"
+      signaturaResultat:
+        description: "Objecte de la signatura"
+        $ref: "#/definitions/signaturaDTO"
+    title: "detallErrorsDTO"
+  errorDTO:
+    type: "object"
+    required:
+    - "codiError"
+    - "descripcioError"
+    - "idPeticioOriginal"
+    - "signaturaOriginal"
+    properties:
+      codiError:
+        type: "number"
+        description: "Codi de l'error"
+      descripcioError:
+        type: "string"
+        description: "Descripció de l'error"
+      idPeticioOriginal:
+        type: "number"
+        description: "Identificador de la petició original"
+      signaturaOriginal:
+        description: "Objecte de la signatura"
+        $ref: "#/definitions/signaturaDTO"
+    title: "errorDTO"
+  estatDTO:
+    type: "object"
+    required:
+    - "codi"
+    - "descripcio"
+    - "valorNumeric"
+    properties:
+      codi:
+        type: "string"
+        description: "Codi de l'estat"
+      descripcio:
+        type: "string"
+        description: "Descripció de l'estat"
+      valorNumeric:
+        type: "number"
+        description: "Codi numèric de l'estat"
+    title: "estatDTO"
+  metadadesSignaturaDTO:
+    type: "object"
+    required:
+    - "carrec"
+    - "cif"
+    - "codi"
+    - "decret"
+    - "entitatCertificadora"
+    - "intencionalitat"
+    - "nif"
+    - "nom"
+    - "signTime"
+    - "tipusSignatura"
+    - "tractament"
+    - "vistiplau"
+    properties:
+      carrec:
+        type: "string"
+        description: "Carrec del signant"
+      cif:
+        type: "string"
+        description: "Cif"
+      codi:
+        type: "number"
+        description: "Codi de la metadada"
+      decret:
+        type: "string"
+        description: "Decret"
+      entitatCertificadora:
+        type: "string"
+        description: "Entitat certificadora"
+      intencionalitat:
+        type: "string"
+        description: "Intencionalitat"
+      nif:
+        type: "string"
+        description: "Nif"
+      nom:
+        type: "string"
+        description: "Nom de la metadada"
+      signTime:
+        type: "string"
+        description: "Moment en que es va realitzar la signatura"
+      tipusSignatura:
+        type: "string"
+        description: "Tipus de signatura"
+      tractament:
+        type: "string"
+        description: "Tractament del signant"
+      vistiplau:
+        type: "boolean"
+        description: "Vist-i-plau si o no"
+    title: "metadadesSignaturaDTO"
+  resultatPeticioDTO:
+    type: "object"
+    required:
+    - "errors"
+    - "idPeticio"
+    - "missatgeError"
+    - "urlSignaturaBrowser"
+    properties:
+      errors:
+        type: "array"
+        description: "Detall dels errors per a cada document"
+        items:
+          $ref: "#/definitions/detallErrorsDTO"
+      idPeticio:
+        type: "number"
+        description: "Identificador de la petició original de signatura"
+      missatgeError:
+        description: "Objecte error amb els diferents atributs"
+        $ref: "#/definitions/errorDTO"
+      urlSignaturaBrowser:
+        type: "string"
+        description: "Url de la signatura"
+    title: "resultatPeticioDTO"
+  signaturaDTO:
+    type: "object"
+    required:
+    - "estatSignatura"
+    - "idSignatura"
+    - "metadades"
+    - "refDocumentSignat"
+    properties:
+      estatSignatura:
+        description: "Estat de la signatura"
+        $ref: "#/definitions/estatDTO"
+      idSignatura:
+        type: "string"
+        description: "Identificador de la signatura"
+      metadades:
+        description: "Metadades de la signatura"
+        $ref: "#/definitions/metadadesSignaturaDTO"
+      refDocumentSignat:
+        type: "string"
+        description: "Referència de el document signat"
+    title: "signaturaDTO"
