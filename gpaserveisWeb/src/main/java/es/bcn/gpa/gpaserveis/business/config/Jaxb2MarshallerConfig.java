@@ -15,7 +15,7 @@ import es.bcn.gpa.gpaserveis.business.xml.bind.adapter.DataHoraAdapter;
 import es.bcn.gpa.gpaserveis.business.xml.bind.adapter.MunicipiAdapter;
 import es.bcn.gpa.gpaserveis.business.xml.bind.adapter.PaisAdapter;
 import es.bcn.gpa.gpaserveis.business.xml.bind.adapter.ProvinciaAdapter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions.EsBcnMciSignaturaWebServiceSchemasTicketType;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions.protocolretorn0.EsBcnMciSignaturaWebServiceSchemasTicketType;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.SollicitudConsultaRDTO;
 
 /**
