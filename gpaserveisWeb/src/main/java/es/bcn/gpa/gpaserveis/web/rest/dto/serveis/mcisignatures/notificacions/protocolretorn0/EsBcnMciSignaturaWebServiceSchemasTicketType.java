@@ -5,7 +5,7 @@
 // Generated on: 2020.10.26 at 02:43:07 AM CET 
 //
 
-package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions;
+package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions.protocolretorn0;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
