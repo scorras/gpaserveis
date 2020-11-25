@@ -125,7 +125,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsOrganigramaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UsuarisRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions.EsBcnMciSignaturaWebServiceSchemasTicketType;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions.protocolretorn0.EsBcnMciSignaturaWebServiceSchemasTicketType;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.SollicitudConsultaRDTO;
 import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.security.core.userdetails.ImiUserDetails;

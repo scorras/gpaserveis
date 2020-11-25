@@ -6,7 +6,7 @@
 //
 
 
-package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions;
+package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions.protocolretorn0;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -15,17 +15,17 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for estatSignaturaType complex type.
+ * <p>Java class for missatgeErrorType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="estatSignaturaType">
+ * &lt;complexType name="missatgeErrorType">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="codi" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="descripcio" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="codiError" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="descripcioError" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,63 +35,63 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "estatSignaturaType", propOrder = {
-    "codi",
-    "descripcio"
+@XmlType(name = "missatgeErrorType", propOrder = {
+    "codiError",
+    "descripcioError"
 })
-public class EstatSignaturaType {
+public class MissatgeErrorType {
 
     @XmlElement(required = true)
-    protected String codi;
+    protected String codiError;
     @XmlElement(required = true)
-    protected String descripcio;
+    protected String descripcioError;
 
     /**
-     * Gets the value of the codi property.
+     * Gets the value of the codiError property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getCodi() {
-        return codi;
+    public String getCodiError() {
+        return codiError;
     }
 
     /**
-     * Sets the value of the codi property.
+     * Sets the value of the codiError property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setCodi(String value) {
-        this.codi = value;
+    public void setCodiError(String value) {
+        this.codiError = value;
     }
 
     /**
-     * Gets the value of the descripcio property.
+     * Gets the value of the descripcioError property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getDescripcio() {
-        return descripcio;
+    public String getDescripcioError() {
+        return descripcioError;
     }
 
     /**
-     * Sets the value of the descripcio property.
+     * Sets the value of the descripcioError property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setDescripcio(String value) {
-        this.descripcio = value;
+    public void setDescripcioError(String value) {
+        this.descripcioError = value;
     }
 
 }

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,9 +20,11 @@ import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarCriptograficaDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarCriptograficaDocumentResponse;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions.EsBcnMciSignaturaWebServiceSchemasDetallErrorsType;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions.EsBcnMciSignaturaWebServiceSchemasTicketType;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions.ListenerMciSignaturaDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions.protocolretorn0.EsBcnMciSignaturaWebServiceSchemasDetallErrorsType;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions.protocolretorn0.EsBcnMciSignaturaWebServiceSchemasTicketType;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions.protocolretorn0.ListenerMciSignaturaDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions.protocolretorn9.DetallErrorsDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions.protocolretorn9.ResultatPeticioDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -129,6 +132,78 @@ public class ServeisSignaturesRestController extends BaseRestController {
 
 		if (log.isDebugEnabled()) {
 			log.debug("listenerMciSignatura(ListenerMciSignaturaDTO,HttpServletResponse) - fi");
+			// $NON-NLS-1$
+		}
+
+		response.sendRedirect(cercaSignaturesOgeUrl + queryParams.toString());
+	}
+
+	@PostMapping(path = "/resultatPeticio", consumes = { MediaType.APPLICATION_JSON_VALUE })
+	@ApiOperation(value = "Resultat de la signatura criptogràfica", tags = { "Serveis Signatures API" })
+	public void /* ResultatPeticioRespostaDTO */ resultatPeticio(
+	        @ApiParam(value = "Resultat de la signatura criptogràfica a una petició de vist-i-plau/signatura", required = true) @RequestBody ResultatPeticioDTO resultatPeticioDTO,
+	        HttpServletResponse response) throws GPAServeisServiceException, IOException {
+
+		if (log.isDebugEnabled()) {
+			log.debug("resultatPeticio(ResultatPeticioDTO) - inici"); //$NON-NLS-1$
+			log.debug(resultatPeticioDTO); // $NON-NLS-1$
+		}
+
+		// Sólo habrá que hacer efectiva la firma para aquellos documentos que
+		// no devuelvan error
+		SignarCriptograficaDocument signarCriptograficaDocument = new SignarCriptograficaDocument();
+		ArrayList<BigDecimal> idDocumentsSignatsList = new ArrayList<BigDecimal>();
+		DocsTramitacioRDTO docsTramitacioRDTO = null;
+		DetallErrorsDTO detallErrorsDTO = null;
+		StringBuffer queryParams = new StringBuffer();
+
+		String idPeticio = resultatPeticioDTO.getIdPeticio().toString();
+		signarCriptograficaDocument.setIdPeticio(idPeticio);
+		queryParams.append("?idPeticio=");
+		queryParams.append(idPeticio);
+
+		for (int i = 0; i < resultatPeticioDTO.getErrors().size(); i++) {
+			detallErrorsDTO = resultatPeticioDTO.getErrors().get(i);
+			docsTramitacioRDTO = serveisService.consultarDadesDocumentGeneratPerIdGestorDocumental(detallErrorsDTO.getIdDocument());
+			if (detallErrorsDTO.getSignaturaResultat() != null) {
+				// Si contiene el elemento <signaturaResultat> la firma se
+				// realizó correctamente
+				idDocumentsSignatsList.add(docsTramitacioRDTO.getId());
+				queryParams.append("&result[");
+				queryParams.append(i);
+				queryParams.append("].idDocument=");
+				queryParams.append(docsTramitacioRDTO.getId());
+				queryParams.append("&result[");
+				queryParams.append(i);
+				queryParams.append("].codiError=0");
+			} else if (detallErrorsDTO.getDetallError() != null) {
+				// Si contiene el elemento <detallError> se produjo algún tipo
+				// de error
+				queryParams.append("&result[");
+				queryParams.append(i);
+				queryParams.append("].idDocument=");
+				queryParams.append(docsTramitacioRDTO.getId());
+				queryParams.append("&result[");
+				queryParams.append(i);
+				queryParams.append("].codiError=");
+				queryParams.append(detallErrorsDTO.getDetallError().getCodiError());
+			} else {
+				// En cualquier otro caso se devuelve un error genérico
+				queryParams.append("&result[");
+				queryParams.append(i);
+				queryParams.append("].idDocument=");
+				queryParams.append(docsTramitacioRDTO.getId());
+				queryParams.append("&result[");
+				queryParams.append(i);
+				queryParams.append("].codiError=-1");
+			}
+		}
+		signarCriptograficaDocument.setIdDocuments(idDocumentsSignatsList);
+		SignarCriptograficaDocumentResponse signarCriptograficaDocumentResponse = serveisService
+		        .signarCriptograficaDocument(signarCriptograficaDocument);
+
+		if (log.isDebugEnabled()) {
+			log.debug("resultatPeticio(ResultatPeticioDTO) - fi");
 			// $NON-NLS-1$
 		}
 

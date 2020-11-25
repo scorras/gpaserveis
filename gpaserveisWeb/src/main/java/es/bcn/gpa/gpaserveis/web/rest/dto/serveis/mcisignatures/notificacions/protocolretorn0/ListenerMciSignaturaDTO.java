@@ -1,4 +1,4 @@
-package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions;
+package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.mcisignatures.notificacions.protocolretorn0;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
