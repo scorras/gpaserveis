@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.configuration.annotation.EntornPropertySource;
+import net.opentrends.openframe.services.rest.http.ResponseEntity;
 
 /**
  * The Class ServeisSignaturesRestController.
@@ -140,7 +142,7 @@ public class ServeisSignaturesRestController extends BaseRestController {
 
 	@PostMapping(path = "/resultatPeticio", consumes = { MediaType.APPLICATION_JSON_VALUE })
 	@ApiOperation(value = "Resultat de la signatura criptogràfica", tags = { "Serveis Signatures API" })
-	public void /* ResultatPeticioRespostaDTO */ resultatPeticio(
+	public ResponseEntity<Void> resultatPeticio(
 	        @ApiParam(value = "Resultat de la signatura criptogràfica a una petició de vist-i-plau/signatura", required = true) @RequestBody ResultatPeticioDTO resultatPeticioDTO,
 	        HttpServletResponse response) throws GPAServeisServiceException, IOException {
 
@@ -155,12 +157,9 @@ public class ServeisSignaturesRestController extends BaseRestController {
 		ArrayList<BigDecimal> idDocumentsSignatsList = new ArrayList<BigDecimal>();
 		DocsTramitacioRDTO docsTramitacioRDTO = null;
 		DetallErrorsDTO detallErrorsDTO = null;
-		StringBuffer queryParams = new StringBuffer();
 
 		String idPeticio = resultatPeticioDTO.getIdPeticio().toString();
 		signarCriptograficaDocument.setIdPeticio(idPeticio);
-		queryParams.append("?idPeticio=");
-		queryParams.append(idPeticio);
 
 		for (int i = 0; i < resultatPeticioDTO.getErrors().size(); i++) {
 			detallErrorsDTO = resultatPeticioDTO.getErrors().get(i);
@@ -169,33 +168,6 @@ public class ServeisSignaturesRestController extends BaseRestController {
 				// Si contiene el elemento <signaturaResultat> la firma se
 				// realizó correctamente
 				idDocumentsSignatsList.add(docsTramitacioRDTO.getId());
-				queryParams.append("&result[");
-				queryParams.append(i);
-				queryParams.append("].idDocument=");
-				queryParams.append(docsTramitacioRDTO.getId());
-				queryParams.append("&result[");
-				queryParams.append(i);
-				queryParams.append("].codiError=0");
-			} else if (detallErrorsDTO.getDetallError() != null) {
-				// Si contiene el elemento <detallError> se produjo algún tipo
-				// de error
-				queryParams.append("&result[");
-				queryParams.append(i);
-				queryParams.append("].idDocument=");
-				queryParams.append(docsTramitacioRDTO.getId());
-				queryParams.append("&result[");
-				queryParams.append(i);
-				queryParams.append("].codiError=");
-				queryParams.append(detallErrorsDTO.getDetallError().getCodiError());
-			} else {
-				// En cualquier otro caso se devuelve un error genérico
-				queryParams.append("&result[");
-				queryParams.append(i);
-				queryParams.append("].idDocument=");
-				queryParams.append(docsTramitacioRDTO.getId());
-				queryParams.append("&result[");
-				queryParams.append(i);
-				queryParams.append("].codiError=-1");
 			}
 		}
 		signarCriptograficaDocument.setIdDocuments(idDocumentsSignatsList);
@@ -207,7 +179,7 @@ public class ServeisSignaturesRestController extends BaseRestController {
 			// $NON-NLS-1$
 		}
 
-		response.sendRedirect(cercaSignaturesOgeUrl + queryParams.toString());
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
 }
