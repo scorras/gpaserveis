@@ -69,9 +69,9 @@ public class ServeisSignaturesRestController extends BaseRestController {
 	        @ApiParam(value = "Resultat de la signatura criptogràfica a una petició de vist-i-plau/signatura", required = true) ListenerMciSignaturaDTO listenerMciSignaturaDTO,
 	        HttpServletResponse response) throws GPAServeisServiceException, IOException {
 
-		if (log.isDebugEnabled()) {
-			log.debug("listenerMciSignatura(ListenerMciSignaturaDTO,HttpServletResponse) - inici"); //$NON-NLS-1$
-			log.debug(listenerMciSignaturaDTO); // $NON-NLS-1$
+		if (log.isInfoEnabled()) {
+			log.info("listenerMciSignatura(ListenerMciSignaturaDTO,HttpServletResponse) - inici"); //$NON-NLS-1$
+			log.info(listenerMciSignaturaDTO); // $NON-NLS-1$
 		}
 
 		EsBcnMciSignaturaWebServiceSchemasTicketType esBcnMciSignaturaWebServiceSchemasTicketType = serveisService
@@ -132,8 +132,8 @@ public class ServeisSignaturesRestController extends BaseRestController {
 		SignarCriptograficaDocumentResponse signarCriptograficaDocumentResponse = serveisService
 		        .signarCriptograficaDocument(signarCriptograficaDocument);
 
-		if (log.isDebugEnabled()) {
-			log.debug("listenerMciSignatura(ListenerMciSignaturaDTO,HttpServletResponse) - fi");
+		if (log.isInfoEnabled()) {
+			log.info("listenerMciSignatura(ListenerMciSignaturaDTO,HttpServletResponse) - fi");
 			// $NON-NLS-1$
 		}
 
@@ -146,9 +146,9 @@ public class ServeisSignaturesRestController extends BaseRestController {
 	        @ApiParam(value = "Resultat de la signatura criptogràfica a una petició de vist-i-plau/signatura", required = true) @RequestBody ResultatPeticioDTO resultatPeticioDTO,
 	        HttpServletResponse response) throws GPAServeisServiceException, IOException {
 
-		if (log.isDebugEnabled()) {
-			log.debug("resultatPeticio(ResultatPeticioDTO) - inici"); //$NON-NLS-1$
-			log.debug(resultatPeticioDTO); // $NON-NLS-1$
+		if (log.isInfoEnabled()) {
+			log.info("resultatPeticio(ResultatPeticioDTO) - inici"); //$NON-NLS-1$
+			log.info(resultatPeticioDTO); // $NON-NLS-1$
 		}
 
 		// Sólo habrá que hacer efectiva la firma para aquellos documentos que
@@ -174,8 +174,8 @@ public class ServeisSignaturesRestController extends BaseRestController {
 		SignarCriptograficaDocumentResponse signarCriptograficaDocumentResponse = serveisService
 		        .signarCriptograficaDocument(signarCriptograficaDocument);
 
-		if (log.isDebugEnabled()) {
-			log.debug("resultatPeticio(ResultatPeticioDTO) - fi");
+		if (log.isInfoEnabled()) {
+			log.info("resultatPeticio(ResultatPeticioDTO) - fi");
 			// $NON-NLS-1$
 		}
 
