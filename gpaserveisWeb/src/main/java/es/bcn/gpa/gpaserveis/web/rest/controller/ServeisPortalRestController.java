@@ -962,9 +962,6 @@ public class ServeisPortalRestController extends BaseRestController {
 			BigDecimal visibilitat = BigDecimal.ONE;
 
 			long startTimeConsultarDades = System.nanoTime();
-			if (log.isDebugEnabled()) {
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - consultarDadesBasiquesExpedient - inici"); //$NON-NLS-1$
-			}
 			if (log.isInfoEnabled()) {
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - consultarDadesBasiquesExpedient - inici"); //$NON-NLS-1$
 			}
@@ -974,11 +971,6 @@ public class ServeisPortalRestController extends BaseRestController {
 					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_REGISTRAR_EXPEDIENT);
 
-			if (log.isDebugEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeConsultarDades;
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - consultarDadesBasiquesExpedient - fi: " //$NON-NLS-1$
-						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
 			if (log.isInfoEnabled()) {
 				long tiempoTotal = System.nanoTime() - startTimeConsultarDades;
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - consultarDadesBasiquesExpedient - fi: " //$NON-NLS-1$
@@ -997,9 +989,6 @@ public class ServeisPortalRestController extends BaseRestController {
 			// ExpedientsRegistrarBDTO(registreCreacioSolicitudExpedient);
 
 			long startTimeConsultarDadesSol = System.nanoTime();
-			if (log.isDebugEnabled()) {
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - consultarDadesSollicitud - inici"); //$NON-NLS-1$
-			}
 			if (log.isInfoEnabled()) {
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - consultarDadesSollicitud - inici"); //$NON-NLS-1$
 			}
@@ -1008,11 +997,6 @@ public class ServeisPortalRestController extends BaseRestController {
 			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
 					visibilitat);
 
-			if (log.isDebugEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeConsultarDadesSol;
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - consultarDadesSollicitud - fi: " //$NON-NLS-1$
-						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
 			if (log.isInfoEnabled()) {
 				long tiempoTotal = System.nanoTime() - startTimeConsultarDadesSol;
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - consultarDadesSollicitud - fi: " //$NON-NLS-1$
@@ -1032,9 +1016,6 @@ public class ServeisPortalRestController extends BaseRestController {
 			expedientsRegistrarSollicitudBDTO = new ExpedientsRegistrarSollicitudBDTO(registreCreacioSolicitud);
 
 			long startTimeCrearRegistreSol = System.nanoTime();
-			if (log.isDebugEnabled()) {
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - crearRegistreSollicitud - inici"); //$NON-NLS-1$
-			}
 			if (log.isInfoEnabled()) {
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - crearRegistreSollicitud - inici"); //$NON-NLS-1$
 			}
@@ -1042,11 +1023,6 @@ public class ServeisPortalRestController extends BaseRestController {
 			respostaCrearRegistreExpedient = serveisService.crearRegistreSollicitud(expedientsRegistrarSollicitudBDTO,
 					TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_SOLLICITUD.getInternalValue());
 
-			if (log.isDebugEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeCrearRegistreSol;
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - crearRegistreSollicitud - fi: " //$NON-NLS-1$
-						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
 			if (log.isInfoEnabled()) {
 				long tiempoTotal = System.nanoTime() - startTimeCrearRegistreSol;
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - crearRegistreSollicitud - fi: " //$NON-NLS-1$
@@ -1068,9 +1044,6 @@ public class ServeisPortalRestController extends BaseRestController {
 			}
 
 			long startTimeAssociarRegistreSol = System.nanoTime();
-			if (log.isDebugEnabled()) {
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - associarRegistreSollicitud - inici"); //$NON-NLS-1$
-			}
 			if (log.isInfoEnabled()) {
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - associarRegistreSollicitud - inici"); //$NON-NLS-1$
 			}
@@ -1078,11 +1051,6 @@ public class ServeisPortalRestController extends BaseRestController {
 			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
 			registreSollicitudAssociat = true;
 
-			if (log.isDebugEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreSol;
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - associarRegistreSollicitud - fi: " //$NON-NLS-1$
-						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
 			if (log.isInfoEnabled()) {
 				long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreSol;
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - associarRegistreSollicitud - fi: " //$NON-NLS-1$
@@ -1090,9 +1058,6 @@ public class ServeisPortalRestController extends BaseRestController {
 			}
 
 			long startTimeAssociarRegistreDoc = System.nanoTime();
-			if (log.isDebugEnabled()) {
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - associarRegistreDocumentacioExpedient - inici"); //$NON-NLS-1$
-			}
 			if (log.isInfoEnabled()) {
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - associarRegistreDocumentacioExpedient - inici"); //$NON-NLS-1$
 			}
@@ -1104,11 +1069,6 @@ public class ServeisPortalRestController extends BaseRestController {
 			serveisService.associarRegistreDocumentacioExpedient(documentActualizarRegistreRDTO);
 			registreDocumentacioAssociat = true;
 
-			if (log.isDebugEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreDoc;
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - associarRegistreDocumentacioExpedient - fi: " //$NON-NLS-1$
-						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
 			if (log.isInfoEnabled()) {
 				long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreDoc;
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - associarRegistreDocumentacioExpedient - fi: " //$NON-NLS-1$
@@ -1116,9 +1076,6 @@ public class ServeisPortalRestController extends BaseRestController {
 			}
 
 			long startTimeGuardarDadesEspecifiquesSol = System.nanoTime();
-			if (log.isDebugEnabled()) {
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - guardarDadesEspecifiquesSollicitud - inici"); //$NON-NLS-1$
-			}
 			if (log.isInfoEnabled()) {
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - guardarDadesEspecifiquesSollicitud - inici"); //$NON-NLS-1$
 			}
@@ -1139,11 +1096,6 @@ public class ServeisPortalRestController extends BaseRestController {
 			// solicitud)
 			serveisService.guardarDadesEspecifiquesSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
 
-			if (log.isDebugEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeGuardarDadesEspecifiquesSol;
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - guardarDadesEspecifiquesSollicitud - fi: " //$NON-NLS-1$
-						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
 			if (log.isInfoEnabled()) {
 				long tiempoTotal = System.nanoTime() - startTimeGuardarDadesEspecifiquesSol;
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - guardarDadesEspecifiquesSollicitud - fi: " //$NON-NLS-1$
@@ -1151,9 +1103,6 @@ public class ServeisPortalRestController extends BaseRestController {
 			}
 
 			long startTimeGetPlantillaDocVinculada = System.nanoTime();
-			if (log.isDebugEnabled()) {
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - getPlantillaDocVinculada - inici"); //$NON-NLS-1$
-			}
 			if (log.isInfoEnabled()) {
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - getPlantillaDocVinculada - inici"); //$NON-NLS-1$
 			}
@@ -1163,11 +1112,6 @@ public class ServeisPortalRestController extends BaseRestController {
 					dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc(),
 					TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_SOLLICITUD.getInternalValue());
 
-			if (log.isDebugEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeGetPlantillaDocVinculada;
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - getPlantillaDocVinculada - fi: " //$NON-NLS-1$
-						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
 			if (log.isInfoEnabled()) {
 				long tiempoTotal = System.nanoTime() - startTimeGetPlantillaDocVinculada;
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - getPlantillaDocVinculada - fi: " //$NON-NLS-1$
@@ -1204,20 +1148,12 @@ public class ServeisPortalRestController extends BaseRestController {
 					docsTramitacioRDTO);
 
 			long startTimeGuardarJustificantPlantilla = System.nanoTime();
-			if (log.isDebugEnabled()) {
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - guardarDocumentTramitacioJustificantPlantilla - inici"); //$NON-NLS-1$
-			}
 			if (log.isInfoEnabled()) {
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - guardarDocumentTramitacioJustificantPlantilla - inici"); //$NON-NLS-1$
 			}
 
 			respostaCrearJustificant = serveisService.guardarDocumentTramitacioJustificantPlantilla(crearDocumentTramitacioBDTO);
 
-			if (log.isDebugEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeGuardarJustificantPlantilla;
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - guardarDocumentTramitacioJustificantPlantilla - fi: " //$NON-NLS-1$
-						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
 			if (log.isInfoEnabled()) {
 				long tiempoTotal = System.nanoTime() - startTimeGuardarJustificantPlantilla;
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - guardarDocumentTramitacioJustificantPlantilla - fi: " //$NON-NLS-1$
@@ -1225,9 +1161,6 @@ public class ServeisPortalRestController extends BaseRestController {
 			}
 
 			long startTimeSignarSegellDocument = System.nanoTime();
-			if (log.isDebugEnabled()) {
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - signarSegellDocument - inici"); //$NON-NLS-1$
-			}
 			if (log.isInfoEnabled()) {
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - signarSegellDocument - inici"); //$NON-NLS-1$
 			}
@@ -1238,11 +1171,6 @@ public class ServeisPortalRestController extends BaseRestController {
 			signarSegellDocumentRDTO.setIdDocument(respostaCrearJustificant.getId());
 			SignarSegellDocument signarSegellDocumentResponse = serveisService.signarSegellDocument(signarSegellDocumentRDTO);
 
-			if (log.isDebugEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeSignarSegellDocument;
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - signarSegellDocument - fi: " //$NON-NLS-1$
-						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
 			if (log.isInfoEnabled()) {
 				long tiempoTotal = System.nanoTime() - startTimeSignarSegellDocument;
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - signarSegellDocument - fi: " //$NON-NLS-1$
@@ -1261,9 +1189,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			// serveisService.guardarDocumentTramitacioJustificantPlantillaSignat
 
 			long startTimeVincularJustificanteAriadna = System.nanoTime();
-			if (log.isDebugEnabled()) {
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - vincularJustificanteAriadna - inici"); //$NON-NLS-1$
-			}
+
 			if (log.isInfoEnabled()) {
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - vincularJustificanteAriadna - inici"); //$NON-NLS-1$
 			}
@@ -1271,11 +1197,6 @@ public class ServeisPortalRestController extends BaseRestController {
 			// Vincular Justificante en Ariadna
 			vincularJustificanteAriadna(dadesExpedientBDTO, respostaCrearRegistreExpedient, respostaCrearJustificant);
 
-			if (log.isDebugEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeVincularJustificanteAriadna;
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - vincularJustificanteAriadna - fi: " //$NON-NLS-1$
-						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
 			if (log.isInfoEnabled()) {
 				long tiempoTotal = System.nanoTime() - startTimeVincularJustificanteAriadna;
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - vincularJustificanteAriadna - fi: " //$NON-NLS-1$
@@ -1286,9 +1207,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
 
 			long startTimeCercaTransicioCanviEstat = System.nanoTime();
-			if (log.isDebugEnabled()) {
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - cercaTransicioCanviEstat - inici"); //$NON-NLS-1$
-			}
+
 			if (log.isInfoEnabled()) {
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - cercaTransicioCanviEstat - inici"); //$NON-NLS-1$
 			}
@@ -1298,11 +1217,6 @@ public class ServeisPortalRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.REGISTRAR_SOLLICITUD.getInternalValue(),
 					dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
 
-			if (log.isDebugEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeCercaTransicioCanviEstat;
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - cercaTransicioCanviEstat - fi: " //$NON-NLS-1$
-						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
 			if (log.isInfoEnabled()) {
 				long tiempoTotal = System.nanoTime() - startTimeCercaTransicioCanviEstat;
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - cercaTransicioCanviEstat - fi: " //$NON-NLS-1$
@@ -1319,20 +1233,13 @@ public class ServeisPortalRestController extends BaseRestController {
 					dadesExpedientBDTO.getExpedientsRDTO().getId());
 
 			long startTimeCanviarEstatExpedient = System.nanoTime();
-			if (log.isDebugEnabled()) {
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - canviarEstatExpedient - inici"); //$NON-NLS-1$
-			}
+
 			if (log.isInfoEnabled()) {
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - canviarEstatExpedient - inici"); //$NON-NLS-1$
 			}
 
 			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 
-			if (log.isDebugEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeCanviarEstatExpedient;
-				log.debug("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - canviarEstatExpedient - fi: " //$NON-NLS-1$
-						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
 			if (log.isInfoEnabled()) {
 				long tiempoTotal = System.nanoTime() - startTimeCanviarEstatExpedient;
 				log.info("trazaTiempos: registrarSolicitudExpedient(BigDecimal) - canviarEstatExpedient - fi: " //$NON-NLS-1$
