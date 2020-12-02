@@ -163,10 +163,13 @@ public class ServeisSignaturesRestController extends BaseRestController {
 
 		for (int i = 0; i < resultatPeticioDTO.getErrors().size(); i++) {
 			detallErrorsDTO = resultatPeticioDTO.getErrors().get(i);
-			docsTramitacioRDTO = serveisService.consultarDadesDocumentGeneratPerIdGestorDocumental(detallErrorsDTO.getIdDocument());
-			if (detallErrorsDTO.getSignaturaResultat() != null) {
-				// Si contiene el elemento <signaturaResultat> la firma se
-				// realizó correctamente
+			if (detallErrorsDTO.getDetallError() == null && detallErrorsDTO.getIdDocument() != null) {
+				// Si no contiene el elemento detallError y viene el id del
+				// documento, la firma se realizó correctamente
+				if (log.isInfoEnabled()) {
+					log.info("resultatPeticio(ResultatPeticioDTO) - Document signat correctament: " + detallErrorsDTO.getIdDocument()); // $NON-NLS-1$
+				}
+				docsTramitacioRDTO = serveisService.consultarDadesDocumentGeneratPerIdGestorDocumental(detallErrorsDTO.getIdDocument());
 				idDocumentsSignatsList.add(docsTramitacioRDTO.getId());
 			}
 		}
@@ -175,8 +178,7 @@ public class ServeisSignaturesRestController extends BaseRestController {
 		        .signarCriptograficaDocument(signarCriptograficaDocument);
 
 		if (log.isInfoEnabled()) {
-			log.info("resultatPeticio(ResultatPeticioDTO) - fi");
-			// $NON-NLS-1$
+			log.info("resultatPeticio(ResultatPeticioDTO) - fi"); // $NON-NLS-1$
 		}
 
 		return new ResponseEntity<Void>(HttpStatus.OK);
