@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -920,8 +921,15 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	public RespostaRegistrarSollicitudRDTO registrarSolicitud(
 			@ApiParam(value = "Id de sollicitud", required = true) @PathVariable BigDecimal idSollicitud,
 			@ApiParam(value = "Dades de l'registre de la sol·licitud", required = false) @RequestBody(required = false) SollicitudRegistrarRDTO sollicitudRegistrarRDTO) {
+
+		long startTime = System.nanoTime();
 		if (log.isDebugEnabled()) {
 			log.debug("registrarSolicitud(BigDecimal) - inici"); //$NON-NLS-1$
+			log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+		if (log.isInfoEnabled()) {
+			log.info("registrarSolicitud(BigDecimal) - inici"); //$NON-NLS-1$
+			log.info("trazaTiempos: registrarSolicitud(BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		RespostaRegistrarSollicitudRDTO respostaRegistrarSollicitudRDTO = null;
@@ -939,8 +947,27 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// TODO GPA-2923
 			BigDecimal visibilitat = BigDecimal.ONE;
 
+			long startTimeConsultarDades = System.nanoTime();
+			if (log.isDebugEnabled()) {
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - consultarDadesSollicitud - inici"); //$NON-NLS-1$
+			}
+			if (log.isInfoEnabled()) {
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - consultarDadesSollicitud - inici"); //$NON-NLS-1$
+			}
+
 			// Datos principales de la solicitud
 			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
+
+			if (log.isDebugEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeConsultarDades;
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - consultarDadesSollicitud - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
+			if (log.isInfoEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeConsultarDades;
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - consultarDadesSollicitud - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
 
 			// El identificador de la solicitud debe ser válido, no debe ser de
 			// tipo SOL y no debe estar ya registrada
@@ -967,9 +994,29 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 									.compareTo(TramitOvtApiParamValue.REQ.getInternalValue()) == NumberUtils.INTEGER_ZERO)
 											? TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_ESMENA.getInternalValue()
 											: (TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_ALLEGACIO.getInternalValue()));
+
+			long startTimeCrearRegistreSol = System.nanoTime();
+			if (log.isDebugEnabled()) {
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - crearRegistreSollicitud - inici"); //$NON-NLS-1$
+			}
+			if (log.isInfoEnabled()) {
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - crearRegistreSollicitud - inici"); //$NON-NLS-1$
+			}
+
 			respostaCrearRegistreExpedient = serveisService.crearRegistreSollicitud(expedientsRegistrarSollicitudBDTO,
 					tipusDocumentacioVinculadaInternalValue);
 			registreSollicitudAssociat = true;
+
+			if (log.isDebugEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeCrearRegistreSol;
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - crearRegistreSollicitud - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
+			if (log.isInfoEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeCrearRegistreSol;
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - crearRegistreSollicitud - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
 
 			// Asociar registre de la solicitud a la propia solicitud
 			// TODO se puede incluir aquí el duplicado de los dades especifiques
@@ -982,7 +1029,27 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				sollicitudActualitzarRegistre.setSignaturaSollicitud(sollicitudRegistrarRDTO.getSignaturaSolicitud());
 				sollicitudActualitzarRegistre.setMatriculaInformador(sollicitudRegistrarRDTO.getMatriculaInformador());
 			}
+
+			long startTimeAssociarRegistreSol = System.nanoTime();
+			if (log.isDebugEnabled()) {
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - inici"); //$NON-NLS-1$
+			}
+			if (log.isInfoEnabled()) {
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - inici"); //$NON-NLS-1$
+			}
+
 			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
+
+			if (log.isDebugEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreSol;
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
+			if (log.isInfoEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreSol;
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
 
 			// Asociar registre de la solicitud a los posibles documentos
 			// vinculados a la solicitud
@@ -992,6 +1059,14 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				docsEntActualizarRegistre.setListIdsDocsEnt(idDocsEntradaList);
 				serveisService.associarRegistreDocsEnt(docsEntActualizarRegistre);
 				registreDocumentacioAssociat = true;
+			}
+
+			long startTimeGuardarDadesEspecifiquesSol = System.nanoTime();
+			if (log.isDebugEnabled()) {
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDadesEspecifiquesSollicitud - inici"); //$NON-NLS-1$
+			}
+			if (log.isInfoEnabled()) {
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDadesEspecifiquesSollicitud - inici"); //$NON-NLS-1$
 			}
 
 			// Duplicar los Valores de Datos Específicos para que quede por un
@@ -1010,11 +1085,41 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// solicitud)
 			serveisService.guardarDadesEspecifiquesSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
 
+			if (log.isDebugEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeGuardarDadesEspecifiquesSol;
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDadesEspecifiquesSollicitud - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
+			if (log.isInfoEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeGuardarDadesEspecifiquesSol;
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDadesEspecifiquesSollicitud - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
+
+			long startTimeGetPlantillaDocVinculada = System.nanoTime();
+			if (log.isDebugEnabled()) {
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - getPlantillaDocVinculada - inici"); //$NON-NLS-1$
+			}
+			if (log.isInfoEnabled()) {
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - getPlantillaDocVinculada - inici"); //$NON-NLS-1$
+			}
+
 			// Recoger plantilla del Justificante a generar
 			// TODO Comprobar que getConfiguracioDocumentacioProc() no es nulo y
 			// se está recuperando dentro de la consulta de dades sollicitud
 			RespostaPlantillaDocVinculada respostaPlantillaDocVinculada = serveisService.getPlantillaDocVinculada(
 					dadesSollicitudBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc(), tipusDocumentacioVinculadaInternalValue);
+
+			if (log.isDebugEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeGetPlantillaDocVinculada;
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - getPlantillaDocVinculada - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
+			if (log.isInfoEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeGetPlantillaDocVinculada;
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - getPlantillaDocVinculada - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
 
 			// Generar Justificant
 			DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
@@ -1043,7 +1148,27 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			docsTramitacioRDTO.setDocsFisics(docsFisics);
 			CrearDocumentTramitacioBDTO crearDocumentTramitacioBDTO = new CrearDocumentTramitacioBDTO(
 					dadesSollicitudBDTO.getExpedientsRDTO().getId(), dadesSollicitudBDTO.getSollicitudsRDTO().getId(), docsTramitacioRDTO);
+
+			long startTimeGuardarJustificantPlantilla = System.nanoTime();
+			if (log.isDebugEnabled()) {
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDocumentTramitacioJustificantPlantilla - inici"); //$NON-NLS-1$
+			}
+			if (log.isInfoEnabled()) {
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDocumentTramitacioJustificantPlantilla - inici"); //$NON-NLS-1$
+			}
+
 			respostaCrearJustificant = serveisService.guardarDocumentTramitacioJustificantPlantilla(crearDocumentTramitacioBDTO);
+
+			if (log.isDebugEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeGuardarJustificantPlantilla;
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDocumentTramitacioJustificantPlantilla - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
+			if (log.isInfoEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeGuardarJustificantPlantilla;
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDocumentTramitacioJustificantPlantilla - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
 
 			// Obtener el XML y almacenarlo en el Gestor Documental .
 			// Asociar el código generado a nivel de Sollicitud, puesto que será
@@ -1054,11 +1179,30 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
 			guardarXMLSollicitud(dadesSollicitudBDTO, idDocumentum);
 
+			long startTimeSignarSegellDocument = System.nanoTime();
+			if (log.isDebugEnabled()) {
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - signarSegellDocument - inici"); //$NON-NLS-1$
+			}
+			if (log.isInfoEnabled()) {
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - signarSegellDocument - inici"); //$NON-NLS-1$
+			}
+
 			// se llama a segell para firmar el justificante de registro del
 			// expediente
 			SignarSegellDocument signarSegellDocumentRDTO = new SignarSegellDocument();
 			signarSegellDocumentRDTO.setIdDocument(respostaCrearJustificant.getId());
 			SignarSegellDocument signarSegellDocumentResponse = serveisService.signarSegellDocument(signarSegellDocumentRDTO);
+
+			if (log.isDebugEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeSignarSegellDocument;
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - signarSegellDocument - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
+			if (log.isInfoEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeSignarSegellDocument;
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - signarSegellDocument - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
 
 			// si la firma no es valida se lanza el error
 			if (signarSegellDocumentResponse != null && StringUtils.isNotEmpty(signarSegellDocumentResponse.getDescError())) {
@@ -1071,6 +1215,14 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// TODO Calcular Hash de documento firmado, regenerar el PDF con el
 			// hash incrustado y guardarlo bajo el mismo objeto documental
 			// serveisService.guardarDocumentTramitacioJustificantPlantillaSignat
+
+			long startTimeVincularJustificanteAriadna = System.nanoTime();
+			if (log.isDebugEnabled()) {
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - vincularJustificanteAriadna - inici"); //$NON-NLS-1$
+			}
+			if (log.isInfoEnabled()) {
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - vincularJustificanteAriadna - inici"); //$NON-NLS-1$
+			}
 
 			// Vincular Justificante en Ariadna
 			RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
@@ -1090,6 +1242,17 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 				dadesSollicitudBDTO.getExpedientsRDTO().setPendentRetorn(NumberUtils.INTEGER_ONE);
 				serveisService.actualitzarExpedient(dadesSollicitudBDTO.getExpedientsRDTO());
+			}
+
+			if (log.isDebugEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeVincularJustificanteAriadna;
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - vincularJustificanteAriadna - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
+			if (log.isInfoEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeVincularJustificanteAriadna;
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - vincularJustificanteAriadna - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
 			}
 
 			// Cambio de estado del expediente:
@@ -1116,7 +1279,27 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 				ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
 						dadesSollicitudBDTO.getExpedientsRDTO().getId());
+
+				long startTimeCanviarEstatExpedient = System.nanoTime();
+				if (log.isDebugEnabled()) {
+					log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - canviarEstatExpedient - inici"); //$NON-NLS-1$
+				}
+				if (log.isInfoEnabled()) {
+					log.info("trazaTiempos: registrarSolicitud(BigDecimal) - canviarEstatExpedient - inici"); //$NON-NLS-1$
+				}
+
 				serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
+
+				if (log.isDebugEnabled()) {
+					long tiempoTotal = System.nanoTime() - startTimeCanviarEstatExpedient;
+					log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - canviarEstatExpedient - fi: " //$NON-NLS-1$
+							+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+				}
+				if (log.isInfoEnabled()) {
+					long tiempoTotal = System.nanoTime() - startTimeCanviarEstatExpedient;
+					log.info("trazaTiempos: registrarSolicitud(BigDecimal) - canviarEstatExpedient - fi: " //$NON-NLS-1$
+							+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+				}
 			}
 
 		} catch (GPAApiParamValidationException e) {
@@ -1140,6 +1323,15 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 		if (log.isDebugEnabled()) {
 			log.debug("registrarSolicitud(BigDecimal) - fi"); //$NON-NLS-1$
+			long tiempoTotal = System.nanoTime() - startTime;
+			log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - fi: " //$NON-NLS-1$
+					+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+		}
+		if (log.isInfoEnabled()) {
+			log.info("registrarSolicitud(BigDecimal) - fi"); //$NON-NLS-1$
+			long tiempoTotal = System.nanoTime() - startTime;
+			log.info("trazaTiempos: registrarSolicitud(BigDecimal) - fi: " //$NON-NLS-1$
+					+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
 		}
 
 		return respostaRegistrarSollicitudRDTO;
