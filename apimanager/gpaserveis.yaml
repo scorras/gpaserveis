@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.26.3"
+  version: "1.26.5"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -1543,6 +1543,36 @@ paths:
           description: "Not Found"
       deprecated: false
   /serveis/signatures/resultatPeticio:
+    get:
+      tags:
+      - "Serveis Signatures API"
+      summary: "Resultat d'error general de la signatura criptogràfica"
+      operationId: "resultatPeticioErrorGeneralUsingGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "ERROR_CODI"
+        in: "query"
+        description: "Codi de l'error"
+        required: false
+        type: "string"
+        allowEmptyValue: false
+      - name: "ID"
+        in: "query"
+        description: "Identificador de la petició de signatura"
+        required: false
+        type: "string"
+        allowEmptyValue: false
+      responses:
+        200:
+          description: "OK"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
     post:
       tags:
       - "Serveis Signatures API"
