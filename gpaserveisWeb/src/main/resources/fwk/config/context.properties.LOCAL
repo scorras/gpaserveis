@@ -1,1 +1,4 @@
+executar.scripts=false
+carregar.dades.prova=false
+
 security.context=fwkmock
