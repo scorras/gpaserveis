@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.bcn.gpa.gpaserveis.business.ServeisService;
@@ -140,11 +142,22 @@ public class ServeisSignaturesRestController extends BaseRestController {
 		response.sendRedirect(cercaSignaturesOgeUrl + queryParams.toString());
 	}
 
+	/**
+	 * Resultat peticio.
+	 *
+	 * @param resultatPeticioDTO
+	 *            the resultat peticio DTO
+	 * @param response
+	 *            the response
+	 * @return the response entity
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
 	@PostMapping(path = "/resultatPeticio", consumes = { MediaType.APPLICATION_JSON_VALUE })
 	@ApiOperation(value = "Resultat de la signatura criptogràfica", tags = { "Serveis Signatures API" })
 	public ResponseEntity<Void> resultatPeticio(
 	        @ApiParam(value = "Resultat de la signatura criptogràfica a una petició de vist-i-plau/signatura", required = true) @RequestBody ResultatPeticioDTO resultatPeticioDTO,
-	        HttpServletResponse response) throws GPAServeisServiceException, IOException {
+	        HttpServletResponse response) throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
 			log.info("resultatPeticio(ResultatPeticioDTO) - inici"); //$NON-NLS-1$
@@ -182,6 +195,44 @@ public class ServeisSignaturesRestController extends BaseRestController {
 		}
 
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+
+	/**
+	 * Resultat peticio error general.
+	 *
+	 * @param errorCodi
+	 *            the error codi
+	 * @param idPeticio
+	 *            the id peticio
+	 * @param response
+	 *            the response
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
+	@GetMapping("/resultatPeticio")
+	@ApiOperation(value = "Resultat d'error general de la signatura criptogràfica", tags = { "Serveis Signatures API" })
+	public void resultatPeticioErrorGeneral(
+	        @ApiParam(value = "Codi de l'error") @RequestParam(value = "ERROR_CODI", required = false) String errorCodi,
+	        @ApiParam(value = "Identificador de la petició de signatura") @RequestParam(value = "ID", required = false) String idPeticio,
+	        HttpServletResponse response) throws GPAServeisServiceException, IOException {
+
+		if (log.isDebugEnabled()) {
+			log.info("resultatPeticioErrorGeneral(String, String) - inici"); //$NON-NLS-1$
+		}
+
+		StringBuffer queryParams = new StringBuffer();
+		queryParams.append("?ERROR_CODI=");
+		queryParams.append(errorCodi);
+		queryParams.append("&ID=");
+		queryParams.append(idPeticio);
+
+		if (log.isDebugEnabled()) {
+			log.info("resultatPeticioErrorGeneral(String, String) - fi"); // $NON-NLS-1$
+		}
+
+		response.sendRedirect(cercaSignaturesOgeUrl + queryParams.toString());
 	}
 
 }
