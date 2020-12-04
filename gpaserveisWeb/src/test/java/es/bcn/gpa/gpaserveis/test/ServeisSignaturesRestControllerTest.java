@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.test;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -56,6 +57,18 @@ public class ServeisSignaturesRestControllerTest extends RestServerParentTest {
 		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
 		                "{ \"idPeticio\": 16036737840812, \"urlSignaturaBrowser\": \"http://romsubip.ls/oto\", \"missatgeError\": { \"codiError\": 10007, \"descripcioError\": \"El document ja ha estat signat per la mateixa persona anteriorment\" }, \"errors\": [ { \"idDocument\": \"0907a134802a40c5\", \"signaturaResultat\": { \"idSignatura\": \"Pendent del Gestor Documental\", \"refDocumentSignat\": \"0907a134802a40c5\", \"estatSignatura\": { \"codi\": \"VALIN\", \"descripcio\": \"Validada inicialment\" }, \"metadades\": { \"codi\": 16036737840812, \"nom\": \"HERNAN PEREZ DE INESTROSA SANCHEZ\", \"nif\": \"05686723L\", \"entitatCertificadora\": \"Ceres\", \"tipusSignatura\": \"gpa_sig_certifica_001\", \"signTime\": \"1603673558360\", \"vistiplau\": \"false\" } } }, { \"idDocument\": \"0907a134802a4016\", \"detallError\": { \"codiError\": 10007, \"descripcioError\": \"El document ja ha estat signat per la mateixa persona anteriorment\", \"signaturaOriginal\": { \"idSignatura\": \"0907a134802a40bc\", \"refDocumentSignat\": \"0907a134802a4016\", \"estatSignatura\": { \"codi\": \"VALIN\", \"descripcio\": \"Validada inicialment\" }, \"metadades\": { \"codi\": 16036724468164, \"nom\": \"HERNAN PEREZ DE INESTROSA SANCHEZ\", \"nif\": \"05686723L\", \"entitatCertificadora\": \"Ceres\", \"tipusSignatura\": \"gpa_sig_certifica_001\", \"signTime\": \"1603672255328\", \"vistiplau\": \"false\" } }, \"idPeticioOriginal\": 16036724468164 } } ] }"))
 		        .andExpect(status().isOk()).andDo(print());
+	}
+
+	/**
+	 * Test stage 03 get signar document online criptografica.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test
+	public void testStage03_GetSignarDocumentOnlineCriptografica() throws Exception {
+		String url = String.format("%s/%s", BASE_URL, "resultatPeticio?ERROR_CODI=10050&ID=1");
+		getMockMvc().perform(get(url)).andExpect(status().isFound()).andDo(print());
 	}
 
 	/**
