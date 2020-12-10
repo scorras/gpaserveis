@@ -8,6 +8,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -862,7 +863,7 @@ public class ServeisRestControllerValidationHelper {
 			tipusValidacioApiParamValue = tipusValidacioApiParamValueTranslator
 					.getEnumByInternalValue(dadesOperacionsValidacio.getTipusValidacio());
 			DadesOperValidVal dadesOperValidVal0 = dadesOperacionsValidacio.getDadesOperacionsValidValors().get(INTEGER_ZERO);
-			DateTime validVal0 = dataHoraFormatter.parseDateTime(dadesOperValidVal0.getValor().split(",")[0]);
+			DateTime validVal0 = obetenirDateTime(tipusCampApiParamValue, dadesOperValidVal0);
 			validVal0 = formatter.parseDateTime(formatter.print(validVal0));
 			DadesOperValidVal dadesOperValidVal1 = null;
 			DateTime validVal1 = null;
@@ -870,7 +871,7 @@ public class ServeisRestControllerValidationHelper {
 			if (dadesOperacionsValidacio.getDadesOperacionsValidValors().size() > INTEGER_ONE) {
 				// Es necesario comprobar la validación atendiendo al ordre
 				dadesOperValidVal1 = dadesOperacionsValidacio.getDadesOperacionsValidValors().get(INTEGER_ONE);
-				validVal1 = dataHoraFormatter.parseDateTime(dadesOperValidVal1.getValor().split(",")[0]);
+				validVal1 = obetenirDateTime(tipusCampApiParamValue, dadesOperValidVal1);
 				validVal1 = formatter.parseDateTime(formatter.print(validVal1));
 				if (dadesOperValidVal0.getOrdre().longValue() < dadesOperValidVal1.getOrdre().longValue()) {
 					validValArray = new DateTime[] { validVal0, validVal1 };
@@ -920,6 +921,37 @@ public class ServeisRestControllerValidationHelper {
 						ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_VALID_VALUE, formatter.print(valor));
 			}
 		}
+	}
+
+	/**
+	 * @param tipusCampApiParamValue
+	 * @param dataHoraFormatter
+	 * @param dadesOperValidVal0
+	 * @return
+	 */
+	private static DateTime obetenirDateTime(TipusCampApiParamValue tipusCampApiParamValue, DadesOperValidVal dadesOperValidVal0) {
+
+		DateTime result = null;
+		DateTimeFormatter formatter = DateTimeFormat.forPattern(Constants.DATE_PATTERN);
+		DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
+
+		switch (tipusCampApiParamValue) {
+		case DATA:
+			result = formatter.parseDateTime(dadesOperValidVal0.getValor());
+			break;
+		case DATA_HORA:
+			result = dataHoraFormatter.parseDateTime(dadesOperValidVal0.getValor().split(",")[0]);
+			break;
+		case HORA:
+			result = dataHoraFormatter
+					.parseDateTime(formatter.print(new Date().getTime()).concat(" ").concat(dadesOperValidVal0.getValor()));
+			break;
+		default:
+			result = dataHoraFormatter.parseDateTime(dadesOperValidVal0.getValor().split(",")[0]);
+			break;
+		}
+
+		return result;
 	}
 
 	/**
