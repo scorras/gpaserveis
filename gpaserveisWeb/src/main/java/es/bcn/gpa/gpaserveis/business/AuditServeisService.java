@@ -21,5 +21,23 @@ public interface AuditServeisService {
 	<E> void registrarAuditServeisTramitadors(AuditServeisBDTO auditServeisBDTO, E dadesEntrada, E dadesResposta, E ex)
 			throws GPAServeisServiceException;
 
+	<E> void registrarAuditServeisMds(AuditServeisBDTO auditServeisBDTO, E dadesEntrada, E dadesResposta, E ex)
+			throws GPAServeisServiceException;
+
+	<E> void registrarAuditServeisPortal(AuditServeisBDTO auditServeisBDTO, E dadesEntrada, E dadesResposta, E ex)
+			throws GPAServeisServiceException;
+
+	<E> void registrarAuditServeisPortalSollicituds(AuditServeisBDTO auditServeisBDTO, E dadesEntrada, E dadesResposta, E ex)
+			throws GPAServeisServiceException;
+
+	<E> void registrarAuditServeisNotificacions(AuditServeisBDTO auditServeisBDTO, E dadesEntrada, E dadesResposta, E ex)
+			throws GPAServeisServiceException;
+
+	<E> void registrarAuditServeisSignatures(AuditServeisBDTO auditServeisBDTO, E dadesEntrada, E dadesResposta, E ex)
+			throws GPAServeisServiceException;
+
+	<E> void registrarAuditServeisPortaSignatures(AuditServeisBDTO auditServeisBDTO, E dadesEntrada, E dadesResposta, E ex)
+			throws GPAServeisServiceException;
+
 	public AuditServeisBDTO rellenarAuditoria();
 }

@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.bcn.gpa.gpaserveis.business.AuditServeisService;
 import es.bcn.gpa.gpaserveis.business.ServeisService;
+import es.bcn.gpa.gpaserveis.business.dto.audit.AuditServeisBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
+import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesSignatura;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
@@ -39,21 +42,30 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 	@Autowired
 	private ServeisService serveisService;
 
+	/** The audit serveis service. */
+	@Autowired
+	private AuditServeisService auditServeisService;
+
 	/**
 	 * Servei específic que invocarà portasignatures per informar de l'estat de
 	 * les peticions.
 	 *
 	 * @return void
+	 * @throws GPAServeisServiceException
 	 */
 	@PostMapping("/resultat_peticio")
 	@ApiOperation(value = "Resultat de l'estat de les peticions", tags = { "Serveis Portasignatures API" })
 	public MciPortasigResultatPeticioRespostaDTO resultatEstatPeticio(
-			@ApiParam(value = "Resultat del portasignatures a una petició de vist-i-plau/signatura", required = true) @RequestBody MciPortasigResultatPeticioDTO resultatPeticio) {
+			@ApiParam(value = "Resultat del portasignatures a una petició de vist-i-plau/signatura", required = true) @RequestBody MciPortasigResultatPeticioDTO resultatPeticio)
+			throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
 			log.debug("resultatEstatPeticio(MciPortasigResultatPeticioDTO) - inici"); //$NON-NLS-1$
 			log.debug(resultatPeticio); // $NON-NLS-1$
 		}
+
+		String resultatAudit = "OK";
+		GPAServeisServiceException ex = null;
 
 		MciPortasigResultatPeticioRespostaDTO resposta = new MciPortasigResultatPeticioRespostaDTO();
 
@@ -91,6 +103,17 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 			// $NON-NLS-1$
 			resposta.setCodiError("KO");
 			resposta.setDescError(ExceptionUtils.getFullStackTrace(e));
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/resultat_peticio");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Resultat de l'estat de les peticions");
+
+			auditServeisService.registrarAuditServeisPortaSignatures(auditServeisBDTO, resultatPeticio, resposta, ex);
 		}
 
 		if (log.isDebugEnabled()) {
