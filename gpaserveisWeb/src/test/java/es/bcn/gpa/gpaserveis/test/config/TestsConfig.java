@@ -1,6 +1,9 @@
 package es.bcn.gpa.gpaserveis.test.config;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,6 +48,33 @@ import net.opentrends.openframe.services.security.config.RootApplicationContextS
 @Lazy(true)
 @CommonsLog
 public class TestsConfig implements EnvironmentAware {
+
+	/** Logger for this class. */
+	private static final Log LOGGER = LogFactory.getLog(TestsConfig.class);
+
+	/** The jndi name. */
+	@Value("${persistence.dataSource.jndiName}")
+	private String jndiName;
+
+	/** The provider. */
+	@Value("${DS.gpaserveisDs.provider}")
+	private String provider;
+
+	/** The dsname. */
+	@Value("${DS.gpaserveisDs.dsname}")
+	private String dsname;
+
+	/** The db url. */
+	@Value("${DS.gpaserveisDs.dbUrl}")
+	private String dbUrl;
+
+	/** The db user. */
+	@Value("${DS.gpaserveisDs.dbuser}")
+	private String dbUser;
+
+	/** The db password. */
+	@Value("${DS.gpaserveisDs.dbpassword}")
+	private String dbPassword;
 
 	/*
 	 * (non-Javadoc)
