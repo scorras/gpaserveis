@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.bcn.gpa.gpaserveis.business.dto.audit.AuditServeisBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDeclaracioResponsableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentTramitacioBDTO;
@@ -1468,5 +1469,15 @@ public interface ServeisService {
 
 	Persones obtenirPersonaExpedientByDocumentIdentitat(DadesExpedientBDTO dadesExpedientBDTO, String documentUsuari)
 			throws GPAServeisServiceException;
+
+	/**
+	 * Registrar auditoria de Serveis Tramitadors.
+	 *
+	 * @param auditServeisTramitadorsBDTO
+	 *            the audit serveis tramitadors BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void registrarAuditServeisTramitadors(AuditServeisBDTO auditServeisBDTO) throws GPAServeisServiceException;
 
 }

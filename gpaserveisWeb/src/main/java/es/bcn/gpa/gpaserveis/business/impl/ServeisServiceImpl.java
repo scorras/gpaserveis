@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +24,7 @@ import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.business.SollicitudsService;
 import es.bcn.gpa.gpaserveis.business.TramitsService;
 import es.bcn.gpa.gpaserveis.business.UnitatsGestoresService;
+import es.bcn.gpa.gpaserveis.business.dto.audit.AuditServeisBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDeclaracioResponsableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentTramitacioBDTO;
@@ -81,6 +83,7 @@ import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBD
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.business.impl.helper.ServeisServiceHelper;
 import es.bcn.gpa.gpaserveis.business.xml.bind.Jaxb2MarshallerWrapper;
+import es.bcn.gpa.gpaserveis.integration.orm.dao.AuditServeisTramitadorsDao;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesSignatura;
@@ -135,8 +138,7 @@ import net.opentrends.openframe.services.security.util.SecurityUtils;
  * The Class ServeisServiceImpl.
  */
 @Service
-
-/** The Constant log. */
+@Qualifier("serveisService")
 @CommonsLog
 public class ServeisServiceImpl implements ServeisService {
 
@@ -171,6 +173,11 @@ public class ServeisServiceImpl implements ServeisService {
 	/** The jaxb 2 marshaller wrapper. */
 	@Autowired
 	private Jaxb2MarshallerWrapper jaxb2MarshallerWrapper;
+
+	/** The audit serveis tramitadors dao. */
+	@Autowired(required = true)
+	@Qualifier("auditServeisTramitadorsDao")
+	private AuditServeisTramitadorsDao auditServeisTramitadorsDao;
 
 	/*
 	 * (non-Javadoc)
@@ -2427,6 +2434,24 @@ public class ServeisServiceImpl implements ServeisService {
 			}
 		}
 		return persones;
+	}
+
+	/**
+	 * Registrar auditoria de Serveis Tramitadors.
+	 *
+	 * @param auditServeisTramitadorsBDTO
+	 *            the audit serveis tramitadors BDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void registrarAuditServeisTramitadors(AuditServeisBDTO auditServeisBDTO) throws GPAServeisServiceException {
+
+		try {
+			auditServeisTramitadorsDao.insert(auditServeisBDTO);
+		} catch (Exception e) {
+			throw new GPAServeisServiceException();
+		}
+
 	}
 
 }

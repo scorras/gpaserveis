@@ -28,8 +28,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.bcn.gpa.gpaserveis.business.AuditServeisService;
 import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.business.dto.RespostaResultatBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.audit.AuditServeisBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDeclaracioResponsableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDeclaracioResponsableBDTO;
@@ -162,6 +164,10 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	@Value("${expedients.id.organ}")
 	private String expedientsIdOrgan;
 
+	/** The audit serveis service. */
+	@Autowired
+	private AuditServeisService auditServeisService;
+
 	/**
 	 * A aportar documentacio sollicitud.
 	 *
@@ -170,13 +176,18 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	 * @param documentacioAportar
 	 *            the documentacio aportar
 	 * @return the resposta sollicitud aportar document RDTO
+	 * @throws GPAServeisServiceException
 	 */
 	@PostMapping(BASE_MAPPING_SOLLICITUD_DOCUMENTACIO)
 	@ApiOperation(value = "Aportar documentació a la sol·licitud", tags = { "Serveis Portal API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaAportarDocumentSollicitudRDTO aportarDocumentacioSollicitud(
 			@ApiParam(value = "Codi de la sol·licitud", required = true) @PathVariable BigDecimal idSollicitud,
-			@ApiParam(value = "Dades de la creació del document") @RequestBody DocumentacioAportarSollicitudRDTO documentacioAportarSollicitud) {
+			@ApiParam(value = "Dades de la creació del document") @RequestBody DocumentacioAportarSollicitudRDTO documentacioAportarSollicitud)
+			throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		GPAServeisServiceException ex = null;
 
 		RespostaAportarDocumentSollicitudRDTO respostaAportarDocumentSollicitudRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_APORTAR_DOCUMENTACIO);
@@ -233,9 +244,23 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		} catch (GPAApiParamValidationException e) {
 			log.error("aportarDocumentacioExpedient(BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
 		} catch (Exception e) {
 			log.error("aportarDocumentacioExpedient(BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_APORTAR_DOCUMENTACIO, e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/sollicituds/" + idSollicitud + "/documentacio");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Aportar documentació a la sol·licitud");
+
+			auditServeisService.registrarAuditServeisPortalSollicituds(auditServeisBDTO, documentacioAportarSollicitud,
+					respostaResultatBDTO, ex);
 		}
 
 		RespostaAportarDocumentSollicitudBDTO respostaAportarDocumentSollicitudBDTO = new RespostaAportarDocumentSollicitudBDTO(
@@ -256,16 +281,21 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	 * @param idDocument
 	 *            the id document
 	 * @return the resposta esborrar document RDTO
+	 * @throws GPAServeisServiceException
 	 */
 	@DeleteMapping(BASE_MAPPING_SOLLICITUD_DOCUMENTACIO + "/{idDocument}")
 	@ApiOperation(value = "Esborrar un document de la sollicitud", tags = { "Serveis Portal API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaEsborrarDocumentSollicitudRDTO esborrarDocument(
 			@ApiParam(value = "Identificador de la sol·licitud", required = true) @PathVariable BigDecimal idSollicitud,
-			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument) {
+			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("esborrarDocument(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
 		}
+
+		String resultatAudit = "OK";
+		GPAServeisServiceException ex = null;
 
 		RespostaEsborrarDocumentSollicitudRDTO respostaEsborrarDocumentSollicitudRDTO = null;
 		DocsEntradaRDTO docsEntradaRDTO = null;
@@ -295,9 +325,22 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		} catch (GPAApiParamValidationException e) {
 			log.error("esborrarDocument(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
 		} catch (Exception e) {
 			log.error("esborrarDocument(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ESBORRAR_DOCUMENT, e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/sollicituds/" + idSollicitud + "/documentacio/" + idDocument);
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("DELETE");
+			auditServeisBDTO.setValueAccio("Esborrar un document de la sollicitud");
+
+			auditServeisService.registrarAuditServeisPortalSollicituds(auditServeisBDTO, null, respostaResultatBDTO, ex);
 		}
 
 		ExpedientsRDTO expedientsRDTO = (dadesSollicitudBDTO != null) ? dadesSollicitudBDTO.getExpedientsRDTO() : null;
@@ -324,6 +367,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	 * @param file
 	 *            the file
 	 * @return the resposta upload document RDTO
+	 * @throws GPAServeisServiceException
 	 */
 	@PostMapping(value = BASE_MAPPING_SOLLICITUD_DOCUMENTACIO + "/{idDocument}/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ApiOperation(value = "Pujar el contingut d'un document de la sol·licitud al gestor documental", tags = {
@@ -334,7 +378,11 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			@ApiParam(value = "Id de la sol·licitud", required = true) @PathVariable BigDecimal idSollicitud,
 			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
 			@ApiParam(value = "Fitxer") @RequestParam(name = "file", required = false) MultipartFile file,
-			@ApiParam(value = "Identificador Gestor Documental") @RequestParam(name = "idGestorDocumental", required = false) String idGestorDocumental) {
+			@ApiParam(value = "Identificador Gestor Documental") @RequestParam(name = "idGestorDocumental", required = false) String idGestorDocumental)
+			throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		GPAServeisServiceException ex = null;
 
 		RespostaUploadDocumentSollicitudRDTO respostaUploadDocumentSollicitudRDTO = null;
 		DadesSollicitudBDTO dadesSollicitudBDTO = null;
@@ -396,9 +444,22 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		} catch (GPAApiParamValidationException e) {
 			log.error("uploadDocumentExpedient(BigDecimal, BigDecimal, MultipartFile)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
 		} catch (Exception e) {
 			log.error("uploadDocumentExpedient(BigDecimal, BigDecimal, MultipartFile)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_UPLOAD_DOCUMENT, e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/sollicituds/" + idSollicitud + "/documentacio/" + idDocument + "/upload");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Pujar el contingut d'un document de la sol·licitud al gestor documental");
+
+			auditServeisService.registrarAuditServeisPortalSollicituds(auditServeisBDTO, null, respostaResultatBDTO, ex);
 		}
 
 		RespostaUploadDocumentSollicitudBDTO respostaUploadDocumentSollicitudBDTO = new RespostaUploadDocumentSollicitudBDTO(
@@ -418,13 +479,19 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	 * @param idDocument
 	 *            the id document
 	 * @return the response entity
+	 * @throws GPAServeisServiceException
 	 */
 	@GetMapping(value = BASE_MAPPING_SOLLICITUD_DOCUMENTACIO + "/{idDocument}", produces = "*/*")
 	@ApiOperation(value = "Descarregar document de la sol·licitud", tags = { "Serveis Portal API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public ResponseEntity<byte[]> descarregarDocumentSollicitud(
 			@ApiParam(value = "Id de la sol·licitud", required = true) @PathVariable BigDecimal idSollicitud,
-			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument) {
+			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument)
+			throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		GPAServeisServiceException ex = null;
+		ResponseEntity<byte[]> responseEntity = null;
 
 		DadesSollicitudBDTO dadesSollicitudBDTO = null;
 		try {
@@ -456,15 +523,29 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			String filename = docsRDTO.getDocsFisics().getNom();
 			headers.add("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 
-			return new ResponseEntity<byte[]>(result, headers, HttpStatus.OK);
+			responseEntity = new ResponseEntity<byte[]>(result, headers, HttpStatus.OK);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("descarregarDocumentSollicitud(BigDecimal, BigDecimal)", e); //$NON-NLS-1$ type
-			return new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+			responseEntity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
 		} catch (Exception e) {
 			log.error("descarregarDocumentSollicitud(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
-			return new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
+			responseEntity = new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/sollicituds/" + idSollicitud + "/documentacio/" + idDocument);
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Descarregar document de la sol·licitud");
+
+			auditServeisService.registrarAuditServeisPortalSollicituds(auditServeisBDTO, null, responseEntity, ex);
 		}
+		return responseEntity;
 	}
 
 	/**
@@ -477,6 +558,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	 * @param documentSubstituir
 	 *            the document substituir
 	 * @return the resposta substituir document sollicitud RDTO
+	 * @throws GPAServeisServiceException
 	 */
 	@PostMapping(BASE_MAPPING_SOLLICITUD_DOCUMENTACIO + "/{idDocument}/substituir")
 	@ApiOperation(value = "Substituir les dades d'un document de la sol·licitud", tags = { "Serveis Portal API" }, extensions = {
@@ -484,7 +566,11 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	public RespostaSubstituirDocumentSollicitudRDTO substituirDocumentSollicitud(
 			@ApiParam(value = "Id de la sol·licitud", required = true) @PathVariable BigDecimal idSollicitud,
 			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
-			@ApiParam(value = "Dades de la versió del document") @RequestBody DocumentAportatSubstituirRDTO documentSubstituir) {
+			@ApiParam(value = "Dades de la versió del document") @RequestBody DocumentAportatSubstituirRDTO documentSubstituir)
+			throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		GPAServeisServiceException ex = null;
 
 		RespostaSubstituirDocumentSollicitudRDTO respostaSubstituirDocumentSollicitudRDTO = null;
 		DocsEntradaRDTO docsEntradaRDTO = null;
@@ -541,9 +627,22 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		} catch (GPAApiParamValidationException e) {
 			log.error("substituirDocumentExpedient(BigDecimal, BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
 		} catch (Exception e) {
 			log.error("substituirDocumentExpedient(BigDecimal, BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_SUBSTITUIR_DOCUMENT, e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/sollicituds/" + idSollicitud + "/documentacio/" + idDocument + "/substituir");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Substituir les dades d'un document de la sol·licitud");
+
+			auditServeisService.registrarAuditServeisPortalSollicituds(auditServeisBDTO, documentSubstituir, respostaResultatBDTO, ex);
 		}
 
 		RespostaSubstituirDocumentSollicitudBDTO respostaSubstituirDocumentSollicitudBDTO = new RespostaSubstituirDocumentSollicitudBDTO(
@@ -579,6 +678,9 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		if (log.isDebugEnabled()) {
 			log.debug("crearSolicitud(SollicitudCrearRDTO) - inici"); //$NON-NLS-1$
 		}
+
+		String resultatAudit = "OK";
+		GPAServeisServiceException ex = null;
 
 		RespostaCrearSollicitudRDTO respostaCrearSollicitudRDTO = null;
 		SollicitudsRDTO returnSollicitudsRDTO = null;
@@ -667,9 +769,22 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		} catch (GPAApiParamValidationException e) {
 			log.error("crearSolicitud(SollicitudCrearRDTO)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
 		} catch (Exception e) {
 			log.error("crearSolicitud(SollicitudCrearRDTO)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_CREAR_SOLLICITUD, e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients/" + codiExpedient + "/sollicituds");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Crear una sol·licitud");
+
+			auditServeisService.registrarAuditServeisPortalSollicituds(auditServeisBDTO, sollicitudCrearRDTO, respostaResultatBDTO, ex);
 		}
 
 		RespostaSollicitudCrearBDTO respostaSollicitudCrearBDTO = new RespostaSollicitudCrearBDTO(returnSollicitudsRDTO,
@@ -691,16 +806,21 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	 * @param solicitudExpedient
 	 *            the solicitud expedient
 	 * @return the resposta actualitzar expedient RDTO
+	 * @throws GPAServeisServiceException
 	 */
 	@PostMapping("/sollicituds/{idSollicitud}")
 	@ApiOperation(value = "Actualitzar dades de la sol·licitud de la sol·licitud", tags = { "Serveis Portal API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaActualitzarSollicitudRDTO actualitzarSollicitud(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable BigDecimal idSollicitud,
-			@ApiParam(value = "Dades de la actualització de l'expedient") @RequestBody SollicitudActualitzarRDTO sollicitudActualitzar) {
+			@ApiParam(value = "Dades de la actualització de l'expedient") @RequestBody SollicitudActualitzarRDTO sollicitudActualitzar)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO) - inici"); //$NON-NLS-1$
 		}
+
+		String resultatAudit = "OK";
+		GPAServeisServiceException ex = null;
 
 		RespostaActualitzarSollicitudRDTO respostaActualitzarSollicitudsRDTO = null;
 		SollicitudsRDTO returnSollicitudsRDTO = null;
@@ -796,9 +916,22 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		} catch (GPAApiParamValidationException e) {
 			log.error("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
 		} catch (Exception e) {
 			log.error("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ACTUALITZAR_SOLLICITUD, e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/sollicituds/" + idSollicitud);
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Actualitzar dades de la sol·licitud de la sol·licitud");
+
+			auditServeisService.registrarAuditServeisPortalSollicituds(auditServeisBDTO, sollicitudActualitzar, respostaResultatBDTO, ex);
 		}
 
 		RespostaSollicitudsActualitzarBDTO respostaSollicitudsActualitzarBDTO = new RespostaSollicitudsActualitzarBDTO(
@@ -827,32 +960,51 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			@ApiParam(value = "Identificador de la sol·licitud", required = true) @PathVariable BigDecimal idSollicitud)
 			throws GPAServeisServiceException {
 
+		String resultatAudit = "OK";
+		GPAServeisServiceException ex = null;
+
 		RespostaConsultaSollicitudsRDTO respostaConsultaSollicitudsRDTO = new RespostaConsultaSollicitudsRDTO();
 
 		BigDecimal visibilitat = BigDecimal.ONE;
 
 		try {
-			// TODO GPA-2923
-			visibilitat = ServeisRestControllerVisibilitatHelper.obtenirVisibilitatSollicitud(serveisService, idSollicitud,
-					expedientsIdOrgan);
-		} catch (GPAApiParamValidationException e) {
-			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
-			throw new GPAServeisServiceException(e.getResultat().getDescripcio());
-		} catch (Exception e) {
-			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
-			throw new GPAServeisServiceException(e.getMessage());
+
+			try {
+				// TODO GPA-2923
+				visibilitat = ServeisRestControllerVisibilitatHelper.obtenirVisibilitatSollicitud(serveisService, idSollicitud,
+						expedientsIdOrgan);
+			} catch (GPAApiParamValidationException e) {
+				log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
+				throw new GPAServeisServiceException(e.getResultat().getDescripcio());
+			} catch (Exception e) {
+				log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
+				throw new GPAServeisServiceException(e.getMessage());
+			}
+
+			// Datos principales de la solicitud
+			DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
+
+			// El identificador de la solicitud debe ser válido
+			if (dadesSollicitudBDTO.getSollicitudsRDTO() == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_SOLLICITUDS_NOT_FOUND.getDescripcio());
+			}
+			SollicitudConsultaRDTO sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
+
+			respostaConsultaSollicitudsRDTO.setSollicitud(sollicitudConsultaRDTO);
+		} catch (GPAServeisServiceException e) {
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/sollicituds/" + idSollicitud);
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Consultar les dades de la sol·licitud");
+
+			auditServeisService.registrarAuditServeisPortalSollicituds(auditServeisBDTO, null, respostaConsultaSollicitudsRDTO, ex);
+
 		}
-
-		// Datos principales de la solicitud
-		DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
-
-		// El identificador de la solicitud debe ser válido
-		if (dadesSollicitudBDTO.getSollicitudsRDTO() == null) {
-			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_SOLLICITUDS_NOT_FOUND.getDescripcio());
-		}
-		SollicitudConsultaRDTO sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
-
-		respostaConsultaSollicitudsRDTO.setSollicitud(sollicitudConsultaRDTO);
 
 		return respostaConsultaSollicitudsRDTO;
 	}
@@ -873,37 +1025,57 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			@ApiParam(value = "Identificador de la sol·licitud", required = true) @PathVariable BigDecimal idSollicitud,
 			@RequestParam(name = "codiCSV", required = false) String codiCSV) throws GPAServeisServiceException {
 
+		String resultatAudit = "OK";
+		GPAServeisServiceException ex = null;
+
 		BigDecimal visibilitat = BigDecimal.ONE;
 
+		SollicitudConsultaRDTO sollicitudConsultaRDTO = null;
+		String dadesXmlBase64 = null;
+
 		try {
-			// TODO GPA-2923
-			visibilitat = ServeisRestControllerVisibilitatHelper.obtenirVisibilitatSollicitud(serveisService, idSollicitud,
-					expedientsIdOrgan);
-		} catch (GPAApiParamValidationException e) {
-			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
-			throw new GPAServeisServiceException(e.getResultat().getDescripcio());
-		} catch (Exception e) {
-			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
-			throw new GPAServeisServiceException(e.getMessage());
+			try {
+				// TODO GPA-2923
+				visibilitat = ServeisRestControllerVisibilitatHelper.obtenirVisibilitatSollicitud(serveisService, idSollicitud,
+						expedientsIdOrgan);
+			} catch (GPAApiParamValidationException e) {
+				log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
+				throw new GPAServeisServiceException(e.getResultat().getDescripcio());
+			} catch (Exception e) {
+				log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
+				throw new GPAServeisServiceException(e.getMessage());
+			}
+
+			// Datos principales de la solicitud
+			DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
+
+			// El identificador de la solicitud debe ser válido
+			if (dadesSollicitudBDTO.getSollicitudsRDTO() == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_SOLLICITUDS_NOT_FOUND.getDescripcio());
+			}
+
+			// TODO Validación de que la solicitud se encuentre registrada (El
+			// XML
+			// se recupera de Documentum)
+
+			sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
+			sollicitudConsultaRDTO.setCodiCSV(codiCSV);
+
+			// TODO Recuperar el XML de Documentum
+			dadesXmlBase64 = serveisService.crearXmlDadesSollicitud(sollicitudConsultaRDTO);
+		} catch (GPAServeisServiceException e) {
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/sollicituds/" + idSollicitud + "/report/exportacio-xml");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Exporta les dades de la sol·licitud en format XML");
+
+			auditServeisService.registrarAuditServeisPortalSollicituds(auditServeisBDTO, codiCSV, sollicitudConsultaRDTO, ex);
 		}
-
-		// Datos principales de la solicitud
-		DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
-
-		// El identificador de la solicitud debe ser válido
-		if (dadesSollicitudBDTO.getSollicitudsRDTO() == null) {
-			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_SOLLICITUDS_NOT_FOUND.getDescripcio());
-		}
-
-		// TODO Validación de que la solicitud se encuentre registrada (El XML
-		// se recupera de Documentum)
-
-		SollicitudConsultaRDTO sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
-		sollicitudConsultaRDTO.setCodiCSV(codiCSV);
-
-		// TODO Recuperar el XML de Documentum
-		String dadesXmlBase64 = serveisService.crearXmlDadesSollicitud(sollicitudConsultaRDTO);
-
 		return new ResponseEntity<String>(dadesXmlBase64, HttpStatus.OK);
 	}
 
@@ -913,16 +1085,21 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	 * @param idSollicitud
 	 *            the id sollicitud
 	 * @return the resposta registrar sollicitud RDTO
+	 * @throws GPAServeisServiceException
 	 */
 	@PostMapping("/sollicituds/{idSollicitud}/registre")
 	@ApiOperation(value = "Registrar la sol·licitud", tags = { "Serveis Portal API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaRegistrarSollicitudRDTO registrarSolicitud(
 			@ApiParam(value = "Id de sollicitud", required = true) @PathVariable BigDecimal idSollicitud,
-			@ApiParam(value = "Dades de l'registre de la sol·licitud", required = false) @RequestBody(required = false) SollicitudRegistrarRDTO sollicitudRegistrarRDTO) {
+			@ApiParam(value = "Dades de l'registre de la sol·licitud", required = false) @RequestBody(required = false) SollicitudRegistrarRDTO sollicitudRegistrarRDTO)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("registrarSolicitud(BigDecimal) - inici"); //$NON-NLS-1$
 		}
+
+		String resultatAudit = "OK";
+		GPAServeisServiceException ex = null;
 
 		RespostaRegistrarSollicitudRDTO respostaRegistrarSollicitudRDTO = null;
 		DadesSollicitudBDTO dadesSollicitudBDTO = null;
@@ -934,6 +1111,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		boolean registreDocumentacioAssociat = false;
 		boolean registreSollicitudAssociat = false;
 		ArrayList<BigDecimal> idDocsEntradaList = new ArrayList<BigDecimal>();
+		RespostaSollicitudsRegistrarBDTO respostaSollicitudsRegistrarBDTO = null;
 		try {
 
 			// TODO GPA-2923
@@ -1122,6 +1300,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		} catch (GPAApiParamValidationException e) {
 			log.error("registrarSolicitud(BigDecimal)", e);// $NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
 		} catch (Exception e) {
 			log.error("registrarSolicitud(BigDecimal)", e);
 
@@ -1130,13 +1310,24 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					idDocsEntradaList);
 
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_REGISTRAR_SOLLICITUD, e);
-		}
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
+		} finally {
+			respostaSollicitudsRegistrarBDTO = new RespostaSollicitudsRegistrarBDTO(respostaCrearRegistreExpedient,
+					respostaCrearJustificant, dadesSollicitudBDTO != null ? dadesSollicitudBDTO.getExpedientsRDTO() : null,
+					dadesSollicitudBDTO != null ? dadesSollicitudBDTO.getSollicitudsRDTO() : null, respostaResultatBDTO);
+			respostaRegistrarSollicitudRDTO = modelMapper.map(respostaSollicitudsRegistrarBDTO, RespostaRegistrarSollicitudRDTO.class);
 
-		RespostaSollicitudsRegistrarBDTO respostaSollicitudsRegistrarBDTO = new RespostaSollicitudsRegistrarBDTO(
-				respostaCrearRegistreExpedient, respostaCrearJustificant,
-				dadesSollicitudBDTO != null ? dadesSollicitudBDTO.getExpedientsRDTO() : null,
-				dadesSollicitudBDTO != null ? dadesSollicitudBDTO.getSollicitudsRDTO() : null, respostaResultatBDTO);
-		respostaRegistrarSollicitudRDTO = modelMapper.map(respostaSollicitudsRegistrarBDTO, RespostaRegistrarSollicitudRDTO.class);
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/sollicituds/" + idSollicitud + "/registre");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Registrar la sol·licitud");
+
+			auditServeisService.registrarAuditServeisPortalSollicituds(auditServeisBDTO, sollicitudRegistrarRDTO,
+					respostaSollicitudsRegistrarBDTO, ex);
+		}
 
 		if (log.isDebugEnabled()) {
 			log.debug("registrarSolicitud(BigDecimal) - fi"); //$NON-NLS-1$

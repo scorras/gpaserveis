@@ -1,12 +1,19 @@
 package es.bcn.gpa.gpaserveis.test.config;
 
+import javax.sql.DataSource;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ConfiguracioDocumentacioApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi;
@@ -46,6 +53,33 @@ import net.opentrends.openframe.services.security.config.RootApplicationContextS
 @CommonsLog
 public class TestsConfig implements EnvironmentAware {
 
+	/** Logger for this class. */
+	private static final Log LOGGER = LogFactory.getLog(TestsConfig.class);
+
+	/** The jndi name. */
+	@Value("${persistence.dataSource.jndiName}")
+	private String jndiName;
+
+	/** The provider. */
+	@Value("${DS.gpaserveisDs.provider}")
+	private String provider;
+
+	/** The dsname. */
+	@Value("${DS.gpaserveisDs.dsname}")
+	private String dsname;
+
+	/** The db url. */
+	@Value("${DS.gpaserveisDs.dbUrl}")
+	private String dbUrl;
+
+	/** The db user. */
+	@Value("${DS.gpaserveisDs.dbuser}")
+	private String dbUser;
+
+	/** The db password. */
+	@Value("${DS.gpaserveisDs.dbpassword}")
+	private String dbPassword;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -54,6 +88,27 @@ public class TestsConfig implements EnvironmentAware {
 	 */
 	@Override
 	public void setEnvironment(Environment environment) {
+	}
+
+	/**
+	 * Data source.
+	 *
+	 * @return the data source
+	 */
+	@Bean(name = "dataSource")
+	public DataSource dataSource() {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("dataSource() - inici"); //$NON-NLS-1$
+		}
+
+		DataSource returnDataSource = new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
+				.setName("testdb;DATABASE_TO_UPPER=false;MODE=Oracle").addScript("classpath:sql/install/01_GPASERVEIS_T.sql")
+				.generateUniqueName(true).build();
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("dataSource() - fi"); //$NON-NLS-1$
+		}
+		return returnDataSource;
+
 	}
 
 	/**
