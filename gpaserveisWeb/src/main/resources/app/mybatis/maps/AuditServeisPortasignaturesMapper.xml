@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="es.bcn.gpa.gpaserveis.integration.orm.dao.AuditServeisPortasignaturesDao">
+<mapper namespace="es.bcn.gpa.gpaserveis.integration.orm.dao.AuditServeisPortaSignaturesDao">
   <resultMap id="BaseResultMap" type="es.bcn.gpa.gpaserveis.integration.orm.model.AuditServeis">
     <id column="ASPS_ID" jdbcType="DECIMAL" property="id" />
     <result column="ASPS_MOMENT_EXECUCIO" jdbcType="TIMESTAMP" property="momentExecucio" />

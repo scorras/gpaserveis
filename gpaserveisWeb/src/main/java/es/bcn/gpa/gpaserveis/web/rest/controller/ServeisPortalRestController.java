@@ -273,7 +273,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		RespostaCercaProcedimentsRDTO resposta = new RespostaCercaProcedimentsRDTO();
 		List<ProcedimentsCercaRDTO> procedimentsCercaRDTOList = new ArrayList<ProcedimentsCercaRDTO>();
@@ -309,8 +309,9 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
-			throw ex;
+			ex = e;
+			;
+			throw e;
 		} finally {
 			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
 
@@ -346,7 +347,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			throws GPAServeisServiceException {
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		RespostaConsultaProcedimentsRDTO respostaConsultaProcedimentsRDTO = new RespostaConsultaProcedimentsRDTO();
 		try {
@@ -362,8 +363,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
-			throw ex;
+			ex = e;
+			throw e;
 		} finally {
 			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
 
@@ -397,7 +398,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			throws GPAServeisServiceException {
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		RespostaConsultaDadesOperacioRDTO respostaConsultaDadesOperacioRDTO = new RespostaConsultaDadesOperacioRDTO();
 		DadesOperacioConsultaRDTO dadesOperacioConsultaRDTO = new DadesOperacioConsultaRDTO();
@@ -428,8 +429,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
-			throw ex;
+			ex = e;
+			throw e;
 		} finally {
 			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
 
@@ -463,7 +464,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			throws GPAServeisServiceException {
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		RespostaConsultaConfiguracioDocumentacioAportadaRDTO respostaConsultaConfiguracioDocumentacioAportadaRDTO = new RespostaConsultaConfiguracioDocumentacioAportadaRDTO();
 		try {
@@ -505,8 +506,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
-			throw ex;
+			ex = e;
+			throw e;
 		} finally {
 			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
 
@@ -582,7 +583,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		RespostaCercaExpedientsRDTO resposta = new RespostaCercaExpedientsRDTO();
 		List<ExpedientsCercaRDTO> expedientsCercaRDTOList = new ArrayList<ExpedientsCercaRDTO>();
@@ -620,8 +621,9 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
-			throw ex;
+			ex = e;
+			;
+			throw e;
 		} finally {
 			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
 
@@ -657,7 +659,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			throws GPAServeisServiceException {
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		RespostaConsultaExpedientsRDTO respostaConsultaExpedientsRDTO = new RespostaConsultaExpedientsRDTO();
 
@@ -716,8 +718,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
-			throw ex;
+			ex = e;
+			throw e;
 		} finally {
 
 			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
@@ -750,7 +752,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			throws GPAServeisServiceException {
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		BigDecimal visibilitat = BigDecimal.ONE;
 		String dadesXmlBase64 = null;
@@ -793,8 +795,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
-			throw ex;
+			ex = e;
+			throw e;
 		} finally {
 			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
 
@@ -828,7 +830,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			throws GPAServeisServiceException {
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		ResponseEntity<byte[]> resposta = null;
 
@@ -868,12 +870,12 @@ public class ServeisPortalRestController extends BaseRestController {
 			log.error("descarregarDocumentExpedient(String, BigDecimal)", e); //$NON-NLS-1$ type
 			resposta = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} catch (Exception e) {
 			log.error("descarregarDocumentExpedient(String, BigDecimal)", e); //$NON-NLS-1$
 			resposta = new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} finally {
 			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
 
@@ -907,7 +909,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		RespostaCrearExpedientRDTO respostaCrearSolicitudsRDTO = null;
 		ExpedientsRDTO returnExpedientsRDTO = null;
@@ -965,12 +967,12 @@ public class ServeisPortalRestController extends BaseRestController {
 			log.error("crearSolicitudExpedient(ExpedientCrearRDTO)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} catch (Exception e) {
 			log.error("crearSolicitudExpedient(ExpedientCrearRDTO)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_CREAR_EXPEDIENT, e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} finally {
 			respostaExpedientsCrearBDTO = new RespostaExpedientsCrearBDTO(returnExpedientsRDTO, respostaResultatBDTO);
 			respostaCrearSolicitudsRDTO = modelMapper.map(respostaExpedientsCrearBDTO, RespostaCrearExpedientRDTO.class);
@@ -1013,7 +1015,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		RespostaActualitzarExpedientRDTO respostaActualitzarSolicitudsRDTO = null;
 		ExpedientsRDTO returnExpedientsRDTO = null;
@@ -1093,12 +1095,12 @@ public class ServeisPortalRestController extends BaseRestController {
 			log.error("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} catch (Exception e) {
 			log.error("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT, e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} finally {
 			respostaExpedientsActualitzarBDTO = new RespostaExpedientsActualitzarBDTO(returnExpedientsRDTO, respostaResultatBDTO);
 			respostaActualitzarSolicitudsRDTO = modelMapper.map(respostaExpedientsActualitzarBDTO, RespostaActualitzarExpedientRDTO.class);
@@ -1141,7 +1143,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		RespostaRegistrarExpedientRDTO respostaRegistrarExpedientRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
@@ -1312,7 +1314,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			log.error("registrarSolicitudExpedient(BigDecimal)", e);// $NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} catch (Exception e) {
 			log.error("registrarSolicitudExpedient(BigDecimal)", e);
 
@@ -1322,7 +1324,7 @@ public class ServeisPortalRestController extends BaseRestController {
 
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_REGISTRAR_EXPEDIENT, e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} finally {
 			respostaExpedientsRegistrarBDTO = new RespostaExpedientsRegistrarBDTO(respostaCrearRegistreExpedient, respostaCrearJustificant,
 					dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
@@ -1364,7 +1366,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			throws GPAServeisServiceException {
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		RespostaAportarDocumentRDTO respostaAportarDocumentRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_APORTAR_DOCUMENTACIO);
@@ -1493,12 +1495,12 @@ public class ServeisPortalRestController extends BaseRestController {
 			log.error("aportarDocumentacioExpedient(BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} catch (Exception e) {
 			log.error("aportarDocumentacioExpedient(BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_APORTAR_DOCUMENTACIO, e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} finally {
 			respostaAportarDocumentExpedientBDTO = new RespostaAportarDocumentExpedientBDTO(docsEntradaRDTORespostaList,
 					(dadesExpedientBDTO != null && dadesExpedientBDTO.getExpedientsRDTO() != null) ? dadesExpedientBDTO.getExpedientsRDTO()
@@ -1543,7 +1545,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			throws GPAServeisServiceException {
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		RespostaSubstituirDocumentRDTO respostaSubstituirDocumentRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
@@ -1609,12 +1611,12 @@ public class ServeisPortalRestController extends BaseRestController {
 			log.error("substituirDocumentExpedient(BigDecimal, BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} catch (Exception e) {
 			log.error("substituirDocumentExpedient(BigDecimal, BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_SUBSTITUIR_DOCUMENT, e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} finally {
 			respostaSubstituirDocumentExpedientBDTO = new RespostaSubstituirDocumentExpedientBDTO(docsEntradaRDTOResposta,
 					(dadesExpedientBDTO != null && dadesExpedientBDTO.getExpedientsRDTO() != null) ? dadesExpedientBDTO.getExpedientsRDTO()
@@ -1661,7 +1663,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			throws GPAServeisServiceException {
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		RespostaUploadDocumentRDTO respostaUploadDocumentRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
@@ -1714,12 +1716,12 @@ public class ServeisPortalRestController extends BaseRestController {
 			log.error("uploadDocumentExpedient(BigDecimal, BigDecimal, MultipartFile)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} catch (Exception e) {
 			log.error("uploadDocumentExpedient(BigDecimal, BigDecimal, MultipartFile)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_UPLOAD_DOCUMENT, e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} finally {
 			respostaUploadDocumentExpedientBDTO = new RespostaUploadDocumentExpedientBDTO(docsEntradaRDTOResposta,
 					(dadesExpedientBDTO != null && dadesExpedientBDTO.getExpedientsRDTO() != null) ? dadesExpedientBDTO.getExpedientsRDTO()
@@ -1762,7 +1764,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		RespostaEsborrarDocumentRDTO respostaEsborrarDocumentRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
@@ -1802,12 +1804,12 @@ public class ServeisPortalRestController extends BaseRestController {
 			log.error("esborrarDocument(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} catch (Exception e) {
 			log.error("esborrarDocument(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ESBORRAR_DOCUMENT, e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} finally {
 			expedientsRDTO = (dadesExpedientBDTO != null) ? dadesExpedientBDTO.getExpedientsRDTO() : null;
 			respostaEsborrarDocumentEntradaBDTO = new RespostaEsborrarDocumentEntradaBDTO(expedientsRDTO, docsEntradaRDTO,
@@ -1853,7 +1855,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		RespostaEsmenarExpedientRDTO respostaEsmenarExpedientRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
@@ -2050,7 +2052,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			log.error("esmenarExpedient(BigDecimal, ExpedientEsmenaRDTO)", e);// $NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} catch (Exception e) {
 			log.error("esmenarExpedient(BigDecimal, ExpedientEsmenaRDTO)", e); // $NON-NLS-1$
 
@@ -2062,7 +2064,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			docsEntradaRDTORespostaList = null;
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ESMENAR_EXPEDIENT, e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} finally {
 			respostaExpedientsEsmenarBDTO = new RespostaExpedientsEsmenarBDTO(
 					dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null,
@@ -2159,7 +2161,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		RespostaAbandonarExpedientRDTO respostaAbandonarExpedientRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
@@ -2214,7 +2216,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			log.error("abandonarExpedient(BigDecimal, String, ExpedientAbandonamentRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_DESISTIR_RENUNCIAR_EXPEDIENT, e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} finally {
 			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
 
@@ -2256,7 +2258,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			throws GPAServeisServiceException {
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		ResponseEntity<byte[]> resposta = null;
 		try {
@@ -2292,12 +2294,12 @@ public class ServeisPortalRestController extends BaseRestController {
 			log.error("descarregarDocumentSignatExpedient(String, BigDecimal)", e); //$NON-NLS-1$ type
 			resposta = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} catch (Exception e) {
 			log.error("descarregarDocumentSignatExpedient(String, BigDecimal)", e); //$NON-NLS-1$
 			resposta = new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
+			ex = e;
 		} finally {
 			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
 
@@ -2334,7 +2336,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			throws GPAServeisServiceException {
 
 		String resultatAudit = "OK";
-		GPAServeisServiceException ex = null;
+		Throwable ex = null;
 
 		Boolean esAportada = null;
 		DocsEntradaRDTO docsEntradaRDTO = null;
@@ -2405,8 +2407,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			resultatAudit = "KO";
-			ex = new GPAServeisServiceException(e);
-			throw ex;
+			ex = e;
+			throw e;
 		} finally {
 			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
 

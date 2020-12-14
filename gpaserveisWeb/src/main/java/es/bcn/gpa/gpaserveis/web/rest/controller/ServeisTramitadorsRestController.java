@@ -1959,8 +1959,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			auditServeisBDTO.setTipusPeticio("POST");
 			auditServeisBDTO.setValueAccio("Incorporar un nou document electrònic");
 
-			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, guardarDocumentEntradaFitxerBDTO, respostaResultatBDTO,
-					ex);
+			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, documentIncorporacioNou, respostaResultatBDTO, ex);
 		}
 
 		if (BooleanUtils.isTrue(esAportada)) {
@@ -2792,15 +2791,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			auditServeisBDTO.setTipusPeticio("POST");
 			auditServeisBDTO.setValueAccio("Validar un document");
 
-			if (guardarDocumentEntradaFitxerBDTO == null && guardarDocumentTramitacioFitxerBDTO == null) {
-				auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, documentComplecio, respostaResultatBDTO, ex);
-			} else if (guardarDocumentEntradaFitxerBDTO != null) {
-				auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, guardarDocumentEntradaFitxerBDTO,
-						respostaResultatBDTO, ex);
-			} else if (guardarDocumentTramitacioFitxerBDTO != null) {
-				auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, guardarDocumentTramitacioFitxerBDTO,
-						respostaResultatBDTO, ex);
-			}
+			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, documentComplecio, respostaResultatBDTO, ex);
 
 		}
 
@@ -3061,12 +3052,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			auditServeisBDTO.setTipusPeticio("POST");
 			auditServeisBDTO.setValueAccio("Preparar un requeriment a l’interessat");
 
-			if (crearRequerimentBDTO != null) {
-				auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, crearRequerimentBDTO, respostaResultatBDTO, ex);
-			} else {
-				auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, guardarRequerimentFitxerBDTO, respostaResultatBDTO,
-						ex);
-			}
+			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, crearRequerimentBDTO, respostaResultatBDTO, ex);
 		}
 
 		RespostaPrepararRequerimentExpedientBDTO respostaPrepararRequerimentExpedientBDTO = new RespostaPrepararRequerimentExpedientBDTO(
