@@ -91,7 +91,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from AUDIT_SERVEIS_MDS ASM
+    from AUDIT_SERVEIS_PORTAL_SOLL ASM
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -105,7 +105,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from AUDIT_SERVEIS_MDS ASM
+    from AUDIT_SERVEIS_PORTAL_SOLL ASM
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -118,24 +118,24 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from AUDIT_SERVEIS_MDS ASM
+    from AUDIT_SERVEIS_PORTAL_SOLL ASM
     where ASM.ID = #{id,jdbcType=DECIMAL}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
-    delete from AUDIT_SERVEIS_MDS
+    delete from AUDIT_SERVEIS_PORTAL_SOLL
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
   <delete id="deleteByExample" parameterType="es.bcn.gpa.gpaserveis.integration.orm.model.AuditServeisExample">
-    delete from AUDIT_SERVEIS_MDS ASM
+    delete from AUDIT_SERVEIS_PORTAL_SOLL ASM
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="es.bcn.gpa.gpaserveis.integration.orm.model.AuditServeis">
     <selectKey keyProperty="id" order="BEFORE" resultType="java.math.BigDecimal">
-      SELECT SERVEIS_MDS_ID_SEQUENCE.NEXTVAL FROM DUAL
+      SELECT SERVEIS_PORT_SOLL_ID_SEQUENCE.NEXTVAL FROM DUAL
     </selectKey>
-    insert into AUDIT_SERVEIS_MDS (ID, MOMENT_EXECUCIO, USUARI, 
+    insert into AUDIT_SERVEIS_PORTAL_SOLL (ID, MOMENT_EXECUCIO, USUARI, 
       MAPPING_ACCIO, VALUE_ACCIO, TIPUS_PETICIO, 
       RESULTAT, DADES_AUTH, DADES_ENTRADA, 
       DADES_RESPOSTA, DETALL_ERROR)
@@ -146,9 +146,9 @@
   </insert>
   <insert id="insertSelective" parameterType="es.bcn.gpa.gpaserveis.integration.orm.model.AuditServeis">
     <selectKey keyProperty="id" order="BEFORE" resultType="java.math.BigDecimal">
-      SELECT SERVEIS_MDS_ID_SEQUENCE.NEXTVAL FROM DUAL
+      SELECT SERVEIS_PORT_SOLL_ID_SEQUENCE.NEXTVAL FROM DUAL
     </selectKey>
-    insert into AUDIT_SERVEIS_MDS
+    insert into AUDIT_SERVEIS_PORTAL_SOLL
     <trim prefix="(" suffix=")" suffixOverrides=",">
       ID,
       <if test="momentExecucio != null">
@@ -217,13 +217,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="es.bcn.gpa.gpaserveis.integration.orm.model.AuditServeisExample" resultType="java.lang.Long">
-    select count(*) from AUDIT_SERVEIS_MDS ASM
+    select count(*) from AUDIT_SERVEIS_PORTAL_SOLL ASM
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update AUDIT_SERVEIS_MDS ASM
+    update AUDIT_SERVEIS_PORTAL_SOLL ASM
     <set>
       <if test="record.id != null">
         ASM.ID = #{record.id,jdbcType=DECIMAL},
@@ -264,7 +264,7 @@
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map">
-    update AUDIT_SERVEIS_MDS ASM
+    update AUDIT_SERVEIS_PORTAL_SOLL ASM
     set ASM.ID = #{record.id,jdbcType=DECIMAL},
       ASM.MOMENT_EXECUCIO = #{record.momentExecucio,jdbcType=TIMESTAMP},
       ASM.USUARI = #{record.usuari,jdbcType=NVARCHAR},
@@ -281,7 +281,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update AUDIT_SERVEIS_MDS ASM
+    update AUDIT_SERVEIS_PORTAL_SOLL ASM
     set ASM.ID = #{record.id,jdbcType=DECIMAL},
       ASM.MOMENT_EXECUCIO = #{record.momentExecucio,jdbcType=TIMESTAMP},
       ASM.USUARI = #{record.usuari,jdbcType=NVARCHAR},
@@ -294,7 +294,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="es.bcn.gpa.gpaserveis.integration.orm.model.AuditServeis">
-    update AUDIT_SERVEIS_MDS
+    update AUDIT_SERVEIS_PORTAL_SOLL
     <set>
       <if test="momentExecucio != null">
         MOMENT_EXECUCIO = #{momentExecucio,jdbcType=TIMESTAMP},
@@ -330,7 +330,7 @@
     where ID = #{id,jdbcType=DECIMAL}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="es.bcn.gpa.gpaserveis.integration.orm.model.AuditServeis">
-    update AUDIT_SERVEIS_MDS
+    update AUDIT_SERVEIS_PORTAL_SOLL
     set MOMENT_EXECUCIO = #{momentExecucio,jdbcType=TIMESTAMP},
       USUARI = #{usuari,jdbcType=NVARCHAR},
       MAPPING_ACCIO = #{mappingAccio,jdbcType=NVARCHAR},
@@ -344,7 +344,7 @@
     where ID = #{id,jdbcType=DECIMAL}
   </update>
   <update id="updateByPrimaryKey" parameterType="es.bcn.gpa.gpaserveis.integration.orm.model.AuditServeis">
-    update AUDIT_SERVEIS_MDS
+    update AUDIT_SERVEIS_PORTAL_SOLL
     set MOMENT_EXECUCIO = #{momentExecucio,jdbcType=TIMESTAMP},
       USUARI = #{usuari,jdbcType=NVARCHAR},
       MAPPING_ACCIO = #{mappingAccio,jdbcType=NVARCHAR},
