@@ -117,22 +117,22 @@ public class DadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 	 */
 	@Autowired
 	public DadesExpedientBDTOToExpedientsConsultaRDTOMapper(
-	        @Qualifier("internalToDataHoraConverter") InternalToDataHoraConverter internalToDataHoraConverter,
-	        @Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
-	        @Qualifier("expedientInternalToEstatCiutadaConverter") InternalToEstatCiutadaConverter internalToEstatCiutadaConverter,
-	        @Qualifier("expedientInternalToHistoricEstatCiutadaListConverter") InternalToHistoricEstatCiutadaListConverter internalToHistoricEstatCiutadaListConverter,
-	        @Qualifier("expedientInternalToProcedimentConsultaConverter") InternalToProcedimentConsultaConverter internalToProcedimentConsultaConverter,
-	        @Qualifier("expedientInternalToRegistreConverter") InternalToRegistreConverter internalToRegistreConverter,
-	        @Qualifier("expedientInternalToPersonaConverter") InternalToPersonaConverter internalToPersonaConverter,
-	        @Qualifier("expedientInternalToPersonaListConverter") InternalToPersonaListConverter internalToPersonaListConverter,
-	        @Qualifier("expedientInternalToAccioCiutadaListConverter") InternalToAccioCiutadaListConverter internalToAccioCiutadaListConverter,
-	        @Qualifier("internalToDocumentAportatConsultaListConverter") InternalToDocumentAportatConsultaListConverter internalToDocumentAportatConsultaListConverter,
-	        @Qualifier("expedientInternalToDocumentsEntradaRequeritsListConverter") InternalToDocumentsEntradaRequeritsListConverter internalToDocumentsEntradaRequeritsListConverter,
-	        @Qualifier("internalToDocumentGeneratConsultaListConverter") InternalToDocumentGeneratConsultaListConverter internalToDocumentGeneratConsultaListConverter,
-	        @Qualifier("expedientInternalToDadesOperacioListConverter") InternalToDadesOperacioListConverter internalToDadesOperacioListConverter,
-	        @Qualifier("expedientInternalToDadesAtributsRequeritsListConverter") InternalToDadesAtributsRequeritsListConverter internalToDadesAtributsRequeritsListConverter,
-	        @Qualifier("expedientInternalToCodiConverter") InternalToCodiConverter internalToCodiConverter,
-	        @Qualifier("procedimentInternalToTramitOvtListConverter") InternalToTramitOvtListConverter internalToTramitOvtListConverter) {
+			@Qualifier("internalToDataHoraConverter") InternalToDataHoraConverter internalToDataHoraConverter,
+			@Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
+			@Qualifier("expedientInternalToEstatCiutadaConverter") InternalToEstatCiutadaConverter internalToEstatCiutadaConverter,
+			@Qualifier("expedientInternalToHistoricEstatCiutadaListConverter") InternalToHistoricEstatCiutadaListConverter internalToHistoricEstatCiutadaListConverter,
+			@Qualifier("expedientInternalToProcedimentConsultaConverter") InternalToProcedimentConsultaConverter internalToProcedimentConsultaConverter,
+			@Qualifier("expedientInternalToRegistreConverter") InternalToRegistreConverter internalToRegistreConverter,
+			@Qualifier("expedientInternalToPersonaConverter") InternalToPersonaConverter internalToPersonaConverter,
+			@Qualifier("expedientInternalToPersonaListConverter") InternalToPersonaListConverter internalToPersonaListConverter,
+			@Qualifier("expedientInternalToAccioCiutadaListConverter") InternalToAccioCiutadaListConverter internalToAccioCiutadaListConverter,
+			@Qualifier("internalToDocumentAportatConsultaListConverter") InternalToDocumentAportatConsultaListConverter internalToDocumentAportatConsultaListConverter,
+			@Qualifier("expedientInternalToDocumentsEntradaRequeritsListConverter") InternalToDocumentsEntradaRequeritsListConverter internalToDocumentsEntradaRequeritsListConverter,
+			@Qualifier("internalToDocumentGeneratConsultaListConverter") InternalToDocumentGeneratConsultaListConverter internalToDocumentGeneratConsultaListConverter,
+			@Qualifier("expedientInternalToDadesOperacioListConverter") InternalToDadesOperacioListConverter internalToDadesOperacioListConverter,
+			@Qualifier("expedientInternalToDadesAtributsRequeritsListConverter") InternalToDadesAtributsRequeritsListConverter internalToDadesAtributsRequeritsListConverter,
+			@Qualifier("expedientInternalToCodiConverter") InternalToCodiConverter internalToCodiConverter,
+			@Qualifier("procedimentInternalToTramitOvtListConverter") InternalToTramitOvtListConverter internalToTramitOvtListConverter) {
 		this.internalToDataHoraConverter = internalToDataHoraConverter;
 		this.internalToUnitatGestoraConverter = internalToUnitatGestoraConverter;
 		this.internalToEstatCiutadaConverter = internalToEstatCiutadaConverter;
@@ -184,6 +184,7 @@ public class DadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 		using(internalToDocumentGeneratConsultaListConverter).map(source.getDocumentsGenerats()).setDocumentsGenerats(null);
 		using(internalToDadesAtributsRequeritsListConverter).map(source).setAtributsRequerits(null);
 		using(internalToTramitOvtListConverter).map(source.getSollicituds()).setSollicituds(null);
+		map().setPathGestorDocumental(source.getExpedientsRDTO().getPathGestorDocumental());
 	}
 
 }
