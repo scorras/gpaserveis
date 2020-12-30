@@ -18,9 +18,9 @@ import lombok.Setter;
 
 @ApiModel(value = "ExpedientAccio")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "codi" })
+@JsonPropertyOrder({ "id", "codi", "pathGestorDocumental" })
 @XmlRootElement(name = "EXPEDIENT")
-@XmlType(name = "ExpedientAccio", propOrder = { "id", "codi" })
+@XmlType(name = "ExpedientAccio", propOrder = { "id", "codi", "pathGestorDocumental" })
 @XmlAccessorType(XmlAccessType.NONE)
 @Getter
 @Setter
@@ -32,5 +32,8 @@ public class ExpedientAccioRDTO {
 	@ApiModelProperty("Codi identificador de l'expedient")
 	@XmlElement(name = "CODI", required = true, type = String.class)
 	private String codi;
+	@ApiModelProperty(value = "Path Gestor Documental")
+	@XmlElement(name = "PATH_GESTOR_DOCUMENTAL", required = false, type = String.class)
+	private String pathGestorDocumental;
 
 }
