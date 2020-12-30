@@ -26,6 +26,7 @@ public class InternalToExpedientAccioConverter extends AbstractConverter<Expedie
 
 			expedientAccioRDTO.setId(source.getId());
 			expedientAccioRDTO.setCodi(ConverterHelper.buildCodiExpedient(source.getCodi(), source.getIdEstat()));
+			expedientAccioRDTO.setPathGestorDocumental(source.getPathGestorDocumental());
 		}
 		return expedientAccioRDTO;
 	}
