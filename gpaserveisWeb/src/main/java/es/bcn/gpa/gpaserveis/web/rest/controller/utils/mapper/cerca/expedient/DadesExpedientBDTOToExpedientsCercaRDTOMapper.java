@@ -44,13 +44,13 @@ public class DadesExpedientBDTOToExpedientsCercaRDTOMapper extends PropertyMap<D
 
 	@Autowired
 	public DadesExpedientBDTOToExpedientsCercaRDTOMapper(
-	        @Qualifier("internalToDataHoraConverter") InternalToDataHoraConverter internalToDataHoraConverter,
-	        @Qualifier("expedientInternalToPersonaConverter") InternalToPersonaConverter internalToPersonaConverter,
-	        @Qualifier("expedientInternalToEstatTramitadorConverter") InternalToEstatTramitadorConverter internalToEstatTramitadorConverter,
-	        @Qualifier("expedientInternalToTramitadorConverter") InternalToTramitadorConverter internalToTramitadorConverter,
-	        @Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
-	        @Qualifier("expedientInternalToProcedimentCercaConverter") InternalToProcedimentCercaConverter internalToProcedimentCercaConverter,
-	        @Qualifier("expedientInternalToCodiConverter") InternalToCodiConverter internalToCodiConverter) {
+			@Qualifier("internalToDataHoraConverter") InternalToDataHoraConverter internalToDataHoraConverter,
+			@Qualifier("expedientInternalToPersonaConverter") InternalToPersonaConverter internalToPersonaConverter,
+			@Qualifier("expedientInternalToEstatTramitadorConverter") InternalToEstatTramitadorConverter internalToEstatTramitadorConverter,
+			@Qualifier("expedientInternalToTramitadorConverter") InternalToTramitadorConverter internalToTramitadorConverter,
+			@Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
+			@Qualifier("expedientInternalToProcedimentCercaConverter") InternalToProcedimentCercaConverter internalToProcedimentCercaConverter,
+			@Qualifier("expedientInternalToCodiConverter") InternalToCodiConverter internalToCodiConverter) {
 		this.internalToDataHoraConverter = internalToDataHoraConverter;
 		this.internalToPersonaConverter = internalToPersonaConverter;
 		this.internalToEstatTramitadorConverter = internalToEstatTramitadorConverter;

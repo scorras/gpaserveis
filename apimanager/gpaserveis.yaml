@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.26.5"
+  version: "1.26.7"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -4760,6 +4760,13 @@ definitions:
           attribute: false
           wrapped: false
         description: "Identificador de l'expedient"
+      pathGestorDocumental:
+        type: "string"
+        xml:
+          name: "PATH_GESTOR_DOCUMENTAL"
+          attribute: false
+          wrapped: false
+        description: "Path Gestor Documental"
     title: "ExpedientAccio"
   ExpedientAccioPausar:
     type: "object"
@@ -4784,6 +4791,13 @@ definitions:
           attribute: false
           wrapped: false
         description: "Identificador de l'expedient"
+      pathGestorDocumental:
+        type: "string"
+        xml:
+          name: "PATH_GESTOR_DOCUMENTAL"
+          attribute: false
+          wrapped: false
+        description: "Path Gestor Documental"
     title: "ExpedientAccioPausar"
     xml:
       name: "EXPEDIENT"
@@ -4806,6 +4820,13 @@ definitions:
           attribute: false
           wrapped: false
         description: "Identificador de l'expedient"
+      pathGestorDocumental:
+        type: "string"
+        xml:
+          name: "PATH_GESTOR_DOCUMENTAL"
+          attribute: false
+          wrapped: false
+        description: "Path Gestor Documental"
       unitatGestora:
         description: "Unitat Gestora de l'Expedient"
         $ref: "#/definitions/UnitatGestoraAccio"
@@ -4960,6 +4981,9 @@ definitions:
       id:
         type: "number"
         description: "Identificador de l'expedient"
+      pathGestorDocumental:
+        type: "string"
+        description: "Path Gestor Documental"
       personesImplicades:
         type: "array"
         description: "Persones implicades"

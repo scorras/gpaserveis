@@ -4704,6 +4704,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				// Gestor Documental obtenidos?
 				for (String codi : documentDigitalitzacio.getDocument().getCodis()) {
 					crearDocumentEntradaDigitalitzarBDTO.getDocsEntradaRDTO().setCodi(codi);
+					crearDocumentEntradaDigitalitzarBDTO.getDocsEntradaRDTO().setMigracioIdOrigen(codi);
 					docsEntradaRDTOResult = serveisService.crearDocumentEntradaDigitalitzat(crearDocumentEntradaDigitalitzarBDTO);
 				}
 			} else {

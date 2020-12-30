@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.25.3"
+  version: "1.26.7"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -2468,6 +2468,9 @@ definitions:
       dataAllegacio:
         type: "string"
         format: "date-time"
+      dataEnviamentRat:
+        type: "string"
+        format: "date-time"
       dataEsmena:
         type: "string"
         format: "date-time"
@@ -2516,6 +2519,8 @@ definitions:
         type: "number"
       idRelacionat:
         type: "number"
+      isInformeRat:
+        type: "boolean"
       isOge:
         type: "boolean"
       migracioIdOrigen:
@@ -2534,6 +2539,8 @@ definitions:
       numeroDocumentSollicitant:
         type: "string"
       numeroDocumentSollicitantEstricte:
+        type: "string"
+      pathGestorDocumental:
         type: "string"
       pendentRetorn:
         type: "integer"
