@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.26.7"
+  version: "1.26.8"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -249,6 +249,12 @@ paths:
         required: false
         type: "string"
         allowEmptyValue: false
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       - name: "versioProcediment"
         in: "query"
         description: "En cas que s'indiqui codi de procediment, filtra expedients\
@@ -290,6 +296,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/ExpedientCrear"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -320,6 +332,12 @@ paths:
         description: "Codi de l'expedient"
         required: true
         type: "string"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -355,6 +373,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/ExpedientActualitzar"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -393,6 +417,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/DocumentacioAportar"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -434,6 +464,12 @@ paths:
         description: "Codi CSV del document"
         required: true
         type: "string"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -467,6 +503,12 @@ paths:
         description: "Identificador del document"
         required: true
         type: "number"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -508,6 +550,12 @@ paths:
         description: "Identificador del document"
         required: true
         type: "number"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -555,6 +603,12 @@ paths:
         description: "idGestorDocumental"
         required: false
         type: "string"
+      - in: "formData"
+        name: "usuari"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        schema:
+          type: "string"
       responses:
         200:
           description: "OK"
@@ -590,6 +644,12 @@ paths:
         description: "Identificador del document"
         required: true
         type: "number"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -624,6 +684,12 @@ paths:
         description: "Identificador del document"
         required: true
         type: "number"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -661,6 +727,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/ExpedientEsmena"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -674,6 +746,132 @@ paths:
           description: "Forbidden"
         404:
           description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /serveis/portal/expedients/{codiExpedient}/persones:
+    post:
+      tags:
+      - "Serveis Portal API"
+      summary: "Incorporar tercera persona a la sol·licitud de l'expedient"
+      operationId: "incorporarTerceraPersonaUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codiExpedient"
+        in: "path"
+        description: "Codi de l'expedient"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "personaImplicada"
+        description: "Dades de la actualització de l'expedient"
+        required: true
+        schema:
+          $ref: "#/definitions/CrearTerceraPersona"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaCrearTerceraPersona"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+    put:
+      tags:
+      - "Serveis Portal API"
+      summary: "Actualitza tercera persona en la sol·licitud de l'expedient"
+      operationId: "actualitzarTerceraPersonaUsingPUT"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codiExpedient"
+        in: "path"
+        description: "Codi de l'expedient"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "personaImplicada"
+        description: "Dades de la actualització de l'expedient"
+        required: true
+        schema:
+          $ref: "#/definitions/ActualitzarTerceraPersona"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaActualitzarTerceraPersona"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /serveis/portal/expedients/{codiExpedient}/persones/{idPersona}:
+    delete:
+      tags:
+      - "Serveis Portal API"
+      summary: "Esborrar una persona implicada en l'expedient"
+      operationId: "esborrarTerceraPersonaUsingDELETE"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codiExpedient"
+        in: "path"
+        description: "Codi de l'expedient"
+        required: true
+        type: "string"
+      - name: "idPersona"
+        in: "path"
+        description: "Identificador de la persona"
+        required: true
+        type: "number"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaEsborrarTerceraPersona"
+        204:
+          description: "No Content"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
@@ -699,6 +897,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/ExpedientRegistrar"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -729,6 +933,12 @@ paths:
         description: "Codi de l'expedient"
         required: true
         type: "string"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -765,6 +975,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/SollicitudCrear"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -811,6 +1027,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/ExpedientAbandonament"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1030,6 +1252,12 @@ paths:
         required: false
         type: "string"
         allowEmptyValue: false
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1058,6 +1286,12 @@ paths:
         description: "Identificador del procediment"
         required: true
         type: "number"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1096,6 +1330,12 @@ paths:
         description: "Identificador del procediment"
         required: true
         type: "number"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1134,6 +1374,12 @@ paths:
         description: "Identificador del procediment"
         required: true
         type: "number"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1162,6 +1408,12 @@ paths:
         description: "Identificador de la sol·licitud"
         required: true
         type: "number"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1197,6 +1449,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/SollicitudActualitzar"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1235,6 +1493,12 @@ paths:
         description: "Codi de la sol·licitud"
         required: true
         type: "number"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1270,6 +1534,12 @@ paths:
         description: "Id de la sol·licitud"
         required: true
         type: "number"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1303,6 +1573,12 @@ paths:
         description: "Identificador de la sol·licitud"
         required: true
         type: "number"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1344,6 +1620,12 @@ paths:
         description: "Id de la sol·licitud"
         required: true
         type: "number"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1391,6 +1673,12 @@ paths:
         description: "Id de la sol·licitud"
         required: true
         type: "number"
+      - in: "formData"
+        name: "usuari"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        schema:
+          type: "string"
       responses:
         200:
           description: "OK"
@@ -1429,6 +1717,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/SollicitudRegistrar"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1456,14 +1750,21 @@ paths:
       parameters:
       - name: "codiCSV"
         in: "query"
-        description: "codiCSV"
+        description: "Codi CSV"
         required: false
         type: "string"
+        allowEmptyValue: false
       - name: "idSollicitud"
         in: "path"
         description: "Identificador de la sol·licitud"
         required: true
         type: "number"
+      - name: "usuari"
+        in: "query"
+        description: "Ciutadà interessat autenticat al Portal"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -2849,7 +3150,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Incorporar tercera persona a la sol·licitud de l'expedient"
-      operationId: "incorporarTerceraPersonaUsingPOST"
+      operationId: "incorporarTerceraPersonaUsingPOST_1"
       consumes:
       - "application/json"
       produces:
@@ -2886,7 +3187,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Actualitza tercera persona en la sol·licitud de l'expedient"
-      operationId: "actualitzarTerceraPersonaUsingPUT"
+      operationId: "actualitzarTerceraPersonaUsingPUT_1"
       consumes:
       - "application/json"
       produces:
@@ -2924,7 +3225,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Esborrar una persona implicada en l'expedient"
-      operationId: "esborrarTerceraPersonaUsingDELETE"
+      operationId: "esborrarTerceraPersonaUsingDELETE_1"
       produces:
       - "application/json"
       parameters:
