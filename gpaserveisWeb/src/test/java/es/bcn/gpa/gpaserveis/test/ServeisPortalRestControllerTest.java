@@ -3,6 +3,7 @@ package es.bcn.gpa.gpaserveis.test;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -303,9 +304,46 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	@Test
 	public void testStage20_GetExportarXML() throws Exception {
 		String url = BASE_URL + "/expedients/1/report/exportacio-xml";
-		getMockMvc().perform(get(url).accept(
-                MediaType.TEXT_PLAIN_VALUE)).andDo(print()).andExpect(status().isOk());
+		getMockMvc().perform(get(url).accept(MediaType.TEXT_PLAIN_VALUE)).andDo(print()).andExpect(status().isOk());
 
 	}
 
+	/**
+	 * Test stage 21 incorporar tercera persona
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testStage21_PostCrearTerceraPersonaOK() throws Exception {
+		String url = BASE_URL + "/expedients/1/persones";
+		getMockMvc()
+				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+						"{\"persona\":{\"relacio\":null, \"relacioTerceraPersona\":\"Testimoni\", \"visibilitatOvt\":false, \"tipusPersona\":\"FISICA\", \"nomRaoSocial\":\"El Àlvar\",\"cognom1\":\"Perau\",\"cognom2\":null,\"documentIndentitat\":{\"tipusDocument\":\"NIE\",\"numeroDocument\":\"00914091\",\"pais\":\"108\"},\"personesDadescontacte\":{}}}}"))
+				.andExpect(status().isOk()).andDo(print());
+	}
+
+	/**
+	 * Test stage 22 actualitzar tercera persona
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testStage22_PutActualitzarTerceraPersonaOK() throws Exception {
+		String url = BASE_URL + "/expedients/1/persones";
+		getMockMvc()
+				.perform(put(url).contentType(APPLICATION_JSON_UTF8).content(
+						"{\"persona\":{\"relacio\":null, \"relacioTerceraPersona\":\"Testimoni\", \"visibilitatOvt\":false, \"tipusPersona\":\"FISICA\", \"nomRaoSocial\":\"El Àlvar\",\"cognom1\":\"Perau\",\"cognom2\":null,\"documentIndentitat\":{\"tipusDocument\":\"NIE\",\"numeroDocument\":\"00914091\",\"pais\":\"108\"},\"personesDadescontacte\":{}}}}"))
+				.andExpect(status().isOk()).andDo(print());
+	}
+
+	/**
+	 * Test stage 23 esborrar tercera persona
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testStage23_EsborrarTerceraPersonaOK() throws Exception {
+		String url = BASE_URL + "/expedients/1/persones/1";
+		getMockMvc().perform(delete(url)).andExpect(status().isOk()).andDo(print());
+	}
 }

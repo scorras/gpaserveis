@@ -9,11 +9,11 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaEsborrarTerceraPers
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.common.InternalToResultatRespostaConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToExpedientAccioConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.InternalToTerceraPersonaEsborradaAccioConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.persones.RespostaEsborrarTerceraPersonaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.RespostaEsborrarTerceraPersonaRDTO;
 
 @Component("respostaEsborrarTerceraPersonaBDTOToRespostaEsborrarTerceraPersonaRDTOMapper")
 public class RespostaEsborrarTerceraPersonaBDTOToRespostaEsborrarTerceraPersonaRDTOMapper
-        extends PropertyMap<RespostaEsborrarTerceraPersonaBDTO, RespostaEsborrarTerceraPersonaRDTO> {
+		extends PropertyMap<RespostaEsborrarTerceraPersonaBDTO, RespostaEsborrarTerceraPersonaRDTO> {
 
 	/** The internal to expedient accio converter. */
 	private InternalToExpedientAccioConverter internalToExpedientAccioConverter;
@@ -37,9 +37,9 @@ public class RespostaEsborrarTerceraPersonaBDTOToRespostaEsborrarTerceraPersonaR
 	 */
 	@Autowired
 	public RespostaEsborrarTerceraPersonaBDTOToRespostaEsborrarTerceraPersonaRDTOMapper(
-	        @Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
-	        @Qualifier("internalToTerceraPersonaEsborradaAccioConverter") InternalToTerceraPersonaEsborradaAccioConverter internalToTerceraPersonaEsborradaAccioConverter,
-	        @Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
+			@Qualifier("expedientInternalToExpedientAccioConverter") InternalToExpedientAccioConverter internalToExpedientAccioConverter,
+			@Qualifier("internalToTerceraPersonaEsborradaAccioConverter") InternalToTerceraPersonaEsborradaAccioConverter internalToTerceraPersonaEsborradaAccioConverter,
+			@Qualifier("internalToResultatRespostaConverter") InternalToResultatRespostaConverter internalToResultatRespostaConverter) {
 		this.internalToExpedientAccioConverter = internalToExpedientAccioConverter;
 		this.internalToTerceraPersonaEsborradaAccioConverter = internalToTerceraPersonaEsborradaAccioConverter;
 		this.internalToResultatRespostaConverter = internalToResultatRespostaConverter;
