@@ -333,7 +333,9 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 	@ApiOperation(nickname = "uploadDocumentSollicitudPortal", value = "Pujar el contingut d'un document de la sol·licitud al gestor documental", tags = {
 	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	@ApiImplicitParams(@ApiImplicitParam(name = "idGestorDocumental", value = "idGestorDocumental", dataType = "string", paramType = "form", required = false))
+	@ApiImplicitParams({
+	        @ApiImplicitParam(name = "idGestorDocumental", value = "Identificador Gestor Documental", dataType = "string", paramType = "form", required = false),
+	        @ApiImplicitParam(name = "usuari", value = "Ciutadà interessat autenticat al Portal", dataType = "string", paramType = "form", required = false) })
 	public RespostaUploadDocumentSollicitudRDTO uploadDocumentSollicitud(
 	        @ApiParam(value = "Id de la sol·licitud", required = true) @PathVariable BigDecimal idSollicitud,
 	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
