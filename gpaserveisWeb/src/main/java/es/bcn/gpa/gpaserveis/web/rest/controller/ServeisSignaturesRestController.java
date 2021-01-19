@@ -66,7 +66,7 @@ public class ServeisSignaturesRestController extends BaseRestController {
 	 *             Signals that an I/O exception has occurred.
 	 */
 	@PostMapping(path = "/listenerMciSignatura", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-	@ApiOperation(value = "Resultat de la signatura criptogràfica", tags = { "Serveis Signatures API" })
+	@ApiOperation(nickname = "listenerMciSignatura", value = "Resultat de la signatura criptogràfica", tags = { "Serveis Signatures API" })
 	public void listenerMciSignatura(
 	        @ApiParam(value = "Resultat de la signatura criptogràfica a una petició de vist-i-plau/signatura", required = true) ListenerMciSignaturaDTO listenerMciSignaturaDTO,
 	        HttpServletResponse response) throws GPAServeisServiceException, IOException {
@@ -154,7 +154,8 @@ public class ServeisSignaturesRestController extends BaseRestController {
 	 *             the GPA serveis service exception
 	 */
 	@PostMapping(path = "/resultatPeticio", consumes = { MediaType.APPLICATION_JSON_VALUE })
-	@ApiOperation(value = "Resultat de la signatura criptogràfica", tags = { "Serveis Signatures API" })
+	@ApiOperation(nickname = "resultatPeticioSignaturaCriptografica", value = "Resultat de la signatura criptogràfica", tags = {
+	        "Serveis Signatures API" })
 	public ResponseEntity<Void> resultatPeticio(
 	        @ApiParam(value = "Resultat de la signatura criptogràfica a una petició de vist-i-plau/signatura", required = true) @RequestBody ResultatPeticioDTO resultatPeticioDTO,
 	        HttpServletResponse response) throws GPAServeisServiceException {
@@ -212,7 +213,8 @@ public class ServeisSignaturesRestController extends BaseRestController {
 	 *             Signals that an I/O exception has occurred.
 	 */
 	@GetMapping("/resultatPeticio")
-	@ApiOperation(value = "Resultat d'error general de la signatura criptogràfica", tags = { "Serveis Signatures API" })
+	@ApiOperation(nickname = "resultatPeticioSignaturaCriptograficaErrorGeneral", value = "Resultat d'error general de la signatura criptogràfica", tags = {
+	        "Serveis Signatures API" })
 	public void resultatPeticioErrorGeneral(
 	        @ApiParam(value = "Codi de l'error") @RequestParam(value = "ERROR_CODI", required = false) String errorCodi,
 	        @ApiParam(value = "Identificador de la petició de signatura") @RequestParam(value = "ID", required = false) String idPeticio,
