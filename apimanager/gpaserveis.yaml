@@ -29,7 +29,7 @@ paths:
       tags:
       - "Serveis MDS API"
       summary: "Consultar l'estat d'una petició de digitalització"
-      operationId: "consultarEstatDigitalitzacioUsingGET"
+      operationId: "consultarEstatDigitalitzacio"
       produces:
       - "application/json"
       parameters:
@@ -57,7 +57,7 @@ paths:
       tags:
       - "Serveis MDS API"
       summary: "Notificacions de les respostes del MDS a peticions d'escaneig"
-      operationId: "respostaNotificacioEscaneigUsingPOST"
+      operationId: "respostaNotificacioEscaneig"
       consumes:
       - "application/json"
       produces:
@@ -86,7 +86,7 @@ paths:
       tags:
       - "Serveis Notificacions API"
       summary: "Retorn de l'estat de les notificacions"
-      operationId: "retornEstatNotificacioUsingPOST"
+      operationId: "retornEstatNotificacio"
       consumes:
       - "multipart/form-data"
       produces:
@@ -124,7 +124,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Cerca d'expedients"
-      operationId: "cercaExpedientsUsingGET"
+      operationId: "cercaExpedientsPortal"
       produces:
       - "application/json"
       parameters:
@@ -284,7 +284,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Crear una sol·licitud d'un expedient"
-      operationId: "crearSolicitudExpedientUsingPOST"
+      operationId: "crearSolicitudExpedientPortal"
       consumes:
       - "application/json"
       produces:
@@ -323,7 +323,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Consultar les dades de l'expedient"
-      operationId: "consultarDadesExpedientUsingGET"
+      operationId: "consultarDadesExpedientPortal"
       produces:
       - "application/json"
       parameters:
@@ -356,7 +356,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Actualitzar dades de la sol·licitud de l'expedient"
-      operationId: "actualitzarSolicitudExpedientUsingPOST"
+      operationId: "actualitzarSolicitudExpedientPortal"
       consumes:
       - "application/json"
       produces:
@@ -400,7 +400,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Aportar documentació a l'expedient"
-      operationId: "aportarDocumentacioExpedientUsingPOST"
+      operationId: "aportarDocumentacioExpedientPortal"
       consumes:
       - "application/json"
       produces:
@@ -444,7 +444,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Consultar les dades del document"
-      operationId: "consultarDadesDocumentUsingGET"
+      operationId: "consultarDadesDocumentPortal"
       produces:
       - "application/json"
       parameters:
@@ -489,7 +489,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Esborrar un document de l'expedient"
-      operationId: "esborrarDocumentUsingDELETE"
+      operationId: "esborrarDocumentPortal"
       produces:
       - "application/json"
       parameters:
@@ -528,7 +528,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Substituir les dades d'un document de l'expedient"
-      operationId: "substituirDocumentExpedientUsingPOST"
+      operationId: "substituirDocumentExpedientPortal"
       consumes:
       - "application/json"
       produces:
@@ -577,7 +577,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Pujar el contingut d'un document de l'expedient al gestor documental"
-      operationId: "uploadDocumentExpedientUsingPOST"
+      operationId: "uploadDocumentExpedientPortal"
       consumes:
       - "multipart/form-data"
       produces:
@@ -630,7 +630,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Descarregar document de l'expedient"
-      operationId: "descarregarDocumentExpedientUsingGET"
+      operationId: "descarregarDocumentExpedientPortal"
       produces:
       - "*/*"
       parameters:
@@ -670,7 +670,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Descarregar document signat de l'expedient"
-      operationId: "descarregarDocumentSignatExpedientUsingGET"
+      operationId: "descarregarDocumentSignatExpedientPortal"
       produces:
       - "*/*"
       parameters:
@@ -710,7 +710,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Respondre a requeriment o tràmit d'al·legacions o IP"
-      operationId: "esmenarExpedientUsingPOST"
+      operationId: "esmenarExpedientPortal"
       consumes:
       - "application/json"
       produces:
@@ -754,7 +754,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Incorporar tercera persona a la sol·licitud de l'expedient"
-      operationId: "incorporarTerceraPersonaUsingPOST"
+      operationId: "incorporarTerceraPersonaPortal"
       consumes:
       - "application/json"
       produces:
@@ -797,7 +797,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Actualitza tercera persona en la sol·licitud de l'expedient"
-      operationId: "actualitzarTerceraPersonaUsingPUT"
+      operationId: "actualitzarTerceraPersonaPortal"
       consumes:
       - "application/json"
       produces:
@@ -841,7 +841,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Esborrar una persona implicada en l'expedient"
-      operationId: "esborrarTerceraPersonaUsingDELETE"
+      operationId: "esborrarTerceraPersonaPortal"
       produces:
       - "application/json"
       parameters:
@@ -880,7 +880,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Registrar la sol·licitud de l'expedient"
-      operationId: "registrarSolicitudExpedientUsingPOST"
+      operationId: "registrarSolicitudExpedientPortal"
       consumes:
       - "application/json"
       produces:
@@ -924,7 +924,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Exporta les dades de l'expedient en format XML"
-      operationId: "exportarDadesExpedientXmlUsingGET"
+      operationId: "exportarDadesExpedientXmlPortal"
       produces:
       - "text/plain"
       parameters:
@@ -958,7 +958,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Crear una sol·licitud"
-      operationId: "crearSolicitudUsingPOST"
+      operationId: "crearSolicitudPortal"
       consumes:
       - "application/json"
       produces:
@@ -1002,7 +1002,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Desistir/Renunciar l'expedient"
-      operationId: "abandonarExpedientUsingPOST"
+      operationId: "abandonarExpedientPortal"
       consumes:
       - "application/json"
       produces:
@@ -1054,7 +1054,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Cerca de procediments"
-      operationId: "cercaProcedimentsUsingGET"
+      operationId: "cercaProcedimentsPortal"
       produces:
       - "application/json"
       parameters:
@@ -1277,7 +1277,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Consultar les dades del procediment"
-      operationId: "consultarDadesProcedimentUsingGET"
+      operationId: "consultarDadesProcedimentPortal"
       produces:
       - "application/json"
       parameters:
@@ -1311,7 +1311,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Consultar les dades d'operació del tràmit"
-      operationId: "consultarDadesOperacioTramitUsingGET"
+      operationId: "consultarDadesOperacioTramitPortal"
       produces:
       - "application/json"
       parameters:
@@ -1355,7 +1355,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Consultar les dades de documentació d'entrada del procediment"
-      operationId: "consultarDocumentacioEntradaProcedimentUsingGET"
+      operationId: "consultarDocumentacioEntradaProcedimentPortal"
       produces:
       - "application/json"
       parameters:
@@ -1399,7 +1399,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Consultar les dades de la sol·licitud"
-      operationId: "consultarDadesSollicitudUsingGET"
+      operationId: "consultarDadesSollicitudPortal"
       produces:
       - "application/json"
       parameters:
@@ -1432,7 +1432,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Actualitzar dades de la sol·licitud de la sol·licitud"
-      operationId: "actualitzarSollicitudUsingPOST"
+      operationId: "actualitzarSollicitudPortal"
       consumes:
       - "application/json"
       produces:
@@ -1476,7 +1476,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Aportar documentació a la sol·licitud"
-      operationId: "aportarDocumentacioSollicitudUsingPOST"
+      operationId: "aportarDocumentacioSollicitudPortal"
       consumes:
       - "application/json"
       produces:
@@ -1520,7 +1520,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Descarregar document de la sol·licitud"
-      operationId: "descarregarDocumentSollicitudUsingGET"
+      operationId: "descarregarDocumentSollicitudPortal"
       produces:
       - "*/*"
       parameters:
@@ -1559,7 +1559,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Esborrar un document de la sollicitud"
-      operationId: "esborrarDocumentUsingDELETE_1"
+      operationId: "esborrarDocumentPortal_1"
       produces:
       - "application/json"
       parameters:
@@ -1598,7 +1598,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Substituir les dades d'un document de la sol·licitud"
-      operationId: "substituirDocumentSollicitudUsingPOST"
+      operationId: "substituirDocumentSollicitudPortal"
       consumes:
       - "application/json"
       produces:
@@ -1647,7 +1647,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Pujar el contingut d'un document de la sol·licitud al gestor documental"
-      operationId: "uploadDocumentSollicitudUsingPOST"
+      operationId: "uploadDocumentSollicitudPortal"
       consumes:
       - "multipart/form-data"
       produces:
@@ -1700,7 +1700,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Registrar la sol·licitud"
-      operationId: "registrarSolicitudUsingPOST"
+      operationId: "registrarSolicitudPortal"
       consumes:
       - "application/json"
       produces:
@@ -1744,7 +1744,7 @@ paths:
       tags:
       - "Serveis Portal API"
       summary: "Exporta les dades de la sol·licitud en format XML"
-      operationId: "exportarDadesSollicitudXmlUsingGET"
+      operationId: "exportarDadesSollicitudXmlPortal"
       produces:
       - "text/plain"
       parameters:
@@ -1784,7 +1784,7 @@ paths:
       tags:
       - "Serveis Portasignatures API"
       summary: "Resultat de l'estat de les peticions"
-      operationId: "resultatEstatPeticioUsingPOST"
+      operationId: "resultatEstatPeticioSignatura"
       consumes:
       - "application/json"
       produces:
@@ -1815,7 +1815,7 @@ paths:
       tags:
       - "Serveis Signatures API"
       summary: "Resultat de la signatura criptogràfica"
-      operationId: "listenerMciSignaturaUsingPOST"
+      operationId: "listenerMciSignatura"
       consumes:
       - "application/x-www-form-urlencoded"
       produces:
@@ -1848,7 +1848,7 @@ paths:
       tags:
       - "Serveis Signatures API"
       summary: "Resultat d'error general de la signatura criptogràfica"
-      operationId: "resultatPeticioErrorGeneralUsingGET"
+      operationId: "resultatPeticioSignaturaCriptograficaErrorGeneral"
       produces:
       - "application/json"
       parameters:
@@ -1878,7 +1878,7 @@ paths:
       tags:
       - "Serveis Signatures API"
       summary: "Resultat de la signatura criptogràfica"
-      operationId: "resultatPeticioUsingPOST"
+      operationId: "resultatPeticioSignaturaCriptografica"
       consumes:
       - "application/json"
       produces:
@@ -1907,7 +1907,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Cerca d'expedients"
-      operationId: "cercaExpedientsUsingGET_1"
+      operationId: "cercaExpedientsTramitadors"
       produces:
       - "application/json"
       parameters:
@@ -2057,7 +2057,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Revisar una sol·licitud d'un expedient"
-      operationId: "iniciarRevisioExpedientUsingPOST"
+      operationId: "iniciarRevisioExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2091,7 +2091,7 @@ paths:
       - "Serveis Tramitadors API"
       summary: "Preparar la signatura d'un conjunt de documents en línia amb modalitat\
         \ criptogràfica"
-      operationId: "prepararSignaturaDocumentOnlineCriptograficaUsingPOST"
+      operationId: "prepararSignaturaDocumentOnlineCriptograficaTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2124,7 +2124,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Signar un document en línia"
-      operationId: "signarDocumentOnlineUsingPOST"
+      operationId: "signarDocumentOnlineTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2162,7 +2162,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Revisar una sol·licitud d'un expedient"
-      operationId: "presentarRecursExpedientUsingPOST"
+      operationId: "presentarRecursExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2195,7 +2195,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Actualitzar dades de la sol·licitud de l'expedient"
-      operationId: "actualitzarSolicitudExpedientUsingPOST_1"
+      operationId: "actualitzarSolicitudExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2233,7 +2233,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Desistir/Renunciar l'expedient"
-      operationId: "abandonarExpedientUsingPOST_1"
+      operationId: "abandonarExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2271,7 +2271,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Accés a l'expedient (funcionari dona accés)"
-      operationId: "accesExpedientUsingPOST"
+      operationId: "accesExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2309,7 +2309,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Acumular expedients"
-      operationId: "acumularExpedientUsingPOST"
+      operationId: "acumularExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2347,7 +2347,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Arxivar per incomplerta o inadequada"
-      operationId: "arxivarSolicitudExpedientUsingPOST"
+      operationId: "arxivarSolicitudExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2385,7 +2385,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Consultar les dades de l'expedient"
-      operationId: "consultarUsingGET"
+      operationId: "consultarExpedientTramitadors"
       produces:
       - "application/json"
       parameters:
@@ -2413,7 +2413,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Incorporar un nou document electrònic"
-      operationId: "incorporarNouDocumentExpedientUsingPOST"
+      operationId: "incorporarNouDocumentExpedientTramitadors"
       consumes:
       - "multipart/form-data"
       produces:
@@ -2455,7 +2455,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Presentar declaració responsable"
-      operationId: "presentarDeclaracioResponsableExpedientUsingPOST"
+      operationId: "presentarDeclaracioResponsableExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2494,7 +2494,7 @@ paths:
       - "Serveis Tramitadors API"
       summary: "Força el canvi d'estat de l'expedient a Finzalizado i Comunicat despré\
         s de la signatura dels documents"
-      operationId: "digitalitzarDocumentExpedientUsingPOST"
+      operationId: "digitalitzarDocumentExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2532,7 +2532,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Preparar un requeriment a l’interessat"
-      operationId: "prepararRequerimentExpedientUsingPOST"
+      operationId: "prepararRequerimentExpedientTramitadors"
       consumes:
       - "multipart/form-data"
       produces:
@@ -2575,7 +2575,7 @@ paths:
       - "Serveis Tramitadors API"
       summary: "Força el canvi d'estat de l'expedient a Finzalizado i Comunicat despré\
         s de la signatura dels documents"
-      operationId: "documentSignatExpedientUsingPOST"
+      operationId: "documentSignatExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2613,7 +2613,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Enviar notificació de l'expedient"
-      operationId: "notificarExpedientUsingPOST"
+      operationId: "notificarExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2656,7 +2656,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Completar un document"
-      operationId: "completarDocumentExpedientUsingPOST"
+      operationId: "completarDocumentExpedientTramitadors"
       consumes:
       - "multipart/form-data"
       produces:
@@ -2703,7 +2703,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Registrar comunicació de l'expedient"
-      operationId: "registrarComunicacioExpedientUsingPOST"
+      operationId: "registrarComunicacioExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2746,7 +2746,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Esborrar un document de l'expedient"
-      operationId: "esborrarDocumentUsingPOST"
+      operationId: "esborrarDocumentTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2789,7 +2789,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Obtenir un document per intraoperabilitat"
-      operationId: "obtenirDocumentIntraoperabilitatUsingPOST"
+      operationId: "obtenirDocumentIntraoperabilitatTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2832,7 +2832,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Rebutjar document de l'expedient"
-      operationId: "rebutjarDocumentExpedientUsingPOST"
+      operationId: "rebutjarDocumentExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2875,7 +2875,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Signar un document"
-      operationId: "signarDocumentUsingPOST"
+      operationId: "signarDocumentTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2918,7 +2918,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Finalitzar una petició de signatura manuscrita"
-      operationId: "finalitzarSignarManuscritaUsingPOST"
+      operationId: "finalitzarSignarManuscritaTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2955,7 +2955,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Validar document de l'expedient"
-      operationId: "validarDocumentExpedientUsingPOST"
+      operationId: "validarDocumentExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -2998,7 +2998,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Obtenir un document per interoperabilitat"
-      operationId: "obtenirPerInteroperabilitatUsingPOST"
+      operationId: "obtenirPerInteroperabilitatTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -3041,7 +3041,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Obtenir un document per interoperabilitat"
-      operationId: "obtenirCertificatUsingGET"
+      operationId: "obtenirCertificatTramitadors"
       produces:
       - "application/json"
       parameters:
@@ -3074,7 +3074,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Anotar Operació comptable"
-      operationId: "anotarOperacioComptableUsingPOST"
+      operationId: "anotarOperacioComptableTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -3112,7 +3112,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Pausar la tramitació de l'expedient"
-      operationId: "pausarExpedientUsingPOST"
+      operationId: "pausarExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -3150,7 +3150,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Incorporar tercera persona a la sol·licitud de l'expedient"
-      operationId: "incorporarTerceraPersonaUsingPOST_1"
+      operationId: "incorporarTerceraPersonaTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -3187,7 +3187,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Actualitza tercera persona en la sol·licitud de l'expedient"
-      operationId: "actualitzarTerceraPersonaUsingPUT_1"
+      operationId: "actualitzarTerceraPersonaTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -3225,7 +3225,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Esborrar una persona implicada en l'expedient"
-      operationId: "esborrarTerceraPersonaUsingDELETE_1"
+      operationId: "esborrarTerceraPersonaTramitadors"
       produces:
       - "application/json"
       parameters:
@@ -3258,7 +3258,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Publicar per a informació pública"
-      operationId: "publicarPerAInformacioPublicaUsingPOST"
+      operationId: "publicarPerAInformacioPublicaTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -3297,7 +3297,7 @@ paths:
       - "Serveis Tramitadors API"
       summary: "Força la recuperació de l'expedient inclús abans que hagi transcorregut\
         \ el termini"
-      operationId: "reactivarExpedientUsingPOST"
+      operationId: "reactivarExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -3335,7 +3335,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Inscriure en un registre"
-      operationId: "inscriureEnRegistreUsingPOST"
+      operationId: "inscriureEnRegistreTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -3374,7 +3374,7 @@ paths:
       - "Serveis Tramitadors API"
       summary: "Eleva una proposta de resolució per sotmetre-la al vist-i-plau i signatura\
         \ dels òrgans competents"
-      operationId: "proposarResolucioExpedientUsingPOST"
+      operationId: "proposarResolucioExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -3412,7 +3412,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Validar un document"
-      operationId: "validarResolucioDocumentUsingPOST"
+      operationId: "validarResolucioDocumentTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -3455,7 +3455,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Tancar l'expedient"
-      operationId: "tancarExpedientUsingPOST"
+      operationId: "tancarExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -3493,7 +3493,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Tornar enrere"
-      operationId: "tornarEnrereExpedientUsingPOST"
+      operationId: "tornarEnrereExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -3531,7 +3531,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Convidar a tramitar l'expedient"
-      operationId: "convidarTramitarExpedientUsingPOST"
+      operationId: "convidarTramitarExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -3569,7 +3569,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Donar resposta a l'acció Convidar a tramitar"
-      operationId: "retornarExpedientUsingPOST"
+      operationId: "retornarExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -3607,7 +3607,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Canviar la unitat gestora de l’expedient"
-      operationId: "canviarUnitatGestoraExpedientUsingPOST"
+      operationId: "canviarUnitatGestoraExpedientTramitadors"
       consumes:
       - "application/json"
       produces:
@@ -3645,7 +3645,7 @@ paths:
       tags:
       - "Serveis Tramitadors API"
       summary: "Validar la sol·licitud de l'expedient"
-      operationId: "validarSolicitudExpedientUsingPOST"
+      operationId: "validarSolicitudExpedientTramitadors"
       consumes:
       - "application/json"
       produces:

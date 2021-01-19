@@ -253,7 +253,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *             the GPA serveis service exception
 	 */
 	@GetMapping("/procediments")
-	@ApiOperation(value = "Cerca de procediments", tags = { "Serveis Portal API" }, extensions = {
+	@ApiOperation(nickname = "cercaProcedimentsPortal", value = "Cerca de procediments", tags = { "Serveis Portal API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaCercaProcedimentsRDTO cercaProcediments(
 	        @ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
@@ -326,8 +326,9 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *             the GPA serveis service exception
 	 */
 	@GetMapping("/procediments/{idProcediment}")
-	@ApiOperation(value = "Consultar les dades del procediment", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	@ApiOperation(nickname = "consultarDadesProcedimentPortal", value = "Consultar les dades del procediment", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaProcedimentsRDTO consultarDadesProcediment(
 	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
 	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari)
@@ -359,8 +360,9 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *             the GPA serveis service exception
 	 */
 	@GetMapping("/procediments/{idProcediment}/tramits/{codiTramit}/atributs")
-	@ApiOperation(value = "Consultar les dades d'operació del tràmit", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	@ApiOperation(nickname = "consultarDadesOperacioTramitPortal", value = "Consultar les dades d'operació del tràmit", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaDadesOperacioRDTO consultarDadesOperacioTramit(
 	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
 	        @ApiParam(value = "Codi del tràmit", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true) @PathVariable String codiTramit,
@@ -407,8 +409,9 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *             the GPA serveis service exception
 	 */
 	@GetMapping("/procediments/{idProcediment}/tramits/{codiTramit}/documentacio")
-	@ApiOperation(value = "Consultar les dades de documentació d'entrada del procediment", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	@ApiOperation(nickname = "consultarDocumentacioEntradaProcedimentPortal", value = "Consultar les dades de documentació d'entrada del procediment", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaConfiguracioDocumentacioAportadaRDTO consultarDocumentacioEntradaProcediment(
 	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
 	        @ApiParam(value = "Codi del tràmit", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true) @PathVariable String codiTramit,
@@ -490,7 +493,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *             the GPA serveis service exception
 	 */
 	@GetMapping("/expedients")
-	@ApiOperation(value = "Cerca d'expedients", tags = { "Serveis Portal API" }, extensions = {
+	@ApiOperation(nickname = "cercaExpedientsPortal", value = "Cerca d'expedients", tags = { "Serveis Portal API" }, extensions = {
 	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaCercaExpedientsRDTO cercaExpedients(
 	        @ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
@@ -563,8 +566,9 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *             the GPA serveis service exception
 	 */
 	@GetMapping("/expedients/{codiExpedient}")
-	@ApiOperation(value = "Consultar les dades de l'expedient", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	@ApiOperation(nickname = "consultarDadesExpedientPortal", value = "Consultar les dades de l'expedient", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaExpedientsRDTO consultarDadesExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari)
@@ -636,8 +640,9 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *             the GPA serveis service exception
 	 */
 	@GetMapping(value = "/expedients/{codiExpedient}/report/exportacio-xml", produces = MediaType.TEXT_PLAIN_VALUE)
-	@ApiOperation(value = "Exporta les dades de l'expedient en format XML", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	@ApiOperation(nickname = "exportarDadesExpedientXmlPortal", value = "Exporta les dades de l'expedient en format XML", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public ResponseEntity<String> exportarDadesExpedientXml(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari)
@@ -692,8 +697,9 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @return the response entity
 	 */
 	@GetMapping(value = "/expedients/{codiExpedient}/documents/{idDocument}", produces = "*/*")
-	@ApiOperation(value = "Descarregar document de l'expedient", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	@ApiOperation(nickname = "descarregarDocumentExpedientPortal", value = "Descarregar document de l'expedient", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public ResponseEntity<byte[]> descarregarDocumentExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
@@ -750,11 +756,12 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *             the GPA serveis service exception
 	 */
 	@PostMapping("/expedients")
-	@ApiOperation(value = "Crear una sol·licitud d'un expedient", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	@ApiOperation(nickname = "crearSolicitudExpedientPortal", value = "Crear una sol·licitud d'un expedient", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaCrearExpedientRDTO crearSolicitudExpedient(
 	        @ApiParam(value = "Dades de la creació de l'expedient") @RequestBody ExpedientCrearRDTO solicitudExpedient,
-	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari)
+	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("crearSolicitudExpedient(ExpedientCrearRDTO) - inici"); //$NON-NLS-1$
@@ -839,12 +846,13 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @return the resposta actualitzar expedient RDTO
 	 */
 	@PostMapping("/expedients/{codiExpedient}")
-	@ApiOperation(value = "Actualitzar dades de la sol·licitud de l'expedient", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	@ApiOperation(nickname = "actualitzarSolicitudExpedientPortal", value = "Actualitzar dades de la sol·licitud de l'expedient", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaActualitzarExpedientRDTO actualitzarSolicitudExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Dades de la actualització de l'expedient") @RequestBody ExpedientActualitzarRDTO solicitudExpedient,
-	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO) - inici"); //$NON-NLS-1$
 		}
@@ -950,12 +958,13 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @return the resposta registrar expedient RDTO
 	 */
 	@PostMapping("/expedients/{codiExpedient}/registre")
-	@ApiOperation(value = "Registrar la sol·licitud de l'expedient", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	@ApiOperation(nickname = "registrarSolicitudExpedientPortal", value = "Registrar la sol·licitud de l'expedient", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaRegistrarExpedientRDTO registrarSolicitudExpedient(
 			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 			@ApiParam(value = "Dades de l'registre de l'expedient", required = false) @RequestBody(required = false) ExpedientRegistrarRDTO expedientRegistrarRDTO,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari) {
+			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
 
 		long startTime = System.nanoTime();
 		if (log.isDebugEnabled()) {
@@ -1314,12 +1323,13 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @return the resposta aportar document RDTO
 	 */
 	@PostMapping("/expedients/{codiExpedient}/documentacio")
-	@ApiOperation(value = "Aportar documentació a l'expedient", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	@ApiOperation(nickname = "aportarDocumentacioExpedientPortal", value = "Aportar documentació a l'expedient", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaAportarDocumentRDTO aportarDocumentacioExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Dades de la creació del document") @RequestBody DocumentacioAportarRDTO documentacioAportar,
-	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
 
 		RespostaAportarDocumentRDTO respostaAportarDocumentRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_APORTAR_DOCUMENTACIO);
@@ -1475,13 +1485,14 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @return the resposta substituir document RDTO
 	 */
 	@PostMapping("/expedients/{codiExpedient}/documentacio/{idDocument}/substituir")
-	@ApiOperation(value = "Substituir les dades d'un document de l'expedient", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	@ApiOperation(nickname = "substituirDocumentExpedientPortal", value = "Substituir les dades d'un document de l'expedient", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaSubstituirDocumentRDTO substituirDocumentExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
 	        @ApiParam(value = "Dades de la versió del document") @RequestBody DocumentAportatSubstituirRDTO documentSubstituir,
-	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
 
 		RespostaSubstituirDocumentRDTO respostaSubstituirDocumentRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
@@ -1571,7 +1582,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @return the resposta upload document RDTO
 	 */
 	@PostMapping(value = "/expedients/{codiExpedient}/documentacio/{idDocument}/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	@ApiOperation(value = "Pujar el contingut d'un document de l'expedient al gestor documental", tags = {
+	@ApiOperation(nickname = "uploadDocumentExpedientPortal", value = "Pujar el contingut d'un document de l'expedient al gestor documental", tags = {
 	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	@ApiImplicitParams(@ApiImplicitParam(name = "idGestorDocumental", value = "idGestorDocumental", dataType = "string", paramType = "form", required = false))
@@ -1580,7 +1591,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
 	        @ApiParam(value = "Fitxer") @RequestParam(name = "file", required = false) MultipartFile file,
 	        @ApiParam(value = "Identificador Gestor Documental") @RequestParam(name = "idGestorDocumental", required = false) String idGestorDocumental,
-	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
 
 		RespostaUploadDocumentRDTO respostaUploadDocumentRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
@@ -1655,12 +1666,13 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @return the resposta esborrar document RDTO
 	 */
 	@DeleteMapping("/expedients/{codiExpedient}/documentacio/{idDocument}")
-	@ApiOperation(value = "Esborrar un document de l'expedient", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	@ApiOperation(nickname = "esborrarDocumentPortal", value = "Esborrar un document de l'expedient", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaEsborrarDocumentRDTO esborrarDocument(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
-	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
 		if (log.isDebugEnabled()) {
 			log.debug("esborrarDocument(String, BigDecimal) - inici"); //$NON-NLS-1$
 		}
@@ -1726,12 +1738,13 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @return the resposta esmenar expedient RDTO
 	 */
 	@PostMapping("/expedients/{codiExpedient}/esmena")
-	@ApiOperation(value = "Respondre a requeriment o tràmit d'al·legacions o IP", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	@ApiOperation(nickname = "esmenarExpedientPortal", value = "Respondre a requeriment o tràmit d'al·legacions o IP", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaEsmenarExpedientRDTO esmenarExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Dades de la esmena de l'expedient") @RequestBody ExpedientEsmenaRDTO expedientEsmena,
-	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
 
 		if (log.isDebugEnabled()) {
 			log.debug("esmenarExpedient(BigDecimal, ExpedientEsmenaRDTO) - inici"); //$NON-NLS-1$
@@ -2013,13 +2026,14 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @return the resposta abandonar expedient RDTO
 	 */
 	@PostMapping("/expedients/{codiExpedient}/{accio}")
-	@ApiOperation(value = "Desistir/Renunciar l'expedient", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	@ApiOperation(nickname = "abandonarExpedientPortal", value = "Desistir/Renunciar l'expedient", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaAbandonarExpedientRDTO abandonarExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Acció a realitzar amb l'expedient", required = true, allowableValues = AccioAbandonarApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @PathVariable String accio,
 	        @ApiParam(value = "Dades del abandonament de l'expedient") @RequestBody ExpedientAbandonamentRDTO expedientAbandonament,
-	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
 
 		if (log.isDebugEnabled()) {
 			log.debug("abandonarExpedient(BigDecimal, String, ExpedientAbandonamentRDTO) - inici"); //$NON-NLS-1$
@@ -2100,8 +2114,9 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @return the response entity
 	 */
 	@GetMapping(value = "/expedients/{codiExpedient}/documents/{idDocument}/signat", produces = "*/*")
-	@ApiOperation(value = "Descarregar document signat de l'expedient", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	@ApiOperation(nickname = "descarregarDocumentSignatExpedientPortal", value = "Descarregar document signat de l'expedient", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public ResponseEntity<byte[]> descarregarDocumentSignatExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
@@ -2159,8 +2174,9 @@ public class ServeisPortalRestController extends BaseRestController {
 	 *             the GPA serveis service exception
 	 */
 	@GetMapping("/expedients/{codiExpedient}/documentacio/{configuracio}/{csvDocument}")
-	@ApiOperation(value = "Consultar les dades del document", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	@ApiOperation(nickname = "consultarDadesDocumentPortal", value = "Consultar les dades del document", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaDocumentacioRDTO consultarDadesDocument(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Indicador per a especificar si la documentació és aportada o generada", required = true) @PathVariable String configuracio,
@@ -2272,12 +2288,13 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @return
 	 */
 	@PostMapping("/expedients/{codiExpedient}/persones")
-	@ApiOperation(value = "Incorporar tercera persona a la sol·licitud de l'expedient", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	@ApiOperation(nickname = "incorporarTerceraPersonaPortal", value = "Incorporar tercera persona a la sol·licitud de l'expedient", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaCrearTerceraPersonaRDTO incorporarTerceraPersona(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Dades de la actualització de l'expedient", required = true) @RequestBody CrearTerceraPersonaRDTO personaImplicada,
-	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
 		if (log.isDebugEnabled()) {
 			log.debug("incorporarTerceraPersona(BigDecimal, CrearTerceraPersonaRDTO) - inici"); //$NON-NLS-1$
 		}
@@ -2337,12 +2354,13 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @return
 	 */
 	@PutMapping("/expedients/{codiExpedient}/persones")
-	@ApiOperation(value = "Actualitza tercera persona en la sol·licitud de l'expedient", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	@ApiOperation(nickname = "actualitzarTerceraPersonaPortal", value = "Actualitza tercera persona en la sol·licitud de l'expedient", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaActualitzarTerceraPersonaRDTO actualitzarTerceraPersona(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Dades de la actualització de l'expedient", required = true) @RequestBody ActualitzarTerceraPersonaRDTO personaImplicada,
-	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarTerceraPersona(BigDecimal, ActualitzarTerceraPersonaRDTO) - inici"); //$NON-NLS-1$
 		}
@@ -2395,12 +2413,13 @@ public class ServeisPortalRestController extends BaseRestController {
 	}
 
 	@DeleteMapping("/expedients/{codiExpedient}/persones/{idPersona}")
-	@ApiOperation(value = "Esborrar una persona implicada en l'expedient", tags = { "Serveis Portal API" }, extensions = {
-	        @Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	@ApiOperation(nickname = "esborrarTerceraPersonaPortal", value = "Esborrar una persona implicada en l'expedient", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaEsborrarTerceraPersonaRDTO esborrarTerceraPersona(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Identificador de la persona", required = true) @PathVariable BigDecimal idPersona,
-	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
 		if (log.isDebugEnabled()) {
 			log.debug("esborrarTerceraPersona(String, BigDecimal) - inici"); //$NON-NLS-1$
 		}
