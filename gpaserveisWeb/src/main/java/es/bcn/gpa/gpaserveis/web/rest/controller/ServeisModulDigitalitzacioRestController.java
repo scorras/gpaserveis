@@ -66,7 +66,8 @@ public class ServeisModulDigitalitzacioRestController extends BaseRestController
 	 * @throws GPAServeisServiceException
 	 */
 	@PostMapping("/evidencia_digitalitzacio")
-	@ApiOperation(value = "Notificacions de les respostes del MDS a peticions d'escaneig", tags = { "Serveis MDS API" })
+	@ApiOperation(nickname = "respostaNotificacioEscaneig", value = "Notificacions de les respostes del MDS a peticions d'escaneig", tags = {
+	        "Serveis MDS API" })
 	public ResponseEntity<Void> respostaNotificacioEscaneig(
 			@ApiParam(value = "Resposta del MDS a una peticion d'escaneig", required = true) @RequestBody RespostaEvidenciaDigitalitzacioECompulsaRDTO respostaEvidenciaDigitalitzacioECompulsaRDTO)
 			throws GPAServeisServiceException {
@@ -84,9 +85,9 @@ public class ServeisModulDigitalitzacioRestController extends BaseRestController
 			callbackDigitalitzacio.setIdDocScan(StringUtils.join(respostaEvidenciaDigitalitzacioECompulsaRDTO.getIdDocumentum(), ","));
 			EstatDigitalitzacioApiParamValueTranslator estatDigitalizaApiParamValueTranslator = new EstatDigitalitzacioApiParamValueTranslator();
 			callbackDigitalitzacio.setEstat(estatDigitalizaApiParamValueTranslator
-					.getInternalValueByApiParamValue(respostaEvidenciaDigitalitzacioECompulsaRDTO.getEstatECompulsa()));
+			        .getInternalValueByApiParamValue(respostaEvidenciaDigitalitzacioECompulsaRDTO.getEstatECompulsa()));
 			if (respostaEvidenciaDigitalitzacioECompulsaRDTO.getEstatECompulsa()
-					.equals(EstatDigitalitzacioApiParamValue.OK.getApiParamValue())) {
+			        .equals(EstatDigitalitzacioApiParamValue.OK.getApiParamValue())) {
 				callbackDigitalitzacio.setDataDigitalitzacio(DateTime.now());
 			} else {
 				callbackDigitalitzacio.setCodiError(null);
@@ -125,11 +126,12 @@ public class ServeisModulDigitalitzacioRestController extends BaseRestController
 	 *             the GPA serveis service exception
 	 */
 	@GetMapping(value = "/estat_digitalitzacio/{idPeticio}")
-	@ApiOperation(value = "Consultar l'estat d'una petició de digitalització", tags = { "Serveis MDS API" }, extensions = {
-			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	@ApiOperation(nickname = "consultarEstatDigitalitzacio", value = "Consultar l'estat d'una petició de digitalització", tags = {
+	        "Serveis MDS API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaEstatDigitalitzacioRDTO consultarEstatDigitalitzacio(
-			@ApiParam(value = "Identificador de la petició de digitalització", required = true) @PathVariable String idPeticio)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Identificador de la petició de digitalització", required = true) @PathVariable String idPeticio)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("obtenirEstatDigitalitzacio(String) - inici"); //$NON-NLS-1$
 		}
@@ -159,7 +161,7 @@ public class ServeisModulDigitalitzacioRestController extends BaseRestController
 
 		if (peticionsDigitalitzacioRDTO != null) {
 			respostaConsultaEstatDigitalitzacioRDTO = modelMapper.map(peticionsDigitalitzacioRDTO,
-					RespostaConsultaEstatDigitalitzacioRDTO.class);
+			        RespostaConsultaEstatDigitalitzacioRDTO.class);
 		}
 
 		if (log.isDebugEnabled()) {

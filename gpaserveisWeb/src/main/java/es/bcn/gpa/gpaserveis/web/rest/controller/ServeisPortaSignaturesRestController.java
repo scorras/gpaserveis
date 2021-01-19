@@ -54,7 +54,8 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 	 * @throws GPAServeisServiceException
 	 */
 	@PostMapping("/resultat_peticio")
-	@ApiOperation(value = "Resultat de l'estat de les peticions", tags = { "Serveis Portasignatures API" })
+	@ApiOperation(nickname = "resultatEstatPeticioSignatura", value = "Resultat de l'estat de les peticions", tags = {
+	        "Serveis Portasignatures API" })
 	public MciPortasigResultatPeticioRespostaDTO resultatEstatPeticio(
 			@ApiParam(value = "Resultat del portasignatures a una petició de vist-i-plau/signatura", required = true) @RequestBody MciPortasigResultatPeticioDTO resultatPeticio)
 			throws GPAServeisServiceException {
@@ -91,7 +92,7 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 			DadesSignatura dadesSignatura = serveisService.consultarDadesSignaturaByCodiPeticio(callbackPortaSig.getCodiPeticio());
 
 			DadesExpedientBDTO dadesExpedientBDTO = serveisService
-					.consultarDadesBasiquesExpedientByIdDocumentacio(dadesSignatura.getIdDocumentacio());
+			        .consultarDadesBasiquesExpedientByIdDocumentacio(dadesSignatura.getIdDocumentacio());
 
 			callbackPortaSig.setUnitatGestoraIdext(dadesExpedientBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
 			callbackPortaSig.setDadesSignaturaDocumentRDTO(dadesSignatura);
