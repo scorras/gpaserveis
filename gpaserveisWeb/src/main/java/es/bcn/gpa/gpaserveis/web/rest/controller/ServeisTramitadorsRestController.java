@@ -3883,7 +3883,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	@ApiOperation(nickname = "obtenirPerInteroperabilitatTramitadors", value = "Obtenir un document per interoperabilitat", tags = {
 	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	@ApiImplicitParams(@ApiImplicitParam(name = "document", value = "Dades del document a obtenir", dataType = "string", paramType = "form", required = true))
 	public RespostaObtenirPerInteroperabilitatRDTO obtenirPerInteroperabilitat(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Dades necessàries per a la consulta al servei", required = true) @RequestBody ObtenirPerInteroperabilitatRDTO obtenirPerInteroperabilitatRDTO)
@@ -3949,10 +3948,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 *             the GPA serveis service exception
 	 */
 	@GetMapping(value = "/expedients/{codiExpedient}/obtenirCertificat")
-	@ApiOperation(nickname = "obtenirCertificatTramitadors", value = "Obtenir un document per interoperabilitat", tags = {
+	@ApiOperation(nickname = "obtenirCertificatTramitadors", value = "Obtenir certificat", tags = {
 	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	@ApiImplicitParams(@ApiImplicitParam(name = "document", value = "Dades del document a obtenir", dataType = "string", paramType = "form", required = true))
 	public RespostaCertificarExpedientRDTO obtenirCertificat(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient)
 	        throws GPAServeisServiceException {

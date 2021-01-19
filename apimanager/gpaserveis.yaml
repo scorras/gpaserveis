@@ -600,15 +600,14 @@ paths:
         type: "number"
       - name: "idGestorDocumental"
         in: "formData"
-        description: "idGestorDocumental"
+        description: "Identificador Gestor Documental"
         required: false
         type: "string"
-      - in: "formData"
-        name: "usuari"
+      - name: "usuari"
+        in: "formData"
         description: "Ciutadà interessat autenticat al Portal"
         required: false
-        schema:
-          type: "string"
+        type: "string"
       responses:
         200:
           description: "OK"
@@ -1665,7 +1664,7 @@ paths:
         type: "number"
       - name: "idGestorDocumental"
         in: "formData"
-        description: "idGestorDocumental"
+        description: "Identificador Gestor Documental"
         required: false
         type: "string"
       - name: "idSollicitud"
@@ -1673,12 +1672,11 @@ paths:
         description: "Id de la sol·licitud"
         required: true
         type: "number"
-      - in: "formData"
-        name: "usuari"
+      - name: "usuari"
+        in: "formData"
         description: "Ciutadà interessat autenticat al Portal"
         required: false
-        schema:
-          type: "string"
+        type: "string"
       responses:
         200:
           description: "OK"
@@ -3009,11 +3007,6 @@ paths:
         description: "Codi de l'expedient"
         required: true
         type: "string"
-      - name: "document"
-        in: "formData"
-        description: "Dades del document a obtenir"
-        required: true
-        type: "string"
       - in: "body"
         name: "obtenirPerInteroperabilitatRDTO"
         description: "Dades necessàries per a la consulta al servei"
@@ -3040,7 +3033,7 @@ paths:
     get:
       tags:
       - "Serveis Tramitadors API"
-      summary: "Obtenir un document per interoperabilitat"
+      summary: "Obtenir certificat"
       operationId: "obtenirCertificatTramitadors"
       produces:
       - "application/json"
@@ -3048,11 +3041,6 @@ paths:
       - name: "codiExpedient"
         in: "path"
         description: "Codi de l'expedient"
-        required: true
-        type: "string"
-      - name: "document"
-        in: "formData"
-        description: "Dades del document a obtenir"
         required: true
         type: "string"
       responses:
