@@ -1,8 +1,5 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal;
 
-import java.util.Collections;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -13,7 +10,7 @@ import lombok.Setter;
 
 @ApiModel(value = "ProcedimentPersones")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "tipus", "nivellVisibilitat", "tramits" })
+@JsonPropertyOrder({ "tipus", "nivellVisibilitat" })
 @Getter
 @Setter
 public class ProcedimentPersonesRDTO {
@@ -22,7 +19,5 @@ public class ProcedimentPersonesRDTO {
 	private String tipus;
 	@ApiModelProperty(value = "Nivell de Visibilitat")
 	private String nivellVisibilitat;
-	@ApiModelProperty(value = "Llista de tramits OVT")
-	private List<TramitsOvtProcedimentsRDTO> tramits = Collections.emptyList();
 
 }

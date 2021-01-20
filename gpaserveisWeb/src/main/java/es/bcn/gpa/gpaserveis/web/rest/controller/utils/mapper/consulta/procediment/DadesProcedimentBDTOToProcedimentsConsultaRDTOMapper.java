@@ -40,7 +40,8 @@ public class DadesProcedimentBDTOToProcedimentsConsultaRDTOMapper extends Proper
 	private InternalToIdentificacioConverter internalToIdentificacioConverter;
 
 	/** The list nivellVisibilitat to list internal converter. */
-	private InternalToProcedimentPersonesListConverter internalToProcedimentPersonesListConverter;
+	// private InternalToProcedimentPersonesListConverter
+	// internalToProcedimentPersonesListConverter;
 
 	/**
 	 * Instantiates a new resposta dades procediment BDTO to procediments
@@ -74,7 +75,8 @@ public class DadesProcedimentBDTOToProcedimentsConsultaRDTOMapper extends Proper
 		this.internalToIniciacioConverter = internalToIniciacioConverter;
 		this.internalToTramitProcedimentListConverter = internalToTramitProcedimentListConverter;
 		this.internalToIdentificacioConverter = internalToIdentificacioConverter;
-		this.internalToProcedimentPersonesListConverter = internalToProcedimentPersonesListConverter;
+		// this.internalToProcedimentPersonesListConverter =
+		// internalToProcedimentPersonesListConverter;
 	}
 
 	/*
@@ -100,9 +102,8 @@ public class DadesProcedimentBDTOToProcedimentsConsultaRDTOMapper extends Proper
 		map().setEstatCastella(source.getProcedimentsRDTO().getDescripcioEstatCastella());
 		// using(internalToTramitProcedimentListConverter).map(source.getTramitsRDTOList()).setTramits(null);
 		using(internalToIdentificacioConverter).map(source.getProcedimentsRDTO().getIdentificacions()).setDadesIdentificacio(null);
-		using(internalToProcedimentPersonesListConverter).map(source.getProcedimentsRDTO().getProcedimentPersonesList())
-				.setTerceresPersonesImplicades(null);
-		;
+		// using(internalToProcedimentPersonesListConverter).map(source.getProcedimentsRDTO().getProcedimentPersonesList())
+		// .setTerceresPersonesImplicades(null);
 	}
 
 }
