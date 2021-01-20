@@ -337,12 +337,23 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	}
 
 	/**
-	 * Test stage 23 esborrar tercera persona
+	 * Test stage 23 obtenir persones implicades procediment
 	 * 
 	 * @throws Exception
 	 */
 	@Test
-	public void testStage23_EsborrarTerceraPersonaOK() throws Exception {
+	public void testStage23_obtenirPersonesImplicadesProcediment() throws Exception {
+		String url = BASE_URL + "/procediments/1/tramits/APO/persones";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+	}
+
+	/**
+	 * Test stage 24 esborrar tercera persona
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testStage24_EsborrarTerceraPersonaOK() throws Exception {
 		String url = BASE_URL + "/expedients/1/persones/1";
 		getMockMvc().perform(delete(url)).andExpect(status().isOk()).andDo(print());
 	}
