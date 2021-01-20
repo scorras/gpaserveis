@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.26.8"
+  version: "1.26.9"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -249,12 +249,12 @@ paths:
         required: false
         type: "string"
         allowEmptyValue: false
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       - name: "versioProcediment"
         in: "query"
         description: "En cas que s'indiqui codi de procediment, filtra expedients\
@@ -296,12 +296,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/ExpedientCrear"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -332,12 +332,12 @@ paths:
         description: "Codi de l'expedient"
         required: true
         type: "string"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -373,12 +373,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/ExpedientActualitzar"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -417,12 +417,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/DocumentacioAportar"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -464,12 +464,12 @@ paths:
         description: "Codi CSV del document"
         required: true
         type: "string"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -503,12 +503,12 @@ paths:
         description: "Identificador del document"
         required: true
         type: "number"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -550,12 +550,12 @@ paths:
         description: "Identificador del document"
         required: true
         type: "number"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -603,9 +603,10 @@ paths:
         description: "Identificador Gestor Documental"
         required: false
         type: "string"
-      - name: "usuari"
-        in: "formData"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
       responses:
@@ -643,12 +644,12 @@ paths:
         description: "Identificador del document"
         required: true
         type: "number"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -683,12 +684,12 @@ paths:
         description: "Identificador del document"
         required: true
         type: "number"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -726,12 +727,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/ExpedientEsmena"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -770,12 +771,12 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/CrearTerceraPersona"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -813,12 +814,12 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/ActualitzarTerceraPersona"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -854,12 +855,12 @@ paths:
         description: "Identificador de la persona"
         required: true
         type: "number"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -896,12 +897,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/ExpedientRegistrar"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -932,12 +933,12 @@ paths:
         description: "Codi de l'expedient"
         required: true
         type: "string"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -974,12 +975,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/SollicitudCrear"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1026,12 +1027,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/ExpedientAbandonament"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1251,12 +1252,12 @@ paths:
         required: false
         type: "string"
         allowEmptyValue: false
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1285,12 +1286,12 @@ paths:
         description: "Identificador del procediment"
         required: true
         type: "number"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1329,12 +1330,12 @@ paths:
         description: "Identificador del procediment"
         required: true
         type: "number"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1373,12 +1374,12 @@ paths:
         description: "Identificador del procediment"
         required: true
         type: "number"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1407,12 +1408,12 @@ paths:
         description: "Identificador de la sol·licitud"
         required: true
         type: "number"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1439,7 +1440,7 @@ paths:
       parameters:
       - name: "idSollicitud"
         in: "path"
-        description: "Codi de l'expedient"
+        description: "Id de la sol·licitud"
         required: true
         type: "number"
       - in: "body"
@@ -1448,12 +1449,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/SollicitudActualitzar"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1489,15 +1490,15 @@ paths:
           $ref: "#/definitions/DocumentacioAportarSollicitud"
       - name: "idSollicitud"
         in: "path"
-        description: "Codi de la sol·licitud"
+        description: "Id de la sol·licitud"
         required: true
         type: "number"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1533,12 +1534,12 @@ paths:
         description: "Id de la sol·licitud"
         required: true
         type: "number"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1572,12 +1573,12 @@ paths:
         description: "Identificador de la sol·licitud"
         required: true
         type: "number"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1619,12 +1620,12 @@ paths:
         description: "Id de la sol·licitud"
         required: true
         type: "number"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1672,9 +1673,10 @@ paths:
         description: "Id de la sol·licitud"
         required: true
         type: "number"
-      - name: "usuari"
-        in: "formData"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
       responses:
@@ -1690,6 +1692,132 @@ paths:
           description: "Forbidden"
         404:
           description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /serveis/portal/sollicituds/{idSollicitud}/persones:
+    post:
+      tags:
+      - "Serveis Portal API"
+      summary: "Incorporar tercera persona a la sol·licitud"
+      operationId: "incorporarTerceraPersonaPortalSollicituds"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "idSollicitud"
+        in: "path"
+        description: "Id de la sol·licitud"
+        required: true
+        type: "number"
+      - in: "body"
+        name: "personaImplicada"
+        description: "Dades de la actualització de la sol·licitud"
+        required: true
+        schema:
+          $ref: "#/definitions/CrearTerceraPersona"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaCrearTerceraPersona"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+    put:
+      tags:
+      - "Serveis Portal API"
+      summary: "Actualitza tercera persona en la sol·licitud"
+      operationId: "actualitzarTerceraPersonaPortalSollicituds"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "idSollicitud"
+        in: "path"
+        description: "Id de la sol·licitud"
+        required: true
+        type: "number"
+      - in: "body"
+        name: "personaImplicada"
+        description: "Dades de la actualització de la sol·licitud"
+        required: true
+        schema:
+          $ref: "#/definitions/ActualitzarTerceraPersona"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaActualitzarTerceraPersona"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /serveis/portal/sollicituds/{idSollicitud}/persones/{idPersona}:
+    delete:
+      tags:
+      - "Serveis Portal API"
+      summary: "Esborrar una persona implicada en la sol·licitud"
+      operationId: "esborrarTerceraPersonaPortalSollicituds"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "idPersona"
+        in: "path"
+        description: "Identificador de la persona"
+        required: true
+        type: "number"
+      - name: "idSollicitud"
+        in: "path"
+        description: "Id de la sol·licitud"
+        required: true
+        type: "number"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaEsborrarTerceraPersona"
+        204:
+          description: "No Content"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
@@ -1715,12 +1843,12 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/SollicitudRegistrar"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"
@@ -1757,12 +1885,12 @@ paths:
         description: "Identificador de la sol·licitud"
         required: true
         type: "number"
-      - name: "usuari"
-        in: "query"
-        description: "Ciutadà interessat autenticat al Portal"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
+          \ interessat autenticat al Portal"
         required: false
         type: "string"
-        allowEmptyValue: false
       responses:
         200:
           description: "OK"

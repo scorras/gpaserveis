@@ -31,7 +31,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacio
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesoperEstatsExp;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPersones;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPersonesTramOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.BooleanApiParamValue;
@@ -69,7 +68,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValorsLlis
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValorsValidacionsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.HistoricsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ProcedimentPersonesRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.TramitsOvtProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.UnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.ConfiguracioDocumentacioRequeridaConsultaRDTO;
@@ -1431,20 +1429,22 @@ public class ConverterHelper {
 		procedimentPersonesRDTO.setNivellVisibilitat(
 				nivellVisibilitatApiParamValueTranslator.getApiParamValueByInternalValue(procedimentPersones.getNivellVisibilitat()));
 
-		if (procedimentPersones.getTramitsOvtList() != null) {
-			TramitsOvtProcedimentsRDTO tramitsOvtProcedimentsRDTO = null;
-			ArrayList<TramitsOvtProcedimentsRDTO> tramitList = new ArrayList<TramitsOvtProcedimentsRDTO>();
-			for (ProcedimentPersonesTramOvt procedimentPersonesTramOvt : procedimentPersones.getTramitsOvtList()) {
-
-				tramitsOvtProcedimentsRDTO = new TramitsOvtProcedimentsRDTO();
-				tramitsOvtProcedimentsRDTO.setNom(tramitsOvtProcedimentsApiParamValueTranslator
-						.getApiParamValueByInternalValue(procedimentPersonesTramOvt.getTramitOvtIdext()));
-
-				tramitList.add(tramitsOvtProcedimentsRDTO);
-			}
-
-			procedimentPersonesRDTO.setTramits(tramitList);
-		}
+		// if (procedimentPersones.getTramitsOvtList() != null) {
+		// TramitsOvtProcedimentsRDTO tramitsOvtProcedimentsRDTO = null;
+		// ArrayList<TramitsOvtProcedimentsRDTO> tramitList = new
+		// ArrayList<TramitsOvtProcedimentsRDTO>();
+		// for (ProcedimentPersonesTramOvt procedimentPersonesTramOvt :
+		// procedimentPersones.getTramitsOvtList()) {
+		//
+		// tramitsOvtProcedimentsRDTO = new TramitsOvtProcedimentsRDTO();
+		// tramitsOvtProcedimentsRDTO.setNom(tramitsOvtProcedimentsApiParamValueTranslator
+		// .getApiParamValueByInternalValue(procedimentPersonesTramOvt.getTramitOvtIdext()));
+		//
+		// tramitList.add(tramitsOvtProcedimentsRDTO);
+		// }
+		//
+		// procedimentPersonesRDTO.setTramits(tramitList);
+		// }
 
 		return procedimentPersonesRDTO;
 
