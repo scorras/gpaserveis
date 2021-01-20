@@ -105,6 +105,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
+import es.bcn.gpa.gpaserveis.web.initialization.interceptor.ClientEntity;
 import es.bcn.gpa.gpaserveis.web.rest.controller.handler.ServeisRestControllerExceptionHandler;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerSagaHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerValidationHelper;
@@ -215,6 +216,10 @@ public class ServeisPortalRestController extends BaseRestController {
 	@Value("${expedients.id.organ}")
 	private String expedientsIdOrgan;
 
+	/** The client entity. */
+	@Autowired
+	private ClientEntity clientEntity;
+
 	/**
 	 * Cerca procediments.
 	 *
@@ -258,28 +263,31 @@ public class ServeisPortalRestController extends BaseRestController {
 	@ApiOperation(nickname = "cercaProcedimentsPortal", value = "Cerca de procediments", tags = { "Serveis Portal API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaCercaProcedimentsRDTO cercaProcediments(
-			@ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
-			@ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
-			@ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
-			@ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio,
-			@ApiParam(value = "Filtra procediments per codi") @RequestParam(value = "codi", required = false) String codi,
-			@ApiParam(value = "Filtrar procediments per conjunt d'estats", allowableValues = EstatApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
-			@ApiParam(value = "Filtra procediments per nom") @RequestParam(value = "nom", required = false) String nom,
-			@ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
-			@ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci,
-			@ApiParam(value = "Filtra procediments per conjunt d'Unitats Gestores Responsables") @RequestParam(value = "ugr", required = false) String ugr,
-			@ApiParam(value = "Filtra procediments per exclusivament intern", allowableValues = ExclusivamentInternApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ExclusivamentInternApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String exclusivamentIntern,
-			@ApiParam(value = "Filtra procediments per canals d'activació en format electrònic", allowableValues = ActivableEnFormatElectronicApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ActivableEnFormatElectronicApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] activableFormatElectronic,
-			@ApiParam(value = "Filtra procediments per òrgan resolutori") @RequestParam(value = "organResolutori", required = false) String organResolutori,
-			@ApiParam(value = "Filtrar procediments per conjunt de competències associades", allowableValues = CompetenciaAssociadaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = CompetenciaAssociadaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] competenciaAssociada,
-			@ApiParam(value = "Filtrar procediments per conjunt de famílies", allowableValues = FamiliaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = FamiliaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] familia,
-			@ApiParam(value = "Filtra procediments per actuació") @RequestParam(value = "actuacio", required = false) String actuacio,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
+	        @ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
+	        @ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
+	        @ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio,
+	        @ApiParam(value = "Filtra procediments per codi") @RequestParam(value = "codi", required = false) String codi,
+	        @ApiParam(value = "Filtrar procediments per conjunt d'estats", allowableValues = EstatApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
+	        @ApiParam(value = "Filtra procediments per nom") @RequestParam(value = "nom", required = false) String nom,
+	        @ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
+	        @ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci,
+	        @ApiParam(value = "Filtra procediments per conjunt d'Unitats Gestores Responsables") @RequestParam(value = "ugr", required = false) String ugr,
+	        @ApiParam(value = "Filtra procediments per exclusivament intern", allowableValues = ExclusivamentInternApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ExclusivamentInternApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String exclusivamentIntern,
+	        @ApiParam(value = "Filtra procediments per canals d'activació en format electrònic", allowableValues = ActivableEnFormatElectronicApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ActivableEnFormatElectronicApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] activableFormatElectronic,
+	        @ApiParam(value = "Filtra procediments per òrgan resolutori") @RequestParam(value = "organResolutori", required = false) String organResolutori,
+	        @ApiParam(value = "Filtrar procediments per conjunt de competències associades", allowableValues = CompetenciaAssociadaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = CompetenciaAssociadaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] competenciaAssociada,
+	        @ApiParam(value = "Filtrar procediments per conjunt de famílies", allowableValues = FamiliaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = FamiliaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] familia,
+	        @ApiParam(value = "Filtra procediments per actuació") @RequestParam(value = "actuacio", required = false) String actuacio)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug(
 					"cercaProcediments(int, int, String, String, String, String[], String, String, String, String, String, String[], String, String[], String[], String) - inici"); //$NON-NLS-1$
 		}
+
+		// TODO Acceso a la cabecera con la identificación del usuario del
+		// portal del ciudadano
+		// String usuariInteressat = clientEntity.getUsuariInteressat();
 
 		RespostaCercaProcedimentsRDTO resposta = new RespostaCercaProcedimentsRDTO();
 		List<ProcedimentsCercaRDTO> procedimentsCercaRDTOList = new ArrayList<ProcedimentsCercaRDTO>();
@@ -332,9 +340,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaProcedimentsRDTO consultarDadesProcediment(
-			@ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment)
+	        throws GPAServeisServiceException {
 
 		RespostaConsultaProcedimentsRDTO respostaConsultaProcedimentsRDTO = new RespostaConsultaProcedimentsRDTO();
 
@@ -366,10 +373,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaDadesOperacioRDTO consultarDadesOperacioTramit(
-			@ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
-			@ApiParam(value = "Codi del tràmit", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true) @PathVariable String codiTramit,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
+	        @ApiParam(value = "Codi del tràmit", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true) @PathVariable String codiTramit)
+	        throws GPAServeisServiceException {
 
 		RespostaConsultaDadesOperacioRDTO respostaConsultaDadesOperacioRDTO = new RespostaConsultaDadesOperacioRDTO();
 		DadesOperacioConsultaRDTO dadesOperacioConsultaRDTO = new DadesOperacioConsultaRDTO();
@@ -415,10 +421,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaConfiguracioDocumentacioAportadaRDTO consultarDocumentacioEntradaProcediment(
-			@ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
-			@ApiParam(value = "Codi del tràmit", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true) @PathVariable String codiTramit,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
+	        @ApiParam(value = "Codi del tràmit", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true) @PathVariable String codiTramit)
+	        throws GPAServeisServiceException {
 
 		RespostaConsultaConfiguracioDocumentacioAportadaRDTO respostaConsultaConfiguracioDocumentacioAportadaRDTO = new RespostaConsultaConfiguracioDocumentacioAportadaRDTO();
 
@@ -498,23 +503,22 @@ public class ServeisPortalRestController extends BaseRestController {
 	@ApiOperation(nickname = "cercaExpedientsPortal", value = "Cerca d'expedients", tags = { "Serveis Portal API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaCercaExpedientsRDTO cercaExpedients(
-			@ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
-			@ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
-			@ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
-			@ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio,
-			@ApiParam(value = "Filtra expedients per codi") @RequestParam(value = "codiExpedient", required = false) String codiExpedient,
-			@ApiParam(value = "Filtra expedients per sollicitant") @RequestParam(value = "nifSollicitant", required = false) String nifSollicitant,
-			@ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioInici", required = false) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN) String dataPresentacioInici,
-			@ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioFi", required = false) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN) String dataPresentacioFi,
-			@ApiParam(value = "Filtra expedients per un conjunt de codis de procediment") @RequestParam(value = "codiProcediment", required = false) String[] codiProcediment,
-			@ApiParam(value = "En cas que s'indiqui codi de procediment, filtra expedients per versió de procediment", allowableValues = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String versioProcediment,
-			@ApiParam(value = "Filtra expedients per conjunt d'estats", allowableValues = EstatCiutadaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatCiutadaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
-			@ApiParam(value = "Filtra expedients per Unitat Gestora") @RequestParam(value = "unitatGestora", required = false) String unitatGestora,
-			@ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
-			@ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci,
-			@ApiParam(value = "Filtra els expedients amb un nivell d'autenticació menor o igual", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String nivellAutenticacio,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
+	        @ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
+	        @ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
+	        @ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio,
+	        @ApiParam(value = "Filtra expedients per codi") @RequestParam(value = "codiExpedient", required = false) String codiExpedient,
+	        @ApiParam(value = "Filtra expedients per sollicitant") @RequestParam(value = "nifSollicitant", required = false) String nifSollicitant,
+	        @ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioInici", required = false) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN) String dataPresentacioInici,
+	        @ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioFi", required = false) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN) String dataPresentacioFi,
+	        @ApiParam(value = "Filtra expedients per un conjunt de codis de procediment") @RequestParam(value = "codiProcediment", required = false) String[] codiProcediment,
+	        @ApiParam(value = "En cas que s'indiqui codi de procediment, filtra expedients per versió de procediment", allowableValues = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String versioProcediment,
+	        @ApiParam(value = "Filtra expedients per conjunt d'estats", allowableValues = EstatCiutadaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatCiutadaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
+	        @ApiParam(value = "Filtra expedients per Unitat Gestora") @RequestParam(value = "unitatGestora", required = false) String unitatGestora,
+	        @ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
+	        @ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci,
+	        @ApiParam(value = "Filtra els expedients amb un nivell d'autenticació menor o igual", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String nivellAutenticacio)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug(
 					"cercaExpedients(int, int, String, String, String, String, String, String, String[], String, String[], String, String, String) - inici"); //$NON-NLS-1$
@@ -572,9 +576,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaExpedientsRDTO consultarDadesExpedient(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient)
+	        throws GPAServeisServiceException {
 
 		RespostaConsultaExpedientsRDTO respostaConsultaExpedientsRDTO = new RespostaConsultaExpedientsRDTO();
 
@@ -646,9 +649,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public ResponseEntity<String> exportarDadesExpedientXml(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient)
+	        throws GPAServeisServiceException {
 
 		BigDecimal visibilitat = BigDecimal.ONE;
 
@@ -703,9 +705,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public ResponseEntity<byte[]> descarregarDocumentExpedient(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument) {
 
 		try {
 			// IMPORTANTE: Para permitir la descarga del Comprovant de registro
@@ -762,9 +763,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaCrearExpedientRDTO crearSolicitudExpedient(
-			@ApiParam(value = "Dades de la creació de l'expedient") @RequestBody ExpedientCrearRDTO solicitudExpedient,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Dades de la creació de l'expedient") @RequestBody ExpedientCrearRDTO solicitudExpedient)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("crearSolicitudExpedient(ExpedientCrearRDTO) - inici"); //$NON-NLS-1$
 		}
@@ -852,9 +852,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaActualitzarExpedientRDTO actualitzarSolicitudExpedient(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades de la actualització de l'expedient") @RequestBody ExpedientActualitzarRDTO solicitudExpedient,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Dades de la actualització de l'expedient") @RequestBody ExpedientActualitzarRDTO solicitudExpedient) {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO) - inici"); //$NON-NLS-1$
 		}
@@ -964,9 +963,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaRegistrarExpedientRDTO registrarSolicitudExpedient(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades de l'registre de l'expedient", required = false) @RequestBody(required = false) ExpedientRegistrarRDTO expedientRegistrarRDTO,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Dades de l'registre de l'expedient", required = false) @RequestBody(required = false) ExpedientRegistrarRDTO expedientRegistrarRDTO) {
 		if (log.isDebugEnabled()) {
 			log.debug("registrarSolicitudExpedient(BigDecimal) - inici"); //$NON-NLS-1$
 		}
@@ -1174,9 +1172,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaAportarDocumentRDTO aportarDocumentacioExpedient(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades de la creació del document") @RequestBody DocumentacioAportarRDTO documentacioAportar,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Dades de la creació del document") @RequestBody DocumentacioAportarRDTO documentacioAportar) {
 
 		RespostaAportarDocumentRDTO respostaAportarDocumentRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_APORTAR_DOCUMENTACIO);
@@ -1336,10 +1333,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaSubstituirDocumentRDTO substituirDocumentExpedient(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
-			@ApiParam(value = "Dades de la versió del document") @RequestBody DocumentAportatSubstituirRDTO documentSubstituir,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
+	        @ApiParam(value = "Dades de la versió del document") @RequestBody DocumentAportatSubstituirRDTO documentSubstituir) {
 
 		RespostaSubstituirDocumentRDTO respostaSubstituirDocumentRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
@@ -1433,14 +1429,12 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "idGestorDocumental", value = "Identificador Gestor Documental", dataType = "string", paramType = "form", required = false),
-			@ApiImplicitParam(name = "usuari", value = "Ciutadà interessat autenticat al Portal", dataType = "string", paramType = "form", required = false) })
+	        @ApiImplicitParam(name = "idGestorDocumental", value = "Identificador Gestor Documental", dataType = "string", paramType = "form", required = false) })
 	public RespostaUploadDocumentRDTO uploadDocumentExpedient(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
-			@ApiParam(value = "Fitxer") @RequestParam(name = "file", required = false) MultipartFile file,
-			@ApiParam(value = "Identificador Gestor Documental") @RequestParam(name = "idGestorDocumental", required = false) String idGestorDocumental,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
+	        @ApiParam(value = "Fitxer") @RequestParam(name = "file", required = false) MultipartFile file,
+	        @ApiParam(value = "Identificador Gestor Documental") @RequestParam(name = "idGestorDocumental", required = false) String idGestorDocumental) {
 
 		RespostaUploadDocumentRDTO respostaUploadDocumentRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
@@ -1519,9 +1513,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaEsborrarDocumentRDTO esborrarDocument(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument) {
 		if (log.isDebugEnabled()) {
 			log.debug("esborrarDocument(String, BigDecimal) - inici"); //$NON-NLS-1$
 		}
@@ -1591,9 +1584,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaEsmenarExpedientRDTO esmenarExpedient(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades de la esmena de l'expedient") @RequestBody ExpedientEsmenaRDTO expedientEsmena,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Dades de la esmena de l'expedient") @RequestBody ExpedientEsmenaRDTO expedientEsmena) {
 
 		if (log.isDebugEnabled()) {
 			log.debug("esmenarExpedient(BigDecimal, ExpedientEsmenaRDTO) - inici"); //$NON-NLS-1$
@@ -1879,10 +1871,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaAbandonarExpedientRDTO abandonarExpedient(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Acció a realitzar amb l'expedient", required = true, allowableValues = AccioAbandonarApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @PathVariable String accio,
-			@ApiParam(value = "Dades del abandonament de l'expedient") @RequestBody ExpedientAbandonamentRDTO expedientAbandonament,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Acció a realitzar amb l'expedient", required = true, allowableValues = AccioAbandonarApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @PathVariable String accio,
+	        @ApiParam(value = "Dades del abandonament de l'expedient") @RequestBody ExpedientAbandonamentRDTO expedientAbandonament) {
 
 		if (log.isDebugEnabled()) {
 			log.debug("abandonarExpedient(BigDecimal, String, ExpedientAbandonamentRDTO) - inici"); //$NON-NLS-1$
@@ -1967,9 +1958,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public ResponseEntity<byte[]> descarregarDocumentSignatExpedient(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument) {
 
 		try {
 
@@ -2027,11 +2017,10 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaDocumentacioRDTO consultarDadesDocument(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Indicador per a especificar si la documentació és aportada o generada", required = true) @PathVariable String configuracio,
-			@ApiParam(value = "Codi CSV del document", required = true) @PathVariable String csvDocument,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Indicador per a especificar si la documentació és aportada o generada", required = true) @PathVariable String configuracio,
+	        @ApiParam(value = "Codi CSV del document", required = true) @PathVariable String csvDocument)
+	        throws GPAServeisServiceException {
 
 		Boolean esAportada = null;
 		DocsEntradaRDTO docsEntradaRDTO = null;
@@ -2141,9 +2130,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaCrearTerceraPersonaRDTO incorporarTerceraPersona(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades de la actualització de l'expedient", required = true) @RequestBody CrearTerceraPersonaRDTO personaImplicada,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Dades de la actualització de l'expedient", required = true) @RequestBody CrearTerceraPersonaRDTO personaImplicada) {
 		if (log.isDebugEnabled()) {
 			log.debug("incorporarTerceraPersona(BigDecimal, CrearTerceraPersonaRDTO) - inici"); //$NON-NLS-1$
 		}
@@ -2207,9 +2195,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaActualitzarTerceraPersonaRDTO actualitzarTerceraPersona(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades de la actualització de l'expedient", required = true) @RequestBody ActualitzarTerceraPersonaRDTO personaImplicada,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Dades de la actualització de l'expedient", required = true) @RequestBody ActualitzarTerceraPersonaRDTO personaImplicada) {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarTerceraPersona(BigDecimal, ActualitzarTerceraPersonaRDTO) - inici"); //$NON-NLS-1$
 		}
@@ -2266,9 +2253,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaEsborrarTerceraPersonaRDTO esborrarTerceraPersona(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Identificador de la persona", required = true) @PathVariable BigDecimal idPersona,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(name = "usuari", required = false) String usuari) {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Identificador de la persona", required = true) @PathVariable BigDecimal idPersona) {
 		if (log.isDebugEnabled()) {
 			log.debug("esborrarTerceraPersona(String, BigDecimal) - inici"); //$NON-NLS-1$
 		}
@@ -2335,8 +2321,7 @@ public class ServeisPortalRestController extends BaseRestController {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaPersonesProcedimentRDTO consultarDadesPersonesProcediment(
 			@ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
-			@ApiParam(value = "Codi del tràmit", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true) @PathVariable String codiTramit,
-			@ApiParam(value = "Ciutadà interessat autenticat al Portal") @RequestParam(value = "usuari", required = false) String usuari)
+			@ApiParam(value = "Codi del tràmit", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true) @PathVariable String codiTramit)
 			throws GPAServeisServiceException {
 
 		RespostaConsultaPersonesProcedimentRDTO respostaConsultaPersonesProcedimentRDTO = new RespostaConsultaPersonesProcedimentRDTO();

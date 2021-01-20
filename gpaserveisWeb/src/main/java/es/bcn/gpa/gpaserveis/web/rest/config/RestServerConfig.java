@@ -8,10 +8,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
+import es.bcn.gpa.gpaserveis.web.initialization.interceptor.ClientEntity;
+import es.bcn.gpa.gpaserveis.web.initialization.interceptor.ClientRequestInterceptor;
 import es.bcn.gpa.gpaserveis.web.rest.controller.converter.StringToDocumentComplecioRDTOConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.converter.StringToDocumentIncorporacioNouRDTOConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.converter.StringToRequerimentPreparacioRDTOConverter;
@@ -34,7 +39,7 @@ public class RestServerConfig extends RestServiceDefaultSwaggerConfiguration {
 	@Bean(name = "apiDocumentedByRestService")
 	public Docket apiDocumentedByRestService() {
 		return super.apiDocumentedByRestService().pathProvider(null).genericModelSubstitutes(ResponseEntity.class).forCodeGeneration(true)
-				.useDefaultResponseMessages(true);
+		        .useDefaultResponseMessages(true);
 	}
 
 	/**
@@ -85,6 +90,22 @@ public class RestServerConfig extends RestServiceDefaultSwaggerConfiguration {
 		registry.addConverter(new StringToDocumentIncorporacioNouRDTOConverter());
 		registry.addConverter(new StringToRequerimentPreparacioRDTOConverter());
 		registry.addConverter(new StringToDocumentComplecioRDTOConverter());
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(clientRequestInterceptor()).addPathPatterns("/serveis/portal/**");
+	}
+
+	@Bean(name = "clientEntity")
+	@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
+	public ClientEntity clientEntity() {
+		return new ClientEntity();
+	}
+
+	@Bean
+	public ClientRequestInterceptor clientRequestInterceptor() {
+		return new ClientRequestInterceptor(clientEntity());
 	}
 
 }
