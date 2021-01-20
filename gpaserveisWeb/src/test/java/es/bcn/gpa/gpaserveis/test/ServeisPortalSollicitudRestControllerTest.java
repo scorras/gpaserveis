@@ -3,6 +3,7 @@ package es.bcn.gpa.gpaserveis.test;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -159,7 +160,7 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
 		String url = BASE_URL + "/sollicituds/2/documentacio/1/upload";
 		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile).contentType(MediaType.MULTIPART_FORM_DATA))
-		        .andExpect(status().isOk()).andDo(print());
+				.andExpect(status().isOk()).andDo(print());
 
 	}
 
@@ -175,7 +176,7 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
 		String url = BASE_URL + "/sollicituds/3/documentacio/3/upload";
 		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile).contentType(MediaType.MULTIPART_FORM_DATA))
-		        .andExpect(status().isOk()).andDo(print());
+				.andExpect(status().isOk()).andDo(print());
 
 	}
 
@@ -216,9 +217,9 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	public void testStage14_PostSubstituirDocumentSollicitud() throws Exception {
 		String url = BASE_URL + "/sollicituds/1/documentacio/1/substituir";
 		getMockMvc()
-		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-		                "{ \"configuracioDocumentacio\": \"43\", \"origen\": \"EXTERN\", \"comentari\": \"Document substituït des de portal de tramitació\", \"idioma\": \"CASTELLA\", \"fitxer\": {\t\"nom\": \"DNI_H.pdf\",\t\"format\": \"PDF\" }}"))
-		        .andExpect(status().isOk()).andDo(print());
+				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+						"{ \"configuracioDocumentacio\": \"43\", \"origen\": \"EXTERN\", \"comentari\": \"Document substituït des de portal de tramitació\", \"idioma\": \"CASTELLA\", \"fitxer\": {\t\"nom\": \"DNI_H.pdf\",\t\"format\": \"PDF\" }}"))
+				.andExpect(status().isOk()).andDo(print());
 
 	}
 
@@ -232,7 +233,7 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	public void testStage15_PostRegistrarSolicitud() throws Exception {
 		String url = BASE_URL + "/sollicituds/4/registre";
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{ \"signaturaSolicitud\": \"1\" }"))
-		        .andExpect(status().isOk()).andDo(print());
+				.andExpect(status().isOk()).andDo(print());
 
 	}
 
@@ -249,4 +250,42 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(body)).andExpect(status().isOk()).andDo(print());
 	}
 
+	/**
+	 * Test stage 16 incorporar tercera persona sollicitud
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testStage16_PostCrearTerceraPersonaSollicitudOK() throws Exception {
+		String url = BASE_URL + "/sollicituds/2/persones";
+		getMockMvc()
+				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+						"{\"persona\":{\"relacio\":null, \"relacioTerceraPersona\":\"Testimoni\", \"visibilitatOvt\":false, \"tipusPersona\":\"FISICA\", \"nomRaoSocial\":\"El Àlvar\",\"cognom1\":\"Perau\",\"cognom2\":null,\"documentIndentitat\":{\"tipusDocument\":\"NIE\",\"numeroDocument\":\"00914091\",\"pais\":\"108\"},\"personesDadescontacte\":{}}}}"))
+				.andExpect(status().isOk()).andDo(print());
+	}
+
+	/**
+	 * Test stage 17 actualitzar tercera persona sollicitud
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testStage17_PutActualitzarTerceraPersonaSollicitudOK() throws Exception {
+		String url = BASE_URL + "/sollicituds/2/persones";
+		getMockMvc()
+				.perform(put(url).contentType(APPLICATION_JSON_UTF8).content(
+						"{\"persona\":{\"relacio\":null, \"relacioTerceraPersona\":\"Testimoni\", \"visibilitatOvt\":false, \"tipusPersona\":\"FISICA\", \"nomRaoSocial\":\"El Àlvar\",\"cognom1\":\"Perau\",\"cognom2\":null,\"documentIndentitat\":{\"tipusDocument\":\"NIE\",\"numeroDocument\":\"00914091\",\"pais\":\"108\"},\"personesDadescontacte\":{}}}}"))
+				.andExpect(status().isOk()).andDo(print());
+	}
+
+	/**
+	 * Test stage 23 esborrar tercera persona sollicitud
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testStage23_EsborrarTerceraPersonaSollicitudOK() throws Exception {
+		String url = BASE_URL + "/sollicituds/2/persones/1";
+		getMockMvc().perform(delete(url)).andExpect(status().isOk()).andDo(print());
+	}
 }

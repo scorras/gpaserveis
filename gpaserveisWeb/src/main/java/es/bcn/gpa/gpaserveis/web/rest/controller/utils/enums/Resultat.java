@@ -211,7 +211,19 @@ public enum Resultat {
 
 	OK_ACTUALITZAR_TERCERA_PERSONA_EXPEDIENT("OK", "Tercera persona actualitzada correctament"),
 
-	ERROR_ACTUALITZAR_TERCERA_PERSONA_EXPEDIENT("ERROR", "No s'ha pogut actualitzar la tercera persona de l'expedient");
+	ERROR_ACTUALITZAR_TERCERA_PERSONA_EXPEDIENT("ERROR", "No s'ha pogut actualitzar la tercera persona de l'expedient"),
+
+	OK_INCORPORAR_TERCERA_PERSONA_SOLLICITUD("OK", "Tercera persona incorporada correctament"),
+
+	ERROR_INCORPORAR_TERCERA_PERSONA_SOLLICITUD("ERROR", "No s'ha pogut incorporar la tercera persona a la sol·licitud"),
+
+	OK_ACTUALITZAR_TERCERA_PERSONA_SOLLICITUD("OK", "Tercera persona actualitzada correctament"),
+
+	ERROR_ACTUALITZAR_TERCERA_PERSONA_SOLLICITUD("ERROR", "No s'ha pogut actualitzar la tercera persona de la sol·licitud"),
+
+	OK_ESBORRAR_TERCERA_PERSONA_SOLLICITUD("OK", "Tercera persona donada de baixa correctament"),
+
+	ERROR_ESBORRAR_TERCERA_PERSONA_SOLLICITUD("ERROR", "No s'ha pogut donar de baixa la tercera persona de la sol·licitud");
 
 	private String codi;
 
