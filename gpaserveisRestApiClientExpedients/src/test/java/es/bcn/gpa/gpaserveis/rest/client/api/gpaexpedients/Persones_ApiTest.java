@@ -85,4 +85,44 @@ public class Persones_ApiTest extends ParentTest {
 		assertTrue(response != null);
 	}
 
+	/**
+	 * Returns all the expedients that meet the search criteria
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void cercaAltresPersonesImplicadesExpedientNoEsborranyTest() {
+
+		when(apiClient.parameterToMultiValueMap(isNull(CollectionFormat.class), any(String.class), any(Object.class)))
+				.thenReturn(new LinkedMultiValueMap<String, String>());
+		when(apiClient.invokeAPI(eq("/expedients/personesSollicitud/altresImplidadesNoEsborrany/1"), eq(HttpMethod.GET),
+				any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class),
+				any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
+						.thenReturn(new PageDataOfPersonesSollicitudRDTO());
+
+		BigDecimal idSolicitud = ONE;
+		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
+		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
+		Boolean currentPageHasNextPage = null;
+		Boolean currentPageHasPreviousPage = null;
+		Boolean currentPageIsFirstPage = null;
+		Boolean currentPageIsLastPage = null;
+		Integer currentPageNumber = null;
+		String dir = null;
+		Integer nextPageNumber = null;
+		Integer pageSize = null;
+		Integer previousPageNumber = null;
+		String sort = null;
+		Long totalElements = null;
+		Integer totalPages = null;
+		PageDataOfPersonesSollicitudRDTO response = api.cercaAltresPersonesImplicadesExpedientNoEsborrany(idSolicitud,
+				absoluteRowNumberOfFirstRowInCurrentPage, absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage,
+				currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize,
+				previousPageNumber, sort, totalElements, totalPages);
+
+		assertTrue(response != null);
+	}
 }

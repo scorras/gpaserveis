@@ -126,6 +126,18 @@ public interface ExpedientsService {
 	PageDataOfPersonesSollicitudRDTO cercaAltresPersonesImplicadesExpedient(BigDecimal idSolicitud) throws GPAServeisServiceException;
 
 	/**
+	 * Cerca altres persones implicades no esborrany en expedient.
+	 *
+	 * @param idSolicitud
+	 *            the id solicitud
+	 * @return the page data of persones sollicitud RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	PageDataOfPersonesSollicitudRDTO cercaAltresPersonesImplicadesExpedientNoEsborrany(BigDecimal idSolicitud)
+			throws GPAServeisServiceException;
+
+	/**
 	 * Actualitzar dades altra persona implicada.
 	 *
 	 * @param personesSollicitudRDTO
