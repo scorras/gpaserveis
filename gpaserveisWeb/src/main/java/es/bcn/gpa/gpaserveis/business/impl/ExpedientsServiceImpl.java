@@ -487,6 +487,58 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
+	 * cercaAltresPersonesImplicadesExpedientNoEsborrany(java.math.BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackCercaAltresPersonesImplicadesExpedientNoEsborrany")
+	public PageDataOfPersonesSollicitudRDTO cercaAltresPersonesImplicadesExpedientNoEsborrany(BigDecimal idSolicitud)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("cercaAltresPersonesImplicadesExpedientNoEsborrany(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = persones_Api
+					.cercaAltresPersonesImplicadesExpedientNoEsborrany(idSolicitud, null, null, null, null, null, null, null, null, null,
+							null, null, null, null, null);
+
+			if (log.isDebugEnabled()) {
+				log.debug("cercaAltresPersonesImplicadesExpedientNoEsborrany(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			return pageDataOfPersonesSollicitudRDTO;
+		} catch (RestClientException e) {
+			log.error("cercaAltresPersonesImplicadesExpedientNoEsborrany(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback cerca altres persones implicades no esborrany expedient.
+	 *
+	 * @param idSolicitud
+	 *            the id solicitud
+	 * @param e
+	 *            the e
+	 * @return the page data of persones sollicitud RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public PageDataOfPersonesSollicitudRDTO fallbackCercaAltresPersonesImplicadesExpedientNoEsborrany(BigDecimal idSolicitud, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCercaAltresPersonesImplicadesExpedientNoEsborrany(BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
 	 * actualitzarDadesAltraPersonaImplicada(es.bcn.gpa.gpaserveis.rest.client.
 	 * api.model.gpaexpedients.PersonesSollicitudRDTO)
 	 */
