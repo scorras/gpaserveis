@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.26.9"
+  version: "1.26.10"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -249,10 +249,15 @@ paths:
         required: false
         type: "string"
         allowEmptyValue: false
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       - name: "versioProcediment"
@@ -296,10 +301,15 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/ExpedientCrear"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -332,10 +342,15 @@ paths:
         description: "Codi de l'expedient"
         required: true
         type: "string"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -373,10 +388,15 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/ExpedientActualitzar"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -417,10 +437,15 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/DocumentacioAportar"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -464,10 +489,15 @@ paths:
         description: "Codi CSV del document"
         required: true
         type: "string"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -503,10 +533,15 @@ paths:
         description: "Identificador del document"
         required: true
         type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -550,10 +585,15 @@ paths:
         description: "Identificador del document"
         required: true
         type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -603,10 +643,15 @@ paths:
         description: "Identificador Gestor Documental"
         required: false
         type: "string"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -644,10 +689,15 @@ paths:
         description: "Identificador del document"
         required: true
         type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -684,10 +734,15 @@ paths:
         description: "Identificador del document"
         required: true
         type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -727,10 +782,15 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/ExpedientEsmena"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -771,10 +831,15 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/CrearTerceraPersona"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -814,10 +879,15 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/ActualitzarTerceraPersona"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -855,10 +925,15 @@ paths:
         description: "Identificador de la persona"
         required: true
         type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -897,10 +972,15 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/ExpedientRegistrar"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -933,10 +1013,15 @@ paths:
         description: "Codi de l'expedient"
         required: true
         type: "string"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -975,10 +1060,15 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/SollicitudCrear"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -1027,10 +1117,15 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/ExpedientAbandonament"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -1252,10 +1347,15 @@ paths:
         required: false
         type: "string"
         allowEmptyValue: false
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -1286,10 +1386,15 @@ paths:
         description: "Identificador del procediment"
         required: true
         type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -1330,10 +1435,15 @@ paths:
         description: "Identificador del procediment"
         required: true
         type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -1374,10 +1484,15 @@ paths:
         description: "Identificador del procediment"
         required: true
         type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -1385,6 +1500,55 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/RespostaConsultaConfiguracioDocumentacioAportada"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /serveis/portal/procediments/{idProcediment}/tramits/{codiTramit}/persones:
+    get:
+      tags:
+      - "Serveis Portal API"
+      summary: "Consultar les dades de persones del procediment"
+      operationId: "consultarDadesPersonesProcediment"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codiTramit"
+        in: "path"
+        description: "Codi del tràmit"
+        required: true
+        type: "string"
+        enum:
+        - "SOL"
+        - "APO"
+        - "REQ"
+        - "ALE"
+      - name: "idProcediment"
+        in: "path"
+        description: "Identificador del procediment"
+        required: true
+        type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaConsultaPersonesProcediment"
         401:
           description: "Unauthorized"
         403:
@@ -1408,10 +1572,15 @@ paths:
         description: "Identificador de la sol·licitud"
         required: true
         type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -1449,10 +1618,15 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/SollicitudActualitzar"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -1493,10 +1667,15 @@ paths:
         description: "Id de la sol·licitud"
         required: true
         type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -1534,10 +1713,15 @@ paths:
         description: "Id de la sol·licitud"
         required: true
         type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -1573,10 +1757,15 @@ paths:
         description: "Identificador de la sol·licitud"
         required: true
         type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -1620,10 +1809,15 @@ paths:
         description: "Id de la sol·licitud"
         required: true
         type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -1673,10 +1867,15 @@ paths:
         description: "Id de la sol·licitud"
         required: true
         type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -1717,10 +1916,15 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/CrearTerceraPersona"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -1760,10 +1964,15 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/ActualitzarTerceraPersona"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -1801,10 +2010,15 @@ paths:
         description: "Id de la sol·licitud"
         required: true
         type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -1843,10 +2057,15 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/SollicitudRegistrar"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -1885,10 +2104,15 @@ paths:
         description: "Identificador de la sol·licitud"
         required: true
         type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
       - name: "usuari-interessat"
         in: "header"
-        description: "Nombre de document d'identitat de l'ciutadà interessat ciutadà\
-          \ interessat autenticat al Portal"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
         required: false
         type: "string"
       responses:
@@ -6179,11 +6403,6 @@ definitions:
       organResolutori:
         type: "string"
         description: "Òrgan resolutori"
-      terceresPersonesImplicades:
-        type: "array"
-        description: "Llista de terceres persones implicades"
-        items:
-          $ref: "#/definitions/ProcedimentPersones"
       ugo:
         type: "array"
         description: "Llista d'unitats gestores operatives"
@@ -6231,11 +6450,6 @@ definitions:
       tipus:
         type: "string"
         description: "Tipus de relació"
-      tramits:
-        type: "array"
-        description: "Llista de tramits OVT"
-        items:
-          $ref: "#/definitions/TramitsOvtProcediments"
     title: "ProcedimentPersones"
   Registre:
     type: "object"
@@ -6510,6 +6724,18 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientConsulta"
     title: "RespostaConsultaExpedients"
+  RespostaConsultaPersonesProcediment:
+    type: "object"
+    properties:
+      terceresPersonesImplicades:
+        type: "array"
+        description: "Llista de terceres persones implicades"
+        items:
+          $ref: "#/definitions/ProcedimentPersones"
+      tramit:
+        description: "Dades del tràmit"
+        $ref: "#/definitions/TramitsOvt"
+    title: "RespostaConsultaPersonesProcediment"
   RespostaConsultaProcediments:
     type: "object"
     properties:
@@ -7435,13 +7661,6 @@ definitions:
       name: "TRAMIT"
       attribute: false
       wrapped: false
-  TramitsOvtProcediments:
-    type: "object"
-    properties:
-      nom:
-        type: "string"
-        description: "Nom del tràmit"
-    title: "TramitsOvtProcediments"
   UnitatGestora:
     type: "object"
     properties:

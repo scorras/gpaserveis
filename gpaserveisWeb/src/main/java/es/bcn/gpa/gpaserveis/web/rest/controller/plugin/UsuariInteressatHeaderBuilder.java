@@ -33,9 +33,14 @@ public class UsuariInteressatHeaderBuilder implements OperationBuilderPlugin {
 		final String mapping = context.requestMappingPattern();
 		if (StringUtils.contains(mapping, API_PORTAL_PATTERN)) {
 			final List<Parameter> parameters = new LinkedList<>();
-			parameters.add(parameterBuilder.parameterType("header").name("usuari-interessat").modelRef(new ModelRef("string"))
-			        .description("Nombre de document d'identitat de l'ciutadà interessat ciutadà interessat autenticat al Portal")
-			        .allowMultiple(false).required(false).build());
+			parameters
+					.add(parameterBuilder.parameterType("header").name("usuari-interessat").modelRef(new ModelRef("string"))
+							.description(
+									"Número de document d'identitat de l'ciutadà interessat en nom de qui es realitza la consulta o tràmit")
+							.allowMultiple(false).required(false).build());
+			parameters.add(parameterBuilder.parameterType("header").name("usuari-autenticat").modelRef(new ModelRef("string"))
+					.description("Número de document d'identitat o matrícula de l'empleat públic").allowMultiple(false).required(false)
+					.build());
 			context.operationBuilder().parameters(parameters);
 		}
 	}
