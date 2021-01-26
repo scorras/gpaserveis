@@ -17,6 +17,9 @@ public class ClientRequestInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		String usuariInteressat = request.getHeader("usuari-interessat");
 		clientEntity.setUsuariInteressat(usuariInteressat);
+
+		String usuariAutenticat = request.getHeader("usuari-autenticat");
+		clientEntity.setUsuariAutenticat(usuariAutenticat);
 		return true;
 	}
 }

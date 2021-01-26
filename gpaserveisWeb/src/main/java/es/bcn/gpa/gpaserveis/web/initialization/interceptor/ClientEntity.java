@@ -9,4 +9,6 @@ public class ClientEntity {
 
 	private String usuariInteressat;
 
+	private String usuariAutenticat;
+
 }
