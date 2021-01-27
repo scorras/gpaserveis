@@ -223,7 +223,9 @@ public enum Resultat {
 
 	OK_ESBORRAR_TERCERA_PERSONA_SOLLICITUD("OK", "Tercera persona donada de baixa correctament"),
 
-	ERROR_ESBORRAR_TERCERA_PERSONA_SOLLICITUD("ERROR", "No s'ha pogut donar de baixa la tercera persona de la sol·licitud");
+	ERROR_ESBORRAR_TERCERA_PERSONA_SOLLICITUD("ERROR", "No s'ha pogut donar de baixa la tercera persona de la sol·licitud"),
+
+	ERROR_CONSULTAR_DOCUMENT("ERROR", "No s'ha pogut consultar el document");
 
 	private String codi;
 

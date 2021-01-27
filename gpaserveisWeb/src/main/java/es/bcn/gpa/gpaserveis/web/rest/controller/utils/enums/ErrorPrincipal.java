@@ -102,11 +102,13 @@ public enum ErrorPrincipal {
 
 	ERROR_EXPEDIENTS_SOLLICITANT_OBLIGATORI("3033", "El sol·licitant és obligatori"),
 
-	ERROR_EXPEDIENTS_DOC_ENTRADA_VISIBILITAT_PORTAL("3034",
+	ERROR_EXPEDIENTS_DOC_VISIBILITAT_PORTAL("3034",
 			"La documentació que es vol actualitzar no té configurada la visibilitat des de portal"),
 
-	ERROR_EXPEDIENTS_DOC_ENTRADA_CRITICITAT("3035",
+	ERROR_EXPEDIENTS_DOC_CRITICITAT("3035",
 			"El nivell de visibilitat definit per a la persona autenticada no permet operar sobre el document indicat en l'operació"),
+
+	ERROR_EXPEDIENTS_USUARIS_HEADER_NOT_FOUND("3036", "No s'ha rebut capçalera d'usuari autenticat ni d'usuari interessat"),
 
 	/* Documents */
 	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document: "),

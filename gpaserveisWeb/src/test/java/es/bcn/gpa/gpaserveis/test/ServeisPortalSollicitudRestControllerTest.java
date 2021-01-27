@@ -203,7 +203,7 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	@Test
 	public void testStage13_GetDescarregarDocumentSollicitudGPAApiParamValidationException() throws Exception {
 		String url = BASE_URL + "/sollicituds/3/documentacio/3";
-		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().is4xxClientError());
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().is5xxServerError());
 
 	}
 
@@ -238,25 +238,25 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	}
 
 	/**
-	 * Test stage 15 post actualitzar sollicitud.
+	 * Test stage 16 post actualitzar sollicitud.
 	 *
 	 * @throws Exception
 	 *             the exception
 	 */
 	@Test
-	public void testStage15_PostActualitzarSollicitud() throws Exception {
+	public void testStage16_PostActualitzarSollicitud() throws Exception {
 		String url = BASE_URL + "/sollicituds/2";
 		String body = "{\"sollicitant\": {\"nomRaoSocial\": \"Hernán\",\"cognom1\": \"Pérez de Inestrosa\",\"cognom2\": \"Sánchez\",\"sexe\": \"HOME\",\"tipusPersona\": \"FISICA\",\"dadesNotificacio\": {\"bloc\": \"string\",\"codiPostal\": \"string\",\"email\": \"string\",\"escala\": \"string\",\"fax\": \"string\",\"mobil\": \"string\",\"municipi\": \"9045\",\"municipiEstranger\": \"9045\",\"nomVia\": \"string\",\"numero\": \"string\",\"pais\": \"108\",\"pis\": \"string\",\"porta\": \"string\",\"provincia\": \"008\",\"provinciaEstranger\": \"008\",\"telefon\": \"string\",\"tipusVia\": \"FAGEDA\"},\"documentIndentitat\": {\"numeroDocument\": \"05686723L\",\"pais\": \"108\",\"tipusDocument\": \"NIF\"}},\"representant\": {\"nomRaoSocial\": \"Rosa María\",\"cognom1\": \"Díaz\",\"cognom2\": \"Gómez\",\"sexe\": \"DONA\",\"tipusPersona\": \"FISICA\",\"dadesNotificacio\": {\"bloc\": \"string\", \"codiPostal\": \"string\",\"email\": \"string\",\"escala\": \"string\", \"fax\": \"string\",\"mobil\": \"string\",\"municipi\": \"9045\",\"municipiEstranger\": \"9045\",\"nomVia\": \"string\",\"numero\": \"string\",\"pais\": \"108\",\"pis\": \"string\",\"porta\": \"string\",\"provincia\": \"008\",\"provinciaEstranger\": \"008\",\"telefon\": \"string\",\"tipusVia\": \"FAGEDA\"},\"documentIndentitat\": {\"numeroDocument\": \"81322159R\",\"pais\": \"108\",\"tipusDocument\": \"NIF\"}},\"dadesOperacio\":[{\"codi\":\"DO\",\"valor\":[\"35\"]}]}";
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content(body)).andExpect(status().isOk()).andDo(print());
 	}
 
 	/**
-	 * Test stage 16 incorporar tercera persona sollicitud
+	 * Test stage 17 incorporar tercera persona sollicitud
 	 * 
 	 * @throws Exception
 	 */
 	@Test
-	public void testStage16_PostCrearTerceraPersonaSollicitudOK() throws Exception {
+	public void testStage17_PostCrearTerceraPersonaSollicitudOK() throws Exception {
 		String url = BASE_URL + "/sollicituds/2/persones";
 		getMockMvc()
 				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
@@ -265,12 +265,12 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	}
 
 	/**
-	 * Test stage 17 actualitzar tercera persona sollicitud
+	 * Test stage 18 actualitzar tercera persona sollicitud
 	 * 
 	 * @throws Exception
 	 */
 	@Test
-	public void testStage17_PutActualitzarTerceraPersonaSollicitudOK() throws Exception {
+	public void testStage18_PutActualitzarTerceraPersonaSollicitudOK() throws Exception {
 		String url = BASE_URL + "/sollicituds/2/persones";
 		getMockMvc()
 				.perform(put(url).contentType(APPLICATION_JSON_UTF8).content(
@@ -279,12 +279,12 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	}
 
 	/**
-	 * Test stage 23 esborrar tercera persona sollicitud
+	 * Test stage 19 esborrar tercera persona sollicitud
 	 * 
 	 * @throws Exception
 	 */
 	@Test
-	public void testStage23_EsborrarTerceraPersonaSollicitudOK() throws Exception {
+	public void testStage19_EsborrarTerceraPersonaSollicitudOK() throws Exception {
 		String url = BASE_URL + "/sollicituds/2/persones/1";
 		getMockMvc().perform(delete(url)).andExpect(status().isOk()).andDo(print());
 	}
