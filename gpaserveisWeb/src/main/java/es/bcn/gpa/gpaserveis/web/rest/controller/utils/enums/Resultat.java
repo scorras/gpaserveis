@@ -225,7 +225,11 @@ public enum Resultat {
 
 	ERROR_ESBORRAR_TERCERA_PERSONA_SOLLICITUD("ERROR", "No s'ha pogut donar de baixa la tercera persona de la sol·licitud"),
 
-	ERROR_CONSULTAR_DOCUMENT("ERROR", "No s'ha pogut consultar el document");
+	ERROR_CONSULTAR_DOCUMENT("ERROR", "No s'ha pogut consultar el document"),
+
+	ERROR_CONSULTAR_EXPEDIENT("ERROR", "No s'ha pogut consultar l'expedient"),
+
+	ERROR_CONSULTAR_SOLLICITUD("ERROR", "No s'ha pogut consultar la sol·licitud");
 
 	private String codi;
 

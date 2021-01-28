@@ -46,11 +46,13 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacio
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsValidacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPersones;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPersonesTramOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsUgos;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UsuarisRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
+import es.bcn.gpa.gpaserveis.web.initialization.interceptor.ClientEntity;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
@@ -1578,9 +1580,9 @@ public class ServeisRestControllerValidationHelper {
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
-	public static PersonesSollicitudRDTO validatePersonaImplicadaExpedient(DadesExpedientBDTO dadesExpedientBDTO,
+	public static PersonesSollicitudRDTO validatePersonaImplicada(List<PersonesSollicitudRDTO> personesImplicades,
 			String numeroDocumentIdentitat, Resultat resultatError) throws GPAApiParamValidationException {
-		for (PersonesSollicitudRDTO personesSollicitudRDTO : dadesExpedientBDTO.getPersonesImplicades()) {
+		for (PersonesSollicitudRDTO personesSollicitudRDTO : personesImplicades) {
 			if (personesSollicitudRDTO.getPersones().getDocumentsIdentitat() != null && StringUtils
 					.equals(personesSollicitudRDTO.getPersones().getDocumentsIdentitat().getNumeroDocument(), numeroDocumentIdentitat)) {
 				return personesSollicitudRDTO;
@@ -1813,9 +1815,9 @@ public class ServeisRestControllerValidationHelper {
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
-	public static String validateUsuariLogueadoExpedient(String nifInteressat, List<PersonesSollicitudRDTO> personesInteressades,
-			List<PersonesSollicitudRDTO> personesImplicades, Persones sollicitantPrincipal, Persones representantPrincipal,
-			Resultat resultatError) throws GPAApiParamValidationException {
+	public static PersonesSollicitudRDTO validateUsuariLogueadoExpedient(String nifInteressat,
+			List<PersonesSollicitudRDTO> personesInteressades, List<PersonesSollicitudRDTO> personesImplicades,
+			Persones sollicitantPrincipal, Persones representantPrincipal, Resultat resultatError) throws GPAApiParamValidationException {
 
 		// Comprobar que la persona que realiza la accion pertenece al
 		// expediente (El documento de identidad debe corresponderse con el
@@ -1824,7 +1826,6 @@ public class ServeisRestControllerValidationHelper {
 
 		PersonesSollicitudRDTO interesado = null;
 		PersonesSollicitudRDTO implicado = null;
-		String resultado = null;
 
 		if (personesInteressades != null) {
 			interesado = validateUsuariLogueadoInteressadesExpedient(nifInteressat, personesInteressades, sollicitantPrincipal,
@@ -1833,8 +1834,6 @@ public class ServeisRestControllerValidationHelper {
 
 		if (personesImplicades != null) {
 			implicado = validateUsuariLogueadoImplicadesExpedient(nifInteressat, personesImplicades, resultatError);
-
-			resultado = implicado != null ? implicado.getRelacioImplicada() : "";
 		}
 
 		if (interesado == null && implicado == null) {
@@ -1842,13 +1841,8 @@ public class ServeisRestControllerValidationHelper {
 		}
 		// se entiende que si es solicitante o representante, si puede hacer
 		// cualquier accion
-		if (implicado != null) { // Comprobar si tiene la visibilidadOVT
-									// activada
-			if (implicado.getVisibilitatOvt() == null || implicado.getVisibilitatOvt().compareTo(INTEGER_ZERO) == 0) {
-				throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_PERMIS);
-			}
-		}
-		return resultado;
+
+		return implicado;
 	}
 
 	/**
@@ -1896,9 +1890,49 @@ public class ServeisRestControllerValidationHelper {
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
-	public static PersonesRDTO validateUsuariLogueadoInteressadesExpedient(String nifInteressat, List<PersonesRDTO> personesInteressades,
-			PersonesRDTO sollicitantPrincipal, PersonesRDTO representantPrincipal, Resultat resultatError)
+	public static PersonesSollicitudRDTO validateUsuariLogueadoInteressades(ClientEntity clientEntity,
+			List<PersonesSollicitudRDTO> personesInteressades, Persones sollicitantPrincipal, Persones representantPrincipal,
+			Resultat resultatError) throws GPAApiParamValidationException {
+
+		ServeisRestControllerVisibilitatHelper.validarCapçaleresUsuari(clientEntity, Resultat.ERROR_OBTENIR_EXPEDIENT);
+
+		String nifInteressat = clientEntity.getUsuariInteressat();
+
+		PersonesSollicitudRDTO personesSollicitudRDTO = null;
+		// Portal siempre filtrara por el ciudadado y el Portal del informador
+		// cuando actuen en nombre del ciudadano
+		if (!StringUtils.isEmpty(nifInteressat)) {
+			personesSollicitudRDTO = validateUsuariLogueadoInteressadesExpedient(nifInteressat, personesInteressades, sollicitantPrincipal,
+					representantPrincipal, resultatError);
+
+			if (personesSollicitudRDTO == null) {
+				throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_FOUND);
+			}
+		}
+
+		return personesSollicitudRDTO;
+	}
+
+	/**
+	 * Validate usuari logueado interessades en expedient.
+	 * 
+	 * @param idTramitOvt
+	 *
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static PersonesRDTO validateUsuariLogueadoInteressadesExpedient(ClientEntity clientEntity,
+			DadesProcedimentBDTO dadesProcedimentBDTO, List<PersonesRDTO> personesInteressades, List<PersonesRDTO> personesImplicades,
+			PersonesRDTO sollicitantPrincipal, PersonesRDTO representantPrincipal, BigDecimal idTramitOvt, Resultat resultatError)
 			throws GPAApiParamValidationException {
+
+		ServeisRestControllerVisibilitatHelper.validarCapçaleresUsuari(clientEntity, resultatError);
+
+		String nifInteressat = clientEntity.getUsuariInteressat();
 
 		if (!StringUtils.isEmpty(nifInteressat)) {
 
@@ -1921,12 +1955,87 @@ public class ServeisRestControllerValidationHelper {
 				return representantPrincipal;
 			}
 
+			if (personesImplicades != null) {
+				List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
+
+				ServeisRestControllerValidationHelper.validateTerceresPersonesImplicadesExpedient(nifInteressat, personesImplicades,
+						procedimentPersonesList, idTramitOvt, resultatError);
+
+				// valido
+				return new PersonesRDTO();
+			}
+
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_FOUND);
 
 		} else {
-			return null;
+			// valido
+			return new PersonesRDTO();
 		}
 
+	}
+
+	/**
+	 * Validate terceres persones implicades en expedient.
+	 *
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateTerceresPersonesImplicadesExpedient(String nifInteressat, List<PersonesRDTO> personesImplicades,
+			List<ProcedimentPersones> procedimentPersonesList, BigDecimal idTramitOvt, Resultat resultatError)
+			throws GPAApiParamValidationException {
+
+		if (procedimentPersonesList == null) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT);
+		}
+
+		// tiene que existir y coincidir un tipo de relacion del procedimiento
+		// con cada una de las personas para darlo por valido
+		boolean existeRelacion = false;
+		for (PersonesRDTO personesRDTO : personesImplicades) {
+			existeRelacion = false;
+			if (StringUtils.isEmpty(personesRDTO.getRelacioTerceraPersona())) {
+				throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES);
+			}
+			for (ProcedimentPersones procedimentPersones : procedimentPersonesList) {
+				if (procedimentPersones.getRelacio().equalsIgnoreCase(personesRDTO.getRelacioTerceraPersona())) {
+					existeRelacion = true;
+				}
+			}
+		}
+
+		if (!existeRelacion) {
+			throw new GPAApiParamValidationException(resultatError,
+					ErrorPrincipal.ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT_NOT_FOUND);
+		}
+
+		// identificacion de si la persona interesada es implicada y tiene
+		// habilitado el tramite ovt
+		if (idTramitOvt != null) {
+			boolean tramitOvtValido = false;
+			for (PersonesRDTO personesRDTO : personesImplicades) {
+				for (ProcedimentPersones procedimentPersones : procedimentPersonesList) {
+					if (procedimentPersones.getRelacio().equalsIgnoreCase(personesRDTO.getRelacioTerceraPersona())
+							&& nifInteressat.equalsIgnoreCase(personesRDTO.getDocumentIndentitat().getNumeroDocument())) {
+						// en funcion del tramite que se vaya a realizar,
+						// comprobar
+						// si esa persona lo tiene definido para poder
+						// ejecutarlo
+						for (ProcedimentPersonesTramOvt procedimentPersonesTramOvt : procedimentPersones.getTramitsOvtList()) {
+							if (procedimentPersonesTramOvt.getTramitOvtIdext().compareTo(idTramitOvt) == NumberUtils.INTEGER_ZERO) {
+								tramitOvtValido = true;
+							}
+						}
+					}
+				}
+			}
+			if (!tramitOvtValido) {
+				throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_PERMIS);
+			}
+		}
 	}
 
 	/**
@@ -1965,7 +2074,6 @@ public class ServeisRestControllerValidationHelper {
 			throw new GPAApiParamValidationException(resultatError,
 					ErrorPrincipal.ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT_NOT_FOUND);
 		}
-
 	}
 
 	/**
@@ -2001,23 +2109,38 @@ public class ServeisRestControllerValidationHelper {
 	 * @param docsTramitacioRDTO
 	 * @param procedimentPersonesList
 	 */
-	public static ProcedimentPersones validateVisibilitatImplicado(String nifInteressat, String relacioTerceraPersona,
-			List<DadesOperacions> dadesActualizar, List<ConfiguracioDocsEntradaRDTO> configuacioActualizar, DocsEntradaRDTO docsEntradaRDTO,
-			DocsTramitacioRDTO docsTramitacioRDTO, List<ProcedimentPersones> procedimentPersonesList, Resultat resultatError)
+	public static ProcedimentPersones validateVisibilitatImplicado(PersonesSollicitudRDTO implicado, List<DadesOperacions> dadesActualizar,
+			List<ConfiguracioDocsEntradaRDTO> configuacioActualizar, DocsEntradaRDTO docsEntradaRDTO, DocsTramitacioRDTO docsTramitacioRDTO,
+			List<ProcedimentPersones> procedimentPersonesList, BigDecimal idTramitOvt, Resultat resultatError)
 			throws GPAApiParamValidationException {
 
+		boolean tramitOvtValido = false;
 		if (procedimentPersonesList == null) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT);
 		}
 
-		if (StringUtils.isEmpty(relacioTerceraPersona)) {
+		if (StringUtils.isEmpty(implicado.getRelacioImplicada())) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES);
 		}
 		ProcedimentPersones procedimentPersonesFind = null;
 		for (ProcedimentPersones procedimentPersones : procedimentPersonesList) {
-			if (procedimentPersones.getRelacio().equalsIgnoreCase(relacioTerceraPersona)) {
+			if (procedimentPersones.getRelacio().equalsIgnoreCase(implicado.getRelacioImplicada())) {
 
 				procedimentPersonesFind = procedimentPersones;
+
+				// en funcion del tramite que se vaya a realizar, comprobar
+				// si esa persona lo tiene definido para poder ejecutarlo
+				if (idTramitOvt != null) {
+					for (ProcedimentPersonesTramOvt procedimentPersonesTramOvt : procedimentPersones.getTramitsOvtList()) {
+						if (procedimentPersonesTramOvt.getTramitOvtIdext().compareTo(idTramitOvt) == NumberUtils.INTEGER_ZERO) {
+							tramitOvtValido = true;
+						}
+					}
+					if (!tramitOvtValido) {
+						throw new GPAApiParamValidationException(resultatError,
+								ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_PERMIS);
+					}
+				}
 
 				if (procedimentPersones.getNivellVisibilitat().compareTo(Constants.NIVELL_VISIBILITAT_NULLA) == 0) {
 					throw new GPAApiParamValidationException(resultatError,
@@ -2082,14 +2205,17 @@ public class ServeisRestControllerValidationHelper {
 	 * @param dadesProcedimentBDTO
 	 * @throws GPAApiParamValidationException
 	 */
-	public static void validateTerceresPersonesProcediment(List<PersonesRDTO> personesImplicades, DadesProcedimentBDTO dadesProcedimentBDTO,
+	public static void validateRelacioTerceresPersones(PersonesRDTO personaImplicada, DadesProcedimentBDTO dadesProcedimentBDTO,
 			Resultat resultatError) throws GPAApiParamValidationException {
 
-		if (personesImplicades != null) {
+		if (personaImplicada != null && personaImplicada.getRelacioTerceraPersona() != null) {
 			List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
 
-			ServeisRestControllerValidationHelper.validateTerceresPersonesImplicadesExpedient(personesImplicades, procedimentPersonesList,
-					resultatError);
+			ServeisRestControllerValidationHelper.validateTerceresPersonesImplicadesExpedient(Arrays.asList(personaImplicada),
+					procedimentPersonesList, resultatError);
+		} else {
+			throw new GPAApiParamValidationException(resultatError,
+					ErrorPrincipal.ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT_NOT_FOUND);
 		}
 
 	}

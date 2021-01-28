@@ -230,10 +230,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			}
 			// 1 - validamos que el usuario logado pertenezca al expediente
 			// 2 - validamos si es tercera persona su visibilidad
-			// recogemos los dades operacio que se quieren actualizar para
-			// validad su visibilidad
 			ServeisRestControllerVisibilitatHelper.validateVisibilitatTerceresPersonesSollicitud(clientEntity, serveisService, null,
-					configuacioActualizar, null, null, dadesSollicitudBDTO, Resultat.ERROR_APORTAR_DOCUMENTACIO);
+					configuacioActualizar, null, null, dadesSollicitudBDTO, null, Resultat.ERROR_APORTAR_DOCUMENTACIO);
 
 			// Se construye el modelo para la llamada a la operación de aportar
 			// documentació
@@ -318,7 +316,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// 1 - validamos que el usuario logado pertenezca al expediente
 			// 2 - validamos si es tercera persona su visibilidad
 			ServeisRestControllerVisibilitatHelper.validateVisibilitatTerceresPersonesSollicitud(clientEntity, serveisService, null, null,
-					docsEntradaRDTO, null, dadesSollicitudBDTO, Resultat.ERROR_ESBORRAR_DOCUMENT);
+					docsEntradaRDTO, null, dadesSollicitudBDTO, null, Resultat.ERROR_ESBORRAR_DOCUMENT);
 
 			// Se construye el modelo para la llamada a la operación de esborrar
 			// document
@@ -390,7 +388,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// 1 - validamos que el usuario logado pertenezca al expediente
 			// 2 - validamos si es tercera persona su visibilidad
 			ServeisRestControllerVisibilitatHelper.validateVisibilitatTerceresPersonesSollicitud(clientEntity, serveisService, null, null,
-					docsEntradaRDTO, null, dadesSollicitudBDTO, Resultat.ERROR_UPLOAD_DOCUMENT);
+					docsEntradaRDTO, null, dadesSollicitudBDTO, null, Resultat.ERROR_UPLOAD_DOCUMENT);
 
 			// Se valida que venga file o idgestor documental para decidir que
 			// operacion realizar
@@ -477,10 +475,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 			// 1 - validamos que el usuario logado pertenezca al expediente
 			// 2 - validamos si es tercera persona su visibilidad
-			// recogemos los dades operacio que se quieren actualizar para
-			// validad su visibilidad
 			ServeisRestControllerVisibilitatHelper.validateVisibilitatTerceresPersonesSollicitud(clientEntity, serveisService, null, null,
-					docsEntradaRDTO, docsTramitacioRDTO, dadesSollicitudBDTO, Resultat.ERROR_DESCARREGAR_DOCUMENT);
+					docsEntradaRDTO, docsTramitacioRDTO, dadesSollicitudBDTO, null, Resultat.ERROR_DESCARREGAR_DOCUMENT);
 
 			// El id del documento debe existir y pertenecer al expediente de la
 			// solicitud
@@ -553,7 +549,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// 1 - validamos que el usuario logado pertenezca al expediente
 			// 2 - validamos si es tercera persona su visibilidad
 			ServeisRestControllerVisibilitatHelper.validateVisibilitatTerceresPersonesSollicitud(clientEntity, serveisService, null, null,
-					docsEntradaRDTO, null, dadesSollicitudBDTO, Resultat.ERROR_SUBSTITUIR_DOCUMENT);
+					docsEntradaRDTO, null, dadesSollicitudBDTO, null, Resultat.ERROR_SUBSTITUIR_DOCUMENT);
 
 			// La configuración de documentación indicada debe estar asociada al
 			// procedimiento del expediente
@@ -634,6 +630,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		SollicitudsRDTO returnSollicitudsRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_CREAR_SOLLICITUD);
 		DadesExpedientBDTO dadesExpedientBDTO = null;
+		DadesProcedimentBDTO dadesProcedimentBDTO = null;
+		BigDecimal idTramitOvt = null;
 		try {
 
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
@@ -656,6 +654,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			if (StringUtils.equals(sollicitudCrearRDTO.getCodiTramit(), TramitOvtApiParamValue.APO.getApiParamValue())) {
 				ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 						AccioTramitadorApiParamValue.APORTAR_DOCUMENTACIO, Resultat.ERROR_CREAR_SOLLICITUD);
+				idTramitOvt = TramitOvtApiParamValue.APO.getInternalValue();
 			}
 			// REQ / ALE
 			// Esmenar expedient si la acción es permitida
@@ -663,17 +662,32 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					|| StringUtils.equals(sollicitudCrearRDTO.getCodiTramit(), TramitOvtApiParamValue.ALE.getApiParamValue())) {
 				ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 						AccioTramitadorApiParamValue.RESPONDRE_REQUERIMENT_O_TRAMIT_ALLEGACIONS_O_IP, Resultat.ERROR_CREAR_SOLLICITUD);
+
+				if (StringUtils.equals(sollicitudCrearRDTO.getCodiTramit(), TramitOvtApiParamValue.REQ.getApiParamValue())) {
+					idTramitOvt = TramitOvtApiParamValue.REQ.getInternalValue();
+				} else {
+					idTramitOvt = TramitOvtApiParamValue.ALE.getInternalValue();
+				}
 			}
 
 			// se valida que si la relacion es de persona interesada, solo
 			// permita valores sollicitant y representant
 			ServeisRestControllerValidationHelper.validatePersonesInteressadesExpedient(sollicitudCrearRDTO.getPersonesInteressades(),
 					Resultat.ERROR_CREAR_SOLLICITUD);
+
 			// 1 - validar que la persona logueada esta dentro de los
 			// interesados
-			ServeisRestControllerValidationHelper.validateUsuariLogueadoInteressadesExpedient(clientEntity.getUsuariInteressat(),
-					sollicitudCrearRDTO.getPersonesInteressades(), sollicitudCrearRDTO.getSollicitant(),
-					sollicitudCrearRDTO.getRepresentant(), Resultat.ERROR_CREAR_SOLLICITUD);
+			// 2 - validar que si hay lista de implicados, tengan
+			// relacioTerceraPersona y coincida alguna definida en el
+			// procedimiento
+			if (sollicitudCrearRDTO.getPersonesImplicades() != null) {
+				dadesProcedimentBDTO = serveisService
+						.consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
+			}
+			ServeisRestControllerValidationHelper.validateUsuariLogueadoInteressadesExpedient(clientEntity, dadesProcedimentBDTO,
+					sollicitudCrearRDTO.getPersonesInteressades(), sollicitudCrearRDTO.getPersonesImplicades(),
+					sollicitudCrearRDTO.getSollicitant(), sollicitudCrearRDTO.getRepresentant(), idTramitOvt,
+					Resultat.ERROR_CREAR_SOLLICITUD);
 
 			// Información del Trámite
 			TramitsOvtCercaBDTO tramitsOvtCercaBDTO = new TramitsOvtCercaBDTO(
@@ -686,17 +700,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			sollicitudCrearRDTO.getSollicitant().setRelacio(RelacioPersonaApiParamValue.SOLLICITANT.getApiParamValue());
 			if (sollicitudCrearRDTO.getRepresentant() != null) {
 				sollicitudCrearRDTO.getRepresentant().setRelacio(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue());
-			}
-
-			// 2 - validar que si hay lista de implicados, tengan
-			// relacioTerceraPersona y coincida alguna definida en el
-			// procedimiento
-			if (sollicitudCrearRDTO.getPersonesImplicades() != null) {
-				DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
-						.consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
-
-				ServeisRestControllerValidationHelper.validateTerceresPersonesProcediment(sollicitudCrearRDTO.getPersonesImplicades(),
-						dadesProcedimentBDTO, Resultat.ERROR_CREAR_SOLLICITUD);
 			}
 
 			if (sollicitudCrearRDTO.getPersonesInteressades() != null) {
@@ -757,16 +760,15 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		RespostaActualitzarSollicitudRDTO respostaActualitzarSollicitudsRDTO = null;
 		SollicitudsRDTO returnSollicitudsRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACTUALITZAR_SOLLICITUD);
+		DadesProcedimentBDTO dadesProcedimentBDTO = null;
 		try {
-			// TODO GPA-2923
-			BigDecimal visibilitat = BigDecimal.ONE;
-
 			// El Id de sol·licitud debe existir
-			DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
+			DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitudPerVisibilitat(idSollicitud);
 			ServeisRestControllerValidationHelper.validateActualitzarSollicitud(dadesSollicitudBDTO, sollicitudActualitzar,
 					Resultat.ERROR_ACTUALITZAR_SOLLICITUD);
 
 			// Recuperamos los dadesExpedientBDTO para la validación del estado
+			BigDecimal visibilitat = BigDecimal.ONE;
 			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesExpedient(dadesSollicitudBDTO.getExpedientsRDTO().getId(),
 					visibilitat);
 
@@ -786,6 +788,15 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 						AccioTramitadorApiParamValue.INFORMAR_DADES_EXPEDIENT, Resultat.ERROR_ACTUALITZAR_SOLLICITUD);
 			}
+
+			// 1 - validar que la persona logueada esta dentro de los
+			// interesados
+			// 2 - validar que si hay lista de implicados, tengan
+			// relacioTerceraPersona y coincida alguna definida en el
+			// procedimiento
+			ServeisRestControllerVisibilitatHelper.validateVisibilitatTerceresPersonesSollicitud(clientEntity, serveisService, null, null,
+					null, null, dadesSollicitudBDTO, dadesSollicitudBDTO.getSollicitudsRDTO().getTramitOvtIdext(),
+					Resultat.ERROR_ACTUALITZAR_SOLLICITUD);
 
 			// Se obtienen los Dades d'Operació del procedimiento y se valida
 			// que los códigos indicados existen. Se aprovecha para recuperar
@@ -808,17 +819,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			}
 			if (sollicitudActualitzar.getRepresentant() != null) {
 				sollicitudActualitzar.getRepresentant().setRelacio(RelacioPersonaApiParamValue.REPRESENTANT.getApiParamValue());
-			}
-
-			// 2 - validar que si hay lista de implicados, tengan
-			// relacioTerceraPersona y coincida alguna definida en el
-			// procedimiento
-			if (sollicitudActualitzar.getPersonesImplicades() != null) {
-				DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
-						.consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
-
-				ServeisRestControllerValidationHelper.validateTerceresPersonesProcediment(sollicitudActualitzar.getPersonesImplicades(),
-						dadesProcedimentBDTO, Resultat.ERROR_CREAR_SOLLICITUD);
 			}
 
 			if (sollicitudActualitzar.getPersonesInteressades() != null) {
@@ -885,7 +885,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		BigDecimal visibilitat = BigDecimal.ONE;
 
 		try {
-			visibilitat = ServeisRestControllerVisibilitatHelper.obtenirVisibilitatSollicitud(clientEntity, serveisService, idSollicitud);
+			visibilitat = ServeisRestControllerVisibilitatHelper.obtenirVisibilitatSollicitud(clientEntity, serveisService, idSollicitud,
+					Resultat.ERROR_CONSULTAR_SOLLICITUD);
 		} catch (GPAApiParamValidationException e) {
 			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
 			throw new GPAServeisServiceException(e.getResultat().getDescripcio());
@@ -929,7 +930,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		BigDecimal visibilitat = BigDecimal.ONE;
 
 		try {
-			visibilitat = ServeisRestControllerVisibilitatHelper.obtenirVisibilitatSollicitud(clientEntity, serveisService, idSollicitud);
+			visibilitat = ServeisRestControllerVisibilitatHelper.obtenirVisibilitatSollicitud(clientEntity, serveisService, idSollicitud,
+					Resultat.ERROR_CONSULTAR_SOLLICITUD);
 		} catch (GPAApiParamValidationException e) {
 			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
 			throw new GPAServeisServiceException(e.getResultat().getDescripcio());
@@ -986,16 +988,18 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		boolean registreSollicitudAssociat = false;
 		ArrayList<BigDecimal> idDocsEntradaList = new ArrayList<BigDecimal>();
 		try {
-
-			// TODO GPA-2923
-			BigDecimal visibilitat = BigDecimal.ONE;
-
 			// Datos principales de la solicitud
-			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitudPerVisibilitat(idSollicitud);
 
 			// El identificador de la solicitud debe ser válido, no debe ser de
 			// tipo SOL y no debe estar ya registrada
 			ServeisRestControllerValidationHelper.validateRegistreSollicitud(dadesSollicitudBDTO, Resultat.ERROR_REGISTRAR_SOLLICITUD);
+
+			// 1 - validar que la persona logueada esta dentro de los
+			// interesados
+			ServeisRestControllerValidationHelper.validateUsuariLogueadoInteressades(clientEntity,
+					dadesSollicitudBDTO.getPersonesInteressades(), dadesSollicitudBDTO.getSollicitant(),
+					dadesSollicitudBDTO.getRepresentant(), Resultat.ERROR_REGISTRAR_SOLLICITUD);
 
 			// Se construye el modelo para la llamada a la operación de registro
 			// TODO ¿Cómo procedemos para registrar el XML de la solicitud?
@@ -1102,6 +1106,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			String idDocumentum = respostaCrearJustificant.getMigracioIdOrigen();
 			// Buscamos de nuevo la solicitud para que incluya los datos de
 			// registro
+			BigDecimal visibilitat = BigDecimal.ONE;
 			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
 			guardarXMLSollicitud(dadesSollicitudBDTO, idDocumentum);
 
@@ -1220,17 +1225,23 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		TerceraPersonaSollicitudRDTO terceraPersonaSollicitudRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_INCORPORAR_TERCERA_PERSONA_SOLLICITUD);
 		try {
-			// TODO GPA-2923
-			BigDecimal visibilitat = BigDecimal.ONE;
-
 			// Datos principales de la solicitud
-			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitudPerVisibilitat(idSollicitud);
 
 			ServeisRestControllerValidationHelper.validateSollicitud(dadesSollicitudBDTO,
 					Resultat.ERROR_INCORPORAR_TERCERA_PERSONA_SOLLICITUD);
 
-			// TODO 1 - validamos que el usuario logado pertenezca al expediente
-			// TODO validar DNI
+			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
+					.consultarDadesBasiquesProcediment(dadesSollicitudBDTO.getExpedientsRDTO().getProcedimentIdext());
+
+			// 1 - validamos que la relacion indicada no sea vacia y que exista
+			// en el procedimiento
+			// 2 - validamos que el usuario logado pertenezca al expediente
+			// 3 - validamos si es tercera persona su visibilidad
+			ServeisRestControllerValidationHelper.validateRelacioTerceresPersones(personaImplicada.getPersona(), dadesProcedimentBDTO,
+					Resultat.ERROR_INCORPORAR_TERCERA_PERSONA_SOLLICITUD);
+			ServeisRestControllerVisibilitatHelper.validateVisibilitatTerceresPersonesSollicitud(clientEntity, serveisService, null, null,
+					null, null, dadesSollicitudBDTO, null, Resultat.ERROR_INCORPORAR_TERCERA_PERSONA_SOLLICITUD);
 
 			// Se construye el modelo para la llamada a la operación de
 			// actualización
@@ -1284,17 +1295,22 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		TerceraPersonaSollicitudRDTO terceraPersonaSollicitudRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACTUALITZAR_TERCERA_PERSONA_SOLLICITUD);
 		try {
-			// TODO GPA-2923
-			BigDecimal visibilitat = BigDecimal.ONE;
-
 			// Datos principales de la solicitud
-			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitudPerVisibilitat(idSollicitud);
 
 			ServeisRestControllerValidationHelper.validateSollicitud(dadesSollicitudBDTO,
 					Resultat.ERROR_ACTUALITZAR_TERCERA_PERSONA_SOLLICITUD);
 
-			// TODO 1 - validamos que el usuario logado pertenezca al expediente
-			// TODO validar DNI
+			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
+					.consultarDadesBasiquesProcediment(dadesSollicitudBDTO.getExpedientsRDTO().getProcedimentIdext());
+			// 1 - validamos que la relacion indicada no sea vacia y que exista
+			// en el procedimiento
+			// 2 - validamos que el usuario logado pertenezca al expediente
+			// 3 - validamos si es tercera persona su visibilidad
+			ServeisRestControllerValidationHelper.validateRelacioTerceresPersones(personaImplicada.getPersona(), dadesProcedimentBDTO,
+					Resultat.ERROR_ACTUALITZAR_TERCERA_PERSONA_SOLLICITUD);
+			ServeisRestControllerVisibilitatHelper.validateVisibilitatTerceresPersonesSollicitud(clientEntity, serveisService, null, null,
+					null, null, dadesSollicitudBDTO, null, Resultat.ERROR_ACTUALITZAR_TERCERA_PERSONA_SOLLICITUD);
 
 			// Se construye el modelo para la llamada a la operación de
 			// actualización
@@ -1342,23 +1358,24 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		DadesSollicitudBDTO dadesSollicitudBDTO = null;
 
 		try {
-			// TODO GPA-2923
-			BigDecimal visibilitat = BigDecimal.ONE;
-
 			// Datos principales de la solicitud
-			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitudPerVisibilitat(idSollicitud);
 
 			ServeisRestControllerValidationHelper.validateSollicitud(dadesSollicitudBDTO,
 					Resultat.ERROR_ESBORRAR_TERCERA_PERSONA_SOLLICITUD);
 
+			// 1 - validar que la persona logueada esta dentro de los
+			// interesados
+			ServeisRestControllerValidationHelper.validateUsuariLogueadoInteressades(clientEntity,
+					dadesSollicitudBDTO.getPersonesInteressades(), dadesSollicitudBDTO.getSollicitant(),
+					dadesSollicitudBDTO.getRepresentant(), Resultat.ERROR_ESBORRAR_TERCERA_PERSONA_SOLLICITUD);
+
 			// El id de la tercera persona debe existir y corresponderse con una
 			// persona implicada en el expediente
 			personesSollicitudRDTO = serveisService.consultarDadesPersonaSollicitud(idPersona);
-			// TODO la siguiente validacion cuando se meta el esborrany debe ir
-			// contra la solicitud
-			// ServeisRestControllerValidationHelper.validatePersonaImplicadaExpedient(dadesExpedientBDTO,
-			// personesSollicitudRDTO.getPersones().getDocumentsIdentitat().getNumeroDocument(),
-			// Resultat.ERROR_ESBORRAR_TERCERA_PERSONA_SOLLICITUD);
+			ServeisRestControllerValidationHelper.validatePersonaImplicada(dadesSollicitudBDTO.getPersonesImplicades(),
+					personesSollicitudRDTO.getPersones().getDocumentsIdentitat().getNumeroDocument(),
+					Resultat.ERROR_ESBORRAR_TERCERA_PERSONA_SOLLICITUD);
 
 			serveisService.esborrarPersonaSollicitud(idPersona);
 

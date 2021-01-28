@@ -79,8 +79,7 @@ public enum ErrorPrincipal {
 
 	ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_FOUND("3025", "No s'ha trobat la persona autenticada en l'expedient"),
 
-	ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_PERMIS("3026",
-			"La persona autenticada no té permisos per a realitzar tràmits OVT en l'expedient"),
+	ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_PERMIS("3026", "La persona autenticada no té permisos per a realitzar aquest tràmit OVT"),
 
 	ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT("3027",
 			"No s'han trobat tipus de relació definits en el procediment associat a l'expedient"),
@@ -92,7 +91,7 @@ public enum ErrorPrincipal {
 			"El tipus de relació per a les terceres persones implicades ha d'existir en el procediment al qual està associat a l'expedient"),
 
 	ERROR_EXPEDIENTS_RELACIO_TERCERES_PERSONES_PROCEDIMENT_VISIBILITAT("3030",
-			"L'usuari autenticat no té habilitada la visibilitat per a realitzar modificacions sobre alguns de les dades d'operació especificats en la petició"),
+			"L'usuari autenticat no té habilitada la visibilitat des de portal"),
 
 	ERROR_EXPEDIENTS_DADES_OPERACIO_PROCEDIMENT_VISIBILITAT_PORTAL("3031",
 			"La dada d'operació que es vol actualitzar no té configurada la visibilitat des de portal"),

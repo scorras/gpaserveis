@@ -1,5 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.helper;
 
+import static org.apache.commons.lang.math.NumberUtils.INTEGER_ZERO;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPersones;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
@@ -23,7 +26,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.Ex
 public class ServeisRestControllerVisibilitatHelper {
 
 	public static BigDecimal obtenirVisibilitatExpedient(ClientEntity clientEntity, ServeisService serveisService, String codiExpedient,
-			String expedientsIdOrgan) throws GPAServeisServiceException, GPAApiParamValidationException {
+			String expedientsIdOrgan, Resultat resultatError) throws GPAServeisServiceException, GPAApiParamValidationException {
 
 		BigDecimal visibilitat = BigDecimal.ONE;
 
@@ -39,21 +42,36 @@ public class ServeisRestControllerVisibilitatHelper {
 					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 
 			// validamos que el usuario logado pertenezca al expediente
-			String relacioTerceraPersona = ServeisRestControllerValidationHelper.validateUsuariLogueadoExpedient(nifInteressat,
+			PersonesSollicitudRDTO implicado = ServeisRestControllerValidationHelper.validateUsuariLogueadoExpedient(nifInteressat,
 					dadesExpedientBDTO.getPersonesInteressades(), dadesExpedientBDTO.getPersonesImplicades(),
-					dadesExpedientBDTO.getSollicitant(), dadesExpedientBDTO.getRepresentant(), Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
+					dadesExpedientBDTO.getSollicitant(), dadesExpedientBDTO.getRepresentant(), resultatError);
 
-			if (StringUtils.isNotEmpty(relacioTerceraPersona)) {
+			if (implicado != null && StringUtils.isNotEmpty(implicado.getRelacioImplicada())) {
 				DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
 						.consultarDadesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
 
 				List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
 
-				ProcedimentPersones procedimentPersones = ServeisRestControllerValidationHelper.validateVisibilitatImplicado(nifInteressat,
-						relacioTerceraPersona, null, null, null, null, procedimentPersonesList, Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
+				ProcedimentPersones procedimentPersones = ServeisRestControllerValidationHelper.validateVisibilitatImplicado(implicado,
+						null, null, null, null, procedimentPersonesList, null, resultatError);
 
 				if (procedimentPersones != null) {
 					visibilitat = procedimentPersones.getNivellVisibilitat();
+				}
+
+				// Comprobar si tiene la visibilidadOVT
+				// activada
+				if (implicado.getVisibilitatOvt() == null || implicado.getVisibilitatOvt().compareTo(INTEGER_ZERO) == 0) {
+					// Se habilita un campo Visibilidad a OVT en el detalle de
+					// cada persona implicada en el
+					// expediente que puede ser activado o desactivado por las
+					// unidades gestoras en cualquier momento de la tramitacion
+					// y que
+					// proporciona o saca respectivamente el acceso a la
+					// visibilidad del expediente desde el portal de la
+					// documentacion y los datos
+					// de operación configuradas con visibilidad.
+					visibilitat = BigDecimal.ZERO;
 				}
 			}
 
@@ -77,8 +95,8 @@ public class ServeisRestControllerVisibilitatHelper {
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
-	public static BigDecimal obtenirVisibilitatSollicitud(ClientEntity clientEntity, ServeisService serveisService, BigDecimal idSollicitud)
-			throws GPAServeisServiceException, GPAApiParamValidationException {
+	public static BigDecimal obtenirVisibilitatSollicitud(ClientEntity clientEntity, ServeisService serveisService, BigDecimal idSollicitud,
+			Resultat resultatError) throws GPAServeisServiceException, GPAApiParamValidationException {
 
 		BigDecimal visibilitat = BigDecimal.ONE;
 
@@ -93,21 +111,36 @@ public class ServeisRestControllerVisibilitatHelper {
 			DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitudPerVisibilitat(idSollicitud);
 
 			// validamos que el usuario logado pertenezca al expediente
-			String relacioTerceraPersona = ServeisRestControllerValidationHelper.validateUsuariLogueadoExpedient(nifInteressat,
+			PersonesSollicitudRDTO implicado = ServeisRestControllerValidationHelper.validateUsuariLogueadoExpedient(nifInteressat,
 					dadesSollicitudBDTO.getPersonesInteressades(), dadesSollicitudBDTO.getPersonesImplicades(),
-					dadesSollicitudBDTO.getSollicitant(), dadesSollicitudBDTO.getRepresentant(), Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
+					dadesSollicitudBDTO.getSollicitant(), dadesSollicitudBDTO.getRepresentant(), resultatError);
 
-			if (StringUtils.isNotEmpty(relacioTerceraPersona)) {
+			if (implicado != null && StringUtils.isNotEmpty(implicado.getRelacioImplicada())) {
 				DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
 						.consultarDadesProcediment(dadesSollicitudBDTO.getExpedientsRDTO().getProcedimentIdext());
 
 				List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
 
-				ProcedimentPersones procedimentPersones = ServeisRestControllerValidationHelper.validateVisibilitatImplicado(nifInteressat,
-						relacioTerceraPersona, null, null, null, null, procedimentPersonesList, Resultat.ERROR_ACTUALITZAR_EXPEDIENT);
+				ProcedimentPersones procedimentPersones = ServeisRestControllerValidationHelper.validateVisibilitatImplicado(implicado,
+						null, null, null, null, procedimentPersonesList, null, resultatError);
 
 				if (procedimentPersones != null) {
 					visibilitat = procedimentPersones.getNivellVisibilitat();
+				}
+
+				// Comprobar si tiene la visibilidadOVT
+				// activada
+				if (implicado.getVisibilitatOvt() == null || implicado.getVisibilitatOvt().compareTo(INTEGER_ZERO) == 0) {
+					// Se habilita un campo Visibilidad a OVT en el detalle de
+					// cada persona implicada en el
+					// expediente que puede ser activado o desactivado por las
+					// unidades gestoras en cualquier momento de la tramitacion
+					// y que
+					// proporciona o saca respectivamente el acceso a la
+					// visibilidad del expediente desde el portal de la
+					// documentacion y los datos
+					// de operación configuradas con visibilidad.
+					visibilitat = BigDecimal.ZERO;
 				}
 			}
 
@@ -127,7 +160,7 @@ public class ServeisRestControllerVisibilitatHelper {
 	 */
 	public static void validateVisibilitatTerceresPersones(ClientEntity clientEntity, ServeisService serveisService,
 			List<DadesOperacions> dadesActualizar, List<ConfiguracioDocsEntradaRDTO> configuacioActualizar, DocsEntradaRDTO docsEntradaRDTO,
-			DocsTramitacioRDTO docsTramitacioRDTO, DadesExpedientBDTO dadesExpedientBDTO, Resultat resultatError)
+			DocsTramitacioRDTO docsTramitacioRDTO, DadesExpedientBDTO dadesExpedientBDTO, BigDecimal idTramitOvt, Resultat resultatError)
 			throws GPAApiParamValidationException, GPAServeisServiceException {
 
 		validarCapçaleresUsuari(clientEntity, resultatError);
@@ -138,20 +171,18 @@ public class ServeisRestControllerVisibilitatHelper {
 		// cuando actuen en nombre del ciudadano
 		if (!StringUtils.isEmpty(nifInteressat)) {
 
-			String relacioTerceraPersona = "";
-
-			relacioTerceraPersona = ServeisRestControllerValidationHelper.validateUsuariLogueadoExpedient(nifInteressat,
+			PersonesSollicitudRDTO implicado = ServeisRestControllerValidationHelper.validateUsuariLogueadoExpedient(nifInteressat,
 					dadesExpedientBDTO.getPersonesInteressades(), dadesExpedientBDTO.getPersonesImplicades(),
 					dadesExpedientBDTO.getSollicitant(), dadesExpedientBDTO.getRepresentant(), resultatError);
 
-			if (StringUtils.isNotEmpty(relacioTerceraPersona)) {
+			if (implicado != null && StringUtils.isNotEmpty(implicado.getRelacioImplicada())) {
 				DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
 						.consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
 
 				List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
 
-				ServeisRestControllerValidationHelper.validateVisibilitatImplicado(nifInteressat, relacioTerceraPersona, dadesActualizar,
-						configuacioActualizar, docsEntradaRDTO, docsTramitacioRDTO, procedimentPersonesList, resultatError);
+				ServeisRestControllerValidationHelper.validateVisibilitatImplicado(implicado, dadesActualizar, configuacioActualizar,
+						docsEntradaRDTO, docsTramitacioRDTO, procedimentPersonesList, idTramitOvt, resultatError);
 			}
 
 		}
@@ -166,7 +197,7 @@ public class ServeisRestControllerVisibilitatHelper {
 	 */
 	public static void validateVisibilitatTerceresPersonesSollicitud(ClientEntity clientEntity, ServeisService serveisService,
 			List<DadesOperacions> dadesActualizar, List<ConfiguracioDocsEntradaRDTO> configuacioActualizar, DocsEntradaRDTO docsEntradaRDTO,
-			DocsTramitacioRDTO docsTramitacioRDTO, DadesSollicitudBDTO dadesSollicitudBDTO, Resultat resultatError)
+			DocsTramitacioRDTO docsTramitacioRDTO, DadesSollicitudBDTO dadesSollicitudBDTO, BigDecimal idTramitOvt, Resultat resultatError)
 			throws GPAApiParamValidationException, GPAServeisServiceException {
 
 		validarCapçaleresUsuari(clientEntity, resultatError);
@@ -177,20 +208,18 @@ public class ServeisRestControllerVisibilitatHelper {
 		// cuando actuen en nombre del ciudadano
 		if (!StringUtils.isEmpty(nifInteressat)) {
 
-			String relacioTerceraPersona = "";
-
-			relacioTerceraPersona = ServeisRestControllerValidationHelper.validateUsuariLogueadoExpedient(nifInteressat,
+			PersonesSollicitudRDTO implicado = ServeisRestControllerValidationHelper.validateUsuariLogueadoExpedient(nifInteressat,
 					dadesSollicitudBDTO.getPersonesInteressades(), dadesSollicitudBDTO.getPersonesImplicades(),
 					dadesSollicitudBDTO.getSollicitant(), dadesSollicitudBDTO.getRepresentant(), resultatError);
 
-			if (StringUtils.isNotEmpty(relacioTerceraPersona)) {
+			if (implicado != null && StringUtils.isNotEmpty(implicado.getRelacioImplicada())) {
 				DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
 						.consultarDadesBasiquesProcediment(dadesSollicitudBDTO.getExpedientsRDTO().getProcedimentIdext());
 
 				List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
 
-				ServeisRestControllerValidationHelper.validateVisibilitatImplicado(nifInteressat, relacioTerceraPersona, dadesActualizar,
-						configuacioActualizar, docsEntradaRDTO, docsTramitacioRDTO, procedimentPersonesList, resultatError);
+				ServeisRestControllerValidationHelper.validateVisibilitatImplicado(implicado, dadesActualizar, configuacioActualizar,
+						docsEntradaRDTO, docsTramitacioRDTO, procedimentPersonesList, idTramitOvt, resultatError);
 			}
 
 		}
