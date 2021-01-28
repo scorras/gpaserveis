@@ -30,8 +30,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import es.bcn.gpa.gpaserveis.business.AuditServeisService;
 import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.business.dto.RespostaResultatBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.audit.AuditServeisBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDeclaracioResponsableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDeclaracioResponsableBDTO;
@@ -220,6 +222,10 @@ public class ServeisPortalRestController extends BaseRestController {
 	@Autowired
 	private ClientEntity clientEntity;
 
+	/** The audit serveis service. */
+	@Autowired
+	private AuditServeisService auditServeisService;
+
 	/**
 	 * Cerca procediments.
 	 *
@@ -263,23 +269,23 @@ public class ServeisPortalRestController extends BaseRestController {
 	@ApiOperation(nickname = "cercaProcedimentsPortal", value = "Cerca de procediments", tags = { "Serveis Portal API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaCercaProcedimentsRDTO cercaProcediments(
-	        @ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
-	        @ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
-	        @ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
-	        @ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio,
-	        @ApiParam(value = "Filtra procediments per codi") @RequestParam(value = "codi", required = false) String codi,
-	        @ApiParam(value = "Filtrar procediments per conjunt d'estats", allowableValues = EstatApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
-	        @ApiParam(value = "Filtra procediments per nom") @RequestParam(value = "nom", required = false) String nom,
-	        @ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
-	        @ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci,
-	        @ApiParam(value = "Filtra procediments per conjunt d'Unitats Gestores Responsables") @RequestParam(value = "ugr", required = false) String ugr,
-	        @ApiParam(value = "Filtra procediments per exclusivament intern", allowableValues = ExclusivamentInternApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ExclusivamentInternApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String exclusivamentIntern,
-	        @ApiParam(value = "Filtra procediments per canals d'activació en format electrònic", allowableValues = ActivableEnFormatElectronicApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ActivableEnFormatElectronicApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] activableFormatElectronic,
-	        @ApiParam(value = "Filtra procediments per òrgan resolutori") @RequestParam(value = "organResolutori", required = false) String organResolutori,
-	        @ApiParam(value = "Filtrar procediments per conjunt de competències associades", allowableValues = CompetenciaAssociadaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = CompetenciaAssociadaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] competenciaAssociada,
-	        @ApiParam(value = "Filtrar procediments per conjunt de famílies", allowableValues = FamiliaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = FamiliaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] familia,
-	        @ApiParam(value = "Filtra procediments per actuació") @RequestParam(value = "actuacio", required = false) String actuacio)
-	        throws GPAServeisServiceException {
+			@ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
+			@ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
+			@ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
+			@ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio,
+			@ApiParam(value = "Filtra procediments per codi") @RequestParam(value = "codi", required = false) String codi,
+			@ApiParam(value = "Filtrar procediments per conjunt d'estats", allowableValues = EstatApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
+			@ApiParam(value = "Filtra procediments per nom") @RequestParam(value = "nom", required = false) String nom,
+			@ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
+			@ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci,
+			@ApiParam(value = "Filtra procediments per conjunt d'Unitats Gestores Responsables") @RequestParam(value = "ugr", required = false) String ugr,
+			@ApiParam(value = "Filtra procediments per exclusivament intern", allowableValues = ExclusivamentInternApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ExclusivamentInternApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String exclusivamentIntern,
+			@ApiParam(value = "Filtra procediments per canals d'activació en format electrònic", allowableValues = ActivableEnFormatElectronicApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ActivableEnFormatElectronicApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] activableFormatElectronic,
+			@ApiParam(value = "Filtra procediments per òrgan resolutori") @RequestParam(value = "organResolutori", required = false) String organResolutori,
+			@ApiParam(value = "Filtrar procediments per conjunt de competències associades", allowableValues = CompetenciaAssociadaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = CompetenciaAssociadaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] competenciaAssociada,
+			@ApiParam(value = "Filtrar procediments per conjunt de famílies", allowableValues = FamiliaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = FamiliaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] familia,
+			@ApiParam(value = "Filtra procediments per actuació") @RequestParam(value = "actuacio", required = false) String actuacio)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug(
 					"cercaProcediments(int, int, String, String, String, String[], String, String, String, String, String, String[], String, String[], String[], String) - inici"); //$NON-NLS-1$
@@ -289,35 +295,56 @@ public class ServeisPortalRestController extends BaseRestController {
 		// portal del ciudadano
 		// String usuariInteressat = clientEntity.getUsuariInteressat();
 
+		String resultatAudit = "OK";
+		Throwable ex = null;
+
 		RespostaCercaProcedimentsRDTO resposta = new RespostaCercaProcedimentsRDTO();
 		List<ProcedimentsCercaRDTO> procedimentsCercaRDTOList = new ArrayList<ProcedimentsCercaRDTO>();
+		ProcedimentsCercaBDTO procedimentsCercaBDTO = null;
+		try {
+			// Data
+			// Unitats Gestores que hacen match con el parámetro ugr
+			UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(ugr);
+			List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = serveisService.cercaUnitatsGestores(unitatsGestoresCercaBDTO);
 
-		// Data
-		// Unitats Gestores que hacen match con el parámetro ugr
-		UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(ugr);
-		List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = serveisService.cercaUnitatsGestores(unitatsGestoresCercaBDTO);
+			// Procediments que cumplen los criterios de búsqueda
+			procedimentsCercaBDTO = new ProcedimentsCercaBDTO(codi, nom,
+					ProcedimentsApiParamToInternalMapper.getActivableFormatElectronicInternalValueList(activableFormatElectronic), actuacio,
+					ProcedimentsApiParamToInternalMapper.getTramitadorInternalValue(tramitador), aplicacioNegoci,
+					ProcedimentsApiParamToInternalMapper.getCompetenciaAssociadaInternalValueList(competenciaAssociada),
+					ProcedimentsApiParamToInternalMapper.getEstatInternalValueList(estat),
+					ProcedimentsApiParamToInternalMapper.getFamiliaInternalValueList(familia),
+					ProcedimentsApiParamToInternalMapper.getExclusivamentInternInternalValue(exclusivamentIntern), organResolutori,
+					ProcedimentsApiParamToInternalMapper.getIdUnitatGestoraInternalValueList(unitatsGestoresRDTOList), numeroPagina,
+					resultatsPerPagina, ProcedimentsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
+					ProcedimentsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio));
 
-		// Procediments que cumplen los criterios de búsqueda
-		ProcedimentsCercaBDTO procedimentsCercaBDTO = new ProcedimentsCercaBDTO(codi, nom,
-				ProcedimentsApiParamToInternalMapper.getActivableFormatElectronicInternalValueList(activableFormatElectronic), actuacio,
-				ProcedimentsApiParamToInternalMapper.getTramitadorInternalValue(tramitador), aplicacioNegoci,
-				ProcedimentsApiParamToInternalMapper.getCompetenciaAssociadaInternalValueList(competenciaAssociada),
-				ProcedimentsApiParamToInternalMapper.getEstatInternalValueList(estat),
-				ProcedimentsApiParamToInternalMapper.getFamiliaInternalValueList(familia),
-				ProcedimentsApiParamToInternalMapper.getExclusivamentInternInternalValue(exclusivamentIntern), organResolutori,
-				ProcedimentsApiParamToInternalMapper.getIdUnitatGestoraInternalValueList(unitatsGestoresRDTOList), numeroPagina,
-				resultatsPerPagina, ProcedimentsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
-				ProcedimentsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio));
+			RespostaProcedimentsCercaBDTO respostaProcedimentsCercaBDTO = serveisService.cercaProcediments(procedimentsCercaBDTO);
 
-		RespostaProcedimentsCercaBDTO respostaProcedimentsCercaBDTO = serveisService.cercaProcediments(procedimentsCercaBDTO);
+			for (DadesProcedimentBDTO dadesProcedimentBDTO : respostaProcedimentsCercaBDTO.getDadesProcedimentBDTOList()) {
+				procedimentsCercaRDTOList.add(modelMapper.map(dadesProcedimentBDTO, ProcedimentsCercaRDTO.class));
+			}
+			resposta.setData(procedimentsCercaRDTOList);
 
-		for (DadesProcedimentBDTO dadesProcedimentBDTO : respostaProcedimentsCercaBDTO.getDadesProcedimentBDTOList()) {
-			procedimentsCercaRDTOList.add(modelMapper.map(dadesProcedimentBDTO, ProcedimentsCercaRDTO.class));
+			// Paginació
+			resposta.setPaginacio(modelMapper.map(respostaProcedimentsCercaBDTO.getPaginationAttributes(), PaginacioRDTO.class));
+
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultatAudit = "KO";
+			ex = e;
+			;
+			throw e;
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/procediments");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Cerca de procediments");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, procedimentsCercaBDTO, resposta, ex);
 		}
-		resposta.setData(procedimentsCercaRDTOList);
-
-		// Paginació
-		resposta.setPaginacio(modelMapper.map(respostaProcedimentsCercaBDTO.getPaginationAttributes(), PaginacioRDTO.class));
 
 		if (log.isDebugEnabled()) {
 			log.debug(
@@ -340,20 +367,38 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaProcedimentsRDTO consultarDadesProcediment(
-	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment)
-	        throws GPAServeisServiceException {
+			@ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment)
+			throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
 
 		RespostaConsultaProcedimentsRDTO respostaConsultaProcedimentsRDTO = new RespostaConsultaProcedimentsRDTO();
+		try {
+			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService.consultarDadesProcediment(idProcediment);
+			// El id del Procedimiento debe ser válido
+			if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND.getDescripcio());
+				// TODO return 404
+			}
+			ProcedimentsConsultaRDTO procedimentsConsultaRDTO = modelMapper.map(dadesProcedimentBDTO, ProcedimentsConsultaRDTO.class);
+			respostaConsultaProcedimentsRDTO.setProcediment(procedimentsConsultaRDTO);
 
-		DadesProcedimentBDTO dadesProcedimentBDTO = serveisService.consultarDadesProcediment(idProcediment);
-		// El id del Procedimiento debe ser válido
-		if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
-			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND.getDescripcio());
-			// TODO return 404
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultatAudit = "KO";
+			ex = e;
+			throw e;
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/procediments/" + idProcediment);
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Consultar les dades del procediment");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, null, respostaConsultaProcedimentsRDTO, ex);
 		}
-		ProcedimentsConsultaRDTO procedimentsConsultaRDTO = modelMapper.map(dadesProcedimentBDTO, ProcedimentsConsultaRDTO.class);
-		respostaConsultaProcedimentsRDTO.setProcediment(procedimentsConsultaRDTO);
-
 		return respostaConsultaProcedimentsRDTO;
 	}
 
@@ -373,35 +418,54 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaDadesOperacioRDTO consultarDadesOperacioTramit(
-	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
-	        @ApiParam(value = "Codi del tràmit", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true) @PathVariable String codiTramit)
-	        throws GPAServeisServiceException {
+			@ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
+			@ApiParam(value = "Codi del tràmit", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true) @PathVariable String codiTramit)
+			throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
 
 		RespostaConsultaDadesOperacioRDTO respostaConsultaDadesOperacioRDTO = new RespostaConsultaDadesOperacioRDTO();
 		DadesOperacioConsultaRDTO dadesOperacioConsultaRDTO = new DadesOperacioConsultaRDTO();
 
-		// El id del Procedimiento debe ser válido
-		DadesProcedimentBDTO dadesProcedimentBDTO = serveisService.consultarDadesProcediment(idProcediment);
-		if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
-			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND.getDescripcio());
+		try {
+			// El id del Procedimiento debe ser válido
+			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService.consultarDadesProcediment(idProcediment);
+			if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND.getDescripcio());
+			}
+
+			// Información del Trámite
+			TramitsOvtCercaBDTO tramitsOvtCercaBDTO = new TramitsOvtCercaBDTO(
+					DadesOperacioApiParamToInternalMapper.getTramitOvtInternalValue(codiTramit));
+			es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO internalTramitsOvtRDTO = serveisService
+					.consultarDadesTramitOvt(tramitsOvtCercaBDTO);
+			es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = modelMapper
+					.map(internalTramitsOvtRDTO, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
+			respostaConsultaDadesOperacioRDTO.setTramit(tramitsOvtRDTO);
+
+			// Dades Operacio que cumplen los criterios de búsqueda
+			DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(idProcediment,
+					DadesOperacioApiParamToInternalMapper.getTramitOvtInternalValue(codiTramit));
+			RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = serveisService.cercaDadesOperacio(dadesOperacioCercaBDTO);
+			dadesOperacioConsultaRDTO = modelMapper.map(respostaDadesOperacioCercaBDTO, DadesOperacioConsultaRDTO.class);
+			respostaConsultaDadesOperacioRDTO.setDadesOperacio(dadesOperacioConsultaRDTO);
+
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultatAudit = "KO";
+			ex = e;
+			throw e;
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/procediments/" + idProcediment + "/tramits/" + codiTramit + "/atributs");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Consultar les dades d'operació del tràmit");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, null, respostaConsultaDadesOperacioRDTO, ex);
 		}
-
-		// Información del Trámite
-		TramitsOvtCercaBDTO tramitsOvtCercaBDTO = new TramitsOvtCercaBDTO(
-				DadesOperacioApiParamToInternalMapper.getTramitOvtInternalValue(codiTramit));
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO internalTramitsOvtRDTO = serveisService
-				.consultarDadesTramitOvt(tramitsOvtCercaBDTO);
-		es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = modelMapper.map(internalTramitsOvtRDTO,
-				es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
-		respostaConsultaDadesOperacioRDTO.setTramit(tramitsOvtRDTO);
-
-		// Dades Operacio que cumplen los criterios de búsqueda
-		DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(idProcediment,
-				DadesOperacioApiParamToInternalMapper.getTramitOvtInternalValue(codiTramit));
-		RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = serveisService.cercaDadesOperacio(dadesOperacioCercaBDTO);
-		dadesOperacioConsultaRDTO = modelMapper.map(respostaDadesOperacioCercaBDTO, DadesOperacioConsultaRDTO.class);
-		respostaConsultaDadesOperacioRDTO.setDadesOperacio(dadesOperacioConsultaRDTO);
-
 		return respostaConsultaDadesOperacioRDTO;
 	}
 
@@ -421,46 +485,66 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaConfiguracioDocumentacioAportadaRDTO consultarDocumentacioEntradaProcediment(
-	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
-	        @ApiParam(value = "Codi del tràmit", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true) @PathVariable String codiTramit)
-	        throws GPAServeisServiceException {
+			@ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
+			@ApiParam(value = "Codi del tràmit", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true) @PathVariable String codiTramit)
+			throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
 
 		RespostaConsultaConfiguracioDocumentacioAportadaRDTO respostaConsultaConfiguracioDocumentacioAportadaRDTO = new RespostaConsultaConfiguracioDocumentacioAportadaRDTO();
+		try {
+			// El id del Procedimiento debe ser válido
+			// Información del Procedimiento, para obtener el Id de Configuració
+			// Documentació
+			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService.consultarDadesProcediment(idProcediment);
+			if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND.getDescripcio());
+			}
 
-		// El id del Procedimiento debe ser válido
-		// Información del Procedimiento, para obtener el Id de Configuració
-		// Documentació
-		DadesProcedimentBDTO dadesProcedimentBDTO = serveisService.consultarDadesProcediment(idProcediment);
-		if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
-			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND.getDescripcio());
+			// Información del Trámite
+			TramitsOvtCercaBDTO tramitsOvtCercaBDTO = new TramitsOvtCercaBDTO(
+					DocumentsApiParamToInternalMapper.getTramitOvtInternalValue(codiTramit));
+			es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO internalTramitsOvtRDTO = serveisService
+					.consultarDadesTramitOvt(tramitsOvtCercaBDTO);
+			es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = modelMapper
+					.map(internalTramitsOvtRDTO, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
+			respostaConsultaConfiguracioDocumentacioAportadaRDTO.setTramit(tramitsOvtRDTO);
+
+			// Documents que cumplen los criterios de búsqueda
+			DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(
+					dadesProcedimentBDTO.getProcedimentsRDTO().getConfiguracioDocumentacio(),
+					DocumentsApiParamToInternalMapper.getTramitOvtInternalValue(codiTramit));
+			RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = serveisService
+					.cercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsEntradaCercaBDTO);
+			// TODO Necesario pasar a la conversión el conjunto de
+			// confdocsentEstatsExpList de la Configuración Documentación
+			// Entrada
+			ArrayList<ConfiguracioDocumentacioAportadaConsultaRDTO> configuracioDocumentacioAportadaConsultaRDTOList = new ArrayList<ConfiguracioDocumentacioAportadaConsultaRDTO>();
+			for (ConfiguracioDocsEntradaRDTO configuracioDocsEntradaRDTO : respostaDocumentsEntradaCercaBDTO
+					.getConfiguracioDocsEntradaRDTOList()) {
+				configuracioDocumentacioAportadaConsultaRDTOList
+						.add(modelMapper.map(configuracioDocsEntradaRDTO, ConfiguracioDocumentacioAportadaConsultaRDTO.class));
+			}
+			respostaConsultaConfiguracioDocumentacioAportadaRDTO
+					.setConfiguracioDocumentacioAportada(configuracioDocumentacioAportadaConsultaRDTOList);
+
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultatAudit = "KO";
+			ex = e;
+			throw e;
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/procediments/" + idProcediment + "/tramits/" + codiTramit + "/documentacio");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Consultar les dades de documentació d'entrada del procediment");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, null, respostaConsultaConfiguracioDocumentacioAportadaRDTO,
+					ex);
 		}
-
-		// Información del Trámite
-		TramitsOvtCercaBDTO tramitsOvtCercaBDTO = new TramitsOvtCercaBDTO(
-				DocumentsApiParamToInternalMapper.getTramitOvtInternalValue(codiTramit));
-		es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO internalTramitsOvtRDTO = serveisService
-				.consultarDadesTramitOvt(tramitsOvtCercaBDTO);
-		es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = modelMapper.map(internalTramitsOvtRDTO,
-				es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
-		respostaConsultaConfiguracioDocumentacioAportadaRDTO.setTramit(tramitsOvtRDTO);
-
-		// Documents que cumplen los criterios de búsqueda
-		DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(
-				dadesProcedimentBDTO.getProcedimentsRDTO().getConfiguracioDocumentacio(),
-				DocumentsApiParamToInternalMapper.getTramitOvtInternalValue(codiTramit));
-		RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = serveisService
-				.cercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsEntradaCercaBDTO);
-		// TODO Necesario pasar a la conversión el conjunto de
-		// confdocsentEstatsExpList de la Configuración Documentación Entrada
-		ArrayList<ConfiguracioDocumentacioAportadaConsultaRDTO> configuracioDocumentacioAportadaConsultaRDTOList = new ArrayList<ConfiguracioDocumentacioAportadaConsultaRDTO>();
-		for (ConfiguracioDocsEntradaRDTO configuracioDocsEntradaRDTO : respostaDocumentsEntradaCercaBDTO
-				.getConfiguracioDocsEntradaRDTOList()) {
-			configuracioDocumentacioAportadaConsultaRDTOList
-					.add(modelMapper.map(configuracioDocsEntradaRDTO, ConfiguracioDocumentacioAportadaConsultaRDTO.class));
-		}
-		respostaConsultaConfiguracioDocumentacioAportadaRDTO
-				.setConfiguracioDocumentacioAportada(configuracioDocumentacioAportadaConsultaRDTOList);
-
 		return respostaConsultaConfiguracioDocumentacioAportadaRDTO;
 	}
 
@@ -503,57 +587,79 @@ public class ServeisPortalRestController extends BaseRestController {
 	@ApiOperation(nickname = "cercaExpedientsPortal", value = "Cerca d'expedients", tags = { "Serveis Portal API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaCercaExpedientsRDTO cercaExpedients(
-	        @ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
-	        @ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
-	        @ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
-	        @ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio,
-	        @ApiParam(value = "Filtra expedients per codi") @RequestParam(value = "codiExpedient", required = false) String codiExpedient,
-	        @ApiParam(value = "Filtra expedients per sollicitant") @RequestParam(value = "nifSollicitant", required = false) String nifSollicitant,
-	        @ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioInici", required = false) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN) String dataPresentacioInici,
-	        @ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioFi", required = false) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN) String dataPresentacioFi,
-	        @ApiParam(value = "Filtra expedients per un conjunt de codis de procediment") @RequestParam(value = "codiProcediment", required = false) String[] codiProcediment,
-	        @ApiParam(value = "En cas que s'indiqui codi de procediment, filtra expedients per versió de procediment", allowableValues = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String versioProcediment,
-	        @ApiParam(value = "Filtra expedients per conjunt d'estats", allowableValues = EstatCiutadaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatCiutadaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
-	        @ApiParam(value = "Filtra expedients per Unitat Gestora") @RequestParam(value = "unitatGestora", required = false) String unitatGestora,
-	        @ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
-	        @ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci,
-	        @ApiParam(value = "Filtra els expedients amb un nivell d'autenticació menor o igual", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String nivellAutenticacio)
-	        throws GPAServeisServiceException {
+			@ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
+			@ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
+			@ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
+			@ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio,
+			@ApiParam(value = "Filtra expedients per codi") @RequestParam(value = "codiExpedient", required = false) String codiExpedient,
+			@ApiParam(value = "Filtra expedients per sollicitant") @RequestParam(value = "nifSollicitant", required = false) String nifSollicitant,
+			@ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioInici", required = false) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN) String dataPresentacioInici,
+			@ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioFi", required = false) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN) String dataPresentacioFi,
+			@ApiParam(value = "Filtra expedients per un conjunt de codis de procediment") @RequestParam(value = "codiProcediment", required = false) String[] codiProcediment,
+			@ApiParam(value = "En cas que s'indiqui codi de procediment, filtra expedients per versió de procediment", allowableValues = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String versioProcediment,
+			@ApiParam(value = "Filtra expedients per conjunt d'estats", allowableValues = EstatCiutadaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatCiutadaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
+			@ApiParam(value = "Filtra expedients per Unitat Gestora") @RequestParam(value = "unitatGestora", required = false) String unitatGestora,
+			@ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
+			@ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci,
+			@ApiParam(value = "Filtra els expedients amb un nivell d'autenticació menor o igual", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String nivellAutenticacio)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug(
 					"cercaExpedients(int, int, String, String, String, String, String, String, String[], String, String[], String, String, String) - inici"); //$NON-NLS-1$
 		}
 
+		String resultatAudit = "OK";
+		Throwable ex = null;
+
 		RespostaCercaExpedientsRDTO resposta = new RespostaCercaExpedientsRDTO();
 		List<ExpedientsCercaRDTO> expedientsCercaRDTOList = new ArrayList<ExpedientsCercaRDTO>();
+		ExpedientsCercaBDTO expedientsCercaBDTO = null;
+		try {
 
-		// Data
-		// Unitats Gestores que hacen match con el parámetro unitatGestora
-		UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(unitatGestora);
-		List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = serveisService.cercaUnitatsGestores(unitatsGestoresCercaBDTO);
+			// Data
+			// Unitats Gestores que hacen match con el parámetro unitatGestora
+			UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(unitatGestora);
+			List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = serveisService.cercaUnitatsGestores(unitatsGestoresCercaBDTO);
 
-		// Expedients que cumplen los criterios de búsqueda
-		ExpedientsCercaBDTO expedientsCercaBDTO = new ExpedientsCercaBDTO(
-				ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), nifSollicitant, null,
-				dataPresentacioInici, dataPresentacioFi,
-				ExpedientsApiParamToInternalMapper.getCodiProcedimentInternalValueList(codiProcediment),
-				ExpedientsApiParamToInternalMapper.getVersioProcedimentInternalValue(versioProcediment),
-				ExpedientsApiParamToInternalMapper.getEstatCiutadaInternalValueList(estat),
-				ExpedientsApiParamToInternalMapper.getIdUnitatGestoraInternalValueList(unitatsGestoresRDTOList),
-				ExpedientsApiParamToInternalMapper.getTramitadorInternalValue(tramitador), aplicacioNegoci, numeroPagina,
-				resultatsPerPagina, ExpedientsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
-				ExpedientsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio),
-				ExpedientsApiParamToInternalMapper.getNivellAutenticacioInternalValue(nivellAutenticacio));
+			// Expedients que cumplen los criterios de búsqueda
+			expedientsCercaBDTO = new ExpedientsCercaBDTO(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), nifSollicitant, null,
+					dataPresentacioInici, dataPresentacioFi,
+					ExpedientsApiParamToInternalMapper.getCodiProcedimentInternalValueList(codiProcediment),
+					ExpedientsApiParamToInternalMapper.getVersioProcedimentInternalValue(versioProcediment),
+					ExpedientsApiParamToInternalMapper.getEstatCiutadaInternalValueList(estat),
+					ExpedientsApiParamToInternalMapper.getIdUnitatGestoraInternalValueList(unitatsGestoresRDTOList),
+					ExpedientsApiParamToInternalMapper.getTramitadorInternalValue(tramitador), aplicacioNegoci, numeroPagina,
+					resultatsPerPagina, ExpedientsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
+					ExpedientsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio),
+					ExpedientsApiParamToInternalMapper.getNivellAutenticacioInternalValue(nivellAutenticacio));
 
-		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = serveisService.cercaExpedients(expedientsCercaBDTO);
+			RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = serveisService.cercaExpedients(expedientsCercaBDTO);
 
-		for (DadesExpedientBDTO dadesExpedientBDTO : respostaExpedientsCercaBDTO.getDadesExpedientBDTOList()) {
-			expedientsCercaRDTOList.add(modelMapper.map(dadesExpedientBDTO, ExpedientsCercaRDTO.class));
+			for (DadesExpedientBDTO dadesExpedientBDTO : respostaExpedientsCercaBDTO.getDadesExpedientBDTOList()) {
+				expedientsCercaRDTOList.add(modelMapper.map(dadesExpedientBDTO, ExpedientsCercaRDTO.class));
+			}
+			resposta.setData(expedientsCercaRDTOList);
+
+			// Paginació
+			resposta.setPaginacio(modelMapper.map(respostaExpedientsCercaBDTO.getPaginationAttributes(), PaginacioRDTO.class));
+
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultatAudit = "KO";
+			ex = e;
+			;
+			throw e;
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Cerca d'expedients");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, expedientsCercaBDTO, resposta, ex);
 		}
-		resposta.setData(expedientsCercaRDTOList);
-
-		// Paginació
-		resposta.setPaginacio(modelMapper.map(respostaExpedientsCercaBDTO.getPaginationAttributes(), PaginacioRDTO.class));
 
 		if (log.isDebugEnabled()) {
 			log.debug(
@@ -576,8 +682,11 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaExpedientsRDTO consultarDadesExpedient(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient)
-	        throws GPAServeisServiceException {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient)
+			throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
 
 		RespostaConsultaExpedientsRDTO respostaConsultaExpedientsRDTO = new RespostaConsultaExpedientsRDTO();
 
@@ -595,42 +704,60 @@ public class ServeisPortalRestController extends BaseRestController {
 			throw new GPAServeisServiceException(e.getMessage());
 		}
 
-		// Datos principales del expedient
-		DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesExpedient(
-				ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
-		// El código del expediente debe ser válido
-		if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
-			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
-		}
-		ExpedientConsultaRDTO expedientConsultaRDTO = modelMapper.map(dadesExpedientBDTO, ExpedientConsultaRDTO.class);
-
-		// Datos de cada tràmit OVT asociado a los documents aportats
-		HashMap<String, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO> tramitsOvtRDTOMap = null;
-		es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = null;
-		if (MapUtils.isNotEmpty(dadesExpedientBDTO.getTramitsOvtMap())) {
-			tramitsOvtRDTOMap = new HashMap<String, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO>();
-			for (Entry<BigDecimal, TramitsOvtRDTO> tramitsOvtRDTOEntry : dadesExpedientBDTO.getTramitsOvtMap().entrySet()) {
-				tramitsOvtRDTO = modelMapper.map(tramitsOvtRDTOEntry.getValue(),
-						es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
-				tramitsOvtRDTOMap.put(tramitsOvtRDTO.getCodi(), tramitsOvtRDTO);
+		try {
+			// Datos principales del expedient
+			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesExpedient(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
+			// El código del expediente debe ser válido
+			if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
 			}
-			if (CollectionUtils.isNotEmpty(expedientConsultaRDTO.getDocumentsAportats()) && MapUtils.isNotEmpty(tramitsOvtRDTOMap)) {
-				for (DocumentAportatConsultaRDTO documentAportatConsultaRDTO : expedientConsultaRDTO.getDocumentsAportats()) {
-					if (documentAportatConsultaRDTO.getTramit() != null) {
-						documentAportatConsultaRDTO.setTramit(tramitsOvtRDTOMap.get(documentAportatConsultaRDTO.getTramit().getCodi()));
+			ExpedientConsultaRDTO expedientConsultaRDTO = modelMapper.map(dadesExpedientBDTO, ExpedientConsultaRDTO.class);
+
+			// Datos de cada tràmit OVT asociado a los documents aportats
+			HashMap<String, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO> tramitsOvtRDTOMap = null;
+			es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = null;
+			if (MapUtils.isNotEmpty(dadesExpedientBDTO.getTramitsOvtMap())) {
+				tramitsOvtRDTOMap = new HashMap<String, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO>();
+				for (Entry<BigDecimal, TramitsOvtRDTO> tramitsOvtRDTOEntry : dadesExpedientBDTO.getTramitsOvtMap().entrySet()) {
+					tramitsOvtRDTO = modelMapper.map(tramitsOvtRDTOEntry.getValue(),
+							es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
+					tramitsOvtRDTOMap.put(tramitsOvtRDTO.getCodi(), tramitsOvtRDTO);
+				}
+				if (CollectionUtils.isNotEmpty(expedientConsultaRDTO.getDocumentsAportats()) && MapUtils.isNotEmpty(tramitsOvtRDTOMap)) {
+					for (DocumentAportatConsultaRDTO documentAportatConsultaRDTO : expedientConsultaRDTO.getDocumentsAportats()) {
+						if (documentAportatConsultaRDTO.getTramit() != null) {
+							documentAportatConsultaRDTO.setTramit(tramitsOvtRDTOMap.get(documentAportatConsultaRDTO.getTramit().getCodi()));
+						}
 					}
 				}
 			}
-		}
 
-		// no se mostraran las acciones disponibles para el estado en
-		// preparacion desde portal
-		if (dadesExpedientBDTO.getExpedientsRDTO() != null && dadesExpedientBDTO.getExpedientsRDTO().getIdEstat()
-				.compareTo(EstatTramitadorApiParamValue.EN_PREPARACIO.getInternalValue()) == NumberUtils.INTEGER_ZERO) {
-			expedientConsultaRDTO.setAccionsDisponibles(null);
-		}
+			// no se mostraran las acciones disponibles para el estado en
+			// preparacion desde portal
+			if (dadesExpedientBDTO.getExpedientsRDTO() != null && dadesExpedientBDTO.getExpedientsRDTO().getIdEstat()
+					.compareTo(EstatTramitadorApiParamValue.EN_PREPARACIO.getInternalValue()) == NumberUtils.INTEGER_ZERO) {
+				expedientConsultaRDTO.setAccionsDisponibles(null);
+			}
 
-		respostaConsultaExpedientsRDTO.setExpedient(expedientConsultaRDTO);
+			respostaConsultaExpedientsRDTO.setExpedient(expedientConsultaRDTO);
+
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultatAudit = "KO";
+			ex = e;
+			throw e;
+		} finally {
+
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients/" + codiExpedient);
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Consultar les dades de l'expedient");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, null, respostaConsultaExpedientsRDTO, ex);
+		}
 
 		return respostaConsultaExpedientsRDTO;
 	}
@@ -649,10 +776,14 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public ResponseEntity<String> exportarDadesExpedientXml(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient)
-	        throws GPAServeisServiceException {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient)
+			throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
 
 		BigDecimal visibilitat = BigDecimal.ONE;
+		String dadesXmlBase64 = null;
 
 		try {
 			// TODO GPA-2923
@@ -665,29 +796,46 @@ public class ServeisPortalRestController extends BaseRestController {
 			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
 			throw new GPAServeisServiceException(e.getMessage());
 		}
+		try {
+			// Datos principales del expedient
+			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesExpedient(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
+			// El código del expediente debe ser válido
+			if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
+			}
 
-		// Datos principales del expedient
-		DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesExpedient(
-				ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
-		// El código del expediente debe ser válido
-		if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
-			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
+			// Llamada a la operación de exportación a XML de los datos del
+			// expediente
+			// De acuerdo a la incorporación de las Accions Posteriors se
+			// engancha esta llamada con la obtención del XML de la Solicitud
+			// (en
+			// este caso será la del trámite SOL)
+
+			// Datos principales de la solicitud SOL
+			DadesSollicitudBDTO dadesSollicitudBDTO = serveisService
+					.consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(), visibilitat);
+
+			SollicitudConsultaRDTO sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
+
+			dadesXmlBase64 = serveisService.crearXmlDadesSollicitud(sollicitudConsultaRDTO);
+
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultatAudit = "KO";
+			ex = e;
+			throw e;
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients/" + codiExpedient + "/report/exportacio-xml");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Exporta les dades de l'expedient en format XML");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, null,
+					new ResponseEntity<String>(dadesXmlBase64, HttpStatus.OK), ex);
 		}
-
-		// Llamada a la operación de exportación a XML de los datos del
-		// expediente
-		// De acuerdo a la incorporación de las Accions Posteriors se
-		// engancha esta llamada con la obtención del XML de la Solicitud (en
-		// este caso será la del trámite SOL)
-
-		// Datos principales de la solicitud SOL
-		DadesSollicitudBDTO dadesSollicitudBDTO = serveisService
-				.consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(), visibilitat);
-
-		SollicitudConsultaRDTO sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
-
-		String dadesXmlBase64 = serveisService.crearXmlDadesSollicitud(sollicitudConsultaRDTO);
-
 		return new ResponseEntity<String>(dadesXmlBase64, HttpStatus.OK);
 	}
 
@@ -699,14 +847,21 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @param idDocument
 	 *            the id document
 	 * @return the response entity
+	 * @throws GPAServeisServiceException
 	 */
 	@GetMapping(value = "/expedients/{codiExpedient}/documents/{idDocument}", produces = "*/*")
 	@ApiOperation(nickname = "descarregarDocumentExpedientPortal", value = "Descarregar document de l'expedient", tags = {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public ResponseEntity<byte[]> descarregarDocumentExpedient(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument) {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument)
+			throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
+
+		ResponseEntity<byte[]> resposta = null;
 
 		try {
 			// IMPORTANTE: Para permitir la descarga del Comprovant de registro
@@ -738,15 +893,29 @@ public class ServeisPortalRestController extends BaseRestController {
 			String filename = docsRDTO.getDocsFisics().getNom();
 			headers.add("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 
-			return new ResponseEntity<byte[]>(result, headers, HttpStatus.OK);
+			resposta = new ResponseEntity<byte[]>(result, headers, HttpStatus.OK);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("descarregarDocumentExpedient(String, BigDecimal)", e); //$NON-NLS-1$ type
-			return new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+			resposta = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+			resultatAudit = "KO";
+			ex = e;
 		} catch (Exception e) {
 			log.error("descarregarDocumentExpedient(String, BigDecimal)", e); //$NON-NLS-1$
-			return new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
+			resposta = new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
+			resultatAudit = "KO";
+			ex = e;
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients/" + codiExpedient + "/documents/" + idDocument);
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Descarregar document de l'expedient");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, null, resposta, ex);
 		}
+		return resposta;
 	}
 
 	/**
@@ -763,15 +932,19 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaCrearExpedientRDTO crearSolicitudExpedient(
-	        @ApiParam(value = "Dades de la creació de l'expedient") @RequestBody ExpedientCrearRDTO solicitudExpedient)
-	        throws GPAServeisServiceException {
+			@ApiParam(value = "Dades de la creació de l'expedient") @RequestBody ExpedientCrearRDTO solicitudExpedient)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("crearSolicitudExpedient(ExpedientCrearRDTO) - inici"); //$NON-NLS-1$
 		}
 
+		String resultatAudit = "OK";
+		Throwable ex = null;
+
 		RespostaCrearExpedientRDTO respostaCrearSolicitudsRDTO = null;
 		ExpedientsRDTO returnExpedientsRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_CREAR_EXPEDIENT);
+		RespostaExpedientsCrearBDTO respostaExpedientsCrearBDTO = null;
 		try {
 			// El id del procedimiento debe existir y el procedimiento debe
 			// encontrarse en estado Publicat
@@ -823,14 +996,26 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (GPAApiParamValidationException e) {
 			log.error("crearSolicitudExpedient(ExpedientCrearRDTO)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
+			resultatAudit = "KO";
+			ex = e;
 		} catch (Exception e) {
 			log.error("crearSolicitudExpedient(ExpedientCrearRDTO)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_CREAR_EXPEDIENT, e);
-		}
+			resultatAudit = "KO";
+			ex = e;
+		} finally {
+			respostaExpedientsCrearBDTO = new RespostaExpedientsCrearBDTO(returnExpedientsRDTO, respostaResultatBDTO);
+			respostaCrearSolicitudsRDTO = modelMapper.map(respostaExpedientsCrearBDTO, RespostaCrearExpedientRDTO.class);
 
-		RespostaExpedientsCrearBDTO respostaExpedientsCrearBDTO = new RespostaExpedientsCrearBDTO(returnExpedientsRDTO,
-				respostaResultatBDTO);
-		respostaCrearSolicitudsRDTO = modelMapper.map(respostaExpedientsCrearBDTO, RespostaCrearExpedientRDTO.class);
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Crear una sol·licitud d'un expedient");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, solicitudExpedient, respostaCrearSolicitudsRDTO, ex);
+		}
 
 		if (log.isDebugEnabled()) {
 			log.debug("crearSolicitudExpedient(SolicitudsCrearRDTO) - fi"); //$NON-NLS-1$
@@ -846,23 +1031,29 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @param solicitudExpedient
 	 *            the solicitud expedient
 	 * @return the resposta actualitzar expedient RDTO
+	 * @throws GPAServeisServiceException
 	 */
 	@PostMapping("/expedients/{codiExpedient}")
 	@ApiOperation(nickname = "actualitzarSolicitudExpedientPortal", value = "Actualitzar dades de la sol·licitud de l'expedient", tags = {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaActualitzarExpedientRDTO actualitzarSolicitudExpedient(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Dades de la actualització de l'expedient") @RequestBody ExpedientActualitzarRDTO solicitudExpedient) {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Dades de la actualització de l'expedient") @RequestBody ExpedientActualitzarRDTO solicitudExpedient)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO) - inici"); //$NON-NLS-1$
 		}
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
 
 		RespostaActualitzarExpedientRDTO respostaActualitzarSolicitudsRDTO = null;
 		ExpedientsRDTO returnExpedientsRDTO = null;
 		RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = null;
 		List<DadesOperacions> dadesActualizar = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACTUALITZAR_EXPEDIENT);
+		RespostaExpedientsActualitzarBDTO respostaExpedientsActualitzarBDTO = null;
 		try {
 			// El codi del expediente debe existir
 			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesBasiquesPerVisibilitatExpedient(
@@ -934,14 +1125,26 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (GPAApiParamValidationException e) {
 			log.error("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
+			resultatAudit = "KO";
+			ex = e;
 		} catch (Exception e) {
 			log.error("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT, e);
-		}
+			resultatAudit = "KO";
+			ex = e;
+		} finally {
+			respostaExpedientsActualitzarBDTO = new RespostaExpedientsActualitzarBDTO(returnExpedientsRDTO, respostaResultatBDTO);
+			respostaActualitzarSolicitudsRDTO = modelMapper.map(respostaExpedientsActualitzarBDTO, RespostaActualitzarExpedientRDTO.class);
 
-		RespostaExpedientsActualitzarBDTO respostaExpedientsActualitzarBDTO = new RespostaExpedientsActualitzarBDTO(returnExpedientsRDTO,
-				respostaResultatBDTO);
-		respostaActualitzarSolicitudsRDTO = modelMapper.map(respostaExpedientsActualitzarBDTO, RespostaActualitzarExpedientRDTO.class);
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients/" + codiExpedient);
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Actualitzar dades de la sol·licitud de l'expedient");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, solicitudExpedient, respostaActualitzarSolicitudsRDTO, ex);
+		}
 
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarSolicitudExpedient(BigDecimal, SolicitudsActualitzarRDTO) - fi"); //$NON-NLS-1$
@@ -957,17 +1160,22 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @param expedientRegistrarRDTO
 	 *            the expedient registrar RDTO
 	 * @return the resposta registrar expedient RDTO
+	 * @throws GPAServeisServiceException
 	 */
 	@PostMapping("/expedients/{codiExpedient}/registre")
 	@ApiOperation(nickname = "registrarSolicitudExpedientPortal", value = "Registrar la sol·licitud de l'expedient", tags = {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaRegistrarExpedientRDTO registrarSolicitudExpedient(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Dades de l'registre de l'expedient", required = false) @RequestBody(required = false) ExpedientRegistrarRDTO expedientRegistrarRDTO) {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Dades de l'registre de l'expedient", required = false) @RequestBody(required = false) ExpedientRegistrarRDTO expedientRegistrarRDTO)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("registrarSolicitudExpedient(BigDecimal) - inici"); //$NON-NLS-1$
 		}
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
 
 		RespostaRegistrarExpedientRDTO respostaRegistrarExpedientRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
@@ -981,6 +1189,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		boolean registreDocumentacioAssociat = false;
 		boolean registreSollicitudAssociat = false;
 		ArrayList<BigDecimal> idDocsEntradaList = new ArrayList<BigDecimal>();
+		RespostaExpedientsRegistrarBDTO respostaExpedientsRegistrarBDTO = null;
 		try {
 			// TODO GPA-2923
 			BigDecimal visibilitat = BigDecimal.ONE;
@@ -1136,6 +1345,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (GPAApiParamValidationException e) {
 			log.error("registrarSolicitudExpedient(BigDecimal)", e);// $NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
+			resultatAudit = "KO";
+			ex = e;
 		} catch (Exception e) {
 			log.error("registrarSolicitudExpedient(BigDecimal)", e);
 
@@ -1144,12 +1355,22 @@ public class ServeisPortalRestController extends BaseRestController {
 					registreDocumentacioAssociat);
 
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_REGISTRAR_EXPEDIENT, e);
-		}
+			resultatAudit = "KO";
+			ex = e;
+		} finally {
+			respostaExpedientsRegistrarBDTO = new RespostaExpedientsRegistrarBDTO(respostaCrearRegistreExpedient, respostaCrearJustificant,
+					dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
+			respostaRegistrarExpedientRDTO = modelMapper.map(respostaExpedientsRegistrarBDTO, RespostaRegistrarExpedientRDTO.class);
 
-		RespostaExpedientsRegistrarBDTO respostaExpedientsRegistrarBDTO = new RespostaExpedientsRegistrarBDTO(
-				respostaCrearRegistreExpedient, respostaCrearJustificant,
-				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null, respostaResultatBDTO);
-		respostaRegistrarExpedientRDTO = modelMapper.map(respostaExpedientsRegistrarBDTO, RespostaRegistrarExpedientRDTO.class);
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients/" + codiExpedient + "/registre");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Registrar la sol·licitud de l'expedient");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, expedientRegistrarRDTO, respostaRegistrarExpedientRDTO, ex);
+		}
 
 		if (log.isDebugEnabled()) {
 			log.debug("registrarSolicitudExpedient(BigDecimal) - fi"); //$NON-NLS-1$
@@ -1166,14 +1387,19 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @param documentacioAportar
 	 *            the documentacio aportar
 	 * @return the resposta aportar document RDTO
+	 * @throws GPAServeisServiceException
 	 */
 	@PostMapping("/expedients/{codiExpedient}/documentacio")
 	@ApiOperation(nickname = "aportarDocumentacioExpedientPortal", value = "Aportar documentació a l'expedient", tags = {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaAportarDocumentRDTO aportarDocumentacioExpedient(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Dades de la creació del document") @RequestBody DocumentacioAportarRDTO documentacioAportar) {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Dades de la creació del document") @RequestBody DocumentacioAportarRDTO documentacioAportar)
+			throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
 
 		RespostaAportarDocumentRDTO respostaAportarDocumentRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_APORTAR_DOCUMENTACIO);
@@ -1182,6 +1408,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		DocsTramitacioRDTO respostaCrearJustificant = null;
 		RespostaCrearRegistreExpedient respostaCrearRegistreExpedient = null;
 		List<ConfiguracioDocsEntradaRDTO> configuacioActualizar = null;
+		RespostaAportarDocumentExpedientBDTO respostaAportarDocumentExpedientBDTO = null;
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
@@ -1300,19 +1527,31 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (GPAApiParamValidationException e) {
 			log.error("aportarDocumentacioExpedient(BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
+			resultatAudit = "KO";
+			ex = e;
 		} catch (Exception e) {
 			log.error("aportarDocumentacioExpedient(BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_APORTAR_DOCUMENTACIO, e);
-		}
+			resultatAudit = "KO";
+			ex = e;
+		} finally {
+			respostaAportarDocumentExpedientBDTO = new RespostaAportarDocumentExpedientBDTO(docsEntradaRDTORespostaList,
+					(dadesExpedientBDTO != null && dadesExpedientBDTO.getExpedientsRDTO() != null) ? dadesExpedientBDTO.getExpedientsRDTO()
+							: null,
+					(respostaCrearRegistreExpedient != null && respostaCrearRegistreExpedient.getRegistreAssentament() != null)
+							? respostaCrearRegistreExpedient.getRegistreAssentament() : null,
+					respostaCrearJustificant != null ? respostaCrearJustificant.getId() : null, respostaResultatBDTO);
+			respostaAportarDocumentRDTO = modelMapper.map(respostaAportarDocumentExpedientBDTO, RespostaAportarDocumentRDTO.class);
 
-		RespostaAportarDocumentExpedientBDTO respostaAportarDocumentExpedientBDTO = new RespostaAportarDocumentExpedientBDTO(
-				docsEntradaRDTORespostaList,
-				(dadesExpedientBDTO != null && dadesExpedientBDTO.getExpedientsRDTO() != null) ? dadesExpedientBDTO.getExpedientsRDTO()
-						: null,
-				(respostaCrearRegistreExpedient != null && respostaCrearRegistreExpedient.getRegistreAssentament() != null)
-						? respostaCrearRegistreExpedient.getRegistreAssentament() : null,
-				respostaCrearJustificant != null ? respostaCrearJustificant.getId() : null, respostaResultatBDTO);
-		respostaAportarDocumentRDTO = modelMapper.map(respostaAportarDocumentExpedientBDTO, RespostaAportarDocumentRDTO.class);
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients/" + codiExpedient + "/documentacio");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Aportar documentació a l'expedient");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, documentacioAportar, respostaAportarDocumentRDTO, ex);
+		}
 
 		return respostaAportarDocumentRDTO;
 	}
@@ -1327,21 +1566,27 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @param documentSubstituir
 	 *            the document substituir
 	 * @return the resposta substituir document RDTO
+	 * @throws GPAServeisServiceException
 	 */
 	@PostMapping("/expedients/{codiExpedient}/documentacio/{idDocument}/substituir")
 	@ApiOperation(nickname = "substituirDocumentExpedientPortal", value = "Substituir les dades d'un document de l'expedient", tags = {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaSubstituirDocumentRDTO substituirDocumentExpedient(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
-	        @ApiParam(value = "Dades de la versió del document") @RequestBody DocumentAportatSubstituirRDTO documentSubstituir) {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
+			@ApiParam(value = "Dades de la versió del document") @RequestBody DocumentAportatSubstituirRDTO documentSubstituir)
+			throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
 
 		RespostaSubstituirDocumentRDTO respostaSubstituirDocumentRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		DocsEntradaRDTO docsEntradaRDTO = null;
 		DocsEntradaRDTO docsEntradaRDTOResposta = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_SUBSTITUIR_DOCUMENT);
+		RespostaSubstituirDocumentExpedientBDTO respostaSubstituirDocumentExpedientBDTO = null;
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
@@ -1399,16 +1644,30 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (GPAApiParamValidationException e) {
 			log.error("substituirDocumentExpedient(BigDecimal, BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
+			resultatAudit = "KO";
+			ex = e;
 		} catch (Exception e) {
 			log.error("substituirDocumentExpedient(BigDecimal, BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_SUBSTITUIR_DOCUMENT, e);
-		}
+			resultatAudit = "KO";
+			ex = e;
+		} finally {
+			respostaSubstituirDocumentExpedientBDTO = new RespostaSubstituirDocumentExpedientBDTO(docsEntradaRDTOResposta,
+					(dadesExpedientBDTO != null && dadesExpedientBDTO.getExpedientsRDTO() != null) ? dadesExpedientBDTO.getExpedientsRDTO()
+							: null,
+					null, respostaResultatBDTO);
+			respostaSubstituirDocumentRDTO = modelMapper.map(respostaSubstituirDocumentExpedientBDTO, RespostaSubstituirDocumentRDTO.class);
 
-		RespostaSubstituirDocumentExpedientBDTO respostaSubstituirDocumentExpedientBDTO = new RespostaSubstituirDocumentExpedientBDTO(
-				docsEntradaRDTOResposta, (dadesExpedientBDTO != null && dadesExpedientBDTO.getExpedientsRDTO() != null)
-						? dadesExpedientBDTO.getExpedientsRDTO() : null,
-				null, respostaResultatBDTO);
-		respostaSubstituirDocumentRDTO = modelMapper.map(respostaSubstituirDocumentExpedientBDTO, RespostaSubstituirDocumentRDTO.class);
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients/" + codiExpedient + "/documentacio/" + idDocument + "/substituir");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Substituir les dades d'un document de l'expedient");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, documentSubstituir, respostaSubstituirDocumentExpedientBDTO,
+					ex);
+		}
 
 		return respostaSubstituirDocumentRDTO;
 	}
@@ -1423,24 +1682,30 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @param file
 	 *            the file
 	 * @return the resposta upload document RDTO
+	 * @throws GPAServeisServiceException
 	 */
 	@PostMapping(value = "/expedients/{codiExpedient}/documentacio/{idDocument}/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ApiOperation(nickname = "uploadDocumentExpedientPortal", value = "Pujar el contingut d'un document de l'expedient al gestor documental", tags = {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	@ApiImplicitParams({
-	        @ApiImplicitParam(name = "idGestorDocumental", value = "Identificador Gestor Documental", dataType = "string", paramType = "form", required = false) })
+			@ApiImplicitParam(name = "idGestorDocumental", value = "Identificador Gestor Documental", dataType = "string", paramType = "form", required = false) })
 	public RespostaUploadDocumentRDTO uploadDocumentExpedient(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
-	        @ApiParam(value = "Fitxer") @RequestParam(name = "file", required = false) MultipartFile file,
-	        @ApiParam(value = "Identificador Gestor Documental") @RequestParam(name = "idGestorDocumental", required = false) String idGestorDocumental) {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
+			@ApiParam(value = "Fitxer") @RequestParam(name = "file", required = false) MultipartFile file,
+			@ApiParam(value = "Identificador Gestor Documental") @RequestParam(name = "idGestorDocumental", required = false) String idGestorDocumental)
+			throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
 
 		RespostaUploadDocumentRDTO respostaUploadDocumentRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		DocsEntradaRDTO docsEntradaRDTOResposta = null;
 		DocsEntradaRDTO docsEntradaRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_UPLOAD_DOCUMENT);
+		RespostaUploadDocumentExpedientBDTO respostaUploadDocumentExpedientBDTO = null;
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
@@ -1485,16 +1750,29 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (GPAApiParamValidationException e) {
 			log.error("uploadDocumentExpedient(BigDecimal, BigDecimal, MultipartFile)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
+			resultatAudit = "KO";
+			ex = e;
 		} catch (Exception e) {
 			log.error("uploadDocumentExpedient(BigDecimal, BigDecimal, MultipartFile)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_UPLOAD_DOCUMENT, e);
-		}
+			resultatAudit = "KO";
+			ex = e;
+		} finally {
+			respostaUploadDocumentExpedientBDTO = new RespostaUploadDocumentExpedientBDTO(docsEntradaRDTOResposta,
+					(dadesExpedientBDTO != null && dadesExpedientBDTO.getExpedientsRDTO() != null) ? dadesExpedientBDTO.getExpedientsRDTO()
+							: null,
+					null, respostaResultatBDTO);
+			respostaUploadDocumentRDTO = modelMapper.map(respostaUploadDocumentExpedientBDTO, RespostaUploadDocumentRDTO.class);
 
-		RespostaUploadDocumentExpedientBDTO respostaUploadDocumentExpedientBDTO = new RespostaUploadDocumentExpedientBDTO(
-				docsEntradaRDTOResposta, (dadesExpedientBDTO != null && dadesExpedientBDTO.getExpedientsRDTO() != null)
-						? dadesExpedientBDTO.getExpedientsRDTO() : null,
-				null, respostaResultatBDTO);
-		respostaUploadDocumentRDTO = modelMapper.map(respostaUploadDocumentExpedientBDTO, RespostaUploadDocumentRDTO.class);
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients/" + codiExpedient + "/documentacio/" + idDocument + "/upload");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Pujar el contingut d'un document de l'expedient al gestor documental");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, idGestorDocumental, respostaUploadDocumentRDTO, ex);
+		}
 
 		return respostaUploadDocumentRDTO;
 	}
@@ -1507,22 +1785,29 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @param idDocument
 	 *            the id document
 	 * @return the resposta esborrar document RDTO
+	 * @throws GPAServeisServiceException
 	 */
 	@DeleteMapping("/expedients/{codiExpedient}/documentacio/{idDocument}")
 	@ApiOperation(nickname = "esborrarDocumentPortal", value = "Esborrar un document de l'expedient", tags = {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaEsborrarDocumentRDTO esborrarDocument(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument) {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("esborrarDocument(String, BigDecimal) - inici"); //$NON-NLS-1$
 		}
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
 
 		RespostaEsborrarDocumentRDTO respostaEsborrarDocumentRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		DocsEntradaRDTO docsEntradaRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ESBORRAR_DOCUMENT);
+		ExpedientsRDTO expedientsRDTO = null;
+		RespostaEsborrarDocumentEntradaBDTO respostaEsborrarDocumentEntradaBDTO = null;
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
@@ -1554,15 +1839,28 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (GPAApiParamValidationException e) {
 			log.error("esborrarDocument(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
+			resultatAudit = "KO";
+			ex = e;
 		} catch (Exception e) {
 			log.error("esborrarDocument(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ESBORRAR_DOCUMENT, e);
-		}
+			resultatAudit = "KO";
+			ex = e;
+		} finally {
+			expedientsRDTO = (dadesExpedientBDTO != null) ? dadesExpedientBDTO.getExpedientsRDTO() : null;
+			respostaEsborrarDocumentEntradaBDTO = new RespostaEsborrarDocumentEntradaBDTO(expedientsRDTO, docsEntradaRDTO,
+					respostaResultatBDTO);
+			respostaEsborrarDocumentRDTO = modelMapper.map(respostaEsborrarDocumentEntradaBDTO, RespostaEsborrarDocumentRDTO.class);
 
-		ExpedientsRDTO expedientsRDTO = (dadesExpedientBDTO != null) ? dadesExpedientBDTO.getExpedientsRDTO() : null;
-		RespostaEsborrarDocumentEntradaBDTO respostaEsborrarDocumentEntradaBDTO = new RespostaEsborrarDocumentEntradaBDTO(expedientsRDTO,
-				docsEntradaRDTO, respostaResultatBDTO);
-		respostaEsborrarDocumentRDTO = modelMapper.map(respostaEsborrarDocumentEntradaBDTO, RespostaEsborrarDocumentRDTO.class);
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients/" + codiExpedient + "/documents/" + idDocument);
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("DELETE");
+			auditServeisBDTO.setValueAccio("Esborrar un document de l'expedient");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, null, respostaEsborrarDocumentRDTO, ex);
+		}
 
 		if (log.isDebugEnabled()) {
 			log.debug("esborrarDocument(String, BigDecimal) - fi"); //$NON-NLS-1$
@@ -1578,18 +1876,23 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @param expedientEsmena
 	 *            the expedient esmena
 	 * @return the resposta esmenar expedient RDTO
+	 * @throws GPAServeisServiceException
 	 */
 	@PostMapping("/expedients/{codiExpedient}/esmena")
 	@ApiOperation(nickname = "esmenarExpedientPortal", value = "Respondre a requeriment o tràmit d'al·legacions o IP", tags = {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaEsmenarExpedientRDTO esmenarExpedient(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Dades de la esmena de l'expedient") @RequestBody ExpedientEsmenaRDTO expedientEsmena) {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Dades de la esmena de l'expedient") @RequestBody ExpedientEsmenaRDTO expedientEsmena)
+			throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
 			log.debug("esmenarExpedient(BigDecimal, ExpedientEsmenaRDTO) - inici"); //$NON-NLS-1$
 		}
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
 
 		RespostaEsmenarExpedientRDTO respostaEsmenarExpedientRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
@@ -1602,6 +1905,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		ActualitzarDadesSollicitud actualitzarDadesSollicitud = null;
 		List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOListBBDD = null;
 		List<ConfiguracioDocsEntradaRDTO> configuacioActualizar = null;
+		RespostaExpedientsEsmenarBDTO respostaExpedientsEsmenarBDTO = null;
 		try {
 			// TODO GPA-2923
 			BigDecimal visibilitat = BigDecimal.ONE;
@@ -1784,6 +2088,8 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (GPAApiParamValidationException e) {
 			log.error("esmenarExpedient(BigDecimal, ExpedientEsmenaRDTO)", e);// $NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
+			resultatAudit = "KO";
+			ex = e;
 		} catch (Exception e) {
 			log.error("esmenarExpedient(BigDecimal, ExpedientEsmenaRDTO)", e); // $NON-NLS-1$
 
@@ -1794,13 +2100,24 @@ public class ServeisPortalRestController extends BaseRestController {
 			// aportada
 			docsEntradaRDTORespostaList = null;
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_ESMENAR_EXPEDIENT, e);
-		}
+			resultatAudit = "KO";
+			ex = e;
+		} finally {
+			respostaExpedientsEsmenarBDTO = new RespostaExpedientsEsmenarBDTO(
+					dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null,
+					respostaCrearJustificant != null ? respostaCrearJustificant.getId() : null, respostaResultatBDTO,
+					docsEntradaRDTORespostaList != null ? docsEntradaRDTORespostaList : null);
+			respostaEsmenarExpedientRDTO = modelMapper.map(respostaExpedientsEsmenarBDTO, RespostaEsmenarExpedientRDTO.class);
 
-		RespostaExpedientsEsmenarBDTO respostaExpedientsEsmenarBDTO = new RespostaExpedientsEsmenarBDTO(
-				dadesExpedientBDTO != null ? dadesExpedientBDTO.getExpedientsRDTO() : null,
-				respostaCrearJustificant != null ? respostaCrearJustificant.getId() : null, respostaResultatBDTO,
-				docsEntradaRDTORespostaList != null ? docsEntradaRDTORespostaList : null);
-		respostaEsmenarExpedientRDTO = modelMapper.map(respostaExpedientsEsmenarBDTO, RespostaEsmenarExpedientRDTO.class);
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients/" + codiExpedient + "/esmena");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Respondre a requeriment o tràmit d'al·legacions o IP");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, expedientEsmena, respostaEsmenarExpedientRDTO, ex);
+		}
 
 		if (log.isDebugEnabled()) {
 			log.debug("esmenarExpedient(BigDecimal, ExpedientEsmenaRDTO) - fi"); //$NON-NLS-1$
@@ -1865,19 +2182,24 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @param expedientAbandonament
 	 *            the expedient abandonament
 	 * @return the resposta abandonar expedient RDTO
+	 * @throws GPAServeisServiceException
 	 */
 	@PostMapping("/expedients/{codiExpedient}/{accio}")
 	@ApiOperation(nickname = "abandonarExpedientPortal", value = "Desistir/Renunciar l'expedient", tags = {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaAbandonarExpedientRDTO abandonarExpedient(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Acció a realitzar amb l'expedient", required = true, allowableValues = AccioAbandonarApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @PathVariable String accio,
-	        @ApiParam(value = "Dades del abandonament de l'expedient") @RequestBody ExpedientAbandonamentRDTO expedientAbandonament) {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Acció a realitzar amb l'expedient", required = true, allowableValues = AccioAbandonarApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @PathVariable String accio,
+			@ApiParam(value = "Dades del abandonament de l'expedient") @RequestBody ExpedientAbandonamentRDTO expedientAbandonament)
+			throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
 			log.debug("abandonarExpedient(BigDecimal, String, ExpedientAbandonamentRDTO) - inici"); //$NON-NLS-1$
 		}
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
 
 		RespostaAbandonarExpedientRDTO respostaAbandonarExpedientRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
@@ -1931,6 +2253,17 @@ public class ServeisPortalRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error("abandonarExpedient(BigDecimal, String, ExpedientAbandonamentRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_DESISTIR_RENUNCIAR_EXPEDIENT, e);
+			resultatAudit = "KO";
+			ex = e;
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients/" + codiExpedient + "/" + accio);
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Desistir/Renunciar l'expedient");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, expedientAbandonament, respostaResultatBDTO, ex);
 		}
 
 		RespostaExpedientsAbandonarBDTO respostaExpedientsAbandonarBDTO = new RespostaExpedientsAbandonarBDTO(
@@ -1952,15 +2285,21 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @param idDocument
 	 *            the id document
 	 * @return the response entity
+	 * @throws GPAServeisServiceException
 	 */
 	@GetMapping(value = "/expedients/{codiExpedient}/documents/{idDocument}/signat", produces = "*/*")
 	@ApiOperation(nickname = "descarregarDocumentSignatExpedientPortal", value = "Descarregar document signat de l'expedient", tags = {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public ResponseEntity<byte[]> descarregarDocumentSignatExpedient(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument) {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument)
+			throws GPAServeisServiceException {
 
+		String resultatAudit = "OK";
+		Throwable ex = null;
+
+		ResponseEntity<byte[]> resposta = null;
 		try {
 
 			// El codi del expediente debe existir
@@ -1988,15 +2327,29 @@ public class ServeisPortalRestController extends BaseRestController {
 			String filename = docsTramitacioRDTO.getDocsFisics().getNom();
 			headers.add("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 
-			return new ResponseEntity<byte[]>(result, headers, HttpStatus.OK);
+			resposta = new ResponseEntity<byte[]>(result, headers, HttpStatus.OK);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("descarregarDocumentSignatExpedient(String, BigDecimal)", e); //$NON-NLS-1$ type
-			return new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+			resposta = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+			resultatAudit = "KO";
+			ex = e;
 		} catch (Exception e) {
 			log.error("descarregarDocumentSignatExpedient(String, BigDecimal)", e); //$NON-NLS-1$
-			return new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
+			resposta = new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
+			resultatAudit = "KO";
+			ex = e;
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients/" + codiExpedient + "/documents/" + idDocument + "/signat");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Descarregar document signat de l'expedient");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, null, resposta, ex);
 		}
+		return resposta;
 	}
 
 	/**
@@ -2017,10 +2370,13 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaDocumentacioRDTO consultarDadesDocument(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Indicador per a especificar si la documentació és aportada o generada", required = true) @PathVariable String configuracio,
-	        @ApiParam(value = "Codi CSV del document", required = true) @PathVariable String csvDocument)
-	        throws GPAServeisServiceException {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Indicador per a especificar si la documentació és aportada o generada", required = true) @PathVariable String configuracio,
+			@ApiParam(value = "Codi CSV del document", required = true) @PathVariable String csvDocument)
+			throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
 
 		Boolean esAportada = null;
 		DocsEntradaRDTO docsEntradaRDTO = null;
@@ -2042,49 +2398,68 @@ public class ServeisPortalRestController extends BaseRestController {
 			throw new GPAServeisServiceException(e.getMessage());
 		}
 
-		// Datos principales del expedient
-		DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesExpedient(
-				ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
-		// El código del expediente debe ser válido
-		if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
-			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
+		try {
+
+			// Datos principales del expedient
+			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesExpedient(
+					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
+			// El código del expediente debe ser válido
+			if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
+			}
+
+			ConfiguracioApiParamValueTranslator configuracioApiParamValueTranslator = new ConfiguracioApiParamValueTranslator();
+			ConfiguracioApiParamValue configuracioApiParamValue = configuracioApiParamValueTranslator.getEnumByApiParamValue(configuracio);
+			switch (configuracioApiParamValue) {
+			case APORTADA:
+				esAportada = Boolean.TRUE;
+
+				break;
+			case GENERADA:
+				esAportada = Boolean.FALSE;
+
+				break;
+			default:
+				break;
+			}
+
+			if (BooleanUtils.isTrue(esAportada)) {
+				docsEntradaRDTO = serveisService.consultarDadesDocumentAportatPerCodiCSV(csvDocument, visibilitat);
+				if (docsEntradaRDTO == null) {
+					throw new GPAServeisServiceException(ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND.getDescripcio());
+				}
+				if (!docsEntradaRDTO.getDocumentacio().equals(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext())) {
+					throw new GPAServeisServiceException(ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_EXPEDIENT.getDescripcio());
+				}
+				respostaConsultaDocumentacioRDTO = modelMapper.map(docsEntradaRDTO, RespostaConsultaDocumentacioRDTO.class);
+
+			} else {
+				docsTramitacioRDTO = serveisService.consultarDadesDocumentGeneratPerCodiCSV(csvDocument, visibilitat);
+				if (docsTramitacioRDTO == null) {
+					throw new GPAServeisServiceException(ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND.getDescripcio());
+				}
+				if (!docsTramitacioRDTO.getDocumentacio().equals(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext())) {
+					throw new GPAServeisServiceException(ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_EXPEDIENT.getDescripcio());
+				}
+				respostaConsultaDocumentacioRDTO = modelMapper.map(docsTramitacioRDTO, RespostaConsultaDocumentacioRDTO.class);
+			}
+
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultatAudit = "KO";
+			ex = e;
+			throw e;
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients/" + codiExpedient + "/documentacio/" + configuracio + "/" + csvDocument);
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Cerca d'expedients");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, null, respostaConsultaDocumentacioRDTO, ex);
 		}
 
-		ConfiguracioApiParamValueTranslator configuracioApiParamValueTranslator = new ConfiguracioApiParamValueTranslator();
-		ConfiguracioApiParamValue configuracioApiParamValue = configuracioApiParamValueTranslator.getEnumByApiParamValue(configuracio);
-		switch (configuracioApiParamValue) {
-		case APORTADA:
-			esAportada = Boolean.TRUE;
-
-			break;
-		case GENERADA:
-			esAportada = Boolean.FALSE;
-
-			break;
-		default:
-			break;
-		}
-
-		if (BooleanUtils.isTrue(esAportada)) {
-			docsEntradaRDTO = serveisService.consultarDadesDocumentAportatPerCodiCSV(csvDocument, visibilitat);
-			if (docsEntradaRDTO == null) {
-				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND.getDescripcio());
-			}
-			if (!docsEntradaRDTO.getDocumentacio().equals(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext())) {
-				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_EXPEDIENT.getDescripcio());
-			}
-			respostaConsultaDocumentacioRDTO = modelMapper.map(docsEntradaRDTO, RespostaConsultaDocumentacioRDTO.class);
-
-		} else {
-			docsTramitacioRDTO = serveisService.consultarDadesDocumentGeneratPerCodiCSV(csvDocument, visibilitat);
-			if (docsTramitacioRDTO == null) {
-				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_DOCUMENTS_NOT_FOUND.getDescripcio());
-			}
-			if (!docsTramitacioRDTO.getDocumentacio().equals(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext())) {
-				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_DOCUMENTS_NOT_IN_EXPEDIENT.getDescripcio());
-			}
-			respostaConsultaDocumentacioRDTO = modelMapper.map(docsTramitacioRDTO, RespostaConsultaDocumentacioRDTO.class);
-		}
 		return respostaConsultaDocumentacioRDTO;
 	}
 
@@ -2130,8 +2505,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaCrearTerceraPersonaRDTO incorporarTerceraPersona(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Dades de la actualització de l'expedient", required = true) @RequestBody CrearTerceraPersonaRDTO personaImplicada) {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Dades de la actualització de l'expedient", required = true) @RequestBody CrearTerceraPersonaRDTO personaImplicada) {
 		if (log.isDebugEnabled()) {
 			log.debug("incorporarTerceraPersona(BigDecimal, CrearTerceraPersonaRDTO) - inici"); //$NON-NLS-1$
 		}
@@ -2159,6 +2534,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			// Se construye el modelo para la llamada a la operación de
 			// actualización
 			terceraPersonaSollicitudRDTO = modelMapper.map(personaImplicada, TerceraPersonaSollicitudRDTO.class);
+			terceraPersonaSollicitudRDTO.getPersonesSollicitudRDTO().setEsborrany(1);
 
 			terceraPersonaSollicitudRDTO.getPersonesSollicitudRDTO().setSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
 			returnPersonesSollicitudRDTO = serveisService
@@ -2195,8 +2571,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaActualitzarTerceraPersonaRDTO actualitzarTerceraPersona(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Dades de la actualització de l'expedient", required = true) @RequestBody ActualitzarTerceraPersonaRDTO personaImplicada) {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Dades de la actualització de l'expedient", required = true) @RequestBody ActualitzarTerceraPersonaRDTO personaImplicada) {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarTerceraPersona(BigDecimal, ActualitzarTerceraPersonaRDTO) - inici"); //$NON-NLS-1$
 		}
@@ -2222,6 +2598,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			// Se construye el modelo para la llamada a la operación de
 			// actualización
 			terceraPersonaSollicitudRDTO = modelMapper.map(personaImplicada, TerceraPersonaSollicitudRDTO.class);
+			terceraPersonaSollicitudRDTO.getPersonesSollicitudRDTO().setEsborrany(1);
 
 			terceraPersonaSollicitudRDTO.getPersonesSollicitudRDTO().setSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
 			returnPersonesSollicitudRDTO = serveisService
@@ -2253,8 +2630,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 					@ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaEsborrarTerceraPersonaRDTO esborrarTerceraPersona(
-	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-	        @ApiParam(value = "Identificador de la persona", required = true) @PathVariable BigDecimal idPersona) {
+			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+			@ApiParam(value = "Identificador de la persona", required = true) @PathVariable BigDecimal idPersona) {
 		if (log.isDebugEnabled()) {
 			log.debug("esborrarTerceraPersona(String, BigDecimal) - inici"); //$NON-NLS-1$
 		}

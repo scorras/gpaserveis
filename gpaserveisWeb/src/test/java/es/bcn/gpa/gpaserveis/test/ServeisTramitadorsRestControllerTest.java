@@ -120,7 +120,7 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 		String url = BASE_URL + "/expedients/2019_EXP_0001/documentacio/1/signar";
 		getMockMvc()
 				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-						"{ \"modalitatSignatura\":\"MANUSCRITA\", \"politicaSignatura\":\"politica signatura\", \"usuariManuscrita\":{ \"idTabletUsuari\":\"idTabletUsuari\" } }"))
+						"{ \"modalitatSignatura\":\"MANUSCRITA\", \"politicaSignatura\":\"politica signatura\", \"usuariManuscrita\":{ \"idTabletUsuari\":\"idTabletUsuari\", \"documentUsuari\":\"79688341B\" } }"))
 				.andExpect(status().isOk()).andDo(print());
 	}
 

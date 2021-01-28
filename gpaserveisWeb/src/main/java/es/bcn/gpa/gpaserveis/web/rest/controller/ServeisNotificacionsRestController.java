@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.bcn.gpa.gpaserveis.business.AuditServeisService;
 import es.bcn.gpa.gpaserveis.business.ServeisService;
+import es.bcn.gpa.gpaserveis.business.dto.audit.AuditServeisBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.ActualitzarNotificacioBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
@@ -48,6 +50,10 @@ public class ServeisNotificacionsRestController extends BaseRestController {
 	@Autowired
 	private ServeisService serveisService;
 
+	/** The audit serveis service. */
+	@Autowired
+	private AuditServeisService auditServeisService;
+
 	/**
 	 * Servei específic que invocarà Enotificació per informar de l'estat de les
 	 * notificacions.
@@ -60,12 +66,16 @@ public class ServeisNotificacionsRestController extends BaseRestController {
 	        "Serveis Notificacions API" })
 	@ApiImplicitParams(@ApiImplicitParam(name = "metadata", value = "Metadata", dataType = "__file", paramType = "form", required = true))
 	public ResponseEntity<Void> retornEstatNotificacio(
-	        @ApiParam(value = "Document de la evidència electrònica de la notificació") @RequestParam(value = "evidencian", required = false) MultipartFile docEvidenciaElectronic,
-	        @ApiParam(value = "Document de la evidència en paper de la notificació") @RequestParam(value = "evidenciap", required = false) MultipartFile docEvidenciaPaper,
-	        @RequestPart(value = "metadata", required = true) RetornNotificacioRDTO retornNotificacioRDTO) {
+			@ApiParam(value = "Document de la evidència electrònica de la notificació") @RequestParam(value = "evidencian", required = false) MultipartFile docEvidenciaElectronic,
+			@ApiParam(value = "Document de la evidència en paper de la notificació") @RequestParam(value = "evidenciap", required = false) MultipartFile docEvidenciaPaper,
+			@RequestPart(value = "metadata", required = true) RetornNotificacioRDTO retornNotificacioRDTO)
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("retornEstatNotificacio(RetornNotificacioRDTO) - inici"); //$NON-NLS-1$
 		}
+
+		String resultatAudit = "OK";
+		GPAServeisServiceException ex = null;
 
 		ActualitzarNotificacioBDTO actualitzarNotificacio = new ActualitzarNotificacioBDTO();
 
@@ -129,6 +139,17 @@ public class ServeisNotificacionsRestController extends BaseRestController {
 
 		} catch (Exception e) {
 			log.error("respostaNotificacioEscaneig(RespostaEvidenciaDigitalitzacioRDTO)", e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/retorn_notificacio");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Retorn de l'estat de les notificacions");
+
+			auditServeisService.registrarAuditServeisNotificacions(auditServeisBDTO, retornNotificacioRDTO, null, ex);
 		}
 
 		if (log.isDebugEnabled()) {
