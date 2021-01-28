@@ -423,8 +423,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 		} catch (GPAServeisServiceException e) {
 			log.error(
-					"cercaExpedients(int, int, String, String, String, String, String, String, String[], String, String[], String, String, String) - inici",
-					e); // $NON-NLS-1$
+			        "cercaExpedients(int, int, String, String, String, String, String, String, String[], String, String[], String, String, String) - inici",
+			        e); // $NON-NLS-1$
 			resultatAudit = "KO";
 			ex = e;
 		} finally {
@@ -482,7 +482,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Datos principales del expedient
 			dadesExpedientBDTO = serveisService.consultarDadesExpedient(
-					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
+			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
 			// El código del expediente debe ser válido
 			if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
 				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
@@ -496,7 +496,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				tramitsOvtRDTOMap = new HashMap<String, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO>();
 				for (Entry<BigDecimal, TramitsOvtRDTO> tramitsOvtRDTOEntry : dadesExpedientBDTO.getTramitsOvtMap().entrySet()) {
 					tramitsOvtRDTO = modelMapper.map(tramitsOvtRDTOEntry.getValue(),
-							es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
+					        es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
 					tramitsOvtRDTOMap.put(tramitsOvtRDTO.getCodi(), tramitsOvtRDTO);
 				}
 				if (CollectionUtils.isNotEmpty(expedientConsultaRDTO.getDocumentsAportats()) && MapUtils.isNotEmpty(tramitsOvtRDTOMap)) {
@@ -515,7 +515,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ex = new GPAServeisServiceException(e);
 		} finally {
 			RespostaConsultaExpedientsBDTO respostaConsultaExpedientsBDTO = new RespostaConsultaExpedientsBDTO(
-					dadesExpedientBDTO != null ? expedientConsultaRDTO : null, respostaResultatBDTO);
+			        dadesExpedientBDTO != null ? expedientConsultaRDTO : null, respostaResultatBDTO);
 			respostaConsultaExpedientsRDTO = modelMapper.map(respostaConsultaExpedientsBDTO, RespostaConsultaExpedientsRDTO.class);
 
 			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
@@ -1154,7 +1154,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			auditServeisBDTO.setResultat(resultatAudit);
 			auditServeisBDTO.setTipusPeticio("POST");
 			auditServeisBDTO
-					.setValueAccio("Eleva una proposta de resolució per sotmetre-la al vist-i-plau i signatura dels òrgans competents");
+			        .setValueAccio("Eleva una proposta de resolució per sotmetre-la al vist-i-plau i signatura dels òrgans competents");
 
 			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, expedientPropostaResolucio, respostaResultatBDTO, ex);
 		}
@@ -1758,6 +1758,15 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.CANVIAR_UNITAT_GESTORA, Resultat.ERROR_CANVIAR_UNITAT_GESTORA_EXPEDIENT);
 
+			// Redirección del Asiento de Registro
+			RedireccioAssentament redireccioAssentament = new RedireccioAssentament();
+			redireccioAssentament.setCodiUnitatGestora(unitatsGestoresRDTO.getNom());
+			redireccioAssentament
+			        .setNumeroAssentament(dadesExpedientBDTO.getExpedientsRDTO().getSollicituds().getRegistreAssentament().getCodi());
+			ExpedientsRedireccionarAssentamentBDTO expedientsRedireccionarAssentamentBDTO = new ExpedientsRedireccionarAssentamentBDTO(
+			        redireccioAssentament);
+			serveisService.redireccionarRegistre(expedientsRedireccionarAssentamentBDTO);
+
 			// Asociación de la nueva UG
 			Comentaris comentaris = new Comentaris();
 			comentaris.setDescripcio(expedientCanviUnitatGestora.getComentari());
@@ -1779,15 +1788,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        dadesExpedientBDTO.getExpedientsRDTO().getId(), canviUnitatGestoraRDTO);
 			serveisService.canviarUnitatGestoraExpedient(expedientsCanviarUnitatGestoraBDTO);
 
-			// Redirección del Asiento de Registro
-			RedireccioAssentament redireccioAssentament = new RedireccioAssentament();
-			redireccioAssentament.setCodiUnitatGestora(unitatsGestoresRDTO.getNom());
-			redireccioAssentament
-			        .setNumeroAssentament(dadesExpedientBDTO.getExpedientsRDTO().getSollicituds().getRegistreAssentament().getCodi());
-			ExpedientsRedireccionarAssentamentBDTO expedientsRedireccionarAssentamentBDTO = new ExpedientsRedireccionarAssentamentBDTO(
-			        redireccioAssentament);
-			serveisService.redireccionarRegistre(expedientsRedireccionarAssentamentBDTO);
-
 		} catch (GPAApiParamValidationException e) {
 			log.error("canviarUnitatGestoraExpedient(String, ExpedientCanviUnitatGestoraRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
@@ -1796,7 +1796,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error("canviarUnitatGestoraExpedient(String, ExpedientCanviUnitatGestoraRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_CANVIAR_UNITAT_GESTORA_EXPEDIENT,
-					e);
+			        e);
 			resultatAudit = "KO";
 			ex = new GPAServeisServiceException(e);
 		} finally {
@@ -1920,7 +1920,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				}
 
 				guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(dadesExpedientBDTO.getExpedientsRDTO().getId(),
-						docsEntradaRDTO, file, null);
+				        docsEntradaRDTO, file, null);
 				docsEntradaRDTOResult = serveisService.guardarDocumentEntradaFitxer(guardarDocumentEntradaFitxerBDTO);
 			} else {
 				DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO = new DocumentsTramitacioCercaBDTO(
@@ -1961,7 +1961,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error("incorporarNouDocumentExpedientExpedient(String, DocumentIncorporacioNouRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT,
-					e);
+			        e);
 			resultatAudit = "KO";
 			ex = new GPAServeisServiceException(e);
 		} finally {
@@ -2013,10 +2013,10 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaResolucioValidarDocumentRDTO validarResolucioDocument(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocResolucio,
-			@ApiParam(value = "Informació addicional per a la signatura", required = true) @RequestBody SignaturaDocumentRDTO signaturaDocument)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocResolucio,
+	        @ApiParam(value = "Informació addicional per a la signatura", required = true) @RequestBody SignaturaDocumentRDTO signaturaDocument)
+	        throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
 			log.debug("validarResolucioDocument(String, BigDecimal, PersonaValidarResolucioDocumentRDTO) - inici"); //$NON-NLS-1$
@@ -2155,13 +2155,13 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// El codi del expediente debe existir
 			if (StringUtils.equals(signaturaDocument.getModalitatSignatura(), TipusSignaturaApiParamValue.MANUSCRITA.getApiParamValue())) {
 				dadesExpedientBDTO = serveisService.consultarDadesExpedient(
-						ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan),
-						ServeisRestControllerVisibilitatHelper.obtenirVisibilitatExpedient(serveisService, codiExpedient,
-								expedientsIdOrgan));
+				        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan),
+				        ServeisRestControllerVisibilitatHelper.obtenirVisibilitatExpedient(serveisService, codiExpedient,
+				                expedientsIdOrgan));
 				ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_SIGNAR_DOCUMENT);
 			} else {
 				dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
-						ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+				        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 				ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_SIGNAR_DOCUMENT);
 			}
 
@@ -2268,9 +2268,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaFinalitzarSignarManuscritaDocumentRDTO finalitzarSignarManuscrita(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument)
+	        throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
 			log.debug("finalitzarSignarManuscrita() - inici"); //$NON-NLS-1$
@@ -2322,7 +2322,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
 
 			auditServeisBDTO
-					.setMappingAccio("/expedients/" + codiExpedient + "/documentacio/" + idDocument + "/signar/manuscrita/finalitzar/");
+			        .setMappingAccio("/expedients/" + codiExpedient + "/documentacio/" + idDocument + "/signar/manuscrita/finalitzar/");
 			auditServeisBDTO.setResultat(resultatAudit);
 			auditServeisBDTO.setTipusPeticio("POST");
 			auditServeisBDTO.setValueAccio("Finalitzar una petició de signatura manuscrita");
@@ -2357,9 +2357,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaSignarDocumentRDTO signarDocumentOnline(
-			@ApiParam(value = "Identificadors dels documents", required = true) @PathVariable BigDecimal[] idsDocument,
-			@ApiParam(value = "Informació addicional per a la signatura", required = true) @RequestBody SignaturaValidDocumentRDTO signaturaValidDocument)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Identificadors dels documents", required = true) @PathVariable BigDecimal[] idsDocument,
+	        @ApiParam(value = "Informació addicional per a la signatura", required = true) @RequestBody SignaturaValidDocumentRDTO signaturaValidDocument)
+	        throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
 			log.debug("signarDocumentOnline(BigDecimal[], SignaturaValidDocumentRDTO) - inici"); //$NON-NLS-1$
@@ -2449,8 +2449,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaPrepararSignaturaDocumentRDTO prepararSignaturaDocumentOnlineCriptografica(
-			@ApiParam(value = "Informació addicional per a la preparació de la signatura", required = true) @RequestBody PreparacioSignaturaCriptograficaDocumentMassiuRDTO preparacioSignaturaCriptograficaDocumentMassiu)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Informació addicional per a la preparació de la signatura", required = true) @RequestBody PreparacioSignaturaCriptograficaDocumentMassiuRDTO preparacioSignaturaCriptograficaDocumentMassiu)
+	        throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
 			log.debug("prepararSignaturaDocumentOnlineCriptografica(PreparacioSignaturaCriptograficaDocumentMassiuRDTO) - inici"); //$NON-NLS-1$
@@ -2513,7 +2513,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error("prepararSignaturaDocumentOnlineCriptografica(PreparacioSignaturaCriptograficaDocumentMassiuRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler
-					.handleException(Resultat.ERROR_PREPARAR_SIGNATURA_CRIPTOGRAFICA_DOCUMENT, e);
+			        .handleException(Resultat.ERROR_PREPARAR_SIGNATURA_CRIPTOGRAFICA_DOCUMENT, e);
 			resultatAudit = "KO";
 			ex = new GPAServeisServiceException(e);
 		} finally {
@@ -2525,7 +2525,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			auditServeisBDTO.setValueAccio("Preparar la signatura d'un conjunt de documents en línia amb modalitat criptogràfica");
 
 			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, preparacioSignaturaCriptograficaDocumentMassiu,
-					respostaResultatBDTO, ex);
+			        respostaResultatBDTO, ex);
 		}
 
 		RespostaSignarDocumentBDTO respostaSignarDocumentBDTO = new RespostaSignarDocumentBDTO(null, respostaResultatBDTO);
@@ -2714,7 +2714,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				} else {
 					if (file != null) {
 						guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(
-								dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, file, null);
+						        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, file, null);
 						docsEntradaRDTOResult = serveisService.guardarDocumentEntradaFitxer(guardarDocumentEntradaFitxerBDTO);
 					} else {
 						ActualitzarDocumentEntradaBDTO actualitzarDocumentEntradaBDTO = new ActualitzarDocumentEntradaBDTO(
@@ -2752,7 +2752,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 						docsTramitacioRDTOResult = serveisService.guardarRequerimentFitxer(guardarRequerimentFitxerBDTO);
 					} else {
 						guardarDocumentTramitacioFitxerBDTO = new GuardarDocumentTramitacioFitxerBDTO(
-								dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO, file);
+						        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsTramitacioRDTO, file);
 						docsTramitacioRDTOResult = serveisService.guardarDocumentTramitacioFitxer(guardarDocumentTramitacioFitxerBDTO);
 					}
 
@@ -2916,7 +2916,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error("presentarDeclaracioResponsableExpedient(String, DeclaracioResponsablePresentacioRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler
-					.handleException(Resultat.ERROR_PRESENTAR_DECLARACIO_RESPONSABLE_EXPEDIENT, e);
+			        .handleException(Resultat.ERROR_PRESENTAR_DECLARACIO_RESPONSABLE_EXPEDIENT, e);
 			resultatAudit = "KO";
 			ex = new GPAServeisServiceException(e);
 		} finally {
@@ -2928,7 +2928,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			auditServeisBDTO.setValueAccio("Presentar declaració responsable");
 
 			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, declaracioResponsablePresentacio, respostaResultatBDTO,
-					ex);
+			        ex);
 		}
 
 		RespostaPresentarDeclaracioResponsableExpedientBDTO respostaPresentarDeclaracioResponsableExpedientBDTO = new RespostaPresentarDeclaracioResponsableExpedientBDTO(
@@ -3045,11 +3045,11 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 
 				crearRequerimentBDTO = new CrearRequerimentBDTO(dadesExpedientBDTO.getExpedientsRDTO().getId(),
-						guardarRequerimentExpedient);
+				        guardarRequerimentExpedient);
 				docsTramitacioRDTOResult = serveisService.guardarRequerimentPlantilla(crearRequerimentBDTO);
 			} else {
 				guardarRequerimentFitxerBDTO = new GuardarRequerimentFitxerBDTO(dadesExpedientBDTO.getExpedientsRDTO().getId(),
-						guardarRequerimentExpedient, file);
+				        guardarRequerimentExpedient, file);
 				docsTramitacioRDTOResult = serveisService.guardarRequerimentFitxer(guardarRequerimentFitxerBDTO);
 			}
 
@@ -3580,7 +3580,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			auditServeisBDTO.setResultat(resultatAudit);
 			auditServeisBDTO.setTipusPeticio("POST");
 			auditServeisBDTO.setValueAccio(
-					"Força el canvi d'estat de l'expedient a Finzalizado i Comunicat després de la signatura dels documents");
+			        "Força el canvi d'estat de l'expedient a Finzalizado i Comunicat després de la signatura dels documents");
 
 			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, expedientDocumentSignatRDTO, respostaResultatBDTO, ex);
 		}
@@ -3948,9 +3948,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaActualitzarExpedientRDTO actualitzarSolicitudExpedient(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades de la actualització de l'expedient") @RequestBody ExpedientActualitzarRDTO solicitudExpedient)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Dades de la actualització de l'expedient") @RequestBody ExpedientActualitzarRDTO solicitudExpedient)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarSolicitudExpedient(BigDecimal, ExpedientActualitzarRDTO) - inici"); //$NON-NLS-1$
 		}
@@ -4100,7 +4100,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error("publicarPerAInformacioPublica(String, InformacioPublicaRDTO)", e); // $NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_PUBLICAR_PER_A_INFORMACIO_PUBLICA,
-					e);
+			        e);
 			resultatAudit = "KO";
 			ex = new GPAServeisServiceException(e);
 		} finally {
@@ -4300,10 +4300,10 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaEsborrarDocumentRDTO esborrarDocument(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
-			@ApiParam(value = "Dades del document a esborrar") @RequestBody DocumentacioEsborrarRDTO documentacioEsborrarRDTO)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
+	        @ApiParam(value = "Dades del document a esborrar") @RequestBody DocumentacioEsborrarRDTO documentacioEsborrarRDTO)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("esborrarDocument(String, BigDecimal, String) - inici"); //$NON-NLS-1$
 		}
@@ -4437,9 +4437,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaAbandonarExpedientRDTO abandonarExpedient(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades del abandonament de l'expedient") @RequestBody ExpedientAbandonamentRDTO expedientAbandonament)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Dades del abandonament de l'expedient") @RequestBody ExpedientAbandonamentRDTO expedientAbandonament)
+	        throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
 			log.debug("abandonarExpedient(BigDecimal, String, ExpedientAbandonamentRDTO) - inici"); //$NON-NLS-1$
@@ -4586,7 +4586,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			auditServeisBDTO.setValueAccio("Obtenir un document per interoperabilitat");
 
 			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, obtenirPerInteroperabilitatRDTO, respostaResultatBDTO,
-					ex);
+			        ex);
 		}
 
 		switch (obtenirPerInteroperabilitatRDTO.getCodiServei()) {
@@ -4780,7 +4780,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			auditServeisBDTO.setResultat(resultatAudit);
 			auditServeisBDTO.setTipusPeticio("POST");
 			auditServeisBDTO.setValueAccio(
-					"Força el canvi d'estat de l'expedient a Finzalizado i Comunicat després de la signatura dels documents");
+			        "Força el canvi d'estat de l'expedient a Finzalizado i Comunicat després de la signatura dels documents");
 
 			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, documentDigitalitzacio, respostaResultatBDTO, ex);
 		}
@@ -4819,9 +4819,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaCrearTerceraPersonaRDTO incorporarTerceraPersona(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades de la actualització de l'expedient", required = true) @RequestBody CrearTerceraPersonaRDTO personaImplicada)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Dades de la actualització de l'expedient", required = true) @RequestBody CrearTerceraPersonaRDTO personaImplicada)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("incorporarTerceraPersona(BigDecimal, CrearTerceraPersonaRDTO) - inici"); //$NON-NLS-1$
 		}
@@ -4866,7 +4866,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error("incorporarTerceraPersona(BigDecimal, CrearTerceraPersonaRDTO)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler
-					.handleException(Resultat.ERROR_INCORPORAR_TERCERA_PERSONA_EXPEDIENT, e);
+			        .handleException(Resultat.ERROR_INCORPORAR_TERCERA_PERSONA_EXPEDIENT, e);
 			resultatAudit = "KO";
 			ex = new GPAServeisServiceException(e);
 		} finally {
@@ -4903,9 +4903,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaActualitzarTerceraPersonaRDTO actualitzarTerceraPersona(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Dades de la actualització de l'expedient", required = true) @RequestBody ActualitzarTerceraPersonaRDTO personaImplicada)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Dades de la actualització de l'expedient", required = true) @RequestBody ActualitzarTerceraPersonaRDTO personaImplicada)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("actualitzarTerceraPersona(BigDecimal, ActualitzarTerceraPersonaRDTO) - inici"); //$NON-NLS-1$
 		}
@@ -4948,7 +4948,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		} catch (Exception e) {
 			log.error("actualitzarTerceraPersona(BigDecimal, ActualitzarTerceraPersonaRDTO)", e); //$NON-NLS-1$
 			respostaResultatBDTO = ServeisRestControllerExceptionHandler
-					.handleException(Resultat.ERROR_ACTUALITZAR_TERCERA_PERSONA_EXPEDIENT, e);
+			        .handleException(Resultat.ERROR_ACTUALITZAR_TERCERA_PERSONA_EXPEDIENT, e);
 			resultatAudit = "KO";
 			ex = new GPAServeisServiceException(e);
 		} finally {
@@ -5009,7 +5009,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		case MANUSCRITA:
 
 			Persones persones = serveisService.obtenirPersonaExpedientByDocumentIdentitat(dadesExpedientBDTO,
-					signaturaDocument.getUsuariManuscrita().getDocumentUsuari());
+			        signaturaDocument.getUsuariManuscrita().getDocumentUsuari());
 
 			SignarTabletDocument signarTabletDocumentRDTO = new SignarTabletDocument();
 			signarTabletDocumentRDTO.setIdDocument(idDocument);
@@ -5018,7 +5018,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			signarTabletDocumentRDTO.setNomUsuari(persones.getNomPresentacio());
 			signarTabletDocumentRDTO.setDocumentIdentitatUsuari(persones.getDocumentsIdentitat().getNumeroDocument());
 			signarTabletDocumentRDTO
-					.setTipusDocumentIdentitat(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getDescripcio());
+			        .setTipusDocumentIdentitat(persones.getDocumentsIdentitat().getTipusDocumentIdentitat().getDescripcio());
 
 			SignarTabletDocumentResponse signarTabletDocumentResponse = serveisService.signarTabletDocument(signarTabletDocumentRDTO);
 
@@ -5065,9 +5065,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
 	public RespostaEsborrarTerceraPersonaRDTO esborrarTerceraPersona(
-			@ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
-			@ApiParam(value = "Identificador de la persona", required = true) @PathVariable BigDecimal idPersona)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Identificador de la persona", required = true) @PathVariable BigDecimal idPersona)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("esborrarTerceraPersona(String, BigDecimal) - inici"); //$NON-NLS-1$
 		}
