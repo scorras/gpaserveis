@@ -42,7 +42,7 @@ import net.opentrends.openframe.services.core.config.CoreServiceDefaultConfigura
 
 @Configuration
 @Import({ ConfigurationServiceDefaultConfiguration.class, CoreServiceDefaultConfiguration.class })
-@ComponentScan(basePackages = "es.bcn.gpa.gpaserveis.business")
+@ComponentScan({ "es.bcn.gpa.gpaserveis.integration.orm", "es.bcn.gpa.gpaserveis.business" })
 @Lazy(true)
 @EntornPropertySource(value = { "classpath:/app/config/rest-clients.properties", "classpath:/app/config/hystrix.properties" })
 public class BusinessConfig {

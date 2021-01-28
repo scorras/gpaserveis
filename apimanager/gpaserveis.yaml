@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.26.10"
+  version: "1.27.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -7698,6 +7698,9 @@ definitions:
   UsuariManuscrita:
     type: "object"
     properties:
+      documentUsuari:
+        type: "string"
+        description: "Document identitat de l'usuari"
       idTabletUsuari:
         type: "string"
         description: "Identificador de la tauleta on signarà l'usuari"

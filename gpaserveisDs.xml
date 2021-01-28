@@ -1,0 +1,8 @@
+<Resource name="jdbc/gpaserveisDs"
+   url="jdbc:oracle:thin:@localhost:49161:xe"
+   username="GPASERVEIS"
+   password="GPASERVEISPASS"
+   auth="Container"
+   driverClassName="oracle.jdbc.OracleDriver"
+   type="javax.sql.DataSource"
+/>

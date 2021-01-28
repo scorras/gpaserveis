@@ -142,6 +142,8 @@ public enum ErrorPrincipal {
 
 	ERROR_DOCUMENTS_POLITICA_SIGNATURA("4016", "Falta una política de signatura associada."),
 
+	ERROR_REGISTRAR_AUDIT_SERVEIS("4017", "No s'ha pogut registrar l'auditoria de serveis"),
+
 	/* Integracions */
 	ERROR_ARIADNA("5001", ""),
 
