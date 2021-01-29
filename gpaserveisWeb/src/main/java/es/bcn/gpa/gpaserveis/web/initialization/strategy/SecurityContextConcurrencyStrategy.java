@@ -5,7 +5,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.security.concurrent.DelegatingSecurityContextCallable;
 import org.springframework.stereotype.Component;
 
 import com.netflix.hystrix.HystrixThreadPoolKey;
@@ -13,6 +12,8 @@ import com.netflix.hystrix.strategy.concurrency.HystrixConcurrencyStrategy;
 import com.netflix.hystrix.strategy.concurrency.HystrixRequestVariable;
 import com.netflix.hystrix.strategy.concurrency.HystrixRequestVariableLifecycle;
 import com.netflix.hystrix.strategy.properties.HystrixProperty;
+
+import es.bcn.gpa.gpaserveis.web.initialization.strategy.concurrent.DelegatingSecurityContextCallable;
 
 @Component
 public class SecurityContextConcurrencyStrategy extends HystrixConcurrencyStrategy {

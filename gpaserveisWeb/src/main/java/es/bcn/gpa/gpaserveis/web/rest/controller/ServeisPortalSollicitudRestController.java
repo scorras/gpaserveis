@@ -760,7 +760,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		RespostaActualitzarSollicitudRDTO respostaActualitzarSollicitudsRDTO = null;
 		SollicitudsRDTO returnSollicitudsRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ACTUALITZAR_SOLLICITUD);
-		DadesProcedimentBDTO dadesProcedimentBDTO = null;
 		try {
 			// El Id de sol·licitud debe existir
 			DadesSollicitudBDTO dadesSollicitudBDTO = serveisService.consultarDadesSollicitudPerVisibilitat(idSollicitud);
