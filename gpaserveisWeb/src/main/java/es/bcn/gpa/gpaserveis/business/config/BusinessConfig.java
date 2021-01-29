@@ -35,6 +35,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UsuarisApi;
 import es.bcn.gpa.gpaserveis.web.rest.interceptor.ImiAuthHeaderRestTemplateInterceptor;
+import es.bcn.gpa.gpaserveis.web.rest.interceptor.ImiPortalAuthHeaderRestTemplateInterceptor;
 import es.bcn.gpa.gpaserveis.web.rest.interceptor.LocaleHeaderRestTemplateInterceptor;
 import net.opentrends.openframe.services.configuration.annotation.EntornPropertySource;
 import net.opentrends.openframe.services.configuration.config.ConfigurationServiceDefaultConfiguration;
@@ -363,29 +364,34 @@ public class BusinessConfig {
 
 		apiClient.getRestTemplate().getInterceptors().add(new ImiAuthHeaderRestTemplateInterceptor());
 		apiClient.getRestTemplate().getInterceptors().add(new LocaleHeaderRestTemplateInterceptor());
+		apiClient.getRestTemplate().getInterceptors().add(new ImiPortalAuthHeaderRestTemplateInterceptor());
 	}
 
 	private void incorporarInterceptorsUnitats(es.bcn.gpa.gpaserveis.rest.client.invoker.gpaunitats.ApiClient apiClient) {
 
 		apiClient.getRestTemplate().getInterceptors().add(new ImiAuthHeaderRestTemplateInterceptor());
 		apiClient.getRestTemplate().getInterceptors().add(new LocaleHeaderRestTemplateInterceptor());
+		apiClient.getRestTemplate().getInterceptors().add(new ImiPortalAuthHeaderRestTemplateInterceptor());
 	}
 
 	private void incorporarInterceptorsTramits(es.bcn.gpa.gpaserveis.rest.client.invoker.gpatramits.ApiClient apiClient) {
 
 		apiClient.getRestTemplate().getInterceptors().add(new ImiAuthHeaderRestTemplateInterceptor());
 		apiClient.getRestTemplate().getInterceptors().add(new LocaleHeaderRestTemplateInterceptor());
+		apiClient.getRestTemplate().getInterceptors().add(new ImiPortalAuthHeaderRestTemplateInterceptor());
 	}
 
 	private void incorporarInterceptorsExpedients(es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient apiClient) {
 
 		apiClient.getRestTemplate().getInterceptors().add(new ImiAuthHeaderRestTemplateInterceptor());
 		apiClient.getRestTemplate().getInterceptors().add(new LocaleHeaderRestTemplateInterceptor());
+		apiClient.getRestTemplate().getInterceptors().add(new ImiPortalAuthHeaderRestTemplateInterceptor());
 	}
 
 	private void incorporarInterceptorsDocumentacio(es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient apiClient) {
 
 		apiClient.getRestTemplate().getInterceptors().add(new ImiAuthHeaderRestTemplateInterceptor());
 		apiClient.getRestTemplate().getInterceptors().add(new LocaleHeaderRestTemplateInterceptor());
+		apiClient.getRestTemplate().getInterceptors().add(new ImiPortalAuthHeaderRestTemplateInterceptor());
 	}
 }
