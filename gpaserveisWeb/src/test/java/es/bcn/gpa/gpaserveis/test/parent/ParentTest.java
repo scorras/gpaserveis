@@ -69,6 +69,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollici
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RedireccioAssentament;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.test.config.TestsConfigHelper;
+import es.bcn.gpa.gpaserveis.web.initialization.interceptor.ClientEntity;
 import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.configuration.context.ContextPropertySourcesInitializer;
 
@@ -184,6 +185,10 @@ public abstract class ParentTest {
 	@Autowired
 	protected UsuarisApi usuarisApi;
 
+	/** The clientEntity. */
+	@Autowired
+	protected ClientEntity clientEntity;
+
 	/**
 	 * Sets the up.
 	 */
@@ -195,6 +200,7 @@ public abstract class ParentTest {
 		}
 
 		try {
+
 			when(procedimentsApi.cercaProcediments(isNull(Integer.class), isNull(Integer.class), any(List.class), any(String.class),
 					any(String.class), any(String.class), any(List.class), isNull(Boolean.class), isNull(Boolean.class),
 					isNull(Boolean.class), isNull(Boolean.class), any(Integer.class), any(String.class), any(List.class), any(List.class),
