@@ -1968,6 +1968,14 @@ public class ServeisRestControllerValidationHelper {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_FOUND);
 
 		} else {
+			// validamos si vienen implicados para ver si la relacion es
+			// correcta
+			if (personesImplicades != null) {
+				List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
+
+				ServeisRestControllerValidationHelper.validateTerceresPersonesImplicadesExpedient(nifInteressat, personesImplicades,
+						procedimentPersonesList, idTramitOvt, resultatError);
+			}
 			// valido
 			return new PersonesRDTO();
 		}
@@ -2014,7 +2022,7 @@ public class ServeisRestControllerValidationHelper {
 
 		// identificacion de si la persona interesada es implicada y tiene
 		// habilitado el tramite ovt
-		if (idTramitOvt != null) {
+		if (idTramitOvt != null && !StringUtils.isEmpty(nifInteressat)) {
 			boolean tramitOvtValido = false;
 			for (PersonesRDTO personesRDTO : personesImplicades) {
 				for (ProcedimentPersones procedimentPersones : procedimentPersonesList) {
@@ -2130,7 +2138,7 @@ public class ServeisRestControllerValidationHelper {
 
 				// en funcion del tramite que se vaya a realizar, comprobar
 				// si esa persona lo tiene definido para poder ejecutarlo
-				if (idTramitOvt != null) {
+				if (idTramitOvt != null && procedimentPersones.getTramitsOvtList() != null) {
 					for (ProcedimentPersonesTramOvt procedimentPersonesTramOvt : procedimentPersones.getTramitsOvtList()) {
 						if (procedimentPersonesTramOvt.getTramitOvtIdext().compareTo(idTramitOvt) == NumberUtils.INTEGER_ZERO) {
 							tramitOvtValido = true;
@@ -2161,7 +2169,8 @@ public class ServeisRestControllerValidationHelper {
 				}
 				if (configuacioActualizar != null) {
 					for (ConfiguracioDocsEntradaRDTO configuracioDocsEntradaRDTO : configuacioActualizar) {
-						if (configuracioDocsEntradaRDTO.getVisibilitatPortal().compareTo(INTEGER_ZERO) == 0) {
+						if (configuracioDocsEntradaRDTO.getVisibilitatPortal() != null
+								&& configuracioDocsEntradaRDTO.getVisibilitatPortal().compareTo(INTEGER_ZERO) == 0) {
 							throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_DOC_VISIBILITAT_PORTAL);
 						} else if (procedimentPersonesFind.getNivellVisibilitat().compareTo(Constants.NIVELL_VISIBILITAT_BAIXA) == 0
 								&& configuracioDocsEntradaRDTO.getCriticitatIdext().compareTo(Constants.NIVELL_CRITICITAT_ALT) == 0) {
@@ -2170,22 +2179,24 @@ public class ServeisRestControllerValidationHelper {
 					}
 				}
 
-				if (docsEntradaRDTO != null) {
+				if (docsEntradaRDTO != null && docsEntradaRDTO.getConfiguracioDocsEntrada() != null
+						&& docsEntradaRDTO.getConfiguracioDocsEntrada().getVisibilitatPortal() != null) {
 					if (docsEntradaRDTO.getConfiguracioDocsEntrada().getVisibilitatPortal().compareTo(INTEGER_ZERO) == 0) {
 						throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_DOC_VISIBILITAT_PORTAL);
 					} else if (procedimentPersonesFind.getNivellVisibilitat().compareTo(Constants.NIVELL_VISIBILITAT_BAIXA) == 0
-							&& docsEntradaRDTO.getConfiguracioDocsEntrada().getCriticitatIdext()
-									.compareTo(Constants.NIVELL_CRITICITAT_ALT) == 0) {
+							&& docsEntradaRDTO.getConfiguracioDocsEntrada().getCriticitatIdext() != null && docsEntradaRDTO
+									.getConfiguracioDocsEntrada().getCriticitatIdext().compareTo(Constants.NIVELL_CRITICITAT_ALT) == 0) {
 						throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_DOC_CRITICITAT);
 					}
 				}
 
-				if (docsTramitacioRDTO != null) {
+				if (docsTramitacioRDTO != null && docsTramitacioRDTO.getConfiguracioDocsTramitacio() != null
+						&& docsTramitacioRDTO.getConfiguracioDocsTramitacio().getVisibilitatPortal() != null) {
 					if (docsTramitacioRDTO.getConfiguracioDocsTramitacio().getVisibilitatPortal().compareTo(INTEGER_ZERO) == 0) {
 						throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_DOC_VISIBILITAT_PORTAL);
 					} else if (procedimentPersonesFind.getNivellVisibilitat().compareTo(Constants.NIVELL_VISIBILITAT_BAIXA) == 0
-							&& docsTramitacioRDTO.getConfiguracioDocsTramitacio().getCriticitatIdext()
-									.compareTo(Constants.NIVELL_CRITICITAT_ALT) == 0) {
+							&& docsTramitacioRDTO.getConfiguracioDocsTramitacio().getCriticitatIdext() != null && docsTramitacioRDTO
+									.getConfiguracioDocsTramitacio().getCriticitatIdext().compareTo(Constants.NIVELL_CRITICITAT_ALT) == 0) {
 						throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_DOC_CRITICITAT);
 					}
 				}

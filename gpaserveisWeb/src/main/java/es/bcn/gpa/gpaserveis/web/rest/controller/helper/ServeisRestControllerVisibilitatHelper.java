@@ -20,6 +20,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacio
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPersones;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.initialization.interceptor.ClientEntity;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 
@@ -55,8 +56,9 @@ public class ServeisRestControllerVisibilitatHelper {
 				ProcedimentPersones procedimentPersones = ServeisRestControllerValidationHelper.validateVisibilitatImplicado(implicado,
 						null, null, null, null, procedimentPersonesList, null, resultatError);
 
-				if (procedimentPersones != null) {
-					visibilitat = procedimentPersones.getNivellVisibilitat();
+				if (procedimentPersones != null
+						&& procedimentPersones.getNivellVisibilitat().compareTo(Constants.NIVELL_VISIBILITAT_BAIXA) == 0) {
+					visibilitat = BigDecimal.ZERO;
 				}
 
 				// Comprobar si tiene la visibilidadOVT

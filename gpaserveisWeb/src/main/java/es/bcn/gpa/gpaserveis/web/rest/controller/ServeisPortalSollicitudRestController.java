@@ -888,7 +888,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					Resultat.ERROR_CONSULTAR_SOLLICITUD);
 		} catch (GPAApiParamValidationException e) {
 			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
-			throw new GPAServeisServiceException(e.getResultat().getDescripcio());
+			throw new GPAServeisServiceException(
+					e.getErrorPrincipal() != null ? e.getErrorPrincipal().getDescripcio() : e.getResultat().getDescripcio());
 		} catch (Exception e) {
 			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
 			throw new GPAServeisServiceException(e.getMessage());
@@ -933,7 +934,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					Resultat.ERROR_CONSULTAR_SOLLICITUD);
 		} catch (GPAApiParamValidationException e) {
 			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
-			throw new GPAServeisServiceException(e.getResultat().getDescripcio());
+			throw new GPAServeisServiceException(
+					e.getErrorPrincipal() != null ? e.getErrorPrincipal().getDescripcio() : e.getResultat().getDescripcio());
 		} catch (Exception e) {
 			log.error("consultarDadesExpedient(String)", e); //$NON-NLS-1$
 			throw new GPAServeisServiceException(e.getMessage());

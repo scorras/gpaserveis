@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.test;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -64,6 +65,9 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	 */
 	@Test
 	public void testStage03_GetConsultarDadesSollicitud() throws Exception {
+
+		when(clientEntity.getUsuariInteressat()).thenReturn("79688341B");
+
 		String url = BASE_URL + "/sollicituds/4";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
@@ -76,6 +80,9 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	 */
 	@Test
 	public void testStage04_GetExportarDadesSollicitudXml() throws Exception {
+
+		when(clientEntity.getUsuariInteressat()).thenReturn("79688341B");
+
 		String url = BASE_URL + "/sollicituds/4/report/exportacio-xml";
 		getMockMvc().perform(get(url).accept(MediaType.TEXT_PLAIN_VALUE)).andDo(print()).andExpect(status().isOk());
 	}
@@ -257,6 +264,9 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	 */
 	@Test
 	public void testStage17_PostCrearTerceraPersonaSollicitudOK() throws Exception {
+
+		when(clientEntity.getUsuariInteressat()).thenReturn("00914091");
+
 		String url = BASE_URL + "/sollicituds/2/persones";
 		getMockMvc()
 				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
@@ -271,6 +281,9 @@ public class ServeisPortalSollicitudRestControllerTest extends RestServerParentT
 	 */
 	@Test
 	public void testStage18_PutActualitzarTerceraPersonaSollicitudOK() throws Exception {
+
+		when(clientEntity.getUsuariInteressat()).thenReturn("00914091");
+
 		String url = BASE_URL + "/sollicituds/2/persones";
 		getMockMvc()
 				.perform(put(url).contentType(APPLICATION_JSON_UTF8).content(

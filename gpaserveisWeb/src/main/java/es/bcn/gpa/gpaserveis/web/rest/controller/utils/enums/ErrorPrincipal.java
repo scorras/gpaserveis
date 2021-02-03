@@ -77,7 +77,7 @@ public enum ErrorPrincipal {
 
 	ERROR_EXPEDIENTS_PERSONA_IMPLICADA_RELACIO("3024", "Les persones implicades només poden tenir relació com a testimoni o altres"),
 
-	ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_FOUND("3025", "No s'ha trobat la persona autenticada en l'expedient"),
+	ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_FOUND("3025", "L'usuari interessat ha de pertànyer a l'expedient"),
 
 	ERROR_EXPEDIENTS_PERSONA_LOGUEADA_NOT_PERMIS("3026", "La persona autenticada no té permisos per a realitzar aquest tràmit OVT"),
 
