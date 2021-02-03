@@ -21,8 +21,6 @@ public class UsuariInteressatHeaderBuilder implements OperationBuilderPlugin {
 
 	public static final String API_PORTAL_PATTERN = "/serveis/portal/";
 
-	private ParameterBuilder parameterBuilder = new ParameterBuilder();
-
 	@Override
 	public boolean supports(final DocumentationType documentationType) {
 		return DocumentationType.SWAGGER_2.equals(documentationType);
@@ -32,6 +30,7 @@ public class UsuariInteressatHeaderBuilder implements OperationBuilderPlugin {
 	public void apply(final OperationContext context) {
 		final String mapping = context.requestMappingPattern();
 		if (StringUtils.contains(mapping, API_PORTAL_PATTERN)) {
+			ParameterBuilder parameterBuilder = new ParameterBuilder();
 			final List<Parameter> parameters = new LinkedList<>();
 			parameters
 					.add(parameterBuilder.parameterType("header").name("usuari-interessat").modelRef(new ModelRef("string"))

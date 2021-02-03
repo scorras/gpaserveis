@@ -71,6 +71,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesOperacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfProcedimentsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPersones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsIniciacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsUgos;
@@ -244,6 +245,15 @@ public class TestsConfigHelper {
 		estatsProcediment.setEstats(estats);
 		estatsProcediment.setEstat(new BigDecimal(3));
 		procedimentsRDTO.setEstatsProcediment(estatsProcediment);
+
+		List<ProcedimentPersones> procedimentPersonesList = new ArrayList<ProcedimentPersones>();
+		ProcedimentPersones procedimentPersones = new ProcedimentPersones();
+		procedimentPersones.setProcediment(ONE);
+		procedimentPersones.setNivellVisibilitat(ONE);
+		procedimentPersones.setRelacio("Testimoni");
+		procedimentPersonesList.add(procedimentPersones);
+
+		procedimentsRDTO.setProcedimentPersonesList(procedimentPersonesList);
 
 		return procedimentsRDTO;
 	}
@@ -514,6 +524,31 @@ public class TestsConfigHelper {
 			sollicitudsRDTO.setRegistre(null);
 		}
 
+		List<PersonesSollicitudRDTO> personesInteressades = new ArrayList<PersonesSollicitudRDTO>();
+		PersonesSollicitudRDTO personesSollicitudRDTO = new PersonesSollicitudRDTO();
+		personesSollicitudRDTO.setId(ONE);
+		persones = new Persones();
+		persones.setId(ONE);
+		persones.setTipusPersona(ONE);
+		persones.setNomRaoSocial("Nom");
+		persones.setCognom1("Cognom1");
+		persones.setCognom2("Cognom2");
+		documentsIdentitat = new DocumentsIdentitat();
+		documentsIdentitat.setId(ONE);
+		documentsIdentitat.setNumeroDocument("79688341B");
+		tipusDocumentIdentitat = new TipusDocumentIdentitat();
+		tipusDocumentIdentitat.setId(ZERO);
+		tipusDocumentIdentitat.setDescripcio("NIF");
+		personesDadescontacte = new PersonesDadescontacte();
+		personesDadescontacte.setId(ONE);
+		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
+		documentsIdentitat.setPais("108");
+		persones.setDocumentsIdentitat(documentsIdentitat);
+		persones.setPersonesDadescontacte(personesDadescontacte);
+		personesSollicitudRDTO.setPersones(persones);
+		personesInteressades.add(personesSollicitudRDTO);
+		sollicitudsRDTO.setPersonesInteressades(personesInteressades);
+
 		return sollicitudsRDTO;
 	}
 
@@ -590,6 +625,29 @@ public class TestsConfigHelper {
 		sollicituds.setRegistreAssentament(registreAssentament);
 		expedientsRDTO.setSollicituds(sollicituds);
 		expedientsRDTO.setEstat(estats);
+
+		PersonesSollicitud personesSollicitud = new PersonesSollicitud();
+		personesSollicitud.setId(ONE);
+		persones = new Persones();
+		persones.setId(ONE);
+		persones.setTipusPersona(ONE);
+		persones.setNomRaoSocial("Nom");
+		persones.setCognom1("Cognom1");
+		persones.setCognom2("Cognom2");
+		documentsIdentitat = new DocumentsIdentitat();
+		documentsIdentitat.setId(ONE);
+		documentsIdentitat.setNumeroDocument("79688341B");
+		tipusDocumentIdentitat = new TipusDocumentIdentitat();
+		tipusDocumentIdentitat.setId(ZERO);
+		tipusDocumentIdentitat.setDescripcio("NIF");
+		personesDadescontacte = new PersonesDadescontacte();
+		personesDadescontacte.setId(ONE);
+		documentsIdentitat.setTipusDocumentIdentitat(tipusDocumentIdentitat);
+		documentsIdentitat.setPais("108");
+		persones.setDocumentsIdentitat(documentsIdentitat);
+		persones.setPersonesDadescontacte(personesDadescontacte);
+		personesSollicitud.setPersones(persones);
+		expedientsRDTO.setSollicitantPrincipal(personesSollicitud);
 
 		return expedientsRDTO;
 	}
@@ -1442,6 +1500,7 @@ public class TestsConfigHelper {
 		docsEntradaRDTO.setDataUltimaModificacio(now());
 		docsEntradaRDTO.setDocumentacio(ONE);
 		docsEntradaRDTO.setDeclaracioResponsable(NumberUtils.INTEGER_ZERO);
+		docsEntradaRDTO.setDocumentacio(ONE);
 
 		return docsEntradaRDTO;
 	}
