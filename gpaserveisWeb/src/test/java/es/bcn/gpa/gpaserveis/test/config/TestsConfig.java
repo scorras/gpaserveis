@@ -41,6 +41,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpatramits.TramitsOvtApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UnitatsGestoresApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaunitats.UsuarisApi;
+import es.bcn.gpa.gpaserveis.web.initialization.interceptor.ClientEntity;
 import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.security.config.RootApplicationContextSecurityDefaultConfiguration;
 
@@ -493,6 +494,20 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("usuarisApi() - fi"); //$NON-NLS-1$
 		}
 		return usuarisApi;
+	}
+
+	@Bean
+	public ClientEntity clientEntity() {
+		if (log.isDebugEnabled()) {
+			log.debug("clientEntity() - inici"); //$NON-NLS-1$
+		}
+
+		ClientEntity clientEntity = Mockito.mock(ClientEntity.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("clientEntity() - fi"); //$NON-NLS-1$
+		}
+		return clientEntity;
 	}
 
 }
