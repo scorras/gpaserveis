@@ -136,7 +136,7 @@ public class ServeisRestControllerValidationHelper {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_UNITATS_NOT_FOUND);
 		}
 
-		if (unitatsGestoresRDTO.getVigent() == INTEGER_ZERO) {
+		if (unitatsGestoresRDTO.getVigent() != null && unitatsGestoresRDTO.getVigent().compareTo(INTEGER_ZERO) == 0) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_UNITATS_NOT_VIGENT);
 		}
 

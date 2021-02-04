@@ -1,6 +1,7 @@
 package es.bcn.gpa.gpaserveis.business.config;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.bind.Marshaller;
 
@@ -37,16 +38,16 @@ public class Jaxb2MarshallerConfig {
 	@Bean(name = "jaxb2Marshaller")
 	public Jaxb2Marshaller jaxb2Marshaller() {
 		Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
+
+		Map<String, Object> props = new HashMap<String, Object>();
+		props.put(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		props.put(Marshaller.JAXB_ENCODING, "UTF-8");
+
 		jaxb2Marshaller
-		        .setClassesToBeBound(new Class[] { SollicitudConsultaRDTO.class, EsBcnMciSignaturaWebServiceSchemasTicketType.class });
-		jaxb2Marshaller.setMarshallerProperties(new HashMap<String, Object>() {
-			{
-				put(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-				put(Marshaller.JAXB_ENCODING, "UTF-8");
-			}
-		});
+				.setClassesToBeBound(new Class[] { SollicitudConsultaRDTO.class, EsBcnMciSignaturaWebServiceSchemasTicketType.class });
+		jaxb2Marshaller.setMarshallerProperties(props);
 		jaxb2Marshaller.setAdapters(adrecaAdapter(serveisService), dataHoraAdapter(), municipiAdapter(serveisService),
-		        paisAdapter(serveisService), provinciaAdapter(serveisService));
+				paisAdapter(serveisService), provinciaAdapter(serveisService));
 
 		return jaxb2Marshaller;
 	}
