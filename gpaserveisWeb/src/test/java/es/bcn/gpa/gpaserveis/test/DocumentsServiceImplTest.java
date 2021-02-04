@@ -1182,7 +1182,7 @@ public class DocumentsServiceImplTest extends RestServerParentTest {
 		DocsAssociatsIntraBDTO docsAssociatsIntraBDTO = new DocsAssociatsIntraBDTO(docsAssociatsIntra);
 
 		documentsService.associatsDocsIntra(docsAssociatsIntraBDTO);
-		assertNotNull(true);
+		assertTrue(true);
 
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("testStage39_AssociatsDocsIntra() - fi"); //$NON-NLS-1$
