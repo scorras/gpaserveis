@@ -1,6 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller;
 
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -1320,6 +1322,16 @@ public class ServeisPortalRestController extends BaseRestController {
 					dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
 					docsTramitacioRDTO);
 			respostaCrearJustificant = serveisService.guardarDocumentTramitacioJustificantPlantilla(crearDocumentTramitacioBDTO);
+
+			// Obtener el XML y almacenarlo en el Gestor Documental .
+			// Asociar el código generado a nivel de Sollicitud, puesto que será
+			// el Objeto Documental a utilizar
+			String idDocumentum = respostaCrearJustificant.getMigracioIdOrigen();
+			// Buscamos de nuevo la solicitud para que incluya los datos de
+			// registro
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
+					visibilitat);
+			guardarXMLSollicitud(dadesSollicitudBDTO, idDocumentum);
 
 			// se llama a segell para firmar el justificante de registro del
 			// expediente
@@ -2781,5 +2793,26 @@ public class ServeisPortalRestController extends BaseRestController {
 				.setTerceresPersonesImplicades(personesProcedimentConsultaRDTO.getTerceresPersonesImplicades());
 
 		return respostaConsultaPersonesProcedimentRDTO;
+	}
+
+	/**
+	 * Guardar XML sollicitud.
+	 *
+	 * @param dadesSollicitudBDTO
+	 *            the dades sollicitud BDTO
+	 * @param idDocumentum
+	 *            the id documentum
+	 * @return the string
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	private String guardarXMLSollicitud(DadesSollicitudBDTO dadesSollicitudBDTO, String idDocumentum) throws GPAServeisServiceException {
+		SollicitudConsultaRDTO sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
+		String xmlDadesSollicitudBase64 = serveisService.crearXmlDadesSollicitud(sollicitudConsultaRDTO);
+		String xmlSolicitud = new String(Base64Utils.decodeFromString(xmlDadesSollicitudBase64), StandardCharsets.UTF_8);
+		// Guardamos XML en pos 1 de documentum asociado al pdf (pdf: pos 0,
+		// xml: pos 1)
+		serveisService.guardarXmlSollicitud(idDocumentum, xmlSolicitud);
+		return xmlSolicitud;
 	}
 }
