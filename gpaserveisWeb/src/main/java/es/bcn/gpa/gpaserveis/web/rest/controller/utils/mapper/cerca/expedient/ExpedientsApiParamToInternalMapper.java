@@ -21,6 +21,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDT
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatCiutadaApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatTramitadorApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.VersioProcedimentApiParamValueTranslator;
 
@@ -44,6 +45,9 @@ public class ExpedientsApiParamToInternalMapper {
 
 	/** The estat ciutada api param value translator. */
 	private static EstatCiutadaApiParamValueTranslator estatCiutadaApiParamValueTranslator;
+
+	/** The estat tramitador api param value translator. */
+	private static EstatTramitadorApiParamValueTranslator estatTramitadorApiParamValueTranslator;
 
 	/** The tramitador api param value translator. */
 	private static BaseApiParamValueTranslator tramitadorApiParamValueTranslator;
@@ -73,12 +77,14 @@ public class ExpedientsApiParamToInternalMapper {
 			@Qualifier("expedientOrdenarPerApiParamValueTranslator") BaseApiParamValueTranslator ordenarPerApiParamValueTranslator,
 			@Qualifier("expedientSentitOrdenacioApiParamValueTranslator") BaseApiParamValueTranslator sentitOrdenacioApiParamValueTranslator,
 			@Qualifier("expedientEstatCiutadaApiParamValueTranslator") EstatCiutadaApiParamValueTranslator estatCiutadaApiParamValueTranslator,
+			@Qualifier("expedientEstatTramitadorApiParamValueTranslator") EstatTramitadorApiParamValueTranslator estatTramitadorApiParamValueTranslator,
 			@Qualifier("expedientTramitadorApiParamValueTranslator") BaseApiParamValueTranslator tramitadorApiParamValueTranslator,
 			@Qualifier("expedientVersioProcedimentApiParamValueTranslator") VersioProcedimentApiParamValueTranslator versioProcedimentApiParamValueTranslator,
 			@Qualifier("expedientNivellAutenticacioApiParamValueTranslator") NivellAutenticacioApiParamValueTranslator nivellAutenticacioApiParamValueTranslator) {
 		ExpedientsApiParamToInternalMapper.ordenarPerApiParamValueTranslator = ordenarPerApiParamValueTranslator;
 		ExpedientsApiParamToInternalMapper.sentitOrdenacioApiParamValueTranslator = sentitOrdenacioApiParamValueTranslator;
 		ExpedientsApiParamToInternalMapper.estatCiutadaApiParamValueTranslator = estatCiutadaApiParamValueTranslator;
+		ExpedientsApiParamToInternalMapper.estatTramitadorApiParamValueTranslator = estatTramitadorApiParamValueTranslator;
 		ExpedientsApiParamToInternalMapper.tramitadorApiParamValueTranslator = tramitadorApiParamValueTranslator;
 		ExpedientsApiParamToInternalMapper.versioProcedimentApiParamValueTranslator = versioProcedimentApiParamValueTranslator;
 		ExpedientsApiParamToInternalMapper.nivellAutenticacioApiParamValueTranslator = nivellAutenticacioApiParamValueTranslator;
@@ -178,6 +184,24 @@ public class ExpedientsApiParamToInternalMapper {
 			idList = new ArrayList<BigDecimal>();
 			for (String estat : estatList) {
 				idList.addAll(estatCiutadaApiParamValueTranslator.getInternalValueListByApiParamValue(estat));
+			}
+		}
+		return idList;
+	}
+
+	/**
+	 * Gets the estat tramitador internal value list.
+	 *
+	 * @param estatList
+	 *            the estat list
+	 * @return the estat tramitador internal value list
+	 */
+	public static List<BigDecimal> getEstatTramitadorInternalValueList(String[] estatList) {
+		ArrayList<BigDecimal> idList = null;
+		if (ArrayUtils.isNotEmpty(estatList)) {
+			idList = new ArrayList<BigDecimal>();
+			for (String estat : estatList) {
+				idList.addAll(estatTramitadorApiParamValueTranslator.getInternalValueListByApiParamValue(estat));
 			}
 		}
 		return idList;
