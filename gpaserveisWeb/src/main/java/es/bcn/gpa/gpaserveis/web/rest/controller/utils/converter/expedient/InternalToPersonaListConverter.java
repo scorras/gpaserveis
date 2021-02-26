@@ -55,6 +55,7 @@ public class InternalToPersonaListConverter extends AbstractConverter<List<Perso
 
 				personesRDTO.setVisibilitatOvt(booleanApiParamValueTranslator
 						.getApiParamValueAsBooleanByInternalValue(personesSollicitudRDTO.getVisibilitatOvt()));
+				personesRDTO.setRelacioTerceraPersona(personesSollicitudRDTO.getRelacioImplicada());
 				personesRDTOList.add(personesRDTO);
 			}
 		}

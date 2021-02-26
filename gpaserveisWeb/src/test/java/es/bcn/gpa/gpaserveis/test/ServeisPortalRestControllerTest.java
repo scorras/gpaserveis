@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.test;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -98,6 +99,9 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	 */
 	@Test
 	public void testStage06_GetConsultarDadesExpedient() throws Exception {
+
+		when(clientEntity.getUsuariInteressat()).thenReturn("79688341B");
+
 		String url = BASE_URL + "/expedients/2019_EXP_00001";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
@@ -230,6 +234,8 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	 */
 	@Test
 	public void testStage15_PostUploadDocumentExpedient() throws Exception {
+		when(clientEntity.getUsuariInteressat()).thenReturn("79688341B");
+
 		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
 		String url = BASE_URL + "/expedients/1/documentacio/1/upload";
 		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile).contentType(MediaType.MULTIPART_FORM_DATA))
@@ -245,6 +251,9 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	 */
 	@Test
 	public void testStage16_GetDescarregarDocumentExpedient() throws Exception {
+
+		when(clientEntity.getUsuariInteressat()).thenReturn("79688341B");
+
 		String url = BASE_URL + "/expedients/1/documents/1";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 
@@ -277,6 +286,9 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	 */
 	@Test
 	public void testStage18_ConsultarDadesDocumentAportat() throws Exception {
+
+		when(clientEntity.getUsuariInteressat()).thenReturn("79688341B");
+
 		String url = BASE_URL + "/expedients/1/documentacio/APORTADA/779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 
@@ -290,6 +302,9 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	 */
 	@Test
 	public void testStage19_ConsultarDadesDocumentGenerat() throws Exception {
+
+		when(clientEntity.getUsuariInteressat()).thenReturn("79688341B");
+
 		String url = BASE_URL + "/expedients/1/documentacio/GENERADA/779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 
@@ -315,6 +330,8 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	 */
 	@Test
 	public void testStage21_PostCrearTerceraPersonaOK() throws Exception {
+		when(clientEntity.getUsuariInteressat()).thenReturn("00914091");
+
 		String url = BASE_URL + "/expedients/1/persones";
 		getMockMvc()
 				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
@@ -329,6 +346,9 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	 */
 	@Test
 	public void testStage22_PutActualitzarTerceraPersonaOK() throws Exception {
+
+		when(clientEntity.getUsuariInteressat()).thenReturn("00914091");
+
 		String url = BASE_URL + "/expedients/1/persones";
 		getMockMvc()
 				.perform(put(url).contentType(APPLICATION_JSON_UTF8).content(
@@ -354,6 +374,9 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	 */
 	@Test
 	public void testStage24_EsborrarTerceraPersonaOK() throws Exception {
+
+		when(clientEntity.getUsuariInteressat()).thenReturn("00914091");
+
 		String url = BASE_URL + "/expedients/1/persones/1";
 		getMockMvc().perform(delete(url)).andExpect(status().isOk()).andDo(print());
 	}
