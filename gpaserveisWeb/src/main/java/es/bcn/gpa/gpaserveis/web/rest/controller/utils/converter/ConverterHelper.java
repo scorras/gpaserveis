@@ -121,6 +121,23 @@ public class ConverterHelper {
 	}
 
 	/**
+	 * Builds the historics tramitadors RDTO expedient.
+	 *
+	 * @param estatsRDTO
+	 *            the estats RDTO
+	 * @return the historics RDTO
+	 */
+	public static HistoricsRDTO buildHistoricsTramitadorsRDTOExpedient(EstatsRDTO estatsRDTO) {
+
+		HistoricsRDTO historicsRDTO = new HistoricsRDTO();
+		DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
+		historicsRDTO.setDataCreacio((estatsRDTO.getDataCreacio() != null) ? dateTimeFormatter.print(estatsRDTO.getDataCreacio()) : null);
+		historicsRDTO.setEstat(estatsRDTO.getDescripcioEstatActualTramitadorCatala());
+		historicsRDTO.setEstatCastella(estatsRDTO.getDescripcioEstatActualTramitadorCastella());
+		return historicsRDTO;
+	}
+
+	/**
 	 * Builds the persones RDTO expedient.
 	 *
 	 * @param persones
