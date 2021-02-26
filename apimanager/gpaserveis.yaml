@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.27.1"
+  version: "1.28.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -2305,11 +2305,14 @@ paths:
         collectionFormat: "multi"
         allowEmptyValue: false
         enum:
-        - "ESBORRANY"
-        - "EN_CURS"
+        - "EN_PREPARACIO"
+        - "SOL_LICITUD_EN_REVISIO"
         - "PENDENT_ESMENES"
-        - "PENDENT_ALEGACIONS"
-        - "RESOLT"
+        - "EN_TRAMITACIO"
+        - "PENDENT_AL_LEGACIONS"
+        - "PENDENT_D_INFORMES"
+        - "PROPOSTA_DE_FINALITZACIO"
+        - "FINALITZAT_I_COMUNICAT"
         - "TANCAT"
       - name: "nifSollicitant"
         in: "query"
@@ -2393,7 +2396,7 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/RespostaCercaExpedients"
+            $ref: "#/definitions/RespostaCercaExpedientsTramitadors"
         401:
           description: "Unauthorized"
         403:
@@ -2748,7 +2751,7 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/RespostaConsultaExpedients"
+            $ref: "#/definitions/RespostaConsultaExpedientsTramitadors"
         401:
           description: "Unauthorized"
         403:
@@ -5656,6 +5659,106 @@ definitions:
         description: "Unitat gestora"
         $ref: "#/definitions/UnitatGestora"
     title: "ExpedientConsulta"
+  ExpedientConsultaTramitadors:
+    type: "object"
+    properties:
+      accionsDisponibles:
+        type: "array"
+        description: "Accions disponibles"
+        items:
+          type: "string"
+          enum:
+          - "REQUERIMENT_ESMENA"
+          - "APORTAR_DOCUMENTACIO"
+          - "ALEGACIONS"
+      atributsRequerits:
+        type: "array"
+        description: "Atributs requerits per l'expedient"
+        items:
+          $ref: "#/definitions/AtributsRequerits"
+      codi:
+        type: "string"
+        description: "Codi de l'expedient"
+      configuracioDocumentacioRequerida:
+        type: "array"
+        description: "Documentació requerida per l'expedient"
+        items:
+          $ref: "#/definitions/ConfiguracioDocumentacioRequeridaConsulta"
+      dadesOperacio:
+        type: "array"
+        description: "Dades d'operació de l'expedient"
+        items:
+          $ref: "#/definitions/AtributsExpedient"
+      dataLimitAllegacions:
+        type: "string"
+        description: "Data límit per presentar les al·legacions"
+      dataLimitEsmena:
+        type: "string"
+        description: "Data límit per presentar els requeriments"
+      dataModificacio:
+        type: "string"
+        description: "Data de l'última modificació de l'expedient"
+      dataPresentacio:
+        type: "string"
+        description: "Data de presentació de l'expedient"
+      documentsAportats:
+        type: "array"
+        description: "Documents aportats a l'expedient agrupats per tràmit"
+        items:
+          $ref: "#/definitions/DocumentAportatConsulta"
+      documentsGenerats:
+        type: "array"
+        description: "Documents generats en l'expedient"
+        items:
+          $ref: "#/definitions/DocumentGeneratConsulta"
+      estat:
+        type: "string"
+        description: "Estat actual del expedient"
+      estatCastella:
+        type: "string"
+        description: "Estat actual del expedient en castellà"
+      historics:
+        type: "array"
+        description: "Llista d'històrics de l'expedient"
+        items:
+          $ref: "#/definitions/Historic"
+      id:
+        type: "number"
+        description: "Identificador de l'expedient"
+      pathGestorDocumental:
+        type: "string"
+        description: "Path Gestor Documental"
+      personesImplicades:
+        type: "array"
+        description: "Persones implicades"
+        items:
+          $ref: "#/definitions/Persona"
+      personesInteressades:
+        type: "array"
+        description: "Altres persones interessades"
+        items:
+          $ref: "#/definitions/Persona"
+      procediment:
+        description: "Dades del procediment"
+        $ref: "#/definitions/ProcedimentConsulta"
+      registre:
+        description: "Registre del expedient"
+        $ref: "#/definitions/Registre"
+      representant:
+        description: "Representant principal de l'expedient"
+        $ref: "#/definitions/Persona"
+      sollicitant:
+        description: "Sol·licitant principal de l'expedient"
+        $ref: "#/definitions/Persona"
+      sollicituds:
+        type: "array"
+        description: "Sol·licituds de l'expedient"
+        items:
+          $ref: "#/definitions/SollicitudsExpedient"
+      unitatGestora:
+        description: "Unitat gestora"
+        $ref: "#/definitions/UnitatGestora"
+    title: "ExpedientConsultaTramitadors"
   ExpedientConvidarTramitar:
     type: "object"
     required:
@@ -5894,6 +5997,48 @@ definitions:
         description: "Unitat gestora"
         $ref: "#/definitions/UnitatGestora"
     title: "ExpedientsCerca"
+  ExpedientsCercaTramitadorsRDTO:
+    type: "object"
+    properties:
+      aplicacioNegoci:
+        type: "string"
+        description: "Nom de l'aplicació, en cas que el tramitador sigui una aplicació\
+          \ de negoci"
+      codi:
+        type: "string"
+        description: "Codi de l'expedient"
+      dataModificacio:
+        type: "string"
+        description: "Data de l'última modificació de l'expedient (format dd/MM/aaaa\
+          \ HH:mm:ss)"
+      dataPresentacio:
+        type: "string"
+        description: "Data de presentació de l'expedient (format dd/MM/aaaa HH:mm:ss)"
+      estat:
+        type: "string"
+        description: "estat actual de l'expedient"
+      estatCastella:
+        type: "string"
+        description: "estat actual de l'expedient en castellà"
+      id:
+        type: "number"
+        description: "Identificador de l'expedient"
+      procediment:
+        description: "Procediment"
+        $ref: "#/definitions/ProcedimentCerca"
+      sollicitant:
+        description: "Sol·licitant de l'expedient"
+        $ref: "#/definitions/Persona"
+      tramitador:
+        type: "string"
+        description: "Aplicació de tramitació"
+        enum:
+        - "APLICACIO_DE_NEGOCI"
+        - "OGE"
+      unitatGestora:
+        description: "Unitat gestora"
+        $ref: "#/definitions/UnitatGestora"
+    title: "ExpedientsCercaTramitadorsRDTO"
   Fitxer:
     type: "object"
     required:
@@ -6665,6 +6810,16 @@ definitions:
       paginacio:
         $ref: "#/definitions/Paginacio"
     title: "RespostaCercaExpedients"
+  RespostaCercaExpedientsTramitadors:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/ExpedientsCercaTramitadorsRDTO"
+      paginacio:
+        $ref: "#/definitions/Paginacio"
+    title: "RespostaCercaExpedientsTramitadors"
   RespostaCercaProcediments:
     type: "object"
     properties:
@@ -6724,6 +6879,13 @@ definitions:
         description: "Expedient"
         $ref: "#/definitions/ExpedientConsulta"
     title: "RespostaConsultaExpedients"
+  RespostaConsultaExpedientsTramitadors:
+    type: "object"
+    properties:
+      expedient:
+        description: "Expedient"
+        $ref: "#/definitions/ExpedientConsultaTramitadors"
+    title: "RespostaConsultaExpedientsTramitadors"
   RespostaConsultaPersonesProcediment:
     type: "object"
     properties:
