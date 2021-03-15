@@ -380,4 +380,15 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 		String url = BASE_URL + "/expedients/1/persones/1";
 		getMockMvc().perform(delete(url)).andExpect(status().isOk()).andDo(print());
 	}
+
+	/**
+	 * Test stage 25 obtenir tramit procediment
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testStage25_obtenirTramitProcediment() throws Exception {
+		String url = BASE_URL + "/procediments/1/tramits/APO";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+	}
 }
