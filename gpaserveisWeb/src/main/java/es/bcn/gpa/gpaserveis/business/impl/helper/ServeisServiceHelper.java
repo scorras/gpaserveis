@@ -321,12 +321,13 @@ public class ServeisServiceHelper {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	public static DadesSollicitudBDTO loadDadesSollicitudPerVisibilitat(ExpedientsService expedientsService, BigDecimal idSollicitud)
-			throws GPAServeisServiceException {
+	public static DadesSollicitudBDTO loadDadesSollicitudPerVisibilitat(ExpedientsService expedientsService, BigDecimal idSollicitud,
+			UnitatsGestoresService unitatsGestoresService) throws GPAServeisServiceException {
 		DadesSollicitudBDTO dadesSollicitudBDTO = new DadesSollicitudBDTO();
 
 		loadSollicituds(expedientsService, dadesSollicitudBDTO, idSollicitud);
 		loadExpedients(expedientsService, dadesSollicitudBDTO, dadesSollicitudBDTO.getSollicitudsRDTO().getExpedient());
+		loadUnitatGestora(unitatsGestoresService, dadesSollicitudBDTO, dadesSollicitudBDTO.getExpedientsRDTO().getUnitatGestoraIdext());
 		loadPersonesInteressades(expedientsService, dadesSollicitudBDTO, dadesSollicitudBDTO.getSollicitudsRDTO().getId());
 		loadAltresPersonesImplicades(expedientsService, dadesSollicitudBDTO, dadesSollicitudBDTO.getSollicitudsRDTO().getId());
 
