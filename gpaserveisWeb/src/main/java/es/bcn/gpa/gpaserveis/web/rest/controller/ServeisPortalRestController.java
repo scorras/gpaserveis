@@ -185,6 +185,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.P
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.ProcedimentsConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.RespostaConsultaPersonesProcedimentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.RespostaConsultaProcedimentsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.RespostaConsultaTramitProcedimentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.SollicitudConsultaRDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -2793,6 +2794,49 @@ public class ServeisPortalRestController extends BaseRestController {
 				.setTerceresPersonesImplicades(personesProcedimentConsultaRDTO.getTerceresPersonesImplicades());
 
 		return respostaConsultaPersonesProcedimentRDTO;
+	}
+
+	/**
+	 * Consultar les dades del tramit del procediment.
+	 *
+	 * @param idProcediment
+	 *            the id procediment
+	 * @param usuari
+	 * @return the resposta consulta procediments RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@GetMapping("/procediments/{idProcediment}/tramits/{codiTramit}")
+	@ApiOperation(nickname = "consultarDadesTramit", value = "Consultar les dades del tramit", tags = {
+			"Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+					@ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	public RespostaConsultaTramitProcedimentRDTO consultarDadesTramit(
+			@ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
+			@ApiParam(value = "Codi del tràmit", allowableValues = TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES, required = true) @PathVariable String codiTramit)
+			throws GPAServeisServiceException {
+
+		RespostaConsultaTramitProcedimentRDTO respostaConsultaTramitProcedimentRDTO = new RespostaConsultaTramitProcedimentRDTO();
+
+		DadesProcedimentBDTO dadesProcedimentBDTO = serveisService.consultarDadesProcediment(idProcediment);
+		// El id del Procedimiento debe ser válido
+		if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
+			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND.getDescripcio());
+		}
+
+		// Información del Trámite
+		BigDecimal iinternalIdTramitOvt = DadesOperacioApiParamToInternalMapper.getTramitOvtInternalValue(codiTramit);
+		TramitsOvtCercaBDTO tramitsOvtCercaBDTO = new TramitsOvtCercaBDTO(iinternalIdTramitOvt);
+		es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO internalTramitsOvtRDTO = serveisService
+				.consultarDadesTramitOvt(tramitsOvtCercaBDTO);
+		es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = modelMapper.map(internalTramitsOvtRDTO,
+				es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
+		respostaConsultaTramitProcedimentRDTO.setTramit(tramitsOvtRDTO);
+
+		// TODO negocio y mapper
+		respostaConsultaTramitProcedimentRDTO.setTramitGeneric("SI");
+		respostaConsultaTramitProcedimentRDTO.setDetallIdentificador("OG-SL-XM");
+
+		return respostaConsultaTramitProcedimentRDTO;
 	}
 
 	/**
