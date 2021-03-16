@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.28.0"
+  version: "1.28.1"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -1402,6 +1402,55 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/RespostaConsultaProcediments"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /serveis/portal/procediments/{idProcediment}/tramits/{codiTramit}:
+    get:
+      tags:
+      - "Serveis Portal API"
+      summary: "Consultar les dades del tramit"
+      operationId: "consultarDadesTramit"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codiTramit"
+        in: "path"
+        description: "Codi del tràmit"
+        required: true
+        type: "string"
+        enum:
+        - "SOL"
+        - "APO"
+        - "REQ"
+        - "ALE"
+      - name: "idProcediment"
+        in: "path"
+        description: "Identificador del procediment"
+        required: true
+        type: "number"
+      - name: "usuari-autenticat"
+        in: "header"
+        description: "Número de document d'identitat o matrícula de l'empleat públic"
+        required: false
+        type: "string"
+      - name: "usuari-interessat"
+        in: "header"
+        description: "Número de document d'identitat de l'ciutadà interessat en nom\
+          \ de qui es realitza la consulta o tràmit"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaConsultaTramitProcediment"
         401:
           description: "Unauthorized"
         403:
@@ -6911,6 +6960,19 @@ definitions:
         description: "Sollicitud"
         $ref: "#/definitions/SollicitudConsulta"
     title: "RespostaConsultaSollicituds"
+  RespostaConsultaTramitProcediment:
+    type: "object"
+    properties:
+      detallIdentificador:
+        type: "string"
+        description: "Detall Identificador"
+      tramit:
+        description: "Dades del tràmit"
+        $ref: "#/definitions/TramitsOvt"
+      tramitGeneric:
+        type: "string"
+        description: "Tràmit genèric"
+    title: "RespostaConsultaTramitProcediment"
   RespostaConvidarTramitarExpedient:
     type: "object"
     properties:
