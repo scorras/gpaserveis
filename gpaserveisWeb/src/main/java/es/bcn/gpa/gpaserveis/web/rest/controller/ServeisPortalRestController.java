@@ -2832,9 +2832,8 @@ public class ServeisPortalRestController extends BaseRestController {
 				es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
 		respostaConsultaTramitProcedimentRDTO.setTramit(tramitsOvtRDTO);
 
-		// TODO negocio y mapper
-		respostaConsultaTramitProcedimentRDTO.setTramitGeneric("SI");
-		respostaConsultaTramitProcedimentRDTO.setDetallIdentificador("OG-SL-XM");
+		ServeisRestControllerValidationHelper.validateTramitOvtRequerimentOperatiu(respostaConsultaTramitProcedimentRDTO,
+				dadesProcedimentBDTO, iinternalIdTramitOvt);
 
 		return respostaConsultaTramitProcedimentRDTO;
 	}

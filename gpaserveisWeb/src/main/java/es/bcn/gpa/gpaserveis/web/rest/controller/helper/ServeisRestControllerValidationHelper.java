@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
+import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
@@ -48,6 +49,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacio
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPersones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPersonesTramOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsUgos;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ReqOperatiusTramOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UsuarisRDTO;
@@ -77,6 +79,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.su
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.AtributRequeritRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.DocumentRequeritCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.sollicituds.actualitzar.SollicitudActualitzarRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.RespostaConsultaTramitProcedimentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.completar.DocumentCompletatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.digitalitzar.DocumentDigitalitzatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.incorporar.DocumentIncorporatNouRDTO;
@@ -2316,6 +2319,35 @@ public class ServeisRestControllerValidationHelper {
 			throws GPAApiParamValidationException {
 		if (StringUtils.isEmpty(politicaSignatura)) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_POLITICA_SIGNATURA);
+		}
+	}
+
+	/**
+	 * @param respostaConsultaTramitProcedimentRDTO
+	 * @param dadesProcedimentBDTO
+	 * @param iinternalIdTramitOvt
+	 * @throws GPAServeisServiceException
+	 */
+	public static void validateTramitOvtRequerimentOperatiu(RespostaConsultaTramitProcedimentRDTO respostaConsultaTramitProcedimentRDTO,
+			DadesProcedimentBDTO dadesProcedimentBDTO, BigDecimal iinternalIdTramitOvt) throws GPAServeisServiceException {
+
+		if (dadesProcedimentBDTO.getProcedimentsRDTO().getReqOperatius() != null
+				&& dadesProcedimentBDTO.getProcedimentsRDTO().getReqOperatius().getReqOperatiusTramOvtList() != null) {
+			for (ReqOperatiusTramOvt reqOperatiusTramOvt : dadesProcedimentBDTO.getProcedimentsRDTO().getReqOperatius()
+					.getReqOperatiusTramOvtList()) {
+				if (reqOperatiusTramOvt.getTramitOvtIdext().compareTo(iinternalIdTramitOvt) == 0) {
+					if (reqOperatiusTramOvt.getTramitGeneric() != null && reqOperatiusTramOvt.getTramitGeneric().intValue() == 1) {
+						respostaConsultaTramitProcedimentRDTO.setTramitGeneric("SI");
+					} else {
+						respostaConsultaTramitProcedimentRDTO.setTramitGeneric("NO");
+						respostaConsultaTramitProcedimentRDTO.setDetallIdentificador(reqOperatiusTramOvt.getIdentificadorTramit());
+					}
+				}
+			}
+		}
+
+		if (StringUtils.isEmpty(respostaConsultaTramitProcedimentRDTO.getTramitGeneric())) {
+			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_TRAM_OVT_NOT_FOUND.getDescripcio());
 		}
 	}
 
