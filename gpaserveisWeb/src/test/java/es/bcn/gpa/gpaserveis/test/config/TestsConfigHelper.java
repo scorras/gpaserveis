@@ -75,6 +75,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPe
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsIniciacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsUgos;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ReqOperatiusTramOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.RequerimentsOperatius;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.PageDataOfTramitsRDTO;
@@ -245,6 +246,19 @@ public class TestsConfigHelper {
 		estatsProcediment.setEstats(estats);
 		estatsProcediment.setEstat(new BigDecimal(3));
 		procedimentsRDTO.setEstatsProcediment(estatsProcediment);
+
+		RequerimentsOperatius requerimentsOperatius = new RequerimentsOperatius();
+		requerimentsOperatius.setAplicacioNegoci("quiosc");
+		requerimentsOperatius.setId(ONE);
+		List<ReqOperatiusTramOvt> reqOperatiusTramOvtList = new ArrayList<ReqOperatiusTramOvt>();
+		ReqOperatiusTramOvt reqOperatiusTramOvt = new ReqOperatiusTramOvt();
+		reqOperatiusTramOvt.setIdReq(ONE);
+		reqOperatiusTramOvt.setTramitOvtIdext(new BigDecimal(2));
+		reqOperatiusTramOvt.setTramitGeneric(1);
+		reqOperatiusTramOvtList.add(reqOperatiusTramOvt);
+		requerimentsOperatius.setReqOperatiusTramOvtList(reqOperatiusTramOvtList);
+		procedimentsRDTO.setReqOperatius(requerimentsOperatius);
+		procedimentsRDTO.setRequerimentsOperatius(ONE);
 
 		List<ProcedimentPersones> procedimentPersonesList = new ArrayList<ProcedimentPersones>();
 		ProcedimentPersones procedimentPersones = new ProcedimentPersones();

@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaprocediments"
-  version: "1.21.0"
+  version: "1.28.1"
   title: "API gpaprocediments"
   contact:
     name: "Sergio Corras"
@@ -1154,6 +1154,8 @@ definitions:
     properties:
       dadesOperacions:
         type: "number"
+      editable:
+        type: "boolean"
       id:
         type: "number"
       itemDescripcio:
@@ -1164,6 +1166,8 @@ definitions:
       itemOrdre:
         type: "integer"
         format: "int32"
+      seleccionable:
+        type: "boolean"
     title: "Items"
   Normes:
     type: "object"
@@ -1566,6 +1570,27 @@ definitions:
       ugoIdext:
         type: "number"
     title: "ProcedimentsUgos"
+  ReqOperatiusTramOvt:
+    type: "object"
+    properties:
+      idReq:
+        type: "number"
+      identificadorRegistro:
+        type: "string"
+      identificadorTramit:
+        type: "string"
+      nivellAutenticacio:
+        type: "integer"
+        format: "int32"
+      nivellSignatura:
+        type: "integer"
+        format: "int32"
+      tramitGeneric:
+        type: "integer"
+        format: "int32"
+      tramitOvtIdext:
+        type: "number"
+    title: "ReqOperatiusTramOvt"
   RequerimentsOperatius:
     type: "object"
     properties:
@@ -1619,6 +1644,10 @@ definitions:
       procedimentExecutable:
         type: "integer"
         format: "int32"
+      reqOperatiusTramOvtList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ReqOperatiusTramOvt"
       sollicitud:
         type: "integer"
         format: "int32"
