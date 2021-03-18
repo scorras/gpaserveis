@@ -27,7 +27,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.Ex
 public class ServeisRestControllerVisibilitatHelper {
 
 	public static BigDecimal obtenirVisibilitatExpedient(ClientEntity clientEntity, ServeisService serveisService, String codiExpedient,
-			String expedientsIdOrgan, Resultat resultatError) throws GPAServeisServiceException, GPAApiParamValidationException {
+	        String expedientsIdOrgan, Resultat resultatError) throws GPAServeisServiceException, GPAApiParamValidationException {
 
 		BigDecimal visibilitat = BigDecimal.ONE;
 
@@ -40,24 +40,24 @@ public class ServeisRestControllerVisibilitatHelper {
 		if (!StringUtils.isEmpty(nifInteressat)) {
 
 			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesBasiquesPerVisibilitatExpedient(
-					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 
 			// validamos que el usuario logado pertenezca al expediente
 			PersonesSollicitudRDTO implicado = ServeisRestControllerValidationHelper.validateUsuariLogueadoExpedient(nifInteressat,
-					dadesExpedientBDTO.getPersonesInteressades(), dadesExpedientBDTO.getPersonesImplicades(),
-					dadesExpedientBDTO.getSollicitant(), dadesExpedientBDTO.getRepresentant(), resultatError);
+			        dadesExpedientBDTO.getPersonesInteressades(), dadesExpedientBDTO.getPersonesImplicades(),
+			        dadesExpedientBDTO.getSollicitant(), dadesExpedientBDTO.getRepresentant(), resultatError);
 
 			if (implicado != null && StringUtils.isNotEmpty(implicado.getRelacioImplicada())) {
 				DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
-						.consultarDadesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
+				        .consultarDadesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
 
 				List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
 
 				ProcedimentPersones procedimentPersones = ServeisRestControllerValidationHelper.validateVisibilitatImplicado(implicado,
-						null, null, null, null, procedimentPersonesList, null, resultatError);
+				        null, null, null, null, procedimentPersonesList, null, resultatError);
 
 				if (procedimentPersones != null
-						&& procedimentPersones.getNivellVisibilitat().compareTo(Constants.NIVELL_VISIBILITAT_BAIXA) == 0) {
+				        && procedimentPersones.getNivellVisibilitat().compareTo(Constants.NIVELL_VISIBILITAT_BAIXA) == 0) {
 					visibilitat = BigDecimal.ZERO;
 				}
 
@@ -98,7 +98,7 @@ public class ServeisRestControllerVisibilitatHelper {
 	 *             the GPA api param validation exception
 	 */
 	public static BigDecimal obtenirVisibilitatSollicitud(ClientEntity clientEntity, ServeisService serveisService, BigDecimal idSollicitud,
-			Resultat resultatError) throws GPAServeisServiceException, GPAApiParamValidationException {
+	        Resultat resultatError) throws GPAServeisServiceException, GPAApiParamValidationException {
 
 		BigDecimal visibilitat = BigDecimal.ONE;
 
@@ -114,17 +114,17 @@ public class ServeisRestControllerVisibilitatHelper {
 
 			// validamos que el usuario logado pertenezca al expediente
 			PersonesSollicitudRDTO implicado = ServeisRestControllerValidationHelper.validateUsuariLogueadoExpedient(nifInteressat,
-					dadesSollicitudBDTO.getPersonesInteressades(), dadesSollicitudBDTO.getPersonesImplicades(),
-					dadesSollicitudBDTO.getSollicitant(), dadesSollicitudBDTO.getRepresentant(), resultatError);
+			        dadesSollicitudBDTO.getPersonesInteressades(), dadesSollicitudBDTO.getPersonesImplicades(),
+			        dadesSollicitudBDTO.getSollicitant(), dadesSollicitudBDTO.getRepresentant(), resultatError);
 
 			if (implicado != null && StringUtils.isNotEmpty(implicado.getRelacioImplicada())) {
 				DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
-						.consultarDadesProcediment(dadesSollicitudBDTO.getExpedientsRDTO().getProcedimentIdext());
+				        .consultarDadesProcediment(dadesSollicitudBDTO.getExpedientsRDTO().getProcedimentIdext());
 
 				List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
 
 				ProcedimentPersones procedimentPersones = ServeisRestControllerValidationHelper.validateVisibilitatImplicado(implicado,
-						null, null, null, null, procedimentPersonesList, null, resultatError);
+				        null, null, null, null, procedimentPersonesList, null, resultatError);
 
 				if (procedimentPersones != null) {
 					visibilitat = procedimentPersones.getNivellVisibilitat();
@@ -161,9 +161,9 @@ public class ServeisRestControllerVisibilitatHelper {
 	 * @throws GPAServeisServiceException
 	 */
 	public static void validateVisibilitatTerceresPersones(ClientEntity clientEntity, ServeisService serveisService,
-			List<DadesOperacions> dadesActualizar, List<ConfiguracioDocsEntradaRDTO> configuacioActualizar, DocsEntradaRDTO docsEntradaRDTO,
-			DocsTramitacioRDTO docsTramitacioRDTO, DadesExpedientBDTO dadesExpedientBDTO, BigDecimal idTramitOvt, Resultat resultatError)
-			throws GPAApiParamValidationException, GPAServeisServiceException {
+	        List<DadesOperacions> dadesActualizar, List<ConfiguracioDocsEntradaRDTO> configuacioActualizar, DocsEntradaRDTO docsEntradaRDTO,
+	        DocsTramitacioRDTO docsTramitacioRDTO, DadesExpedientBDTO dadesExpedientBDTO, BigDecimal idTramitOvt, Resultat resultatError)
+	        throws GPAApiParamValidationException, GPAServeisServiceException {
 
 		validarCapçaleresUsuari(clientEntity, resultatError);
 
@@ -174,17 +174,17 @@ public class ServeisRestControllerVisibilitatHelper {
 		if (!StringUtils.isEmpty(nifInteressat)) {
 
 			PersonesSollicitudRDTO implicado = ServeisRestControllerValidationHelper.validateUsuariLogueadoExpedient(nifInteressat,
-					dadesExpedientBDTO.getPersonesInteressades(), dadesExpedientBDTO.getPersonesImplicades(),
-					dadesExpedientBDTO.getSollicitant(), dadesExpedientBDTO.getRepresentant(), resultatError);
+			        dadesExpedientBDTO.getPersonesInteressades(), dadesExpedientBDTO.getPersonesImplicades(),
+			        dadesExpedientBDTO.getSollicitant(), dadesExpedientBDTO.getRepresentant(), resultatError);
 
 			if (implicado != null && StringUtils.isNotEmpty(implicado.getRelacioImplicada())) {
 				DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
-						.consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
+				        .consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
 
 				List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
 
 				ServeisRestControllerValidationHelper.validateVisibilitatImplicado(implicado, dadesActualizar, configuacioActualizar,
-						docsEntradaRDTO, docsTramitacioRDTO, procedimentPersonesList, idTramitOvt, resultatError);
+				        docsEntradaRDTO, docsTramitacioRDTO, procedimentPersonesList, idTramitOvt, resultatError);
 			}
 
 		}
@@ -198,9 +198,9 @@ public class ServeisRestControllerVisibilitatHelper {
 	 * @throws GPAServeisServiceException
 	 */
 	public static void validateVisibilitatTerceresPersonesSollicitud(ClientEntity clientEntity, ServeisService serveisService,
-			List<DadesOperacions> dadesActualizar, List<ConfiguracioDocsEntradaRDTO> configuacioActualizar, DocsEntradaRDTO docsEntradaRDTO,
-			DocsTramitacioRDTO docsTramitacioRDTO, DadesSollicitudBDTO dadesSollicitudBDTO, BigDecimal idTramitOvt, Resultat resultatError)
-			throws GPAApiParamValidationException, GPAServeisServiceException {
+	        List<DadesOperacions> dadesActualizar, List<ConfiguracioDocsEntradaRDTO> configuacioActualizar, DocsEntradaRDTO docsEntradaRDTO,
+	        DocsTramitacioRDTO docsTramitacioRDTO, DadesSollicitudBDTO dadesSollicitudBDTO, BigDecimal idTramitOvt, Resultat resultatError)
+	        throws GPAApiParamValidationException, GPAServeisServiceException {
 
 		validarCapçaleresUsuari(clientEntity, resultatError);
 
@@ -211,17 +211,17 @@ public class ServeisRestControllerVisibilitatHelper {
 		if (!StringUtils.isEmpty(nifInteressat)) {
 
 			PersonesSollicitudRDTO implicado = ServeisRestControllerValidationHelper.validateUsuariLogueadoExpedient(nifInteressat,
-					dadesSollicitudBDTO.getPersonesInteressades(), dadesSollicitudBDTO.getPersonesImplicades(),
-					dadesSollicitudBDTO.getSollicitant(), dadesSollicitudBDTO.getRepresentant(), resultatError);
+			        dadesSollicitudBDTO.getPersonesInteressades(), dadesSollicitudBDTO.getPersonesImplicades(),
+			        dadesSollicitudBDTO.getSollicitant(), dadesSollicitudBDTO.getRepresentant(), resultatError);
 
 			if (implicado != null && StringUtils.isNotEmpty(implicado.getRelacioImplicada())) {
 				DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
-						.consultarDadesBasiquesProcediment(dadesSollicitudBDTO.getExpedientsRDTO().getProcedimentIdext());
+				        .consultarDadesBasiquesProcediment(dadesSollicitudBDTO.getExpedientsRDTO().getProcedimentIdext());
 
 				List<ProcedimentPersones> procedimentPersonesList = dadesProcedimentBDTO.getProcedimentsRDTO().getProcedimentPersonesList();
 
 				ServeisRestControllerValidationHelper.validateVisibilitatImplicado(implicado, dadesActualizar, configuacioActualizar,
-						docsEntradaRDTO, docsTramitacioRDTO, procedimentPersonesList, idTramitOvt, resultatError);
+				        docsEntradaRDTO, docsTramitacioRDTO, procedimentPersonesList, idTramitOvt, resultatError);
 			}
 
 		}
@@ -238,5 +238,23 @@ public class ServeisRestControllerVisibilitatHelper {
 			// throw new GPAApiParamValidationException(resultatError,
 			// ErrorPrincipal.ERROR_EXPEDIENTS_USUARIS_HEADER_NOT_FOUND);
 		}
+	}
+
+	/**
+	 * Es usuari ciutada.
+	 *
+	 * @param clientEntity
+	 *            the client entity
+	 * @return true, if successful
+	 */
+	public static boolean esUsuariCiutada(ClientEntity clientEntity) {
+		String usuariInteressat = clientEntity.getUsuariInteressat();
+		String usuariAutenticat = clientEntity.getUsuariAutenticat();
+
+		if (usuariInteressat == null && usuariAutenticat == null) {
+			return false;
+		}
+
+		return StringUtils.equals(usuariAutenticat, usuariInteressat);
 	}
 }

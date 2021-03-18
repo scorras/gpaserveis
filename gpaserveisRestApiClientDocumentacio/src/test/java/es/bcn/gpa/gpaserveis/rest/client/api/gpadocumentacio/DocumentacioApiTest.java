@@ -754,7 +754,6 @@ public class DocumentacioApiTest extends ParentTest {
 	 */
 	@Test
 	public void guardarDocumentEntradaGestorDocumentalTest() {
-
 		when(apiClient.invokeAPI(eq("/documentacio/entrada/fitxer/1/1"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(new DocsEntradaRDTO());
@@ -765,7 +764,45 @@ public class DocumentacioApiTest extends ParentTest {
 		DocsEntradaRDTO response = api.guardarDocumentEntradaGestorDocumental(docsEntradaRDTO, idExpedient, idGestorDocumental);
 
 		assertTrue(response != null);
+	}
 
+	/**
+	 * Guardar document entrada escanejat gestor documental test.
+	 */
+	@Test
+	public void guardarDocumentEntradaEscanejatGestorDocumentalTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/escanejat/fitxer/1/1"), eq(HttpMethod.POST), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new DocsEntradaRDTO());
+
+		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
+		String idGestorDocumental = "1";
+		BigDecimal idExpedient = ONE;
+		DocsEntradaRDTO response = api.guardarDocumentEntradaEscanejatGestorDocumental(docsEntradaRDTO, idExpedient, idGestorDocumental);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Copia el contingut de el document signat en el document de sol·licitud
+	 * original
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void guardarDocumentSollicitudSignatTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/entrada/sollicitud/signat/1/1"), eq(HttpMethod.POST), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
+
+		BigDecimal idDocumentacio = ONE;
+		BigDecimal idPeticioSignatura = ONE;
+		api.guardarDocumentSollicitudSignat(idDocumentacio, idPeticioSignatura);
+
+		assertTrue(true);
 	}
 
 	/**

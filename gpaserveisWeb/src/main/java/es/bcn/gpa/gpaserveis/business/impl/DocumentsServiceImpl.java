@@ -2824,6 +2824,108 @@ public class DocumentsServiceImpl implements DocumentsService {
 	 * (non-Javadoc)
 	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * guardarDocumentEntradaEscanejatGestorDocumental(es.bcn.gpa.gpaserveis.
+	 * business.dto.documents.GuardarDocumentEntradaFitxerBDTO)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackGuardarDocumentEntradaEscanejatGestorDocumental")
+	public DocsEntradaRDTO guardarDocumentEntradaEscanejatGestorDocumental(
+	        GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("guardarDocumentEntradaEscanejatGestorDocumental(GuardarDocumentEntradaFitxerBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.guardarDocumentEntradaEscanejatGestorDocumental(
+			        guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO(), guardarDocumentEntradaFitxerBDTO.getIdExpedient(),
+			        guardarDocumentEntradaFitxerBDTO.getIdGestorDocumental());
+
+			if (log.isDebugEnabled()) {
+				log.debug("guardarDocumentEntradaEscanejatGestorDocumental(GuardarDocumentEntradaFitxerBDTO) - fi"); //$NON-NLS-1$
+			}
+			return docsEntradaRDTO;
+		} catch (RestClientException e) {
+			log.error("guardarDocumentEntradaEscanejatGestorDocumental(GuardarDocumentEntradaFitxerBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * Fallback guardar document entrada escanejat gestor documental.
+	 *
+	 * @param guardarDocumentEntradaFitxerBDTO
+	 *            the guardar document entrada fitxer BDTO
+	 * @param e
+	 *            the e
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public DocsEntradaRDTO fallbackGuardarDocumentEntradaEscanejatGestorDocumental(
+	        GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO, Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackGuardarDocumentEntradaEscanejatGestorDocumental(GuardarDocumentEntradaFitxerBDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
+	 * guardarDocumentSollicitudSignat(java.math.BigDecimal,
+	 * java.math.BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackGuardarDocumentSollicitudSignat")
+	public void guardarDocumentSollicitudSignat(BigDecimal documentacioIdext, BigDecimal signaturaSolicitud)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("guardarDocumentSollicitudSignat(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			documentacioApi.guardarDocumentSollicitudSignat(documentacioIdext, signaturaSolicitud);
+
+			if (log.isDebugEnabled()) {
+				log.debug("guardarDocumentSollicitudSignat(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("guardarDocumentSollicitudSignat(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException(e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * Fallback guardar document sollicitud signat.
+	 *
+	 * @param documentacioIdext
+	 *            the documentacio idext
+	 * @param signaturaSolicitud
+	 *            the signatura solicitud
+	 * @param e
+	 *            the e
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public void fallbackGuardarDocumentSollicitudSignat(BigDecimal documentacioIdext, BigDecimal signaturaSolicitud, Throwable e)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackGuardarDocumentSollicitudSignat(BigDecimal, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.DocumentsService#
 	 * obrirRequerimentsExpedient(java.math.BigDecimal)
 	 */
 	@Override
@@ -3265,4 +3367,5 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		return null;
 	}
+
 }

@@ -2,6 +2,7 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ExpedientAltaGestorDocumentalRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ExpedientGestorDocumentalRDTO;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-11-18T16:33:07.627+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-03-18T13:42:05.746+01:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.ExpedientsApi")
 public class ExpedientsApi {
     private ApiClient apiClient;
@@ -54,10 +55,10 @@ public class ExpedientsApi {
      * <p><b>403</b> - Forbidden
      * <p><b>404</b> - Not Found
      * @param expedientGestorDocumentalRDTO expedientGestorDocumentalRDTO
-     * @return String
+     * @return ExpedientAltaGestorDocumentalRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public String altaExpedientGestorDocumentalUsingPOST(ExpedientGestorDocumentalRDTO expedientGestorDocumentalRDTO) throws RestClientException {
+    public ExpedientAltaGestorDocumentalRDTO altaExpedientGestorDocumentalUsingPOST(ExpedientGestorDocumentalRDTO expedientGestorDocumentalRDTO) throws RestClientException {
         Object postBody = expedientGestorDocumentalRDTO;
         
         // verify the required parameter 'expedientGestorDocumentalRDTO' is set
@@ -82,7 +83,7 @@ public class ExpedientsApi {
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<String> returnType = new ParameterizedTypeReference<String>() {};
+        ParameterizedTypeReference<ExpedientAltaGestorDocumentalRDTO> returnType = new ParameterizedTypeReference<ExpedientAltaGestorDocumentalRDTO>() {};
         return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }
