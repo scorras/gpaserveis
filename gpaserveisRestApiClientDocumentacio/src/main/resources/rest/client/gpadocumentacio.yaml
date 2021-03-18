@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "1.26.4"
+  version: "1.28.3"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -385,7 +385,7 @@ paths:
         200:
           description: "OK"
           schema:
-            type: "string"
+            $ref: "#/definitions/ExpedientAltaGestorDocumentalRDTO"
         201:
           description: "Created"
         401:
@@ -848,6 +848,49 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /documentacio/entrada/escanejat/fitxer/{idExpedient}/{idGestorDocumental}:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "actualitza l'aneu del gestor documental"
+      operationId: "guardarDocumentEntradaEscanejatGestorDocumental"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "docsEntradaRDTO"
+        description: "docsEntradaRDTO"
+        required: true
+        schema:
+          $ref: "#/definitions/DocsEntradaRDTO"
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      - name: "idGestorDocumental"
+        in: "path"
+        description: "idGestorDocumental"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/DocsEntradaRDTO"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
   /documentacio/entrada/fitxer/{idExpedient}:
     post:
       tags:
@@ -1056,6 +1099,42 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/DocumentRevisio"
+      responses:
+        200:
+          description: "OK"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /documentacio/entrada/sollicitud/signat/{idDocumentacio}/{idPeticioSignatura}:
+    post:
+      tags:
+      - "Documentacio"
+      summary: "Copia el contingut de el document signat en el document de sol·licitud\
+        \ original"
+      operationId: "guardarDocumentSollicitudSignat"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDocumentacio"
+        in: "path"
+        description: "idDocumentacio"
+        required: true
+        type: "number"
+      - name: "idPeticioSignatura"
+        in: "path"
+        description: "idPeticioSignatura"
+        required: true
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -3001,6 +3080,9 @@ definitions:
         type: "string"
       configuracioDocsEntradaNomCastella:
         type: "string"
+      configuracioDocsEntradaSuportConfeccio:
+        type: "integer"
+        format: "int32"
       csv:
         type: "string"
       dataCreacio:
@@ -3225,6 +3307,8 @@ definitions:
         type: "number"
       idTabletUsuari:
         type: "string"
+      migracioIdOrigen:
+        type: "string"
       reintents:
         type: "integer"
         format: "int32"
@@ -3359,6 +3443,8 @@ definitions:
         $ref: "#/definitions/Requeriments"
       seleccionable:
         type: "boolean"
+      signaturaEnCurs:
+        type: "boolean"
       sollicitudIdext:
         type: "number"
       tipusMimeDescripcio:
@@ -3460,6 +3546,16 @@ definitions:
       id:
         type: "number"
     title: "EstatsDocsTramitacio"
+  ExpedientAltaGestorDocumentalRDTO:
+    type: "object"
+    properties:
+      objectId:
+        type: "string"
+        description: "Object id de l'expedient"
+      pathGestorDocumental:
+        type: "string"
+        description: "Path gestor documental"
+    title: "ExpedientAltaGestorDocumentalRDTO"
   ExpedientGestorDocumentalRDTO:
     type: "object"
     properties:
@@ -3469,6 +3565,10 @@ definitions:
         type: "string"
       codiUnitatOrganigrama:
         type: "string"
+      cognom1Sollicitant:
+        type: "string"
+      cognom2Sollicitant:
+        type: "string"
       dataRegistre:
         type: "string"
       descEstadoExp:
@@ -3476,6 +3576,8 @@ definitions:
       destinatariRegistre:
         type: "string"
       documentErroni:
+        type: "string"
+      documentIdentitatSollicitant:
         type: "string"
       documentacioIdext:
         type: "number"
@@ -3490,6 +3592,8 @@ definitions:
       motiuRelacio:
         type: "string"
       nomProc:
+        type: "string"
+      nomSollicitant:
         type: "string"
       nomUnitatOrganigrama:
         type: "string"
@@ -3553,6 +3657,8 @@ definitions:
         type: "number"
       docEvidenciaPaper:
         type: "number"
+      docTramitacio:
+        type: "number"
       id:
         type: "number"
       missatgeError:
@@ -3591,6 +3697,8 @@ definitions:
       docEvidenciaElectronic:
         type: "number"
       docEvidenciaPaper:
+        type: "number"
+      docTramitacio:
         type: "number"
       id:
         type: "number"
