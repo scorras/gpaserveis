@@ -26,6 +26,8 @@ public enum ErrorPrincipal {
 
 	ERROR_PROCEDIMENTS_NOT_PUBLICAT("2002", "El procediment ha de trobar-se en estat Publicat"),
 
+	ERROR_PROCEDIMENTS_TRAM_OVT_NOT_FOUND("2003", "El tràmit OVT sol·licitat no està configurat per a aquest procediment"),
+
 	/* Expedients */
 	ERROR_EXPEDIENTS_NOT_FOUND("3001", "No s'ha trobat l'expedient"),
 
