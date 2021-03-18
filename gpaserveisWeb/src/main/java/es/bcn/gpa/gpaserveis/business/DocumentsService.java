@@ -241,6 +241,30 @@ public interface DocumentsService {
 	        throws GPAServeisServiceException;
 
 	/**
+	 * Guardar document entrada escanejat gestor documental.
+	 *
+	 * @param guardarDocumentEntradaFitxerBDTO
+	 *            the guardar document entrada fitxer BDTO
+	 * @return the docs entrada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	DocsEntradaRDTO guardarDocumentEntradaEscanejatGestorDocumental(GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO)
+	        throws GPAServeisServiceException;
+
+	/**
+	 * Guardar document sollicitud signat.
+	 *
+	 * @param documentacioIdext
+	 *            the documentacio idext
+	 * @param signaturaSolicitud
+	 *            the signatura solicitud
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	void guardarDocumentSollicitudSignat(BigDecimal documentacioIdext, BigDecimal signaturaSolicitud) throws GPAServeisServiceException;
+
+	/**
 	 * Guardar requeriment fitxer.
 	 *
 	 * @param guardarRequerimentFitxerBDTO

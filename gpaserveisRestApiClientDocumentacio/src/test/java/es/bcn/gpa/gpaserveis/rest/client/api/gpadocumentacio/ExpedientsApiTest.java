@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 
 import static org.junit.Assert.assertTrue;
@@ -20,7 +19,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.springframework.core.ParameterizedTypeReference;
@@ -29,6 +27,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ExpedientAltaGestorDocumentalRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ExpedientGestorDocumentalRDTO;
 
 /**
@@ -38,25 +37,25 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ExpedientGest
 public class ExpedientsApiTest extends ParentTest {
 
 	@InjectMocks
-    private final ExpedientsApi api = new ExpedientsApi();
+	private final ExpedientsApi api = new ExpedientsApi();
 
-    /**
-     * donar d&#39;alta un expedient en Gestor Documental
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void altaExpedientGestorDocumentalUsingPOSTTest() {
-		when(apiClient.invokeAPI(eq("/documentacio/altaExpedientGestorDocumental"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(StringUtils.EMPTY);
-		
-        ExpedientGestorDocumentalRDTO expedientGestorDocumentalRDTO = new ExpedientGestorDocumentalRDTO();
-        String response = api.altaExpedientGestorDocumentalUsingPOST(expedientGestorDocumentalRDTO);
-        assertTrue(response != null);
-    }
-    
+	/**
+	 * donar d&#39;alta un expedient en Gestor Documental
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void altaExpedientGestorDocumentalUsingPOSTTest() {
+		when(apiClient.invokeAPI(eq("/documentacio/altaExpedientGestorDocumental"), eq(HttpMethod.POST), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ExpedientAltaGestorDocumentalRDTO());
+
+		ExpedientGestorDocumentalRDTO expedientGestorDocumentalRDTO = new ExpedientGestorDocumentalRDTO();
+		ExpedientAltaGestorDocumentalRDTO response = api.altaExpedientGestorDocumentalUsingPOST(expedientGestorDocumentalRDTO);
+		assertTrue(response != null);
+	}
+
 }
