@@ -90,7 +90,7 @@ public class ServeisNotificacionsRestController extends BaseRestController {
 			actualitzarNotificacio = modelMapper.map(retornNotificacioRDTO, ActualitzarNotificacioBDTO.class);
 
 			switch (tipusEstatsDocumentsApiParamValue) {
-			case REGISTRADA:
+			case ENVIADA:
 				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraRegistre())) {
 					actualitzarNotificacio
 							.setDataHoraRegistre(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraRegistre()));
