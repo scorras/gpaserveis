@@ -30,7 +30,7 @@ public class ExpedientRegistrarRDTO {
 	private String matriculaInformador;
 
 	/** The idioma. */
-	@ApiModelProperty(value = "Idioma de la plantilla del document", allowableValues = IdiomaPlantillaDocApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
+	@ApiModelProperty(value = "Idioma de la plantilla del justificant", allowableValues = IdiomaPlantillaDocApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)
 	private String idioma;
 
 }
