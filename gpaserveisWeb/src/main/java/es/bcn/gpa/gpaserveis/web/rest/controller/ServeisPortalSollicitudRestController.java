@@ -97,7 +97,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.BooleanApiParamValue;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.IdiomaApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.IdiomaPlantillaDocApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.OrigenApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.RevisioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusDocumentacioVinculadaApiParamValue;
@@ -110,6 +110,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.Su
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.consulta.atributs.DadesOperacioApiParamToInternalMapper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.IdiomaPlantillaDocApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.PersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.ActualitzarTerceraPersonaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.CrearTerceraPersonaRDTO;
@@ -1229,6 +1230,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 											: (TipusDocumentacioVinculadaApiParamValue.JUSTIFICANT_ALLEGACIO.getInternalValue()));
 
 			long startTimeCrearRegistreSol = System.nanoTime();
+			
 			respostaCrearRegistreExpedient = serveisService.crearRegistreSollicitud(expedientsRegistrarSollicitudBDTO,
 					tipusDocumentacioVinculadaInternalValue);
 			registreSollicitudAssociat = true;
@@ -1371,7 +1373,13 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			confDocsTramPolitiquesSig.setModalitatIdext(TipusSignaturaApiParamValue.SEGELL.getInternalValue());
 			configuracioDocsTramitacio.addConfDocsTramPolitiquesSigListItem(confDocsTramPolitiquesSig);
 
-			docsTramitacioRDTO.setIdioma(IdiomaApiParamValue.CATALA.getInternalValue());
+			if (!StringUtils.isEmpty(sollicitudRegistrarRDTO.getIdioma())) {
+				IdiomaPlantillaDocApiParamValueTranslator idiomaPlantillaDocApiParamValueTranslator = new IdiomaPlantillaDocApiParamValueTranslator();
+				docsTramitacioRDTO.setIdioma(
+						idiomaPlantillaDocApiParamValueTranslator.getInternalValueByApiParamValue(sollicitudRegistrarRDTO.getIdioma()));
+			} else {
+				docsTramitacioRDTO.setIdioma(IdiomaPlantillaDocApiParamValue.CASTELLA.getInternalValue());
+			}
 			docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 			docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
 			docsTramitacioRDTO.setOrigen(2);

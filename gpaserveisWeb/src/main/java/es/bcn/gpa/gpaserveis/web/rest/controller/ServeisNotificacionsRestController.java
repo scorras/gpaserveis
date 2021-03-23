@@ -63,15 +63,16 @@ public class ServeisNotificacionsRestController extends BaseRestController {
 	 */
 	@PostMapping(value = "/retorn_notificacio", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ApiOperation(nickname = "retornEstatNotificacio", value = "Retorn de l'estat de les notificacions", tags = {
-	        "Serveis Notificacions API" })
+			"Serveis Notificacions API" })
 	@ApiImplicitParams(@ApiImplicitParam(name = "metadata", value = "Metadata", dataType = "__file", paramType = "form", required = true))
 	public ResponseEntity<Void> retornEstatNotificacio(
 			@ApiParam(value = "Document de la evidència electrònica de la notificació") @RequestParam(value = "evidencian", required = false) MultipartFile docEvidenciaElectronic,
 			@ApiParam(value = "Document de la evidència en paper de la notificació") @RequestParam(value = "evidenciap", required = false) MultipartFile docEvidenciaPaper,
 			@RequestPart(value = "metadata", required = true) RetornNotificacioRDTO retornNotificacioRDTO)
 			throws GPAServeisServiceException {
-		if (log.isDebugEnabled()) {
-			log.debug("retornEstatNotificacio(RetornNotificacioRDTO) - inici"); //$NON-NLS-1$
+		if (log.isInfoEnabled()) {
+			log.info("retornEstatNotificacio(RetornNotificacioRDTO) - inici"); //$NON-NLS-1$
+			log.info(retornNotificacioRDTO); // $NON-NLS-1$
 		}
 
 		String resultatAudit = "OK";
@@ -83,32 +84,39 @@ public class ServeisNotificacionsRestController extends BaseRestController {
 			TipusEstatsNotificacionsApiParamValueTranslator tipusEstatsNotificacionsApiParamValueTranslator = new TipusEstatsNotificacionsApiParamValueTranslator();
 			TipusEstatsNotificacionsApiParamValue tipusEstatsDocumentsApiParamValue = null;
 			tipusEstatsDocumentsApiParamValue = tipusEstatsNotificacionsApiParamValueTranslator
-			        .getEnumByApiParamValue(retornNotificacioRDTO.getEstat());
+					.getEnumByApiParamValue(retornNotificacioRDTO.getEstat());
 
 			DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
 			actualitzarNotificacio = modelMapper.map(retornNotificacioRDTO, ActualitzarNotificacioBDTO.class);
 
 			switch (tipusEstatsDocumentsApiParamValue) {
-			case REGISTRADA:
-				actualitzarNotificacio.setDataHoraRegistre(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraRegistre()));
+			case ENVIADA:
+				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraRegistre())) {
+					actualitzarNotificacio
+							.setDataHoraRegistre(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraRegistre()));
+				}
 				break;
 			case DIPOSITADA:
 				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraRegistre())) {
 					actualitzarNotificacio
-					        .setDataHoraRegistre(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraRegistre()));
-				}
-				actualitzarNotificacio.setDataHoraDiposit(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraDiposit()));
-				break;
-			case VISUALITZADA:
-				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraRegistre())) {
-					actualitzarNotificacio
-					        .setDataHoraRegistre(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraRegistre()));
+							.setDataHoraRegistre(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraRegistre()));
 				}
 				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraDiposit())) {
 					actualitzarNotificacio.setDataHoraDiposit(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraDiposit()));
 				}
-				actualitzarNotificacio
-				        .setDataHoraVisualitzacio(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraVisualitzacio()));
+				break;
+			case VISUALITZADA:
+				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraRegistre())) {
+					actualitzarNotificacio
+							.setDataHoraRegistre(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraRegistre()));
+				}
+				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraDiposit())) {
+					actualitzarNotificacio.setDataHoraDiposit(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraDiposit()));
+				}
+				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraVisualitzacio())) {
+					actualitzarNotificacio
+							.setDataHoraVisualitzacio(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraVisualitzacio()));
+				}
 				break;
 			case REBUTJADA_SENSE_ACCES:
 
@@ -119,17 +127,19 @@ public class ServeisNotificacionsRestController extends BaseRestController {
 			case REBUTJADA_SENSE_ACCIO:
 				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraRegistre())) {
 					actualitzarNotificacio
-					        .setDataHoraRegistre(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraRegistre()));
+							.setDataHoraRegistre(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraRegistre()));
 				}
 				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraDiposit())) {
 					actualitzarNotificacio.setDataHoraDiposit(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraDiposit()));
 				}
 				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraVisualitzacio())) {
 					actualitzarNotificacio
-					        .setDataHoraVisualitzacio(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraVisualitzacio()));
+							.setDataHoraVisualitzacio(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraVisualitzacio()));
 				}
-				actualitzarNotificacio
-				        .setDataHoraAceptacioRebuig(dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraAceptacioRebuig()));
+				if (StringUtils.isNotEmpty(retornNotificacioRDTO.getDataHoraAceptacioRebuig())) {
+					actualitzarNotificacio.setDataHoraAceptacioRebuig(
+							dataHoraFormatter.parseDateTime(retornNotificacioRDTO.getDataHoraAceptacioRebuig()));
+				}
 				break;
 			default:
 				break;
@@ -138,7 +148,7 @@ public class ServeisNotificacionsRestController extends BaseRestController {
 			serveisService.callbackNotificacio(actualitzarNotificacio, docEvidenciaElectronic, docEvidenciaPaper);
 
 		} catch (Exception e) {
-			log.error("respostaNotificacioEscaneig(RespostaEvidenciaDigitalitzacioRDTO)", e);
+			log.info("respostaNotificacioEscaneig(RespostaEvidenciaDigitalitzacioRDTO)", e);
 			resultatAudit = "KO";
 			ex = new GPAServeisServiceException(e);
 		} finally {
@@ -152,8 +162,8 @@ public class ServeisNotificacionsRestController extends BaseRestController {
 			auditServeisService.registrarAuditServeisNotificacions(auditServeisBDTO, retornNotificacioRDTO, null, ex);
 		}
 
-		if (log.isDebugEnabled()) {
-			log.debug("retornEstatNotificacio(RetornNotificacioRDTO) - fi"); //$NON-NLS-1$
+		if (log.isInfoEnabled()) {
+			log.info("retornEstatNotificacio(RetornNotificacioRDTO) - fi"); //$NON-NLS-1$
 		}
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}

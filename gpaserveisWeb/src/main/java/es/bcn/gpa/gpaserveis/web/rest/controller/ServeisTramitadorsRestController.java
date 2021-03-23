@@ -1760,13 +1760,16 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					AccioTramitadorApiParamValue.CANVIAR_UNITAT_GESTORA, Resultat.ERROR_CANVIAR_UNITAT_GESTORA_EXPEDIENT);
 
 			// Redirección del Asiento de Registro
-			RedireccioAssentament redireccioAssentament = new RedireccioAssentament();
-			redireccioAssentament.setCodiUnitatGestora(unitatsGestoresRDTO.getNom());
-			redireccioAssentament
-					.setNumeroAssentament(dadesExpedientBDTO.getExpedientsRDTO().getSollicituds().getRegistreAssentament().getCodi());
-			ExpedientsRedireccionarAssentamentBDTO expedientsRedireccionarAssentamentBDTO = new ExpedientsRedireccionarAssentamentBDTO(
-					redireccioAssentament);
-			serveisService.redireccionarRegistre(expedientsRedireccionarAssentamentBDTO);
+			if (dadesExpedientBDTO.getExpedientsRDTO().getSollicituds().getRegistreAssentament() != null
+					&& !StringUtils.isEmpty(dadesExpedientBDTO.getExpedientsRDTO().getSollicituds().getRegistreAssentament().getCodi())) {
+				RedireccioAssentament redireccioAssentament = new RedireccioAssentament();
+				redireccioAssentament.setCodiUnitatGestora(unitatsGestoresRDTO.getNom());
+				redireccioAssentament
+						.setNumeroAssentament(dadesExpedientBDTO.getExpedientsRDTO().getSollicituds().getRegistreAssentament().getCodi());
+				ExpedientsRedireccionarAssentamentBDTO expedientsRedireccionarAssentamentBDTO = new ExpedientsRedireccionarAssentamentBDTO(
+						redireccioAssentament);
+				serveisService.redireccionarRegistre(expedientsRedireccionarAssentamentBDTO);
+			}
 
 			// Asociación de la nueva UG
 			Comentaris comentaris = new Comentaris();

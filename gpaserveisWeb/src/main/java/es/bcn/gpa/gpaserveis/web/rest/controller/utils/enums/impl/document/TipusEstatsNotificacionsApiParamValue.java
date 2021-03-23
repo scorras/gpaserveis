@@ -12,8 +12,8 @@ public enum TipusEstatsNotificacionsApiParamValue implements BaseApiParamValue {
     /** The pendent de processar. */
 	PENDENT_DE_PROCESSAR("Pendent de processar", BigDecimal.valueOf(7)),
 
-	/** The registrada. */
-	REGISTRADA("Registrada", BigDecimal.valueOf(9)),
+	/** The enviada. */
+	ENVIADA("Notificació enviada", BigDecimal.valueOf(9)),
 
 	/** The dipositada. */
 	DIPOSITADA("Dipositada", BigDecimal.valueOf(10)),
