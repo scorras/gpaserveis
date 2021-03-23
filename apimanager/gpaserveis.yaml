@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "1.28.2"
+  version: "2.0.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -5934,6 +5934,12 @@ definitions:
   ExpedientRegistrar:
     type: "object"
     properties:
+      idioma:
+        type: "string"
+        description: "Idioma de la plantilla del justificant"
+        enum:
+        - "CATALA"
+        - "CASTELLA"
       matriculaInformador:
         type: "string"
         description: "Matrícula de l'informador."
@@ -7498,7 +7504,7 @@ definitions:
         description: "Estat de la notificació"
         enum:
         - "Pendent de processar"
-        - "Registrada"
+        - "enviada"
         - "Dipositada"
         - "Visualitzada"
         - "Rebutjada"
@@ -7777,6 +7783,12 @@ definitions:
   SollicitudRegistrar:
     type: "object"
     properties:
+      idioma:
+        type: "string"
+        description: "Idioma de la plantilla del justificant"
+        enum:
+        - "CATALA"
+        - "CASTELLA"
       matriculaInformador:
         type: "string"
         description: "Matrícula de l'informador."
