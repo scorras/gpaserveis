@@ -23,7 +23,9 @@ import es.bcn.gpa.gpaserveis.web.initialization.interceptor.ClientEntity;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
+import lombok.extern.apachecommons.CommonsLog;
 
+@CommonsLog
 public class ServeisRestControllerVisibilitatHelper {
 
 	public static BigDecimal obtenirVisibilitatExpedient(ClientEntity clientEntity, ServeisService serveisService, String codiExpedient,
@@ -252,9 +254,20 @@ public class ServeisRestControllerVisibilitatHelper {
 		String usuariAutenticat = clientEntity.getUsuariAutenticat();
 
 		if (usuariInteressat == null && usuariAutenticat == null) {
-			return false;
+			return true;
 		}
 
-		return StringUtils.equals(usuariAutenticat, usuariInteressat);
+		// Escenarios:
+		// - Autenticat: DNI / Interessat: DNI --> Ciudadano
+		// - Autenticat: Matrícula / Interessat: DNI --> Informador
+		// - Autenticat: Matrícula / Interessat: - --> ?? ¿Nadie en ventanilla?
+		// - Autenticat: - / Interessat: DNI --> ?? No tiene sentido
+		// - Autenticat: Matrícula / Interessat: Matrícula --> ?? No tiene
+		// sentido una matrícula como Solicitante
+		boolean esUsuariCiutada = StringUtils.equals(usuariAutenticat, usuariInteressat);
+
+		log.info("esUsuariCiutada: " + esUsuariCiutada);
+
+		return esUsuariCiutada;
 	}
 }
