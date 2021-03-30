@@ -15,6 +15,9 @@ public class Constants {
 	/** The Constant DATE_TIME_PATTERN. */
 	public static final String DATE_TIME_PATTERN = "dd/MM/yyyy HH:mm:ss";
 
+	/** The Constant DATE_TIME_PATTERN_PORTASIGNATURES. */
+	public static final String DATE_TIME_PATTERN_PORTASIGNATURES = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+
 	/** The Constant DATE_TIME_PATTERN_NOTIFICACIONS. */
 	public static final String DATE_TIME_PATTERN_NOTIFICACIONS = "dd-MM-yyyy HH:mm:ss";
 

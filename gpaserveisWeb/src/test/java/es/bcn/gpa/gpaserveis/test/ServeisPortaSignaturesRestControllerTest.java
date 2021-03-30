@@ -27,7 +27,7 @@ public class ServeisPortaSignaturesRestControllerTest extends RestServerParentTe
 		String url = String.format("%s/%s", BASE_URL, "resultat_peticio");
 		getMockMvc()
 		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-		                "{ \"codiAplicacio\": \"1\", \"codiPeticio\": \"1\", \"codiEstat\": \"COMPLETADA\", \"raoRetorn\": \"1\", \"detallSignataris\": [ { \"codiUsuari\": \"1\", \"nifUsuari\": \"00000000T\",\t \"nomCompletUsuari\": \"Nom complet usuari\", \"tipusPeticio\": \"SIGNATURA\", \"tipusDocument\": \"NIF\", \"ordreIntervencio\": 1, \"esObligada\": true, \"dataCaducitat\": \"22/12/1980 06:04:22\", \"codiEstat\": \"COMPLETADA\", \"raoRetorn\": \"1\", \"ticketPeticio\": 1, \"carrec\": 1, \"tractament\": 1, \"instantSignatura\": \"27/08/2019 10:22:48\"} ]}"))
+		                "{ \"codiAplicacio\": \"1\", \"codiPeticio\": \"1\", \"codiEstat\": \"COMPLETADA\", \"raoRetorn\": \"1\", \"detallSignataris\": [ { \"codiUsuari\": \"1\", \"nifUsuari\": \"00000000T\",\t \"nomCompletUsuari\": \"Nom complet usuari\", \"tipusPeticio\": \"SIGNATURA\", \"tipusDocument\": \"NIF\", \"ordreIntervencio\": 1, \"esObligada\": true, \"dataCaducitat\": \"2019-08-31T17:00:00.000-07:00\", \"codiEstat\": \"COMPLETADA\", \"raoRetorn\": \"1\", \"ticketPeticio\": 1, \"carrec\": 1, \"tractament\": 1, \"instantSignatura\": \"2019-08-31T17:00:00.000-07:00\"} ]}"))
 		        .andExpect(status().isOk()).andDo(print());
 
 	}
@@ -37,7 +37,7 @@ public class ServeisPortaSignaturesRestControllerTest extends RestServerParentTe
 		String url = String.format("%s/%s", BASE_URL, "resultat_peticio");
 		getMockMvc()
 		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-		                "{ \"codiAplicacio\": \"1\", \"codiPeticio\": \"1\", \"codiEstat\": \"RETORNADA\", \"raoRetorn\": \"1\", \"detallSignataris\": [ { \"codiUsuari\": \"1\", \"nifUsuari\": \"00000000T\",\t \"nomCompletUsuari\": \"Nom complet usuari\", \"tipusPeticio\": \"SIGNATURA\", \"tipusDocument\": \"NIF\", \"ordreIntervencio\": 1, \"esObligada\": true, \"dataCaducitat\": \"22/12/1980 06:04:22\", \"codiEstat\": \"RETORNADA\", \"raoRetorn\": \"1\", \"ticketPeticio\": 1, \"carrec\": 1, \"tractament\": 1, \"instantSignatura\": \"27/08/2019 10:22:48\"} ]}"))
+		                "{ \"codiAplicacio\": \"1\", \"codiPeticio\": \"1\", \"codiEstat\": \"RETORNADA\", \"raoRetorn\": \"1\", \"detallSignataris\": [ { \"codiUsuari\": \"1\", \"nifUsuari\": \"00000000T\",\t \"nomCompletUsuari\": \"Nom complet usuari\", \"tipusPeticio\": \"SIGNATURA\", \"tipusDocument\": \"NIF\", \"ordreIntervencio\": 1, \"esObligada\": true, \"dataCaducitat\": \"2019-08-31T17:00:00.000-07:00\", \"codiEstat\": \"RETORNADA\", \"raoRetorn\": \"1\", \"ticketPeticio\": 1, \"carrec\": 1, \"tractament\": 1, \"instantSignatura\": \"2019-08-31T17:00:00.000-07:00\"} ]}"))
 		        .andExpect(status().isOk()).andDo(print());
 
 	}
@@ -47,7 +47,7 @@ public class ServeisPortaSignaturesRestControllerTest extends RestServerParentTe
 		String url = String.format("%s/%s", BASE_URL, "resultat_peticio");
 		getMockMvc()
 		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-		                "{ \"codiAplicacio\": \"1\", \"codiPeticio\": \"1\", \"codiEstat\": \"CADUCADA\", \"raoRetorn\": \"1\", \"detallSignataris\": [ { \"codiUsuari\": \"1\", \"nifUsuari\": \"00000000T\",\t \"nomCompletUsuari\": \"Nom complet usuari\", \"tipusPeticio\": \"SIGNATURA\", \"tipusDocument\": \"NIF\", \"ordreIntervencio\": 1, \"esObligada\": true, \"dataCaducitat\": \"22/12/1980 06:04:22\", \"codiEstat\": \"CADUCADA\", \"raoRetorn\": \"1\", \"ticketPeticio\": 1, \"carrec\": 1, \"tractament\": 1, \"instantSignatura\": \"27/08/2019 10:22:48\"} ]}"))
+		                "{ \"codiAplicacio\": \"1\", \"codiPeticio\": \"1\", \"codiEstat\": \"CADUCADA\", \"raoRetorn\": \"1\", \"detallSignataris\": [ { \"codiUsuari\": \"1\", \"nifUsuari\": \"00000000T\",\t \"nomCompletUsuari\": \"Nom complet usuari\", \"tipusPeticio\": \"SIGNATURA\", \"tipusDocument\": \"NIF\", \"ordreIntervencio\": 1, \"esObligada\": true, \"dataCaducitat\": \"2019-08-31T17:00:00.000-07:00\", \"codiEstat\": \"CADUCADA\", \"raoRetorn\": \"1\", \"ticketPeticio\": 1, \"carrec\": 1, \"tractament\": 1, \"instantSignatura\": \"2019-08-31T17:00:00.000-07:00\"} ]}"))
 		        .andExpect(status().isOk()).andDo(print());
 
 	}
