@@ -57,8 +57,8 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 	@ApiOperation(nickname = "resultatEstatPeticioSignatura", value = "Resultat de l'estat de les peticions", tags = {
 	        "Serveis Portasignatures API" })
 	public MciPortasigResultatPeticioRespostaDTO resultatEstatPeticio(
-			@ApiParam(value = "Resultat del portasignatures a una petició de vist-i-plau/signatura", required = true) @RequestBody MciPortasigResultatPeticioDTO resultatPeticio)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Resultat del portasignatures a una petició de vist-i-plau/signatura", required = true) @RequestBody MciPortasigResultatPeticioDTO resultatPeticio)
+	        throws GPAServeisServiceException {
 
 		if (log.isDebugEnabled()) {
 			log.debug("resultatEstatPeticio(MciPortasigResultatPeticioDTO) - inici"); //$NON-NLS-1$
@@ -67,6 +67,9 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 
 		String resultatAudit = "OK";
 		GPAServeisServiceException ex = null;
+
+		DateTimeFormatter dataHoraFormatterPortasignatures = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN_PORTASIGNATURES);
+		DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
 
 		MciPortasigResultatPeticioRespostaDTO resposta = new MciPortasigResultatPeticioRespostaDTO();
 
@@ -82,11 +85,22 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 			callbackPortaSig.setTipusPeticio(mciPortasigSignatarisDTO.getTipusPeticio());
 
 			if (mciPortasigSignatarisDTO.getCodiEstat().equals(TipusCodiEstatPortasigApiParamValue.SIGNADA.getApiParamValue())) {
-				DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
-				callbackPortaSig.setInstantSignatura(dataHoraFormatter.parseDateTime(mciPortasigSignatarisDTO.getInstantSignatura()));
+				try {
+					callbackPortaSig.setInstantSignatura(
+					        dataHoraFormatterPortasignatures.parseDateTime(mciPortasigSignatarisDTO.getInstantSignatura()));
+				} catch (Exception e) {
+					log.error("S'ha produït un error a l'processar la data de signatura sota el format yyyy-MM-dd'T'HH:mm:ss.SSSXXX", e);
+					callbackPortaSig.setInstantSignatura(dataHoraFormatter.parseDateTime(mciPortasigSignatarisDTO.getInstantSignatura()));
+				}
 			} else if (mciPortasigSignatarisDTO.getCodiEstat().equals(TipusCodiEstatPortasigApiParamValue.CADUCADA.getApiParamValue())) {
-				DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
-				callbackPortaSig.setDataCaducitat(dataHoraFormatter.parseDateTime(mciPortasigSignatarisDTO.getDataCaducitat()));
+				try {
+					callbackPortaSig
+					        .setDataCaducitat(dataHoraFormatterPortasignatures.parseDateTime(mciPortasigSignatarisDTO.getDataCaducitat()));
+				} catch (Exception e) {
+					log.error("Ocurrió un error al procesar la fecha de cancelación de firma bajo el formato yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+					        e);
+					callbackPortaSig.setDataCaducitat(dataHoraFormatter.parseDateTime(mciPortasigSignatarisDTO.getDataCaducitat()));
+				}
 			}
 
 			DadesSignatura dadesSignatura = serveisService.consultarDadesSignaturaByCodiPeticio(callbackPortaSig.getCodiPeticio());
