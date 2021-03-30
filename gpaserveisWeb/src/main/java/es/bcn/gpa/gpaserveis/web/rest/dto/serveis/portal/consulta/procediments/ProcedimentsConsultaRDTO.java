@@ -24,9 +24,9 @@ import lombok.Setter;
 @ApiModel(value = "ProcedimentConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id", "codi", "versio", "nom", "nomCastella", "descripcio", "descripcioCastella", "ugr", "ugo", "organResolutori",
-		"inici", "estat", "estatCastella", "dadesIdentificacio" })
+        "inici", "estat", "estatCastella", "dadesIdentificacio" })
 @XmlRootElement(name = "PROCEDIMENT")
-@XmlType(name = "ProcedimentsConsulta", propOrder = { "id", "codi", "versio", "nom" })
+@XmlType(name = "ProcedimentsConsulta", propOrder = { "id", "codi", "versio", "nom", "nomCastella" })
 @XmlAccessorType(XmlAccessType.NONE)
 @Getter
 @Setter
@@ -45,7 +45,7 @@ public class ProcedimentsConsultaRDTO {
 	@XmlElement(name = "NOM", required = true, type = String.class)
 	private String nom;
 	@ApiModelProperty(value = "Nom del procediment en castellà")
-	@XmlTransient
+	@XmlElement(name = "NOM_CASTELLA", required = true, type = String.class)
 	private String nomCastella;
 	@ApiModelProperty(value = "Descripció del procediment")
 	@XmlTransient
