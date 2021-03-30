@@ -45,7 +45,7 @@ public class ProcedimentsConsultaRDTO {
 	@XmlElement(name = "NOM", required = true, type = String.class)
 	private String nom;
 	@ApiModelProperty(value = "Nom del procediment en castellà")
-	@XmlElement(name = "NOM_CASTELLA", required = true, type = String.class)
+	@XmlElement(name = "NOM_ESP", required = true, type = String.class)
 	private String nomCastella;
 	@ApiModelProperty(value = "Descripció del procediment")
 	@XmlTransient
