@@ -1,6 +1,10 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +72,7 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 		String resultatAudit = "OK";
 		GPAServeisServiceException ex = null;
 
-		DateTimeFormatter dataHoraFormatterPortasignatures = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN_PORTASIGNATURES);
+		SimpleDateFormat simpleDateFormatPortasignatures = new SimpleDateFormat(Constants.DATE_TIME_PATTERN_PORTASIGNATURES);
 		DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
 
 		MciPortasigResultatPeticioRespostaDTO resposta = new MciPortasigResultatPeticioRespostaDTO();
@@ -86,16 +90,16 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 
 			if (mciPortasigSignatarisDTO.getCodiEstat().equals(TipusCodiEstatPortasigApiParamValue.SIGNADA.getApiParamValue())) {
 				try {
-					callbackPortaSig.setInstantSignatura(
-					        dataHoraFormatterPortasignatures.parseDateTime(mciPortasigSignatarisDTO.getInstantSignatura()));
+					Date dateInstantSignatura = simpleDateFormatPortasignatures.parse(mciPortasigSignatarisDTO.getInstantSignatura());
+					callbackPortaSig.setInstantSignatura(new DateTime(dateInstantSignatura));
 				} catch (Exception e) {
 					log.error("S'ha produït un error a l'processar la data de signatura sota el format yyyy-MM-dd'T'HH:mm:ss.SSSXXX", e);
 					callbackPortaSig.setInstantSignatura(dataHoraFormatter.parseDateTime(mciPortasigSignatarisDTO.getInstantSignatura()));
 				}
 			} else if (mciPortasigSignatarisDTO.getCodiEstat().equals(TipusCodiEstatPortasigApiParamValue.CADUCADA.getApiParamValue())) {
 				try {
-					callbackPortaSig
-					        .setDataCaducitat(dataHoraFormatterPortasignatures.parseDateTime(mciPortasigSignatarisDTO.getDataCaducitat()));
+					Date dateDataCaducitat = simpleDateFormatPortasignatures.parse(mciPortasigSignatarisDTO.getDataCaducitat());
+					callbackPortaSig.setDataCaducitat(new DateTime(dateDataCaducitat));
 				} catch (Exception e) {
 					log.error("Ocurrió un error al procesar la fecha de cancelación de firma bajo el formato yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
 					        e);
