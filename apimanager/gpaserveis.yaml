@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.0.1"
+  version: "2.0.3"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -4182,11 +4182,20 @@ definitions:
       codi:
         type: "string"
         description: "Codi de l'atribut"
+      index:
+        type: "string"
+        description: "Codi del valor de la llista simple"
       valor:
         type: "array"
         description: "Llista de valors de l'atribut"
         items:
           type: "string"
+      valorsLlista:
+        type: "array"
+        description: "Si el tipus de camp de l'atribut és llista múltiple, valors\
+          \ d'aquesta llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaMultiple"
     title: "AtributsExpedient"
   AtributsRequerits:
     type: "object"
@@ -6599,6 +6608,10 @@ definitions:
         description: "Nom del procediment"
       nomCastella:
         type: "string"
+        xml:
+          name: "NOM_CASTELLA"
+          attribute: false
+          wrapped: false
         description: "Nom del procediment en castellà"
       organResolutori:
         type: "string"
@@ -7987,6 +8000,16 @@ definitions:
         type: "string"
         description: "Valor de la llista"
     title: "ValorsLlista"
+  ValorsLlistaMultiple:
+    type: "object"
+    properties:
+      index:
+        type: "string"
+        description: "Codi del valor de la llista"
+      valor:
+        type: "string"
+        description: "Valor de la llista"
+    title: "ValorsLlistaMultiple"
   ValorsValidacions:
     type: "object"
     properties:
