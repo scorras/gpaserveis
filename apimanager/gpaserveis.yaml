@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.0.3"
+  version: "2.1.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -6609,7 +6609,7 @@ definitions:
       nomCastella:
         type: "string"
         xml:
-          name: "NOM_CASTELLA"
+          name: "NOM_ESP"
           attribute: false
           wrapped: false
         description: "Nom del procediment en castellà"
