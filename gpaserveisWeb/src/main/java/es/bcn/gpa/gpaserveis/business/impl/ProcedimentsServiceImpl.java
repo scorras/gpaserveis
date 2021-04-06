@@ -39,13 +39,13 @@ public class ProcedimentsServiceImpl implements ProcedimentsService {
 
 		try {
 			PageDataOfProcedimentsRDTO pageDataOfProcedimentsRDTO = procedimentsApi.cercaProcediments(null, null,
-			        procedimentsCercaBDTO.getActivableFormatElectronic(), procedimentsCercaBDTO.getActuacio(),
-			        procedimentsCercaBDTO.getAplicacioNegoci(), procedimentsCercaBDTO.getCodi(), procedimentsCercaBDTO.getCompetencies(),
-			        null, null, null, null, procedimentsCercaBDTO.getCurrentPageNumber(), procedimentsCercaBDTO.getDir(),
-			        procedimentsCercaBDTO.getEstats(), procedimentsCercaBDTO.getFamilies(), null, null, procedimentsCercaBDTO.getIntern(),
-			        null, procedimentsCercaBDTO.getNom(), procedimentsCercaBDTO.getOperador(), procedimentsCercaBDTO.getOrganResolutori(),
-			        procedimentsCercaBDTO.getPageSize(), null, procedimentsCercaBDTO.getSort(), null, null,
-			        procedimentsCercaBDTO.getUgos());
+					procedimentsCercaBDTO.getActivableFormatElectronic(), procedimentsCercaBDTO.getActuacio(),
+					procedimentsCercaBDTO.getAplicacioNegoci(), procedimentsCercaBDTO.getCodi(), procedimentsCercaBDTO.getCompetencies(),
+					null, null, null, null, procedimentsCercaBDTO.getCurrentPageNumber(), procedimentsCercaBDTO.getDir(),
+					procedimentsCercaBDTO.getEstats(), procedimentsCercaBDTO.getFamilies(), null, null,
+					procedimentsCercaBDTO.getIniciacions(), procedimentsCercaBDTO.getIntern(), null, procedimentsCercaBDTO.getNom(),
+					procedimentsCercaBDTO.getOperador(), procedimentsCercaBDTO.getOrganResolutori(), procedimentsCercaBDTO.getPageSize(),
+					null, procedimentsCercaBDTO.getSort(), null, null, procedimentsCercaBDTO.getUgos());
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaProcediments(UnitatsGestoresCercaBDTO) - fi"); //$NON-NLS-1$
@@ -59,7 +59,7 @@ public class ProcedimentsServiceImpl implements ProcedimentsService {
 	}
 
 	public PageDataOfProcedimentsRDTO fallbackCercaProcediments(ProcedimentsCercaBDTO procedimentsCercaBDTO, Throwable e)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackCercaProcediments(ProcedimentsCercaBDTO, Throwable) - inici"); //$NON-NLS-1$
 		}

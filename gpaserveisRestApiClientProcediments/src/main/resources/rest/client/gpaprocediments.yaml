@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaprocediments"
-  version: "1.28.1"
+  version: "2.0.0"
   title: "API gpaprocediments"
   contact:
     name: "Sergio Corras"
@@ -14,30 +14,6 @@ tags:
 - name: "procediments-rest-controller"
   description: "Procediments Rest Controller"
 paths:
-  /procediments/desbloquejarTotsElsProcedimentsUsuari:
-    put:
-      tags:
-      - "Procediments "
-      summary: "DesbloquejarTotsElsProcedimentsUsuari"
-      operationId: "DesbloquejarTotsElsProcedimentsUsuari"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /procediments/perCodi/{codi}:
     get:
       tags:
@@ -167,6 +143,14 @@ paths:
         description: "Identificador d'usuari pel qual es realitza la cerca"
         required: false
         type: "number"
+      - name: "iniciacions"
+        in: "query"
+        description: "Iniciacions del procediment"
+        required: false
+        type: "array"
+        items:
+          type: "number"
+        collectionFormat: "multi"
       - name: "intern"
         in: "query"
         description: "Exclusivament intern"
@@ -1573,6 +1557,14 @@ definitions:
   ReqOperatiusTramOvt:
     type: "object"
     properties:
+      confDocEntrIdext:
+        type: "number"
+      confDocTramIdext:
+        type: "number"
+      editable:
+        type: "boolean"
+      id:
+        type: "string"
       idReq:
         type: "number"
       identificadorRegistro:
@@ -1585,6 +1577,8 @@ definitions:
       nivellSignatura:
         type: "integer"
         format: "int32"
+      seleccionable:
+        type: "boolean"
       tramitGeneric:
         type: "integer"
         format: "int32"

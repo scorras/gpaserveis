@@ -96,11 +96,12 @@ public class ProcedimentsApiTest extends ParentTest {
 		Long totalElements = null;
 		Integer totalPages = null;
 		List<BigDecimal> ugos = null;
+		List<BigDecimal> iniciacions = null;
 		PageDataOfProcedimentsRDTO response = api.cercaProcediments(absoluteRowNumberOfFirstRowInCurrentPage,
 				absoluteRowNumberOfLastRowInCurrentPage, activableFormatElectronic, actuacio, aplicacioNegoci, codi, competencies,
 				currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dir,
-				estats, families, id, idUsuari, intern, nextPageNumber, nom, operador, organResolutori, pageSize, previousPageNumber, sort,
-				totalElements, totalPages, ugos);
+				estats, families, id, idUsuari, iniciacions, intern, nextPageNumber, nom, operador, organResolutori, pageSize,
+				previousPageNumber, sort, totalElements, totalPages, ugos);
 
 		assertTrue(response != null);
 	}
