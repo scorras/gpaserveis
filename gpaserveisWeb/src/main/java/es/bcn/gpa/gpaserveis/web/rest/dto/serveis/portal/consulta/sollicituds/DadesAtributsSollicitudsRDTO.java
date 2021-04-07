@@ -18,10 +18,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @ApiModel(value = "AtributsSollicitud")
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "codi", "valor" })
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+@JsonPropertyOrder({ "codi", "index", "valors", "valorsLlista" })
 @XmlRootElement(name = "DADA_OPERACIO")
-@XmlType(name = "DadesAtributsSollicituds", propOrder = { "codi", "valors" })
+@XmlType(name = "DadesAtributsSollicituds", propOrder = { "codi", "index", "valors", "valorsLlista" })
 @XmlAccessorType(XmlAccessType.NONE)
 @Getter
 @Setter
@@ -30,9 +30,16 @@ public class DadesAtributsSollicitudsRDTO {
 	@ApiModelProperty(value = "Codi de l'atribut")
 	@XmlElement(name = "CODI", required = true, type = String.class)
 	private String codi;
+	@ApiModelProperty(value = "Codi del valor de la llista simple")
+	@XmlElement(name = "INDEX", required = false, type = String.class)
+	private String index;
 	@ApiModelProperty(value = "Llista de valors de l'atribut")
 	@XmlElementWrapper(name = "VALORS")
 	@XmlElement(name = "VALOR")
 	private List<String> valors;
+	@ApiModelProperty(value = "Si el tipus de camp de l'atribut és llista múltiple, valors d'aquesta llista")
+	@XmlElementWrapper(name = "VALORS_LLISTA")
+	@XmlElement(name = "VALOR_LLISTA")
+	private List<DadesAtributsValorsLlistaMultipleSollicitudsRDTO> valorsLlista;
 
 }

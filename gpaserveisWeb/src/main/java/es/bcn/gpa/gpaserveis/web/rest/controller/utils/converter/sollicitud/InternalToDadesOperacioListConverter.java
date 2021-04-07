@@ -17,6 +17,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiqu
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsSollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsValorsLlistaMultipleSollicitudsRDTO;
 
 /**
  * The Class InternalToDadesOperacioListConverter.
@@ -34,7 +35,9 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 		List<DadesAtributsSollicitudsRDTO> dadesAtributsSollicitudsRDTOList = null;
 		DadesAtributsSollicitudsRDTO dadesAtributsSollicitudsRDTO = null;
 		List<String> valorList = null;
+		List<DadesAtributsValorsLlistaMultipleSollicitudsRDTO> valorsLlistaMultiple = null;
 		StringBuffer valorStringBuffer = null;
+		String indexLlistaSimple = null;
 
 		if (CollectionUtils.isNotEmpty(source)) {
 			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
@@ -43,6 +46,7 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 				dadesAtributsSollicitudsRDTO = new DadesAtributsSollicitudsRDTO();
 				dadesAtributsSollicitudsRDTO.setCodi(dadaEspecificaBDTO.getDadaOperacio().getCodi());
 				valorList = new ArrayList<String>();
+				valorsLlistaMultiple = new ArrayList<DadesAtributsValorsLlistaMultipleSollicitudsRDTO>();
 				if (CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecifica().getDadesEspecifiquesValorsList())) {
 					for (DadesEspecifiquesValors dadesEspecifiquesValors : dadaEspecificaBDTO.getDadaEspecifica()
 					        .getDadesEspecifiquesValorsList()) {
@@ -54,6 +58,7 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 							}
 						} else {
 							valorStringBuffer = new StringBuffer();
+							indexLlistaSimple = null;
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorBoolean() != null)
 							        ? BooleanUtils.toStringTrueFalse(BooleanUtils.toBoolean(dadesEspecifiquesValors.getValorBoolean(),
 							                NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO))
@@ -66,14 +71,20 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 							        ? dadesEspecifiquesValors.getValorDouble() : StringUtils.EMPTY);
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorInteger() != null)
 							        ? dadesEspecifiquesValors.getValorInteger() : StringUtils.EMPTY);
-							valorStringBuffer.append((dadesEspecifiquesValors.getValorListaMultiple() != null)
-							        ? obtenirDescripcioItemLlista(dadesEspecifiquesValors.getValorListaMultiple(),
-							                dadaEspecificaBDTO.getDadaOperacio().getItemsList())
-							        : StringUtils.EMPTY);
-							valorStringBuffer.append((dadesEspecifiquesValors.getValorListaSimple() != null)
-							        ? obtenirDescripcioItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
-							                dadaEspecificaBDTO.getDadaOperacio().getItemsList())
-							        : StringUtils.EMPTY);
+							if (dadesEspecifiquesValors.getValorListaMultiple() != null) {
+								valorsLlistaMultiple.add(obtenirItemLlistaMultiple(dadesEspecifiquesValors.getValorListaMultiple(),
+								        dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
+							} else {
+								valorStringBuffer.append(StringUtils.EMPTY);
+							}
+							if (dadesEspecifiquesValors.getValorListaSimple() != null) {
+								valorStringBuffer.append(obtenirDescripcioItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
+								        dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
+								indexLlistaSimple = obtenirIndexItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
+								        dadaEspecificaBDTO.getDadaOperacio().getItemsList());
+							} else {
+								valorStringBuffer.append(StringUtils.EMPTY);
+							}
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorMoneda() != null)
 							        ? dadesEspecifiquesValors.getValorMoneda() : StringUtils.EMPTY);
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorMunicipi() != null)
@@ -84,11 +95,15 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 							        ? dadesEspecifiquesValors.getValorProvincia() : StringUtils.EMPTY);
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorString() != null)
 							        ? dadesEspecifiquesValors.getValorString() : StringUtils.EMPTY);
-							valorList.add(valorStringBuffer.toString());
+							if (CollectionUtils.isEmpty(valorsLlistaMultiple)) {
+								valorList.add(valorStringBuffer.toString());
+							}
 						}
 					}
 				}
+				dadesAtributsSollicitudsRDTO.setIndex(indexLlistaSimple);
 				dadesAtributsSollicitudsRDTO.setValors(valorList);
+				dadesAtributsSollicitudsRDTO.setValorsLlista(valorsLlistaMultiple);
 				dadesAtributsSollicitudsRDTOList.add(dadesAtributsSollicitudsRDTO);
 			}
 
@@ -110,6 +125,45 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 		for (Items items : itemsList) {
 			if (items.getItemId().intValue() == valorLlista.intValue()) {
 				return items.getItemDescripcio();
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Obtenir index item llista.
+	 *
+	 * @param valorLlista
+	 *            the valor llista
+	 * @param itemsList
+	 *            the items list
+	 * @return the string
+	 */
+	private String obtenirIndexItemLlista(Integer valorLlista, List<Items> itemsList) {
+		for (Items items : itemsList) {
+			if (items.getItemId().intValue() == valorLlista.intValue()) {
+				return items.getItemId().toString();
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Obtenir item llista multiple.
+	 *
+	 * @param valorLlista
+	 *            the valor llista
+	 * @param itemsList
+	 *            the items list
+	 * @return the dades atributs valors llista multiple sollicituds RDTO
+	 */
+	private DadesAtributsValorsLlistaMultipleSollicitudsRDTO obtenirItemLlistaMultiple(Integer valorLlista, List<Items> itemsList) {
+		for (Items items : itemsList) {
+			if (items.getItemId().intValue() == valorLlista.intValue()) {
+				DadesAtributsValorsLlistaMultipleSollicitudsRDTO dadesAtributsValorsLlistaMultipleSollicitudsRDTO = new DadesAtributsValorsLlistaMultipleSollicitudsRDTO();
+				dadesAtributsValorsLlistaMultipleSollicitudsRDTO.setIndex(items.getItemId().toString());
+				dadesAtributsValorsLlistaMultipleSollicitudsRDTO.setValor(items.getItemDescripcio());
+				return dadesAtributsValorsLlistaMultipleSollicitudsRDTO;
 			}
 		}
 		return null;
