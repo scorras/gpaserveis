@@ -621,6 +621,10 @@ public class ServeisPortalRestController extends BaseRestController {
 		List<ExpedientsCercaRDTO> expedientsCercaRDTOList = new ArrayList<ExpedientsCercaRDTO>();
 		ExpedientsCercaBDTO expedientsCercaBDTO = null;
 		try {
+			
+			// Acceso a la cabecera con la identificación del usuario del
+			// portal del ciudadano
+			String usuariInteressat = clientEntity.getUsuariInteressat();
 
 			// Data
 			// Unitats Gestores que hacen match con el parámetro unitatGestora
@@ -638,7 +642,7 @@ public class ServeisPortalRestController extends BaseRestController {
 					ExpedientsApiParamToInternalMapper.getTramitadorInternalValue(tramitador), aplicacioNegoci, numeroPagina,
 					resultatsPerPagina, ExpedientsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
 					ExpedientsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio),
-					ExpedientsApiParamToInternalMapper.getNivellAutenticacioInternalValue(nivellAutenticacio));
+					ExpedientsApiParamToInternalMapper.getNivellAutenticacioInternalValue(nivellAutenticacio), usuariInteressat);
 
 			RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = serveisService.cercaExpedients(expedientsCercaBDTO);
 

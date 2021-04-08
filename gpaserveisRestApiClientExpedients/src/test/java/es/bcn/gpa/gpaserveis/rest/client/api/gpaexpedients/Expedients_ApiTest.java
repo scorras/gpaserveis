@@ -97,6 +97,7 @@ public class Expedients_ApiTest extends ParentTest {
 		Integer nextPageNumber = null;
 		Integer nivellAutenticacio = null;
 		String nomCognomSollicitant = null;
+		String numeroDocumentInteressat = null;
 		String numeroDocumentSollicitant = null;
 		String numeroDocumentSollicitantEstricte = null;
 		Integer pageSize = null;
@@ -114,7 +115,7 @@ public class Expedients_ApiTest extends ParentTest {
 				criteriDeCercaDadesOperacioList0Tipus, criteriDeCercaDadesOperacioList0Valor, currentPageHasNextPage,
 				currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dataPresentacioDes,
 				dataPresentacioFinsA, dir, estatList, id, idUsuari, isOge, nextPageNumber, nivellAutenticacio, nomCognomSollicitant,
-				numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, pageSize, previousPageNumber, procedimentCodisList,
+				numeroDocumentInteressat, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, pageSize, previousPageNumber, procedimentCodisList,
 				procedimentId, procedimentVersio, sort, totalElements, totalPages, tramitador, unitatsGestoresList);
 
 		assertTrue(response != null);
