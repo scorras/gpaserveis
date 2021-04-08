@@ -1174,7 +1174,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		RespostaSollicitudsRegistrarBDTO respostaSollicitudsRegistrarBDTO = null;
 		try {
 			// Datos principales de la solicitud
-			dadesSollicitudBDTO = serveisService.consultarDadesSollicitudPerVisibilitat(idSollicitud);
+			BigDecimal visibilitat = BigDecimal.ONE;
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
 
 			// El identificador de la solicitud debe ser válido, no debe ser de
 			// tipo SOL y no debe estar ya registrada
@@ -1308,7 +1309,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			String idDocumentum = respostaCrearJustificant.getMigracioIdOrigen();
 			// Buscamos de nuevo la solicitud para que incluya los datos de
 			// registro
-			BigDecimal visibilitat = BigDecimal.ONE;
 			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
 			guardarXMLSollicitud(dadesSollicitudBDTO, idDocumentum);
 
