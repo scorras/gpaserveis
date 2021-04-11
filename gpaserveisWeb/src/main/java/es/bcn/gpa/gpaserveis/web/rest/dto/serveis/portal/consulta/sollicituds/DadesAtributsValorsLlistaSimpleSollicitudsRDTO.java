@@ -14,18 +14,18 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "ValorsLlistaMultipleSollicitud")
+@ApiModel(value = "ValorsLlistaSimpleSollicitud")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "index", "valor" })
-@XmlRootElement(name = "VALOR_LLISTA")
-@XmlType(name = "DadesAtributsValorsLlistaMultipleSollicituds", propOrder = { "index", "valor" })
+@XmlRootElement(name = "VALORS")
+@XmlType(name = "DadesAtributsValorsLlistaSimpleSollicituds", propOrder = { "index", "valor" })
 @XmlAccessorType(XmlAccessType.NONE)
 @Getter
 @Setter
-public class DadesAtributsValorsLlistaMultipleSollicitudsRDTO {
+public class DadesAtributsValorsLlistaSimpleSollicitudsRDTO {
 
 	@ApiModelProperty(value = "Codi del valor de la llista")
-	@XmlElement(name = "INDEX", required = true, type = String.class)
+	@XmlElement(name = "INDEX", required = false, type = String.class)
 	private String index;
 
 	@ApiModelProperty(value = "Valor de la llista")

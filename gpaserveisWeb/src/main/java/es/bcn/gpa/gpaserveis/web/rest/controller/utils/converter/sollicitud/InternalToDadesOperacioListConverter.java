@@ -18,6 +18,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsSollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsValorsLlistaMultipleSollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsValorsLlistaSimpleSollicitudsRDTO;
 
 /**
  * The Class InternalToDadesOperacioListConverter.
@@ -34,10 +35,10 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 	protected List<DadesAtributsSollicitudsRDTO> convert(List<DadaEspecificaBDTO> source) {
 		List<DadesAtributsSollicitudsRDTO> dadesAtributsSollicitudsRDTOList = null;
 		DadesAtributsSollicitudsRDTO dadesAtributsSollicitudsRDTO = null;
-		List<String> valorList = null;
+		List<Object> valorList = null;
 		List<DadesAtributsValorsLlistaMultipleSollicitudsRDTO> valorsLlistaMultiple = null;
+		DadesAtributsValorsLlistaSimpleSollicitudsRDTO dadesAtributsValorsLlistaSimpleSollicitudsRDTO = null;
 		StringBuffer valorStringBuffer = null;
-		String indexLlistaSimple = null;
 
 		if (CollectionUtils.isNotEmpty(source)) {
 			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
@@ -45,7 +46,7 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 			for (DadaEspecificaBDTO dadaEspecificaBDTO : source) {
 				dadesAtributsSollicitudsRDTO = new DadesAtributsSollicitudsRDTO();
 				dadesAtributsSollicitudsRDTO.setCodi(dadaEspecificaBDTO.getDadaOperacio().getCodi());
-				valorList = new ArrayList<String>();
+				valorList = new ArrayList<Object>();
 				valorsLlistaMultiple = new ArrayList<DadesAtributsValorsLlistaMultipleSollicitudsRDTO>();
 				if (CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecifica().getDadesEspecifiquesValorsList())) {
 					for (DadesEspecifiquesValors dadesEspecifiquesValors : dadaEspecificaBDTO.getDadaEspecifica()
@@ -58,7 +59,7 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 							}
 						} else {
 							valorStringBuffer = new StringBuffer();
-							indexLlistaSimple = null;
+							dadesAtributsValorsLlistaSimpleSollicitudsRDTO = null;
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorBoolean() != null)
 							        ? BooleanUtils.toStringTrueFalse(BooleanUtils.toBoolean(dadesEspecifiquesValors.getValorBoolean(),
 							                NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO))
@@ -78,10 +79,13 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 								valorStringBuffer.append(StringUtils.EMPTY);
 							}
 							if (dadesEspecifiquesValors.getValorListaSimple() != null) {
-								valorStringBuffer.append(obtenirDescripcioItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
-								        dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
-								indexLlistaSimple = obtenirIndexItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
-								        dadaEspecificaBDTO.getDadaOperacio().getItemsList());
+								dadesAtributsValorsLlistaSimpleSollicitudsRDTO = new DadesAtributsValorsLlistaSimpleSollicitudsRDTO();
+								dadesAtributsValorsLlistaSimpleSollicitudsRDTO
+								        .setIndex(obtenirIndexItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
+								                dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
+								dadesAtributsValorsLlistaSimpleSollicitudsRDTO
+								        .setValor(obtenirDescripcioItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
+								                dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
 							} else {
 								valorStringBuffer.append(StringUtils.EMPTY);
 							}
@@ -95,13 +99,22 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 							        ? dadesEspecifiquesValors.getValorProvincia() : StringUtils.EMPTY);
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorString() != null)
 							        ? dadesEspecifiquesValors.getValorString() : StringUtils.EMPTY);
-							if (CollectionUtils.isEmpty(valorsLlistaMultiple)) {
+							if (dadesAtributsValorsLlistaSimpleSollicitudsRDTO != null) {
+								valorList.add(dadesAtributsValorsLlistaSimpleSollicitudsRDTO);
+							} else if (CollectionUtils.isEmpty(valorsLlistaMultiple)) {
 								valorList.add(valorStringBuffer.toString());
 							}
 						}
 					}
 				}
-				dadesAtributsSollicitudsRDTO.setIndex(indexLlistaSimple);
+				// Con el objetivo de que no aparezcan en el XML, las listas que
+				// van vacías se ponen a null
+				if (CollectionUtils.isEmpty(valorList)) {
+					valorList = null;
+				}
+				if (CollectionUtils.isEmpty(valorsLlistaMultiple)) {
+					valorsLlistaMultiple = null;
+				}
 				dadesAtributsSollicitudsRDTO.setValors(valorList);
 				dadesAtributsSollicitudsRDTO.setValorsLlista(valorsLlistaMultiple);
 				dadesAtributsSollicitudsRDTOList.add(dadesAtributsSollicitudsRDTO);

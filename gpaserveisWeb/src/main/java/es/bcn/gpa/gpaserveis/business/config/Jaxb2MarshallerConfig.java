@@ -44,10 +44,10 @@ public class Jaxb2MarshallerConfig {
 		props.put(Marshaller.JAXB_ENCODING, "UTF-8");
 
 		jaxb2Marshaller
-				.setClassesToBeBound(new Class[] { SollicitudConsultaRDTO.class, EsBcnMciSignaturaWebServiceSchemasTicketType.class });
+		        .setClassesToBeBound(new Class[] { SollicitudConsultaRDTO.class, EsBcnMciSignaturaWebServiceSchemasTicketType.class });
 		jaxb2Marshaller.setMarshallerProperties(props);
 		jaxb2Marshaller.setAdapters(adrecaAdapter(serveisService), dataHoraAdapter(), municipiAdapter(serveisService),
-				paisAdapter(serveisService), provinciaAdapter(serveisService));
+		        paisAdapter(serveisService), provinciaAdapter(serveisService));
 
 		return jaxb2Marshaller;
 	}
