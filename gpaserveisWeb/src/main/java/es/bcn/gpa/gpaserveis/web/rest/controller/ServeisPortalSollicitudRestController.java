@@ -1183,7 +1183,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		RespostaSollicitudsRegistrarBDTO respostaSollicitudsRegistrarBDTO = null;
 		try {
 			// Datos principales de la solicitud
-			dadesSollicitudBDTO = serveisService.consultarDadesSollicitudPerVisibilitat(idSollicitud);
+			BigDecimal visibilitat = BigDecimal.ONE;
+			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
 
 			long startTimeConsultarDades = System.nanoTime();
 			if (log.isDebugEnabled()) {
@@ -1414,7 +1415,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			String idDocumentum = respostaCrearJustificant.getMigracioIdOrigen();
 			// Buscamos de nuevo la solicitud para que incluya los datos de
 			// registro
-			BigDecimal visibilitat = BigDecimal.ONE;
 			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
 			guardarXMLSollicitud(dadesSollicitudBDTO, idDocumentum);
 

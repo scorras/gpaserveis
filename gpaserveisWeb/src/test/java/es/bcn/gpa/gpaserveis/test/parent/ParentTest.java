@@ -243,7 +243,7 @@ public abstract class ParentTest {
 					any(String.class), isNull(BigDecimal.class), isNull(BigDecimal.class), isNull(String.class), isNull(Boolean.class),
 					isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), any(Integer.class), any(String.class),
 					any(String.class), any(String.class), any(List.class), isNull(BigDecimal.class), isNull(BigDecimal.class),
-					isNull(Boolean.class), isNull(Integer.class), any(Integer.class), isNull(String.class), isNull(String.class),
+					isNull(Boolean.class), isNull(Integer.class), any(Integer.class), isNull(String.class), isNull(String.class), isNull(String.class),
 					any(String.class), any(Integer.class), isNull(Integer.class), any(List.class), any(BigDecimal.class),
 					any(BigDecimal.class), any(String.class), isNull(Long.class), isNull(Integer.class), any(String.class),
 					any(List.class))).thenReturn(TestsConfigHelper.cercaExpedientsResponse());
