@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.1.0"
+  version: "2.1.1"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -4182,20 +4182,17 @@ definitions:
       codi:
         type: "string"
         description: "Codi de l'atribut"
-      index:
-        type: "string"
-        description: "Codi del valor de la llista simple"
-      valor:
+      valors:
         type: "array"
         description: "Llista de valors de l'atribut"
         items:
-          type: "string"
+          type: "object"
       valorsLlista:
         type: "array"
         description: "Si el tipus de camp de l'atribut és llista múltiple, valors\
           \ d'aquesta llista"
         items:
-          $ref: "#/definitions/ValorsLlistaMultiple"
+          $ref: "#/definitions/ValorsLlistaMultipleExpedient"
     title: "AtributsExpedient"
   AtributsRequerits:
     type: "object"
@@ -4250,10 +4247,20 @@ definitions:
         xml:
           name: "VALORS"
           attribute: false
-          wrapped: true
+          wrapped: false
         description: "Llista de valors de l'atribut"
         items:
-          type: "string"
+          type: "object"
+      valorsLlista:
+        type: "array"
+        xml:
+          name: "VALORS_LLISTA"
+          attribute: false
+          wrapped: true
+        description: "Si el tipus de camp de l'atribut és llista múltiple, valors\
+          \ d'aquesta llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaMultipleSollicitud"
     title: "AtributsSollicitud"
     xml:
       name: "DADA_OPERACIO"
@@ -5949,9 +5956,6 @@ definitions:
         enum:
         - "CATALA"
         - "CASTELLA"
-      matriculaInformador:
-        type: "string"
-        description: "Matrícula de l'informador."
       signaturaSolicitud:
         type: "number"
         description: "Identificador de la signatura de la sol·licitud"
@@ -8000,7 +8004,7 @@ definitions:
         type: "string"
         description: "Valor de la llista"
     title: "ValorsLlista"
-  ValorsLlistaMultiple:
+  ValorsLlistaMultipleExpedient:
     type: "object"
     properties:
       index:
@@ -8009,7 +8013,29 @@ definitions:
       valor:
         type: "string"
         description: "Valor de la llista"
-    title: "ValorsLlistaMultiple"
+    title: "ValorsLlistaMultipleExpedient"
+  ValorsLlistaMultipleSollicitud:
+    type: "object"
+    properties:
+      index:
+        type: "string"
+        xml:
+          name: "INDEX"
+          attribute: false
+          wrapped: false
+        description: "Codi del valor de la llista"
+      valor:
+        type: "string"
+        xml:
+          name: "VALOR"
+          attribute: false
+          wrapped: false
+        description: "Valor de la llista"
+    title: "ValorsLlistaMultipleSollicitud"
+    xml:
+      name: "VALOR_LLISTA"
+      attribute: false
+      wrapped: false
   ValorsValidacions:
     type: "object"
     properties:

@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "1.26.9"
+  version: "2.1.0"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -1587,6 +1587,12 @@ paths:
       - name: "nomCognomSollicitant"
         in: "query"
         description: "Nom i cognom del sol·licitant"
+        required: false
+        type: "string"
+      - name: "numeroDocumentInteressat"
+        in: "query"
+        description: "Numero de document d'identitat de l'ciutada interessat en nom\
+          \ de qui es realitza la consulta o tramit"
         required: false
         type: "string"
       - name: "numeroDocumentSollicitant"
