@@ -8,12 +8,12 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "ValorsLlistaMultipleExpedient")
+@ApiModel(value = "ValorsLlistaSimpleExpedient")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "index", "valor" })
 @Getter
 @Setter
-public class DadesAtributsValorsLlistaMultipleExpedientsRDTO {
+public class DadesAtributsValorsLlistaSimpleExpedientsRDTO {
 
 	@ApiModelProperty(value = "Codi del valor de la llista")
 	private String index;

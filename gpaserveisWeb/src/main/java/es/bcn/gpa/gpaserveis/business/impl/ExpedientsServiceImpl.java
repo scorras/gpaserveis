@@ -148,7 +148,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 					expedientsCercaBDTO.getCurrentPageNumber(), expedientsCercaBDTO.getDataPresentacioDes(),
 					expedientsCercaBDTO.getDataPresentacioFinsA(), expedientsCercaBDTO.getDir(), expedientsCercaBDTO.getEstatList(), null,
 					null, null, null, expedientsCercaBDTO.getNivellAutenticacio(), expedientsCercaBDTO.getNomCognomSollicitant(),
-					expedientsCercaBDTO.getNifSollicitant(), null, expedientsCercaBDTO.getPageSize(), null,
+					expedientsCercaBDTO.getNumeroDocumentInteressat(), expedientsCercaBDTO.getNifSollicitant(), null, expedientsCercaBDTO.getPageSize(), null,
 					expedientsCercaBDTO.getProcedimentCodisList(), null, expedientsCercaBDTO.getProcedimentVersio(),
 					expedientsCercaBDTO.getSort(), null, null, expedientsCercaBDTO.getTramitador(),
 					expedientsCercaBDTO.getUnitatsGestoresList());

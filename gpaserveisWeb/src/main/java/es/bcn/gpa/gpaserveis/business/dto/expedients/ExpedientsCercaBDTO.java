@@ -59,6 +59,10 @@ public class ExpedientsCercaBDTO {
 
 	/** The dir. */
 	private String dir;
-
+	
+	/** The nivellAutenticacio. */
 	private Integer nivellAutenticacio;
+	
+	/** The numeroDocumentInteressat. */
+	private String numeroDocumentInteressat;
 }
