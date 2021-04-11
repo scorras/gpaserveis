@@ -1546,6 +1546,7 @@ public class TestsConfigHelper {
 		docsTramitacioRDTO.setDataUltimaModificacio(now());
 		docsTramitacioRDTO.setDocumentacio(ONE);
 		docsTramitacioRDTO.setDocsSignaturesPendents(Arrays.asList(docsSignatures));
+		docsTramitacioRDTO.setUltimaSignatura(ONE);
 
 		return docsTramitacioRDTO;
 	}

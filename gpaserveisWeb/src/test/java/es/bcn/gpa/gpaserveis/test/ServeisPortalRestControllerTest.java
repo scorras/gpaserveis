@@ -38,7 +38,7 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	@Test
 	public void testStage01_GetCercaProcediments() throws Exception {
 		String url = BASE_URL
-				+ "/procediments?resultatsPerPagina=20&numeroPagina=1&ordenarPer=CODI&sentitOrdenacio=ASC&codi=PROC-01&estat=EN_ELABORACIO,FINALITZAT,PUBLICAT&nom=Procediment1&tramitador=APLICACIO_DE_NEGOCI&aplicacioNegoci=quiosc&ugr=UG1&exclusivamentIntern=SI&activableFormatElectronic=PORTAL_TRAMITS,ALTRA_WEB,MOBIL,QUIOSC,PER_CANAL_GENERALISTA,PER_CANAL_ESPECIFIC&organResolutori=ple&competenciaAssociada=ACCIO_SOCIAL,AFERS_JURIDICS,BENS_I_PATRIMONI,COMERC_I_CONSUM,CULTURA,EDUCACIO,ESPORTS_I_LLEURE,HABITATGE,MEDI_AMBIENT,MOVILITAT_TRANSPORT_I_CIRCULACIO,OBRES_I_INFRAESTRUCTURES,ORGANITZACIO_I_COORDINACIO_ADMINISTRATIVA,ORGANS_DE_GOVERN,POBLACIO_I_DEMARCACIO,POTESTATS_DE_PLANIFICACIO_I_NORMATIVA,PRESSUPOSTOS_I_FINANCES,PROMOCIO_ECONOMICA,RECURSOS_HUMANS&familia=ATENCIO_SOCIAL_I_RESIDENCIAL,AUTORITZACIONS_I_COMUNICATS,CERTAMENS_I_PREMIS,COL_LABORACIO,CONSULTES_I_SUGGERIMENTS,CONTRACTACIO_PUBLICA,DISCIPLINA_INSPECCIO_I_PROTECCIO_DE_LA_LEGALITAT,DRETS_D_ACCES_A_LA_INFORMACIO,DRETS_I_ACTIVITAT_CIVIL,ENS_DEPENDENTS_I_PARTICIPATS,EXECUCIO_URBANISTICA,GESTIO_DEL_PERSONAL,GESTIO_PRESSUPOSTARIA_I_FINANCERA,GESTIO_TRIBUTARIA,INFORMES_I_CERTIFICATS,INSCRIPCIONS_REGISTRALS,MEDIACIO_I_ARBITRATGE,NORMATIVA,OCUPACIO_I_SERVEIS_A_LA_VIA_PUBLICA,PARTICIPACIO,PLANEJAMENT_URBANISTIC,PREVENCIO,QUEIXES_I_RECLAMACIONS,REGIM_DE_BENS_I_PATRIMONI,REGIM_SANCIONADOR,RESPONSABILITAT_PATRIMONIAL,REVISIO_DE_L_ACTUACIO_ADMINISTRATIVA,SUBVENCIONS_I_AJUTS,TARGETES_CARNETS_I_IDENTIFICACIONS,ALTRES&actuacio=actuació";
+		        + "/procediments?resultatsPerPagina=20&numeroPagina=1&ordenarPer=CODI&sentitOrdenacio=ASC&codi=PROC-01&estat=EN_ELABORACIO,FINALITZAT,PUBLICAT&nom=Procediment1&tramitador=APLICACIO_DE_NEGOCI&aplicacioNegoci=quiosc&ugr=UG1&exclusivamentIntern=SI&activableFormatElectronic=PORTAL_TRAMITS,ALTRA_WEB,MOBIL,QUIOSC,PER_CANAL_GENERALISTA,PER_CANAL_ESPECIFIC&organResolutori=ple&competenciaAssociada=ACCIO_SOCIAL,AFERS_JURIDICS,BENS_I_PATRIMONI,COMERC_I_CONSUM,CULTURA,EDUCACIO,ESPORTS_I_LLEURE,HABITATGE,MEDI_AMBIENT,MOVILITAT_TRANSPORT_I_CIRCULACIO,OBRES_I_INFRAESTRUCTURES,ORGANITZACIO_I_COORDINACIO_ADMINISTRATIVA,ORGANS_DE_GOVERN,POBLACIO_I_DEMARCACIO,POTESTATS_DE_PLANIFICACIO_I_NORMATIVA,PRESSUPOSTOS_I_FINANCES,PROMOCIO_ECONOMICA,RECURSOS_HUMANS&familia=ATENCIO_SOCIAL_I_RESIDENCIAL,AUTORITZACIONS_I_COMUNICATS,CERTAMENS_I_PREMIS,COL_LABORACIO,CONSULTES_I_SUGGERIMENTS,CONTRACTACIO_PUBLICA,DISCIPLINA_INSPECCIO_I_PROTECCIO_DE_LA_LEGALITAT,DRETS_D_ACCES_A_LA_INFORMACIO,DRETS_I_ACTIVITAT_CIVIL,ENS_DEPENDENTS_I_PARTICIPATS,EXECUCIO_URBANISTICA,GESTIO_DEL_PERSONAL,GESTIO_PRESSUPOSTARIA_I_FINANCERA,GESTIO_TRIBUTARIA,INFORMES_I_CERTIFICATS,INSCRIPCIONS_REGISTRALS,MEDIACIO_I_ARBITRATGE,NORMATIVA,OCUPACIO_I_SERVEIS_A_LA_VIA_PUBLICA,PARTICIPACIO,PLANEJAMENT_URBANISTIC,PREVENCIO,QUEIXES_I_RECLAMACIONS,REGIM_DE_BENS_I_PATRIMONI,REGIM_SANCIONADOR,RESPONSABILITAT_PATRIMONIAL,REVISIO_DE_L_ACTUACIO_ADMINISTRATIVA,SUBVENCIONS_I_AJUTS,TARGETES_CARNETS_I_IDENTIFICACIONS,ALTRES&actuacio=actuació";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 
@@ -87,7 +87,7 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	@Test
 	public void testStage05_GetCercaExpedients() throws Exception {
 		String url = BASE_URL
-				+ "/expedients?resultatsPerPagina=20&numeroPagina=1&ordenarPer=DARRERA_MODIFICACIO&sentitOrdenacio=DESC&codiExpedient=PROC-01/2018&sollicitant=40954862G&dataPresentacioInici=22/06/2018&dataPresentacioFi=22/01/2019&codiProcediment=PROC-01,PROC-02,PROC-03&versioProcediment=TOTES_LES_VERSIONS&estat=ESBORRANY,EN_CURS,PENDENT_ESMENES,PENDENT_ALEGACIONS,RESOLT,TANCAT&unitatGestora=U&tramitador=APLICACIO_DE_NEGOCI&aplicacioNegoci=quiosc";
+		        + "/expedients?resultatsPerPagina=20&numeroPagina=1&ordenarPer=DARRERA_MODIFICACIO&sentitOrdenacio=DESC&codiExpedient=PROC-01/2018&sollicitant=40954862G&dataPresentacioInici=22/06/2018&dataPresentacioFi=22/01/2019&codiProcediment=PROC-01,PROC-02,PROC-03&versioProcediment=TOTES_LES_VERSIONS&estat=ESBORRANY,EN_CURS,PENDENT_ESMENES,PENDENT_ALEGACIONS,RESOLT,TANCAT&unitatGestora=U&tramitador=APLICACIO_DE_NEGOCI&aplicacioNegoci=quiosc";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 
@@ -116,9 +116,9 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	public void testStage07_PostCrearSolicitud() throws Exception {
 		String url = BASE_URL + "/expedients";
 		getMockMvc()
-				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-						"{ \"procediment\": { \"id\": 1 }, \"unitatGestora\": { \"codi\": \"CODI UG2\" }, \"sollicitant\": {\t\"tipusPersona\": \"FISICA\",\t\"nomRaoSocial\": \"Carmen\", \"cognom1\": \"Rodrigo\", \"cognom2\": \"Díaz\",\t\"sexe\": \"DONA\", \"dadesNotificacio\": { \"bloc\": \"4\", \"codiPostal\": \"13004\", \"email\": \"email@email.com\", \"escala\": \"9\", \"fax\": \"926354637\", \"mobil\": \"578239506\", \"municipi\": \"13034\", \"municipiEstranger\": \"M6\", \"nomVia\": \"Gran Vía\", \"numero\": \"15\", \"pais\": \"108\", \"pis\": \"2\", \"porta\": \"B\", \"provincia\": \"13\", \"provinciaEstranger\": \"P102\", \"telefon\": \"235466356\", \"tipusVia\": \"CARRER\" }, \"documentIdentitat\": { \"numeroDocument\": \"35278573T\", \"pais\": \"108\", \"tipusDocument\": \"NIF\" } }, \"representant\": {\t\"tipusPersona\": \"FISICA\",\t\"nomRaoSocial\": \"Ronald\", \"cognom1\": \"Pérez\", \"cognom2\": \"Sánchez\",\t\"sexe\": \"HOME\", \"dadesNotificacio\": { \"bloc\": \"4\", \"codiPostal\": \"13004\", \"email\": \"email@email.com\", \"escala\": \"9\", \"fax\": \"926354637\", \"mobil\": \"578239506\", \"municipi\": \"13034\", \"municipiEstranger\": \"M6\", \"nomVia\": \"Gran Vía\", \"numero\": \"15\", \"pais\": \"108\", \"pis\": \"2\", \"porta\": \"B\", \"provincia\": \"13\", \"provinciaEstranger\": \"P102\", \"telefon\": \"235466356\", \"tipusVia\": \"TRAVESSIA\" }, \"documentIdentitat\": { \"numeroDocument\": \"96442832Z\", \"pais\": \"108\", \"tipusDocument\": \"NIF\" } }}"))
-				.andExpect(status().isOk()).andDo(print());
+		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+		                "{ \"procediment\": { \"id\": 1 }, \"unitatGestora\": { \"codi\": \"CODI UG2\" }, \"sollicitant\": {\t\"tipusPersona\": \"FISICA\",\t\"nomRaoSocial\": \"Carmen\", \"cognom1\": \"Rodrigo\", \"cognom2\": \"Díaz\",\t\"sexe\": \"DONA\", \"dadesNotificacio\": { \"bloc\": \"4\", \"codiPostal\": \"13004\", \"email\": \"email@email.com\", \"escala\": \"9\", \"fax\": \"926354637\", \"mobil\": \"578239506\", \"municipi\": \"13034\", \"municipiEstranger\": \"M6\", \"nomVia\": \"Gran Vía\", \"numero\": \"15\", \"pais\": \"108\", \"pis\": \"2\", \"porta\": \"B\", \"provincia\": \"13\", \"provinciaEstranger\": \"P102\", \"telefon\": \"235466356\", \"tipusVia\": \"CARRER\" }, \"documentIdentitat\": { \"numeroDocument\": \"35278573T\", \"pais\": \"108\", \"tipusDocument\": \"NIF\" } }, \"representant\": {\t\"tipusPersona\": \"FISICA\",\t\"nomRaoSocial\": \"Ronald\", \"cognom1\": \"Pérez\", \"cognom2\": \"Sánchez\",\t\"sexe\": \"HOME\", \"dadesNotificacio\": { \"bloc\": \"4\", \"codiPostal\": \"13004\", \"email\": \"email@email.com\", \"escala\": \"9\", \"fax\": \"926354637\", \"mobil\": \"578239506\", \"municipi\": \"13034\", \"municipiEstranger\": \"M6\", \"nomVia\": \"Gran Vía\", \"numero\": \"15\", \"pais\": \"108\", \"pis\": \"2\", \"porta\": \"B\", \"provincia\": \"13\", \"provinciaEstranger\": \"P102\", \"telefon\": \"235466356\", \"tipusVia\": \"TRAVESSIA\" }, \"documentIdentitat\": { \"numeroDocument\": \"96442832Z\", \"pais\": \"108\", \"tipusDocument\": \"NIF\" } }}"))
+		        .andExpect(status().isOk()).andDo(print());
 
 	}
 
@@ -132,9 +132,9 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	public void testStage08_PostActualitzarSolicitud() throws Exception {
 		String url = BASE_URL + "/expedients/1";
 		getMockMvc()
-				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-						"{ \"sollicitant\": {\t\"tipusPersona\": \"FISICA\",\t\"nomRaoSocial\": \"Carmen\", \"cognom1\": \"Rodrigo\", \"cognom2\": \"Díaz\",\t\"sexe\": \"DONA\", \"dadesNotificacio\": { \"bloc\": \"4\", \"codiPostal\": \"13004\", \"email\": \"email@email.com\", \"escala\": \"9\", \"fax\": \"926354637\", \"mobil\": \"578239506\", \"municipi\": \"13034\", \"municipiEstranger\": \"M6\", \"nomVia\": \"Gran Vía\", \"numero\": \"15\", \"pais\": \"108\", \"pis\": \"2\", \"porta\": \"B\", \"provincia\": \"13\", \"provinciaEstranger\": \"P102\", \"telefon\": \"235466356\", \"tipusVia\": \"CARRER\" }, \"documentIdentitat\": { \"numeroDocument\": \"35278573T\", \"pais\": \"108\", \"tipusDocument\": \"NIF\" } }, \"representant\": {\t\"tipusPersona\": \"FISICA\",\t\"nomRaoSocial\": \"Ronald\", \"cognom1\": \"Pérez\", \"cognom2\": \"Sánchez\",\t\"sexe\": \"HOME\", \"dadesNotificacio\": { \"bloc\": \"4\", \"codiPostal\": \"13004\", \"email\": \"email@email.com\", \"escala\": \"9\", \"fax\": \"926354637\", \"mobil\": \"578239506\", \"municipi\": \"13034\", \"municipiEstranger\": \"M6\", \"nomVia\": \"Gran Vía\", \"numero\": \"15\", \"pais\": \"108\", \"pis\": \"2\", \"porta\": \"B\", \"provincia\": \"13\", \"provinciaEstranger\": \"P102\", \"telefon\": \"235466356\", \"tipusVia\": \"TRAVESSIA\" }, \"documentIdentitat\": { \"numeroDocument\": \"96442832Z\", \"pais\": \"108\", \"tipusDocument\": \"NIF\" } }, \"dadesOperacio\": [\t{\t\t\"codi\": \"DO\",\t\t\"valor\": [\t\t\t\"1234\"\t\t]\t}]}"))
-				.andExpect(status().isOk()).andDo(print());
+		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+		                "{ \"sollicitant\": {\t\"tipusPersona\": \"FISICA\",\t\"nomRaoSocial\": \"Carmen\", \"cognom1\": \"Rodrigo\", \"cognom2\": \"Díaz\",\t\"sexe\": \"DONA\", \"dadesNotificacio\": { \"bloc\": \"4\", \"codiPostal\": \"13004\", \"email\": \"email@email.com\", \"escala\": \"9\", \"fax\": \"926354637\", \"mobil\": \"578239506\", \"municipi\": \"13034\", \"municipiEstranger\": \"M6\", \"nomVia\": \"Gran Vía\", \"numero\": \"15\", \"pais\": \"108\", \"pis\": \"2\", \"porta\": \"B\", \"provincia\": \"13\", \"provinciaEstranger\": \"P102\", \"telefon\": \"235466356\", \"tipusVia\": \"CARRER\" }, \"documentIdentitat\": { \"numeroDocument\": \"35278573T\", \"pais\": \"108\", \"tipusDocument\": \"NIF\" } }, \"representant\": {\t\"tipusPersona\": \"FISICA\",\t\"nomRaoSocial\": \"Ronald\", \"cognom1\": \"Pérez\", \"cognom2\": \"Sánchez\",\t\"sexe\": \"HOME\", \"dadesNotificacio\": { \"bloc\": \"4\", \"codiPostal\": \"13004\", \"email\": \"email@email.com\", \"escala\": \"9\", \"fax\": \"926354637\", \"mobil\": \"578239506\", \"municipi\": \"13034\", \"municipiEstranger\": \"M6\", \"nomVia\": \"Gran Vía\", \"numero\": \"15\", \"pais\": \"108\", \"pis\": \"2\", \"porta\": \"B\", \"provincia\": \"13\", \"provinciaEstranger\": \"P102\", \"telefon\": \"235466356\", \"tipusVia\": \"TRAVESSIA\" }, \"documentIdentitat\": { \"numeroDocument\": \"96442832Z\", \"pais\": \"108\", \"tipusDocument\": \"NIF\" } }, \"dadesOperacio\": [\t{\t\t\"codi\": \"DO\",\t\t\"valor\": [\t\t\t\"1234\"\t\t]\t}]}"))
+		        .andExpect(status().isOk()).andDo(print());
 
 	}
 
@@ -148,7 +148,7 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	public void testStage09_PostRegistrarSolicitud() throws Exception {
 		String url = BASE_URL + "/expedients/1/registre";
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{ \"signaturaSolicitud\": \"1\" }"))
-				.andExpect(status().isOk()).andDo(print());
+		        .andExpect(status().isOk()).andDo(print());
 
 	}
 
@@ -162,9 +162,9 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	public void testStage10_PostAportarDocumentacioExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/1/documentacio";
 		getMockMvc()
-				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-						"{ \"documentacio\": [ { \"configuracioDocumentacio\": \"42\",\t \"origen\": \"EXTERN\",\t \"comentari\": \"Document aportat des de portal de tramitació\",\t \"idioma\": \"CATALA\", \"fitxer\": {\t \"nom\": \"DNI.pdf\", \"format\": \"PDF\" } },\t{ \"configuracioDocumentacio\": \"43\",\t \"origen\": \"INTERN\",\t \"comentari\": \"Document aportat des de portal de tramitació\",\t \"idioma\": \"CASTELLA\", \"fitxer\": {\t \"nom\": \"DNI.pdf\", \"format\": \"PDF\" } } ], \"registrar\": true}"))
-				.andExpect(status().isOk()).andDo(print());
+		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+		                "{ \"documentacio\": [ { \"configuracioDocumentacio\": \"42\",\t \"origen\": \"EXTERN\",\t \"comentari\": \"Document aportat des de portal de tramitació\",\t \"idioma\": \"CATALA\", \"fitxer\": {\t \"nom\": \"DNI.pdf\", \"format\": \"PDF\" } },\t{ \"configuracioDocumentacio\": \"43\",\t \"origen\": \"INTERN\",\t \"comentari\": \"Document aportat des de portal de tramitació\",\t \"idioma\": \"CASTELLA\", \"fitxer\": {\t \"nom\": \"DNI.pdf\", \"format\": \"PDF\" } } ], \"registrar\": true}"))
+		        .andExpect(status().isOk()).andDo(print());
 
 	}
 
@@ -178,9 +178,9 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	public void testStage11_PostSubstituirDocumentExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/1/documentacio/1/substituir";
 		getMockMvc()
-				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-						"{ \"configuracioDocumentacio\": \"43\", \"origen\": \"EXTERN\", \"comentari\": \"Document substituït des de portal de tramitació\", \"idioma\": \"CASTELLA\", \"fitxer\": {\t\"nom\": \"DNI_H.pdf\",\t\"format\": \"PDF\" }}"))
-				.andExpect(status().isOk()).andDo(print());
+		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+		                "{ \"configuracioDocumentacio\": \"43\", \"origen\": \"EXTERN\", \"comentari\": \"Document substituït des de portal de tramitació\", \"idioma\": \"CASTELLA\", \"fitxer\": {\t\"nom\": \"DNI_H.pdf\",\t\"format\": \"PDF\" }}"))
+		        .andExpect(status().isOk()).andDo(print());
 
 	}
 
@@ -207,9 +207,9 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	public void testStage13_PostEsmenarExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/1/esmena";
 		getMockMvc()
-				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-						"{ \"comentari\":\"S'adjunten els documents i les dades d'operació requerides.\", \"documentacio\": [ { \"configuracioDocumentacio\": \"42\",\t \"origen\": \"EXTERN\",\t \"comentari\": \"Document aportat des de portal de tramitació\",\t \"idioma\": \"CATALA\", \"fitxer\": {\t \"nom\": \"DNI.pdf\", \"format\": \"PDF\" } },\t{ \"configuracioDocumentacio\": \"43\",\t \"origen\": \"INTERN\",\t \"comentari\": \"Document aportat des de portal de tramitació\",\t \"idioma\": \"CASTELLA\", \"fitxer\": {\t \"nom\": \"DNI.pdf\", \"format\": \"PDF\" } } ], \"dadesOperacio\": [\t{\t\t\"codi\": \"DO\",\t\t\"valor\": [\t\t\t\"1234\"\t\t]\t}]}"))
-				.andExpect(status().isOk()).andDo(print());
+		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+		                "{ \"comentari\":\"S'adjunten els documents i les dades d'operació requerides.\", \"documentacio\": [ { \"configuracioDocumentacio\": \"42\",\t \"origen\": \"EXTERN\",\t \"comentari\": \"Document aportat des de portal de tramitació\",\t \"idioma\": \"CATALA\", \"fitxer\": {\t \"nom\": \"DNI.pdf\", \"format\": \"PDF\" } },\t{ \"configuracioDocumentacio\": \"43\",\t \"origen\": \"INTERN\",\t \"comentari\": \"Document aportat des de portal de tramitació\",\t \"idioma\": \"CASTELLA\", \"fitxer\": {\t \"nom\": \"DNI.pdf\", \"format\": \"PDF\" } } ], \"dadesOperacio\": [\t{\t\t\"codi\": \"DO\",\t\t\"valor\": [\t\t\t\"1234\"\t\t]\t}]}"))
+		        .andExpect(status().isOk()).andDo(print());
 
 	}
 
@@ -239,7 +239,7 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "prova.txt", "text/plain", "prova".getBytes());
 		String url = BASE_URL + "/expedients/1/documentacio/1/upload";
 		getMockMvc().perform(MockMvcRequestBuilders.fileUpload(url).file(mockMultipartFile).contentType(MediaType.MULTIPART_FORM_DATA))
-				.andExpect(status().isOk()).andDo(print());
+		        .andExpect(status().isOk()).andDo(print());
 
 	}
 
@@ -334,9 +334,9 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 
 		String url = BASE_URL + "/expedients/1/persones";
 		getMockMvc()
-				.perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
-						"{\"persona\":{\"relacio\":null, \"relacioTerceraPersona\":\"Testimoni\", \"visibilitatOvt\":false, \"tipusPersona\":\"FISICA\", \"nomRaoSocial\":\"El Àlvar\",\"cognom1\":\"Perau\",\"cognom2\":null,\"documentIndentitat\":{\"tipusDocument\":\"NIE\",\"numeroDocument\":\"00914091\",\"pais\":\"108\"},\"personesDadescontacte\":{}}}}"))
-				.andExpect(status().isOk()).andDo(print());
+		        .perform(post(url).contentType(APPLICATION_JSON_UTF8).content(
+		                "{\"persona\":{\"relacio\":null, \"relacioTerceraPersona\":\"Testimoni\", \"visibilitatOvt\":false, \"tipusPersona\":\"FISICA\", \"nomRaoSocial\":\"El Àlvar\",\"cognom1\":\"Perau\",\"cognom2\":null,\"documentIndentitat\":{\"tipusDocument\":\"NIE\",\"numeroDocument\":\"00914091\",\"pais\":\"108\"},\"personesDadescontacte\":{}}}}"))
+		        .andExpect(status().isOk()).andDo(print());
 	}
 
 	/**
@@ -351,9 +351,9 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 
 		String url = BASE_URL + "/expedients/1/persones";
 		getMockMvc()
-				.perform(put(url).contentType(APPLICATION_JSON_UTF8).content(
-						"{\"persona\":{\"relacio\":null, \"relacioTerceraPersona\":\"Testimoni\", \"visibilitatOvt\":false, \"tipusPersona\":\"FISICA\", \"nomRaoSocial\":\"El Àlvar\",\"cognom1\":\"Perau\",\"cognom2\":null,\"documentIndentitat\":{\"tipusDocument\":\"NIE\",\"numeroDocument\":\"00914091\",\"pais\":\"108\"},\"personesDadescontacte\":{}}}}"))
-				.andExpect(status().isOk()).andDo(print());
+		        .perform(put(url).contentType(APPLICATION_JSON_UTF8).content(
+		                "{\"persona\":{\"relacio\":null, \"relacioTerceraPersona\":\"Testimoni\", \"visibilitatOvt\":false, \"tipusPersona\":\"FISICA\", \"nomRaoSocial\":\"El Àlvar\",\"cognom1\":\"Perau\",\"cognom2\":null,\"documentIndentitat\":{\"tipusDocument\":\"NIE\",\"numeroDocument\":\"00914091\",\"pais\":\"108\"},\"personesDadescontacte\":{}}}}"))
+		        .andExpect(status().isOk()).andDo(print());
 	}
 
 	/**
@@ -390,5 +390,21 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	public void testStage25_obtenirTramitProcediment() throws Exception {
 		String url = BASE_URL + "/procediments/1/tramits/APO";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+	}
+
+	/**
+	 * Test stage 26 get descarregar document signat expedient.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test
+	public void testStage26_GetDescarregarDocumentSignatExpedient() throws Exception {
+
+		when(clientEntity.getUsuariInteressat()).thenReturn("79688341B");
+
+		String url = BASE_URL + "/expedients/1/documents/1/signat";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+
 	}
 }
