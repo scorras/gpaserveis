@@ -14,13 +14,13 @@ public enum AccioCiutadaApiParamValue implements BaseApiParamValue {
     // transición
 
     /** The requeriment esmena. */
-	REQUERIMENT_ESMENA("REQUERIMENT_ESMENA", new BigDecimal(3), new BigDecimal(3)),
+	REQUERIMENT_ESMENA("REQUERIMENT_ESMENA", new BigDecimal(3), new BigDecimal(3), new BigDecimal(3)),
 
 	/** The aportar documentacio. */
-	APORTAR_DOCUMENTACIO("APORTAR_DOCUMENTACIO", new BigDecimal(2), null),
+	APORTAR_DOCUMENTACIO("APORTAR_DOCUMENTACIO", new BigDecimal(2), null, new BigDecimal(2)),
 
 	/** The alegacions. */
-	ALEGACIONS("ALEGACIONS", new BigDecimal(3), new BigDecimal(5));
+	ALEGACIONS("ALEGACIONS", new BigDecimal(3), new BigDecimal(5), new BigDecimal(4));
 
 	// De momento se eliminan las opciones de RENUNCIA y DESISTIMENT. Se
 	// volverán a incorporar cuando se implemente este trámite OVT.
@@ -38,6 +38,9 @@ public enum AccioCiutadaApiParamValue implements BaseApiParamValue {
 
 	/** The internal value id estat origen. */
 	private BigDecimal internalValueIdEstatOrigen;
+	
+	/** The internal value id tramit ovt. */
+	private BigDecimal internalValueIdTramitOvt;
 
 	/**
 	 * Instantiates a new accio ciutada api param value.
@@ -49,10 +52,15 @@ public enum AccioCiutadaApiParamValue implements BaseApiParamValue {
 	 * @param internalValueIdEstatOrigen
 	 *            the internal value id estat origen
 	 */
-	AccioCiutadaApiParamValue(String apiParamValue, BigDecimal internalValue, BigDecimal internalValueIdEstatOrigen) {
+	AccioCiutadaApiParamValue(String apiParamValue, BigDecimal internalValue, BigDecimal internalValueIdEstatOrigen, BigDecimal internalValueIdTramitOvt) {
 		this.apiParamValue = apiParamValue;
 		this.internalValue = internalValue;
 		this.internalValueIdEstatOrigen = internalValueIdEstatOrigen;
+		this.internalValueIdTramitOvt = internalValueIdTramitOvt;
+	}
+
+	public BigDecimal getInternalValueIdTramitOvt() {
+		return internalValueIdTramitOvt;
 	}
 
 	/**

@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.1.1"
+  version: "2.1.2"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -7806,9 +7806,6 @@ definitions:
         enum:
         - "CATALA"
         - "CASTELLA"
-      matriculaInformador:
-        type: "string"
-        description: "Matrícula de l'informador."
       signaturaSolicitud:
         type: "number"
         description: "Identificador de la signatura de la sol·licitud"
