@@ -16,7 +16,7 @@ import lombok.Setter;
  */
 @ApiModel(value = "ExpedientRegistrar")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "signaturaSolicitud", "matriculaInformador", "idioma" })
+@JsonPropertyOrder({ "signaturaSolicitud", "idioma" })
 @Getter
 @Setter
 public class ExpedientRegistrarRDTO {
