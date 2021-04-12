@@ -1172,7 +1172,10 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		boolean registreSollicitudAssociat = false;
 		ArrayList<BigDecimal> idDocsEntradaList = new ArrayList<BigDecimal>();
 		RespostaSollicitudsRegistrarBDTO respostaSollicitudsRegistrarBDTO = null;
+		boolean esCiutada;
 		try {
+			esCiutada = ServeisRestControllerVisibilitatHelper.esUsuariCiutada(clientEntity);
+
 			// Datos principales de la solicitud
 			BigDecimal visibilitat = BigDecimal.ONE;
 			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
@@ -1197,7 +1200,9 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			CrearSollicitud registreCreacioSolicitud = new CrearSollicitud();
 			registreCreacioSolicitud.setSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO());
 			registreCreacioSolicitud.setDocuments(idDocsEntradaList);
-			registreCreacioSolicitud.setMatriculaInformador(sollicitudRegistrarRDTO.getMatriculaInformador());
+			if (!esCiutada) {
+				registreCreacioSolicitud.setMatriculaInformador(clientEntity.getUsuariAutenticat());
+			}
 			expedientsRegistrarSollicitudBDTO = new ExpedientsRegistrarSollicitudBDTO(registreCreacioSolicitud);
 			// La documentación vinculada a generar se determina por el tipo de
 			// solicitud
@@ -1232,7 +1237,9 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			sollicitudActualitzarRegistre.setDataPresentacio(respostaCrearRegistreExpedient.getRegistreAssentament().getDataRegistre());
 			if (sollicitudRegistrarRDTO != null) {
 				sollicitudActualitzarRegistre.setSignaturaSollicitud(sollicitudRegistrarRDTO.getSignaturaSolicitud());
-				sollicitudActualitzarRegistre.setMatriculaInformador(sollicitudRegistrarRDTO.getMatriculaInformador());
+				if (!esCiutada) {
+					sollicitudActualitzarRegistre.setMatriculaInformador(clientEntity.getUsuariAutenticat());
+				}
 			}
 			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
 
