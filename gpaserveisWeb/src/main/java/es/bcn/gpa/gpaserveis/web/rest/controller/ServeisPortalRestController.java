@@ -105,12 +105,14 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRe
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ReqOperatiusTramOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.initialization.interceptor.ClientEntity;
 import es.bcn.gpa.gpaserveis.web.rest.controller.handler.ServeisRestControllerExceptionHandler;
+import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerAccionsDisponiblesHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerSagaHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerValidationHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerVisibilitatHelper;
@@ -722,8 +724,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
 				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
 			}
+			
 			ExpedientConsultaRDTO expedientConsultaRDTO = modelMapper.map(dadesExpedientBDTO, ExpedientConsultaRDTO.class);
-
+			
 			// Datos de cada tràmit OVT asociado a los documents aportats
 			HashMap<String, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO> tramitsOvtRDTOMap = null;
 			es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = null;
@@ -749,6 +752,9 @@ public class ServeisPortalRestController extends BaseRestController {
 					.compareTo(EstatTramitadorApiParamValue.EN_PREPARACIO.getInternalValue()) == NumberUtils.INTEGER_ZERO) {
 				expedientConsultaRDTO.setAccionsDisponibles(null);
 			}
+			
+			// Filtraremos para segun los tramites ovt disponibles del procedimiento, mostrar las acciones disponibles
+			filtrarTramitsOvtDisponibles(dadesExpedientBDTO, expedientConsultaRDTO);
 
 			respostaConsultaExpedientsRDTO.setExpedient(expedientConsultaRDTO);
 
@@ -2900,4 +2906,29 @@ public class ServeisPortalRestController extends BaseRestController {
 		serveisService.guardarXmlSollicitud(idDocumentum, xmlSolicitud);
 		return xmlSolicitud;
 	}
+	
+	/**
+	 * Filtrar Tramits Ovt Disponibles 
+	 *
+	 * @param dadesExpedientBDTO
+	 *            the dades expedients BDTO
+	 * @param expedientConsultaRDTO
+	 *            the expedient consulta RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	private void filtrarTramitsOvtDisponibles (DadesExpedientBDTO dadesExpedientBDTO, ExpedientConsultaRDTO expedientConsultaRDTO) throws GPAServeisServiceException {
+		DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
+				.consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
+		
+		List<BigDecimal> idsReqOperatiusTramOvtList = new ArrayList<>();
+		if (CollectionUtils.isNotEmpty(dadesProcedimentBDTO.getProcedimentsRDTO().getReqOperatius().getReqOperatiusTramOvtList())) {
+			for (ReqOperatiusTramOvt reqOperatiusTramOvt : dadesProcedimentBDTO.getProcedimentsRDTO().getReqOperatius().getReqOperatiusTramOvtList()) {
+				idsReqOperatiusTramOvtList.add(reqOperatiusTramOvt.getTramitOvtIdext());
+			}
+		}
+		
+		ServeisRestControllerAccionsDisponiblesHelper.filtrarTramitsOvtDisponibles(expedientConsultaRDTO, idsReqOperatiusTramOvtList);
+	}
+	
 }
