@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.1.2"
+  version: "2.1.3"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -4182,17 +4182,20 @@ definitions:
       codi:
         type: "string"
         description: "Codi de l'atribut"
-      valors:
+      index:
+        type: "string"
+        description: "Codi del valor de la llista"
+      valor:
         type: "array"
         description: "Llista de valors de l'atribut"
         items:
-          type: "object"
+          type: "string"
       valorsLlista:
         type: "array"
-        description: "Si el tipus de camp de l'atribut és llista múltiple, valors\
-          \ d'aquesta llista"
+        description: "Si el tipus de camp de l'atribut és llista, valors d'aquesta\
+          \ llista"
         items:
-          $ref: "#/definitions/ValorsLlistaMultipleExpedient"
+          $ref: "#/definitions/ValorsLlistaExpedient"
     title: "AtributsExpedient"
   AtributsRequerits:
     type: "object"
@@ -4242,15 +4245,22 @@ definitions:
           attribute: false
           wrapped: false
         description: "Codi de l'atribut"
-      valors:
+      index:
+        type: "string"
+        xml:
+          name: "INDEX"
+          attribute: false
+          wrapped: false
+        description: "Codi del valor de la llista"
+      valor:
         type: "array"
         xml:
           name: "VALORS"
           attribute: false
-          wrapped: false
+          wrapped: true
         description: "Llista de valors de l'atribut"
         items:
-          type: "object"
+          type: "string"
       valorsLlista:
         type: "array"
         xml:
@@ -4260,7 +4270,7 @@ definitions:
         description: "Si el tipus de camp de l'atribut és llista múltiple, valors\
           \ d'aquesta llista"
         items:
-          $ref: "#/definitions/ValorsLlistaMultipleSollicitud"
+          $ref: "#/definitions/ValorsLlistaSollicitud"
     title: "AtributsSollicitud"
     xml:
       name: "DADA_OPERACIO"
@@ -8001,7 +8011,7 @@ definitions:
         type: "string"
         description: "Valor de la llista"
     title: "ValorsLlista"
-  ValorsLlistaMultipleExpedient:
+  ValorsLlistaExpedient:
     type: "object"
     properties:
       index:
@@ -8010,8 +8020,8 @@ definitions:
       valor:
         type: "string"
         description: "Valor de la llista"
-    title: "ValorsLlistaMultipleExpedient"
-  ValorsLlistaMultipleSollicitud:
+    title: "ValorsLlistaExpedient"
+  ValorsLlistaSollicitud:
     type: "object"
     properties:
       index:
@@ -8028,7 +8038,7 @@ definitions:
           attribute: false
           wrapped: false
         description: "Valor de la llista"
-    title: "ValorsLlistaMultipleSollicitud"
+    title: "ValorsLlistaSollicitud"
     xml:
       name: "VALOR_LLISTA"
       attribute: false

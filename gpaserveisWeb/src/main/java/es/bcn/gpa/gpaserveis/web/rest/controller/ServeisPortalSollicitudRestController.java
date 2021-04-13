@@ -1270,9 +1270,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			}
 
 			long startTimeAssociarRegistreSol = System.nanoTime();
-			if (log.isDebugEnabled()) {
-				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - inici"); //$NON-NLS-1$
-			}
 			if (log.isInfoEnabled()) {
 				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - inici"); //$NON-NLS-1$
 			}
@@ -1301,9 +1298,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			}
 
 			long startTimeGuardarDadesEspecifiquesSol = System.nanoTime();
-			if (log.isDebugEnabled()) {
-				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDadesEspecifiquesSollicitud - inici"); //$NON-NLS-1$
-			}
 			if (log.isInfoEnabled()) {
 				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDadesEspecifiquesSollicitud - inici"); //$NON-NLS-1$
 			}
@@ -1418,9 +1412,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			guardarXMLSollicitud(dadesSollicitudBDTO, idDocumentum);
 
 			long startTimeSignarSegellDocument = System.nanoTime();
-			if (log.isDebugEnabled()) {
-				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - signarSegellDocument - inici"); //$NON-NLS-1$
-			}
 			if (log.isInfoEnabled()) {
 				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - signarSegellDocument - inici"); //$NON-NLS-1$
 			}
@@ -1455,9 +1446,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// serveisService.guardarDocumentTramitacioJustificantPlantillaSignat
 
 			long startTimeVincularJustificanteAriadna = System.nanoTime();
-			if (log.isDebugEnabled()) {
-				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - vincularJustificanteAriadna - inici"); //$NON-NLS-1$
-			}
 			if (log.isInfoEnabled()) {
 				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - vincularJustificanteAriadna - inici"); //$NON-NLS-1$
 			}
