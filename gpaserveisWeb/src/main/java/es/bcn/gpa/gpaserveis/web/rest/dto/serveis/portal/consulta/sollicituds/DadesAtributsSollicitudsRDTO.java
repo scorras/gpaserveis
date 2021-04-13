@@ -21,7 +21,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "codi", "valors", "valorsLlista" })
 @XmlRootElement(name = "DADA_OPERACIO")
-@XmlType(name = "DadesAtributsSollicituds", propOrder = { "codi", "valors", "valorsLlista" })
+@XmlType(name = "DadesAtributsSollicituds", propOrder = { "codi", "index", "valor", "valorsLlista" })
 @XmlAccessorType(XmlAccessType.NONE)
 @Getter
 @Setter
