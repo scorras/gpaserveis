@@ -37,7 +37,6 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 		String index = null;
 		List<String> valorList = null;
 		List<DadesAtributsValorsLlistaSollicitudsRDTO> valorsLlistaList = null;
-		DadesAtributsValorsLlistaSollicitudsRDTO dadesAtributsValorsLlistaSollicitudsRDTO = null;
 		StringBuffer valorStringBuffer = null;
 
 		if (CollectionUtils.isNotEmpty(source)) {
@@ -60,7 +59,6 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 							}
 						} else {
 							valorStringBuffer = new StringBuffer();
-							dadesAtributsValorsLlistaSollicitudsRDTO = null;
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorBoolean() != null)
 							        ? BooleanUtils.toStringTrueFalse(BooleanUtils.toBoolean(dadesEspecifiquesValors.getValorBoolean(),
 							                NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO))
@@ -99,7 +97,10 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 							        ? dadesEspecifiquesValors.getValorProvincia() : StringUtils.EMPTY);
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorString() != null)
 							        ? dadesEspecifiquesValors.getValorString() : StringUtils.EMPTY);
-							valorList.add(valorStringBuffer.toString());
+
+							if (StringUtils.isNotBlank(valorStringBuffer.toString())) {
+								valorList.add(valorStringBuffer.toString());
+							}
 						}
 					}
 				}

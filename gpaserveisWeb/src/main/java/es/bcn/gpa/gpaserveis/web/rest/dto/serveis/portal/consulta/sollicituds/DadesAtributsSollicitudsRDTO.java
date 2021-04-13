@@ -19,7 +19,7 @@ import lombok.Setter;
 
 @ApiModel(value = "AtributsSollicitud")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "codi", "valors", "valorsLlista" })
+@JsonPropertyOrder({ "codi", "index", "valor", "valorsLlista" })
 @XmlRootElement(name = "DADA_OPERACIO")
 @XmlType(name = "DadesAtributsSollicituds", propOrder = { "codi", "index", "valor", "valorsLlista" })
 @XmlAccessorType(XmlAccessType.NONE)

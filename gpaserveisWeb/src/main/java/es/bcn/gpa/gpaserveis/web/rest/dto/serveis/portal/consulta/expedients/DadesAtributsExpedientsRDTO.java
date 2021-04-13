@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @ApiModel(value = "AtributsExpedient")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "codi", "valors", "valorsLlista" })
+@JsonPropertyOrder({ "codi", "index", "valor", "valorsLlista" })
 @Getter
 @Setter
 public class DadesAtributsExpedientsRDTO {
