@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -1262,6 +1263,12 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					sollicitudActualitzarRegistre.setMatriculaInformador(clientEntity.getUsuariAutenticat());
 				}
 			}
+
+			long startTimeAssociarRegistreSol = System.nanoTime();
+			if (log.isInfoEnabled()) {
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - inici"); //$NON-NLS-1$
+			}
+
 			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
 
 			if (log.isDebugEnabled()) {
@@ -1283,6 +1290,11 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				docsEntActualizarRegistre.setListIdsDocsEnt(idDocsEntradaList);
 				serveisService.associarRegistreDocsEnt(docsEntActualizarRegistre);
 				registreDocumentacioAssociat = true;
+			}
+
+			long startTimeGuardarDadesEspecifiquesSol = System.nanoTime();
+			if (log.isInfoEnabled()) {
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDadesEspecifiquesSollicitud - inici"); //$NON-NLS-1$
 			}
 
 			// Duplicar los Valores de Datos Específicos para que quede por un
@@ -1394,6 +1406,11 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(idSollicitud, visibilitat);
 			guardarXMLSollicitud(dadesSollicitudBDTO, idDocumentum);
 
+			long startTimeSignarSegellDocument = System.nanoTime();
+			if (log.isInfoEnabled()) {
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - signarSegellDocument - inici"); //$NON-NLS-1$
+			}
+
 			// se llama a segell para firmar el justificante de registro del
 			// expediente
 			SignarSegellDocument signarSegellDocumentRDTO = new SignarSegellDocument();
@@ -1422,6 +1439,11 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// TODO Calcular Hash de documento firmado, regenerar el PDF con el
 			// hash incrustado y guardarlo bajo el mismo objeto documental
 			// serveisService.guardarDocumentTramitacioJustificantPlantillaSignat
+
+			long startTimeVincularJustificanteAriadna = System.nanoTime();
+			if (log.isInfoEnabled()) {
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - vincularJustificanteAriadna - inici"); //$NON-NLS-1$
+			}
 
 			// Vincular Justificante en Ariadna
 			RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
