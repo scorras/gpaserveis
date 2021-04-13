@@ -19,9 +19,11 @@ public class DadesAtributsExpedientsRDTO {
 
 	@ApiModelProperty(value = "Codi de l'atribut")
 	private String codi;
+	@ApiModelProperty(value = "Codi del valor de la llista")
+	private String index;
 	@ApiModelProperty(value = "Llista de valors de l'atribut")
-	private List<Object> valors;
-	@ApiModelProperty(value = "Si el tipus de camp de l'atribut és llista múltiple, valors d'aquesta llista")
-	private List<DadesAtributsValorsLlistaMultipleExpedientsRDTO> valorsLlista;
+	private List<String> valor;
+	@ApiModelProperty(value = "Si el tipus de camp de l'atribut és llista, valors d'aquesta llista")
+	private List<DadesAtributsValorsLlistaExpedientsRDTO> valorsLlista;
 
 }
