@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.1.3"
+  version: "2.1.4"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
