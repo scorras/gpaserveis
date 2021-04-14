@@ -2104,7 +2104,7 @@ public class ServeisRestControllerValidationHelper {
 		for (PersonesSollicitudRDTO personesSollicitud : personesImplicades) {
 			if (personesSollicitud.getPersones().getDocumentsIdentitat() != null
 					&& StringUtils.equals(personesSollicitud.getPersones().getDocumentsIdentitat().getNumeroDocument(), nifInteressat)
-					&& personesSollicitud.getVisibilitatOvt() == NumberUtils.INTEGER_ONE) {
+					&& personesSollicitud.getVisibilitatOvt().intValue() == NumberUtils.INTEGER_ONE.intValue()) {
 				return personesSollicitud;
 			}
 		}
