@@ -1,6 +1,5 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.revisar;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -34,9 +33,5 @@ public class ExpedientRevisarRDTO {
 	private List<PersonesRDTO> personesInteressades;
 	@ApiModelProperty(value = "Persones implicades", required = false)
 	private List<PersonesRDTO> personesImplicades;
-	@ApiModelProperty(value = "Termini d'esmenes")
-	private BigDecimal respostaRequeriment;
-	@ApiModelProperty(value = "Termini d'al·legacions.")
-	private BigDecimal respostaAllegacion;
 
 }
