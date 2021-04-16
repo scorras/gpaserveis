@@ -5577,6 +5577,12 @@ definitions:
       representant:
         description: "representant"
         $ref: "#/definitions/Persona"
+      respostaAllegacion:
+        type: "number"
+        description: "Termini d'al·legacions."
+      respostaRequeriment:
+        type: "number"
+        description: "Termini d'esmenes"
       sollicitant:
         description: "sol·licitant"
         $ref: "#/definitions/Persona"
@@ -6005,12 +6011,6 @@ definitions:
       representant:
         description: "Persona representant"
         $ref: "#/definitions/Persona"
-      respostaAllegacion:
-        type: "number"
-        description: "Termini d'al·legacions."
-      respostaRequeriment:
-        type: "number"
-        description: "Termini d'esmenes"
       sollicitant:
         description: "Persona sol·licitant"
         $ref: "#/definitions/Persona"
