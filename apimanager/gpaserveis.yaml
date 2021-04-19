@@ -5706,6 +5706,9 @@ definitions:
       id:
         type: "number"
         description: "Identificador de l'expedient"
+      idGestorDocumental:
+        type: "string"
+        description: "Id Gestor Documental"
       pathGestorDocumental:
         type: "string"
         description: "Path Gestor Documental"
