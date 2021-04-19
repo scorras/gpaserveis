@@ -758,7 +758,12 @@ public class ServeisPortalRestController extends BaseRestController {
 			if (CollectionUtils.isNotEmpty(expedientConsultaRDTO.getAccionsDisponibles())) {
 				filtrarTramitsOvtDisponibles(dadesExpedientBDTO, expedientConsultaRDTO);
 			}
-
+			
+			// Devolvemos el id en Documentum del expediente en la consulta
+			if (StringUtils.isNotEmpty(dadesExpedientBDTO.getExpedientsRDTO().getMigracioIdOrigen())) {
+				expedientConsultaRDTO.setIdGestorDocumental(dadesExpedientBDTO.getExpedientsRDTO().getMigracioIdOrigen());
+			}
+			
 			respostaConsultaExpedientsRDTO.setExpedient(expedientConsultaRDTO);
 
 		} catch (Exception e) {
