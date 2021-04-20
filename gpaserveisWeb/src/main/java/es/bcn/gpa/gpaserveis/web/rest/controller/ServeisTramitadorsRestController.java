@@ -3455,7 +3455,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Crear Notificación
 			CrearNotificacio crearNotificacio = modelMapper.map(expedientNotificacio, CrearNotificacio.class);
-			crearNotificacio.setCodiExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			// crearNotificacio.setCodiExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			crearNotificacio.setCodiExpedient(codiExpedient);
 			crearNotificacio.setIdDocumentPrincipal(idDocumentPrincipal);
 			crearNotificacio.setIdsAnnexosList(expedientNotificacio.getIdsAnnexosList());
 			crearNotificacio.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
