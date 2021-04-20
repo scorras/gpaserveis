@@ -455,22 +455,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(
 				        dadesSollicitudBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, file, null);
 				docsEntradaRDTOResposta = serveisService.guardarDocumentEntradaFitxer(guardarDocumentEntradaFitxerBDTO);
-
-				// Preparar datos para registro
-				if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null && SuportConfeccioApiParamValue.PLANTILLA.getInternalValue()
-				        .equals(docsEntradaRDTO.getConfiguracioDocsEntrada().getSuportConfeccio())) {
-					String idDocumentum = docsEntradaRDTOResposta.getMigracioIdOrigen();
-					// Guardamo solicitud en pos 1 del doc de entrada en
-					// documentum y devuelve el xml de sol
-					String xmlSolicitud = guardarXMLSollicitud(dadesSollicitudBDTO, idDocumentum);
-					// calculamos el hash del XML y actualizamos la solicitud
-					// con el hash
-					String hash = DigestUtils.sha256Hex(xmlSolicitud);
-					SollicitudsRDTO sollicitud = dadesSollicitudBDTO.getSollicitudsRDTO();
-					sollicitud.setHash(hash);
-					serveisService.updateSollicitud(sollicitud);
-
-				}
 			}
 			if (StringUtils.isNotEmpty(idGestorDocumental)) {
 				GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(
@@ -486,6 +470,22 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				} else {
 					docsEntradaRDTOResposta = serveisService.guardarDocumentEntradaGestorDocumental(guardarDocumentEntradaFitxerBDTO);
 				}
+			}
+
+			// Si el documento de entrada está basado en plantilla se deberá
+			// almacenar el XML de datos en la posición 1
+			if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null && SuportConfeccioApiParamValue.PLANTILLA.getInternalValue()
+			        .equals(docsEntradaRDTO.getConfiguracioDocsEntrada().getSuportConfeccio())) {
+				String idDocumentum = docsEntradaRDTOResposta.getMigracioIdOrigen();
+				// Se guarda el XML de datos en la posición 1 del objeto
+				// documental del documento de solicitud (basado en plantilla)
+				String xmlSolicitud = guardarXMLSollicitud(dadesSollicitudBDTO, idDocumentum);
+				// calculamos el hash del XML y actualizamos la solicitud
+				// con el hash
+				String hash = DigestUtils.sha256Hex(xmlSolicitud);
+				SollicitudsRDTO sollicitud = dadesSollicitudBDTO.getSollicitudsRDTO();
+				sollicitud.setHash(hash);
+				serveisService.updateSollicitud(sollicitud);
 			}
 
 		} catch (GPAApiParamValidationException e) {
@@ -1239,11 +1239,12 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
 			}
 
-			// En caso de que la operación de registro se lance desde el portal,
+			// En caso de que la operación de registro se lance desde el portal
+			// del Informador,
 			// el formulario de solicitud (documento de instancia) estará
 			// firmado por Segell d'Organ y habrá que copiar el contenido de
 			// dicho documento firmado en el documento original
-			if (!ServeisRestControllerVisibilitatHelper.esUsuariCiutada(clientEntity)) {
+			if (!esCiutada) {
 				// Parámetros disponibles:
 				// - idDocumentacio -> Obtener documento basado en plantilla
 				// - signaturaSolicitud -> id de Petición de firma que nos da

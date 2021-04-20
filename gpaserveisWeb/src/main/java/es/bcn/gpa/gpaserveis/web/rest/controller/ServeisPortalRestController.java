@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.BooleanUtils;
@@ -103,6 +104,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollici
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ReqOperatiusTramOvt;
@@ -130,6 +132,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.Tipus
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusSignaturaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.EstatTramitadorApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.SuportConfeccioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.procediment.ProcedimentsApiParamToInternalMapper;
@@ -1279,7 +1282,8 @@ public class ServeisPortalRestController extends BaseRestController {
 				throw new GPAApiParamValidationException(Resultat.ERROR_REGISTRAR_EXPEDIENT, ErrorPrincipal.ERROR_GENERIC);
 			}
 
-			// En caso de que la operación de registro se lance desde el portal,
+			// En caso de que la operación de registro se lance desde el portal
+			// del Informador,
 			// el formulario de solicitud (documento de instancia) estará
 			// firmado por Segell d'Organ y habrá que copiar el contenido de
 			// dicho documento firmado en el documento original
@@ -1830,6 +1834,26 @@ public class ServeisPortalRestController extends BaseRestController {
 				} else {
 					docsEntradaRDTOResposta = serveisService.guardarDocumentEntradaGestorDocumental(guardarDocumentEntradaFitxerBDTO);
 				}
+			}
+
+			// Si el documento de entrada está basado en plantilla se deberá
+			// almacenar el XML de datos en la posición 1
+			if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null && SuportConfeccioApiParamValue.PLANTILLA.getInternalValue()
+			        .equals(docsEntradaRDTO.getConfiguracioDocsEntrada().getSuportConfeccio())) {
+				String idDocumentum = docsEntradaRDTOResposta.getMigracioIdOrigen();
+				// Datos principales de la solicitud SOL
+				BigDecimal visibilitat = BigDecimal.ONE;
+				DadesSollicitudBDTO dadesSollicitudBDTO = serveisService
+				        .consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(), visibilitat);
+				// Se guarda el XML de datos en la posición 1 del objeto
+				// documental del documento de solicitud (basado en plantilla)
+				String xmlSolicitud = guardarXMLSollicitud(dadesSollicitudBDTO, idDocumentum);
+				// calculamos el hash del XML y actualizamos la solicitud
+				// con el hash
+				String hash = DigestUtils.sha256Hex(xmlSolicitud);
+				SollicitudsRDTO sollicitud = dadesSollicitudBDTO.getSollicitudsRDTO();
+				sollicitud.setHash(hash);
+				serveisService.updateSollicitud(sollicitud);
 			}
 
 		} catch (GPAApiParamValidationException e) {
