@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,7 +14,7 @@ import lombok.Setter;
 
 @ApiModel(value = "ExpedientActualitzar")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "sollicitant", "representant", "dadesOperacio", "personesInteressades", "personesImplicades", "tipusIniciacio" })
+@JsonPropertyOrder({ "sollicitant", "representant", "dadesOperacio", "personesInteressades", "personesImplicades", "tipusIniciacio", "respostaRequeriment", "respostaAllegacion" })
 @Getter
 @Setter
 public class ExpedientActualitzarRDTO {
@@ -30,4 +31,9 @@ public class ExpedientActualitzarRDTO {
 	private List<PersonesRDTO> personesImplicades;
 	@ApiModelProperty(value = "Tipus de iniciació sollicitud", required = false)
 	private String tipusIniciacio;
+	@ApiModelProperty(value = "Termini d'esmenes")
+	private BigDecimal respostaRequeriment;
+	@ApiModelProperty(value = "Termini d'al·legacions.")
+	private BigDecimal respostaAllegacion;
+
 }

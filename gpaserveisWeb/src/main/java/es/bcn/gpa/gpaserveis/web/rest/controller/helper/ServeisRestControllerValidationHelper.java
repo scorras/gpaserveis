@@ -699,25 +699,22 @@ public class ServeisRestControllerValidationHelper {
 					break;
 				case PAIS:
 					if (atributEntry.getValue().get(0) != null) {
-						String valorPaisNom = atributEntry.getValue().get(INTEGER_ZERO).substring(4);
-						String valorPaisCodiIne = atributEntry.getValue().get(INTEGER_ZERO).substring(0, 3);
-						validateDadesOperacioCadenaGeneral(dadesOperacions, valorPaisNom);
+						String valorPaisCodiIne = atributEntry.getValue().get(INTEGER_ZERO);
+						validateDadesOperacioCadenaGeneral(dadesOperacions, valorPaisCodiIne);
 						dadesEspecifiquesValors.setValorPais(valorPaisCodiIne);
 					}
 					break;
 				case PROVINCIA:
 					if (atributEntry.getValue().get(0) != null) {
-						String valorProvinciaNom = atributEntry.getValue().get(INTEGER_ZERO).substring(4);
-						String valorProvinciaCodiIne = atributEntry.getValue().get(INTEGER_ZERO).substring(0, 3);
-						validateDadesOperacioCadenaGeneral(dadesOperacions, valorProvinciaNom);
+						String valorProvinciaCodiIne = atributEntry.getValue().get(INTEGER_ZERO);
+						validateDadesOperacioCadenaGeneral(dadesOperacions, valorProvinciaCodiIne);
 						dadesEspecifiquesValors.setValorProvincia(valorProvinciaCodiIne);
 					}
 					break;
 				case MUNICIPI:
 					if (atributEntry.getValue().get(0) != null) {
-						String valorMunicipiNom = atributEntry.getValue().get(INTEGER_ZERO).substring(7);
-						String valorMunicipiCodiIne = atributEntry.getValue().get(INTEGER_ZERO).substring(0, 6);
-						validateDadesOperacioCadenaGeneral(dadesOperacions, valorMunicipiNom);
+						String valorMunicipiCodiIne = atributEntry.getValue().get(INTEGER_ZERO);
+						validateDadesOperacioCadenaGeneral(dadesOperacions, valorMunicipiCodiIne);
 						dadesEspecifiquesValors.setValorMunicipi(valorMunicipiCodiIne);
 					}
 					break;
@@ -2351,6 +2348,25 @@ public class ServeisRestControllerValidationHelper {
 
 		if (StringUtils.isEmpty(respostaConsultaTramitProcedimentRDTO.getTramitGeneric())) {
 			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_TRAM_OVT_NOT_FOUND.getDescripcio());
+		}
+	}
+	
+	/**
+	 * Validate persona sol·licitant principal.
+	 *
+	 * @param Persones
+	 *            the Persones sollicitant
+	 * @param idPersona
+	 *            idPersona
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validatePersonaSollicitantprincipal(Persones sollicitant,
+			String idPersona, Resultat resultatError) throws GPAApiParamValidationException {
+		if (StringUtils.equals(sollicitant.getId().toString(), idPersona)) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_SOLLICITANT_PRINCIPAL);
 		}
 	}
 

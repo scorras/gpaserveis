@@ -17,6 +17,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +42,7 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentEntradaDigitali
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearDocumentTramitacioDigitalitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.CrearRequerimentBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.documents.DescarregarDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocsAssociatsIntraBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.DocumentsTramitacioCercaBDTO;
@@ -125,6 +127,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CrearNotifica
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsAssociatsIntra;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRegistrarComunicat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
@@ -291,6 +294,8 @@ import io.swagger.annotations.Extension;
 import io.swagger.annotations.ExtensionProperty;
 import lombok.extern.apachecommons.CommonsLog;
 import net.opentrends.openframe.services.configuration.annotation.EntornPropertySource;
+import net.opentrends.openframe.services.rest.http.HttpHeaders;
+import net.opentrends.openframe.services.rest.http.ResponseEntity;
 import net.opentrends.openframe.services.security.core.userdetails.ImiUserDetails;
 import net.opentrends.openframe.services.security.util.SecurityUtils;
 
@@ -375,7 +380,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	        @ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioFi", required = false) String dataPresentacioFi,
 	        @ApiParam(value = "Filtra expedients per un conjunt de codis de procediment") @RequestParam(value = "codiProcediment", required = false) String[] codiProcediment,
 	        @ApiParam(value = "En cas que s'indiqui codi de procediment, filtra expedients per versió de procediment", allowableValues = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String versioProcediment,
-	        @ApiParam(value = "Filtra expedients per conjunt d'estats", allowableValues = EstatTramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatTramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
+	        @ApiParam(value = "Filtra expedients per conjunt d'estats. Possibles valors: EN_PREPARACIO, SOL_LICITUD_EN_REVISIO, PENDENT_ESMENES, EN_TRAMITACIO, PENDENT_AL_LEGACIONS, PENDENT_D_INFORMES, PROPOSTA_DE_FINALITZACIO, FINALITZAT_I_COMUNICAT, TANCAT", allowableValues = EstatTramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatTramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
 	        @ApiParam(value = "Filtra expedients per Unitat Gestora") @RequestParam(value = "unitatGestora", required = false) String unitatGestora,
 	        @ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
 	        @ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci)
@@ -2000,6 +2005,80 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		return respostaIncorporarNouDocumentRDTO;
 	}
 
+	@GetMapping(value = "/expedients/{codiExpedient}/documents/{idDocument}", produces = "*/*")
+	@ApiOperation(nickname = "descarregarDocumentExpedientTramitadors", value = "Descarregar document de l'expedient", tags = {
+	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	public ResponseEntity<byte[]> descarregarDocumentExpedient(
+	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
+	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument)
+	        throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
+
+		ResponseEntity<byte[]> resposta = null;
+
+		try {
+			// IMPORTANTE: Para permitir la descarga del Comprovant de registro
+			// se da soporte también para documentos de tramitación en este caso
+			DocsEntradaRDTO docsEntradaRDTO = null;
+			DocsTramitacioRDTO docsTramitacioRDTO = null;
+
+			// El codi del expediente debe existir
+			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
+			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_DESCARREGAR_DOCUMENT);
+
+			docsEntradaRDTO = serveisService.consultarDadesDocumentAportat(idDocument);
+			docsTramitacioRDTO = serveisService.consultarDadesDocumentGenerat(idDocument);
+
+			// El id del documento debe existir y pertenecer al expediente
+			// indicado
+			DocsRDTO docsRDTO = serveisService.consultarDadesDocument(idDocument);
+			ServeisRestControllerValidationHelper.validateDocument(docsRDTO, dadesExpedientBDTO.getExpedientsRDTO(),
+			        Resultat.ERROR_DESCARREGAR_DOCUMENT);
+
+			// Se construye el modelo para la llamada a la operación de
+			// descarregar document
+			DescarregarDocumentExpedientBDTO descarregarDocumentExpedientBDTO = new DescarregarDocumentExpedientBDTO(
+			        dadesExpedientBDTO.getExpedientsRDTO().getId(), idDocument);
+			byte[] result = serveisService.descarregarDocumentExpedient(descarregarDocumentExpedientBDTO);
+
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+			headers.add("Pragma", "no-cache");
+			headers.add("Expires", "0");
+			headers.add("Content-Length", String.valueOf(result.length));
+			headers.add("Content-Type", MediaType.APPLICATION_OCTET_STREAM_VALUE);
+			String filename = docsRDTO.getDocsFisics().getNom();
+			headers.add("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+
+			resposta = new ResponseEntity<byte[]>(result, headers, HttpStatus.OK);
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("descarregarDocumentExpedient(String, BigDecimal)", e); //$NON-NLS-1$ type
+			resposta = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+			resultatAudit = "KO";
+			ex = e;
+		} catch (Exception e) {
+			log.error("descarregarDocumentExpedient(String, BigDecimal)", e); //$NON-NLS-1$
+			resposta = new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
+			resultatAudit = "KO";
+			ex = e;
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients/" + codiExpedient + "/documents/" + idDocument);
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Descarregar document de l'expedient");
+
+			auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, null, resposta, ex);
+		}
+		return resposta;
+	}
+
 	/**
 	 * Validar resolucio document.
 	 *
@@ -3456,7 +3535,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Crear Notificación
 			CrearNotificacio crearNotificacio = modelMapper.map(expedientNotificacio, CrearNotificacio.class);
-			crearNotificacio.setCodiExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			// crearNotificacio.setCodiExpedient(ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient,
+			// expedientsIdOrgan));
+			crearNotificacio.setCodiExpedient(codiExpedient);
 			crearNotificacio.setIdDocumentPrincipal(idDocumentPrincipal);
 			crearNotificacio.setIdsAnnexosList(expedientNotificacio.getIdsAnnexosList());
 			crearNotificacio.setIdExpedient(dadesExpedientBDTO.getExpedientsRDTO().getId());
