@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.1.4"
+  version: "2.2.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -164,7 +164,8 @@ paths:
         allowEmptyValue: false
       - name: "estat"
         in: "query"
-        description: "Filtra expedients per conjunt d'estats"
+        description: "Filtra expedients per conjunt d'estats. Possibles valors: ESBORRANY,\
+          \ EN_CURS, PENDENT_ESMENES, PENDENT_ALEGACIONS, RESOLT, TANCAT"
         required: false
         type: "array"
         items:
@@ -1156,7 +1157,8 @@ paths:
       - name: "activableFormatElectronic"
         in: "query"
         description: "Filtra procediments per canals d'activació en format electrò\
-          nic"
+          nic. Possibles valors: PORTAL_TRAMITS, ALTRA_WEB, MOBIL, QUIOSC, PER_CANAL_GENERALISTA,\
+          \ PER_CANAL_ESPECIFIC"
         required: false
         type: "array"
         items:
@@ -1191,7 +1193,12 @@ paths:
         allowEmptyValue: false
       - name: "competenciaAssociada"
         in: "query"
-        description: "Filtrar procediments per conjunt de competències associades"
+        description: "Filtrar procediments per conjunt de competències associades.\
+          \ Possibles valors: ACCIO_SOCIAL, AFERS_JURIDICS, BENS_I_PATRIMONI, COMERC_I_CONSUM,\
+          \ CULTURA, EDUCACIO, ESPORTS_I_LLEURE, HABITATGE, MEDI_AMBIENT, MOVILITAT_TRANSPORT_I_CIRCULACIO,\
+          \ OBRES_I_INFRAESTRUCTURES, ORGANITZACIO_I_COORDINACIO_ADMINISTRATIVA, ORGANS_DE_GOVERN,\
+          \ POBLACIO_I_DEMARCACIO, POTESTATS_DE_PLANIFICACIO_I_NORMATIVA, PRESSUPOSTOS_I_FINANCES,\
+          \ PROMOCIO_ECONOMICA, RECURSOS_HUMANS"
         required: false
         type: "array"
         items:
@@ -1219,7 +1226,8 @@ paths:
         - "RECURSOS_HUMANS"
       - name: "estat"
         in: "query"
-        description: "Filtrar procediments per conjunt d'estats"
+        description: "Filtrar procediments per conjunt d'estats. Possibles valors:\
+          \ EN_ELABORACIO, FINALITZAT, PUBLICAT"
         required: false
         type: "array"
         items:
@@ -1241,7 +1249,16 @@ paths:
         - "NO"
       - name: "familia"
         in: "query"
-        description: "Filtrar procediments per conjunt de famílies"
+        description: "Filtrar procediments per conjunt de famílies. Possibles valors:\
+          \ ATENCIO_SOCIAL_I_RESIDENCIAL, AUTORITZACIONS_I_COMUNICATS, CERTAMENS_I_PREMIS,\
+          \ COL_LABORACIO, CONSULTES_I_SUGGERIMENTS, CONTRACTACIO_PUBLICA, DISCIPLINA_INSPECCIO_I_PROTECCIO_DE_LA_LEGALITAT,\
+          \ DRETS_D_ACCES_A_LA_INFORMACIO, DRETS_I_ACTIVITAT_CIVIL, ENS_DEPENDENTS_I_PARTICIPATS,\
+          \ EXECUCIO_URBANISTICA, GESTIO_DEL_PERSONAL, GESTIO_PRESSUPOSTARIA_I_FINANCERA,\
+          \ GESTIO_TRIBUTARIA, INFORMES_I_CERTIFICATS, INSCRIPCIONS_REGISTRALS, MEDIACIO_I_ARBITRATGE,\
+          \ NORMATIVA, OCUPACIO_I_SERVEIS_A_LA_VIA_PUBLICA, PARTICIPACIO, PLANEJAMENT_URBANISTIC,\
+          \ PREVENCIO, QUEIXES_I_RECLAMACIONS, REGIM_DE_BENS_I_PATRIMONI, REGIM_SANCIONADOR,\
+          \ RESPONSABILITAT_PATRIMONIAL, REVISIO_DE_L_ACTUACIO_ADMINISTRATIVA, SUBVENCIONS_I_AJUTS,\
+          \ TARGETES_CARNETS_I_IDENTIFICACIONS, ALTRES"
         required: false
         type: "array"
         items:
@@ -2346,7 +2363,10 @@ paths:
         allowEmptyValue: false
       - name: "estat"
         in: "query"
-        description: "Filtra expedients per conjunt d'estats"
+        description: "Filtra expedients per conjunt d'estats. Possibles valors: EN_PREPARACIO,\
+          \ SOL_LICITUD_EN_REVISIO, PENDENT_ESMENES, EN_TRAMITACIO, PENDENT_AL_LEGACIONS,\
+          \ PENDENT_D_INFORMES, PROPOSTA_DE_FINALITZACIO, FINALITZAT_I_COMUNICAT,\
+          \ TANCAT"
         required: false
         type: "array"
         items:
@@ -3395,6 +3415,40 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /serveis/tramitadors/expedients/{codiExpedient}/documents/{idDocument}:
+    get:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Descarregar document de l'expedient"
+      operationId: "descarregarDocumentExpedientTramitadors"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "codiExpedient"
+        in: "path"
+        description: "Codi de l'expedient"
+        required: true
+        type: "string"
+      - name: "idDocument"
+        in: "path"
+        description: "Identificador del document"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "string"
+            format: "byte"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /serveis/tramitadors/expedients/{codiExpedient}/interoperabilitat:
     post:
       tags:
