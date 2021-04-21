@@ -2350,5 +2350,24 @@ public class ServeisRestControllerValidationHelper {
 			throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_TRAM_OVT_NOT_FOUND.getDescripcio());
 		}
 	}
+	
+	/**
+	 * Validate persona sol·licitant principal.
+	 *
+	 * @param Persones
+	 *            the Persones sollicitant
+	 * @param idPersona
+	 *            idPersona
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validatePersonaSollicitantprincipal(Persones sollicitant,
+			String idPersona, Resultat resultatError) throws GPAApiParamValidationException {
+		if (StringUtils.equals(sollicitant.getId().toString(), idPersona)) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_SOLLICITANT_PRINCIPAL);
+		}
+	}
 
 }
