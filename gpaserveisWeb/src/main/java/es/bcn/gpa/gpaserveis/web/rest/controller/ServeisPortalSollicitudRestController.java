@@ -1740,6 +1740,11 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validatePersonaImplicada(dadesSollicitudBDTO.getPersonesImplicades(),
 			        personesSollicitudRDTO.getPersones().getDocumentsIdentitat().getNumeroDocument(),
 			        Resultat.ERROR_ESBORRAR_TERCERA_PERSONA_SOLLICITUD);
+			
+			// Validar si es sol·licitant principal, no se podra esborrar
+			ServeisRestControllerValidationHelper.validatePersonaSollicitantprincipal(dadesSollicitudBDTO.getSollicitant(),
+					idPersona.toString(),
+					Resultat.ERROR_ESBORRAR_TERCERA_PERSONA_SOLLICITUD);
 
 			serveisService.esborrarPersonaSollicitud(idPersona);
 
