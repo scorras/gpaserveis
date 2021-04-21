@@ -761,12 +761,12 @@ public class ServeisPortalRestController extends BaseRestController {
 			if (CollectionUtils.isNotEmpty(expedientConsultaRDTO.getAccionsDisponibles())) {
 				filtrarTramitsOvtDisponibles(dadesExpedientBDTO, expedientConsultaRDTO);
 			}
-			
+
 			// Devolvemos el id en Documentum del expediente en la consulta
 			if (StringUtils.isNotEmpty(dadesExpedientBDTO.getExpedientsRDTO().getMigracioIdOrigen())) {
 				expedientConsultaRDTO.setIdGestorDocumental(dadesExpedientBDTO.getExpedientsRDTO().getMigracioIdOrigen());
 			}
-			
+
 			respostaConsultaExpedientsRDTO.setExpedient(expedientConsultaRDTO);
 
 		} catch (Exception e) {
@@ -1838,8 +1838,9 @@ public class ServeisPortalRestController extends BaseRestController {
 
 			// Si el documento de entrada está basado en plantilla se deberá
 			// almacenar el XML de datos en la posición 1
-			if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null && SuportConfeccioApiParamValue.PLANTILLA.getInternalValue()
-			        .equals(docsEntradaRDTO.getConfiguracioDocsEntrada().getSuportConfeccio())) {
+			if (docsEntradaRDTOResposta != null && docsEntradaRDTO.getConfiguracioDocsEntrada() != null
+			        && SuportConfeccioApiParamValue.PLANTILLA.getInternalValue()
+			                .equals(docsEntradaRDTO.getConfiguracioDocsEntrada().getSuportConfeccio())) {
 				String idDocumentum = docsEntradaRDTOResposta.getMigracioIdOrigen();
 				// Datos principales de la solicitud SOL
 				BigDecimal visibilitat = BigDecimal.ONE;

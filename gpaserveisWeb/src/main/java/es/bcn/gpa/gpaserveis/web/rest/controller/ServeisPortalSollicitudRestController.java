@@ -474,8 +474,9 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 			// Si el documento de entrada está basado en plantilla se deberá
 			// almacenar el XML de datos en la posición 1
-			if (docsEntradaRDTO.getConfiguracioDocsEntrada() != null && SuportConfeccioApiParamValue.PLANTILLA.getInternalValue()
-			        .equals(docsEntradaRDTO.getConfiguracioDocsEntrada().getSuportConfeccio())) {
+			if (docsEntradaRDTOResposta != null && docsEntradaRDTO.getConfiguracioDocsEntrada() != null
+			        && SuportConfeccioApiParamValue.PLANTILLA.getInternalValue()
+			                .equals(docsEntradaRDTO.getConfiguracioDocsEntrada().getSuportConfeccio())) {
 				String idDocumentum = docsEntradaRDTOResposta.getMigracioIdOrigen();
 				// Se guarda el XML de datos en la posición 1 del objeto
 				// documental del documento de solicitud (basado en plantilla)
