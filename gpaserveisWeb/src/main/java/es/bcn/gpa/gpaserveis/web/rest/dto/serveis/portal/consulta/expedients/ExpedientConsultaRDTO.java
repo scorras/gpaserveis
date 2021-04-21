@@ -28,7 +28,7 @@ import lombok.Setter;
 @JsonPropertyOrder({ "id", "codi", "accionsDisponibles", "dataPresentacio", "dataModificacio", "dataLimitAllegacions", "dataLimitEsmena",
 		"unitatGestora", "estat", "estatCastella", "historics", "procediment", "registre", "sollicitant", "representant",
 		"personesInteressades", "personesImplicades", "documentsAportats", "configuracioDocumentacioRequerida", "documentsGenerats",
-		"dadesOperacio", "sollicituds", "pathGestorDocumental" })
+		"dadesOperacio", "sollicituds", "pathGestorDocumental", "idGestorDocumental" })
 @Getter
 @Setter
 public class ExpedientConsultaRDTO {
@@ -85,4 +85,6 @@ public class ExpedientConsultaRDTO {
 	private List<SollicitudsExpedientRDTO> sollicituds;
 	@ApiModelProperty(value = "Path Gestor Documental")
 	private String pathGestorDocumental;
+	@ApiModelProperty(value = "Id Gestor Documental")
+	private String idGestorDocumental;
 }
