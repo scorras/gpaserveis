@@ -148,6 +148,8 @@ public enum ErrorPrincipal {
 	ERROR_REGISTRAR_AUDIT_SERVEIS("4017", "No s'ha pogut registrar l'auditoria de serveis"),
 	
 	ERROR_EXPEDIENTS_PERSONA_SOLLICITANT_PRINCIPAL("4018", "El sol·licitant principal no es pot esborrar"),
+	
+	ERROR_PERSONES_SOLLICITUD_NOT_FOUND("4019", "No s'ha trobat la tercera persona amb id: "),
 
 	/* Integracions */
 	ERROR_ARIADNA("5001", ""),
