@@ -145,6 +145,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarTabletDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocumentResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TipusMime;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AnotarOperacioComptableRDTO;
@@ -184,6 +185,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.Boolean
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.ConfiguracioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.RevisioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusAccionsPortaSigApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusMimeApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusSignaturaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.MotiuPausaApiParamValue;
@@ -192,6 +194,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.Tran
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.ConfiguracioApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.TipusMimeApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.TipusSignaturaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatTramitadorApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.MotiuPausaApiParamValueTranslator;
@@ -2685,6 +2688,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_COMPLETAR_DOCUMENT_EXPEDIENT);
 		GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = null;
 		GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO = null;
+		TipusMime tipusMime = null;
 		try {
 			ConfiguracioApiParamValueTranslator configuracioApiParamValueTranslator = new ConfiguracioApiParamValueTranslator();
 			ConfiguracioApiParamValue configuracioApiParamValue = configuracioApiParamValueTranslator
@@ -2720,6 +2724,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				documentacioId = docsTramitacioRDTO.getDocumentacio();
 				docsFisicsIdAnterior = docsTramitacioRDTO.getDocsFisics().getId();
 				docsFisicsPlantillaAnterior = docsTramitacioRDTO.getDocsFisics().getPlantilla();
+				tipusMime = docsTramitacioRDTO.getDocsFisics().getTipusMime();
 				if (documentComplecio.getDocument().getRequeriment()) {
 					requeriments = docsTramitacioRDTO.getRequeriments();
 				}
@@ -2849,6 +2854,14 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 						DocsFisics docsFisics = new DocsFisics();
 						docsFisics.setId(docsFisicsIdAnterior);
 						docsFisics.setPlantilla(docsFisicsPlantillaAnterior);
+						
+						TipusMimeApiParamValueTranslator tipusMimeApiParamValueTranslator = new TipusMimeApiParamValueTranslator();
+						TipusMimeApiParamValue tipusMimeApiParamValue = tipusMimeApiParamValueTranslator
+						        .getEnumByApiParamValue(documentComplecio.getDocument().getFitxer().getFormat());
+						tipusMime.setDescripcio(tipusMimeApiParamValue.getApiParamValue());
+						tipusMime.setId(tipusMimeApiParamValue.getInternalValue());
+						docsFisics.setTipusMime(tipusMime);
+						
 						docsTramitacioRDTO.setDocsFisics(docsFisics);
 
 						ConfiguracioDocsTramitacio configuracioDocsTramitacio = new ConfiguracioDocsTramitacio();
