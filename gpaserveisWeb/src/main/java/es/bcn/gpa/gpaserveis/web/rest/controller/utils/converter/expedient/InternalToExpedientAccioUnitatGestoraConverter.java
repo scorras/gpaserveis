@@ -22,14 +22,17 @@ public class InternalToExpedientAccioUnitatGestoraConverter extends AbstractConv
 	@Override
 	protected ExpedientAccioUnitatGestoraRDTO convert(DadesExpedientBDTO source) {
 		ExpedientAccioUnitatGestoraRDTO expedientAccioUnitatGestoraRDTO = null;
+		UnitatGestoraAccioRDTO unitatGestoraAccioRDTO = null;
 		if (source != null) {
 			expedientAccioUnitatGestoraRDTO = new ExpedientAccioUnitatGestoraRDTO();
 
 			expedientAccioUnitatGestoraRDTO.setId(source.getExpedientsRDTO().getId());
 			expedientAccioUnitatGestoraRDTO.setCodi(
 			        ConverterHelper.buildCodiExpedient(source.getExpedientsRDTO().getCodi(), source.getExpedientsRDTO().getIdEstat()));
-			UnitatGestoraAccioRDTO unitatGestoraAccioRDTO = new UnitatGestoraAccioRDTO();
-			unitatGestoraAccioRDTO.setCodi(source.getUnitatsGestoresRDTO().getNom());
+			if (source.getUnitatsGestoresRDTO() != null) {
+				unitatGestoraAccioRDTO = new UnitatGestoraAccioRDTO();
+				unitatGestoraAccioRDTO.setCodi(source.getUnitatsGestoresRDTO().getNom());
+			}
 			expedientAccioUnitatGestoraRDTO.setUnitatGestora(unitatGestoraAccioRDTO);
 		}
 		return expedientAccioUnitatGestoraRDTO;
