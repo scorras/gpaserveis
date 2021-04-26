@@ -2688,7 +2688,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_COMPLETAR_DOCUMENT_EXPEDIENT);
 		GuardarDocumentEntradaFitxerBDTO guardarDocumentEntradaFitxerBDTO = null;
 		GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO = null;
-		TipusMime tipusMime = null;
+		Integer idTipusMimeAnterior = null;
+		Integer idTipusMime = null;
 		try {
 			ConfiguracioApiParamValueTranslator configuracioApiParamValueTranslator = new ConfiguracioApiParamValueTranslator();
 			ConfiguracioApiParamValue configuracioApiParamValue = configuracioApiParamValueTranslator
@@ -2724,7 +2725,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				documentacioId = docsTramitacioRDTO.getDocumentacio();
 				docsFisicsIdAnterior = docsTramitacioRDTO.getDocsFisics().getId();
 				docsFisicsPlantillaAnterior = docsTramitacioRDTO.getDocsFisics().getPlantilla();
-				tipusMime = docsTramitacioRDTO.getDocsFisics().getTipusMime();
+				idTipusMimeAnterior = docsTramitacioRDTO.getDocsFisics().getTipusMime().getId();
 				if (documentComplecio.getDocument().getRequeriment()) {
 					requeriments = docsTramitacioRDTO.getRequeriments();
 				}
@@ -2830,6 +2831,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 						configuracioDocsTramitacioMap.get(String.valueOf(docsTramitacioRDTO.getConfigDocTramitacio())).getId());
 				docsTramitacioRDTO.setId(idDocument);
 				docsTramitacioRDTO.setDocumentacio(documentacioId);
+				idTipusMime = docsTramitacioRDTO.getDocsFisics().getTipusMime().getId();
 
 				if (file != null) {
 					if (documentComplecio.getDocument().getRequeriment()) {
@@ -2850,16 +2852,13 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					}
 
 				} else {
-					if (documentComplecio.getDocument().getPlantillaPdf() && (new Integer(0)).equals(docsFisicsPlantillaAnterior)) {
+					if (documentComplecio.getDocument().getPlantillaPdf() && (((new Integer(0)).equals(docsFisicsPlantillaAnterior)) 
+							|| !(idTipusMimeAnterior.equals(idTipusMime)))) {
 						DocsFisics docsFisics = new DocsFisics();
 						docsFisics.setId(docsFisicsIdAnterior);
-						docsFisics.setPlantilla(docsFisicsPlantillaAnterior);
-						
-						TipusMimeApiParamValueTranslator tipusMimeApiParamValueTranslator = new TipusMimeApiParamValueTranslator();
-						TipusMimeApiParamValue tipusMimeApiParamValue = tipusMimeApiParamValueTranslator
-						        .getEnumByApiParamValue(documentComplecio.getDocument().getFitxer().getFormat());
-						tipusMime.setDescripcio(tipusMimeApiParamValue.getApiParamValue());
-						tipusMime.setId(tipusMimeApiParamValue.getInternalValue());
+						docsFisics.setPlantilla(new Integer(0));
+						TipusMime tipusMime = new TipusMime();
+						tipusMime.setId(idTipusMime);
 						docsFisics.setTipusMime(tipusMime);
 						
 						docsTramitacioRDTO.setDocsFisics(docsFisics);
