@@ -2369,5 +2369,23 @@ public class ServeisRestControllerValidationHelper {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_SOLLICITANT_PRINCIPAL);
 		}
 	}
-
+	
+	/**
+	 * Validate persones sollicitud Is Not Null.
+	 *
+	 * @param PersonesSollicitudRDTO
+	 *            the Persones sollicitud RDTO
+	 * @param idPersona
+	 *            idPersona
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validatePersonesSollicitudIsNotNull(PersonesSollicitudRDTO personesSollicitudRDTO,
+			String idPersona, Resultat resultatError) throws GPAApiParamValidationException {
+		if (personesSollicitudRDTO == null) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_PERSONES_SOLLICITUD_NOT_FOUND, idPersona);
+		}
+	}
 }
