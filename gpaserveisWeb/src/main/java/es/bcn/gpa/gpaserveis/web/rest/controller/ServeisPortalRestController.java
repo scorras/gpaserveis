@@ -2961,10 +2961,15 @@ public class ServeisPortalRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateUsuariLogueadoInteressades(clientEntity,
 			        dadesExpedientBDTO.getPersonesInteressades(), dadesExpedientBDTO.getSollicitant(), dadesExpedientBDTO.getRepresentant(),
 			        Resultat.ERROR_ESBORRAR_TERCERA_PERSONA);
-
-			// El id de la tercera persona debe existir y corresponderse con una
-			// persona implicada en el expediente
+			
 			personesSollicitudRDTO = serveisService.consultarDadesPersonaSollicitud(idPersona);
+			
+			ServeisRestControllerValidationHelper.validatePersonesSollicitudIsNotNull(personesSollicitudRDTO,
+					idPersona.toString(),
+			        Resultat.ERROR_ESBORRAR_TERCERA_PERSONA);
+			
+			// El id de la tercera persona debe existir y corresponderse con una
+						// persona implicada en el expediente
 			ServeisRestControllerValidationHelper.validatePersonaImplicada(dadesExpedientBDTO.getPersonesImplicades(),
 			        personesSollicitudRDTO.getPersones().getDocumentsIdentitat().getNumeroDocument(),
 			        Resultat.ERROR_ESBORRAR_TERCERA_PERSONA);
