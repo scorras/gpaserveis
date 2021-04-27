@@ -2363,9 +2363,11 @@ public class ServeisRestControllerValidationHelper {
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
-	public static void validatePersonaSollicitantprincipal(Persones sollicitant,
-			String idPersona, Resultat resultatError) throws GPAApiParamValidationException {
-		if (StringUtils.equals(sollicitant.getId().toString(), idPersona)) {
+	public static void validatePersonaSollicitantprincipal(PersonesSollicitudRDTO personesSollicitudRDTO,
+			Resultat resultatError) throws GPAApiParamValidationException {
+		if ((personesSollicitudRDTO.getEsInteressada() != null && personesSollicitudRDTO.getEsInteressada().intValue() == NumberUtils.INTEGER_ONE.intValue()) &&
+				(personesSollicitudRDTO.getRelacio() != null && personesSollicitudRDTO.getRelacio().intValue() == NumberUtils.INTEGER_ONE.intValue()) &&
+				(personesSollicitudRDTO.getRelacioPrincipal() != null && personesSollicitudRDTO.getRelacioPrincipal().intValue() == NumberUtils.INTEGER_ONE.intValue())) {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_PERSONA_SOLLICITANT_PRINCIPAL);
 		}
 	}
