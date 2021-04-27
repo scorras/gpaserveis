@@ -16,7 +16,7 @@ import lombok.Setter;
  */
 @ApiModel(value = "ExpedientRegistrar")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "signaturaSolicitud", "matriculaInformador", "idioma" })
+@JsonPropertyOrder({ "signaturaSolicitud", "idioma" })
 @Getter
 @Setter
 public class ExpedientRegistrarRDTO {
@@ -24,10 +24,6 @@ public class ExpedientRegistrarRDTO {
 	/** The signatura solicitud. */
 	@ApiModelProperty(value = "Identificador de la signatura de la sol·licitud")
 	private BigDecimal signaturaSolicitud;
-
-	/** The matricula informador. */
-	@ApiModelProperty(value = "Matrícula de l'informador.")
-	private String matriculaInformador;
 
 	/** The idioma. */
 	@ApiModelProperty(value = "Idioma de la plantilla del justificant", allowableValues = IdiomaPlantillaDocApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES)

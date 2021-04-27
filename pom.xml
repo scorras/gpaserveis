@@ -22,7 +22,7 @@
     <module>gpaserveisRestApiClientDocumentacio</module>
   </modules>
   <properties>
-    <revision>2.1.0</revision>
+    <revision>2.2.1</revision>
     <version.sonar-maven-plugin>3.7.0.1746</version.sonar-maven-plugin>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>

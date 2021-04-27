@@ -10,20 +10,31 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.modelmapper.AbstractConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadaEspecificaBDTO;
+import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MunicipisRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ProvinciesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DadesAtributsExpedientsRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DadesAtributsValorsLlistaMultipleExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DadesAtributsValorsLlistaExpedientsRDTO;
+import lombok.extern.apachecommons.CommonsLog;
 
 /**
  * The Class InternalToDadesOperacioListConverter.
  */
 @Component("expedientInternalToDadesOperacioListConverter")
+@CommonsLog
 public class InternalToDadesOperacioListConverter extends AbstractConverter<List<DadaEspecificaBDTO>, List<DadesAtributsExpedientsRDTO>> {
+
+	@Autowired
+	private ServeisService serveisService;
 
 	/*
 	 * (non-Javadoc)
@@ -34,10 +45,13 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 	protected List<DadesAtributsExpedientsRDTO> convert(List<DadaEspecificaBDTO> source) {
 		List<DadesAtributsExpedientsRDTO> dadesAtributsExpedientsRDTOList = null;
 		DadesAtributsExpedientsRDTO dadesAtributsExpedientsRDTO = null;
+		String index = null;
 		List<String> valorList = null;
-		List<DadesAtributsValorsLlistaMultipleExpedientsRDTO> valorsLlistaMultiple = null;
+		List<DadesAtributsValorsLlistaExpedientsRDTO> valorsLlistaList = null;
+		MunicipisRDTO municipisRDTO = null;
+		ProvinciesRDTO provinciesRDTO = null;
+		PaisosRDTO paisosRDTO = null;
 		StringBuffer valorStringBuffer = null;
-		String indexLlistaSimple = null;
 
 		if (CollectionUtils.isNotEmpty(source)) {
 			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
@@ -45,8 +59,12 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 			for (DadaEspecificaBDTO dadaEspecificaBDTO : source) {
 				dadesAtributsExpedientsRDTO = new DadesAtributsExpedientsRDTO();
 				dadesAtributsExpedientsRDTO.setCodi(dadaEspecificaBDTO.getDadaOperacio().getCodi());
+				index = null;
+				municipisRDTO = null;
+				provinciesRDTO = null;
+				paisosRDTO = null;
 				valorList = new ArrayList<String>();
-				valorsLlistaMultiple = new ArrayList<DadesAtributsValorsLlistaMultipleExpedientsRDTO>();
+				valorsLlistaList = new ArrayList<DadesAtributsValorsLlistaExpedientsRDTO>();
 				if (CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecifica().getDadesEspecifiquesValorsList())) {
 					for (DadesEspecifiquesValors dadesEspecifiquesValors : dadaEspecificaBDTO.getDadaEspecifica()
 					        .getDadesEspecifiquesValorsList()) {
@@ -58,7 +76,6 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 							}
 						} else {
 							valorStringBuffer = new StringBuffer();
-							indexLlistaSimple = null;
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorBoolean() != null)
 							        ? BooleanUtils.toStringTrueFalse(BooleanUtils.toBoolean(dadesEspecifiquesValors.getValorBoolean(),
 							                NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO))
@@ -72,38 +89,82 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorInteger() != null)
 							        ? dadesEspecifiquesValors.getValorInteger() : StringUtils.EMPTY);
 							if (dadesEspecifiquesValors.getValorListaMultiple() != null) {
-								valorsLlistaMultiple.add(obtenirItemLlistaMultiple(dadesEspecifiquesValors.getValorListaMultiple(),
+								valorsLlistaList.add(obtenirItemLlista(dadesEspecifiquesValors.getValorListaMultiple(),
 								        dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
 							} else {
 								valorStringBuffer.append(StringUtils.EMPTY);
 							}
 							if (dadesEspecifiquesValors.getValorListaSimple() != null) {
+								valorsLlistaList.add(obtenirItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
+								        dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
+								index = obtenirIndexItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
+								        dadaEspecificaBDTO.getDadaOperacio().getItemsList());
 								valorStringBuffer.append(obtenirDescripcioItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
 								        dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
-								indexLlistaSimple = obtenirIndexItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
-								        dadaEspecificaBDTO.getDadaOperacio().getItemsList());
 							} else {
 								valorStringBuffer.append(StringUtils.EMPTY);
 							}
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorMoneda() != null)
 							        ? dadesEspecifiquesValors.getValorMoneda() : StringUtils.EMPTY);
-							valorStringBuffer.append((dadesEspecifiquesValors.getValorMunicipi() != null)
-							        ? dadesEspecifiquesValors.getValorMunicipi() : StringUtils.EMPTY);
-							valorStringBuffer.append((dadesEspecifiquesValors.getValorPais() != null)
-							        ? dadesEspecifiquesValors.getValorPais() : StringUtils.EMPTY);
-							valorStringBuffer.append((dadesEspecifiquesValors.getValorProvincia() != null)
-							        ? dadesEspecifiquesValors.getValorProvincia() : StringUtils.EMPTY);
+							if (dadesEspecifiquesValors.getValorMunicipi() != null) {
+								try {
+									municipisRDTO = serveisService.consultarMunicipisByCodi(
+									        dadesEspecifiquesValors.getValorMunicipi().substring(3),
+									        dadesEspecifiquesValors.getValorMunicipi().substring(0, 3));
+								} catch (GPAServeisServiceException e) {
+									log.error("No s'ha pogut obtenir la informació del municipi", e);
+								}
+								valorsLlistaList.add(obtenirItemLlistaMunicipi(municipisRDTO, dadesEspecifiquesValors.getValorMunicipi()));
+								index = dadesEspecifiquesValors.getValorMunicipi();
+								valorStringBuffer.append((municipisRDTO != null) ? municipisRDTO.getNom() : StringUtils.EMPTY);
+							} else {
+								valorStringBuffer.append(StringUtils.EMPTY);
+							}
+							if (dadesEspecifiquesValors.getValorProvincia() != null) {
+								try {
+									provinciesRDTO = serveisService.consultarProvinciesByCodi(dadesEspecifiquesValors.getValorProvincia());
+								} catch (GPAServeisServiceException e) {
+									log.error("No s'ha pogut obtenir la informació de la província", e);
+								}
+								valorsLlistaList
+								        .add(obtenirItemLlistaProvincia(provinciesRDTO, dadesEspecifiquesValors.getValorProvincia()));
+								index = dadesEspecifiquesValors.getValorProvincia();
+								valorStringBuffer.append((provinciesRDTO != null) ? provinciesRDTO.getNom() : StringUtils.EMPTY);
+							} else {
+								valorStringBuffer.append(StringUtils.EMPTY);
+							}
+							if (dadesEspecifiquesValors.getValorPais() != null) {
+								try {
+									paisosRDTO = serveisService.consultarPaisosByCodi(dadesEspecifiquesValors.getValorPais());
+								} catch (GPAServeisServiceException e) {
+									log.error("No s'ha pogut obtenir la informació del municipi", e);
+								}
+								valorsLlistaList.add(obtenirItemLlistaPais(paisosRDTO, dadesEspecifiquesValors.getValorPais()));
+								index = dadesEspecifiquesValors.getValorPais();
+								valorStringBuffer.append((paisosRDTO != null) ? paisosRDTO.getNom() : StringUtils.EMPTY);
+							} else {
+								valorStringBuffer.append(StringUtils.EMPTY);
+							}
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorString() != null)
 							        ? dadesEspecifiquesValors.getValorString() : StringUtils.EMPTY);
-							if (CollectionUtils.isEmpty(valorsLlistaMultiple)) {
+
+							if (StringUtils.isNotBlank(valorStringBuffer.toString())) {
 								valorList.add(valorStringBuffer.toString());
 							}
 						}
 					}
 				}
-				dadesAtributsExpedientsRDTO.setIndex(indexLlistaSimple);
+				// Con el objetivo de que no aparezcan en el XML, las listas que
+				// van vacías se ponen a null
+				if (CollectionUtils.isEmpty(valorList)) {
+					valorList = null;
+				}
+				if (CollectionUtils.isEmpty(valorsLlistaList)) {
+					valorsLlistaList = null;
+				}
+				dadesAtributsExpedientsRDTO.setIndex(index);
 				dadesAtributsExpedientsRDTO.setValor(valorList);
-				dadesAtributsExpedientsRDTO.setValorsLlista(valorsLlistaMultiple);
+				dadesAtributsExpedientsRDTO.setValorsLlista(valorsLlistaList);
 				dadesAtributsExpedientsRDTOList.add(dadesAtributsExpedientsRDTO);
 			}
 
@@ -149,23 +210,71 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 	}
 
 	/**
-	 * Obtenir item llista multiple.
+	 * Obtenir item llista.
 	 *
 	 * @param valorLlista
 	 *            the valor llista
 	 * @param itemsList
 	 *            the items list
-	 * @return the dades atributs valors llista multiple expedients RDTO
+	 * @return the dades atributs valors llista expedients RDTO
 	 */
-	private DadesAtributsValorsLlistaMultipleExpedientsRDTO obtenirItemLlistaMultiple(Integer valorLlista, List<Items> itemsList) {
+	private DadesAtributsValorsLlistaExpedientsRDTO obtenirItemLlista(Integer valorLlista, List<Items> itemsList) {
 		for (Items items : itemsList) {
 			if (items.getItemId().intValue() == valorLlista.intValue()) {
-				DadesAtributsValorsLlistaMultipleExpedientsRDTO dadesAtributsValorsLlistaMultipleExpedientsRDTO = new DadesAtributsValorsLlistaMultipleExpedientsRDTO();
-				dadesAtributsValorsLlistaMultipleExpedientsRDTO.setIndex(items.getItemId().toString());
-				dadesAtributsValorsLlistaMultipleExpedientsRDTO.setValor(items.getItemDescripcio());
-				return dadesAtributsValorsLlistaMultipleExpedientsRDTO;
+				DadesAtributsValorsLlistaExpedientsRDTO dadesAtributsValorsLlistaExpedientsRDTO = new DadesAtributsValorsLlistaExpedientsRDTO();
+				dadesAtributsValorsLlistaExpedientsRDTO.setIndex(items.getItemId().toString());
+				dadesAtributsValorsLlistaExpedientsRDTO.setValor(items.getItemDescripcio());
+				return dadesAtributsValorsLlistaExpedientsRDTO;
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Obtenir item llista municipi.
+	 *
+	 * @param municipisRDTO
+	 *            the municipis RDTO
+	 * @param codiIneMunicipiComplet
+	 *            the codi ine municipi complet
+	 * @return the dades atributs valors llista expedients RDTO
+	 */
+	private DadesAtributsValorsLlistaExpedientsRDTO obtenirItemLlistaMunicipi(MunicipisRDTO municipisRDTO, String codiIneMunicipiComplet) {
+		DadesAtributsValorsLlistaExpedientsRDTO dadesAtributsValorsLlistaExpedientsRDTO = new DadesAtributsValorsLlistaExpedientsRDTO();
+		dadesAtributsValorsLlistaExpedientsRDTO.setIndex(codiIneMunicipiComplet);
+		dadesAtributsValorsLlistaExpedientsRDTO.setValor((municipisRDTO != null) ? municipisRDTO.getNom() : StringUtils.EMPTY);
+		return dadesAtributsValorsLlistaExpedientsRDTO;
+	}
+
+	/**
+	 * Obtenir item llista provincia.
+	 *
+	 * @param provinciesRDTO
+	 *            the provincies RDTO
+	 * @param codiIneProvincia
+	 *            the codi ine provincia
+	 * @return the dades atributs valors llista expedients RDTO
+	 */
+	private DadesAtributsValorsLlistaExpedientsRDTO obtenirItemLlistaProvincia(ProvinciesRDTO provinciesRDTO, String codiIneProvincia) {
+		DadesAtributsValorsLlistaExpedientsRDTO dadesAtributsValorsLlistaExpedientsRDTO = new DadesAtributsValorsLlistaExpedientsRDTO();
+		dadesAtributsValorsLlistaExpedientsRDTO.setIndex(codiIneProvincia);
+		dadesAtributsValorsLlistaExpedientsRDTO.setValor((provinciesRDTO != null) ? provinciesRDTO.getNom() : StringUtils.EMPTY);
+		return dadesAtributsValorsLlistaExpedientsRDTO;
+	}
+
+	/**
+	 * Obtenir item llista pais.
+	 *
+	 * @param paisosRDTO
+	 *            the paisos RDTO
+	 * @param codiInePais
+	 *            the codi ine pais
+	 * @return the dades atributs valors llista expedients RDTO
+	 */
+	private DadesAtributsValorsLlistaExpedientsRDTO obtenirItemLlistaPais(PaisosRDTO paisosRDTO, String codiInePais) {
+		DadesAtributsValorsLlistaExpedientsRDTO dadesAtributsValorsLlistaExpedientsRDTO = new DadesAtributsValorsLlistaExpedientsRDTO();
+		dadesAtributsValorsLlistaExpedientsRDTO.setIndex(codiInePais);
+		dadesAtributsValorsLlistaExpedientsRDTO.setValor((paisosRDTO != null) ? paisosRDTO.getNom() : StringUtils.EMPTY);
+		return dadesAtributsValorsLlistaExpedientsRDTO;
 	}
 }

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.BooleanUtils;
@@ -104,14 +105,17 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollici
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ReqOperatiusTramOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.initialization.interceptor.ClientEntity;
 import es.bcn.gpa.gpaserveis.web.rest.controller.handler.ServeisRestControllerExceptionHandler;
+import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerAccionsDisponiblesHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerSagaHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerValidationHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerVisibilitatHelper;
@@ -129,6 +133,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.Tipus
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusSignaturaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.EstatTramitadorApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.SuportConfeccioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.procediment.ProcedimentsApiParamToInternalMapper;
@@ -276,23 +281,23 @@ public class ServeisPortalRestController extends BaseRestController {
 	@ApiOperation(nickname = "cercaProcedimentsPortal", value = "Cerca de procediments", tags = { "Serveis Portal API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaCercaProcedimentsRDTO cercaProcediments(
-			@ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
-			@ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
-			@ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
-			@ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio,
-			@ApiParam(value = "Filtra procediments per codi") @RequestParam(value = "codi", required = false) String codi,
-			@ApiParam(value = "Filtrar procediments per conjunt d'estats", allowableValues = EstatApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
-			@ApiParam(value = "Filtra procediments per nom") @RequestParam(value = "nom", required = false) String nom,
-			@ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
-			@ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci,
-			@ApiParam(value = "Filtra procediments per conjunt d'Unitats Gestores Responsables") @RequestParam(value = "ugr", required = false) String ugr,
-			@ApiParam(value = "Filtra procediments per exclusivament intern", allowableValues = ExclusivamentInternApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ExclusivamentInternApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String exclusivamentIntern,
-			@ApiParam(value = "Filtra procediments per canals d'activació en format electrònic", allowableValues = ActivableEnFormatElectronicApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ActivableEnFormatElectronicApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] activableFormatElectronic,
-			@ApiParam(value = "Filtra procediments per òrgan resolutori") @RequestParam(value = "organResolutori", required = false) String organResolutori,
-			@ApiParam(value = "Filtrar procediments per conjunt de competències associades", allowableValues = CompetenciaAssociadaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = CompetenciaAssociadaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] competenciaAssociada,
-			@ApiParam(value = "Filtrar procediments per conjunt de famílies", allowableValues = FamiliaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = FamiliaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] familia,
-			@ApiParam(value = "Filtra procediments per actuació") @RequestParam(value = "actuacio", required = false) String actuacio)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
+	        @ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
+	        @ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
+	        @ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio,
+	        @ApiParam(value = "Filtra procediments per codi") @RequestParam(value = "codi", required = false) String codi,
+	        @ApiParam(value = "Filtrar procediments per conjunt d'estats. Possibles valors: EN_ELABORACIO, FINALITZAT, PUBLICAT", allowableValues = EstatApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
+	        @ApiParam(value = "Filtra procediments per nom") @RequestParam(value = "nom", required = false) String nom,
+	        @ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
+	        @ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci,
+	        @ApiParam(value = "Filtra procediments per conjunt d'Unitats Gestores Responsables") @RequestParam(value = "ugr", required = false) String ugr,
+	        @ApiParam(value = "Filtra procediments per exclusivament intern", allowableValues = ExclusivamentInternApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ExclusivamentInternApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String exclusivamentIntern,
+	        @ApiParam(value = "Filtra procediments per canals d'activació en format electrònic. Possibles valors: PORTAL_TRAMITS, ALTRA_WEB, MOBIL, QUIOSC, PER_CANAL_GENERALISTA, PER_CANAL_ESPECIFIC", allowableValues = ActivableEnFormatElectronicApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ActivableEnFormatElectronicApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] activableFormatElectronic,
+	        @ApiParam(value = "Filtra procediments per òrgan resolutori") @RequestParam(value = "organResolutori", required = false) String organResolutori,
+	        @ApiParam(value = "Filtrar procediments per conjunt de competències associades. Possibles valors: ACCIO_SOCIAL, AFERS_JURIDICS, BENS_I_PATRIMONI, COMERC_I_CONSUM, CULTURA, EDUCACIO, ESPORTS_I_LLEURE, HABITATGE, MEDI_AMBIENT, MOVILITAT_TRANSPORT_I_CIRCULACIO, OBRES_I_INFRAESTRUCTURES, ORGANITZACIO_I_COORDINACIO_ADMINISTRATIVA, ORGANS_DE_GOVERN, POBLACIO_I_DEMARCACIO, POTESTATS_DE_PLANIFICACIO_I_NORMATIVA, PRESSUPOSTOS_I_FINANCES, PROMOCIO_ECONOMICA, RECURSOS_HUMANS", allowableValues = CompetenciaAssociadaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = CompetenciaAssociadaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] competenciaAssociada,
+	        @ApiParam(value = "Filtrar procediments per conjunt de famílies. Possibles valors: ATENCIO_SOCIAL_I_RESIDENCIAL, AUTORITZACIONS_I_COMUNICATS, CERTAMENS_I_PREMIS, COL_LABORACIO, CONSULTES_I_SUGGERIMENTS, CONTRACTACIO_PUBLICA, DISCIPLINA_INSPECCIO_I_PROTECCIO_DE_LA_LEGALITAT, DRETS_D_ACCES_A_LA_INFORMACIO, DRETS_I_ACTIVITAT_CIVIL, ENS_DEPENDENTS_I_PARTICIPATS, EXECUCIO_URBANISTICA, GESTIO_DEL_PERSONAL, GESTIO_PRESSUPOSTARIA_I_FINANCERA, GESTIO_TRIBUTARIA, INFORMES_I_CERTIFICATS, INSCRIPCIONS_REGISTRALS, MEDIACIO_I_ARBITRATGE, NORMATIVA, OCUPACIO_I_SERVEIS_A_LA_VIA_PUBLICA, PARTICIPACIO, PLANEJAMENT_URBANISTIC, PREVENCIO, QUEIXES_I_RECLAMACIONS, REGIM_DE_BENS_I_PATRIMONI, REGIM_SANCIONADOR, RESPONSABILITAT_PATRIMONIAL, REVISIO_DE_L_ACTUACIO_ADMINISTRATIVA, SUBVENCIONS_I_AJUTS, TARGETES_CARNETS_I_IDENTIFICACIONS, ALTRES", allowableValues = FamiliaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = FamiliaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] familia,
+	        @ApiParam(value = "Filtra procediments per actuació") @RequestParam(value = "actuacio", required = false) String actuacio)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug(
 					"cercaProcediments(int, int, String, String, String, String[], String, String, String, String, String, String[], String, String[], String[], String) - inici"); //$NON-NLS-1$
@@ -595,22 +600,22 @@ public class ServeisPortalRestController extends BaseRestController {
 	@ApiOperation(nickname = "cercaExpedientsPortal", value = "Cerca d'expedients", tags = { "Serveis Portal API" }, extensions = {
 			@Extension(name = "x-imi-roles", properties = { @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaCercaExpedientsRDTO cercaExpedients(
-			@ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
-			@ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
-			@ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
-			@ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio,
-			@ApiParam(value = "Filtra expedients per codi") @RequestParam(value = "codiExpedient", required = false) String codiExpedient,
-			@ApiParam(value = "Filtra expedients per sollicitant") @RequestParam(value = "nifSollicitant", required = false) String nifSollicitant,
-			@ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioInici", required = false) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN) String dataPresentacioInici,
-			@ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioFi", required = false) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN) String dataPresentacioFi,
-			@ApiParam(value = "Filtra expedients per un conjunt de codis de procediment") @RequestParam(value = "codiProcediment", required = false) String[] codiProcediment,
-			@ApiParam(value = "En cas que s'indiqui codi de procediment, filtra expedients per versió de procediment", allowableValues = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String versioProcediment,
-			@ApiParam(value = "Filtra expedients per conjunt d'estats", allowableValues = EstatCiutadaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatCiutadaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
-			@ApiParam(value = "Filtra expedients per Unitat Gestora") @RequestParam(value = "unitatGestora", required = false) String unitatGestora,
-			@ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
-			@ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci,
-			@ApiParam(value = "Filtra els expedients amb un nivell d'autenticació menor o igual", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String nivellAutenticacio)
-			throws GPAServeisServiceException {
+	        @ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
+	        @ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
+	        @ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
+	        @ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio,
+	        @ApiParam(value = "Filtra expedients per codi") @RequestParam(value = "codiExpedient", required = false) String codiExpedient,
+	        @ApiParam(value = "Filtra expedients per sollicitant") @RequestParam(value = "nifSollicitant", required = false) String nifSollicitant,
+	        @ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioInici", required = false) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN) String dataPresentacioInici,
+	        @ApiParam(value = "Filtra expedients per data de presentació (format dd/MM/aaaa)") @RequestParam(value = "dataPresentacioFi", required = false) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN) String dataPresentacioFi,
+	        @ApiParam(value = "Filtra expedients per un conjunt de codis de procediment") @RequestParam(value = "codiProcediment", required = false) String[] codiProcediment,
+	        @ApiParam(value = "En cas que s'indiqui codi de procediment, filtra expedients per versió de procediment", allowableValues = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = VersioProcedimentApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String versioProcediment,
+	        @ApiParam(value = "Filtra expedients per conjunt d'estats. Possibles valors: ESBORRANY, EN_CURS, PENDENT_ESMENES, PENDENT_ALEGACIONS, RESOLT, TANCAT", allowableValues = EstatCiutadaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatCiutadaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
+	        @ApiParam(value = "Filtra expedients per Unitat Gestora") @RequestParam(value = "unitatGestora", required = false) String unitatGestora,
+	        @ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
+	        @ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci,
+	        @ApiParam(value = "Filtra els expedients amb un nivell d'autenticació menor o igual", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String nivellAutenticacio)
+	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug(
 					"cercaExpedients(int, int, String, String, String, String, String, String, String[], String, String[], String, String, String) - inici"); //$NON-NLS-1$
@@ -624,6 +629,10 @@ public class ServeisPortalRestController extends BaseRestController {
 		ExpedientsCercaBDTO expedientsCercaBDTO = null;
 		try {
 
+			// Acceso a la cabecera con la identificación del usuario del
+			// portal del ciudadano
+			String usuariInteressat = clientEntity.getUsuariInteressat();
+
 			// Data
 			// Unitats Gestores que hacen match con el parámetro unitatGestora
 			UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(unitatGestora);
@@ -631,16 +640,16 @@ public class ServeisPortalRestController extends BaseRestController {
 
 			// Expedients que cumplen los criterios de búsqueda
 			expedientsCercaBDTO = new ExpedientsCercaBDTO(
-					ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), nifSollicitant, null,
-					dataPresentacioInici, dataPresentacioFi,
-					ExpedientsApiParamToInternalMapper.getCodiProcedimentInternalValueList(codiProcediment),
-					ExpedientsApiParamToInternalMapper.getVersioProcedimentInternalValue(versioProcediment),
-					ExpedientsApiParamToInternalMapper.getEstatCiutadaInternalValueList(estat),
-					ExpedientsApiParamToInternalMapper.getIdUnitatGestoraInternalValueList(unitatsGestoresRDTOList),
-					ExpedientsApiParamToInternalMapper.getTramitadorInternalValue(tramitador), aplicacioNegoci, numeroPagina,
-					resultatsPerPagina, ExpedientsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
-					ExpedientsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio),
-					ExpedientsApiParamToInternalMapper.getNivellAutenticacioInternalValue(nivellAutenticacio));
+			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), nifSollicitant, null,
+			        dataPresentacioInici, dataPresentacioFi,
+			        ExpedientsApiParamToInternalMapper.getCodiProcedimentInternalValueList(codiProcediment),
+			        ExpedientsApiParamToInternalMapper.getVersioProcedimentInternalValue(versioProcediment),
+			        ExpedientsApiParamToInternalMapper.getEstatCiutadaInternalValueList(estat),
+			        ExpedientsApiParamToInternalMapper.getIdUnitatGestoraInternalValueList(unitatsGestoresRDTOList),
+			        ExpedientsApiParamToInternalMapper.getTramitadorInternalValue(tramitador), aplicacioNegoci, numeroPagina,
+			        resultatsPerPagina, ExpedientsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
+			        ExpedientsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio),
+			        ExpedientsApiParamToInternalMapper.getNivellAutenticacioInternalValue(nivellAutenticacio), usuariInteressat);
 
 			RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = serveisService.cercaExpedients(expedientsCercaBDTO);
 
@@ -720,6 +729,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
 				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
 			}
+
 			ExpedientConsultaRDTO expedientConsultaRDTO = modelMapper.map(dadesExpedientBDTO, ExpedientConsultaRDTO.class);
 
 			// Datos de cada tràmit OVT asociado a los documents aportats
@@ -746,6 +756,17 @@ public class ServeisPortalRestController extends BaseRestController {
 			if (dadesExpedientBDTO.getExpedientsRDTO() != null && dadesExpedientBDTO.getExpedientsRDTO().getIdEstat()
 					.compareTo(EstatTramitadorApiParamValue.EN_PREPARACIO.getInternalValue()) == NumberUtils.INTEGER_ZERO) {
 				expedientConsultaRDTO.setAccionsDisponibles(null);
+			}
+
+			// Filtraremos para segun los tramites ovt disponibles del
+			// procedimiento, mostrar las acciones disponibles
+			if (CollectionUtils.isNotEmpty(expedientConsultaRDTO.getAccionsDisponibles())) {
+				filtrarTramitsOvtDisponibles(dadesExpedientBDTO, expedientConsultaRDTO);
+			}
+
+			// Devolvemos el id en Documentum del expediente en la consulta
+			if (StringUtils.isNotEmpty(dadesExpedientBDTO.getExpedientsRDTO().getMigracioIdOrigen())) {
+				expedientConsultaRDTO.setIdGestorDocumental(dadesExpedientBDTO.getExpedientsRDTO().getMigracioIdOrigen());
 			}
 
 			respostaConsultaExpedientsRDTO.setExpedient(expedientConsultaRDTO);
@@ -1210,8 +1231,10 @@ public class ServeisPortalRestController extends BaseRestController {
 		boolean registreSollicitudAssociat = false;
 		ArrayList<BigDecimal> idDocsEntradaList = new ArrayList<BigDecimal>();
 		RespostaExpedientsRegistrarBDTO respostaExpedientsRegistrarBDTO = null;
+		boolean esCiutada;
 		try {
 			BigDecimal visibilitat = BigDecimal.ONE;
+			esCiutada = ServeisRestControllerVisibilitatHelper.esUsuariCiutada(clientEntity);
 
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesPerVisibilitatExpedient(
@@ -1249,6 +1272,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			CrearSollicitud registreCreacioSolicitud = new CrearSollicitud();
 			registreCreacioSolicitud.setSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO());
 			registreCreacioSolicitud.setDocuments(idDocsEntradaList);
+			if (!esCiutada) {
+				registreCreacioSolicitud.setMatriculaInformador(clientEntity.getUsuariAutenticat());
+			}
 			expedientsRegistrarSollicitudBDTO = new ExpedientsRegistrarSollicitudBDTO(registreCreacioSolicitud);
 
 			respostaCrearRegistreExpedient = serveisService.crearRegistreSollicitud(expedientsRegistrarSollicitudBDTO,
@@ -1258,11 +1284,12 @@ public class ServeisPortalRestController extends BaseRestController {
 				throw new GPAApiParamValidationException(Resultat.ERROR_REGISTRAR_EXPEDIENT, ErrorPrincipal.ERROR_GENERIC);
 			}
 
-			// En caso de que la operación de registro se lance desde el portal,
+			// En caso de que la operación de registro se lance desde el portal
+			// del Informador,
 			// el formulario de solicitud (documento de instancia) estará
 			// firmado por Segell d'Organ y habrá que copiar el contenido de
 			// dicho documento firmado en el documento original
-			if (!ServeisRestControllerVisibilitatHelper.esUsuariCiutada(clientEntity)) {
+			if (!esCiutada) {
 				// Parámetros disponibles:
 				// - idDocumentacio -> Obtener documento basado en plantilla
 				// - signaturaSolicitud -> id de Petición de firma que nos da
@@ -1278,7 +1305,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			sollicitudActualitzarRegistre.setDataPresentacio(respostaCrearRegistreExpedient.getRegistreAssentament().getDataRegistre());
 			if (expedientRegistrarRDTO != null) {
 				sollicitudActualitzarRegistre.setSignaturaSollicitud(expedientRegistrarRDTO.getSignaturaSolicitud());
-				sollicitudActualitzarRegistre.setMatriculaInformador(expedientRegistrarRDTO.getMatriculaInformador());
+				if (!esCiutada) {
+					sollicitudActualitzarRegistre.setMatriculaInformador(clientEntity.getUsuariAutenticat());
+				}
 			}
 			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
 			registreSollicitudAssociat = true;
@@ -1807,6 +1836,27 @@ public class ServeisPortalRestController extends BaseRestController {
 				} else {
 					docsEntradaRDTOResposta = serveisService.guardarDocumentEntradaGestorDocumental(guardarDocumentEntradaFitxerBDTO);
 				}
+			}
+
+			// Si el documento de entrada está basado en plantilla se deberá
+			// almacenar el XML de datos en la posición 1
+			if (docsEntradaRDTOResposta != null && docsEntradaRDTO.getConfiguracioDocsEntrada() != null
+			        && SuportConfeccioApiParamValue.PLANTILLA.getInternalValue()
+			                .equals(docsEntradaRDTO.getConfiguracioDocsEntrada().getSuportConfeccio())) {
+				String idDocumentum = docsEntradaRDTOResposta.getMigracioIdOrigen();
+				// Datos principales de la solicitud SOL
+				BigDecimal visibilitat = BigDecimal.ONE;
+				DadesSollicitudBDTO dadesSollicitudBDTO = serveisService
+				        .consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(), visibilitat);
+				// Se guarda el XML de datos en la posición 1 del objeto
+				// documental del documento de solicitud (basado en plantilla)
+				String xmlSolicitud = guardarXMLSollicitud(dadesSollicitudBDTO, idDocumentum);
+				// calculamos el hash del XML y actualizamos la solicitud
+				// con el hash
+				String hash = DigestUtils.sha256Hex(xmlSolicitud);
+				SollicitudsRDTO sollicitud = dadesSollicitudBDTO.getSollicitudsRDTO();
+				sollicitud.setHash(hash);
+				serveisService.updateSollicitud(sollicitud);
 			}
 
 		} catch (GPAApiParamValidationException e) {
@@ -2750,9 +2800,21 @@ public class ServeisPortalRestController extends BaseRestController {
 			// El id de la tercera persona debe existir y corresponderse con una
 			// persona implicada en el expediente
 			personesSollicitudRDTO = serveisService.consultarDadesPersonaSollicitud(idPersona);
+			
+			ServeisRestControllerValidationHelper.validatePersonesSollicitudIsNotNull(personesSollicitudRDTO,
+					idPersona.toString(),
+			        Resultat.ERROR_ESBORRAR_TERCERA_PERSONA);
+			
+			// El id de la tercera persona debe existir y corresponderse con una
+						// persona implicada en el expediente
 			ServeisRestControllerValidationHelper.validatePersonaImplicada(dadesExpedientBDTO.getPersonesImplicades(),
-					personesSollicitudRDTO.getPersones().getDocumentsIdentitat().getNumeroDocument(),
-					Resultat.ERROR_ESBORRAR_TERCERA_PERSONA);
+			        personesSollicitudRDTO.getPersones().getDocumentsIdentitat().getNumeroDocument(),
+			        Resultat.ERROR_ESBORRAR_TERCERA_PERSONA);
+			
+			// Validar si es sol·licitant principal, no se podra esborrar
+			ServeisRestControllerValidationHelper.validatePersonaSollicitantprincipal(dadesExpedientBDTO.getSollicitant(),
+					idPersona.toString(),
+			        Resultat.ERROR_ESBORRAR_TERCERA_PERSONA);
 
 			// Esborrar tercera persona si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
@@ -2891,4 +2953,31 @@ public class ServeisPortalRestController extends BaseRestController {
 		serveisService.guardarXmlSollicitud(idDocumentum, xmlSolicitud);
 		return xmlSolicitud;
 	}
+
+	/**
+	 * Filtrar Tramits Ovt Disponibles
+	 *
+	 * @param dadesExpedientBDTO
+	 *            the dades expedients BDTO
+	 * @param expedientConsultaRDTO
+	 *            the expedient consulta RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	private void filtrarTramitsOvtDisponibles(DadesExpedientBDTO dadesExpedientBDTO, ExpedientConsultaRDTO expedientConsultaRDTO)
+	        throws GPAServeisServiceException {
+		DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
+		        .consultarDadesBasiquesProcediment(dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext());
+
+		List<BigDecimal> idsReqOperatiusTramOvtList = new ArrayList<>();
+		if (CollectionUtils.isNotEmpty(dadesProcedimentBDTO.getProcedimentsRDTO().getReqOperatius().getReqOperatiusTramOvtList())) {
+			for (ReqOperatiusTramOvt reqOperatiusTramOvt : dadesProcedimentBDTO.getProcedimentsRDTO().getReqOperatius()
+			        .getReqOperatiusTramOvtList()) {
+				idsReqOperatiusTramOvtList.add(reqOperatiusTramOvt.getTramitOvtIdext());
+			}
+		}
+
+		ServeisRestControllerAccionsDisponiblesHelper.filtrarTramitsOvtDisponibles(expedientConsultaRDTO, idsReqOperatiusTramOvtList);
+	}
+
 }
