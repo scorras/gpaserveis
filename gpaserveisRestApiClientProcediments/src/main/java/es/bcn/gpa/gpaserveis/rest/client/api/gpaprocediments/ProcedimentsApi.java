@@ -25,7 +25,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-03-17T16:35:50.063+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-04-27T15:52:38.756+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.ProcedimentsApi")
 public class ProcedimentsApi {
     private ApiClient apiClient;
@@ -71,6 +71,7 @@ public class ProcedimentsApi {
      * @param families Famílies del procediment
      * @param id Identificador pel qual es realitza la cerca
      * @param idUsuari Identificador d&#39;usuari pel qual es realitza la cerca
+     * @param iniciacions Iniciacions del procediment
      * @param intern Exclusivament intern
      * @param nextPageNumber The nextPageNumber parameter
      * @param nom Nom del procediment
@@ -85,7 +86,7 @@ public class ProcedimentsApi {
      * @return PageDataOfProcedimentsRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public PageDataOfProcedimentsRDTO cercaProcediments(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, List<String> activableFormatElectronic, String actuacio, String aplicacioNegoci, String codi, List<BigDecimal> competencies, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, List<BigDecimal> estats, List<BigDecimal> families, BigDecimal id, BigDecimal idUsuari, Integer intern, Integer nextPageNumber, String nom, Integer operador, String organResolutori, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages, List<BigDecimal> ugos) throws RestClientException {
+    public PageDataOfProcedimentsRDTO cercaProcediments(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, List<String> activableFormatElectronic, String actuacio, String aplicacioNegoci, String codi, List<BigDecimal> competencies, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, List<BigDecimal> estats, List<BigDecimal> families, BigDecimal id, BigDecimal idUsuari, List<BigDecimal> iniciacions, Integer intern, Integer nextPageNumber, String nom, Integer operador, String organResolutori, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages, List<BigDecimal> ugos) throws RestClientException {
         Object postBody = null;
         
         String path = UriComponentsBuilder.fromPath("/procediments/search").build().toUriString();
@@ -111,6 +112,7 @@ public class ProcedimentsApi {
         queryParams.putAll(apiClient.parameterToMultiValueMap(ApiClient.CollectionFormat.valueOf("multi".toUpperCase()), "families", families));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "id", id));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "idUsuari", idUsuari));
+        queryParams.putAll(apiClient.parameterToMultiValueMap(ApiClient.CollectionFormat.valueOf("multi".toUpperCase()), "iniciacions", iniciacions));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "intern", intern));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nextPageNumber", nextPageNumber));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nom", nom));

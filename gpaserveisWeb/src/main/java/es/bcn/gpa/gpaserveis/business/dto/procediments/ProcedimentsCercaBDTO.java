@@ -48,6 +48,9 @@ public class ProcedimentsCercaBDTO {
 	/** The ugos. */
 	private List<BigDecimal> ugos;
 
+	/** The ugos. */
+	private List<BigDecimal> iniciacions;
+
 	/** The current page number. */
 	private Integer currentPageNumber;
 
