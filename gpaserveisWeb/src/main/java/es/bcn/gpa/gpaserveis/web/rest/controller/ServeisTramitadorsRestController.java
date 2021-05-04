@@ -1018,7 +1018,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					dadesExpedientBDTO.getExpedientsRDTO().getId(), retornarTramitacioRDTO);
 			retornTramitacio = serveisService.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO);
 
-			if (retornTramitacio != null && StringUtils.isEmpty(retornTramitacio.getMissatgeError())) {
+			if (retornTramitacio != null && StringUtils.isEmpty(retornTramitacio.getMissatgeError()) && CollectionUtils.isEmpty(retornTramitacio.getUnitatsGestoresConvidadas())) {
 				// Comprobamos si existe una transicion posible para el estado
 				// actual y de ser así se cambia el estado al expediente
 				boolean canviarEstat = ServeisRestControllerValidationHelper.validateCanviarEstatExpedient(accionsEstatsRDTOList,
