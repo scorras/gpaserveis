@@ -189,6 +189,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.Tipus
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.MotiuPausaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.TipusCanalComunicacioApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.TipusIniciacioSollicitudApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.TransicioAccioEstatApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
@@ -197,6 +198,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatTramitadorApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.MotiuPausaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusCanalComunicacioApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusIniciacioSollicitudApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.VersioProcedimentApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ErrorDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ResultatRespostaDTO;
@@ -1016,7 +1018,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        dadesExpedientBDTO.getExpedientsRDTO().getId(), retornarTramitacioRDTO);
 			retornTramitacio = serveisService.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO);
 
-			if (retornTramitacio != null && StringUtils.isEmpty(retornTramitacio.getMissatgeError()) && CollectionUtils.isEmpty(retornTramitacio.getUnitatsGestoresConvidadas())) {
+			if (retornTramitacio != null && StringUtils.isEmpty(retornTramitacio.getMissatgeError())
+			        && CollectionUtils.isEmpty(retornTramitacio.getUnitatsGestoresConvidadas())) {
 				// Comprobamos si existe una transicion posible para el estado
 				// actual y de ser así se cambia el estado al expediente
 				boolean canviarEstat = ServeisRestControllerValidationHelper.validateCanviarEstatExpedient(accionsEstatsRDTOList,
@@ -4119,7 +4122,13 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ActualitzarDadesSollicitud actualitzarDadesSollicitud = new ActualitzarDadesSollicitud();
 			actualitzarDadesSollicitud.setExpedient(expedientsRDTO);
 			actualitzarDadesSollicitud.setDadesEspecifiques(dadesEspecifiquesRDTOList);
-			actualitzarDadesSollicitud.setTipusIniciacio(solicitudExpedient.getTipusIniciacio());
+			TipusIniciacioSollicitudApiParamValueTranslator tipusIniciacioSollicitudApiParamValueTranslator = new TipusIniciacioSollicitudApiParamValueTranslator();
+			TipusIniciacioSollicitudApiParamValue tipusIniciacioSollicitudApiParamValue = tipusIniciacioSollicitudApiParamValueTranslator
+			        .getEnumByApiParamValue(solicitudExpedient.getTipusIniciacio());
+			if (tipusIniciacioSollicitudApiParamValue != null) {
+				actualitzarDadesSollicitud.setTipusIniciacio(tipusIniciacioSollicitudApiParamValue.getInternalValue());
+			}
+			actualitzarDadesSollicitud.setEsTramitadors(Boolean.TRUE);
 			ExpedientsActualitzarBDTO expedientsActualitzarBDTO = new ExpedientsActualitzarBDTO(actualitzarDadesSollicitud);
 			returnExpedientsRDTO = serveisService.actualitzarSolicitudExpedient(expedientsActualitzarBDTO);
 

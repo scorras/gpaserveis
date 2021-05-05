@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "2.1.3"
+  version: "2.2.3"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -2199,6 +2199,9 @@ definitions:
         description: "Valors d'atributs de l'expedient"
         items:
           $ref: "#/definitions/DadesEspecifiquesRDTO"
+      esTramitadors:
+        type: "boolean"
+        description: "Indica si l'origen de la petició és la capa de tramitadors"
       esmena:
         type: "boolean"
         description: "Indica si es tracta de la resposta a un requeriment"
@@ -2206,7 +2209,7 @@ definitions:
         description: "Dades de l'expedient"
         $ref: "#/definitions/ExpedientsRDTO"
       tipusIniciacio:
-        type: "string"
+        type: "number"
         description: "Tipus de iniciació sollicitud"
     title: "ActualitzarDadesSollicitud"
   ActualitzarDadesSollicitudSollicituds:
@@ -2683,6 +2686,8 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/EstatsUgConvidada"
+      ugrIdext:
+        type: "number"
       ultimaModificacio:
         type: "number"
       unitatGestoraIdext:
@@ -2897,6 +2902,9 @@ definitions:
         type: "number"
       nomPresentacio:
         type: "string"
+      notificacioPaper:
+        type: "integer"
+        format: "int32"
       numeroDocument:
         type: "string"
       persona:
@@ -2935,6 +2943,9 @@ definitions:
         type: "number"
       nomPresentacio:
         type: "string"
+      notificacioPaper:
+        type: "integer"
+        format: "int32"
       numeroDocument:
         type: "string"
       persona:

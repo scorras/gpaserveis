@@ -1158,6 +1158,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			ActualitzarDadesSollicitud actualitzarDadesSollicitud = new ActualitzarDadesSollicitud();
 			actualitzarDadesSollicitud.setExpedient(expedientsRDTO);
 			actualitzarDadesSollicitud.setDadesEspecifiques(dadesEspecifiquesRDTOList);
+			actualitzarDadesSollicitud.setEsTramitadors(Boolean.FALSE);
 			ExpedientsActualitzarBDTO expedientsActualitzarBDTO = new ExpedientsActualitzarBDTO(actualitzarDadesSollicitud);
 			returnExpedientsRDTO = serveisService.actualitzarSolicitudExpedient(expedientsActualitzarBDTO);
 
