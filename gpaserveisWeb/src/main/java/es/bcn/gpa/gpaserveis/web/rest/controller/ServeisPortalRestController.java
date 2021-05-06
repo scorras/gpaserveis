@@ -158,7 +158,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.Resp
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.RespostaEsborrarTerceraPersonaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.TerceraPersonaSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar.AtributsActualitzarRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar.ExpedientActualitzarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar.RespostaActualitzarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentAportatCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.aportar.DocumentacioAportarRDTO;
@@ -169,6 +168,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.su
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.upload.RespostaUploadDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.abandonar.ExpedientAbandonamentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.abandonar.RespostaAbandonarExpedientRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.actualitzar.ExpedientActualitzarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.crear.ExpedientCrearRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.crear.RespostaCrearExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.esmena.DocumentRequeritCrearRDTO;
@@ -1160,6 +1160,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			ActualitzarDadesSollicitud actualitzarDadesSollicitud = new ActualitzarDadesSollicitud();
 			actualitzarDadesSollicitud.setExpedient(expedientsRDTO);
 			actualitzarDadesSollicitud.setDadesEspecifiques(dadesEspecifiquesRDTOList);
+			actualitzarDadesSollicitud.setEsTramitadors(Boolean.FALSE);
 			ExpedientsActualitzarBDTO expedientsActualitzarBDTO = new ExpedientsActualitzarBDTO(actualitzarDadesSollicitud);
 			returnExpedientsRDTO = serveisService.actualitzarSolicitudExpedient(expedientsActualitzarBDTO);
 
@@ -2800,20 +2801,19 @@ public class ServeisPortalRestController extends BaseRestController {
 			// El id de la tercera persona debe existir y corresponderse con una
 			// persona implicada en el expediente
 			personesSollicitudRDTO = serveisService.consultarDadesPersonaSollicitud(idPersona);
-			
-			ServeisRestControllerValidationHelper.validatePersonesSollicitudIsNotNull(personesSollicitudRDTO,
-					idPersona.toString(),
+
+			ServeisRestControllerValidationHelper.validatePersonesSollicitudIsNotNull(personesSollicitudRDTO, idPersona.toString(),
 			        Resultat.ERROR_ESBORRAR_TERCERA_PERSONA);
-			
+
 			// El id de la tercera persona debe existir y corresponderse con una
-						// persona implicada en el expediente
+			// persona implicada en el expediente
 			ServeisRestControllerValidationHelper.validatePersonaImplicada(dadesExpedientBDTO.getPersonesImplicades(),
 			        personesSollicitudRDTO.getPersones().getDocumentsIdentitat().getNumeroDocument(),
 			        Resultat.ERROR_ESBORRAR_TERCERA_PERSONA);
-			
+
 			// Validar si es sol·licitant principal, no se podra esborrar
 			ServeisRestControllerValidationHelper.validatePersonaSollicitantprincipal(personesSollicitudRDTO,
-					Resultat.ERROR_ESBORRAR_TERCERA_PERSONA);
+			        Resultat.ERROR_ESBORRAR_TERCERA_PERSONA);
 
 			// Esborrar tercera persona si la acción es permitida
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
