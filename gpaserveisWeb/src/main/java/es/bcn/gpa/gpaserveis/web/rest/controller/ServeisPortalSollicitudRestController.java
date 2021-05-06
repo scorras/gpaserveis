@@ -1486,11 +1486,10 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// Cambio de estado del expediente:
 			// - APO: No hay transición
 			// - REQ: Se pasa del 3 al 2
-			// - ALE: Se pasa del 5 al 4
-			if ((dadesSollicitudBDTO.getSollicitudsRDTO().getTramitOvtIdext()
-			        .compareTo(TramitOvtApiParamValue.REQ.getInternalValue()) == NumberUtils.INTEGER_ZERO)
-			        || (dadesSollicitudBDTO.getSollicitudsRDTO().getTramitOvtIdext()
-			                .compareTo(TramitOvtApiParamValue.ALE.getInternalValue()) == NumberUtils.INTEGER_ZERO)) {
+			// - ALE: Se pasa del 5 al 4 --> GPA-3785 No hay transición
+			// automática en este caso
+			if (dadesSollicitudBDTO.getSollicitudsRDTO().getTramitOvtIdext()
+			        .compareTo(TramitOvtApiParamValue.REQ.getInternalValue()) == NumberUtils.INTEGER_ZERO) {
 				ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesSollicitudBDTO.getExpedientsRDTO(),
 				        ExpedientCanviEstat.class);
 
@@ -1741,20 +1740,19 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			        dadesSollicitudBDTO.getRepresentant(), Resultat.ERROR_ESBORRAR_TERCERA_PERSONA_SOLLICITUD);
 
 			personesSollicitudRDTO = serveisService.consultarDadesPersonaSollicitud(idPersona);
-			
-			ServeisRestControllerValidationHelper.validatePersonesSollicitudIsNotNull(personesSollicitudRDTO,
-					idPersona.toString(),
+
+			ServeisRestControllerValidationHelper.validatePersonesSollicitudIsNotNull(personesSollicitudRDTO, idPersona.toString(),
 			        Resultat.ERROR_ESBORRAR_TERCERA_PERSONA);
-			
+
 			// El id de la tercera persona debe existir y corresponderse con una
-						// persona implicada en el expediente
+			// persona implicada en el expediente
 			ServeisRestControllerValidationHelper.validatePersonaImplicada(dadesSollicitudBDTO.getPersonesImplicades(),
 			        personesSollicitudRDTO.getPersones().getDocumentsIdentitat().getNumeroDocument(),
 			        Resultat.ERROR_ESBORRAR_TERCERA_PERSONA_SOLLICITUD);
-			
+
 			// Validar si es sol·licitant principal, no se podra esborrar
 			ServeisRestControllerValidationHelper.validatePersonaSollicitantprincipal(personesSollicitudRDTO,
-					Resultat.ERROR_ESBORRAR_TERCERA_PERSONA);
+			        Resultat.ERROR_ESBORRAR_TERCERA_PERSONA);
 
 			serveisService.esborrarPersonaSollicitud(idPersona);
 
