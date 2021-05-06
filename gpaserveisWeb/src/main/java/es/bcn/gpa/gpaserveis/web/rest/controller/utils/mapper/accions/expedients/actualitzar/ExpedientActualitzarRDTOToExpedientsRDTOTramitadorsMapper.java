@@ -10,13 +10,13 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.ListP
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.ListPersonesInteressadesToListInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.PersonaRepresentantToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.PersonaSollicitantToInternalConverter;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar.ExpedientActualitzarRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.actualitzar.ExpedientActualitzarRDTO;
 
 /**
- * The Class ExpedientActualitzarRDTOToExpedientsRDTOMapper.
+ * The Class ExpedientActualitzarRDTOToExpedientsRDTOTramitadorsMapper.
  */
-@Component("expedientActualitzarRDTOToExpedientsRDTOMapper")
-public class ExpedientActualitzarRDTOToExpedientsRDTOMapper extends PropertyMap<ExpedientActualitzarRDTO, ExpedientsRDTO> {
+@Component("expedientActualitzarRDTOToExpedientsRDTOTramitadorsMapper")
+public class ExpedientActualitzarRDTOToExpedientsRDTOTramitadorsMapper extends PropertyMap<ExpedientActualitzarRDTO, ExpedientsRDTO> {
 
 	/** The persona sollicitant to internal converter. */
 	private PersonaSollicitantToInternalConverter personaSollicitantToInternalConverter;
@@ -39,11 +39,11 @@ public class ExpedientActualitzarRDTOToExpedientsRDTOMapper extends PropertyMap<
 	 *            the persona representant to internal converter
 	 */
 	@Autowired
-	public ExpedientActualitzarRDTOToExpedientsRDTOMapper(
-			@Qualifier("expedientPersonaSollicitantToInternalConverter") PersonaSollicitantToInternalConverter personaSollicitantToInternalConverter,
-			@Qualifier("expedientPersonaRepresentantToInternalConverter") PersonaRepresentantToInternalConverter personaRepresentantToInternalConverter,
-			@Qualifier("expedientListPersonesInteressadesToListInternalConverter") ListPersonesInteressadesToListInternalConverter listPersonesInteressadesToListInternalConverter,
-			@Qualifier("expedientListPersonesImplicadesToListInternalConverter") ListPersonesImplicadesToListInternalConverter listPersonesImplicadesToListInternalConverter) {
+	public ExpedientActualitzarRDTOToExpedientsRDTOTramitadorsMapper(
+	        @Qualifier("expedientPersonaSollicitantToInternalConverter") PersonaSollicitantToInternalConverter personaSollicitantToInternalConverter,
+	        @Qualifier("expedientPersonaRepresentantToInternalConverter") PersonaRepresentantToInternalConverter personaRepresentantToInternalConverter,
+	        @Qualifier("expedientListPersonesInteressadesToListInternalConverter") ListPersonesInteressadesToListInternalConverter listPersonesInteressadesToListInternalConverter,
+	        @Qualifier("expedientListPersonesImplicadesToListInternalConverter") ListPersonesImplicadesToListInternalConverter listPersonesImplicadesToListInternalConverter) {
 		this.personaSollicitantToInternalConverter = personaSollicitantToInternalConverter;
 		this.personaRepresentantToInternalConverter = personaRepresentantToInternalConverter;
 		this.listPersonesInteressadesToListInternalConverter = listPersonesInteressadesToListInternalConverter;
