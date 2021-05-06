@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.2.3"
+  version: "2.2.4"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -5643,6 +5643,10 @@ definitions:
       tipusIniciacio:
         type: "string"
         description: "Tipus de iniciació sollicitud"
+        enum:
+        - "OFICI"
+        - "SOLLICITUD"
+        - "ALTRA_ADMINISTRACIO"
     title: "ExpedientActualitzar"
   ExpedientAcumulacio:
     type: "object"
