@@ -2620,6 +2620,10 @@ definitions:
         type: "number"
       idRelacionat:
         type: "number"
+      idioma:
+        type: "number"
+      idiomes:
+        $ref: "#/definitions/Idiomes"
       isInformeRat:
         type: "boolean"
       isOge:
@@ -2693,6 +2697,14 @@ definitions:
       unitatGestoraIdext:
         type: "number"
     title: "ExpedientsRDTO"
+  Idiomes:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "Idiomes"
   InscriureEnRegistreRDTO:
     type: "object"
     properties:

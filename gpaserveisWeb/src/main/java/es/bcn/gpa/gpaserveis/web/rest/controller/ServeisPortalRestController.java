@@ -1358,8 +1358,10 @@ public class ServeisPortalRestController extends BaseRestController {
 				IdiomaPlantillaDocApiParamValueTranslator idiomaPlantillaDocApiParamValueTranslator = new IdiomaPlantillaDocApiParamValueTranslator();
 				docsTramitacioRDTO.setIdioma(
 						idiomaPlantillaDocApiParamValueTranslator.getInternalValueByApiParamValue(expedientRegistrarRDTO.getIdioma()));
+				dadesExpedientBDTO.getExpedientsRDTO().setIdioma(idiomaPlantillaDocApiParamValueTranslator.getInternalValueByApiParamValue(expedientRegistrarRDTO.getIdioma()));
 			} else {
 				docsTramitacioRDTO.setIdioma(IdiomaPlantillaDocApiParamValue.CASTELLA.getInternalValue());
+				dadesExpedientBDTO.getExpedientsRDTO().setIdioma(IdiomaPlantillaDocApiParamValue.CATALA.getInternalValue());
 			}
 			docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 			docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());

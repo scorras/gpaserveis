@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * AcumularExpedientRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-05T19:08:39.124+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-10T17:19:35.101+02:00")
 public class AcumularExpedientRDTO {
   @JsonProperty("codiExpedientAcumulador")
   private String codiExpedientAcumulador = null;
