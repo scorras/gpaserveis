@@ -22,17 +22,17 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 
 /**
- * TipusDocumentIdentitat
+ * Idiomes
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-10T17:19:35.101+02:00")
-public class TipusDocumentIdentitat {
+public class Idiomes {
   @JsonProperty("descripcio")
   private String descripcio = null;
 
   @JsonProperty("id")
   private BigDecimal id = null;
 
-  public TipusDocumentIdentitat descripcio(String descripcio) {
+  public Idiomes descripcio(String descripcio) {
     this.descripcio = descripcio;
     return this;
   }
@@ -50,7 +50,7 @@ public class TipusDocumentIdentitat {
     this.descripcio = descripcio;
   }
 
-  public TipusDocumentIdentitat id(BigDecimal id) {
+  public Idiomes id(BigDecimal id) {
     this.id = id;
     return this;
   }
@@ -77,9 +77,9 @@ public class TipusDocumentIdentitat {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TipusDocumentIdentitat tipusDocumentIdentitat = (TipusDocumentIdentitat) o;
-    return Objects.equals(this.descripcio, tipusDocumentIdentitat.descripcio) &&
-        Objects.equals(this.id, tipusDocumentIdentitat.id);
+    Idiomes idiomes = (Idiomes) o;
+    return Objects.equals(this.descripcio, idiomes.descripcio) &&
+        Objects.equals(this.id, idiomes.id);
   }
 
   @Override
@@ -91,7 +91,7 @@ public class TipusDocumentIdentitat {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TipusDocumentIdentitat {\n");
+    sb.append("class Idiomes {\n");
     
     sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
