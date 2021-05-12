@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * ReqOperatiusTramOvt
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-11T12:44:17.313+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-12T18:33:11.674+02:00")
 public class ReqOperatiusTramOvt {
   @JsonProperty("confDocEntrIdext")
   private BigDecimal confDocEntrIdext = null;
@@ -78,6 +78,12 @@ public class ReqOperatiusTramOvt {
 
   @JsonProperty("tramitOvtIdext")
   private BigDecimal tramitOvtIdext = null;
+
+  @JsonProperty("tramitRegistre")
+  private Integer tramitRegistre = null;
+
+  @JsonProperty("tramitSignaturaCiutada")
+  private Integer tramitSignaturaCiutada = null;
 
   public ReqOperatiusTramOvt confDocEntrIdext(BigDecimal confDocEntrIdext) {
     this.confDocEntrIdext = confDocEntrIdext;
@@ -391,6 +397,42 @@ public class ReqOperatiusTramOvt {
     this.tramitOvtIdext = tramitOvtIdext;
   }
 
+  public ReqOperatiusTramOvt tramitRegistre(Integer tramitRegistre) {
+    this.tramitRegistre = tramitRegistre;
+    return this;
+  }
+
+   /**
+   * Get tramitRegistre
+   * @return tramitRegistre
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getTramitRegistre() {
+    return tramitRegistre;
+  }
+
+  public void setTramitRegistre(Integer tramitRegistre) {
+    this.tramitRegistre = tramitRegistre;
+  }
+
+  public ReqOperatiusTramOvt tramitSignaturaCiutada(Integer tramitSignaturaCiutada) {
+    this.tramitSignaturaCiutada = tramitSignaturaCiutada;
+    return this;
+  }
+
+   /**
+   * Get tramitSignaturaCiutada
+   * @return tramitSignaturaCiutada
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getTramitSignaturaCiutada() {
+    return tramitSignaturaCiutada;
+  }
+
+  public void setTramitSignaturaCiutada(Integer tramitSignaturaCiutada) {
+    this.tramitSignaturaCiutada = tramitSignaturaCiutada;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -416,12 +458,14 @@ public class ReqOperatiusTramOvt {
         Objects.equals(this.nivellSignatura, reqOperatiusTramOvt.nivellSignatura) &&
         Objects.equals(this.seleccionable, reqOperatiusTramOvt.seleccionable) &&
         Objects.equals(this.tramitGeneric, reqOperatiusTramOvt.tramitGeneric) &&
-        Objects.equals(this.tramitOvtIdext, reqOperatiusTramOvt.tramitOvtIdext);
+        Objects.equals(this.tramitOvtIdext, reqOperatiusTramOvt.tramitOvtIdext) &&
+        Objects.equals(this.tramitRegistre, reqOperatiusTramOvt.tramitRegistre) &&
+        Objects.equals(this.tramitSignaturaCiutada, reqOperatiusTramOvt.tramitSignaturaCiutada);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(confDocEntrIdext, confDocTramIdext, confdocsentTramitsOvtList, confdocstramTramitsOvtList, dadesOperVinculadesTramitList, documentacioVinculada, editable, id, idReq, identificadorRegistro, identificadorTramit, nivellAutenticacio, nivellSignatura, seleccionable, tramitGeneric, tramitOvtIdext);
+    return Objects.hash(confDocEntrIdext, confDocTramIdext, confdocsentTramitsOvtList, confdocstramTramitsOvtList, dadesOperVinculadesTramitList, documentacioVinculada, editable, id, idReq, identificadorRegistro, identificadorTramit, nivellAutenticacio, nivellSignatura, seleccionable, tramitGeneric, tramitOvtIdext, tramitRegistre, tramitSignaturaCiutada);
   }
 
 
@@ -446,6 +490,8 @@ public class ReqOperatiusTramOvt {
     sb.append("    seleccionable: ").append(toIndentedString(seleccionable)).append("\n");
     sb.append("    tramitGeneric: ").append(toIndentedString(tramitGeneric)).append("\n");
     sb.append("    tramitOvtIdext: ").append(toIndentedString(tramitOvtIdext)).append("\n");
+    sb.append("    tramitRegistre: ").append(toIndentedString(tramitRegistre)).append("\n");
+    sb.append("    tramitSignaturaCiutada: ").append(toIndentedString(tramitSignaturaCiutada)).append("\n");
     sb.append("}");
     return sb.toString();
   }

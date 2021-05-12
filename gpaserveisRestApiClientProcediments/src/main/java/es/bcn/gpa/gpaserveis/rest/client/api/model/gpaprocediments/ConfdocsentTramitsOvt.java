@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * ConfdocsentTramitsOvt
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-11T12:44:17.313+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-12T18:33:11.674+02:00")
 public class ConfdocsentTramitsOvt {
   @JsonProperty("confDocsEntrada")
   private BigDecimal confDocsEntrada = null;

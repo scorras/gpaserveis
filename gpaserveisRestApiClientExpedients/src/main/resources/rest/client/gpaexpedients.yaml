@@ -2624,6 +2624,8 @@ definitions:
         type: "number"
       idiomes:
         $ref: "#/definitions/Idiomes"
+      iniciacio:
+        type: "number"
       isInformeRat:
         type: "boolean"
       isOge:

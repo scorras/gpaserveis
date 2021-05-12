@@ -46,7 +46,7 @@ public class ProcedimentsApiTest extends ParentTest {
 
 	@InjectMocks
 	private ProcedimentsApi api = new ProcedimentsApi();
-	
+
 	/**
 	 * Returns all procedures that meet the search criteria
 	 *
@@ -142,5 +142,4 @@ public class ProcedimentsApiTest extends ParentTest {
 
 		assertTrue(response != null);
 	}
-
 }

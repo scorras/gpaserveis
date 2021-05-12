@@ -34,13 +34,16 @@ import org.joda.time.DateTime;
 /**
  * Identificacions
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-11T12:44:17.313+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-12T18:33:11.674+02:00")
 public class Identificacions {
   @JsonProperty("accesMobil")
   private String accesMobil = null;
 
   @JsonProperty("accesQuiosc")
   private String accesQuiosc = null;
+
+  @JsonProperty("administratiu")
+  private Integer administratiu = null;
 
   @JsonProperty("adrecaAltraWeb")
   private String adrecaAltraWeb = null;
@@ -280,6 +283,24 @@ public class Identificacions {
 
   public void setAccesQuiosc(String accesQuiosc) {
     this.accesQuiosc = accesQuiosc;
+  }
+
+  public Identificacions administratiu(Integer administratiu) {
+    this.administratiu = administratiu;
+    return this;
+  }
+
+   /**
+   * Get administratiu
+   * @return administratiu
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getAdministratiu() {
+    return administratiu;
+  }
+
+  public void setAdministratiu(Integer administratiu) {
+    this.administratiu = administratiu;
   }
 
   public Identificacions adrecaAltraWeb(String adrecaAltraWeb) {
@@ -1574,6 +1595,7 @@ public class Identificacions {
     Identificacions identificacions = (Identificacions) o;
     return Objects.equals(this.accesMobil, identificacions.accesMobil) &&
         Objects.equals(this.accesQuiosc, identificacions.accesQuiosc) &&
+        Objects.equals(this.administratiu, identificacions.administratiu) &&
         Objects.equals(this.adrecaAltraWeb, identificacions.adrecaAltraWeb) &&
         Objects.equals(this.adrecaPortalTramits, identificacions.adrecaPortalTramits) &&
         Objects.equals(this.afectaCollectius, identificacions.afectaCollectius) &&
@@ -1646,7 +1668,7 @@ public class Identificacions {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accesMobil, accesQuiosc, adrecaAltraWeb, adrecaPortalTramits, afectaCollectius, altraClassificacioFamilia, altraWeb, altresCompetencies, altresMotiusIniciacio, condCreacioExpedient, condFinalitzacioExpedient, condRelacioExpedient, conferimentsVista, crearExpedient, descripcioActivador, descripcioDestinatari, detallCanalEspecific, document, especAfectaCollectius, especPeriodicitat, especRecursInterposables, especSilenciAdm, especTerminiMaxim, finalitzaViaAdminisitrat, finalitzarExpedient, finsAGestElect, fitxersList, gestioElectronica, id, identificacionsCompetenciesList, identificacionsFamiliesList, identificacionsRecursosList, informacioCiutada, informacioPublica, informacioTramitador, informacioVeinal, intern, lletratConeixedorProc, mobil, nivellAutenticacio, nivellSignatura, nomDocument, normativaReferencia, normesList, numConferimentsVista, numInformacioPublica, numInformacioVeinal, numTramitsAudiencia, ordenancesList, organResolutori, perCanalEspecific, perCanalGeneralista, periodicitatTermini, portalTramits, quiosc, relacioAmbExpedient, responActuacions, respostaAllegacion, respostaRequeriment, serveisList, silenciAdministratiu, tecnicConeixedorProc, terminiMaxim, tipusAutenticacioComunicacio, tipusAutenticacioNotificacio, tractamentGdpr, tramitacioAmbGpa, tramitsAudiencia, vigenciaFi, vigenciaInici);
+    return Objects.hash(accesMobil, accesQuiosc, administratiu, adrecaAltraWeb, adrecaPortalTramits, afectaCollectius, altraClassificacioFamilia, altraWeb, altresCompetencies, altresMotiusIniciacio, condCreacioExpedient, condFinalitzacioExpedient, condRelacioExpedient, conferimentsVista, crearExpedient, descripcioActivador, descripcioDestinatari, detallCanalEspecific, document, especAfectaCollectius, especPeriodicitat, especRecursInterposables, especSilenciAdm, especTerminiMaxim, finalitzaViaAdminisitrat, finalitzarExpedient, finsAGestElect, fitxersList, gestioElectronica, id, identificacionsCompetenciesList, identificacionsFamiliesList, identificacionsRecursosList, informacioCiutada, informacioPublica, informacioTramitador, informacioVeinal, intern, lletratConeixedorProc, mobil, nivellAutenticacio, nivellSignatura, nomDocument, normativaReferencia, normesList, numConferimentsVista, numInformacioPublica, numInformacioVeinal, numTramitsAudiencia, ordenancesList, organResolutori, perCanalEspecific, perCanalGeneralista, periodicitatTermini, portalTramits, quiosc, relacioAmbExpedient, responActuacions, respostaAllegacion, respostaRequeriment, serveisList, silenciAdministratiu, tecnicConeixedorProc, terminiMaxim, tipusAutenticacioComunicacio, tipusAutenticacioNotificacio, tractamentGdpr, tramitacioAmbGpa, tramitsAudiencia, vigenciaFi, vigenciaInici);
   }
 
 
@@ -1657,6 +1679,7 @@ public class Identificacions {
     
     sb.append("    accesMobil: ").append(toIndentedString(accesMobil)).append("\n");
     sb.append("    accesQuiosc: ").append(toIndentedString(accesQuiosc)).append("\n");
+    sb.append("    administratiu: ").append(toIndentedString(administratiu)).append("\n");
     sb.append("    adrecaAltraWeb: ").append(toIndentedString(adrecaAltraWeb)).append("\n");
     sb.append("    adrecaPortalTramits: ").append(toIndentedString(adrecaPortalTramits)).append("\n");
     sb.append("    afectaCollectius: ").append(toIndentedString(afectaCollectius)).append("\n");
