@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaprocediments"
-  version: "2.0.0"
+  version: "2.2.2"
   title: "API gpaprocediments"
   contact:
     name: "Sergio Corras"
@@ -543,6 +543,22 @@ definitions:
       usuariNom:
         type: "string"
     title: "Comentaris"
+  ConfdocsentTramitsOvt:
+    type: "object"
+    properties:
+      confDocsEntrada:
+        type: "number"
+      tramitOvtIdext:
+        type: "number"
+    title: "ConfdocsentTramitsOvt"
+  ConfdocstramTramitsOvt:
+    type: "object"
+    properties:
+      confDocsTramitacio:
+        type: "number"
+      tramitOvtIdext:
+        type: "number"
+    title: "ConfdocstramTramitsOvt"
   DadesGrups:
     type: "object"
     properties:
@@ -931,6 +947,9 @@ definitions:
         type: "string"
       accesQuiosc:
         type: "string"
+      administratiu:
+        type: "integer"
+        format: "int32"
       adrecaAltraWeb:
         type: "string"
       adrecaPortalTramits:
@@ -1094,6 +1113,10 @@ definitions:
       terminiMaxim:
         type: "integer"
         format: "int32"
+      tipusAutenticacioComunicacio:
+        type: "number"
+      tipusAutenticacioNotificacio:
+        type: "number"
       tractamentGdpr:
         type: "string"
       tramitacioAmbGpa:
@@ -1370,6 +1393,10 @@ definitions:
         type: "boolean"
       serieDocumental:
         type: "string"
+      tipusAutenticacioComunicacio:
+        type: "number"
+      tipusAutenticacioNotificacio:
+        type: "number"
       tramitador:
         type: "string"
       ugosDescripcions:
@@ -1505,6 +1532,10 @@ definitions:
         type: "boolean"
       serieDocumental:
         type: "string"
+      tipusAutenticacioComunicacio:
+        type: "number"
+      tipusAutenticacioNotificacio:
+        type: "number"
       tramitador:
         type: "string"
       ugosDescripcions:
@@ -1561,6 +1592,20 @@ definitions:
         type: "number"
       confDocTramIdext:
         type: "number"
+      confdocsentTramitsOvtList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocsentTramitsOvt"
+      confdocstramTramitsOvtList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocstramTramitsOvt"
+      dadesOperVinculadesTramitList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesOperTramitsOvt"
+      documentacioVinculada:
+        type: "number"
       editable:
         type: "boolean"
       id:
@@ -1584,6 +1629,12 @@ definitions:
         format: "int32"
       tramitOvtIdext:
         type: "number"
+      tramitRegistre:
+        type: "integer"
+        format: "int32"
+      tramitSignaturaCiutada:
+        type: "integer"
+        format: "int32"
     title: "ReqOperatiusTramOvt"
   RequerimentsOperatius:
     type: "object"

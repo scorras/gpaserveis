@@ -32,7 +32,7 @@ import org.joda.time.DateTime;
 /**
  * ExpedientsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-05T19:08:39.124+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-10T12:34:02.591+02:00")
 public class ExpedientsRDTO {
   @JsonProperty("accioEstatIdext")
   private BigDecimal accioEstatIdext = null;
@@ -132,6 +132,9 @@ public class ExpedientsRDTO {
 
   @JsonProperty("idRelacionat")
   private BigDecimal idRelacionat = null;
+
+  @JsonProperty("iniciacio")
+  private BigDecimal iniciacio = null;
 
   @JsonProperty("isInformeRat")
   private Boolean isInformeRat = null;
@@ -823,6 +826,24 @@ public class ExpedientsRDTO {
     this.idRelacionat = idRelacionat;
   }
 
+  public ExpedientsRDTO iniciacio(BigDecimal iniciacio) {
+    this.iniciacio = iniciacio;
+    return this;
+  }
+
+   /**
+   * Get iniciacio
+   * @return iniciacio
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getIniciacio() {
+    return iniciacio;
+  }
+
+  public void setIniciacio(BigDecimal iniciacio) {
+    this.iniciacio = iniciacio;
+  }
+
   public ExpedientsRDTO isInformeRat(Boolean isInformeRat) {
     this.isInformeRat = isInformeRat;
     return this;
@@ -1466,6 +1487,7 @@ public class ExpedientsRDTO {
         Objects.equals(this.id, expedientsRDTO.id) &&
         Objects.equals(this.idEstat, expedientsRDTO.idEstat) &&
         Objects.equals(this.idRelacionat, expedientsRDTO.idRelacionat) &&
+        Objects.equals(this.iniciacio, expedientsRDTO.iniciacio) &&
         Objects.equals(this.isInformeRat, expedientsRDTO.isInformeRat) &&
         Objects.equals(this.isOge, expedientsRDTO.isOge) &&
         Objects.equals(this.migracioIdOrigen, expedientsRDTO.migracioIdOrigen) &&
@@ -1502,7 +1524,7 @@ public class ExpedientsRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accioEstatIdext, aplicacioNegoci, bloqueig, bloquejos, codi, codiLlarg, configuracioDocumentacioProc, criticitatAvis, darreraModificacio, dataAllegacio, dataEnviamentRat, dataEsmena, dataPresentacio, dataPresentacioDes, dataPresentacioFinsA, descEstat, descEstatCastella, descEstatCatala, descEstatCiutada, descEstatCiutadaCastella, descEstatCiutadaCatala, descUGConvidada, descUnitatGestora, diesTerminiAllegacio, diesTerminiRequeriment, documentacioIdext, editable, estat, estatActual, expedientObjecteDeRecursId, id, idEstat, idRelacionat, isInformeRat, isOge, migracioIdOrigen, nivellAutenticacio, nomDescUGConvidada, nomDescUnitatGestora, nomProcediment, nomProcedimentCastella, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, pathGestorDocumental, pendentRetorn, personesImplicades, personesInteressades, procedimentCodi, procedimentIdext, procedimentVersio, relacioTipusRelacio, representantPrincipal, respostaAllegacion, respostaRequeriment, seleccionable, sollicitant, sollicitantPrincipal, sollicitud, sollicituds, tipusAvis, tramitador, ugConvidadaIdextList, ugrIdext, ultimaModificacio, unitatGestoraIdext);
+    return Objects.hash(accioEstatIdext, aplicacioNegoci, bloqueig, bloquejos, codi, codiLlarg, configuracioDocumentacioProc, criticitatAvis, darreraModificacio, dataAllegacio, dataEnviamentRat, dataEsmena, dataPresentacio, dataPresentacioDes, dataPresentacioFinsA, descEstat, descEstatCastella, descEstatCatala, descEstatCiutada, descEstatCiutadaCastella, descEstatCiutadaCatala, descUGConvidada, descUnitatGestora, diesTerminiAllegacio, diesTerminiRequeriment, documentacioIdext, editable, estat, estatActual, expedientObjecteDeRecursId, id, idEstat, idRelacionat, iniciacio, isInformeRat, isOge, migracioIdOrigen, nivellAutenticacio, nomDescUGConvidada, nomDescUnitatGestora, nomProcediment, nomProcedimentCastella, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, pathGestorDocumental, pendentRetorn, personesImplicades, personesInteressades, procedimentCodi, procedimentIdext, procedimentVersio, relacioTipusRelacio, representantPrincipal, respostaAllegacion, respostaRequeriment, seleccionable, sollicitant, sollicitantPrincipal, sollicitud, sollicituds, tipusAvis, tramitador, ugConvidadaIdextList, ugrIdext, ultimaModificacio, unitatGestoraIdext);
   }
 
 
@@ -1544,6 +1566,7 @@ public class ExpedientsRDTO {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    idEstat: ").append(toIndentedString(idEstat)).append("\n");
     sb.append("    idRelacionat: ").append(toIndentedString(idRelacionat)).append("\n");
+    sb.append("    iniciacio: ").append(toIndentedString(iniciacio)).append("\n");
     sb.append("    isInformeRat: ").append(toIndentedString(isInformeRat)).append("\n");
     sb.append("    isOge: ").append(toIndentedString(isOge)).append("\n");
     sb.append("    migracioIdOrigen: ").append(toIndentedString(migracioIdOrigen)).append("\n");

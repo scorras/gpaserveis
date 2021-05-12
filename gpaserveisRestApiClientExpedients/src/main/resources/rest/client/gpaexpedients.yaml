@@ -2620,6 +2620,8 @@ definitions:
         type: "number"
       idRelacionat:
         type: "number"
+      iniciacio:
+        type: "number"
       isInformeRat:
         type: "boolean"
       isOge:
