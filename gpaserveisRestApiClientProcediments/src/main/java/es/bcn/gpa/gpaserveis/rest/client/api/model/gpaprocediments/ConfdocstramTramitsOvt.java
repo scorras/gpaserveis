@@ -22,71 +22,50 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 
 /**
- * HistoricValors
+ * ConfdocstramTramitsOvt
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-11T12:44:17.313+02:00")
-public class HistoricValors {
-  @JsonProperty("id")
-  private BigDecimal id = null;
+public class ConfdocstramTramitsOvt {
+  @JsonProperty("confDocsTramitacio")
+  private BigDecimal confDocsTramitacio = null;
 
-  @JsonProperty("ordre")
-  private Long ordre = null;
+  @JsonProperty("tramitOvtIdext")
+  private BigDecimal tramitOvtIdext = null;
 
-  @JsonProperty("valor")
-  private String valor = null;
-
-  public HistoricValors id(BigDecimal id) {
-    this.id = id;
+  public ConfdocstramTramitsOvt confDocsTramitacio(BigDecimal confDocsTramitacio) {
+    this.confDocsTramitacio = confDocsTramitacio;
     return this;
   }
 
    /**
-   * Get id
-   * @return id
+   * Get confDocsTramitacio
+   * @return confDocsTramitacio
   **/
   @ApiModelProperty(value = "")
-  public BigDecimal getId() {
-    return id;
+  public BigDecimal getConfDocsTramitacio() {
+    return confDocsTramitacio;
   }
 
-  public void setId(BigDecimal id) {
-    this.id = id;
+  public void setConfDocsTramitacio(BigDecimal confDocsTramitacio) {
+    this.confDocsTramitacio = confDocsTramitacio;
   }
 
-  public HistoricValors ordre(Long ordre) {
-    this.ordre = ordre;
+  public ConfdocstramTramitsOvt tramitOvtIdext(BigDecimal tramitOvtIdext) {
+    this.tramitOvtIdext = tramitOvtIdext;
     return this;
   }
 
    /**
-   * Get ordre
-   * @return ordre
+   * Get tramitOvtIdext
+   * @return tramitOvtIdext
   **/
   @ApiModelProperty(value = "")
-  public Long getOrdre() {
-    return ordre;
+  public BigDecimal getTramitOvtIdext() {
+    return tramitOvtIdext;
   }
 
-  public void setOrdre(Long ordre) {
-    this.ordre = ordre;
-  }
-
-  public HistoricValors valor(String valor) {
-    this.valor = valor;
-    return this;
-  }
-
-   /**
-   * Get valor
-   * @return valor
-  **/
-  @ApiModelProperty(value = "")
-  public String getValor() {
-    return valor;
-  }
-
-  public void setValor(String valor) {
-    this.valor = valor;
+  public void setTramitOvtIdext(BigDecimal tramitOvtIdext) {
+    this.tramitOvtIdext = tramitOvtIdext;
   }
 
 
@@ -98,26 +77,24 @@ public class HistoricValors {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    HistoricValors historicValors = (HistoricValors) o;
-    return Objects.equals(this.id, historicValors.id) &&
-        Objects.equals(this.ordre, historicValors.ordre) &&
-        Objects.equals(this.valor, historicValors.valor);
+    ConfdocstramTramitsOvt confdocstramTramitsOvt = (ConfdocstramTramitsOvt) o;
+    return Objects.equals(this.confDocsTramitacio, confdocstramTramitsOvt.confDocsTramitacio) &&
+        Objects.equals(this.tramitOvtIdext, confdocstramTramitsOvt.tramitOvtIdext);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, ordre, valor);
+    return Objects.hash(confDocsTramitacio, tramitOvtIdext);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class HistoricValors {\n");
+    sb.append("class ConfdocstramTramitsOvt {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    ordre: ").append(toIndentedString(ordre)).append("\n");
-    sb.append("    valor: ").append(toIndentedString(valor)).append("\n");
+    sb.append("    confDocsTramitacio: ").append(toIndentedString(confDocsTramitacio)).append("\n");
+    sb.append("    tramitOvtIdext: ").append(toIndentedString(tramitOvtIdext)).append("\n");
     sb.append("}");
     return sb.toString();
   }

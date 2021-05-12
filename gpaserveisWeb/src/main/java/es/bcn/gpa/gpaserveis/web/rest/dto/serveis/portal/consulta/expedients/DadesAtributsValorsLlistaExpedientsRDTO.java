@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @ApiModel(value = "ValorsLlistaExpedient")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "index", "valor" })
+@JsonPropertyOrder({ "index", "valor", "valorCastella" })
 @Getter
 @Setter
 public class DadesAtributsValorsLlistaExpedientsRDTO {
@@ -20,5 +20,8 @@ public class DadesAtributsValorsLlistaExpedientsRDTO {
 
 	@ApiModelProperty(value = "Valor de la llista")
 	private String valor;
+	
+	@ApiModelProperty(value = "Valor de la llista en castellà")
+	private String valorCastella;
 
 }

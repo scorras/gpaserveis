@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @ApiModel(value = "ValorsLlista")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "codi", "valor", "ordre" })
+@JsonPropertyOrder({ "codi", "valor", "valorCastella", "ordre" })
 @Getter
 @Setter
 public class DadesAtributsValorsLlistaRDTO implements Comparable<DadesAtributsValorsLlistaRDTO> {
@@ -19,6 +19,8 @@ public class DadesAtributsValorsLlistaRDTO implements Comparable<DadesAtributsVa
 	private String codi;
 	@ApiModelProperty(value = "Valor de la llista")
 	private String valor;
+	@ApiModelProperty(value = "Valor de la llista en castellà")
+	private String valorCastella;
 	@ApiModelProperty(value = "Ordre del valor de la llista")
 	private String ordre;
 
@@ -34,6 +36,7 @@ public class DadesAtributsValorsLlistaRDTO implements Comparable<DadesAtributsVa
 		result = prime * result + ((codi == null) ? 0 : codi.hashCode());
 		result = prime * result + ((ordre == null) ? 0 : ordre.hashCode());
 		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
+		result = prime * result + ((valorCastella == null) ? 0 : valorCastella.hashCode());
 		return result;
 	}
 
@@ -60,6 +63,11 @@ public class DadesAtributsValorsLlistaRDTO implements Comparable<DadesAtributsVa
 			if (other.valor != null)
 				return false;
 		} else if (!valor.equals(other.valor))
+			return false;
+		if (valorCastella == null) {
+			if (other.valorCastella != null)
+				return false;
+		} else if (!valorCastella.equals(other.valorCastella))
 			return false;
 		return true;
 	}
