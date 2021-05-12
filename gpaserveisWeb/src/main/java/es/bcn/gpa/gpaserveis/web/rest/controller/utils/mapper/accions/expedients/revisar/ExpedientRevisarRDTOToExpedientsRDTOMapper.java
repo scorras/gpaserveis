@@ -10,6 +10,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.ListP
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.ListPersonesInteressadesToListInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.PersonaRepresentantToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient.PersonaSollicitantToInternalConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.sollicitud.TipusIniciacioSollicitudToInternalConverter;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.revisar.ExpedientRevisarRDTO;
 
 /**
@@ -30,6 +31,8 @@ public class ExpedientRevisarRDTOToExpedientsRDTOMapper extends PropertyMap<Expe
 	/** The list persona representant to list internal converter. */
 	private ListPersonesImplicadesToListInternalConverter listPersonesImplicadesToListInternalConverter;
 
+	private TipusIniciacioSollicitudToInternalConverter tipusIniciacioSollicitudToInternalConverter;
+
 	/**
 	 * Instantiates a new solicituds crear RDTO to expedients RDTO mapper.
 	 *
@@ -43,11 +46,14 @@ public class ExpedientRevisarRDTOToExpedientsRDTOMapper extends PropertyMap<Expe
 			@Qualifier("expedientPersonaSollicitantToInternalConverter") PersonaSollicitantToInternalConverter personaSollicitantToInternalConverter,
 			@Qualifier("expedientPersonaRepresentantToInternalConverter") PersonaRepresentantToInternalConverter personaRepresentantToInternalConverter,
 			@Qualifier("expedientListPersonesInteressadesToListInternalConverter") ListPersonesInteressadesToListInternalConverter listPersonesInteressadesToListInternalConverter,
-			@Qualifier("expedientListPersonesImplicadesToListInternalConverter") ListPersonesImplicadesToListInternalConverter listPersonesImplicadesToListInternalConverter) {
+			@Qualifier("expedientListPersonesImplicadesToListInternalConverter") ListPersonesImplicadesToListInternalConverter listPersonesImplicadesToListInternalConverter,
+			@Qualifier("sollicitudTipusIniciacioSollicitudToInternalConverter") TipusIniciacioSollicitudToInternalConverter tipusIniciacioSollicitudToInternalConverter) {
 		this.personaSollicitantToInternalConverter = personaSollicitantToInternalConverter;
 		this.personaRepresentantToInternalConverter = personaRepresentantToInternalConverter;
 		this.listPersonesInteressadesToListInternalConverter = listPersonesInteressadesToListInternalConverter;
 		this.listPersonesImplicadesToListInternalConverter = listPersonesImplicadesToListInternalConverter;
+		this.tipusIniciacioSollicitudToInternalConverter = tipusIniciacioSollicitudToInternalConverter;
+
 	}
 
 	/*
@@ -63,6 +69,7 @@ public class ExpedientRevisarRDTOToExpedientsRDTOMapper extends PropertyMap<Expe
 		using(personaRepresentantToInternalConverter).map(source.getRepresentant()).setRepresentantPrincipal(null);
 		using(listPersonesInteressadesToListInternalConverter).map(source.getPersonesInteressades()).setPersonesInteressades(null);
 		using(listPersonesImplicadesToListInternalConverter).map(source.getPersonesImplicades()).setPersonesImplicades(null);
+		using(tipusIniciacioSollicitudToInternalConverter).map(source.getIniciacio()).setIniciacio(null);
 	}
 
 }

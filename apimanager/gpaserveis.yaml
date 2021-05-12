@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.2.4"
+  version: "2.3.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -4244,6 +4244,11 @@ definitions:
         description: "Llista de valors de l'atribut"
         items:
           type: "string"
+      valorCastella:
+        type: "array"
+        description: "Llista de valors de l'atribut en castellà"
+        items:
+          type: "string"
       valorsLlista:
         type: "array"
         description: "Si el tipus de camp de l'atribut és llista, valors d'aquesta\
@@ -4313,6 +4318,15 @@ definitions:
           attribute: false
           wrapped: true
         description: "Llista de valors de l'atribut"
+        items:
+          type: "string"
+      valorCastella:
+        type: "array"
+        xml:
+          name: "VALORS_CASTELLA"
+          attribute: false
+          wrapped: true
+        description: "Llista de valors de l'atribut en castellà"
         items:
           type: "string"
       valorsLlista:
@@ -6053,6 +6067,9 @@ definitions:
       expedientObjecteDeRecurs:
         type: "string"
         description: "Expedient objecte de recurs"
+      iniciacio:
+        type: "string"
+        description: "Iniciació de l'expedient"
       numeroRegistre:
         type: "string"
         description: "Número de registre."
@@ -8077,6 +8094,9 @@ definitions:
       valor:
         type: "string"
         description: "Valor de la llista"
+      valorCastella:
+        type: "string"
+        description: "Valor de la llista en castellà"
     title: "ValorsLlista"
   ValorsLlistaExpedient:
     type: "object"
@@ -8087,6 +8107,9 @@ definitions:
       valor:
         type: "string"
         description: "Valor de la llista"
+      valorCastella:
+        type: "string"
+        description: "Valor de la llista en castellà"
     title: "ValorsLlistaExpedient"
   ValorsLlistaSollicitud:
     type: "object"
@@ -8105,6 +8128,13 @@ definitions:
           attribute: false
           wrapped: false
         description: "Valor de la llista"
+      valorCastella:
+        type: "string"
+        xml:
+          name: "VALOR_CASTELLA"
+          attribute: false
+          wrapped: false
+        description: "Valor de la llista en castellà"
     title: "ValorsLlistaSollicitud"
     xml:
       name: "VALOR_LLISTA"

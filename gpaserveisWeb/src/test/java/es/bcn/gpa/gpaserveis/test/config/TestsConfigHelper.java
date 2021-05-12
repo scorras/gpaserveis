@@ -1050,6 +1050,7 @@ public class TestsConfigHelper {
 		items.setDadesOperacions(ONE);
 		items.setId(ONE);
 		items.setItemDescripcio("Descripció Item");
+		items.setItemDescripcioCastella("Descripció Item en castellà");
 		items.setItemId(INTEGER_ONE);
 		items.setItemOrdre(INTEGER_ONE);
 		itemsList.add(items);
@@ -1766,6 +1767,7 @@ public class TestsConfigHelper {
 		items.setDadesOperacions(ONE);
 		items.setId(ONE);
 		items.setItemDescripcio("Descripció Item");
+		items.setItemDescripcioCastella("Descripció Item en castellà");
 		items.setItemId(INTEGER_ONE);
 		items.setItemOrdre(INTEGER_ONE);
 		itemsList.add(items);

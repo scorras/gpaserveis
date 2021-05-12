@@ -47,11 +47,13 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 		DadesAtributsExpedientsRDTO dadesAtributsExpedientsRDTO = null;
 		String index = null;
 		List<String> valorList = null;
+		List<String> valorCastellaList = null;
 		List<DadesAtributsValorsLlistaExpedientsRDTO> valorsLlistaList = null;
 		MunicipisRDTO municipisRDTO = null;
 		ProvinciesRDTO provinciesRDTO = null;
 		PaisosRDTO paisosRDTO = null;
 		StringBuffer valorStringBuffer = null;
+		StringBuffer valorCastellaStringBuffer = null;
 
 		if (CollectionUtils.isNotEmpty(source)) {
 			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
@@ -64,6 +66,7 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 				provinciesRDTO = null;
 				paisosRDTO = null;
 				valorList = new ArrayList<String>();
+				valorCastellaList = new ArrayList<String>();
 				valorsLlistaList = new ArrayList<DadesAtributsValorsLlistaExpedientsRDTO>();
 				if (CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecifica().getDadesEspecifiquesValorsList())) {
 					for (DadesEspecifiquesValors dadesEspecifiquesValors : dadaEspecificaBDTO.getDadaEspecifica()
@@ -75,7 +78,8 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 								valorList.add(String.valueOf(valorListaMultiple));
 							}
 						} else {
-							valorStringBuffer = new StringBuffer();
+							valorStringBuffer = new StringBuffer();				
+							
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorBoolean() != null)
 							        ? BooleanUtils.toStringTrueFalse(BooleanUtils.toBoolean(dadesEspecifiquesValors.getValorBoolean(),
 							                NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO))
@@ -101,6 +105,13 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 								        dadaEspecificaBDTO.getDadaOperacio().getItemsList());
 								valorStringBuffer.append(obtenirDescripcioItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
 								        dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
+								
+								String valorCastella = obtenirDescripcioCastellaItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
+								        dadaEspecificaBDTO.getDadaOperacio().getItemsList());
+								if(StringUtils.isNotEmpty(valorCastella)){
+									valorCastellaStringBuffer = new StringBuffer();
+									valorCastellaStringBuffer.append(valorCastella);
+								}
 							} else {
 								valorStringBuffer.append(StringUtils.EMPTY);
 							}
@@ -151,6 +162,9 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 							if (StringUtils.isNotBlank(valorStringBuffer.toString())) {
 								valorList.add(valorStringBuffer.toString());
 							}
+							if(valorCastellaStringBuffer != null && StringUtils.isNotEmpty(valorCastellaStringBuffer.toString())){
+								valorCastellaList.add(valorCastellaStringBuffer.toString());
+							}
 						}
 					}
 				}
@@ -162,8 +176,12 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 				if (CollectionUtils.isEmpty(valorsLlistaList)) {
 					valorsLlistaList = null;
 				}
+				if(CollectionUtils.isEmpty(valorCastellaList)){
+					valorCastellaList = null;
+				}
 				dadesAtributsExpedientsRDTO.setIndex(index);
 				dadesAtributsExpedientsRDTO.setValor(valorList);
+				dadesAtributsExpedientsRDTO.setValorCastella(valorCastellaList);
 				dadesAtributsExpedientsRDTO.setValorsLlista(valorsLlistaList);
 				dadesAtributsExpedientsRDTOList.add(dadesAtributsExpedientsRDTO);
 			}
@@ -186,6 +204,22 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 		for (Items items : itemsList) {
 			if (items.getItemId().intValue() == valorLlista.intValue()) {
 				return items.getItemDescripcio();
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Obtenir descripcio castella item llista.
+	 *
+	 * @param valorLlista the valor llista
+	 * @param itemsList the items list
+	 * @return the string
+	 */
+	private String obtenirDescripcioCastellaItemLlista(Integer valorLlista, List<Items> itemsList) {
+		for (Items items : itemsList) {
+			if (items.getItemId().intValue() == valorLlista.intValue()) {
+				return items.getItemDescripcioCastella();
 			}
 		}
 		return null;
@@ -224,6 +258,7 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 				DadesAtributsValorsLlistaExpedientsRDTO dadesAtributsValorsLlistaExpedientsRDTO = new DadesAtributsValorsLlistaExpedientsRDTO();
 				dadesAtributsValorsLlistaExpedientsRDTO.setIndex(items.getItemId().toString());
 				dadesAtributsValorsLlistaExpedientsRDTO.setValor(items.getItemDescripcio());
+				dadesAtributsValorsLlistaExpedientsRDTO.setValorCastella(items.getItemDescripcioCastella());
 				return dadesAtributsValorsLlistaExpedientsRDTO;
 			}
 		}
