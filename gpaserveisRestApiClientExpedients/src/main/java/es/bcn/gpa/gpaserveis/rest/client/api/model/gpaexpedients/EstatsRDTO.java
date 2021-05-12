@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 /**
  * EstatsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-05T19:08:39.124+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-11T20:02:11.541+02:00")
 public class EstatsRDTO {
   @JsonProperty("dataCreacio")
   private DateTime dataCreacio = null;

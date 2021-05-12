@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import es.bcn.gpa.gpaserveis.web.rest.dto.json.JsonDadesOperacioValorDeserializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -20,6 +22,7 @@ public class AtributsActualitzarRDTO {
 	@ApiModelProperty(value = "Codi identificador de l'atribut.", required = true)
 	private String codi;
 	@ApiModelProperty(value = "Valor de l'atribut", required = true)
+	@JsonDeserialize(using = JsonDadesOperacioValorDeserializer.class, as = List.class)
 	private List<String> valor;
 
 }
