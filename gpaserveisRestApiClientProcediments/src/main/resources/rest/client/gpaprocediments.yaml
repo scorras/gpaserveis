@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaprocediments"
-  version: "1.28.1"
+  version: "2.2.2"
   title: "API gpaprocediments"
   contact:
     name: "Sergio Corras"
@@ -14,30 +14,6 @@ tags:
 - name: "procediments-rest-controller"
   description: "Procediments Rest Controller"
 paths:
-  /procediments/desbloquejarTotsElsProcedimentsUsuari:
-    put:
-      tags:
-      - "Procediments "
-      summary: "DesbloquejarTotsElsProcedimentsUsuari"
-      operationId: "DesbloquejarTotsElsProcedimentsUsuari"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /procediments/perCodi/{codi}:
     get:
       tags:
@@ -167,6 +143,14 @@ paths:
         description: "Identificador d'usuari pel qual es realitza la cerca"
         required: false
         type: "number"
+      - name: "iniciacions"
+        in: "query"
+        description: "Iniciacions del procediment"
+        required: false
+        type: "array"
+        items:
+          type: "number"
+        collectionFormat: "multi"
       - name: "intern"
         in: "query"
         description: "Exclusivament intern"
@@ -559,6 +543,22 @@ definitions:
       usuariNom:
         type: "string"
     title: "Comentaris"
+  ConfdocsentTramitsOvt:
+    type: "object"
+    properties:
+      confDocsEntrada:
+        type: "number"
+      tramitOvtIdext:
+        type: "number"
+    title: "ConfdocsentTramitsOvt"
+  ConfdocstramTramitsOvt:
+    type: "object"
+    properties:
+      confDocsTramitacio:
+        type: "number"
+      tramitOvtIdext:
+        type: "number"
+    title: "ConfdocstramTramitsOvt"
   DadesGrups:
     type: "object"
     properties:
@@ -947,6 +947,9 @@ definitions:
         type: "string"
       accesQuiosc:
         type: "string"
+      administratiu:
+        type: "integer"
+        format: "int32"
       adrecaAltraWeb:
         type: "string"
       adrecaPortalTramits:
@@ -1110,6 +1113,10 @@ definitions:
       terminiMaxim:
         type: "integer"
         format: "int32"
+      tipusAutenticacioComunicacio:
+        type: "number"
+      tipusAutenticacioNotificacio:
+        type: "number"
       tractamentGdpr:
         type: "string"
       tramitacioAmbGpa:
@@ -1159,6 +1166,8 @@ definitions:
       id:
         type: "number"
       itemDescripcio:
+        type: "string"
+      itemDescripcioCastella:
         type: "string"
       itemId:
         type: "integer"
@@ -1386,6 +1395,10 @@ definitions:
         type: "boolean"
       serieDocumental:
         type: "string"
+      tipusAutenticacioComunicacio:
+        type: "number"
+      tipusAutenticacioNotificacio:
+        type: "number"
       tramitador:
         type: "string"
       ugosDescripcions:
@@ -1521,6 +1534,10 @@ definitions:
         type: "boolean"
       serieDocumental:
         type: "string"
+      tipusAutenticacioComunicacio:
+        type: "number"
+      tipusAutenticacioNotificacio:
+        type: "number"
       tramitador:
         type: "string"
       ugosDescripcions:
@@ -1573,6 +1590,28 @@ definitions:
   ReqOperatiusTramOvt:
     type: "object"
     properties:
+      confDocEntrIdext:
+        type: "number"
+      confDocTramIdext:
+        type: "number"
+      confdocsentTramitsOvtList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocsentTramitsOvt"
+      confdocstramTramitsOvtList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocstramTramitsOvt"
+      dadesOperVinculadesTramitList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesOperTramitsOvt"
+      documentacioVinculada:
+        type: "number"
+      editable:
+        type: "boolean"
+      id:
+        type: "string"
       idReq:
         type: "number"
       identificadorRegistro:
@@ -1585,11 +1624,19 @@ definitions:
       nivellSignatura:
         type: "integer"
         format: "int32"
+      seleccionable:
+        type: "boolean"
       tramitGeneric:
         type: "integer"
         format: "int32"
       tramitOvtIdext:
         type: "number"
+      tramitRegistre:
+        type: "integer"
+        format: "int32"
+      tramitSignaturaCiutada:
+        type: "integer"
+        format: "int32"
     title: "ReqOperatiusTramOvt"
   RequerimentsOperatius:
     type: "object"

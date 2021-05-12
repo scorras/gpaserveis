@@ -582,6 +582,7 @@ public class ConverterHelper {
 				dadesAtributsValorsLlistaRDTO = new DadesAtributsValorsLlistaRDTO();
 				dadesAtributsValorsLlistaRDTO.setCodi((items.getItemId() != null) ? String.valueOf(items.getItemId()) : null);
 				dadesAtributsValorsLlistaRDTO.setValor(items.getItemDescripcio());
+				dadesAtributsValorsLlistaRDTO.setValorCastella(items.getItemDescripcioCastella());
 				dadesAtributsValorsLlistaRDTO.setOrdre((items.getItemOrdre() != null) ? String.valueOf(items.getItemOrdre()) : null);
 				dadesAtributsValorsLlistaRDTOList.add(dadesAtributsValorsLlistaRDTO);
 			}

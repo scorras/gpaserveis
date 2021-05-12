@@ -24,7 +24,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-05T19:08:39.124+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-12T18:43:06.213+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api")
 public class Persones_Api {
     private ApiClient apiClient;

@@ -19,9 +19,9 @@ import lombok.Setter;
 
 @ApiModel(value = "AtributsSollicitud")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "codi", "index", "valor", "valorsLlista" })
+@JsonPropertyOrder({ "codi", "index", "valor","valorCastella", "valorsLlista" })
 @XmlRootElement(name = "DADA_OPERACIO")
-@XmlType(name = "DadesAtributsSollicituds", propOrder = { "codi", "index", "valor", "valorsLlista" })
+@XmlType(name = "DadesAtributsSollicituds", propOrder = { "codi", "index", "valor", "valorCastella", "valorsLlista" })
 @XmlAccessorType(XmlAccessType.NONE)
 @Getter
 @Setter
@@ -37,6 +37,10 @@ public class DadesAtributsSollicitudsRDTO {
 	@XmlElementWrapper(name = "VALORS")
 	@XmlElement(name = "VALOR")
 	private List<String> valor;
+	@ApiModelProperty(value = "Llista de valors de l'atribut en castellà")
+	@XmlElementWrapper(name = "VALORS_CASTELLA")
+	@XmlElement(name = "VALOR_CASTELLA")
+	private List<String> valorCastella;
 	@ApiModelProperty(value = "Si el tipus de camp de l'atribut és llista múltiple, valors d'aquesta llista")
 	@XmlElementWrapper(name = "VALORS_LLISTA")
 	@XmlElement(name = "VALOR_LLISTA")

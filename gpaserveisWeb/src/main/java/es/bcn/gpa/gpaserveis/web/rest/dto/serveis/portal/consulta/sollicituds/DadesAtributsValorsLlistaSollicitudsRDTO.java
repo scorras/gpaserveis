@@ -18,7 +18,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "index", "valor" })
 @XmlRootElement(name = "VALOR_LLISTA")
-@XmlType(name = "DadesAtributsValorsLlistaSollicituds", propOrder = { "index", "valor" })
+@XmlType(name = "DadesAtributsValorsLlistaSollicituds", propOrder = { "index", "valor", "valorCastella" })
 @XmlAccessorType(XmlAccessType.NONE)
 @Getter
 @Setter
@@ -31,5 +31,9 @@ public class DadesAtributsValorsLlistaSollicitudsRDTO {
 	@ApiModelProperty(value = "Valor de la llista")
 	@XmlElement(name = "VALOR", required = true, type = String.class)
 	private String valor;
+	
+	@ApiModelProperty(value = "Valor de la llista en castellà")
+	@XmlElement(name = "VALOR_CASTELLA", type = String.class)
+	private String valorCastella;
 
 }

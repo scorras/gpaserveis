@@ -105,4 +105,6 @@ public class Constants {
 	/** The Constant NIVELL_CRITICITAT_ALT. */
 	public static final Integer NIVELL_CRITICITAT_ALT = NumberUtils.INTEGER_ONE;
 
+	public static final BigDecimal INICIACIO_SOLLICITUD_INTERESSAT = new BigDecimal(2);
+
 }

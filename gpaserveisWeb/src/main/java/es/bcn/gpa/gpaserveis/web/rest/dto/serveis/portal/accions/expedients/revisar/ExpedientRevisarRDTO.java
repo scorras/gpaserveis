@@ -33,5 +33,7 @@ public class ExpedientRevisarRDTO {
 	private List<PersonesRDTO> personesInteressades;
 	@ApiModelProperty(value = "Persones implicades", required = false)
 	private List<PersonesRDTO> personesImplicades;
+	@ApiModelProperty(value = "Iniciació de l'expedient", required = false)
+	private String iniciacio;
 
 }

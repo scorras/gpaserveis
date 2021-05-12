@@ -22,50 +22,50 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 
 /**
- * DadesoperEstatsExp
+ * ConfdocsentTramitsOvt
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-12T18:33:11.674+02:00")
-public class DadesoperEstatsExp {
-  @JsonProperty("dadesOperacio")
-  private BigDecimal dadesOperacio = null;
+public class ConfdocsentTramitsOvt {
+  @JsonProperty("confDocsEntrada")
+  private BigDecimal confDocsEntrada = null;
 
-  @JsonProperty("estatExpIdext")
-  private BigDecimal estatExpIdext = null;
+  @JsonProperty("tramitOvtIdext")
+  private BigDecimal tramitOvtIdext = null;
 
-  public DadesoperEstatsExp dadesOperacio(BigDecimal dadesOperacio) {
-    this.dadesOperacio = dadesOperacio;
+  public ConfdocsentTramitsOvt confDocsEntrada(BigDecimal confDocsEntrada) {
+    this.confDocsEntrada = confDocsEntrada;
     return this;
   }
 
    /**
-   * Get dadesOperacio
-   * @return dadesOperacio
+   * Get confDocsEntrada
+   * @return confDocsEntrada
   **/
   @ApiModelProperty(value = "")
-  public BigDecimal getDadesOperacio() {
-    return dadesOperacio;
+  public BigDecimal getConfDocsEntrada() {
+    return confDocsEntrada;
   }
 
-  public void setDadesOperacio(BigDecimal dadesOperacio) {
-    this.dadesOperacio = dadesOperacio;
+  public void setConfDocsEntrada(BigDecimal confDocsEntrada) {
+    this.confDocsEntrada = confDocsEntrada;
   }
 
-  public DadesoperEstatsExp estatExpIdext(BigDecimal estatExpIdext) {
-    this.estatExpIdext = estatExpIdext;
+  public ConfdocsentTramitsOvt tramitOvtIdext(BigDecimal tramitOvtIdext) {
+    this.tramitOvtIdext = tramitOvtIdext;
     return this;
   }
 
    /**
-   * Get estatExpIdext
-   * @return estatExpIdext
+   * Get tramitOvtIdext
+   * @return tramitOvtIdext
   **/
   @ApiModelProperty(value = "")
-  public BigDecimal getEstatExpIdext() {
-    return estatExpIdext;
+  public BigDecimal getTramitOvtIdext() {
+    return tramitOvtIdext;
   }
 
-  public void setEstatExpIdext(BigDecimal estatExpIdext) {
-    this.estatExpIdext = estatExpIdext;
+  public void setTramitOvtIdext(BigDecimal tramitOvtIdext) {
+    this.tramitOvtIdext = tramitOvtIdext;
   }
 
 
@@ -77,24 +77,24 @@ public class DadesoperEstatsExp {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DadesoperEstatsExp dadesoperEstatsExp = (DadesoperEstatsExp) o;
-    return Objects.equals(this.dadesOperacio, dadesoperEstatsExp.dadesOperacio) &&
-        Objects.equals(this.estatExpIdext, dadesoperEstatsExp.estatExpIdext);
+    ConfdocsentTramitsOvt confdocsentTramitsOvt = (ConfdocsentTramitsOvt) o;
+    return Objects.equals(this.confDocsEntrada, confdocsentTramitsOvt.confDocsEntrada) &&
+        Objects.equals(this.tramitOvtIdext, confdocsentTramitsOvt.tramitOvtIdext);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dadesOperacio, estatExpIdext);
+    return Objects.hash(confDocsEntrada, tramitOvtIdext);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DadesoperEstatsExp {\n");
+    sb.append("class ConfdocsentTramitsOvt {\n");
     
-    sb.append("    dadesOperacio: ").append(toIndentedString(dadesOperacio)).append("\n");
-    sb.append("    estatExpIdext: ").append(toIndentedString(estatExpIdext)).append("\n");
+    sb.append("    confDocsEntrada: ").append(toIndentedString(confDocsEntrada)).append("\n");
+    sb.append("    tramitOvtIdext: ").append(toIndentedString(tramitOvtIdext)).append("\n");
     sb.append("}");
     return sb.toString();
   }
