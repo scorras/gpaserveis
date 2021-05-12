@@ -37,6 +37,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PrepararSigna
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarCriptograficaDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocumentResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TipusMime;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat;
@@ -221,6 +222,7 @@ public class TestsConfigHelper {
 		identificacions.setPeriodicitatTermini(INTEGER_ONE);
 		identificacions.setVigenciaInici(now());
 		identificacions.setVigenciaFi(now());
+		identificacions.setAdministratiu(INTEGER_ZERO);
 		procedimentsRDTO.setIdentificacions(identificacions);
 		ArrayList<ProcedimentsIniciacions> procedimentsIniciacionsList = new ArrayList<ProcedimentsIniciacions>();
 		ProcedimentsIniciacions procedimentsIniciacions1 = new ProcedimentsIniciacions();
@@ -256,6 +258,11 @@ public class TestsConfigHelper {
 		reqOperatiusTramOvt.setTramitOvtIdext(new BigDecimal(2));
 		reqOperatiusTramOvt.setTramitGeneric(1);
 		reqOperatiusTramOvtList.add(reqOperatiusTramOvt);
+		ReqOperatiusTramOvt reqOperatiusTramOvt1 = new ReqOperatiusTramOvt();
+		reqOperatiusTramOvt1.setIdReq(ONE);
+		reqOperatiusTramOvt1.setTramitOvtIdext(new BigDecimal(1));
+		reqOperatiusTramOvt1.setTramitRegistre(INTEGER_ONE);
+		reqOperatiusTramOvtList.add(reqOperatiusTramOvt1);
 		requerimentsOperatius.setReqOperatiusTramOvtList(reqOperatiusTramOvtList);
 		procedimentsRDTO.setReqOperatius(requerimentsOperatius);
 		procedimentsRDTO.setRequerimentsOperatius(ONE);
@@ -1516,6 +1523,7 @@ public class TestsConfigHelper {
 		docsEntradaRDTO.setDocumentacio(ONE);
 		docsEntradaRDTO.setDeclaracioResponsable(NumberUtils.INTEGER_ZERO);
 		docsEntradaRDTO.setDocumentacio(ONE);
+		docsEntradaRDTO.setSollicitudIdext(BigDecimal.valueOf(2));
 
 		return docsEntradaRDTO;
 	}
@@ -1528,6 +1536,9 @@ public class TestsConfigHelper {
 	public static DocsTramitacioRDTO consultarDadesDocumentGeneratResponse() {
 		DocsFisics docsFisics = new DocsFisics();
 		docsFisics.setNom("prova.txt");
+		TipusMime tipusMime = new TipusMime();
+		tipusMime.setId(INTEGER_ONE);
+		docsFisics.setTipusMime(tipusMime);
 		ConfiguracioDocsTramitacio configuracioDocsTramitacio = new ConfiguracioDocsTramitacio();
 		configuracioDocsTramitacio.setId(ONE);
 		configuracioDocsTramitacio.setNom("Nom");
@@ -1851,17 +1862,6 @@ public class TestsConfigHelper {
 	public static Integer crearComentariAccioResponse() {
 
 		return INTEGER_ONE;
-	}
-
-	/**
-	 * Consultar dades document aportats response.
-	 *
-	 * @return the docs entrada RDTO
-	 */
-	public static DocsEntradaRDTO consultarDadesDocumentAportatsResponse() {
-		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
-		docsEntradaRDTO.setSollicitudIdext(BigDecimal.valueOf(2));
-		return docsEntradaRDTO;
 	}
 
 	/**

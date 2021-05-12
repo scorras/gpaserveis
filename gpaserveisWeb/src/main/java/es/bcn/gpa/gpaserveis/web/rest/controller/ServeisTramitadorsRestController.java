@@ -2747,7 +2747,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.COMPLETAR_DOCUMENT, Resultat.ERROR_COMPLETAR_DOCUMENT_EXPEDIENT);
 
-			if (documentComplecio.getDocument().getRequeriment())
+			if (BooleanUtils.isTrue(documentComplecio.getDocument().getRequeriment()))
 				// Los Datos de Operación deben existir, estar asociados al
 				// procedimiento y tener asociado el trámite OVT de Esmena. Se
 				// aprovecha para recuperar los identificadores de los campos
