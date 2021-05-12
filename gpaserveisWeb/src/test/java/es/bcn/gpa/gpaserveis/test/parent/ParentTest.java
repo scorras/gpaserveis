@@ -203,11 +203,11 @@ public abstract class ParentTest {
 		try {
 
 			when(procedimentsApi.cercaProcediments(isNull(Integer.class), isNull(Integer.class), any(List.class), any(String.class),
-					any(String.class), any(String.class), any(List.class), isNull(Boolean.class), isNull(Boolean.class),
-					isNull(Boolean.class), isNull(Boolean.class), any(Integer.class), any(String.class), any(List.class), any(List.class),
-					isNull(BigDecimal.class), isNull(BigDecimal.class), any(List.class), any(Integer.class), isNull(Integer.class),
-					any(String.class), any(Integer.class), any(String.class), any(Integer.class), isNull(Integer.class), any(String.class),
-					isNull(Long.class), isNull(Integer.class), any(List.class))).thenReturn(TestsConfigHelper.cercaProcedimentsResponse());
+			        any(String.class), any(String.class), any(List.class), isNull(Boolean.class), isNull(Boolean.class),
+			        isNull(Boolean.class), isNull(Boolean.class), any(Integer.class), any(String.class), any(List.class), any(List.class),
+			        isNull(BigDecimal.class), isNull(BigDecimal.class), any(List.class), any(Integer.class), isNull(Integer.class),
+			        any(String.class), any(Integer.class), any(String.class), any(Integer.class), isNull(Integer.class), any(String.class),
+			        isNull(Long.class), isNull(Integer.class), any(List.class))).thenReturn(TestsConfigHelper.cercaProcedimentsResponse());
 
 			when(procedimentsApi.consultarDadesProcediment(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesProcedimentResponse());
@@ -457,7 +457,7 @@ public abstract class ParentTest {
 			        .thenReturn(TestsConfigHelper.consultarDadesSollicitudResponse(BigDecimal.valueOf(4), false));
 
 			when(documentacioApi.consultarDadesDocumentAportat(any(BigDecimal.class)))
-			        .thenReturn(TestsConfigHelper.consultarDadesDocumentAportatsResponse());
+			        .thenReturn(TestsConfigHelper.consultarDadesDocumentAportatResponse());
 
 			when(documentacioApi.cercaDocumentsEntradaPerSollicitud(any(BigDecimal.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.cercaDocumentsEntradaPerSollicitudResponse());
