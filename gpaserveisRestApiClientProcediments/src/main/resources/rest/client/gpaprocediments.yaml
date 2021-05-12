@@ -947,6 +947,9 @@ definitions:
         type: "string"
       accesQuiosc:
         type: "string"
+      administratiu:
+        type: "integer"
+        format: "int32"
       adrecaAltraWeb:
         type: "string"
       adrecaPortalTramits:
@@ -1628,6 +1631,12 @@ definitions:
         format: "int32"
       tramitOvtIdext:
         type: "number"
+      tramitRegistre:
+        type: "integer"
+        format: "int32"
+      tramitSignaturaCiutada:
+        type: "integer"
+        format: "int32"
     title: "ReqOperatiusTramOvt"
   RequerimentsOperatius:
     type: "object"
