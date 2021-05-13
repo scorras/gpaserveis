@@ -1326,48 +1326,48 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 						sollicitudRegistrarRDTO.getSignaturaSolicitud());
 			}
 
+			// Asociar registre de la solicitud a la propia solicitud
+			SollicitudActualitzarRegistre sollicitudActualitzarRegistre = new SollicitudActualitzarRegistre();
 			if (teRegistre) {
-
-				// Asociar registre de la solicitud a la propia solicitud
-				SollicitudActualitzarRegistre sollicitudActualitzarRegistre = new SollicitudActualitzarRegistre();
 				sollicitudActualitzarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
-				sollicitudActualitzarRegistre.setIdSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
 				sollicitudActualitzarRegistre.setDataPresentacio(respostaCrearRegistreExpedient.getRegistreAssentament().getDataRegistre());
-				if (sollicitudRegistrarRDTO != null) {
-					sollicitudActualitzarRegistre.setSignaturaSollicitud(sollicitudRegistrarRDTO.getSignaturaSolicitud());
-					if (!esCiutada) {
-						sollicitudActualitzarRegistre.setMatriculaInformador(clientEntity.getUsuariAutenticat());
-					}
+			}
+			sollicitudActualitzarRegistre.setIdSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
+			if (sollicitudRegistrarRDTO != null) {
+				sollicitudActualitzarRegistre.setSignaturaSollicitud(sollicitudRegistrarRDTO.getSignaturaSolicitud());
+				if (!esCiutada) {
+					sollicitudActualitzarRegistre.setMatriculaInformador(clientEntity.getUsuariAutenticat());
 				}
+			}
 
-				long startTimeAssociarRegistreSol = System.nanoTime();
-				if (log.isInfoEnabled()) {
-					log.info("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - inici"); //$NON-NLS-1$
-				}
+			long startTimeAssociarRegistreSol = System.nanoTime();
+			if (log.isInfoEnabled()) {
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - inici"); //$NON-NLS-1$
+			}
 
-				serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
+			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
 
-				if (log.isDebugEnabled()) {
-					long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreSol;
-					log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - fi: " //$NON-NLS-1$
-							+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-				}
-				if (log.isInfoEnabled()) {
-					long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreSol;
-					log.info("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - fi: " //$NON-NLS-1$
-							+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-				}
+			if (log.isDebugEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreSol;
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
+			if (log.isInfoEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreSol;
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - fi: " //$NON-NLS-1$
+						+ TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
 
-				// Asociar registre de la solicitud a los posibles documentos
-				// vinculados a la solicitud
-				if (CollectionUtils.isNotEmpty(idDocsEntradaList)) {
-					docsEntActualizarRegistre = new DocsEntActualizarRegistre();
+			// Asociar registre de la solicitud a los posibles documentos
+			// vinculados a la solicitud
+			if (CollectionUtils.isNotEmpty(idDocsEntradaList)) {
+				docsEntActualizarRegistre = new DocsEntActualizarRegistre();
+				if (teRegistre) {
 					docsEntActualizarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
-					docsEntActualizarRegistre.setListIdsDocsEnt(idDocsEntradaList);
-					serveisService.associarRegistreDocsEnt(docsEntActualizarRegistre);
-					registreDocumentacioAssociat = true;
 				}
-
+				docsEntActualizarRegistre.setListIdsDocsEnt(idDocsEntradaList);
+				serveisService.associarRegistreDocsEnt(docsEntActualizarRegistre);
+				registreDocumentacioAssociat = true;
 			}
 
 			long startTimeGuardarDadesEspecifiquesSol = System.nanoTime();
