@@ -2563,6 +2563,8 @@ definitions:
         type: "number"
       criticitatAvis:
         type: "number"
+      dadesExternes:
+        type: "string"
       darreraModificacio:
         type: "string"
         format: "date-time"
@@ -3140,6 +3142,8 @@ definitions:
     properties:
       comentari:
         type: "number"
+      dadesExternes:
+        type: "string"
       dataPresentacio:
         type: "string"
         format: "date-time"
@@ -3184,6 +3188,8 @@ definitions:
     properties:
       comentari:
         type: "number"
+      dadesExternes:
+        type: "string"
       dataPresentacio:
         type: "string"
         format: "date-time"

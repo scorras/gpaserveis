@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.3.0"
+  version: "2.4.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -4313,10 +4313,6 @@ definitions:
         description: "Codi del valor de la llista"
       valor:
         type: "array"
-        xml:
-          name: "VALORS"
-          attribute: false
-          wrapped: true
         description: "Llista de valors de l'atribut"
         items:
           type: "string"

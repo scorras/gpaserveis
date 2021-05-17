@@ -105,6 +105,10 @@ public class Constants {
 	/** The Constant NIVELL_CRITICITAT_ALT. */
 	public static final Integer NIVELL_CRITICITAT_ALT = NumberUtils.INTEGER_ONE;
 
+	/** The Constant INICIACIO_SOLLICITUD_INTERESSAT. */
 	public static final BigDecimal INICIACIO_SOLLICITUD_INTERESSAT = new BigDecimal(2);
+
+	/** The Constant CODI_DADA_OPERACIO_DADES_EXTERNES. */
+	public static final String CODI_DADA_OPERACIO_DADES_EXTERNES = "DADES_EXTERNES";
 
 }
