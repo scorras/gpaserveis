@@ -1099,6 +1099,9 @@ public class ServeisServiceHelper {
 
 		// Se agrega DADES_EXTERNES en caso de que exista
 		if (dadesSollicitudBDTO.getSollicitudsRDTO().getDadesExternes() != null) {
+			if (dadaEspecificaBDTOList == null) {
+				dadaEspecificaBDTOList = new ArrayList<DadaEspecificaBDTO>();
+			}
 			dadaEspecificaBDTO = new DadaEspecificaBDTO();
 			DadesOperacions dadesOperacions = new DadesOperacions();
 			dadesOperacions.setCodi(Constants.CODI_DADA_OPERACIO_DADES_EXTERNES);
@@ -1172,6 +1175,9 @@ public class ServeisServiceHelper {
 
 		// Se agrega DADES_EXTERNES en caso de que exista
 		if (dadesExpedientBDTO.getExpedientsRDTO().getDadesExternes() != null) {
+			if (dadaEspecificaBDTOList == null) {
+				dadaEspecificaBDTOList = new ArrayList<DadaEspecificaBDTO>();
+			}
 			dadaEspecificaBDTO = new DadaEspecificaBDTO();
 			DadesOperacions dadesOperacions = new DadesOperacions();
 			dadesOperacions.setCodi(Constants.CODI_DADA_OPERACIO_DADES_EXTERNES);
