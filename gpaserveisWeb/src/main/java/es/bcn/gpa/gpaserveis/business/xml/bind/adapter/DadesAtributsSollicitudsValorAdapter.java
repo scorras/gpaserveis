@@ -6,6 +6,7 @@ import java.util.Arrays;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -81,7 +82,7 @@ public class DadesAtributsSollicitudsValorAdapter extends XmlAdapter<Object, Dad
 		return valorsElement;
 	}
 
-	private DocumentBuilder getDocumentBuilder() throws Exception {
+	private DocumentBuilder getDocumentBuilder() throws ParserConfigurationException {
 		if (null == documentBuilder) {
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 			documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -89,7 +90,7 @@ public class DadesAtributsSollicitudsValorAdapter extends XmlAdapter<Object, Dad
 		return documentBuilder;
 	}
 
-	private Document getDocument() throws Exception {
+	private Document getDocument() throws ParserConfigurationException {
 		if (null == document) {
 			document = getDocumentBuilder().newDocument();
 		}
