@@ -28,7 +28,6 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
@@ -956,9 +955,11 @@ public class ServeisRestControllerValidationHelper {
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.readTree(dadesExternes);
 		} catch (JsonParseException jpe) {
+			log.info("El valor de la Dada d'operació DADES_EXTERNES no té format JSON", jpe);
 			throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
 			        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_DADES_EXTERNES_NOT_VALID_VALUE, String.valueOf(dadesExternes));
 		} catch (IOException ioe) {
+			log.info("El valor de la Dada d'operació DADES_EXTERNES no té format JSON", ioe);
 			throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
 			        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_DADES_EXTERNES_NOT_VALID_VALUE, String.valueOf(dadesExternes));
 		}
