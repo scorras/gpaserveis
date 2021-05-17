@@ -33,7 +33,7 @@ import org.joda.time.DateTime;
 /**
  * ExpedientsRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-12T18:43:06.213+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-11T20:02:11.541+02:00")
 public class ExpedientsRDTO {
   @JsonProperty("accioEstatIdext")
   private BigDecimal accioEstatIdext = null;
@@ -58,6 +58,9 @@ public class ExpedientsRDTO {
 
   @JsonProperty("criticitatAvis")
   private BigDecimal criticitatAvis = null;
+
+  @JsonProperty("dadesExternes")
+  private String dadesExternes = null;
 
   @JsonProperty("darreraModificacio")
   private DateTime darreraModificacio = null;
@@ -381,6 +384,24 @@ public class ExpedientsRDTO {
 
   public void setCriticitatAvis(BigDecimal criticitatAvis) {
     this.criticitatAvis = criticitatAvis;
+  }
+
+  public ExpedientsRDTO dadesExternes(String dadesExternes) {
+    this.dadesExternes = dadesExternes;
+    return this;
+  }
+
+   /**
+   * Get dadesExternes
+   * @return dadesExternes
+  **/
+  @ApiModelProperty(value = "")
+  public String getDadesExternes() {
+    return dadesExternes;
+  }
+
+  public void setDadesExternes(String dadesExternes) {
+    this.dadesExternes = dadesExternes;
   }
 
   public ExpedientsRDTO darreraModificacio(DateTime darreraModificacio) {
@@ -1505,6 +1526,7 @@ public class ExpedientsRDTO {
         Objects.equals(this.codiLlarg, expedientsRDTO.codiLlarg) &&
         Objects.equals(this.configuracioDocumentacioProc, expedientsRDTO.configuracioDocumentacioProc) &&
         Objects.equals(this.criticitatAvis, expedientsRDTO.criticitatAvis) &&
+        Objects.equals(this.dadesExternes, expedientsRDTO.dadesExternes) &&
         Objects.equals(this.darreraModificacio, expedientsRDTO.darreraModificacio) &&
         Objects.equals(this.dataAllegacio, expedientsRDTO.dataAllegacio) &&
         Objects.equals(this.dataEnviamentRat, expedientsRDTO.dataEnviamentRat) &&
@@ -1569,7 +1591,7 @@ public class ExpedientsRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accioEstatIdext, aplicacioNegoci, bloqueig, bloquejos, codi, codiLlarg, configuracioDocumentacioProc, criticitatAvis, darreraModificacio, dataAllegacio, dataEnviamentRat, dataEsmena, dataPresentacio, dataPresentacioDes, dataPresentacioFinsA, descEstat, descEstatCastella, descEstatCatala, descEstatCiutada, descEstatCiutadaCastella, descEstatCiutadaCatala, descUGConvidada, descUnitatGestora, diesTerminiAllegacio, diesTerminiRequeriment, documentacioIdext, editable, estat, estatActual, expedientObjecteDeRecursId, id, idEstat, idRelacionat, idioma, idiomes, iniciacio, isInformeRat, isOge, migracioIdOrigen, nivellAutenticacio, nomDescUGConvidada, nomDescUnitatGestora, nomProcediment, nomProcedimentCastella, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, pathGestorDocumental, pendentRetorn, personesImplicades, personesInteressades, procedimentCodi, procedimentIdext, procedimentVersio, relacioTipusRelacio, representantPrincipal, respostaAllegacion, respostaRequeriment, seleccionable, sollicitant, sollicitantPrincipal, sollicitud, sollicituds, tipusAvis, tramitador, ugConvidadaIdextList, ugrIdext, ultimaModificacio, unitatGestoraIdext);
+    return Objects.hash(accioEstatIdext, aplicacioNegoci, bloqueig, bloquejos, codi, codiLlarg, configuracioDocumentacioProc, criticitatAvis, dadesExternes, darreraModificacio, dataAllegacio, dataEnviamentRat, dataEsmena, dataPresentacio, dataPresentacioDes, dataPresentacioFinsA, descEstat, descEstatCastella, descEstatCatala, descEstatCiutada, descEstatCiutadaCastella, descEstatCiutadaCatala, descUGConvidada, descUnitatGestora, diesTerminiAllegacio, diesTerminiRequeriment, documentacioIdext, editable, estat, estatActual, expedientObjecteDeRecursId, id, idEstat, idRelacionat, isInformeRat, isOge, migracioIdOrigen, nivellAutenticacio, nomDescUGConvidada, nomDescUnitatGestora, nomProcediment, nomProcedimentCastella, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, pathGestorDocumental, pendentRetorn, personesImplicades, personesInteressades, procedimentCodi, procedimentIdext, procedimentVersio, relacioTipusRelacio, representantPrincipal, respostaAllegacion, respostaRequeriment, seleccionable, sollicitant, sollicitantPrincipal, sollicitud, sollicituds, tipusAvis, tramitador, ugConvidadaIdextList, ugrIdext, ultimaModificacio, unitatGestoraIdext);
   }
 
 
@@ -1586,6 +1608,7 @@ public class ExpedientsRDTO {
     sb.append("    codiLlarg: ").append(toIndentedString(codiLlarg)).append("\n");
     sb.append("    configuracioDocumentacioProc: ").append(toIndentedString(configuracioDocumentacioProc)).append("\n");
     sb.append("    criticitatAvis: ").append(toIndentedString(criticitatAvis)).append("\n");
+    sb.append("    dadesExternes: ").append(toIndentedString(dadesExternes)).append("\n");
     sb.append("    darreraModificacio: ").append(toIndentedString(darreraModificacio)).append("\n");
     sb.append("    dataAllegacio: ").append(toIndentedString(dataAllegacio)).append("\n");
     sb.append("    dataEnviamentRat: ").append(toIndentedString(dataEnviamentRat)).append("\n");

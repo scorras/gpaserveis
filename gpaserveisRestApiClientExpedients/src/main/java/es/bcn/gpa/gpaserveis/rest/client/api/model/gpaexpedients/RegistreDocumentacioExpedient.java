@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * RegistreDocumentacioExpedient
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-12T18:43:06.213+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-11T20:02:11.541+02:00")
 public class RegistreDocumentacioExpedient {
   @JsonProperty("idJustificant")
   private String idJustificant = null;
