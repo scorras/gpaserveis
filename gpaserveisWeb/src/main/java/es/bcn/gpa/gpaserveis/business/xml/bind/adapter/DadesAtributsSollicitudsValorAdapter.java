@@ -11,6 +11,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.json.XML;
 import org.w3c.dom.Document;
@@ -69,6 +70,8 @@ public class DadesAtributsSollicitudsValorAdapter extends XmlAdapter<Object, Dad
 				String xmlJson = XML.toString(json);
 				if (json instanceof JSONArray) {
 					xmlJson = "<valorArray>" + xmlJson + "</valorArray>";
+				} else if (json instanceof JSONObject) {
+					xmlJson = "<valorSimple>" + xmlJson + "</valorSimple>";
 				}
 				Document documentJson = getDocumentBuilder().parse(new InputSource(new StringReader(xmlJson)));
 				Node importedNode = getDocument().importNode(documentJson.getDocumentElement(), true);
