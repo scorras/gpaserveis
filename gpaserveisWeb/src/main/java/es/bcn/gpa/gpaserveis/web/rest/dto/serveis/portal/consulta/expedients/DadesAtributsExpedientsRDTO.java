@@ -15,6 +15,7 @@ import lombok.Setter;
 @ApiModel(value = "AtributsExpedient")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "codi", "index", "valor", "valorCastella", "valorsLlista" })
+@JsonSerialize(using = JsonDadesAtributsExpedientsSerializer.class)
 @Getter
 @Setter
 public class DadesAtributsExpedientsRDTO {
