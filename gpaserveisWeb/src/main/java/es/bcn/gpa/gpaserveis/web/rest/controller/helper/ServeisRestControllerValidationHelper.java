@@ -2378,11 +2378,24 @@ public class ServeisRestControllerValidationHelper {
 			for (ReqOperatiusTramOvt reqOperatiusTramOvt : dadesProcedimentBDTO.getProcedimentsRDTO().getReqOperatius()
 			        .getReqOperatiusTramOvtList()) {
 				if (reqOperatiusTramOvt.getTramitOvtIdext().compareTo(iinternalIdTramitOvt) == 0) {
+					// Trámite genérico
 					if (reqOperatiusTramOvt.getTramitGeneric() != null && reqOperatiusTramOvt.getTramitGeneric().intValue() == 1) {
 						respostaConsultaTramitProcedimentRDTO.setTramitGeneric("SI");
 					} else {
 						respostaConsultaTramitProcedimentRDTO.setTramitGeneric("NO");
 						respostaConsultaTramitProcedimentRDTO.setDetallIdentificador(reqOperatiusTramOvt.getIdentificadorTramit());
+					}
+					// Firma
+					if (reqOperatiusTramOvt.getTramitSignaturaCiutada() != null && reqOperatiusTramOvt.getTramitSignaturaCiutada() == 1) {
+						respostaConsultaTramitProcedimentRDTO.setSignatura("SI");
+					} else {
+						respostaConsultaTramitProcedimentRDTO.setSignatura("NO");
+					}
+					// Registro
+					if (reqOperatiusTramOvt.getTramitRegistre() != null && reqOperatiusTramOvt.getTramitRegistre() == 1) {
+						respostaConsultaTramitProcedimentRDTO.setRegistre("SI");
+					} else {
+						respostaConsultaTramitProcedimentRDTO.setRegistre("NO");
 					}
 				}
 			}
