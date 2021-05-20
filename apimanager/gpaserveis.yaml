@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.4.1"
+  version: "2.4.2"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -7079,6 +7079,12 @@ definitions:
       detallIdentificador:
         type: "string"
         description: "Detall Identificador"
+      registre:
+        type: "string"
+        description: "requereix registre"
+      signatura:
+        type: "string"
+        description: "Requereix signatura"
       tramit:
         description: "Dades del tràmit"
         $ref: "#/definitions/TramitsOvt"
