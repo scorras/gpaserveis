@@ -11,7 +11,7 @@ import lombok.Setter;
 
 @ApiModel(value = "RespostaConsultaTramitProcediment")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "tramit", "tramitGeneric", "" })
+@JsonPropertyOrder({ "tramit", "tramitGeneric", "detallIdentificador", "signatura", "registre" })
 @Getter
 @Setter
 public class RespostaConsultaTramitProcedimentRDTO {
@@ -24,5 +24,11 @@ public class RespostaConsultaTramitProcedimentRDTO {
 
 	@ApiModelProperty(value = "Detall Identificador")
 	private String detallIdentificador;
+
+	@ApiModelProperty(value = "Requereix signatura")
+	private String signatura;
+
+	@ApiModelProperty(value = "requereix registre")
+	private String registre;
 
 }
