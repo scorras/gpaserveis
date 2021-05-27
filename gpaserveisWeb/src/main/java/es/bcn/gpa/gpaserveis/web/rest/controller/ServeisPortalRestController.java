@@ -773,7 +773,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				expedientConsultaRDTO.setIdGestorDocumental(dadesExpedientBDTO.getExpedientsRDTO().getMigracioIdOrigen());
 			}
 			
-			if (StringUtils.isNotEmpty(dadesExpedientBDTO.getExpedientsRDTO().getIdiomes().getDescripcio())) {
+			if (dadesExpedientBDTO.getExpedientsRDTO().getIdiomes() != null && StringUtils.isNotEmpty(dadesExpedientBDTO.getExpedientsRDTO().getIdiomes().getDescripcio())) {
 				expedientConsultaRDTO.setIdioma(dadesExpedientBDTO.getExpedientsRDTO().getIdiomes().getDescripcio());
 			}
 			

@@ -516,7 +516,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				}
 			}
 			
-			if (StringUtils.isNotEmpty(dadesExpedientBDTO.getExpedientsRDTO().getIdiomes().getDescripcio())) {
+			if (dadesExpedientBDTO.getExpedientsRDTO().getIdiomes() != null && StringUtils.isNotEmpty(dadesExpedientBDTO.getExpedientsRDTO().getIdiomes().getDescripcio())) {
 				expedientConsultaRDTO.setIdioma(dadesExpedientBDTO.getExpedientsRDTO().getIdiomes().getDescripcio());
 			}
 			
