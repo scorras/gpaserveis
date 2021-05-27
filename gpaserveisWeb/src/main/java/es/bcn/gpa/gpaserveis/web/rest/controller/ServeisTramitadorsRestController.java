@@ -515,6 +515,14 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					}
 				}
 			}
+			
+			if (StringUtils.isNotEmpty(dadesExpedientBDTO.getExpedientsRDTO().getIdiomes().getDescripcio())) {
+				expedientConsultaRDTO.setIdioma(dadesExpedientBDTO.getExpedientsRDTO().getIdiomes().getDescripcio());
+			}
+			
+			if (dadesExpedientBDTO.getExpedientsRDTO().getEstat().getTancamentAutomatic() != null && NumberUtils.INTEGER_ONE.equals(dadesExpedientBDTO.getExpedientsRDTO().getEstat().getTancamentAutomatic())) {
+				expedientConsultaRDTO.setTancamentAutomatic(true);
+			}
 
 		} catch (GPAServeisServiceException e) {
 			log.error("consultar(String)", e); // $NON-NLS-1$
