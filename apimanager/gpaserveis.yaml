@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.4.2"
+  version: "2.5.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -2848,7 +2848,21 @@ paths:
         type: "string"
       - name: "document"
         in: "formData"
-        description: "Dades del document a incorporar"
+        description: "Dades del document a incorporar. Example:<br>{<br>&nbsp;&nbsp;\"\
+          document\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          configuracioDocumentacio\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"origen\"\
+          : \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"comentari\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          idioma\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"revisio\": \"String\"\
+          ,<br>&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzat\": \"Boolean\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          digitalitzacio\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          idioma\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          dataDigitalitzacio\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          fitxer\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"nom\":\
+          \ \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"format\"\
+          : \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          numeroRegistre\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"publicarInfoPublica\"\
+          : \"Boolean\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"plantillaPdf\": \"Boolean\"\
+          <br>&nbsp;&nbsp;}<br>}"
         required: true
         type: "string"
       - name: "file"
@@ -2972,7 +2986,24 @@ paths:
         type: "file"
       - name: "requeriment"
         in: "formData"
-        description: "Dades del requeriment a preparar"
+        description: "Dades del requeriment a preparar. Example:<br>{<br>&nbsp;&nbsp;\"\
+          document\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          configuracioDocumentacio\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"origen\"\
+          : \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"comentari\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          idioma\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"revisio\": \"String\"\
+          ,<br>&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzat\": \"Boolean\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          digitalitzacio\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          idioma\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          dataDigitalitzacio\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          fitxer\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"nom\":\
+          \ \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"format\"\
+          : \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          numeroRegistre\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"publicarInfoPublica\"\
+          : \"Boolean\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"plantillaPdf\": \"Boolean\"\
+          <br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;\"dadesOperacioRequerits\": [<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          codi\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;],<br>&nbsp;&nbsp;\"\
+          documentacioRequerida\": [<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          configuracioDocumentacio\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;]<br>}"
         required: true
         type: "string"
       responses:
@@ -3091,7 +3122,25 @@ paths:
         type: "string"
       - name: "document"
         in: "formData"
-        description: "Dades del document a completar"
+        description: "Dades del document a completar. Example:<br>{<br>&nbsp;&nbsp;\"\
+          document\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          configuracioDocumentacio\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"origen\"\
+          : \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"comentari\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          idioma\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"revisio\": \"String\"\
+          ,<br>&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzat\": \"Boolean\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          digitalitzacio\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          idioma\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          dataDigitalitzacio\": \"String\"<br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          fitxer\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"nom\":\
+          \ \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"format\"\
+          : \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          numeroRegistre\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"publicarInfoPublica\"\
+          : \"Boolean\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"plantillaPdf\": \"Boolean\"\
+          ,<br>&nbsp;&nbsp;&nbsp;&nbsp;\"requeriment\": \"Boolean\"<br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;\"\
+          dadesOperacioRequerits\": [<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          codi\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;],<br>&nbsp;&nbsp;\"\
+          documentacioRequerida\": [<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          configuracioDocumentacio\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;]<br>}"
         required: true
         type: "string"
       - name: "file"
@@ -3803,6 +3852,38 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/RespostaInscriureEnRegistre"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /serveis/tramitadors/expedients/{codiExpedient}/reprendre:
+    post:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Reprendre la tramitació de l'expedient"
+      operationId: "reprendreExpedientTramitadors"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codiExpedient"
+        in: "path"
+        description: "Codi de l'expedient"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaReprendreExpedient"
         201:
           description: "Created"
         401:
@@ -5688,6 +5769,9 @@ definitions:
       comentari:
         type: "string"
         description: "Comentari associat al canvi d'unitat gestora"
+      tancamentAutomatic:
+        type: "number"
+        description: "tancament automatic"
     title: "ExpedientCanviUnitatGestora"
   ExpedientComunicat:
     type: "object"
@@ -5777,6 +5861,9 @@ definitions:
       idGestorDocumental:
         type: "string"
         description: "Id Gestor Documental"
+      idioma:
+        type: "string"
+        description: "Idioma"
       pathGestorDocumental:
         type: "string"
         description: "Path Gestor Documental"
@@ -5807,6 +5894,9 @@ definitions:
         description: "Sol·licituds de l'expedient"
         items:
           $ref: "#/definitions/SollicitudsExpedient"
+      tancamentAutomatic:
+        type: "boolean"
+        description: "És tancament automatic"
       unitatGestora:
         description: "Unitat gestora"
         $ref: "#/definitions/UnitatGestora"
@@ -5877,6 +5967,9 @@ definitions:
       id:
         type: "number"
         description: "Identificador de l'expedient"
+      idioma:
+        type: "string"
+        description: "Idioma"
       pathGestorDocumental:
         type: "string"
         description: "Path Gestor Documental"
@@ -5907,6 +6000,9 @@ definitions:
         description: "Sol·licituds de l'expedient"
         items:
           $ref: "#/definitions/SollicitudsExpedient"
+      tancamentAutomatic:
+        type: "boolean"
+        description: "És tancament automatic"
       unitatGestora:
         description: "Unitat gestora"
         $ref: "#/definitions/UnitatGestora"
@@ -6098,6 +6194,9 @@ definitions:
       comentari:
         type: "string"
         description: "comentari associat al tancament."
+      tancamentAutomatic:
+        type: "number"
+        description: "tancament automatic."
     title: "ExpedientTancament"
   ExpedientTornadaEnrere:
     type: "object"
@@ -7448,6 +7547,16 @@ definitions:
         description: "Sollicitud"
         $ref: "#/definitions/SollicitudAccio"
     title: "RespostaRegistrarSollicitud"
+  RespostaReprendreExpedient:
+    type: "object"
+    properties:
+      expedient:
+        description: "Expedient"
+        $ref: "#/definitions/ExpedientAccio"
+      resultat:
+        description: "Resultat de l'operació"
+        $ref: "#/definitions/ResultatResposta"
+    title: "RespostaReprendreExpedient"
   RespostaResolucioValidarDocument:
     type: "object"
     properties:
