@@ -110,8 +110,11 @@ public class Constants {
 
 	/** The Constant CODI_DADA_OPERACIO_DADES_EXTERNES. */
 	public static final String CODI_DADA_OPERACIO_DADES_EXTERNES = "DADES_EXTERNES";
-	
+
 	/** The Constant TANCAMENT_AUTOMATIC. */
 	public static final BigDecimal TANCAMENT_AUTOMATIC = new BigDecimal(1);
+
+	/** The Constant DADES_ATRIBUTS_CARDINALITAT_N. */
+	public static final String DADES_ATRIBUTS_CARDINALITAT_N = "N";
 
 }

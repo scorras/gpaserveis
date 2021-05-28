@@ -516,7 +516,7 @@ public class ConverterHelper {
 	        BaseApiParamValueTranslator tipusCampApiParamValueTranslator, BaseApiParamValueTranslator tipusValidacioApiParamValueTranslator,
 	        BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator,
 	        NivellCriticitatApiParamValueTranslator nivellCriticitatApiParamValueTranslator,
-	        BooleanApiParamValueTranslator booleanApiParamValueTranslator) {
+	        BooleanApiParamValueTranslator booleanApiParamValueTranslator, BaseApiParamValueTranslator tipusGrupApiParamValueTranslator) {
 
 		if (internalDadesGrupsRDTO == null) {
 			return null;
@@ -527,6 +527,7 @@ public class ConverterHelper {
 		dadesGrupsRDTO.setTitolCastella(internalDadesGrupsRDTO.getTitolCastella());
 		dadesGrupsRDTO.setDescripcio(internalDadesGrupsRDTO.getDescripcio());
 		dadesGrupsRDTO.setDescripcioCastella(internalDadesGrupsRDTO.getDescripcioCastella());
+		dadesGrupsRDTO.setTipus(tipusGrupApiParamValueTranslator.getApiParamValueByInternalValue(internalDadesGrupsRDTO.getTipusGrup()));
 		dadesGrupsRDTO.setColumnes(
 		        (internalDadesGrupsRDTO.getNomColumnes() != null) ? String.valueOf(internalDadesGrupsRDTO.getNomColumnes()) : null);
 		dadesGrupsRDTO.setUrlValidacio(internalDadesGrupsRDTO.getUrlValidacio());
@@ -575,6 +576,13 @@ public class ConverterHelper {
 		        booleanApiParamValueTranslator.getApiParamValueAsBooleanByInternalValue(dadesOperacions.getVisibilitatPortal()));
 		dadesAtributsRDTO.setCriticitat(
 		        nivellCriticitatApiParamValueTranslator.getApiParamValueByInternalValue(dadesOperacions.getNivellCriticitat()));
+		if (dadesOperacions.getCardinalitat() == null) {
+			dadesAtributsRDTO.setCardinalitat(Constants.DADES_ATRIBUTS_CARDINALITAT_N);
+		} else if (dadesOperacions.getCardinalitat().compareTo(BigDecimal.ONE) == NumberUtils.INTEGER_ZERO.intValue()) {
+			dadesAtributsRDTO.setCardinalitat(NumberUtils.INTEGER_ONE.toString());
+		} else {
+			dadesAtributsRDTO.setCardinalitat(dadesOperacions.getCardinalitat().toString());
+		}
 		if (CollectionUtils.isNotEmpty(dadesOperacions.getItemsList())) {
 			ArrayList<DadesAtributsValorsLlistaRDTO> dadesAtributsValorsLlistaRDTOList = new ArrayList<DadesAtributsValorsLlistaRDTO>();
 			DadesAtributsValorsLlistaRDTO dadesAtributsValorsLlistaRDTO = null;
