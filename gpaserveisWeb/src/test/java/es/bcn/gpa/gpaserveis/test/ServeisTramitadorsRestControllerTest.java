@@ -757,4 +757,10 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 
 	}
+
+	@Test
+	public void testStage90_GetReprendreTramitacio() throws Exception {
+		String url = BASE_URL + "/expedients/1/reprendre";
+		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("")).andExpect(status().isOk()).andDo(print());
+	}
 }

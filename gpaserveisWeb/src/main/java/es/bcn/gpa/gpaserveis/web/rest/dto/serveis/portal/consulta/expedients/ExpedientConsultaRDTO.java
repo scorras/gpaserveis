@@ -26,9 +26,9 @@ import lombok.Setter;
 @ApiModel(value = "ExpedientConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id", "codi", "accionsDisponibles", "dataPresentacio", "dataModificacio", "dataLimitAllegacions", "dataLimitEsmena",
-		"unitatGestora", "estat", "estatCastella", "historics", "procediment", "registre", "sollicitant", "representant",
+		"unitatGestora", "estat", "estatCastella", "tancamentAutomatic", "historics", "procediment", "registre", "sollicitant", "representant",
 		"personesInteressades", "personesImplicades", "documentsAportats", "configuracioDocumentacioRequerida", "documentsGenerats",
-		"dadesOperacio", "sollicituds", "pathGestorDocumental", "idGestorDocumental" })
+		"dadesOperacio", "sollicituds", "pathGestorDocumental", "idGestorDocumental", "idioma" })
 @Getter
 @Setter
 public class ExpedientConsultaRDTO {
@@ -57,6 +57,8 @@ public class ExpedientConsultaRDTO {
 	private String estat;
 	@ApiModelProperty(value = "Estat actual del expedient en castellà")
 	private String estatCastella;
+	@ApiModelProperty(value = "És tancament automatic")
+	private Boolean tancamentAutomatic;
 	@ApiModelProperty(value = "Llista d'històrics de l'expedient")
 	private List<HistoricsRDTO> historics;
 	@ApiModelProperty(value = "Dades del procediment")
@@ -87,4 +89,6 @@ public class ExpedientConsultaRDTO {
 	private String pathGestorDocumental;
 	@ApiModelProperty(value = "Id Gestor Documental")
 	private String idGestorDocumental;
+	@ApiModelProperty(value = "Idioma")
+	private String idioma;
 }

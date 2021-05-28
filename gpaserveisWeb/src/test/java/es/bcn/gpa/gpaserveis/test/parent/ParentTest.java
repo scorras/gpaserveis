@@ -499,6 +499,8 @@ public abstract class ParentTest {
 			when(documentacioApi.consultarDadesDocumentGeneratPerIdGestorDocumental(any(String.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesDocumentGeneratPerCodiCSVResponse());
 
+			doNothing().when(expedientsApi).reprendreTramitacio(any(BigDecimal.class));
+
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$
 
