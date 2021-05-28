@@ -81,6 +81,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRedireccionarAssentamentBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsReprendreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
@@ -105,6 +106,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsPausarBDT
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsProposarResolucioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsReactivarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsRegistrarComunicacioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaReprendreExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsRetornarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsTancarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsTornarEnrereBDTO;
@@ -271,6 +273,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.publicar.RespostaPublicarPerAInformacioPublicaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.reactivar.ExpedientReactivacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.reactivar.RespostaReactivarExpedientRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.reprende.RespostaReprendreExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.resolucio.proposar.ExpedientPropostaResolucioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.resolucio.proposar.RespostaProposarResolucioExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.signat.ExpedientDocumentSignatRDTO;
@@ -5363,5 +5366,87 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			log.debug("esborrarTerceraPersona(String, BigDecimal) - fi"); //$NON-NLS-1$
 		}
 		return respostaEsborrarTerceraPersonaRDTO;
+	}
+	
+	/**
+	 * Reprendre expedient.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @return the resposta reprendre expedient RDTO
+	 * @throws GPAServeisServiceException
+	 */
+	@PostMapping("/expedients/{codiExpedient}/reprendre")
+	@ApiOperation(nickname = "reprendreExpedientTramitadors", value = "Reprendre la tramitació de l'expedient", tags = {
+	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaReprendreExpedientRDTO reprendreTramitacio(
+			 @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient)
+	        throws GPAServeisServiceException {
+
+		if (log.isDebugEnabled()) {
+			log.debug("reprendreTramitacio(String) - inici"); //$NON-NLS-1$
+		}
+
+		String resultatAudit = "OK";
+		GPAServeisServiceException ex = null;
+
+		RespostaReprendreExpedientRDTO respostaReprendreExpedientRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_REPRENDRE_TRAMITACIO);
+		try {
+
+			// desde tramitadors no se controla la visibilidad, solo afecta a
+			// portal
+			BigDecimal visibilitat = BigDecimal.ONE;
+
+			// El codi del expediente debe existir
+			dadesExpedientBDTO = serveisService.consultarDadesExpedient(
+			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_REPRENDRE_TRAMITACIO);
+			
+			// El expediente debe estar cerrado
+			ServeisRestControllerValidationHelper.validateIsTancat(dadesExpedientBDTO,
+				   AccioTramitadorApiParamValue.REPRENDRE_EXPEDIENT, Resultat.ERROR_REPRENDRE_TRAMITACIO);
+			
+			// El expediente debe haberse cerrado automaticamente
+			ServeisRestControllerValidationHelper.validateIsTancamentAutomatic(dadesExpedientBDTO, Resultat.ERROR_REPRENDRE_TRAMITACIO);
+			
+
+			ExpedientsReprendreBDTO expedientsReprendreBDTO = new ExpedientsReprendreBDTO(
+			        dadesExpedientBDTO.getExpedientsRDTO().getId());
+
+			serveisService.reprendreTramitacio(expedientsReprendreBDTO);
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("reprendreTramitacio(String)", e); // $NON-NLS-1$
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
+		} catch (Exception e) {
+			log.error("reprendreTramitacio(String)", e); // $NON-NLS-1$
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_REPRENDRE_TRAMITACIO, e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients/" + codiExpedient + "/reprendreTramitacio");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Reprendre tramitacio");
+
+			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, null, respostaResultatBDTO, ex);
+		}
+		
+		ExpedientsRDTO expedientsRDTO = (dadesExpedientBDTO != null) ? dadesExpedientBDTO.getExpedientsRDTO() : null;
+		RespostaReprendreExpedientBDTO respostaExpedientsReprendreBDTO = new RespostaReprendreExpedientBDTO(expedientsRDTO, respostaResultatBDTO);
+		respostaReprendreExpedientRDTO = modelMapper.map(respostaExpedientsReprendreBDTO, RespostaReprendreExpedientRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("reprendreTramitacio(String) - fi"); //$NON-NLS-1$
+		}
+
+		return respostaReprendreExpedientRDTO;
 	}
 }

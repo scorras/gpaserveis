@@ -2448,4 +2448,41 @@ public class ServeisRestControllerValidationHelper {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_PERSONES_SOLLICITUD_NOT_FOUND, idPersona);
 		}
 	}
+	
+	/**
+	 * validateIsTancat.
+	 *
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param transicioAccioTancarExpedient
+	 *            the numero document identitat
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateIsTancat(DadesExpedientBDTO dadesExpedientBDTO,
+	        AccioTramitadorApiParamValue transicioAccioTancarExpedient, Resultat resultatError) throws GPAApiParamValidationException {
+		if (dadesExpedientBDTO.getExpedientsRDTO() != null && dadesExpedientBDTO.getExpedientsRDTO().getEstat() != null && 
+				!dadesExpedientBDTO.getExpedientsRDTO().getEstat().getAccioEstatIdext().equals(transicioAccioTancarExpedient.getInternalValue())) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_NO_TANCAT);
+		}
+	}
+	
+	/**
+	 * validateIsTancamentAutomatic.
+	 *
+	 * @param dadesExpedientBDTO
+	 *            the dades expedient BDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateIsTancamentAutomatic(DadesExpedientBDTO dadesExpedientBDTO, Resultat resultatError) throws GPAApiParamValidationException {
+		if (dadesExpedientBDTO.getExpedientsRDTO() != null && dadesExpedientBDTO.getExpedientsRDTO().getEstat() != null && 
+				!dadesExpedientBDTO.getExpedientsRDTO().getEstat().getTancamentAutomatic().equals(NumberUtils.INTEGER_ONE)) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_NO_TANCAMENT_AUTOMATIC);
+		}
+	}
 }
