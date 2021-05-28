@@ -152,6 +152,10 @@ public enum ErrorPrincipal {
 	ERROR_EXPEDIENTS_PERSONA_SOLLICITANT_PRINCIPAL("4018", "El sol·licitant principal no es pot esborrar"),
 
 	ERROR_PERSONES_SOLLICITUD_NOT_FOUND("4019", "No s'ha trobat la tercera persona amb id: "),
+	
+	ERROR_EXPEDIENTS_NO_TANCAT("4020", "L'expedient no aquesta tancat"),
+	
+	ERROR_EXPEDIENTS_NO_TANCAMENT_AUTOMATIC("4021", "L'expedient no s'ha tancat automàticament"),
 
 	/* Integracions */
 	ERROR_ARIADNA("5001", ""),

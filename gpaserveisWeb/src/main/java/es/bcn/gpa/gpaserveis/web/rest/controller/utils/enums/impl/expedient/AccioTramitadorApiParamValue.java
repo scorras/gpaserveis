@@ -100,7 +100,11 @@ public enum AccioTramitadorApiParamValue implements BaseApiParamValue {
 
 	EXPORTACIO_EVIDENCIES("Exportació evidències", new BigDecimal(45)),
 
-	ASSIGNAR_EXPEDIENT("Assignar expedient", new BigDecimal(46));
+	ASSIGNAR_EXPEDIENT("Assignar expedient", new BigDecimal(46)),
+	
+	REPRENDRE_EXPEDIENT("Reprendre la tramitació", new BigDecimal(22));
+	
+	
 
 	/** The api param value. */
 	private String apiParamValue;
