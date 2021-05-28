@@ -12,6 +12,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.joda.time.DateTime;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsConvidarTramitarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRedireccionarAssentamentBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsReprendreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
@@ -104,6 +106,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsPausarBDT
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsProposarResolucioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsReactivarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsRegistrarComunicacioBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaReprendreExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsRetornarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsTancarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsTornarEnrereBDTO;
@@ -270,6 +273,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.publicar.RespostaPublicarPerAInformacioPublicaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.reactivar.ExpedientReactivacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.reactivar.RespostaReactivarExpedientRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.reprende.RespostaReprendreExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.resolucio.proposar.ExpedientPropostaResolucioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.resolucio.proposar.RespostaProposarResolucioExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.signat.ExpedientDocumentSignatRDTO;
@@ -513,6 +517,14 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 						}
 					}
 				}
+			}
+			
+			if (dadesExpedientBDTO.getExpedientsRDTO().getIdiomes() != null && StringUtils.isNotEmpty(dadesExpedientBDTO.getExpedientsRDTO().getIdiomes().getDescripcio())) {
+				expedientConsultaRDTO.setIdioma(dadesExpedientBDTO.getExpedientsRDTO().getIdiomes().getDescripcio());
+			}
+			
+			if (dadesExpedientBDTO.getExpedientsRDTO().getEstat().getTancamentAutomatic() != null && NumberUtils.INTEGER_ONE.equals(dadesExpedientBDTO.getExpedientsRDTO().getEstat().getTancamentAutomatic())) {
+				expedientConsultaRDTO.setTancamentAutomatic(true);
 			}
 
 		} catch (GPAServeisServiceException e) {
@@ -1218,6 +1230,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		RespostaTancarExpedientRDTO respostaTancarExpedientRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_TANCAR_EXPEDIENT);
+		List<AccionsEstatsRDTO> accionsEstatsRDTOList = null;
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
@@ -1225,22 +1238,29 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_TANCAR_EXPEDIENT);
 
 			// Cerrar expediente si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
-			        AccioTramitadorApiParamValue.TANCAR_EXPEDIENT, Resultat.ERROR_TANCAR_EXPEDIENT);
-
+			if (!expedientTancament.getTancamentAutomatic().equals(Constants.TANCAMENT_AUTOMATIC)) {// Si no es tancament automatic
+				ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+				        AccioTramitadorApiParamValue.TANCAR_EXPEDIENT, Resultat.ERROR_TANCAR_EXPEDIENT);
+			}
+			
+			if (expedientTancament.getTancamentAutomatic().equals(Constants.TANCAMENT_AUTOMATIC)) { // Si es tancament automatic
+				accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
+				        AccioTramitadorApiParamValue.TANCAR_EXPEDIENT.getInternalValue(), AccioTramitadorApiParamValue.OBRIR_EXPEDIENT.getInternalValue());
+			} else {
+				// obtenemos el idAccioEstat futuro
+				accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
+				        AccioTramitadorApiParamValue.TANCAR_EXPEDIENT.getInternalValue(), dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
+			}
 			// Cambio de estado del expediente
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
 			expedientCanviEstat.setComentari(expedientTancament.getComentari());
-
-			// obtenemos el idAccioEstat futuro
-			List<AccionsEstatsRDTO> accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
-			        AccioTramitadorApiParamValue.TANCAR_EXPEDIENT.getInternalValue(), dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
-
+			
 			// debe existir una transicion posible para el estado actual
 			ServeisRestControllerValidationHelper.validateTransicioAccioDisponibleExpedient(accionsEstatsRDTOList,
 			        AccioTramitadorApiParamValue.TANCAR_EXPEDIENT, Resultat.ERROR_TANCAR_EXPEDIENT);
 
 			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+			expedientCanviEstat.setTancamentAutomatic(expedientTancament.getTancamentAutomatic());
 
 			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId());
@@ -1770,10 +1790,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// Se setea la nueva unidad gestora en la información del expediente
 			dadesExpedientBDTO.setUnitatsGestoresRDTO(unitatsGestoresRDTO);
 
-			// Cambiar la Unidad Gestora del expediente si la acción es
-			// permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
-			        AccioTramitadorApiParamValue.CANVIAR_UNITAT_GESTORA, Resultat.ERROR_CANVIAR_UNITAT_GESTORA_EXPEDIENT);
+			if (expedientCanviUnitatGestora.getTancamentAutomatic() != null && !expedientCanviUnitatGestora.getTancamentAutomatic().equals(Constants.TANCAMENT_AUTOMATIC)) { // No es tancamet Automatic
+				// Cambiar la Unidad Gestora del expediente si la acción es
+				// permitida
+				ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+				        AccioTramitadorApiParamValue.CANVIAR_UNITAT_GESTORA, Resultat.ERROR_CANVIAR_UNITAT_GESTORA_EXPEDIENT);
+			}
 
 			// Redirección del Asiento de Registro
 			if (dadesExpedientBDTO.getExpedientsRDTO().getSollicituds().getRegistreAssentament() != null
@@ -1859,7 +1881,30 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	@ApiOperation(nickname = "incorporarNouDocumentExpedientTramitadors", value = "Incorporar un nou document electrònic", tags = {
 	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	@ApiImplicitParams(@ApiImplicitParam(name = "document", value = "Dades del document a incorporar", dataType = "string", paramType = "form", required = true))
+	@ApiImplicitParams(@ApiImplicitParam(name = "document", dataType = "string", paramType = "form", required = true,
+	value = "Dades del document a incorporar. Example:<br>"
+		    +"{<br>"
+			+"&nbsp;&nbsp;\"document\": {<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"configuracioDocumentacio\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"origen\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"comentari\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"idioma\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"revisio\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzat\": \"Boolean\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzacio\": {<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"idioma\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"dataDigitalitzacio\": \"String\"<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;},<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"fitxer\": {<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"nom\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"format\": \"String\"<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;},<br>"
+		    +"&nbsp;&nbsp;&nbsp;&nbsp;\"numeroRegistre\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"publicarInfoPublica\": \"Boolean\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"plantillaPdf\": \"Boolean\"<br>"
+			+"&nbsp;&nbsp;}<br>"
+			+"}"))
 	public RespostaIncorporarNouDocumentRDTO incorporarNouDocumentExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Fitxer") @RequestParam(value = "file", required = false) MultipartFile file,
@@ -2664,7 +2709,41 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	@ApiOperation(nickname = "completarDocumentExpedientTramitadors", value = "Completar un document", tags = {
 	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	@ApiImplicitParams(@ApiImplicitParam(name = "document", value = "Dades del document a completar", dataType = "string", paramType = "form", required = true))
+	@ApiImplicitParams(@ApiImplicitParam(name = "document", dataType = "string", paramType = "form", required = true,
+	value = "Dades del document a completar. Example:<br>"
+			+"{<br>"
+			+"&nbsp;&nbsp;\"document\": {<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"configuracioDocumentacio\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"origen\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"comentari\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"idioma\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"revisio\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzat\": \"Boolean\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzacio\": {<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"idioma\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"dataDigitalitzacio\": \"String\"<br>"
+			+"&nbsp;&nbsp;},<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"fitxer\": {<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"nom\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"format\": \"String\"<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;},<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"numeroRegistre\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"publicarInfoPublica\": \"Boolean\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"plantillaPdf\": \"Boolean\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"requeriment\": \"Boolean\"<br>"
+			+"&nbsp;&nbsp;},<br>"
+			+"&nbsp;&nbsp;\"dadesOperacioRequerits\": [<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;{<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"codi\": \"String\"<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;}<br>"
+			+"&nbsp;&nbsp;],<br>"
+			+"&nbsp;&nbsp;\"documentacioRequerida\": [<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;{<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"configuracioDocumentacio\": \"String\"<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;}<br>"
+			+"&nbsp;&nbsp;]<br>"
+			+"}"))
 	public RespostaCompletarDocumentRDTO completarDocumentExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Identificador del document", required = true) @PathVariable BigDecimal idDocument,
@@ -3066,7 +3145,40 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	@ApiOperation(nickname = "prepararRequerimentExpedientTramitadors", value = "Preparar un requeriment a l’interessat", tags = {
 	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	@ApiImplicitParams(@ApiImplicitParam(name = "requeriment", value = "Dades del requeriment a preparar", dataType = "string", paramType = "form", required = true))
+	@ApiImplicitParams(@ApiImplicitParam(name = "requeriment", dataType = "string", paramType = "form", required = true,
+	value = "Dades del requeriment a preparar. Example:<br>"
+			+"{<br>"
+			+"&nbsp;&nbsp;\"document\": {<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"configuracioDocumentacio\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"origen\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"comentari\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"idioma\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"revisio\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzat\": \"Boolean\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzacio\": {<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"idioma\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"dataDigitalitzacio\": \"String\"<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;},<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"fitxer\": {<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"nom\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"format\": \"String\"<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;},<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"numeroRegistre\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"publicarInfoPublica\": \"Boolean\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"plantillaPdf\": \"Boolean\"<br>"
+			+"&nbsp;&nbsp;},<br>"
+			+"&nbsp;&nbsp;\"dadesOperacioRequerits\": [<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;{<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"codi\": \"String\"<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;}<br>"
+			+"&nbsp;&nbsp;],<br>"
+			+"&nbsp;&nbsp;\"documentacioRequerida\": [<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;{<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"configuracioDocumentacio\": \"String\"<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;}<br>"
+			+"&nbsp;&nbsp;]<br>"
+			+"}"))
 	public RespostaPrepararRequerimentRDTO prepararRequerimentExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
 	        @ApiParam(value = "Fitxer") @RequestParam(value = "file", required = false) MultipartFile file,
@@ -5254,5 +5366,87 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			log.debug("esborrarTerceraPersona(String, BigDecimal) - fi"); //$NON-NLS-1$
 		}
 		return respostaEsborrarTerceraPersonaRDTO;
+	}
+	
+	/**
+	 * Reprendre expedient.
+	 *
+	 * @param codiExpedient
+	 *            the codi expedient
+	 * @return the resposta reprendre expedient RDTO
+	 * @throws GPAServeisServiceException
+	 */
+	@PostMapping("/expedients/{codiExpedient}/reprendre")
+	@ApiOperation(nickname = "reprendreExpedientTramitadors", value = "Reprendre la tramitació de l'expedient", tags = {
+	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
+	public RespostaReprendreExpedientRDTO reprendreTramitacio(
+			 @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient)
+	        throws GPAServeisServiceException {
+
+		if (log.isDebugEnabled()) {
+			log.debug("reprendreTramitacio(String) - inici"); //$NON-NLS-1$
+		}
+
+		String resultatAudit = "OK";
+		GPAServeisServiceException ex = null;
+
+		RespostaReprendreExpedientRDTO respostaReprendreExpedientRDTO = null;
+		DadesExpedientBDTO dadesExpedientBDTO = null;
+		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_REPRENDRE_TRAMITACIO);
+		try {
+
+			// desde tramitadors no se controla la visibilidad, solo afecta a
+			// portal
+			BigDecimal visibilitat = BigDecimal.ONE;
+
+			// El codi del expediente debe existir
+			dadesExpedientBDTO = serveisService.consultarDadesExpedient(
+			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
+			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_REPRENDRE_TRAMITACIO);
+			
+			// El expediente debe estar cerrado
+			ServeisRestControllerValidationHelper.validateIsTancat(dadesExpedientBDTO,
+				   AccioTramitadorApiParamValue.REPRENDRE_EXPEDIENT, Resultat.ERROR_REPRENDRE_TRAMITACIO);
+			
+			// El expediente debe haberse cerrado automaticamente
+			ServeisRestControllerValidationHelper.validateIsTancamentAutomatic(dadesExpedientBDTO, Resultat.ERROR_REPRENDRE_TRAMITACIO);
+			
+
+			ExpedientsReprendreBDTO expedientsReprendreBDTO = new ExpedientsReprendreBDTO(
+			        dadesExpedientBDTO.getExpedientsRDTO().getId());
+
+			serveisService.reprendreTramitacio(expedientsReprendreBDTO);
+
+		} catch (GPAApiParamValidationException e) {
+			log.error("reprendreTramitacio(String)", e); // $NON-NLS-1$
+			respostaResultatBDTO = new RespostaResultatBDTO(e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
+		} catch (Exception e) {
+			log.error("reprendreTramitacio(String)", e); // $NON-NLS-1$
+			respostaResultatBDTO = ServeisRestControllerExceptionHandler.handleException(Resultat.ERROR_REPRENDRE_TRAMITACIO, e);
+			resultatAudit = "KO";
+			ex = new GPAServeisServiceException(e);
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/expedients/" + codiExpedient + "/reprendreTramitacio");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("POST");
+			auditServeisBDTO.setValueAccio("Reprendre tramitacio");
+
+			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, null, respostaResultatBDTO, ex);
+		}
+		
+		ExpedientsRDTO expedientsRDTO = (dadesExpedientBDTO != null) ? dadesExpedientBDTO.getExpedientsRDTO() : null;
+		RespostaReprendreExpedientBDTO respostaExpedientsReprendreBDTO = new RespostaReprendreExpedientBDTO(expedientsRDTO, respostaResultatBDTO);
+		respostaReprendreExpedientRDTO = modelMapper.map(respostaExpedientsReprendreBDTO, RespostaReprendreExpedientRDTO.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("reprendreTramitacio(String) - fi"); //$NON-NLS-1$
+		}
+
+		return respostaReprendreExpedientRDTO;
 	}
 }

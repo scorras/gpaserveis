@@ -229,7 +229,11 @@ public enum Resultat {
 
 	ERROR_CONSULTAR_EXPEDIENT("ERROR", "No s'ha pogut consultar l'expedient"),
 
-	ERROR_CONSULTAR_SOLLICITUD("ERROR", "No s'ha pogut consultar la sol·licitud");
+	ERROR_CONSULTAR_SOLLICITUD("ERROR", "No s'ha pogut consultar la sol·licitud"),
+	
+	OK_REPRENDRE_TRAMITACIO("OK", "Expedient reprès correctament"),
+	
+	ERROR_REPRENDRE_TRAMITACIO("ERROR", "No s'ha pogut reprendre l'expedient");
 
 	private String codi;
 

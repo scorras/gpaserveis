@@ -25,6 +25,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRedireccionarAssentamentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarSollicitudBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsReprendreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
@@ -2474,5 +2475,34 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		ServeisServiceExceptionHandler.handleException(e);
 
 		return null;
+	}
+	
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackReprendreTramitacio")
+	public void reprendreTramitacio(ExpedientsReprendreBDTO expedientsReprendreBDTO) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("reprendreTramitacio(ExpedientsReprendreBDTO) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			expedientsApi.reprendreTramitacio(expedientsReprendreBDTO.getIdExpedient());
+
+			if (log.isDebugEnabled()) {
+				log.debug("reprendreTramitacio(ExpedientsReprendreBDTO) - fi"); //$NON-NLS-1$
+			}
+		} catch (RestClientException e) {
+			log.error("reprendreTramitacio(ExpedientsReprendreBDTO)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+	
+	public void fallbackReprendreTramitacio(ExpedientsReprendreBDTO expedientsReprendreBDTO, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackReprendreTramitacio(ExpedientsReprendreBDTO, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
 	}
 }

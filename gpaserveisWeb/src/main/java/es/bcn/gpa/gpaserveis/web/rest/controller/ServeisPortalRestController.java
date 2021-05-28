@@ -772,6 +772,14 @@ public class ServeisPortalRestController extends BaseRestController {
 			if (StringUtils.isNotEmpty(dadesExpedientBDTO.getExpedientsRDTO().getMigracioIdOrigen())) {
 				expedientConsultaRDTO.setIdGestorDocumental(dadesExpedientBDTO.getExpedientsRDTO().getMigracioIdOrigen());
 			}
+			
+			if (dadesExpedientBDTO.getExpedientsRDTO().getIdiomes() != null && StringUtils.isNotEmpty(dadesExpedientBDTO.getExpedientsRDTO().getIdiomes().getDescripcio())) {
+				expedientConsultaRDTO.setIdioma(dadesExpedientBDTO.getExpedientsRDTO().getIdiomes().getDescripcio());
+			}
+			
+			if (dadesExpedientBDTO.getExpedientsRDTO().getEstat().getTancamentAutomatic() != null && NumberUtils.INTEGER_ONE.equals(dadesExpedientBDTO.getExpedientsRDTO().getEstat().getTancamentAutomatic())) {
+				expedientConsultaRDTO.setTancamentAutomatic(true);
+			}
 
 			respostaConsultaExpedientsRDTO.setExpedient(expedientConsultaRDTO);
 

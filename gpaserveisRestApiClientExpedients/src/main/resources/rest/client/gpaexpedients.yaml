@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "2.2.3"
+  version: "2.4.1"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -2472,6 +2472,9 @@ definitions:
         type: "number"
       id:
         type: "number"
+      tancamentAutomatic:
+        type: "integer"
+        format: "int32"
       unitatGestoraIdext:
         type: "number"
       usuari:
@@ -2527,6 +2530,9 @@ definitions:
       idAccioEstat:
         type: "number"
         description: "Identificador de la transició acció - estat"
+      tancamentAutomatic:
+        type: "number"
+        description: "tancament automatic."
     title: "ExpedientCanviEstat"
   ExpedientCanviarEstat:
     type: "object"
