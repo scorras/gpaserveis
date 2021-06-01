@@ -1122,7 +1122,7 @@ public class ConverterHelper {
 			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
 			documentCompletatAccioRDTO = new DocumentCompletatAccioRDTO();
 			documentCompletatAccioRDTO.setId(docsTramitacioRDTO.getId());
-			documentCompletatAccioRDTO.setConfiguracio(ConfiguracioApiParamValue.APORTADA.getApiParamValue());
+			documentCompletatAccioRDTO.setConfiguracio(ConfiguracioApiParamValue.GENERADA.getApiParamValue());
 			if (docsTramitacioRDTO.getConfiguracioDocsTramitacio() != null) {
 				ConfiguracioDocumentacioRDTO configuracioDocumentacioRDTO = buildConfiguracioDocumentacioRDTO(docsTramitacioRDTO);
 				documentCompletatAccioRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
