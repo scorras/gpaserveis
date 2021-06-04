@@ -44,9 +44,9 @@ public class ImiAuthHeaderRestTemplateInterceptor implements ClientHttpRequestIn
 			}
 		} else {
 			if (log.isInfoEnabled()) {
-				log.info("No s'ha trobat usuari logueado, s'usa l'usuari per defecte: T000000 - " + request.getURI().getPath());
+				log.info("No s'ha trobat usuari logueado, s'usa l'usuari per defecte: SVC_USGPA - " + request.getURI().getPath());
 			}
-			request.getHeaders().add(AUTH_IMI_HEADER, "{\"user\": \"T000000\", \"grp\" : null}");
+			request.getHeaders().add(AUTH_IMI_HEADER, "{\"user\": \"SVC_USGPA\", \"grp\" : null}");
 		}
 		return execution.execute(request, body);
 	}
