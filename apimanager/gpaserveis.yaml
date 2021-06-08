@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.5.0"
+  version: "2.5.2"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -4549,6 +4549,9 @@ definitions:
       descripcioAmpliada:
         type: "string"
         description: "Descripció ampliada del document"
+      descripcioAmpliadaCastella:
+        type: "string"
+        description: "Descripció ampliada en castellà del document"
       descripcioCastella:
         type: "string"
         xml:
@@ -4759,6 +4762,10 @@ definitions:
       nivellAutenticacio:
         type: "string"
         description: "Nivell d'autenticació requerit"
+        enum:
+        - "ALT"
+        - "SUBSTANCIAL"
+        - "BAIX"
       terminisDuracio:
         description: "Terminis de duració"
         $ref: "#/definitions/TerminisDuracio"

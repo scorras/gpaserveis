@@ -57,6 +57,7 @@ public class ConfiguracioDocsEntradaRDTOToConfiguracioDocumentacioAportadaConsul
 		map().setDescripcio(source.getNom());
 		map().setDescripcioCastella(source.getNomCastella());
 		map().setDescripcioAmpliada(source.getDescripcioAmpliada());
+		map().setDescripcioAmpliadaCastella(source.getDescripcioAmpliadaCastella());
 		using(internalToObligatoriConverter).map(source).setObligatori(null);
 		using(internalToBooleanConverter).map(source.getAtributsDocs().getRepetible()).setRepetible(null);
 		using(internalToSuportConfeccioConverter).map(source.getSuportConfeccio()).setSuportConfeccio(null);
