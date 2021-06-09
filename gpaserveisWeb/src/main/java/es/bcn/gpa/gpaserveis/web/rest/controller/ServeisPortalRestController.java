@@ -1239,7 +1239,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	        throws GPAServeisServiceException {
 		if (log.isInfoEnabled()) {
 			log.info("registrarSolicitudExpedient(BigDecimal) - inici"); //$NON-NLS-1$
-			log.info(expedientRegistrarRDTO); // $NON-NLS-1$
+			log.info("Idioma registro: " + expedientRegistrarRDTO.getIdioma()); // $NON-NLS-1$
 		}
 
 		String resultatAudit = "OK";
@@ -1433,16 +1433,18 @@ public class ServeisPortalRestController extends BaseRestController {
 			confDocsTramPolitiquesSig.setModalitatIdext(TipusSignaturaApiParamValue.SEGELL.getInternalValue());
 			configuracioDocsTramitacio.addConfDocsTramPolitiquesSigListItem(confDocsTramPolitiquesSig);
 
-			if (expedientRegistrarRDTO != null && !StringUtils.isEmpty(expedientRegistrarRDTO.getIdioma())) {
-				IdiomaPlantillaDocApiParamValueTranslator idiomaPlantillaDocApiParamValueTranslator = new IdiomaPlantillaDocApiParamValueTranslator();
-				docsTramitacioRDTO.setIdioma(
-				        idiomaPlantillaDocApiParamValueTranslator.getInternalValueByApiParamValue(expedientRegistrarRDTO.getIdioma()));
-				dadesExpedientBDTO.getExpedientsRDTO().setIdioma(
-				        idiomaPlantillaDocApiParamValueTranslator.getInternalValueByApiParamValue(expedientRegistrarRDTO.getIdioma()));
-			} else {
-				docsTramitacioRDTO.setIdioma(IdiomaPlantillaDocApiParamValue.CASTELLA.getInternalValue());
-				dadesExpedientBDTO.getExpedientsRDTO().setIdioma(IdiomaPlantillaDocApiParamValue.CATALA.getInternalValue());
-			}
+			if (expedientRegistrarRDTO != null && !StringUtils.isEmpty(expedientRegistrarRDTO.getIdioma()) &&
+                    (expedientRegistrarRDTO.getIdioma().equals(IdiomaPlantillaDocApiParamValue.CASTELLA.getApiParamValue()) ||
+                     expedientRegistrarRDTO.getIdioma().equals(IdiomaPlantillaDocApiParamValue.CATALA.getApiParamValue()))) {
+                IdiomaPlantillaDocApiParamValueTranslator idiomaPlantillaDocApiParamValueTranslator = new IdiomaPlantillaDocApiParamValueTranslator();
+                docsTramitacioRDTO.setIdioma(
+                        idiomaPlantillaDocApiParamValueTranslator.getInternalValueByApiParamValue(expedientRegistrarRDTO.getIdioma()));
+                dadesExpedientBDTO.getExpedientsRDTO().setIdioma(
+                        idiomaPlantillaDocApiParamValueTranslator.getInternalValueByApiParamValue(expedientRegistrarRDTO.getIdioma()));
+            } else {
+                docsTramitacioRDTO.setIdioma(IdiomaPlantillaDocApiParamValue.CASTELLA.getInternalValue());
+                dadesExpedientBDTO.getExpedientsRDTO().setIdioma(IdiomaPlantillaDocApiParamValue.CASTELLA.getInternalValue());
+            }
 			docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 			docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
 			docsTramitacioRDTO.setOrigen(2);
