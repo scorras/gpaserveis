@@ -1422,7 +1422,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			confDocsTramPolitiquesSig.setModalitatIdext(TipusSignaturaApiParamValue.SEGELL.getInternalValue());
 			configuracioDocsTramitacio.addConfDocsTramPolitiquesSigListItem(confDocsTramPolitiquesSig);
 
-			if (expedientRegistrarRDTO != null && !StringUtils.isEmpty(expedientRegistrarRDTO.getIdioma())) {
+			if (expedientRegistrarRDTO != null && !StringUtils.isEmpty(expedientRegistrarRDTO.getIdioma()) && 
+					(expedientRegistrarRDTO.getIdioma().equals(IdiomaPlantillaDocApiParamValue.CASTELLA.getApiParamValue()) ||
+					 expedientRegistrarRDTO.getIdioma().equals(IdiomaPlantillaDocApiParamValue.CATALA.getApiParamValue()))) {
 				IdiomaPlantillaDocApiParamValueTranslator idiomaPlantillaDocApiParamValueTranslator = new IdiomaPlantillaDocApiParamValueTranslator();
 				docsTramitacioRDTO.setIdioma(
 				        idiomaPlantillaDocApiParamValueTranslator.getInternalValueByApiParamValue(expedientRegistrarRDTO.getIdioma()));
@@ -1430,8 +1432,11 @@ public class ServeisPortalRestController extends BaseRestController {
 				        idiomaPlantillaDocApiParamValueTranslator.getInternalValueByApiParamValue(expedientRegistrarRDTO.getIdioma()));
 			} else {
 				docsTramitacioRDTO.setIdioma(IdiomaPlantillaDocApiParamValue.CASTELLA.getInternalValue());
-				dadesExpedientBDTO.getExpedientsRDTO().setIdioma(IdiomaPlantillaDocApiParamValue.CATALA.getInternalValue());
+				dadesExpedientBDTO.getExpedientsRDTO().setIdioma(IdiomaPlantillaDocApiParamValue.CASTELLA.getInternalValue());
 			}
+			// Actualizamos el expediente con el idioma
+			serveisService.actualitzarExpedient(dadesExpedientBDTO.getExpedientsRDTO());
+			
 			docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 			docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
 			docsTramitacioRDTO.setOrigen(2);
