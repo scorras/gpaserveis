@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "2.5.0"
+  version: "2.5.1"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -2928,6 +2928,9 @@ definitions:
         type: "string"
       tractament:
         type: "string"
+      transicioCompletat:
+        type: "integer"
+        format: "int32"
       uniqueId:
         type: "number"
       visibilitatPortal:
@@ -3002,6 +3005,9 @@ definitions:
         type: "string"
       tractament:
         type: "string"
+      transicioCompletat:
+        type: "integer"
+        format: "int32"
       uniqueId:
         type: "number"
       visibilitatPortal:
@@ -3168,6 +3174,8 @@ definitions:
       origen:
         type: "integer"
         format: "int32"
+      personaIdext:
+        type: "number"
       plantillaPdf:
         type: "boolean"
       registreAssentament:

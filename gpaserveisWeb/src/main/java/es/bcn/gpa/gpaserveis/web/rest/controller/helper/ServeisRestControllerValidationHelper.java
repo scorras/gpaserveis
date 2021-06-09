@@ -2485,4 +2485,46 @@ public class ServeisRestControllerValidationHelper {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_NO_TANCAMENT_AUTOMATIC);
 		}
 	}
+	
+	
+	/**
+	 * get id usuari interessat.
+	 *
+	 * @param clientEntity
+	 * 			the clientEntity
+	 * @param personesInteressades
+	 * 			the personesInteressades
+	 * @param sollicitantPrincipal
+	 * 			the sollicitantPrincipal
+	 * @param representantPrincipal
+	 * 			the representantPrincipal
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static BigDecimal getIdUsuariInteressat(ClientEntity clientEntity,
+	        List<PersonesSollicitudRDTO> personesInteressades, Persones sollicitantPrincipal, Persones representantPrincipal) throws GPAApiParamValidationException {
+
+		String nifInteressat = clientEntity.getUsuariInteressat();
+		
+		if (!StringUtils.isEmpty(nifInteressat)) {
+			for (PersonesSollicitudRDTO personesSollicitud : personesInteressades) {
+				if (personesSollicitud.getPersones().getDocumentsIdentitat() != null
+				        && StringUtils.equals(personesSollicitud.getPersones().getDocumentsIdentitat().getNumeroDocument(), nifInteressat)) {
+					return personesSollicitud.getId();
+				}
+			}
+	
+			if (sollicitantPrincipal.getDocumentsIdentitat() != null
+			        && StringUtils.equals(sollicitantPrincipal.getDocumentsIdentitat().getNumeroDocument(), nifInteressat)) {
+				return sollicitantPrincipal.getId();
+			}
+	
+			if (representantPrincipal != null && representantPrincipal.getDocumentsIdentitat() != null
+			        && StringUtils.equals(representantPrincipal.getDocumentsIdentitat().getNumeroDocument(), nifInteressat)) {
+				return representantPrincipal.getId();
+			}
+		}
+
+		return null;
+	}
 }
