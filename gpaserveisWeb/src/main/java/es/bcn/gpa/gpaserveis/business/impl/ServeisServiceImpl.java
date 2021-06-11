@@ -87,6 +87,7 @@ import es.bcn.gpa.gpaserveis.business.xml.bind.Jaxb2MarshallerWrapper;
 import es.bcn.gpa.gpaserveis.integration.orm.dao.AuditServeisTramitadorsDao;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConsultarSignaturaResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesSignatura;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
@@ -2483,7 +2484,7 @@ public class ServeisServiceImpl implements ServeisService {
 		}
 
 	}
-	
+
 	/**
 	 * Reprendre tramitacio
 	 *
@@ -2498,4 +2499,16 @@ public class ServeisServiceImpl implements ServeisService {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#consultarSignatura(java.
+	 * lang.String, java.lang.String)
+	 */
+	@Override
+	public ConsultarSignaturaResponse consultarSignatura(String idPeticio, String idDocumentGestorDocumental)
+	        throws GPAServeisServiceException {
+		return documentsService.consultarSignatura(idPeticio, idDocumentGestorDocumental);
+	}
 }

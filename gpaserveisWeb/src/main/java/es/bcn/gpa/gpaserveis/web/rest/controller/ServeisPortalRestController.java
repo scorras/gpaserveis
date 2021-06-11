@@ -89,6 +89,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfdocstramT
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConsultarSignaturaResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
@@ -1433,18 +1434,21 @@ public class ServeisPortalRestController extends BaseRestController {
 			confDocsTramPolitiquesSig.setModalitatIdext(TipusSignaturaApiParamValue.SEGELL.getInternalValue());
 			configuracioDocsTramitacio.addConfDocsTramPolitiquesSigListItem(confDocsTramPolitiquesSig);
 
-			if (expedientRegistrarRDTO != null && !StringUtils.isEmpty(expedientRegistrarRDTO.getIdioma()) &&
-                    (expedientRegistrarRDTO.getIdioma().equals(IdiomaPlantillaDocApiParamValue.CASTELLA.getApiParamValue()) ||
-                     expedientRegistrarRDTO.getIdioma().equals(IdiomaPlantillaDocApiParamValue.CATALA.getApiParamValue()))) {
-                IdiomaPlantillaDocApiParamValueTranslator idiomaPlantillaDocApiParamValueTranslator = new IdiomaPlantillaDocApiParamValueTranslator();
-                docsTramitacioRDTO.setIdioma(
-                        idiomaPlantillaDocApiParamValueTranslator.getInternalValueByApiParamValue(expedientRegistrarRDTO.getIdioma()));
-                dadesExpedientBDTO.getExpedientsRDTO().setIdioma(
-                        idiomaPlantillaDocApiParamValueTranslator.getInternalValueByApiParamValue(expedientRegistrarRDTO.getIdioma()));
-            } else {
-                docsTramitacioRDTO.setIdioma(IdiomaPlantillaDocApiParamValue.CASTELLA.getInternalValue());
-                dadesExpedientBDTO.getExpedientsRDTO().setIdioma(IdiomaPlantillaDocApiParamValue.CASTELLA.getInternalValue());
-            }
+			if (expedientRegistrarRDTO != null && !StringUtils.isEmpty(expedientRegistrarRDTO.getIdioma())
+			        && (expedientRegistrarRDTO.getIdioma().equals(IdiomaPlantillaDocApiParamValue.CASTELLA.getApiParamValue())
+			                || expedientRegistrarRDTO.getIdioma().equals(IdiomaPlantillaDocApiParamValue.CATALA.getApiParamValue()))) {
+				IdiomaPlantillaDocApiParamValueTranslator idiomaPlantillaDocApiParamValueTranslator = new IdiomaPlantillaDocApiParamValueTranslator();
+				docsTramitacioRDTO.setIdioma(
+				        idiomaPlantillaDocApiParamValueTranslator.getInternalValueByApiParamValue(expedientRegistrarRDTO.getIdioma()));
+				dadesExpedientBDTO.getExpedientsRDTO().setIdioma(
+				        idiomaPlantillaDocApiParamValueTranslator.getInternalValueByApiParamValue(expedientRegistrarRDTO.getIdioma()));
+			} else {
+				docsTramitacioRDTO.setIdioma(IdiomaPlantillaDocApiParamValue.CASTELLA.getInternalValue());
+				dadesExpedientBDTO.getExpedientsRDTO().setIdioma(IdiomaPlantillaDocApiParamValue.CASTELLA.getInternalValue());
+			}
+			// Actualizamos el expediente con el idioma
+			serveisService.actualitzarExpedient(dadesExpedientBDTO.getExpedientsRDTO());
+
 			docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 			docsTramitacioRDTO.setConfigDocTramitacio(respostaPlantillaDocVinculada.getId());
 			docsTramitacioRDTO.setOrigen(2);
@@ -1490,7 +1494,14 @@ public class ServeisPortalRestController extends BaseRestController {
 
 			// Vincular Justificante en Ariadna
 			if (teRegistre) {
-				vincularJustificanteAriadna(dadesExpedientBDTO, respostaCrearRegistreExpedient, respostaCrearJustificant);
+				// Debe vincularse a Ariadna el Justificante firmado y no el
+				// original
+				ConsultarSignaturaResponse consultarSignaturaResponse = serveisService
+				        .consultarSignatura(signarSegellDocumentResponse.getIdPeticio(), respostaCrearJustificant.getCodi());
+				if (consultarSignaturaResponse != null && consultarSignaturaResponse.getIdDocumentSignatGestorDocumental() != null) {
+					vincularJustificanteAriadna(dadesExpedientBDTO, respostaCrearRegistreExpedient,
+					        consultarSignaturaResponse.getIdDocumentSignatGestorDocumental());
+				}
 			}
 
 			// Cambiar el estado del expediente
@@ -1690,7 +1701,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				        docsTramitacioRDTO);
 				respostaCrearJustificant = serveisService.guardarDocumentTramitacioJustificantPlantilla(crearDocumentTramitacioBDTO);
 
-				vincularJustificanteAriadna(dadesExpedientBDTO, respostaCrearRegistreExpedient, respostaCrearJustificant);
+				vincularJustificanteAriadna(dadesExpedientBDTO, respostaCrearRegistreExpedient, respostaCrearJustificant.getCodi());
 			}
 		} catch (GPAApiParamValidationException e) {
 			log.error("aportarDocumentacioExpedient(BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
@@ -2220,7 +2231,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				        docsTramitacioRDTO);
 				respostaCrearJustificant = serveisService.guardarDocumentTramitacioJustificantPlantilla(crearDocumentTramitacioBDTO);
 
-				vincularJustificanteAriadna(dadesExpedientBDTO, respostaCrearRegistreExpedient, respostaCrearJustificant);
+				vincularJustificanteAriadna(dadesExpedientBDTO, respostaCrearRegistreExpedient, respostaCrearJustificant.getCodi());
 			}
 
 			// Nos quedamos con una copia de los dades de operacio actuales del
@@ -2677,14 +2688,14 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @throws GPAServeisServiceException
 	 */
 	private void vincularJustificanteAriadna(DadesExpedientBDTO dadesExpedientBDTO,
-	        RespostaCrearRegistreExpedient respostaCrearRegistreExpedient, DocsTramitacioRDTO respostaCrearJustificant)
+	        RespostaCrearRegistreExpedient respostaCrearRegistreExpedient, String idJustificantSignatGestorDocumental)
 	        throws GPAServeisServiceException {
 
 		RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
 
 		try {
 
-			registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getCodi());
+			registreDocumentacioExpedient.setIdJustificant(idJustificantSignatGestorDocumental);
 			registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
 
 			serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);

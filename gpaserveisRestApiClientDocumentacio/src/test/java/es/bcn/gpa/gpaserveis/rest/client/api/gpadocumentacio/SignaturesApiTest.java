@@ -33,6 +33,7 @@ import org.springframework.util.MultiValueMap;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackManuscrita;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConsultarSignaturaResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesSignatura;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PrepararSignaturaCriptograficaDocumentMassiu;
@@ -296,6 +297,28 @@ public class SignaturesApiTest extends ParentTest {
 
 		SignarCriptograficaDocument signarCriptograficaDocumentRDTO = new SignarCriptograficaDocument();
 		SignarCriptograficaDocumentResponse response = api.signarCriptografica(signarCriptograficaDocumentRDTO);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Consultar l&#39;id de gestor documental de el document signat generat a
+	 * partir d&#39;una petició de signatura i un document original
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void consultarSignaturaTest() {
+		when(apiClient.invokeAPI(eq("/signatures/1/consultarSignatura/1"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new ConsultarSignaturaResponse());
+
+		String idDocumentGestorDocumental = ONE.toString();
+		String idPeticio = ONE.toString();
+		ConsultarSignaturaResponse response = api.consultarSignatura(idDocumentGestorDocumental, idPeticio);
 
 		assertTrue(response != null);
 	}

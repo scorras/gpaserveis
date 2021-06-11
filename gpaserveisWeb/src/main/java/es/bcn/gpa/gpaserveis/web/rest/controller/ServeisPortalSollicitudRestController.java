@@ -72,6 +72,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfdocstramT
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConsultarSignaturaResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
@@ -1525,24 +1526,27 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 			// Vincular Justificante en Ariadna
 			if (teRegistre) {
-				RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
-				try {
+				ConsultarSignaturaResponse consultarSignaturaResponse = serveisService
+				        .consultarSignatura(signarSegellDocumentResponse.getIdPeticio(), respostaCrearJustificant.getCodi());
+				if (consultarSignaturaResponse != null && consultarSignaturaResponse.getIdDocumentSignatGestorDocumental() != null) {
+					// Debe vincularse a Ariadna el Justificante firmado y no el
+					// original (getMigracioIdOrigenSignatura())
+					RegistreDocumentacioExpedient registreDocumentacioExpedient = new RegistreDocumentacioExpedient();
+					try {
 
-					registreDocumentacioExpedient.setIdJustificant(respostaCrearJustificant.getCodi());
-					registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
+						registreDocumentacioExpedient.setIdJustificant(consultarSignaturaResponse.getIdDocumentSignatGestorDocumental());
+						registreDocumentacioExpedient.setNumAss(respostaCrearRegistreExpedient.getRegistreAssentament().getCodi());
 
-					serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
-				} catch (Exception e) {
-					log.error("registrarSolicitudExpedient(BigDecimal): Error retornAssentament", e);// $NON-NLS-1$
+						serveisService.registreDocumentacioAriadna(registreDocumentacioExpedient);
+					} catch (Exception e) {
+						log.error("registrarSolicitudExpedient(BigDecimal): Error retornAssentament", e);// $NON-NLS-1$
 
-					// almacenamos el indicador de que esta pendiente el retorno
-					// en
-					// el
-					// expediente para que continue el registro o la accion
-					// correctamente
-
-					dadesSollicitudBDTO.getExpedientsRDTO().setPendentRetorn(NumberUtils.INTEGER_ONE);
-					serveisService.actualitzarExpedient(dadesSollicitudBDTO.getExpedientsRDTO());
+						// almacenamos el indicador de que esta pendiente el
+						// retorno en el expediente para que continue el
+						// registro o la accion correctamente
+						dadesSollicitudBDTO.getExpedientsRDTO().setPendentRetorn(NumberUtils.INTEGER_ONE);
+						serveisService.actualitzarExpedient(dadesSollicitudBDTO.getExpedientsRDTO());
+					}
 				}
 			}
 
