@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "2.5.0"
+  version: "2.5.2"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -2524,6 +2524,40 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /signatures/{idPeticio}/consultarSignatura/{idDocumentGestorDocumental}:
+    get:
+      tags:
+      - "Signatures"
+      summary: "Consultar l'id de gestor documental de el document signat generat\
+        \ a partir d'una petició de signatura i un document original"
+      operationId: "consultarSignatura"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idDocumentGestorDocumental"
+        in: "path"
+        description: "idDocumentGestorDocumental"
+        required: true
+        type: "string"
+      - name: "idPeticio"
+        in: "path"
+        description: "idPeticio"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ConsultarSignaturaResponse"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
 definitions:
   AtributsDocs:
     type: "object"
@@ -3008,6 +3042,13 @@ definitions:
         type: "integer"
         format: "int32"
     title: "ConfiguracioDocsTramitacioRDTO"
+  ConsultarSignaturaResponse:
+    type: "object"
+    properties:
+      idDocumentSignatGestorDocumental:
+        type: "string"
+        description: "Id de gestor documental de el document signat"
+    title: "ConsultarSignaturaResponse"
   CrearNotificacio:
     type: "object"
     properties:
@@ -4048,6 +4089,9 @@ definitions:
       idDocument:
         type: "number"
         description: "Identificador del document"
+      idPeticio:
+        type: "string"
+        description: "Identificador de la petició de signatura"
       politicaSignatura:
         type: "string"
         description: "Nom de la política de signatura"

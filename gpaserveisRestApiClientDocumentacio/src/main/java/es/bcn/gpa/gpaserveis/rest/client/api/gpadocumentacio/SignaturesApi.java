@@ -5,6 +5,7 @@ import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackManuscrita;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConsultarSignaturaResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesSignatura;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PrepararSignaturaCriptograficaDocumentMassiu;
@@ -37,7 +38,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-08T12:05:16.181+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-11T01:51:19.701+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.SignaturesApi")
 public class SignaturesApi {
     private ApiClient apiClient;
@@ -136,6 +137,53 @@ public class SignaturesApi {
         String[] authNames = new String[] {  };
 
         ParameterizedTypeReference<DadesSignatura> returnType = new ParameterizedTypeReference<DadesSignatura>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Consultar l&#39;id de gestor documental de el document signat generat a partir d&#39;una petició de signatura i un document original
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param idDocumentGestorDocumental idDocumentGestorDocumental
+     * @param idPeticio idPeticio
+     * @return ConsultarSignaturaResponse
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public ConsultarSignaturaResponse consultarSignatura(String idDocumentGestorDocumental, String idPeticio) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'idDocumentGestorDocumental' is set
+        if (idDocumentGestorDocumental == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idDocumentGestorDocumental' when calling consultarSignatura");
+        }
+        
+        // verify the required parameter 'idPeticio' is set
+        if (idPeticio == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idPeticio' when calling consultarSignatura");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("idDocumentGestorDocumental", idDocumentGestorDocumental);
+        uriVariables.put("idPeticio", idPeticio);
+        String path = UriComponentsBuilder.fromPath("/signatures/{idPeticio}/consultarSignatura/{idDocumentGestorDocumental}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<ConsultarSignaturaResponse> returnType = new ParameterizedTypeReference<ConsultarSignaturaResponse>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
