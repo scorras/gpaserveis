@@ -54,6 +54,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigit
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackManuscrita;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConsultarSignaturaResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesSignatura;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
@@ -3361,6 +3362,60 @@ public class DocumentsServiceImpl implements DocumentsService {
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("fallbackConsultarDadesDocumentGeneratPerIdGestorDocumental(String, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.DocumentsService#consultarSignatura(java.
+	 * lang.String, java.lang.String)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackConsultarSignatura")
+	public ConsultarSignaturaResponse consultarSignatura(String idPeticio, String idDocumentGestorDocumental)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarSignatura(String, String) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			ConsultarSignaturaResponse consultarSignaturaResponse = signaturesApi.consultarSignatura(idDocumentGestorDocumental, idPeticio);
+
+			if (log.isDebugEnabled()) {
+				log.debug("consultarSignatura(String, String) - fi"); //$NON-NLS-1$
+			}
+			return consultarSignaturaResponse;
+
+		} catch (RestClientException e) {
+			log.error("consultarSignatura(String, String)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback consultar signatura.
+	 *
+	 * @param idPeticio
+	 *            the id peticio
+	 * @param idDocumentGestorDocumental
+	 *            the id document gestor documental
+	 * @param e
+	 *            the e
+	 * @return the consultar signatura response
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public ConsultarSignaturaResponse fallbackConsultarSignatura(String idPeticio, String idDocumentGestorDocumental, Throwable e)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackConsultarSignatura(String, String, Throwable) - inici"); //$NON-NLS-1$
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);

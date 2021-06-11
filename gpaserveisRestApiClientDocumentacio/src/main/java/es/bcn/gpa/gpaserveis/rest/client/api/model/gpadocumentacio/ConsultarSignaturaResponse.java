@@ -21,50 +21,29 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * SignarTabletDocumentResponse
+ * ConsultarSignaturaResponse
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-11T01:51:19.701+02:00")
-public class SignarTabletDocumentResponse {
-  @JsonProperty("codiError")
-  private Integer codiError = null;
+public class ConsultarSignaturaResponse {
+  @JsonProperty("idDocumentSignatGestorDocumental")
+  private String idDocumentSignatGestorDocumental = null;
 
-  @JsonProperty("descError")
-  private String descError = null;
-
-  public SignarTabletDocumentResponse codiError(Integer codiError) {
-    this.codiError = codiError;
+  public ConsultarSignaturaResponse idDocumentSignatGestorDocumental(String idDocumentSignatGestorDocumental) {
+    this.idDocumentSignatGestorDocumental = idDocumentSignatGestorDocumental;
     return this;
   }
 
    /**
-   * Codi de l&#39;error
-   * @return codiError
+   * Id de gestor documental de el document signat
+   * @return idDocumentSignatGestorDocumental
   **/
-  @ApiModelProperty(value = "Codi de l'error")
-  public Integer getCodiError() {
-    return codiError;
+  @ApiModelProperty(value = "Id de gestor documental de el document signat")
+  public String getIdDocumentSignatGestorDocumental() {
+    return idDocumentSignatGestorDocumental;
   }
 
-  public void setCodiError(Integer codiError) {
-    this.codiError = codiError;
-  }
-
-  public SignarTabletDocumentResponse descError(String descError) {
-    this.descError = descError;
-    return this;
-  }
-
-   /**
-   * Descripció de l&#39;error
-   * @return descError
-  **/
-  @ApiModelProperty(value = "Descripció de l'error")
-  public String getDescError() {
-    return descError;
-  }
-
-  public void setDescError(String descError) {
-    this.descError = descError;
+  public void setIdDocumentSignatGestorDocumental(String idDocumentSignatGestorDocumental) {
+    this.idDocumentSignatGestorDocumental = idDocumentSignatGestorDocumental;
   }
 
 
@@ -76,24 +55,22 @@ public class SignarTabletDocumentResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SignarTabletDocumentResponse signarTabletDocumentResponse = (SignarTabletDocumentResponse) o;
-    return Objects.equals(this.codiError, signarTabletDocumentResponse.codiError) &&
-        Objects.equals(this.descError, signarTabletDocumentResponse.descError);
+    ConsultarSignaturaResponse consultarSignaturaResponse = (ConsultarSignaturaResponse) o;
+    return Objects.equals(this.idDocumentSignatGestorDocumental, consultarSignaturaResponse.idDocumentSignatGestorDocumental);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(codiError, descError);
+    return Objects.hash(idDocumentSignatGestorDocumental);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SignarTabletDocumentResponse {\n");
+    sb.append("class ConsultarSignaturaResponse {\n");
     
-    sb.append("    codiError: ").append(toIndentedString(codiError)).append("\n");
-    sb.append("    descError: ").append(toIndentedString(descError)).append("\n");
+    sb.append("    idDocumentSignatGestorDocumental: ").append(toIndentedString(idDocumentSignatGestorDocumental)).append("\n");
     sb.append("}");
     return sb.toString();
   }

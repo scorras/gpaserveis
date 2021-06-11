@@ -66,6 +66,7 @@ import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBD
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackPortaSig;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConsultarSignaturaResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DadesSignatura;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
@@ -1505,7 +1506,6 @@ public interface ServeisService {
 	 */
 	void registrarAuditServeisTramitadors(AuditServeisBDTO auditServeisBDTO) throws GPAServeisServiceException;
 
-	
 	/**
 	 * Reprendre tramitacio.
 	 *
@@ -1515,5 +1515,18 @@ public interface ServeisService {
 	 *             the GPA serveis service exception
 	 */
 	void reprendreTramitacio(ExpedientsReprendreBDTO expedientsReprendreBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar signatura.
+	 *
+	 * @param idPeticio
+	 *            the id peticio
+	 * @param idDocumentGestorDocumental
+	 *            the id document gestor documental
+	 * @return the consultar signatura response
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	ConsultarSignaturaResponse consultarSignatura(String idPeticio, String idDocumentGestorDocumental) throws GPAServeisServiceException;
 
 }

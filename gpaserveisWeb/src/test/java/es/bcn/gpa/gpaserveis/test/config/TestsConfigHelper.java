@@ -23,6 +23,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConsultarSignaturaResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsFisics;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
@@ -36,6 +37,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPort
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PrepararSignaturaCriptograficaDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlantillaDocVinculada;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarCriptograficaDocumentResponse;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocumentResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TipusMime;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
@@ -2178,6 +2180,28 @@ public class TestsConfigHelper {
 	public static SignarValidDocumentResponse signarValidResponse() {
 		SignarValidDocumentResponse signarValidDocumentResponse = new SignarValidDocumentResponse();
 		return signarValidDocumentResponse;
+	}
+
+	/**
+	 * Consultar signatura response.
+	 *
+	 * @return the consultar signatura response
+	 */
+	public static ConsultarSignaturaResponse consultarSignaturaResponse() {
+		ConsultarSignaturaResponse consultarSignaturaResponse = new ConsultarSignaturaResponse();
+		consultarSignaturaResponse.setIdDocumentSignatGestorDocumental("1");
+		return consultarSignaturaResponse;
+	}
+
+	/**
+	 * Signar segell response.
+	 *
+	 * @return the signar segell document
+	 */
+	public static SignarSegellDocument signarSegellResponse() {
+		SignarSegellDocument signarSegellDocument = new SignarSegellDocument();
+		signarSegellDocument.setIdPeticio("1");
+		return signarSegellDocument;
 	}
 
 }
