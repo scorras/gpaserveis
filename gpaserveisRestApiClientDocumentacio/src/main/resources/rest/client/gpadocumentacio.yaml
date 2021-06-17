@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "2.5.2"
+  version: "2.5.3"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
