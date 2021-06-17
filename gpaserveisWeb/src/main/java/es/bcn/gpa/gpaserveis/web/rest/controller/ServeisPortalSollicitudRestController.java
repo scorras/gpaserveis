@@ -1308,97 +1308,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				}
 
 			}
-
-			// En caso de que la operación de registro se lance desde el portal
-			// del Informador,
-			// el formulario de solicitud (documento de instancia) estará
-			// firmado por Segell d'Organ y habrá que copiar el contenido de
-			// dicho documento firmado en el documento original
-			if (!esCiutada) {
-				// Parámetros disponibles:
-				// - idDocumentacio -> Obtener documento basado en plantilla
-				// - signaturaSolicitud -> id de Petición de firma que nos da
-				// acceso al robjectid documento firmado
-				serveisService.guardarDocumentSollicitudSignat(dadesSollicitudBDTO.getExpedientsRDTO().getDocumentacioIdext(),
-				        sollicitudRegistrarRDTO.getSignaturaSolicitud());
-			}
-
-			// Asociar registre de la solicitud a la propia solicitud
-			SollicitudActualitzarRegistre sollicitudActualitzarRegistre = new SollicitudActualitzarRegistre();
-			if (teRegistre) {
-				sollicitudActualitzarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
-				sollicitudActualitzarRegistre.setDataPresentacio(respostaCrearRegistreExpedient.getRegistreAssentament().getDataRegistre());
-			}
-			sollicitudActualitzarRegistre.setIdSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
-			if (sollicitudRegistrarRDTO != null) {
-				sollicitudActualitzarRegistre.setSignaturaSollicitud(sollicitudRegistrarRDTO.getSignaturaSolicitud());
-				if (!esCiutada) {
-					sollicitudActualitzarRegistre.setMatriculaInformador(clientEntity.getUsuariAutenticat());
-				}
-			}
-
-			long startTimeAssociarRegistreSol = System.nanoTime();
-			if (log.isInfoEnabled()) {
-				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - inici"); //$NON-NLS-1$
-			}
-
-			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
-
-			if (log.isDebugEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreSol;
-				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - fi: " //$NON-NLS-1$
-				        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
-			if (log.isInfoEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreSol;
-				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - fi: " //$NON-NLS-1$
-				        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
-
-			// Asociar registre de la solicitud a los posibles documentos
-			// vinculados a la solicitud
-			if (CollectionUtils.isNotEmpty(idDocsEntradaList)) {
-				docsEntActualizarRegistre = new DocsEntActualizarRegistre();
-				if (teRegistre) {
-					docsEntActualizarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
-				}
-				docsEntActualizarRegistre.setListIdsDocsEnt(idDocsEntradaList);
-				serveisService.associarRegistreDocsEnt(docsEntActualizarRegistre);
-				registreDocumentacioAssociat = true;
-			}
-
-			long startTimeGuardarDadesEspecifiquesSol = System.nanoTime();
-			if (log.isInfoEnabled()) {
-				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDadesEspecifiquesSollicitud - inici"); //$NON-NLS-1$
-			}
-
-			// Duplicar los Valores de Datos Específicos para que quede por un
-			// lado la foto inmutable en la solicitud y los datos actualizados
-			// en el expediente
-			// A tener en cuenta:
-			// 1- Asociado a cada Dato Específico puede haber 1 o N Valores
-			// asociados
-			// 2- Si el expediente no tiene valores para el dato específico, se
-			// insertan con SOLLICITUD = null
-			// 3- Si el expediente ya tiene valores para el dato específico, se
-			// eliminan todos y se insertan los nuevos con SOLLICITUD = null
-			// 4- Si el expediente tiene valores para datos específicos que no
-			// se informan en la solicitud, ¿se deben mantener o eliminar? De
-			// momento no eliminamos (lo que viene es lo que hay sólo a nivel de
-			// solicitud)
-			serveisService.guardarDadesEspecifiquesSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
-
-			if (log.isDebugEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeGuardarDadesEspecifiquesSol;
-				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDadesEspecifiquesSollicitud - fi: " //$NON-NLS-1$
-				        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
-			if (log.isInfoEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeGuardarDadesEspecifiquesSol;
-				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDadesEspecifiquesSollicitud - fi: " //$NON-NLS-1$
-				        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
-
+			
 			long startTimeGetPlantillaDocVinculada = System.nanoTime();
 			if (log.isDebugEnabled()) {
 				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - getPlantillaDocVinculada - inici"); //$NON-NLS-1$
@@ -1557,6 +1467,96 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			if (log.isInfoEnabled()) {
 				long tiempoTotal = System.nanoTime() - startTimeVincularJustificanteAriadna;
 				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - vincularJustificanteAriadna - fi: " //$NON-NLS-1$
+				        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
+
+			// En caso de que la operación de registro se lance desde el portal
+			// del Informador,
+			// el formulario de solicitud (documento de instancia) estará
+			// firmado por Segell d'Organ y habrá que copiar el contenido de
+			// dicho documento firmado en el documento original
+			if (!esCiutada) {
+				// Parámetros disponibles:
+				// - idDocumentacio -> Obtener documento basado en plantilla
+				// - signaturaSolicitud -> id de Petición de firma que nos da
+				// acceso al robjectid documento firmado
+				serveisService.guardarDocumentSollicitudSignat(dadesSollicitudBDTO.getExpedientsRDTO().getDocumentacioIdext(),
+				        sollicitudRegistrarRDTO.getSignaturaSolicitud());
+			}
+
+			// Asociar registre de la solicitud a la propia solicitud
+			SollicitudActualitzarRegistre sollicitudActualitzarRegistre = new SollicitudActualitzarRegistre();
+			if (teRegistre) {
+				sollicitudActualitzarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
+				sollicitudActualitzarRegistre.setDataPresentacio(respostaCrearRegistreExpedient.getRegistreAssentament().getDataRegistre());
+			}
+			sollicitudActualitzarRegistre.setIdSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
+			if (sollicitudRegistrarRDTO != null) {
+				sollicitudActualitzarRegistre.setSignaturaSollicitud(sollicitudRegistrarRDTO.getSignaturaSolicitud());
+				if (!esCiutada) {
+					sollicitudActualitzarRegistre.setMatriculaInformador(clientEntity.getUsuariAutenticat());
+				}
+			}
+
+			long startTimeAssociarRegistreSol = System.nanoTime();
+			if (log.isInfoEnabled()) {
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - inici"); //$NON-NLS-1$
+			}
+
+			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
+
+			if (log.isDebugEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreSol;
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - fi: " //$NON-NLS-1$
+				        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
+			if (log.isInfoEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreSol;
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - fi: " //$NON-NLS-1$
+				        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
+
+			// Asociar registre de la solicitud a los posibles documentos
+			// vinculados a la solicitud
+			if (CollectionUtils.isNotEmpty(idDocsEntradaList)) {
+				docsEntActualizarRegistre = new DocsEntActualizarRegistre();
+				if (teRegistre) {
+					docsEntActualizarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
+				}
+				docsEntActualizarRegistre.setListIdsDocsEnt(idDocsEntradaList);
+				serveisService.associarRegistreDocsEnt(docsEntActualizarRegistre);
+				registreDocumentacioAssociat = true;
+			}
+
+			long startTimeGuardarDadesEspecifiquesSol = System.nanoTime();
+			if (log.isInfoEnabled()) {
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDadesEspecifiquesSollicitud - inici"); //$NON-NLS-1$
+			}
+
+			// Duplicar los Valores de Datos Específicos para que quede por un
+			// lado la foto inmutable en la solicitud y los datos actualizados
+			// en el expediente
+			// A tener en cuenta:
+			// 1- Asociado a cada Dato Específico puede haber 1 o N Valores
+			// asociados
+			// 2- Si el expediente no tiene valores para el dato específico, se
+			// insertan con SOLLICITUD = null
+			// 3- Si el expediente ya tiene valores para el dato específico, se
+			// eliminan todos y se insertan los nuevos con SOLLICITUD = null
+			// 4- Si el expediente tiene valores para datos específicos que no
+			// se informan en la solicitud, ¿se deben mantener o eliminar? De
+			// momento no eliminamos (lo que viene es lo que hay sólo a nivel de
+			// solicitud)
+			serveisService.guardarDadesEspecifiquesSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
+
+			if (log.isDebugEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeGuardarDadesEspecifiquesSol;
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDadesEspecifiquesSollicitud - fi: " //$NON-NLS-1$
+				        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
+			if (log.isInfoEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeGuardarDadesEspecifiquesSol;
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDadesEspecifiquesSollicitud - fi: " //$NON-NLS-1$
 				        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
 			}
 
