@@ -12,6 +12,6 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.ApiParamV
 public class TipusGrupApiParamValueTranslator extends ApiParamValueTranslator<TipusGrupApiParamValue, BigDecimal> {
 
 	/** The Constant REQUEST_PARAM_ALLOWABLE_VALUES. */
-	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "SIMPLE, TAULA";
+	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "SIMPLE, REPETIBLE";
 
 }

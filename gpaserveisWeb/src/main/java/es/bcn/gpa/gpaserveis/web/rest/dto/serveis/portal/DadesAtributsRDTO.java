@@ -14,7 +14,7 @@ import lombok.Setter;
 @ApiModel(value = "Atributs")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "codi", "titol", "titolCastella", "descripcio", "descripcioCastella", "ordre", "tipus", "valorsLlista", "validacions",
-        "urlOrigen", "visibilitat", "criticitat", "cardinalitat" })
+        "urlOrigen", "visibilitat", "criticitat", "repeticions" })
 @Getter
 @Setter
 public class DadesAtributsRDTO {
@@ -43,7 +43,7 @@ public class DadesAtributsRDTO {
 	private Boolean visibilitat;
 	@ApiModelProperty(value = "Criticitat")
 	private String criticitat;
-	@ApiModelProperty(value = "Cardinalitat")
-	private String cardinalitat;
+	@ApiModelProperty(value = "Repeticions")
+	private String repeticions;
 
 }

@@ -568,10 +568,14 @@ definitions:
   DadesGrups:
     type: "object"
     properties:
+      caracteristicaGrup:
+        type: "number"
       dadesOperacionsList:
         type: "array"
         items:
           $ref: "#/definitions/DadesOperacions"
+      desCaracteristicaGrup:
+        type: "string"
       desTipusGrup:
         type: "string"
       descripcio:
@@ -580,6 +584,8 @@ definitions:
         type: "string"
       editable:
         type: "boolean"
+      grupOrigen:
+        type: "number"
       id:
         type: "number"
       interoperabilitat:
@@ -612,10 +618,14 @@ definitions:
   DadesGrupsRDTO:
     type: "object"
     properties:
+      caracteristicaGrup:
+        type: "number"
       dadesOperacionsList:
         type: "array"
         items:
           $ref: "#/definitions/DadesOperacions"
+      desCaracteristicaGrup:
+        type: "string"
       desTipusGrup:
         type: "string"
       descripcio:
@@ -624,6 +634,8 @@ definitions:
         type: "string"
       editable:
         type: "boolean"
+      grupOrigen:
+        type: "number"
       id:
         type: "number"
       interoperabilitat:
@@ -708,8 +720,6 @@ definitions:
   DadesOperacions:
     type: "object"
     properties:
-      cardinalitat:
-        type: "number"
       cercable:
         type: "integer"
         format: "int32"
@@ -760,6 +770,8 @@ definitions:
         type: "integer"
         format: "int32"
       procediment:
+        type: "number"
+      repeticions:
         type: "number"
       seleccionable:
         type: "boolean"
@@ -784,8 +796,6 @@ definitions:
   DadesOperacionsRDTO:
     type: "object"
     properties:
-      cardinalitat:
-        type: "number"
       cercable:
         type: "integer"
         format: "int32"
@@ -836,6 +846,8 @@ definitions:
         type: "integer"
         format: "int32"
       procediment:
+        type: "number"
+      repeticions:
         type: "number"
       seleccionable:
         type: "boolean"

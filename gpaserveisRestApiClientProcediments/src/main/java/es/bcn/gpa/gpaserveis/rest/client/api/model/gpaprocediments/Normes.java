@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * Normes
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-26T17:52:18.478+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-20T00:02:27.551+02:00")
 public class Normes {
   @JsonProperty("descripcio")
   private String descripcio = null;

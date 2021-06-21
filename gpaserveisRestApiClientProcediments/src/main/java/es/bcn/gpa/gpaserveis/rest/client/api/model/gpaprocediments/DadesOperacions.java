@@ -30,11 +30,8 @@ import java.util.List;
 /**
  * DadesOperacions
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-26T17:52:18.478+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-20T00:02:27.551+02:00")
 public class DadesOperacions {
-  @JsonProperty("cardinalitat")
-  private BigDecimal cardinalitat = null;
-
   @JsonProperty("cercable")
   private Integer cercable = null;
 
@@ -92,6 +89,9 @@ public class DadesOperacions {
   @JsonProperty("procediment")
   private BigDecimal procediment = null;
 
+  @JsonProperty("repeticions")
+  private BigDecimal repeticions = null;
+
   @JsonProperty("seleccionable")
   private Boolean seleccionable = null;
 
@@ -115,24 +115,6 @@ public class DadesOperacions {
 
   @JsonProperty("visibilitatPortal")
   private Integer visibilitatPortal = null;
-
-  public DadesOperacions cardinalitat(BigDecimal cardinalitat) {
-    this.cardinalitat = cardinalitat;
-    return this;
-  }
-
-   /**
-   * Get cardinalitat
-   * @return cardinalitat
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getCardinalitat() {
-    return cardinalitat;
-  }
-
-  public void setCardinalitat(BigDecimal cardinalitat) {
-    this.cardinalitat = cardinalitat;
-  }
 
   public DadesOperacions cercable(Integer cercable) {
     this.cercable = cercable;
@@ -508,6 +490,24 @@ public class DadesOperacions {
     this.procediment = procediment;
   }
 
+  public DadesOperacions repeticions(BigDecimal repeticions) {
+    this.repeticions = repeticions;
+    return this;
+  }
+
+   /**
+   * Get repeticions
+   * @return repeticions
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getRepeticions() {
+    return repeticions;
+  }
+
+  public void setRepeticions(BigDecimal repeticions) {
+    this.repeticions = repeticions;
+  }
+
   public DadesOperacions seleccionable(Boolean seleccionable) {
     this.seleccionable = seleccionable;
     return this;
@@ -662,8 +662,7 @@ public class DadesOperacions {
       return false;
     }
     DadesOperacions dadesOperacions = (DadesOperacions) o;
-    return Objects.equals(this.cardinalitat, dadesOperacions.cardinalitat) &&
-        Objects.equals(this.cercable, dadesOperacions.cercable) &&
+    return Objects.equals(this.cercable, dadesOperacions.cercable) &&
         Objects.equals(this.codi, dadesOperacions.codi) &&
         Objects.equals(this.comentari, dadesOperacions.comentari) &&
         Objects.equals(this.dadesOperTramitsOvtList, dadesOperacions.dadesOperTramitsOvtList) &&
@@ -682,6 +681,7 @@ public class DadesOperacions {
         Objects.equals(this.obligatoriEnEstat, dadesOperacions.obligatoriEnEstat) &&
         Objects.equals(this.ordre, dadesOperacions.ordre) &&
         Objects.equals(this.procediment, dadesOperacions.procediment) &&
+        Objects.equals(this.repeticions, dadesOperacions.repeticions) &&
         Objects.equals(this.seleccionable, dadesOperacions.seleccionable) &&
         Objects.equals(this.tipus, dadesOperacions.tipus) &&
         Objects.equals(this.titol, dadesOperacions.titol) &&
@@ -694,7 +694,7 @@ public class DadesOperacions {
 
   @Override
   public int hashCode() {
-    return Objects.hash(cardinalitat, cercable, codi, comentari, dadesOperTramitsOvtList, dadesOperacionsValidacio, dadesoperEstatsExpList, desTipusCamp, descripcio, descripcioCastella, editable, entrada, grup, id, interoperabilitat, itemsList, nivellCriticitat, obligatoriEnEstat, ordre, procediment, seleccionable, tipus, titol, titolCastella, titolGrup, urlOrigen, vigent, visibilitatPortal);
+    return Objects.hash(cercable, codi, comentari, dadesOperTramitsOvtList, dadesOperacionsValidacio, dadesoperEstatsExpList, desTipusCamp, descripcio, descripcioCastella, editable, entrada, grup, id, interoperabilitat, itemsList, nivellCriticitat, obligatoriEnEstat, ordre, procediment, repeticions, seleccionable, tipus, titol, titolCastella, titolGrup, urlOrigen, vigent, visibilitatPortal);
   }
 
 
@@ -703,7 +703,6 @@ public class DadesOperacions {
     StringBuilder sb = new StringBuilder();
     sb.append("class DadesOperacions {\n");
     
-    sb.append("    cardinalitat: ").append(toIndentedString(cardinalitat)).append("\n");
     sb.append("    cercable: ").append(toIndentedString(cercable)).append("\n");
     sb.append("    codi: ").append(toIndentedString(codi)).append("\n");
     sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
@@ -723,6 +722,7 @@ public class DadesOperacions {
     sb.append("    obligatoriEnEstat: ").append(toIndentedString(obligatoriEnEstat)).append("\n");
     sb.append("    ordre: ").append(toIndentedString(ordre)).append("\n");
     sb.append("    procediment: ").append(toIndentedString(procediment)).append("\n");
+    sb.append("    repeticions: ").append(toIndentedString(repeticions)).append("\n");
     sb.append("    seleccionable: ").append(toIndentedString(seleccionable)).append("\n");
     sb.append("    tipus: ").append(toIndentedString(tipus)).append("\n");
     sb.append("    titol: ").append(toIndentedString(titol)).append("\n");

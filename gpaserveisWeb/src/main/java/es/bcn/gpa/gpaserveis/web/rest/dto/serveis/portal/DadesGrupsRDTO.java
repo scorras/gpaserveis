@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,12 +15,13 @@ import lombok.Setter;
 
 @ApiModel(value = "Grups")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "titol", "titolCastella", "descripcio", "descripcioCastella", "tipus", "columnes", "ordre", "urlValidacio",
+@JsonPropertyOrder({ "id", "titol", "titolCastella", "descripcio", "descripcioCastella", "tipus", "columnes", "ordre", "urlValidacio",
         "atributs" })
 @Getter
 @Setter
 public class DadesGrupsRDTO {
-
+	@ApiModelProperty(value = "Identificador de el grup")
+	private BigDecimal id;
 	@ApiModelProperty(value = "Títol del grup d'atributs")
 	private String titol;
 	@ApiModelProperty(value = "Títol del grup d'atributs en castellà")

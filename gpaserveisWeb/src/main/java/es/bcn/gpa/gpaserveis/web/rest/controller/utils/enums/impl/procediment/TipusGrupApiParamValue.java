@@ -12,8 +12,8 @@ public enum TipusGrupApiParamValue implements BaseApiParamValue {
     /** The simple. */
 	SIMPLE("SIMPLE", new BigDecimal(1)),
 
-	/** The taula. */
-	TAULA("TAULA", new BigDecimal(2));
+	/** The repetible. */
+	REPETIBLE("REPETIBLE", new BigDecimal(2));
 
 	/** The api param value. */
 	private String apiParamValue;

@@ -523,6 +523,7 @@ public class ConverterHelper {
 		}
 
 		es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO dadesGrupsRDTO = new es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO();
+		dadesGrupsRDTO.setId(internalDadesGrupsRDTO.getId());
 		dadesGrupsRDTO.setTitol(internalDadesGrupsRDTO.getTitol());
 		dadesGrupsRDTO.setTitolCastella(internalDadesGrupsRDTO.getTitolCastella());
 		dadesGrupsRDTO.setDescripcio(internalDadesGrupsRDTO.getDescripcio());
@@ -576,12 +577,12 @@ public class ConverterHelper {
 		        booleanApiParamValueTranslator.getApiParamValueAsBooleanByInternalValue(dadesOperacions.getVisibilitatPortal()));
 		dadesAtributsRDTO.setCriticitat(
 		        nivellCriticitatApiParamValueTranslator.getApiParamValueByInternalValue(dadesOperacions.getNivellCriticitat()));
-		if (dadesOperacions.getCardinalitat() == null) {
-			dadesAtributsRDTO.setCardinalitat(Constants.DADES_ATRIBUTS_CARDINALITAT_N);
-		} else if (dadesOperacions.getCardinalitat().compareTo(BigDecimal.ONE) == NumberUtils.INTEGER_ZERO.intValue()) {
-			dadesAtributsRDTO.setCardinalitat(NumberUtils.INTEGER_ONE.toString());
+		if (dadesOperacions.getRepeticions() == null) {
+			dadesAtributsRDTO.setRepeticions(Constants.DADES_ATRIBUTS_CARDINALITAT_N);
+		} else if (dadesOperacions.getRepeticions().compareTo(BigDecimal.ONE) == NumberUtils.INTEGER_ZERO.intValue()) {
+			dadesAtributsRDTO.setRepeticions(NumberUtils.INTEGER_ONE.toString());
 		} else {
-			dadesAtributsRDTO.setCardinalitat(dadesOperacions.getCardinalitat().toString());
+			dadesAtributsRDTO.setRepeticions(dadesOperacions.getRepeticions().toString());
 		}
 		if (CollectionUtils.isNotEmpty(dadesOperacions.getItemsList())) {
 			ArrayList<DadesAtributsValorsLlistaRDTO> dadesAtributsValorsLlistaRDTOList = new ArrayList<DadesAtributsValorsLlistaRDTO>();
