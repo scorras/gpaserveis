@@ -597,7 +597,9 @@ public class ConverterHelper {
 		dadesAtributsRDTO.setTitol(dadesOperacions.getTitol());
 		dadesAtributsRDTO.setTitolCastella(dadesOperacions.getTitolCastella());
 		dadesAtributsRDTO.setTipus(tipusCampApiParamValueTranslator.getApiParamValueByInternalValue(dadesOperacions.getTipus()));
-		dadesAtributsRDTO.setCodiDefinicioGrup("GRUP_" + dadesOperacions.getIdDefinicioGrup().toString());
+		if (dadesOperacions.getIdDefinicioGrup() != null) {
+			dadesAtributsRDTO.setCodiDefinicioGrup("GRUP_" + dadesOperacions.getIdDefinicioGrup().toString());
+		}
 		dadesAtributsRDTO.setVisibilitat(
 		        booleanApiParamValueTranslator.getApiParamValueAsBooleanByInternalValue(dadesOperacions.getVisibilitatPortal()));
 		dadesAtributsRDTO.setCriticitat(
