@@ -49,6 +49,14 @@ public class InternalToDadesGrupListConverter extends
 	@Qualifier("procedimentTipusGrupApiParamValueTranslator")
 	private BaseApiParamValueTranslator tipusGrupApiParamValueTranslator;
 
+	@Autowired
+	@Qualifier("procedimentCaracteristiquesGrupApiParamValueTranslator")
+	private BaseApiParamValueTranslator caracteristiquesGrupApiParamValueTranslator;
+
+	@Autowired
+	@Qualifier("procedimentTipusDadaOperacioApiParamValueTranslator")
+	private BaseApiParamValueTranslator tipusDadaOperacioApiParamValueTranslator;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -63,7 +71,8 @@ public class InternalToDadesGrupListConverter extends
 				dadesGrupsRDTOList
 				        .add(ConverterHelper.buildDadesGrupsRDTOProcediment(internalDadesGrupsRDTO, tipusCampApiParamValueTranslator,
 				                tipusValidacioApiParamValueTranslator, expedientEstatTramitadorApiParamValueTranslator,
-				                nivellCriticitatApiParamValueTranslator, booleanApiParamValueTranslator, tipusGrupApiParamValueTranslator));
+				                nivellCriticitatApiParamValueTranslator, booleanApiParamValueTranslator, tipusGrupApiParamValueTranslator,
+				                caracteristiquesGrupApiParamValueTranslator, tipusDadaOperacioApiParamValueTranslator));
 			}
 		}
 		return dadesGrupsRDTOList;

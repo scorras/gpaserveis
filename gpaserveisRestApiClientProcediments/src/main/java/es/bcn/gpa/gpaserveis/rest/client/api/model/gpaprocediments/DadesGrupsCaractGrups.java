@@ -19,52 +19,53 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 
 /**
- * SortInfo
+ * DadesGrupsCaractGrups
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-23T14:20:56.985+02:00")
-public class SortInfo {
-  @JsonProperty("dir")
-  private String dir = null;
+public class DadesGrupsCaractGrups {
+  @JsonProperty("caracteristicaGrup")
+  private BigDecimal caracteristicaGrup = null;
 
-  @JsonProperty("sort")
-  private String sort = null;
+  @JsonProperty("dadaGrup")
+  private BigDecimal dadaGrup = null;
 
-  public SortInfo dir(String dir) {
-    this.dir = dir;
+  public DadesGrupsCaractGrups caracteristicaGrup(BigDecimal caracteristicaGrup) {
+    this.caracteristicaGrup = caracteristicaGrup;
     return this;
   }
 
    /**
-   * Get dir
-   * @return dir
+   * Get caracteristicaGrup
+   * @return caracteristicaGrup
   **/
   @ApiModelProperty(value = "")
-  public String getDir() {
-    return dir;
+  public BigDecimal getCaracteristicaGrup() {
+    return caracteristicaGrup;
   }
 
-  public void setDir(String dir) {
-    this.dir = dir;
+  public void setCaracteristicaGrup(BigDecimal caracteristicaGrup) {
+    this.caracteristicaGrup = caracteristicaGrup;
   }
 
-  public SortInfo sort(String sort) {
-    this.sort = sort;
+  public DadesGrupsCaractGrups dadaGrup(BigDecimal dadaGrup) {
+    this.dadaGrup = dadaGrup;
     return this;
   }
 
    /**
-   * Get sort
-   * @return sort
+   * Get dadaGrup
+   * @return dadaGrup
   **/
   @ApiModelProperty(value = "")
-  public String getSort() {
-    return sort;
+  public BigDecimal getDadaGrup() {
+    return dadaGrup;
   }
 
-  public void setSort(String sort) {
-    this.sort = sort;
+  public void setDadaGrup(BigDecimal dadaGrup) {
+    this.dadaGrup = dadaGrup;
   }
 
 
@@ -76,24 +77,24 @@ public class SortInfo {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SortInfo sortInfo = (SortInfo) o;
-    return Objects.equals(this.dir, sortInfo.dir) &&
-        Objects.equals(this.sort, sortInfo.sort);
+    DadesGrupsCaractGrups dadesGrupsCaractGrups = (DadesGrupsCaractGrups) o;
+    return Objects.equals(this.caracteristicaGrup, dadesGrupsCaractGrups.caracteristicaGrup) &&
+        Objects.equals(this.dadaGrup, dadesGrupsCaractGrups.dadaGrup);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dir, sort);
+    return Objects.hash(caracteristicaGrup, dadaGrup);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SortInfo {\n");
+    sb.append("class DadesGrupsCaractGrups {\n");
     
-    sb.append("    dir: ").append(toIndentedString(dir)).append("\n");
-    sb.append("    sort: ").append(toIndentedString(sort)).append("\n");
+    sb.append("    caracteristicaGrup: ").append(toIndentedString(caracteristicaGrup)).append("\n");
+    sb.append("    dadaGrup: ").append(toIndentedString(dadaGrup)).append("\n");
     sb.append("}");
     return sb.toString();
   }

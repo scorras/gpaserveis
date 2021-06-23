@@ -17,6 +17,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsCaractGrups;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -27,16 +28,13 @@ import java.util.List;
 /**
  * DadesGrups
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-20T00:02:27.551+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-23T14:20:56.985+02:00")
 public class DadesGrups {
-  @JsonProperty("caracteristicaGrup")
-  private BigDecimal caracteristicaGrup = null;
+  @JsonProperty("dadesGrupsCaractGrupsList")
+  private List<DadesGrupsCaractGrups> dadesGrupsCaractGrupsList = null;
 
   @JsonProperty("dadesOperacionsList")
   private List<DadesOperacions> dadesOperacionsList = null;
-
-  @JsonProperty("desCaracteristicaGrup")
-  private String desCaracteristicaGrup = null;
 
   @JsonProperty("desTipusGrup")
   private String desTipusGrup = null;
@@ -49,9 +47,6 @@ public class DadesGrups {
 
   @JsonProperty("editable")
   private Boolean editable = null;
-
-  @JsonProperty("grupOrigen")
-  private BigDecimal grupOrigen = null;
 
   @JsonProperty("id")
   private BigDecimal id = null;
@@ -67,6 +62,9 @@ public class DadesGrups {
 
   @JsonProperty("procediment")
   private BigDecimal procediment = null;
+
+  @JsonProperty("repeticions")
+  private BigDecimal repeticions = null;
 
   @JsonProperty("seleccionable")
   private Boolean seleccionable = null;
@@ -89,22 +87,30 @@ public class DadesGrups {
   @JsonProperty("vigent")
   private Integer vigent = null;
 
-  public DadesGrups caracteristicaGrup(BigDecimal caracteristicaGrup) {
-    this.caracteristicaGrup = caracteristicaGrup;
+  public DadesGrups dadesGrupsCaractGrupsList(List<DadesGrupsCaractGrups> dadesGrupsCaractGrupsList) {
+    this.dadesGrupsCaractGrupsList = dadesGrupsCaractGrupsList;
+    return this;
+  }
+
+  public DadesGrups addDadesGrupsCaractGrupsListItem(DadesGrupsCaractGrups dadesGrupsCaractGrupsListItem) {
+    if (this.dadesGrupsCaractGrupsList == null) {
+      this.dadesGrupsCaractGrupsList = new ArrayList<DadesGrupsCaractGrups>();
+    }
+    this.dadesGrupsCaractGrupsList.add(dadesGrupsCaractGrupsListItem);
     return this;
   }
 
    /**
-   * Get caracteristicaGrup
-   * @return caracteristicaGrup
+   * Get dadesGrupsCaractGrupsList
+   * @return dadesGrupsCaractGrupsList
   **/
   @ApiModelProperty(value = "")
-  public BigDecimal getCaracteristicaGrup() {
-    return caracteristicaGrup;
+  public List<DadesGrupsCaractGrups> getDadesGrupsCaractGrupsList() {
+    return dadesGrupsCaractGrupsList;
   }
 
-  public void setCaracteristicaGrup(BigDecimal caracteristicaGrup) {
-    this.caracteristicaGrup = caracteristicaGrup;
+  public void setDadesGrupsCaractGrupsList(List<DadesGrupsCaractGrups> dadesGrupsCaractGrupsList) {
+    this.dadesGrupsCaractGrupsList = dadesGrupsCaractGrupsList;
   }
 
   public DadesGrups dadesOperacionsList(List<DadesOperacions> dadesOperacionsList) {
@@ -131,24 +137,6 @@ public class DadesGrups {
 
   public void setDadesOperacionsList(List<DadesOperacions> dadesOperacionsList) {
     this.dadesOperacionsList = dadesOperacionsList;
-  }
-
-  public DadesGrups desCaracteristicaGrup(String desCaracteristicaGrup) {
-    this.desCaracteristicaGrup = desCaracteristicaGrup;
-    return this;
-  }
-
-   /**
-   * Get desCaracteristicaGrup
-   * @return desCaracteristicaGrup
-  **/
-  @ApiModelProperty(value = "")
-  public String getDesCaracteristicaGrup() {
-    return desCaracteristicaGrup;
-  }
-
-  public void setDesCaracteristicaGrup(String desCaracteristicaGrup) {
-    this.desCaracteristicaGrup = desCaracteristicaGrup;
   }
 
   public DadesGrups desTipusGrup(String desTipusGrup) {
@@ -221,24 +209,6 @@ public class DadesGrups {
 
   public void setEditable(Boolean editable) {
     this.editable = editable;
-  }
-
-  public DadesGrups grupOrigen(BigDecimal grupOrigen) {
-    this.grupOrigen = grupOrigen;
-    return this;
-  }
-
-   /**
-   * Get grupOrigen
-   * @return grupOrigen
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getGrupOrigen() {
-    return grupOrigen;
-  }
-
-  public void setGrupOrigen(BigDecimal grupOrigen) {
-    this.grupOrigen = grupOrigen;
   }
 
   public DadesGrups id(BigDecimal id) {
@@ -329,6 +299,24 @@ public class DadesGrups {
 
   public void setProcediment(BigDecimal procediment) {
     this.procediment = procediment;
+  }
+
+  public DadesGrups repeticions(BigDecimal repeticions) {
+    this.repeticions = repeticions;
+    return this;
+  }
+
+   /**
+   * Get repeticions
+   * @return repeticions
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getRepeticions() {
+    return repeticions;
+  }
+
+  public void setRepeticions(BigDecimal repeticions) {
+    this.repeticions = repeticions;
   }
 
   public DadesGrups seleccionable(Boolean seleccionable) {
@@ -467,19 +455,18 @@ public class DadesGrups {
       return false;
     }
     DadesGrups dadesGrups = (DadesGrups) o;
-    return Objects.equals(this.caracteristicaGrup, dadesGrups.caracteristicaGrup) &&
+    return Objects.equals(this.dadesGrupsCaractGrupsList, dadesGrups.dadesGrupsCaractGrupsList) &&
         Objects.equals(this.dadesOperacionsList, dadesGrups.dadesOperacionsList) &&
-        Objects.equals(this.desCaracteristicaGrup, dadesGrups.desCaracteristicaGrup) &&
         Objects.equals(this.desTipusGrup, dadesGrups.desTipusGrup) &&
         Objects.equals(this.descripcio, dadesGrups.descripcio) &&
         Objects.equals(this.descripcioCastella, dadesGrups.descripcioCastella) &&
         Objects.equals(this.editable, dadesGrups.editable) &&
-        Objects.equals(this.grupOrigen, dadesGrups.grupOrigen) &&
         Objects.equals(this.id, dadesGrups.id) &&
         Objects.equals(this.interoperabilitat, dadesGrups.interoperabilitat) &&
         Objects.equals(this.nomColumnes, dadesGrups.nomColumnes) &&
         Objects.equals(this.ordre, dadesGrups.ordre) &&
         Objects.equals(this.procediment, dadesGrups.procediment) &&
+        Objects.equals(this.repeticions, dadesGrups.repeticions) &&
         Objects.equals(this.seleccionable, dadesGrups.seleccionable) &&
         Objects.equals(this.serveiIdext, dadesGrups.serveiIdext) &&
         Objects.equals(this.tipusGrup, dadesGrups.tipusGrup) &&
@@ -491,7 +478,7 @@ public class DadesGrups {
 
   @Override
   public int hashCode() {
-    return Objects.hash(caracteristicaGrup, dadesOperacionsList, desCaracteristicaGrup, desTipusGrup, descripcio, descripcioCastella, editable, grupOrigen, id, interoperabilitat, nomColumnes, ordre, procediment, seleccionable, serveiIdext, tipusGrup, titol, titolCastella, urlValidacio, vigent);
+    return Objects.hash(dadesGrupsCaractGrupsList, dadesOperacionsList, desTipusGrup, descripcio, descripcioCastella, editable, id, interoperabilitat, nomColumnes, ordre, procediment, repeticions, seleccionable, serveiIdext, tipusGrup, titol, titolCastella, urlValidacio, vigent);
   }
 
 
@@ -500,19 +487,18 @@ public class DadesGrups {
     StringBuilder sb = new StringBuilder();
     sb.append("class DadesGrups {\n");
     
-    sb.append("    caracteristicaGrup: ").append(toIndentedString(caracteristicaGrup)).append("\n");
+    sb.append("    dadesGrupsCaractGrupsList: ").append(toIndentedString(dadesGrupsCaractGrupsList)).append("\n");
     sb.append("    dadesOperacionsList: ").append(toIndentedString(dadesOperacionsList)).append("\n");
-    sb.append("    desCaracteristicaGrup: ").append(toIndentedString(desCaracteristicaGrup)).append("\n");
     sb.append("    desTipusGrup: ").append(toIndentedString(desTipusGrup)).append("\n");
     sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
     sb.append("    descripcioCastella: ").append(toIndentedString(descripcioCastella)).append("\n");
     sb.append("    editable: ").append(toIndentedString(editable)).append("\n");
-    sb.append("    grupOrigen: ").append(toIndentedString(grupOrigen)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    interoperabilitat: ").append(toIndentedString(interoperabilitat)).append("\n");
     sb.append("    nomColumnes: ").append(toIndentedString(nomColumnes)).append("\n");
     sb.append("    ordre: ").append(toIndentedString(ordre)).append("\n");
     sb.append("    procediment: ").append(toIndentedString(procediment)).append("\n");
+    sb.append("    repeticions: ").append(toIndentedString(repeticions)).append("\n");
     sb.append("    seleccionable: ").append(toIndentedString(seleccionable)).append("\n");
     sb.append("    serveiIdext: ").append(toIndentedString(serveiIdext)).append("\n");
     sb.append("    tipusGrup: ").append(toIndentedString(tipusGrup)).append("\n");

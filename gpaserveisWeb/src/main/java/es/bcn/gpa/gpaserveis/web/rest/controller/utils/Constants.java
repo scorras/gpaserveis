@@ -114,7 +114,7 @@ public class Constants {
 	/** The Constant TANCAMENT_AUTOMATIC. */
 	public static final BigDecimal TANCAMENT_AUTOMATIC = new BigDecimal(1);
 
-	/** The Constant DADES_ATRIBUTS_CARDINALITAT_N. */
-	public static final String DADES_ATRIBUTS_CARDINALITAT_N = "N";
+	/** The Constant DADES_GRUPS_OPERACIONS_REPETICIONS_N. */
+	public static final String DADES_GRUPS_OPERACIONS_REPETICIONS_N = "N";
 
 }

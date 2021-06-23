@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * DadesOperacions
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-20T00:02:27.551+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-23T14:20:56.985+02:00")
 public class DadesOperacions {
   @JsonProperty("cercable")
   private Integer cercable = null;
@@ -53,6 +53,9 @@ public class DadesOperacions {
   @JsonProperty("desTipusCamp")
   private String desTipusCamp = null;
 
+  @JsonProperty("desTipusDadaOperacio")
+  private String desTipusDadaOperacio = null;
+
   @JsonProperty("descripcio")
   private String descripcio = null;
 
@@ -70,6 +73,9 @@ public class DadesOperacions {
 
   @JsonProperty("id")
   private BigDecimal id = null;
+
+  @JsonProperty("idDefinicioGrup")
+  private BigDecimal idDefinicioGrup = null;
 
   @JsonProperty("interoperabilitat")
   private Integer interoperabilitat = null;
@@ -97,6 +103,9 @@ public class DadesOperacions {
 
   @JsonProperty("tipus")
   private Integer tipus = null;
+
+  @JsonProperty("tipusDadaOperacio")
+  private BigDecimal tipusDadaOperacio = null;
 
   @JsonProperty("titol")
   private String titol = null;
@@ -266,6 +275,24 @@ public class DadesOperacions {
     this.desTipusCamp = desTipusCamp;
   }
 
+  public DadesOperacions desTipusDadaOperacio(String desTipusDadaOperacio) {
+    this.desTipusDadaOperacio = desTipusDadaOperacio;
+    return this;
+  }
+
+   /**
+   * Get desTipusDadaOperacio
+   * @return desTipusDadaOperacio
+  **/
+  @ApiModelProperty(value = "")
+  public String getDesTipusDadaOperacio() {
+    return desTipusDadaOperacio;
+  }
+
+  public void setDesTipusDadaOperacio(String desTipusDadaOperacio) {
+    this.desTipusDadaOperacio = desTipusDadaOperacio;
+  }
+
   public DadesOperacions descripcio(String descripcio) {
     this.descripcio = descripcio;
     return this;
@@ -372,6 +399,24 @@ public class DadesOperacions {
 
   public void setId(BigDecimal id) {
     this.id = id;
+  }
+
+  public DadesOperacions idDefinicioGrup(BigDecimal idDefinicioGrup) {
+    this.idDefinicioGrup = idDefinicioGrup;
+    return this;
+  }
+
+   /**
+   * Get idDefinicioGrup
+   * @return idDefinicioGrup
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getIdDefinicioGrup() {
+    return idDefinicioGrup;
+  }
+
+  public void setIdDefinicioGrup(BigDecimal idDefinicioGrup) {
+    this.idDefinicioGrup = idDefinicioGrup;
   }
 
   public DadesOperacions interoperabilitat(Integer interoperabilitat) {
@@ -544,6 +589,24 @@ public class DadesOperacions {
     this.tipus = tipus;
   }
 
+  public DadesOperacions tipusDadaOperacio(BigDecimal tipusDadaOperacio) {
+    this.tipusDadaOperacio = tipusDadaOperacio;
+    return this;
+  }
+
+   /**
+   * Get tipusDadaOperacio
+   * @return tipusDadaOperacio
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getTipusDadaOperacio() {
+    return tipusDadaOperacio;
+  }
+
+  public void setTipusDadaOperacio(BigDecimal tipusDadaOperacio) {
+    this.tipusDadaOperacio = tipusDadaOperacio;
+  }
+
   public DadesOperacions titol(String titol) {
     this.titol = titol;
     return this;
@@ -669,12 +732,14 @@ public class DadesOperacions {
         Objects.equals(this.dadesOperacionsValidacio, dadesOperacions.dadesOperacionsValidacio) &&
         Objects.equals(this.dadesoperEstatsExpList, dadesOperacions.dadesoperEstatsExpList) &&
         Objects.equals(this.desTipusCamp, dadesOperacions.desTipusCamp) &&
+        Objects.equals(this.desTipusDadaOperacio, dadesOperacions.desTipusDadaOperacio) &&
         Objects.equals(this.descripcio, dadesOperacions.descripcio) &&
         Objects.equals(this.descripcioCastella, dadesOperacions.descripcioCastella) &&
         Objects.equals(this.editable, dadesOperacions.editable) &&
         Objects.equals(this.entrada, dadesOperacions.entrada) &&
         Objects.equals(this.grup, dadesOperacions.grup) &&
         Objects.equals(this.id, dadesOperacions.id) &&
+        Objects.equals(this.idDefinicioGrup, dadesOperacions.idDefinicioGrup) &&
         Objects.equals(this.interoperabilitat, dadesOperacions.interoperabilitat) &&
         Objects.equals(this.itemsList, dadesOperacions.itemsList) &&
         Objects.equals(this.nivellCriticitat, dadesOperacions.nivellCriticitat) &&
@@ -684,6 +749,7 @@ public class DadesOperacions {
         Objects.equals(this.repeticions, dadesOperacions.repeticions) &&
         Objects.equals(this.seleccionable, dadesOperacions.seleccionable) &&
         Objects.equals(this.tipus, dadesOperacions.tipus) &&
+        Objects.equals(this.tipusDadaOperacio, dadesOperacions.tipusDadaOperacio) &&
         Objects.equals(this.titol, dadesOperacions.titol) &&
         Objects.equals(this.titolCastella, dadesOperacions.titolCastella) &&
         Objects.equals(this.titolGrup, dadesOperacions.titolGrup) &&
@@ -694,7 +760,7 @@ public class DadesOperacions {
 
   @Override
   public int hashCode() {
-    return Objects.hash(cercable, codi, comentari, dadesOperTramitsOvtList, dadesOperacionsValidacio, dadesoperEstatsExpList, desTipusCamp, descripcio, descripcioCastella, editable, entrada, grup, id, interoperabilitat, itemsList, nivellCriticitat, obligatoriEnEstat, ordre, procediment, repeticions, seleccionable, tipus, titol, titolCastella, titolGrup, urlOrigen, vigent, visibilitatPortal);
+    return Objects.hash(cercable, codi, comentari, dadesOperTramitsOvtList, dadesOperacionsValidacio, dadesoperEstatsExpList, desTipusCamp, desTipusDadaOperacio, descripcio, descripcioCastella, editable, entrada, grup, id, idDefinicioGrup, interoperabilitat, itemsList, nivellCriticitat, obligatoriEnEstat, ordre, procediment, repeticions, seleccionable, tipus, tipusDadaOperacio, titol, titolCastella, titolGrup, urlOrigen, vigent, visibilitatPortal);
   }
 
 
@@ -710,12 +776,14 @@ public class DadesOperacions {
     sb.append("    dadesOperacionsValidacio: ").append(toIndentedString(dadesOperacionsValidacio)).append("\n");
     sb.append("    dadesoperEstatsExpList: ").append(toIndentedString(dadesoperEstatsExpList)).append("\n");
     sb.append("    desTipusCamp: ").append(toIndentedString(desTipusCamp)).append("\n");
+    sb.append("    desTipusDadaOperacio: ").append(toIndentedString(desTipusDadaOperacio)).append("\n");
     sb.append("    descripcio: ").append(toIndentedString(descripcio)).append("\n");
     sb.append("    descripcioCastella: ").append(toIndentedString(descripcioCastella)).append("\n");
     sb.append("    editable: ").append(toIndentedString(editable)).append("\n");
     sb.append("    entrada: ").append(toIndentedString(entrada)).append("\n");
     sb.append("    grup: ").append(toIndentedString(grup)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    idDefinicioGrup: ").append(toIndentedString(idDefinicioGrup)).append("\n");
     sb.append("    interoperabilitat: ").append(toIndentedString(interoperabilitat)).append("\n");
     sb.append("    itemsList: ").append(toIndentedString(itemsList)).append("\n");
     sb.append("    nivellCriticitat: ").append(toIndentedString(nivellCriticitat)).append("\n");
@@ -725,6 +793,7 @@ public class DadesOperacions {
     sb.append("    repeticions: ").append(toIndentedString(repeticions)).append("\n");
     sb.append("    seleccionable: ").append(toIndentedString(seleccionable)).append("\n");
     sb.append("    tipus: ").append(toIndentedString(tipus)).append("\n");
+    sb.append("    tipusDadaOperacio: ").append(toIndentedString(tipusDadaOperacio)).append("\n");
     sb.append("    titol: ").append(toIndentedString(titol)).append("\n");
     sb.append("    titolCastella: ").append(toIndentedString(titolCastella)).append("\n");
     sb.append("    titolGrup: ").append(toIndentedString(titolGrup)).append("\n");

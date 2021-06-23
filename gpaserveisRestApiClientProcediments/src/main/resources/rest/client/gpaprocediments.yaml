@@ -568,14 +568,14 @@ definitions:
   DadesGrups:
     type: "object"
     properties:
-      caracteristicaGrup:
-        type: "number"
+      dadesGrupsCaractGrupsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesGrupsCaractGrups"
       dadesOperacionsList:
         type: "array"
         items:
           $ref: "#/definitions/DadesOperacions"
-      desCaracteristicaGrup:
-        type: "string"
       desTipusGrup:
         type: "string"
       descripcio:
@@ -584,8 +584,6 @@ definitions:
         type: "string"
       editable:
         type: "boolean"
-      grupOrigen:
-        type: "number"
       id:
         type: "number"
       interoperabilitat:
@@ -598,6 +596,8 @@ definitions:
         type: "integer"
         format: "int32"
       procediment:
+        type: "number"
+      repeticions:
         type: "number"
       seleccionable:
         type: "boolean"
@@ -615,17 +615,25 @@ definitions:
         type: "integer"
         format: "int32"
     title: "DadesGrups"
-  DadesGrupsRDTO:
+  DadesGrupsCaractGrups:
     type: "object"
     properties:
       caracteristicaGrup:
         type: "number"
+      dadaGrup:
+        type: "number"
+    title: "DadesGrupsCaractGrups"
+  DadesGrupsRDTO:
+    type: "object"
+    properties:
+      dadesGrupsCaractGrupsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesGrupsCaractGrups"
       dadesOperacionsList:
         type: "array"
         items:
           $ref: "#/definitions/DadesOperacions"
-      desCaracteristicaGrup:
-        type: "string"
       desTipusGrup:
         type: "string"
       descripcio:
@@ -634,8 +642,6 @@ definitions:
         type: "string"
       editable:
         type: "boolean"
-      grupOrigen:
-        type: "number"
       id:
         type: "number"
       interoperabilitat:
@@ -648,6 +654,8 @@ definitions:
         type: "integer"
         format: "int32"
       procediment:
+        type: "number"
+      repeticions:
         type: "number"
       seleccionable:
         type: "boolean"
@@ -741,6 +749,8 @@ definitions:
           $ref: "#/definitions/DadesoperEstatsExp"
       desTipusCamp:
         type: "string"
+      desTipusDadaOperacio:
+        type: "string"
       descripcio:
         type: "string"
       descripcioCastella:
@@ -753,6 +763,8 @@ definitions:
       grup:
         type: "number"
       id:
+        type: "number"
+      idDefinicioGrup:
         type: "number"
       interoperabilitat:
         type: "integer"
@@ -778,6 +790,8 @@ definitions:
       tipus:
         type: "integer"
         format: "int32"
+      tipusDadaOperacio:
+        type: "number"
       titol:
         type: "string"
       titolCastella:
@@ -817,6 +831,8 @@ definitions:
           $ref: "#/definitions/DadesoperEstatsExp"
       desTipusCamp:
         type: "string"
+      desTipusDadaOperacio:
+        type: "string"
       descripcio:
         type: "string"
       descripcioCastella:
@@ -829,6 +845,8 @@ definitions:
       grup:
         type: "number"
       id:
+        type: "number"
+      idDefinicioGrup:
         type: "number"
       interoperabilitat:
         type: "integer"
@@ -854,6 +872,8 @@ definitions:
       tipus:
         type: "integer"
         format: "int32"
+      tipusDadaOperacio:
+        type: "number"
       titol:
         type: "string"
       titolCastella:
