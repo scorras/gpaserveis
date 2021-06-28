@@ -1355,7 +1355,23 @@ public class ServeisPortalRestController extends BaseRestController {
 				}
 
 			}
-			
+
+			// Asociar registre de la solicitud a la propia solicitud
+			SollicitudActualitzarRegistre sollicitudActualitzarRegistre = new SollicitudActualitzarRegistre();
+			if (teRegistre) {
+				sollicitudActualitzarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
+				sollicitudActualitzarRegistre.setDataPresentacio(respostaCrearRegistreExpedient.getRegistreAssentament().getDataRegistre());
+			}
+			sollicitudActualitzarRegistre.setIdSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
+			if (expedientRegistrarRDTO != null) {
+				sollicitudActualitzarRegistre.setSignaturaSollicitud(expedientRegistrarRDTO.getSignaturaSolicitud());
+				if (!esCiutada) {
+					sollicitudActualitzarRegistre.setMatriculaInformador(clientEntity.getUsuariAutenticat());
+				}
+			}
+			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
+			registreSollicitudAssociat = true;
+
 			// Recoger plantilla de la conf
 			RespostaPlantillaDocVinculada respostaPlantillaDocVinculada = serveisService.getPlantillaDocVinculada(
 			        dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc(),
@@ -1447,38 +1463,6 @@ public class ServeisPortalRestController extends BaseRestController {
 				}
 			}
 
-			// En caso de que la operación de registro se lance desde el
-			// portal
-			// del Informador,
-			// el formulario de solicitud (documento de instancia) estará
-			// firmado por Segell d'Organ y habrá que copiar el contenido de
-			// dicho documento firmado en el documento original
-			if (!esCiutada) {
-				// Parámetros disponibles:
-				// - idDocumentacio -> Obtener documento basado en plantilla
-				// - signaturaSolicitud -> id de Petición de firma que nos
-				// da
-				// acceso al robjectid documento firmado
-				serveisService.guardarDocumentSollicitudSignat(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext(),
-				        expedientRegistrarRDTO.getSignaturaSolicitud());
-			}
-
-			// Asociar registre de la solicitud a la propia solicitud
-			SollicitudActualitzarRegistre sollicitudActualitzarRegistre = new SollicitudActualitzarRegistre();
-			if (teRegistre) {
-				sollicitudActualitzarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
-				sollicitudActualitzarRegistre.setDataPresentacio(respostaCrearRegistreExpedient.getRegistreAssentament().getDataRegistre());
-			}
-			sollicitudActualitzarRegistre.setIdSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
-			if (expedientRegistrarRDTO != null) {
-				sollicitudActualitzarRegistre.setSignaturaSollicitud(expedientRegistrarRDTO.getSignaturaSolicitud());
-				if (!esCiutada) {
-					sollicitudActualitzarRegistre.setMatriculaInformador(clientEntity.getUsuariAutenticat());
-				}
-			}
-			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
-			registreSollicitudAssociat = true;
-
 			// Asociar registre del expediente a la documentacio
 			documentActualizarRegistreRDTO = new DocumentActualizarRegistre();
 			documentActualizarRegistreRDTO.setIdDoc(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
@@ -1503,6 +1487,22 @@ public class ServeisPortalRestController extends BaseRestController {
 			// momento no eliminamos (lo que viene es lo que hay sólo a nivel de
 			// solicitud)
 			serveisService.guardarDadesEspecifiquesSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
+
+			// En caso de que la operación de registro se lance desde el
+			// portal
+			// del Informador,
+			// el formulario de solicitud (documento de instancia) estará
+			// firmado por Segell d'Organ y habrá que copiar el contenido de
+			// dicho documento firmado en el documento original
+			if (!esCiutada) {
+				// Parámetros disponibles:
+				// - idDocumentacio -> Obtener documento basado en plantilla
+				// - signaturaSolicitud -> id de Petición de firma que nos
+				// da
+				// acceso al robjectid documento firmado
+				serveisService.guardarDocumentSollicitudSignat(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext(),
+				        expedientRegistrarRDTO.getSignaturaSolicitud());
+			}
 
 			// Cambiar el estado del expediente
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
