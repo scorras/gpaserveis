@@ -116,5 +116,8 @@ public class Constants {
 
 	/** The Constant DADES_GRUPS_OPERACIONS_REPETICIONS_N. */
 	public static final String DADES_GRUPS_OPERACIONS_REPETICIONS_N = "N";
+	
+	/** The Constant DADES_OPERACIONS_REPETIBLE. */
+	public static final BigDecimal DADES_OPERACIONS_REPETIBLE = new BigDecimal("2");
 
 }

@@ -585,6 +585,8 @@ public class ServeisRestControllerValidationHelper {
 		DadesEspecifiquesRDTO dadesEspecifiquesRDTO = null;
 		DadesOperacions dadesOperacions = null;
 		ArrayList<DadesEspecifiquesValors> dadesEspecifiquesValorsList = null;
+		ArrayList<DadesEspecifiquesValors> dadesEspecifiquesValorsRepetiblesList = null;
+		ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRepetiblesList = null;
 		DadesEspecifiquesValors dadesEspecifiquesValors = null;
 		DateTimeFormatter dataFormatter = DateTimeFormat.forPattern(Constants.DATE_PATTERN);
 		DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
@@ -601,6 +603,7 @@ public class ServeisRestControllerValidationHelper {
 
 			dadesEspecifiquesRDTO = new DadesEspecifiquesRDTO();
 			dadesEspecifiquesValorsList = new ArrayList<DadesEspecifiquesValors>();
+			dadesEspecifiquesRepetiblesList = new ArrayList<DadesEspecifiquesRDTO>();
 			dadesEspecifiquesValors = new DadesEspecifiquesValors();
 			dadesEspecifiquesRDTO.setExpedient(idExpedient);
 			if (isPortal == true)
@@ -668,9 +671,40 @@ public class ServeisRestControllerValidationHelper {
 						break;
 					case TEXT:
 						if (atributEntry.getValue().get(0) != null) {
-							String valorText = atributEntry.getValue().get(INTEGER_ZERO);
-							validateDadesOperacioCadenaGeneral(dadesOperacions, valorText);
-							dadesEspecifiquesValors.setValorString(valorText);
+							if(dadesOperacions.getTipusDadaOperacio().equals(Constants.DADES_OPERACIONS_REPETIBLE)){
+								List<String> valorTextList = atributEntry.getValue();   
+								if(CollectionUtils.isNotEmpty(valorTextList)){
+									if(dadesOperacions.getRepeticions() != null){
+										if(dadesOperacions.getRepeticions().intValue() < valorTextList.size()){
+											throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
+											        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_CORRECT_VALUE, StringUtils.join(atributEntry.getValue(), ", "));
+										}
+									}
+									
+									int ordreRepeticio = 1;									
+									for(String valorText : valorTextList){
+										dadesEspecifiquesRDTO = inicialitzarDadesEspecifiquesRepetible(dadesOperacions, idExpedient, isPortal);
+										dadesEspecifiquesValors = new DadesEspecifiquesValors();
+										dadesEspecifiquesValorsRepetiblesList = new ArrayList<DadesEspecifiquesValors>();										
+										
+										validateDadesOperacioCadenaGeneral(dadesOperacions, valorText);
+										
+										
+										dadesEspecifiquesValors.setValorString(valorText);
+										dadesEspecifiquesValors.setSollicitud(idSollicitud);										
+										dadesEspecifiquesValors.setOrdreRepeticio(ordreRepeticio);
+										dadesEspecifiquesValorsRepetiblesList.add(dadesEspecifiquesValors);
+										dadesEspecifiquesRDTO.setDadesEspecifiquesValorsList(dadesEspecifiquesValorsRepetiblesList);
+										dadesEspecifiquesRepetiblesList.add(dadesEspecifiquesRDTO);
+										ordreRepeticio++;
+									}
+									
+								}						
+							}else{
+								String valorText = atributEntry.getValue().get(INTEGER_ZERO);
+								validateDadesOperacioCadenaGeneral(dadesOperacions, valorText);
+								dadesEspecifiquesValors.setValorString(valorText);
+							}
 						}
 						break;
 					case TEXT_GRAN:
@@ -755,16 +789,36 @@ public class ServeisRestControllerValidationHelper {
 						dadesEspecifiquesValorsList.add(dadesEspecifiquesValorsListaMultiple);
 					}
 				} else {
-					dadesEspecifiquesValors.setSollicitud(idSollicitud);
-					dadesEspecifiquesValorsList.add(dadesEspecifiquesValors);
+					if(!dadesOperacions.getTipusDadaOperacio().equals(Constants.DADES_OPERACIONS_REPETIBLE)){
+						dadesEspecifiquesValors.setSollicitud(idSollicitud);
+						dadesEspecifiquesValorsList.add(dadesEspecifiquesValors);						
+					}
+				}
+					
+			}
+			if(!dadesOperacions.getTipusDadaOperacio().equals(Constants.DADES_OPERACIONS_REPETIBLE)){
+				dadesEspecifiquesRDTO.setDadesEspecifiquesValorsList(dadesEspecifiquesValorsList);
+				dadesEspecifiquesRDTOList.add(dadesEspecifiquesRDTO);
+			} else{
+				for(DadesEspecifiquesRDTO dadesRepetibles : dadesEspecifiquesRepetiblesList){
+					dadesEspecifiquesRDTOList.add(dadesRepetibles);
 				}
 			}
-			dadesEspecifiquesRDTO.setDadesEspecifiquesValorsList(dadesEspecifiquesValorsList);
-			dadesEspecifiquesRDTOList.add(dadesEspecifiquesRDTO);
+			
 		}
 
 		return dadesEspecifiquesRDTOList;
 	}
+	
+	private static DadesEspecifiquesRDTO inicialitzarDadesEspecifiquesRepetible(DadesOperacions dadesOperacions, BigDecimal idExpedient, boolean isPortal){		
+		DadesEspecifiquesRDTO dadesEspecifiquesRDTO = new DadesEspecifiquesRDTO();		
+		dadesEspecifiquesRDTO.setExpedient(idExpedient);
+		dadesEspecifiquesRDTO.setCampIdext(dadesOperacions.getId());
+		dadesEspecifiquesRDTO.setNou(isPortal? INTEGER_ONE : INTEGER_ZERO);		
+		return dadesEspecifiquesRDTO;
+	}
+	
+	
 
 	/**
 	 * Validate dades operacio numeric general.
