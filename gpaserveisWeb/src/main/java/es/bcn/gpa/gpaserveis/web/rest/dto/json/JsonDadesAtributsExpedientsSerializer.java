@@ -1,6 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.json;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.databind.ser.std.RawSerializer;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DadesAtributsExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DadesAtributsValorsLlistaExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DadesAtributsValorsLlistaRepetibleExpedientsRDTO;
 
 @Component
 public class JsonDadesAtributsExpedientsSerializer extends JsonSerializer<DadesAtributsExpedientsRDTO> {
@@ -50,6 +52,21 @@ public class JsonDadesAtributsExpedientsSerializer extends JsonSerializer<DadesA
 				jsonGenerator.writeStringField("valor", dadesAtributsValorsLlistaExpedientsRDTO.getValor());
 				jsonGenerator.writeEndObject();
 			}
+			jsonGenerator.writeEndArray();
+		}
+		if (CollectionUtils.isNotEmpty(dadesAtributsExpedientsRDTO.getValorsLlistaRepetible())) {
+			jsonGenerator.writeArrayFieldStart("valorsLlistaRepetible");
+			for (DadesAtributsValorsLlistaRepetibleExpedientsRDTO dadesAtributsValorsLlistaRepetibleExpedientsRDTO : dadesAtributsExpedientsRDTO.getValorsLlistaRepetible()) {
+				jsonGenerator.writeArrayFieldStart("valorsLlista");
+				for (DadesAtributsValorsLlistaExpedientsRDTO dadesAtributsValorsLlistaExpedientsRDTO : dadesAtributsValorsLlistaRepetibleExpedientsRDTO.getValorsLlista()) {
+					jsonGenerator.writeStartObject();
+					jsonGenerator.writeStringField("index", dadesAtributsValorsLlistaExpedientsRDTO.getIndex());
+					jsonGenerator.writeStringField("valor", dadesAtributsValorsLlistaExpedientsRDTO.getValor());
+					jsonGenerator.writeEndObject();
+				}
+				jsonGenerator.writeEndArray();
+			}
+			jsonGenerator.writeEndArray();
 			jsonGenerator.writeEndArray();
 		}
 		jsonGenerator.writeEndObject();

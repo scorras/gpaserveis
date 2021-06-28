@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ser.std.RawSerializer;
 
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsSollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsValorsLlistaRepetibleSollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsValorsLlistaSollicitudsRDTO;
 
 @Component
@@ -50,6 +51,21 @@ public class JsonDadesAtributsSollicitudsSerializer extends JsonSerializer<Dades
 				jsonGenerator.writeStringField("valor", dadesAtributsValorsLlistaSollicitudsRDTO.getValor());
 				jsonGenerator.writeEndObject();
 			}
+			jsonGenerator.writeEndArray();
+		}
+		if (CollectionUtils.isNotEmpty(dadesAtributsSollicitudsRDTO.getValorsLlistaRepetible())) {
+			jsonGenerator.writeArrayFieldStart("valorsLlistaRepetible");
+			for (DadesAtributsValorsLlistaRepetibleSollicitudsRDTO dadesAtributsValorsLlistaRepetibleSollicitudsRDTO : dadesAtributsSollicitudsRDTO.getValorsLlistaRepetible()) {
+				jsonGenerator.writeArrayFieldStart("valorsLlista");
+				for (DadesAtributsValorsLlistaSollicitudsRDTO dadesAtributsValorsLlistaSollicitudsRDTO : dadesAtributsValorsLlistaRepetibleSollicitudsRDTO.getValorsLlista()) {
+					jsonGenerator.writeStartObject();
+					jsonGenerator.writeStringField("index", dadesAtributsValorsLlistaSollicitudsRDTO.getIndex());
+					jsonGenerator.writeStringField("valor", dadesAtributsValorsLlistaSollicitudsRDTO.getValor());
+					jsonGenerator.writeEndObject();
+				}
+				jsonGenerator.writeEndArray();
+			}
+			jsonGenerator.writeEndArray();
 			jsonGenerator.writeEndArray();
 		}
 		jsonGenerator.writeEndObject();

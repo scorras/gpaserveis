@@ -17,12 +17,14 @@ import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadaEspecificaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValorsJson;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MunicipisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ProvinciesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsSollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsValorsLlistaRepetibleSollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsValorsLlistaSollicitudsRDTO;
 import lombok.extern.apachecommons.CommonsLog;
 
@@ -54,6 +56,7 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 		PaisosRDTO paisosRDTO = null;
 		StringBuffer valorStringBuffer = null;
 		StringBuffer valorCastellaStringBuffer = null;
+		List<DadesAtributsValorsLlistaRepetibleSollicitudsRDTO> valorsLlistaRepetibleList = null;
 
 		if (CollectionUtils.isNotEmpty(source)) {
 			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
@@ -68,6 +71,7 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 				valorList = new ArrayList<String>();
 				valorCastellaList = new ArrayList<String>();
 				valorsLlistaList = new ArrayList<DadesAtributsValorsLlistaSollicitudsRDTO>();
+				valorsLlistaRepetibleList = new ArrayList<DadesAtributsValorsLlistaRepetibleSollicitudsRDTO>();
 				if (CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecifica().getDadesEspecifiquesValorsList())) {
 					for (DadesEspecifiquesValors dadesEspecifiquesValors : dadaEspecificaBDTO.getDadaEspecifica()
 					        .getDadesEspecifiquesValorsList()) {
@@ -168,6 +172,12 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 						}
 					}
 				}
+				if (CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecificaRepetible().getDadesEspecifiquesValorsJsonList())) {
+					for (DadesEspecifiquesValorsJson dadesEspecifiquesValorsJson : dadaEspecificaBDTO.getDadaEspecificaRepetible()
+							.getDadesEspecifiquesValorsJsonList()) {
+						//TODO
+					}
+				}
 				// Con el objetivo de que no aparezcan en el XML, las listas que
 				// van vacías se ponen a null
 				if (CollectionUtils.isEmpty(valorList)) {
@@ -179,10 +189,14 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 				if(CollectionUtils.isEmpty(valorCastellaList)){
 					valorCastellaList = null;
 				}
+				if(CollectionUtils.isEmpty(valorsLlistaRepetibleList)){
+					valorsLlistaRepetibleList = null;
+				}
 				dadesAtributsSollicitudsRDTO.setIndex(index);
 				dadesAtributsSollicitudsRDTO.setValor(valorList);
 				dadesAtributsSollicitudsRDTO.setValorCastella(valorCastellaList);
 				dadesAtributsSollicitudsRDTO.setValorsLlista(valorsLlistaList);
+				dadesAtributsSollicitudsRDTO.setValorsLlistaRepetible(valorsLlistaRepetibleList);
 				dadesAtributsSollicitudsRDTOList.add(dadesAtributsSollicitudsRDTO);
 			}
 

@@ -14,7 +14,7 @@ import lombok.Setter;
 
 @ApiModel(value = "AtributsExpedient")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "codi", "index", "valor", "valorCastella", "valorsLlista" })
+@JsonPropertyOrder({ "codi", "index", "valor", "valorCastella", "valorsLlista", "valorsLlistaRepetible" })
 @JsonSerialize(using = JsonDadesAtributsExpedientsSerializer.class)
 @Getter
 @Setter
@@ -30,5 +30,7 @@ public class DadesAtributsExpedientsRDTO {
 	private List<String> valorCastella;
 	@ApiModelProperty(value = "Si el tipus de camp de l'atribut és llista, valors d'aquesta llista")
 	private List<DadesAtributsValorsLlistaExpedientsRDTO> valorsLlista;
+	@ApiModelProperty(value = "Si el tipus de camp de l'atribut és llesta repetible, valors d'aquesta llista")
+	private List<DadesAtributsValorsLlistaRepetibleExpedientsRDTO> valorsLlistaRepetible;
 
 }

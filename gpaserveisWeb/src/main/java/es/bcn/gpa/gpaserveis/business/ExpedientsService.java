@@ -24,6 +24,7 @@ import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRepetiblesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MunicipisRDTO;
@@ -569,4 +570,10 @@ public interface ExpedientsService {
 	 * @throws GPAServeisServiceException
 	 */
 	PersonesSollicitudRDTO incorporarTerceraPersona(PersonesSollicitudRDTO personesSollicitud) throws GPAServeisServiceException;
+
+	List<DadesEspecifiquesRepetiblesRDTO> cercaDadesEspecifiquesRepetiblesSollicitud(BigDecimal idSollicitud,
+			BigDecimal visibilitat) throws GPAServeisServiceException;
+
+	List<DadesEspecifiquesRepetiblesRDTO> cercaDadesEspecifiquesRepetiblesExpedient(BigDecimal idExpedient,
+			BigDecimal visibilitat) throws GPAServeisServiceException;
 }

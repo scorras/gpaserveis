@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "2.4.1"
+  version: "2.5.3"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -453,6 +453,76 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
+  /expedients/dadesEspecifiquesRepetibles/sollicitud/{idSollicitud}/{visibilitat}:
+    get:
+      tags:
+      - "Dades Especifiques Repetibles"
+      summary: "Returns the requested dades especifiques repetibles by Sol·licitud"
+      operationId: "consultarDadesEspecifiquesRepetiblesSollicitud"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idSollicitud"
+        in: "path"
+        description: "idSollicitud"
+        required: true
+        type: "number"
+      - name: "visibilitat"
+        in: "path"
+        description: "visibilitat"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/DadesEspecifiquesRepetiblesRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /expedients/dadesEspecifiquesRepetibles/{idExpedient}/{visibilitat}:
+    get:
+      tags:
+      - "Dades Especifiques Repetibles"
+      summary: "Returns the requested dades especifiques repetibles"
+      operationId: "consultarDadesEspecifiquesRepetiblesExpedient"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idExpedient"
+        in: "path"
+        description: "idExpedient"
+        required: true
+        type: "number"
+      - name: "visibilitat"
+        in: "path"
+        description: "visibilitat"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/DadesEspecifiquesRepetiblesRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /expedients/dadesSollicitud:
     put:
       tags:
@@ -729,6 +799,36 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/ExpedientsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /expedients/personesSollicitud/allPersonesSollicitudByPersonaIdext/{listPersonaIdext}:
+    get:
+      tags:
+      - "PersonesSollicitud "
+      summary: "Returns the requested person"
+      operationId: "consultarDadesAllPersonaSollicitudByPersonaIdext"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "listPersonaIdext"
+        in: "path"
+        description: "listPersonaIdext"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PersonesSollicitudRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -1605,6 +1705,11 @@ paths:
         description: "Numero de document d'identificació del sol·licitant estricte"
         required: false
         type: "string"
+      - name: "numeroRegistre"
+        in: "query"
+        description: "Numero de registre de sollicitud"
+        required: false
+        type: "string"
       - name: "pageSize"
         in: "query"
         required: false
@@ -1701,6 +1806,36 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/RespostaCanviarEstatAccioExpedient"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        gestor: "Perfil usuari gestor"
+  /expedients/{idExpedient}/reprendreTramitacio:
+    post:
+      tags:
+      - "Expedients"
+      summary: "Reprendre Tramitacio Expedient"
+      operationId: "reprendreTramitacio"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "idExpedient"
+        in: "path"
+        description: "Identificador de l'expedient"
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
         201:
           description: "Created"
         401:
@@ -2388,6 +2523,25 @@ definitions:
       tipus:
         type: "number"
     title: "DadesEspecifiquesRDTO"
+  DadesEspecifiquesRepetiblesRDTO:
+    type: "object"
+    properties:
+      campIdext:
+        type: "number"
+      dadesEspecifiquesValorsJsonList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesEspecifiquesValorsJson"
+      expedient:
+        type: "number"
+      grupIdext:
+        type: "number"
+      id:
+        type: "number"
+      nou:
+        type: "integer"
+        format: "int32"
+    title: "DadesEspecifiquesRepetiblesRDTO"
   DadesEspecifiquesValors:
     type: "object"
     properties:
@@ -2395,6 +2549,9 @@ definitions:
         type: "number"
       id:
         type: "number"
+      ordreRepeticio:
+        type: "integer"
+        format: "int32"
       sollicitud:
         type: "number"
       valorBoolean:
@@ -2434,6 +2591,18 @@ definitions:
       valorString:
         type: "string"
     title: "DadesEspecifiquesValors"
+  DadesEspecifiquesValorsJson:
+    type: "object"
+    properties:
+      dadesEspecifiquesRepetibles:
+        type: "number"
+      id:
+        type: "number"
+      sollicitud:
+        type: "number"
+      valorJson:
+        type: "string"
+    title: "DadesEspecifiquesValorsJson"
   DocumentsIdentitat:
     type: "object"
     properties:
@@ -2646,6 +2815,8 @@ definitions:
       nomDescUGConvidada:
         type: "string"
       nomDescUnitatGestora:
+        type: "string"
+      nomDescUnitatGestoraResponsable:
         type: "string"
       nomProcediment:
         type: "string"

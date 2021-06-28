@@ -3,7 +3,7 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
 import java.math.BigDecimal;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRepetiblesRDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,16 +25,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-25T15:08:09.265+02:00")
-@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitud_Api")
-public class PersonesSollicitud_Api {
+@Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesRepetiblesApi")
+public class DadesEspecifiquesRepetiblesApi {
     private ApiClient apiClient;
 
-    public PersonesSollicitud_Api() {
+    public DadesEspecifiquesRepetiblesApi() {
         this(new ApiClient());
     }
 
     @Autowired
-    public PersonesSollicitud_Api(ApiClient apiClient) {
+    public DadesEspecifiquesRepetiblesApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -47,28 +47,35 @@ public class PersonesSollicitud_Api {
     }
 
     /**
-     * Returns the requested person
+     * Returns the requested dades especifiques repetibles
      * 
      * <p><b>200</b> - OK
      * <p><b>401</b> - Unauthorized
      * <p><b>403</b> - Forbidden
      * <p><b>404</b> - Not Found
-     * @param listPersonaIdext listPersonaIdext
-     * @return List&lt;PersonesSollicitudRDTO&gt;
+     * @param idExpedient idExpedient
+     * @param visibilitat visibilitat
+     * @return List&lt;DadesEspecifiquesRepetiblesRDTO&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<PersonesSollicitudRDTO> consultarDadesAllPersonaSollicitudByPersonaIdext(String listPersonaIdext) throws RestClientException {
+    public List<DadesEspecifiquesRepetiblesRDTO> consultarDadesEspecifiquesRepetiblesExpedient(BigDecimal idExpedient, BigDecimal visibilitat) throws RestClientException {
         Object postBody = null;
         
-        // verify the required parameter 'listPersonaIdext' is set
-        if (listPersonaIdext == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'listPersonaIdext' when calling consultarDadesAllPersonaSollicitudByPersonaIdext");
+        // verify the required parameter 'idExpedient' is set
+        if (idExpedient == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idExpedient' when calling consultarDadesEspecifiquesRepetiblesExpedient");
+        }
+        
+        // verify the required parameter 'visibilitat' is set
+        if (visibilitat == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'visibilitat' when calling consultarDadesEspecifiquesRepetiblesExpedient");
         }
         
         // create path and map variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("listPersonaIdext", listPersonaIdext);
-        String path = UriComponentsBuilder.fromPath("/expedients/personesSollicitud/allPersonesSollicitudByPersonaIdext/{listPersonaIdext}").buildAndExpand(uriVariables).toUriString();
+        uriVariables.put("idExpedient", idExpedient);
+        uriVariables.put("visibilitat", visibilitat);
+        String path = UriComponentsBuilder.fromPath("/expedients/dadesEspecifiquesRepetibles/{idExpedient}/{visibilitat}").buildAndExpand(uriVariables).toUriString();
         
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();
@@ -83,32 +90,39 @@ public class PersonesSollicitud_Api {
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<List<PersonesSollicitudRDTO>> returnType = new ParameterizedTypeReference<List<PersonesSollicitudRDTO>>() {};
+        ParameterizedTypeReference<List<DadesEspecifiquesRepetiblesRDTO>> returnType = new ParameterizedTypeReference<List<DadesEspecifiquesRepetiblesRDTO>>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
-     * Returns the requested person
+     * Returns the requested dades especifiques repetibles by Sol·licitud
      * 
      * <p><b>200</b> - OK
      * <p><b>401</b> - Unauthorized
      * <p><b>403</b> - Forbidden
      * <p><b>404</b> - Not Found
-     * @param idPersonesSollicitud idPersonesSollicitud
-     * @return PersonesSollicitudRDTO
+     * @param idSollicitud idSollicitud
+     * @param visibilitat visibilitat
+     * @return List&lt;DadesEspecifiquesRepetiblesRDTO&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public PersonesSollicitudRDTO consultarDadesPersonaSollicitud(BigDecimal idPersonesSollicitud) throws RestClientException {
+    public List<DadesEspecifiquesRepetiblesRDTO> consultarDadesEspecifiquesRepetiblesSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat) throws RestClientException {
         Object postBody = null;
         
-        // verify the required parameter 'idPersonesSollicitud' is set
-        if (idPersonesSollicitud == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idPersonesSollicitud' when calling consultarDadesPersonaSollicitud");
+        // verify the required parameter 'idSollicitud' is set
+        if (idSollicitud == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idSollicitud' when calling consultarDadesEspecifiquesRepetiblesSollicitud");
+        }
+        
+        // verify the required parameter 'visibilitat' is set
+        if (visibilitat == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'visibilitat' when calling consultarDadesEspecifiquesRepetiblesSollicitud");
         }
         
         // create path and map variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idPersonesSollicitud", idPersonesSollicitud);
-        String path = UriComponentsBuilder.fromPath("/expedients/personesSollicitud/{idPersonesSollicitud}").buildAndExpand(uriVariables).toUriString();
+        uriVariables.put("idSollicitud", idSollicitud);
+        uriVariables.put("visibilitat", visibilitat);
+        String path = UriComponentsBuilder.fromPath("/expedients/dadesEspecifiquesRepetibles/sollicitud/{idSollicitud}/{visibilitat}").buildAndExpand(uriVariables).toUriString();
         
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();
@@ -123,7 +137,7 @@ public class PersonesSollicitud_Api {
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<PersonesSollicitudRDTO> returnType = new ParameterizedTypeReference<PersonesSollicitudRDTO>() {};
+        ParameterizedTypeReference<List<DadesEspecifiquesRepetiblesRDTO>> returnType = new ParameterizedTypeReference<List<DadesEspecifiquesRepetiblesRDTO>>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }

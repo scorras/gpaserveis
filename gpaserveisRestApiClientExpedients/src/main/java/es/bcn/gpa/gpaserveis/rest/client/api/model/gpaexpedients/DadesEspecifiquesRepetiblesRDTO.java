@@ -17,7 +17,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValorsJson;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
@@ -25,18 +25,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DadesEspecifiquesRDTO
+ * DadesEspecifiquesRepetiblesRDTO
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-25T15:08:09.265+02:00")
-public class DadesEspecifiquesRDTO {
+public class DadesEspecifiquesRepetiblesRDTO {
   @JsonProperty("campIdext")
   private BigDecimal campIdext = null;
 
-  @JsonProperty("dadesEspecifiquesValorsList")
-  private List<DadesEspecifiquesValors> dadesEspecifiquesValorsList = null;
+  @JsonProperty("dadesEspecifiquesValorsJsonList")
+  private List<DadesEspecifiquesValorsJson> dadesEspecifiquesValorsJsonList = null;
 
   @JsonProperty("expedient")
   private BigDecimal expedient = null;
+
+  @JsonProperty("grupIdext")
+  private BigDecimal grupIdext = null;
 
   @JsonProperty("id")
   private BigDecimal id = null;
@@ -44,10 +47,7 @@ public class DadesEspecifiquesRDTO {
   @JsonProperty("nou")
   private Integer nou = null;
 
-  @JsonProperty("tipus")
-  private BigDecimal tipus = null;
-
-  public DadesEspecifiquesRDTO campIdext(BigDecimal campIdext) {
+  public DadesEspecifiquesRepetiblesRDTO campIdext(BigDecimal campIdext) {
     this.campIdext = campIdext;
     return this;
   }
@@ -65,33 +65,33 @@ public class DadesEspecifiquesRDTO {
     this.campIdext = campIdext;
   }
 
-  public DadesEspecifiquesRDTO dadesEspecifiquesValorsList(List<DadesEspecifiquesValors> dadesEspecifiquesValorsList) {
-    this.dadesEspecifiquesValorsList = dadesEspecifiquesValorsList;
+  public DadesEspecifiquesRepetiblesRDTO dadesEspecifiquesValorsJsonList(List<DadesEspecifiquesValorsJson> dadesEspecifiquesValorsJsonList) {
+    this.dadesEspecifiquesValorsJsonList = dadesEspecifiquesValorsJsonList;
     return this;
   }
 
-  public DadesEspecifiquesRDTO addDadesEspecifiquesValorsListItem(DadesEspecifiquesValors dadesEspecifiquesValorsListItem) {
-    if (this.dadesEspecifiquesValorsList == null) {
-      this.dadesEspecifiquesValorsList = new ArrayList<DadesEspecifiquesValors>();
+  public DadesEspecifiquesRepetiblesRDTO addDadesEspecifiquesValorsJsonListItem(DadesEspecifiquesValorsJson dadesEspecifiquesValorsJsonListItem) {
+    if (this.dadesEspecifiquesValorsJsonList == null) {
+      this.dadesEspecifiquesValorsJsonList = new ArrayList<DadesEspecifiquesValorsJson>();
     }
-    this.dadesEspecifiquesValorsList.add(dadesEspecifiquesValorsListItem);
+    this.dadesEspecifiquesValorsJsonList.add(dadesEspecifiquesValorsJsonListItem);
     return this;
   }
 
    /**
-   * Get dadesEspecifiquesValorsList
-   * @return dadesEspecifiquesValorsList
+   * Get dadesEspecifiquesValorsJsonList
+   * @return dadesEspecifiquesValorsJsonList
   **/
   @ApiModelProperty(value = "")
-  public List<DadesEspecifiquesValors> getDadesEspecifiquesValorsList() {
-    return dadesEspecifiquesValorsList;
+  public List<DadesEspecifiquesValorsJson> getDadesEspecifiquesValorsJsonList() {
+    return dadesEspecifiquesValorsJsonList;
   }
 
-  public void setDadesEspecifiquesValorsList(List<DadesEspecifiquesValors> dadesEspecifiquesValorsList) {
-    this.dadesEspecifiquesValorsList = dadesEspecifiquesValorsList;
+  public void setDadesEspecifiquesValorsJsonList(List<DadesEspecifiquesValorsJson> dadesEspecifiquesValorsJsonList) {
+    this.dadesEspecifiquesValorsJsonList = dadesEspecifiquesValorsJsonList;
   }
 
-  public DadesEspecifiquesRDTO expedient(BigDecimal expedient) {
+  public DadesEspecifiquesRepetiblesRDTO expedient(BigDecimal expedient) {
     this.expedient = expedient;
     return this;
   }
@@ -109,7 +109,25 @@ public class DadesEspecifiquesRDTO {
     this.expedient = expedient;
   }
 
-  public DadesEspecifiquesRDTO id(BigDecimal id) {
+  public DadesEspecifiquesRepetiblesRDTO grupIdext(BigDecimal grupIdext) {
+    this.grupIdext = grupIdext;
+    return this;
+  }
+
+   /**
+   * Get grupIdext
+   * @return grupIdext
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getGrupIdext() {
+    return grupIdext;
+  }
+
+  public void setGrupIdext(BigDecimal grupIdext) {
+    this.grupIdext = grupIdext;
+  }
+
+  public DadesEspecifiquesRepetiblesRDTO id(BigDecimal id) {
     this.id = id;
     return this;
   }
@@ -127,7 +145,7 @@ public class DadesEspecifiquesRDTO {
     this.id = id;
   }
 
-  public DadesEspecifiquesRDTO nou(Integer nou) {
+  public DadesEspecifiquesRepetiblesRDTO nou(Integer nou) {
     this.nou = nou;
     return this;
   }
@@ -145,24 +163,6 @@ public class DadesEspecifiquesRDTO {
     this.nou = nou;
   }
 
-  public DadesEspecifiquesRDTO tipus(BigDecimal tipus) {
-    this.tipus = tipus;
-    return this;
-  }
-
-   /**
-   * Get tipus
-   * @return tipus
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getTipus() {
-    return tipus;
-  }
-
-  public void setTipus(BigDecimal tipus) {
-    this.tipus = tipus;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -172,32 +172,32 @@ public class DadesEspecifiquesRDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DadesEspecifiquesRDTO dadesEspecifiquesRDTO = (DadesEspecifiquesRDTO) o;
-    return Objects.equals(this.campIdext, dadesEspecifiquesRDTO.campIdext) &&
-        Objects.equals(this.dadesEspecifiquesValorsList, dadesEspecifiquesRDTO.dadesEspecifiquesValorsList) &&
-        Objects.equals(this.expedient, dadesEspecifiquesRDTO.expedient) &&
-        Objects.equals(this.id, dadesEspecifiquesRDTO.id) &&
-        Objects.equals(this.nou, dadesEspecifiquesRDTO.nou) &&
-        Objects.equals(this.tipus, dadesEspecifiquesRDTO.tipus);
+    DadesEspecifiquesRepetiblesRDTO dadesEspecifiquesRepetiblesRDTO = (DadesEspecifiquesRepetiblesRDTO) o;
+    return Objects.equals(this.campIdext, dadesEspecifiquesRepetiblesRDTO.campIdext) &&
+        Objects.equals(this.dadesEspecifiquesValorsJsonList, dadesEspecifiquesRepetiblesRDTO.dadesEspecifiquesValorsJsonList) &&
+        Objects.equals(this.expedient, dadesEspecifiquesRepetiblesRDTO.expedient) &&
+        Objects.equals(this.grupIdext, dadesEspecifiquesRepetiblesRDTO.grupIdext) &&
+        Objects.equals(this.id, dadesEspecifiquesRepetiblesRDTO.id) &&
+        Objects.equals(this.nou, dadesEspecifiquesRepetiblesRDTO.nou);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(campIdext, dadesEspecifiquesValorsList, expedient, id, nou, tipus);
+    return Objects.hash(campIdext, dadesEspecifiquesValorsJsonList, expedient, grupIdext, id, nou);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DadesEspecifiquesRDTO {\n");
+    sb.append("class DadesEspecifiquesRepetiblesRDTO {\n");
     
     sb.append("    campIdext: ").append(toIndentedString(campIdext)).append("\n");
-    sb.append("    dadesEspecifiquesValorsList: ").append(toIndentedString(dadesEspecifiquesValorsList)).append("\n");
+    sb.append("    dadesEspecifiquesValorsJsonList: ").append(toIndentedString(dadesEspecifiquesValorsJsonList)).append("\n");
     sb.append("    expedient: ").append(toIndentedString(expedient)).append("\n");
+    sb.append("    grupIdext: ").append(toIndentedString(grupIdext)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    nou: ").append(toIndentedString(nou)).append("\n");
-    sb.append("    tipus: ").append(toIndentedString(tipus)).append("\n");
     sb.append("}");
     return sb.toString();
   }
