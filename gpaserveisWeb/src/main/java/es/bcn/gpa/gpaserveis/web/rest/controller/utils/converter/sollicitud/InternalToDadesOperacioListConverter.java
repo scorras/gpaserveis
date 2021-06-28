@@ -172,11 +172,13 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 						}
 					}
 				}
-				if (CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecificaRepetible().getDadesEspecifiquesValorsJsonList())) {
+				if (dadaEspecificaBDTO.getDadaEspecificaRepetible() != null && CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecificaRepetible().getDadesEspecifiquesValorsJsonList())) {
+					//TODO
+					/*
 					for (DadesEspecifiquesValorsJson dadesEspecifiquesValorsJson : dadaEspecificaBDTO.getDadaEspecificaRepetible()
 							.getDadesEspecifiquesValorsJsonList()) {
-						//TODO
 					}
+					*/
 				}
 				// Con el objetivo de que no aparezcan en el XML, las listas que
 				// van vacías se ponen a null
