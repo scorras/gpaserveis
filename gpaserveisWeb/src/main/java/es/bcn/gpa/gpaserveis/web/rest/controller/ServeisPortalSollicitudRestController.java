@@ -1314,7 +1314,39 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				}
 
 			}
-			
+
+			// Asociar registre de la solicitud a la propia solicitud
+			SollicitudActualitzarRegistre sollicitudActualitzarRegistre = new SollicitudActualitzarRegistre();
+			if (teRegistre) {
+				sollicitudActualitzarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
+				sollicitudActualitzarRegistre.setDataPresentacio(respostaCrearRegistreExpedient.getRegistreAssentament().getDataRegistre());
+			}
+			sollicitudActualitzarRegistre.setIdSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
+			if (sollicitudRegistrarRDTO != null) {
+				sollicitudActualitzarRegistre.setSignaturaSollicitud(sollicitudRegistrarRDTO.getSignaturaSolicitud());
+				if (!esCiutada) {
+					sollicitudActualitzarRegistre.setMatriculaInformador(clientEntity.getUsuariAutenticat());
+				}
+			}
+
+			long startTimeAssociarRegistreSol = System.nanoTime();
+			if (log.isInfoEnabled()) {
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - inici"); //$NON-NLS-1$
+			}
+
+			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
+
+			if (log.isDebugEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreSol;
+				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - fi: " //$NON-NLS-1$
+				        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
+			if (log.isInfoEnabled()) {
+				long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreSol;
+				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - fi: " //$NON-NLS-1$
+				        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
+
 			long startTimeGetPlantillaDocVinculada = System.nanoTime();
 			if (log.isDebugEnabled()) {
 				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - getPlantillaDocVinculada - inici"); //$NON-NLS-1$
@@ -1476,52 +1508,6 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
 			}
 
-			// En caso de que la operación de registro se lance desde el portal
-			// del Informador,
-			// el formulario de solicitud (documento de instancia) estará
-			// firmado por Segell d'Organ y habrá que copiar el contenido de
-			// dicho documento firmado en el documento original
-			if (!esCiutada) {
-				// Parámetros disponibles:
-				// - idDocumentacio -> Obtener documento basado en plantilla
-				// - signaturaSolicitud -> id de Petición de firma que nos da
-				// acceso al robjectid documento firmado
-				serveisService.guardarDocumentSollicitudSignat(dadesSollicitudBDTO.getExpedientsRDTO().getDocumentacioIdext(),
-				        sollicitudRegistrarRDTO.getSignaturaSolicitud());
-			}
-
-			// Asociar registre de la solicitud a la propia solicitud
-			SollicitudActualitzarRegistre sollicitudActualitzarRegistre = new SollicitudActualitzarRegistre();
-			if (teRegistre) {
-				sollicitudActualitzarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
-				sollicitudActualitzarRegistre.setDataPresentacio(respostaCrearRegistreExpedient.getRegistreAssentament().getDataRegistre());
-			}
-			sollicitudActualitzarRegistre.setIdSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
-			if (sollicitudRegistrarRDTO != null) {
-				sollicitudActualitzarRegistre.setSignaturaSollicitud(sollicitudRegistrarRDTO.getSignaturaSolicitud());
-				if (!esCiutada) {
-					sollicitudActualitzarRegistre.setMatriculaInformador(clientEntity.getUsuariAutenticat());
-				}
-			}
-
-			long startTimeAssociarRegistreSol = System.nanoTime();
-			if (log.isInfoEnabled()) {
-				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - inici"); //$NON-NLS-1$
-			}
-
-			serveisService.associarRegistreSollicitud(sollicitudActualitzarRegistre);
-
-			if (log.isDebugEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreSol;
-				log.debug("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - fi: " //$NON-NLS-1$
-				        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
-			if (log.isInfoEnabled()) {
-				long tiempoTotal = System.nanoTime() - startTimeAssociarRegistreSol;
-				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - associarRegistreSollicitud - fi: " //$NON-NLS-1$
-				        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
-			}
-
 			// Asociar registre de la solicitud a los posibles documentos
 			// vinculados a la solicitud
 			if (CollectionUtils.isNotEmpty(idDocsEntradaList)) {
@@ -1564,6 +1550,20 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				long tiempoTotal = System.nanoTime() - startTimeGuardarDadesEspecifiquesSol;
 				log.info("trazaTiempos: registrarSolicitud(BigDecimal) - guardarDadesEspecifiquesSollicitud - fi: " //$NON-NLS-1$
 				        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
+			}
+
+			// En caso de que la operación de registro se lance desde el portal
+			// del Informador,
+			// el formulario de solicitud (documento de instancia) estará
+			// firmado por Segell d'Organ y habrá que copiar el contenido de
+			// dicho documento firmado en el documento original
+			if (!esCiutada) {
+				// Parámetros disponibles:
+				// - idDocumentacio -> Obtener documento basado en plantilla
+				// - signaturaSolicitud -> id de Petición de firma que nos da
+				// acceso al robjectid documento firmado
+				serveisService.guardarDocumentSollicitudSignat(dadesSollicitudBDTO.getExpedientsRDTO().getDocumentacioIdext(),
+				        sollicitudRegistrarRDTO.getSignaturaSolicitud());
 			}
 
 			// Cambio de estado del expediente:
