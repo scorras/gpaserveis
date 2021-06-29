@@ -27,7 +27,7 @@ import org.joda.time.DateTime;
 /**
  * DadesEspecifiquesValors
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-25T15:08:09.265+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-29T13:41:24.792+02:00")
 public class DadesEspecifiquesValors {
   @JsonProperty("dadesEspecifiques")
   private BigDecimal dadesEspecifiques = null;
@@ -37,6 +37,9 @@ public class DadesEspecifiquesValors {
 
   @JsonProperty("ordreRepeticio")
   private Integer ordreRepeticio = null;
+
+  @JsonProperty("ordreRepeticioMultiple")
+  private Integer ordreRepeticioMultiple = null;
 
   @JsonProperty("sollicitud")
   private BigDecimal sollicitud = null;
@@ -132,6 +135,24 @@ public class DadesEspecifiquesValors {
 
   public void setOrdreRepeticio(Integer ordreRepeticio) {
     this.ordreRepeticio = ordreRepeticio;
+  }
+
+  public DadesEspecifiquesValors ordreRepeticioMultiple(Integer ordreRepeticioMultiple) {
+    this.ordreRepeticioMultiple = ordreRepeticioMultiple;
+    return this;
+  }
+
+   /**
+   * Get ordreRepeticioMultiple
+   * @return ordreRepeticioMultiple
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getOrdreRepeticioMultiple() {
+    return ordreRepeticioMultiple;
+  }
+
+  public void setOrdreRepeticioMultiple(Integer ordreRepeticioMultiple) {
+    this.ordreRepeticioMultiple = ordreRepeticioMultiple;
   }
 
   public DadesEspecifiquesValors sollicitud(BigDecimal sollicitud) {
@@ -407,6 +428,7 @@ public class DadesEspecifiquesValors {
     return Objects.equals(this.dadesEspecifiques, dadesEspecifiquesValors.dadesEspecifiques) &&
         Objects.equals(this.id, dadesEspecifiquesValors.id) &&
         Objects.equals(this.ordreRepeticio, dadesEspecifiquesValors.ordreRepeticio) &&
+        Objects.equals(this.ordreRepeticioMultiple, dadesEspecifiquesValors.ordreRepeticioMultiple) &&
         Objects.equals(this.sollicitud, dadesEspecifiquesValors.sollicitud) &&
         Objects.equals(this.valorBoolean, dadesEspecifiquesValors.valorBoolean) &&
         Objects.equals(this.valorCalendar, dadesEspecifiquesValors.valorCalendar) &&
@@ -425,7 +447,7 @@ public class DadesEspecifiquesValors {
 
   @Override
   public int hashCode() {
-    return Objects.hash(dadesEspecifiques, id, ordreRepeticio, sollicitud, valorBoolean, valorCalendar, valorClob, valorDouble, valorInteger, valorListaMultiple, valorListaMultipleList, valorListaSimple, valorMoneda, valorMunicipi, valorPais, valorProvincia, valorString);
+    return Objects.hash(dadesEspecifiques, id, ordreRepeticio, ordreRepeticioMultiple, sollicitud, valorBoolean, valorCalendar, valorClob, valorDouble, valorInteger, valorListaMultiple, valorListaMultipleList, valorListaSimple, valorMoneda, valorMunicipi, valorPais, valorProvincia, valorString);
   }
 
 
@@ -437,6 +459,7 @@ public class DadesEspecifiquesValors {
     sb.append("    dadesEspecifiques: ").append(toIndentedString(dadesEspecifiques)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    ordreRepeticio: ").append(toIndentedString(ordreRepeticio)).append("\n");
+    sb.append("    ordreRepeticioMultiple: ").append(toIndentedString(ordreRepeticioMultiple)).append("\n");
     sb.append("    sollicitud: ").append(toIndentedString(sollicitud)).append("\n");
     sb.append("    valorBoolean: ").append(toIndentedString(valorBoolean)).append("\n");
     sb.append("    valorCalendar: ").append(toIndentedString(valorCalendar)).append("\n");

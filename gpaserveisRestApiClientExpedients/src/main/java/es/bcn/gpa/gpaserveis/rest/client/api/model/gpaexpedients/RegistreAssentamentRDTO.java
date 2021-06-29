@@ -26,7 +26,7 @@ import org.joda.time.DateTime;
 /**
  * RegistreAssentamentRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-25T15:08:09.265+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-29T13:41:24.792+02:00")
 public class RegistreAssentamentRDTO {
   @JsonProperty("codi")
   private String codi = null;

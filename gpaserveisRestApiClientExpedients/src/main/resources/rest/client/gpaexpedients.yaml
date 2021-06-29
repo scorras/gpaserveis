@@ -2552,6 +2552,9 @@ definitions:
       ordreRepeticio:
         type: "integer"
         format: "int32"
+      ordreRepeticioMultiple:
+        type: "integer"
+        format: "int32"
       sollicitud:
         type: "number"
       valorBoolean:
