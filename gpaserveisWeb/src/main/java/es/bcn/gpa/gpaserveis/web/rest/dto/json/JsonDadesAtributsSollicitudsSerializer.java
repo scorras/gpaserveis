@@ -56,6 +56,7 @@ public class JsonDadesAtributsSollicitudsSerializer extends JsonSerializer<Dades
 		if (CollectionUtils.isNotEmpty(dadesAtributsSollicitudsRDTO.getValorsLlistaRepetible())) {
 			jsonGenerator.writeArrayFieldStart("valorsLlistaRepetible");
 			for (DadesAtributsValorsLlistaRepetibleSollicitudsRDTO dadesAtributsValorsLlistaRepetibleSollicitudsRDTO : dadesAtributsSollicitudsRDTO.getValorsLlistaRepetible()) {
+				jsonGenerator.writeStartObject();
 				jsonGenerator.writeArrayFieldStart("valorsLlista");
 				for (DadesAtributsValorsLlistaSollicitudsRDTO dadesAtributsValorsLlistaSollicitudsRDTO : dadesAtributsValorsLlistaRepetibleSollicitudsRDTO.getValorsLlista()) {
 					jsonGenerator.writeStartObject();
@@ -64,8 +65,8 @@ public class JsonDadesAtributsSollicitudsSerializer extends JsonSerializer<Dades
 					jsonGenerator.writeEndObject();
 				}
 				jsonGenerator.writeEndArray();
+				jsonGenerator.writeEndObject();
 			}
-			jsonGenerator.writeEndArray();
 			jsonGenerator.writeEndArray();
 		}
 		jsonGenerator.writeEndObject();
