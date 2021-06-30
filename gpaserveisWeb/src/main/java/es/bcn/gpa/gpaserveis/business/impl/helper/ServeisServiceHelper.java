@@ -46,6 +46,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfCon
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRepetiblesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValorsJson;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
@@ -1203,10 +1204,16 @@ public class ServeisServiceHelper {
 				dadaEspecificaBDTOList = new ArrayList<DadaEspecificaBDTO>();
 			}
 			for (DadesEspecifiquesRepetiblesRDTO dadesEspecifiquesRepetiblesRDTO : dadesEspecifiquesRepetiblesRDTOList) {
-				if (dadaEspecificaBDTO == null) {
-					dadaEspecificaBDTO = new DadaEspecificaBDTO();
+				dadaEspecificaBDTO = new DadaEspecificaBDTO();
+				dadaEspecificaBDTO.setDadaOperacio(dadesOperacionsMap.get(dadesEspecifiquesRepetiblesRDTO.getCampIdext() != null ?  dadesEspecifiquesRepetiblesRDTO.getCampIdext() : dadesEspecifiquesRepetiblesRDTO.getGrupIdext()));
+				if (dadesEspecifiquesRepetiblesRDTO.getGrupIdext() != null && dadaEspecificaBDTO.getDadaOperacio() != null) {
+					dadaEspecificaBDTO.getDadaOperacio().setCodi("GRUP_".concat(dadesEspecifiquesRepetiblesRDTO.getGrupIdext().toString()));
 				}
-				dadaEspecificaBDTO.setDadaOperacio(dadesOperacionsMap.get(dadesEspecifiquesRepetiblesRDTO.getGrupIdext() != null ? dadesEspecifiquesRepetiblesRDTO.getGrupIdext() : dadesEspecifiquesRepetiblesRDTO.getCampIdext()));
+				if (dadesEspecifiquesRepetiblesRDTO.getGrupIdext() != null && dadaEspecificaBDTO.getDadaOperacio() == null) {
+					DadesOperacions dadesOperacions = new DadesOperacions();
+					dadesOperacions.setCodi("GRUP_".concat(dadesEspecifiquesRepetiblesRDTO.getGrupIdext().toString()));
+					dadaEspecificaBDTO.setDadaOperacio(dadesOperacions);
+				}
 				dadaEspecificaBDTO.setDadaEspecificaRepetible(dadesEspecifiquesRepetiblesRDTO);
 				dadaEspecificaBDTOList.add(dadaEspecificaBDTO);
 			}

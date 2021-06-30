@@ -28,6 +28,9 @@ public class JsonDadesAtributsExpedientsSerializer extends JsonSerializer<DadesA
 	        SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
 		jsonGenerator.writeStartObject();
 		jsonGenerator.writeStringField("codi", dadesAtributsExpedientsRDTO.getCodi());
+		if (CollectionUtils.isNotEmpty(dadesAtributsExpedientsRDTO.getValorRepetible()) && StringUtils.isNotEmpty(dadesAtributsExpedientsRDTO.getTitol())) {
+			jsonGenerator.writeStringField("titol", dadesAtributsExpedientsRDTO.getTitol());
+		}
 		if (dadesAtributsExpedientsRDTO.getIndex() != null) {
 			jsonGenerator.writeStringField("index", dadesAtributsExpedientsRDTO.getIndex());
 		}
@@ -87,6 +90,11 @@ public class JsonDadesAtributsExpedientsSerializer extends JsonSerializer<DadesA
 				jsonGenerator.writeEndObject();
 			}
 			jsonGenerator.writeEndArray();
+		}
+		if (CollectionUtils.isNotEmpty(dadesAtributsExpedientsRDTO.getValorRepetible())) {
+			jsonGenerator.writeFieldName("valor");
+			rawSerializer.serialize(dadesAtributsExpedientsRDTO.getValorRepetible().get(0), jsonGenerator, serializerProvider);
+			
 		}
 		jsonGenerator.writeEndObject();
 	}

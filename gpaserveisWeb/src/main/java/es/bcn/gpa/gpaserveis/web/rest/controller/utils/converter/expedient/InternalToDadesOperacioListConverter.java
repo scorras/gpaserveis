@@ -21,6 +21,7 @@ import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadaEspecificaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValorsJson;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MunicipisRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ProvinciesRDTO;
@@ -53,6 +54,7 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 		DadesAtributsExpedientsRDTO dadesAtributsExpedientsRDTO = null;
 		String index = null;
 		List<String> valorList = null;
+		List<String> valorListRepetible = null;
 		List<String> valorCastellaList = null;
 		List<DadesAtributsValorsLlistaExpedientsRDTO> valorsLlistaList = null;
 		List<DadesAtributsValorsLlistaRepetibleExpedientsRDTO> valorsLlistaRepetibleList = null;
@@ -80,7 +82,8 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 				valorsLlistaMultipleRepetibleList = new ArrayList<DadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO>();
 				List<HashMap<Integer, Integer>> valorsListaMultiple = new ArrayList<HashMap<Integer, Integer>>();
 				List<Integer> ordreRepeticioList = new ArrayList<Integer>();
-				if (CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecifica().getDadesEspecifiquesValorsList())) {
+				valorListRepetible = new ArrayList<String>();
+				if (dadaEspecificaBDTO.getDadaEspecifica() != null && CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecifica().getDadesEspecifiquesValorsList())) {
 					for (DadesEspecifiquesValors dadesEspecifiquesValors : dadaEspecificaBDTO.getDadaEspecifica()
 					        .getDadesEspecifiquesValorsList()) {
 						// Transformación directa a String excepto para valores
@@ -193,29 +196,35 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 							}
 						}
 					}
-				}
-				if (dadaEspecificaBDTO.getDadaEspecificaRepetible() != null && CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecificaRepetible().getDadesEspecifiquesValorsJsonList())) {
-					//TODO
-					/*
-					for (DadesEspecifiquesValorsJson dadesEspecifiquesValorsJson : dadaEspecificaBDTO.getDadaEspecificaRepetible()
-							.getDadesEspecifiquesValorsJsonList()) {
+					
+					if (!valorsListaMultiple.isEmpty()) {
+						Collections.sort(ordreRepeticioList);
+						for(Integer ordreRepeticio : ordreRepeticioList) {
+							DadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO dadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO = new DadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO();
+							List<DadesAtributsValorsLlistaRepetibleExpedientsRDTO> dadesAtributsValorsLlistaRepetibleExpedientsRDTOList = new ArrayList<DadesAtributsValorsLlistaRepetibleExpedientsRDTO>();
+							for (HashMap<Integer, Integer> entry : valorsListaMultiple) {
+								if (entry.containsKey(ordreRepeticio)) {
+									dadesAtributsValorsLlistaRepetibleExpedientsRDTOList.add(obtenirDadesAtributsValorsLlistaRepetible(entry.get(ordreRepeticio),
+									dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
+								}
+							}
+							dadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO.setValorsLlistaRepetible(dadesAtributsValorsLlistaRepetibleExpedientsRDTOList);
+							valorsLlistaMultipleRepetibleList.add(dadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO);
+						}
 					}
-					*/
 				}
 				
-				if (!valorsListaMultiple.isEmpty()) {
-					Collections.sort(ordreRepeticioList);
-					for(Integer ordreRepeticio : ordreRepeticioList) {
-						DadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO dadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO = new DadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO();
-						List<DadesAtributsValorsLlistaRepetibleExpedientsRDTO> dadesAtributsValorsLlistaRepetibleExpedientsRDTOList = new ArrayList<DadesAtributsValorsLlistaRepetibleExpedientsRDTO>();
-						for (HashMap<Integer, Integer> entry : valorsListaMultiple) {
-							if (entry.containsKey(ordreRepeticio)) {
-								dadesAtributsValorsLlistaRepetibleExpedientsRDTOList.add(obtenirDadesAtributsValorsLlistaRepetible(entry.get(ordreRepeticio),
-								dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
-							}
+				
+				if (dadaEspecificaBDTO.getDadaEspecificaRepetible() != null && CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecificaRepetible().getDadesEspecifiquesValorsJsonList())) {
+					// dadesAtributsExpedientsRDTO.setTitol(dadaEspecificaBDTO.getDadaOperacio().getTitol());
+					for (DadesEspecifiquesValorsJson dadesEspecifiquesValorsJson : dadaEspecificaBDTO.getDadaEspecificaRepetible()
+							.getDadesEspecifiquesValorsJsonList()) {
+						valorStringBuffer = new StringBuffer();
+						valorStringBuffer.append((dadesEspecifiquesValorsJson.getValorJson() != null)
+						        ? dadesEspecifiquesValorsJson.getValorJson() : StringUtils.EMPTY);
+						if (StringUtils.isNotBlank(valorStringBuffer.toString())) {
+							valorListRepetible.add(valorStringBuffer.toString());
 						}
-						dadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO.setValorsLlistaRepetible(dadesAtributsValorsLlistaRepetibleExpedientsRDTOList);
-						valorsLlistaMultipleRepetibleList.add(dadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO);
 					}
 				}
 				
@@ -236,12 +245,16 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 				if(CollectionUtils.isEmpty(valorsLlistaMultipleRepetibleList)){
 					valorsLlistaMultipleRepetibleList = null;
 				}
+				if (CollectionUtils.isEmpty(valorListRepetible)) {
+					valorListRepetible = null;
+				}
 				dadesAtributsExpedientsRDTO.setIndex(index);
 				dadesAtributsExpedientsRDTO.setValor(valorList);
 				dadesAtributsExpedientsRDTO.setValorCastella(valorCastellaList);
 				dadesAtributsExpedientsRDTO.setValorsLlista(valorsLlistaList);
 				dadesAtributsExpedientsRDTO.setValorsLlistaRepetible(valorsLlistaRepetibleList);
 				dadesAtributsExpedientsRDTO.setValorsLlistaMultipleRepetible(valorsLlistaMultipleRepetibleList);
+				dadesAtributsExpedientsRDTO.setValorRepetible(valorListRepetible);
 				dadesAtributsExpedientsRDTOList.add(dadesAtributsExpedientsRDTO);
 			}
 
