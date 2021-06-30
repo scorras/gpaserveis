@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ser.std.RawSerializer;
 
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsSollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsValorsLlistaMultipleRepetibleSollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsValorsLlistaRepetibleSollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsValorsLlistaSollicitudsRDTO;
 
@@ -63,6 +64,24 @@ public class JsonDadesAtributsSollicitudsSerializer extends JsonSerializer<Dades
 					jsonGenerator.writeStringField("index", dadesAtributsValorsLlistaSollicitudsRDTO.getIndex());
 					jsonGenerator.writeStringField("valor", dadesAtributsValorsLlistaSollicitudsRDTO.getValor());
 					jsonGenerator.writeEndObject();
+				}
+				jsonGenerator.writeEndArray();
+				jsonGenerator.writeEndObject();
+			}
+			jsonGenerator.writeEndArray();
+		}
+		if (CollectionUtils.isNotEmpty(dadesAtributsSollicitudsRDTO.getValorsLlistaMultipleRepetible())) {
+			jsonGenerator.writeArrayFieldStart("valorsLlistaRepetible");
+			for (DadesAtributsValorsLlistaMultipleRepetibleSollicitudsRDTO dadesAtributsValorsLlistaMultipleRepetibleSollicitudsRDTO : dadesAtributsSollicitudsRDTO.getValorsLlistaMultipleRepetible()) {
+				jsonGenerator.writeStartObject();
+				jsonGenerator.writeArrayFieldStart("valorsLlista");
+				for (DadesAtributsValorsLlistaRepetibleSollicitudsRDTO dadesAtributsValorsLlistaRepetibleSollicitudsRDTO : dadesAtributsValorsLlistaMultipleRepetibleSollicitudsRDTO.getValorsLlistaRepetible()) {
+					for (DadesAtributsValorsLlistaSollicitudsRDTO dadesAtributsValorsLlistaSollicitudsRDTO : dadesAtributsValorsLlistaRepetibleSollicitudsRDTO.getValorsLlista()) {
+						jsonGenerator.writeStartObject();
+						jsonGenerator.writeStringField("index", dadesAtributsValorsLlistaSollicitudsRDTO.getIndex());
+						jsonGenerator.writeStringField("valor", dadesAtributsValorsLlistaSollicitudsRDTO.getValor());
+						jsonGenerator.writeEndObject();
+					}
 				}
 				jsonGenerator.writeEndArray();
 				jsonGenerator.writeEndObject();

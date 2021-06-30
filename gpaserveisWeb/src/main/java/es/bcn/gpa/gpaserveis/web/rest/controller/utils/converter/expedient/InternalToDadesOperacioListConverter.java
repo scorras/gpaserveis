@@ -1,7 +1,11 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.BooleanUtils;
@@ -24,6 +28,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DadesAtributsExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DadesAtributsValorsLlistaExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DadesAtributsValorsLlistaRepetibleExpedientsRDTO;
 import lombok.extern.apachecommons.CommonsLog;
 
@@ -51,6 +56,7 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 		List<String> valorCastellaList = null;
 		List<DadesAtributsValorsLlistaExpedientsRDTO> valorsLlistaList = null;
 		List<DadesAtributsValorsLlistaRepetibleExpedientsRDTO> valorsLlistaRepetibleList = null;
+		List<DadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO> valorsLlistaMultipleRepetibleList = null;
 		MunicipisRDTO municipisRDTO = null;
 		ProvinciesRDTO provinciesRDTO = null;
 		PaisosRDTO paisosRDTO = null;
@@ -71,6 +77,9 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 				valorCastellaList = new ArrayList<String>();
 				valorsLlistaList = new ArrayList<DadesAtributsValorsLlistaExpedientsRDTO>();
 				valorsLlistaRepetibleList = new ArrayList<DadesAtributsValorsLlistaRepetibleExpedientsRDTO>();
+				valorsLlistaMultipleRepetibleList = new ArrayList<DadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO>();
+				List<HashMap<Integer, Integer>> valorsListaMultiple = new ArrayList<HashMap<Integer, Integer>>();
+				List<Integer> ordreRepeticioList = new ArrayList<Integer>();
 				if (CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecifica().getDadesEspecifiquesValorsList())) {
 					for (DadesEspecifiquesValors dadesEspecifiquesValors : dadaEspecificaBDTO.getDadaEspecifica()
 					        .getDadesEspecifiquesValorsList()) {
@@ -96,8 +105,17 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorInteger() != null)
 							        ? dadesEspecifiquesValors.getValorInteger() : StringUtils.EMPTY);
 							if (dadesEspecifiquesValors.getValorListaMultiple() != null) {
-								valorsLlistaList.add(obtenirItemLlista(dadesEspecifiquesValors.getValorListaMultiple(),
-								        dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
+								if (dadesEspecifiquesValors.getOrdreRepeticio() != null && dadesEspecifiquesValors.getOrdreRepeticioMultiple() != null) {
+									HashMap<Integer, Integer> valorsListaMultipleMap = new HashMap<Integer, Integer>();
+									valorsListaMultipleMap.put(dadesEspecifiquesValors.getOrdreRepeticio(), dadesEspecifiquesValors.getValorListaMultiple());
+									valorsListaMultiple.add(valorsListaMultipleMap);
+									if (!ordreRepeticioList.contains(dadesEspecifiquesValors.getOrdreRepeticio())) {
+										ordreRepeticioList.add(dadesEspecifiquesValors.getOrdreRepeticio());
+									}
+								} else {
+									valorsLlistaList.add(obtenirItemLlista(dadesEspecifiquesValors.getValorListaMultiple(),
+									        dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
+								}
 							} else {
 								valorStringBuffer.append(StringUtils.EMPTY);
 							}
@@ -184,6 +202,23 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 					}
 					*/
 				}
+				
+				if (!valorsListaMultiple.isEmpty()) {
+					Collections.sort(ordreRepeticioList);
+					for(Integer ordreRepeticio : ordreRepeticioList) {
+						DadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO dadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO = new DadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO();
+						List<DadesAtributsValorsLlistaRepetibleExpedientsRDTO> dadesAtributsValorsLlistaRepetibleExpedientsRDTOList = new ArrayList<DadesAtributsValorsLlistaRepetibleExpedientsRDTO>();
+						for (HashMap<Integer, Integer> entry : valorsListaMultiple) {
+							if (entry.containsKey(ordreRepeticio)) {
+								dadesAtributsValorsLlistaRepetibleExpedientsRDTOList.add(obtenirDadesAtributsValorsLlistaRepetible(entry.get(ordreRepeticio),
+								dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
+							}
+						}
+						dadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO.setValorsLlistaRepetible(dadesAtributsValorsLlistaRepetibleExpedientsRDTOList);
+						valorsLlistaMultipleRepetibleList.add(dadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO);
+					}
+				}
+				
 				// Con el objetivo de que no aparezcan en el XML, las listas que
 				// van vacías se ponen a null
 				if (CollectionUtils.isEmpty(valorList)) {
@@ -198,11 +233,15 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 				if(CollectionUtils.isEmpty(valorsLlistaRepetibleList)){
 					valorsLlistaRepetibleList = null;
 				}
+				if(CollectionUtils.isEmpty(valorsLlistaMultipleRepetibleList)){
+					valorsLlistaMultipleRepetibleList = null;
+				}
 				dadesAtributsExpedientsRDTO.setIndex(index);
 				dadesAtributsExpedientsRDTO.setValor(valorList);
 				dadesAtributsExpedientsRDTO.setValorCastella(valorCastellaList);
 				dadesAtributsExpedientsRDTO.setValorsLlista(valorsLlistaList);
 				dadesAtributsExpedientsRDTO.setValorsLlistaRepetible(valorsLlistaRepetibleList);
+				dadesAtributsExpedientsRDTO.setValorsLlistaMultipleRepetible(valorsLlistaMultipleRepetibleList);
 				dadesAtributsExpedientsRDTOList.add(dadesAtributsExpedientsRDTO);
 			}
 
