@@ -31,14 +31,14 @@ public class JsonAtributsActualitzarDeserializer extends JsonDeserializer<Atribu
 		JsonNode jsonNode = objectCodec.readTree(jsonParser);
 
 		AtributsActualitzarRDTO atributsActualitzarRDTO = new AtributsActualitzarRDTO();
-		List<String> valorList = new ArrayList<String>();
-		List<List<String>> valorLlistaMultipleRepetibleList = new ArrayList<List<String>>();
-		
+		List<String> valorList = null;
+		List<List<String>> valorLlistaMultipleRepetibleList = null;
 		String codi = jsonNode.get("codi").textValue();
 		JsonNode jsonNodeValor = jsonNode.get("valor");
 		JsonNode jsonNodeValorLlistaMultipleRepetible = jsonNode.get("valorLlistaMultipleRepetible");
 		
 		if(jsonNodeValor != null){
+			valorList = new ArrayList<String>();
 			if (StringUtils.equals(codi, Constants.CODI_DADA_OPERACIO_DADES_EXTERNES)) {
 				valorList.add(jsonNodeValor.toString());
 			} else {
@@ -51,7 +51,8 @@ public class JsonAtributsActualitzarDeserializer extends JsonDeserializer<Atribu
 			}
 		}
 		
-		if(jsonNodeValorLlistaMultipleRepetible != null) {		
+		if(jsonNodeValorLlistaMultipleRepetible != null) {	
+			valorLlistaMultipleRepetibleList = new ArrayList<List<String>>();
 			Iterator<JsonNode> jsonNodeIterator = jsonNodeValorLlistaMultipleRepetible.elements();
 			JsonNode jsonNodeAux = null;
 			while (jsonNodeIterator.hasNext()) {
