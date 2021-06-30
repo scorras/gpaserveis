@@ -40,7 +40,9 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRepetiblesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValorsJson;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
@@ -59,6 +61,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDT
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UsuarisRDTO;
 import es.bcn.gpa.gpaserveis.web.exception.GPAApiParamValidationException;
 import es.bcn.gpa.gpaserveis.web.initialization.interceptor.ClientEntity;
+import es.bcn.gpa.gpaserveis.web.rest.controller.helper.bean.ValidateDadesOperacioResultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
@@ -471,14 +474,14 @@ public class ServeisRestControllerValidationHelper {
 	 *            the id sollicitud
 	 * @param isPortal
 	 *            the is portal
-	 * @return the array list
+	 * @return the validate dades operacio resultat
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
-	public static ArrayList<DadesEspecifiquesRDTO> validateDadesOperacioActualitzarSolicitudExpedient(
+	public static ValidateDadesOperacioResultat validateDadesOperacioActualitzarSolicitudExpedient(
 	        List<AtributsActualitzarRDTO> dadesOperacio, List<DadesGrupsRDTO> dadesGrupsRDTOList, BigDecimal idExpedient,
 	        BigDecimal idSollicitud, boolean isPortal) throws GPAApiParamValidationException {
-		ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
+		ValidateDadesOperacioResultat validateDadesOperacioResultat = null;
 		HashMap<String, List<String>> atributsMap = new HashMap<String, List<String>>();
 		HashMap<String, List<List<String>>> atributsMapListaMultiple = new HashMap<String, List<List<String>>>();
 		if (CollectionUtils.isNotEmpty(dadesOperacio)) {
@@ -486,9 +489,10 @@ public class ServeisRestControllerValidationHelper {
 				atributsMap.put(atributsActualitzarRDTO.getCodi(), atributsActualitzarRDTO.getValor());
 				atributsMapListaMultiple.put(atributsActualitzarRDTO.getCodi(), atributsActualitzarRDTO.getValorLlistaMultipleRepetible());
 			}
-			dadesEspecifiquesRDTOList = validateDadesOperacio(atributsMap, atributsMapListaMultiple, dadesGrupsRDTOList, idExpedient, idSollicitud, isPortal);
+			validateDadesOperacioResultat = validateDadesOperacio(atributsMap, atributsMapListaMultiple, dadesGrupsRDTOList, idExpedient,
+			        idSollicitud, isPortal);
 		}
-		return dadesEspecifiquesRDTOList;
+		return validateDadesOperacioResultat;
 	}
 
 	/**
@@ -538,41 +542,52 @@ public class ServeisRestControllerValidationHelper {
 	 * @throws GPAApiParamValidationException
 	 *             the GPA api param validation exception
 	 */
-	public static ArrayList<DadesEspecifiquesRDTO> validateDadesOperacioEsmenarExpedient(List<AtributRequeritRDTO> dadesOperacio,
+	public static ValidateDadesOperacioResultat validateDadesOperacioEsmenarExpedient(List<AtributRequeritRDTO> dadesOperacio,
 	        List<DadesGrupsRDTO> dadesGrupsRDTOList, BigDecimal idExpedient) throws GPAApiParamValidationException {
-		ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
+		ValidateDadesOperacioResultat validateDadesOperacioResultat = null;
 		HashMap<String, List<String>> atributsMap = new HashMap<String, List<String>>();
 		if (CollectionUtils.isNotEmpty(dadesOperacio)) {
 			for (AtributRequeritRDTO atributRequeritRDTO : dadesOperacio) {
 				atributsMap.put(atributRequeritRDTO.getCodi(), atributRequeritRDTO.getValor());
-				
+
 			}
-			//dadesEspecifiquesRDTOList = validateDadesOperacio(atributsMap, null, dadesGrupsRDTOList, idExpedient, null, true);
+			// dadesEspecifiquesRDTOList = validateDadesOperacio(atributsMap,
+			// null, dadesGrupsRDTOList, idExpedient, null, true);
 		}
-		return dadesEspecifiquesRDTOList;
+		return validateDadesOperacioResultat;
 	}
 
-	
 	/**
 	 * Validate dades operacio.
 	 *
-	 * @param atributsMap the atributs map
-	 * @param atributsMapListaMultiple the atributs map lista multiple
-	 * @param dadesGrupsRDTOList the dades grups RDTO list
-	 * @param idExpedient the id expedient
-	 * @param idSollicitud the id sollicitud
-	 * @param isPortal the is portal
-	 * @return the array list
-	 * @throws GPAApiParamValidationException the GPA api param validation exception
+	 * @param atributsMap
+	 *            the atributs map
+	 * @param atributsMapListaMultiple
+	 *            the atributs map lista multiple
+	 * @param dadesGrupsRDTOList
+	 *            the dades grups RDTO list
+	 * @param idExpedient
+	 *            the id expedient
+	 * @param idSollicitud
+	 *            the id sollicitud
+	 * @param isPortal
+	 *            the is portal
+	 * @return the validate dades operacio resultat
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
 	 */
-	private static ArrayList<DadesEspecifiquesRDTO> validateDadesOperacio(Map<String, List<String>> atributsMap, Map<String, List<List<String>>> atributsMapListaMultiple,
-	        List<DadesGrupsRDTO> dadesGrupsRDTOList, BigDecimal idExpedient, BigDecimal idSollicitud, boolean isPortal)
-	        throws GPAApiParamValidationException {
+	private static ValidateDadesOperacioResultat validateDadesOperacio(Map<String, List<String>> atributsMap,
+	        Map<String, List<List<String>>> atributsMapListaMultiple, List<DadesGrupsRDTO> dadesGrupsRDTOList, BigDecimal idExpedient,
+	        BigDecimal idSollicitud, boolean isPortal) throws GPAApiParamValidationException {
+		ValidateDadesOperacioResultat validateDadesOperacioResultat = new ValidateDadesOperacioResultat();
 		ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
+		ArrayList<DadesEspecifiquesRepetiblesRDTO> dadesEspecifiquesRepetiblesRDTOList = null;
 
+		HashMap<String, DadesGrupsRDTO> dadesGrupsMap = new HashMap<String, DadesGrupsRDTO>();
 		HashMap<String, DadesOperacions> dadesOperacionsMap = new HashMap<String, DadesOperacions>();
 		if (CollectionUtils.isNotEmpty(dadesGrupsRDTOList)) {
 			for (DadesGrupsRDTO dadesGrupsRDTO : dadesGrupsRDTOList) {
+				dadesGrupsMap.put("GRUP_" + dadesGrupsRDTO.getId().toString(), dadesGrupsRDTO);
 				if (CollectionUtils.isNotEmpty(dadesGrupsRDTO.getDadesOperacionsList())) {
 					for (DadesOperacions dadesOperacions : dadesGrupsRDTO.getDadesOperacionsList()) {
 						dadesOperacionsMap.put(dadesOperacions.getCodi(), dadesOperacions);
@@ -581,232 +596,273 @@ public class ServeisRestControllerValidationHelper {
 			}
 		}
 		dadesEspecifiquesRDTOList = new ArrayList<DadesEspecifiquesRDTO>();
+		dadesEspecifiquesRepetiblesRDTOList = new ArrayList<DadesEspecifiquesRepetiblesRDTO>();
 		DadesEspecifiquesRDTO dadesEspecifiquesRDTO = null;
+		DadesEspecifiquesRepetiblesRDTO dadesEspecifiquesRepetiblesRDTO = null;
 		DadesOperacions dadesOperacions = null;
 		List<DadesEspecifiquesValors> dadesEspecifiquesValorsList = null;
+		List<DadesEspecifiquesValorsJson> dadesEspecifiquesValorsJsonList = null;
 		DadesEspecifiquesValors dadesEspecifiquesValors = null;
+		DadesEspecifiquesValorsJson dadesEspecifiquesValorsJson = null;
 		DateTimeFormatter dataFormatter = DateTimeFormat.forPattern(Constants.DATE_PATTERN);
 		DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
 		DateTimeFormatter horaFormatter = DateTimeFormat.forPattern(Constants.TIME_PATTERN);
 		NumberFormat numberFormat = NumberFormat.getInstance(LocaleContextHolder.getLocale());
 		TipusCampApiParamValueTranslator tipusCampApiParamValueTranslator = new TipusCampApiParamValueTranslator();
 		TipusCampApiParamValue tipusCampApiParamValue = null;
-		
-		if(CollectionUtils.isNotEmpty(atributsMap.values())){
+
+		if (CollectionUtils.isNotEmpty(atributsMap.values())) {
 			for (Entry<String, List<String>> atributEntry : atributsMap.entrySet()) {
-				if(atributEntry.getValue() != null){
+				if (atributEntry.getValue() != null) {
 					if (!dadesOperacionsMap.containsKey(atributEntry.getKey())
 					        && !StringUtils.equals(atributEntry.getKey(), Constants.CODI_DADA_OPERACIO_DADES_EXTERNES)) {
 						throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
 						        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_FOUND, atributEntry.getKey());
 					}
-	
-					dadesEspecifiquesRDTO = new DadesEspecifiquesRDTO();
-					dadesEspecifiquesValorsList = new ArrayList<DadesEspecifiquesValors>();
-					dadesEspecifiquesValors = new DadesEspecifiquesValors();
-					dadesEspecifiquesRDTO.setExpedient(idExpedient);
-					dadesEspecifiquesRDTO.setNou(isPortal? INTEGER_ONE :INTEGER_ZERO);			
-	
-					if (StringUtils.equals(atributEntry.getKey(), Constants.CODI_DADA_OPERACIO_DADES_EXTERNES)) {
-						// Dato de operación genérico DADES_EXTERNES
-						String valorDadesExternes = atributEntry.getValue().get(INTEGER_ZERO);
-						// Se valida que el dato en String tenga formato JSON
-						validateDadesOperacioDadesExternes(valorDadesExternes);
-						dadesEspecifiquesValors.setValorClob(valorDadesExternes);
-						dadesEspecifiquesValors.setSollicitud(idSollicitud);
-						dadesEspecifiquesValorsList.add(dadesEspecifiquesValors);
+
+					// GRUP_XX ó dato de operación con subgrupo asociado
+					if (dadesGrupsMap.containsKey(atributEntry.getKey()) || (dadesOperacionsMap.containsKey(atributEntry.getKey())
+					        && dadesOperacionsMap.get(atributEntry.getKey()).getIdDefinicioGrup() != null)) {
+						dadesEspecifiquesRepetiblesRDTO = new DadesEspecifiquesRepetiblesRDTO();
+						dadesEspecifiquesValorsJsonList = new ArrayList<DadesEspecifiquesValorsJson>();
+						dadesEspecifiquesValorsJson = new DadesEspecifiquesValorsJson();
+						dadesEspecifiquesRepetiblesRDTO.setExpedient(idExpedient);
+						dadesEspecifiquesRepetiblesRDTO.setNou(isPortal ? INTEGER_ONE : INTEGER_ZERO);
+
+						// Dato de operación de tipo grupo repetible. Valor en
+						// formato
+						// JSON
+						String valorGrupRepetible = atributEntry.getValue().get(INTEGER_ZERO);
+						// Se valida que el dato en String tenga formato JSON,
+						// que cumpla con el esquema codisColumnes y
+						// valorsColumnes, que los codisColumnes se correspondan
+						// con los datos de operación configurados en el grupo
+						// repetible y que los valorsColumnes sean válidos según
+						// las validaciones configuradas
+						validateDadesOperacioGrupRepetible(atributEntry.getKey(), valorGrupRepetible,
+						        dadesGrupsMap.get(atributEntry.getKey()));
+
+						dadesEspecifiquesValorsJson.setValorJson(valorGrupRepetible);
+						dadesEspecifiquesValorsJson.setSollicitud(idSollicitud);
+						dadesEspecifiquesValorsJsonList.add(dadesEspecifiquesValorsJson);
+
+						dadesEspecifiquesRepetiblesRDTO.setDadesEspecifiquesValorsJsonList(dadesEspecifiquesValorsJsonList);
+						dadesEspecifiquesRepetiblesRDTOList.add(dadesEspecifiquesRepetiblesRDTO);
 					} else {
-						// Resto de datos de operación
-						dadesOperacions = dadesOperacionsMap.get(atributEntry.getKey());
-						dadesEspecifiquesRDTO.setCampIdext(dadesOperacions.getId());				
-	
-						tipusCampApiParamValue = tipusCampApiParamValueTranslator.getEnumByInternalValue(dadesOperacions.getTipus());
-						
-						if(dadesOperacions.getTipusDadaOperacio().equals(Constants.DADES_OPERACIONS_REPETIBLE)){
-							dadesEspecifiquesValorsList = obtenirDadesEspecifiquesValorsRepetiblesList(atributEntry , dadesOperacions, 
-		                            														tipusCampApiParamValue, idSollicitud, false);
-						} else {							
-	
-							try {
-								switch (tipusCampApiParamValue) {
-								case NUMERIC:
-									if (atributEntry.getValue().get(0) != null) {
-										Long valorInteger = Long.valueOf(atributEntry.getValue().get(INTEGER_ZERO));
-										validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorInteger));
-										dadesEspecifiquesValors.setValorInteger(valorInteger);
-									}
-									break;
-								case DECIMAL:
-									if (atributEntry.getValue().get(0) != null) {
-										Double valorDouble = Double.valueOf(atributEntry.getValue().get(INTEGER_ZERO));
-										validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorDouble));
-										dadesEspecifiquesValors.setValorDouble(valorDouble);
-									}
-									break;
-								case MONEDA:
-									if (atributEntry.getValue().get(0) != null) {
-										Double valorMoneda = Double.valueOf(atributEntry.getValue().get(INTEGER_ZERO));
-										validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorMoneda));
-										dadesEspecifiquesValors.setValorMoneda(valorMoneda);
-									}
-									break;
-								case DATA:
-									if (atributEntry.getValue().get(0) != null) {
-										DateTime valorData = DateTime.parse(atributEntry.getValue().get(INTEGER_ZERO), dataFormatter);
-										validateDadesOperacioDataGeneral(dadesOperacions, valorData, tipusCampApiParamValue);
-										dadesEspecifiquesValors.setValorCalendar(valorData);
-									}
-									break;
-								case DATA_HORA:
-									if (atributEntry.getValue().get(0) != null) {
-										DateTime valorDataHora = DateTime.parse(atributEntry.getValue().get(INTEGER_ZERO), dataHoraFormatter);
-										validateDadesOperacioDataGeneral(dadesOperacions, valorDataHora, tipusCampApiParamValue);
-										dadesEspecifiquesValors.setValorCalendar(valorDataHora);
-									}
-									break;
-								case HORA:
-									if (atributEntry.getValue().get(0) != null) {
-										DateTime valorHora = DateTime.parse(atributEntry.getValue().get(INTEGER_ZERO), horaFormatter);
-										validateDadesOperacioDataGeneral(dadesOperacions, valorHora, tipusCampApiParamValue);
-										dadesEspecifiquesValors.setValorCalendar(valorHora);
-									}
-									break;
-								case TEXT:
-									if (atributEntry.getValue().get(0) != null) {
-										String valorText = atributEntry.getValue().get(INTEGER_ZERO);
-										validateDadesOperacioCadenaGeneral(dadesOperacions, valorText);
-										dadesEspecifiquesValors.setValorString(valorText);
-									}
-									break;
-								case TEXT_GRAN:
-									if (atributEntry.getValue().get(0) != null) {
-										String valorTextGran = atributEntry.getValue().get(INTEGER_ZERO);
-										validateDadesOperacioCadenaGeneral(dadesOperacions, valorTextGran);
-										dadesEspecifiquesValors.setValorClob(valorTextGran);
-									}
-									break;
-								case LITERAL:
-									break;
-								case LLISTA_SIMPLE:
-									if (atributEntry.getValue().get(0) != null) {
-										Integer valorLlistaSimple = Integer.valueOf(atributEntry.getValue().get(INTEGER_ZERO));
-										validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorLlistaSimple));
-										dadesEspecifiquesValors.setValorListaSimple(valorLlistaSimple);
-									}
-									break;
-								case LLISTA_MULTIPLE:
-									if (atributEntry.getValue().get(0) != null) {
-										ArrayList<Integer> integerList = new ArrayList<Integer>();
-										if (CollectionUtils.isNotEmpty(atributEntry.getValue())) {
-											for (String valor : atributEntry.getValue()) {
-												integerList.add(Integer.valueOf(valor));
-											}
-										}
-										dadesEspecifiquesValors.setValorListaMultipleList(integerList);
-									}
-									break;
-								case MARCADOR:
-									// Debe funcionar independientemente de lo que se envíe
-									// (1/0, true/false)
-									Boolean valorBoolean = null;
-									try {
-										valorBoolean = BooleanUtils.toBoolean(Integer.valueOf(atributEntry.getValue().get(INTEGER_ZERO)),
-										        NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO);
-									} catch (IllegalArgumentException e) {
-										log.info("Valor booleà no informat com Integer. Provant com a cadena...", e);
-										valorBoolean = BooleanUtils.toBoolean(atributEntry.getValue().get(INTEGER_ZERO), Boolean.TRUE.toString(),
-										        Boolean.FALSE.toString());
-									}
-									dadesEspecifiquesValors.setValorBoolean(
-									        BooleanUtils.toIntegerObject(valorBoolean, NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO));
-									break;
-								case PAIS:
-									if (atributEntry.getValue().get(0) != null) {
-										String valorPaisCodiIne = atributEntry.getValue().get(INTEGER_ZERO);
-										validateDadesOperacioCadenaGeneral(dadesOperacions, valorPaisCodiIne);
-										dadesEspecifiquesValors.setValorPais(valorPaisCodiIne);
-									}
-									break;
-								case PROVINCIA:
-									if (atributEntry.getValue().get(0) != null) {
-										String valorProvinciaCodiIne = atributEntry.getValue().get(INTEGER_ZERO);
-										validateDadesOperacioCadenaGeneral(dadesOperacions, valorProvinciaCodiIne);
-										dadesEspecifiquesValors.setValorProvincia(valorProvinciaCodiIne);
-									}
-									break;
-								case MUNICIPI:
-									if (atributEntry.getValue().get(0) != null) {
-										String valorMunicipiCodiIne = atributEntry.getValue().get(INTEGER_ZERO);
-										validateDadesOperacioCadenaGeneral(dadesOperacions, valorMunicipiCodiIne);
-										dadesEspecifiquesValors.setValorMunicipi(valorMunicipiCodiIne);
-									}
-									break;
-								default:
-									break;
-								}
-							} catch (GPAApiParamValidationException e) {
-								throw e;
-							} catch (Exception e) {
-								throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
-								        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_CORRECT_VALUE, StringUtils.join(atributEntry.getValue(), ", "), e);
-							}
-							
-						}	
-						
-						if(!dadesOperacions.getTipusDadaOperacio().equals(Constants.DADES_OPERACIONS_REPETIBLE)){
-							if (CollectionUtils.isNotEmpty(dadesEspecifiquesValors.getValorListaMultipleList())) {
-								DadesEspecifiquesValors dadesEspecifiquesValorsListaMultiple = null;
-								for (Integer valor : dadesEspecifiquesValors.getValorListaMultipleList()) {
-									dadesEspecifiquesValorsListaMultiple = new DadesEspecifiquesValors();
-									dadesEspecifiquesValorsListaMultiple.setValorListaMultiple(valor);
-									dadesEspecifiquesValorsListaMultiple.setSollicitud(idSollicitud);
-									dadesEspecifiquesValorsList.add(dadesEspecifiquesValorsListaMultiple);
-								}
+						dadesEspecifiquesRDTO = new DadesEspecifiquesRDTO();
+						dadesEspecifiquesValorsList = new ArrayList<DadesEspecifiquesValors>();
+						dadesEspecifiquesValors = new DadesEspecifiquesValors();
+						dadesEspecifiquesRDTO.setExpedient(idExpedient);
+						dadesEspecifiquesRDTO.setNou(isPortal ? INTEGER_ONE : INTEGER_ZERO);
+
+						if (StringUtils.equals(atributEntry.getKey(), Constants.CODI_DADA_OPERACIO_DADES_EXTERNES)) {
+							// Dato de operación genérico DADES_EXTERNES
+							String valorDadesExternes = atributEntry.getValue().get(INTEGER_ZERO);
+							// Se valida que el dato en String tenga formato
+							// JSON
+							validateDadesOperacioDadesExternes(valorDadesExternes);
+							dadesEspecifiquesValors.setValorClob(valorDadesExternes);
+							dadesEspecifiquesValors.setSollicitud(idSollicitud);
+							dadesEspecifiquesValorsList.add(dadesEspecifiquesValors);
+						} else {
+							// Resto de datos de operación
+							dadesOperacions = dadesOperacionsMap.get(atributEntry.getKey());
+							dadesEspecifiquesRDTO.setCampIdext(dadesOperacions.getId());
+
+							tipusCampApiParamValue = tipusCampApiParamValueTranslator.getEnumByInternalValue(dadesOperacions.getTipus());
+
+							if (dadesOperacions.getTipusDadaOperacio().equals(Constants.DADES_OPERACIONS_REPETIBLE)) {
+								dadesEspecifiquesValorsList = obtenirDadesEspecifiquesValorsRepetiblesList(atributEntry, dadesOperacions,
+								        tipusCampApiParamValue, idSollicitud, false);
 							} else {
-								dadesEspecifiquesValors.setSollicitud(idSollicitud);
-								dadesEspecifiquesValorsList.add(dadesEspecifiquesValors);										
+
+								try {
+									switch (tipusCampApiParamValue) {
+									case NUMERIC:
+										if (atributEntry.getValue().get(0) != null) {
+											Long valorInteger = Long.valueOf(atributEntry.getValue().get(INTEGER_ZERO));
+											validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorInteger));
+											dadesEspecifiquesValors.setValorInteger(valorInteger);
+										}
+										break;
+									case DECIMAL:
+										if (atributEntry.getValue().get(0) != null) {
+											Double valorDouble = Double.valueOf(atributEntry.getValue().get(INTEGER_ZERO));
+											validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorDouble));
+											dadesEspecifiquesValors.setValorDouble(valorDouble);
+										}
+										break;
+									case MONEDA:
+										if (atributEntry.getValue().get(0) != null) {
+											Double valorMoneda = Double.valueOf(atributEntry.getValue().get(INTEGER_ZERO));
+											validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorMoneda));
+											dadesEspecifiquesValors.setValorMoneda(valorMoneda);
+										}
+										break;
+									case DATA:
+										if (atributEntry.getValue().get(0) != null) {
+											DateTime valorData = DateTime.parse(atributEntry.getValue().get(INTEGER_ZERO), dataFormatter);
+											validateDadesOperacioDataGeneral(dadesOperacions, valorData, tipusCampApiParamValue);
+											dadesEspecifiquesValors.setValorCalendar(valorData);
+										}
+										break;
+									case DATA_HORA:
+										if (atributEntry.getValue().get(0) != null) {
+											DateTime valorDataHora = DateTime.parse(atributEntry.getValue().get(INTEGER_ZERO),
+											        dataHoraFormatter);
+											validateDadesOperacioDataGeneral(dadesOperacions, valorDataHora, tipusCampApiParamValue);
+											dadesEspecifiquesValors.setValorCalendar(valorDataHora);
+										}
+										break;
+									case HORA:
+										if (atributEntry.getValue().get(0) != null) {
+											DateTime valorHora = DateTime.parse(atributEntry.getValue().get(INTEGER_ZERO), horaFormatter);
+											validateDadesOperacioDataGeneral(dadesOperacions, valorHora, tipusCampApiParamValue);
+											dadesEspecifiquesValors.setValorCalendar(valorHora);
+										}
+										break;
+									case TEXT:
+										if (atributEntry.getValue().get(0) != null) {
+											String valorText = atributEntry.getValue().get(INTEGER_ZERO);
+											validateDadesOperacioCadenaGeneral(dadesOperacions, valorText);
+											dadesEspecifiquesValors.setValorString(valorText);
+										}
+										break;
+									case TEXT_GRAN:
+										if (atributEntry.getValue().get(0) != null) {
+											String valorTextGran = atributEntry.getValue().get(INTEGER_ZERO);
+											validateDadesOperacioCadenaGeneral(dadesOperacions, valorTextGran);
+											dadesEspecifiquesValors.setValorClob(valorTextGran);
+										}
+										break;
+									case LITERAL:
+										break;
+									case LLISTA_SIMPLE:
+										if (atributEntry.getValue().get(0) != null) {
+											Integer valorLlistaSimple = Integer.valueOf(atributEntry.getValue().get(INTEGER_ZERO));
+											validateDadesOperacioNumericGeneral(dadesOperacions, BigDecimal.valueOf(valorLlistaSimple));
+											dadesEspecifiquesValors.setValorListaSimple(valorLlistaSimple);
+										}
+										break;
+									case LLISTA_MULTIPLE:
+										if (atributEntry.getValue().get(0) != null) {
+											ArrayList<Integer> integerList = new ArrayList<Integer>();
+											if (CollectionUtils.isNotEmpty(atributEntry.getValue())) {
+												for (String valor : atributEntry.getValue()) {
+													integerList.add(Integer.valueOf(valor));
+												}
+											}
+											dadesEspecifiquesValors.setValorListaMultipleList(integerList);
+										}
+										break;
+									case MARCADOR:
+										// Debe funcionar independientemente de
+										// lo
+										// que se envíe
+										// (1/0, true/false)
+										Boolean valorBoolean = null;
+										try {
+											valorBoolean = BooleanUtils.toBoolean(
+											        Integer.valueOf(atributEntry.getValue().get(INTEGER_ZERO)), NumberUtils.INTEGER_ONE,
+											        NumberUtils.INTEGER_ZERO);
+										} catch (IllegalArgumentException e) {
+											log.info("Valor booleà no informat com Integer. Provant com a cadena...", e);
+											valorBoolean = BooleanUtils.toBoolean(atributEntry.getValue().get(INTEGER_ZERO),
+											        Boolean.TRUE.toString(), Boolean.FALSE.toString());
+										}
+										dadesEspecifiquesValors.setValorBoolean(BooleanUtils.toIntegerObject(valorBoolean,
+										        NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO));
+										break;
+									case PAIS:
+										if (atributEntry.getValue().get(0) != null) {
+											String valorPaisCodiIne = atributEntry.getValue().get(INTEGER_ZERO);
+											validateDadesOperacioCadenaGeneral(dadesOperacions, valorPaisCodiIne);
+											dadesEspecifiquesValors.setValorPais(valorPaisCodiIne);
+										}
+										break;
+									case PROVINCIA:
+										if (atributEntry.getValue().get(0) != null) {
+											String valorProvinciaCodiIne = atributEntry.getValue().get(INTEGER_ZERO);
+											validateDadesOperacioCadenaGeneral(dadesOperacions, valorProvinciaCodiIne);
+											dadesEspecifiquesValors.setValorProvincia(valorProvinciaCodiIne);
+										}
+										break;
+									case MUNICIPI:
+										if (atributEntry.getValue().get(0) != null) {
+											String valorMunicipiCodiIne = atributEntry.getValue().get(INTEGER_ZERO);
+											validateDadesOperacioCadenaGeneral(dadesOperacions, valorMunicipiCodiIne);
+											dadesEspecifiquesValors.setValorMunicipi(valorMunicipiCodiIne);
+										}
+										break;
+									default:
+										break;
+									}
+								} catch (GPAApiParamValidationException e) {
+									throw e;
+								} catch (Exception e) {
+									throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
+									        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_CORRECT_VALUE,
+									        StringUtils.join(atributEntry.getValue(), ", "), e);
+								}
+
 							}
-						}		
+
+							if (!dadesOperacions.getTipusDadaOperacio().equals(Constants.DADES_OPERACIONS_REPETIBLE)) {
+								if (CollectionUtils.isNotEmpty(dadesEspecifiquesValors.getValorListaMultipleList())) {
+									DadesEspecifiquesValors dadesEspecifiquesValorsListaMultiple = null;
+									for (Integer valor : dadesEspecifiquesValors.getValorListaMultipleList()) {
+										dadesEspecifiquesValorsListaMultiple = new DadesEspecifiquesValors();
+										dadesEspecifiquesValorsListaMultiple.setValorListaMultiple(valor);
+										dadesEspecifiquesValorsListaMultiple.setSollicitud(idSollicitud);
+										dadesEspecifiquesValorsList.add(dadesEspecifiquesValorsListaMultiple);
+									}
+								} else {
+									dadesEspecifiquesValors.setSollicitud(idSollicitud);
+									dadesEspecifiquesValorsList.add(dadesEspecifiquesValors);
+								}
+							}
+						}
+						dadesEspecifiquesRDTO.setDadesEspecifiquesValorsList(dadesEspecifiquesValorsList);
+						dadesEspecifiquesRDTOList.add(dadesEspecifiquesRDTO);
 					}
-					dadesEspecifiquesRDTO.setDadesEspecifiquesValorsList(dadesEspecifiquesValorsList);
-					dadesEspecifiquesRDTOList.add(dadesEspecifiquesRDTO);
 				}
 			}
-			
+
 		}
-	
-		if(CollectionUtils.isNotEmpty(atributsMapListaMultiple.values())){
+
+		if (CollectionUtils.isNotEmpty(atributsMapListaMultiple.values())) {
 			for (Entry<String, List<List<String>>> atributLlistaMultipleRepetibleEntry : atributsMapListaMultiple.entrySet()) {
-				if(atributLlistaMultipleRepetibleEntry.getValue() != null){
-					if (!dadesOperacionsMap.containsKey(atributLlistaMultipleRepetibleEntry.getKey())
-					        && !StringUtils.equals(atributLlistaMultipleRepetibleEntry.getKey(), Constants.CODI_DADA_OPERACIO_DADES_EXTERNES)) {
+				if (atributLlistaMultipleRepetibleEntry.getValue() != null) {
+					if (!dadesOperacionsMap.containsKey(atributLlistaMultipleRepetibleEntry.getKey()) && !StringUtils
+					        .equals(atributLlistaMultipleRepetibleEntry.getKey(), Constants.CODI_DADA_OPERACIO_DADES_EXTERNES)) {
 						throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
 						        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_FOUND, atributLlistaMultipleRepetibleEntry.getKey());
 					}
 
 					dadesEspecifiquesRDTO = new DadesEspecifiquesRDTO();
-					dadesEspecifiquesValorsList = new ArrayList<DadesEspecifiquesValors>();				
+					dadesEspecifiquesValorsList = new ArrayList<DadesEspecifiquesValors>();
 					dadesEspecifiquesValors = new DadesEspecifiquesValors();
 					dadesEspecifiquesRDTO.setExpedient(idExpedient);
-					dadesEspecifiquesRDTO.setNou(isPortal? INTEGER_ONE :INTEGER_ZERO);	
-					
-					// Por aquí sólo pasaremos para tratar los datos repetibles para listas múltiples
+					dadesEspecifiquesRDTO.setNou(isPortal ? INTEGER_ONE : INTEGER_ZERO);
+
+					// Por aquí sólo pasaremos para tratar los datos repetibles
+					// para listas múltiples
 					dadesOperacions = dadesOperacionsMap.get(atributLlistaMultipleRepetibleEntry.getKey());
 					dadesEspecifiquesRDTO.setCampIdext(dadesOperacions.getId());
-					
+
 					tipusCampApiParamValue = tipusCampApiParamValueTranslator.getEnumByInternalValue(dadesOperacions.getTipus());
-					
-					int ordreRepeticio = 1;	
-					for(List<String> llistaMultiple : atributLlistaMultipleRepetibleEntry.getValue()){
-						
-						Map.Entry<String, List<String>> atributsMapValorsLlistaMultiple = new java.util.AbstractMap.SimpleEntry<String, List<String>>(atributLlistaMultipleRepetibleEntry.getKey(), llistaMultiple);
-											
-						
-						List<DadesEspecifiquesValors> dadesEspecifiquesValorsListAux = obtenirDadesEspecifiquesValorsRepetiblesList(atributsMapValorsLlistaMultiple , dadesOperacions, 
-								tipusCampApiParamValue, idSollicitud, true);
-						
-						if(CollectionUtils.isNotEmpty(dadesEspecifiquesValorsListAux)){
-							for(DadesEspecifiquesValors dadesEspecValors : dadesEspecifiquesValorsListAux){
+
+					int ordreRepeticio = 1;
+					for (List<String> llistaMultiple : atributLlistaMultipleRepetibleEntry.getValue()) {
+
+						Map.Entry<String, List<String>> atributsMapValorsLlistaMultiple = new java.util.AbstractMap.SimpleEntry<String, List<String>>(
+						        atributLlistaMultipleRepetibleEntry.getKey(), llistaMultiple);
+
+						List<DadesEspecifiquesValors> dadesEspecifiquesValorsListAux = obtenirDadesEspecifiquesValorsRepetiblesList(
+						        atributsMapValorsLlistaMultiple, dadesOperacions, tipusCampApiParamValue, idSollicitud, true);
+
+						if (CollectionUtils.isNotEmpty(dadesEspecifiquesValorsListAux)) {
+							for (DadesEspecifiquesValors dadesEspecValors : dadesEspecifiquesValorsListAux) {
 								dadesEspecValors.setOrdreRepeticio(ordreRepeticio);
 								dadesEspecValors.setValorListaMultiple(dadesEspecValors.getValorListaMultipleList().get(0));
 								dadesEspecifiquesValorsList.add(dadesEspecValors);
@@ -815,159 +871,199 @@ public class ServeisRestControllerValidationHelper {
 						dadesEspecifiquesRDTO.setDadesEspecifiquesValorsList(dadesEspecifiquesValorsList);
 						dadesEspecifiquesRDTOList.add(dadesEspecifiquesRDTO);
 						ordreRepeticio++;
-					}	
-					
-				}				
-			}				
+					}
+
+				}
+			}
 		}
 
-		return dadesEspecifiquesRDTOList;
+		validateDadesOperacioResultat.setDadesEspecifiquesRDTOList(dadesEspecifiquesRDTOList);
+		validateDadesOperacioResultat.setDadesEspecifiquesRepetiblesRDTOList(dadesEspecifiquesRepetiblesRDTOList);
+
+		return validateDadesOperacioResultat;
 	}
-	
-	
-	private static List<DadesEspecifiquesValors> obtenirDadesEspecifiquesValorsRepetiblesList(Entry<String, List<String>> atributEntry , DadesOperacions dadesOperacions, 
-			                                        TipusCampApiParamValue tipusCampApiParamValue, BigDecimal idSollicitud, boolean isLlistaMultipleRepetible) throws GPAApiParamValidationException{
-		
+
+	/**
+	 * Validate dades operacio grup repetible.
+	 *
+	 * @param codiDadaOperacio
+	 *            the codi dada operacio
+	 * @param valorGrupRepetible
+	 *            the valor grup repetible
+	 * @param dadesGrupsRDTO
+	 *            the dades grups RDTO
+	 * @throws GPAApiParamValidationException
+	 */
+	private static void validateDadesOperacioGrupRepetible(String codiDadaOperacio, String valorGrupRepetible,
+	        DadesGrupsRDTO dadesGrupsRDTO) throws GPAApiParamValidationException {
+		try {
+
+			// TODO Se valida que el dato en String tenga formato JSON,
+			// que cumpla con el esquema codisColumnes y
+			// valorsColumnes, que los codisColumnes se correspondan
+			// con los datos de operación configurados en el grupo
+			// repetible y que los valorsColumnes sean válidos según
+			// las validaciones configuradas
+
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.readTree(valorGrupRepetible);
+		} catch (JsonParseException jpe) {
+			log.info("El valor de la Dada d'operació " + codiDadaOperacio + " no té format JSON", jpe);
+			throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
+			        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_GRUP_REPETIBLE_NOT_VALID_VALUE, codiDadaOperacio);
+		} catch (IOException ioe) {
+			log.info("El valor de la Dada d'operació " + codiDadaOperacio + " no té format JSON", ioe);
+			throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
+			        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_GRUP_REPETIBLE_NOT_VALID_VALUE, codiDadaOperacio);
+		}
+	}
+
+	private static List<DadesEspecifiquesValors> obtenirDadesEspecifiquesValorsRepetiblesList(Entry<String, List<String>> atributEntry,
+	        DadesOperacions dadesOperacions, TipusCampApiParamValue tipusCampApiParamValue, BigDecimal idSollicitud,
+	        boolean isLlistaMultipleRepetible) throws GPAApiParamValidationException {
+
 		DateTimeFormatter dataFormatter = DateTimeFormat.forPattern(Constants.DATE_PATTERN);
 		DateTimeFormatter dataHoraFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
 		DateTimeFormatter horaFormatter = DateTimeFormat.forPattern(Constants.TIME_PATTERN);
-		
+
 		List<DadesEspecifiquesValors> dadesEspecifiquesValorsList = new ArrayList<DadesEspecifiquesValors>();
-		
+
 		try {
-			
-			List<String> valorsRepetiblesList = atributEntry.getValue(); 
-			if(CollectionUtils.isNotEmpty(valorsRepetiblesList)){
-				if(dadesOperacions.getRepeticions() != null){
-					if(dadesOperacions.getRepeticions().intValue() < valorsRepetiblesList.size()){
+
+			List<String> valorsRepetiblesList = atributEntry.getValue();
+			if (CollectionUtils.isNotEmpty(valorsRepetiblesList)) {
+				if (dadesOperacions.getRepeticions() != null) {
+					if (dadesOperacions.getRepeticions().intValue() < valorsRepetiblesList.size()) {
 						throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
 						        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_CORRECT_VALUE, StringUtils.join(atributEntry.getValue(), ", "));
 					}
 				}
-				
-				int ordreRepeticio = 1;	
+
+				int ordreRepeticio = 1;
 				int ordreRepeticioMultiple = 1;
-				
+
 				DadesEspecifiquesValors dadesEspecifiquesValors = null;
-				
-				for(String valorRepetible : valorsRepetiblesList){
-					if(StringUtils.isNotEmpty(valorRepetible)){
-						
+
+				for (String valorRepetible : valorsRepetiblesList) {
+					if (StringUtils.isNotEmpty(valorRepetible)) {
+
 						dadesEspecifiquesValors = new DadesEspecifiquesValors();
-						
+
 						validateDadesOperacioCadenaGeneral(dadesOperacions, valorRepetible);
-						
-						dadesEspecifiquesValors.setSollicitud(idSollicitud);	
-						
+
+						dadesEspecifiquesValors.setSollicitud(idSollicitud);
+
 						switch (tipusCampApiParamValue) {
-						
-							case NUMERIC:
-								Long valorInteger = Long.valueOf(valorRepetible);
-								dadesEspecifiquesValors.setValorInteger(valorInteger);
-								break;
-								
-							case DECIMAL:
-								Double valorDouble = Double.valueOf(valorRepetible);
-								dadesEspecifiquesValors.setValorDouble(valorDouble);
-								break;
-								
-							case MONEDA:
-								Double valorMoneda = Double.valueOf(valorRepetible);
-								dadesEspecifiquesValors.setValorMoneda(valorMoneda);
-								break;
-								
-							case DATA:
-								DateTime valorData = DateTime.parse(valorRepetible, dataFormatter);
-								dadesEspecifiquesValors.setValorCalendar(valorData);
-								break;
-								
-							case DATA_HORA:
-								DateTime valorDataHora = DateTime.parse(valorRepetible, dataHoraFormatter);
-								dadesEspecifiquesValors.setValorCalendar(valorDataHora);
-								break;
-								
-							case HORA:
-								DateTime valorHora = DateTime.parse(valorRepetible, horaFormatter);
-								dadesEspecifiquesValors.setValorCalendar(valorHora);
-								break;
-								
-							case TEXT:	
-								dadesEspecifiquesValors.setValorString(valorRepetible);								
-								break;
-								
-							case TEXT_GRAN:								
-								dadesEspecifiquesValors.setValorClob(valorRepetible);								
-								break;
-								
-							case LITERAL:
-								break;
-								
-							case LLISTA_SIMPLE:
-								Integer valorLlistaSimple = Integer.valueOf(valorRepetible);
-								dadesEspecifiquesValors.setValorListaSimple(valorLlistaSimple);
-								break;
-								
-							case LLISTA_MULTIPLE:
-								List<String> valorsLlistMultipleRepetiblesList = new ArrayList<String>(Arrays.asList(valorRepetible.split(","))); 
-								
-								ArrayList<Integer> integerList = new ArrayList<Integer>();
-								if (CollectionUtils.isNotEmpty(valorsLlistMultipleRepetiblesList)) {
-									for (String valor : valorsLlistMultipleRepetiblesList) {
-										integerList.add(Integer.valueOf(valor));
-									}
+
+						case NUMERIC:
+							Long valorInteger = Long.valueOf(valorRepetible);
+							dadesEspecifiquesValors.setValorInteger(valorInteger);
+							break;
+
+						case DECIMAL:
+							Double valorDouble = Double.valueOf(valorRepetible);
+							dadesEspecifiquesValors.setValorDouble(valorDouble);
+							break;
+
+						case MONEDA:
+							Double valorMoneda = Double.valueOf(valorRepetible);
+							dadesEspecifiquesValors.setValorMoneda(valorMoneda);
+							break;
+
+						case DATA:
+							DateTime valorData = DateTime.parse(valorRepetible, dataFormatter);
+							dadesEspecifiquesValors.setValorCalendar(valorData);
+							break;
+
+						case DATA_HORA:
+							DateTime valorDataHora = DateTime.parse(valorRepetible, dataHoraFormatter);
+							dadesEspecifiquesValors.setValorCalendar(valorDataHora);
+							break;
+
+						case HORA:
+							DateTime valorHora = DateTime.parse(valorRepetible, horaFormatter);
+							dadesEspecifiquesValors.setValorCalendar(valorHora);
+							break;
+
+						case TEXT:
+							dadesEspecifiquesValors.setValorString(valorRepetible);
+							break;
+
+						case TEXT_GRAN:
+							dadesEspecifiquesValors.setValorClob(valorRepetible);
+							break;
+
+						case LITERAL:
+							break;
+
+						case LLISTA_SIMPLE:
+							Integer valorLlistaSimple = Integer.valueOf(valorRepetible);
+							dadesEspecifiquesValors.setValorListaSimple(valorLlistaSimple);
+							break;
+
+						case LLISTA_MULTIPLE:
+							List<String> valorsLlistMultipleRepetiblesList = new ArrayList<String>(
+							        Arrays.asList(valorRepetible.split(",")));
+
+							ArrayList<Integer> integerList = new ArrayList<Integer>();
+							if (CollectionUtils.isNotEmpty(valorsLlistMultipleRepetiblesList)) {
+								for (String valor : valorsLlistMultipleRepetiblesList) {
+									integerList.add(Integer.valueOf(valor));
 								}
-								dadesEspecifiquesValors.setValorListaMultipleList(integerList);								
-								break;
-								
-							case MARCADOR:
-								// Debe funcionar independientemente de lo que se envíe
-								// (1/0, true/false)
-								Boolean valorBoolean = null;
-								try {
-									valorBoolean = BooleanUtils.toBoolean(Integer.valueOf(valorRepetible), NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO);
-								} catch (IllegalArgumentException e) {
-									log.info("Valor booleà no informat com Integer. Provant com a cadena...", e);
-									valorBoolean = BooleanUtils.toBoolean(valorRepetible, Boolean.TRUE.toString(), Boolean.FALSE.toString());
-								}
-								dadesEspecifiquesValors.setValorBoolean(BooleanUtils.toIntegerObject(valorBoolean, NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO));
-								break;
-								
-							case PAIS:
-								dadesEspecifiquesValors.setValorPais(valorRepetible);
-								break;
-							case PROVINCIA:
-								dadesEspecifiquesValors.setValorProvincia(valorRepetible);
-								break;
-							case MUNICIPI:
-								dadesEspecifiquesValors.setValorMunicipi(valorRepetible);
-								break;
-							default:
-								break;						
-						}							
-						
-						if(isLlistaMultipleRepetible){
+							}
+							dadesEspecifiquesValors.setValorListaMultipleList(integerList);
+							break;
+
+						case MARCADOR:
+							// Debe funcionar independientemente de lo que se
+							// envíe
+							// (1/0, true/false)
+							Boolean valorBoolean = null;
+							try {
+								valorBoolean = BooleanUtils.toBoolean(Integer.valueOf(valorRepetible), NumberUtils.INTEGER_ONE,
+								        NumberUtils.INTEGER_ZERO);
+							} catch (IllegalArgumentException e) {
+								log.info("Valor booleà no informat com Integer. Provant com a cadena...", e);
+								valorBoolean = BooleanUtils.toBoolean(valorRepetible, Boolean.TRUE.toString(), Boolean.FALSE.toString());
+							}
+							dadesEspecifiquesValors.setValorBoolean(
+							        BooleanUtils.toIntegerObject(valorBoolean, NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO));
+							break;
+
+						case PAIS:
+							dadesEspecifiquesValors.setValorPais(valorRepetible);
+							break;
+						case PROVINCIA:
+							dadesEspecifiquesValors.setValorProvincia(valorRepetible);
+							break;
+						case MUNICIPI:
+							dadesEspecifiquesValors.setValorMunicipi(valorRepetible);
+							break;
+						default:
+							break;
+						}
+
+						if (isLlistaMultipleRepetible) {
 							dadesEspecifiquesValors.setOrdreRepeticioMultiple(ordreRepeticioMultiple);
 							ordreRepeticioMultiple++;
-						} else{
+						} else {
 							dadesEspecifiquesValors.setOrdreRepeticio(ordreRepeticio);
 							ordreRepeticio++;
-						}	
-						
+						}
+
 						dadesEspecifiquesValorsList.add(dadesEspecifiquesValors);
-					}		
-					
-				}				
-			}			
+					}
+
+				}
+			}
 		} catch (GPAApiParamValidationException e) {
 			throw e;
 		} catch (Exception e) {
 			throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
-				ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_CORRECT_VALUE, StringUtils.join(atributEntry.getValue(), ", "), e);
+			        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_CORRECT_VALUE, StringUtils.join(atributEntry.getValue(), ", "), e);
 		}
-		return dadesEspecifiquesValorsList;		
-	}	
-	
-	
+		return dadesEspecifiquesValorsList;
+	}
 
 	/**
 	 * Validate dades operacio numeric general.
