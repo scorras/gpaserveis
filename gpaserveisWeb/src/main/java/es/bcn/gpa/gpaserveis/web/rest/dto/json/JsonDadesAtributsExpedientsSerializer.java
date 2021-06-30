@@ -1,7 +1,6 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.json;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -57,6 +56,7 @@ public class JsonDadesAtributsExpedientsSerializer extends JsonSerializer<DadesA
 		if (CollectionUtils.isNotEmpty(dadesAtributsExpedientsRDTO.getValorsLlistaRepetible())) {
 			jsonGenerator.writeArrayFieldStart("valorsLlistaRepetible");
 			for (DadesAtributsValorsLlistaRepetibleExpedientsRDTO dadesAtributsValorsLlistaRepetibleExpedientsRDTO : dadesAtributsExpedientsRDTO.getValorsLlistaRepetible()) {
+				jsonGenerator.writeStartObject();
 				jsonGenerator.writeArrayFieldStart("valorsLlista");
 				for (DadesAtributsValorsLlistaExpedientsRDTO dadesAtributsValorsLlistaExpedientsRDTO : dadesAtributsValorsLlistaRepetibleExpedientsRDTO.getValorsLlista()) {
 					jsonGenerator.writeStartObject();
@@ -65,8 +65,8 @@ public class JsonDadesAtributsExpedientsSerializer extends JsonSerializer<DadesA
 					jsonGenerator.writeEndObject();
 				}
 				jsonGenerator.writeEndArray();
+				jsonGenerator.writeEndObject();
 			}
-			jsonGenerator.writeEndArray();
 			jsonGenerator.writeEndArray();
 		}
 		jsonGenerator.writeEndObject();
