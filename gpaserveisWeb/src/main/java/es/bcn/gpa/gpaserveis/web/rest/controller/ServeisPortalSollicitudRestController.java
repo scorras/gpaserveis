@@ -268,6 +268,12 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					docsEntradaRDTO.setSollicitudIdext(idSollicitud);
 					docsEntradaRDTO.setEsborrany(1);
 
+					BigDecimal idPersone = ServeisRestControllerValidationHelper.getIdUsuariInteressat(clientEntity, dadesSollicitudBDTO.getPersonesInteressades(),
+							dadesSollicitudBDTO.getSollicitant(), dadesSollicitudBDTO.getRepresentant());
+					if (idPersone != null) {
+						docsEntradaRDTO.setPersonaIdext(idPersone);
+					}
+					
 					if (BooleanUtils.isTrue(documentAportatCrearRDTO.getDeclaracioResponsable())) {
 						CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO = new CrearDeclaracioResponsableBDTO(
 						        dadesSollicitudBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);

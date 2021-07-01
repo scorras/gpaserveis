@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.5.5"
+  version: "2.6.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -2849,20 +2849,29 @@ paths:
       - name: "document"
         in: "formData"
         description: "Dades del document a incorporar. Example:<br>{<br>&nbsp;&nbsp;\"\
-          document\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
-          configuracioDocumentacio\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"origen\"\
-          : \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"comentari\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
-          idioma\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"revisio\": \"String\"\
+          document (Obligatori)\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\":\
+          \ \"String (Possibles valors: APORTADA, GENERADA)\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          configuracioDocumentacio\": \"String (Obligatori)\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          origen\": \"String (Obligatori Possibles valors: INTERN, EXTERN)\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          comentari\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"idioma\": \"String\
+          \ (Possibles valors: CATALA, CASTELLA, ALTRES)\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          revisio\": \"String (Possibles valors: CORRECTE, INCORRECTE, PENDENT)\"\
           ,<br>&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzat\": \"Boolean\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
           digitalitzacio\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
           idioma\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
           dataDigitalitzacio\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
-          fitxer\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"nom\":\
-          \ \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"format\"\
-          : \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          fitxer (Obligatori)\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          nom\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          format\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
           numeroRegistre\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"publicarInfoPublica\"\
           : \"Boolean\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"plantillaPdf\": \"Boolean\"\
-          <br>&nbsp;&nbsp;}<br>}"
+          <br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;\"estat\": \"String (Possibles valors:\
+          \ EN_ELABORACIO, FINALITZAT, PENDENT_SIGNATURA , SIGNATURA_REBUTJADA, VIST_I_PLAU,\
+          \ SIGNAT, PENDENT_NOTIFICACIO, PENDENT_COMUNICACIO, REGISTRAT, DISPOSITAT,\
+          \ NOTIFICACIO_VISUALITZADA, NOTIFICACIO_REBUTJADA, NOTIFICACIO_ACCEPTADA,\
+          \ SIGNATURA_CADUCADA, PENDENT_VIST_I_PLAU, VIST_I_PLAU_REBUTJAT, VIST_I_PLAU_CADUCAT,\
+          \ NOTIFICACIO_REBUTJADA_SENSE_ACCES, NOTIFICACIO_REBUTJADA_SENSE_ACCIO,\
+          \ PUBLICAT, NOTIFICACIO_AMB_ERROR, COMPLETAT, DESCARTAT)\"<br>}"
         required: true
         type: "string"
       - name: "file"
@@ -3123,11 +3132,14 @@ paths:
       - name: "document"
         in: "formData"
         description: "Dades del document a completar. Example:<br>{<br>&nbsp;&nbsp;\"\
-          document\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          document (Obligatori)\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\":\
+          \ \"String (Obligatori Possibles valors: APORTADA, GENERADA)\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
           configuracioDocumentacio\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"origen\"\
-          : \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"comentari\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
-          idioma\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"revisio\": \"String\"\
-          ,<br>&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzat\": \"Boolean\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          : \"String (Obligatori Possibles valors: INTERN, EXTERN)\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          comentari\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"idioma\": \"String\
+          \ (Possibles valors: CATALA, CASTELLA, ALTRES)\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          revisio\": \"String (Obligatori Possibles valors: CORRECTE, INCORRECTE,\
+          \ PENDENT)\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzat\": \"Boolean\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
           digitalitzacio\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
           idioma\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
           dataDigitalitzacio\": \"String\"<br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
@@ -3140,7 +3152,13 @@ paths:
           dadesOperacioRequerits\": [<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
           codi\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;],<br>&nbsp;&nbsp;\"\
           documentacioRequerida\": [<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
-          configuracioDocumentacio\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;]<br>}"
+          configuracioDocumentacio\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;],<br>&nbsp;&nbsp;\"\
+          estat\": \"String (Possibles valors: EN_ELABORACIO, FINALITZAT, PENDENT_SIGNATURA\
+          \ , SIGNATURA_REBUTJADA, VIST_I_PLAU, SIGNAT, PENDENT_NOTIFICACIO, PENDENT_COMUNICACIO,\
+          \ REGISTRAT, DISPOSITAT, NOTIFICACIO_VISUALITZADA, NOTIFICACIO_REBUTJADA,\
+          \ NOTIFICACIO_ACCEPTADA, SIGNATURA_CADUCADA, PENDENT_VIST_I_PLAU, VIST_I_PLAU_REBUTJAT,\
+          \ VIST_I_PLAU_CADUCAT, NOTIFICACIO_REBUTJADA_SENSE_ACCES, NOTIFICACIO_REBUTJADA_SENSE_ACCIO,\
+          \ PUBLICAT, NOTIFICACIO_AMB_ERROR, COMPLETAT, DESCARTAT)\"<br>}"
         required: true
         type: "string"
       - name: "file"

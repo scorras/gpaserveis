@@ -188,6 +188,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.Boolean
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.ConfiguracioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.RevisioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusAccionsPortaSigApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusEstatsDocumentsApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusSignaturaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.MotiuPausaApiParamValue;
@@ -197,6 +198,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.Tran
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.ConfiguracioApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.TipusEstatsDocumentsApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.TipusSignaturaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.EstatTramitadorApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.MotiuPausaApiParamValueTranslator;
@@ -1885,26 +1887,27 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	@ApiImplicitParams(@ApiImplicitParam(name = "document", dataType = "string", paramType = "form", required = true,
 	value = "Dades del document a incorporar. Example:<br>"
 		    +"{<br>"
-			+"&nbsp;&nbsp;\"document\": {<br>"
-			+"&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\": \"String\",<br>"
-			+"&nbsp;&nbsp;&nbsp;&nbsp;\"configuracioDocumentacio\": \"String\",<br>"
-			+"&nbsp;&nbsp;&nbsp;&nbsp;\"origen\": \"String\",<br>"
+			+"&nbsp;&nbsp;\"document (Obligatori)\": {<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\": \"String (Possibles valors: APORTADA, GENERADA)\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"configuracioDocumentacio\": \"String (Obligatori)\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"origen\": \"String (Obligatori Possibles valors: INTERN, EXTERN)\",<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;\"comentari\": \"String\",<br>"
-			+"&nbsp;&nbsp;&nbsp;&nbsp;\"idioma\": \"String\",<br>"
-			+"&nbsp;&nbsp;&nbsp;&nbsp;\"revisio\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"idioma\": \"String (Possibles valors: CATALA, CASTELLA, ALTRES)\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"revisio\": \"String (Possibles valors: CORRECTE, INCORRECTE, PENDENT)\",<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzat\": \"Boolean\",<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzacio\": {<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"idioma\": \"String\",<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"dataDigitalitzacio\": \"String\"<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;},<br>"
-			+"&nbsp;&nbsp;&nbsp;&nbsp;\"fitxer\": {<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"fitxer (Obligatori)\": {<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"nom\": \"String\",<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"format\": \"String\"<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;},<br>"
 		    +"&nbsp;&nbsp;&nbsp;&nbsp;\"numeroRegistre\": \"String\",<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;\"publicarInfoPublica\": \"Boolean\",<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;\"plantillaPdf\": \"Boolean\"<br>"
-			+"&nbsp;&nbsp;}<br>"
+			+"&nbsp;&nbsp;},<br>"
+			+"&nbsp;&nbsp;\"estat\": \"String (Possibles valors: EN_ELABORACIO, FINALITZAT, PENDENT_SIGNATURA , SIGNATURA_REBUTJADA, VIST_I_PLAU, SIGNAT, PENDENT_NOTIFICACIO, PENDENT_COMUNICACIO, REGISTRAT, DISPOSITAT, NOTIFICACIO_VISUALITZADA, NOTIFICACIO_REBUTJADA, NOTIFICACIO_ACCEPTADA, SIGNATURA_CADUCADA, PENDENT_VIST_I_PLAU, VIST_I_PLAU_REBUTJAT, VIST_I_PLAU_CADUCAT, NOTIFICACIO_REBUTJADA_SENSE_ACCES, NOTIFICACIO_REBUTJADA_SENSE_ACCIO, PUBLICAT, NOTIFICACIO_AMB_ERROR, COMPLETAT, DESCARTAT)\"<br>"
 			+"}"))
 	public RespostaIncorporarNouDocumentRDTO incorporarNouDocumentExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
@@ -2007,6 +2010,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				DocsTramitacioRDTO docsTramitacioRDTO = modelMapper.map(documentIncorporacioNou.getDocument(), DocsTramitacioRDTO.class);
 				docsTramitacioRDTO.setConfigDocTramitacio(
 				        configuracioDocsTramitacioMap.get(String.valueOf(docsTramitacioRDTO.getConfigDocTramitacio())).getId());
+				
+				if (StringUtils.isNotEmpty(documentIncorporacioNou.getEstat())) {
+					TipusEstatsDocumentsApiParamValueTranslator tipusEstatsDocumentsApiParamValueTranslator = new TipusEstatsDocumentsApiParamValueTranslator();
+					TipusEstatsDocumentsApiParamValue tipusEstatsDocumentsApiParamValue = tipusEstatsDocumentsApiParamValueTranslator.getEnumByApiParamValue(documentIncorporacioNou.getEstat());
+					docsTramitacioRDTO.setEstat(tipusEstatsDocumentsApiParamValue.getInternalValue());
+				}
 
 				if (documentIncorporacioNou.getDocument().getPlantillaPdf()) {
 					ConfiguracioDocsTramitacio configuracioDocsTramitacio = new ConfiguracioDocsTramitacio();
@@ -2713,13 +2722,13 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	@ApiImplicitParams(@ApiImplicitParam(name = "document", dataType = "string", paramType = "form", required = true,
 	value = "Dades del document a completar. Example:<br>"
 			+"{<br>"
-			+"&nbsp;&nbsp;\"document\": {<br>"
-			+"&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\": \"String\",<br>"
+			+"&nbsp;&nbsp;\"document (Obligatori)\": {<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\": \"String (Obligatori Possibles valors: APORTADA, GENERADA)\",<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;\"configuracioDocumentacio\": \"String\",<br>"
-			+"&nbsp;&nbsp;&nbsp;&nbsp;\"origen\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"origen\": \"String (Obligatori Possibles valors: INTERN, EXTERN)\",<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;\"comentari\": \"String\",<br>"
-			+"&nbsp;&nbsp;&nbsp;&nbsp;\"idioma\": \"String\",<br>"
-			+"&nbsp;&nbsp;&nbsp;&nbsp;\"revisio\": \"String\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"idioma\": \"String (Possibles valors: CATALA, CASTELLA, ALTRES)\",<br>"
+			+"&nbsp;&nbsp;&nbsp;&nbsp;\"revisio\": \"String (Obligatori Possibles valors: CORRECTE, INCORRECTE, PENDENT)\",<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzat\": \"Boolean\",<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzacio\": {<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"idioma\": \"String\",<br>"
@@ -2743,7 +2752,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			+"&nbsp;&nbsp;&nbsp;&nbsp;{<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"configuracioDocumentacio\": \"String\"<br>"
 			+"&nbsp;&nbsp;&nbsp;&nbsp;}<br>"
-			+"&nbsp;&nbsp;]<br>"
+			+"&nbsp;&nbsp;],<br>"
+			+"&nbsp;&nbsp;\"estat\": \"String (Possibles valors: EN_ELABORACIO, FINALITZAT, PENDENT_SIGNATURA , SIGNATURA_REBUTJADA, VIST_I_PLAU, SIGNAT, PENDENT_NOTIFICACIO, PENDENT_COMUNICACIO, REGISTRAT, DISPOSITAT, NOTIFICACIO_VISUALITZADA, NOTIFICACIO_REBUTJADA, NOTIFICACIO_ACCEPTADA, SIGNATURA_CADUCADA, PENDENT_VIST_I_PLAU, VIST_I_PLAU_REBUTJAT, VIST_I_PLAU_CADUCAT, NOTIFICACIO_REBUTJADA_SENSE_ACCES, NOTIFICACIO_REBUTJADA_SENSE_ACCIO, PUBLICAT, NOTIFICACIO_AMB_ERROR, COMPLETAT, DESCARTAT)\"<br>"
 			+"}"))
 	public RespostaCompletarDocumentRDTO completarDocumentExpedient(
 	        @ApiParam(value = "Codi de l'expedient", required = true) @PathVariable String codiExpedient,
@@ -2777,6 +2787,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		GuardarDocumentTramitacioFitxerBDTO guardarDocumentTramitacioFitxerBDTO = null;
 		Integer idTipusMimeAnterior = null;
 		Integer idTipusMime = null;
+		boolean teRegistre = true;
 		try {
 			ConfiguracioApiParamValueTranslator configuracioApiParamValueTranslator = new ConfiguracioApiParamValueTranslator();
 			ConfiguracioApiParamValue configuracioApiParamValue = configuracioApiParamValueTranslator
@@ -2793,7 +2804,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			default:
 				break;
 			}
-
+			
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
@@ -2813,7 +2824,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				docsFisicsIdAnterior = docsTramitacioRDTO.getDocsFisics().getId();
 				docsFisicsPlantillaAnterior = docsTramitacioRDTO.getDocsFisics().getPlantilla();
 				idTipusMimeAnterior = docsTramitacioRDTO.getDocsFisics().getTipusMime().getId();
-				if (documentComplecio.getDocument().getRequeriment()) {
+				if (BooleanUtils.isTrue(documentComplecio.getDocument().getRequeriment())) {
 					requeriments = docsTramitacioRDTO.getRequeriments();
 				}
 
@@ -2821,7 +2832,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				        Resultat.ERROR_COMPLETAR_DOCUMENT_EXPEDIENT);
 			}
 
-			if (esAportada) {
+			if (dadesExpedientBDTO.getExpedientsRDTO().getSollicituds().getRegistre() == null
+			        && StringUtils.isEmpty(documentComplecio.getDocument().getNumeroRegistre())) {
+				teRegistre = false;
+			}
+
+			if (esAportada && teRegistre) {
 				// El número de registro indicado debe existir
 				registreAssentamentRDTO = serveisService
 				        .consultarDadesRegistreAssentament(documentComplecio.getDocument().getNumeroRegistre());
@@ -2919,9 +2935,15 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				docsTramitacioRDTO.setId(idDocument);
 				docsTramitacioRDTO.setDocumentacio(documentacioId);
 				idTipusMime = docsTramitacioRDTO.getDocsFisics().getTipusMime().getId();
+				
+				if (StringUtils.isNotEmpty(documentComplecio.getEstat())) {
+					TipusEstatsDocumentsApiParamValueTranslator tipusEstatsDocumentsApiParamValueTranslator = new TipusEstatsDocumentsApiParamValueTranslator();
+					TipusEstatsDocumentsApiParamValue tipusEstatsDocumentsApiParamValue = tipusEstatsDocumentsApiParamValueTranslator.getEnumByApiParamValue(documentComplecio.getEstat());
+					docsTramitacioRDTO.setEstat(tipusEstatsDocumentsApiParamValue.getInternalValue());
+				}
 
 				if (file != null) {
-					if (documentComplecio.getDocument().getRequeriment()) {
+					if (BooleanUtils.isTrue(documentComplecio.getDocument().getRequeriment())) {
 						docsTramitacioRDTO.setRequeriments(requeriments);
 
 						GuardarRequerimentExpedient guardarRequerimentExpedient = new GuardarRequerimentExpedient();
@@ -2956,7 +2978,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 						docsTramitacioRDTO.setConfiguracioDocsTramitacio(configuracioDocsTramitacio);
 					}
 
-					if (documentComplecio.getDocument().getRequeriment()) {
+					if (BooleanUtils.isTrue(documentComplecio.getDocument().getRequeriment())) {
 						docsTramitacioRDTO.setRequeriments(requeriments);
 
 						GuardarRequerimentExpedient guardarRequerimentExpedient = new GuardarRequerimentExpedient();
