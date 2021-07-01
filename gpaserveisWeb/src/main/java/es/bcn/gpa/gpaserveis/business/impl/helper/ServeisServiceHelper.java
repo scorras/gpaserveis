@@ -1164,6 +1164,9 @@ public class ServeisServiceHelper {
 			for (DadesGrupsRDTO dadesGrupsRDTO : pageDataOfDadesGrupsRDTO.getData()) {
 				if (CollectionUtils.isNotEmpty(dadesGrupsRDTO.getDadesOperacionsList())) {
 					for (DadesOperacions dadesOperacions : dadesGrupsRDTO.getDadesOperacionsList()) {
+						if (StringUtils.isNotEmpty(dadesGrupsRDTO.getTitol())) {
+							dadesOperacions.setTitolGrup(dadesGrupsRDTO.getTitol());
+						}
 						dadesOperacionsMap.put(dadesOperacions.getId(), dadesOperacions);
 					}
 				}
@@ -1207,11 +1210,11 @@ public class ServeisServiceHelper {
 				dadaEspecificaBDTO = new DadaEspecificaBDTO();
 				dadaEspecificaBDTO.setDadaOperacio(dadesOperacionsMap.get(dadesEspecifiquesRepetiblesRDTO.getCampIdext() != null ?  dadesEspecifiquesRepetiblesRDTO.getCampIdext() : dadesEspecifiquesRepetiblesRDTO.getGrupIdext()));
 				if (dadesEspecifiquesRepetiblesRDTO.getGrupIdext() != null && dadaEspecificaBDTO.getDadaOperacio() != null) {
-					dadaEspecificaBDTO.getDadaOperacio().setCodi("GRUP_".concat(dadesEspecifiquesRepetiblesRDTO.getGrupIdext().toString()));
+					dadaEspecificaBDTO.getDadaOperacio().setCodi(Constants.CODI_GRUP_.concat(dadesEspecifiquesRepetiblesRDTO.getGrupIdext().toString()));
 				}
 				if (dadesEspecifiquesRepetiblesRDTO.getGrupIdext() != null && dadaEspecificaBDTO.getDadaOperacio() == null) {
 					DadesOperacions dadesOperacions = new DadesOperacions();
-					dadesOperacions.setCodi("GRUP_".concat(dadesEspecifiquesRepetiblesRDTO.getGrupIdext().toString()));
+					dadesOperacions.setCodi(Constants.CODI_GRUP_.concat(dadesEspecifiquesRepetiblesRDTO.getGrupIdext().toString()));
 					dadaEspecificaBDTO.setDadaOperacio(dadesOperacions);
 				}
 				dadaEspecificaBDTO.setDadaEspecificaRepetible(dadesEspecifiquesRepetiblesRDTO);

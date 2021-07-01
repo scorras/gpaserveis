@@ -119,5 +119,8 @@ public class Constants {
 	
 	/** The Constant DADES_OPERACIONS_REPETIBLE. */
 	public static final BigDecimal DADES_OPERACIONS_REPETIBLE = new BigDecimal("2");
+	
+	/** The Constant CODI_GRUP_. */
+	public static final String CODI_GRUP_ = "GRUP_";
 
 }

@@ -216,7 +216,10 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 				
 				
 				if (dadaEspecificaBDTO.getDadaEspecificaRepetible() != null && CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecificaRepetible().getDadesEspecifiquesValorsJsonList())) {
-					// dadesAtributsExpedientsRDTO.setTitol(dadaEspecificaBDTO.getDadaOperacio().getTitol());
+					if (dadaEspecificaBDTO.getDadaOperacio().getCodi().contains(Constants.CODI_GRUP_) &&
+							StringUtils.isNotEmpty(dadaEspecificaBDTO.getDadaOperacio().getTitolGrup())) {
+						dadesAtributsExpedientsRDTO.setTitol(dadaEspecificaBDTO.getDadaOperacio().getTitolGrup());
+					}
 					for (DadesEspecifiquesValorsJson dadesEspecifiquesValorsJson : dadaEspecificaBDTO.getDadaEspecificaRepetible()
 							.getDadesEspecifiquesValorsJsonList()) {
 						valorStringBuffer = new StringBuffer();
