@@ -1,5 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.unitatsgestores.canviar;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -10,7 +12,7 @@ import lombok.Setter;
 
 @ApiModel(value = "ExpedientCanviUnitatGestora")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "codiUnitatGestora", "comentari" })
+@JsonPropertyOrder({ "codiUnitatGestora", "comentari", "tancamentAutomatic" })
 @Getter
 @Setter
 public class ExpedientCanviUnitatGestoraRDTO {
@@ -20,5 +22,8 @@ public class ExpedientCanviUnitatGestoraRDTO {
 
 	@ApiModelProperty(value = "Comentari associat al canvi d'unitat gestora")
 	private String comentari;
+	
+	@ApiModelProperty(value = "tancament automatic")
+	private BigDecimal tancamentAutomatic;
 
 }

@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @ApiModel(value = "ConfiguracionDocumentacioAportadaConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "codi", "descripcio", "descripcioCastella", "descripcioAmpliada", "obligatori", "repetible", "suportConfeccio",
+@JsonPropertyOrder({ "codi", "descripcio", "descripcioCastella", "descripcioAmpliada", "descripcioAmpliadaCastella", "obligatori", "repetible", "suportConfeccio",
 		"suportEnllac", "visibilitat", "criticitat" })
 @Getter
 @Setter
@@ -20,6 +20,8 @@ public class ConfiguracioDocumentacioAportadaConsultaRDTO extends ConfiguracioDo
 
 	@ApiModelProperty(value = "Descripció ampliada del document")
 	private String descripcioAmpliada;
+	@ApiModelProperty(value = "Descripció ampliada en castellà del document")
+	private String descripcioAmpliadaCastella;
 	@ApiModelProperty(value = "Obligatori")
 	private Boolean obligatori;
 	@ApiModelProperty(value = "Repetible")

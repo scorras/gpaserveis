@@ -55,6 +55,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevis
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PrepararSignaturaCriptograficaDocumentMassiu;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarCriptograficaDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarPortasignaturesDocument;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarValidDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AcumularExpedientRDTO;
@@ -498,6 +499,13 @@ public abstract class ParentTest {
 
 			when(documentacioApi.consultarDadesDocumentGeneratPerIdGestorDocumental(any(String.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesDocumentGeneratPerCodiCSVResponse());
+
+			doNothing().when(expedientsApi).reprendreTramitacio(any(BigDecimal.class));
+
+			when(signaturesApi.signarSegell(any(SignarSegellDocument.class))).thenReturn(TestsConfigHelper.signarSegellResponse());
+
+			when(signaturesApi.consultarSignatura(any(String.class), any(String.class)))
+			        .thenReturn(TestsConfigHelper.consultarSignaturaResponse());
 
 		} catch (Exception e) {
 			log.error("setUp()", e); //$NON-NLS-1$
