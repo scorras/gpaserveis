@@ -2334,6 +2334,11 @@ definitions:
         description: "Valors d'atributs de l'expedient"
         items:
           $ref: "#/definitions/DadesEspecifiquesRDTO"
+      dadesEspecifiquesRepetibles:
+        type: "array"
+        description: "Valors d'atributs de l'expedient amb format de grup repetible"
+        items:
+          $ref: "#/definitions/DadesEspecifiquesRepetiblesRDTO"
       esTramitadors:
         type: "boolean"
         description: "Indica si l'origen de la petició és la capa de tramitadors"
@@ -2358,6 +2363,11 @@ definitions:
         description: "Valors d'atributs de l'expedient"
         items:
           $ref: "#/definitions/DadesEspecifiquesRDTO"
+      dadesEspecifiquesRepetibles:
+        type: "array"
+        description: "Valors d'atributs de l'expedient amb format de grup repetible"
+        items:
+          $ref: "#/definitions/DadesEspecifiquesRepetiblesRDTO"
       sollicitud:
         description: "Dades de la sol·licitud"
         $ref: "#/definitions/SollicitudsRDTO"

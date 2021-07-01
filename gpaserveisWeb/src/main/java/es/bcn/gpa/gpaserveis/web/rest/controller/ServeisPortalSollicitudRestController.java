@@ -979,6 +979,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			ActualitzarDadesSollicitudSollicituds actualitzarDadesSollicitudSollicituds = new ActualitzarDadesSollicitudSollicituds();
 			actualitzarDadesSollicitudSollicituds.setSollicitud(sollicitudsRDTO);
 			actualitzarDadesSollicitudSollicituds.setDadesEspecifiques(validateDadesOperacioResultat.getDadesEspecifiquesRDTOList());
+			actualitzarDadesSollicitudSollicituds
+			        .setDadesEspecifiquesRepetibles(validateDadesOperacioResultat.getDadesEspecifiquesRepetiblesRDTOList());
 			SollicitudsActualitzarBDTO sollicitudsActualitzarBDTO = new SollicitudsActualitzarBDTO(actualitzarDadesSollicitudSollicituds);
 			returnSollicitudsRDTO = serveisService.actualitzarDadesSollicitudSollicituds(sollicitudsActualitzarBDTO);
 

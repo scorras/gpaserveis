@@ -614,7 +614,7 @@ public class ServeisRestControllerValidationHelper {
 		if (CollectionUtils.isNotEmpty(atributsMap.values())) {
 			for (Entry<String, List<String>> atributEntry : atributsMap.entrySet()) {
 				if (atributEntry.getValue() != null) {
-					if (!dadesOperacionsMap.containsKey(atributEntry.getKey())
+					if (!dadesGrupsMap.containsKey(atributEntry.getKey()) && !dadesOperacionsMap.containsKey(atributEntry.getKey())
 					        && !StringUtils.equals(atributEntry.getKey(), Constants.CODI_DADA_OPERACIO_DADES_EXTERNES)) {
 						throw new GPAApiParamValidationException(Resultat.ERROR_ACTUALITZAR_EXPEDIENT,
 						        ErrorPrincipal.ERROR_EXPEDIENTS_ATRIBUT_NOT_FOUND, atributEntry.getKey());
@@ -628,6 +628,11 @@ public class ServeisRestControllerValidationHelper {
 						dadesEspecifiquesValorsJson = new DadesEspecifiquesValorsJson();
 						dadesEspecifiquesRepetiblesRDTO.setExpedient(idExpedient);
 						dadesEspecifiquesRepetiblesRDTO.setNou(isPortal ? INTEGER_ONE : INTEGER_ZERO);
+						if (dadesGrupsMap.containsKey(atributEntry.getKey())) {
+							dadesEspecifiquesRepetiblesRDTO.setGrupIdext(dadesGrupsMap.get(atributEntry.getKey()).getId());
+						} else {
+							dadesEspecifiquesRepetiblesRDTO.setCampIdext(dadesOperacionsMap.get(atributEntry.getKey()).getId());
+						}
 
 						// Dato de operación de tipo grupo repetible. Valor en
 						// formato

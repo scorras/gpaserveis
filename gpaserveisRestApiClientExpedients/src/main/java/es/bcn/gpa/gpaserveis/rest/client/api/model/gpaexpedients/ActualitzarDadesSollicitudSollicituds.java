@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRepetiblesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -27,13 +28,16 @@ import java.util.List;
 /**
  * ActualitzarDadesSollicitudSollicituds
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-29T13:41:24.792+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-07-01T13:56:25.810+02:00")
 public class ActualitzarDadesSollicitudSollicituds {
   @JsonProperty("comentari")
   private String comentari = null;
 
   @JsonProperty("dadesEspecifiques")
   private List<DadesEspecifiquesRDTO> dadesEspecifiques = null;
+
+  @JsonProperty("dadesEspecifiquesRepetibles")
+  private List<DadesEspecifiquesRepetiblesRDTO> dadesEspecifiquesRepetibles = null;
 
   @JsonProperty("sollicitud")
   private SollicitudsRDTO sollicitud = null;
@@ -82,6 +86,32 @@ public class ActualitzarDadesSollicitudSollicituds {
     this.dadesEspecifiques = dadesEspecifiques;
   }
 
+  public ActualitzarDadesSollicitudSollicituds dadesEspecifiquesRepetibles(List<DadesEspecifiquesRepetiblesRDTO> dadesEspecifiquesRepetibles) {
+    this.dadesEspecifiquesRepetibles = dadesEspecifiquesRepetibles;
+    return this;
+  }
+
+  public ActualitzarDadesSollicitudSollicituds addDadesEspecifiquesRepetiblesItem(DadesEspecifiquesRepetiblesRDTO dadesEspecifiquesRepetiblesItem) {
+    if (this.dadesEspecifiquesRepetibles == null) {
+      this.dadesEspecifiquesRepetibles = new ArrayList<DadesEspecifiquesRepetiblesRDTO>();
+    }
+    this.dadesEspecifiquesRepetibles.add(dadesEspecifiquesRepetiblesItem);
+    return this;
+  }
+
+   /**
+   * Valors d&#39;atributs de l&#39;expedient amb format de grup repetible
+   * @return dadesEspecifiquesRepetibles
+  **/
+  @ApiModelProperty(value = "Valors d'atributs de l'expedient amb format de grup repetible")
+  public List<DadesEspecifiquesRepetiblesRDTO> getDadesEspecifiquesRepetibles() {
+    return dadesEspecifiquesRepetibles;
+  }
+
+  public void setDadesEspecifiquesRepetibles(List<DadesEspecifiquesRepetiblesRDTO> dadesEspecifiquesRepetibles) {
+    this.dadesEspecifiquesRepetibles = dadesEspecifiquesRepetibles;
+  }
+
   public ActualitzarDadesSollicitudSollicituds sollicitud(SollicitudsRDTO sollicitud) {
     this.sollicitud = sollicitud;
     return this;
@@ -112,12 +142,13 @@ public class ActualitzarDadesSollicitudSollicituds {
     ActualitzarDadesSollicitudSollicituds actualitzarDadesSollicitudSollicituds = (ActualitzarDadesSollicitudSollicituds) o;
     return Objects.equals(this.comentari, actualitzarDadesSollicitudSollicituds.comentari) &&
         Objects.equals(this.dadesEspecifiques, actualitzarDadesSollicitudSollicituds.dadesEspecifiques) &&
+        Objects.equals(this.dadesEspecifiquesRepetibles, actualitzarDadesSollicitudSollicituds.dadesEspecifiquesRepetibles) &&
         Objects.equals(this.sollicitud, actualitzarDadesSollicitudSollicituds.sollicitud);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comentari, dadesEspecifiques, sollicitud);
+    return Objects.hash(comentari, dadesEspecifiques, dadesEspecifiquesRepetibles, sollicitud);
   }
 
 
@@ -128,6 +159,7 @@ public class ActualitzarDadesSollicitudSollicituds {
     
     sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
     sb.append("    dadesEspecifiques: ").append(toIndentedString(dadesEspecifiques)).append("\n");
+    sb.append("    dadesEspecifiquesRepetibles: ").append(toIndentedString(dadesEspecifiquesRepetibles)).append("\n");
     sb.append("    sollicitud: ").append(toIndentedString(sollicitud)).append("\n");
     sb.append("}");
     return sb.toString();

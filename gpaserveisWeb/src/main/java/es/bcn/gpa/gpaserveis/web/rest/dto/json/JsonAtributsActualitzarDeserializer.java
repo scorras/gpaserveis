@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar.AtributsActualitzarRDTO;
@@ -36,10 +37,22 @@ public class JsonAtributsActualitzarDeserializer extends JsonDeserializer<Atribu
 		String codi = jsonNode.get("codi").textValue();
 		JsonNode jsonNodeValor = jsonNode.get("valor");
 		JsonNode jsonNodeValorLlistaMultipleRepetible = jsonNode.get("valorLlistaMultipleRepetible");
-		
-		if(jsonNodeValor != null){
+
+		if (jsonNodeValor != null) {
 			valorList = new ArrayList<String>();
-			if (StringUtils.equals(codi, Constants.CODI_DADA_OPERACIO_DADES_EXTERNES)) {
+
+			// Los valores en modo JSON deben cumplir con una estructura
+			// (codisColumnes, valorsColumnes)
+			JsonNode jsonNodeCodisColumnes = null;
+			JsonNode jsonNodeValorsColumnes = null;
+			if (jsonNodeValor instanceof ArrayNode) {
+				JsonNode jsonNodeValorRepetible = ((ArrayNode) jsonNodeValor).get(0);
+				jsonNodeCodisColumnes = jsonNodeValorRepetible.get("codisColumnes");
+				jsonNodeValorsColumnes = jsonNodeValorRepetible.get("valorsColumnes");
+			}
+
+			if ((jsonNodeCodisColumnes != null && jsonNodeValorsColumnes != null)
+			        || (StringUtils.equals(codi, Constants.CODI_DADA_OPERACIO_DADES_EXTERNES))) {
 				valorList.add(jsonNodeValor.toString());
 			} else {
 				Iterator<JsonNode> jsonNodeIterator = jsonNodeValor.elements();
@@ -50,8 +63,8 @@ public class JsonAtributsActualitzarDeserializer extends JsonDeserializer<Atribu
 				}
 			}
 		}
-		
-		if(jsonNodeValorLlistaMultipleRepetible != null) {	
+
+		if (jsonNodeValorLlistaMultipleRepetible != null) {
 			valorLlistaMultipleRepetibleList = new ArrayList<List<String>>();
 			Iterator<JsonNode> jsonNodeIterator = jsonNodeValorLlistaMultipleRepetible.elements();
 			JsonNode jsonNodeAux = null;
@@ -59,12 +72,12 @@ public class JsonAtributsActualitzarDeserializer extends JsonDeserializer<Atribu
 				List<String> list = new ArrayList<String>();
 				jsonNodeAux = jsonNodeIterator.next();
 				ObjectMapper mapper = new ObjectMapper();
-				String[] arrayNode = mapper.readValue(jsonNodeAux.toString(), String[].class);				 
+				String[] arrayNode = mapper.readValue(jsonNodeAux.toString(), String[].class);
 				list.addAll(Arrays.asList(arrayNode));
 				valorLlistaMultipleRepetibleList.add(list);
-			}		   
+			}
 		}
-		
+
 		atributsActualitzarRDTO.setCodi(codi);
 		atributsActualitzarRDTO.setValor(valorList);
 		atributsActualitzarRDTO.setValorLlistaMultipleRepetible(valorLlistaMultipleRepetibleList);

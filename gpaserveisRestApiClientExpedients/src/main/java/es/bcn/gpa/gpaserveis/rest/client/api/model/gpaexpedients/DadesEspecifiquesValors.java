@@ -27,7 +27,7 @@ import org.joda.time.DateTime;
 /**
  * DadesEspecifiquesValors
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-29T13:41:24.792+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-07-01T13:56:25.810+02:00")
 public class DadesEspecifiquesValors {
   @JsonProperty("dadesEspecifiques")
   private BigDecimal dadesEspecifiques = null;
