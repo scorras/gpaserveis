@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.BooleanUtils;
@@ -93,7 +91,8 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 								valorList.add(String.valueOf(valorListaMultiple));
 							}
 						} else {
-							valorStringBuffer = new StringBuffer();				
+							valorStringBuffer = new StringBuffer();
+							valorCastellaStringBuffer = new StringBuffer();
 							
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorBoolean() != null)
 							        ? BooleanUtils.toStringTrueFalse(BooleanUtils.toBoolean(dadesEspecifiquesValors.getValorBoolean(),
@@ -137,8 +136,9 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 									String valorCastella = obtenirDescripcioCastellaItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
 									        dadaEspecificaBDTO.getDadaOperacio().getItemsList());
 									if(StringUtils.isNotEmpty(valorCastella)){
-										valorCastellaStringBuffer = new StringBuffer();
 										valorCastellaStringBuffer.append(valorCastella);
+									} else {
+										valorCastellaStringBuffer.append(StringUtils.EMPTY);
 									}
 								}
 							} else {

@@ -53,6 +53,9 @@ public class JsonDadesAtributsSollicitudsSerializer extends JsonSerializer<Dades
 				jsonGenerator.writeStartObject();
 				jsonGenerator.writeStringField("index", dadesAtributsValorsLlistaSollicitudsRDTO.getIndex());
 				jsonGenerator.writeStringField("valor", dadesAtributsValorsLlistaSollicitudsRDTO.getValor());
+				if (StringUtils.isNotEmpty(dadesAtributsValorsLlistaSollicitudsRDTO.getValorCastella())) {
+					jsonGenerator.writeStringField("valorCastella", dadesAtributsValorsLlistaSollicitudsRDTO.getValorCastella());
+				}
 				jsonGenerator.writeEndObject();
 			}
 			jsonGenerator.writeEndArray();
@@ -66,6 +69,9 @@ public class JsonDadesAtributsSollicitudsSerializer extends JsonSerializer<Dades
 					jsonGenerator.writeStartObject();
 					jsonGenerator.writeStringField("index", dadesAtributsValorsLlistaSollicitudsRDTO.getIndex());
 					jsonGenerator.writeStringField("valor", dadesAtributsValorsLlistaSollicitudsRDTO.getValor());
+					if (StringUtils.isNotEmpty(dadesAtributsValorsLlistaSollicitudsRDTO.getValorCastella())) {
+						jsonGenerator.writeStringField("valorCastella", dadesAtributsValorsLlistaSollicitudsRDTO.getValorCastella());
+					}
 					jsonGenerator.writeEndObject();
 				}
 				jsonGenerator.writeEndArray();
@@ -83,6 +89,9 @@ public class JsonDadesAtributsSollicitudsSerializer extends JsonSerializer<Dades
 						jsonGenerator.writeStartObject();
 						jsonGenerator.writeStringField("index", dadesAtributsValorsLlistaSollicitudsRDTO.getIndex());
 						jsonGenerator.writeStringField("valor", dadesAtributsValorsLlistaSollicitudsRDTO.getValor());
+						if (StringUtils.isNotEmpty(dadesAtributsValorsLlistaSollicitudsRDTO.getValorCastella())) {
+							jsonGenerator.writeStringField("valorCastella", dadesAtributsValorsLlistaSollicitudsRDTO.getValorCastella());
+						}
 						jsonGenerator.writeEndObject();
 					}
 				}

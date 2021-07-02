@@ -92,6 +92,7 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 							}
 						} else {
 							valorStringBuffer = new StringBuffer();
+							valorCastellaStringBuffer = new StringBuffer();
 							
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorBoolean() != null)
 							        ? BooleanUtils.toStringTrueFalse(BooleanUtils.toBoolean(dadesEspecifiquesValors.getValorBoolean(),
@@ -135,8 +136,9 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 									String valorCastella = obtenirDescripcioCastellaItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
 									        dadaEspecificaBDTO.getDadaOperacio().getItemsList());
 									if(StringUtils.isNotEmpty(valorCastella)){
-										valorCastellaStringBuffer = new StringBuffer();
 										valorCastellaStringBuffer.append(valorCastella);
+									} else {
+										valorCastellaStringBuffer.append(StringUtils.EMPTY);
 									}
 								}
 							} else {
