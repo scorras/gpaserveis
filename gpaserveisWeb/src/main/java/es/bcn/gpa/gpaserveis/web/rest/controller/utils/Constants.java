@@ -113,5 +113,12 @@ public class Constants {
 	
 	/** The Constant TANCAMENT_AUTOMATIC. */
 	public static final BigDecimal TANCAMENT_AUTOMATIC = new BigDecimal(1);
+	
+	/** The Constant REVISIO_DOCUMENT_CORRECT. */
+	public static final int REVISIO_DOCUMENT_CORRECT = 1;
+	
+	/** The Constant REVISIO_DOCUMENT_INCORRECT. */
+	public static final int REVISIO_DOCUMENT_INCORRECT = 2;
+	
 
 }

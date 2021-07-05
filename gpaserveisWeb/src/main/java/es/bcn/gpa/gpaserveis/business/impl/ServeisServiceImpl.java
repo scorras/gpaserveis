@@ -66,6 +66,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarSollicit
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsReprendreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.GestionarAvisosPerAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ObtenirPerInteroperabilitatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaExpedientsCercaBDTO;
@@ -2510,5 +2511,14 @@ public class ServeisServiceImpl implements ServeisService {
 	public ConsultarSignaturaResponse consultarSignatura(String idPeticio, String idDocumentGestorDocumental)
 	        throws GPAServeisServiceException {
 		return documentsService.consultarSignatura(idPeticio, idDocumentGestorDocumental);
+	}
+
+	/* (non-Javadoc)
+	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#gestionarAvisosPerAccio(es.bcn.gpa.gpaserveis.business.dto.expedients.GestionarAvisosPerAccioBDTO)
+	 */
+	@Override
+	public void gestionarAvisosPerAccio(GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO) throws GPAServeisServiceException {
+		expedientsService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
+		
 	}
 }

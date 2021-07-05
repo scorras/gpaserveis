@@ -19,31 +19,32 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 
 /**
- * ObtenirPerInteroperabilitat
+ * GestionarAvisosPerAccio
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-07-01T12:01:08.786+02:00")
-public class ObtenirPerInteroperabilitat {
-  @JsonProperty("codiServei")
-  private String codiServei = null;
+public class GestionarAvisosPerAccio {
+  @JsonProperty("idAccio")
+  private BigDecimal idAccio = null;
 
-  public ObtenirPerInteroperabilitat codiServei(String codiServei) {
-    this.codiServei = codiServei;
+  public GestionarAvisosPerAccio idAccio(BigDecimal idAccio) {
+    this.idAccio = idAccio;
     return this;
   }
 
    /**
-   * Codi del servei a executar
-   * @return codiServei
+   * Identificador de l&#39;acció
+   * @return idAccio
   **/
-  @ApiModelProperty(value = "Codi del servei a executar")
-  public String getCodiServei() {
-    return codiServei;
+  @ApiModelProperty(value = "Identificador de l'acció")
+  public BigDecimal getIdAccio() {
+    return idAccio;
   }
 
-  public void setCodiServei(String codiServei) {
-    this.codiServei = codiServei;
+  public void setIdAccio(BigDecimal idAccio) {
+    this.idAccio = idAccio;
   }
 
 
@@ -55,22 +56,22 @@ public class ObtenirPerInteroperabilitat {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ObtenirPerInteroperabilitat obtenirPerInteroperabilitat = (ObtenirPerInteroperabilitat) o;
-    return Objects.equals(this.codiServei, obtenirPerInteroperabilitat.codiServei);
+    GestionarAvisosPerAccio gestionarAvisosPerAccio = (GestionarAvisosPerAccio) o;
+    return Objects.equals(this.idAccio, gestionarAvisosPerAccio.idAccio);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(codiServei);
+    return Objects.hash(idAccio);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ObtenirPerInteroperabilitat {\n");
+    sb.append("class GestionarAvisosPerAccio {\n");
     
-    sb.append("    codiServei: ").append(toIndentedString(codiServei)).append("\n");
+    sb.append("    idAccio: ").append(toIndentedString(idAccio)).append("\n");
     sb.append("}");
     return sb.toString();
   }

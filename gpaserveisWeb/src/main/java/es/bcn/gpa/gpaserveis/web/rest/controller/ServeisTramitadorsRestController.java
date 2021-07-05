@@ -84,6 +84,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRedireccionarAsse
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsReprendreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.GestionarAvisosPerAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ObtenirPerInteroperabilitatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaActualitzarTerceraPersonaBDTO;
@@ -160,6 +161,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiqu
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DropdownItemBDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.GestionarAvisosPerAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.InscriureEnRegistreRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ObtenirPerInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
@@ -1438,7 +1440,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        Resultat.ERROR_VALIDAR_DOCUMENT_EXPEDIENT);
 
 			// Validar documento si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			BigDecimal accionsEstatsId = ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.VALIDAR_DOCUMENT, Resultat.ERROR_VALIDAR_DOCUMENT_EXPEDIENT);
 
 			// Estado de revisión del documento a Correcte
@@ -1459,6 +1461,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ComentarisCrearAccioBDTO comentarisCrearAccioBDTO = new ComentarisCrearAccioBDTO(comentariCreacioAccio,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.VALIDAR_DOCUMENT.getInternalValue());
 			serveisService.crearComentariAccio(comentarisCrearAccioBDTO);
+			
+			//Avisos
+			GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+			gestionarAvisosPerAccio.setIdAccio(accionsEstatsId);
+			GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio, dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("validarDocumentExpedient(String, BigDecimal, DocumentAportatValidarRDTO)", e); // $NON-NLS-1$
@@ -1539,7 +1547,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        Resultat.ERROR_REBUTJAR_DOCUMENT_EXPEDIENT);
 
 			// Validar documento si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			BigDecimal accionsEstatsId = ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.REBUTJAR_DOCUMENT, Resultat.ERROR_REBUTJAR_DOCUMENT_EXPEDIENT);
 
 			// Estado de revisión del documento a Incorrecte
@@ -1560,6 +1568,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ComentarisCrearAccioBDTO comentarisCrearAccioBDTO = new ComentarisCrearAccioBDTO(comentariCreacioAccio,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.REBUTJAR_DOCUMENT.getInternalValue());
 			serveisService.crearComentariAccio(comentarisCrearAccioBDTO);
+			
+			//Avisos
+			GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+			gestionarAvisosPerAccio.setIdAccio(accionsEstatsId);
+			GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio, dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("rebutjarDocumentExpedient(String, BigDecimal, DocumentAportatRebutjarRDTO)", e); // $NON-NLS-1$
@@ -1966,7 +1980,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Incorporar un nuevo documento electrónico al expediente si la
 			// acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			BigDecimal accionsEstatsId = ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.INCORPORAR_NOU_DOCUMENT_ELECTRONIC, Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
 
 			// Incorporar un nuevo documento, pudiéndose tratar de entrada o
@@ -1996,6 +2010,19 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(dadesExpedientBDTO.getExpedientsRDTO().getId(),
 				        docsEntradaRDTO, file, null);
 				docsEntradaRDTOResult = serveisService.guardarDocumentEntradaFitxer(guardarDocumentEntradaFitxerBDTO);
+				
+				//Avisos				
+				GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+				gestionarAvisosPerAccio.setIdAccio(accionsEstatsId);
+				GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio, dadesExpedientBDTO.getExpedientsRDTO().getId());
+				serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
+				
+				if(guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO().getRevisio() == Constants.REVISIO_DOCUMENT_CORRECT){
+					validarDocumentExpedient(codiExpedient, docsEntradaRDTOResult.getId(), new DocumentAportatValidarRDTO());
+				} else if(guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO().getRevisio() == Constants.REVISIO_DOCUMENT_INCORRECT){
+					rebutjarDocumentExpedient(codiExpedient, docsEntradaRDTOResult.getId(), new DocumentAportatRebutjarRDTO());
+				}
+				
 			} else {
 				DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO = new DocumentsTramitacioCercaBDTO(
 				        dadesExpedientBDTO.getExpedientsRDTO().getConfiguracioDocumentacioProc());
@@ -4595,7 +4622,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_ESBORRAR_DOCUMENT);
 
 			// Esborrar document si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			BigDecimal accionsEstatsId = ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.ESBORRAR_DOCUMENT, Resultat.ERROR_ESBORRAR_DOCUMENT);
 
 			if (esAportada) {
@@ -4615,6 +4642,13 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 				        idDocument);
 
 				serveisService.esBorrarDocumentacioEntrada(esborrarDocumentBDTO);
+				
+				//Avisos
+				GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+				gestionarAvisosPerAccio.setIdAccio(accionsEstatsId);
+				GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio, dadesExpedientBDTO.getExpedientsRDTO().getId());
+				serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
+				
 			} else {
 				// El id del documento debe existir y pertenecer al expediente
 				// indicado

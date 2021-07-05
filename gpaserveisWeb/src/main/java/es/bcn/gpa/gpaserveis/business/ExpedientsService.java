@@ -19,6 +19,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarSollicit
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsReprendreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRetornarTramitacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsTornarEnrereBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.GestionarAvisosPerAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.InscriureEnRegistreBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ObtenirPerInteroperabilitatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsCercaBDTO;
@@ -580,4 +581,12 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	void reprendreTramitacio(ExpedientsReprendreBDTO expedientsReprendreBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Gestionar avisos per accio.
+	 *
+	 * @param gestionarAvisosPerAccioBDTO the gestionar avisos per accio BDTO
+	 * @throws GPAServeisServiceException the GPA serveis service exception
+	 */
+	void gestionarAvisosPerAccio(GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO) throws GPAServeisServiceException;
 }
