@@ -45,9 +45,21 @@ public class SwaggerFilesGenerationTest extends RestServerParentTest {
 		BufferedReader bf = new BufferedReader(new FileReader(jsonFile));
 		String linea;
 		StringBuilder buffer = new StringBuilder();
+		boolean bypass = false;
 		while ((linea = bf.readLine()) != null) {
 			if (linea.contains("basePath")) {
 				linea = "\"basePath\":\"" + basePath + "\",";
+			}
+			// añadido para solucionar el problema con los parametros generados
+			// de tipo number, a la espera de solución por IBM
+			if (linea.contains("in") && linea.contains("path")) {
+				bypass = true;
+			}
+			if (bypass && linea.contains("type")) {
+				bypass = false;
+				if (linea.contains("number")) {
+					linea = linea.replace("number", "integer");
+				}
 			}
 			buffer.append(linea);
 		}
@@ -60,7 +72,7 @@ public class SwaggerFilesGenerationTest extends RestServerParentTest {
 		writer.close();
 
 		BufferedWriter writerYaml = new BufferedWriter(
-		        new FileWriter(Paths.get(jsonFile.getAbsolutePath().replace(".json", ".yaml")).toFile()));
+				new FileWriter(Paths.get(jsonFile.getAbsolutePath().replace(".json", ".yaml")).toFile()));
 		writerYaml.write(new YAMLMapper().writerWithDefaultPrettyPrinter().writeValueAsString(json));
 		writerYaml.flush();
 		writerYaml.close();
