@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.6.0"
+  version: "2.6.1"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -533,7 +533,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -585,7 +585,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -638,7 +638,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "idGestorDocumental"
         in: "formData"
         description: "Identificador Gestor Documental"
@@ -689,7 +689,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -734,7 +734,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -925,7 +925,7 @@ paths:
         in: "path"
         description: "Identificador de la persona"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1402,7 +1402,7 @@ paths:
         in: "path"
         description: "Identificador del procediment"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1451,7 +1451,7 @@ paths:
         in: "path"
         description: "Identificador del procediment"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1500,7 +1500,7 @@ paths:
         in: "path"
         description: "Identificador del procediment"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1549,7 +1549,7 @@ paths:
         in: "path"
         description: "Identificador del procediment"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1598,7 +1598,7 @@ paths:
         in: "path"
         description: "Identificador del procediment"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1637,7 +1637,7 @@ paths:
         in: "path"
         description: "Identificador de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1677,7 +1677,7 @@ paths:
         in: "path"
         description: "Id de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "sollicitudActualitzar"
         description: "Dades de la actualització de l'expedient"
@@ -1732,7 +1732,7 @@ paths:
         in: "path"
         description: "Id de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1773,12 +1773,12 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "idSollicitud"
         in: "path"
         description: "Id de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1817,12 +1817,12 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "idSollicitud"
         in: "path"
         description: "Identificador de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1869,12 +1869,12 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "idSollicitud"
         in: "path"
         description: "Id de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1922,7 +1922,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "idGestorDocumental"
         in: "formData"
         description: "Identificador Gestor Documental"
@@ -1932,7 +1932,7 @@ paths:
         in: "path"
         description: "Id de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1975,7 +1975,7 @@ paths:
         in: "path"
         description: "Id de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "personaImplicada"
         description: "Dades de la actualització de la sol·licitud"
@@ -2023,7 +2023,7 @@ paths:
         in: "path"
         description: "Id de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "personaImplicada"
         description: "Dades de la actualització de la sol·licitud"
@@ -2070,12 +2070,12 @@ paths:
         in: "path"
         description: "Identificador de la persona"
         required: true
-        type: "number"
+        type: "integer"
       - name: "idSollicitud"
         in: "path"
         description: "Id de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -2116,7 +2116,7 @@ paths:
         in: "path"
         description: "Id de sollicitud"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "sollicitudRegistrarRDTO"
         description: "Dades de l'registre de la sol·licitud"
@@ -2169,7 +2169,7 @@ paths:
         in: "path"
         description: "Identificador de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -3096,7 +3096,7 @@ paths:
         in: "path"
         description: "Identificador del document principal"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3170,7 +3170,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3213,7 +3213,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3256,7 +3256,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3299,7 +3299,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3342,7 +3342,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3379,7 +3379,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "signaturaDocument"
         description: "Informació addicional per a la signatura"
@@ -3422,7 +3422,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3465,7 +3465,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3500,7 +3500,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3751,7 +3751,7 @@ paths:
         in: "path"
         description: "Identificador de la persona"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3972,7 +3972,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "signaturaDocument"
         description: "Informació addicional per a la signatura"
