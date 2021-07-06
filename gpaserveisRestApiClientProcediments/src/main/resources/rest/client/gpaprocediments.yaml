@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaprocediments"
-  version: "2.2.2"
+  version: "2.4.0"
   title: "API gpaprocediments"
   contact:
     name: "Sergio Corras"
@@ -546,6 +546,9 @@ definitions:
   ConfdocsentTramitsOvt:
     type: "object"
     properties:
+      comprovant:
+        type: "integer"
+        format: "int32"
       confDocsEntrada:
         type: "number"
       tramitOvtIdext:
@@ -556,16 +559,25 @@ definitions:
     properties:
       confDocsTramitacio:
         type: "number"
+      justificant:
+        type: "integer"
+        format: "int32"
       tramitOvtIdext:
         type: "number"
     title: "ConfdocstramTramitsOvt"
   DadesGrups:
     type: "object"
     properties:
+      dadesGrupsCaractGrupsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesGrupsCaractGrups"
       dadesOperacionsList:
         type: "array"
         items:
           $ref: "#/definitions/DadesOperacions"
+      desTipusGrup:
+        type: "string"
       descripcio:
         type: "string"
       descripcioCastella:
@@ -585,9 +597,13 @@ definitions:
         format: "int32"
       procediment:
         type: "number"
+      repeticions:
+        type: "number"
       seleccionable:
         type: "boolean"
       serveiIdext:
+        type: "number"
+      tipusGrup:
         type: "number"
       titol:
         type: "string"
@@ -599,13 +615,27 @@ definitions:
         type: "integer"
         format: "int32"
     title: "DadesGrups"
+  DadesGrupsCaractGrups:
+    type: "object"
+    properties:
+      caracteristicaGrup:
+        type: "number"
+      dadaGrup:
+        type: "number"
+    title: "DadesGrupsCaractGrups"
   DadesGrupsRDTO:
     type: "object"
     properties:
+      dadesGrupsCaractGrupsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesGrupsCaractGrups"
       dadesOperacionsList:
         type: "array"
         items:
           $ref: "#/definitions/DadesOperacions"
+      desTipusGrup:
+        type: "string"
       descripcio:
         type: "string"
       descripcioCastella:
@@ -625,9 +655,13 @@ definitions:
         format: "int32"
       procediment:
         type: "number"
+      repeticions:
+        type: "number"
       seleccionable:
         type: "boolean"
       serveiIdext:
+        type: "number"
+      tipusGrup:
         type: "number"
       titol:
         type: "string"
@@ -715,6 +749,8 @@ definitions:
           $ref: "#/definitions/DadesoperEstatsExp"
       desTipusCamp:
         type: "string"
+      desTipusDadaOperacio:
+        type: "string"
       descripcio:
         type: "string"
       descripcioCastella:
@@ -727,6 +763,8 @@ definitions:
       grup:
         type: "number"
       id:
+        type: "number"
+      idDefinicioGrup:
         type: "number"
       interoperabilitat:
         type: "integer"
@@ -745,11 +783,15 @@ definitions:
         format: "int32"
       procediment:
         type: "number"
+      repeticions:
+        type: "number"
       seleccionable:
         type: "boolean"
       tipus:
         type: "integer"
         format: "int32"
+      tipusDadaOperacio:
+        type: "number"
       titol:
         type: "string"
       titolCastella:
@@ -789,6 +831,8 @@ definitions:
           $ref: "#/definitions/DadesoperEstatsExp"
       desTipusCamp:
         type: "string"
+      desTipusDadaOperacio:
+        type: "string"
       descripcio:
         type: "string"
       descripcioCastella:
@@ -801,6 +845,8 @@ definitions:
       grup:
         type: "number"
       id:
+        type: "number"
+      idDefinicioGrup:
         type: "number"
       interoperabilitat:
         type: "integer"
@@ -819,11 +865,15 @@ definitions:
         format: "int32"
       procediment:
         type: "number"
+      repeticions:
+        type: "number"
       seleccionable:
         type: "boolean"
       tipus:
         type: "integer"
         format: "int32"
+      tipusDadaOperacio:
+        type: "number"
       titol:
         type: "string"
       titolCastella:

@@ -20,6 +20,7 @@ import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.FixMethodOrder;
@@ -33,6 +34,7 @@ import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.CampsReglesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesOperacionsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient.CollectionFormat;
 
@@ -82,6 +84,21 @@ public class DadesOperacionsApiTest extends ParentTest {
 		        absoluteRowNumberOfLastRowInCurrentPage, currentPageHasNextPage, currentPageHasPreviousPage, currentPageIsFirstPage,
 		        currentPageIsLastPage, currentPageNumber, dir, nextPageNumber, pageSize, previousPageNumber, sort, totalElements,
 		        totalPages);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Obtenir camps regles test.
+	 */
+	@Test
+	public void obtenirCampsReglesTest() {
+		when(apiClient.invokeAPI(eq("/procediments/1/regles/camps"), eq(HttpMethod.GET), any(MultiValueMap.class), any(Object.class),
+		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
+		        any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<CampsReglesRDTO>());
+
+		BigDecimal id = ONE;
+		List<CampsReglesRDTO> response = api.obtenirCampsRegles(id);
 
 		assertTrue(response != null);
 	}

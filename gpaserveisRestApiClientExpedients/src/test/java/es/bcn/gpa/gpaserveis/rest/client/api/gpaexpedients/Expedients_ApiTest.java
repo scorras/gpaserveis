@@ -110,12 +110,13 @@ public class Expedients_ApiTest extends ParentTest {
 		Integer totalPages = null;
 		String tramitador = null;
 		List<BigDecimal> unitatsGestoresList = null;
+		String numeroRegistre = null;
 		PageDataOfExpedientsRDTO response = api.cercaExpedients(absoluteRowNumberOfFirstRowInCurrentPage,
 				absoluteRowNumberOfLastRowInCurrentPage, aplicacioNegoci, avisList, codi, criteriDeCercaDadesOperacioList0Id,
 				criteriDeCercaDadesOperacioList0Tipus, criteriDeCercaDadesOperacioList0Valor, currentPageHasNextPage,
 				currentPageHasPreviousPage, currentPageIsFirstPage, currentPageIsLastPage, currentPageNumber, dataPresentacioDes,
 				dataPresentacioFinsA, dir, estatList, id, idUsuari, isOge, nextPageNumber, nivellAutenticacio, nomCognomSollicitant,
-				numeroDocumentInteressat, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, pageSize, previousPageNumber, procedimentCodisList,
+				numeroDocumentInteressat, numeroDocumentSollicitant, numeroDocumentSollicitantEstricte, numeroRegistre, pageSize, previousPageNumber, procedimentCodisList,
 				procedimentId, procedimentVersio, sort, totalElements, totalPages, tramitador, unitatsGestoresList);
 
 		assertTrue(response != null);

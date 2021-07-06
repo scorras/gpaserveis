@@ -110,8 +110,17 @@ public class Constants {
 
 	/** The Constant CODI_DADA_OPERACIO_DADES_EXTERNES. */
 	public static final String CODI_DADA_OPERACIO_DADES_EXTERNES = "DADES_EXTERNES";
-	
+
 	/** The Constant TANCAMENT_AUTOMATIC. */
 	public static final BigDecimal TANCAMENT_AUTOMATIC = new BigDecimal(1);
+
+	/** The Constant DADES_GRUPS_OPERACIONS_REPETICIONS_N. */
+	public static final String DADES_GRUPS_OPERACIONS_REPETICIONS_N = "N";
+	
+	/** The Constant DADES_OPERACIONS_REPETIBLE. */
+	public static final BigDecimal DADES_OPERACIONS_REPETIBLE = new BigDecimal("2");
+	
+	/** The Constant CODI_GRUP_. */
+	public static final String CODI_GRUP_ = "GRUP_";
 
 }

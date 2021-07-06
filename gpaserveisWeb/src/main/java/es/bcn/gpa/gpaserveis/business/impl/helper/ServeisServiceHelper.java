@@ -44,7 +44,9 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitaci
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRepetiblesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValors;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesValorsJson;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
@@ -1075,20 +1077,27 @@ public class ServeisServiceHelper {
 		DadaEspecificaBDTO dadaEspecificaBDTO = null;
 		List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = expedientsService
 		        .cercaDadesEspecifiquesSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId(), visibilitat);
-		if (CollectionUtils.isNotEmpty(dadesEspecifiquesRDTOList)) {
-			dadaEspecificaBDTOList = new ArrayList<DadaEspecificaBDTO>();
-			HashMap<BigDecimal, DadesOperacions> dadesOperacionsMap = new HashMap<BigDecimal, DadesOperacions>();
-			DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(idProcediment, null);
-			PageDataOfDadesGrupsRDTO pageDataOfDadesGrupsRDTO = dadesOperacioService.cercaDadesOperacio(dadesOperacioCercaBDTO);
-			if (CollectionUtils.isNotEmpty(pageDataOfDadesGrupsRDTO.getData())) {
-				for (DadesGrupsRDTO dadesGrupsRDTO : pageDataOfDadesGrupsRDTO.getData()) {
-					if (CollectionUtils.isNotEmpty(dadesGrupsRDTO.getDadesOperacionsList())) {
-						for (DadesOperacions dadesOperacions : dadesGrupsRDTO.getDadesOperacionsList()) {
-							dadesOperacionsMap.put(dadesOperacions.getId(), dadesOperacions);
+		List<DadesEspecifiquesRepetiblesRDTO> dadesEspecifiquesRepetiblesRDTOList = expedientsService
+		        .cercaDadesEspecifiquesRepetiblesSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId(), visibilitat);
+		
+		HashMap<BigDecimal, DadesOperacions> dadesOperacionsMap = new HashMap<BigDecimal, DadesOperacions>();
+		DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(idProcediment, null);
+		PageDataOfDadesGrupsRDTO pageDataOfDadesGrupsRDTO = dadesOperacioService.cercaDadesOperacio(dadesOperacioCercaBDTO);
+		if (CollectionUtils.isNotEmpty(pageDataOfDadesGrupsRDTO.getData())) {
+			for (DadesGrupsRDTO dadesGrupsRDTO : pageDataOfDadesGrupsRDTO.getData()) {
+				if (CollectionUtils.isNotEmpty(dadesGrupsRDTO.getDadesOperacionsList())) {
+					for (DadesOperacions dadesOperacions : dadesGrupsRDTO.getDadesOperacionsList()) {
+						if (StringUtils.isNotEmpty(dadesGrupsRDTO.getTitol())) {
+							dadesOperacions.setTitolGrup(dadesGrupsRDTO.getTitol());
 						}
+						dadesOperacionsMap.put(dadesOperacions.getId(), dadesOperacions);
 					}
 				}
 			}
+		}
+		
+		if (CollectionUtils.isNotEmpty(dadesEspecifiquesRDTOList)) {
+			dadaEspecificaBDTOList = new ArrayList<DadaEspecificaBDTO>();
 			for (DadesEspecifiquesRDTO dadesEspecifiquesRDTO : dadesEspecifiquesRDTOList) {
 				dadaEspecificaBDTO = new DadaEspecificaBDTO();
 				dadaEspecificaBDTO.setDadaOperacio(dadesOperacionsMap.get(dadesEspecifiquesRDTO.getCampIdext()));
@@ -1114,6 +1123,26 @@ public class ServeisServiceHelper {
 			dadesEspecifiquesRDTO.setDadesEspecifiquesValorsList(dadesEspecifiquesValorsList);
 			dadaEspecificaBDTO.setDadaEspecifica(dadesEspecifiquesRDTO);
 			dadaEspecificaBDTOList.add(dadaEspecificaBDTO);
+		}
+		
+		if (CollectionUtils.isNotEmpty(dadesEspecifiquesRepetiblesRDTOList)) {
+			if (dadaEspecificaBDTOList == null) {
+				dadaEspecificaBDTOList = new ArrayList<DadaEspecificaBDTO>();
+			}
+			for (DadesEspecifiquesRepetiblesRDTO dadesEspecifiquesRepetiblesRDTO : dadesEspecifiquesRepetiblesRDTOList) {
+				dadaEspecificaBDTO = new DadaEspecificaBDTO();
+				dadaEspecificaBDTO.setDadaOperacio(dadesOperacionsMap.get(dadesEspecifiquesRepetiblesRDTO.getCampIdext() != null ?  dadesEspecifiquesRepetiblesRDTO.getCampIdext() : dadesEspecifiquesRepetiblesRDTO.getGrupIdext()));
+				if (dadesEspecifiquesRepetiblesRDTO.getGrupIdext() != null && dadaEspecificaBDTO.getDadaOperacio() != null) {
+					dadaEspecificaBDTO.getDadaOperacio().setCodi(Constants.CODI_GRUP_.concat(dadesEspecifiquesRepetiblesRDTO.getGrupIdext().toString()));
+				}
+				if (dadesEspecifiquesRepetiblesRDTO.getGrupIdext() != null && dadaEspecificaBDTO.getDadaOperacio() == null) {
+					DadesOperacions dadesOperacions = new DadesOperacions();
+					dadesOperacions.setCodi(Constants.CODI_GRUP_.concat(dadesEspecifiquesRepetiblesRDTO.getGrupIdext().toString()));
+					dadaEspecificaBDTO.setDadaOperacio(dadesOperacions);
+				}
+				dadaEspecificaBDTO.setDadaEspecificaRepetible(dadesEspecifiquesRepetiblesRDTO);
+				dadaEspecificaBDTOList.add(dadaEspecificaBDTO);
+			}
 		}
 
 		dadesSollicitudBDTO.setDadesOperacio(dadaEspecificaBDTOList);
@@ -1143,28 +1172,36 @@ public class ServeisServiceHelper {
 		String estatTramitadorApiParamValueExpedient = estatTramitadorApiParamValueTranslator
 		        .getApiParamValueByInternalValue(dadesExpedientBDTO.getExpedientsRDTO().getIdEstat());
 		List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
+		List<DadesEspecifiquesRepetiblesRDTO> dadesEspecifiquesRepetiblesRDTOList = null;
 		if (StringUtils.equals(estatTramitadorApiParamValueExpedient, EstatTramitadorApiParamValue.EN_PREPARACIO.getApiParamValue())) {
 			dadesEspecifiquesRDTOList = expedientsService
 			        .cercaDadesEspecifiquesSollicitud((dadesExpedientBDTO.getExpedientsRDTO().getSollicitud()), visibilitat);
+			dadesEspecifiquesRepetiblesRDTOList = expedientsService
+			        .cercaDadesEspecifiquesRepetiblesSollicitud((dadesExpedientBDTO.getExpedientsRDTO().getSollicitud()), visibilitat);
 		} else {
 			dadesEspecifiquesRDTOList = expedientsService.cercaDadesEspecifiquesExpedient(idExpedient, visibilitat);
+			dadesEspecifiquesRepetiblesRDTOList = expedientsService.cercaDadesEspecifiquesRepetiblesExpedient(idExpedient, visibilitat);
+		}
+		
+		HashMap<BigDecimal, DadesOperacions> dadesOperacionsMap = new HashMap<BigDecimal, DadesOperacions>();
+		DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(
+		        dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
+		PageDataOfDadesGrupsRDTO pageDataOfDadesGrupsRDTO = dadesOperacioService.cercaDadesOperacio(dadesOperacioCercaBDTO);
+		if (CollectionUtils.isNotEmpty(pageDataOfDadesGrupsRDTO.getData())) {
+			for (DadesGrupsRDTO dadesGrupsRDTO : pageDataOfDadesGrupsRDTO.getData()) {
+				if (CollectionUtils.isNotEmpty(dadesGrupsRDTO.getDadesOperacionsList())) {
+					for (DadesOperacions dadesOperacions : dadesGrupsRDTO.getDadesOperacionsList()) {
+						if (StringUtils.isNotEmpty(dadesGrupsRDTO.getTitol())) {
+							dadesOperacions.setTitolGrup(dadesGrupsRDTO.getTitol());
+						}
+						dadesOperacionsMap.put(dadesOperacions.getId(), dadesOperacions);
+					}
+				}
+			}
 		}
 
 		if (CollectionUtils.isNotEmpty(dadesEspecifiquesRDTOList)) {
 			dadaEspecificaBDTOList = new ArrayList<DadaEspecificaBDTO>();
-			HashMap<BigDecimal, DadesOperacions> dadesOperacionsMap = new HashMap<BigDecimal, DadesOperacions>();
-			DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(
-			        dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
-			PageDataOfDadesGrupsRDTO pageDataOfDadesGrupsRDTO = dadesOperacioService.cercaDadesOperacio(dadesOperacioCercaBDTO);
-			if (CollectionUtils.isNotEmpty(pageDataOfDadesGrupsRDTO.getData())) {
-				for (DadesGrupsRDTO dadesGrupsRDTO : pageDataOfDadesGrupsRDTO.getData()) {
-					if (CollectionUtils.isNotEmpty(dadesGrupsRDTO.getDadesOperacionsList())) {
-						for (DadesOperacions dadesOperacions : dadesGrupsRDTO.getDadesOperacionsList()) {
-							dadesOperacionsMap.put(dadesOperacions.getId(), dadesOperacions);
-						}
-					}
-				}
-			}
 			for (DadesEspecifiquesRDTO dadesEspecifiquesRDTO : dadesEspecifiquesRDTOList) {
 				dadaEspecificaBDTO = new DadaEspecificaBDTO();
 				dadaEspecificaBDTO.setDadaOperacio(dadesOperacionsMap.get(dadesEspecifiquesRDTO.getCampIdext()));
@@ -1190,6 +1227,26 @@ public class ServeisServiceHelper {
 			dadesEspecifiquesRDTO.setDadesEspecifiquesValorsList(dadesEspecifiquesValorsList);
 			dadaEspecificaBDTO.setDadaEspecifica(dadesEspecifiquesRDTO);
 			dadaEspecificaBDTOList.add(dadaEspecificaBDTO);
+		}
+		
+		if (CollectionUtils.isNotEmpty(dadesEspecifiquesRepetiblesRDTOList)) {
+			if (dadaEspecificaBDTOList == null) {
+				dadaEspecificaBDTOList = new ArrayList<DadaEspecificaBDTO>();
+			}
+			for (DadesEspecifiquesRepetiblesRDTO dadesEspecifiquesRepetiblesRDTO : dadesEspecifiquesRepetiblesRDTOList) {
+				dadaEspecificaBDTO = new DadaEspecificaBDTO();
+				dadaEspecificaBDTO.setDadaOperacio(dadesOperacionsMap.get(dadesEspecifiquesRepetiblesRDTO.getCampIdext() != null ?  dadesEspecifiquesRepetiblesRDTO.getCampIdext() : dadesEspecifiquesRepetiblesRDTO.getGrupIdext()));
+				if (dadesEspecifiquesRepetiblesRDTO.getGrupIdext() != null && dadaEspecificaBDTO.getDadaOperacio() != null) {
+					dadaEspecificaBDTO.getDadaOperacio().setCodi(Constants.CODI_GRUP_.concat(dadesEspecifiquesRepetiblesRDTO.getGrupIdext().toString()));
+				}
+				if (dadesEspecifiquesRepetiblesRDTO.getGrupIdext() != null && dadaEspecificaBDTO.getDadaOperacio() == null) {
+					DadesOperacions dadesOperacions = new DadesOperacions();
+					dadesOperacions.setCodi(Constants.CODI_GRUP_.concat(dadesEspecifiquesRepetiblesRDTO.getGrupIdext().toString()));
+					dadaEspecificaBDTO.setDadaOperacio(dadesOperacions);
+				}
+				dadaEspecificaBDTO.setDadaEspecificaRepetible(dadesEspecifiquesRepetiblesRDTO);
+				dadaEspecificaBDTOList.add(dadaEspecificaBDTO);
+			}
 		}
 
 		dadesExpedientBDTO.setDadesOperacio(dadaEspecificaBDTOList);
