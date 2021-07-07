@@ -125,6 +125,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerAcc
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerSagaHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerValidationHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerVisibilitatHelper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.helper.bean.ValidateDadesOperacioResultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
@@ -1147,14 +1148,14 @@ public class ServeisPortalRestController extends BaseRestController {
 			// Se obtienen los Dades d'Operació del procedimiento y se valida
 			// que los códigos indicados existen. Se aprovecha para recuperar
 			// los identificadores de los campos
-			ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
+			ValidateDadesOperacioResultat validateDadesOperacioResultat = null;
 			if (CollectionUtils.isNotEmpty(solicitudExpedient.getDadesOperacio())) {
 
 				DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(
 				        dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
 				respostaDadesOperacioCercaBDTO = serveisService.cercaDadesOperacio(dadesOperacioCercaBDTO);
 
-				dadesEspecifiquesRDTOList = ServeisRestControllerValidationHelper.validateDadesOperacioActualitzarSolicitudExpedient(
+				validateDadesOperacioResultat = ServeisRestControllerValidationHelper.validateDadesOperacioActualitzarSolicitudExpedient(
 				        solicitudExpedient.getDadesOperacio(), respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList(),
 				        dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(), true);
 
@@ -1185,7 +1186,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			expedientsRDTO.setId(dadesExpedientBDTO.getExpedientsRDTO().getId());
 			ActualitzarDadesSollicitud actualitzarDadesSollicitud = new ActualitzarDadesSollicitud();
 			actualitzarDadesSollicitud.setExpedient(expedientsRDTO);
-			actualitzarDadesSollicitud.setDadesEspecifiques(dadesEspecifiquesRDTOList);
+			actualitzarDadesSollicitud.setDadesEspecifiques(validateDadesOperacioResultat.getDadesEspecifiquesRDTOList());
+			actualitzarDadesSollicitud
+			        .setDadesEspecifiquesRepetibles(validateDadesOperacioResultat.getDadesEspecifiquesRepetiblesRDTOList());
 			actualitzarDadesSollicitud.setEsTramitadors(Boolean.FALSE);
 			ExpedientsActualitzarBDTO expedientsActualitzarBDTO = new ExpedientsActualitzarBDTO(actualitzarDadesSollicitud);
 			returnExpedientsRDTO = serveisService.actualitzarSolicitudExpedient(expedientsActualitzarBDTO);
@@ -2255,12 +2258,12 @@ public class ServeisPortalRestController extends BaseRestController {
 			// Se obtienen los Dades d'Operació del procedimiento y se valida
 			// que los códigos indicados existen. Se aprovecha para recuperar
 			// los identificadores de los campos
-			ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
+			ValidateDadesOperacioResultat validateDadesOperacioResultat = null;
 			if (CollectionUtils.isNotEmpty(expedientEsmena.getDadesOperacio())) {
 				DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(
 				        dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
 				RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = serveisService.cercaDadesOperacio(dadesOperacioCercaBDTO);
-				dadesEspecifiquesRDTOList = ServeisRestControllerValidationHelper.validateDadesOperacioEsmenarExpedient(
+				validateDadesOperacioResultat = ServeisRestControllerValidationHelper.validateDadesOperacioEsmenarExpedient(
 				        expedientEsmena.getDadesOperacio(), respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList(),
 				        dadesExpedientBDTO.getExpedientsRDTO().getId());
 			}
@@ -2268,7 +2271,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			actualitzarDadesSollicitud.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
 			actualitzarDadesSollicitud.setEsmena(Boolean.TRUE);
 			actualitzarDadesSollicitud.setComentari(expedientEsmena.getComentari());
-			actualitzarDadesSollicitud.setDadesEspecifiques(dadesEspecifiquesRDTOList);
+			actualitzarDadesSollicitud.setDadesEspecifiques(validateDadesOperacioResultat.getDadesEspecifiquesRDTOList());
 			ExpedientsActualitzarBDTO expedientsActualitzarBDTO = new ExpedientsActualitzarBDTO(actualitzarDadesSollicitud);
 			serveisService.actualitzarSolicitudExpedient(expedientsActualitzarBDTO);
 

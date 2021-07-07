@@ -8,8 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -24,6 +24,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollici
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusDocumentIdentitat;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsCaractGrups;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperTramitsOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperValidVal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
@@ -37,6 +38,8 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.Boolean
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.ConfiguracioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.EstatTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.RelacioPersonaApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TipusDadaOperacioApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TipusGrupApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TipusValidacioApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
@@ -508,6 +511,8 @@ public class ConverterHelper {
 	 *            the expedient estat api param value translator
 	 * @param nivellCriticitatApiParamValueTranslator
 	 * @param booleanApiParamValueTranslator
+	 * @param caracteristiquesGrupApiParamValueTranslator
+	 * @param tipusDadaOperacioApiParamValueTranslator
 	 * @return the es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal. dades
 	 *         grups RDTO
 	 */
@@ -516,28 +521,47 @@ public class ConverterHelper {
 	        BaseApiParamValueTranslator tipusCampApiParamValueTranslator, BaseApiParamValueTranslator tipusValidacioApiParamValueTranslator,
 	        BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator,
 	        NivellCriticitatApiParamValueTranslator nivellCriticitatApiParamValueTranslator,
-	        BooleanApiParamValueTranslator booleanApiParamValueTranslator) {
+	        BooleanApiParamValueTranslator booleanApiParamValueTranslator, BaseApiParamValueTranslator tipusGrupApiParamValueTranslator,
+	        BaseApiParamValueTranslator caracteristiquesGrupApiParamValueTranslator,
+	        BaseApiParamValueTranslator tipusDadaOperacioApiParamValueTranslator) {
 
 		if (internalDadesGrupsRDTO == null) {
 			return null;
 		}
 
 		es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO dadesGrupsRDTO = new es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO();
+		dadesGrupsRDTO.setCodi("GRUP_" + internalDadesGrupsRDTO.getId().toString());
 		dadesGrupsRDTO.setTitol(internalDadesGrupsRDTO.getTitol());
 		dadesGrupsRDTO.setTitolCastella(internalDadesGrupsRDTO.getTitolCastella());
 		dadesGrupsRDTO.setDescripcio(internalDadesGrupsRDTO.getDescripcio());
 		dadesGrupsRDTO.setDescripcioCastella(internalDadesGrupsRDTO.getDescripcioCastella());
+		dadesGrupsRDTO.setTipus(tipusGrupApiParamValueTranslator.getApiParamValueByInternalValue(internalDadesGrupsRDTO.getTipusGrup()));
+		if (StringUtils.equals(dadesGrupsRDTO.getTipus(), TipusGrupApiParamValue.REPETIBLE.getApiParamValue())) {
+			if (internalDadesGrupsRDTO.getRepeticions() == null) {
+				dadesGrupsRDTO.setRepeticions(Constants.DADES_GRUPS_OPERACIONS_REPETICIONS_N);
+			} else {
+				dadesGrupsRDTO.setRepeticions(internalDadesGrupsRDTO.getRepeticions().toString());
+			}
+		}
 		dadesGrupsRDTO.setColumnes(
 		        (internalDadesGrupsRDTO.getNomColumnes() != null) ? String.valueOf(internalDadesGrupsRDTO.getNomColumnes()) : null);
 		dadesGrupsRDTO.setUrlValidacio(internalDadesGrupsRDTO.getUrlValidacio());
 		dadesGrupsRDTO.setOrdre((internalDadesGrupsRDTO.getOrdre() != null) ? String.valueOf(internalDadesGrupsRDTO.getOrdre()) : null);
+		ArrayList<String> caracteristiquesList = new ArrayList<String>();
+		if (CollectionUtils.isNotEmpty(internalDadesGrupsRDTO.getDadesGrupsCaractGrupsList())) {
+			for (DadesGrupsCaractGrups dadesGrupsCaractGrups : internalDadesGrupsRDTO.getDadesGrupsCaractGrupsList()) {
+				caracteristiquesList.add(caracteristiquesGrupApiParamValueTranslator
+				        .getApiParamValueByInternalValue(dadesGrupsCaractGrups.getCaracteristicaGrup()));
+			}
+		}
+		dadesGrupsRDTO.setCaracteristiques(caracteristiquesList);
 		ArrayList<DadesAtributsRDTO> dadesAtributsRDTOList = new ArrayList<DadesAtributsRDTO>();
 		if (CollectionUtils.isNotEmpty(internalDadesGrupsRDTO.getDadesOperacionsList())) {
 			for (DadesOperacions dadesOperacions : internalDadesGrupsRDTO.getDadesOperacionsList()) {
-				dadesAtributsRDTOList
-				        .add(ConverterHelper.buildDadesAtributsRDTOProcediment(dadesOperacions, tipusCampApiParamValueTranslator,
-				                tipusValidacioApiParamValueTranslator, expedientEstatTramitadorApiParamValueTranslator,
-				                nivellCriticitatApiParamValueTranslator, booleanApiParamValueTranslator));
+				dadesAtributsRDTOList.add(ConverterHelper.buildDadesAtributsRDTOProcediment(dadesOperacions,
+				        tipusCampApiParamValueTranslator, tipusValidacioApiParamValueTranslator,
+				        expedientEstatTramitadorApiParamValueTranslator, nivellCriticitatApiParamValueTranslator,
+				        booleanApiParamValueTranslator, tipusDadaOperacioApiParamValueTranslator));
 			}
 		}
 		dadesGrupsRDTO.setAtributs(dadesAtributsRDTOList);
@@ -557,24 +581,39 @@ public class ConverterHelper {
 	 *            the expedient estat api param value translator
 	 * @param nivellCriticitatApiParamValueTranslator
 	 * @param booleanApiParamValueTranslator
+	 * @param tipusDadaOperacioApiParamValueTranslator
 	 * @return the dades atributs RDTO
 	 */
 	public static DadesAtributsRDTO buildDadesAtributsRDTOProcediment(DadesOperacions dadesOperacions,
 	        BaseApiParamValueTranslator tipusCampApiParamValueTranslator, BaseApiParamValueTranslator tipusValidacioApiParamValueTranslator,
 	        BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator,
 	        NivellCriticitatApiParamValueTranslator nivellCriticitatApiParamValueTranslator,
-	        BooleanApiParamValueTranslator booleanApiParamValueTranslator) {
+	        BooleanApiParamValueTranslator booleanApiParamValueTranslator,
+	        BaseApiParamValueTranslator tipusDadaOperacioApiParamValueTranslator) {
 		DadesAtributsRDTO dadesAtributsRDTO = new DadesAtributsRDTO();
 		dadesAtributsRDTO.setCodi(dadesOperacions.getCodi());
 		dadesAtributsRDTO.setDescripcio(dadesOperacions.getDescripcio());
 		dadesAtributsRDTO.setDescripcioCastella(dadesOperacions.getDescripcioCastella());
 		dadesAtributsRDTO.setTitol(dadesOperacions.getTitol());
 		dadesAtributsRDTO.setTitolCastella(dadesOperacions.getTitolCastella());
-		dadesAtributsRDTO.setTipus(tipusCampApiParamValueTranslator.getApiParamValueByInternalValue(dadesOperacions.getTipus()));
+		if (dadesOperacions.getIdDefinicioGrup() != null) {
+			dadesAtributsRDTO.setCodiDefinicioGrup("GRUP_" + dadesOperacions.getIdDefinicioGrup().toString());
+		} else {
+			dadesAtributsRDTO.setTipus(tipusCampApiParamValueTranslator.getApiParamValueByInternalValue(dadesOperacions.getTipus()));
+		}
 		dadesAtributsRDTO.setVisibilitat(
 		        booleanApiParamValueTranslator.getApiParamValueAsBooleanByInternalValue(dadesOperacions.getVisibilitatPortal()));
 		dadesAtributsRDTO.setCriticitat(
 		        nivellCriticitatApiParamValueTranslator.getApiParamValueByInternalValue(dadesOperacions.getNivellCriticitat()));
+		dadesAtributsRDTO.setTipusDadaOperacio(
+		        tipusDadaOperacioApiParamValueTranslator.getApiParamValueByInternalValue(dadesOperacions.getTipusDadaOperacio()));
+		if (StringUtils.equals(dadesAtributsRDTO.getTipusDadaOperacio(), TipusDadaOperacioApiParamValue.REPETIBLE.getApiParamValue())) {
+			if (dadesOperacions.getRepeticions() == null) {
+				dadesAtributsRDTO.setRepeticions(Constants.DADES_GRUPS_OPERACIONS_REPETICIONS_N);
+			} else {
+				dadesAtributsRDTO.setRepeticions(dadesOperacions.getRepeticions().toString());
+			}
+		}
 		if (CollectionUtils.isNotEmpty(dadesOperacions.getItemsList())) {
 			ArrayList<DadesAtributsValorsLlistaRDTO> dadesAtributsValorsLlistaRDTOList = new ArrayList<DadesAtributsValorsLlistaRDTO>();
 			DadesAtributsValorsLlistaRDTO dadesAtributsValorsLlistaRDTO = null;

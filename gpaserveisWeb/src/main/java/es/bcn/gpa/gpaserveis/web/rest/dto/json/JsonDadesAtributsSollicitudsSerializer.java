@@ -14,6 +14,8 @@ import com.fasterxml.jackson.databind.ser.std.RawSerializer;
 
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsSollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsValorsLlistaMultipleRepetibleSollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsValorsLlistaRepetibleSollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.sollicituds.DadesAtributsValorsLlistaSollicitudsRDTO;
 
 @Component
@@ -26,6 +28,9 @@ public class JsonDadesAtributsSollicitudsSerializer extends JsonSerializer<Dades
 	        SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
 		jsonGenerator.writeStartObject();
 		jsonGenerator.writeStringField("codi", dadesAtributsSollicitudsRDTO.getCodi());
+		if (CollectionUtils.isNotEmpty(dadesAtributsSollicitudsRDTO.getValorRepetible()) && StringUtils.isNotEmpty(dadesAtributsSollicitudsRDTO.getTitol())) {
+			jsonGenerator.writeStringField("titol", dadesAtributsSollicitudsRDTO.getTitol());
+		}
 		if (dadesAtributsSollicitudsRDTO.getIndex() != null) {
 			jsonGenerator.writeStringField("index", dadesAtributsSollicitudsRDTO.getIndex());
 		}
@@ -48,9 +53,57 @@ public class JsonDadesAtributsSollicitudsSerializer extends JsonSerializer<Dades
 				jsonGenerator.writeStartObject();
 				jsonGenerator.writeStringField("index", dadesAtributsValorsLlistaSollicitudsRDTO.getIndex());
 				jsonGenerator.writeStringField("valor", dadesAtributsValorsLlistaSollicitudsRDTO.getValor());
+				if (StringUtils.isNotEmpty(dadesAtributsValorsLlistaSollicitudsRDTO.getValorCastella())) {
+					jsonGenerator.writeStringField("valorCastella", dadesAtributsValorsLlistaSollicitudsRDTO.getValorCastella());
+				}
 				jsonGenerator.writeEndObject();
 			}
 			jsonGenerator.writeEndArray();
+		}
+		if (CollectionUtils.isNotEmpty(dadesAtributsSollicitudsRDTO.getValorsLlistaRepetible())) {
+			jsonGenerator.writeArrayFieldStart("valorsLlistaRepetible");
+			for (DadesAtributsValorsLlistaRepetibleSollicitudsRDTO dadesAtributsValorsLlistaRepetibleSollicitudsRDTO : dadesAtributsSollicitudsRDTO.getValorsLlistaRepetible()) {
+				jsonGenerator.writeStartObject();
+				jsonGenerator.writeArrayFieldStart("valorsLlista");
+				for (DadesAtributsValorsLlistaSollicitudsRDTO dadesAtributsValorsLlistaSollicitudsRDTO : dadesAtributsValorsLlistaRepetibleSollicitudsRDTO.getValorsLlista()) {
+					jsonGenerator.writeStartObject();
+					jsonGenerator.writeStringField("index", dadesAtributsValorsLlistaSollicitudsRDTO.getIndex());
+					jsonGenerator.writeStringField("valor", dadesAtributsValorsLlistaSollicitudsRDTO.getValor());
+					if (StringUtils.isNotEmpty(dadesAtributsValorsLlistaSollicitudsRDTO.getValorCastella())) {
+						jsonGenerator.writeStringField("valorCastella", dadesAtributsValorsLlistaSollicitudsRDTO.getValorCastella());
+					}
+					jsonGenerator.writeEndObject();
+				}
+				jsonGenerator.writeEndArray();
+				jsonGenerator.writeEndObject();
+			}
+			jsonGenerator.writeEndArray();
+		}
+		if (CollectionUtils.isNotEmpty(dadesAtributsSollicitudsRDTO.getValorsLlistaMultipleRepetible())) {
+			jsonGenerator.writeArrayFieldStart("valorsLlistaRepetible");
+			for (DadesAtributsValorsLlistaMultipleRepetibleSollicitudsRDTO dadesAtributsValorsLlistaMultipleRepetibleSollicitudsRDTO : dadesAtributsSollicitudsRDTO.getValorsLlistaMultipleRepetible()) {
+				jsonGenerator.writeStartObject();
+				jsonGenerator.writeArrayFieldStart("valorsLlista");
+				for (DadesAtributsValorsLlistaRepetibleSollicitudsRDTO dadesAtributsValorsLlistaRepetibleSollicitudsRDTO : dadesAtributsValorsLlistaMultipleRepetibleSollicitudsRDTO.getValorsLlistaRepetible()) {
+					for (DadesAtributsValorsLlistaSollicitudsRDTO dadesAtributsValorsLlistaSollicitudsRDTO : dadesAtributsValorsLlistaRepetibleSollicitudsRDTO.getValorsLlista()) {
+						jsonGenerator.writeStartObject();
+						jsonGenerator.writeStringField("index", dadesAtributsValorsLlistaSollicitudsRDTO.getIndex());
+						jsonGenerator.writeStringField("valor", dadesAtributsValorsLlistaSollicitudsRDTO.getValor());
+						if (StringUtils.isNotEmpty(dadesAtributsValorsLlistaSollicitudsRDTO.getValorCastella())) {
+							jsonGenerator.writeStringField("valorCastella", dadesAtributsValorsLlistaSollicitudsRDTO.getValorCastella());
+						}
+						jsonGenerator.writeEndObject();
+					}
+				}
+				jsonGenerator.writeEndArray();
+				jsonGenerator.writeEndObject();
+			}
+			jsonGenerator.writeEndArray();
+		}
+		if (CollectionUtils.isNotEmpty(dadesAtributsSollicitudsRDTO.getValorRepetible())) {
+			jsonGenerator.writeFieldName("valor");
+			rawSerializer.serialize(dadesAtributsSollicitudsRDTO.getValorRepetible().get(0), jsonGenerator, serializerProvider);
+			
 		}
 		jsonGenerator.writeEndObject();
 	}

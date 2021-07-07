@@ -50,7 +50,10 @@ public enum TipusCampApiParamValue implements BaseApiParamValue {
 	PROVINCIA("PROVINCIA", new Integer(14)),
 
 	/** The municipi. */
-	MUNICIPI("MUNICIPI", new Integer(16));
+	MUNICIPI("MUNICIPI", new Integer(16)),
+
+	/** The subgrup. */
+	SUBGRUP("SUBGRUP", new Integer(17));
 
 	/** The api param value. */
 	private String apiParamValue;

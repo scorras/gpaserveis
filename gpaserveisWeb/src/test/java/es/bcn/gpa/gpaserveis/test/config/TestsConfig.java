@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +26,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsAp
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesRepetiblesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsRelacionatsApi;
@@ -354,6 +356,20 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("dadesEspecifiquesApi() - fi"); //$NON-NLS-1$
 		}
 		return dadesEspecifiquesApi;
+	}
+	
+	@Bean
+	public DadesEspecifiquesRepetiblesApi dadesEspecifiquesRepetiblesApi() {
+		if (log.isDebugEnabled()) {
+			log.debug("dadesEspecifiquesRepetiblesApi() - inici"); //$NON-NLS-1$
+		}
+
+		DadesEspecifiquesRepetiblesApi dadesEspecifiquesRepetiblesApi = Mockito.mock(DadesEspecifiquesRepetiblesApi.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("dadesEspecifiquesApi() - fi"); //$NON-NLS-1$
+		}
+		return dadesEspecifiquesRepetiblesApi;
 	}
 
 	@Bean
