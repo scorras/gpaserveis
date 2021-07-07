@@ -64,7 +64,8 @@ public class DadesAtributsSollicitudsValorAdapter extends XmlAdapter<Object, Dad
 		if (CollectionUtils.isNotEmpty(dadesAtributsSollicitudsValorAdapted.getValor())) {
 			valorsElement = getDocument().createElement("VALORS");
 			valorElement = getDocument().createElement("VALOR");
-			if (StringUtils.equals(dadesAtributsSollicitudsValorAdapted.getCodi(), Constants.CODI_DADA_OPERACIO_DADES_EXTERNES)) {
+			if (StringUtils.equals(dadesAtributsSollicitudsValorAdapted.getCodi(), Constants.CODI_DADA_OPERACIO_DADES_EXTERNES) ||
+					dadesAtributsSollicitudsValorAdapted.isValorRepetible()) {
 				// Elemento VALOR con el JSON en formato XML
 				Object json = new JSONTokener(dadesAtributsSollicitudsValorAdapted.getValor().get(0)).nextValue();
 				String xmlJson = XML.toString(json);

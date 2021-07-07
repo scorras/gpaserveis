@@ -2962,6 +2962,9 @@ definitions:
         type: "string"
       tractament:
         type: "string"
+      transicioCompletat:
+        type: "integer"
+        format: "int32"
       uniqueId:
         type: "number"
       visibilitatPortal:
@@ -3036,6 +3039,9 @@ definitions:
         type: "string"
       tractament:
         type: "string"
+      transicioCompletat:
+        type: "integer"
+        format: "int32"
       uniqueId:
         type: "number"
       visibilitatPortal:
@@ -3209,6 +3215,8 @@ definitions:
       origen:
         type: "integer"
         format: "int32"
+      personaIdext:
+        type: "number"
       plantillaPdf:
         type: "boolean"
       registreAssentament:

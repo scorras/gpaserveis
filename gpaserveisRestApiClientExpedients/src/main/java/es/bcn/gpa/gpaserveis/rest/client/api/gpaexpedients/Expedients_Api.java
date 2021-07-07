@@ -34,7 +34,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-05-25T09:38:17.099+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-07-01T13:56:25.810+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api")
 public class Expedients_Api {
     private ApiClient apiClient;
@@ -129,6 +129,7 @@ public class Expedients_Api {
      * @param numeroDocumentInteressat Numero de document d&#39;identitat de l&#39;ciutada interessat en nom de qui es realitza la consulta o tramit
      * @param numeroDocumentSollicitant Numero de document d&#39;identificació del sol·licitant
      * @param numeroDocumentSollicitantEstricte Numero de document d&#39;identificació del sol·licitant estricte
+     * @param numeroRegistre Numero de registre de sollicitud
      * @param pageSize The pageSize parameter
      * @param previousPageNumber The previousPageNumber parameter
      * @param procedimentCodisList Llista dels codis dels procediments
@@ -142,7 +143,7 @@ public class Expedients_Api {
      * @return PageDataOfExpedientsRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public PageDataOfExpedientsRDTO cercaExpedients(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, String aplicacioNegoci, List<String> avisList, String codi, BigDecimal criteriDeCercaDadesOperacioList0Id, BigDecimal criteriDeCercaDadesOperacioList0Tipus, String criteriDeCercaDadesOperacioList0Valor, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dataPresentacioDes, String dataPresentacioFinsA, String dir, List<BigDecimal> estatList, BigDecimal id, BigDecimal idUsuari, Boolean isOge, Integer nextPageNumber, Integer nivellAutenticacio, String nomCognomSollicitant, String numeroDocumentInteressat, String numeroDocumentSollicitant, String numeroDocumentSollicitantEstricte, Integer pageSize, Integer previousPageNumber, List<String> procedimentCodisList, BigDecimal procedimentId, BigDecimal procedimentVersio, String sort, Long totalElements, Integer totalPages, String tramitador, List<BigDecimal> unitatsGestoresList) throws RestClientException {
+    public PageDataOfExpedientsRDTO cercaExpedients(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, String aplicacioNegoci, List<String> avisList, String codi, BigDecimal criteriDeCercaDadesOperacioList0Id, BigDecimal criteriDeCercaDadesOperacioList0Tipus, String criteriDeCercaDadesOperacioList0Valor, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dataPresentacioDes, String dataPresentacioFinsA, String dir, List<BigDecimal> estatList, BigDecimal id, BigDecimal idUsuari, Boolean isOge, Integer nextPageNumber, Integer nivellAutenticacio, String nomCognomSollicitant, String numeroDocumentInteressat, String numeroDocumentSollicitant, String numeroDocumentSollicitantEstricte, String numeroRegistre, Integer pageSize, Integer previousPageNumber, List<String> procedimentCodisList, BigDecimal procedimentId, BigDecimal procedimentVersio, String sort, Long totalElements, Integer totalPages, String tramitador, List<BigDecimal> unitatsGestoresList) throws RestClientException {
         Object postBody = null;
         
         String path = UriComponentsBuilder.fromPath("/expedients/search").build().toUriString();
@@ -177,6 +178,7 @@ public class Expedients_Api {
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "numeroDocumentInteressat", numeroDocumentInteressat));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "numeroDocumentSollicitant", numeroDocumentSollicitant));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "numeroDocumentSollicitantEstricte", numeroDocumentSollicitantEstricte));
+        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "numeroRegistre", numeroRegistre));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "pageSize", pageSize));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "previousPageNumber", previousPageNumber));
         queryParams.putAll(apiClient.parameterToMultiValueMap(ApiClient.CollectionFormat.valueOf("multi".toUpperCase()), "procedimentCodisList", procedimentCodisList));

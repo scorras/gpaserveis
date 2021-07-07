@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.5.5"
+  version: "2.7.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -533,7 +533,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -585,7 +585,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -638,7 +638,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "idGestorDocumental"
         in: "formData"
         description: "Identificador Gestor Documental"
@@ -689,7 +689,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -734,7 +734,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -925,7 +925,7 @@ paths:
         in: "path"
         description: "Identificador de la persona"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1402,7 +1402,7 @@ paths:
         in: "path"
         description: "Identificador del procediment"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1451,7 +1451,7 @@ paths:
         in: "path"
         description: "Identificador del procediment"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1500,7 +1500,7 @@ paths:
         in: "path"
         description: "Identificador del procediment"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1549,7 +1549,7 @@ paths:
         in: "path"
         description: "Identificador del procediment"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1598,7 +1598,7 @@ paths:
         in: "path"
         description: "Identificador del procediment"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1637,7 +1637,7 @@ paths:
         in: "path"
         description: "Identificador de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1677,7 +1677,7 @@ paths:
         in: "path"
         description: "Id de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "sollicitudActualitzar"
         description: "Dades de la actualització de l'expedient"
@@ -1732,7 +1732,7 @@ paths:
         in: "path"
         description: "Id de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1773,12 +1773,12 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "idSollicitud"
         in: "path"
         description: "Id de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1817,12 +1817,12 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "idSollicitud"
         in: "path"
         description: "Identificador de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1869,12 +1869,12 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "idSollicitud"
         in: "path"
         description: "Id de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1922,7 +1922,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - name: "idGestorDocumental"
         in: "formData"
         description: "Identificador Gestor Documental"
@@ -1932,7 +1932,7 @@ paths:
         in: "path"
         description: "Id de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1975,7 +1975,7 @@ paths:
         in: "path"
         description: "Id de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "personaImplicada"
         description: "Dades de la actualització de la sol·licitud"
@@ -2023,7 +2023,7 @@ paths:
         in: "path"
         description: "Id de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "personaImplicada"
         description: "Dades de la actualització de la sol·licitud"
@@ -2070,12 +2070,12 @@ paths:
         in: "path"
         description: "Identificador de la persona"
         required: true
-        type: "number"
+        type: "integer"
       - name: "idSollicitud"
         in: "path"
         description: "Id de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -2116,7 +2116,7 @@ paths:
         in: "path"
         description: "Id de sollicitud"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "sollicitudRegistrarRDTO"
         description: "Dades de l'registre de la sol·licitud"
@@ -2169,7 +2169,7 @@ paths:
         in: "path"
         description: "Identificador de la sol·licitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -2849,20 +2849,29 @@ paths:
       - name: "document"
         in: "formData"
         description: "Dades del document a incorporar. Example:<br>{<br>&nbsp;&nbsp;\"\
-          document\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
-          configuracioDocumentacio\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"origen\"\
-          : \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"comentari\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
-          idioma\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"revisio\": \"String\"\
+          document (Obligatori)\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\":\
+          \ \"String (Possibles valors: APORTADA, GENERADA)\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          configuracioDocumentacio\": \"String (Obligatori)\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          origen\": \"String (Obligatori Possibles valors: INTERN, EXTERN)\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          comentari\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"idioma\": \"String\
+          \ (Possibles valors: CATALA, CASTELLA, ALTRES)\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          revisio\": \"String (Possibles valors: CORRECTE, INCORRECTE, PENDENT)\"\
           ,<br>&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzat\": \"Boolean\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
           digitalitzacio\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
           idioma\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
           dataDigitalitzacio\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
-          fitxer\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"nom\":\
-          \ \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"format\"\
-          : \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          fitxer (Obligatori)\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          nom\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          format\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
           numeroRegistre\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"publicarInfoPublica\"\
           : \"Boolean\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"plantillaPdf\": \"Boolean\"\
-          <br>&nbsp;&nbsp;}<br>}"
+          <br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;\"estat\": \"String (Possibles valors:\
+          \ EN_ELABORACIO, FINALITZAT, PENDENT_SIGNATURA , SIGNATURA_REBUTJADA, VIST_I_PLAU,\
+          \ SIGNAT, PENDENT_NOTIFICACIO, PENDENT_COMUNICACIO, REGISTRAT, DISPOSITAT,\
+          \ NOTIFICACIO_VISUALITZADA, NOTIFICACIO_REBUTJADA, NOTIFICACIO_ACCEPTADA,\
+          \ SIGNATURA_CADUCADA, PENDENT_VIST_I_PLAU, VIST_I_PLAU_REBUTJAT, VIST_I_PLAU_CADUCAT,\
+          \ NOTIFICACIO_REBUTJADA_SENSE_ACCES, NOTIFICACIO_REBUTJADA_SENSE_ACCIO,\
+          \ PUBLICAT, NOTIFICACIO_AMB_ERROR, COMPLETAT, DESCARTAT)\"<br>}"
         required: true
         type: "string"
       - name: "file"
@@ -3087,7 +3096,7 @@ paths:
         in: "path"
         description: "Identificador del document principal"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3123,11 +3132,14 @@ paths:
       - name: "document"
         in: "formData"
         description: "Dades del document a completar. Example:<br>{<br>&nbsp;&nbsp;\"\
-          document\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          document (Obligatori)\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\":\
+          \ \"String (Obligatori Possibles valors: APORTADA, GENERADA)\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
           configuracioDocumentacio\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"origen\"\
-          : \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"comentari\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
-          idioma\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"revisio\": \"String\"\
-          ,<br>&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzat\": \"Boolean\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          : \"String (Obligatori Possibles valors: INTERN, EXTERN)\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          comentari\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"idioma\": \"String\
+          \ (Possibles valors: CATALA, CASTELLA, ALTRES)\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
+          revisio\": \"String (Obligatori Possibles valors: CORRECTE, INCORRECTE,\
+          \ PENDENT)\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"digitalitzat\": \"Boolean\",<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
           digitalitzacio\": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
           idioma\": \"String\",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
           dataDigitalitzacio\": \"String\"<br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;\"\
@@ -3140,7 +3152,13 @@ paths:
           dadesOperacioRequerits\": [<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
           codi\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;],<br>&nbsp;&nbsp;\"\
           documentacioRequerida\": [<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
-          configuracioDocumentacio\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;]<br>}"
+          configuracioDocumentacio\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;],<br>&nbsp;&nbsp;\"\
+          estat\": \"String (Possibles valors: EN_ELABORACIO, FINALITZAT, PENDENT_SIGNATURA\
+          \ , SIGNATURA_REBUTJADA, VIST_I_PLAU, SIGNAT, PENDENT_NOTIFICACIO, PENDENT_COMUNICACIO,\
+          \ REGISTRAT, DISPOSITAT, NOTIFICACIO_VISUALITZADA, NOTIFICACIO_REBUTJADA,\
+          \ NOTIFICACIO_ACCEPTADA, SIGNATURA_CADUCADA, PENDENT_VIST_I_PLAU, VIST_I_PLAU_REBUTJAT,\
+          \ VIST_I_PLAU_CADUCAT, NOTIFICACIO_REBUTJADA_SENSE_ACCES, NOTIFICACIO_REBUTJADA_SENSE_ACCIO,\
+          \ PUBLICAT, NOTIFICACIO_AMB_ERROR, COMPLETAT, DESCARTAT)\"<br>}"
         required: true
         type: "string"
       - name: "file"
@@ -3152,7 +3170,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3195,7 +3213,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3238,7 +3256,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3281,7 +3299,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3324,7 +3342,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3361,7 +3379,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "signaturaDocument"
         description: "Informació addicional per a la signatura"
@@ -3404,7 +3422,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3447,7 +3465,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3482,7 +3500,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3733,7 +3751,7 @@ paths:
         in: "path"
         description: "Identificador de la persona"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -3954,7 +3972,7 @@ paths:
         in: "path"
         description: "Identificador del document"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "signaturaDocument"
         description: "Informació addicional per a la signatura"
@@ -4241,6 +4259,9 @@ definitions:
       codi:
         type: "string"
         description: "Codi de l'atribut"
+      codiDefinicioGrup:
+        type: "string"
+        description: "Codi de el grup que actua com a subgrup"
       criticitat:
         type: "string"
         description: "Criticitat"
@@ -4253,6 +4274,9 @@ definitions:
       ordre:
         type: "string"
         description: "Ordre del atribut dins del grup"
+      repeticions:
+        type: "string"
+        description: "Repeticions"
       tipus:
         type: "string"
         description: "Tipus de camp de l'atribut"
@@ -4272,6 +4296,12 @@ definitions:
         - "PAIS"
         - "PROVINCIA"
         - "MUNICIPI"
+      tipusDadaOperacio:
+        type: "string"
+        description: "Tipus de dada d'operació de l'atribut"
+        enum:
+        - "SIMPLE"
+        - "REPETIBLE"
       titol:
         type: "string"
         description: "Títol de l'atribut"
@@ -4298,9 +4328,6 @@ definitions:
     title: "Atributs"
   AtributsActualitzar:
     type: "object"
-    required:
-    - "codi"
-    - "valor"
     properties:
       codi:
         type: "string"
@@ -4310,6 +4337,13 @@ definitions:
         description: "Valor de l'atribut"
         items:
           type: "string"
+      valorLlistaMultipleRepetible:
+        type: "array"
+        description: "Valor l'atribut de tipus llista múltiple repetible"
+        items:
+          type: "array"
+          items:
+            type: "string"
     title: "AtributsActualitzar"
   AtributsExpedient:
     type: "object"
@@ -4320,6 +4354,9 @@ definitions:
       index:
         type: "string"
         description: "Codi del valor de la llista"
+      titol:
+        type: "string"
+        description: "Titol de l'atribut"
       valor:
         type: "array"
         description: "Llista de valors de l'atribut"
@@ -4330,12 +4367,29 @@ definitions:
         description: "Llista de valors de l'atribut en castellà"
         items:
           type: "string"
+      valorRepetible:
+        type: "array"
+        description: "Llista de valors repetible de l'atribut"
+        items:
+          type: "string"
       valorsLlista:
         type: "array"
         description: "Si el tipus de camp de l'atribut és llista, valors d'aquesta\
           \ llista"
         items:
           $ref: "#/definitions/ValorsLlistaExpedient"
+      valorsLlistaMultipleRepetible:
+        type: "array"
+        description: "Si el tipus de camp de l'atribut és llesta múltiple repetible,\
+          \ valors d'aquesta llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaMultipleRepetibleExpedient"
+      valorsLlistaRepetible:
+        type: "array"
+        description: "Si el tipus de camp de l'atribut és llesta repetible, valors\
+          \ d'aquesta llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaRepetibleExpedient"
     title: "AtributsExpedient"
   AtributsRequerits:
     type: "object"
@@ -4392,6 +4446,13 @@ definitions:
           attribute: false
           wrapped: false
         description: "Codi del valor de la llista"
+      titol:
+        type: "string"
+        xml:
+          name: "TITOL"
+          attribute: false
+          wrapped: false
+        description: "Titol de l'atribut"
       valor:
         type: "array"
         description: "Llista de valors de l'atribut"
@@ -4406,16 +4467,40 @@ definitions:
         description: "Llista de valors de l'atribut en castellà"
         items:
           type: "string"
+      valorRepetible:
+        type: "array"
+        items:
+          type: "string"
       valorsLlista:
         type: "array"
         xml:
-          name: "VALORS_LLISTA"
+          name: "VALOR_LLISTA"
           attribute: false
-          wrapped: true
+          wrapped: false
         description: "Si el tipus de camp de l'atribut és llista múltiple, valors\
           \ d'aquesta llista"
         items:
           $ref: "#/definitions/ValorsLlistaSollicitud"
+      valorsLlistaMultipleRepetible:
+        type: "array"
+        xml:
+          name: "VALOR_LLISTA_REPETIBLE"
+          attribute: false
+          wrapped: false
+        description: "Si el tipus de camp de l'atribut és llesta múltiple repetible,\
+          \ valors d'aquesta llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaMultipleRepetibleSollicitud"
+      valorsLlistaRepetible:
+        type: "array"
+        xml:
+          name: "VALOR_LLISTA_REPETIBLE"
+          attribute: false
+          wrapped: false
+        description: "Si el tipus de camp de l'atribut és llesta repetible, valors\
+          \ d'aquesta llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaRepetibleSollicitud"
     title: "AtributsSollicitud"
     xml:
       name: "DADA_OPERACIO"
@@ -6343,6 +6428,17 @@ definitions:
         description: "Atributs del grup"
         items:
           $ref: "#/definitions/Atributs"
+      caracteristiques:
+        type: "array"
+        description: "Caracteristiques del grup d'atributs"
+        items:
+          type: "string"
+          enum:
+          - "ORIGEN"
+          - "SUBGRUP"
+      codi:
+        type: "string"
+        description: "Codi de el grup"
       columnes:
         type: "string"
         description: "Columnes del grup d'atributs"
@@ -6355,6 +6451,15 @@ definitions:
       ordre:
         type: "string"
         description: "Ordre del grup d'atributs"
+      repeticions:
+        type: "string"
+        description: "Nombre màxim de repeticions del grup d'atributs repetible"
+      tipus:
+        type: "string"
+        description: "Tipus del grup d'atributs"
+        enum:
+        - "SIMPLE"
+        - "REPETIBLE"
       titol:
         type: "string"
         description: "Títol del grup d'atributs"
@@ -8229,6 +8334,46 @@ definitions:
         type: "string"
         description: "Valor de la llista en castellà"
     title: "ValorsLlistaExpedient"
+  ValorsLlistaMultipleRepetibleExpedient:
+    type: "object"
+    properties:
+      valorsLlistaRepetible:
+        type: "array"
+        description: "Si el tipus de camp de l'atribut és llista, valors d'aquesta\
+          \ llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaRepetibleExpedient"
+    title: "ValorsLlistaMultipleRepetibleExpedient"
+  ValorsLlistaMultipleRepetibleSollicitud:
+    type: "object"
+    properties:
+      valorsLlistaRepetible:
+        type: "array"
+        description: "Si el tipus de camp de l'atribut és llista, valors d'aquesta\
+          \ llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaRepetibleSollicitud"
+    title: "ValorsLlistaMultipleRepetibleSollicitud"
+  ValorsLlistaRepetibleExpedient:
+    type: "object"
+    properties:
+      valorsLlista:
+        type: "array"
+        description: "Si el tipus de camp de l'atribut és llista, valors d'aquesta\
+          \ llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaExpedient"
+    title: "ValorsLlistaRepetibleExpedient"
+  ValorsLlistaRepetibleSollicitud:
+    type: "object"
+    properties:
+      valorsLlista:
+        type: "array"
+        description: "Si el tipus de camp de l'atribut és llista, valors d'aquesta\
+          \ llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaSollicitud"
+    title: "ValorsLlistaRepetibleSollicitud"
   ValorsLlistaSollicitud:
     type: "object"
     properties:

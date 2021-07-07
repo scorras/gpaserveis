@@ -141,6 +141,9 @@ public class DocsEntradaRDTO {
   @JsonProperty("origen")
   private Integer origen = null;
 
+  @JsonProperty("personaIdext")
+  private BigDecimal personaIdext = null;
+
   @JsonProperty("plantillaPdf")
   private Boolean plantillaPdf = null;
 
@@ -836,6 +839,24 @@ public class DocsEntradaRDTO {
     this.origen = origen;
   }
 
+  public DocsEntradaRDTO personaIdext(BigDecimal personaIdext) {
+    this.personaIdext = personaIdext;
+    return this;
+  }
+
+   /**
+   * Get personaIdext
+   * @return personaIdext
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getPersonaIdext() {
+    return personaIdext;
+  }
+
+  public void setPersonaIdext(BigDecimal personaIdext) {
+    this.personaIdext = personaIdext;
+  }
+
   public DocsEntradaRDTO plantillaPdf(Boolean plantillaPdf) {
     this.plantillaPdf = plantillaPdf;
     return this;
@@ -1116,6 +1137,7 @@ public class DocsEntradaRDTO {
         Objects.equals(this.numDocsConfiguracio, docsEntradaRDTO.numDocsConfiguracio) &&
         Objects.equals(this.obligatoriEnEstat, docsEntradaRDTO.obligatoriEnEstat) &&
         Objects.equals(this.origen, docsEntradaRDTO.origen) &&
+        Objects.equals(this.personaIdext, docsEntradaRDTO.personaIdext) &&
         Objects.equals(this.plantillaPdf, docsEntradaRDTO.plantillaPdf) &&
         Objects.equals(this.registreAssentament, docsEntradaRDTO.registreAssentament) &&
         Objects.equals(this.registreCodi, docsEntradaRDTO.registreCodi) &&
@@ -1133,7 +1155,7 @@ public class DocsEntradaRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(codi, comentari, configDocEntrada, configuracioDocsEntrada, configuracioDocsEntradaCodiNti, configuracioDocsEntradaId, configuracioDocsEntradaNom, configuracioDocsEntradaNomCastella, configuracioDocsEntradaSuportConfeccio, csv, dataCreacio, dataDigitalitzacio, dataPresentacio, dataUltimaModificacio, declaracioResponsable, digitalitzat, docsFisics, docsFisicsNom, docsTercers, documentFisic, documentacio, editable, eliminat, esborrany, estatDigitalitzacio, hash, id, idIdiomaPlantilla, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, nou, numDocsConfiguracio, obligatoriEnEstat, origen, plantillaPdf, registreAssentament, registreCodi, registreIdext, requerit, revisio, seleccionable, sollicitudIdext, tipusMimeDescripcio, tramitOvtIdext, ultimaModificacioIdext, urlDigitalitzacio, usuariIdext);
+    return Objects.hash(codi, comentari, configDocEntrada, configuracioDocsEntrada, configuracioDocsEntradaCodiNti, configuracioDocsEntradaId, configuracioDocsEntradaNom, configuracioDocsEntradaNomCastella, configuracioDocsEntradaSuportConfeccio, csv, dataCreacio, dataDigitalitzacio, dataPresentacio, dataUltimaModificacio, declaracioResponsable, digitalitzat, docsFisics, docsFisicsNom, docsTercers, documentFisic, documentacio, editable, eliminat, esborrany, estatDigitalitzacio, hash, id, idIdiomaPlantilla, idioma, idiomaDigitalitzacio, metadata, migracioIdOrigen, nou, numDocsConfiguracio, obligatoriEnEstat, origen, personaIdext, plantillaPdf, registreAssentament, registreCodi, registreIdext, requerit, revisio, seleccionable, sollicitudIdext, tipusMimeDescripcio, tramitOvtIdext, ultimaModificacioIdext, urlDigitalitzacio, usuariIdext);
   }
 
 
@@ -1178,6 +1200,7 @@ public class DocsEntradaRDTO {
     sb.append("    numDocsConfiguracio: ").append(toIndentedString(numDocsConfiguracio)).append("\n");
     sb.append("    obligatoriEnEstat: ").append(toIndentedString(obligatoriEnEstat)).append("\n");
     sb.append("    origen: ").append(toIndentedString(origen)).append("\n");
+    sb.append("    personaIdext: ").append(toIndentedString(personaIdext)).append("\n");
     sb.append("    plantillaPdf: ").append(toIndentedString(plantillaPdf)).append("\n");
     sb.append("    registreAssentament: ").append(toIndentedString(registreAssentament)).append("\n");
     sb.append("    registreCodi: ").append(toIndentedString(registreCodi)).append("\n");

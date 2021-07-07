@@ -29,6 +29,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsAp
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesRepetiblesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsRelacionatsApi;
@@ -190,6 +191,10 @@ public abstract class ParentTest {
 	/** The clientEntity. */
 	@Autowired
 	protected ClientEntity clientEntity;
+	
+	/** The dades especifiques repetibles api. */
+	@Autowired
+	private DadesEspecifiquesRepetiblesApi dadesEspecifiquesRepetiblesApi;
 
 	/**
 	 * Sets the up.
@@ -246,7 +251,7 @@ public abstract class ParentTest {
 			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), any(Integer.class), any(String.class),
 			        any(String.class), any(String.class), any(List.class), isNull(BigDecimal.class), isNull(BigDecimal.class),
 			        isNull(Boolean.class), isNull(Integer.class), any(Integer.class), isNull(String.class), isNull(String.class),
-			        isNull(String.class), any(String.class), any(Integer.class), isNull(Integer.class), any(List.class),
+			        isNull(String.class), any(String.class), any(String.class), any(Integer.class), isNull(Integer.class), any(List.class),
 			        any(BigDecimal.class), any(BigDecimal.class), any(String.class), isNull(Long.class), isNull(Integer.class),
 			        any(String.class), any(List.class))).thenReturn(TestsConfigHelper.cercaExpedientsResponse());
 

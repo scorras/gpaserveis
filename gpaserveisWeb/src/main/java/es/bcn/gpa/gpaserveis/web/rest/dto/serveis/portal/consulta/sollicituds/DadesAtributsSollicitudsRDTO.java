@@ -26,10 +26,10 @@ import lombok.Setter;
 
 @ApiModel(value = "AtributsSollicitud")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "codi", "index", "valor", "valorCastella", "valorsLlista" })
+@JsonPropertyOrder({ "codi", "titol", "index", "valor", "valorCastella", "valorsLlista", "valorsLlistaRepetible", "valorsLlistaMultipleRepetible", "valorRepetible"})
 @JsonSerialize(using = JsonDadesAtributsSollicitudsSerializer.class)
 @XmlRootElement(name = "DADA_OPERACIO")
-@XmlType(name = "DadesAtributsSollicituds", propOrder = { "codi", "index", "valorAdapted", "valorCastella", "valorsLlista" })
+@XmlType(name = "DadesAtributsSollicituds", propOrder = { "codi", "titol", "index", "valorAdapted", "valorCastella", "valorsLlista", "valorsLlistaRepetible", "valorsLlistaMultipleRepetible", "valorRepetibleAdapted"})
 @XmlAccessorType(XmlAccessType.NONE)
 @Getter
 @Setter
@@ -42,8 +42,6 @@ public class DadesAtributsSollicitudsRDTO {
 	@XmlElement(name = "INDEX", required = false, type = String.class)
 	private String index;
 	@ApiModelProperty(value = "Llista de valors de l'atribut")
-	// @XmlElementWrapper(name = "VALORS")
-	// @XmlElement(name = "VALOR")
 	@XmlTransient
 	private List<String> valor;
 
@@ -54,6 +52,7 @@ public class DadesAtributsSollicitudsRDTO {
 		DadesAtributsSollicitudsValorAdapted valorAdapted = new DadesAtributsSollicitudsValorAdapted();
 		valorAdapted.setCodi(codi);
 		valorAdapted.setValor(valor);
+		valorAdapted.setValorRepetible(false);
 		return valorAdapted;
 	}
 
@@ -62,8 +61,32 @@ public class DadesAtributsSollicitudsRDTO {
 	@XmlElement(name = "VALOR_CASTELLA")
 	private List<String> valorCastella;
 	@ApiModelProperty(value = "Si el tipus de camp de l'atribut és llista múltiple, valors d'aquesta llista")
-	@XmlElementWrapper(name = "VALORS_LLISTA")
 	@XmlElement(name = "VALOR_LLISTA")
 	private List<DadesAtributsValorsLlistaSollicitudsRDTO> valorsLlista;
+	@ApiModelProperty(value = "Si el tipus de camp de l'atribut és llesta repetible, valors d'aquesta llista")
+	@XmlElement(name = "VALOR_LLISTA_REPETIBLE")
+	private List<DadesAtributsValorsLlistaRepetibleSollicitudsRDTO> valorsLlistaRepetible;
+	@ApiModelProperty(value = "Si el tipus de camp de l'atribut és llesta múltiple repetible, valors d'aquesta llista")
+	@XmlElement(name = "VALOR_LLISTA_REPETIBLE")
+	private List<DadesAtributsValorsLlistaMultipleRepetibleSollicitudsRDTO> valorsLlistaMultipleRepetible;
+	
+	@XmlTransient
+	private List<String> valorRepetible;
+	
+	@JsonIgnore
+	@XmlElement(name = "VALORS")
+	@XmlJavaTypeAdapter(DadesAtributsSollicitudsValorAdapter.class)
+	public DadesAtributsSollicitudsValorAdapted getValorRepetibleAdapted() {
+		DadesAtributsSollicitudsValorAdapted valorRepetibleAdapted = new DadesAtributsSollicitudsValorAdapted();
+		valorRepetibleAdapted.setCodi(codi);
+		valorRepetibleAdapted.setValor(valorRepetible);
+		valorRepetibleAdapted.setValorRepetible(true);
+		
+		return valorRepetibleAdapted;
+	}
+	
+	@ApiModelProperty(value = "Titol de l'atribut")
+	@XmlElement(name = "TITOL", required = false, type = String.class)
+	private String titol;
 
 }

@@ -38,6 +38,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AcumulaciExpedientsAp
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.AvisosApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesRepetiblesApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsRelacionatsApi;
@@ -48,6 +49,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitud_Ap
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.SollicitudsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRepetiblesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.MunicipisRDTO;
@@ -128,6 +130,10 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	/** The sollicituds api. */
 	@Autowired
 	private SollicitudsApi sollicitudsApi;
+	
+	/** The dades especifiques repetibles api. */
+	@Autowired
+	private DadesEspecifiquesRepetiblesApi dadesEspecifiquesRepetiblesApi;
 
 	/*
 	 * (non-Javadoc)
@@ -149,7 +155,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 					expedientsCercaBDTO.getCurrentPageNumber(), expedientsCercaBDTO.getDataPresentacioDes(),
 					expedientsCercaBDTO.getDataPresentacioFinsA(), expedientsCercaBDTO.getDir(), expedientsCercaBDTO.getEstatList(), null,
 					null, null, null, expedientsCercaBDTO.getNivellAutenticacio(), expedientsCercaBDTO.getNomCognomSollicitant(),
-					expedientsCercaBDTO.getNumeroDocumentInteressat(), expedientsCercaBDTO.getNifSollicitant(), null, expedientsCercaBDTO.getPageSize(), null,
+					expedientsCercaBDTO.getNumeroDocumentInteressat(), expedientsCercaBDTO.getNifSollicitant(), null, null, expedientsCercaBDTO.getPageSize(), null,
 					expedientsCercaBDTO.getProcedimentCodisList(), null, expedientsCercaBDTO.getProcedimentVersio(),
 					expedientsCercaBDTO.getSort(), null, null, expedientsCercaBDTO.getTramitador(),
 					expedientsCercaBDTO.getUnitatsGestoresList());
@@ -2476,7 +2482,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		return null;
 	}
-	
+
 	@Override
 	@HystrixCommand(fallbackMethod = "fallbackReprendreTramitacio")
 	public void reprendreTramitacio(ExpedientsReprendreBDTO expedientsReprendreBDTO) throws GPAServeisServiceException {
@@ -2497,6 +2503,36 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
+	 * cercaDadesEspecifiquesRepetiblesSollicitud(java.math.BigDecimal,
+	 * java.math.BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackCercaDadesEspecifiquesRepetiblesSollicitud")
+	public List<DadesEspecifiquesRepetiblesRDTO> cercaDadesEspecifiquesRepetiblesSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("cercaDadesEspecifiquesRepetiblesSollicitud(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			List<DadesEspecifiquesRepetiblesRDTO> dadesEspecifiquesRDTOList = dadesEspecifiquesRepetiblesApi.consultarDadesEspecifiquesRepetiblesSollicitud(idSollicitud,
+					visibilitat);
+
+			if (log.isDebugEnabled()) {
+				log.debug("cercaDadesEspecifiquesRepetiblesSollicitud(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			return dadesEspecifiquesRDTOList;
+		} catch (RestClientException e) {
+			log.error("cercaDadesEspecifiquesRepetiblesSollicitud(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+	
 	public void fallbackReprendreTramitacio(ExpedientsReprendreBDTO expedientsReprendreBDTO, Throwable e)
 			throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
@@ -2504,5 +2540,83 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		ServeisServiceExceptionHandler.handleException(e);
+	}
+
+	/**
+	 * Fallback cerca dades especifiques repetibles sollicitud.
+	 *
+	 * @param idSollicitud
+	 *            the id sollicitud
+	 * @param visibilitat
+	 *            the visibilitat
+	 * @param e
+	 *            the e
+	 * @return the list
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public List<DadesEspecifiquesRepetiblesRDTO> fallbackCercaDadesEspecifiquesRepetiblesSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat,
+			Throwable e) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCercaDadesEspecifiquesRepetiblesSollicitud(BigDecimal, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
+	 * cercaDadesEspecifiquesRepetiblesExpedient(java.math.BigDecimal,
+	 * java.math.BigDecimal)
+	 */
+	@Override
+	@HystrixCommand(fallbackMethod = "fallbackCercaDadesEspecifiquesRepetiblesExpedient")
+	public List<DadesEspecifiquesRepetiblesRDTO> cercaDadesEspecifiquesRepetiblesExpedient(BigDecimal idExpedient, BigDecimal visibilitat)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("cercaDadesEspecifiquesRepetiblesExpedient(BigDecimal, BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			List<DadesEspecifiquesRepetiblesRDTO> dadesEspecifiquesRDTOList = dadesEspecifiquesRepetiblesApi.consultarDadesEspecifiquesRepetiblesExpedient(idExpedient,
+					visibilitat);
+
+			if (log.isDebugEnabled()) {
+				log.debug("cercaDadesEspecifiquesRepetiblesExpedient(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			return dadesEspecifiquesRDTOList;
+		} catch (RestClientException e) {
+			log.error("cercaDadesEspecifiquesRepetiblesExpedient(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
+
+	/**
+	 * Fallback cerca dades especifiques repetibles expedient.
+	 *
+	 * @param idExpedient
+	 *            the id expedient
+	 * @param visibilitat
+	 *            the visibilitat
+	 * @param e
+	 *            the e
+	 * @return the list
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	public List<DadesEspecifiquesRepetiblesRDTO> fallbackCercaDadesEspecifiquesRepetiblesExpedient(BigDecimal idExpedient, BigDecimal visibilitat, Throwable e)
+			throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("fallbackCercaDadesEspecifiquesRepetiblesExpedient(BigDecimal, BigDecimal, Throwable) - inici"); //$NON-NLS-1$
+		}
+
+		ServeisServiceExceptionHandler.handleException(e);
+
+		return null;
 	}
 }

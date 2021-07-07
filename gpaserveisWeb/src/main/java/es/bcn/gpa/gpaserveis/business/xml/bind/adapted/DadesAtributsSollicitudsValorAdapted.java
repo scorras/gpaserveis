@@ -17,4 +17,7 @@ public class DadesAtributsSollicitudsValorAdapted {
 
 	/** The valor. */
 	private List<String> valor;
+	
+	/** The valor repetible. */
+	private boolean valorRepetible;
 }

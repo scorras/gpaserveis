@@ -83,7 +83,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellD
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TipusMime;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitudSollicituds;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearSollicitud;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
@@ -99,6 +98,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.handler.ServeisRestControllerEx
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerSagaHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerValidationHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerVisibilitatHelper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.helper.bean.ValidateDadesOperacioResultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
@@ -268,6 +268,12 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					docsEntradaRDTO.setSollicitudIdext(idSollicitud);
 					docsEntradaRDTO.setEsborrany(1);
 
+					BigDecimal idPersone = ServeisRestControllerValidationHelper.getIdUsuariInteressat(clientEntity, dadesSollicitudBDTO.getPersonesInteressades(),
+							dadesSollicitudBDTO.getSollicitant(), dadesSollicitudBDTO.getRepresentant());
+					if (idPersone != null) {
+						docsEntradaRDTO.setPersonaIdext(idPersone);
+					}
+					
 					if (BooleanUtils.isTrue(documentAportatCrearRDTO.getDeclaracioResponsable())) {
 						CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO = new CrearDeclaracioResponsableBDTO(
 						        dadesSollicitudBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
@@ -939,12 +945,12 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			// Se obtienen los Dades d'Operació del procedimiento y se valida
 			// que los códigos indicados existen. Se aprovecha para recuperar
 			// los identificadores de los campos
-			ArrayList<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = null;
+			ValidateDadesOperacioResultat validateDadesOperacioResultat = null;
 			if (CollectionUtils.isNotEmpty(sollicitudActualitzar.getDadesOperacio())) {
 				DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(
 				        dadesExpedientBDTO.getExpedientsRDTO().getProcedimentIdext(), null);
 				RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = serveisService.cercaDadesOperacio(dadesOperacioCercaBDTO);
-				dadesEspecifiquesRDTOList = ServeisRestControllerValidationHelper.validateDadesOperacioActualitzarSolicitudExpedient(
+				validateDadesOperacioResultat = ServeisRestControllerValidationHelper.validateDadesOperacioActualitzarSolicitudExpedient(
 				        sollicitudActualitzar.getDadesOperacio(), respostaDadesOperacioCercaBDTO.getDadesGrupsRDTOList(),
 				        dadesExpedientBDTO.getExpedientsRDTO().getId(), dadesSollicitudBDTO.getSollicitudsRDTO().getId(), true);
 
@@ -979,7 +985,9 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 			ActualitzarDadesSollicitudSollicituds actualitzarDadesSollicitudSollicituds = new ActualitzarDadesSollicitudSollicituds();
 			actualitzarDadesSollicitudSollicituds.setSollicitud(sollicitudsRDTO);
-			actualitzarDadesSollicitudSollicituds.setDadesEspecifiques(dadesEspecifiquesRDTOList);
+			actualitzarDadesSollicitudSollicituds.setDadesEspecifiques(validateDadesOperacioResultat.getDadesEspecifiquesRDTOList());
+			actualitzarDadesSollicitudSollicituds
+			        .setDadesEspecifiquesRepetibles(validateDadesOperacioResultat.getDadesEspecifiquesRepetiblesRDTOList());
 			SollicitudsActualitzarBDTO sollicitudsActualitzarBDTO = new SollicitudsActualitzarBDTO(actualitzarDadesSollicitudSollicituds);
 			returnSollicitudsRDTO = serveisService.actualitzarDadesSollicitudSollicituds(sollicitudsActualitzarBDTO);
 
