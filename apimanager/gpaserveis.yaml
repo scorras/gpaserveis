@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.6.1"
+  version: "2.7.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -4259,6 +4259,9 @@ definitions:
       codi:
         type: "string"
         description: "Codi de l'atribut"
+      codiDefinicioGrup:
+        type: "string"
+        description: "Codi de el grup que actua com a subgrup"
       criticitat:
         type: "string"
         description: "Criticitat"
@@ -4271,6 +4274,9 @@ definitions:
       ordre:
         type: "string"
         description: "Ordre del atribut dins del grup"
+      repeticions:
+        type: "string"
+        description: "Repeticions"
       tipus:
         type: "string"
         description: "Tipus de camp de l'atribut"
@@ -4290,6 +4296,12 @@ definitions:
         - "PAIS"
         - "PROVINCIA"
         - "MUNICIPI"
+      tipusDadaOperacio:
+        type: "string"
+        description: "Tipus de dada d'operació de l'atribut"
+        enum:
+        - "SIMPLE"
+        - "REPETIBLE"
       titol:
         type: "string"
         description: "Títol de l'atribut"
@@ -4316,9 +4328,6 @@ definitions:
     title: "Atributs"
   AtributsActualitzar:
     type: "object"
-    required:
-    - "codi"
-    - "valor"
     properties:
       codi:
         type: "string"
@@ -4328,6 +4337,13 @@ definitions:
         description: "Valor de l'atribut"
         items:
           type: "string"
+      valorLlistaMultipleRepetible:
+        type: "array"
+        description: "Valor l'atribut de tipus llista múltiple repetible"
+        items:
+          type: "array"
+          items:
+            type: "string"
     title: "AtributsActualitzar"
   AtributsExpedient:
     type: "object"
@@ -4338,6 +4354,9 @@ definitions:
       index:
         type: "string"
         description: "Codi del valor de la llista"
+      titol:
+        type: "string"
+        description: "Titol de l'atribut"
       valor:
         type: "array"
         description: "Llista de valors de l'atribut"
@@ -4348,12 +4367,29 @@ definitions:
         description: "Llista de valors de l'atribut en castellà"
         items:
           type: "string"
+      valorRepetible:
+        type: "array"
+        description: "Llista de valors repetible de l'atribut"
+        items:
+          type: "string"
       valorsLlista:
         type: "array"
         description: "Si el tipus de camp de l'atribut és llista, valors d'aquesta\
           \ llista"
         items:
           $ref: "#/definitions/ValorsLlistaExpedient"
+      valorsLlistaMultipleRepetible:
+        type: "array"
+        description: "Si el tipus de camp de l'atribut és llesta múltiple repetible,\
+          \ valors d'aquesta llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaMultipleRepetibleExpedient"
+      valorsLlistaRepetible:
+        type: "array"
+        description: "Si el tipus de camp de l'atribut és llesta repetible, valors\
+          \ d'aquesta llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaRepetibleExpedient"
     title: "AtributsExpedient"
   AtributsRequerits:
     type: "object"
@@ -4410,6 +4446,13 @@ definitions:
           attribute: false
           wrapped: false
         description: "Codi del valor de la llista"
+      titol:
+        type: "string"
+        xml:
+          name: "TITOL"
+          attribute: false
+          wrapped: false
+        description: "Titol de l'atribut"
       valor:
         type: "array"
         description: "Llista de valors de l'atribut"
@@ -4424,16 +4467,40 @@ definitions:
         description: "Llista de valors de l'atribut en castellà"
         items:
           type: "string"
+      valorRepetible:
+        type: "array"
+        items:
+          type: "string"
       valorsLlista:
         type: "array"
         xml:
-          name: "VALORS_LLISTA"
+          name: "VALOR_LLISTA"
           attribute: false
-          wrapped: true
+          wrapped: false
         description: "Si el tipus de camp de l'atribut és llista múltiple, valors\
           \ d'aquesta llista"
         items:
           $ref: "#/definitions/ValorsLlistaSollicitud"
+      valorsLlistaMultipleRepetible:
+        type: "array"
+        xml:
+          name: "VALOR_LLISTA_REPETIBLE"
+          attribute: false
+          wrapped: false
+        description: "Si el tipus de camp de l'atribut és llesta múltiple repetible,\
+          \ valors d'aquesta llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaMultipleRepetibleSollicitud"
+      valorsLlistaRepetible:
+        type: "array"
+        xml:
+          name: "VALOR_LLISTA_REPETIBLE"
+          attribute: false
+          wrapped: false
+        description: "Si el tipus de camp de l'atribut és llesta repetible, valors\
+          \ d'aquesta llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaRepetibleSollicitud"
     title: "AtributsSollicitud"
     xml:
       name: "DADA_OPERACIO"
@@ -6361,6 +6428,17 @@ definitions:
         description: "Atributs del grup"
         items:
           $ref: "#/definitions/Atributs"
+      caracteristiques:
+        type: "array"
+        description: "Caracteristiques del grup d'atributs"
+        items:
+          type: "string"
+          enum:
+          - "ORIGEN"
+          - "SUBGRUP"
+      codi:
+        type: "string"
+        description: "Codi de el grup"
       columnes:
         type: "string"
         description: "Columnes del grup d'atributs"
@@ -6373,6 +6451,15 @@ definitions:
       ordre:
         type: "string"
         description: "Ordre del grup d'atributs"
+      repeticions:
+        type: "string"
+        description: "Nombre màxim de repeticions del grup d'atributs repetible"
+      tipus:
+        type: "string"
+        description: "Tipus del grup d'atributs"
+        enum:
+        - "SIMPLE"
+        - "REPETIBLE"
       titol:
         type: "string"
         description: "Títol del grup d'atributs"
@@ -8247,6 +8334,46 @@ definitions:
         type: "string"
         description: "Valor de la llista en castellà"
     title: "ValorsLlistaExpedient"
+  ValorsLlistaMultipleRepetibleExpedient:
+    type: "object"
+    properties:
+      valorsLlistaRepetible:
+        type: "array"
+        description: "Si el tipus de camp de l'atribut és llista, valors d'aquesta\
+          \ llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaRepetibleExpedient"
+    title: "ValorsLlistaMultipleRepetibleExpedient"
+  ValorsLlistaMultipleRepetibleSollicitud:
+    type: "object"
+    properties:
+      valorsLlistaRepetible:
+        type: "array"
+        description: "Si el tipus de camp de l'atribut és llista, valors d'aquesta\
+          \ llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaRepetibleSollicitud"
+    title: "ValorsLlistaMultipleRepetibleSollicitud"
+  ValorsLlistaRepetibleExpedient:
+    type: "object"
+    properties:
+      valorsLlista:
+        type: "array"
+        description: "Si el tipus de camp de l'atribut és llista, valors d'aquesta\
+          \ llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaExpedient"
+    title: "ValorsLlistaRepetibleExpedient"
+  ValorsLlistaRepetibleSollicitud:
+    type: "object"
+    properties:
+      valorsLlista:
+        type: "array"
+        description: "Si el tipus de camp de l'atribut és llista, valors d'aquesta\
+          \ llista"
+        items:
+          $ref: "#/definitions/ValorsLlistaSollicitud"
+    title: "ValorsLlistaRepetibleSollicitud"
   ValorsLlistaSollicitud:
     type: "object"
     properties:
