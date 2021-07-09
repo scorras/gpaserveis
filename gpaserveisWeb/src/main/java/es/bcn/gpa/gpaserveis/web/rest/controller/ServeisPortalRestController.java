@@ -2313,10 +2313,6 @@ public class ServeisPortalRestController extends BaseRestController {
 			ex = e;
 		} catch (Exception e) {
 			log.error("esmenarExpedient(BigDecimal, ExpedientEsmenaRDTO)", e); // $NON-NLS-1$
-
-			sagaEsmenarExpedient(expedientEsmena, dadesExpedientBDTO, respostaCrearJustificant, idsDocsEnt, idComentario,
-			        actualitzarDadesSollicitud, dadesEspecifiquesRDTOListBBDD);
-
 			// si hay fallo no debemos devolver la lista de documentacio
 			// aportada
 			docsEntradaRDTORespostaList = null;
@@ -2345,52 +2341,6 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		return respostaEsmenarExpedientRDTO;
-	}
-
-	private void sagaEsmenarExpedient(ExpedientEsmenaRDTO expedientEsmena, DadesExpedientBDTO dadesExpedientBDTO,
-	        DocsTramitacioRDTO respostaCrearJustificant, List<BigDecimal> idsDocsEnt, Integer idComentario,
-	        ActualitzarDadesSollicitud actualitzarDadesSollicitud, List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOListBBDD) {
-
-		try {
-			// 1 Borramos los documentos que se han incorporado en la esmena al
-			// expediente
-			if (null != idsDocsEnt && CollectionUtils.isNotEmpty(idsDocsEnt)) {
-
-				EsborrarDocumentBDTO esborrarDocumentExpedientBDTO = null;
-				for (BigDecimal idDoc : idsDocsEnt) {
-					esborrarDocumentExpedientBDTO = new EsborrarDocumentBDTO(dadesExpedientBDTO.getExpedientsRDTO().getId(), idDoc);
-
-					serveisService.esBorrarDocumentacioEntrada(esborrarDocumentExpedientBDTO);
-				}
-
-			}
-			// 2 Borramos el justificante generado en la esmena
-			if (respostaCrearJustificant != null) {
-				EsborrarDocumentBDTO esborrarDocumentExpedientBDTO = new EsborrarDocumentBDTO(
-				        dadesExpedientBDTO.getExpedientsRDTO().getId(), respostaCrearJustificant.getId());
-				serveisService.esBorrarDocumentacioTramitacio(esborrarDocumentExpedientBDTO);
-			}
-			// 3 Restauramos los dades operacio con los que tenia el expediente
-			if (actualitzarDadesSollicitud != null && dadesEspecifiquesRDTOListBBDD != null && dadesEspecifiquesRDTOListBBDD.size() > 0) {
-				actualitzarDadesSollicitud = new ActualitzarDadesSollicitud();
-				actualitzarDadesSollicitud.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
-				actualitzarDadesSollicitud.setEsmena(Boolean.FALSE);
-				actualitzarDadesSollicitud.setDadesEspecifiques(dadesEspecifiquesRDTOListBBDD);
-				ExpedientsActualitzarBDTO expedientsActualitzarBDTO = new ExpedientsActualitzarBDTO(actualitzarDadesSollicitud);
-				serveisService.actualitzarSolicitudExpedient(expedientsActualitzarBDTO);
-			}
-			// 4 Eliminamos el comentario si se ha llegado a crear
-			if (idComentario != null) {
-				serveisService.esborrarComentari(new BigDecimal(idComentario), dadesExpedientBDTO.getExpedientsRDTO().getId());
-			}
-			// 5 - Deshacemos tancament requiremnt
-			serveisService.obrirRequerimentsExpedient(dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext());
-
-		} catch (GPAServeisServiceException e1) {
-			log.error(
-			        "sagaEsmenarExpedient(ExpedientEsmenaRDTO, DadesExpedientBDTO, DocsTramitacioRDTO, List<BigDecimal>, Integer, ActualitzarDadesSollicitud, List<DadesEspecifiquesRDTO>)",
-			        e1);// $NON-NLS-1$
-		}
 	}
 
 	/**
