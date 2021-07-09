@@ -1646,6 +1646,13 @@ public class ServeisPortalRestController extends BaseRestController {
 						CrearDocumentEntradaBDTO crearDocumentEntradaBDTO = new CrearDocumentEntradaBDTO(
 						        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
 						docsEntradaRDTOResposta = serveisService.crearDocumentEntrada(crearDocumentEntradaBDTO);
+						
+
+						//Avisos
+						GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+						gestionarAvisosPerAccio.setIdAccio(accionsEstatsId);
+						GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio, dadesExpedientBDTO.getExpedientsRDTO().getId());
+						serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 					}
 					docsEntradaRDTORespostaList.add(docsEntradaRDTOResposta);
 				}
@@ -1701,11 +1708,6 @@ public class ServeisPortalRestController extends BaseRestController {
 				vincularJustificanteAriadna(dadesExpedientBDTO, respostaCrearRegistreExpedient, respostaCrearJustificant.getCodi());
 				
 				
-				//Avisos
-				GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
-				gestionarAvisosPerAccio.setIdAccio(accionsEstatsId);
-				GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio, dadesExpedientBDTO.getExpedientsRDTO().getId());
-				serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 				
 			}
 		} catch (GPAApiParamValidationException e) {
