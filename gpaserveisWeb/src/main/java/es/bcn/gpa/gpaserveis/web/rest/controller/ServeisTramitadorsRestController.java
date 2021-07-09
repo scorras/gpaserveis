@@ -4239,7 +4239,10 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// Se construye el modelo para la llamada a la operación de
 			// actualización
 			ActualitzarDadesSollicitud actualitzarDadesSollicitud = new ActualitzarDadesSollicitud();
-			actualitzarDadesSollicitud.setDadesEspecifiques(validateDadesOperacioResultat.getDadesEspecifiquesRDTOList());
+			if (validateDadesOperacioResultat != null) {
+				actualitzarDadesSollicitud.setDadesEspecifiques(validateDadesOperacioResultat.getDadesEspecifiquesRDTOList());
+				// TODO tratamiento de datos específicos repetibles
+			}
 			TipusIniciacioSollicitudApiParamValueTranslator tipusIniciacioSollicitudApiParamValueTranslator = new TipusIniciacioSollicitudApiParamValueTranslator();
 			TipusIniciacioSollicitudApiParamValue tipusIniciacioSollicitudApiParamValue = tipusIniciacioSollicitudApiParamValueTranslator
 			        .getEnumByApiParamValue(solicitudExpedient.getTipusIniciacio());

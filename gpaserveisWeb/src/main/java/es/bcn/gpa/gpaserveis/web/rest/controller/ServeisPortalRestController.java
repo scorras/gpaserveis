@@ -1175,9 +1175,11 @@ public class ServeisPortalRestController extends BaseRestController {
 			expedientsRDTO.setId(dadesExpedientBDTO.getExpedientsRDTO().getId());
 			ActualitzarDadesSollicitud actualitzarDadesSollicitud = new ActualitzarDadesSollicitud();
 			actualitzarDadesSollicitud.setExpedient(expedientsRDTO);
-			actualitzarDadesSollicitud.setDadesEspecifiques(validateDadesOperacioResultat.getDadesEspecifiquesRDTOList());
-			actualitzarDadesSollicitud
-			        .setDadesEspecifiquesRepetibles(validateDadesOperacioResultat.getDadesEspecifiquesRepetiblesRDTOList());
+			if (validateDadesOperacioResultat != null) {
+				actualitzarDadesSollicitud.setDadesEspecifiques(validateDadesOperacioResultat.getDadesEspecifiquesRDTOList());
+				actualitzarDadesSollicitud
+				        .setDadesEspecifiquesRepetibles(validateDadesOperacioResultat.getDadesEspecifiquesRepetiblesRDTOList());
+			}
 			actualitzarDadesSollicitud.setEsTramitadors(Boolean.FALSE);
 			ExpedientsActualitzarBDTO expedientsActualitzarBDTO = new ExpedientsActualitzarBDTO(actualitzarDadesSollicitud);
 			returnExpedientsRDTO = serveisService.actualitzarSolicitudExpedient(expedientsActualitzarBDTO);
@@ -1632,9 +1634,10 @@ public class ServeisPortalRestController extends BaseRestController {
 					docsEntradaRDTO.setDocsTercers(NumberUtils.INTEGER_ONE);
 					docsEntradaRDTO.setSollicitudIdext(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud());
 					docsEntradaRDTO.setEsborrany(1);
-					
-					BigDecimal idPersone = ServeisRestControllerValidationHelper.getIdUsuariInteressat(clientEntity, dadesExpedientBDTO.getPersonesInteressades(),
-							dadesExpedientBDTO.getSollicitant(), dadesExpedientBDTO.getRepresentant());
+
+					BigDecimal idPersone = ServeisRestControllerValidationHelper.getIdUsuariInteressat(clientEntity,
+					        dadesExpedientBDTO.getPersonesInteressades(), dadesExpedientBDTO.getSollicitant(),
+					        dadesExpedientBDTO.getRepresentant());
 					if (idPersone != null) {
 						docsEntradaRDTO.setPersonaIdext(idPersone);
 					}
@@ -2260,7 +2263,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			actualitzarDadesSollicitud.setExpedient(dadesExpedientBDTO.getExpedientsRDTO());
 			actualitzarDadesSollicitud.setEsmena(Boolean.TRUE);
 			actualitzarDadesSollicitud.setComentari(expedientEsmena.getComentari());
-			actualitzarDadesSollicitud.setDadesEspecifiques(validateDadesOperacioResultat.getDadesEspecifiquesRDTOList());
+			if (validateDadesOperacioResultat != null) {
+				actualitzarDadesSollicitud.setDadesEspecifiques(validateDadesOperacioResultat.getDadesEspecifiquesRDTOList());
+			}
 			ExpedientsActualitzarBDTO expedientsActualitzarBDTO = new ExpedientsActualitzarBDTO(actualitzarDadesSollicitud);
 			serveisService.actualitzarSolicitudExpedient(expedientsActualitzarBDTO);
 
