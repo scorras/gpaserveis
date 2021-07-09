@@ -54,6 +54,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarSollicitudBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.GestionarAvisosPerAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaActualitzarTerceraPersonaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaCrearTerceraPersonaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaEsborrarTerceraPersonaBDTO;
@@ -86,6 +87,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearSollicitud
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.GestionarAvisosPerAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
@@ -1591,7 +1593,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				        dadesSollicitudBDTO.getExpedientsRDTO().getId());
 
 				long startTimeCanviarEstatExpedient = System.nanoTime();
-				serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
+				serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);				
 
 				if (log.isDebugEnabled()) {
 					long tiempoTotal = System.nanoTime() - startTimeCanviarEstatExpedient;
@@ -1603,6 +1605,12 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					log.info("trazaTiempos: registrarSolicitud(BigDecimal) - canviarEstatExpedient - fi: " //$NON-NLS-1$
 					        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
 				}
+				
+				//Avisos
+				GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+				gestionarAvisosPerAccio.setIdAccio(new BigDecimal(8));
+				GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio, dadesSollicitudBDTO.getExpedientsRDTO().getId());
+				serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 			}
 
 		} catch (GPAApiParamValidationException e) {

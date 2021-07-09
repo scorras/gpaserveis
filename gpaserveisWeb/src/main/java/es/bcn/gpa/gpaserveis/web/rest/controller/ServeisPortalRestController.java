@@ -2144,7 +2144,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			                expedientEsmena.getDocumentacio(), Resultat.ERROR_ESMENAR_EXPEDIENT);
 
 			// Esmenar expedient si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			BigDecimal accionsEstatsId = ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.RESPONDRE_REQUERIMENT_O_TRAMIT_ALLEGACIONS_O_IP, Resultat.ERROR_ESMENAR_EXPEDIENT);
 
 			configuacioActualizar = new ArrayList<>();
@@ -2302,6 +2302,12 @@ public class ServeisPortalRestController extends BaseRestController {
 			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId());
 			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
+			
+			//Avisos
+			GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+			gestionarAvisosPerAccio.setIdAccio(accionsEstatsId);
+			GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio, dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("esmenarExpedient(BigDecimal, ExpedientEsmenaRDTO)", e);// $NON-NLS-1$

@@ -703,7 +703,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// Resultat.ERROR_PAUSAR_EXPEDIENT);
 
 			// Pausar expediente si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			BigDecimal accionsEstatsId = ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.PAUSAR_EXPEDIENT, Resultat.ERROR_PAUSAR_EXPEDIENT);
 
 			// Cambio de estado del expediente y actualización de fechas de
@@ -747,6 +747,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// Se vuelve a consultar el expediente actualizado
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
+			
+			//Avisos
+			GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+			gestionarAvisosPerAccio.setIdAccio(accionsEstatsId);
+			GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio, dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("pausarExpedient(String, String, ExpedientPausaRDTO)", e); // $NON-NLS-1$
@@ -816,7 +822,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_REACTIVAR_EXPEDIENT);
 
 			// Reactivar expediente si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			BigDecimal accionsEstatsId = ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.REACTIVAR_EXPEDIENT, Resultat.ERROR_REACTIVAR_EXPEDIENT);
 
 			// Cambio de estado del expediente y actualización de fechas de
@@ -842,6 +848,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			RespostaExpedientsValidarBDTO respostaExpedientsValidarBDTO = new RespostaExpedientsValidarBDTO(
 			        dadesExpedientBDTO.getExpedientsRDTO(), respostaResultatBDTO);
 			respostaReactivarExpedientRDTO = modelMapper.map(respostaExpedientsValidarBDTO, RespostaReactivarExpedientRDTO.class);
+			
+			//Avisos
+			GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+			gestionarAvisosPerAccio.setIdAccio(accionsEstatsId);
+			GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio, dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("reactivarExpedient(String, ExpedientReactivacioRDTO)", e); // $NON-NLS-1$
@@ -2872,7 +2884,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			}
 
 			// Completar documento si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			BigDecimal accionsEstatsId =  ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.COMPLETAR_DOCUMENT, Resultat.ERROR_COMPLETAR_DOCUMENT_EXPEDIENT);
 
 			if (BooleanUtils.isTrue(documentComplecio.getDocument().getRequeriment()))
@@ -2935,15 +2947,33 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 					        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
 					docsEntradaRDTOResult = serveisService.actualitzarDeclaracioResponsable(actualitzarDeclaracioResponsableBDTO);
 				} else {
+					//Avisos				
+					GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+					gestionarAvisosPerAccio.setIdAccio(accionsEstatsId);
+					GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio, dadesExpedientBDTO.getExpedientsRDTO().getId());
+					serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
+					
 					if (file != null) {
 						guardarDocumentEntradaFitxerBDTO = new GuardarDocumentEntradaFitxerBDTO(
 						        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO, file, null);
 						docsEntradaRDTOResult = serveisService.guardarDocumentEntradaFitxer(guardarDocumentEntradaFitxerBDTO);
+						
+						if(guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO().getRevisio() == Constants.REVISIO_DOCUMENT_CORRECT){
+							validarDocumentExpedient(codiExpedient, docsEntradaRDTOResult.getId(), new DocumentAportatValidarRDTO());
+						} else if(guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO().getRevisio() == Constants.REVISIO_DOCUMENT_INCORRECT){
+							rebutjarDocumentExpedient(codiExpedient, docsEntradaRDTOResult.getId(), new DocumentAportatRebutjarRDTO());
+						}
 					} else {
 						ActualitzarDocumentEntradaBDTO actualitzarDocumentEntradaBDTO = new ActualitzarDocumentEntradaBDTO(
 						        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
 						docsEntradaRDTOResult = serveisService.actualitzarDocumentEntrada(actualitzarDocumentEntradaBDTO);
-					}
+						
+						if(actualitzarDocumentEntradaBDTO.getDocsEntradaRDTO().getRevisio() == Constants.REVISIO_DOCUMENT_CORRECT){
+							validarDocumentExpedient(codiExpedient, docsEntradaRDTOResult.getId(), new DocumentAportatValidarRDTO());
+						} else if(actualitzarDocumentEntradaBDTO.getDocsEntradaRDTO().getRevisio() == Constants.REVISIO_DOCUMENT_INCORRECT){
+							rebutjarDocumentExpedient(codiExpedient, docsEntradaRDTOResult.getId(), new DocumentAportatRebutjarRDTO());
+						}
+					}					
 				}
 			} else {
 				DocumentsTramitacioCercaBDTO documentsTramitacioCercaBDTO = new DocumentsTramitacioCercaBDTO(
