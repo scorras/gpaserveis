@@ -10,60 +10,80 @@
  * Do not edit the class manually.
  */
 
-
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
-import java.math.BigDecimal;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRepetiblesRDTO;
-import org.junit.Test;
-import org.junit.Ignore;
+import static java.math.BigDecimal.ONE;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+import org.mockito.InjectMocks;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
+
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRepetiblesRDTO;
 
 /**
  * API tests for DadesEspecifiquesRepetiblesApi
  */
-@Ignore
-public class DadesEspecifiquesRepetiblesApiTest {
+@SuppressWarnings("unchecked")
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class DadesEspecifiquesRepetiblesApiTest extends ParentTest {
 
-    private final DadesEspecifiquesRepetiblesApi api = new DadesEspecifiquesRepetiblesApi();
+	@InjectMocks
+	private DadesEspecifiquesRepetiblesApi api = new DadesEspecifiquesRepetiblesApi();
 
-    
-    /**
-     * Returns the requested dades especifiques repetibles
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void consultarDadesEspecifiquesRepetiblesExpedientTest() {
-        BigDecimal idExpedient = null;
-        BigDecimal visibilitat = null;
-        List<DadesEspecifiquesRepetiblesRDTO> response = api.consultarDadesEspecifiquesRepetiblesExpedient(idExpedient, visibilitat);
+	/**
+	 * Returns the requested dades especifiques repetibles
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void consultarDadesEspecifiquesRepetiblesExpedientTest() {
+		when(apiClient.invokeAPI(eq("/expedients/dadesEspecifiquesRepetibles/1/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DadesEspecifiquesRepetiblesRDTO>());
 
-        // TODO: test validations
-    }
-    
-    /**
-     * Returns the requested dades especifiques repetibles by Sol·licitud
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void consultarDadesEspecifiquesRepetiblesSollicitudTest() {
-        BigDecimal idSollicitud = null;
-        BigDecimal visibilitat = null;
-        List<DadesEspecifiquesRepetiblesRDTO> response = api.consultarDadesEspecifiquesRepetiblesSollicitud(idSollicitud, visibilitat);
+		BigDecimal idExpedient = ONE;
+		BigDecimal visibilitat = ONE;
+		List<DadesEspecifiquesRepetiblesRDTO> response = api.consultarDadesEspecifiquesRepetiblesExpedient(idExpedient, visibilitat);
 
-        // TODO: test validations
-    }
-    
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Returns the requested dades especifiques repetibles by Sol·licitud
+	 *
+	 * 
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void consultarDadesEspecifiquesRepetiblesSollicitudTest() {
+		when(apiClient.invokeAPI(eq("/expedients/dadesEspecifiquesRepetibles/sollicitud/1/1"), eq(HttpMethod.GET), any(MultiValueMap.class),
+		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
+		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DadesEspecifiquesRepetiblesRDTO>());
+
+		BigDecimal idSollicitud = ONE;
+		BigDecimal visibilitat = ONE;
+		List<DadesEspecifiquesRepetiblesRDTO> response = api.consultarDadesEspecifiquesRepetiblesSollicitud(idSollicitud, visibilitat);
+
+		assertTrue(response != null);
+	}
+
 }
