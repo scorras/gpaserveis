@@ -19,6 +19,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.FixMethodOrder;
@@ -59,6 +60,22 @@ public class PersonesSollicitud_ApiTest extends ParentTest {
 
 		BigDecimal idPersonesSollicitud = ONE;
 		PersonesSollicitudRDTO response = api.consultarDadesPersonaSollicitud(idPersonesSollicitud);
+
+		assertTrue(response != null);
+	}
+
+	/**
+	 * Consultar dades all persona sollicitud by persona idext test.
+	 */
+	@Test
+	public void consultarDadesAllPersonaSollicitudByPersonaIdextTest() {
+		when(apiClient.invokeAPI(eq("/expedients/personesSollicitud/allPersonesSollicitudByPersonaIdext/1"), eq(HttpMethod.GET),
+		        any(MultiValueMap.class), any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class),
+		        any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class)))
+		                .thenReturn(new ArrayList<PersonesSollicitudRDTO>());
+
+		String listPersonaIdext = ONE.toString();
+		List<PersonesSollicitudRDTO> response = api.consultarDadesAllPersonaSollicitudByPersonaIdext(listPersonaIdext);
 
 		assertTrue(response != null);
 	}
