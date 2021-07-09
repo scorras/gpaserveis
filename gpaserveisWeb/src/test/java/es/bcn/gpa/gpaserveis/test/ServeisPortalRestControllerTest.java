@@ -352,7 +352,7 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 		String url = BASE_URL + "/expedients/1/persones";
 		getMockMvc()
 		        .perform(put(url).contentType(APPLICATION_JSON_UTF8).content(
-		                "{\"persona\":{\"relacio\":null, \"relacioTerceraPersona\":\"Testimoni\", \"visibilitatOvt\":false, \"tipusPersona\":\"FISICA\", \"nomRaoSocial\":\"El Àlvar\",\"cognom1\":\"Perau\",\"cognom2\":null,\"documentIndentitat\":{\"tipusDocument\":\"NIE\",\"numeroDocument\":\"00914091\",\"pais\":\"108\"},\"personesDadescontacte\":{}}}}"))
+		                "{\"persona\":{\"id\":\"1\", \"relacio\":null, \"relacioTerceraPersona\":\"Testimoni\", \"visibilitatOvt\":false, \"tipusPersona\":\"FISICA\", \"nomRaoSocial\":\"El Àlvar\",\"cognom1\":\"Perau\",\"cognom2\":null,\"documentIndentitat\":{\"tipusDocument\":\"NIE\",\"numeroDocument\":\"00914091\",\"pais\":\"108\"},\"personesDadescontacte\":{}}}}"))
 		        .andExpect(status().isOk()).andDo(print());
 	}
 

@@ -73,7 +73,9 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 	@Test
 	public void testStage07_PostTancarExpedient() throws Exception {
 		String url = BASE_URL + "/expedients/2019_EXP_0001/tancar";
-		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("{ \"comentari\":\"S'executa l'acció.\" }"))
+		getMockMvc()
+		        .perform(post(url).contentType(APPLICATION_JSON_UTF8)
+		                .content("{ \"comentari\":\"S'executa l'acció.\", \"tancamentAutomatic\":\"0\" }"))
 		        .andExpect(status().isOk()).andDo(print());
 	}
 
@@ -484,7 +486,7 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 		String url = BASE_URL + "/expedients/a/tramitar/convidar";
 		getMockMvc()
 		        .perform(post(url).contentType(APPLICATION_JSON_UTF8)
-		                .content("{ \"codiUnitatGestora\":\"UG3\", \"comentari\":\"S'executa l'acció.\" }"))
+		                .content("{ \"codiUnitatGestoraList\":[\"UG3\"], \"comentari\":\"S'executa l'acció.\" }"))
 		        .andExpect(status().isOk()).andDo(print());
 	}
 

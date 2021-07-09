@@ -5,7 +5,6 @@ import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +32,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsRelacionats
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Expedients_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesInteressades_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitudApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.PersonesSollicitud_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.Persones_Api;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.SollicitudsApi;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi;
@@ -105,8 +105,8 @@ public class TestsConfig implements EnvironmentAware {
 		}
 
 		DataSource returnDataSource = new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
-				.setName("testdb;DATABASE_TO_UPPER=false;MODE=Oracle").addScript("classpath:sql/install/01_GPASERVEIS_T.sql")
-				.generateUniqueName(true).build();
+		        .setName("testdb;DATABASE_TO_UPPER=false;MODE=Oracle").addScript("classpath:sql/install/01_GPASERVEIS_T.sql")
+		        .generateUniqueName(true).build();
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("dataSource() - fi"); //$NON-NLS-1$
 		}
@@ -357,7 +357,7 @@ public class TestsConfig implements EnvironmentAware {
 		}
 		return dadesEspecifiquesApi;
 	}
-	
+
 	@Bean
 	public DadesEspecifiquesRepetiblesApi dadesEspecifiquesRepetiblesApi() {
 		if (log.isDebugEnabled()) {
@@ -454,6 +454,20 @@ public class TestsConfig implements EnvironmentAware {
 			log.debug("personesSollicitudApi() - fi"); //$NON-NLS-1$
 		}
 		return personesSollicitudApi;
+	}
+
+	@Bean
+	public PersonesSollicitud_Api personesSollicitud_Api() {
+		if (log.isDebugEnabled()) {
+			log.debug("personesSollicitud_Api() - inici"); //$NON-NLS-1$
+		}
+
+		PersonesSollicitud_Api personesSollicitud_Api = Mockito.mock(PersonesSollicitud_Api.class);
+
+		if (log.isDebugEnabled()) {
+			log.debug("personesSollicitud_Api() - fi"); //$NON-NLS-1$
+		}
+		return personesSollicitud_Api;
 	}
 
 	@Bean

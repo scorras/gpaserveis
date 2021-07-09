@@ -2204,4 +2204,21 @@ public class TestsConfigHelper {
 		return signarSegellDocument;
 	}
 
+	/**
+	 * Consultar dades persona sollicitud response.
+	 *
+	 * @return the persones sollicitud RDTO
+	 */
+	public static PersonesSollicitudRDTO consultarDadesPersonaSollicitudResponse() {
+		PersonesSollicitudRDTO personesSollicitudRDTO = new PersonesSollicitudRDTO();
+		personesSollicitudRDTO.setPersona(ONE);
+		Persones persones = new Persones();
+		DocumentsIdentitat documentsIdentitat = new DocumentsIdentitat();
+		documentsIdentitat.setNumeroDocument("00000000T");
+		persones.setDocumentsIdentitat(documentsIdentitat);
+		personesSollicitudRDTO.setPersones(persones);
+
+		return personesSollicitudRDTO;
+	}
+
 }
