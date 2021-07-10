@@ -34,7 +34,8 @@ public abstract class RestServerParentTest extends ParentTest {
 			log.debug("setUp() - inici"); //$NON-NLS-1$
 		}
 
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).apply(new ServletBaseContextReplacer("/rest", "")).addFilter(new HystrixRequestContextServletFilter()).build();
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).apply(new ServletBaseContextReplacer("/rest", ""))
+		        .addFilter(new HystrixRequestContextServletFilter()).build();
 		super.setUp();
 
 		if (log.isDebugEnabled()) {
