@@ -366,6 +366,21 @@ public class TestsConfigHelper {
 	}
 
 	/**
+	 * Consultar dades unitat gestora convidar response.
+	 *
+	 * @return the unitats gestores RDTO
+	 */
+	public static UnitatsGestoresRDTO consultarDadesUnitatGestoraConvidarResponse() {
+		UnitatsGestoresRDTO unitatsGestoresRDTO = new UnitatsGestoresRDTO();
+
+		unitatsGestoresRDTO.setId(new BigDecimal(3));
+		unitatsGestoresRDTO.setNom("UG3");
+		unitatsGestoresRDTO.setDescripcio("Descripció UG3");
+
+		return unitatsGestoresRDTO;
+	}
+
+	/**
 	 * Cerca tramits procediment response.
 	 *
 	 * @return the page data of tramits RDTO

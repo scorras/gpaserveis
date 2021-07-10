@@ -212,7 +212,6 @@ public abstract class ParentTest {
 		}
 
 		try {
-
 			when(procedimentsApi.cercaProcediments(isNull(Integer.class), isNull(Integer.class), any(List.class), any(String.class),
 			        any(String.class), any(String.class), any(List.class), isNull(Boolean.class), isNull(Boolean.class),
 			        isNull(Boolean.class), isNull(Boolean.class), any(Integer.class), any(String.class), any(List.class), any(List.class),

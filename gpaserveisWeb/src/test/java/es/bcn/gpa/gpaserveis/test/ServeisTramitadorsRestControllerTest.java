@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.test;
 
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -15,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import es.bcn.gpa.gpaserveis.test.config.TestsConfigHelper;
 import es.bcn.gpa.gpaserveis.test.parent.RestServerParentTest;
 
 /**
@@ -138,10 +140,13 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 
 	@Test
 	public void testStage13_PostConvidarTramitarExpedient() throws Exception {
+		when(unitatsGestoresApi.consultarDadesUnitatGestoraPerNom(eq("UG3")))
+		        .thenReturn(TestsConfigHelper.consultarDadesUnitatGestoraConvidarResponse());
+
 		String url = BASE_URL + "/expedients/2019_EXP_0001/tramitar/convidar";
 		getMockMvc()
 		        .perform(post(url).contentType(APPLICATION_JSON_UTF8)
-		                .content("{ \"codiUnitatGestora\":\"UG3\", \"comentari\":\"S'executa l'acció.\" }"))
+		                .content("{ \"codiUnitatGestoraList\":[\"UG3\"], \"comentari\":\"S'executa l'acció.\" }"))
 		        .andExpect(status().isOk()).andDo(print());
 	}
 
