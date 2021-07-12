@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.integration.orm.dao.BaseDao;
@@ -34,8 +36,8 @@ public class BaseDaoImpl<T extends BaseEntity, I extends Serializable, E extends
 	private static final Log LOGGER = LogFactory.getLog(BaseDaoImpl.class);
 
 	/** The my batis template. */
-	// @Autowired(required = true)
-	// @Qualifier("myBatisTemplate")
+	@Autowired(required = true)
+	@Qualifier("myBatisTemplate")
 	protected MyBatisPaginationTemplate myBatisTemplate;
 
 	/**
