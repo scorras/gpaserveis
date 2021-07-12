@@ -79,7 +79,7 @@ public class AuditServeisServiceImpl implements AuditServeisService {
 			auditServeisBDTO.setDadesResposta(dadesResposta == null ? "--" : mapper.writeValueAsString(dadesResposta));
 			auditServeisBDTO.setDetallError(detallError == null ? "--" : mapper.writeValueAsString(detallError));
 
-			// auditServeisTramitadorsDao.insert(auditServeisBDTO);
+			auditServeisTramitadorsDao.insert(auditServeisBDTO);
 		} catch (Exception e) {
 			throw new GPAServeisServiceException(e);
 		}
@@ -96,7 +96,7 @@ public class AuditServeisServiceImpl implements AuditServeisService {
 			auditServeisBDTO.setDadesResposta(dadesResposta == null ? "--" : mapper.writeValueAsString(dadesResposta));
 			auditServeisBDTO.setDetallError(detallError == null ? "--" : mapper.writeValueAsString(detallError));
 
-			// auditServeisMdsDao.insert(auditServeisBDTO);
+			auditServeisMdsDao.insert(auditServeisBDTO);
 		} catch (Exception e) {
 			throw new GPAServeisServiceException(e);
 		}
@@ -113,7 +113,7 @@ public class AuditServeisServiceImpl implements AuditServeisService {
 			auditServeisBDTO.setDadesResposta(dadesResposta == null ? "--" : mapper.writeValueAsString(dadesResposta));
 			auditServeisBDTO.setDetallError(detallError == null ? "--" : mapper.writeValueAsString(detallError));
 
-			// auditServeisPortalDao.insert(auditServeisBDTO);
+			auditServeisPortalDao.insert(auditServeisBDTO);
 		} catch (Exception e) {
 			throw new GPAServeisServiceException(e);
 		}
@@ -130,7 +130,7 @@ public class AuditServeisServiceImpl implements AuditServeisService {
 			auditServeisBDTO.setDadesResposta(dadesResposta == null ? "--" : mapper.writeValueAsString(dadesResposta));
 			auditServeisBDTO.setDetallError(detallError == null ? "--" : mapper.writeValueAsString(detallError));
 
-			// auditServeisPortalSollicitudsDao.insert(auditServeisBDTO);
+			auditServeisPortalSollicitudsDao.insert(auditServeisBDTO);
 		} catch (Exception e) {
 			throw new GPAServeisServiceException(e);
 		}
@@ -147,7 +147,7 @@ public class AuditServeisServiceImpl implements AuditServeisService {
 			auditServeisBDTO.setDadesResposta(dadesResposta == null ? "--" : mapper.writeValueAsString(dadesResposta));
 			auditServeisBDTO.setDetallError(detallError == null ? "--" : mapper.writeValueAsString(detallError));
 
-			// auditServeisNotificacionsDao.insert(auditServeisBDTO);
+			auditServeisNotificacionsDao.insert(auditServeisBDTO);
 		} catch (Exception e) {
 			throw new GPAServeisServiceException(e);
 		}
@@ -164,7 +164,7 @@ public class AuditServeisServiceImpl implements AuditServeisService {
 			auditServeisBDTO.setDadesResposta(dadesResposta == null ? "--" : mapper.writeValueAsString(dadesResposta));
 			auditServeisBDTO.setDetallError(detallError == null ? "--" : mapper.writeValueAsString(detallError));
 
-			// auditServeisSignaturesDao.insert(auditServeisBDTO);
+			auditServeisSignaturesDao.insert(auditServeisBDTO);
 		} catch (Exception e) {
 			throw new GPAServeisServiceException(e);
 		}
@@ -181,7 +181,7 @@ public class AuditServeisServiceImpl implements AuditServeisService {
 			auditServeisBDTO.setDadesResposta(dadesResposta == null ? "--" : mapper.writeValueAsString(dadesResposta));
 			auditServeisBDTO.setDetallError(detallError == null ? "--" : mapper.writeValueAsString(detallError));
 
-			// auditServeisPortaSignaturesDao.insert(auditServeisBDTO);
+			auditServeisPortaSignaturesDao.insert(auditServeisBDTO);
 		} catch (Exception e) {
 			throw new GPAServeisServiceException(e);
 		}
