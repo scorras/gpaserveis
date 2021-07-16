@@ -1236,6 +1236,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_TANCAR_EXPEDIENT);
 		List<AccionsEstatsRDTO> accionsEstatsRDTOList = null;
+		BigDecimal tancamentAutomatic = expedientTancament.getTancamentAutomatic() != null ? expedientTancament.getTancamentAutomatic()
+		        : BigDecimal.ZERO;
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
@@ -1243,19 +1245,19 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_TANCAR_EXPEDIENT);
 
 			// Cerrar expediente si la acción es permitida
-			if (!expedientTancament.getTancamentAutomatic().equals(Constants.TANCAMENT_AUTOMATIC)) {// Si
-			                                                                                        // no
-			                                                                                        // es
-			                                                                                        // tancament
-			                                                                                        // automatic
+			if (!tancamentAutomatic.equals(Constants.TANCAMENT_AUTOMATIC)) {// Si
+			                                                                // no
+			                                                                // es
+			                                                                // tancament
+			                                                                // automatic
 				ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 				        AccioTramitadorApiParamValue.TANCAR_EXPEDIENT, Resultat.ERROR_TANCAR_EXPEDIENT);
 			}
 
-			if (expedientTancament.getTancamentAutomatic().equals(Constants.TANCAMENT_AUTOMATIC)) { // Si
-			                                                                                        // es
-			                                                                                        // tancament
-			                                                                                        // automatic
+			if (tancamentAutomatic.equals(Constants.TANCAMENT_AUTOMATIC)) { // Si
+			                                                                // es
+			                                                                // tancament
+			                                                                // automatic
 				accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
 				        AccioTramitadorApiParamValue.TANCAR_EXPEDIENT.getInternalValue(),
 				        AccioTramitadorApiParamValue.OBRIR_EXPEDIENT.getInternalValue());
@@ -1274,7 +1276,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        AccioTramitadorApiParamValue.TANCAR_EXPEDIENT, Resultat.ERROR_TANCAR_EXPEDIENT);
 
 			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
-			expedientCanviEstat.setTancamentAutomatic(expedientTancament.getTancamentAutomatic());
+			expedientCanviEstat.setTancamentAutomatic(tancamentAutomatic);
 
 			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId());
