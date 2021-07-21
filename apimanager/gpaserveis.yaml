@@ -2844,7 +2844,7 @@ paths:
       - name: "codiExpedient"
         in: "path"
         description: "Codi de l'expedient"
-        required: false
+        required: true
         type: "string"
       - name: "document"
         in: "formData"
@@ -2872,7 +2872,7 @@ paths:
           \ SIGNATURA_CADUCADA, PENDENT_VIST_I_PLAU, VIST_I_PLAU_REBUTJAT, VIST_I_PLAU_CADUCAT,\
           \ NOTIFICACIO_REBUTJADA_SENSE_ACCES, NOTIFICACIO_REBUTJADA_SENSE_ACCIO,\
           \ PUBLICAT, NOTIFICACIO_AMB_ERROR, COMPLETAT, DESCARTAT)\"<br>}"
-        required: false
+        required: true
         type: "string"
       - name: "file"
         in: "formData"
