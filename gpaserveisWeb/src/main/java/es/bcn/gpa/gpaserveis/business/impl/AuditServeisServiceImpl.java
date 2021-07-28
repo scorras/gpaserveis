@@ -2,6 +2,7 @@ package es.bcn.gpa.gpaserveis.business.impl;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -70,7 +71,7 @@ public class AuditServeisServiceImpl implements AuditServeisService {
 	 *             the GPA serveis service exception
 	 */
 	public <E> void registrarAuditServeisTramitadors(AuditServeisBDTO auditServeisBDTO, E dadesEntrada, E dadesResposta, E detallError)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -87,7 +88,7 @@ public class AuditServeisServiceImpl implements AuditServeisService {
 	}
 
 	public <E> void registrarAuditServeisMds(AuditServeisBDTO auditServeisBDTO, E dadesEntrada, E dadesResposta, E detallError)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -104,7 +105,7 @@ public class AuditServeisServiceImpl implements AuditServeisService {
 	}
 
 	public <E> void registrarAuditServeisPortal(AuditServeisBDTO auditServeisBDTO, E dadesEntrada, E dadesResposta, E detallError)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -121,7 +122,7 @@ public class AuditServeisServiceImpl implements AuditServeisService {
 	}
 
 	public <E> void registrarAuditServeisPortalSollicituds(AuditServeisBDTO auditServeisBDTO, E dadesEntrada, E dadesResposta,
-	        E detallError) throws GPAServeisServiceException {
+			E detallError) throws GPAServeisServiceException {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -138,7 +139,7 @@ public class AuditServeisServiceImpl implements AuditServeisService {
 	}
 
 	public <E> void registrarAuditServeisNotificacions(AuditServeisBDTO auditServeisBDTO, E dadesEntrada, E dadesResposta, E detallError)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -155,7 +156,7 @@ public class AuditServeisServiceImpl implements AuditServeisService {
 	}
 
 	public <E> void registrarAuditServeisSignatures(AuditServeisBDTO auditServeisBDTO, E dadesEntrada, E dadesResposta, E detallError)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -172,7 +173,7 @@ public class AuditServeisServiceImpl implements AuditServeisService {
 	}
 
 	public <E> void registrarAuditServeisPortaSignatures(AuditServeisBDTO auditServeisBDTO, E dadesEntrada, E dadesResposta, E detallError)
-	        throws GPAServeisServiceException {
+			throws GPAServeisServiceException {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -202,7 +203,7 @@ public class AuditServeisServiceImpl implements AuditServeisService {
 
 		AuditServeisBDTO auditServeisBDTO = new AuditServeisBDTO();
 		auditServeisBDTO.setMomentExecucio(new Date());
-		if (userDetails != null) {
+		if (userDetails != null && StringUtils.isNotEmpty(userDetails.getUsername())) {
 			auditServeisBDTO.setDadesAuth(userDetails.getPayload());
 			auditServeisBDTO.setUsuari(userDetails.getUsername());
 		} else {
