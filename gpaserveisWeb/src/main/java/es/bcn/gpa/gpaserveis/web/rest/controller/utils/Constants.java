@@ -116,11 +116,17 @@ public class Constants {
 
 	/** The Constant DADES_GRUPS_OPERACIONS_REPETICIONS_N. */
 	public static final String DADES_GRUPS_OPERACIONS_REPETICIONS_N = "N";
-	
+
 	/** The Constant DADES_OPERACIONS_REPETIBLE. */
 	public static final BigDecimal DADES_OPERACIONS_REPETIBLE = new BigDecimal("2");
-	
+
 	/** The Constant CODI_GRUP_. */
 	public static final String CODI_GRUP_ = "GRUP_";
+
+	/** The Constant REPRESENTANT_PERSONE. */
+	public static final String REPRESENTANT_PERSONE = "REPRESENTANT";
+
+	/** The Constant SOLLICITANT_PERSONE. */
+	public static final String SOLLICITANT_PERSONE = "SOLLICITANT";
 
 }

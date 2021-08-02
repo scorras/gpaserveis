@@ -91,4 +91,6 @@ public class ExpedientConsultaRDTO {
 	private String idGestorDocumental;
 	@ApiModelProperty(value = "Idioma")
 	private String idioma;
+	@ApiModelProperty(value = "Rol")
+	private String rol;
 }
