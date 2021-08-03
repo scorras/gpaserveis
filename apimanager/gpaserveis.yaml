@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.7.2"
+  version: "2.8.0"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -5978,6 +5978,9 @@ definitions:
       representant:
         description: "Representant principal de l'expedient"
         $ref: "#/definitions/Persona"
+      rol:
+        type: "string"
+        description: "Rol"
       sollicitant:
         description: "Sol·licitant principal de l'expedient"
         $ref: "#/definitions/Persona"
