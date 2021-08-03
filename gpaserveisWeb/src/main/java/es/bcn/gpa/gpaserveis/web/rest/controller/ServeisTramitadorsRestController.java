@@ -4244,6 +4244,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			if (validateDadesOperacioResultat != null) {
 				actualitzarDadesSollicitud.setDadesEspecifiques(validateDadesOperacioResultat.getDadesEspecifiquesRDTOList());
 				// TODO tratamiento de datos específicos repetibles
+				actualitzarDadesSollicitud
+		        .setDadesEspecifiquesRepetibles(validateDadesOperacioResultat.getDadesEspecifiquesRepetiblesRDTOList());
 			}
 			TipusIniciacioSollicitudApiParamValueTranslator tipusIniciacioSollicitudApiParamValueTranslator = new TipusIniciacioSollicitudApiParamValueTranslator();
 			TipusIniciacioSollicitudApiParamValue tipusIniciacioSollicitudApiParamValue = tipusIniciacioSollicitudApiParamValueTranslator
