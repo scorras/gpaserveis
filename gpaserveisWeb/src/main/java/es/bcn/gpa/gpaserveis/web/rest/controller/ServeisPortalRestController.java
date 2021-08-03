@@ -4,10 +4,13 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -31,6 +34,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -735,6 +740,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			// Datos principales del expedient
 			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesExpedient(
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan), visibilitat);
+				
 			// El código del expediente debe ser válido
 			if (dadesExpedientBDTO.getExpedientsRDTO() == null) {
 				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_EXPEDIENTS_NOT_FOUND.getDescripcio());
@@ -788,7 +794,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			        && NumberUtils.INTEGER_ONE.equals(dadesExpedientBDTO.getExpedientsRDTO().getEstat().getTancamentAutomatic())) {
 				expedientConsultaRDTO.setTancamentAutomatic(true);
 			}
-
+			
+			expedientConsultaRDTO.setRol(consultarElRolDUsuariInteressat(dadesExpedientBDTO));
 			respostaConsultaExpedientsRDTO.setExpedient(expedientConsultaRDTO);
 
 		} catch (Exception e) {
@@ -809,6 +816,39 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 
 		return respostaConsultaExpedientsRDTO;
+	}
+	
+	private String consultarElRolDUsuariInteressat(DadesExpedientBDTO dadesExpedientBDTO){
+		String usuarioInteressatPortal = null;
+		HttpServletRequest serveltrequest = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		if (serveltrequest.getHeader("usuari-interessat") != null) {
+			usuarioInteressatPortal = (String) serveltrequest.getHeader("usuari-interessat");
+		}
+		if(dadesExpedientBDTO.getRepresentant()!=null && dadesExpedientBDTO.getRepresentant().getDocumentsIdentitat()!=null){
+			if(StringUtils.equals(dadesExpedientBDTO.getRepresentant().getDocumentsIdentitat().getNumeroDocument(),usuarioInteressatPortal)){
+				return Constants.REPRESENTANT_PERSONE;
+			}
+		}
+		if(dadesExpedientBDTO.getSollicitant()!=null && dadesExpedientBDTO.getSollicitant().getDocumentsIdentitat()!=null){
+			if(StringUtils.equals(dadesExpedientBDTO.getSollicitant().getDocumentsIdentitat().getNumeroDocument(),usuarioInteressatPortal)){
+				return Constants.SOLLICITANT_PERSONE;
+			}
+		}
+		if(!dadesExpedientBDTO.getPersonesImplicades().isEmpty()){
+			for(PersonesSollicitudRDTO persone : dadesExpedientBDTO.getPersonesImplicades()){
+				if(StringUtils.equals(persone.getNumeroDocument(),usuarioInteressatPortal)){
+					return persone.getRelacioImplicada();
+				}
+			}
+		}
+		if(!dadesExpedientBDTO.getPersonesInteressades().isEmpty()){
+			for(PersonesSollicitudRDTO persone : dadesExpedientBDTO.getPersonesInteressades()){
+				if(StringUtils.equals(persone.getNumeroDocument(),usuarioInteressatPortal)){
+					return persone.getRelacioImplicada();
+				}
+			}
+		}
+		return null;
 	}
 
 	/**
