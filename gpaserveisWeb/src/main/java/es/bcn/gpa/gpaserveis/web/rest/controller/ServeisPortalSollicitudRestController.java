@@ -1326,6 +1326,9 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				sollicitudActualitzarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
 				sollicitudActualitzarRegistre.setDataPresentacio(respostaCrearRegistreExpedient.getRegistreAssentament().getDataRegistre());
 			}
+			if(sollicitudActualitzarRegistre.getDataPresentacio()==null){
+				sollicitudActualitzarRegistre.setDataPresentacio(dadesSollicitudBDTO.getSollicitudsRDTO().getDataSollicitud());
+			}
 			sollicitudActualitzarRegistre.setIdSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
 			if (sollicitudRegistrarRDTO != null) {
 				sollicitudActualitzarRegistre.setSignaturaSollicitud(sollicitudRegistrarRDTO.getSignaturaSolicitud());

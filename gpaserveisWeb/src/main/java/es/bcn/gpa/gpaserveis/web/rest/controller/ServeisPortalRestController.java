@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -1395,6 +1394,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			if (teRegistre) {
 				sollicitudActualitzarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
 				sollicitudActualitzarRegistre.setDataPresentacio(respostaCrearRegistreExpedient.getRegistreAssentament().getDataRegistre());
+			}
+			if(sollicitudActualitzarRegistre.getDataPresentacio()==null){
+				sollicitudActualitzarRegistre.setDataPresentacio(dadesSollicitudBDTO.getSollicitudsRDTO().getDataSollicitud());
 			}
 			sollicitudActualitzarRegistre.setIdSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
 			if (expedientRegistrarRDTO != null) {
