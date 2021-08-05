@@ -11,7 +11,9 @@ public enum NivellAutenticacioApiParamValue implements BaseApiParamValue {
 
 	SUBSTANCIAL("SUBSTANCIAL", new Integer(1)),
 
-	BAIX("BAIX", new Integer(2));
+	BAIX("BAIX", new Integer(2)),
+	
+	SENSEAUTENTICACIO("SENSE AUTENTICACIO", new Integer(3));
 
 	/** The api param value. */
 	private String apiParamValue;
