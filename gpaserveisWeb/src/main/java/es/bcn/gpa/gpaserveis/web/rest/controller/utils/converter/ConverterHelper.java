@@ -596,6 +596,7 @@ public class ConverterHelper {
 		dadesAtributsRDTO.setDescripcioCastella(dadesOperacions.getDescripcioCastella());
 		dadesAtributsRDTO.setTitol(dadesOperacions.getTitol());
 		dadesAtributsRDTO.setTitolCastella(dadesOperacions.getTitolCastella());
+		dadesAtributsRDTO.setUrlOrigen(dadesOperacions.getUrlOrigen());
 		if (dadesOperacions.getIdDefinicioGrup() != null) {
 			dadesAtributsRDTO.setCodiDefinicioGrup("GRUP_" + dadesOperacions.getIdDefinicioGrup().toString());
 		} else {
