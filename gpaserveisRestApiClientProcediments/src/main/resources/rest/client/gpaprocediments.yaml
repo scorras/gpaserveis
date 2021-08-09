@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaprocediments"
-  version: "2.4.0"
+  version: "2.8.0"
   title: "API gpaprocediments"
   contact:
     name: "Sergio Corras"
@@ -237,7 +237,7 @@ paths:
         in: "path"
         description: "idProcediment"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -265,7 +265,7 @@ paths:
         in: "path"
         description: "id"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -328,7 +328,7 @@ paths:
         in: "path"
         description: "id"
         required: true
-        type: "number"
+        type: "integer"
       - name: "nextPageNumber"
         in: "query"
         required: false
@@ -389,7 +389,7 @@ paths:
         in: "path"
         description: "id"
         required: true
-        type: "number"
+        type: "integer"
       - name: "sort"
         in: "query"
         required: false
@@ -425,12 +425,12 @@ paths:
         in: "path"
         description: "id"
         required: true
-        type: "number"
+        type: "integer"
       - name: "idTramitOvt"
         in: "path"
         description: "idTramitOvt"
         required: true
-        type: "number"
+        type: "integer"
       - name: "sort"
         in: "query"
         required: false
@@ -462,7 +462,7 @@ paths:
         in: "path"
         description: "id"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -584,6 +584,8 @@ definitions:
         type: "string"
       editable:
         type: "boolean"
+      grupsOrigen:
+        type: "string"
       id:
         type: "number"
       interoperabilitat:
@@ -593,6 +595,9 @@ definitions:
         type: "integer"
         format: "int32"
       ordre:
+        type: "integer"
+        format: "int32"
+      pantalla:
         type: "integer"
         format: "int32"
       procediment:
@@ -642,6 +647,8 @@ definitions:
         type: "string"
       editable:
         type: "boolean"
+      grupsOrigen:
+        type: "string"
       id:
         type: "number"
       interoperabilitat:
@@ -651,6 +658,9 @@ definitions:
         type: "integer"
         format: "int32"
       ordre:
+        type: "integer"
+        format: "int32"
+      pantalla:
         type: "integer"
         format: "int32"
       procediment:
@@ -1163,6 +1173,18 @@ definitions:
       terminiMaxim:
         type: "integer"
         format: "int32"
+      terminiTramitacioEstatFinalitzatComunicat:
+        type: "number"
+      terminiTramitacioEstatPendentInformes:
+        type: "number"
+      terminiTramitacioEstatPropostaFinalitzacio:
+        type: "number"
+      terminiTramitacioEstatSolicitudRevisio:
+        type: "number"
+      terminiTramitacioEstatTramitacio:
+        type: "number"
+      terminiTramitacioExpedient:
+        type: "number"
       tipusAutenticacioComunicacio:
         type: "number"
       tipusAutenticacioNotificacio:

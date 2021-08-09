@@ -15,7 +15,7 @@ import lombok.Setter;
 
 @ApiModel(value = "Grups")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "codi", "titol", "titolCastella", "descripcio", "descripcioCastella", "tipus", "repeticions", "columnes", "ordre",
+@JsonPropertyOrder({ "codi", "titol", "titolCastella", "descripcio", "descripcioCastella", "tipus", "pantalla", "repeticions", "columnes", "ordre",
         "caracteristiques", "urlValidacio", "atributs" })
 @Getter
 @Setter
@@ -34,6 +34,8 @@ public class DadesGrupsRDTO {
 	private String tipus;
 	@ApiModelProperty(value = "Nombre màxim de repeticions del grup d'atributs repetible")
 	private String repeticions;
+	@ApiModelProperty(value = "Pantalla del grup d'atributs")
+	private String pantalla;
 	@ApiModelProperty(value = "Columnes del grup d'atributs")
 	private String columnes;
 	@ApiModelProperty(value = "Ordre del grup d'atributs")
