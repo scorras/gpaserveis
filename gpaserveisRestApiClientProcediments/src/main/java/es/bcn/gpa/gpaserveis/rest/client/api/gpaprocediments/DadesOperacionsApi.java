@@ -2,7 +2,6 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient;
 
-import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.CampsReglesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesOperacionsRDTO;
 
@@ -25,7 +24,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-23T18:47:55.106+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-08-06T14:27:02.303+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesOperacionsApi")
 public class DadesOperacionsApi {
     private ApiClient apiClient;
@@ -72,7 +71,7 @@ public class DadesOperacionsApi {
      * @return PageDataOfDadesOperacionsRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public PageDataOfDadesOperacionsRDTO cercaDadesOperacioRequerits(BigDecimal id, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
+    public PageDataOfDadesOperacionsRDTO cercaDadesOperacioRequerits(Integer id, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'id' is set
@@ -127,7 +126,7 @@ public class DadesOperacionsApi {
      * @return List&lt;CampsReglesRDTO&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<CampsReglesRDTO> obtenirCampsRegles(BigDecimal id) throws RestClientException {
+    public List<CampsReglesRDTO> obtenirCampsRegles(Integer id) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'id' is set

@@ -1,12 +1,10 @@
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments;
 
-import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -30,7 +28,7 @@ public class NumeradorsApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(StringUtils.EMPTY);
 		
-		BigDecimal idProcediment = ONE;
+		Integer idProcediment = 1;
 		String response = api.getSequenceNextValExpUsingGET(idProcediment);
 		assertTrue(response != null);
 	}

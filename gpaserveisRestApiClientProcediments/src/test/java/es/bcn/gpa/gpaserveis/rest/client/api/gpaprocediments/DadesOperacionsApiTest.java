@@ -12,14 +12,12 @@
 
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments;
 
-import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +63,7 @@ public class DadesOperacionsApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfDadesOperacionsRDTO());
 
-		BigDecimal id = ONE;
+		Integer id = 1;
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
 		Boolean currentPageHasNextPage = null;
@@ -97,7 +95,7 @@ public class DadesOperacionsApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<CampsReglesRDTO>());
 
-		BigDecimal id = ONE;
+		Integer id = 1;
 		List<CampsReglesRDTO> response = api.obtenirCampsRegles(id);
 
 		assertTrue(response != null);

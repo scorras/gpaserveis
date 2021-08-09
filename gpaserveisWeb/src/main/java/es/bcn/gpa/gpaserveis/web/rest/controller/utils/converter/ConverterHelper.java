@@ -536,6 +536,7 @@ public class ConverterHelper {
 		dadesGrupsRDTO.setDescripcio(internalDadesGrupsRDTO.getDescripcio());
 		dadesGrupsRDTO.setDescripcioCastella(internalDadesGrupsRDTO.getDescripcioCastella());
 		dadesGrupsRDTO.setTipus(tipusGrupApiParamValueTranslator.getApiParamValueByInternalValue(internalDadesGrupsRDTO.getTipusGrup()));
+		dadesGrupsRDTO.setPantalla( (internalDadesGrupsRDTO.getPantalla() != null) ? internalDadesGrupsRDTO.getPantalla().toString() : null );
 		if (StringUtils.equals(dadesGrupsRDTO.getTipus(), TipusGrupApiParamValue.REPETIBLE.getApiParamValue())) {
 			if (internalDadesGrupsRDTO.getRepeticions() == null) {
 				dadesGrupsRDTO.setRepeticions(Constants.DADES_GRUPS_OPERACIONS_REPETICIONS_N);
