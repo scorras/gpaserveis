@@ -130,6 +130,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerVal
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerVisibilitatHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.bean.ValidateDadesOperacioResultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.BooleanApiParamValue;
@@ -466,12 +467,20 @@ public class ServeisPortalRestController extends BaseRestController {
 			es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = modelMapper
 			        .map(internalTramitsOvtRDTO, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
 			respostaConsultaDadesOperacioRDTO.setTramit(tramitsOvtRDTO);
+			
+			//Recuperamos la configuración de documentación de entrada del procedimiento
+			DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(
+					dadesProcedimentBDTO.getProcedimentsRDTO().getConfiguracioDocumentacio(), null);
+			RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = serveisService
+			        .cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);			
 
 			// Dades Operacio que cumplen los criterios de búsqueda
 			DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(idProcediment,
 			        DadesOperacioApiParamToInternalMapper.getTramitOvtInternalValue(codiTramit));
 			RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = serveisService.cercaDadesOperacio(dadesOperacioCercaBDTO);
-			dadesOperacioConsultaRDTO = modelMapper.map(respostaDadesOperacioCercaBDTO, DadesOperacioConsultaRDTO.class);
+			respostaDadesOperacioCercaBDTO.setConfiguracioDocsEntradaRDTOList(respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList());
+			dadesOperacioConsultaRDTO = modelMapper.map(respostaDadesOperacioCercaBDTO, DadesOperacioConsultaRDTO.class);			
+			
 			respostaConsultaDadesOperacioRDTO.setDadesOperacio(dadesOperacioConsultaRDTO);
 
 		} catch (Exception e) {

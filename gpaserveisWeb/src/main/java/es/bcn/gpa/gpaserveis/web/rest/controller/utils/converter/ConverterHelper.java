@@ -3,7 +3,9 @@ package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,6 +16,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DocumentsIdentitat;
@@ -29,6 +32,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperTram
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperValidVal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsValidacio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesoperConfdocsent;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesoperEstatsExp;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPersones;
@@ -65,6 +69,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.Do
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.documentacio.RequerimentPreparatAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.TercerPersonaActualitzadaAccioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.TercerPersonaCreadaAccioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ConfiguracioDocumentacioAportadaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValidacionsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesAtributsValorsLlistaRDTO;
@@ -523,11 +528,12 @@ public class ConverterHelper {
 	        NivellCriticitatApiParamValueTranslator nivellCriticitatApiParamValueTranslator,
 	        BooleanApiParamValueTranslator booleanApiParamValueTranslator, BaseApiParamValueTranslator tipusGrupApiParamValueTranslator,
 	        BaseApiParamValueTranslator caracteristiquesGrupApiParamValueTranslator,
-	        BaseApiParamValueTranslator tipusDadaOperacioApiParamValueTranslator) {
+	        BaseApiParamValueTranslator tipusDadaOperacioApiParamValueTranslator,
+	        Map<BigDecimal, ConfiguracioDocsEntradaRDTO> confDocsEntMap) {
 
 		if (internalDadesGrupsRDTO == null) {
 			return null;
-		}
+		}		
 
 		es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO dadesGrupsRDTO = new es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO();
 		dadesGrupsRDTO.setCodi("GRUP_" + internalDadesGrupsRDTO.getId().toString());
@@ -562,7 +568,7 @@ public class ConverterHelper {
 				dadesAtributsRDTOList.add(ConverterHelper.buildDadesAtributsRDTOProcediment(dadesOperacions,
 				        tipusCampApiParamValueTranslator, tipusValidacioApiParamValueTranslator,
 				        expedientEstatTramitadorApiParamValueTranslator, nivellCriticitatApiParamValueTranslator,
-				        booleanApiParamValueTranslator, tipusDadaOperacioApiParamValueTranslator));
+				        booleanApiParamValueTranslator, tipusDadaOperacioApiParamValueTranslator, confDocsEntMap));
 			}
 		}
 		dadesGrupsRDTO.setAtributs(dadesAtributsRDTOList);
@@ -590,7 +596,8 @@ public class ConverterHelper {
 	        BaseApiParamValueTranslator expedientEstatTramitadorApiParamValueTranslator,
 	        NivellCriticitatApiParamValueTranslator nivellCriticitatApiParamValueTranslator,
 	        BooleanApiParamValueTranslator booleanApiParamValueTranslator,
-	        BaseApiParamValueTranslator tipusDadaOperacioApiParamValueTranslator) {
+	        BaseApiParamValueTranslator tipusDadaOperacioApiParamValueTranslator,
+	        Map<BigDecimal, ConfiguracioDocsEntradaRDTO> confDocsEntMap) {
 		DadesAtributsRDTO dadesAtributsRDTO = new DadesAtributsRDTO();
 		dadesAtributsRDTO.setCodi(dadesOperacions.getCodi());
 		dadesAtributsRDTO.setDescripcio(dadesOperacions.getDescripcio());
@@ -664,6 +671,34 @@ public class ConverterHelper {
 			dadesAtributsRDTO.setValidacions(dadesAtributsValidacionsRDTOList);
 		}
 		dadesAtributsRDTO.setUrlOrigen(dadesOperacions.getUrlOrigen());
+		
+		
+		if(CollectionUtils.isNotEmpty(dadesOperacions.getDadesoperConfdocsentList())){
+			for(DadesoperConfdocsent dadesoperConfdocsent : dadesOperacions.getDadesoperConfdocsentList()){			
+				
+				ConfiguracioDocsEntradaRDTO confDocsEnt = confDocsEntMap.get(dadesoperConfdocsent.getConfdocsentIdext());
+				
+				if(confDocsEnt != null){
+					ConfiguracioDocumentacioAportadaRDTO configuracioDocumentacioAportada = new ConfiguracioDocumentacioAportadaRDTO();
+					configuracioDocumentacioAportada.setCodi((confDocsEnt.getUniqueId()) != null ? String.valueOf(confDocsEnt.getUniqueId()) : null);
+					configuracioDocumentacioAportada.setDescripcio(confDocsEnt.getNom());
+					configuracioDocumentacioAportada.setDescripcioCastella(confDocsEnt.getNomCastella());
+					configuracioDocumentacioAportada.setDescripcioAmpliada(confDocsEnt.getDescripcioAmpliada());
+					configuracioDocumentacioAportada.setDescripcioAmpliadaCastella(confDocsEnt.getDescripcioAmpliadaCastella());
+					if(confDocsEnt.getAtributsDocs() != null){
+						configuracioDocumentacioAportada.setObligatori(booleanApiParamValueTranslator.getApiParamValueAsBooleanByInternalValue(confDocsEnt.getAtributsDocs().getObligatori()));
+						configuracioDocumentacioAportada.setRepetible(booleanApiParamValueTranslator.getApiParamValueAsBooleanByInternalValue(confDocsEnt.getAtributsDocs().getRepetible()));
+					}					
+					configuracioDocumentacioAportada.setVisibilitat(booleanApiParamValueTranslator.getApiParamValueAsBooleanByInternalValue(confDocsEnt.getVisibilitatPortal()));
+					configuracioDocumentacioAportada.setCriticitat(nivellCriticitatApiParamValueTranslator.getApiParamValueByInternalValue(confDocsEnt.getCriticitatIdext()));
+					configuracioDocumentacioAportada.setCodiNti(confDocsEnt.getCodiNti());
+					
+					dadesAtributsRDTO.setConfiguracioDocumentacioAportada(configuracioDocumentacioAportada);
+				}
+				
+			}
+		}
+		
 		return dadesAtributsRDTO;
 	}
 

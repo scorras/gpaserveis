@@ -1,7 +1,10 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.AbstractConverter;
@@ -9,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCercaBDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.BaseApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.common.BooleanApiParamValueTranslator;
@@ -19,7 +24,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.
  */
 @Component("procedimentInternalToDadesGrupListConverter")
 public class InternalToDadesGrupListConverter extends
-        AbstractConverter<List<es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO>, List<es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO>> {
+        AbstractConverter<RespostaDadesOperacioCercaBDTO, List<es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO>> {
 
 	/** The tipus camp api param value translator. */
 	@Autowired
@@ -64,15 +69,22 @@ public class InternalToDadesGrupListConverter extends
 	 */
 	@Override
 	protected List<es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO> convert(
-	        List<es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO> source) {
+			RespostaDadesOperacioCercaBDTO source) {
 		ArrayList<es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO> dadesGrupsRDTOList = new ArrayList<es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.DadesGrupsRDTO>();
-		if (CollectionUtils.isNotEmpty(source)) {
-			for (es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO internalDadesGrupsRDTO : source) {
+		if (CollectionUtils.isNotEmpty(source.getDadesGrupsRDTOList())) {
+			
+			Map<BigDecimal, ConfiguracioDocsEntradaRDTO> confDocsEntMap = new HashMap<BigDecimal, ConfiguracioDocsEntradaRDTO>();
+			for(ConfiguracioDocsEntradaRDTO configuracioDocsEntrada : source.getConfiguracioDocsEntradaRDTOList()){
+				confDocsEntMap.put(configuracioDocsEntrada.getId(), configuracioDocsEntrada);
+			}
+			
+			
+			for (es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO internalDadesGrupsRDTO : source.getDadesGrupsRDTOList()) {
 				dadesGrupsRDTOList
 				        .add(ConverterHelper.buildDadesGrupsRDTOProcediment(internalDadesGrupsRDTO, tipusCampApiParamValueTranslator,
 				                tipusValidacioApiParamValueTranslator, expedientEstatTramitadorApiParamValueTranslator,
 				                nivellCriticitatApiParamValueTranslator, booleanApiParamValueTranslator, tipusGrupApiParamValueTranslator,
-				                caracteristiquesGrupApiParamValueTranslator, tipusDadaOperacioApiParamValueTranslator));
+				                caracteristiquesGrupApiParamValueTranslator, tipusDadaOperacioApiParamValueTranslator, confDocsEntMap));
 			}
 		}
 		return dadesGrupsRDTOList;
