@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperTramitsOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsValidacio;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesoperConfdocsent;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesoperEstatsExp;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import io.swagger.annotations.ApiModel;
@@ -30,7 +31,7 @@ import java.util.List;
 /**
  * DadesOperacions
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-08-06T14:27:02.303+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-08-10T10:43:10.984+02:00")
 public class DadesOperacions {
   @JsonProperty("cercable")
   private Integer cercable = null;
@@ -46,6 +47,9 @@ public class DadesOperacions {
 
   @JsonProperty("dadesOperacionsValidacio")
   private List<DadesOperacionsValidacio> dadesOperacionsValidacio = null;
+
+  @JsonProperty("dadesoperConfdocsentList")
+  private List<DadesoperConfdocsent> dadesoperConfdocsentList = null;
 
   @JsonProperty("dadesoperEstatsExpList")
   private List<DadesoperEstatsExp> dadesoperEstatsExpList = null;
@@ -229,6 +233,32 @@ public class DadesOperacions {
 
   public void setDadesOperacionsValidacio(List<DadesOperacionsValidacio> dadesOperacionsValidacio) {
     this.dadesOperacionsValidacio = dadesOperacionsValidacio;
+  }
+
+  public DadesOperacions dadesoperConfdocsentList(List<DadesoperConfdocsent> dadesoperConfdocsentList) {
+    this.dadesoperConfdocsentList = dadesoperConfdocsentList;
+    return this;
+  }
+
+  public DadesOperacions addDadesoperConfdocsentListItem(DadesoperConfdocsent dadesoperConfdocsentListItem) {
+    if (this.dadesoperConfdocsentList == null) {
+      this.dadesoperConfdocsentList = new ArrayList<DadesoperConfdocsent>();
+    }
+    this.dadesoperConfdocsentList.add(dadesoperConfdocsentListItem);
+    return this;
+  }
+
+   /**
+   * Get dadesoperConfdocsentList
+   * @return dadesoperConfdocsentList
+  **/
+  @ApiModelProperty(value = "")
+  public List<DadesoperConfdocsent> getDadesoperConfdocsentList() {
+    return dadesoperConfdocsentList;
+  }
+
+  public void setDadesoperConfdocsentList(List<DadesoperConfdocsent> dadesoperConfdocsentList) {
+    this.dadesoperConfdocsentList = dadesoperConfdocsentList;
   }
 
   public DadesOperacions dadesoperEstatsExpList(List<DadesoperEstatsExp> dadesoperEstatsExpList) {
@@ -730,6 +760,7 @@ public class DadesOperacions {
         Objects.equals(this.comentari, dadesOperacions.comentari) &&
         Objects.equals(this.dadesOperTramitsOvtList, dadesOperacions.dadesOperTramitsOvtList) &&
         Objects.equals(this.dadesOperacionsValidacio, dadesOperacions.dadesOperacionsValidacio) &&
+        Objects.equals(this.dadesoperConfdocsentList, dadesOperacions.dadesoperConfdocsentList) &&
         Objects.equals(this.dadesoperEstatsExpList, dadesOperacions.dadesoperEstatsExpList) &&
         Objects.equals(this.desTipusCamp, dadesOperacions.desTipusCamp) &&
         Objects.equals(this.desTipusDadaOperacio, dadesOperacions.desTipusDadaOperacio) &&
@@ -760,7 +791,7 @@ public class DadesOperacions {
 
   @Override
   public int hashCode() {
-    return Objects.hash(cercable, codi, comentari, dadesOperTramitsOvtList, dadesOperacionsValidacio, dadesoperEstatsExpList, desTipusCamp, desTipusDadaOperacio, descripcio, descripcioCastella, editable, entrada, grup, id, idDefinicioGrup, interoperabilitat, itemsList, nivellCriticitat, obligatoriEnEstat, ordre, procediment, repeticions, seleccionable, tipus, tipusDadaOperacio, titol, titolCastella, titolGrup, urlOrigen, vigent, visibilitatPortal);
+    return Objects.hash(cercable, codi, comentari, dadesOperTramitsOvtList, dadesOperacionsValidacio, dadesoperConfdocsentList, dadesoperEstatsExpList, desTipusCamp, desTipusDadaOperacio, descripcio, descripcioCastella, editable, entrada, grup, id, idDefinicioGrup, interoperabilitat, itemsList, nivellCriticitat, obligatoriEnEstat, ordre, procediment, repeticions, seleccionable, tipus, tipusDadaOperacio, titol, titolCastella, titolGrup, urlOrigen, vigent, visibilitatPortal);
   }
 
 
@@ -774,6 +805,7 @@ public class DadesOperacions {
     sb.append("    comentari: ").append(toIndentedString(comentari)).append("\n");
     sb.append("    dadesOperTramitsOvtList: ").append(toIndentedString(dadesOperTramitsOvtList)).append("\n");
     sb.append("    dadesOperacionsValidacio: ").append(toIndentedString(dadesOperacionsValidacio)).append("\n");
+    sb.append("    dadesoperConfdocsentList: ").append(toIndentedString(dadesoperConfdocsentList)).append("\n");
     sb.append("    dadesoperEstatsExpList: ").append(toIndentedString(dadesoperEstatsExpList)).append("\n");
     sb.append("    desTipusCamp: ").append(toIndentedString(desTipusCamp)).append("\n");
     sb.append("    desTipusDadaOperacio: ").append(toIndentedString(desTipusDadaOperacio)).append("\n");

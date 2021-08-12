@@ -39,7 +39,7 @@ public class RespostaDadesOperacioCercaBDTOToDadesOperacioConsultaRDTOMapper
 	 */
 	@Override
 	protected void configure() {
-		using(internalToDadesGrupListConverter).map(source.getDadesGrupsRDTOList()).setGrups(null);
+		using(internalToDadesGrupListConverter).map(source).setGrups(null);
 	}
 
 }

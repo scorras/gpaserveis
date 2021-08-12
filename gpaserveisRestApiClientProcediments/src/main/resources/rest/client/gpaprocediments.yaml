@@ -753,6 +753,10 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/DadesOperacionsValidacio"
+      dadesoperConfdocsentList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesoperConfdocsent"
       dadesoperEstatsExpList:
         type: "array"
         items:
@@ -835,6 +839,10 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/DadesOperacionsValidacio"
+      dadesoperConfdocsentList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesoperConfdocsent"
       dadesoperEstatsExpList:
         type: "array"
         items:
@@ -913,6 +921,14 @@ definitions:
       tipusValidacio:
         type: "number"
     title: "DadesOperacionsValidacio"
+  DadesoperConfdocsent:
+    type: "object"
+    properties:
+      confdocsentIdext:
+        type: "number"
+      dadesOperacio:
+        type: "number"
+    title: "DadesoperConfdocsent"
   DadesoperEstatsExp:
     type: "object"
     properties:

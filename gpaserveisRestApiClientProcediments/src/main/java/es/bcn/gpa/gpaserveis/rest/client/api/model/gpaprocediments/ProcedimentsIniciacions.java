@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * ProcedimentsIniciacions
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-08-06T14:27:02.303+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-08-10T10:43:10.984+02:00")
 public class ProcedimentsIniciacions {
   @JsonProperty("iniciacio")
   private Integer iniciacio = null;
