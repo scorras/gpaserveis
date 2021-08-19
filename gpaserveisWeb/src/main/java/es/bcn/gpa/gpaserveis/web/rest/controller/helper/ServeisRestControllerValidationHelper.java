@@ -2831,4 +2831,12 @@ public class ServeisRestControllerValidationHelper {
 
 		return null;
 	}
+
+	public static void validateExpedientIsBorrant(DadesExpedientBDTO dadesExpedientBDTO,
+			Resultat resultatError) throws GPAApiParamValidationException {
+		if (dadesExpedientBDTO.getExpedientsRDTO().getIdEstat().equals(BigDecimal.ONE)) {
+			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ESTA_EN_BORRADOR);
+		}
+		
+	}
 }
