@@ -765,6 +765,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_CREAR_SOLLICITUD);
+			
+			ServeisRestControllerValidationHelper.validateExpedientIsBorrant(dadesExpedientBDTO, Resultat.ERROR_CREAR_SOLLICITUD);
 
 			// Si se indica alguna persona al menos debe indicarse el
 			// Solicitante

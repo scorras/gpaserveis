@@ -114,6 +114,8 @@ public enum ErrorPrincipal {
 	ERROR_EXPEDIENTS_ATRIBUT_DADES_EXTERNES_NOT_VALID_VALUE("3037", "El valor de la Dada d'operació DADES_EXTERNES no té format JSON: "),
 
 	ERROR_EXPEDIENTS_ATRIBUT_GRUP_REPETIBLE_NOT_VALID_VALUE("3038", "El valor de la Dada d'operació no té format JSON: "),
+	
+	ERROR_EXPEDIENTS_ESTA_EN_BORRADOR("3039", "L'expedient està en estat esborrany"),
 
 	/* Documents */
 	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document: "),
