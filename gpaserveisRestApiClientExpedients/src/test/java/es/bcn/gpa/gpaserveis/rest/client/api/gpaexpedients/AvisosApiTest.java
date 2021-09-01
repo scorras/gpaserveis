@@ -46,7 +46,8 @@ public class AvisosApiTest extends ParentTest {
 	private AvisosApi api = new AvisosApi();
 
 	/**
-	 * Crea un nou avís per a l&#39;expedient en funció de l&#39;acció executada.
+	 * Crea un nou avís per a l&#39;expedient en funció de l&#39;acció
+	 * executada.
 	 */
 	@Test
 	public void crearAvisAccioTest() {
@@ -61,24 +62,25 @@ public class AvisosApiTest extends ParentTest {
 
 		assertTrue(true);
 	}
-	
+
 	/**
 	 * Gestionar avisos per accio test.
 	 */
 	@Test
-    public void gestionarAvisosPerAccioTest() {
+	public void gestionarAvisosPerAccioTest() {
 		when(apiClient.invokeAPI(eq("/avisos/1/gestionarAvisosPerAccio"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(null);
-		
-		
-		BigDecimal idExpedient = ONE;       
-        GestionarAvisosPerAccio gestionarAvisosPerAccioRDTO = new GestionarAvisosPerAccio();
-        gestionarAvisosPerAccioRDTO.setIdAccio(ONE);
-        
-        api.gestionarAvisosPerAccio(idExpedient, gestionarAvisosPerAccioRDTO);
 
-        assertTrue(true);
-    }
+		BigDecimal idExpedient = ONE;
+		GestionarAvisosPerAccio gestionarAvisosPerAccioRDTO = new GestionarAvisosPerAccio();
+		gestionarAvisosPerAccioRDTO.setIdAccioEstat(ONE);
+		gestionarAvisosPerAccioRDTO.setIdDocTramitacio(ONE);
+		gestionarAvisosPerAccioRDTO.setIdUsuariSignatura(ONE);
+
+		api.gestionarAvisosPerAccio(idExpedient, gestionarAvisosPerAccioRDTO);
+
+		assertTrue(true);
+	}
 
 }

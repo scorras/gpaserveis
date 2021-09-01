@@ -1,5 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller;
 
+import static org.apache.commons.lang.math.NumberUtils.INTEGER_ZERO;
+
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -270,12 +272,13 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					docsEntradaRDTO.setSollicitudIdext(idSollicitud);
 					docsEntradaRDTO.setEsborrany(1);
 
-					BigDecimal idPersone = ServeisRestControllerValidationHelper.getIdUsuariInteressat(clientEntity, dadesSollicitudBDTO.getPersonesInteressades(),
-							dadesSollicitudBDTO.getSollicitant(), dadesSollicitudBDTO.getRepresentant());
+					BigDecimal idPersone = ServeisRestControllerValidationHelper.getIdUsuariInteressat(clientEntity,
+					        dadesSollicitudBDTO.getPersonesInteressades(), dadesSollicitudBDTO.getSollicitant(),
+					        dadesSollicitudBDTO.getRepresentant());
 					if (idPersone != null) {
 						docsEntradaRDTO.setPersonaIdext(idPersone);
 					}
-					
+
 					if (BooleanUtils.isTrue(documentAportatCrearRDTO.getDeclaracioResponsable())) {
 						CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO = new CrearDeclaracioResponsableBDTO(
 						        dadesSollicitudBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
@@ -284,6 +287,19 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 						CrearDocumentEntradaBDTO crearDocumentEntradaBDTO = new CrearDocumentEntradaBDTO(
 						        dadesSollicitudBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
 						docsEntradaRDTOResposta = serveisService.crearDocumentEntrada(crearDocumentEntradaBDTO);
+
+						// Avisos. ACCIONS_ESTATS: 2, 3, 4, 5, 6, 7, 202
+						GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+						for (AccionsEstatsRDTO accionsEstatsRDTO : dadesSollicitudBDTO.getAccionsDisponibles()) {
+							if (accionsEstatsRDTO.getAccio()
+							        .compareTo(AccioTramitadorApiParamValue.APORTAR_DOCUMENTACIO.getInternalValue()) == INTEGER_ZERO) {
+								gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsRDTO.getId());
+								break;
+							}
+						}
+						GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
+						        dadesSollicitudBDTO.getExpedientsRDTO().getId());
+						serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 					}
 					docsEntradaRDTORespostaList.add(docsEntradaRDTOResposta);
 				}
@@ -370,6 +386,19 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			        idDocument);
 
 			serveisService.esBorrarDocumentacioEntrada(esborrarDocumentBDTO);
+
+			// Avisos. ACCIONS_ESTATS: 122, 123, 124, 125, 126, 127, 180, 181
+			GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+			for (AccionsEstatsRDTO accionsEstatsRDTO : dadesSollicitudBDTO.getAccionsDisponibles()) {
+				if (accionsEstatsRDTO.getAccio()
+				        .compareTo(AccioTramitadorApiParamValue.ESBORRAR_DOCUMENT.getInternalValue()) == INTEGER_ZERO) {
+					gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsRDTO.getId());
+					break;
+				}
+			}
+			GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
+			        dadesSollicitudBDTO.getExpedientsRDTO().getId());
+			serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("esborrarDocument(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
@@ -695,6 +724,19 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				ActualitzarDocumentEntradaBDTO actualitzarDocumentEntradaBDTO = new ActualitzarDocumentEntradaBDTO(
 				        dadesSollicitudBDTO.getExpedientsRDTO().getId(), docsEntradaRDTOSubstituir);
 				docsEntradaRDTOResposta = serveisService.actualitzarDocumentEntrada(actualitzarDocumentEntradaBDTO);
+
+				// Avisos. ACCIONS_ESTATS: 50, 51, 52, 53, 54, 55, 148, 149
+				GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+				for (AccionsEstatsRDTO accionsEstatsRDTO : dadesSollicitudBDTO.getAccionsDisponibles()) {
+					if (accionsEstatsRDTO.getAccio()
+					        .compareTo(AccioTramitadorApiParamValue.SUBSTITUIR_DOCUMENT.getInternalValue()) == INTEGER_ZERO) {
+						gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsRDTO.getId());
+						break;
+					}
+				}
+				GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
+				        dadesSollicitudBDTO.getExpedientsRDTO().getId());
+				serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 			}
 
 		} catch (GPAApiParamValidationException e) {
@@ -1047,6 +1089,13 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		BigDecimal visibilitat = BigDecimal.ONE;
 
 		try {
+
+			// TODO Si la solicitud que estoy consultando es un ESBORRANY y
+			// además no es mío, no puedo verlo. Se mantiene el pack Solicitante
+			// / Representante como la misma entidad de cara a esta visibilidad
+			// Es una regla transversal como la de expedients: No puedo ver
+			// esborranys que no sean míos.
+
 			visibilitat = ServeisRestControllerVisibilitatHelper.obtenirVisibilitatSollicitud(clientEntity, serveisService, idSollicitud,
 			        Resultat.ERROR_CONSULTAR_SOLLICITUD);
 
@@ -1593,7 +1642,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				        dadesSollicitudBDTO.getExpedientsRDTO().getId());
 
 				long startTimeCanviarEstatExpedient = System.nanoTime();
-				serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);				
+				serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 
 				if (log.isDebugEnabled()) {
 					long tiempoTotal = System.nanoTime() - startTimeCanviarEstatExpedient;
@@ -1605,11 +1654,12 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					log.info("trazaTiempos: registrarSolicitud(BigDecimal) - canviarEstatExpedient - fi: " //$NON-NLS-1$
 					        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
 				}
-				
-				//Avisos
+
+				// Avisos. ACCIONS_ESTATS: 8, 9, 10
 				GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
-				gestionarAvisosPerAccio.setIdAccio(new BigDecimal(8));
-				GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio, dadesSollicitudBDTO.getExpedientsRDTO().getId());
+				gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+				GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
+				        dadesSollicitudBDTO.getExpedientsRDTO().getId());
 				serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 			}
 

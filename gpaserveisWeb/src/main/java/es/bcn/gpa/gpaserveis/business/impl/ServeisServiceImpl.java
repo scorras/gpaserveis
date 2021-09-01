@@ -538,7 +538,7 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public DadesSollicitudBDTO consultarDadesSollicitudPerVisibilitat(BigDecimal idSollicitud) throws GPAServeisServiceException {
 		DadesSollicitudBDTO dadesSollicitudBDTO = ServeisServiceHelper.loadDadesSollicitudPerVisibilitat(expedientsService, idSollicitud,
-		        unitatsGestoresService);
+		        unitatsGestoresService, tramitsService);
 		return dadesSollicitudBDTO;
 
 	}
@@ -2513,12 +2513,16 @@ public class ServeisServiceImpl implements ServeisService {
 		return documentsService.consultarSignatura(idPeticio, idDocumentGestorDocumental);
 	}
 
-	/* (non-Javadoc)
-	 * @see es.bcn.gpa.gpaserveis.business.ServeisService#gestionarAvisosPerAccio(es.bcn.gpa.gpaserveis.business.dto.expedients.GestionarAvisosPerAccioBDTO)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * es.bcn.gpa.gpaserveis.business.ServeisService#gestionarAvisosPerAccio(es.
+	 * bcn.gpa.gpaserveis.business.dto.expedients.GestionarAvisosPerAccioBDTO)
 	 */
 	@Override
 	public void gestionarAvisosPerAccio(GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO) throws GPAServeisServiceException {
 		expedientsService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
-		
+
 	}
 }

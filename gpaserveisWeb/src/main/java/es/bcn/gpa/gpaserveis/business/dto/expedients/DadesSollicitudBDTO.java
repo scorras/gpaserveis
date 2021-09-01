@@ -7,6 +7,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,5 +45,8 @@ public class DadesSollicitudBDTO {
 
 	/** The dades operacio. */
 	private List<DadaEspecificaBDTO> dadesOperacio;
+
+	/** The accions disponibles. */
+	private List<AccionsEstatsRDTO> accionsDisponibles;
 
 }
