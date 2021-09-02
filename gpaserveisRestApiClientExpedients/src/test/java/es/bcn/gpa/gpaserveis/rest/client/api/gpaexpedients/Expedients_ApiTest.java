@@ -100,6 +100,7 @@ public class Expedients_ApiTest extends ParentTest {
 		String numeroDocumentInteressat = null;
 		String numeroDocumentSollicitant = null;
 		String numeroDocumentSollicitantEstricte = null;
+		String numeroRegistre = null;
 		Integer pageSize = null;
 		Integer previousPageNumber = null;
 		List<String> procedimentCodisList = null;

@@ -387,23 +387,21 @@ public class ServeisRestControllerValidationHelper {
 		}
 	}
 
+	
 	/**
 	 * Validate accio disponible expedient.
 	 *
-	 * @param dadesExpedientBDTO
-	 *            the dades expedient BDTO
-	 * @param accioTramitadorApiParamValue
-	 *            the accio tramitador api param value
-	 * @param resultatError
-	 *            the resultat error
-	 * @throws GPAApiParamValidationException
-	 *             the GPA api param validation exception
+	 * @param dadesExpedientBDTO the dades expedient BDTO
+	 * @param accioTramitadorApiParamValue the accio tramitador api param value
+	 * @param resultatError the resultat error
+	 * @return the big decimal
+	 * @throws GPAApiParamValidationException the GPA api param validation exception
 	 */
-	public static void validateAccioDisponibleExpedient(DadesExpedientBDTO dadesExpedientBDTO,
+	public static BigDecimal validateAccioDisponibleExpedient(DadesExpedientBDTO dadesExpedientBDTO,
 	        AccioTramitadorApiParamValue accioTramitadorApiParamValue, Resultat resultatError) throws GPAApiParamValidationException {
 		for (AccionsEstatsRDTO accionsEstatsRDTO : dadesExpedientBDTO.getAccionsDisponibles()) {
 			if (accionsEstatsRDTO.getAccio().compareTo(accioTramitadorApiParamValue.getInternalValue()) == INTEGER_ZERO) {
-				return;
+				return accionsEstatsRDTO.getId();
 			}
 		}
 		throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_EXPEDIENTS_ACCIO_NOT_AVAILABLE,

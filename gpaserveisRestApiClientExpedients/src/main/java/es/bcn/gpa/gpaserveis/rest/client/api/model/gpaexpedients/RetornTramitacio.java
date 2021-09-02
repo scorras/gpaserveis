@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * RetornTramitacio
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-07-01T13:56:25.810+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-07-01T12:01:08.786+02:00")
 public class RetornTramitacio {
   @JsonProperty("esUsuariPrincipalExpedient")
   private Boolean esUsuariPrincipalExpedient = null;
