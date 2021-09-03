@@ -2,7 +2,6 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient;
 
-import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesGrupsRDTO;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-23T18:47:55.106+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-08-10T10:43:10.984+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesGrupsApi")
 public class DadesGrupsApi {
     private ApiClient apiClient;
@@ -59,7 +58,7 @@ public class DadesGrupsApi {
      * @return PageDataOfDadesGrupsRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public PageDataOfDadesGrupsRDTO cercaDadesOperacio(BigDecimal id, String dir, String sort) throws RestClientException {
+    public PageDataOfDadesGrupsRDTO cercaDadesOperacio(Integer id, String dir, String sort) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'id' is set
@@ -105,7 +104,7 @@ public class DadesGrupsApi {
      * @return PageDataOfDadesGrupsRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public PageDataOfDadesGrupsRDTO cercaDadesOperacioAgrupatsPerTramitOvt(BigDecimal id, BigDecimal idTramitOvt, String dir, String sort) throws RestClientException {
+    public PageDataOfDadesGrupsRDTO cercaDadesOperacioAgrupatsPerTramitOvt(Integer id, Integer idTramitOvt, String dir, String sort) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'id' is set
