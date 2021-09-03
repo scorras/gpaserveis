@@ -1,5 +1,7 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller;
 
+import static org.apache.commons.lang.math.NumberUtils.INTEGER_ZERO;
+
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -54,6 +56,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCanviarEstatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarSollicitudBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.GestionarAvisosPerAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaActualitzarTerceraPersonaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaCrearTerceraPersonaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaEsborrarTerceraPersonaBDTO;
@@ -85,6 +88,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDade
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearSollicitud;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.GestionarAvisosPerAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
@@ -283,6 +287,19 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 						CrearDocumentEntradaBDTO crearDocumentEntradaBDTO = new CrearDocumentEntradaBDTO(
 						        dadesSollicitudBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
 						docsEntradaRDTOResposta = serveisService.crearDocumentEntrada(crearDocumentEntradaBDTO);
+
+						// Avisos. ACCIONS_ESTATS: 2, 3, 4, 5, 6, 7, 202
+						GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+						for (AccionsEstatsRDTO accionsEstatsRDTO : dadesSollicitudBDTO.getAccionsDisponibles()) {
+							if (accionsEstatsRDTO.getAccio()
+							        .compareTo(AccioTramitadorApiParamValue.APORTAR_DOCUMENTACIO.getInternalValue()) == INTEGER_ZERO) {
+								gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsRDTO.getId());
+								break;
+							}
+						}
+						GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
+						        dadesSollicitudBDTO.getExpedientsRDTO().getId());
+						serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 					}
 					docsEntradaRDTORespostaList.add(docsEntradaRDTOResposta);
 				}
@@ -369,6 +386,19 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			        idDocument);
 
 			serveisService.esBorrarDocumentacioEntrada(esborrarDocumentBDTO);
+
+			// Avisos. ACCIONS_ESTATS: 122, 123, 124, 125, 126, 127, 180, 181
+			GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+			for (AccionsEstatsRDTO accionsEstatsRDTO : dadesSollicitudBDTO.getAccionsDisponibles()) {
+				if (accionsEstatsRDTO.getAccio()
+				        .compareTo(AccioTramitadorApiParamValue.ESBORRAR_DOCUMENT.getInternalValue()) == INTEGER_ZERO) {
+					gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsRDTO.getId());
+					break;
+				}
+			}
+			GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
+			        dadesSollicitudBDTO.getExpedientsRDTO().getId());
+			serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("esborrarDocument(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
@@ -694,6 +724,19 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 				ActualitzarDocumentEntradaBDTO actualitzarDocumentEntradaBDTO = new ActualitzarDocumentEntradaBDTO(
 				        dadesSollicitudBDTO.getExpedientsRDTO().getId(), docsEntradaRDTOSubstituir);
 				docsEntradaRDTOResposta = serveisService.actualitzarDocumentEntrada(actualitzarDocumentEntradaBDTO);
+
+				// Avisos. ACCIONS_ESTATS: 50, 51, 52, 53, 54, 55, 148, 149
+				GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+				for (AccionsEstatsRDTO accionsEstatsRDTO : dadesSollicitudBDTO.getAccionsDisponibles()) {
+					if (accionsEstatsRDTO.getAccio()
+					        .compareTo(AccioTramitadorApiParamValue.SUBSTITUIR_DOCUMENT.getInternalValue()) == INTEGER_ZERO) {
+						gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsRDTO.getId());
+						break;
+					}
+				}
+				GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
+				        dadesSollicitudBDTO.getExpedientsRDTO().getId());
+				serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 			}
 
 		} catch (GPAApiParamValidationException e) {
@@ -765,6 +808,8 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_CREAR_SOLLICITUD);
+			
+			ServeisRestControllerValidationHelper.validateExpedientIsBorrant(dadesExpedientBDTO, Resultat.ERROR_CREAR_SOLLICITUD);
 
 			// Si se indica alguna persona al menos debe indicarse el
 			// Solicitante
@@ -1050,6 +1095,13 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 		BigDecimal visibilitat = BigDecimal.ONE;
 
 		try {
+
+			// TODO Si la solicitud que estoy consultando es un ESBORRANY y
+			// además no es mío, no puedo verlo. Se mantiene el pack Solicitante
+			// / Representante como la misma entidad de cara a esta visibilidad
+			// Es una regla transversal como la de expedients: No puedo ver
+			// esborranys que no sean míos.
+
 			visibilitat = ServeisRestControllerVisibilitatHelper.obtenirVisibilitatSollicitud(clientEntity, serveisService, idSollicitud,
 			        Resultat.ERROR_CONSULTAR_SOLLICITUD);
 
@@ -1325,6 +1377,9 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			if (teRegistre) {
 				sollicitudActualitzarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
 				sollicitudActualitzarRegistre.setDataPresentacio(respostaCrearRegistreExpedient.getRegistreAssentament().getDataRegistre());
+			}
+			if(sollicitudActualitzarRegistre.getDataPresentacio()==null){
+				sollicitudActualitzarRegistre.setDataPresentacio(dadesSollicitudBDTO.getSollicitudsRDTO().getDataSollicitud());
 			}
 			sollicitudActualitzarRegistre.setIdSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
 			if (sollicitudRegistrarRDTO != null) {
@@ -1608,6 +1663,13 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 					log.info("trazaTiempos: registrarSolicitud(BigDecimal) - canviarEstatExpedient - fi: " //$NON-NLS-1$
 					        + TimeUnit.MILLISECONDS.convert(tiempoTotal, TimeUnit.NANOSECONDS));
 				}
+
+				// Avisos. ACCIONS_ESTATS: 8, 9, 10
+				GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+				gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+				GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
+				        dadesSollicitudBDTO.getExpedientsRDTO().getId());
+				serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 			}
 
 		} catch (GPAApiParamValidationException e) {

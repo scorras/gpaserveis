@@ -22,50 +22,50 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 
 /**
- * DadesGrupsCaractGrups
+ * DadesoperConfdocsent
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-08-10T10:43:10.984+02:00")
-public class DadesGrupsCaractGrups {
-  @JsonProperty("caracteristicaGrup")
-  private BigDecimal caracteristicaGrup = null;
+public class DadesoperConfdocsent {
+  @JsonProperty("confdocsentIdext")
+  private BigDecimal confdocsentIdext = null;
 
-  @JsonProperty("dadaGrup")
-  private BigDecimal dadaGrup = null;
+  @JsonProperty("dadesOperacio")
+  private BigDecimal dadesOperacio = null;
 
-  public DadesGrupsCaractGrups caracteristicaGrup(BigDecimal caracteristicaGrup) {
-    this.caracteristicaGrup = caracteristicaGrup;
+  public DadesoperConfdocsent confdocsentIdext(BigDecimal confdocsentIdext) {
+    this.confdocsentIdext = confdocsentIdext;
     return this;
   }
 
    /**
-   * Get caracteristicaGrup
-   * @return caracteristicaGrup
+   * Get confdocsentIdext
+   * @return confdocsentIdext
   **/
   @ApiModelProperty(value = "")
-  public BigDecimal getCaracteristicaGrup() {
-    return caracteristicaGrup;
+  public BigDecimal getConfdocsentIdext() {
+    return confdocsentIdext;
   }
 
-  public void setCaracteristicaGrup(BigDecimal caracteristicaGrup) {
-    this.caracteristicaGrup = caracteristicaGrup;
+  public void setConfdocsentIdext(BigDecimal confdocsentIdext) {
+    this.confdocsentIdext = confdocsentIdext;
   }
 
-  public DadesGrupsCaractGrups dadaGrup(BigDecimal dadaGrup) {
-    this.dadaGrup = dadaGrup;
+  public DadesoperConfdocsent dadesOperacio(BigDecimal dadesOperacio) {
+    this.dadesOperacio = dadesOperacio;
     return this;
   }
 
    /**
-   * Get dadaGrup
-   * @return dadaGrup
+   * Get dadesOperacio
+   * @return dadesOperacio
   **/
   @ApiModelProperty(value = "")
-  public BigDecimal getDadaGrup() {
-    return dadaGrup;
+  public BigDecimal getDadesOperacio() {
+    return dadesOperacio;
   }
 
-  public void setDadaGrup(BigDecimal dadaGrup) {
-    this.dadaGrup = dadaGrup;
+  public void setDadesOperacio(BigDecimal dadesOperacio) {
+    this.dadesOperacio = dadesOperacio;
   }
 
 
@@ -77,24 +77,24 @@ public class DadesGrupsCaractGrups {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DadesGrupsCaractGrups dadesGrupsCaractGrups = (DadesGrupsCaractGrups) o;
-    return Objects.equals(this.caracteristicaGrup, dadesGrupsCaractGrups.caracteristicaGrup) &&
-        Objects.equals(this.dadaGrup, dadesGrupsCaractGrups.dadaGrup);
+    DadesoperConfdocsent dadesoperConfdocsent = (DadesoperConfdocsent) o;
+    return Objects.equals(this.confdocsentIdext, dadesoperConfdocsent.confdocsentIdext) &&
+        Objects.equals(this.dadesOperacio, dadesoperConfdocsent.dadesOperacio);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(caracteristicaGrup, dadaGrup);
+    return Objects.hash(confdocsentIdext, dadesOperacio);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DadesGrupsCaractGrups {\n");
+    sb.append("class DadesoperConfdocsent {\n");
     
-    sb.append("    caracteristicaGrup: ").append(toIndentedString(caracteristicaGrup)).append("\n");
-    sb.append("    dadaGrup: ").append(toIndentedString(dadaGrup)).append("\n");
+    sb.append("    confdocsentIdext: ").append(toIndentedString(confdocsentIdext)).append("\n");
+    sb.append("    dadesOperacio: ").append(toIndentedString(dadesOperacio)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -70,6 +69,7 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsCrearBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsRegistrarSollicitudBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.expedients.GestionarAvisosPerAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaActualitzarTerceraPersonaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaCrearTerceraPersonaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaEsborrarTerceraPersonaBDTO;
@@ -111,6 +111,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearSollicitud
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ExpedientsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.GestionarAvisosPerAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreDocumentacioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCrearRegistreExpedient;
@@ -131,6 +132,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerVal
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerVisibilitatHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.bean.ValidateDadesOperacioResultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.BooleanApiParamValue;
@@ -467,12 +469,20 @@ public class ServeisPortalRestController extends BaseRestController {
 			es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = modelMapper
 			        .map(internalTramitsOvtRDTO, es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
 			respostaConsultaDadesOperacioRDTO.setTramit(tramitsOvtRDTO);
+			
+			//Recuperamos la configuración de documentación de entrada del procedimiento
+			DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(
+					dadesProcedimentBDTO.getProcedimentsRDTO().getConfiguracioDocumentacio(), null);
+			RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = serveisService
+			        .cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);			
 
 			// Dades Operacio que cumplen los criterios de búsqueda
 			DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(idProcediment,
 			        DadesOperacioApiParamToInternalMapper.getTramitOvtInternalValue(codiTramit));
 			RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = serveisService.cercaDadesOperacio(dadesOperacioCercaBDTO);
-			dadesOperacioConsultaRDTO = modelMapper.map(respostaDadesOperacioCercaBDTO, DadesOperacioConsultaRDTO.class);
+			respostaDadesOperacioCercaBDTO.setConfiguracioDocsEntradaRDTOList(respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList());
+			dadesOperacioConsultaRDTO = modelMapper.map(respostaDadesOperacioCercaBDTO, DadesOperacioConsultaRDTO.class);			
+			
 			respostaConsultaDadesOperacioRDTO.setDadesOperacio(dadesOperacioConsultaRDTO);
 
 		} catch (Exception e) {
@@ -1090,6 +1100,13 @@ public class ServeisPortalRestController extends BaseRestController {
 			ExpedientsCrearBDTO expedientsCrearBDTO = new ExpedientsCrearBDTO(expedientsRDTO);
 
 			returnExpedientsRDTO = serveisService.crearSollicitudExpedient(expedientsCrearBDTO);
+
+			// Avisos. ACCIONS_ESTATS: 1
+			GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+			gestionarAvisosPerAccio.setIdAccioEstat(BigDecimal.ONE);
+			GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
+			        returnExpedientsRDTO.getId());
+			serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 		} catch (GPAApiParamValidationException e) {
 			log.error("crearSolicitudExpedient(ExpedientCrearRDTO)", e); //$NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
@@ -1306,7 +1323,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_REGISTRAR_EXPEDIENT);
 
 			// Registrar expediente si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			BigDecimal accionsEstatsId = ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.REGISTRAR_SOLLICITUD, Resultat.ERROR_REGISTRAR_EXPEDIENT);
 
 			// obtenemos los datos del procediment para ver la configuracion de
@@ -1364,6 +1381,12 @@ public class ServeisPortalRestController extends BaseRestController {
 			// ahora se realiza el registro de la solicitud como tal
 			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
 			        visibilitat);
+
+			// TODO Evaluar regla de asignación y asociar el UGO al que se debe
+			// cambiar, pues ese será el que debe indicarse en el registro que
+			// viene a continuación (esto ahora mismo no se produce hasta el
+			// cambio de estado que hay al final del servicio de registro)
+
 			if (teRegistre) {
 				// Se construye el modelo para la llamada a la operación de
 				// registro
@@ -1395,6 +1418,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			if (teRegistre) {
 				sollicitudActualitzarRegistre.setIdRegistre(respostaCrearRegistreExpedient.getRegistreAssentament().getId());
 				sollicitudActualitzarRegistre.setDataPresentacio(respostaCrearRegistreExpedient.getRegistreAssentament().getDataRegistre());
+			}
+			if(sollicitudActualitzarRegistre.getDataPresentacio()==null){
+				sollicitudActualitzarRegistre.setDataPresentacio(dadesSollicitudBDTO.getSollicitudsRDTO().getDataSollicitud());
 			}
 			sollicitudActualitzarRegistre.setIdSollicitud(dadesSollicitudBDTO.getSollicitudsRDTO().getId());
 			if (expedientRegistrarRDTO != null) {
@@ -1557,6 +1583,13 @@ public class ServeisPortalRestController extends BaseRestController {
 			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 			dadesExpedientBDTO.getExpedientsRDTO().setIdEstat(EstatTramitadorApiParamValue.SOL_LICITUD_EN_REVISIO.getInternalValue());
 
+			// Avisos. ACCIONS_ESTATS: 11
+			GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+			gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsId);
+			GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
+			        dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
+
 		} catch (GPAApiParamValidationException e) {
 			log.error("registrarSolicitudExpedient(BigDecimal)", e);// $NON-NLS-1$
 			respostaResultatBDTO = new RespostaResultatBDTO(e);
@@ -1641,7 +1674,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			                documentacioAportar.getDocumentacio(), Resultat.ERROR_APORTAR_DOCUMENTACIO);
 
 			// Aportar documentación si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			BigDecimal accionsEstatsId = ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.APORTAR_DOCUMENTACIO, Resultat.ERROR_APORTAR_DOCUMENTACIO);
 
 			configuacioActualizar = new ArrayList<>();
@@ -1690,6 +1723,13 @@ public class ServeisPortalRestController extends BaseRestController {
 						CrearDocumentEntradaBDTO crearDocumentEntradaBDTO = new CrearDocumentEntradaBDTO(
 						        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
 						docsEntradaRDTOResposta = serveisService.crearDocumentEntrada(crearDocumentEntradaBDTO);
+
+						// Avisos. ACCIONS_ESTATS: 2, 3, 4, 5, 6, 7, 202
+						GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+						gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsId);
+						GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
+						        dadesExpedientBDTO.getExpedientsRDTO().getId());
+						serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 					}
 					docsEntradaRDTORespostaList.add(docsEntradaRDTOResposta);
 				}
@@ -1743,6 +1783,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				respostaCrearJustificant = serveisService.guardarDocumentTramitacioJustificantPlantilla(crearDocumentTramitacioBDTO);
 
 				vincularJustificanteAriadna(dadesExpedientBDTO, respostaCrearRegistreExpedient, respostaCrearJustificant.getCodi());
+
 			}
 		} catch (GPAApiParamValidationException e) {
 			log.error("aportarDocumentacioExpedient(BigDecimal, List<DocumentAportatCrearRDTO>)", e); //$NON-NLS-1$
@@ -1835,7 +1876,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			                documentSubstituir, Resultat.ERROR_SUBSTITUIR_DOCUMENT);
 
 			// Substituir el document si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			BigDecimal accionsEstatsId = ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.SUBSTITUIR_DOCUMENT, Resultat.ERROR_SUBSTITUIR_DOCUMENT);
 
 			// Se construye el modelo para la llamada a la operación de aportar
@@ -1859,6 +1900,13 @@ public class ServeisPortalRestController extends BaseRestController {
 				ActualitzarDocumentEntradaBDTO actualitzarDocumentEntradaBDTO = new ActualitzarDocumentEntradaBDTO(
 				        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTOSubstituir);
 				docsEntradaRDTOResposta = serveisService.actualitzarDocumentEntrada(actualitzarDocumentEntradaBDTO);
+
+				// Avisos. ACCIONS_ESTATS: 50, 51, 52, 53, 54, 55, 148, 149
+				GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+				gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsId);
+				GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
+				        dadesExpedientBDTO.getExpedientsRDTO().getId());
+				serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 			}
 
 		} catch (GPAApiParamValidationException e) {
@@ -2072,7 +2120,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			        Resultat.ERROR_ESBORRAR_DOCUMENT);
 
 			// Esborrar document si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			BigDecimal accionsEstatsId = ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.ESBORRAR_DOCUMENT, Resultat.ERROR_ESBORRAR_DOCUMENT);
 
 			// 1 - validamos que el usuario logado pertenezca al expediente
@@ -2086,6 +2134,13 @@ public class ServeisPortalRestController extends BaseRestController {
 			        idDocument);
 
 			serveisService.esBorrarDocumentacioEntrada(esborrarDocumentBDTO);
+
+			// Avisos. ACCIONS_ESTATS: 122, 123, 124, 125, 126, 127, 180, 181
+			GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+			gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsId);
+			GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
+			        dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("esborrarDocument(BigDecimal, BigDecimal)", e); //$NON-NLS-1$
@@ -2174,7 +2229,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			                expedientEsmena.getDocumentacio(), Resultat.ERROR_ESMENAR_EXPEDIENT);
 
 			// Esmenar expedient si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			BigDecimal accionsEstatsId = ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.RESPONDRE_REQUERIMENT_O_TRAMIT_ALLEGACIONS_O_IP, Resultat.ERROR_ESMENAR_EXPEDIENT);
 
 			configuacioActualizar = new ArrayList<>();
@@ -2334,6 +2389,13 @@ public class ServeisPortalRestController extends BaseRestController {
 			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId());
 			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
+
+			// Avisos
+			GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+			gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsId);
+			GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
+			        dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("esmenarExpedient(BigDecimal, ExpedientEsmenaRDTO)", e);// $NON-NLS-1$

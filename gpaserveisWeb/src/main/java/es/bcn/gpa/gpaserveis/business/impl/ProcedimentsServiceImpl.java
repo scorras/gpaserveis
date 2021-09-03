@@ -77,7 +77,7 @@ public class ProcedimentsServiceImpl implements ProcedimentsService {
 		}
 
 		try {
-			ProcedimentsRDTO procedimentsRDTO = procedimentsApi.consultarDadesProcediment(id);
+			ProcedimentsRDTO procedimentsRDTO = procedimentsApi.consultarDadesProcediment(Integer.valueOf(id.intValueExact()));
 
 			if (log.isDebugEnabled()) {
 				log.debug("consultarDadesProcediment(BigDecimal) - fi"); //$NON-NLS-1$

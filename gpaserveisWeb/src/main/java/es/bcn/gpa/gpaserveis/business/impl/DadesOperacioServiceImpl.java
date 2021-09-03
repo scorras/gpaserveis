@@ -47,10 +47,10 @@ public class DadesOperacioServiceImpl implements DadesOperacioService {
 		try {
 			PageDataOfDadesGrupsRDTO pageDataOfDadesGrupsRDTO = null;
 			if (dadesOperacioCercaBDTO.getIdTramitOvt() != null) {
-				pageDataOfDadesGrupsRDTO = dadesGrupsApi.cercaDadesOperacioAgrupatsPerTramitOvt(dadesOperacioCercaBDTO.getIdProcediment(),
-				        dadesOperacioCercaBDTO.getIdTramitOvt(), null, null);
+				pageDataOfDadesGrupsRDTO = dadesGrupsApi.cercaDadesOperacioAgrupatsPerTramitOvt(Integer.valueOf(dadesOperacioCercaBDTO.getIdProcediment().intValueExact()),
+						Integer.valueOf(dadesOperacioCercaBDTO.getIdTramitOvt().intValueExact()), null, null);
 			} else {
-				pageDataOfDadesGrupsRDTO = dadesGrupsApi.cercaDadesOperacio(dadesOperacioCercaBDTO.getIdProcediment(), null, null);
+				pageDataOfDadesGrupsRDTO = dadesGrupsApi.cercaDadesOperacio(Integer.valueOf(dadesOperacioCercaBDTO.getIdProcediment().intValueExact()), null, null);
 			}
 
 			if (log.isDebugEnabled()) {
@@ -99,7 +99,7 @@ public class DadesOperacioServiceImpl implements DadesOperacioService {
 
 		try {
 			PageDataOfDadesOperacionsRDTO pageDataOfDadesOperacionsRDTO = dadesOperacionsApi.cercaDadesOperacioRequerits(
-			        dadesOperacioCercaBDTO.getIdProcediment(), null, null, null, null, null, null, null, null, null, null, null, null, null,
+					Integer.valueOf(dadesOperacioCercaBDTO.getIdProcediment().intValueExact()), null, null, null, null, null, null, null, null, null, null, null, null, null,
 			        null);
 
 			if (log.isDebugEnabled()) {

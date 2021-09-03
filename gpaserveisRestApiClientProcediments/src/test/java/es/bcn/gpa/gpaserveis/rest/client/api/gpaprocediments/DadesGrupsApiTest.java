@@ -12,14 +12,12 @@
 
 package es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments;
 
-import static java.math.BigDecimal.ONE;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.when;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.FixMethodOrder;
@@ -62,8 +60,8 @@ public class DadesGrupsApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfDadesGrupsRDTO());
 
-		BigDecimal id = ONE;
-		BigDecimal idTramitOvt = ONE;
+		Integer id = 1;
+		Integer idTramitOvt = 1;
 		String dir = null;
 		String sort = null;
 		PageDataOfDadesGrupsRDTO response = api.cercaDadesOperacioAgrupatsPerTramitOvt(id, idTramitOvt, dir, sort);
@@ -87,7 +85,7 @@ public class DadesGrupsApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfDadesGrupsRDTO());
 
-		BigDecimal id = ONE;
+		Integer id = 1;
 		String dir = null;
 		String sort = null;
 		PageDataOfDadesGrupsRDTO response = api.cercaDadesOperacio(id, dir, sort);

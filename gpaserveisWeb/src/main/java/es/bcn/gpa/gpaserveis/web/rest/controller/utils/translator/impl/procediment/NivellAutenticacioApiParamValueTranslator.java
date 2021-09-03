@@ -13,6 +13,6 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.ApiParamV
 public class NivellAutenticacioApiParamValueTranslator extends ApiParamValueTranslator<NivellAutenticacioApiParamValue, Integer> {
 
 	/** The Constant REQUEST_PARAM_ALLOWABLE_VALUES. */
-	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "ALT, SUBSTANCIAL, BAIX";
+	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "ALT, SUBSTANCIAL, BAIX, SENSE AUTENTICACIO";
 
 }

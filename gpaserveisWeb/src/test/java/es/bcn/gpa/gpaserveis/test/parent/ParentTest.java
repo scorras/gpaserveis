@@ -219,7 +219,7 @@ public abstract class ParentTest {
 			        any(String.class), any(Integer.class), any(String.class), any(Integer.class), isNull(Integer.class), any(String.class),
 			        isNull(Long.class), isNull(Integer.class), any(List.class))).thenReturn(TestsConfigHelper.cercaProcedimentsResponse());
 
-			when(procedimentsApi.consultarDadesProcediment(any(BigDecimal.class)))
+			when(procedimentsApi.consultarDadesProcediment(any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesProcedimentResponse());
 
 			when(procedimentsApi.consultarDadesProcedimentPerCodi(any(String.class)))
@@ -295,10 +295,10 @@ public abstract class ParentTest {
 			when(tramitsOvtApi.consultarDadesTramitOvt(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesTramitOvtResponse());
 
-			when(dadesGrupsApi.cercaDadesOperacioAgrupatsPerTramitOvt(any(BigDecimal.class), any(BigDecimal.class), isNull(String.class),
+			when(dadesGrupsApi.cercaDadesOperacioAgrupatsPerTramitOvt(any(Integer.class), any(Integer.class), isNull(String.class),
 			        isNull(String.class))).thenReturn(TestsConfigHelper.cercaDadesOperacioResponse());
 
-			when(dadesGrupsApi.cercaDadesOperacio(any(BigDecimal.class), isNull(String.class), isNull(String.class)))
+			when(dadesGrupsApi.cercaDadesOperacio(any(Integer.class), isNull(String.class), isNull(String.class)))
 			        .thenReturn(TestsConfigHelper.cercaDadesOperacioResponse());
 
 			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioEntradaPerTramitOvt(any(BigDecimal.class), any(BigDecimal.class),
@@ -416,7 +416,7 @@ public abstract class ParentTest {
 			when(expedients_Api.consultarDadesRegistreAssentament(any(String.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesRegistreAssentamentResponse());
 
-			when(dadesOperacionsApi.cercaDadesOperacioRequerits(any(BigDecimal.class), isNull(Integer.class), isNull(Integer.class),
+			when(dadesOperacionsApi.cercaDadesOperacioRequerits(any(Integer.class), isNull(Integer.class), isNull(Integer.class),
 			        isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Integer.class),
 			        isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class), isNull(String.class),
 			        isNull(Long.class), isNull(Integer.class))).thenReturn(TestsConfigHelper.cercaDadesOperacioRequeritsResponse());
