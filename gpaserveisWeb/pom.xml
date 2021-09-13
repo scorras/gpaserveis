@@ -19,6 +19,8 @@
 		<hystrix-javanica-version>1.5.12</hystrix-javanica-version>
 		<hystrix-metrics-event-stream-version>1.5.12</hystrix-metrics-event-stream-version>
 		<org.json-version>20210307</org.json-version>
+		<project.surefire.configuration.jvmOptions>-Xmx1024m</project.surefire.configuration.jvmOptions>	     
+	    <version.maven-surefire-plugin>3.0.0-M3</version.maven-surefire-plugin>
 	</properties>
 
 	<dependencies>
