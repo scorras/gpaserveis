@@ -113,14 +113,27 @@ public class Constants {
 
 	/** The Constant TANCAMENT_AUTOMATIC. */
 	public static final BigDecimal TANCAMENT_AUTOMATIC = new BigDecimal(1);
+	
+	/** The Constant REVISIO_DOCUMENT_CORRECT. */
+	public static final int REVISIO_DOCUMENT_CORRECT = 1;
+	
+	/** The Constant REVISIO_DOCUMENT_INCORRECT. */
+	public static final int REVISIO_DOCUMENT_INCORRECT = 2;
+	
 
 	/** The Constant DADES_GRUPS_OPERACIONS_REPETICIONS_N. */
 	public static final String DADES_GRUPS_OPERACIONS_REPETICIONS_N = "N";
-	
+
 	/** The Constant DADES_OPERACIONS_REPETIBLE. */
 	public static final BigDecimal DADES_OPERACIONS_REPETIBLE = new BigDecimal("2");
-	
+
 	/** The Constant CODI_GRUP_. */
 	public static final String CODI_GRUP_ = "GRUP_";
+
+	/** The Constant REPRESENTANT_PERSONE. */
+	public static final String REPRESENTANT_PERSONE = "REPRESENTANT";
+
+	/** The Constant SOLLICITANT_PERSONE. */
+	public static final String SOLLICITANT_PERSONE = "SOLLICITANT";
 
 }

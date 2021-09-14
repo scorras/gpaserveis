@@ -117,7 +117,7 @@ public class ProcedimentsApiTest extends ParentTest {
 				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 				any(ParameterizedTypeReference.class))).thenReturn(new ProcedimentsRDTO());
 
-		BigDecimal id = ONE;
+		Integer id = 1;
 		ProcedimentsRDTO response = api.consultarDadesProcediment(id);
 
 		assertTrue(response != null);

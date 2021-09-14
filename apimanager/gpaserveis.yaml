@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.7.2"
+  version: "2.9.1"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -4262,6 +4262,9 @@ definitions:
       codiDefinicioGrup:
         type: "string"
         description: "Codi de el grup que actua com a subgrup"
+      configuracioDocumentacioAportada:
+        description: "Configuracio Documentacio Aportada"
+        $ref: "#/definitions/ConfiguracioDocumentacioAportada"
       criticitat:
         type: "string"
         description: "Criticitat"
@@ -4554,6 +4557,43 @@ definitions:
           wrapped: false
         description: "Descripció del document en castellà"
     title: "ConfiguracioDocumentacio"
+  ConfiguracioDocumentacioAportada:
+    type: "object"
+    properties:
+      codi:
+        type: "string"
+        description: "Codi de la configuració de documentació aportada"
+      codiNti:
+        type: "string"
+        description: "Codi Nti de la configuració de documentació aportada"
+      criticitat:
+        type: "string"
+        description: "Indica la criticitat de la configuració de documentació aportada"
+      descripcio:
+        type: "string"
+        description: "Descripció de la configuració de documentació aportada"
+      descripcioAmpliada:
+        type: "string"
+        description: "Descripció ampliada de la configuració de documentació aportada"
+      descripcioAmpliadaCastella:
+        type: "string"
+        description: "Descripció ampliada de la configuració de documentació aportada\
+          \ en castellà"
+      descripcioCastella:
+        type: "string"
+        description: "Descripció de la configuració de documentació aportada en castellà"
+      obligatori:
+        type: "boolean"
+        description: "Indica si la configuració configuració de documentació aportada\
+          \ és obligatori"
+      repetible:
+        type: "boolean"
+        description: "Indica si la configuració configuració de documentació aportada\
+          \ és repetible"
+      visibilitat:
+        type: "boolean"
+        description: "Indica la visibilitat de la configuració de documentació aportada"
+    title: "ConfiguracioDocumentacioAportada"
   ConfiguracioDocumentacioRequeridaConsulta:
     type: "object"
     properties:
@@ -4851,6 +4891,7 @@ definitions:
         - "ALT"
         - "SUBSTANCIAL"
         - "BAIX"
+        - "SENSE AUTENTICACIO"
       terminisDuracio:
         description: "Terminis de duració"
         $ref: "#/definitions/TerminisDuracio"
@@ -5978,6 +6019,9 @@ definitions:
       representant:
         description: "Representant principal de l'expedient"
         $ref: "#/definitions/Persona"
+      rol:
+        type: "string"
+        description: "Rol"
       sollicitant:
         description: "Sol·licitant principal de l'expedient"
         $ref: "#/definitions/Persona"
@@ -6451,6 +6495,9 @@ definitions:
       ordre:
         type: "string"
         description: "Ordre del grup d'atributs"
+      pantalla:
+        type: "string"
+        description: "Pantalla del grup d'atributs"
       repeticions:
         type: "string"
         description: "Nombre màxim de repeticions del grup d'atributs repetible"

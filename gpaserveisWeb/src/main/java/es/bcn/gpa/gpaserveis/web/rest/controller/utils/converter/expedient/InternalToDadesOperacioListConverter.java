@@ -1,5 +1,6 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.expedient;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PaisosRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ProvinciesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.Items;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TipusCampApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DadesAtributsExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DadesAtributsValorsLlistaExpedientsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.expedients.DadesAtributsValorsLlistaMultipleRepetibleExpedientsRDTO;
@@ -65,6 +67,7 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 
 		if (CollectionUtils.isNotEmpty(source)) {
 			DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(Constants.DATE_TIME_PATTERN);
+			DateTimeFormatter dateFormatter = DateTimeFormat.forPattern(Constants.DATE_PATTERN);
 			dadesAtributsExpedientsRDTOList = new ArrayList<DadesAtributsExpedientsRDTO>();
 			for (DadaEspecificaBDTO dadaEspecificaBDTO : source) {
 				dadesAtributsExpedientsRDTO = new DadesAtributsExpedientsRDTO();
@@ -98,8 +101,13 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 							        ? BooleanUtils.toStringTrueFalse(BooleanUtils.toBoolean(dadesEspecifiquesValors.getValorBoolean(),
 							                NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO))
 							        : StringUtils.EMPTY);
-							valorStringBuffer.append((dadesEspecifiquesValors.getValorCalendar() != null)
-							        ? dateTimeFormatter.print(dadesEspecifiquesValors.getValorCalendar()) : StringUtils.EMPTY);
+							if (TipusCampApiParamValue.DATA.getInternalValue().equals(dadaEspecificaBDTO.getDadaOperacio().getTipus())) {
+								valorStringBuffer.append((dadesEspecifiquesValors.getValorCalendar() != null)
+								        ? dateFormatter.print(dadesEspecifiquesValors.getValorCalendar()) : StringUtils.EMPTY);
+							} else {
+								valorStringBuffer.append((dadesEspecifiquesValors.getValorCalendar() != null)
+								        ? dateTimeFormatter.print(dadesEspecifiquesValors.getValorCalendar()) : StringUtils.EMPTY);
+							}
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorClob() != null)
 							        ? dadesEspecifiquesValors.getValorClob() : StringUtils.EMPTY);
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorDouble() != null)

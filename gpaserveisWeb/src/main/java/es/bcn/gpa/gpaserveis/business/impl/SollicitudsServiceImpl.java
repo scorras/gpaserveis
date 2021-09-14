@@ -3,9 +3,13 @@ package es.bcn.gpa.gpaserveis.business.impl;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
@@ -14,6 +18,7 @@ import es.bcn.gpa.gpaserveis.business.dto.sollicituds.SollicitudsActualitzarBDTO
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.business.handler.ServeisServiceExceptionHandler;
 import es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.SollicitudsApi;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import lombok.extern.apachecommons.CommonsLog;
 
@@ -43,7 +48,19 @@ public class SollicitudsServiceImpl implements SollicitudsService {
 			log.debug("consultarSollicitudsExpedient(BigDecimal) - inici"); //$NON-NLS-1$
 		}
 		try {
+			String usuarioAutenticatPortal = "";
+			if (RequestContextHolder.getRequestAttributes() != null) {
+				HttpServletRequest serveltrequest = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+				if (serveltrequest.getHeader("usuari-autenticat") != null) {
+					usuarioAutenticatPortal = (String) serveltrequest.getHeader("usuari-autenticat");
+				}
+			}
 			List<SollicitudsRDTO> sollicitudsRDTOList = sollicitudsApi.consultarSollicitudsExpedient(idExpedient);
+			for(SollicitudsRDTO sollicitud : sollicitudsRDTOList){
+				SollicitudsRDTO aux = sollicitudsApi.consultarDadesSollicituds(sollicitud.getId());
+				List<PersonesSollicitudRDTO> persones = aux.getPersonesImplicades();
+			}
+			
 
 			if (log.isDebugEnabled()) {
 				log.debug("consultarSollicitudsExpedient(BigDecimal) - fi"); //$NON-NLS-1$
