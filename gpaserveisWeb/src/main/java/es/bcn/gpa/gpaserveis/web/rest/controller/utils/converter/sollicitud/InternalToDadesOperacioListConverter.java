@@ -101,7 +101,7 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 							        ? BooleanUtils.toStringTrueFalse(BooleanUtils.toBoolean(dadesEspecifiquesValors.getValorBoolean(),
 							                NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO))
 							        : StringUtils.EMPTY);
-							if (TipusCampApiParamValue.DATA.getInternalValue().equals(dadaEspecificaBDTO.getDadaEspecifica().getTipus())) {
+							if (TipusCampApiParamValue.DATA.getInternalValue().equals(dadaEspecificaBDTO.getDadaOperacio().getTipus())) {
 								valorStringBuffer.append((dadesEspecifiquesValors.getValorCalendar() != null)
 								        ? dateFormatter.print(dadesEspecifiquesValors.getValorCalendar()) : StringUtils.EMPTY);
 							} else {
