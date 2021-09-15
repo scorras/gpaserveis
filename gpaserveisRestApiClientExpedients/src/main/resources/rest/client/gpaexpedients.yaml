@@ -2929,9 +2929,18 @@ definitions:
   GestionarAvisosPerAccio:
     type: "object"
     properties:
-      idAccio:
+      idAccioEstat:
         type: "number"
-        description: "Identificador de l'acció"
+        description: "Identificador de l'acció estat"
+      idDocTramitacio:
+        type: "number"
+        description: "Identificador de el document de tramitació"
+      idEstatFinalDocTramitacio:
+        type: "number"
+        description: "Identificador de l'estat final de el document de tramitació"
+      idUsuariSignatura:
+        type: "number"
+        description: "Identificador de l'usuari de signatura"
     title: "GestionarAvisosPerAccio"
   Idiomes:
     type: "object"
