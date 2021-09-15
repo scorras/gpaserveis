@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * CrearRegistre
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-09-15T10:56:55.879+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-09-15T11:38:28.065+02:00")
 public class CrearRegistre {
   @JsonProperty("documents")
   private List<BigDecimal> documents = null;
