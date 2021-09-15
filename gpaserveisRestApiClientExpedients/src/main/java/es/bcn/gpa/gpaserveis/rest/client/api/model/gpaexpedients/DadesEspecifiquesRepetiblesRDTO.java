@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * DadesEspecifiquesRepetiblesRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-07-01T13:56:25.810+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-09-15T10:56:55.879+02:00")
 public class DadesEspecifiquesRepetiblesRDTO {
   @JsonProperty("campIdext")
   private BigDecimal campIdext = null;
