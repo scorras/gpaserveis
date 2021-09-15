@@ -272,7 +272,7 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /expedients/comentaris/deleteComentari:
+  /expedients/comentaris/expedient/{idExpedient}/comentari/{idComentari}/delete:
     post:
       tags:
       - "Comentaris"
@@ -283,18 +283,17 @@ paths:
       produces:
       - "*/*"
       parameters:
-      - in: "body"
-        name: "idComentari"
+      parameters:
+      - name: "idComentari"
+        in: "path"
         description: "idComentari"
         required: true
-        schema:
-          type: "number"
-      - in: "body"
-        name: "idExpedient"
+        type: "integer"
+      - name: "idExpedient"
+        in: "path"
         description: "idExpedient"
         required: true
-        schema:
-          type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
