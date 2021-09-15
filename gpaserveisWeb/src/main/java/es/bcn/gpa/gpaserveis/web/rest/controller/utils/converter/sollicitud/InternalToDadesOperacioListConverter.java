@@ -1,6 +1,5 @@
 package es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.sollicitud;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -84,9 +83,10 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 				List<HashMap<Integer, Integer>> valorsListaMultiple = new ArrayList<HashMap<Integer, Integer>>();
 				List<Integer> ordreRepeticioList = new ArrayList<Integer>();
 				valorListRepetible = new ArrayList<String>();
-				if (dadaEspecificaBDTO.getDadaEspecifica() != null && CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecifica().getDadesEspecifiquesValorsList())) {
+				if (dadaEspecificaBDTO.getDadaEspecifica() != null
+						&& CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecifica().getDadesEspecifiquesValorsList())) {
 					for (DadesEspecifiquesValors dadesEspecifiquesValors : dadaEspecificaBDTO.getDadaEspecifica()
-					        .getDadesEspecifiquesValorsList()) {
+							.getDadesEspecifiquesValorsList()) {
 						// Transformación directa a String excepto para valores
 						// de tipo fecha o lista múltiple
 						if (CollectionUtils.isNotEmpty(dadesEspecifiquesValors.getValorListaMultipleList())) {
@@ -96,54 +96,58 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 						} else {
 							valorStringBuffer = new StringBuffer();
 							valorCastellaStringBuffer = new StringBuffer();
-							
+
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorBoolean() != null)
 							        ? BooleanUtils.toStringTrueFalse(BooleanUtils.toBoolean(dadesEspecifiquesValors.getValorBoolean(),
 							                NumberUtils.INTEGER_ONE, NumberUtils.INTEGER_ZERO))
 							        : StringUtils.EMPTY);
-							if (TipusCampApiParamValue.DATA.getInternalValue().equals(dadaEspecificaBDTO.getDadaEspecifica().getTipus())) {
+							if ( TipusCampApiParamValue.DATA.getInternalValue().equals(dadaEspecificaBDTO.getDadaOperacio().getTipus())) {
 								valorStringBuffer.append((dadesEspecifiquesValors.getValorCalendar() != null)
-								        ? dateFormatter.print(dadesEspecifiquesValors.getValorCalendar()) : StringUtils.EMPTY);
+										? dateFormatter.print(dadesEspecifiquesValors.getValorCalendar()) : StringUtils.EMPTY);
 							} else {
 								valorStringBuffer.append((dadesEspecifiquesValors.getValorCalendar() != null)
-								        ? dateTimeFormatter.print(dadesEspecifiquesValors.getValorCalendar()) : StringUtils.EMPTY);
+										? dateTimeFormatter.print(dadesEspecifiquesValors.getValorCalendar()) : StringUtils.EMPTY);
 							}
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorClob() != null)
-							        ? dadesEspecifiquesValors.getValorClob() : StringUtils.EMPTY);
+									? dadesEspecifiquesValors.getValorClob() : StringUtils.EMPTY);
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorDouble() != null)
-							        ? dadesEspecifiquesValors.getValorDouble() : StringUtils.EMPTY);
+									? dadesEspecifiquesValors.getValorDouble() : StringUtils.EMPTY);
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorInteger() != null)
-							        ? dadesEspecifiquesValors.getValorInteger() : StringUtils.EMPTY);
+									? dadesEspecifiquesValors.getValorInteger() : StringUtils.EMPTY);
 							if (dadesEspecifiquesValors.getValorListaMultiple() != null) {
-								if (dadesEspecifiquesValors.getOrdreRepeticio() != null && dadesEspecifiquesValors.getOrdreRepeticioMultiple() != null) {
+								if (dadesEspecifiquesValors.getOrdreRepeticio() != null
+										&& dadesEspecifiquesValors.getOrdreRepeticioMultiple() != null) {
 									HashMap<Integer, Integer> valorsListaMultipleMap = new HashMap<Integer, Integer>();
-									valorsListaMultipleMap.put(dadesEspecifiquesValors.getOrdreRepeticio(), dadesEspecifiquesValors.getValorListaMultiple());
+									valorsListaMultipleMap.put(dadesEspecifiquesValors.getOrdreRepeticio(),
+											dadesEspecifiquesValors.getValorListaMultiple());
 									valorsListaMultiple.add(valorsListaMultipleMap);
 									if (!ordreRepeticioList.contains(dadesEspecifiquesValors.getOrdreRepeticio())) {
 										ordreRepeticioList.add(dadesEspecifiquesValors.getOrdreRepeticio());
 									}
 								} else {
-								valorsLlistaList.add(obtenirItemLlista(dadesEspecifiquesValors.getValorListaMultiple(),
-								        dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
+									valorsLlistaList.add(obtenirItemLlista(dadesEspecifiquesValors.getValorListaMultiple(),
+											dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
 								}
 							} else {
 								valorStringBuffer.append(StringUtils.EMPTY);
 							}
 							if (dadesEspecifiquesValors.getValorListaSimple() != null) {
 								if (dadesEspecifiquesValors.getOrdreRepeticio() != null) {
-									valorsLlistaRepetibleList.add(obtenirDadesAtributsValorsLlistaRepetible(dadesEspecifiquesValors.getValorListaSimple(),
-									        dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
+									valorsLlistaRepetibleList
+											.add(obtenirDadesAtributsValorsLlistaRepetible(dadesEspecifiquesValors.getValorListaSimple(),
+													dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
 								} else {
 									valorsLlistaList.add(obtenirItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
-									        dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
+											dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
 									index = obtenirIndexItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
-									        dadaEspecificaBDTO.getDadaOperacio().getItemsList());
+											dadaEspecificaBDTO.getDadaOperacio().getItemsList());
 									valorStringBuffer.append(obtenirDescripcioItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
-									        dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
-									
-									String valorCastella = obtenirDescripcioCastellaItemLlista(dadesEspecifiquesValors.getValorListaSimple(),
-									        dadaEspecificaBDTO.getDadaOperacio().getItemsList());
-									if(StringUtils.isNotEmpty(valorCastella)){
+											dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
+
+									String valorCastella = obtenirDescripcioCastellaItemLlista(
+											dadesEspecifiquesValors.getValorListaSimple(),
+											dadaEspecificaBDTO.getDadaOperacio().getItemsList());
+									if (StringUtils.isNotEmpty(valorCastella)) {
 										valorCastellaStringBuffer.append(valorCastella);
 									} else {
 										valorCastellaStringBuffer.append(StringUtils.EMPTY);
@@ -153,12 +157,12 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 								valorStringBuffer.append(StringUtils.EMPTY);
 							}
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorMoneda() != null)
-							        ? dadesEspecifiquesValors.getValorMoneda() : StringUtils.EMPTY);
+									? dadesEspecifiquesValors.getValorMoneda() : StringUtils.EMPTY);
 							if (dadesEspecifiquesValors.getValorMunicipi() != null) {
 								try {
 									municipisRDTO = serveisService.consultarMunicipisByCodi(
-									        dadesEspecifiquesValors.getValorMunicipi().substring(3),
-									        dadesEspecifiquesValors.getValorMunicipi().substring(0, 3));
+											dadesEspecifiquesValors.getValorMunicipi().substring(3),
+											dadesEspecifiquesValors.getValorMunicipi().substring(0, 3));
 								} catch (GPAServeisServiceException e) {
 									log.error("No s'ha pogut obtenir la informació del municipi", e);
 								}
@@ -175,7 +179,7 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 									log.error("No s'ha pogut obtenir la informació de la província", e);
 								}
 								valorsLlistaList
-								        .add(obtenirItemLlistaProvincia(provinciesRDTO, dadesEspecifiquesValors.getValorProvincia()));
+										.add(obtenirItemLlistaProvincia(provinciesRDTO, dadesEspecifiquesValors.getValorProvincia()));
 								index = dadesEspecifiquesValors.getValorProvincia();
 								valorStringBuffer.append((provinciesRDTO != null) ? provinciesRDTO.getNom() : StringUtils.EMPTY);
 							} else {
@@ -194,50 +198,52 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 								valorStringBuffer.append(StringUtils.EMPTY);
 							}
 							valorStringBuffer.append((dadesEspecifiquesValors.getValorString() != null)
-							        ? dadesEspecifiquesValors.getValorString() : StringUtils.EMPTY);
+									? dadesEspecifiquesValors.getValorString() : StringUtils.EMPTY);
 
 							if (StringUtils.isNotBlank(valorStringBuffer.toString())) {
 								valorList.add(valorStringBuffer.toString());
 							}
-							if(valorCastellaStringBuffer != null && StringUtils.isNotEmpty(valorCastellaStringBuffer.toString())){
+							if (valorCastellaStringBuffer != null && StringUtils.isNotEmpty(valorCastellaStringBuffer.toString())) {
 								valorCastellaList.add(valorCastellaStringBuffer.toString());
 							}
 						}
 					}
-					
+
 					if (!valorsListaMultiple.isEmpty()) {
 						Collections.sort(ordreRepeticioList);
-						for(Integer ordreRepeticio : ordreRepeticioList) {
+						for (Integer ordreRepeticio : ordreRepeticioList) {
 							DadesAtributsValorsLlistaMultipleRepetibleSollicitudsRDTO dadesAtributsValorsLlistaMultipleRepetibleSollicitudsRDTO = new DadesAtributsValorsLlistaMultipleRepetibleSollicitudsRDTO();
 							List<DadesAtributsValorsLlistaRepetibleSollicitudsRDTO> dadesAtributsValorsLlistaRepetibleSollicitudsRDTOList = new ArrayList<DadesAtributsValorsLlistaRepetibleSollicitudsRDTO>();
 							for (HashMap<Integer, Integer> entry : valorsListaMultiple) {
 								if (entry.containsKey(ordreRepeticio)) {
-									dadesAtributsValorsLlistaRepetibleSollicitudsRDTOList.add(obtenirDadesAtributsValorsLlistaRepetible(entry.get(ordreRepeticio),
-									dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
+									dadesAtributsValorsLlistaRepetibleSollicitudsRDTOList.add(obtenirDadesAtributsValorsLlistaRepetible(
+											entry.get(ordreRepeticio), dadaEspecificaBDTO.getDadaOperacio().getItemsList()));
 								}
 							}
-							dadesAtributsValorsLlistaMultipleRepetibleSollicitudsRDTO.setValorsLlistaRepetible(dadesAtributsValorsLlistaRepetibleSollicitudsRDTOList);
+							dadesAtributsValorsLlistaMultipleRepetibleSollicitudsRDTO
+									.setValorsLlistaRepetible(dadesAtributsValorsLlistaRepetibleSollicitudsRDTOList);
 							valorsLlistaMultipleRepetibleList.add(dadesAtributsValorsLlistaMultipleRepetibleSollicitudsRDTO);
 						}
 					}
 				}
-				
-				if (dadaEspecificaBDTO.getDadaEspecificaRepetible() != null && CollectionUtils.isNotEmpty(dadaEspecificaBDTO.getDadaEspecificaRepetible().getDadesEspecifiquesValorsJsonList())) {
-					if (dadaEspecificaBDTO.getDadaOperacio().getCodi().contains(Constants.CODI_GRUP_) &&
-							StringUtils.isNotEmpty(dadaEspecificaBDTO.getDadaOperacio().getTitolGrup())) {
+
+				if (dadaEspecificaBDTO.getDadaEspecificaRepetible() != null && CollectionUtils
+						.isNotEmpty(dadaEspecificaBDTO.getDadaEspecificaRepetible().getDadesEspecifiquesValorsJsonList())) {
+					if (dadaEspecificaBDTO.getDadaOperacio().getCodi().contains(Constants.CODI_GRUP_)
+							&& StringUtils.isNotEmpty(dadaEspecificaBDTO.getDadaOperacio().getTitolGrup())) {
 						dadesAtributsSollicitudsRDTO.setTitol(dadaEspecificaBDTO.getDadaOperacio().getTitolGrup());
 					}
 					for (DadesEspecifiquesValorsJson dadesEspecifiquesValorsJson : dadaEspecificaBDTO.getDadaEspecificaRepetible()
 							.getDadesEspecifiquesValorsJsonList()) {
 						valorStringBuffer = new StringBuffer();
 						valorStringBuffer.append((dadesEspecifiquesValorsJson.getValorJson() != null)
-						        ? dadesEspecifiquesValorsJson.getValorJson() : StringUtils.EMPTY);
+								? dadesEspecifiquesValorsJson.getValorJson() : StringUtils.EMPTY);
 						if (StringUtils.isNotBlank(valorStringBuffer.toString())) {
 							valorListRepetible.add(valorStringBuffer.toString());
 						}
 					}
 				}
-				
+
 				// Con el objetivo de que no aparezcan en el XML, las listas que
 				// van vacías se ponen a null
 				if (CollectionUtils.isEmpty(valorList)) {
@@ -246,13 +252,13 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 				if (CollectionUtils.isEmpty(valorsLlistaList)) {
 					valorsLlistaList = null;
 				}
-				if(CollectionUtils.isEmpty(valorCastellaList)){
+				if (CollectionUtils.isEmpty(valorCastellaList)) {
 					valorCastellaList = null;
 				}
-				if(CollectionUtils.isEmpty(valorsLlistaRepetibleList)){
+				if (CollectionUtils.isEmpty(valorsLlistaRepetibleList)) {
 					valorsLlistaRepetibleList = null;
 				}
-				if(CollectionUtils.isEmpty(valorsLlistaMultipleRepetibleList)){
+				if (CollectionUtils.isEmpty(valorsLlistaMultipleRepetibleList)) {
 					valorsLlistaMultipleRepetibleList = null;
 				}
 				if (CollectionUtils.isEmpty(valorListRepetible)) {
@@ -290,12 +296,14 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Obtenir descripcio castella item llista.
 	 *
-	 * @param valorLlista the valor llista
-	 * @param itemsList the items list
+	 * @param valorLlista
+	 *            the valor llista
+	 * @param itemsList
+	 *            the items list
 	 * @return the string
 	 */
 	private String obtenirDescripcioCastellaItemLlista(Integer valorLlista, List<Items> itemsList) {
@@ -394,8 +402,7 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 		dadesAtributsValorsLlistaSollicitudsRDTO.setValor((paisosRDTO != null) ? paisosRDTO.getNom() : StringUtils.EMPTY);
 		return dadesAtributsValorsLlistaSollicitudsRDTO;
 	}
-	
-	
+
 	/**
 	 * Obtenir item llista.
 	 *
@@ -405,7 +412,8 @@ public class InternalToDadesOperacioListConverter extends AbstractConverter<List
 	 *            the items list
 	 * @return the dades atributs valors llista repetible sollicituds RDTO
 	 */
-	private DadesAtributsValorsLlistaRepetibleSollicitudsRDTO obtenirDadesAtributsValorsLlistaRepetible(Integer valorLlista, List<Items> itemsList) {
+	private DadesAtributsValorsLlistaRepetibleSollicitudsRDTO obtenirDadesAtributsValorsLlistaRepetible(Integer valorLlista,
+			List<Items> itemsList) {
 		DadesAtributsValorsLlistaRepetibleSollicitudsRDTO dadesAtributsValorsLlistaRepetibleSollicitudsRDTO = new DadesAtributsValorsLlistaRepetibleSollicitudsRDTO();
 		List<DadesAtributsValorsLlistaSollicitudsRDTO> llistaList = new ArrayList<DadesAtributsValorsLlistaSollicitudsRDTO>();
 		DadesAtributsValorsLlistaSollicitudsRDTO dadesAtributsValorsLlistaSollicitudsRDTO = obtenirItemLlista(valorLlista, itemsList);

@@ -76,7 +76,7 @@ public class ComentarisApiTest extends ParentTest {
 	 */
 	@Test
 	public void deleteComentariTest() {
-		when(apiClient.invokeAPI(eq("/expedients/comentaris/deleteComentari"), eq(HttpMethod.POST), any(MultiValueMap.class),
+		when(apiClient.invokeAPI(eq("/expedient/{idExpedient}/comentari/{idComentari}/delete"), eq(HttpMethod.POST), any(MultiValueMap.class),
 				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
 
