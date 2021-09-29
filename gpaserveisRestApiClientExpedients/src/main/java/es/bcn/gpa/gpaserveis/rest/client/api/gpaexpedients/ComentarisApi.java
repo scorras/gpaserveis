@@ -24,7 +24,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-09-15T10:56:55.879+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-09-15T13:04:30.964+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi")
 public class ComentarisApi {
     private ApiClient apiClient;
@@ -109,7 +109,7 @@ public class ComentarisApi {
      * @param idExpedient idExpedient
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void deleteComentari(Integer idComentari, Integer idExpedient) throws RestClientException {
+    public void deleteComentari(BigDecimal idComentari, BigDecimal idExpedient) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idComentari' is set
