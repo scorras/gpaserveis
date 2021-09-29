@@ -629,6 +629,7 @@ public class ServeisRestControllerValidationHelper {
 						if (dadesGrupsMap.containsKey(atributEntry.getKey())) {
 							dadesEspecifiquesRepetiblesRDTO.setGrupIdext(dadesGrupsMap.get(atributEntry.getKey()).getId());
 						} else {
+							dadesEspecifiquesRepetiblesRDTO.setGrupIdext(dadesOperacionsMap.get(atributEntry.getKey()).getGrup());
 							dadesEspecifiquesRepetiblesRDTO.setCampIdext(dadesOperacionsMap.get(atributEntry.getKey()).getId());
 						}
 
