@@ -861,7 +861,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Avisos. ACCIONS_ESTATS: 64, 65
 			GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
-			gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsId);
+			gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+			gestionarAvisosPerAccio.setIdTransicio(accionsEstatsRDTOList.get(0).getTransicio());
 			GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId());
 			serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
@@ -1332,7 +1333,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// Avisos. ACCIONS_ESTATS: 22
 			if (accionsEstatsId != null) {
 				GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
-				gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsId);
+				gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+				gestionarAvisosPerAccio.setIdTransicio(accionsEstatsRDTOList.get(0).getTransicio());
 				GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
 				        dadesExpedientBDTO.getExpedientsRDTO().getId());
 				serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
@@ -4896,7 +4898,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Avisos. ACCIONS_ESTATS: 118
 			GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
-			gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsId);
+			gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
+			gestionarAvisosPerAccio.setIdTransicio(accionsEstatsRDTOList.get(0).getTransicio());
 			GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId());
 			serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
