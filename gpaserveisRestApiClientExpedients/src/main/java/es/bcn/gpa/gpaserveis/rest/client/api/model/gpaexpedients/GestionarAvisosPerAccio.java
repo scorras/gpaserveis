@@ -30,6 +30,8 @@ public class GestionarAvisosPerAccio {
 	private BigDecimal idDocTramitacio;
 	@JsonProperty("idEstatFinalDocTramitacio")
 	private BigDecimal idEstatFinalDocTramitacio;
+	@JsonProperty("idTransicio")
+	private BigDecimal idTransicio;
 	@JsonProperty("idUsuariSignatura")
 	private BigDecimal idUsuariSignatura;
 
@@ -69,6 +71,15 @@ public class GestionarAvisosPerAccio {
 	public void setIdEstatFinalDocTramitacio(BigDecimal idEstatFinalDocTramitacio) {
 		this.idEstatFinalDocTramitacio = idEstatFinalDocTramitacio;
 	}
+	
+	@ApiModelProperty(value = "Identificador de la transició")
+	public BigDecimal getIdTransicio() {
+		return idTransicio;
+	}
+
+	public void setIdTransicio(BigDecimal idTransicio) {
+		this.idTransicio = idTransicio;
+	}	
 
 	@ApiModelProperty(value = "Identificador de l'usuari de signatura")
 	public BigDecimal getIdUsuariSignatura() {
@@ -91,6 +102,7 @@ public class GestionarAvisosPerAccio {
 		return Objects.equals(this.idAccioEstat, gestionarAvisosPerAccio.idAccioEstat)
 		        && Objects.equals(this.idDocTramitacio, gestionarAvisosPerAccio.idDocTramitacio)
 		        && Objects.equals(this.idEstatFinalDocTramitacio, gestionarAvisosPerAccio.idEstatFinalDocTramitacio)
+		        && Objects.equals(this.idTransicio, gestionarAvisosPerAccio.idTransicio)
 		        && Objects.equals(this.idUsuariSignatura, gestionarAvisosPerAccio.idUsuariSignatura);
 	}
 
@@ -107,6 +119,7 @@ public class GestionarAvisosPerAccio {
 		sb.append("    idAccioEstat: ").append(toIndentedString(idAccioEstat)).append("\n");
 		sb.append("    idDocTramitacio: ").append(toIndentedString(idDocTramitacio)).append("\n");
 		sb.append("    idEstatFinalDocTramitacio: ").append(toIndentedString(idEstatFinalDocTramitacio)).append("\n");
+		sb.append("    idTransicio: ").append(toIndentedString(idTransicio)).append("\n");
 		sb.append("    idUsuariSignatura: ").append(toIndentedString(idUsuariSignatura)).append("\n");
 		sb.append("}");
 		return sb.toString();
