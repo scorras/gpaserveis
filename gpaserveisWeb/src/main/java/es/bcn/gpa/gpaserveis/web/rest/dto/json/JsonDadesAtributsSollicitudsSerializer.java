@@ -101,7 +101,11 @@ public class JsonDadesAtributsSollicitudsSerializer extends JsonSerializer<Dades
 			jsonGenerator.writeEndArray();
 		}
 		if (CollectionUtils.isNotEmpty(dadesAtributsSollicitudsRDTO.getValorRepetible())) {
-			jsonGenerator.writeFieldName("valor");
+			if(StringUtils.startsWithIgnoreCase(dadesAtributsSollicitudsRDTO.getCodi(), Constants.CODI_GRUP_)){
+				jsonGenerator.writeFieldName("valorsGrup");
+			} else{
+				jsonGenerator.writeFieldName("valor");
+			}	
 			rawSerializer.serialize(dadesAtributsSollicitudsRDTO.getValorRepetible().get(0), jsonGenerator, serializerProvider);
 			
 		}
