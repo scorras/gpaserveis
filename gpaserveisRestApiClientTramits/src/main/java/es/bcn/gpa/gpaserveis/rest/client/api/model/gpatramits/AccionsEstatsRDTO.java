@@ -65,6 +65,9 @@ public class AccionsEstatsRDTO {
   @JsonProperty("nomAccio")
   private String nomAccio = null;
 
+  @JsonProperty("transicio")
+  private BigDecimal transicio = null;
+  
   public AccionsEstatsRDTO accio(BigDecimal accio) {
     this.accio = accio;
     return this;
@@ -299,7 +302,20 @@ public class AccionsEstatsRDTO {
     this.nomAccio = nomAccio;
   }
 
+  /**
+  * Get transicio
+  * @return transicio
+ **/
+ @ApiModelProperty(value = "")
+ public BigDecimal getTransicio() {
+   return transicio;
+ }
 
+ public void setTransicio(BigDecimal transicio) {
+   this.transicio = transicio;
+ }
+
+  
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -321,12 +337,13 @@ public class AccionsEstatsRDTO {
         Objects.equals(this.estatTramitadorCastella, accionsEstatsRDTO.estatTramitadorCastella) &&
         Objects.equals(this.estatTramitadorCatala, accionsEstatsRDTO.estatTramitadorCatala) &&
         Objects.equals(this.id, accionsEstatsRDTO.id) &&
-        Objects.equals(this.nomAccio, accionsEstatsRDTO.nomAccio);
+        Objects.equals(this.nomAccio, accionsEstatsRDTO.nomAccio) &&
+    	Objects.equals(this.transicio, accionsEstatsRDTO.transicio);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accio, descTransicio, esEstatFinal, esEstatInicial, estat, estatCiutada, estatCiutadaCastella, estatCiutadaCatala, estatTramitador, estatTramitadorCastella, estatTramitadorCatala, id, nomAccio);
+    return Objects.hash(accio, descTransicio, esEstatFinal, esEstatInicial, estat, estatCiutada, estatCiutadaCastella, estatCiutadaCatala, estatTramitador, estatTramitadorCastella, estatTramitadorCatala, id, nomAccio, transicio);
   }
 
 
@@ -348,6 +365,7 @@ public class AccionsEstatsRDTO {
     sb.append("    estatTramitadorCatala: ").append(toIndentedString(estatTramitadorCatala)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    nomAccio: ").append(toIndentedString(nomAccio)).append("\n");
+    sb.append("    transicio: ").append(toIndentedString(transicio)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -26,7 +26,7 @@ import lombok.Setter;
 
 @ApiModel(value = "AtributsSollicitud")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "codi", "titol", "index", "valor", "valorCastella", "valorsLlista", "valorsLlistaRepetible", "valorsLlistaMultipleRepetible", "valorRepetible"})
+@JsonPropertyOrder({ "codi", "titol", "index", "valor", "valorsGrup", "valorCastella", "valorsLlista", "valorsLlistaRepetible", "valorsLlistaMultipleRepetible", "valorRepetible"})
 @JsonSerialize(using = JsonDadesAtributsSollicitudsSerializer.class)
 @XmlRootElement(name = "DADA_OPERACIO")
 @XmlType(name = "DadesAtributsSollicituds", propOrder = { "codi", "titol", "index", "valorAdapted", "valorCastella", "valorsLlista", "valorsLlistaRepetible", "valorsLlistaMultipleRepetible", "valorRepetibleAdapted"})
@@ -44,6 +44,9 @@ public class DadesAtributsSollicitudsRDTO {
 	@ApiModelProperty(value = "Llista de valors de l'atribut")
 	@XmlTransient
 	private List<String> valor;
+	@ApiModelProperty(value = "Llista de valors de l'atribut del grup")
+	@XmlTransient
+	private List<String> valorsGrup;
 
 	@JsonIgnore
 	@XmlElement(name = "VALORS")

@@ -13,7 +13,9 @@
 
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients;
 
+import java.math.BigDecimal;
 import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
