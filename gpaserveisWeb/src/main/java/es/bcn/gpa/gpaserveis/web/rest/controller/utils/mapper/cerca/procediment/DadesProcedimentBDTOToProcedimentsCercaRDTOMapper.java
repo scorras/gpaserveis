@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToEstatConverter;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToRequereixNotificacioConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.procediment.InternalToTramitadorConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraConverter;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.unitatgestora.InternalToUnitatGestoraListConverter;
@@ -29,6 +30,8 @@ public class DadesProcedimentBDTOToProcedimentsCercaRDTOMapper extends PropertyM
 
 	/** The internal to tramitador converter. */
 	private InternalToTramitadorConverter internalToTramitadorConverter;
+	
+	private InternalToRequereixNotificacioConverter internalToRequereixNotificacioConverter;
 
 	/**
 	 * Instantiates a new resposta dades procediment BDTO to procediments cerca
@@ -48,11 +51,13 @@ public class DadesProcedimentBDTOToProcedimentsCercaRDTOMapper extends PropertyM
 	        @Qualifier("procedimentInternalToEstatConverter") InternalToEstatConverter internalToEstatConverter,
 	        @Qualifier("internalToUnitatGestoraConverter") InternalToUnitatGestoraConverter internalToUnitatGestoraConverter,
 	        @Qualifier("internalToUnitatGestoraListConverter") InternalToUnitatGestoraListConverter internalToUnitatGestoraListConverter,
-	        @Qualifier("procedimentInternalToTramitadorConverter") InternalToTramitadorConverter internalToTramitadorConverter) {
+	        @Qualifier("procedimentInternalToTramitadorConverter") InternalToTramitadorConverter internalToTramitadorConverter,
+			@Qualifier("procedimentInternalToRequereixNotificacioConverter") InternalToRequereixNotificacioConverter internalToRequereixNotificacioConverter) {
 		this.internalToEstatConverter = internalToEstatConverter;
 		this.internalToUnitatGestoraConverter = internalToUnitatGestoraConverter;
 		this.internalToUnitatGestoraListConverter = internalToUnitatGestoraListConverter;
 		this.internalToTramitadorConverter = internalToTramitadorConverter;
+		this.internalToRequereixNotificacioConverter = internalToRequereixNotificacioConverter;
 	}
 
 	/**
@@ -80,6 +85,7 @@ public class DadesProcedimentBDTOToProcedimentsCercaRDTOMapper extends PropertyM
 		using(internalToTramitadorConverter).map(source.getProcedimentsRDTO().getReqOperatius().getAplicacioNegoci()).setTramitador(null);
 		map().setAplicacioNegoci(source.getProcedimentsRDTO().getReqOperatius().getAplicacioNegoci());
 		map().setOrganResolutori(source.getProcedimentsRDTO().getIdentificacions().getOrganResolutori());
+		using(internalToRequereixNotificacioConverter).map(source.getProcedimentsRDTO().getIdentificacions().getRequereixNotificacio()).setRequereixNotificacio(null);
 	}
 
 }

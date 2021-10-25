@@ -24,7 +24,7 @@ import lombok.Setter;
 @ApiModel(value = "ProcedimentConsulta")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id", "codi", "versio", "nom", "nomCastella", "descripcio", "descripcioCastella", "ugr", "ugo", "organResolutori",
-        "inici", "estat", "estatCastella", "dadesIdentificacio" })
+        "inici", "estat", "estatCastella", "dadesIdentificacio"})
 @XmlRootElement(name = "PROCEDIMENT")
 @XmlType(name = "ProcedimentsConsulta", propOrder = { "id", "codi", "versio", "nom", "nomCastella" })
 @XmlAccessorType(XmlAccessType.NONE)
@@ -75,6 +75,6 @@ public class ProcedimentsConsultaRDTO {
 	// private List<TramitsRDTO> tramits;
 	@ApiModelProperty(value = "Dades d'identificació del procediment")
 	@XmlTransient
-	private DadesIdentificacioRDTO dadesIdentificacio;
+	private DadesIdentificacioRDTO dadesIdentificacio;	
 
 }
