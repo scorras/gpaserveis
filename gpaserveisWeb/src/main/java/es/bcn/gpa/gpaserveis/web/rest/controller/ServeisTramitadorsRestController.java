@@ -4210,7 +4210,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		RespostaExpedientsCrearBDTO respostaExpedientsRevisarBDTO = new RespostaExpedientsCrearBDTO(returnExpedientsRDTO,
 		        respostaResultatBDTO);
 		respostaRevisarSolicitudsRDTO = modelMapper.map(respostaExpedientsRevisarBDTO, RespostaRevisarExpedientRDTO.class);
-
+		
 		if (log.isDebugEnabled()) {
 			log.debug("revisarSolicitudExpedient(SolicitudsCrearRDTO) - fi"); //$NON-NLS-1$
 		}

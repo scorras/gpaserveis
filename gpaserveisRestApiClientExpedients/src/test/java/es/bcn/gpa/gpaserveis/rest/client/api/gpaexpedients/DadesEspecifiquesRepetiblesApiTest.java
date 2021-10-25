@@ -58,8 +58,8 @@ public class DadesEspecifiquesRepetiblesApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DadesEspecifiquesRepetiblesRDTO>());
 
-		BigDecimal idExpedient = ONE;
-		BigDecimal visibilitat = ONE;
+		Integer idExpedient = 1;
+		Integer visibilitat = 1;
 		List<DadesEspecifiquesRepetiblesRDTO> response = api.consultarDadesEspecifiquesRepetiblesExpedient(idExpedient, visibilitat);
 
 		assertTrue(response != null);
@@ -79,8 +79,8 @@ public class DadesEspecifiquesRepetiblesApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DadesEspecifiquesRepetiblesRDTO>());
 
-		BigDecimal idSollicitud = ONE;
-		BigDecimal visibilitat = ONE;
+		Integer idSollicitud = 1;
+		Integer visibilitat = 1;
 		List<DadesEspecifiquesRepetiblesRDTO> response = api.consultarDadesEspecifiquesRepetiblesSollicitud(idSollicitud, visibilitat);
 
 		assertTrue(response != null);

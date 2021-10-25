@@ -2,7 +2,6 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
-import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-09-15T13:04:30.964+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-10-25T09:27:34.061+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ComentarisApi")
 public class ComentarisApi {
     private ApiClient apiClient;
@@ -60,7 +59,7 @@ public class ComentarisApi {
      * @return Integer
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public Integer crearComentariAccio(BigDecimal idAccio, BigDecimal idExpedient, ComentariCreacioAccio comentariCreacioAccioRDTO) throws RestClientException {
+    public Integer crearComentariAccio(Integer idAccio, Integer idExpedient, ComentariCreacioAccio comentariCreacioAccioRDTO) throws RestClientException {
         Object postBody = comentariCreacioAccioRDTO;
         
         // verify the required parameter 'idAccio' is set
@@ -109,7 +108,7 @@ public class ComentarisApi {
      * @param idExpedient idExpedient
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void deleteComentari(BigDecimal idComentari, BigDecimal idExpedient) throws RestClientException {
+    public void deleteComentari(Integer idComentari, Integer idExpedient) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idComentari' is set

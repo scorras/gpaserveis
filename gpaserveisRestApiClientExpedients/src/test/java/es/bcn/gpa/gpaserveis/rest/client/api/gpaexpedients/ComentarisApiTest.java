@@ -58,8 +58,8 @@ public class ComentarisApiTest extends ParentTest {
 				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		BigDecimal idAccio = ONE;
-		BigDecimal idExpedient = ONE;
+		Integer idAccio = 1;
+		Integer idExpedient = 1;
 		ComentariCreacioAccio comentariCreacioAccioRDTO = new ComentariCreacioAccio();
 		api.crearComentariAccio(idAccio, idExpedient, comentariCreacioAccioRDTO);
 
@@ -80,8 +80,8 @@ public class ComentarisApiTest extends ParentTest {
 				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		BigDecimal idComentari = ONE;
-		BigDecimal idExpedient = ONE;
+		Integer idComentari = 1;
+		Integer idExpedient = 1;
 		api.deleteComentari(idComentari, idExpedient);
 
 		assertTrue(true);

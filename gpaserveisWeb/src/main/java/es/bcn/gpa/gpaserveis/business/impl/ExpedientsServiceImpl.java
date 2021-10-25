@@ -13,7 +13,6 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import es.bcn.gpa.gpaserveis.business.ExpedientsService;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AnotarOperacioComptableBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAcumularBDTO;
@@ -262,7 +261,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			ExpedientsRDTO expedientsRDTO = expedients_Api.consultarDadesExpedient(id);
+			ExpedientsRDTO expedientsRDTO = expedients_Api.consultarDadesExpedient(id.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("consultarDadesExpedient(BigDecimal) - fi"); //$NON-NLS-1$
@@ -358,7 +357,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			List<EstatsRDTO> estatsRDTOList = estatsApi.cercaHistoricsEstats(idExpedient);
+			List<EstatsRDTO> estatsRDTOList = estatsApi.cercaHistoricsEstats(idExpedient.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaHistoricsEstatsExpedient(BigDecimal) - fi"); //$NON-NLS-1$
@@ -407,7 +406,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		try {
 			PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = personesInteressades_Api.cercaPersonesInteresadesExpedient(
-					idSolicitud, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+					idSolicitud.intValue(), null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaPersonesInteresadesExpedient(BigDecimal) - fi"); //$NON-NLS-1$
@@ -458,7 +457,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		try {
 			PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = persones_Api.cercaAltresPersonesImplicadesExpedient(
-					idSolicitud, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+					idSolicitud.intValue(), null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaAltresPersonesImplicadesExpedient(BigDecimal) - fi"); //$NON-NLS-1$
@@ -509,7 +508,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		try {
 			PageDataOfPersonesSollicitudRDTO pageDataOfPersonesSollicitudRDTO = persones_Api
-					.cercaAltresPersonesImplicadesExpedientNoEsborrany(idSolicitud, null, null, null, null, null, null, null, null, null,
+					.cercaAltresPersonesImplicadesExpedientNoEsborrany(idSolicitud.intValue(), null, null, null, null, null, null, null, null, null,
 							null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
@@ -613,8 +612,8 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = dadesEspecifiquesApi.consultarDadesEspecifiquesSollicitud(idSollicitud,
-					visibilitat);
+			List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = dadesEspecifiquesApi.consultarDadesEspecifiquesSollicitud(idSollicitud.intValue(),
+					visibilitat.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaDadesEspecifiquesSollicitud(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
@@ -667,8 +666,8 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = dadesEspecifiquesApi.consultarDadesEspecifiquesExpedient(idExpedient,
-					visibilitat);
+			List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOList = dadesEspecifiquesApi.consultarDadesEspecifiquesExpedient(idExpedient.intValue(),
+					visibilitat.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaDadesEspecifiquesExpedient(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
@@ -883,7 +882,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		try {
 			RespostaCrearRegistreExpedient respostaCrearRegistreSolicitudExpedient = expedients_Api
-					.crearRegistreSolicitudExpedient(tipusDocVinculada, expedientsRegistrarBDTO.getCrearRegistre());
+					.crearRegistreSolicitudExpedient(tipusDocVinculada.intValue(), expedientsRegistrarBDTO.getCrearRegistre());
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearRegistre(ExpedientsRegistrarBDTO, BigDecimal) - fi"); //$NON-NLS-1$
@@ -940,7 +939,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		try {
 			RespostaCrearRegistreExpedient respostaCrearRegistreSolicitudExpedient = sollicitudsApi
-					.crearRegistreSolicitud(tipusDocVinculada, expedientsRegistrarSollicitudBDTO.getCrearSollicitud());
+					.crearRegistreSolicitud(tipusDocVinculada.intValue(), expedientsRegistrarSollicitudBDTO.getCrearSollicitud());
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearRegistreSollicitud(ExpedientsRegistrarSollicitudBDTO, BigDecimal) - fi"); //$NON-NLS-1$
@@ -1041,7 +1040,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		try {
 			RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccioExpedient = expedientsApi.canviarEstatExpedient(
-					expedientsCanviarEstatBDTO.getIdExpedient(), expedientsCanviarEstatBDTO.getExpedientCanviEstat());
+					expedientsCanviarEstatBDTO.getIdExpedient().intValue(), expedientsCanviarEstatBDTO.getExpedientCanviEstat());
 
 			if (log.isDebugEnabled()) {
 				log.debug("canviarEstatExpedient(ExpedientsCanviarEstatBDTO) - fi"); //$NON-NLS-1$
@@ -1092,8 +1091,8 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			Integer result = comentarisApi.crearComentariAccio(comentarisCrearAccioBDTO.getIdAccio(),
-					comentarisCrearAccioBDTO.getIdExpedient(), comentarisCrearAccioBDTO.getComentariCreacioAccio());
+			Integer result = comentarisApi.crearComentariAccio(comentarisCrearAccioBDTO.getIdAccio().intValue(),
+					comentarisCrearAccioBDTO.getIdExpedient().intValue(), comentarisCrearAccioBDTO.getComentariCreacioAccio());
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearComentariAccio(ComentarisCrearAccioBDTO) - fi"); //$NON-NLS-1$
@@ -1132,53 +1131,6 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ExpedientsService#crearAvisAccio(es.bcn.
-	 * gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO)
-	 */
-	@Override
-	@HystrixCommand(fallbackMethod = "fallbackCrearAvisAccio")
-	public void crearAvisAccio(AvisosCrearAccioBDTO avisosCrearAccioBDTO) throws GPAServeisServiceException {
-		if (log.isDebugEnabled()) {
-			log.debug("crearAvisAccio(AvisosCrearAccioBDTO) - inici"); //$NON-NLS-1$
-		}
-
-		try {
-			avisosApi.crearAvisAccio(avisosCrearAccioBDTO.getIdAccio(), avisosCrearAccioBDTO.getIdExpedient(),
-					avisosCrearAccioBDTO.getAvisCreacioAccio());
-
-			if (log.isDebugEnabled()) {
-				log.debug("crearAvisAccio(AvisosCrearAccioBDTO) - fi"); //$NON-NLS-1$
-			}
-		} catch (RestClientException e) {
-			log.error("crearAvisAccio(AvisosCrearAccioBDTO)", e); //$NON-NLS-1$
-
-			throw new GPAServeisServiceException("S'ha produït una incidència", e);
-		}
-
-	}
-
-	/**
-	 * Fallback crear avis accio.
-	 *
-	 * @param avisosCrearAccioBDTO
-	 *            the avisos crear accio BDTO
-	 * @param e
-	 *            the e
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	public void fallbackCrearAvisAccio(AvisosCrearAccioBDTO avisosCrearAccioBDTO, Throwable e) throws GPAServeisServiceException {
-		if (log.isDebugEnabled()) {
-			log.debug("fallbackCrearAvisAccio(AvisosCrearAccioBDTO, Throwable) - inici"); //$NON-NLS-1$
-		}
-
-		ServeisServiceExceptionHandler.handleException(e);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see es.bcn.gpa.gpaserveis.business.ExpedientsService#
 	 * convidarTramitarExpedient(es.bcn.gpa.gpaserveis.business.dto.expedients.
 	 * ExpedientsConvidarTramitarBDTO)
@@ -1192,7 +1144,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		try {
 			expedientsApi.convidarTramitarExpedient(expedientsConvidarTramitarBDTO.getConvidarTramitarRDTO(),
-					expedientsConvidarTramitarBDTO.getIdExpedient());
+					expedientsConvidarTramitarBDTO.getIdExpedient().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("convidarTramitarExpedient(ExpedientsConvidarTramitarBDTO) - fi"); //$NON-NLS-1$
@@ -1238,7 +1190,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 			log.debug("retornarTramitacioExpedient(ExpedientsRetornarTramitacioBDTO) - inici"); //$NON-NLS-1$
 		}
 		try {
-			RetornTramitacio retornTramitacio = expedientsApi.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO.getIdExpedient(),
+			RetornTramitacio retornTramitacio = expedientsApi.retornarTramitacioExpedient(expedientsRetornarTramitacioBDTO.getIdExpedient().intValue(),
 					expedientsRetornarTramitacioBDTO.getRetornarTramitacioRDTO());
 
 			if (log.isDebugEnabled()) {
@@ -1338,7 +1290,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		try {
 			expedientsApi.canviarUnitatGestoraExpedient(expedientsCanviarUnitatGestoraBDTO.getCanviUnitatGestoraRDTO(),
-					expedientsCanviarUnitatGestoraBDTO.getIdExpedient());
+					expedientsCanviarUnitatGestoraBDTO.getIdExpedient().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("canviarUnitatGestoraExpedient(ExpedientsCanviarUnitatGestoraBDTO) - fi"); //$NON-NLS-1$
@@ -1431,7 +1383,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			BigDecimal idExpedient = expedients_Api.consultarExpedientPerDocumentacioIdExt(idDocumentacio);
+			BigDecimal idExpedient = expedients_Api.consultarExpedientPerDocumentacioIdExt(idDocumentacio.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("getIdExpedientByDocumentacioIdExt(BigDecimal) - fi"); //$NON-NLS-1$
@@ -1524,7 +1476,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			PageDataOfExpedientsRDTO pageDataOfExpedientsRDTO = expedientsRelacionatsApi.obtenirExpedientsRelacionats(idExpedient, null,
+			PageDataOfExpedientsRDTO pageDataOfExpedientsRDTO = expedientsRelacionatsApi.obtenirExpedientsRelacionats(idExpedient.intValue(), null,
 					null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
@@ -1576,7 +1528,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			expedientsApi.anotarOperacioComptable(anotarOperacioComptableBDTO.getIdExpedient(),
+			expedientsApi.anotarOperacioComptable(anotarOperacioComptableBDTO.getIdExpedient().intValue(),
 					anotarOperacioComptableBDTO.getAnotarOperacioComptableRDTO());
 
 			if (log.isDebugEnabled()) {
@@ -1623,7 +1575,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			expedientsApi.inscriureEnRegistre(inscriureEnRegistreBDTO.getIdExpedient(),
+			expedientsApi.inscriureEnRegistre(inscriureEnRegistreBDTO.getIdExpedient().intValue(),
 					inscriureEnRegistreBDTO.getInscriureEnRegistreRDTO());
 
 			if (log.isDebugEnabled()) {
@@ -1766,7 +1718,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			comentarisApi.deleteComentari(idComentari, idExpedient);
+			comentarisApi.deleteComentari(idComentari.intValue(), idExpedient.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("esborrarComentari(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
@@ -1814,7 +1766,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			expedientsApi.tornarEnrere(expedientsTornarEnrereBDTO.getIdExpedient(), expedientsTornarEnrereBDTO.getTornarEnrereRDTO());
+			expedientsApi.tornarEnrere(expedientsTornarEnrereBDTO.getIdExpedient().intValue(), expedientsTornarEnrereBDTO.getTornarEnrereRDTO());
 
 			if (log.isDebugEnabled()) {
 				log.debug("tornarEnrereExpedient(ExpedientsTornarEnrereBDTO) - fi"); //$NON-NLS-1$
@@ -1864,7 +1816,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 
 		try {
 			RespostaInteroperabilitat respostaInteroperabilitat = expedientsApi.obtenirPerInteroperabilitat(
-					obtenirPerInteroperabilitatBDTO.getIdExpedient(), obtenirPerInteroperabilitatBDTO.getObtenirPerInteroperabilitat());
+					obtenirPerInteroperabilitatBDTO.getIdExpedient().intValue(), obtenirPerInteroperabilitatBDTO.getObtenirPerInteroperabilitat());
 
 			if (log.isDebugEnabled()) {
 				log.debug("obtenirPerInteroperabilitat(ObtenirPerInteroperabilitatBDTO) - fi"); //$NON-NLS-1$
@@ -1958,7 +1910,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			dadesEspecifiquesApi.guardarDadesEspecifiquesSollicitud(idSollicitud);
+			dadesEspecifiquesApi.guardarDadesEspecifiquesSollicitud(idSollicitud.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarDadesEspecifiquesSollicitud(BigDecimal) - fi"); //$NON-NLS-1$
@@ -2368,7 +2320,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			PersonesSollicitudRDTO personesSollicitudRDTO = personesSollicitud_Api.consultarDadesPersonaSollicitud(idPersona);
+			PersonesSollicitudRDTO personesSollicitudRDTO = personesSollicitud_Api.consultarDadesPersonaSollicitud(idPersona.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("consultarDadesPersonaSollicitud(BigDecimal) - fi"); //$NON-NLS-1$
@@ -2419,7 +2371,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			personesSollicitudApi.esborrarPersonaSollicitud(idPersonesSollicitud);
+			personesSollicitudApi.esborrarPersonaSollicitud(idPersonesSollicitud.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("esborrarPersonaSollicitud(BigDecimal) - fi"); //$NON-NLS-1$
@@ -2512,7 +2464,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			expedientsApi.reprendreTramitacio(expedientsReprendreBDTO.getIdExpedient());
+			expedientsApi.reprendreTramitacio(expedientsReprendreBDTO.getIdExpedient().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("reprendreTramitacio(ExpedientsReprendreBDTO) - fi"); //$NON-NLS-1$
@@ -2556,8 +2508,8 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			List<DadesEspecifiquesRepetiblesRDTO> dadesEspecifiquesRDTOList = dadesEspecifiquesRepetiblesApi.consultarDadesEspecifiquesRepetiblesSollicitud(idSollicitud,
-					visibilitat);
+			List<DadesEspecifiquesRepetiblesRDTO> dadesEspecifiquesRDTOList = dadesEspecifiquesRepetiblesApi.consultarDadesEspecifiquesRepetiblesSollicitud(idSollicitud.intValue(),
+					visibilitat.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaDadesEspecifiquesRepetiblesSollicitud(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
@@ -2611,8 +2563,8 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			List<DadesEspecifiquesRepetiblesRDTO> dadesEspecifiquesRDTOList = dadesEspecifiquesRepetiblesApi.consultarDadesEspecifiquesRepetiblesExpedient(idExpedient,
-					visibilitat);
+			List<DadesEspecifiquesRepetiblesRDTO> dadesEspecifiquesRDTOList = dadesEspecifiquesRepetiblesApi.consultarDadesEspecifiquesRepetiblesExpedient(idExpedient.intValue(),
+					visibilitat.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaDadesEspecifiquesRepetiblesExpedient(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
@@ -2660,7 +2612,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			avisosApi.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO.getIdExpedient(), gestionarAvisosPerAccioBDTO.getGestionarAvisosPerAccio());
+			avisosApi.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO.getIdExpedient().intValue(), gestionarAvisosPerAccioBDTO.getGestionarAvisosPerAccio());
 
 			if (log.isDebugEnabled()) {
 				log.debug("gestionarAvisosPerAccio(GestionarAvisosPerAccioBDTO) - fi"); //$NON-NLS-1$

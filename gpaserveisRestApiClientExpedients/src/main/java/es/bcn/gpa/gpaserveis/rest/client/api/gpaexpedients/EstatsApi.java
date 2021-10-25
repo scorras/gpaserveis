@@ -2,7 +2,6 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
-import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-09-15T10:56:55.879+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-10-25T09:27:34.061+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.EstatsApi")
 public class EstatsApi {
     private ApiClient apiClient;
@@ -57,7 +56,7 @@ public class EstatsApi {
      * @return List&lt;EstatsRDTO&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<EstatsRDTO> cercaHistoricsEstats(BigDecimal idExpedient) throws RestClientException {
+    public List<EstatsRDTO> cercaHistoricsEstats(Integer idExpedient) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idExpedient' is set

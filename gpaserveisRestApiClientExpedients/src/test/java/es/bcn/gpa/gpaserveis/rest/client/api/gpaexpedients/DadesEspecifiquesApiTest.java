@@ -58,8 +58,8 @@ public class DadesEspecifiquesApiTest extends ParentTest {
 				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DadesEspecifiquesRDTO>());
 
-		BigDecimal idSollicitud = ONE;
-		BigDecimal visibilitat = ONE;
+		Integer idSollicitud = 1;
+		Integer visibilitat = 1;
 		List<DadesEspecifiquesRDTO> response = api.consultarDadesEspecifiquesSollicitud(idSollicitud, visibilitat);
 
 		assertTrue(response != null);
@@ -79,8 +79,8 @@ public class DadesEspecifiquesApiTest extends ParentTest {
 				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 				any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DadesEspecifiquesRDTO>());
 
-		BigDecimal idExpedient = ONE;
-		BigDecimal visibilitat = ONE;
+		Integer idExpedient = 1;
+		Integer visibilitat = 1;
 		List<DadesEspecifiquesRDTO> response = api.consultarDadesEspecifiquesExpedient(idExpedient, visibilitat);
 
 		assertTrue(response != null);
@@ -100,7 +100,7 @@ public class DadesEspecifiquesApiTest extends ParentTest {
 				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		BigDecimal idSollicitud = BigDecimal.ONE;
+		Integer idSollicitud = 1;
 		api.guardarDadesEspecifiquesSollicitud(idSollicitud);
 
 		assertTrue(true);
