@@ -2240,7 +2240,7 @@ public class ServeisRestControllerValidationHelper {
 	        List<PersonesSollicitudRDTO> personesInteressades, Persones sollicitantPrincipal, Persones representantPrincipal,
 	        Resultat resultatError) throws GPAApiParamValidationException {
 
-		ServeisRestControllerVisibilitatHelper.validarCapçaleresUsuari(clientEntity, Resultat.ERROR_OBTENIR_EXPEDIENT);
+		ServeisRestControllerVisibilitatHelper.validarCapsUsuari(clientEntity, Resultat.ERROR_OBTENIR_EXPEDIENT);
 
 		String nifInteressat = clientEntity.getUsuariInteressat();
 
@@ -2276,7 +2276,7 @@ public class ServeisRestControllerValidationHelper {
 	        PersonesRDTO sollicitantPrincipal, PersonesRDTO representantPrincipal, BigDecimal idTramitOvt, Resultat resultatError)
 	        throws GPAApiParamValidationException {
 
-		ServeisRestControllerVisibilitatHelper.validarCapçaleresUsuari(clientEntity, resultatError);
+		ServeisRestControllerVisibilitatHelper.validarCapsUsuari(clientEntity, resultatError);
 
 		String nifInteressat = clientEntity.getUsuariInteressat();
 
