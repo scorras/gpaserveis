@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AnotarOperacioComptableBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsActualitzarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ExpedientsAcumularBDTO;
@@ -263,16 +262,6 @@ public interface ExpedientsService {
 	 *             the GPA serveis service exception
 	 */
 	Integer crearComentariAccio(ComentarisCrearAccioBDTO comentarisCrearAccioBDTO) throws GPAServeisServiceException;
-
-	/**
-	 * Crear avis accio.
-	 *
-	 * @param avisosCrearAccioBDTO
-	 *            the avisos crear accio BDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	void crearAvisAccio(AvisosCrearAccioBDTO avisosCrearAccioBDTO) throws GPAServeisServiceException;
 
 	/**
 	 * Convidar tramitar expedient.

@@ -136,7 +136,7 @@ public class Expedients_ApiTest extends ParentTest {
 				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 				any(ParameterizedTypeReference.class))).thenReturn(new ExpedientsRDTO());
 
-		BigDecimal id = ONE;
+		Integer id = 1;
 		ExpedientsRDTO response = api.consultarDadesExpedient(id);
 
 		assertTrue(response != null);
@@ -198,7 +198,7 @@ public class Expedients_ApiTest extends ParentTest {
 				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 				any(ParameterizedTypeReference.class))).thenReturn(ONE);
 
-		BigDecimal idDocumentacio = ONE;
+		Integer idDocumentacio = 1;
 		BigDecimal response = api.consultarExpedientPerDocumentacioIdExt(idDocumentacio);
 
 		assertTrue(response != null);
@@ -258,7 +258,7 @@ public class Expedients_ApiTest extends ParentTest {
 				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 				any(ParameterizedTypeReference.class))).thenReturn(new RespostaCrearRegistreExpedient());
 
-		BigDecimal accio = ONE;
+		Integer accio = 1;
 		CrearRegistre registrarSolicitudExpedientRDTO = new CrearRegistre();
 		RespostaCrearRegistreExpedient response = api.crearRegistreSolicitudExpedient(accio, registrarSolicitudExpedientRDTO);
 

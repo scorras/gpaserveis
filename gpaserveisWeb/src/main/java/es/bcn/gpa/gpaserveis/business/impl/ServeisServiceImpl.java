@@ -46,7 +46,6 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.GuardarRequerimentFitxerBDTO
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsEntradaCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsTramitacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AnotarOperacioComptableBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesSollicitudBDTO;
@@ -1156,26 +1155,6 @@ public class ServeisServiceImpl implements ServeisService {
 	@Override
 	public Integer crearComentariAccio(ComentarisCrearAccioBDTO comentarisCrearAccioBDTO) throws GPAServeisServiceException {
 		return expedientsService.crearComentariAccio(comentarisCrearAccioBDTO);
-	}
-
-	/**
-	 * Crear avis accio.
-	 *
-	 * @param avisosCrearAccioBDTO
-	 *            the avisos crear accio BDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * es.bcn.gpa.gpaserveis.business.ServeisService#crearAvisAccio(es.bcn.gpa.
-	 * gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO)
-	 */
-	@Override
-	public void crearAvisAccio(AvisosCrearAccioBDTO avisosCrearAccioBDTO) throws GPAServeisServiceException {
-		expedientsService.crearAvisAccio(avisosCrearAccioBDTO);
 	}
 
 	/**

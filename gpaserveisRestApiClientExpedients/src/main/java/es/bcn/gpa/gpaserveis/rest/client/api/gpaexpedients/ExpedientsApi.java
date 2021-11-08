@@ -3,7 +3,6 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AnotarOperacioComptableRDTO;
-import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CanviUnitatGestoraRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ConvidarTramitarRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
@@ -38,7 +37,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-09-15T10:56:55.879+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-10-25T09:27:34.061+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.ExpedientsApi")
 public class ExpedientsApi {
     private ApiClient apiClient;
@@ -111,7 +110,7 @@ public class ExpedientsApi {
      * @param anotarOperacioComptableRDTO Dades dades de l&#39;operació comptable
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void anotarOperacioComptable(BigDecimal idExpedient, AnotarOperacioComptableRDTO anotarOperacioComptableRDTO) throws RestClientException {
+    public void anotarOperacioComptable(Integer idExpedient, AnotarOperacioComptableRDTO anotarOperacioComptableRDTO) throws RestClientException {
         Object postBody = anotarOperacioComptableRDTO;
         
         // verify the required parameter 'idExpedient' is set
@@ -155,7 +154,7 @@ public class ExpedientsApi {
      * @return RespostaCanviarEstatAccioExpedient
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public RespostaCanviarEstatAccioExpedient canviarEstatExpedient(BigDecimal idExpedient, ExpedientCanviEstat expedientCanviEstatRDTO) throws RestClientException {
+    public RespostaCanviarEstatAccioExpedient canviarEstatExpedient(Integer idExpedient, ExpedientCanviEstat expedientCanviEstatRDTO) throws RestClientException {
         Object postBody = expedientCanviEstatRDTO;
         
         // verify the required parameter 'idExpedient' is set
@@ -198,7 +197,7 @@ public class ExpedientsApi {
      * @param idExpedient Identificador de l&#39;expedient
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void canviarUnitatGestoraExpedient(CanviUnitatGestoraRDTO canviUnitatGestoraRDTO, BigDecimal idExpedient) throws RestClientException {
+    public void canviarUnitatGestoraExpedient(CanviUnitatGestoraRDTO canviUnitatGestoraRDTO, Integer idExpedient) throws RestClientException {
         Object postBody = canviUnitatGestoraRDTO;
         
         // verify the required parameter 'canviUnitatGestoraRDTO' is set
@@ -246,7 +245,7 @@ public class ExpedientsApi {
      * @param idExpedient Identificador de l&#39;expedient
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void convidarTramitarExpedient(ConvidarTramitarRDTO convidarTramitarRDTO, BigDecimal idExpedient) throws RestClientException {
+    public void convidarTramitarExpedient(ConvidarTramitarRDTO convidarTramitarRDTO, Integer idExpedient) throws RestClientException {
         Object postBody = convidarTramitarRDTO;
         
         // verify the required parameter 'convidarTramitarRDTO' is set
@@ -372,7 +371,7 @@ public class ExpedientsApi {
      * @param inscriureEnRegistreRDTO Dades dades del registre
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void inscriureEnRegistre(BigDecimal idExpedient, InscriureEnRegistreRDTO inscriureEnRegistreRDTO) throws RestClientException {
+    public void inscriureEnRegistre(Integer idExpedient, InscriureEnRegistreRDTO inscriureEnRegistreRDTO) throws RestClientException {
         Object postBody = inscriureEnRegistreRDTO;
         
         // verify the required parameter 'idExpedient' is set
@@ -416,7 +415,7 @@ public class ExpedientsApi {
      * @return RespostaInteroperabilitat
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public RespostaInteroperabilitat obtenirPerInteroperabilitat(BigDecimal idExpedient, ObtenirPerInteroperabilitat obtenirPerInteroperabilitatRDTO) throws RestClientException {
+    public RespostaInteroperabilitat obtenirPerInteroperabilitat(Integer idExpedient, ObtenirPerInteroperabilitat obtenirPerInteroperabilitatRDTO) throws RestClientException {
         Object postBody = obtenirPerInteroperabilitatRDTO;
         
         // verify the required parameter 'idExpedient' is set
@@ -502,7 +501,7 @@ public class ExpedientsApi {
      * @param idExpedient Identificador de l&#39;expedient
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void reprendreTramitacio(BigDecimal idExpedient) throws RestClientException {
+    public void reprendreTramitacio(Integer idExpedient) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idExpedient' is set
@@ -546,7 +545,7 @@ public class ExpedientsApi {
      * @return RetornTramitacio
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public RetornTramitacio retornarTramitacioExpedient(BigDecimal idExpedient, RetornarTramitacioRDTO retornarTramitacioRDTO) throws RestClientException {
+    public RetornTramitacio retornarTramitacioExpedient(Integer idExpedient, RetornarTramitacioRDTO retornarTramitacioRDTO) throws RestClientException {
         Object postBody = retornarTramitacioRDTO;
         
         // verify the required parameter 'idExpedient' is set
@@ -594,7 +593,7 @@ public class ExpedientsApi {
      * @param tornarEnrereRDTO Dades de tornar enrere
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void tornarEnrere(BigDecimal idExpedient, TornarEnrereRDTO tornarEnrereRDTO) throws RestClientException {
+    public void tornarEnrere(Integer idExpedient, TornarEnrereRDTO tornarEnrereRDTO) throws RestClientException {
         Object postBody = tornarEnrereRDTO;
         
         // verify the required parameter 'idExpedient' is set

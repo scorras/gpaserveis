@@ -31,7 +31,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AvisCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.GestionarAvisosPerAccio;
 
 /**
@@ -46,24 +45,6 @@ public class AvisosApiTest extends ParentTest {
 	private AvisosApi api = new AvisosApi();
 
 	/**
-	 * Crea un nou avís per a l&#39;expedient en funció de l&#39;acció
-	 * executada.
-	 */
-	@Test
-	public void crearAvisAccioTest() {
-		when(apiClient.invokeAPI(eq("/avisos/1/accions/1/crear"), eq(HttpMethod.POST), any(MultiValueMap.class), any(Object.class),
-		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
-		        any(ParameterizedTypeReference.class))).thenReturn(null);
-
-		BigDecimal idAccio = ONE;
-		BigDecimal idExpedient = ONE;
-		AvisCreacioAccio avisCreacioAccioRDTO = new AvisCreacioAccio();
-		api.crearAvisAccio(idAccio, idExpedient, avisCreacioAccioRDTO);
-
-		assertTrue(true);
-	}
-
-	/**
 	 * Gestionar avisos per accio test.
 	 */
 	@Test
@@ -72,7 +53,7 @@ public class AvisosApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		BigDecimal idExpedient = ONE;
+		Integer idExpedient = 1;
 		GestionarAvisosPerAccio gestionarAvisosPerAccioRDTO = new GestionarAvisosPerAccio();
 		gestionarAvisosPerAccioRDTO.setIdAccioEstat(ONE);
 		gestionarAvisosPerAccioRDTO.setIdDocTramitacio(ONE);

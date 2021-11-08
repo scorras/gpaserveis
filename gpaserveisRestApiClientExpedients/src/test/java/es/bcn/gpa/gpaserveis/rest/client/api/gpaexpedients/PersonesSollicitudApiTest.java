@@ -101,7 +101,7 @@ public class PersonesSollicitudApiTest extends ParentTest {
 				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 				any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		BigDecimal idPersonesSollicitud = ONE;
+		Integer idPersonesSollicitud = 1;
 		api.esborrarPersonaSollicitud(idPersonesSollicitud);
 
 		assertTrue(true);

@@ -24,7 +24,7 @@ public class AccioCiutadaApiParamValueTranslator extends ApiParamValueTranslator
 	// DESISTIMENT";
 	// De momento se eliminan las opciones de RENUNCIA y DESISTIMENT. Se
 	// volverán a incorporar cuando se implemente este trámite OVT.
-	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "REQUERIMENT_ESMENA, APORTAR_DOCUMENTACIO, ALEGACIONS";
+	public static final String REQUEST_PARAM_ALLOWABLE_VALUES = "REQUERIMENT_ESMENA, APORTAR_DOCUMENTACIO, ALEGACIONS, PRESENTAR_RECURSO";
 
 	/**
 	 * Gets the api param value by internal value and internal value id estat

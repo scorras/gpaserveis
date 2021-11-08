@@ -2,7 +2,6 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
-import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRDTO;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-09-15T10:56:55.879+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-10-25T09:27:34.061+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesApi")
 public class DadesEspecifiquesApi {
     private ApiClient apiClient;
@@ -58,7 +57,7 @@ public class DadesEspecifiquesApi {
      * @return List&lt;DadesEspecifiquesRDTO&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<DadesEspecifiquesRDTO> consultarDadesEspecifiquesExpedient(BigDecimal idExpedient, BigDecimal visibilitat) throws RestClientException {
+    public List<DadesEspecifiquesRDTO> consultarDadesEspecifiquesExpedient(Integer idExpedient, Integer visibilitat) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idExpedient' is set
@@ -105,7 +104,7 @@ public class DadesEspecifiquesApi {
      * @return List&lt;DadesEspecifiquesRDTO&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<DadesEspecifiquesRDTO> consultarDadesEspecifiquesSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat) throws RestClientException {
+    public List<DadesEspecifiquesRDTO> consultarDadesEspecifiquesSollicitud(Integer idSollicitud, Integer visibilitat) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idSollicitud' is set
@@ -151,7 +150,7 @@ public class DadesEspecifiquesApi {
      * @param idSollicitud idSollicitud
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void guardarDadesEspecifiquesSollicitud(BigDecimal idSollicitud) throws RestClientException {
+    public void guardarDadesEspecifiquesSollicitud(Integer idSollicitud) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idSollicitud' is set

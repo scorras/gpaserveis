@@ -58,7 +58,7 @@ public class EstatsApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<EstatsRDTO>());
 
-		BigDecimal idExpedient = ONE;
+		Integer idExpedient = 1;
 		List<EstatsRDTO> response = api.cercaHistoricsEstats(idExpedient);
 
 		assertTrue(response != null);

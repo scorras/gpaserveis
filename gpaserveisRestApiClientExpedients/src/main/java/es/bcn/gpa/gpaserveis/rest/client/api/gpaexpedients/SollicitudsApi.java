@@ -29,7 +29,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-09-15T10:56:55.879+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-10-25T09:27:34.061+02:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.SollicitudsApi")
 public class SollicitudsApi {
     private ApiClient apiClient;
@@ -249,7 +249,7 @@ public class SollicitudsApi {
      * @return List&lt;SollicitudsRDTO&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<SollicitudsRDTO> consultarSollicitudsExpedient(BigDecimal idExpedient) throws RestClientException {
+    public List<SollicitudsRDTO> consultarSollicitudsExpedient(Integer idExpedient) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idExpedient' is set
@@ -291,7 +291,7 @@ public class SollicitudsApi {
      * @return RespostaCrearRegistreExpedient
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public RespostaCrearRegistreExpedient crearRegistreSolicitud(BigDecimal accio, CrearSollicitud registrarSolicitudRDTO) throws RestClientException {
+    public RespostaCrearRegistreExpedient crearRegistreSolicitud(Integer accio, CrearSollicitud registrarSolicitudRDTO) throws RestClientException {
         Object postBody = registrarSolicitudRDTO;
         
         // verify the required parameter 'accio' is set

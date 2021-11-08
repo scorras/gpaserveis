@@ -58,7 +58,6 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaDocumentsTramitacioC
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaEsborrarDocumentEntradaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaSubstituirDocumentExpedientBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaUploadDocumentExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.AvisosCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadaEspecificaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
@@ -104,7 +103,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaPlant
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.SignarSegellDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TipusMime;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ActualitzarDadesSollicitud;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AvisCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.ComentariCreacioAccio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.CrearSollicitud;
@@ -132,7 +130,6 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerVal
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.ServeisRestControllerVisibilitatHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.helper.bean.ValidateDadesOperacioResultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.Constants;
-import es.bcn.gpa.gpaserveis.web.rest.controller.utils.converter.ConverterHelper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.ErrorPrincipal;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.Resultat;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.common.BooleanApiParamValue;
@@ -427,6 +424,55 @@ public class ServeisPortalRestController extends BaseRestController {
 		}
 		return respostaConsultaProcedimentsRDTO;
 	}
+	
+	/**
+	 * Consultar dades procediment.
+	 *
+	 * @param idProcediment
+	 *            the id procediment
+	 * @return the resposta consulta procediments RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@GetMapping("/procediments/{codiProcediment}/darreraVersion")
+	@ApiOperation(nickname = "consultarDadesProcedimentPortalDarreraVersion", value = "Consultar les dades del procediment", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	public RespostaConsultaProcedimentsRDTO consultarDadesProcedimentDarreraVersion(
+	        @ApiParam(value = "Codi del procediment", required = true) @PathVariable String codiProcediment)
+	        throws GPAServeisServiceException {
+		String resultatAudit = "OK";
+		Throwable ex = null;
+
+		RespostaConsultaProcedimentsRDTO respostaConsultaProcedimentsRDTO = new RespostaConsultaProcedimentsRDTO();
+		try {
+			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService.consultarDadesProcediment(codiProcediment);
+		
+			// El id del Procedimiento debe ser válido
+			if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND.getDescripcio());
+				// TODO return 404
+			}
+			ProcedimentsConsultaRDTO procedimentsConsultaRDTO = modelMapper.map(dadesProcedimentBDTO, ProcedimentsConsultaRDTO.class);
+			respostaConsultaProcedimentsRDTO.setProcediment(procedimentsConsultaRDTO);
+
+			} catch (Exception e) {
+				log.error(e.getMessage(), e);
+				resultatAudit = "KO";
+				ex = e;
+				throw e;
+			} finally {
+				AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+	
+				auditServeisBDTO.setMappingAccio("/procediments/" + codiProcediment);
+				auditServeisBDTO.setResultat(resultatAudit);
+				auditServeisBDTO.setTipusPeticio("GET");
+				auditServeisBDTO.setValueAccio("Consultar les dades del procediment");
+	
+				auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, null, respostaConsultaProcedimentsRDTO, ex);
+			}
+		return respostaConsultaProcedimentsRDTO;
+	}
 
 	/**
 	 * Consultar dades operacio procediment.
@@ -635,7 +681,8 @@ public class ServeisPortalRestController extends BaseRestController {
 	        @ApiParam(value = "Filtra expedients per Unitat Gestora") @RequestParam(value = "unitatGestora", required = false) String unitatGestora,
 	        @ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
 	        @ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci,
-	        @ApiParam(value = "Filtra els expedients amb un nivell d'autenticació menor o igual", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String nivellAutenticacio)
+	        @ApiParam(value = "Filtra els expedients amb un nivell d'autenticació menor o igual", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.NivellAutenticacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String nivellAutenticacio,
+	        @ApiParam(value = "Filtra els expedients amb número registre") @RequestParam(value = "numeroRegistre", required = false) String numeroRegistre)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug(
@@ -670,7 +717,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			        ExpedientsApiParamToInternalMapper.getTramitadorInternalValue(tramitador), aplicacioNegoci, numeroPagina,
 			        resultatsPerPagina, ExpedientsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
 			        ExpedientsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio),
-			        ExpedientsApiParamToInternalMapper.getNivellAutenticacioInternalValue(nivellAutenticacio), usuariInteressat);
+			        ExpedientsApiParamToInternalMapper.getNivellAutenticacioInternalValue(nivellAutenticacio), usuariInteressat,
+			        ExpedientsApiParamToInternalMapper.getNumeroRegistre(numeroRegistre));
 
 			RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = serveisService.cercaExpedients(expedientsCercaBDTO);
 
@@ -790,7 +838,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			if (StringUtils.isNotEmpty(dadesExpedientBDTO.getExpedientsRDTO().getMigracioIdOrigen())) {
 				expedientConsultaRDTO.setIdGestorDocumental(dadesExpedientBDTO.getExpedientsRDTO().getMigracioIdOrigen());
 			}
-
+			
 			if (dadesExpedientBDTO.getExpedientsRDTO().getIdiomes() != null
 			        && StringUtils.isNotEmpty(dadesExpedientBDTO.getExpedientsRDTO().getIdiomes().getDescripcio())) {
 				expedientConsultaRDTO.setIdioma(dadesExpedientBDTO.getExpedientsRDTO().getIdiomes().getDescripcio());
@@ -2207,7 +2255,6 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaCrearRegistreExpedient respostaCrearRegistreExpedient = null;
 		DocsTramitacioRDTO respostaCrearJustificant = null;
 		List<BigDecimal> idsDocsEnt = null;
-		Integer idComentario = null;
 		ActualitzarDadesSollicitud actualitzarDadesSollicitud = null;
 		List<DadesEspecifiquesRDTO> dadesEspecifiquesRDTOListBBDD = null;
 		List<ConfiguracioDocsEntradaRDTO> configuacioActualizar = null;
@@ -2370,7 +2417,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			ComentarisCrearAccioBDTO comentarisCrearAccioBDTO = new ComentarisCrearAccioBDTO(comentariCreacioAccio,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId(),
 			        AccioTramitadorApiParamValue.RESPONDRE_REQUERIMENT_O_TRAMIT_ALLEGACIONS_O_IP.getInternalValue());
-			idComentario = serveisService.crearComentariAccio(comentarisCrearAccioBDTO);
+			serveisService.crearComentariAccio(comentarisCrearAccioBDTO);
 
 			// 5. Cambiar el estado del expediente
 			ExpedientCanviEstat expedientCanviEstat = modelMapper.map(dadesExpedientBDTO.getExpedientsRDTO(), ExpedientCanviEstat.class);
@@ -2473,7 +2520,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_DESISTIR_RENUNCIAR_EXPEDIENT);
 
 			// Registrar expediente si la acción es permitida
-			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			BigDecimal accionsEstatsId = ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.DESISTIR_RENUNCIAR, Resultat.ERROR_DESISTIR_RENUNCIAR_EXPEDIENT);
 
 			// 1 - validar que la persona logueada esta dentro de los
@@ -2509,11 +2556,11 @@ public class ServeisPortalRestController extends BaseRestController {
 			serveisService.crearComentariAccio(comentarisCrearAccioBDTO);
 
 			// Crear aviso
-			AvisCreacioAccio avisCreacioAccio = new AvisCreacioAccio();
-			avisCreacioAccio.setOperacio(accio);
-			AvisosCrearAccioBDTO avisosCrearAccioBDTO = new AvisosCrearAccioBDTO(avisCreacioAccio,
-			        dadesExpedientBDTO.getExpedientsRDTO().getId(), AccioTramitadorApiParamValue.DESISTIR_RENUNCIAR.getInternalValue());
-			serveisService.crearAvisAccio(avisosCrearAccioBDTO);
+			GestionarAvisosPerAccio gestionarAvisosPerAccio = new GestionarAvisosPerAccio();
+			gestionarAvisosPerAccio.setIdAccioEstat(accionsEstatsId);
+			GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO = new GestionarAvisosPerAccioBDTO(gestionarAvisosPerAccio,
+			dadesExpedientBDTO.getExpedientsRDTO().getId());
+			serveisService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 
 		} catch (GPAApiParamValidationException e) {
 			log.error("abandonarExpedient(BigDecimal, String, ExpedientAbandonamentRDTO)", e);// $NON-NLS-1$

@@ -65,7 +65,7 @@ public class ExpedientsApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(new RespostaCanviarEstatAccioExpedient());
 
-		BigDecimal idExpedient = ONE;
+		Integer idExpedient = 1;
 		ExpedientCanviEstat expedientCanviEstatRDTO = new ExpedientCanviEstat();
 		RespostaCanviarEstatAccioExpedient response = api.canviarEstatExpedient(idExpedient, expedientCanviEstatRDTO);
 
@@ -87,7 +87,7 @@ public class ExpedientsApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		BigDecimal idExpedient = ONE;
+		Integer idExpedient = 1;
 		AnotarOperacioComptableRDTO anotarOperacioComptableRDTO = new AnotarOperacioComptableRDTO();
 		api.anotarOperacioComptable(idExpedient, anotarOperacioComptableRDTO);
 
@@ -108,7 +108,7 @@ public class ExpedientsApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		BigDecimal idExpedient = ONE;
+		Integer idExpedient = 1;
 		InscriureEnRegistreRDTO inscriureEnRegistreRDTO = new InscriureEnRegistreRDTO();
 		api.inscriureEnRegistre(idExpedient, inscriureEnRegistreRDTO);
 
@@ -129,7 +129,7 @@ public class ExpedientsApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(new RetornTramitacio());
 
-		BigDecimal idExpedient = ONE;
+		Integer idExpedient = 1;
 		RetornarTramitacioRDTO retornarTramitacioRDTO = new RetornarTramitacioRDTO();
 		RetornTramitacio retornTramitacio = api.retornarTramitacioExpedient(idExpedient, retornarTramitacioRDTO);
 
@@ -151,7 +151,7 @@ public class ExpedientsApiTest extends ParentTest {
 		        any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		ConvidarTramitarRDTO convidarTramitarRDTO = new ConvidarTramitarRDTO();
-		BigDecimal idExpedient = ONE;
+		Integer idExpedient = 1;
 		api.convidarTramitarExpedient(convidarTramitarRDTO, idExpedient);
 
 		assertTrue(true);
@@ -172,7 +172,7 @@ public class ExpedientsApiTest extends ParentTest {
 		        any(ParameterizedTypeReference.class))).thenReturn(null);
 
 		CanviUnitatGestoraRDTO canviUnitatGestoraRDTO = new CanviUnitatGestoraRDTO();
-		BigDecimal idExpedient = ONE;
+		Integer idExpedient = 1;
 		api.canviarUnitatGestoraExpedient(canviUnitatGestoraRDTO, idExpedient);
 
 		assertTrue(true);
@@ -234,7 +234,7 @@ public class ExpedientsApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		BigDecimal idExpedient = ONE;
+		Integer idExpedient = 1;
 		TornarEnrereRDTO tornarEnrereRDTO = new TornarEnrereRDTO();
 		api.tornarEnrere(idExpedient, tornarEnrereRDTO);
 
@@ -255,7 +255,7 @@ public class ExpedientsApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new RespostaInteroperabilitat());
 
-		BigDecimal idExpedient = ONE;
+		Integer idExpedient = 1;
 		ObtenirPerInteroperabilitat obtenirPerInteroperabilitat = new ObtenirPerInteroperabilitat();
 		RespostaInteroperabilitat response = api.obtenirPerInteroperabilitat(idExpedient, obtenirPerInteroperabilitat);
 
@@ -312,7 +312,7 @@ public class ExpedientsApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		api.reprendreTramitacio(ONE);
+		api.reprendreTramitacio(1);
 
 		assertTrue(true);
 	}

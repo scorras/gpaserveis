@@ -26,10 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DadesEspecifiquesRDTO
+ * DadesEspecifiques
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-10-25T09:27:34.061+02:00")
-public class DadesEspecifiquesRDTO {
+public class DadesEspecifiques {
   @JsonProperty("campIdext")
   private BigDecimal campIdext = null;
 
@@ -54,7 +54,7 @@ public class DadesEspecifiquesRDTO {
   @JsonProperty("tipus")
   private BigDecimal tipus = null;
 
-  public DadesEspecifiquesRDTO campIdext(BigDecimal campIdext) {
+  public DadesEspecifiques campIdext(BigDecimal campIdext) {
     this.campIdext = campIdext;
     return this;
   }
@@ -72,12 +72,12 @@ public class DadesEspecifiquesRDTO {
     this.campIdext = campIdext;
   }
 
-  public DadesEspecifiquesRDTO dadesEspecifiquesSubgrup(List<DadesEspecifiques> dadesEspecifiquesSubgrup) {
+  public DadesEspecifiques dadesEspecifiquesSubgrup(List<DadesEspecifiques> dadesEspecifiquesSubgrup) {
     this.dadesEspecifiquesSubgrup = dadesEspecifiquesSubgrup;
     return this;
   }
 
-  public DadesEspecifiquesRDTO addDadesEspecifiquesSubgrupItem(DadesEspecifiques dadesEspecifiquesSubgrupItem) {
+  public DadesEspecifiques addDadesEspecifiquesSubgrupItem(DadesEspecifiques dadesEspecifiquesSubgrupItem) {
     if (this.dadesEspecifiquesSubgrup == null) {
       this.dadesEspecifiquesSubgrup = new ArrayList<DadesEspecifiques>();
     }
@@ -98,12 +98,12 @@ public class DadesEspecifiquesRDTO {
     this.dadesEspecifiquesSubgrup = dadesEspecifiquesSubgrup;
   }
 
-  public DadesEspecifiquesRDTO dadesEspecifiquesValorsList(List<DadesEspecifiquesValors> dadesEspecifiquesValorsList) {
+  public DadesEspecifiques dadesEspecifiquesValorsList(List<DadesEspecifiquesValors> dadesEspecifiquesValorsList) {
     this.dadesEspecifiquesValorsList = dadesEspecifiquesValorsList;
     return this;
   }
 
-  public DadesEspecifiquesRDTO addDadesEspecifiquesValorsListItem(DadesEspecifiquesValors dadesEspecifiquesValorsListItem) {
+  public DadesEspecifiques addDadesEspecifiquesValorsListItem(DadesEspecifiquesValors dadesEspecifiquesValorsListItem) {
     if (this.dadesEspecifiquesValorsList == null) {
       this.dadesEspecifiquesValorsList = new ArrayList<DadesEspecifiquesValors>();
     }
@@ -124,7 +124,7 @@ public class DadesEspecifiquesRDTO {
     this.dadesEspecifiquesValorsList = dadesEspecifiquesValorsList;
   }
 
-  public DadesEspecifiquesRDTO expedient(BigDecimal expedient) {
+  public DadesEspecifiques expedient(BigDecimal expedient) {
     this.expedient = expedient;
     return this;
   }
@@ -142,7 +142,7 @@ public class DadesEspecifiquesRDTO {
     this.expedient = expedient;
   }
 
-  public DadesEspecifiquesRDTO grupRepeticio(BigDecimal grupRepeticio) {
+  public DadesEspecifiques grupRepeticio(BigDecimal grupRepeticio) {
     this.grupRepeticio = grupRepeticio;
     return this;
   }
@@ -160,7 +160,7 @@ public class DadesEspecifiquesRDTO {
     this.grupRepeticio = grupRepeticio;
   }
 
-  public DadesEspecifiquesRDTO id(BigDecimal id) {
+  public DadesEspecifiques id(BigDecimal id) {
     this.id = id;
     return this;
   }
@@ -178,7 +178,7 @@ public class DadesEspecifiquesRDTO {
     this.id = id;
   }
 
-  public DadesEspecifiquesRDTO nou(Integer nou) {
+  public DadesEspecifiques nou(Integer nou) {
     this.nou = nou;
     return this;
   }
@@ -196,7 +196,7 @@ public class DadesEspecifiquesRDTO {
     this.nou = nou;
   }
 
-  public DadesEspecifiquesRDTO tipus(BigDecimal tipus) {
+  public DadesEspecifiques tipus(BigDecimal tipus) {
     this.tipus = tipus;
     return this;
   }
@@ -223,15 +223,15 @@ public class DadesEspecifiquesRDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DadesEspecifiquesRDTO dadesEspecifiquesRDTO = (DadesEspecifiquesRDTO) o;
-    return Objects.equals(this.campIdext, dadesEspecifiquesRDTO.campIdext) &&
-        Objects.equals(this.dadesEspecifiquesSubgrup, dadesEspecifiquesRDTO.dadesEspecifiquesSubgrup) &&
-        Objects.equals(this.dadesEspecifiquesValorsList, dadesEspecifiquesRDTO.dadesEspecifiquesValorsList) &&
-        Objects.equals(this.expedient, dadesEspecifiquesRDTO.expedient) &&
-        Objects.equals(this.grupRepeticio, dadesEspecifiquesRDTO.grupRepeticio) &&
-        Objects.equals(this.id, dadesEspecifiquesRDTO.id) &&
-        Objects.equals(this.nou, dadesEspecifiquesRDTO.nou) &&
-        Objects.equals(this.tipus, dadesEspecifiquesRDTO.tipus);
+    DadesEspecifiques dadesEspecifiques = (DadesEspecifiques) o;
+    return Objects.equals(this.campIdext, dadesEspecifiques.campIdext) &&
+        Objects.equals(this.dadesEspecifiquesSubgrup, dadesEspecifiques.dadesEspecifiquesSubgrup) &&
+        Objects.equals(this.dadesEspecifiquesValorsList, dadesEspecifiques.dadesEspecifiquesValorsList) &&
+        Objects.equals(this.expedient, dadesEspecifiques.expedient) &&
+        Objects.equals(this.grupRepeticio, dadesEspecifiques.grupRepeticio) &&
+        Objects.equals(this.id, dadesEspecifiques.id) &&
+        Objects.equals(this.nou, dadesEspecifiques.nou) &&
+        Objects.equals(this.tipus, dadesEspecifiques.tipus);
   }
 
   @Override
@@ -243,7 +243,7 @@ public class DadesEspecifiquesRDTO {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DadesEspecifiquesRDTO {\n");
+    sb.append("class DadesEspecifiques {\n");
     
     sb.append("    campIdext: ").append(toIndentedString(campIdext)).append("\n");
     sb.append("    dadesEspecifiquesSubgrup: ").append(toIndentedString(dadesEspecifiquesSubgrup)).append("\n");

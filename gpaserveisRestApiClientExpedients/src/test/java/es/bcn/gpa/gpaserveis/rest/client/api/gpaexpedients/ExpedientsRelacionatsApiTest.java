@@ -62,7 +62,7 @@ public class ExpedientsRelacionatsApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfExpedientsRDTO());
 
-		BigDecimal id = ONE;
+		Integer id = 1;
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
 		Boolean currentPageHasNextPage = null;
