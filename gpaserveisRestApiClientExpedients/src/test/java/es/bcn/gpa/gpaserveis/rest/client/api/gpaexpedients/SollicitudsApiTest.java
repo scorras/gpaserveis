@@ -92,7 +92,7 @@ public class SollicitudsApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<SollicitudsRDTO>());
 
-		BigDecimal idExpedient = ONE;
+		Integer idExpedient = 1;
 		List<SollicitudsRDTO> response = api.consultarSollicitudsExpedient(idExpedient);
 		assertTrue(response != null);
 	}
@@ -176,7 +176,7 @@ public class SollicitudsApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new RespostaCrearRegistreExpedient());
 
-		BigDecimal accio = ONE;
+		Integer accio = 1;
 		CrearSollicitud registrarSolicitudRDTO = new CrearSollicitud();
 		RespostaCrearRegistreExpedient response = api.crearRegistreSolicitud(accio, registrarSolicitudRDTO);
 

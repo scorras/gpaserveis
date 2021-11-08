@@ -33,7 +33,7 @@ public class ServeisRestControllerVisibilitatHelper {
 
 		BigDecimal visibilitat = BigDecimal.ONE;
 
-		validarCapçaleresUsuari(clientEntity, Resultat.ERROR_OBTENIR_EXPEDIENT);
+		validarCapsUsuari(clientEntity, Resultat.ERROR_OBTENIR_EXPEDIENT);
 
 		String nifInteressat = clientEntity.getUsuariInteressat();
 
@@ -104,7 +104,7 @@ public class ServeisRestControllerVisibilitatHelper {
 
 		BigDecimal visibilitat = BigDecimal.ONE;
 
-		validarCapçaleresUsuari(clientEntity, Resultat.ERROR_OBTENIR_EXPEDIENT);
+		validarCapsUsuari(clientEntity, Resultat.ERROR_OBTENIR_EXPEDIENT);
 
 		String nifInteressat = clientEntity.getUsuariInteressat();
 
@@ -167,7 +167,7 @@ public class ServeisRestControllerVisibilitatHelper {
 	        DocsTramitacioRDTO docsTramitacioRDTO, DadesExpedientBDTO dadesExpedientBDTO, BigDecimal idTramitOvt, Resultat resultatError)
 	        throws GPAApiParamValidationException, GPAServeisServiceException {
 
-		validarCapçaleresUsuari(clientEntity, resultatError);
+		validarCapsUsuari(clientEntity, resultatError);
 
 		String nifInteressat = clientEntity.getUsuariInteressat();
 
@@ -204,7 +204,7 @@ public class ServeisRestControllerVisibilitatHelper {
 	        DocsTramitacioRDTO docsTramitacioRDTO, DadesSollicitudBDTO dadesSollicitudBDTO, BigDecimal idTramitOvt, Resultat resultatError)
 	        throws GPAApiParamValidationException, GPAServeisServiceException {
 
-		validarCapçaleresUsuari(clientEntity, resultatError);
+		validarCapsUsuari(clientEntity, resultatError);
 
 		String nifInteressat = clientEntity.getUsuariInteressat();
 
@@ -229,7 +229,7 @@ public class ServeisRestControllerVisibilitatHelper {
 		}
 	}
 
-	public static void validarCapçaleresUsuari(ClientEntity clientEntity, Resultat resultatError) throws GPAApiParamValidationException {
+	public static void validarCapsUsuari(ClientEntity clientEntity, Resultat resultatError) throws GPAApiParamValidationException {
 
 		String usuariInteressat = clientEntity.getUsuariInteressat();
 		String usuariAutenticat = clientEntity.getUsuariAutenticat();

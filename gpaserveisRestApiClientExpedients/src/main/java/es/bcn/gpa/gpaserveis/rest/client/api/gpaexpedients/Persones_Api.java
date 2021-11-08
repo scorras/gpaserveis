@@ -2,7 +2,6 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
-import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
 
 import java.util.ArrayList;
@@ -71,7 +70,7 @@ public class Persones_Api {
      * @return PageDataOfPersonesSollicitudRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public PageDataOfPersonesSollicitudRDTO cercaAltresPersonesImplicadesExpedient(BigDecimal idSolicitud, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
+    public PageDataOfPersonesSollicitudRDTO cercaAltresPersonesImplicadesExpedient(Integer idSolicitud, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idSolicitud' is set
@@ -140,7 +139,7 @@ public class Persones_Api {
      * @return PageDataOfPersonesSollicitudRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public PageDataOfPersonesSollicitudRDTO cercaAltresPersonesImplicadesExpedientNoEsborrany(BigDecimal idSolicitud, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
+    public PageDataOfPersonesSollicitudRDTO cercaAltresPersonesImplicadesExpedientNoEsborrany(Integer idSolicitud, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idSolicitud' is set

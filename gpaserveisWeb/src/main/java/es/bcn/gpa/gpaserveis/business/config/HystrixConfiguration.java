@@ -73,7 +73,6 @@ public class HystrixConfiguration {
 	@PostConstruct
 	public void init() {
 		HystrixPlugins.reset();
-
 		// Mantenemos los otros plugins que existan
 		HystrixEventNotifier eventNotifier = HystrixPlugins.getInstance().getEventNotifier();
 		HystrixMetricsPublisher metricsPublisher = HystrixPlugins.getInstance().getMetricsPublisher();
@@ -90,7 +89,6 @@ public class HystrixConfiguration {
 		HystrixPlugins.getInstance().registerMetricsPublisher(metricsPublisher);
 		HystrixPlugins.getInstance().registerPropertiesStrategy(propertiesStrategy);
 		HystrixPlugins.getInstance().registerCommandExecutionHook(commandExecutionHook);
-
 	}
 
 }

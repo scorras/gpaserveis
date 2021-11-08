@@ -249,7 +249,7 @@ public class SollicitudsApi {
      * @return List&lt;SollicitudsRDTO&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<SollicitudsRDTO> consultarSollicitudsExpedient(BigDecimal idExpedient) throws RestClientException {
+    public List<SollicitudsRDTO> consultarSollicitudsExpedient(Integer idExpedient) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idExpedient' is set
@@ -291,7 +291,7 @@ public class SollicitudsApi {
      * @return RespostaCrearRegistreExpedient
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public RespostaCrearRegistreExpedient crearRegistreSolicitud(BigDecimal accio, CrearSollicitud registrarSolicitudRDTO) throws RestClientException {
+    public RespostaCrearRegistreExpedient crearRegistreSolicitud(Integer accio, CrearSollicitud registrarSolicitudRDTO) throws RestClientException {
         Object postBody = registrarSolicitudRDTO;
         
         // verify the required parameter 'accio' is set

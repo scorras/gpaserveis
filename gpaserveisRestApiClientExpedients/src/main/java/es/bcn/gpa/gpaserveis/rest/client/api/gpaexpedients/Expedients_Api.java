@@ -213,7 +213,7 @@ public class Expedients_Api {
      * @return ExpedientsRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public ExpedientsRDTO consultarDadesExpedient(BigDecimal id) throws RestClientException {
+    public ExpedientsRDTO consultarDadesExpedient(Integer id) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'id' is set
@@ -332,7 +332,7 @@ public class Expedients_Api {
      * @return BigDecimal
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public BigDecimal consultarExpedientPerDocumentacioIdExt(BigDecimal idDocumentacio) throws RestClientException {
+    public BigDecimal consultarExpedientPerDocumentacioIdExt(Integer idDocumentacio) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idDocumentacio' is set
@@ -541,7 +541,7 @@ public class Expedients_Api {
      * @return RespostaCrearRegistreExpedient
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public RespostaCrearRegistreExpedient crearRegistreSolicitudExpedient(BigDecimal accio, CrearRegistre registrarSolicitudExpedientRDTO) throws RestClientException {
+    public RespostaCrearRegistreExpedient crearRegistreSolicitudExpedient(Integer accio, CrearRegistre registrarSolicitudExpedientRDTO) throws RestClientException {
         Object postBody = registrarSolicitudExpedientRDTO;
         
         // verify the required parameter 'accio' is set

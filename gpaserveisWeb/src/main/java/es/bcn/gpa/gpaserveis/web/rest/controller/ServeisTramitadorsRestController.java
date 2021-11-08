@@ -69,7 +69,6 @@ import es.bcn.gpa.gpaserveis.business.dto.documents.RespostaValidarDocumentExped
 import es.bcn.gpa.gpaserveis.business.dto.expedients.AnotarOperacioComptableBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.ComentarisCrearAccioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesExpedientBDTO;
-import es.bcn.gpa.gpaserveis.business.dto.expedients.DadesSollicitudBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentAportatValidarBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentCrearNotificacioBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.expedients.DocumentGeneratRegistrarComunicatBDTO;
@@ -168,7 +167,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Persones;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RedireccioAssentament;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RegistreAssentamentRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaCanviarEstatAccioExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RespostaInteroperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornTramitacio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarTramitacioRDTO;
@@ -261,7 +259,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.arxivar.RespostaArxivarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.cercar.ExpedientsCercaTramitadorsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.cercar.RespostaCercaExpedientsTramitadorsRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.certificar.CertificarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.certificar.RespostaCertificarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.comunicar.ExpedientComunicatRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.expedients.comunicar.RespostaRegistrarComunicacioExpedientRDTO;
@@ -394,7 +391,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	        @ApiParam(value = "Filtra expedients per conjunt d'estats. Possibles valors: EN_PREPARACIO, SOL_LICITUD_EN_REVISIO, PENDENT_ESMENES, EN_TRAMITACIO, PENDENT_AL_LEGACIONS, PENDENT_D_INFORMES, PROPOSTA_DE_FINALITZACIO, FINALITZAT_I_COMUNICAT, TANCAT", allowableValues = EstatTramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatTramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
 	        @ApiParam(value = "Filtra expedients per Unitat Gestora") @RequestParam(value = "unitatGestora", required = false) String unitatGestora,
 	        @ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
-	        @ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci)
+	        @ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci,
+	        @ApiParam(value = "Filtra expedients per numero registre") @RequestParam(value = "numeroRegistre", required = false) String numeroRegistre)
 	        throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug(
@@ -422,7 +420,8 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		        ExpedientsApiParamToInternalMapper.getIdUnitatGestoraInternalValueList(unitatsGestoresRDTOList),
 		        ExpedientsApiParamToInternalMapper.getTramitadorInternalValue(tramitador), aplicacioNegoci, numeroPagina,
 		        resultatsPerPagina, ExpedientsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
-		        ExpedientsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio), null, null);
+		        ExpedientsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio), null, null,
+		        ExpedientsApiParamToInternalMapper.getNumeroRegistre(numeroRegistre));
 
 		RespostaExpedientsCercaBDTO respostaExpedientsCercaBDTO = new RespostaExpedientsCercaBDTO();
 		try {
@@ -622,7 +621,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId());
 
-			RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccio = serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
+			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 
 			// Crear comentario
 			ComentariCreacioAccio comentariCreacioAccio = new ComentariCreacioAccio();
@@ -833,7 +832,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_REACTIVAR_EXPEDIENT);
 
 			// Reactivar expediente si la acción es permitida
-			BigDecimal accionsEstatsId = ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.REACTIVAR_EXPEDIENT, Resultat.ERROR_REACTIVAR_EXPEDIENT);
 
 			// Cambio de estado del expediente y actualización de fechas de
@@ -854,7 +853,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId());
-			RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccio = serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
+			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 
 			RespostaExpedientsValidarBDTO respostaExpedientsValidarBDTO = new RespostaExpedientsValidarBDTO(
 			        dadesExpedientBDTO.getExpedientsRDTO(), respostaResultatBDTO);
@@ -957,7 +956,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId());
-			RespostaCanviarEstatAccioExpedient respostaCanviarEstatAccio = serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
+			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
 
 			// Crear comentario
 			ComentariCreacioAccio comentariCreacioAccio = new ComentariCreacioAccio();
@@ -2197,16 +2196,14 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		try {
 			// IMPORTANTE: Para permitir la descarga del Comprovant de registro
 			// se da soporte también para documentos de tramitación en este caso
-			DocsEntradaRDTO docsEntradaRDTO = null;
-			DocsTramitacioRDTO docsTramitacioRDTO = null;
 
 			// El codi del expediente debe existir
 			DadesExpedientBDTO dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_DESCARREGAR_DOCUMENT);
 
-			docsEntradaRDTO = serveisService.consultarDadesDocumentAportat(idDocument);
-			docsTramitacioRDTO = serveisService.consultarDadesDocumentGenerat(idDocument);
+			serveisService.consultarDadesDocumentAportat(idDocument);
+			serveisService.consultarDadesDocumentGenerat(idDocument);
 
 			// El id del documento debe existir y pertenecer al expediente
 			// indicado
@@ -4213,7 +4210,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		RespostaExpedientsCrearBDTO respostaExpedientsRevisarBDTO = new RespostaExpedientsCrearBDTO(returnExpedientsRDTO,
 		        respostaResultatBDTO);
 		respostaRevisarSolicitudsRDTO = modelMapper.map(respostaExpedientsRevisarBDTO, RespostaRevisarExpedientRDTO.class);
-
+		
 		if (log.isDebugEnabled()) {
 			log.debug("revisarSolicitudExpedient(SolicitudsCrearRDTO) - fi"); //$NON-NLS-1$
 		}
@@ -4867,7 +4864,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_DESISTIR_RENUNCIAR_EXPEDIENT);
 
 			// Abandonar expediente si la acción es permitida
-			BigDecimal accionsEstatsId = ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+			ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 			        AccioTramitadorApiParamValue.DESISTIR_RENUNCIAR, Resultat.ERROR_DESISTIR_RENUNCIAR_EXPEDIENT);
 
 			// Cambio de estado del expediente
@@ -5035,7 +5032,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		// TODO Integración pendiente
-		CertificarExpedientRDTO certificarExpedientRDTO = new CertificarExpedientRDTO();
 
 		if (log.isDebugEnabled()) {
 			log.debug("obtenirCertificat(String) - fi"); //$NON-NLS-1$
@@ -5503,7 +5499,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 		RespostaEsborrarTerceraPersonaRDTO respostaEsborrarTerceraPersonaRDTO = null;
 		DadesExpedientBDTO dadesExpedientBDTO = null;
-		DadesSollicitudBDTO dadesSollicitudBDTO = null;
 		PersonesSollicitudRDTO personesSollicitudRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_ESBORRAR_TERCERA_PERSONA);
 

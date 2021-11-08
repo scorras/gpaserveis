@@ -265,4 +265,8 @@ public class ExpedientsApiParamToInternalMapper {
 	public static Integer getNivellAutenticacioInternalValue(String nivellAutenticacio) {
 		return nivellAutenticacioApiParamValueTranslator.getInternalValueByApiParamValue(nivellAutenticacio);
 	}
+
+	public static String getNumeroRegistre(String numeroRegistre) {
+		return numeroRegistre;
+	}
 }

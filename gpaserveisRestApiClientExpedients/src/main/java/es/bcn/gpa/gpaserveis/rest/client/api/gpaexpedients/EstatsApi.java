@@ -2,7 +2,6 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
-import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EstatsRDTO;
 
 import java.util.ArrayList;
@@ -57,7 +56,7 @@ public class EstatsApi {
      * @return List&lt;EstatsRDTO&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<EstatsRDTO> cercaHistoricsEstats(BigDecimal idExpedient) throws RestClientException {
+    public List<EstatsRDTO> cercaHistoricsEstats(Integer idExpedient) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idExpedient' is set

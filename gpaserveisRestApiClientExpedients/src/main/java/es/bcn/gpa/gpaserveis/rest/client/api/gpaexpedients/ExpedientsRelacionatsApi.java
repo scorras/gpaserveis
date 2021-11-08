@@ -2,7 +2,6 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
-import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfExpedientsRDTO;
 
 import java.util.ArrayList;
@@ -71,7 +70,7 @@ public class ExpedientsRelacionatsApi {
      * @return PageDataOfExpedientsRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public PageDataOfExpedientsRDTO obtenirExpedientsRelacionats(BigDecimal id, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
+    public PageDataOfExpedientsRDTO obtenirExpedientsRelacionats(Integer id, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'id' is set

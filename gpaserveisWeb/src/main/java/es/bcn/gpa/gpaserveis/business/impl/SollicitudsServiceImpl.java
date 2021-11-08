@@ -55,7 +55,7 @@ public class SollicitudsServiceImpl implements SollicitudsService {
 					usuarioAutenticatPortal = (String) serveltrequest.getHeader("usuari-autenticat");
 				}
 			}
-			List<SollicitudsRDTO> sollicitudsRDTOList = sollicitudsApi.consultarSollicitudsExpedient(idExpedient);
+			List<SollicitudsRDTO> sollicitudsRDTOList = sollicitudsApi.consultarSollicitudsExpedient(idExpedient.intValue());
 			for(SollicitudsRDTO sollicitud : sollicitudsRDTOList){
 				SollicitudsRDTO aux = sollicitudsApi.consultarDadesSollicituds(sollicitud.getId());
 				List<PersonesSollicitudRDTO> persones = aux.getPersonesImplicades();

@@ -30,6 +30,10 @@ public class InternalToIdentificacioConverter extends AbstractConverter<Identifi
 	@Autowired
 	@Qualifier("procedimentPeriodicitatApiParamValueTranslator")
 	private BaseApiParamValueTranslator periodicitatApiParamValueTranslator;
+	
+	@Autowired
+	@Qualifier("procedimentRequereixNotificacioApiParamValueTranslator")
+	private BaseApiParamValueTranslator requereixNotificacioApiParamValueTranslator;
 
 	/*
 	 * (non-Javadoc)
@@ -57,6 +61,7 @@ public class InternalToIdentificacioConverter extends AbstractConverter<Identifi
 				.setDataIniciVigencia((source.getVigenciaInici() != null) ? dateTimeFormatter.print(source.getVigenciaInici()) : null);
 		terminisDuracioRDTO.setDataFiVigencia((source.getVigenciaFi() != null) ? dateTimeFormatter.print(source.getVigenciaFi()) : null);
 		dadesIdentificacioRDTO.setTerminisDuracio(terminisDuracioRDTO);
+		dadesIdentificacioRDTO.setRequereixNotificacio(requereixNotificacioApiParamValueTranslator.getApiParamValueByInternalValue(source.getRequereixNotificacio()));
 
 		return dadesIdentificacioRDTO;
 	}

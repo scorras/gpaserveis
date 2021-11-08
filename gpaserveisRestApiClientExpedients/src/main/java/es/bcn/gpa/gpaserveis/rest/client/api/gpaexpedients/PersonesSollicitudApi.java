@@ -2,7 +2,6 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
-import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PageDataOfPersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 
@@ -126,7 +125,7 @@ public class PersonesSollicitudApi {
      * @param idPersonesSollicitud idPersonesSollicitud
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void esborrarPersonaSollicitud(BigDecimal idPersonesSollicitud) throws RestClientException {
+    public void esborrarPersonaSollicitud(Integer idPersonesSollicitud) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idPersonesSollicitud' is set

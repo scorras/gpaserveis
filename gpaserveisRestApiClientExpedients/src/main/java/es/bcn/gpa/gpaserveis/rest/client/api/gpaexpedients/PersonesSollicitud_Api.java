@@ -2,7 +2,6 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
-import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 
 import java.util.ArrayList;
@@ -97,7 +96,7 @@ public class PersonesSollicitud_Api {
      * @return PersonesSollicitudRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public PersonesSollicitudRDTO consultarDadesPersonaSollicitud(BigDecimal idPersonesSollicitud) throws RestClientException {
+    public PersonesSollicitudRDTO consultarDadesPersonaSollicitud(Integer idPersonesSollicitud) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idPersonesSollicitud' is set

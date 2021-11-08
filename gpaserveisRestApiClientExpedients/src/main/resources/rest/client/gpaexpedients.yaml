@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "2.5.3"
+  version: "2.10.3"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -59,47 +59,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /avisos/{idExpedient}/accions/{idAccio}/crear:
-    post:
-      tags:
-      - "Avisos"
-      summary: "Crea un nou avís per a l'expedient en funció de l'acció executada"
-      operationId: "crearAvisAccio"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "avisCreacioAccioRDTO"
-        description: "Dades del avís"
-        required: false
-        schema:
-          $ref: "#/definitions/AvisCreacioAccio"
-      - name: "idAccio"
-        in: "path"
-        description: "Identificador de l'acció"
-        required: true
-        type: "number"
-      - name: "idExpedient"
-        in: "path"
-        description: "Identificador de l'expedient"
-        required: true
-        type: "number"
-      responses:
-        200:
-          description: "OK"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /avisos/{idExpedient}/gestionarAvisosPerAccio:
     post:
       tags:
@@ -121,7 +80,7 @@ paths:
         in: "path"
         description: "Identificador de l'expedient"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -221,7 +180,7 @@ paths:
         in: "path"
         description: "Identificador de l'expedient"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -257,7 +216,7 @@ paths:
         in: "path"
         description: "Identificador de l'expedient"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -282,7 +241,6 @@ paths:
       - "application/json"
       produces:
       - "*/*"
-      parameters:
       parameters:
       - name: "idComentari"
         in: "path"
@@ -329,12 +287,12 @@ paths:
         in: "path"
         description: "Identificador de l'acció"
         required: true
-        type: "number"
+        type: "integer"
       - name: "idExpedient"
         in: "path"
         description: "Identificador de l'expedient"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -373,7 +331,7 @@ paths:
         in: "path"
         description: "Identificador de l'expedient"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -403,7 +361,7 @@ paths:
         in: "path"
         description: "idSollicitud"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -431,12 +389,12 @@ paths:
         in: "path"
         description: "idSollicitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "visibilitat"
         in: "path"
         description: "visibilitat"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -466,12 +424,12 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "number"
+        type: "integer"
       - name: "visibilitat"
         in: "path"
         description: "visibilitat"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -501,12 +459,12 @@ paths:
         in: "path"
         description: "idSollicitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "visibilitat"
         in: "path"
         description: "visibilitat"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -536,12 +494,12 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "number"
+        type: "integer"
       - name: "visibilitat"
         in: "path"
         description: "visibilitat"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -604,7 +562,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -634,7 +592,7 @@ paths:
         in: "path"
         description: "idDocumentacio"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -664,7 +622,7 @@ paths:
         in: "path"
         description: "Identificador de l'expedient"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "inscriureEnRegistreRDTO"
         description: "Dades dades del registre"
@@ -733,7 +691,7 @@ paths:
         in: "path"
         description: "id"
         required: true
-        type: "number"
+        type: "integer"
       - name: "nextPageNumber"
         in: "query"
         required: false
@@ -792,7 +750,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "obtenirPerInteroperabilitatRDTO"
         description: "obtenirPerInteroperabilitatRDTO"
@@ -954,7 +912,7 @@ paths:
         in: "path"
         description: "idSolicitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "nextPageNumber"
         in: "query"
         required: false
@@ -1046,7 +1004,7 @@ paths:
         in: "path"
         description: "idSolicitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "nextPageNumber"
         in: "query"
         required: false
@@ -1235,7 +1193,7 @@ paths:
         in: "path"
         description: "idSolicitud"
         required: true
-        type: "number"
+        type: "integer"
       - name: "nextPageNumber"
         in: "query"
         required: false
@@ -1292,7 +1250,7 @@ paths:
         in: "path"
         description: "idPersonesSollicitud"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -1319,7 +1277,7 @@ paths:
         in: "path"
         description: "idPersonesSollicitud"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -1375,7 +1333,7 @@ paths:
         in: "path"
         description: "accio"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "registrarSolicitudExpedientRDTO"
         description: "registrarSolicitudExpedientRDTO"
@@ -1413,7 +1371,7 @@ paths:
         in: "path"
         description: "accio"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "registrarSolicitudRDTO"
         description: "registrarSolicitudRDTO"
@@ -1575,7 +1533,7 @@ paths:
         in: "path"
         description: "Identificador de l'expedient"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "retornarTramitacioRDTO"
         description: "retornarTramitacioRDTO"
@@ -1835,7 +1793,7 @@ paths:
         in: "path"
         description: "Identificador de l'expedient"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -1867,7 +1825,7 @@ paths:
         in: "path"
         description: "Identificador de l'expedient"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -1897,7 +1855,7 @@ paths:
         in: "path"
         description: "Identificador de l'expedient"
         required: true
-        type: "number"
+        type: "integer"
       - in: "body"
         name: "tornarEnrereRDTO"
         description: "Dades de tornar enrere"
@@ -1931,7 +1889,7 @@ paths:
         in: "path"
         description: "id"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -2205,7 +2163,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -2342,7 +2300,7 @@ paths:
         in: "path"
         description: "id"
         required: true
-        type: "number"
+        type: "integer"
       responses:
         200:
           description: "OK"
@@ -2427,13 +2385,6 @@ definitions:
       comentari:
         $ref: "#/definitions/Comentaris"
     title: "AnotarOperacioComptableRDTO"
-  AvisCreacioAccio:
-    type: "object"
-    properties:
-      operacio:
-        type: "string"
-        description: "Operació concreta en l'execució de l'acció"
-    title: "AvisCreacioAccio"
   Bloquejos:
     type: "object"
     properties:
@@ -2549,16 +2500,47 @@ definitions:
         description: "Dades de sollicitud"
         $ref: "#/definitions/SollicitudsRDTO"
     title: "CrearSollicitud"
-  DadesEspecifiquesRDTO:
+  DadesEspecifiques:
     type: "object"
     properties:
       campIdext:
         type: "number"
+      dadesEspecifiquesSubgrup:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesEspecifiques"
       dadesEspecifiquesValorsList:
         type: "array"
         items:
           $ref: "#/definitions/DadesEspecifiquesValors"
       expedient:
+        type: "number"
+      grupRepeticio:
+        type: "number"
+      id:
+        type: "number"
+      nou:
+        type: "integer"
+        format: "int32"
+      tipus:
+        type: "number"
+    title: "DadesEspecifiques"
+  DadesEspecifiquesRDTO:
+    type: "object"
+    properties:
+      campIdext:
+        type: "number"
+      dadesEspecifiquesSubgrup:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesEspecifiques"
+      dadesEspecifiquesValorsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesEspecifiquesValors"
+      expedient:
+        type: "number"
+      grupRepeticio:
         type: "number"
       id:
         type: "number"
@@ -2757,6 +2739,11 @@ definitions:
       codi:
         type: "string"
         description: "Codi identificador de l'expedient"
+      documentacioPendente:
+        type: "array"
+        description: "Documentaciò pendente"
+        items:
+          type: "string"
       estat:
         type: "string"
         description: "Estat actual del expedient"
@@ -2837,6 +2824,8 @@ definitions:
         $ref: "#/definitions/Estats"
       estatActual:
         type: "number"
+      expedientBackOffice:
+        type: "string"
       expedientObjecteDeRecursId:
         type: "number"
       id:
@@ -2901,6 +2890,8 @@ definitions:
         type: "number"
       respostaRequeriment:
         type: "number"
+      rol:
+        type: "string"
       seleccionable:
         type: "boolean"
       sollicitant:
@@ -2938,6 +2929,9 @@ definitions:
       idEstatFinalDocTramitacio:
         type: "number"
         description: "Identificador de l'estat final de el document de tramitació"
+      idTransicio:
+        type: "number"
+        description: "Identificador de la transició"
       idUsuariSignatura:
         type: "number"
         description: "Identificador de l'usuari de signatura"

@@ -65,4 +65,7 @@ public class ExpedientsCercaBDTO {
 	
 	/** The numeroDocumentInteressat. */
 	private String numeroDocumentInteressat;
+	
+	/** The numeroRegistre. */
+	private String numeroRegistre;
 }
