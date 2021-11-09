@@ -177,7 +177,7 @@ public class ExpedientsServiceImplTest extends RestServerParentTest {
 	 * @throws Exception
 	 *             the exception
 	 */
-	@Test
+	@Test(expected = GPAServeisServiceException.class)
 	public void testStage03_esborrarComentariKO() throws GPAServeisServiceException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("testStage03_ComprovarDocumentsSignatsExpedient() - inici"); //$NON-NLS-1$
