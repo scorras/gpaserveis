@@ -21,7 +21,8 @@ public interface ProcedimentsService {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	PageDataOfProcedimentsRDTO cercaProcediments(ProcedimentsCercaBDTO procedimentsCercaBDTO) throws GPAServeisServiceException;
+	PageDataOfProcedimentsRDTO cercaProcediments(ProcedimentsCercaBDTO procedimentsCercaBDTO)
+			throws GPAServeisServiceException;
 
 	/**
 	 * Consultar dades procediment.
@@ -44,4 +45,13 @@ public interface ProcedimentsService {
 	 *             the GPA serveis service exception
 	 */
 	ProcedimentsRDTO consultarDadesProcedimentPerCodi(String codiProcediment) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar relacionats procediment.
+	 *
+	 * @param id the id
+	 * @return the list
+	 * @throws GPAServeisServiceException 
+	 */
+	ProcedimentsRDTO consultarRelacionatsProcediment(BigDecimal id) throws GPAServeisServiceException;
 }

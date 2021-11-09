@@ -23,7 +23,7 @@ public enum AccioCiutadaApiParamValue implements BaseApiParamValue {
 	ALEGACIONS("ALEGACIONS", new BigDecimal(3), new BigDecimal(5), new BigDecimal(4)),
 	
 	/** Presentar recurso */
-	PRESENTAR_RECURSO("PRESENTAR_RECURSO", new BigDecimal(6), new BigDecimal(6), new BigDecimal(6));
+	PRESENTAR_RECURSO("PRESENTAR_RECURSO", new BigDecimal(6), null, new BigDecimal(6));
 
 	// De momento se eliminan las opciones de RENUNCIA y DESISTIMENT. Se
 	// volverán a incorporar cuando se implemente este trámite OVT.

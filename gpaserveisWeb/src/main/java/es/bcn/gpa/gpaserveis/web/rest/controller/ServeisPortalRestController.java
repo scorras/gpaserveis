@@ -118,6 +118,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActua
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacions;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ReqOperatiusTramOvt;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
@@ -852,6 +853,15 @@ public class ServeisPortalRestController extends BaseRestController {
 			        && NumberUtils.INTEGER_ONE.equals(dadesExpedientBDTO.getExpedientsRDTO().getEstat().getTancamentAutomatic())) {
 				expedientConsultaRDTO.setTancamentAutomatic(true);
 			}
+			for(String accion : expedientConsultaRDTO.getAccionsDisponibles()){
+				if(accion.contains("PRESENTAR_RECURSO")){
+					ProcedimentsRDTO procRelacionats = serveisService.consultarProcedimentsRelacionats(expedientConsultaRDTO.getProcediment().getId());
+					if(procRelacionats==null){
+						expedientConsultaRDTO.getAccionsDisponibles().remove("PRESENTAR_RECURSO");
+						break;
+					}
+				}
+			}
 			
 			expedientConsultaRDTO.setRol(consultarElRolDUsuariInteressat(dadesExpedientBDTO));
 			respostaConsultaExpedientsRDTO.setExpedient(expedientConsultaRDTO);
@@ -1110,6 +1120,7 @@ public class ServeisPortalRestController extends BaseRestController {
 		RespostaCrearExpedientRDTO respostaCrearSolicitudsRDTO = null;
 		ExpedientsRDTO returnExpedientsRDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_CREAR_EXPEDIENT);
+		DadesExpedientBDTO dadesExpedientBDTO = null;
 		RespostaExpedientsCrearBDTO respostaExpedientsCrearBDTO = null;
 		try {
 			// El id del procedimiento debe existir y el procedimiento debe
@@ -1117,6 +1128,18 @@ public class ServeisPortalRestController extends BaseRestController {
 			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService
 			        .consultarDadesBasiquesProcediment(solicitudExpedient.getProcediment().getId());
 			ServeisRestControllerValidationHelper.validateProcedimentCrearSolicitudExpedient(dadesProcedimentBDTO);
+			
+			if(StringUtils.isNotEmpty(solicitudExpedient.getCodiExpedientOrigen())){
+				// El codi del expediente debe existir
+				dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(solicitudExpedient.getCodiExpedientOrigen());
+				ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_RECURS_EXPEDIENT);
+				
+				// La acción debe estar disponible: estats posibles [Finalizat y
+				// comunicat, tancat]
+				ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
+				        AccioTramitadorApiParamValue.PRESENTAR_RECURS, Resultat.ERROR_RECURS_EXPEDIENT);
+			}
+			
 
 			// Si se indica alguna persona al menos debe indicarse el
 			// Solicitante
@@ -1156,6 +1179,8 @@ public class ServeisPortalRestController extends BaseRestController {
 			ExpedientsRDTO expedientsRDTO = modelMapper.map(solicitudExpedient, ExpedientsRDTO.class);
 			// Se debe indicar el id de la Unitat Gestora recuperada
 			expedientsRDTO.setUnitatGestoraIdext(idUnitatGestora);
+			
+			
 			ExpedientsCrearBDTO expedientsCrearBDTO = new ExpedientsCrearBDTO(expedientsRDTO);
 
 			returnExpedientsRDTO = serveisService.crearSollicitudExpedient(expedientsCrearBDTO);
@@ -3185,8 +3210,9 @@ public class ServeisPortalRestController extends BaseRestController {
 				idsReqOperatiusTramOvtList.add(reqOperatiusTramOvt.getTramitOvtIdext());
 			}
 		}
-
-		ServeisRestControllerAccionsDisponiblesHelper.filtrarTramitsOvtDisponibles(expedientConsultaRDTO, idsReqOperatiusTramOvtList);
+		if(!expedientConsultaRDTO.getAccionsDisponibles().isEmpty() && !expedientConsultaRDTO.getAccionsDisponibles().get(0).equals("PRESENTAR_RECURSO")){
+			ServeisRestControllerAccionsDisponiblesHelper.filtrarTramitsOvtDisponibles(expedientConsultaRDTO, idsReqOperatiusTramOvtList);
+		}
 	}
 
 }
