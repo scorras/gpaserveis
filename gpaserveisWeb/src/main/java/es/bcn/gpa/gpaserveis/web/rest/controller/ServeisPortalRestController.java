@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -315,7 +316,10 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		// TODO Acceso a la cabecera con la identificación del usuario del
 		// portal del ciudadano
-		// String usuariInteressat = clientEntity.getUsuariInteressat();
+		String usuariInteressat = clientEntity.getUsuariInteressat();
+		if (log.isInfoEnabled()) {
+			log.info("usuari-interessat header: " + usuariInteressat); //$NON-NLS-1$
+		}
 
 		String resultatAudit = "OK";
 		Throwable ex = null;
@@ -1095,6 +1099,13 @@ public class ServeisPortalRestController extends BaseRestController {
 
 		String resultatAudit = "OK";
 		Throwable ex = null;
+		
+		// TODO Acceso a la cabecera con la identificación del usuario del
+		// portal del ciudadano
+		String usuariInteressat = clientEntity.getUsuariInteressat();
+		if (log.isInfoEnabled()) {
+			log.info("usuari-interessat header: " + usuariInteressat); //$NON-NLS-1$
+		}
 
 		RespostaCrearExpedientRDTO respostaCrearSolicitudsRDTO = null;
 		ExpedientsRDTO returnExpedientsRDTO = null;
@@ -1339,7 +1350,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	        throws GPAServeisServiceException {
 		if (log.isInfoEnabled()) {
 			log.info("registrarSolicitudExpedient(BigDecimal) - inici"); //$NON-NLS-1$
-			log.info(expedientRegistrarRDTO); // $NON-NLS-1$
+			log.info("Idioma registro: " + expedientRegistrarRDTO.getIdioma()); // $NON-NLS-1$
 		}
 
 		String resultatAudit = "OK";

@@ -158,7 +158,7 @@ public class ServeisSignaturesRestController extends BaseRestController {
 					signarCriptograficaDocumentResponse, ex);
 		}
 
-		if (log.isDebugEnabled()) {
+		if (log.isInfoEnabled()) {
 			log.info("listenerMciSignatura(ListenerMciSignaturaDTO,HttpServletResponse) - fi");
 			// $NON-NLS-1$
 		}
@@ -184,7 +184,7 @@ public class ServeisSignaturesRestController extends BaseRestController {
 	        @ApiParam(value = "Resultat de la signatura criptogràfica a una petició de vist-i-plau/signatura", required = true) @RequestBody ResultatPeticioDTO resultatPeticioDTO,
 	        HttpServletResponse response) throws GPAServeisServiceException {
 
-		if (log.isDebugEnabled()) {
+		if (log.isInfoEnabled()) {
 			log.info("resultatPeticio(ResultatPeticioDTO) - inici"); //$NON-NLS-1$
 			log.info(resultatPeticioDTO); // $NON-NLS-1$
 		}
@@ -207,7 +207,7 @@ public class ServeisSignaturesRestController extends BaseRestController {
 			if (detallErrorsDTO.getDetallError() == null && detallErrorsDTO.getIdDocument() != null) {
 				// Si no contiene el elemento detallError y viene el id del
 				// documento, la firma se realizó correctamente
-				if (log.isDebugEnabled()) {
+				if (log.isInfoEnabled()) {
 					log.info("resultatPeticio(ResultatPeticioDTO) - Document signat correctament: " + detallErrorsDTO.getIdDocument()); // $NON-NLS-1$
 				}
 				docsTramitacioRDTO = serveisService.consultarDadesDocumentGeneratPerIdGestorDocumental(detallErrorsDTO.getIdDocument());
@@ -231,7 +231,7 @@ public class ServeisSignaturesRestController extends BaseRestController {
 			log.error("No s'ha pogut guardar auditoria de serveis:" + e);
 		}
 
-		if (log.isDebugEnabled()) {
+		if (log.isInfoEnabled()) {
 			log.info("resultatPeticio(ResultatPeticioDTO) - fi"); // $NON-NLS-1$
 		}
 

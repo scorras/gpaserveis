@@ -18,7 +18,8 @@ public class StringToDocumentIncorporacioNouRDTOConverter implements Converter<S
 	public DocumentIncorporacioNouRDTO convert(String from) {
 		DocumentIncorporacioNouRDTO documentIncorporacioNouRDTO = null;
 		try {
-			documentIncorporacioNouRDTO = new ObjectMapper().readValue(from.getBytes(StandardCharsets.UTF_8), DocumentIncorporacioNouRDTO.class);
+			documentIncorporacioNouRDTO = new ObjectMapper().readValue(from.getBytes(StandardCharsets.UTF_8),
+					DocumentIncorporacioNouRDTO.class);
 		} catch (IOException e) {
 			throw new GPAServeisRuntimeException(e);
 		}

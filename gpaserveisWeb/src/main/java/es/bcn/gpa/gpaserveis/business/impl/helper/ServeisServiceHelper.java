@@ -62,7 +62,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfPro
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsUgos;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.PageDataOfTramitsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.PageDataOfUnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
@@ -625,23 +624,6 @@ public class ServeisServiceHelper {
 		dadesProcedimentBDTO.setProcedimentsRDTO(procedimentsRDTO);
 	}
 
-	/**
-	 * Load tramits list.
-	 *
-	 * @param tramitsService
-	 *            the tramits service
-	 * @param dadesProcedimentBDTO
-	 *            the dades procediment BDTO
-	 * @param idProcediment
-	 *            the id procediment
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	public static void loadTramitsList(TramitsService tramitsService, DadesProcedimentBDTO dadesProcedimentBDTO, BigDecimal idProcediment)
-	        throws GPAServeisServiceException {
-		PageDataOfTramitsRDTO pageDataOfTramitsRDTO = tramitsService.cercaTramitsProcediment(idProcediment);
-		dadesProcedimentBDTO.setTramitsRDTOList(pageDataOfTramitsRDTO.getData());
-	}
 
 	/**
 	 * Load ugr.

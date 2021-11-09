@@ -64,9 +64,9 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 	        @ApiParam(value = "Resultat del portasignatures a una petició de vist-i-plau/signatura", required = true) @RequestBody MciPortasigResultatPeticioDTO resultatPeticio)
 	        throws GPAServeisServiceException {
 
-		if (log.isDebugEnabled()) {
-			log.debug("resultatEstatPeticio(MciPortasigResultatPeticioDTO) - inici"); //$NON-NLS-1$
-			log.debug(resultatPeticio); // $NON-NLS-1$
+		if (log.isInfoEnabled()) {
+			log.info("resultatEstatPeticio(MciPortasigResultatPeticioDTO) - inici"); //$NON-NLS-1$
+			log.info(resultatPeticio); // $NON-NLS-1$
 		}
 
 		String resultatAudit = "OK";
@@ -135,8 +135,8 @@ public class ServeisPortaSignaturesRestController extends BaseRestController {
 			auditServeisService.registrarAuditServeisPortaSignatures(auditServeisBDTO, resultatPeticio, resposta, ex);
 		}
 
-		if (log.isDebugEnabled()) {
-			log.debug("resultatPeticio(MciPortasigResultatPeticioDTO) - fi"); //$NON-NLS-1$
+		if (log.isInfoEnabled()) {
+			log.info("resultatPeticio(MciPortasigResultatPeticioDTO) - fi"); //$NON-NLS-1$
 		}
 		return resposta;
 	}
