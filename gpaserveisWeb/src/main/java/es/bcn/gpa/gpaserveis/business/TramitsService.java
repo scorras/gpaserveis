@@ -5,7 +5,6 @@ import java.util.List;
 
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.PageDataOfTramitsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 
 /**
@@ -13,16 +12,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
  */
 public interface TramitsService {
 
-	/**
-	 * Cerca tramits procediment.
-	 *
-	 * @param idProcediment
-	 *            the id procediment
-	 * @return the page data of tramits RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
-	 */
-	PageDataOfTramitsRDTO cercaTramitsProcediment(BigDecimal idProcediment) throws GPAServeisServiceException;
 
 	/**
 	 * Consultar dades tramit ovt.
