@@ -490,4 +490,66 @@ public class ExpedientsServiceImplTest extends RestServerParentTest {
 			LOGGER.debug("testStage09_esborrarTerceraPersonaOK() - fi"); //$NON-NLS-1$
 		}
 	}
+	
+	/**
+	 * Test stage 07 incorporar tercera persona.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test(expected = GPAServeisServiceException.class)
+	public void testStage10_incorporarTerceraPersonaKO() throws GPAServeisServiceException {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage10_incorporarTerceraPersonaKO() - inici"); //$NON-NLS-1$
+		}
+
+		PersonesSollicitudRDTO persona = null;
+		
+		expedientsService.incorporarTerceraPersona(persona);
+
+		assertTrue(true);
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage10_incorporarTerceraPersonaOK() - fi"); //$NON-NLS-1$
+		}
+	}
+	
+	/**
+	 * Test stage 08 incorporar tercera persona.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test(expected = GPAServeisServiceException.class)
+	public void testStage11_actualitzarTerceraPersonaKO() throws GPAServeisServiceException {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage11_actualitzarTerceraPersonaKO() - inici"); //$NON-NLS-1$
+		}
+
+		PersonesSollicitudRDTO persona = null;
+		
+		expedientsService.incorporarTerceraPersona(persona);
+
+		assertTrue(true);
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage11_actualitzarTerceraPersonaKO() - fi"); //$NON-NLS-1$
+		}
+	}
+	
+	@Test(expected = GPAServeisServiceException.class)
+	public void testStage12_esborrarTerceraPersonaKO() throws GPAServeisServiceException {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage12_esborrarTerceraPersonaKO() - inici"); //$NON-NLS-1$
+		}
+
+		expedientsService.esborrarPersonaSollicitud(BigDecimal.ONE);
+
+		assertTrue(true);
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("testStage12_esborrarTerceraPersonaKO() - fi"); //$NON-NLS-1$
+		}
+	}
+	
 }
