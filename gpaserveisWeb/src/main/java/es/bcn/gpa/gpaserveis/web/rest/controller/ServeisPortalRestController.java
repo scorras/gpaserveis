@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -853,12 +852,14 @@ public class ServeisPortalRestController extends BaseRestController {
 			        && NumberUtils.INTEGER_ONE.equals(dadesExpedientBDTO.getExpedientsRDTO().getEstat().getTancamentAutomatic())) {
 				expedientConsultaRDTO.setTancamentAutomatic(true);
 			}
-			for(String accion : expedientConsultaRDTO.getAccionsDisponibles()){
-				if(accion.contains("PRESENTAR_RECURSO")){
-					ProcedimentsRDTO procRelacionats = serveisService.consultarProcedimentsRelacionats(expedientConsultaRDTO.getProcediment().getId());
-					if(procRelacionats==null){
-						expedientConsultaRDTO.getAccionsDisponibles().remove("PRESENTAR_RECURSO");
-						break;
+			if(expedientConsultaRDTO.getAccionsDisponibles()!=null){
+				for(String accion : expedientConsultaRDTO.getAccionsDisponibles()){
+					if(accion.contains("PRESENTAR_RECURSO")){
+						ProcedimentsRDTO procRelacionats = serveisService.consultarProcedimentsRelacionats(expedientConsultaRDTO.getProcediment().getId());
+						if(procRelacionats==null){
+							expedientConsultaRDTO.getAccionsDisponibles().remove("PRESENTAR_RECURSO");
+							break;
+						}
 					}
 				}
 			}
