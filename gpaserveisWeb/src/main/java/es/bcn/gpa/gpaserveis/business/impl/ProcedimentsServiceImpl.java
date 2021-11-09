@@ -130,4 +130,24 @@ public class ProcedimentsServiceImpl implements ProcedimentsService {
 
 		return null;
 	}
+
+	@Override
+	public ProcedimentsRDTO consultarRelacionatsProcediment(BigDecimal id) throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug("consultarRelacionatsProcediment(BigDecimal) - inici"); //$NON-NLS-1$
+		}
+
+		try {
+			ProcedimentsRDTO procediments = procedimentsApi.consultarRelacionatsProcediment(id);
+
+			if (log.isDebugEnabled()) {
+				log.debug("consultarRelacionatsProcediment(BigDecimal) - fi"); //$NON-NLS-1$
+			}
+			return procediments;
+		} catch (RestClientException e) {
+			log.error("consultarRelacionatsProcediment(BigDecimal)", e); //$NON-NLS-1$
+
+			throw new GPAServeisServiceException("S'ha produït una incidència", e);
+		}
+	}
 }

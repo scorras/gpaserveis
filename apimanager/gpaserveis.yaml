@@ -6229,6 +6229,9 @@ definitions:
       unitatGestora:
         description: "Unitat Gestora que tramitarà inicialment la sol·licitud"
         $ref: "#/definitions/UnitatGestoraExpedientCrear"
+      codiExpedientOrigen:
+        type: "string"
+        description: "Codi del expedient origen"
     title: "ExpedientCrear"
   ExpedientDocumentSignat:
     type: "object"
