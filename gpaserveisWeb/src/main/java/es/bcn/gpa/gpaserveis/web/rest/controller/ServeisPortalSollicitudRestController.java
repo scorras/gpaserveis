@@ -1230,6 +1230,7 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 
 		if (log.isInfoEnabled()) {
 			log.info("registrarSolicitud(BigDecimal) - inici"); //$NON-NLS-1$
+			log.info("trazaTiempos: registrarSolicitud(BigDecimal) - inici"); //$NON-NLS-1$
 			log.info(sollicitudRegistrarRDTO); // $NON-NLS-1$
 		}
 

@@ -105,7 +105,7 @@ paths:
       - name: "metadata"
         in: "formData"
         description: "Metadata"
-        required: true
+        required: false
         type: "file"
       responses:
         200:
@@ -2284,12 +2284,12 @@ paths:
       - name: "formSignResume"
         in: "formData"
         description: "formSignResume"
-        required: true
+        required: false
         type: "string"
       - name: "ticket"
         in: "formData"
         description: "ticket"
-        required: true
+        required: false
         type: "string"
       responses:
         200:
@@ -2916,7 +2916,7 @@ paths:
           \ SIGNATURA_CADUCADA, PENDENT_VIST_I_PLAU, VIST_I_PLAU_REBUTJAT, VIST_I_PLAU_CADUCAT,\
           \ NOTIFICACIO_REBUTJADA_SENSE_ACCES, NOTIFICACIO_REBUTJADA_SENSE_ACCIO,\
           \ PUBLICAT, NOTIFICACIO_AMB_ERROR, COMPLETAT, DESCARTAT)\"<br>}"
-        required: true
+        required: false
         type: "string"
       - name: "file"
         in: "formData"
@@ -3057,7 +3057,7 @@ paths:
           codi\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;],<br>&nbsp;&nbsp;\"\
           documentacioRequerida\": [<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\
           configuracioDocumentacio\": \"String\"<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;]<br>}"
-        required: true
+        required: false
         type: "string"
       responses:
         200:
@@ -3203,7 +3203,7 @@ paths:
           \ NOTIFICACIO_ACCEPTADA, SIGNATURA_CADUCADA, PENDENT_VIST_I_PLAU, VIST_I_PLAU_REBUTJAT,\
           \ VIST_I_PLAU_CADUCAT, NOTIFICACIO_REBUTJADA_SENSE_ACCES, NOTIFICACIO_REBUTJADA_SENSE_ACCIO,\
           \ PUBLICAT, NOTIFICACIO_AMB_ERROR, COMPLETAT, DESCARTAT)\"<br>}"
-        required: true
+        required: false
         type: "string"
       - name: "file"
         in: "formData"

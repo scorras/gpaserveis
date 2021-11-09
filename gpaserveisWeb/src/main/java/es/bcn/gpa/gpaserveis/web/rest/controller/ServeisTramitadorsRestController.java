@@ -478,6 +478,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		if (log.isDebugEnabled()) {
 			log.debug("consultar(String) - inici"); //$NON-NLS-1$
 		}
+        logImiUser();
 
 		String resultatAudit = "OK";
 		GPAServeisServiceException ex = null;
@@ -1976,7 +1977,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	@ApiOperation(nickname = "incorporarNouDocumentExpedientTramitadors", value = "Incorporar un nou document electrònic", tags = {
 	        "Serveis Tramitadors API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "gestor", value = "Perfil usuari gestor") }) })
-	@ApiImplicitParams(@ApiImplicitParam(name = "document", dataType = "string", paramType = "form", required = true, value = "Dades del document a incorporar. Example:<br>"
+	@ApiImplicitParams(@ApiImplicitParam(name = "document", dataType = "string", paramType = "form", required = false, value = "Dades del document a incorporar. Example:<br>"
 	        + "{<br>" + "&nbsp;&nbsp;\"document (Obligatori)\": {<br>"
 	        + "&nbsp;&nbsp;&nbsp;&nbsp;\"configuracio\": \"String (Possibles valors: APORTADA, GENERADA)\",<br>"
 	        + "&nbsp;&nbsp;&nbsp;&nbsp;\"configuracioDocumentacio\": \"String (Obligatori)\",<br>"
@@ -5212,6 +5213,19 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		return respostaDigitalitzarDocumentRDTO;
+	}
+	
+	private void logImiUser() {
+		if (log.isInfoEnabled()) {
+			ImiUserDetails imiUser = SecurityUtils.getLoggedUserDetails();
+			log.info(String.format("---------> ImiUserDetails: %s", imiUser)); //$NON-NLS-1$Imi
+			if (imiUser != null) {
+				log.info(String.format("---------> imiUser.getPayload(): %s", imiUser.getPayload())); //$NON-NLS-1$Imi
+			}else{
+				log.info("---------> imiUser nulo"); //$NON-NLS-1$Imi
+			}
+			
+		}
 	}
 
 	/**
