@@ -300,19 +300,19 @@ public abstract class ParentTest {
 			when(dadesGrupsApi.cercaDadesOperacio(any(Integer.class), isNull(String.class), isNull(String.class)))
 			        .thenReturn(TestsConfigHelper.cercaDadesOperacioResponse());
 
-			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioEntradaPerTramitOvt(any(BigDecimal.class), any(BigDecimal.class),
+			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioEntradaPerTramitOvt(any(Integer.class), any(Integer.class),
 			        isNull(Integer.class), isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
 			        isNull(Boolean.class), isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class),
 			        isNull(Integer.class), isNull(String.class), isNull(Long.class), isNull(Integer.class)))
 			                .thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntradaResponse());
 
-			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioEntrada(any(BigDecimal.class), isNull(Integer.class),
+			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioEntrada(any(Integer.class), isNull(Integer.class),
 			        isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
 			        isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class),
 			        isNull(String.class), isNull(Long.class), isNull(Integer.class)))
 			                .thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntradaResponse());
 
-			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioTramitacio(any(BigDecimal.class), isNull(Integer.class),
+			when(configuracioDocumentacioApi.cercaConfiguracioDocumentacioTramitacio(any(Integer.class), isNull(Integer.class),
 			        isNull(Integer.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class), isNull(Boolean.class),
 			        isNull(Integer.class), isNull(String.class), isNull(Integer.class), isNull(Integer.class), isNull(Integer.class),
 			        isNull(String.class), isNull(Long.class), isNull(Integer.class)))
@@ -321,13 +321,13 @@ public abstract class ParentTest {
 			when(accionsEstatsApi.cercaAccionsPossibles(any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.cercaAccionsPossiblesResponse());
 
-			when(documentacioApi.cercaDocumentsEntradaAgrupatsPerTramitOvt(any(BigDecimal.class), any(BigDecimal.class)))
+			when(documentacioApi.cercaDocumentsEntradaAgrupatsPerTramitOvt(any(Integer.class), any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.cercaDocumentsEntradaAgrupatsPerTramitOvtResponse());
 
-			when(documentacioApi.cercaDocumentsTramitacioComunicats(any(BigDecimal.class), any(BigDecimal.class)))
+			when(documentacioApi.cercaDocumentsTramitacioComunicats(any(Integer.class), any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.cercaDocumentsTramitacioComunicatsResponse());
 
-			when(documentacioRequeritApi.cercaConfiguracioDocumentacioEntradaRequerida(any(BigDecimal.class)))
+			when(documentacioRequeritApi.cercaConfiguracioDocumentacioEntradaRequerida(any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.cercaConfiguracioDocumentacioEntradaRequeridaResponse());
 
 			when(dadesEspecifiquesApi.consultarDadesEspecifiquesExpedient(any(Integer.class), any(Integer.class)))
@@ -342,23 +342,23 @@ public abstract class ParentTest {
 			when(expedients_Api.actualitzarDadesSollicitud(any(ActualitzarDadesSollicitud.class)))
 			        .thenReturn(TestsConfigHelper.crearSollicitudExpedientResponse());
 
-			when(documentacioApi.consultarDadesDocument(any(BigDecimal.class)))
+			when(documentacioApi.consultarDadesDocument(any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesDocumentResponse());
 
-			when(documentacioApi.consultarDadesDocumentAportat(any(BigDecimal.class)))
+			when(documentacioApi.consultarDadesDocumentAportat(any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesDocumentAportatResponse());
 
-			when(documentacioApi.consultarDadesDocumentGenerat(any(BigDecimal.class)))
+			when(documentacioApi.consultarDadesDocumentGenerat(any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesDocumentGeneratResponse());
 
-			doNothing().when(documentacioApi).esBorrarDocumentacioEntrada(any(BigDecimal.class), any(BigDecimal.class));
+			doNothing().when(documentacioApi).esBorrarDocumentacioEntrada(any(Integer.class), any(Integer.class));
 
-			doNothing().when(documentacioApi).esBorrarDocumentacioTramitacio(any(BigDecimal.class), any(BigDecimal.class));
+			doNothing().when(documentacioApi).esBorrarDocumentacioTramitacio(any(Integer.class), any(Integer.class));
 
-			when(downloadApi.descarregarDocumentExpedient(any(BigDecimal.class), any(BigDecimal.class)))
+			when(downloadApi.descarregarDocumentExpedient(any(Integer.class), any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.descarregarDocumentExpedientResponse());
 
-			when(signaturesApi.descarregarDocumentExpedientSignat(any(BigDecimal.class)))
+			when(signaturesApi.descarregarDocumentExpedientSignat(any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.descarregarDocumentExpedientResponse());
 
 			when(comentarisApi.crearComentariAccio(any(Integer.class), any(Integer.class), any(ComentariCreacioAccio.class)))
@@ -379,26 +379,26 @@ public abstract class ParentTest {
 
 			doNothing().when(expedientsApi).redireccionarRegistre(any(RedireccioAssentament.class));
 
-			when(configuracioDocumentacioApi.consultarPlantillaDocumentacioVinculada(any(BigDecimal.class), any(BigDecimal.class)))
+			when(configuracioDocumentacioApi.consultarPlantillaDocumentacioVinculada(any(Integer.class), any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.getPlantillaDocVinculadaResponse());
 
-			when(documentacioApi.crearDocumentEntrada(any(DocsEntradaRDTO.class), any(BigDecimal.class)))
+			when(documentacioApi.crearDocumentEntrada(any(DocsEntradaRDTO.class), any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.guardarDocumentEntradaResponse());
 
-			when(documentacioApi.guardarDocumentEntradaFitxer(any(String.class), any(File.class), any(BigDecimal.class)))
+			when(documentacioApi.guardarDocumentEntradaFitxer(any(String.class), any(File.class), any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.guardarDocumentEntradaResponse());
 
-			when(documentacioApi.crearDocumentTramitacio(any(DocsTramitacioRDTO.class), any(BigDecimal.class)))
+			when(documentacioApi.crearDocumentTramitacio(any(DocsTramitacioRDTO.class), any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.guardarDocumentTramitacioResponse());
 
-			when(documentacioApi.guardarDocumentTramitacioFitxer(any(String.class), any(File.class), any(BigDecimal.class)))
+			when(documentacioApi.guardarDocumentTramitacioFitxer(any(String.class), any(File.class), any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.guardarDocumentTramitacioResponse());
 
-			when(documentacioApi.guardarDocumentTramitacioPlantilla(any(DocsTramitacioRDTO.class), any(BigDecimal.class)))
+			when(documentacioApi.guardarDocumentTramitacioPlantilla(any(DocsTramitacioRDTO.class), any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.guardarDocumentTramitacioResponse());
 
-			when(documentacioApi.guardarDocumentTramitacioJustificantPlantilla(any(DocsTramitacioRDTO.class), any(BigDecimal.class),
-			        any(BigDecimal.class))).thenReturn(TestsConfigHelper.guardarDocumentTramitacioResponse());
+			when(documentacioApi.guardarDocumentTramitacioJustificantPlantilla(any(DocsTramitacioRDTO.class), any(Integer.class),
+			        any(Integer.class))).thenReturn(TestsConfigHelper.guardarDocumentTramitacioResponse());
 
 			when(signaturesApi.crearPeticioPortaSig(any(SignarPortasignaturesDocument.class)))
 			        .thenReturn(TestsConfigHelper.crearPeticioPortaSigResponse());
@@ -429,10 +429,10 @@ public abstract class ParentTest {
 			when(personesSollicitud_Api.consultarDadesPersonaSollicitud(any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesPersonaSollicitudResponse());
 
-			when(documentacioApi.crearDocumentEntradaDigitalitzat(any(DocsEntradaRDTO.class), any(BigDecimal.class)))
+			when(documentacioApi.crearDocumentEntradaDigitalitzat(any(DocsEntradaRDTO.class), any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.guardarDocumentEntradaResponse());
 
-			when(documentacioApi.crearDocumentTramitacio(any(DocsTramitacioRDTO.class), any(BigDecimal.class)))
+			when(documentacioApi.crearDocumentTramitacio(any(DocsTramitacioRDTO.class), any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.guardarDocumentTramitacioResponse());
 
 			doNothing().when(documentacioApi).registrarComunicatDocumentTramitacio(any(DocumentRegistrarComunicat.class));
@@ -446,30 +446,30 @@ public abstract class ParentTest {
 
 			doNothing().when(notificacionsApi).callbackNotificacio(any(String.class), any(File.class), any(File.class));
 
-			when(documentacioApi.actualitzarDocumentTramitacio(any(DocsTramitacioRDTO.class), any(BigDecimal.class)))
+			when(documentacioApi.actualitzarDocumentTramitacio(any(DocsTramitacioRDTO.class), any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.actualitzarDocumentTramitacioResponse());
 
-			when(documentacioApi.crearDocumentTramitacioDigitalitzat(any(DocsTramitacioRDTO.class), any(BigDecimal.class)))
+			when(documentacioApi.crearDocumentTramitacioDigitalitzat(any(DocsTramitacioRDTO.class), any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.crearDocumentTramitacioDigitalitzatResponse());
 
 			when(accionsEstatsApi.cercaTransicioCanviEstat(any(BigDecimal.class), any(BigDecimal.class)))
 			        .thenReturn(TestsConfigHelper.obtenirTransicionsCanviEstat());
 
-			when(sollicitudsApi.consultarDadesSollicituds(eq(BigDecimal.ONE)))
+			when(sollicitudsApi.consultarDadesSollicituds(eq(BigDecimal.ONE).intValue()))
 			        .thenReturn(TestsConfigHelper.consultarDadesSollicitudResponse(BigDecimal.ONE, true));
 
-			when(sollicitudsApi.consultarDadesSollicituds(eq(BigDecimal.valueOf(2))))
+			when(sollicitudsApi.consultarDadesSollicituds(eq(BigDecimal.valueOf(2).intValue())))
 			        .thenReturn(TestsConfigHelper.consultarDadesSollicitudResponse(BigDecimal.valueOf(2), false));
 
-			when(sollicitudsApi.consultarDadesSollicituds(eq(BigDecimal.valueOf(3)))).thenReturn(null);
+			when(sollicitudsApi.consultarDadesSollicituds(eq(BigDecimal.valueOf(3).intValue()))).thenReturn(null);
 
-			when(sollicitudsApi.consultarDadesSollicituds(eq(BigDecimal.valueOf(4))))
+			when(sollicitudsApi.consultarDadesSollicituds(eq(BigDecimal.valueOf(4).intValue())))
 			        .thenReturn(TestsConfigHelper.consultarDadesSollicitudResponse(BigDecimal.valueOf(4), false));
 
-			when(documentacioApi.consultarDadesDocumentAportat(any(BigDecimal.class)))
+			when(documentacioApi.consultarDadesDocumentAportat(any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesDocumentAportatResponse());
 
-			when(documentacioApi.cercaDocumentsEntradaPerSollicitud(any(BigDecimal.class), any(BigDecimal.class)))
+			when(documentacioApi.cercaDocumentsEntradaPerSollicitud(any(Integer.class), any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.cercaDocumentsEntradaPerSollicitudResponse());
 
 			when(dadesEspecifiquesApi.consultarDadesEspecifiquesSollicitud(any(Integer.class), any(Integer.class)))
@@ -481,13 +481,13 @@ public abstract class ParentTest {
 			        isNull(Integer.class), isNull(String.class), isNull(Long.class), isNull(Integer.class)))
 			                .thenReturn(TestsConfigHelper.cercaSollicitudsResponse());
 
-			when(documentacioApi.consultarDadesDocumentAportatPerCodiCSV(any(String.class), any(BigDecimal.class)))
+			when(documentacioApi.consultarDadesDocumentAportatPerCodiCSV(any(String.class), any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesDocumentAportatPerCodiCSVResponse());
 
-			when(documentacioApi.consultarDadesDocumentGeneratPerCodiCSV(any(String.class), any(BigDecimal.class)))
+			when(documentacioApi.consultarDadesDocumentGeneratPerCodiCSV(any(String.class), any(Integer.class)))
 			        .thenReturn(TestsConfigHelper.consultarDadesDocumentGeneratPerCodiCSVResponse());
 
-			when(documentacioApi.comprovarDocumentsSignatsExpedient(any(BigDecimal.class))).thenReturn(Boolean.TRUE);
+			when(documentacioApi.comprovarDocumentsSignatsExpedient(any(Integer.class))).thenReturn(Boolean.TRUE);
 
 			when(usuarisApi.consultarDadesUsuari(any(String.class))).thenReturn(TestsConfigHelper.consultarDadesUsuariResponse());
 

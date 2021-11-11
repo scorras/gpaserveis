@@ -6849,6 +6849,9 @@ definitions:
       visibilitatOvt:
         type: "boolean"
         description: "Visibilitat Ovt"
+      representacioPuntual:
+        type: "boolean"
+        description: "Representacio Puntual"
     title: "Persona"
   PersonaNotificacio:
     type: "object"

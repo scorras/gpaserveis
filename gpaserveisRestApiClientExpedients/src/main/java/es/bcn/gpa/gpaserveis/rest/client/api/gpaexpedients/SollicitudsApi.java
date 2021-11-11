@@ -29,7 +29,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-09-15T11:38:28.065+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-08T15:53:07.446+01:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.SollicitudsApi")
 public class SollicitudsApi {
     private ApiClient apiClient;
@@ -209,7 +209,7 @@ public class SollicitudsApi {
      * @return SollicitudsRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public SollicitudsRDTO consultarDadesSollicituds(BigDecimal id) throws RestClientException {
+    public SollicitudsRDTO consultarDadesSollicituds(Integer id) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'id' is set

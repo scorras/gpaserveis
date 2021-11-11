@@ -212,7 +212,7 @@ public class ExpedientsServiceImpl implements ExpedientsService {
 		}
 
 		try {
-			SollicitudsRDTO sollicitudsRDTO = sollicitudsApi.consultarDadesSollicituds(id);
+			SollicitudsRDTO sollicitudsRDTO = sollicitudsApi.consultarDadesSollicituds(id.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("consultarDadesSollicitud(BigDecimal) - fi"); //$NON-NLS-1$

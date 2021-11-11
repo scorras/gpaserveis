@@ -65,7 +65,7 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 				any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 				any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfConfiguracioDocsEntradaRDTO());
 
-		BigDecimal id = ONE;
+		Integer id = 1;
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
 		Boolean currentPageHasNextPage = null;
@@ -102,8 +102,8 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfConfiguracioDocsEntradaRDTO());
 
-		BigDecimal id = ONE;
-		BigDecimal idTramitOvt = ONE;
+		Integer id = 1;
+		Integer idTramitOvt = 1;
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
 		Boolean currentPageHasNextPage = null;
@@ -140,7 +140,7 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new PageDataOfConfiguracioDocsTramitacioRDTO());
 
-		BigDecimal id = ONE;
+		Integer id = 1;
 		Integer absoluteRowNumberOfFirstRowInCurrentPage = null;
 		Integer absoluteRowNumberOfLastRowInCurrentPage = null;
 		Boolean currentPageHasNextPage = null;
@@ -176,7 +176,7 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 				any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 				any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new RespostaPlantillaDocVinculada());
 
-		RespostaPlantillaDocVinculada plantillaDocVinculada = api.consultarPlantillaDocumentacioVinculada(ONE, ONE);
+		RespostaPlantillaDocVinculada plantillaDocVinculada = api.consultarPlantillaDocumentacioVinculada(1, 1);
 
 		assertTrue(plantillaDocVinculada != null);
 	}
@@ -184,8 +184,8 @@ public class ConfiguracioDocumentacioApiTest extends ParentTest {
 	@Test
 	@Ignore
 	public void consultarPlantillaDocumentacioVinculadaTest() {
-		BigDecimal idConfDoc = null;
-		BigDecimal idDocVinculada = null;
+		Integer idConfDoc = null;
+		Integer idDocVinculada = null;
 		RespostaPlantillaDocVinculada response = api.consultarPlantillaDocumentacioVinculada(idConfDoc, idDocVinculada);
 
 		// TODO: test validations
