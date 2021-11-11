@@ -60,7 +60,7 @@ public class DocumentacioRequeritApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<ConfiguracioDocsEntradaRDTO>());
 
-		BigDecimal idDoc = ONE;
+		Integer idDoc = 1;
 		List<ConfDocEntradaRequeritRDTO> response = api.cercaConfiguracioDocumentacioEntradaRequerida(idDoc);
 
 		assertTrue(response != null);

@@ -2700,6 +2700,12 @@ public class ServeisRestControllerValidationHelper {
 					} else {
 						respostaConsultaTramitProcedimentRDTO.setRegistre("NO");
 					}
+					// Representacio puntual
+					if (reqOperatiusTramOvt.getRepresentacioPuntual() != null && reqOperatiusTramOvt.getRepresentacioPuntual() == 1) {
+						respostaConsultaTramitProcedimentRDTO.setRepresentacioPuntual("SI");
+					} else {
+						respostaConsultaTramitProcedimentRDTO.setRepresentacioPuntual("NO");
+					}
 				}
 			}
 		}
