@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.PersonesSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.RelacioPersonaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusPersonaApiParamValueTranslator;
 import io.swagger.annotations.ApiModel;
@@ -25,7 +26,7 @@ import lombok.Setter;
 @ApiModel(value = "Persona")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "relacio", "relacioTerceraPersona", "visibilitatOvt", "tipusPersona", "nomRaoSocial", "cognom1", "cognom2",
-		"documentIndentitat", "dadesNotificacio", "id" })
+		"documentIndentitat", "representacioPuntual", "dadesNotificacio", "id" })
 @XmlRootElement(name = "PERSONA")
 @XmlType(name = "Persones", propOrder = { "relacio", "tipusPersona", "nomComplet", "documentIndentitat", "dadesNotificacio" })
 @XmlAccessorType(XmlAccessType.NONE)
@@ -56,6 +57,8 @@ public class PersonesRDTO {
 	@ApiModelProperty(value = "Document d'identitat de la persona", required = false)
 	@XmlElement(name = "DOCUMENT_INDENTITAT", required = true, type = DocumentsIdentitatRDTO.class)
 	private DocumentsIdentitatRDTO documentIndentitat;
+	@ApiModelProperty(value = "Representacio puntual", required = true)
+	private Boolean representacioPuntual;
 	@ApiModelProperty(value = "Dades de notificació de la persona", required = false)
 	@XmlElement(name = "DADES_NOTIFICACIO", required = true, type = DadesContacteRDTO.class)
 	private DadesContacteRDTO dadesNotificacio;

@@ -62,7 +62,7 @@ public class SollicitudsApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(new SollicitudsRDTO());
 
-		BigDecimal id = ONE;
+		Integer id = 1;
 		SollicitudsRDTO response = api.consultarDadesSollicituds(id);
 
 		assertTrue(response != null);

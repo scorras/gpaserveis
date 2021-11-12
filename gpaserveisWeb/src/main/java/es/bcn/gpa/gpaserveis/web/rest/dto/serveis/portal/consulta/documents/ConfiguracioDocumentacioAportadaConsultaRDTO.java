@@ -34,5 +34,7 @@ public class ConfiguracioDocumentacioAportadaConsultaRDTO extends ConfiguracioDo
 	private Boolean visibilitat;
 	@ApiModelProperty(value = "Criticitat")
 	private String criticitat;
+	@ApiModelProperty(value = "Representacio puntual")
+	private Boolean representacioPuntual;
 
 }

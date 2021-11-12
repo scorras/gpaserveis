@@ -57,7 +57,7 @@ public class SollicitudsServiceImpl implements SollicitudsService {
 			}
 			List<SollicitudsRDTO> sollicitudsRDTOList = sollicitudsApi.consultarSollicitudsExpedient(idExpedient.intValue());
 			for(SollicitudsRDTO sollicitud : sollicitudsRDTOList){
-				SollicitudsRDTO aux = sollicitudsApi.consultarDadesSollicituds(sollicitud.getId());
+				SollicitudsRDTO aux = sollicitudsApi.consultarDadesSollicituds(sollicitud.getId().intValue());
 				List<PersonesSollicitudRDTO> persones = aux.getPersonesImplicades();
 			}
 			

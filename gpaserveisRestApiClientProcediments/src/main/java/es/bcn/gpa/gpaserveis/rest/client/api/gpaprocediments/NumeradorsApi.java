@@ -22,7 +22,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-08-10T10:43:10.984+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-08T16:49:56.830+01:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.NumeradorsApi")
 public class NumeradorsApi {
     private ApiClient apiClient;
@@ -67,6 +67,46 @@ public class NumeradorsApi {
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("idProcediment", idProcediment);
         String path = UriComponentsBuilder.fromPath("/procediments/sequenceNextValExp/{idProcediment}").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { 
+            "*/*"
+        };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<String> returnType = new ParameterizedTypeReference<String>() {};
+        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Returns the next val of the procediment sequence
+     * 
+     * <p><b>200</b> - OK
+     * <p><b>401</b> - Unauthorized
+     * <p><b>403</b> - Forbidden
+     * <p><b>404</b> - Not Found
+     * @param idProcediment idProcediment
+     * @return String
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public String getSequenceNextValUsingGET(Integer idProcediment) throws RestClientException {
+        Object postBody = null;
+        
+        // verify the required parameter 'idProcediment' is set
+        if (idProcediment == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idProcediment' when calling getSequenceNextValUsingGET");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("idProcediment", idProcediment);
+        String path = UriComponentsBuilder.fromPath("/procediments/sequenceNextVal/{idProcediment}").buildAndExpand(uriVariables).toUriString();
         
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();

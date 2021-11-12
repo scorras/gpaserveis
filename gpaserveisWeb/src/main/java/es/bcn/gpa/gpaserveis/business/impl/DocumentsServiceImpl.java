@@ -129,7 +129,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			PageDataOfConfiguracioDocsEntradaRDTO pageDataOfConfiguracioDocsEntradaRDTO = configuracioDocumentacioApi
-			        .cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO.getIdConfiguracioDocumentacio(), null, null, null, null,
+			        .cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO.getIdConfiguracioDocumentacio().intValue(), null, null, null, null,
 			                null, null, null, null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
@@ -182,8 +182,8 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			PageDataOfConfiguracioDocsEntradaRDTO pageDataOfConfiguracioDocsEntradaRDTO = configuracioDocumentacioApi
-			        .cercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsEntradaCercaBDTO.getIdConfiguracioDocumentacio(),
-			                documentsEntradaCercaBDTO.getIdTramitOvt(), null, null, null, null, null, null, null, null, null, null, null,
+			        .cercaConfiguracioDocumentacioEntradaPerTramitOvt(documentsEntradaCercaBDTO.getIdConfiguracioDocumentacio().intValue(),
+			                documentsEntradaCercaBDTO.getIdTramitOvt().intValue(), null, null, null, null, null, null, null, null, null, null, null,
 			                null, null, null);
 
 			if (log.isDebugEnabled()) {
@@ -236,7 +236,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			PageDataOfConfiguracioDocsTramitacioRDTO pageDataOfConfiguracioDocsTramitacioRDTO = configuracioDocumentacioApi
-			        .cercaConfiguracioDocumentacioTramitacio(documentsTramitacioCercaBDTO.getIdConfiguracioDocumentacio(), null, null, null,
+			        .cercaConfiguracioDocumentacioTramitacio(documentsTramitacioCercaBDTO.getIdConfiguracioDocumentacio().intValue(), null, null, null,
 			                null, null, null, null, null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
@@ -288,7 +288,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			List<DocsEntradaRDTO> docsEntradaRDTOList = documentacioApi.cercaDocumentsEntradaPerSollicitud(idSollicitud, visibilitat);
+			List<DocsEntradaRDTO> docsEntradaRDTOList = documentacioApi.cercaDocumentsEntradaPerSollicitud(idSollicitud.intValue(), visibilitat.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaDocumentsEntradaPerSollicitud(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
@@ -339,8 +339,8 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			List<DocsEntradaRDTO> docsEntradaRDTOList = documentacioApi.cercaDocumentsEntradaAgrupatsPerTramitOvt(idDocumentacio,
-			        visibilitat);
+			List<DocsEntradaRDTO> docsEntradaRDTOList = documentacioApi.cercaDocumentsEntradaAgrupatsPerTramitOvt(idDocumentacio.intValue(),
+			        visibilitat.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
@@ -391,8 +391,8 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			List<DocsTramitacioRDTO> docsTramitacioRDTOList = documentacioApi.cercaDocumentsTramitacioComunicats(idDocumentacio,
-			        visibilitat);
+			List<DocsTramitacioRDTO> docsTramitacioRDTOList = documentacioApi.cercaDocumentsTramitacioComunicats(idDocumentacio.intValue(),
+			        visibilitat.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaDocumentsTramitacio(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
@@ -445,7 +445,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			List<ConfDocEntradaRequeritRDTO> confDocEntradaRequeritRDTOList = documentacioRequeritApi
-			        .cercaConfiguracioDocumentacioEntradaRequerida(idDocumentacio);
+			        .cercaConfiguracioDocumentacioEntradaRequerida(idDocumentacio.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaConfiguracioDocumentacioEntradaRequerida(BigDecimal) - fi"); //$NON-NLS-1$
@@ -496,7 +496,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.crearDocumentEntrada(crearDocumentEntradaBDTO.getDocsEntradaRDTO(),
-			        crearDocumentEntradaBDTO.getIdExpedient());
+			        crearDocumentEntradaBDTO.getIdExpedient().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearDocumentEntrada(CrearDocumentEntradaBDTO) - fi"); //$NON-NLS-1$
@@ -548,7 +548,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.crearDeclaracioResponsable(
-			        crearDeclaracioResponsableBDTO.getDocsEntradaRDTO(), crearDeclaracioResponsableBDTO.getIdExpedient());
+			        crearDeclaracioResponsableBDTO.getDocsEntradaRDTO(), crearDeclaracioResponsableBDTO.getIdExpedient().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearDeclaracioResponsable(CrearDeclaracioResponsableBDTO) - fi"); //$NON-NLS-1$
@@ -600,7 +600,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.crearDocumentTramitacio(
-			        crearDocumentTramitacioBDTO.getDocsTramitacioRDTO(), crearDocumentTramitacioBDTO.getIdExpedient());
+			        crearDocumentTramitacioBDTO.getDocsTramitacioRDTO(), crearDocumentTramitacioBDTO.getIdExpedient().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearDocumentTramitacio(CrearDocumentTramitacioBDTO) - fi"); //$NON-NLS-1$
@@ -652,7 +652,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarDocumentTramitacioPlantilla(
-			        crearDocumentTramitacioBDTO.getDocsTramitacioRDTO(), crearDocumentTramitacioBDTO.getIdExpedient());
+			        crearDocumentTramitacioBDTO.getDocsTramitacioRDTO(), crearDocumentTramitacioBDTO.getIdExpedient().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarDocumentTramitacioPlantilla(CrearDocumentTramitacioBDTO) - fi"); //$NON-NLS-1$
@@ -704,8 +704,8 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarDocumentTramitacioJustificantPlantilla(
-			        crearDocumentTramitacioBDTO.getDocsTramitacioRDTO(), crearDocumentTramitacioBDTO.getIdExpedient(),
-			        crearDocumentTramitacioBDTO.getIdSollicitud());
+			        crearDocumentTramitacioBDTO.getDocsTramitacioRDTO(), crearDocumentTramitacioBDTO.getIdExpedient().intValue(),
+			        crearDocumentTramitacioBDTO.getIdSollicitud().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarDocumentTramitacioJustificantPlantilla(CrearDocumentTramitacioBDTO) - fi"); //$NON-NLS-1$
@@ -757,7 +757,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.actualitzarDocumentEntrada(
-			        actualitzarDocumentEntradaBDTO.getDocsEntradaRDTO(), actualitzarDocumentEntradaBDTO.getIdExpedient());
+			        actualitzarDocumentEntradaBDTO.getDocsEntradaRDTO(), actualitzarDocumentEntradaBDTO.getIdExpedient().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("actualitzarDocumentEntrada(ActualitzarDocumentEntradaBDTO) - fi"); //$NON-NLS-1$
@@ -809,7 +809,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.actualitzarDeclaracioResponsable(
-			        actualitzarDeclaracioResponsableBDTO.getDocsEntradaRDTO(), actualitzarDeclaracioResponsableBDTO.getIdExpedient());
+			        actualitzarDeclaracioResponsableBDTO.getDocsEntradaRDTO(), actualitzarDeclaracioResponsableBDTO.getIdExpedient().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("actualitzarDeclaracioResponsable(ActualitzarDeclaracioResponsableBDTO) - fi"); //$NON-NLS-1$
@@ -861,7 +861,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.actualitzarDocumentTramitacio(
-			        actualitzarDocumentTramitacioBDTO.getDocsTramitacioRDTO(), actualitzarDocumentTramitacioBDTO.getIdExpedient());
+			        actualitzarDocumentTramitacioBDTO.getDocsTramitacioRDTO(), actualitzarDocumentTramitacioBDTO.getIdExpedient().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("actualitzarDocumentTramitacio(ActualitzarDocumentTramitacioBDTO) - fi"); //$NON-NLS-1$
@@ -924,7 +924,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 			String docsEntrada = jsonWriter.writeValueAsString(guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO());
 
 			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.guardarDocumentEntradaFitxer(docsEntrada, file,
-			        guardarDocumentEntradaFitxerBDTO.getIdExpedient());
+			        guardarDocumentEntradaFitxerBDTO.getIdExpedient().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarDocumentEntradaFitxer(GuardarDocumentEntradaFitxerBDTO) - fi"); //$NON-NLS-1$
@@ -1051,7 +1051,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 			String docsTramitacio = jsonWriter.writeValueAsString(guardarDocumentTramitacioFitxerBDTO.getDocsTramitacioRDTO());
 
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarDocumentTramitacioFitxer(docsTramitacio, file,
-			        guardarDocumentTramitacioFitxerBDTO.getIdExpedient());
+			        guardarDocumentTramitacioFitxerBDTO.getIdExpedient().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarDocumentTramitacioFitxer(GuardarDocumentTramitacioFitxerBDTO) - fi"); //$NON-NLS-1$
@@ -1119,7 +1119,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 			String requeriment = jsonWriter.writeValueAsString(guardarRequerimentFitxerBDTO.getGuardarRequerimentExpedient());
 
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarRequerimentFitxer(file,
-			        guardarRequerimentFitxerBDTO.getIdExpedient(), requeriment);
+			        guardarRequerimentFitxerBDTO.getIdExpedient().intValue(), requeriment);
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarRequerimentFitxer(GuardarRequerimentFitxerBDTO) - fi"); //$NON-NLS-1$
@@ -1174,7 +1174,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.guardarRequerimentPlantilla(
-			        crearRequerimentBDTO.getGuardarRequerimentExpedient(), crearRequerimentBDTO.getIdExpedient());
+			        crearRequerimentBDTO.getGuardarRequerimentExpedient(), crearRequerimentBDTO.getIdExpedient().intValue());
 			if (log.isDebugEnabled()) {
 				log.debug("guardarRequerimentPlantilla(CrearRequerimentBDTO) - fi"); //$NON-NLS-1$
 			}
@@ -1224,7 +1224,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi
-			        .actualitzarRequeriment(crearRequerimentBDTO.getGuardarRequerimentExpedient(), crearRequerimentBDTO.getIdExpedient());
+			        .actualitzarRequeriment(crearRequerimentBDTO.getGuardarRequerimentExpedient(), crearRequerimentBDTO.getIdExpedient().intValue());
 			if (log.isDebugEnabled()) {
 				log.debug("actualitzarRequeriment(CrearRequerimentBDTO) - fi"); //$NON-NLS-1$
 			}
@@ -1273,7 +1273,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			DocsRDTO docsRDTO = documentacioApi.consultarDadesDocument(idDocument);
+			DocsRDTO docsRDTO = documentacioApi.consultarDadesDocument(idDocument.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("consultarDadesDocument(BigDecimal) - fi"); //$NON-NLS-1$
@@ -1321,7 +1321,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.consultarDadesDocumentAportat(id);
+			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.consultarDadesDocumentAportat(id.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("consultarDadesDocumentAportat(BigDecimal) - fi"); //$NON-NLS-1$
@@ -1371,7 +1371,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.consultarDadesDocumentAportatPerCodiCSV(csvDocument, visibilitat);
+			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.consultarDadesDocumentAportatPerCodiCSV(csvDocument, visibilitat.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("consultarDadesDocumentAportatPerCodiCSV(String, BigDecimal) - fi"); //$NON-NLS-1$
@@ -1420,7 +1420,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.consultarDadesDocumentGenerat(id);
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.consultarDadesDocumentGenerat(id.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("consultarDadesDocumentGenerat(BigDecimal) - fi"); //$NON-NLS-1$
@@ -1470,7 +1470,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.consultarDadesDocumentGeneratPerCodiCSV(csvDocument, visibilitat);
+			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.consultarDadesDocumentGeneratPerCodiCSV(csvDocument, visibilitat.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("consultarDadesDocumentGeneratPerCodiCSV(String, BigDecimal) - fi"); //$NON-NLS-1$
@@ -1521,8 +1521,8 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			byte[] documentByteArray = downloadApi.descarregarDocumentExpedient(descarregarDocumentExpedientBDTO.getIdDocument(),
-			        descarregarDocumentExpedientBDTO.getIdExpedient());
+			byte[] documentByteArray = downloadApi.descarregarDocumentExpedient(descarregarDocumentExpedientBDTO.getIdDocument().intValue(),
+			        descarregarDocumentExpedientBDTO.getIdExpedient().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("descarregarDocumentExpedient(DescarregarDocumentExpedientBDTO) - fi"); //$NON-NLS-1$
@@ -1573,7 +1573,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 
-			byte[] documentByteArray = signaturesApi.descarregarDocumentExpedientSignat(idUltimaSignatura);
+			byte[] documentByteArray = signaturesApi.descarregarDocumentExpedientSignat(idUltimaSignatura.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("descarregarDocumentExpedientSignat(BigDecimal) - fi"); //$NON-NLS-1$
@@ -1621,7 +1621,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			List<BigDecimal> dadesOperacioRequeritsIdList = documentacioApi.cercaDadesOperacioRequerits(documentacioIdext);
+			List<BigDecimal> dadesOperacioRequeritsIdList = documentacioApi.cercaDadesOperacioRequerits(documentacioIdext.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("cercaDadesOperacioRequerits(BigDecimal) - fi"); //$NON-NLS-1$
@@ -1719,7 +1719,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			RespostaPlantillaDocVinculada respostaPlantillaDocVinculada = configuracioDocumentacioApi
-			        .consultarPlantillaDocumentacioVinculada(idConfDoc, idDocVinculada);
+			        .consultarPlantillaDocumentacioVinculada(idConfDoc.intValue(), idDocVinculada.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("getPlantillaDocVinculada(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
@@ -2082,7 +2082,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi
-			        .obtenirDocsTramitacioByNotificationId(BigDecimal.valueOf(notificacioId));
+			        .obtenirDocsTramitacioByNotificationId(notificacioId.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("obtenirDocsTramitacioByNotificationId(Long) - fi"); //$NON-NLS-1$
@@ -2256,7 +2256,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			documentacioApi.tancarRequerimentsExpedient(idDocumentacio);
+			documentacioApi.tancarRequerimentsExpedient(idDocumentacio.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("tancarRequerimentsExpedient(BigDecimal) - fi"); //$NON-NLS-1$
@@ -2348,7 +2348,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.crearDocumentEntradaDigitalitzat(
-			        crearDocumentEntradaDigitalitzarBDTO.getDocsEntradaRDTO(), crearDocumentEntradaDigitalitzarBDTO.getIdExpedient());
+			        crearDocumentEntradaDigitalitzarBDTO.getDocsEntradaRDTO(), crearDocumentEntradaDigitalitzarBDTO.getIdExpedient().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearDocumentEntradaDigitalitzat(CrearDocumentEntradaDigitalitzarBDTO) - fi"); //$NON-NLS-1$
@@ -2401,7 +2401,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		try {
 			DocsTramitacioRDTO docsTramitacioRDTO = documentacioApi.crearDocumentTramitacioDigitalitzat(
 			        crearDocumentTramitacioDigitalitzarBDTO.getDocsTramitacioRDTO(),
-			        crearDocumentTramitacioDigitalitzarBDTO.getIdExpedient());
+			        crearDocumentTramitacioDigitalitzarBDTO.getIdExpedient().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("crearDocumentTramitacioDigitalitzat(CrearDocumentEntradaDigitalitzarBDTO) - fi"); //$NON-NLS-1$
@@ -2592,7 +2592,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 			log.debug("esBorrarDocumentacioEntrada(EsborrarDocumentBDTO) - inici"); //$NON-NLS-1$
 		}
 		try {
-			documentacioApi.esBorrarDocumentacioEntrada(esborrarDocumentBDTO.getIdDocument(), esborrarDocumentBDTO.getIdExpedient());
+			documentacioApi.esBorrarDocumentacioEntrada(esborrarDocumentBDTO.getIdDocument().intValue(), esborrarDocumentBDTO.getIdExpedient().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("esBorrarDocumentacioEntrada(EsborrarDocumentBDTO) - fi"); //$NON-NLS-1$
@@ -2636,7 +2636,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 			log.debug("esBorrarDocumentacioTramitacio(EsborrarDocumentBDTO) - inici"); //$NON-NLS-1$
 		}
 		try {
-			documentacioApi.esBorrarDocumentacioTramitacio(esborrarDocumentBDTO.getIdDocument(), esborrarDocumentBDTO.getIdExpedient());
+			documentacioApi.esBorrarDocumentacioTramitacio(esborrarDocumentBDTO.getIdDocument().intValue(), esborrarDocumentBDTO.getIdExpedient().intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("esBorrarDocumentacioTramitacio(EsborrarDocumentBDTO) - fi"); //$NON-NLS-1$
@@ -2735,7 +2735,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 			log.debug("comprovarDocumentsSignatsExpedient(BigDecimal) - inici"); //$NON-NLS-1$
 		}
 		try {
-			Boolean documentsSignats = documentacioApi.comprovarDocumentsSignatsExpedient(idDocumentacio);
+			Boolean documentsSignats = documentacioApi.comprovarDocumentsSignatsExpedient(idDocumentacio.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("comprovarDocumentsSignatsExpedient(BigDecimal) - fi"); //$NON-NLS-1$
@@ -2785,7 +2785,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.guardarDocumentEntradaGestorDocumental(
-			        guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO(), guardarDocumentEntradaFitxerBDTO.getIdExpedient(),
+			        guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO(), guardarDocumentEntradaFitxerBDTO.getIdExpedient().intValue(),
 			        guardarDocumentEntradaFitxerBDTO.getIdGestorDocumental());
 
 			if (log.isDebugEnabled()) {
@@ -2838,7 +2838,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 		try {
 			DocsEntradaRDTO docsEntradaRDTO = documentacioApi.guardarDocumentEntradaEscanejatGestorDocumental(
-			        guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO(), guardarDocumentEntradaFitxerBDTO.getIdExpedient(),
+			        guardarDocumentEntradaFitxerBDTO.getDocsEntradaRDTO(), guardarDocumentEntradaFitxerBDTO.getIdExpedient().intValue(),
 			        guardarDocumentEntradaFitxerBDTO.getIdGestorDocumental());
 
 			if (log.isDebugEnabled()) {
@@ -2890,7 +2890,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			documentacioApi.guardarDocumentSollicitudSignat(documentacioIdext, signaturaSolicitud);
+			documentacioApi.guardarDocumentSollicitudSignat(documentacioIdext.intValue(), signaturaSolicitud.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("guardarDocumentSollicitudSignat(BigDecimal, BigDecimal) - fi"); //$NON-NLS-1$
@@ -2937,7 +2937,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			documentacioApi.obrirRequerimentsExpedient(idDocumentacio);
+			documentacioApi.obrirRequerimentsExpedient(idDocumentacio.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("obrirRequerimentsExpedient(BigDecimal) - fi"); //$NON-NLS-1$
@@ -3179,7 +3179,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 		}
 
 		try {
-			signaturesApi.incrementarReintentsSignatura(idDocument);
+			signaturesApi.incrementarReintentsSignatura(idDocument.intValue());
 
 			if (log.isDebugEnabled()) {
 				log.debug("incrementarReintentsSignatura(BigDecimal) - fi"); //$NON-NLS-1$

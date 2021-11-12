@@ -13,9 +13,7 @@
 
 package es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients;
 
-import java.math.BigDecimal;
 import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -26,7 +24,7 @@ import java.math.BigDecimal;
 /**
  * GestionarAvisosPerAccio
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-10-25T09:27:34.061+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-08T15:53:07.446+01:00")
 public class GestionarAvisosPerAccio {
   @JsonProperty("idAccioEstat")
   private BigDecimal idAccioEstat = null;

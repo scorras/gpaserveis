@@ -2,7 +2,6 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfDocEntradaRequeritRDTO;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-17T17:20:36.241+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-04T14:21:11.408+01:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioRequeritApi")
 public class DocumentacioRequeritApi {
     private ApiClient apiClient;
@@ -57,7 +56,7 @@ public class DocumentacioRequeritApi {
      * @return List&lt;ConfDocEntradaRequeritRDTO&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<ConfDocEntradaRequeritRDTO> cercaConfiguracioDocumentacioEntradaRequerida(BigDecimal idDoc) throws RestClientException {
+    public List<ConfDocEntradaRequeritRDTO> cercaConfiguracioDocumentacioEntradaRequerida(Integer idDoc) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idDoc' is set
