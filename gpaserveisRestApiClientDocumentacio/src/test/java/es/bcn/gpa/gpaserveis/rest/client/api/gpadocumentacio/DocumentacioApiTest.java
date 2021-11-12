@@ -82,8 +82,8 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		Integer idDocsEntrada = 1;
-		Integer idExpedient = 1;
+		BigDecimal idDocsEntrada = BigDecimal.ONE;
+		BigDecimal idExpedient = BigDecimal.ONE;
 		api.esBorrarDocumentacioEntrada(idDocsEntrada, idExpedient);
 
 		assertTrue(true);
@@ -103,8 +103,8 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		Integer idDocsTramitacio = 1;
-		Integer idExpedient = 1;
+		BigDecimal idDocsTramitacio = BigDecimal.ONE;
+		BigDecimal idExpedient = BigDecimal.ONE;
 		api.esBorrarDocumentacioTramitacio(idDocsTramitacio, idExpedient);
 
 		assertTrue(true);
@@ -124,8 +124,8 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DocsEntradaRDTO>());
 
-		Integer idSollicitud = 1;
-		Integer visibilitat = 1;
+		BigDecimal idSollicitud = ONE;
+		BigDecimal visibilitat = ONE;
 		List<DocsEntradaRDTO> response = api.cercaDocumentsEntradaPerSollicitud(idSollicitud, visibilitat);
 
 		assertTrue(response != null);
@@ -143,8 +143,8 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DocsEntradaRDTO>());
 
-		Integer idDocumentacio = 1;
-		Integer visibilitat = 1;
+		BigDecimal idDocumentacio = ONE;
+		BigDecimal visibilitat = ONE;
 		List<DocsEntradaRDTO> response = api.cercaDocumentsEntradaAgrupatsPerTramitOvt(idDocumentacio, visibilitat);
 
 		assertTrue(response != null);
@@ -180,7 +180,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(new DocsEntradaRDTO());
 
-		Integer id = 1;
+		BigDecimal id = ONE;
 		DocsEntradaRDTO response = api.consultarDadesDocumentAportat(id);
 
 		assertTrue(response != null);
@@ -198,7 +198,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<BigDecimal>());
 
-		Integer idDoc = 1;
+		BigDecimal idDoc = ONE;
 		List<BigDecimal> response = api.cercaDadesOperacioRequerits(idDoc);
 
 		assertTrue(response != null);
@@ -252,7 +252,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
 
-		Integer id = 1;
+		BigDecimal id = ONE;
 		DocsTramitacioRDTO response = api.consultarDadesDocumentGenerat(id);
 
 		assertTrue(response != null);
@@ -271,7 +271,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new DocsEntradaRDTO());
 
 		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		DocsEntradaRDTO response = api.crearDeclaracioResponsable(docsEntradaRDTO, idExpedient);
 
 		assertTrue(response != null);
@@ -290,7 +290,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(ParameterizedTypeReference.class))).thenReturn(new DocsEntradaRDTO());
 
 		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		DocsEntradaRDTO response = api.crearDocumentEntrada(docsEntradaRDTO, idExpedient);
 
 		assertTrue(response != null);
@@ -313,7 +313,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
 
 		File file = testFolder.newFolder("test");
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		String requerimentExpedient = StringUtils.EMPTY;
 		DocsTramitacioRDTO response = api.guardarRequerimentFitxer(file, idExpedient, requerimentExpedient);
 
@@ -332,7 +332,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
 
-		Integer idNotificacio = 1;
+		BigDecimal idNotificacio = ONE;
 		DocsTramitacioRDTO response = api.obtenirDocsTramitacioByNotificationId(idNotificacio);
 
 		assertTrue(response != null);
@@ -356,7 +356,7 @@ public class DocumentacioApiTest extends ParentTest {
 
 		String docsEntrada = StringUtils.EMPTY;
 		File file = testFolder.newFolder("test");
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		DocsEntradaRDTO response = api.guardarDocumentEntradaFitxer(docsEntrada, file, idExpedient);
 
 		assertTrue(response != null);
@@ -380,7 +380,7 @@ public class DocumentacioApiTest extends ParentTest {
 
 		String docsTramitacio = StringUtils.EMPTY;
 		File file = testFolder.newFolder("test");
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		DocsTramitacioRDTO response = api.guardarDocumentTramitacioFitxer(docsTramitacio, file, idExpedient);
 
 		assertTrue(response != null);
@@ -399,7 +399,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
 
 		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		DocsTramitacioRDTO response = api.guardarDocumentTramitacioPlantilla(docsTramitacioRDTO, idExpedient);
 
 		assertTrue(response != null);
@@ -420,8 +420,8 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(MediaType.class), any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
 
 		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
-		Integer idExpedient = 1;
-		Integer idSollicitud = 1;
+		BigDecimal idExpedient = ONE;
+		BigDecimal idSollicitud = ONE;
 		DocsTramitacioRDTO response = api.guardarDocumentTramitacioJustificantPlantilla(docsTramitacioRDTO, idExpedient, idSollicitud);
 
 		assertTrue(response != null);
@@ -440,7 +440,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(ParameterizedTypeReference.class))).thenReturn(new DocsEntradaRDTO());
 
 		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		DocsEntradaRDTO response = api.actualitzarDeclaracioResponsable(docsEntradaRDTO, idExpedient);
 
 		assertTrue(response != null);
@@ -459,7 +459,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(ParameterizedTypeReference.class))).thenReturn(new DocsEntradaRDTO());
 
 		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		DocsEntradaRDTO response = api.actualitzarDocumentEntrada(docsEntradaRDTO, idExpedient);
 
 		assertTrue(response != null);
@@ -478,7 +478,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
 
 		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		DocsTramitacioRDTO response = api.actualitzarDocumentTramitacio(docsTramitacioRDTO, idExpedient);
 
 		assertTrue(response != null);
@@ -496,7 +496,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		Integer idDocumentacio = 1;
+		BigDecimal idDocumentacio = ONE;
 		api.tancarRequerimentsExpedient(idDocumentacio);
 		assertTrue(true);
 	}
@@ -514,7 +514,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
 
 		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		DocsTramitacioRDTO response = api.crearDocumentTramitacio(docsTramitacioRDTO, idExpedient);
 
 		assertTrue(response != null);
@@ -530,7 +530,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new DocsEntradaRDTO());
 
 		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		DocsEntradaRDTO response = api.crearDocumentEntradaDigitalitzat(docsEntradaRDTO, idExpedient);
 
 		assertTrue(response != null);
@@ -546,7 +546,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
 
 		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		DocsTramitacioRDTO response = api.crearDocumentTramitacioDigitalitzat(docsTramitacioRDTO, idExpedient);
 
 		assertTrue(response != null);
@@ -591,7 +591,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(new DocsRDTO());
 
-		Integer id = 1;
+		BigDecimal id = ONE;
 		DocsRDTO response = api.consultarDadesDocument(id);
 
 		assertTrue(response != null);
@@ -624,7 +624,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new DocsEntradaRDTO());
 
 		DocsEntradaRDTO docsEntradaoRDTO = new DocsEntradaRDTO();
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		DocsEntradaRDTO response = api.actualitzarDocumentEntradaDigitalitzat(docsEntradaoRDTO, idExpedient);
 
 		assertTrue(response != null);
@@ -642,7 +642,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
 
 		DocsTramitacioRDTO docsTramitacioRDTO = new DocsTramitacioRDTO();
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		DocsTramitacioRDTO response = api.actualitzarDocumentTramitacioDigitalitzat(docsTramitacioRDTO, idExpedient);
 
 		assertTrue(response != null);
@@ -660,7 +660,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
 
 		GuardarRequerimentExpedient guardarRequerimentExpedient = new GuardarRequerimentExpedient();
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		DocsTramitacioRDTO response = api.actualitzarRequeriment(guardarRequerimentExpedient, idExpedient);
 
 		assertTrue(response != null);
@@ -678,7 +678,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new DocsTramitacioRDTO());
 
 		GuardarRequerimentExpedient guardarRequerimentExpedient = new GuardarRequerimentExpedient();
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		DocsTramitacioRDTO response = api.guardarRequerimentPlantilla(guardarRequerimentExpedient, idExpedient);
 
 		assertTrue(true);
@@ -719,7 +719,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(Boolean.class);
 
-		Integer idDocumentacio = 1;
+		BigDecimal idDocumentacio = ONE;
 		Boolean response = api.comprovarDocumentsSignatsExpedient(idDocumentacio);
 
 		assertTrue(true);
@@ -739,7 +739,7 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class), any(String[].class),
 		        any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		Integer idDocumentacio = 1;
+		BigDecimal idDocumentacio = ONE;
 		api.obrirRequerimentsExpedient(idDocumentacio);
 		assertTrue(true);
 	}
@@ -760,7 +760,7 @@ public class DocumentacioApiTest extends ParentTest {
 
 		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
 		String idGestorDocumental = "1";
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		DocsEntradaRDTO response = api.guardarDocumentEntradaGestorDocumental(docsEntradaRDTO, idExpedient, idGestorDocumental);
 
 		assertTrue(response != null);
@@ -777,7 +777,7 @@ public class DocumentacioApiTest extends ParentTest {
 
 		DocsEntradaRDTO docsEntradaRDTO = new DocsEntradaRDTO();
 		String idGestorDocumental = "1";
-		Integer idExpedient = 1;
+		BigDecimal idExpedient = ONE;
 		DocsEntradaRDTO response = api.guardarDocumentEntradaEscanejatGestorDocumental(docsEntradaRDTO, idExpedient, idGestorDocumental);
 
 		assertTrue(response != null);
@@ -798,8 +798,8 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		Integer idDocumentacio = 1;
-		Integer idPeticioSignatura = 1;
+		BigDecimal idDocumentacio = ONE;
+		BigDecimal idPeticioSignatura = ONE;
 		api.guardarDocumentSollicitudSignat(idDocumentacio, idPeticioSignatura);
 
 		assertTrue(true);
@@ -919,7 +919,7 @@ public class DocumentacioApiTest extends ParentTest {
 		                .thenReturn(new DocsEntradaRDTO());
 
 		String codiCSV = "779041efafc68fc4761cb916b8287199d459af2a7505301139cf85854545be53";
-		Integer visibilitat = 1;
+		BigDecimal visibilitat = ONE;
 		DocsEntradaRDTO response = api.consultarDadesDocumentAportatPerCodiCSV(codiCSV, visibilitat);
 
 		assertTrue(response != null);
@@ -942,7 +942,7 @@ public class DocumentacioApiTest extends ParentTest {
 		                .thenReturn(new DocsTramitacioRDTO());
 
 		String codiCSV = "54ef9ee001c5af241af5bdf192cc9b71e46b8c90a7138c86db49223dd4ea38ce";
-		Integer visibilitat = 1;
+		BigDecimal visibilitat = ONE;
 		DocsTramitacioRDTO response = api.consultarDadesDocumentGeneratPerCodiCSV(codiCSV, visibilitat);
 
 		assertTrue(response != null);
@@ -962,8 +962,8 @@ public class DocumentacioApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(new ArrayList<DocsEntradaRDTO>());
 
-		Integer idDocumentacio = 1;
-		Integer visibilitat = 1;
+		BigDecimal idDocumentacio = ONE;
+		BigDecimal visibilitat = ONE;
 		List<DocsTramitacioRDTO> response = api.cercaDocumentsTramitacioComunicats(idDocumentacio, visibilitat);
 
 		assertTrue(response != null);

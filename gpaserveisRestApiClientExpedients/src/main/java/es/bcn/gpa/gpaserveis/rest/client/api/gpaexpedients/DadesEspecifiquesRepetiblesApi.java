@@ -2,9 +2,7 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaexpedients.ApiClient;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.AfegirRepeticioGrupRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.DadesEspecifiquesRepetiblesRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.EsborrarRepeticioGrupRDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +23,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-08T15:53:07.446+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-12T12:40:33.333+01:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaexpedients.DadesEspecifiquesRepetiblesApi")
 public class DadesEspecifiquesRepetiblesApi {
     private ApiClient apiClient;
@@ -47,45 +45,6 @@ public class DadesEspecifiquesRepetiblesApi {
         this.apiClient = apiClient;
     }
 
-    /**
-     * AfegirRepeticioGrup
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>201</b> - Created
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param afegirRepeticioGrup afegirRepeticioGrup
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public void afegirRepeticioGrupUsingPOST(AfegirRepeticioGrupRDTO afegirRepeticioGrup) throws RestClientException {
-        Object postBody = afegirRepeticioGrup;
-        
-        // verify the required parameter 'afegirRepeticioGrup' is set
-        if (afegirRepeticioGrup == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'afegirRepeticioGrup' when calling afegirRepeticioGrupUsingPOST");
-        }
-        
-        String path = UriComponentsBuilder.fromPath("/expedients/dadesEspecifiquesRepetibles/afegirRepeticioGrup").build().toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { 
-            "application/json"
-        };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {};
-        apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
     /**
      * Returns the requested dades especifiques repetibles
      * 
@@ -179,44 +138,5 @@ public class DadesEspecifiquesRepetiblesApi {
 
         ParameterizedTypeReference<List<DadesEspecifiquesRepetiblesRDTO>> returnType = new ParameterizedTypeReference<List<DadesEspecifiquesRepetiblesRDTO>>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * EsborrarRepeticioGrup
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>201</b> - Created
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param esborrarRepeticioGrup esborrarRepeticioGrup
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public void esborrarRepeticioGrupUsingPOST(EsborrarRepeticioGrupRDTO esborrarRepeticioGrup) throws RestClientException {
-        Object postBody = esborrarRepeticioGrup;
-        
-        // verify the required parameter 'esborrarRepeticioGrup' is set
-        if (esborrarRepeticioGrup == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'esborrarRepeticioGrup' when calling esborrarRepeticioGrupUsingPOST");
-        }
-        
-        String path = UriComponentsBuilder.fromPath("/expedients/dadesEspecifiquesRepetibles/esborrarRepeticioGrup").build().toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { 
-            "application/json"
-        };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {};
-        apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }

@@ -132,7 +132,7 @@ public class SignaturesApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn("prova".getBytes());
 
-		Integer idUltimaSignatura = 1;
+		BigDecimal idUltimaSignatura = ONE;
 		byte[] response = api.descarregarDocumentExpedientSignat(idUltimaSignatura);
 
 		assertTrue(response != null);
@@ -253,7 +253,7 @@ public class SignaturesApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn(null);
 
-		Integer idDocument = 1;
+		BigDecimal idDocument = ONE;
 		api.incrementarReintentsSignatura(idDocument);
 		assertTrue(true);
 	}

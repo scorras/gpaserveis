@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "2.10.0"
+  version: "2.11.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -11,8 +11,6 @@ info:
     name: "Llicència IMI"
 basePath: "/services/gpadocumentacio/rest"
 tags:
-- name: "catalog-rest-controller"
-  description: "Catalog Rest Controller"
 - name: "configuracio-documentacio-rest-controller"
   description: "Configuracio Documentacio Rest Controller"
 - name: "documentacio-rest-controller"
@@ -21,302 +19,7 @@ tags:
   description: "Notificacions Rest Controller"
 - name: "signatures-rest-controller"
   description: "Signatures Rest Controller"
-- name: "valid-rest-controller"
-  description: "Valid Rest Controller"
 paths:
-  /configuracioDocumentacio/actualitzarDocumentacioAssociadaTramitOVT:
-    post:
-      tags:
-      - "Configuracio Documentacio"
-      summary: "actualitzarDocumentacioAssociadaTramitOVT"
-      operationId: "actualitzarDocumentacioAssociadaTramitOVTUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "actualitzarDocumentacioAssociadaTramitOVT"
-        description: "actualitzarDocumentacioAssociadaTramitOVT"
-        required: true
-        schema:
-          $ref: "#/definitions/ActualitzarDocumentacioAssociadaTramitOVT"
-      responses:
-        200:
-          description: "OK"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /configuracioDocumentacio/comprovarConfiguracioDocumentacioCanviEstatProcediment/{idConfiguracioDocumentacio}:
-    get:
-      tags:
-      - "ComprovarConfiguracioDocumentacioCanviEstatProcediment"
-      summary: "Returns ComprovarConfiguracioDocumentacioCanviEstatProcediment"
-      operationId: "comprovarConfiguracioDocumentacioCanviEstatProcedimentUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idConfiguracioDocumentacio"
-        in: "path"
-        description: "idConfiguracioDocumentacio"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaComprovarConfiguracioDocumentacioRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /configuracioDocumentacio/comprovarDocumentacioConfDocsEntPerEstat/{confDocsEntrada}/{estatFuturo}:
-    get:
-      tags:
-      - "Configuracio Documentacio"
-      summary: "comprovarDocumentacioConfDocsEntPerEstat"
-      operationId: "comprovarDocumentacioConfDocsEntPerEstatUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "confDocsEntrada"
-        in: "path"
-        description: "confDocsEntrada"
-        required: true
-        type: "integer"
-      - name: "estatFuturo"
-        in: "path"
-        description: "estatFuturo"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "boolean"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /configuracioDocumentacio/comprovarDocumentacioConfDocsTramPerEstat/{confDocsTramitacio}/{estatFuturo}:
-    get:
-      tags:
-      - "Configuracio Documentacio"
-      summary: "comprovarDocumentacioConfDocsEntPerEstat"
-      operationId: "comprovarDocumentacioConfDocsTramPerEstatUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "confDocsTramitacio"
-        in: "path"
-        description: "confDocsTramitacio"
-        required: true
-        type: "integer"
-      - name: "estatFuturo"
-        in: "path"
-        description: "estatFuturo"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "boolean"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /configuracioDocumentacio/configuracioDocsTramitacio/{id}:
-    get:
-      tags:
-      - "Configuracio Documentacio"
-      summary: "Returns the requested tramitacio configuracio"
-      operationId: "obtenirConfiguracioDocumentacioTramitacioUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "id"
-        in: "path"
-        description: "id"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/ConfiguracioDocsTramitacioRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /configuracioDocumentacio/docEntrada:
-    post:
-      tags:
-      - "Configuracio Documentacio Entrada"
-      summary: "create the doc entrada"
-      operationId: "createDocumentacioEntradaUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "docEntrada"
-        description: "docEntrada"
-        required: true
-        schema:
-          $ref: "#/definitions/ConfiguracioDocsEntradaRDTO"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/ConfiguracioDocsEntradaResponse"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /configuracioDocumentacio/docEntrada/{procId}:
-    put:
-      tags:
-      - "Configuracio Documentacio"
-      summary: "updates the doc config"
-      operationId: "updateDocumentacioEntradaUsingPUT"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "docEntrada"
-        description: "docEntrada"
-        required: true
-        schema:
-          $ref: "#/definitions/ConfiguracioDocsEntradaRDTO"
-      - name: "procId"
-        in: "path"
-        description: "procId"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /configuracioDocumentacio/docTramitacio:
-    post:
-      tags:
-      - "Configuracio Documentacio Tramitacio"
-      summary: "create the doc config"
-      operationId: "createDocumentacioTramitacioUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "docTramitacio"
-        description: "docTramitacio"
-        required: true
-        schema:
-          $ref: "#/definitions/ConfiguracioDocsTramitacioRDTO"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/ConfiguracioDocsTramitacioResponse"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /configuracioDocumentacio/docTramitacio/{procId}:
-    put:
-      tags:
-      - "Configuracio Documentacio"
-      summary: "updates the doc config"
-      operationId: "updateDocumentacioTramitacioUsingPUT"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "docTramitacio"
-        description: "docTramitacio"
-        required: true
-        schema:
-          $ref: "#/definitions/ConfiguracioDocsTramitacioRDTO"
-      - name: "procId"
-        in: "path"
-        description: "procId"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /configuracioDocumentacio/docsEntradaRequerit/{idDoc}:
     get:
       tags:
@@ -330,7 +33,7 @@ paths:
         in: "path"
         description: "idDoc"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -347,34 +50,6 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /configuracioDocumentacio/documentacioVinculadaCompleta/{idConfiguracioDocumentacio}:
-    get:
-      tags:
-      - "DocumentacioVinculadaCompleta"
-      summary: "Returns DocumentacioVinculadaCompleta"
-      operationId: "obtenirDocumentacioVinculadaCompletaUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idConfiguracioDocumentacio"
-        in: "path"
-        description: "idConfiguracioDocumentacio"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaDocumentacioVinculadaCompletaRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /configuracioDocumentacio/entrada/{id}:
     get:
       tags:
@@ -423,7 +98,7 @@ paths:
         in: "path"
         description: "id"
         required: true
-        type: "integer"
+        type: "number"
       - name: "nextPageNumber"
         in: "query"
         required: false
@@ -515,12 +190,12 @@ paths:
         in: "path"
         description: "id"
         required: true
-        type: "integer"
+        type: "number"
       - name: "idTramitOvt"
         in: "path"
         description: "idTramitOvt"
         required: true
-        type: "integer"
+        type: "number"
       - name: "nextPageNumber"
         in: "query"
         required: false
@@ -555,163 +230,6 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/PageDataOfConfiguracioDocsEntradaRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /configuracioDocumentacio/entradaAssociarRequeriment/{idConfiguracioDocumentacio}/{idsConfEntrAssociarReq}:
-    get:
-      tags:
-      - "Configuracio Documentacio"
-      summary: "Returns the requested entrada configuracio"
-      operationId: "obtenirConfiguracioDocEntAssociarRequerimentUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "absoluteRowNumberOfLastRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "currentPageHasNextPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageHasPreviousPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsFirstPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsLastPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "dir"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "idConfiguracioDocumentacio"
-        in: "path"
-        description: "idConfiguracioDocumentacio"
-        required: true
-        type: "integer"
-      - name: "idsConfEntrAssociarReq"
-        in: "path"
-        description: "idsConfEntrAssociarReq"
-        required: true
-        type: "string"
-      - name: "nextPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "pageSize"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "previousPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "sort"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "totalElements"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int64"
-      - name: "totalPages"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/PageDataOfConfiguracioDocsEntradaRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /configuracioDocumentacio/getConfDocAssociadaRequeriment/{idRequeriment}:
-    get:
-      tags:
-      - "Configuracio Documentacio"
-      summary: "Returns the requested entrada configuracio associada al requeriment"
-      operationId: "getConfDocAssociadaRequerimentUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idRequeriment"
-        in: "path"
-        description: "idRequeriment"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/ConfiguracioDocsEntradaRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /configuracioDocumentacio/getDadesOperAssociadaRequeriment/{idRequeriment}:
-    get:
-      tags:
-      - "Configuracio Documentacio"
-      summary: "Returns the requested dadas operacio associada al requeriment"
-      operationId: "getDadesOperAssociadaRequerimentUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idRequeriment"
-        in: "path"
-        description: "idRequeriment"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/DadesOperacioRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -734,135 +252,17 @@ paths:
         in: "path"
         description: "idConfDoc"
         required: true
-        type: "integer"
+        type: "number"
       - name: "idDocVinculada"
         in: "path"
         description: "idDocVinculada"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
           schema:
             $ref: "#/definitions/RespostaPlantillaDocVinculada"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /configuracioDocumentacio/serie/{serieDocumental}:
-    get:
-      tags:
-      - "Series cataleg"
-      summary: "Sincronitzar la configuració de la documentació del procediment"
-      operationId: "checkSerieDocumentalUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "serieDocumental"
-        in: "path"
-        description: "serieDocumental"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaSincronitzarCheckRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /configuracioDocumentacio/series:
-    get:
-      tags:
-      - "Series cataleg"
-      summary: "Returns the series"
-      operationId: "getSeriesUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/SerieDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /configuracioDocumentacio/sincronitzar:
-    post:
-      tags:
-      - "Series cataleg"
-      summary: "Sincronitzar la configuració de la documentació del procediment"
-      operationId: "sincronitzarUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "procedimentSerieDocRDTO"
-        description: "procedimentSerieDocRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/ProcedimentSerieDocRDTO"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaSincronitzarRDTO"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /configuracioDocumentacio/sincronitzarSeriesToProc:
-    post:
-      tags:
-      - "Series cataleg"
-      summary: "Sincronitzar la configuració de la documentació del procediment"
-      operationId: "sincronitzarSeriesToProcUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "procedimentSerieDocRDTO"
-        description: "procedimentSerieDocRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/ProcedimentSerieDocRDTO"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaSincronitzarRDTO"
-        201:
-          description: "Created"
         401:
           description: "Unauthorized"
         403:
@@ -920,7 +320,7 @@ paths:
         in: "path"
         description: "id"
         required: true
-        type: "integer"
+        type: "number"
       - name: "nextPageNumber"
         in: "query"
         required: false
@@ -964,72 +364,6 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /documentacio/actualitzarObjetoGestorDocumental:
-    post:
-      tags:
-      - "Documentacio"
-      summary: "Actualitzar objeto en Gestor Documental"
-      operationId: "actualitzarObjetoGestorDocumentalUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "expedientGestorDocumentalRDTO"
-        description: "expedientGestorDocumentalRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/ExpedientGestorDocumentalRDTO"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "string"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /documentacio/acumularDocumentacio:
-    post:
-      tags:
-      - "Documentacio"
-      summary: "Acumulació de la documentació"
-      operationId: "acumularDocumentacioUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "acumularDocumentacioRDTO"
-        description: "acumularDocumentacioRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/AcumularDocumentacioRDTO"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RestClientResponse"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /documentacio/altaExpedientGestorDocumental:
     post:
       tags:
@@ -1156,402 +490,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/catalog/accessRestringut:
-    get:
-      tags:
-      - "Access Restringut"
-      summary: "Returns all the access restringut"
-      operationId: "getAccessRestringutUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/AccessRestringutRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/catalog/categoriaNti:
-    get:
-      tags:
-      - "CategoriaNti"
-      summary: "Returns all the categoriaNti"
-      operationId: "getCategoriaNtiUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/CategoriaNtiRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/catalog/estatRevisio:
-    get:
-      tags:
-      - "EstatRevisio"
-      summary: "Returns all the estatRevisios"
-      operationId: "getEstatRevisioUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/EstatRevisioRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/catalog/estatsDocument:
-    get:
-      tags:
-      - "EstatsDocument"
-      summary: "Returns all the estatsDocument"
-      operationId: "getEstatsDocumentUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/EstatsRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/catalog/faseProcediment:
-    get:
-      tags:
-      - "FaseProcediment"
-      summary: "Returns all the fase procediments"
-      operationId: "getFaseProcedimentUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/FaseProcedimentRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/catalog/idiomes:
-    get:
-      tags:
-      - "Idiomes"
-      summary: "Returns all the Idiomes"
-      operationId: "obtenirIdiomesUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/IdiomesRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/catalog/lopd:
-    get:
-      tags:
-      - "Lopd"
-      summary: "Returns all the lopds"
-      operationId: "getLopdUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/LopdRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/catalog/modalitatsSignatura:
-    get:
-      tags:
-      - "ModalitatsSignatura"
-      summary: "Returns all the ModalitatsSignatura"
-      operationId: "obtenirModalitatsSignaturaUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/ModalitatsSignaturaRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/catalog/origenDocument:
-    get:
-      tags:
-      - "OrigenDocument"
-      summary: "Returns all the origenDocuments"
-      operationId: "getOrigenDocumentUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/OrigenDocumentRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/catalog/suportConfeccio:
-    get:
-      tags:
-      - "SuportConfeccio"
-      summary: "Returns all the suportConfeccios"
-      operationId: "getSuportConfeccioUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/SuportConfeccioRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/catalog/tipusAutenticacio:
-    get:
-      tags:
-      - "TipusAutenticacio"
-      summary: "Returns all the tipusAutenticacios"
-      operationId: "getTipusAutenticacioUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/TipusAutenticacioRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/catalog/tipusDocumentacioVinculada:
-    get:
-      tags:
-      - "TipusDocumentacioVinculada"
-      summary: "Returns all the TipusDocumentacioVinculada"
-      operationId: "obtenirTipusDocumentacioVinculadaUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/TipusDocumentacioVinculadaRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/catalog/tipusMime:
-    get:
-      tags:
-      - "TipusMIME"
-      summary: "Returns all the Tipus MIME"
-      operationId: "getTipusMimeUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/TipusMimeRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/comprovarDocumentsPendentNotificacio/{idDocumentacioList}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "ComprovarDocumentsPendentNotificacio"
-      operationId: "comprovarDocumentsPendentNotificacioUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idDocumentacioList"
-        in: "path"
-        description: "idDocumentacioList"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "boolean"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/comprovarDocumentsPendentRevisio/{idDocumentacio}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "ComprovarDocumentsPendentRevisio"
-      operationId: "comprovarDocumentsPendentRevisioUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idDocumentacio"
-        in: "path"
-        description: "idDocumentacio"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "boolean"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/comprovarDocumentsSignats/{idDocumentacioList}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "ComprovarDocumentsSignats"
-      operationId: "comprovarDocumentsSignatsUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idDocumentacioList"
-        in: "path"
-        description: "idDocumentacioList"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "boolean"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
   /documentacio/comprovarDocumentsSignatsExpedient/{idDocumentacio}:
     get:
       tags:
@@ -1565,41 +503,12 @@ paths:
         in: "path"
         description: "idDocumentacio"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
           schema:
             type: "boolean"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/consultarPathExpedientGestorDocumental/{idExpedient}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Obté el path sota el qual s'emmagatzema la documentació associada\
-        \ a un Expedient"
-      operationId: "consultarPathExpedientGestorDocumental"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idExpedient"
-        in: "path"
-        description: "idExpedient"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/ConsultarPathExpedientGestorDocumentalResponse"
         401:
           description: "Unauthorized"
         403:
@@ -1622,7 +531,7 @@ paths:
         in: "path"
         description: "idDoc"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -1683,12 +592,12 @@ paths:
         in: "path"
         description: "idDoc"
         required: true
-        type: "integer"
+        type: "number"
       - name: "idExpedient"
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -1717,12 +626,12 @@ paths:
         in: "path"
         description: "idDoc"
         required: true
-        type: "integer"
+        type: "number"
       - name: "idExpedient"
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       - name: "pos"
         in: "path"
         description: "pos"
@@ -1788,299 +697,12 @@ paths:
         in: "path"
         description: "idNotificacio"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
           schema:
             $ref: "#/definitions/DocsTramitacioRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/documentacioEntradaEnRevisio:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Returns the requested documentacio entrada"
-      operationId: "obteneriDocumentacioEntradaEnRevisioUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              type: "number"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/documents/registre/{idDocumentacio}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Obtenir els documents per al registre"
-      operationId: "obtenirDocumentsToRegistreUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idDocumentacio"
-        in: "path"
-        description: "idDocumentacio"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "object"
-            additionalProperties:
-              $ref: "#/definitions/DocsEntradaResgitreDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/documents/registreSollicitud/{idSollicitud}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Obtenir els documents per al registre la sollicitud"
-      operationId: "obtenirDocumentsToRegistreSollicitudUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idSollicitud"
-        in: "path"
-        description: "idSollicitud"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "object"
-            additionalProperties:
-              $ref: "#/definitions/DocsEntradaResgitreDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/documentsEntrada/cerca:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Obtenir els documents d'entrada"
-      operationId: "cercaDocumentsEntradaUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "absoluteRowNumberOfLastRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "codiExpedient"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "currentPageHasNextPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageHasPreviousPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsFirstPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsLastPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "dir"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "idExpedient"
-        in: "query"
-        required: false
-        type: "number"
-      - name: "nextPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "nifSolicitant"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "nomDocument"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "pageSize"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "previousPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "sort"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "tipusDocument"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "totalElements"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int64"
-      - name: "totalPages"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/PageDataOfRespostaCercaDocsEntradaIntraoperabilitat"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/documentsEntrada/registre/{documents}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Obtenir els documents d'entrada per al registre"
-      operationId: "obtenirDocumentsEntradaToRegistreUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "documents"
-        in: "path"
-        description: "documents"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "object"
-            additionalProperties:
-              $ref: "#/definitions/DocsEntradaResgitreDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/downloadFileEntrada/{idExpedient}/{idDoc}:
-    get:
-      tags:
-      - "DownloadEntrada"
-      summary: "download the fileEntrada"
-      operationId: "downloadFileEntradaUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idDoc"
-        in: "path"
-        description: "idDoc"
-        required: true
-        type: "integer"
-      - name: "idExpedient"
-        in: "path"
-        description: "idExpedient"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/InputStreamResource"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/downloadFileTramitacio/{idExpedient}/{idDoc}:
-    get:
-      tags:
-      - "DownloadTramitacio"
-      summary: "download the fileTramitacio"
-      operationId: "downloadFileTramitacioUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idDoc"
-        in: "path"
-        description: "idDoc"
-        required: true
-        type: "integer"
-      - name: "idExpedient"
-        in: "path"
-        description: "idExpedient"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/InputStreamResource"
         401:
           description: "Unauthorized"
         403:
@@ -2108,7 +730,7 @@ paths:
         in: "path"
         description: "visibilitat"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -2136,7 +758,7 @@ paths:
         in: "path"
         description: "id"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -2172,7 +794,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -2209,7 +831,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -2247,7 +869,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       - name: "idGestorDocumental"
         in: "path"
         description: "idGestorDocumental"
@@ -2269,30 +891,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/entrada/estatsRevisio:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Returns all the EstatRevisio"
-      operationId: "getEstatsRevisioDocumentacioEntradaUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/EstatRevisioRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
   /documentacio/entrada/fitxer/{idExpedient}:
     post:
       tags:
@@ -2318,7 +916,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -2356,7 +954,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       - name: "idGestorDocumental"
         in: "path"
         description: "idGestorDocumental"
@@ -2378,36 +976,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/entrada/listTipusGrup/{idConfigDoc}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Returns all the tipus grup entries for the idConfigDoc"
-      operationId: "getTipusGrupEntradaUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idConfigDoc"
-        in: "path"
-        description: "idConfigDoc"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/ConfiguracioDocsEntradaRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
   /documentacio/entrada/responsable/{idExpedient}:
     post:
       tags:
@@ -2429,7 +997,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -2466,7 +1034,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -2561,12 +1129,12 @@ paths:
         in: "path"
         description: "idDocumentacio"
         required: true
-        type: "integer"
+        type: "number"
       - name: "idPeticioSignatura"
         in: "path"
         description: "idPeticioSignatura"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -2594,12 +1162,12 @@ paths:
         in: "path"
         description: "idSollicitud"
         required: true
-        type: "integer"
+        type: "number"
       - name: "visibilitat"
         in: "path"
         description: "visibilitat"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -2637,7 +1205,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -2674,7 +1242,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -2704,12 +1272,12 @@ paths:
         in: "path"
         description: "idDocument"
         required: true
-        type: "integer"
+        type: "number"
       - name: "idExpedient"
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -2735,12 +1303,12 @@ paths:
         in: "path"
         description: "idDocument"
         required: true
-        type: "integer"
+        type: "number"
       - name: "idExpedient"
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -2750,77 +1318,6 @@ paths:
           description: "Unauthorized"
         403:
           description: "Forbidden"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /documentacio/esBorrarDocumentacioMassiu/{idExpedient}:
-    post:
-      tags:
-      - "Documentacio"
-      summary: "Delete all selected documents"
-      operationId: "esBorrarDocumentacioMassiuUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "esborrarDocumentMassiuRDTO"
-        description: "esborrarDocumentMassiuRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/EsborrarDocumentMassiu"
-      - name: "idExpedient"
-        in: "path"
-        description: "idExpedient"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaEsborrarDocumentMassiu"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /documentacio/esborrarDocumentacioEntradaSollicitudsCaducades:
-    post:
-      tags:
-      - "Documentacio"
-      summary: "esborrarDocumentacioEntradaSollicitudsCaducades"
-      operationId: "esborrarDocumentacioEntradaSollicitudsCaducadesUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "idSollicitudsList"
-        description: "idSollicitudsList"
-        required: true
-        schema:
-          type: "array"
-          items:
-            $ref: "#/definitions/Sollicituds"
-      responses:
-        200:
-          description: "OK"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
@@ -2852,69 +1349,6 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /documentacio/informacioPublica/{idDocumentacio}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Obté els documents per informació pública"
-      operationId: "obtenirDocumentsPerAInformacioPublicaUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idDocumentacio"
-        in: "path"
-        description: "idDocumentacio"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/DocsTramitacioRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/newDocumentacio/{codiExpedient}/{procedimentId}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "create new documentacio"
-      operationId: "newDocumentacioUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "codiExpedient"
-        in: "path"
-        description: "codiExpedient"
-        required: true
-        type: "string"
-      - name: "procedimentId"
-        in: "path"
-        description: "procedimentId"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RestClientResponse"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
   /documentacio/obrirRequeriments/{idDocumentacio}:
     post:
       tags:
@@ -2930,7 +1364,7 @@ paths:
         in: "path"
         description: "idDocumentacio"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -2965,7 +1399,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       - name: "requerimentExpedient"
         in: "formData"
         description: "requerimentExpedient"
@@ -3008,7 +1442,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -3046,7 +1480,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -3100,38 +1534,7 @@ paths:
         in: "path"
         description: "idDocumentacio"
         required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /documentacio/tramitacio/canviEstat:
-    post:
-      tags:
-      - "Documentacio"
-      summary: "Updates all selected DocsTramitacio with the EstatsDocument specified"
-      operationId: "canviEstatDocumentacioTramitacioUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "documentCanviEstatRDTO"
-        description: "documentCanviEstatRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/DocumentCanviEstat"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -3223,7 +1626,7 @@ paths:
         in: "path"
         description: "visibilitat"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -3251,7 +1654,7 @@ paths:
         in: "path"
         description: "id"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -3287,7 +1690,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -3324,7 +1727,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -3341,41 +1744,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/tramitacio/estatsDocTramCanviEstat/{estatDocTramitacio}/{configDocTramitacio}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Get all estats documentació tramitació"
-      operationId: "obtenirTransicionsEstatsByEstatDocTramUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "configDocTramitacio"
-        in: "path"
-        description: "configDocTramitacio"
-        required: true
-        type: "integer"
-      - name: "estatDocTramitacio"
-        in: "path"
-        description: "estatDocTramitacio"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/TransicionsEstatsRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari gestor"
   /documentacio/tramitacio/fitxer/{idExpedient}:
     post:
       tags:
@@ -3401,7 +1769,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -3439,12 +1807,12 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       - name: "idSollicitud"
         in: "path"
         description: "idSollicitud"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -3461,66 +1829,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /documentacio/tramitacio/listTipusGrup/{idConfigDoc}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Returns all the tipus grup entries for the idConfigDoc"
-      operationId: "getTipusGrupTramitacioUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idConfigDoc"
-        in: "path"
-        description: "idConfigDoc"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/ConfiguracioDocsTramitacioRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/tramitacio/listTipusGrupRequeriment/{idConfigDoc}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Returns all the tipus grup entries for the idConfigDoc"
-      operationId: "getTipusGrupTramitacioRequerimentUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idConfigDoc"
-        in: "path"
-        description: "idConfigDoc"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/ConfiguracioDocsTramitacioRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
   /documentacio/tramitacio/plantilla/{idExpedient}:
     post:
       tags:
@@ -3542,7 +1850,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -3580,7 +1888,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -3617,7 +1925,7 @@ paths:
         in: "path"
         description: "idExpedient"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -3682,12 +1990,12 @@ paths:
         in: "path"
         description: "idDocumentacio"
         required: true
-        type: "integer"
+        type: "number"
       - name: "visibilitat"
         in: "path"
         description: "visibilitat"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -3695,205 +2003,6 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/DocsEntradaRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/{idDocumentacio}/entrada/{idConfiguracioDocumentacio}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Returns the requested documentacio entrada"
-      operationId: "getDocumentacioEntradaExpedientTancatUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "absoluteRowNumberOfLastRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "currentPageHasNextPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageHasPreviousPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsFirstPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsLastPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "dir"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "idConfiguracioDocumentacio"
-        in: "path"
-        description: "idConfiguracioDocumentacio"
-        required: true
-        type: "integer"
-      - name: "idDocumentacio"
-        in: "path"
-        description: "idDocumentacio"
-        required: true
-        type: "integer"
-      - name: "nextPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "pageSize"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "previousPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "sort"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "totalElements"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int64"
-      - name: "totalPages"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/PageDataOfDocsEntradaRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/{idDocumentacio}/entrada/{idConfiguracioDocumentacio}/{estatsFutursList}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Returns the requested documentacio entrada"
-      operationId: "getDocumentacioEntradaUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "absoluteRowNumberOfLastRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "currentPageHasNextPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageHasPreviousPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsFirstPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsLastPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "dir"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "estatsFutursList"
-        in: "path"
-        description: "estatsFutursList"
-        required: true
-        type: "string"
-      - name: "idConfiguracioDocumentacio"
-        in: "path"
-        description: "idConfiguracioDocumentacio"
-        required: true
-        type: "integer"
-      - name: "idDocumentacio"
-        in: "path"
-        description: "idDocumentacio"
-        required: true
-        type: "integer"
-      - name: "nextPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "pageSize"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "previousPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "sort"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "totalElements"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int64"
-      - name: "totalPages"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/PageDataOfDocsEntradaRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -3916,12 +2025,12 @@ paths:
         in: "path"
         description: "idDocumentacio"
         required: true
-        type: "integer"
+        type: "number"
       - name: "visibilitat"
         in: "path"
         description: "visibilitat"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -3929,205 +2038,6 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/DocsTramitacioRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/{idDocumentacio}/tramitacio/{idConfiguracioDocumentacio}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Returns the requested documentacio tramitacio"
-      operationId: "getDocumentacioTramitacioExpedientTancatUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "absoluteRowNumberOfLastRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "currentPageHasNextPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageHasPreviousPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsFirstPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsLastPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "dir"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "idConfiguracioDocumentacio"
-        in: "path"
-        description: "idConfiguracioDocumentacio"
-        required: true
-        type: "integer"
-      - name: "idDocumentacio"
-        in: "path"
-        description: "idDocumentacio"
-        required: true
-        type: "integer"
-      - name: "nextPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "pageSize"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "previousPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "sort"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "totalElements"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int64"
-      - name: "totalPages"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/PageDataOfDocsTramitacioRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /documentacio/{idDocumentacio}/tramitacio/{idConfiguracioDocumentacio}/{estatsFutursList}:
-    get:
-      tags:
-      - "Documentacio"
-      summary: "Returns the requested documentacio tramitacio"
-      operationId: "getDocumentacioTramitacioUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "absoluteRowNumberOfLastRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "currentPageHasNextPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageHasPreviousPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsFirstPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsLastPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "dir"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "estatsFutursList"
-        in: "path"
-        description: "estatsFutursList"
-        required: true
-        type: "string"
-      - name: "idConfiguracioDocumentacio"
-        in: "path"
-        description: "idConfiguracioDocumentacio"
-        required: true
-        type: "integer"
-      - name: "idDocumentacio"
-        in: "path"
-        description: "idDocumentacio"
-        required: true
-        type: "integer"
-      - name: "nextPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "pageSize"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "previousPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "sort"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "totalElements"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int64"
-      - name: "totalPages"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/PageDataOfDocsTramitacioRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -4150,7 +2060,7 @@ paths:
         in: "path"
         description: "id"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
@@ -4269,170 +2179,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /signatures/cancelarPeticioPortaSig/{idDocument}:
-    post:
-      tags:
-      - "Signatures"
-      summary: "Cancel·lar una petició per signar o validar un document"
-      operationId: "cancelarSignarDocumentUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idDocument"
-        in: "path"
-        description: "idDocument"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /signatures/cancelarPeticioTablet/{idDocument}:
-    post:
-      tags:
-      - "Signatures"
-      summary: "Crear una petició per signar un document en la tablet"
-      operationId: "cancelarPeticioTablet"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idDocument"
-        in: "path"
-        description: "idDocument"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/CancelarPeticioTabletResponse"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /signatures/cercarDocumentsPendentsSignar:
-    get:
-      tags:
-      - "Signatures"
-      summary: "Cercar documents pendents signar"
-      operationId: "cercarDocumentsPendentsSignarUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "absoluteRowNumberOfLastRowInCurrentPage"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "currentPageHasNextPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageHasPreviousPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsFirstPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageIsLastPage"
-        in: "query"
-        required: false
-        type: "boolean"
-      - name: "currentPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "dir"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "expedientCodi"
-        in: "query"
-        description: "Codi de l'expedient"
-        required: false
-        type: "string"
-      - name: "nextPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "pageSize"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "previousPageNumber"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "procedimentId"
-        in: "query"
-        description: "Identificador del procediment"
-        required: false
-        type: "number"
-      - name: "sort"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "tipusDocument"
-        in: "query"
-        description: "Tipus del document"
-        required: false
-        type: "string"
-      - name: "totalElements"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int64"
-      - name: "totalPages"
-        in: "query"
-        required: false
-        type: "integer"
-        format: "int32"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/PageDataOfRespostaCercaDocumentsPendentSignarRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
   /signatures/crearPeticioPortaSig:
     post:
       tags:
@@ -4455,42 +2201,6 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/PeticionsPortasig"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /signatures/crearPeticioSignaturaMassiu:
-    post:
-      tags:
-      - "Signatures"
-      summary: "Crear una petició per signar o validar un document sota diverses modalitats\
-        \ i polítiques"
-      operationId: "crearPeticioSignaturaMassiuUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "signarDocumentMassiuRDTO"
-        description: "signarDocumentMassiuRDTO"
-        required: true
-        schema:
-          $ref: "#/definitions/SignarDocumentMassiu"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/PeticionsPortasig"
         201:
           description: "Created"
         401:
@@ -4543,46 +2253,13 @@ paths:
         in: "path"
         description: "idUltimaSignatura"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
           schema:
             type: "string"
             format: "byte"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /signatures/downloadUltimaSignaturaFile/{idExpedient}/{idDoc}:
-    get:
-      tags:
-      - "Signatures"
-      summary: "downloadUltimaSignaturaFile"
-      operationId: "downloadUltimaSignaturaFileUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idDoc"
-        in: "path"
-        description: "idDoc"
-        required: true
-        type: "integer"
-      - name: "idExpedient"
-        in: "path"
-        description: "idExpedient"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/ByteArrayResource"
         401:
           description: "Unauthorized"
         403:
@@ -4638,63 +2315,12 @@ paths:
         in: "path"
         description: "idDocument"
         required: true
-        type: "integer"
+        type: "number"
       responses:
         200:
           description: "OK"
         201:
           description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /signatures/obtenirIndicadorDocumentsPendentsSignar:
-    get:
-      tags:
-      - "Signatures"
-      summary: "ObtenirIndicadorDocumentsPendentsSignar"
-      operationId: "obtenirIndicadorDocumentsPendentsSignarUsingGET"
-      produces:
-      - "*/*"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "integer"
-            format: "int32"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /signatures/obtenirTabletDusuari/{usuari}:
-    get:
-      tags:
-      - "Signatures"
-      summary: "obté l'identificador de la tauleta a partir de l'usuari"
-      operationId: "obtenirTabletDusuariUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "usuari"
-        in: "path"
-        description: "usuari"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/UsuariTabletResponseRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -4755,39 +2381,6 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/PrepararSignaturaCriptograficaDocumentResponse"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /signatures/rebutjarDocumentsPendentsSignar:
-    post:
-      tags:
-      - "Signatures"
-      summary: "RebutjarDocumentsPendentsSignar"
-      operationId: "rebutjarDocumentsPendentsSignarUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "rebutjarDocumentsPendentsSignarList"
-        description: "rebutjarDocumentsPendentsSignarList"
-        required: true
-        schema:
-          type: "array"
-          items:
-            $ref: "#/definitions/RebutjarDocumentsPendentsSignar"
-      responses:
-        200:
-          description: "OK"
         201:
           description: "Created"
         401:
@@ -4931,96 +2524,6 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
-  /signatures/{idDocumentacio}/tramitacio/evidences:
-    get:
-      tags:
-      - "Signatures"
-      summary: "Returns all the DocsSignatures"
-      operationId: "getDocsSignaturesByDocsTramitacioUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idDocumentacio"
-        in: "path"
-        description: "idDocumentacio"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/DocsSignaturesPendentRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /signatures/{idDocumentacio}/tramitacio/politiquesSignatura:
-    get:
-      tags:
-      - "Signatures"
-      summary: "Returns all the PolitiquesSignatura"
-      operationId: "getPolitiquesSignaturaDocsTramitacioUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idDocumentacio"
-        in: "path"
-        description: "idDocumentacio"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/ConfDocsTramPolitiquesSigRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
-  /signatures/{idDocumentacio}/tramitacio/signatures:
-    get:
-      tags:
-      - "Signatures"
-      summary: "Returns all the DocsSignatures"
-      operationId: "getDocsSignaturesPendentsUsingGET"
-      produces:
-      - "*/*"
-      parameters:
-      - name: "idDocumentacio"
-        in: "path"
-        description: "idDocumentacio"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/DocsSignaturesPendentRDTO"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        consulta: "Perfil usuari consulta"
   /signatures/{idPeticio}/consultarSignatura/{idDocumentGestorDocumental}:
     get:
       tags:
@@ -5055,110 +2558,7 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /valid/logout:
-    post:
-      tags:
-      - "VALId"
-      summary: "Logout VALId"
-      operationId: "logoutUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "accessToken"
-        description: "accessToken"
-        required: true
-        schema:
-          type: "string"
-      responses:
-        200:
-          description: "OK"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
-  /valid/obtenirToken:
-    post:
-      tags:
-      - "VALId"
-      summary: "Obtenir Token VALId"
-      operationId: "obtenirTokenUsingPOST"
-      consumes:
-      - "application/json"
-      produces:
-      - "*/*"
-      parameters:
-      - in: "body"
-        name: "accessToken"
-        description: "accessToken"
-        required: true
-        schema:
-          type: "string"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/RespostaValid"
-        201:
-          description: "Created"
-        401:
-          description: "Unauthorized"
-        403:
-          description: "Forbidden"
-        404:
-          description: "Not Found"
-      deprecated: false
-      x-imi-roles:
-        gestor: "Perfil usuari gestor"
 definitions:
-  AccessRestringutRDTO:
-    type: "object"
-    properties:
-      descripcio:
-        type: "string"
-      id:
-        type: "integer"
-        format: "int32"
-    title: "AccessRestringutRDTO"
-  ActualitzarDocumentacioAssociadaTramitOVT:
-    type: "object"
-    properties:
-      confdocsentTramitsOvtList:
-        type: "array"
-        items:
-          $ref: "#/definitions/ConfdocsentTramitsOvt"
-      confdocstramTramitsOvtList:
-        type: "array"
-        items:
-          $ref: "#/definitions/ConfdocstramTramitsOvt"
-      documentacioVinculada:
-        type: "number"
-      idConfDoc:
-        type: "number"
-      tramitOvtIdext:
-        type: "number"
-    title: "ActualitzarDocumentacioAssociadaTramitOVT"
-  AcumularDocumentacioRDTO:
-    type: "object"
-    properties:
-      docExpAcumulador:
-        type: "number"
-      expAcumulatsMap:
-        type: "object"
-        additionalProperties:
-          type: "number"
-      idExpAcumulador:
-        type: "number"
-    title: "AcumularDocumentacioRDTO"
   AtributsDocs:
     type: "object"
     properties:
@@ -5189,29 +2589,6 @@ definitions:
         type: "integer"
         format: "int32"
     title: "AtributsDocs"
-  ByteArrayResource:
-    type: "object"
-    properties:
-      byteArray:
-        type: "string"
-        format: "byte"
-      description:
-        type: "string"
-      file:
-        $ref: "#/definitions/File"
-      filename:
-        type: "string"
-      inputStream:
-        $ref: "#/definitions/InputStream"
-      open:
-        type: "boolean"
-      readable:
-        type: "boolean"
-      uri:
-        $ref: "#/definitions/URI"
-      url:
-        $ref: "#/definitions/URL"
-    title: "ByteArrayResource"
   CallbackDigitalitzacio:
     type: "object"
     properties:
@@ -5300,26 +2677,6 @@ definitions:
         type: "number"
         description: "Identificador de la unitat gestora de l'expedient."
     title: "CallbackPortaSig"
-  CancelarPeticioTabletResponse:
-    type: "object"
-    properties:
-      codiError:
-        type: "integer"
-        format: "int32"
-        description: "Codi de l'error"
-      descError:
-        type: "string"
-        description: "Descripció de l'error"
-    title: "CancelarPeticioTabletResponse"
-  CategoriaNtiRDTO:
-    type: "object"
-    properties:
-      descripcio:
-        type: "string"
-      id:
-        type: "integer"
-        format: "int32"
-    title: "CategoriaNtiRDTO"
   ConfDocEntradaRequeritRDTO:
     type: "object"
     properties:
@@ -5366,23 +2723,6 @@ definitions:
         type: "string"
         description: "Nom de la política de signatura"
     title: "ConfDocsTramPolitiquesSig"
-  ConfDocsTramPolitiquesSigRDTO:
-    type: "object"
-    properties:
-      configuracioDocsTramitacio:
-        type: "number"
-      id:
-        type: "number"
-      modalitatIdext:
-        type: "number"
-      opcional:
-        type: "integer"
-        format: "int32"
-      ordre:
-        type: "number"
-      politicaSignatura:
-        type: "string"
-    title: "ConfDocsTramPolitiquesSigRDTO"
   ConfdocsentEstatsExp:
     type: "object"
     properties:
@@ -5549,14 +2889,6 @@ definitions:
         type: "integer"
         format: "int32"
     title: "ConfiguracioDocsEntradaRDTO"
-  ConfiguracioDocsEntradaResponse:
-    type: "object"
-    properties:
-      error:
-        $ref: "#/definitions/Exception"
-      id:
-        type: "number"
-    title: "ConfiguracioDocsEntradaResponse"
   ConfiguracioDocsSignatura:
     type: "object"
     properties:
@@ -5722,21 +3054,6 @@ definitions:
         type: "integer"
         format: "int32"
     title: "ConfiguracioDocsTramitacioRDTO"
-  ConfiguracioDocsTramitacioResponse:
-    type: "object"
-    properties:
-      error:
-        $ref: "#/definitions/Exception"
-      id:
-        type: "number"
-    title: "ConfiguracioDocsTramitacioResponse"
-  ConsultarPathExpedientGestorDocumentalResponse:
-    type: "object"
-    properties:
-      pathExpedientGestorDocumental:
-        type: "string"
-        description: "Path en el gestor documental de l'expedient"
-    title: "ConsultarPathExpedientGestorDocumentalResponse"
   ConsultarSignaturaResponse:
     type: "object"
     properties:
@@ -5779,30 +3096,6 @@ definitions:
         items:
           $ref: "#/definitions/Persones"
     title: "CrearNotificacio"
-  DadesOperacioRDTO:
-    type: "object"
-    properties:
-      codi:
-        type: "string"
-      desTipusCamp:
-        type: "string"
-      grup:
-        type: "number"
-      id:
-        type: "number"
-      ordre:
-        type: "integer"
-        format: "int32"
-      procediment:
-        type: "number"
-      tipus:
-        type: "integer"
-        format: "int32"
-      titol:
-        type: "string"
-      titolGrup:
-        type: "string"
-    title: "DadesOperacioRDTO"
   DadesSignatura:
     type: "object"
     properties:
@@ -5813,16 +3106,6 @@ definitions:
         type: "number"
         description: "Id Documentacio de l'expedient"
     title: "DadesSignatura"
-  DataSignarDocument:
-    type: "object"
-    properties:
-      confDocsTramPolitiquesSig:
-        description: "Configuracio de modalitat i signatura"
-        $ref: "#/definitions/ConfDocsTramPolitiquesSig"
-      usuariPortaSig:
-        description: "Usuari que va realitzar l'acció"
-        $ref: "#/definitions/UsuariPortaSig"
-    title: "DataSignarDocument"
   DocsAssociatsIntra:
     type: "object"
     properties:
@@ -5968,18 +3251,6 @@ definitions:
       usuariIdext:
         type: "number"
     title: "DocsEntradaRDTO"
-  DocsEntradaResgitreDTO:
-    type: "object"
-    properties:
-      codiNti:
-        type: "string"
-      hash:
-        type: "string"
-      nom:
-        type: "string"
-      plantilla:
-        type: "boolean"
-    title: "DocsEntradaResgitreDTO"
   DocsFisics:
     type: "object"
     properties:
@@ -6123,24 +3394,6 @@ definitions:
       usuariSignaturaIdext:
         type: "number"
     title: "DocsSignatures"
-  DocsSignaturesPendentRDTO:
-    type: "object"
-    properties:
-      dataSignatura:
-        type: "string"
-        format: "date-time"
-      modalitatIdext:
-        type: "number"
-      ordre:
-        type: "number"
-      politicaSignatura:
-        type: "string"
-      signat:
-        type: "integer"
-        format: "int32"
-      usuariSignaturaNom:
-        type: "string"
-    title: "DocsSignaturesPendentRDTO"
   DocsTramitacioRDTO:
     type: "object"
     properties:
@@ -6288,52 +3541,6 @@ definitions:
         type: "number"
         description: "Identificador del registre"
     title: "DocumentActualizarRegistre"
-  DocumentCanviEstat:
-    type: "object"
-    properties:
-      canal:
-        type: "string"
-        description: "Canal per la comunicació de l'expedient"
-      comentari:
-        type: "string"
-        description: "Missatge de la comunicació de l'expedient"
-      dataComunicacio:
-        type: "string"
-        description: "Data de la comunicació de l'expedient"
-      docsTramitacioIds:
-        type: "array"
-        description: "Llista d'identificadors de document"
-        items:
-          type: "number"
-      estatActualDesc:
-        type: "string"
-        description: "Descripció de l'estat actual del document"
-      estatActualId:
-        type: "number"
-        description: "Identificador de l'estat actual del document"
-      estatFinalDesc:
-        type: "string"
-        description: "Descripció de l'estat final del document"
-      estatFinalId:
-        type: "number"
-        description: "Identificador de l'estat final del document"
-      expedientCodi:
-        type: "string"
-        description: "Codi de l'expedient"
-      expedientId:
-        type: "number"
-        description: "Identificador de l'expedient"
-    title: "DocumentCanviEstat"
-  DocumentEsborrat:
-    type: "object"
-    properties:
-      id:
-        type: "number"
-        description: "Id del document"
-      nom:
-        type: "string"
-        description: "Nom del document"
-    title: "DocumentEsborrat"
   DocumentRegistrarComunicat:
     type: "object"
     properties:
@@ -6384,38 +3591,6 @@ definitions:
       tipusDocumentIdentitat:
         $ref: "#/definitions/TipusDocumentIdentitat"
     title: "DocumentsIdentitat"
-  ErrorValid:
-    type: "object"
-    properties:
-      cause:
-        type: "string"
-      message:
-        type: "string"
-    title: "ErrorValid"
-  EsborrarDocumentMassiu:
-    type: "object"
-    properties:
-      codiExpedient:
-        type: "string"
-        description: "Acció a realitzar per l'portafirmas"
-      configuracio:
-        type: "string"
-        description: "Configuració del document."
-      listIdDocument:
-        type: "array"
-        description: "Llista d'identificadors dels documents"
-        items:
-          type: "number"
-    title: "EsborrarDocumentMassiu"
-  EstatRevisioRDTO:
-    type: "object"
-    properties:
-      descripcio:
-        type: "string"
-      id:
-        type: "integer"
-        format: "int32"
-    title: "EstatRevisioRDTO"
   Estats:
     type: "object"
     properties:
@@ -6442,32 +3617,6 @@ definitions:
       id:
         type: "number"
     title: "EstatsDocsTramitacio"
-  EstatsRDTO:
-    type: "object"
-    properties:
-      descripcio:
-        type: "string"
-      id:
-        type: "number"
-    title: "EstatsRDTO"
-  Exception:
-    type: "object"
-    properties:
-      cause:
-        $ref: "#/definitions/Throwable"
-      localizedMessage:
-        type: "string"
-      message:
-        type: "string"
-      stackTrace:
-        type: "array"
-        items:
-          $ref: "#/definitions/StackTraceElement"
-      suppressed:
-        type: "array"
-        items:
-          $ref: "#/definitions/Throwable"
-    title: "Exception"
   ExpedientAltaGestorDocumentalRDTO:
     type: "object"
     properties:
@@ -6532,52 +3681,6 @@ definitions:
       titularRegistre:
         type: "string"
     title: "ExpedientGestorDocumentalRDTO"
-  FaseProcedimentRDTO:
-    type: "object"
-    properties:
-      descripcio:
-        type: "string"
-      id:
-        type: "integer"
-        format: "int32"
-    title: "FaseProcedimentRDTO"
-  File:
-    type: "object"
-    properties:
-      absolute:
-        type: "boolean"
-      absoluteFile:
-        $ref: "#/definitions/File"
-      absolutePath:
-        type: "string"
-      canonicalFile:
-        $ref: "#/definitions/File"
-      canonicalPath:
-        type: "string"
-      directory:
-        type: "boolean"
-      file:
-        type: "boolean"
-      freeSpace:
-        type: "integer"
-        format: "int64"
-      hidden:
-        type: "boolean"
-      name:
-        type: "string"
-      parent:
-        type: "string"
-      parentFile:
-        $ref: "#/definitions/File"
-      path:
-        type: "string"
-      totalSpace:
-        type: "integer"
-        format: "int64"
-      usableSpace:
-        type: "integer"
-        format: "int64"
-    title: "File"
   GuardarRequerimentExpedient:
     type: "object"
     properties:
@@ -6597,54 +3700,6 @@ definitions:
         items:
           type: "number"
     title: "GuardarRequerimentExpedient"
-  IdiomesRDTO:
-    type: "object"
-    properties:
-      descripcio:
-        type: "string"
-      id:
-        type: "number"
-    title: "IdiomesRDTO"
-  InputStream:
-    type: "object"
-    title: "InputStream"
-  InputStreamResource:
-    type: "object"
-    properties:
-      description:
-        type: "string"
-      file:
-        $ref: "#/definitions/File"
-      filename:
-        type: "string"
-      inputStream:
-        $ref: "#/definitions/InputStream"
-      open:
-        type: "boolean"
-      readable:
-        type: "boolean"
-      uri:
-        $ref: "#/definitions/URI"
-      url:
-        $ref: "#/definitions/URL"
-    title: "InputStreamResource"
-  LopdRDTO:
-    type: "object"
-    properties:
-      descripcio:
-        type: "string"
-      id:
-        type: "integer"
-        format: "int32"
-    title: "LopdRDTO"
-  ModalitatsSignaturaRDTO:
-    type: "object"
-    properties:
-      descripcio:
-        type: "string"
-      id:
-        type: "number"
-    title: "ModalitatsSignaturaRDTO"
   Notificacions:
     type: "object"
     properties:
@@ -6727,15 +3782,6 @@ definitions:
       numRegistre:
         type: "string"
     title: "NotificacionsRDTO"
-  OrigenDocumentRDTO:
-    type: "object"
-    properties:
-      descripcio:
-        type: "string"
-      id:
-        type: "integer"
-        format: "int32"
-    title: "OrigenDocumentRDTO"
   PageDataOfConfiguracioDocsEntradaRDTO:
     type: "object"
     properties:
@@ -6760,54 +3806,6 @@ definitions:
       sortInfo:
         $ref: "#/definitions/SortInfo"
     title: "PageDataOfConfiguracioDocsTramitacioRDTO"
-  PageDataOfDocsEntradaRDTO:
-    type: "object"
-    properties:
-      data:
-        type: "array"
-        items:
-          $ref: "#/definitions/DocsEntradaRDTO"
-      page:
-        $ref: "#/definitions/PaginationAttributes"
-      sortInfo:
-        $ref: "#/definitions/SortInfo"
-    title: "PageDataOfDocsEntradaRDTO"
-  PageDataOfDocsTramitacioRDTO:
-    type: "object"
-    properties:
-      data:
-        type: "array"
-        items:
-          $ref: "#/definitions/DocsTramitacioRDTO"
-      page:
-        $ref: "#/definitions/PaginationAttributes"
-      sortInfo:
-        $ref: "#/definitions/SortInfo"
-    title: "PageDataOfDocsTramitacioRDTO"
-  PageDataOfRespostaCercaDocsEntradaIntraoperabilitat:
-    type: "object"
-    properties:
-      data:
-        type: "array"
-        items:
-          $ref: "#/definitions/RespostaCercaDocsEntradaIntraoperabilitat"
-      page:
-        $ref: "#/definitions/PaginationAttributes"
-      sortInfo:
-        $ref: "#/definitions/SortInfo"
-    title: "PageDataOfRespostaCercaDocsEntradaIntraoperabilitat"
-  PageDataOfRespostaCercaDocumentsPendentSignarRDTO:
-    type: "object"
-    properties:
-      data:
-        type: "array"
-        items:
-          $ref: "#/definitions/RespostaCercaDocumentsPendentSignarRDTO"
-      page:
-        $ref: "#/definitions/PaginationAttributes"
-      sortInfo:
-        $ref: "#/definitions/SortInfo"
-    title: "PageDataOfRespostaCercaDocumentsPendentSignarRDTO"
   PaginationAttributes:
     type: "object"
     properties:
@@ -7009,35 +4007,6 @@ definitions:
         type: "string"
         description: "URL de redirecció a client per a la signatura"
     title: "PrepararSignaturaCriptograficaDocumentResponse"
-  ProcedimentSerieDocRDTO:
-    type: "object"
-    properties:
-      estatProcediment:
-        type: "string"
-      idConDocProcOriginal:
-        type: "number"
-      idConfDoc:
-        type: "number"
-      idProcediment:
-        type: "number"
-      serieDocumental:
-        type: "string"
-      versioDocumental:
-        type: "integer"
-        format: "int32"
-    title: "ProcedimentSerieDocRDTO"
-  RebutjarDocumentsPendentsSignar:
-    type: "object"
-    properties:
-      docsRebutjatsId:
-        type: "array"
-        description: "Llista d'identificadors dels documents rebutjats"
-        items:
-          type: "number"
-      expedientId:
-        type: "number"
-        description: "Identificador de l'expedient"
-    title: "RebutjarDocumentsPendentsSignar"
   RegistreAssentament:
     type: "object"
     properties:
@@ -7068,127 +4037,6 @@ definitions:
       id:
         type: "number"
     title: "Requeriments"
-  RespostaCercaDocsEntradaIntraoperabilitat:
-    type: "object"
-    properties:
-      codiExpedient:
-        type: "string"
-      comentari:
-        type: "string"
-      configuracioDocsEntradaId:
-        type: "number"
-      dataDigitalitzacio:
-        type: "string"
-        format: "date-time"
-      dataPresentacio:
-        type: "string"
-        format: "date-time"
-      declaracioResponsable:
-        type: "integer"
-        format: "int32"
-      digitalitzat:
-        type: "integer"
-        format: "int32"
-      editable:
-        type: "boolean"
-      id:
-        type: "number"
-      idExpedient:
-        type: "number"
-      idiomaDigitalitzacio:
-        type: "number"
-      nifSolicitant:
-        type: "string"
-      nomDocument:
-        type: "string"
-      registreAssentament:
-        $ref: "#/definitions/RegistreAssentament"
-      registreCodi:
-        type: "string"
-      revisio:
-        type: "integer"
-        format: "int32"
-      seleccionable:
-        type: "boolean"
-      tipusDocument:
-        type: "string"
-    title: "RespostaCercaDocsEntradaIntraoperabilitat"
-  RespostaCercaDocumentsPendentSignarRDTO:
-    type: "object"
-    properties:
-      codi:
-        type: "string"
-      docsFisicsNom:
-        type: "string"
-      editable:
-        type: "boolean"
-      expedientCodi:
-        type: "string"
-      expedientId:
-        type: "number"
-      id:
-        type: "number"
-      politicaSignatura:
-        type: "string"
-      procedimentId:
-        type: "number"
-      procedimentNom:
-        type: "string"
-      seleccionable:
-        type: "boolean"
-      tipusDocument:
-        type: "string"
-      urlDigitalitzacio:
-        type: "string"
-    title: "RespostaCercaDocumentsPendentSignarRDTO"
-  RespostaComprovarConfiguracioDocumentacioRDTO:
-    type: "object"
-    properties:
-      comprovantTramitNoPlantillaNomList:
-        type: "array"
-        items:
-          type: "string"
-      comprovantTramitPlantilla:
-        type: "boolean"
-      documentacioVinculadaCompleta:
-        type: "boolean"
-      documentacioVinculadaNoExistentNomList:
-        type: "array"
-        items:
-          type: "string"
-      flagDocumentacioVinculadaEsmenaConfig:
-        type: "boolean"
-      flagDocumentacioVinculadaEvidenciaNotificacioConfig:
-        type: "boolean"
-      justificantTramitNoPlantillaNomList:
-        type: "array"
-        items:
-          type: "string"
-      justificantTramitPlantilla:
-        type: "boolean"
-    title: "RespostaComprovarConfiguracioDocumentacioRDTO"
-  RespostaDocumentacioVinculadaCompletaRDTO:
-    type: "object"
-    properties:
-      completa:
-        type: "boolean"
-      documentacioVinculadaNoExistentList:
-        type: "array"
-        items:
-          type: "string"
-    title: "RespostaDocumentacioVinculadaCompletaRDTO"
-  RespostaEsborrarDocumentMassiu:
-    type: "object"
-    properties:
-      documentEsborratErrorList:
-        type: "array"
-        items:
-          $ref: "#/definitions/DocumentEsborrat"
-      documentEsborratOKList:
-        type: "array"
-        items:
-          $ref: "#/definitions/DocumentEsborrat"
-    title: "RespostaEsborrarDocumentMassiu"
   RespostaPlantillaDocVinculada:
     type: "object"
     properties:
@@ -7199,83 +4047,6 @@ definitions:
         type: "string"
         description: "Plantilla de la documentació vinculada"
     title: "RespostaPlantillaDocVinculada"
-  RespostaSincronitzarCheckRDTO:
-    type: "object"
-    properties:
-      existSerieDoc:
-        type: "boolean"
-      serieVersio:
-        type: "integer"
-        format: "int32"
-      serviceCatalegOK:
-        type: "boolean"
-    title: "RespostaSincronitzarCheckRDTO"
-  RespostaSincronitzarRDTO:
-    type: "object"
-    properties:
-      darreraSincronitzacio:
-        type: "string"
-        format: "date-time"
-      idConfDoc:
-        type: "number"
-      idProcediment:
-        type: "number"
-      idProcedimentVersionat:
-        type: "number"
-      versioDocumental:
-        type: "integer"
-        format: "int32"
-    title: "RespostaSincronitzarRDTO"
-  RespostaValid:
-    type: "object"
-    properties:
-      error:
-        $ref: "#/definitions/ErrorValid"
-      jwt:
-        type: "string"
-      status:
-        type: "string"
-    title: "RespostaValid"
-  RestClientResponse:
-    type: "object"
-    properties:
-      error:
-        $ref: "#/definitions/Throwable"
-      id:
-        type: "number"
-      result:
-        type: "boolean"
-    title: "RestClientResponse"
-  SerieDTO:
-    type: "object"
-    properties:
-      access:
-        type: "string"
-      adminProcess:
-        type: "string"
-      cipher:
-        type: "string"
-      code:
-        type: "string"
-      description:
-        type: "string"
-      endDate:
-        type: "string"
-      name:
-        type: "string"
-      processUnit:
-        type: "string"
-      reuseConditions:
-        type: "string"
-      ruleCode:
-        type: "string"
-      startDate:
-        type: "string"
-      superior:
-        type: "string"
-      version:
-        type: "string"
-    title: "SerieDTO"
   SignarCriptograficaDocument:
     type: "object"
     properties:
@@ -7295,32 +4066,6 @@ definitions:
         type: "string"
         description: "Descripció de l'error"
     title: "SignarCriptograficaDocumentResponse"
-  SignarDocumentMassiu:
-    type: "object"
-    properties:
-      accio:
-        type: "number"
-        description: "Accio Vist i plau/signar"
-      codiExpedient:
-        type: "string"
-        description: "Codi de l'expedient"
-      dataSignarDocumentList:
-        type: "array"
-        description: "Informació addicional per a la signatura"
-        items:
-          $ref: "#/definitions/DataSignarDocument"
-      idEstatExpedient:
-        type: "string"
-        description: "Identificador de l'estat de l'expedient"
-      listIdDocument:
-        type: "array"
-        description: "Llista d'identificadors dels documents"
-        items:
-          type: "number"
-      unitatGestoraIdext:
-        type: "number"
-        description: "Identificador de la unitat gestora"
-    title: "SignarDocumentMassiu"
   SignarPortasignaturesDocument:
     type: "object"
     required:
@@ -7423,14 +4168,6 @@ definitions:
         type: "string"
         description: "Descripció de l'error"
     title: "SignarValidDocumentResponse"
-  Sollicituds:
-    type: "object"
-    properties:
-      expedient:
-        type: "number"
-      id:
-        type: "number"
-    title: "Sollicituds"
   SortInfo:
     type: "object"
     properties:
@@ -7439,57 +4176,6 @@ definitions:
       sort:
         type: "string"
     title: "SortInfo"
-  StackTraceElement:
-    type: "object"
-    properties:
-      className:
-        type: "string"
-      fileName:
-        type: "string"
-      lineNumber:
-        type: "integer"
-        format: "int32"
-      methodName:
-        type: "string"
-      nativeMethod:
-        type: "boolean"
-    title: "StackTraceElement"
-  SuportConfeccioRDTO:
-    type: "object"
-    properties:
-      descripcio:
-        type: "string"
-      id:
-        type: "integer"
-        format: "int32"
-    title: "SuportConfeccioRDTO"
-  Throwable:
-    type: "object"
-    properties:
-      cause:
-        $ref: "#/definitions/Throwable"
-      localizedMessage:
-        type: "string"
-      message:
-        type: "string"
-      stackTrace:
-        type: "array"
-        items:
-          $ref: "#/definitions/StackTraceElement"
-      suppressed:
-        type: "array"
-        items:
-          $ref: "#/definitions/Throwable"
-    title: "Throwable"
-  TipusAutenticacioRDTO:
-    type: "object"
-    properties:
-      descripcio:
-        type: "string"
-      id:
-        type: "integer"
-        format: "int32"
-    title: "TipusAutenticacioRDTO"
   TipusDocumentIdentitat:
     type: "object"
     properties:
@@ -7498,14 +4184,6 @@ definitions:
       id:
         type: "number"
     title: "TipusDocumentIdentitat"
-  TipusDocumentacioVinculadaRDTO:
-    type: "object"
-    properties:
-      descripcio:
-        type: "string"
-      id:
-        type: "number"
-    title: "TipusDocumentacioVinculadaRDTO"
   TipusMime:
     type: "object"
     properties:
@@ -7515,137 +4193,3 @@ definitions:
         type: "integer"
         format: "int32"
     title: "TipusMime"
-  TipusMimeRDTO:
-    type: "object"
-    properties:
-      descripcio:
-        type: "string"
-      id:
-        type: "integer"
-        format: "int32"
-    title: "TipusMimeRDTO"
-  TransicionsEstatsRDTO:
-    type: "object"
-    properties:
-      descripcio:
-        type: "string"
-      estatDestino:
-        type: "number"
-      estatOrigen:
-        type: "number"
-      id:
-        type: "number"
-      visible:
-        type: "integer"
-        format: "int32"
-    title: "TransicionsEstatsRDTO"
-  URI:
-    type: "object"
-    properties:
-      absolute:
-        type: "boolean"
-      authority:
-        type: "string"
-      fragment:
-        type: "string"
-      host:
-        type: "string"
-      opaque:
-        type: "boolean"
-      path:
-        type: "string"
-      port:
-        type: "integer"
-        format: "int32"
-      query:
-        type: "string"
-      rawAuthority:
-        type: "string"
-      rawFragment:
-        type: "string"
-      rawPath:
-        type: "string"
-      rawQuery:
-        type: "string"
-      rawSchemeSpecificPart:
-        type: "string"
-      rawUserInfo:
-        type: "string"
-      scheme:
-        type: "string"
-      schemeSpecificPart:
-        type: "string"
-      userInfo:
-        type: "string"
-    title: "URI"
-  URL:
-    type: "object"
-    properties:
-      authority:
-        type: "string"
-      content:
-        type: "object"
-      defaultPort:
-        type: "integer"
-        format: "int32"
-      file:
-        type: "string"
-      host:
-        type: "string"
-      path:
-        type: "string"
-      port:
-        type: "integer"
-        format: "int32"
-      protocol:
-        type: "string"
-      query:
-        type: "string"
-      ref:
-        type: "string"
-      userInfo:
-        type: "string"
-    title: "URL"
-  UsuariPortaSig:
-    type: "object"
-    properties:
-      documentIdentitat:
-        type: "string"
-        description: "Document d'identitat de la persona que va a signar el document"
-      idTabletUsuari:
-        type: "string"
-        description: "Identificador de la tauleta on signarà l'usuari"
-      matricula:
-        type: "string"
-        description: "Matrícula de la persona que va a signar el document"
-      nom:
-        type: "string"
-        description: "Nom de la persona que va a signar el document"
-    title: "UsuariPortaSig"
-  UsuariTabletResponseRDTO:
-    type: "object"
-    required:
-    - "status"
-    - "subscripcio"
-    - "usuari"
-    properties:
-      message:
-        type: "string"
-        description: "message"
-      nomDispositiu:
-        type: "string"
-        description: "nomDispositiu"
-      status:
-        type: "string"
-        description: "status"
-        enum:
-        - "Ok"
-        - "Ko"
-      subscripcio:
-        type: "string"
-        description: "subscripcio"
-      usuari:
-        type: "string"
-        description: "usuari"
-    title: "UsuariTabletResponseRDTO"
-    description: "Conté els atributs de resposta de la gestió d'usauri i tablet."

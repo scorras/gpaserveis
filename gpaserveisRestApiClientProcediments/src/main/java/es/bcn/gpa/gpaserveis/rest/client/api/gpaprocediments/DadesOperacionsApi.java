@@ -3,8 +3,6 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments;
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpaprocediments.ApiClient;
 
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.CampsReglesRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.DadesOperacionsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.MarquesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesOperacionsRDTO;
 
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-08T16:49:56.830+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-12T13:09:27.652+01:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpaprocediments.DadesOperacionsApi")
 public class DadesOperacionsApi {
     private ApiClient apiClient;
@@ -118,167 +116,6 @@ public class DadesOperacionsApi {
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
-     * Returns all the dades operacions entries for the procedure
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param idsDadesOperList idsDadesOperList
-     * @return List&lt;DadesOperacionsRDTO&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public List<DadesOperacionsRDTO> getDadesOperacionsListUsingGET(String idsDadesOperList) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'idsDadesOperList' is set
-        if (idsDadesOperList == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idsDadesOperList' when calling getDadesOperacionsListUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idsDadesOperList", idsDadesOperList);
-        String path = UriComponentsBuilder.fromPath("/procediments/dadesOperacio/{idsDadesOperList}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<List<DadesOperacionsRDTO>> returnType = new ParameterizedTypeReference<List<DadesOperacionsRDTO>>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Returns all the dades operacions entries for the procedure
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param id id
-     * @param idsJaExisteix idsJaExisteix
-     * @param absoluteRowNumberOfFirstRowInCurrentPage The absoluteRowNumberOfFirstRowInCurrentPage parameter
-     * @param absoluteRowNumberOfLastRowInCurrentPage The absoluteRowNumberOfLastRowInCurrentPage parameter
-     * @param currentPageHasNextPage The currentPageHasNextPage parameter
-     * @param currentPageHasPreviousPage The currentPageHasPreviousPage parameter
-     * @param currentPageIsFirstPage The currentPageIsFirstPage parameter
-     * @param currentPageIsLastPage The currentPageIsLastPage parameter
-     * @param currentPageNumber The currentPageNumber parameter
-     * @param dir The dir parameter
-     * @param nextPageNumber The nextPageNumber parameter
-     * @param pageSize The pageSize parameter
-     * @param previousPageNumber The previousPageNumber parameter
-     * @param sort The sort parameter
-     * @param totalElements The totalElements parameter
-     * @param totalPages The totalPages parameter
-     * @return PageDataOfDadesOperacionsRDTO
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public PageDataOfDadesOperacionsRDTO getDadesOperacionsRequeritWithIdsUsingGET(Integer id, String idsJaExisteix, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'id' when calling getDadesOperacionsRequeritWithIdsUsingGET");
-        }
-        
-        // verify the required parameter 'idsJaExisteix' is set
-        if (idsJaExisteix == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idsJaExisteix' when calling getDadesOperacionsRequeritWithIdsUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("id", id);
-        uriVariables.put("idsJaExisteix", idsJaExisteix);
-        String path = UriComponentsBuilder.fromPath("/procediments/{id}/dadesOperRequerit/{idsJaExisteix}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-        
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasNextPage", currentPageHasNextPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasPreviousPage", currentPageHasPreviousPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsFirstPage", currentPageIsFirstPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsLastPage", currentPageIsLastPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageNumber", currentPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "dir", dir));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nextPageNumber", nextPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "pageSize", pageSize));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "previousPageNumber", previousPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sort", sort));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalElements", totalElements));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalPages", totalPages));
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<PageDataOfDadesOperacionsRDTO> returnType = new ParameterizedTypeReference<PageDataOfDadesOperacionsRDTO>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Returns all the dades operacions entries for the procedure
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param id id
-     * @param dir The dir parameter
-     * @param sort The sort parameter
-     * @return PageDataOfDadesOperacionsRDTO
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public PageDataOfDadesOperacionsRDTO getDadesOperacionsUsingGET1(Integer id, String dir, String sort) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'id' when calling getDadesOperacionsUsingGET1");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("id", id);
-        String path = UriComponentsBuilder.fromPath("/procediments/{id}/dades").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-        
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "dir", dir));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sort", sort));
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<PageDataOfDadesOperacionsRDTO> returnType = new ParameterizedTypeReference<PageDataOfDadesOperacionsRDTO>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
      * Returns all the camps regles entries for the procedure
      * 
      * <p><b>200</b> - OK
@@ -316,53 +153,6 @@ public class DadesOperacionsApi {
         String[] authNames = new String[] {  };
 
         ParameterizedTypeReference<List<CampsReglesRDTO>> returnType = new ParameterizedTypeReference<List<CampsReglesRDTO>>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Returns all the dades operacions entries for the procedure
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param procedimentCodi procedimentCodi
-     * @param procedimentVersio procedimentVersio
-     * @return List&lt;MarquesRDTO&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public List<MarquesRDTO> obtenirMarquesDadesOperacioProcedimentUsingGET(String procedimentCodi, Integer procedimentVersio) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'procedimentCodi' is set
-        if (procedimentCodi == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'procedimentCodi' when calling obtenirMarquesDadesOperacioProcedimentUsingGET");
-        }
-        
-        // verify the required parameter 'procedimentVersio' is set
-        if (procedimentVersio == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'procedimentVersio' when calling obtenirMarquesDadesOperacioProcedimentUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("procedimentCodi", procedimentCodi);
-        uriVariables.put("procedimentVersio", procedimentVersio);
-        String path = UriComponentsBuilder.fromPath("/procediments/obtenirMarquesDadesOperacioProcediment/{procedimentCodi}/{procedimentVersio}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<List<MarquesRDTO>> returnType = new ParameterizedTypeReference<List<MarquesRDTO>>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }

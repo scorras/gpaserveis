@@ -2,35 +2,19 @@ package es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio;
 
 import es.bcn.gpa.gpaserveis.rest.client.invoker.gpadocumentacio.ApiClient;
 
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.AcumularDocumentacioRDTO;
 import java.math.BigDecimal;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.CallbackDigitalitzacio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsTramitacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConsultarPathExpedientGestorDocumentalResponse;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsAssociatsIntra;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntActualizarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsEntradaResgitreDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocsTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentActualizarRegistre;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentCanviEstat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRegistrarComunicat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EsborrarDocumentMassiu;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.EstatRevisioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ExpedientGestorDocumentalRDTO;
 import java.io.File;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequerimentExpedient;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsEntradaRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfDocsTramitacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfRespostaCercaDocsEntradaIntraoperabilitat;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsDigitalitzacioRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RespostaEsborrarDocumentMassiu;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.RestClientResponse;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.Sollicituds;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.TransicionsEstatsRDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,7 +35,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-04T14:21:11.408+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-12T13:43:03.162+01:00")
 @Component("es.bcn.gpa.gpaserveis.rest.client.api.gpadocumentacio.DocumentacioApi")
 public class DocumentacioApi {
     private ApiClient apiClient;
@@ -86,7 +70,7 @@ public class DocumentacioApi {
      * @return DocsEntradaRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsEntradaRDTO actualitzarDeclaracioResponsable(DocsEntradaRDTO docsEntradaRDTO, Integer idExpedient) throws RestClientException {
+    public DocsEntradaRDTO actualitzarDeclaracioResponsable(DocsEntradaRDTO docsEntradaRDTO, BigDecimal idExpedient) throws RestClientException {
         Object postBody = docsEntradaRDTO;
         
         // verify the required parameter 'docsEntradaRDTO' is set
@@ -135,7 +119,7 @@ public class DocumentacioApi {
      * @return DocsEntradaRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsEntradaRDTO actualitzarDocumentEntrada(DocsEntradaRDTO docsEntradaRDTO, Integer idExpedient) throws RestClientException {
+    public DocsEntradaRDTO actualitzarDocumentEntrada(DocsEntradaRDTO docsEntradaRDTO, BigDecimal idExpedient) throws RestClientException {
         Object postBody = docsEntradaRDTO;
         
         // verify the required parameter 'docsEntradaRDTO' is set
@@ -184,7 +168,7 @@ public class DocumentacioApi {
      * @return DocsEntradaRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsEntradaRDTO actualitzarDocumentEntradaDigitalitzat(DocsEntradaRDTO docsEntradaRDTO, Integer idExpedient) throws RestClientException {
+    public DocsEntradaRDTO actualitzarDocumentEntradaDigitalitzat(DocsEntradaRDTO docsEntradaRDTO, BigDecimal idExpedient) throws RestClientException {
         Object postBody = docsEntradaRDTO;
         
         // verify the required parameter 'docsEntradaRDTO' is set
@@ -233,7 +217,7 @@ public class DocumentacioApi {
      * @return DocsTramitacioRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsTramitacioRDTO actualitzarDocumentTramitacio(DocsTramitacioRDTO docsTramitacioRDTO, Integer idExpedient) throws RestClientException {
+    public DocsTramitacioRDTO actualitzarDocumentTramitacio(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient) throws RestClientException {
         Object postBody = docsTramitacioRDTO;
         
         // verify the required parameter 'docsTramitacioRDTO' is set
@@ -282,7 +266,7 @@ public class DocumentacioApi {
      * @return DocsTramitacioRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsTramitacioRDTO actualitzarDocumentTramitacioDigitalitzat(DocsTramitacioRDTO docsTramitacioRDTO, Integer idExpedient) throws RestClientException {
+    public DocsTramitacioRDTO actualitzarDocumentTramitacioDigitalitzat(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient) throws RestClientException {
         Object postBody = docsTramitacioRDTO;
         
         // verify the required parameter 'docsTramitacioRDTO' is set
@@ -319,46 +303,6 @@ public class DocumentacioApi {
         return apiClient.invokeAPI(path, HttpMethod.PUT, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
-     * Actualitzar objeto en Gestor Documental
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>201</b> - Created
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param expedientGestorDocumentalRDTO expedientGestorDocumentalRDTO
-     * @return String
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public String actualitzarObjetoGestorDocumentalUsingPOST(ExpedientGestorDocumentalRDTO expedientGestorDocumentalRDTO) throws RestClientException {
-        Object postBody = expedientGestorDocumentalRDTO;
-        
-        // verify the required parameter 'expedientGestorDocumentalRDTO' is set
-        if (expedientGestorDocumentalRDTO == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'expedientGestorDocumentalRDTO' when calling actualitzarObjetoGestorDocumentalUsingPOST");
-        }
-        
-        String path = UriComponentsBuilder.fromPath("/documentacio/actualitzarObjetoGestorDocumental").build().toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { 
-            "application/json"
-        };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<String> returnType = new ParameterizedTypeReference<String>() {};
-        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
      * updates the requeriment
      * 
      * <p><b>200</b> - OK
@@ -371,7 +315,7 @@ public class DocumentacioApi {
      * @return DocsTramitacioRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsTramitacioRDTO actualitzarRequeriment(GuardarRequerimentExpedient guardarRequerimentExpedientRDTO, Integer idExpedient) throws RestClientException {
+    public DocsTramitacioRDTO actualitzarRequeriment(GuardarRequerimentExpedient guardarRequerimentExpedientRDTO, BigDecimal idExpedient) throws RestClientException {
         Object postBody = guardarRequerimentExpedientRDTO;
         
         // verify the required parameter 'guardarRequerimentExpedientRDTO' is set
@@ -406,46 +350,6 @@ public class DocumentacioApi {
 
         ParameterizedTypeReference<DocsTramitacioRDTO> returnType = new ParameterizedTypeReference<DocsTramitacioRDTO>() {};
         return apiClient.invokeAPI(path, HttpMethod.PUT, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Acumulació de la documentació
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>201</b> - Created
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param acumularDocumentacioRDTO acumularDocumentacioRDTO
-     * @return RestClientResponse
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public RestClientResponse acumularDocumentacioUsingPOST(AcumularDocumentacioRDTO acumularDocumentacioRDTO) throws RestClientException {
-        Object postBody = acumularDocumentacioRDTO;
-        
-        // verify the required parameter 'acumularDocumentacioRDTO' is set
-        if (acumularDocumentacioRDTO == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'acumularDocumentacioRDTO' when calling acumularDocumentacioUsingPOST");
-        }
-        
-        String path = UriComponentsBuilder.fromPath("/documentacio/acumularDocumentacio").build().toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { 
-            "application/json"
-        };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<RestClientResponse> returnType = new ParameterizedTypeReference<RestClientResponse>() {};
-        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
      * associa el registre a la llista de documentació
@@ -604,45 +508,6 @@ public class DocumentacioApi {
         apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
-     * Updates all selected DocsTramitacio with the EstatsDocument specified
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>201</b> - Created
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param documentCanviEstatRDTO documentCanviEstatRDTO
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public void canviEstatDocumentacioTramitacioUsingPOST(DocumentCanviEstat documentCanviEstatRDTO) throws RestClientException {
-        Object postBody = documentCanviEstatRDTO;
-        
-        // verify the required parameter 'documentCanviEstatRDTO' is set
-        if (documentCanviEstatRDTO == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'documentCanviEstatRDTO' when calling canviEstatDocumentacioTramitacioUsingPOST");
-        }
-        
-        String path = UriComponentsBuilder.fromPath("/documentacio/tramitacio/canviEstat").build().toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { 
-            "application/json"
-        };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {};
-        apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
      * Returns the requested dades operacio requerit
      * 
      * <p><b>200</b> - OK
@@ -653,7 +518,7 @@ public class DocumentacioApi {
      * @return List&lt;BigDecimal&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<BigDecimal> cercaDadesOperacioRequerits(Integer idDoc) throws RestClientException {
+    public List<BigDecimal> cercaDadesOperacioRequerits(BigDecimal idDoc) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idDoc' is set
@@ -694,7 +559,7 @@ public class DocumentacioApi {
      * @return List&lt;DocsEntradaRDTO&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<DocsEntradaRDTO> cercaDocumentsEntradaAgrupatsPerTramitOvt(Integer idDocumentacio, Integer visibilitat) throws RestClientException {
+    public List<DocsEntradaRDTO> cercaDocumentsEntradaAgrupatsPerTramitOvt(BigDecimal idDocumentacio, BigDecimal visibilitat) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idDocumentacio' is set
@@ -741,7 +606,7 @@ public class DocumentacioApi {
      * @return List&lt;DocsEntradaRDTO&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<DocsEntradaRDTO> cercaDocumentsEntradaPerSollicitud(Integer idSollicitud, Integer visibilitat) throws RestClientException {
+    public List<DocsEntradaRDTO> cercaDocumentsEntradaPerSollicitud(BigDecimal idSollicitud, BigDecimal visibilitat) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idSollicitud' is set
@@ -777,76 +642,6 @@ public class DocumentacioApi {
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
-     * Obtenir els documents d&#39;entrada
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param absoluteRowNumberOfFirstRowInCurrentPage The absoluteRowNumberOfFirstRowInCurrentPage parameter
-     * @param absoluteRowNumberOfLastRowInCurrentPage The absoluteRowNumberOfLastRowInCurrentPage parameter
-     * @param codiExpedient The codiExpedient parameter
-     * @param currentPageHasNextPage The currentPageHasNextPage parameter
-     * @param currentPageHasPreviousPage The currentPageHasPreviousPage parameter
-     * @param currentPageIsFirstPage The currentPageIsFirstPage parameter
-     * @param currentPageIsLastPage The currentPageIsLastPage parameter
-     * @param currentPageNumber The currentPageNumber parameter
-     * @param dir The dir parameter
-     * @param idExpedient The idExpedient parameter
-     * @param nextPageNumber The nextPageNumber parameter
-     * @param nifSolicitant The nifSolicitant parameter
-     * @param nomDocument The nomDocument parameter
-     * @param pageSize The pageSize parameter
-     * @param previousPageNumber The previousPageNumber parameter
-     * @param sort The sort parameter
-     * @param tipusDocument The tipusDocument parameter
-     * @param totalElements The totalElements parameter
-     * @param totalPages The totalPages parameter
-     * @return PageDataOfRespostaCercaDocsEntradaIntraoperabilitat
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public PageDataOfRespostaCercaDocsEntradaIntraoperabilitat cercaDocumentsEntradaUsingGET(Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, String codiExpedient, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, BigDecimal idExpedient, Integer nextPageNumber, String nifSolicitant, String nomDocument, Integer pageSize, Integer previousPageNumber, String sort, String tipusDocument, Long totalElements, Integer totalPages) throws RestClientException {
-        Object postBody = null;
-        
-        String path = UriComponentsBuilder.fromPath("/documentacio/documentsEntrada/cerca").build().toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-        
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "codiExpedient", codiExpedient));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasNextPage", currentPageHasNextPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasPreviousPage", currentPageHasPreviousPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsFirstPage", currentPageIsFirstPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsLastPage", currentPageIsLastPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageNumber", currentPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "dir", dir));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "idExpedient", idExpedient));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nextPageNumber", nextPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nifSolicitant", nifSolicitant));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nomDocument", nomDocument));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "pageSize", pageSize));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "previousPageNumber", previousPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sort", sort));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "tipusDocument", tipusDocument));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalElements", totalElements));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalPages", totalPages));
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<PageDataOfRespostaCercaDocsEntradaIntraoperabilitat> returnType = new ParameterizedTypeReference<PageDataOfRespostaCercaDocsEntradaIntraoperabilitat>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
      * Returns the requested documentacio tramitació
      * 
      * <p><b>200</b> - OK
@@ -858,7 +653,7 @@ public class DocumentacioApi {
      * @return List&lt;DocsTramitacioRDTO&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<DocsTramitacioRDTO> cercaDocumentsTramitacioComunicats(Integer idDocumentacio, Integer visibilitat) throws RestClientException {
+    public List<DocsTramitacioRDTO> cercaDocumentsTramitacioComunicats(BigDecimal idDocumentacio, BigDecimal visibilitat) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idDocumentacio' is set
@@ -894,86 +689,6 @@ public class DocumentacioApi {
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
-     * ComprovarDocumentsPendentNotificacio
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param idDocumentacioList idDocumentacioList
-     * @return Boolean
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public Boolean comprovarDocumentsPendentNotificacioUsingGET(String idDocumentacioList) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'idDocumentacioList' is set
-        if (idDocumentacioList == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idDocumentacioList' when calling comprovarDocumentsPendentNotificacioUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idDocumentacioList", idDocumentacioList);
-        String path = UriComponentsBuilder.fromPath("/documentacio/comprovarDocumentsPendentNotificacio/{idDocumentacioList}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<Boolean> returnType = new ParameterizedTypeReference<Boolean>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * ComprovarDocumentsPendentRevisio
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param idDocumentacio idDocumentacio
-     * @return Boolean
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public Boolean comprovarDocumentsPendentRevisioUsingGET(Integer idDocumentacio) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'idDocumentacio' is set
-        if (idDocumentacio == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idDocumentacio' when calling comprovarDocumentsPendentRevisioUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idDocumentacio", idDocumentacio);
-        String path = UriComponentsBuilder.fromPath("/documentacio/comprovarDocumentsPendentRevisio/{idDocumentacio}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<Boolean> returnType = new ParameterizedTypeReference<Boolean>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
      * ComprovarDocumentsSignatsExpedient
      * 
      * <p><b>200</b> - OK
@@ -984,7 +699,7 @@ public class DocumentacioApi {
      * @return Boolean
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public Boolean comprovarDocumentsSignatsExpedient(Integer idDocumentacio) throws RestClientException {
+    public Boolean comprovarDocumentsSignatsExpedient(BigDecimal idDocumentacio) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idDocumentacio' is set
@@ -1014,46 +729,6 @@ public class DocumentacioApi {
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
-     * ComprovarDocumentsSignats
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param idDocumentacioList idDocumentacioList
-     * @return Boolean
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public Boolean comprovarDocumentsSignatsUsingGET(String idDocumentacioList) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'idDocumentacioList' is set
-        if (idDocumentacioList == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idDocumentacioList' when calling comprovarDocumentsSignatsUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idDocumentacioList", idDocumentacioList);
-        String path = UriComponentsBuilder.fromPath("/documentacio/comprovarDocumentsSignats/{idDocumentacioList}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<Boolean> returnType = new ParameterizedTypeReference<Boolean>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
      * Returns the requested document
      * 
      * <p><b>200</b> - OK
@@ -1064,7 +739,7 @@ public class DocumentacioApi {
      * @return DocsRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsRDTO consultarDadesDocument(Integer id) throws RestClientException {
+    public DocsRDTO consultarDadesDocument(BigDecimal id) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'id' is set
@@ -1104,7 +779,7 @@ public class DocumentacioApi {
      * @return DocsEntradaRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsEntradaRDTO consultarDadesDocumentAportat(Integer id) throws RestClientException {
+    public DocsEntradaRDTO consultarDadesDocumentAportat(BigDecimal id) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'id' is set
@@ -1145,7 +820,7 @@ public class DocumentacioApi {
      * @return DocsEntradaRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String codiCSV, Integer visibilitat) throws RestClientException {
+    public DocsEntradaRDTO consultarDadesDocumentAportatPerCodiCSV(String codiCSV, BigDecimal visibilitat) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'codiCSV' is set
@@ -1191,7 +866,7 @@ public class DocumentacioApi {
      * @return DocsTramitacioRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsTramitacioRDTO consultarDadesDocumentGenerat(Integer id) throws RestClientException {
+    public DocsTramitacioRDTO consultarDadesDocumentGenerat(BigDecimal id) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'id' is set
@@ -1232,7 +907,7 @@ public class DocumentacioApi {
      * @return DocsTramitacioRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String codiCSV, Integer visibilitat) throws RestClientException {
+    public DocsTramitacioRDTO consultarDadesDocumentGeneratPerCodiCSV(String codiCSV, BigDecimal visibilitat) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'codiCSV' is set
@@ -1348,46 +1023,6 @@ public class DocumentacioApi {
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
-     * Obté el path sota el qual s&#39;emmagatzema la documentació associada a un Expedient
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param idExpedient idExpedient
-     * @return ConsultarPathExpedientGestorDocumentalResponse
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public ConsultarPathExpedientGestorDocumentalResponse consultarPathExpedientGestorDocumental(Integer idExpedient) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'idExpedient' is set
-        if (idExpedient == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idExpedient' when calling consultarPathExpedientGestorDocumental");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idExpedient", idExpedient);
-        String path = UriComponentsBuilder.fromPath("/documentacio/consultarPathExpedientGestorDocumental/{idExpedient}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<ConsultarPathExpedientGestorDocumentalResponse> returnType = new ParameterizedTypeReference<ConsultarPathExpedientGestorDocumentalResponse>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
      * updates the doc entrada responsable
      * 
      * <p><b>200</b> - OK
@@ -1400,7 +1035,7 @@ public class DocumentacioApi {
      * @return DocsEntradaRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsEntradaRDTO crearDeclaracioResponsable(DocsEntradaRDTO docsEntradaRDTO, Integer idExpedient) throws RestClientException {
+    public DocsEntradaRDTO crearDeclaracioResponsable(DocsEntradaRDTO docsEntradaRDTO, BigDecimal idExpedient) throws RestClientException {
         Object postBody = docsEntradaRDTO;
         
         // verify the required parameter 'docsEntradaRDTO' is set
@@ -1449,7 +1084,7 @@ public class DocumentacioApi {
      * @return DocsEntradaRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsEntradaRDTO crearDocumentEntrada(DocsEntradaRDTO docsEntradaRDTO, Integer idExpedient) throws RestClientException {
+    public DocsEntradaRDTO crearDocumentEntrada(DocsEntradaRDTO docsEntradaRDTO, BigDecimal idExpedient) throws RestClientException {
         Object postBody = docsEntradaRDTO;
         
         // verify the required parameter 'docsEntradaRDTO' is set
@@ -1498,7 +1133,7 @@ public class DocumentacioApi {
      * @return DocsEntradaRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsEntradaRDTO crearDocumentEntradaDigitalitzat(DocsEntradaRDTO docsEntradaRDTO, Integer idExpedient) throws RestClientException {
+    public DocsEntradaRDTO crearDocumentEntradaDigitalitzat(DocsEntradaRDTO docsEntradaRDTO, BigDecimal idExpedient) throws RestClientException {
         Object postBody = docsEntradaRDTO;
         
         // verify the required parameter 'docsEntradaRDTO' is set
@@ -1547,7 +1182,7 @@ public class DocumentacioApi {
      * @return DocsTramitacioRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsTramitacioRDTO crearDocumentTramitacio(DocsTramitacioRDTO docsTramitacioRDTO, Integer idExpedient) throws RestClientException {
+    public DocsTramitacioRDTO crearDocumentTramitacio(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient) throws RestClientException {
         Object postBody = docsTramitacioRDTO;
         
         // verify the required parameter 'docsTramitacioRDTO' is set
@@ -1596,7 +1231,7 @@ public class DocumentacioApi {
      * @return DocsTramitacioRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsTramitacioRDTO crearDocumentTramitacioDigitalitzat(DocsTramitacioRDTO docsTramitacioRDTO, Integer idExpedient) throws RestClientException {
+    public DocsTramitacioRDTO crearDocumentTramitacioDigitalitzat(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient) throws RestClientException {
         Object postBody = docsTramitacioRDTO;
         
         // verify the required parameter 'docsTramitacioRDTO' is set
@@ -1682,7 +1317,7 @@ public class DocumentacioApi {
      * @param idExpedient idExpedient
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void esBorrarDocumentacioEntrada(Integer idDocument, Integer idExpedient) throws RestClientException {
+    public void esBorrarDocumentacioEntrada(BigDecimal idDocument, BigDecimal idExpedient) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idDocument' is set
@@ -1718,55 +1353,6 @@ public class DocumentacioApi {
         apiClient.invokeAPI(path, HttpMethod.DELETE, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
-     * Delete all selected documents
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>201</b> - Created
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param esborrarDocumentMassiuRDTO esborrarDocumentMassiuRDTO
-     * @param idExpedient idExpedient
-     * @return RespostaEsborrarDocumentMassiu
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public RespostaEsborrarDocumentMassiu esBorrarDocumentacioMassiuUsingPOST(EsborrarDocumentMassiu esborrarDocumentMassiuRDTO, Integer idExpedient) throws RestClientException {
-        Object postBody = esborrarDocumentMassiuRDTO;
-        
-        // verify the required parameter 'esborrarDocumentMassiuRDTO' is set
-        if (esborrarDocumentMassiuRDTO == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'esborrarDocumentMassiuRDTO' when calling esBorrarDocumentacioMassiuUsingPOST");
-        }
-        
-        // verify the required parameter 'idExpedient' is set
-        if (idExpedient == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idExpedient' when calling esBorrarDocumentacioMassiuUsingPOST");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idExpedient", idExpedient);
-        String path = UriComponentsBuilder.fromPath("/documentacio/esBorrarDocumentacioMassiu/{idExpedient}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { 
-            "application/json"
-        };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<RespostaEsborrarDocumentMassiu> returnType = new ParameterizedTypeReference<RespostaEsborrarDocumentMassiu>() {};
-        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
      * Delete DocsTramitacio
      * 
      * <p><b>200</b> - OK
@@ -1777,7 +1363,7 @@ public class DocumentacioApi {
      * @param idExpedient idExpedient
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void esBorrarDocumentacioTramitacio(Integer idDocument, Integer idExpedient) throws RestClientException {
+    public void esBorrarDocumentacioTramitacio(BigDecimal idDocument, BigDecimal idExpedient) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idDocument' is set
@@ -1813,514 +1399,6 @@ public class DocumentacioApi {
         apiClient.invokeAPI(path, HttpMethod.DELETE, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
-     * esborrarDocumentacioEntradaSollicitudsCaducades
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>201</b> - Created
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param idSollicitudsList idSollicitudsList
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public void esborrarDocumentacioEntradaSollicitudsCaducadesUsingPOST(List<Sollicituds> idSollicitudsList) throws RestClientException {
-        Object postBody = idSollicitudsList;
-        
-        // verify the required parameter 'idSollicitudsList' is set
-        if (idSollicitudsList == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idSollicitudsList' when calling esborrarDocumentacioEntradaSollicitudsCaducadesUsingPOST");
-        }
-        
-        String path = UriComponentsBuilder.fromPath("/documentacio/esborrarDocumentacioEntradaSollicitudsCaducades").build().toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { 
-            "application/json"
-        };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {};
-        apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Returns the requested documentacio entrada
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param idConfiguracioDocumentacio idConfiguracioDocumentacio
-     * @param idDocumentacio idDocumentacio
-     * @param absoluteRowNumberOfFirstRowInCurrentPage The absoluteRowNumberOfFirstRowInCurrentPage parameter
-     * @param absoluteRowNumberOfLastRowInCurrentPage The absoluteRowNumberOfLastRowInCurrentPage parameter
-     * @param currentPageHasNextPage The currentPageHasNextPage parameter
-     * @param currentPageHasPreviousPage The currentPageHasPreviousPage parameter
-     * @param currentPageIsFirstPage The currentPageIsFirstPage parameter
-     * @param currentPageIsLastPage The currentPageIsLastPage parameter
-     * @param currentPageNumber The currentPageNumber parameter
-     * @param dir The dir parameter
-     * @param nextPageNumber The nextPageNumber parameter
-     * @param pageSize The pageSize parameter
-     * @param previousPageNumber The previousPageNumber parameter
-     * @param sort The sort parameter
-     * @param totalElements The totalElements parameter
-     * @param totalPages The totalPages parameter
-     * @return PageDataOfDocsEntradaRDTO
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public PageDataOfDocsEntradaRDTO getDocumentacioEntradaExpedientTancatUsingGET(Integer idConfiguracioDocumentacio, Integer idDocumentacio, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'idConfiguracioDocumentacio' is set
-        if (idConfiguracioDocumentacio == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idConfiguracioDocumentacio' when calling getDocumentacioEntradaExpedientTancatUsingGET");
-        }
-        
-        // verify the required parameter 'idDocumentacio' is set
-        if (idDocumentacio == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idDocumentacio' when calling getDocumentacioEntradaExpedientTancatUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idConfiguracioDocumentacio", idConfiguracioDocumentacio);
-        uriVariables.put("idDocumentacio", idDocumentacio);
-        String path = UriComponentsBuilder.fromPath("/documentacio/{idDocumentacio}/entrada/{idConfiguracioDocumentacio}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-        
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasNextPage", currentPageHasNextPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasPreviousPage", currentPageHasPreviousPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsFirstPage", currentPageIsFirstPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsLastPage", currentPageIsLastPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageNumber", currentPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "dir", dir));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nextPageNumber", nextPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "pageSize", pageSize));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "previousPageNumber", previousPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sort", sort));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalElements", totalElements));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalPages", totalPages));
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<PageDataOfDocsEntradaRDTO> returnType = new ParameterizedTypeReference<PageDataOfDocsEntradaRDTO>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Returns the requested documentacio entrada
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param estatsFutursList estatsFutursList
-     * @param idConfiguracioDocumentacio idConfiguracioDocumentacio
-     * @param idDocumentacio idDocumentacio
-     * @param absoluteRowNumberOfFirstRowInCurrentPage The absoluteRowNumberOfFirstRowInCurrentPage parameter
-     * @param absoluteRowNumberOfLastRowInCurrentPage The absoluteRowNumberOfLastRowInCurrentPage parameter
-     * @param currentPageHasNextPage The currentPageHasNextPage parameter
-     * @param currentPageHasPreviousPage The currentPageHasPreviousPage parameter
-     * @param currentPageIsFirstPage The currentPageIsFirstPage parameter
-     * @param currentPageIsLastPage The currentPageIsLastPage parameter
-     * @param currentPageNumber The currentPageNumber parameter
-     * @param dir The dir parameter
-     * @param nextPageNumber The nextPageNumber parameter
-     * @param pageSize The pageSize parameter
-     * @param previousPageNumber The previousPageNumber parameter
-     * @param sort The sort parameter
-     * @param totalElements The totalElements parameter
-     * @param totalPages The totalPages parameter
-     * @return PageDataOfDocsEntradaRDTO
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public PageDataOfDocsEntradaRDTO getDocumentacioEntradaUsingGET(String estatsFutursList, Integer idConfiguracioDocumentacio, Integer idDocumentacio, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'estatsFutursList' is set
-        if (estatsFutursList == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'estatsFutursList' when calling getDocumentacioEntradaUsingGET");
-        }
-        
-        // verify the required parameter 'idConfiguracioDocumentacio' is set
-        if (idConfiguracioDocumentacio == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idConfiguracioDocumentacio' when calling getDocumentacioEntradaUsingGET");
-        }
-        
-        // verify the required parameter 'idDocumentacio' is set
-        if (idDocumentacio == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idDocumentacio' when calling getDocumentacioEntradaUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("estatsFutursList", estatsFutursList);
-        uriVariables.put("idConfiguracioDocumentacio", idConfiguracioDocumentacio);
-        uriVariables.put("idDocumentacio", idDocumentacio);
-        String path = UriComponentsBuilder.fromPath("/documentacio/{idDocumentacio}/entrada/{idConfiguracioDocumentacio}/{estatsFutursList}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-        
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasNextPage", currentPageHasNextPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasPreviousPage", currentPageHasPreviousPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsFirstPage", currentPageIsFirstPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsLastPage", currentPageIsLastPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageNumber", currentPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "dir", dir));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nextPageNumber", nextPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "pageSize", pageSize));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "previousPageNumber", previousPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sort", sort));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalElements", totalElements));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalPages", totalPages));
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<PageDataOfDocsEntradaRDTO> returnType = new ParameterizedTypeReference<PageDataOfDocsEntradaRDTO>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Returns the requested documentacio tramitacio
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param idConfiguracioDocumentacio idConfiguracioDocumentacio
-     * @param idDocumentacio idDocumentacio
-     * @param absoluteRowNumberOfFirstRowInCurrentPage The absoluteRowNumberOfFirstRowInCurrentPage parameter
-     * @param absoluteRowNumberOfLastRowInCurrentPage The absoluteRowNumberOfLastRowInCurrentPage parameter
-     * @param currentPageHasNextPage The currentPageHasNextPage parameter
-     * @param currentPageHasPreviousPage The currentPageHasPreviousPage parameter
-     * @param currentPageIsFirstPage The currentPageIsFirstPage parameter
-     * @param currentPageIsLastPage The currentPageIsLastPage parameter
-     * @param currentPageNumber The currentPageNumber parameter
-     * @param dir The dir parameter
-     * @param nextPageNumber The nextPageNumber parameter
-     * @param pageSize The pageSize parameter
-     * @param previousPageNumber The previousPageNumber parameter
-     * @param sort The sort parameter
-     * @param totalElements The totalElements parameter
-     * @param totalPages The totalPages parameter
-     * @return PageDataOfDocsTramitacioRDTO
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public PageDataOfDocsTramitacioRDTO getDocumentacioTramitacioExpedientTancatUsingGET(Integer idConfiguracioDocumentacio, Integer idDocumentacio, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'idConfiguracioDocumentacio' is set
-        if (idConfiguracioDocumentacio == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idConfiguracioDocumentacio' when calling getDocumentacioTramitacioExpedientTancatUsingGET");
-        }
-        
-        // verify the required parameter 'idDocumentacio' is set
-        if (idDocumentacio == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idDocumentacio' when calling getDocumentacioTramitacioExpedientTancatUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idConfiguracioDocumentacio", idConfiguracioDocumentacio);
-        uriVariables.put("idDocumentacio", idDocumentacio);
-        String path = UriComponentsBuilder.fromPath("/documentacio/{idDocumentacio}/tramitacio/{idConfiguracioDocumentacio}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-        
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasNextPage", currentPageHasNextPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasPreviousPage", currentPageHasPreviousPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsFirstPage", currentPageIsFirstPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsLastPage", currentPageIsLastPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageNumber", currentPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "dir", dir));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nextPageNumber", nextPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "pageSize", pageSize));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "previousPageNumber", previousPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sort", sort));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalElements", totalElements));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalPages", totalPages));
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<PageDataOfDocsTramitacioRDTO> returnType = new ParameterizedTypeReference<PageDataOfDocsTramitacioRDTO>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Returns the requested documentacio tramitacio
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param estatsFutursList estatsFutursList
-     * @param idConfiguracioDocumentacio idConfiguracioDocumentacio
-     * @param idDocumentacio idDocumentacio
-     * @param absoluteRowNumberOfFirstRowInCurrentPage The absoluteRowNumberOfFirstRowInCurrentPage parameter
-     * @param absoluteRowNumberOfLastRowInCurrentPage The absoluteRowNumberOfLastRowInCurrentPage parameter
-     * @param currentPageHasNextPage The currentPageHasNextPage parameter
-     * @param currentPageHasPreviousPage The currentPageHasPreviousPage parameter
-     * @param currentPageIsFirstPage The currentPageIsFirstPage parameter
-     * @param currentPageIsLastPage The currentPageIsLastPage parameter
-     * @param currentPageNumber The currentPageNumber parameter
-     * @param dir The dir parameter
-     * @param nextPageNumber The nextPageNumber parameter
-     * @param pageSize The pageSize parameter
-     * @param previousPageNumber The previousPageNumber parameter
-     * @param sort The sort parameter
-     * @param totalElements The totalElements parameter
-     * @param totalPages The totalPages parameter
-     * @return PageDataOfDocsTramitacioRDTO
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public PageDataOfDocsTramitacioRDTO getDocumentacioTramitacioUsingGET(String estatsFutursList, Integer idConfiguracioDocumentacio, Integer idDocumentacio, Integer absoluteRowNumberOfFirstRowInCurrentPage, Integer absoluteRowNumberOfLastRowInCurrentPage, Boolean currentPageHasNextPage, Boolean currentPageHasPreviousPage, Boolean currentPageIsFirstPage, Boolean currentPageIsLastPage, Integer currentPageNumber, String dir, Integer nextPageNumber, Integer pageSize, Integer previousPageNumber, String sort, Long totalElements, Integer totalPages) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'estatsFutursList' is set
-        if (estatsFutursList == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'estatsFutursList' when calling getDocumentacioTramitacioUsingGET");
-        }
-        
-        // verify the required parameter 'idConfiguracioDocumentacio' is set
-        if (idConfiguracioDocumentacio == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idConfiguracioDocumentacio' when calling getDocumentacioTramitacioUsingGET");
-        }
-        
-        // verify the required parameter 'idDocumentacio' is set
-        if (idDocumentacio == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idDocumentacio' when calling getDocumentacioTramitacioUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("estatsFutursList", estatsFutursList);
-        uriVariables.put("idConfiguracioDocumentacio", idConfiguracioDocumentacio);
-        uriVariables.put("idDocumentacio", idDocumentacio);
-        String path = UriComponentsBuilder.fromPath("/documentacio/{idDocumentacio}/tramitacio/{idConfiguracioDocumentacio}/{estatsFutursList}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-        
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfFirstRowInCurrentPage", absoluteRowNumberOfFirstRowInCurrentPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "absoluteRowNumberOfLastRowInCurrentPage", absoluteRowNumberOfLastRowInCurrentPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasNextPage", currentPageHasNextPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageHasPreviousPage", currentPageHasPreviousPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsFirstPage", currentPageIsFirstPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageIsLastPage", currentPageIsLastPage));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "currentPageNumber", currentPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "dir", dir));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "nextPageNumber", nextPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "pageSize", pageSize));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "previousPageNumber", previousPageNumber));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sort", sort));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalElements", totalElements));
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "totalPages", totalPages));
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<PageDataOfDocsTramitacioRDTO> returnType = new ParameterizedTypeReference<PageDataOfDocsTramitacioRDTO>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Returns all the EstatRevisio
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @return List&lt;EstatRevisioRDTO&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public List<EstatRevisioRDTO> getEstatsRevisioDocumentacioEntradaUsingGET() throws RestClientException {
-        Object postBody = null;
-        
-        String path = UriComponentsBuilder.fromPath("/documentacio/entrada/estatsRevisio").build().toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<List<EstatRevisioRDTO>> returnType = new ParameterizedTypeReference<List<EstatRevisioRDTO>>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Returns all the tipus grup entries for the idConfigDoc
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param idConfigDoc idConfigDoc
-     * @return List&lt;ConfiguracioDocsEntradaRDTO&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public List<ConfiguracioDocsEntradaRDTO> getTipusGrupEntradaUsingGET(Integer idConfigDoc) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'idConfigDoc' is set
-        if (idConfigDoc == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idConfigDoc' when calling getTipusGrupEntradaUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idConfigDoc", idConfigDoc);
-        String path = UriComponentsBuilder.fromPath("/documentacio/entrada/listTipusGrup/{idConfigDoc}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<List<ConfiguracioDocsEntradaRDTO>> returnType = new ParameterizedTypeReference<List<ConfiguracioDocsEntradaRDTO>>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Returns all the tipus grup entries for the idConfigDoc
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param idConfigDoc idConfigDoc
-     * @return List&lt;ConfiguracioDocsTramitacioRDTO&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public List<ConfiguracioDocsTramitacioRDTO> getTipusGrupTramitacioRequerimentUsingGET(Integer idConfigDoc) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'idConfigDoc' is set
-        if (idConfigDoc == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idConfigDoc' when calling getTipusGrupTramitacioRequerimentUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idConfigDoc", idConfigDoc);
-        String path = UriComponentsBuilder.fromPath("/documentacio/tramitacio/listTipusGrupRequeriment/{idConfigDoc}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<List<ConfiguracioDocsTramitacioRDTO>> returnType = new ParameterizedTypeReference<List<ConfiguracioDocsTramitacioRDTO>>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Returns all the tipus grup entries for the idConfigDoc
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param idConfigDoc idConfigDoc
-     * @return List&lt;ConfiguracioDocsTramitacioRDTO&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public List<ConfiguracioDocsTramitacioRDTO> getTipusGrupTramitacioUsingGET(Integer idConfigDoc) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'idConfigDoc' is set
-        if (idConfigDoc == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idConfigDoc' when calling getTipusGrupTramitacioUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idConfigDoc", idConfigDoc);
-        String path = UriComponentsBuilder.fromPath("/documentacio/tramitacio/listTipusGrup/{idConfigDoc}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<List<ConfiguracioDocsTramitacioRDTO>> returnType = new ParameterizedTypeReference<List<ConfiguracioDocsTramitacioRDTO>>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
      * actualitza l&#39;aneu del gestor documental
      * 
      * <p><b>200</b> - OK
@@ -2334,7 +1412,7 @@ public class DocumentacioApi {
      * @return DocsEntradaRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsEntradaRDTO guardarDocumentEntradaEscanejatGestorDocumental(DocsEntradaRDTO docsEntradaRDTO, Integer idExpedient, String idGestorDocumental) throws RestClientException {
+    public DocsEntradaRDTO guardarDocumentEntradaEscanejatGestorDocumental(DocsEntradaRDTO docsEntradaRDTO, BigDecimal idExpedient, String idGestorDocumental) throws RestClientException {
         Object postBody = docsEntradaRDTO;
         
         // verify the required parameter 'docsEntradaRDTO' is set
@@ -2390,7 +1468,7 @@ public class DocumentacioApi {
      * @return DocsEntradaRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsEntradaRDTO guardarDocumentEntradaFitxer(String docsEntrada, File file, Integer idExpedient) throws RestClientException {
+    public DocsEntradaRDTO guardarDocumentEntradaFitxer(String docsEntrada, File file, BigDecimal idExpedient) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'docsEntrada' is set
@@ -2450,7 +1528,7 @@ public class DocumentacioApi {
      * @return DocsEntradaRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsEntradaRDTO guardarDocumentEntradaGestorDocumental(DocsEntradaRDTO docsEntradaRDTO, Integer idExpedient, String idGestorDocumental) throws RestClientException {
+    public DocsEntradaRDTO guardarDocumentEntradaGestorDocumental(DocsEntradaRDTO docsEntradaRDTO, BigDecimal idExpedient, String idGestorDocumental) throws RestClientException {
         Object postBody = docsEntradaRDTO;
         
         // verify the required parameter 'docsEntradaRDTO' is set
@@ -2504,7 +1582,7 @@ public class DocumentacioApi {
      * @param idPeticioSignatura idPeticioSignatura
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void guardarDocumentSollicitudSignat(Integer idDocumentacio, Integer idPeticioSignatura) throws RestClientException {
+    public void guardarDocumentSollicitudSignat(BigDecimal idDocumentacio, BigDecimal idPeticioSignatura) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idDocumentacio' is set
@@ -2555,7 +1633,7 @@ public class DocumentacioApi {
      * @return DocsTramitacioRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsTramitacioRDTO guardarDocumentTramitacioFitxer(String docsTramitacio, File file, Integer idExpedient) throws RestClientException {
+    public DocsTramitacioRDTO guardarDocumentTramitacioFitxer(String docsTramitacio, File file, BigDecimal idExpedient) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'docsTramitacio' is set
@@ -2615,7 +1693,7 @@ public class DocumentacioApi {
      * @return DocsTramitacioRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsTramitacioRDTO guardarDocumentTramitacioJustificantPlantilla(DocsTramitacioRDTO docsTramitacioRDTO, Integer idExpedient, Integer idSollicitud) throws RestClientException {
+    public DocsTramitacioRDTO guardarDocumentTramitacioJustificantPlantilla(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient, BigDecimal idSollicitud) throws RestClientException {
         Object postBody = docsTramitacioRDTO;
         
         // verify the required parameter 'docsTramitacioRDTO' is set
@@ -2670,7 +1748,7 @@ public class DocumentacioApi {
      * @return DocsTramitacioRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsTramitacioRDTO guardarDocumentTramitacioPlantilla(DocsTramitacioRDTO docsTramitacioRDTO, Integer idExpedient) throws RestClientException {
+    public DocsTramitacioRDTO guardarDocumentTramitacioPlantilla(DocsTramitacioRDTO docsTramitacioRDTO, BigDecimal idExpedient) throws RestClientException {
         Object postBody = docsTramitacioRDTO;
         
         // verify the required parameter 'docsTramitacioRDTO' is set
@@ -2720,7 +1798,7 @@ public class DocumentacioApi {
      * @return DocsTramitacioRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsTramitacioRDTO guardarRequerimentFitxer(File file, Integer idExpedient, String requerimentExpedient) throws RestClientException {
+    public DocsTramitacioRDTO guardarRequerimentFitxer(File file, BigDecimal idExpedient, String requerimentExpedient) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'file' is set
@@ -2779,7 +1857,7 @@ public class DocumentacioApi {
      * @return DocsTramitacioRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsTramitacioRDTO guardarRequerimentPlantilla(GuardarRequerimentExpedient guardarRequerimentExpedientRDTO, Integer idExpedient) throws RestClientException {
+    public DocsTramitacioRDTO guardarRequerimentPlantilla(GuardarRequerimentExpedient guardarRequerimentExpedientRDTO, BigDecimal idExpedient) throws RestClientException {
         Object postBody = guardarRequerimentExpedientRDTO;
         
         // verify the required parameter 'guardarRequerimentExpedientRDTO' is set
@@ -2867,53 +1945,6 @@ public class DocumentacioApi {
         apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
-     * create new documentacio
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param codiExpedient codiExpedient
-     * @param procedimentId procedimentId
-     * @return RestClientResponse
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public RestClientResponse newDocumentacioUsingGET(String codiExpedient, Integer procedimentId) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'codiExpedient' is set
-        if (codiExpedient == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'codiExpedient' when calling newDocumentacioUsingGET");
-        }
-        
-        // verify the required parameter 'procedimentId' is set
-        if (procedimentId == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'procedimentId' when calling newDocumentacioUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("codiExpedient", codiExpedient);
-        uriVariables.put("procedimentId", procedimentId);
-        String path = UriComponentsBuilder.fromPath("/documentacio/newDocumentacio/{codiExpedient}/{procedimentId}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<RestClientResponse> returnType = new ParameterizedTypeReference<RestClientResponse>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
      * Obre els requeriments de l&#39;expedient
      * 
      * <p><b>200</b> - OK
@@ -2924,7 +1955,7 @@ public class DocumentacioApi {
      * @param idDocumentacio idDocumentacio
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void obrirRequerimentsExpedient(Integer idDocumentacio) throws RestClientException {
+    public void obrirRequerimentsExpedient(BigDecimal idDocumentacio) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idDocumentacio' is set
@@ -2956,37 +1987,6 @@ public class DocumentacioApi {
         apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
-     * Returns the requested documentacio entrada
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @return List&lt;BigDecimal&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public List<BigDecimal> obteneriDocumentacioEntradaEnRevisioUsingGET() throws RestClientException {
-        Object postBody = null;
-        
-        String path = UriComponentsBuilder.fromPath("/documentacio/documentacioEntradaEnRevisio").build().toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<List<BigDecimal>> returnType = new ParameterizedTypeReference<List<BigDecimal>>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
      * Returns the requested documentacio tramitacio
      * 
      * <p><b>200</b> - OK
@@ -2997,7 +1997,7 @@ public class DocumentacioApi {
      * @return DocsTramitacioRDTO
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public DocsTramitacioRDTO obtenirDocsTramitacioByNotificationId(Integer idNotificacio) throws RestClientException {
+    public DocsTramitacioRDTO obtenirDocsTramitacioByNotificationId(BigDecimal idNotificacio) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idNotificacio' is set
@@ -3024,213 +2024,6 @@ public class DocumentacioApi {
         String[] authNames = new String[] {  };
 
         ParameterizedTypeReference<DocsTramitacioRDTO> returnType = new ParameterizedTypeReference<DocsTramitacioRDTO>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Obtenir els documents d&#39;entrada per al registre
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param documents documents
-     * @return Map&lt;String, DocsEntradaResgitreDTO&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public Map<String, DocsEntradaResgitreDTO> obtenirDocumentsEntradaToRegistreUsingGET(String documents) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'documents' is set
-        if (documents == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'documents' when calling obtenirDocumentsEntradaToRegistreUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("documents", documents);
-        String path = UriComponentsBuilder.fromPath("/documentacio/documentsEntrada/registre/{documents}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<Map<String, DocsEntradaResgitreDTO>> returnType = new ParameterizedTypeReference<Map<String, DocsEntradaResgitreDTO>>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Obté els documents per informació pública
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param idDocumentacio idDocumentacio
-     * @return List&lt;DocsTramitacioRDTO&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public List<DocsTramitacioRDTO> obtenirDocumentsPerAInformacioPublicaUsingGET(Integer idDocumentacio) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'idDocumentacio' is set
-        if (idDocumentacio == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idDocumentacio' when calling obtenirDocumentsPerAInformacioPublicaUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idDocumentacio", idDocumentacio);
-        String path = UriComponentsBuilder.fromPath("/documentacio/informacioPublica/{idDocumentacio}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<List<DocsTramitacioRDTO>> returnType = new ParameterizedTypeReference<List<DocsTramitacioRDTO>>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Obtenir els documents per al registre la sollicitud
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param idSollicitud idSollicitud
-     * @return Map&lt;String, DocsEntradaResgitreDTO&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public Map<String, DocsEntradaResgitreDTO> obtenirDocumentsToRegistreSollicitudUsingGET(Integer idSollicitud) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'idSollicitud' is set
-        if (idSollicitud == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idSollicitud' when calling obtenirDocumentsToRegistreSollicitudUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idSollicitud", idSollicitud);
-        String path = UriComponentsBuilder.fromPath("/documentacio/documents/registreSollicitud/{idSollicitud}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<Map<String, DocsEntradaResgitreDTO>> returnType = new ParameterizedTypeReference<Map<String, DocsEntradaResgitreDTO>>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Obtenir els documents per al registre
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param idDocumentacio idDocumentacio
-     * @return Map&lt;String, DocsEntradaResgitreDTO&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public Map<String, DocsEntradaResgitreDTO> obtenirDocumentsToRegistreUsingGET(Integer idDocumentacio) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'idDocumentacio' is set
-        if (idDocumentacio == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'idDocumentacio' when calling obtenirDocumentsToRegistreUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("idDocumentacio", idDocumentacio);
-        String path = UriComponentsBuilder.fromPath("/documentacio/documents/registre/{idDocumentacio}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<Map<String, DocsEntradaResgitreDTO>> returnType = new ParameterizedTypeReference<Map<String, DocsEntradaResgitreDTO>>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Get all estats documentació tramitació
-     * 
-     * <p><b>200</b> - OK
-     * <p><b>401</b> - Unauthorized
-     * <p><b>403</b> - Forbidden
-     * <p><b>404</b> - Not Found
-     * @param configDocTramitacio configDocTramitacio
-     * @param estatDocTramitacio estatDocTramitacio
-     * @return List&lt;TransicionsEstatsRDTO&gt;
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public List<TransicionsEstatsRDTO> obtenirTransicionsEstatsByEstatDocTramUsingGET(Integer configDocTramitacio, Integer estatDocTramitacio) throws RestClientException {
-        Object postBody = null;
-        
-        // verify the required parameter 'configDocTramitacio' is set
-        if (configDocTramitacio == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'configDocTramitacio' when calling obtenirTransicionsEstatsByEstatDocTramUsingGET");
-        }
-        
-        // verify the required parameter 'estatDocTramitacio' is set
-        if (estatDocTramitacio == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'estatDocTramitacio' when calling obtenirTransicionsEstatsByEstatDocTramUsingGET");
-        }
-        
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("configDocTramitacio", configDocTramitacio);
-        uriVariables.put("estatDocTramitacio", estatDocTramitacio);
-        String path = UriComponentsBuilder.fromPath("/documentacio/tramitacio/estatsDocTramCanviEstat/{estatDocTramitacio}/{configDocTramitacio}").buildAndExpand(uriVariables).toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { 
-            "*/*"
-        };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<List<TransicionsEstatsRDTO>> returnType = new ParameterizedTypeReference<List<TransicionsEstatsRDTO>>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
@@ -3392,7 +2185,7 @@ public class DocumentacioApi {
      * @param idDocumentacio idDocumentacio
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void tancarRequerimentsExpedient(Integer idDocumentacio) throws RestClientException {
+    public void tancarRequerimentsExpedient(BigDecimal idDocumentacio) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'idDocumentacio' is set

@@ -56,8 +56,8 @@ public class DownloadApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn("prova".getBytes());
 
-		Integer idDoc = 1;
-		Integer idExpedient = 1;
+		BigDecimal idDoc = ONE;
+		BigDecimal idExpedient = ONE;
 		byte[] response = api.descarregarDocumentExpedient(idDoc, idExpedient);
 
 		assertTrue(response != null);
@@ -77,8 +77,8 @@ public class DownloadApiTest extends ParentTest {
 		        any(Object.class), any(HttpHeaders.class), any(MultiValueMap.class), any(List.class), any(MediaType.class),
 		        any(String[].class), any(ParameterizedTypeReference.class))).thenReturn("prova".getBytes());
 
-		Integer idDoc = 1;
-		Integer idExpedient = 1;
+		BigDecimal idDoc = ONE;
+		BigDecimal idExpedient = ONE;
 		Integer pos = INTEGER_ONE;
 		byte[] response = api.descarregarDocumentExpedientByPos(idDoc, idExpedient, pos);
 
