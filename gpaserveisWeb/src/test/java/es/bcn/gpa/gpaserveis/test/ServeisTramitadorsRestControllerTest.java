@@ -770,4 +770,36 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 		String url = BASE_URL + "/expedients/1/reprendre";
 		getMockMvc().perform(post(url).contentType(APPLICATION_JSON_UTF8).content("")).andExpect(status().isOk()).andDo(print());
 	}
+	
+	@Test
+	public void testStage100_GetCercaProcediments() throws Exception {
+		String url = BASE_URL
+		        + "/procediments?resultatsPerPagina=20&numeroPagina=1&ordenarPer=CODI&sentitOrdenacio=ASC&codi=PROC-01&estat=EN_ELABORACIO,FINALITZAT,PUBLICAT&nom=Procediment1&tramitador=APLICACIO_DE_NEGOCI&aplicacioNegoci=quiosc&ugr=UG1&exclusivamentIntern=SI&activableFormatElectronic=PORTAL_TRAMITS,ALTRA_WEB,MOBIL,QUIOSC,PER_CANAL_GENERALISTA,PER_CANAL_ESPECIFIC&organResolutori=ple&competenciaAssociada=ACCIO_SOCIAL,AFERS_JURIDICS,BENS_I_PATRIMONI,COMERC_I_CONSUM,CULTURA,EDUCACIO,ESPORTS_I_LLEURE,HABITATGE,MEDI_AMBIENT,MOVILITAT_TRANSPORT_I_CIRCULACIO,OBRES_I_INFRAESTRUCTURES,ORGANITZACIO_I_COORDINACIO_ADMINISTRATIVA,ORGANS_DE_GOVERN,POBLACIO_I_DEMARCACIO,POTESTATS_DE_PLANIFICACIO_I_NORMATIVA,PRESSUPOSTOS_I_FINANCES,PROMOCIO_ECONOMICA,RECURSOS_HUMANS&familia=ATENCIO_SOCIAL_I_RESIDENCIAL,AUTORITZACIONS_I_COMUNICATS,CERTAMENS_I_PREMIS,COL_LABORACIO,CONSULTES_I_SUGGERIMENTS,CONTRACTACIO_PUBLICA,DISCIPLINA_INSPECCIO_I_PROTECCIO_DE_LA_LEGALITAT,DRETS_D_ACCES_A_LA_INFORMACIO,DRETS_I_ACTIVITAT_CIVIL,ENS_DEPENDENTS_I_PARTICIPATS,EXECUCIO_URBANISTICA,GESTIO_DEL_PERSONAL,GESTIO_PRESSUPOSTARIA_I_FINANCERA,GESTIO_TRIBUTARIA,INFORMES_I_CERTIFICATS,INSCRIPCIONS_REGISTRALS,MEDIACIO_I_ARBITRATGE,NORMATIVA,OCUPACIO_I_SERVEIS_A_LA_VIA_PUBLICA,PARTICIPACIO,PLANEJAMENT_URBANISTIC,PREVENCIO,QUEIXES_I_RECLAMACIONS,REGIM_DE_BENS_I_PATRIMONI,REGIM_SANCIONADOR,RESPONSABILITAT_PATRIMONIAL,REVISIO_DE_L_ACTUACIO_ADMINISTRATIVA,SUBVENCIONS_I_AJUTS,TARGETES_CARNETS_I_IDENTIFICACIONS,ALTRES&actuacio=actuació";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+	}
+	
+	@Test
+	public void testStage102_GetCercaProcedimentsIdProcediment() throws Exception {
+		String url = BASE_URL
+		        + "/procediments/9";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+	}
+	@Test
+	public void testStage103_GetCercaProcedimentsIdProcedimentAtributs() throws Exception {
+		String url = BASE_URL
+		        + "/procediments/9/tramits/?";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+	}
+	@Test
+	public void testStage104_GetCercaProcedimentsIdProcedimentAtributsTramitsDocumentacio() throws Exception {
+		String url = BASE_URL
+		        + "/procediments/9/tramits/documentacio";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+	}
+	@Test
+	public void testStage105_GetCercaProcedimentsIdProcedimentAtributsTramitsDocumentacioPersones() throws Exception {
+		String url = BASE_URL
+		        + "/procediments/9/tramits/persones";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+	}
 }

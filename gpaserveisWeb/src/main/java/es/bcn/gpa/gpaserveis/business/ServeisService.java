@@ -103,8 +103,10 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornTramitaci
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusViesRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.PageDataOfTramitsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsOrganigramaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UsuarisRDTO;
@@ -1538,5 +1540,8 @@ public interface ServeisService {
 	 * @throws GPAServeisServiceException 
 	 */
 	ProcedimentsRDTO consultarProcedimentsRelacionats(BigDecimal id) throws GPAServeisServiceException;
+	
+
+	PageDataOfDadesGrupsRDTO cercaAtributsProcediment(DadesOperacioCercaBDTO dadesOperacioCercaBDTO)throws GPAServeisServiceException;
 
 }
