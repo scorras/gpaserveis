@@ -6137,6 +6137,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			List<ProcedimentPersonesRDTO> listPersonesRDTO = new ArrayList();
 			for(int i=0;i<listPersones.size();i++){
 				listPersonesRDTO.add(modelMapper.map(listPersones.get(i),ProcedimentPersonesRDTO.class));
+				listPersonesRDTO.get(i).setTipus(listPersones.get(i).getRelacio());
 			}
 			
 			respostaConsultaPersonesProcedimentRDTO.setTerceresPersonesImplicades(listPersonesRDTO);
