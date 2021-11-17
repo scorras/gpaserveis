@@ -853,7 +853,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			        && NumberUtils.INTEGER_ONE.equals(dadesExpedientBDTO.getExpedientsRDTO().getEstat().getTancamentAutomatic())) {
 				expedientConsultaRDTO.setTancamentAutomatic(true);
 			}
-			if(expedientConsultaRDTO.getAccionsDisponibles()!=null){
+			if(expedientConsultaRDTO.getAccionsDisponibles() != null){
 				if(expedientConsultaRDTO.getAccionsDisponibles().contains(AccioCiutadaApiParamValue.PRESENTAR_RECURSO.getApiParamValue())){
 					List<ProcedimentsRDTO> procRelacionats = serveisService.consultarProcedimentsRelacionats(expedientConsultaRDTO.getProcediment().getId());
 					if(CollectionUtils.isEmpty(procRelacionats)){
@@ -3209,9 +3209,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				idsReqOperatiusTramOvtList.add(reqOperatiusTramOvt.getTramitOvtIdext());
 			}
 		}
-		if(!expedientConsultaRDTO.getAccionsDisponibles().isEmpty() && !expedientConsultaRDTO.getAccionsDisponibles().get(0).equals("PRESENTAR_RECURSO")){
-			ServeisRestControllerAccionsDisponiblesHelper.filtrarTramitsOvtDisponibles(expedientConsultaRDTO, idsReqOperatiusTramOvtList);
-		}
+		ServeisRestControllerAccionsDisponiblesHelper.filtrarTramitsOvtDisponibles(expedientConsultaRDTO, idsReqOperatiusTramOvtList);
 	}
 
 }
