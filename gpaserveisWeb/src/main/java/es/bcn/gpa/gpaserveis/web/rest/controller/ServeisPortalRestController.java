@@ -142,6 +142,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.Revis
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusDocumentacioVinculadaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusMimeApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusSignaturaApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioCiutadaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.EstatTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.SuportConfeccioApiParamValue;
@@ -853,13 +854,10 @@ public class ServeisPortalRestController extends BaseRestController {
 				expedientConsultaRDTO.setTancamentAutomatic(true);
 			}
 			if(expedientConsultaRDTO.getAccionsDisponibles()!=null){
-				for(String accion : expedientConsultaRDTO.getAccionsDisponibles()){
-					if(accion.contains("PRESENTAR_RECURSO")){
-						ProcedimentsRDTO procRelacionats = serveisService.consultarProcedimentsRelacionats(expedientConsultaRDTO.getProcediment().getId());
-						if(procRelacionats==null){
-							expedientConsultaRDTO.getAccionsDisponibles().remove("PRESENTAR_RECURSO");
-							break;
-						}
+				if(expedientConsultaRDTO.getAccionsDisponibles().contains(AccioCiutadaApiParamValue.PRESENTAR_RECURSO.getApiParamValue())){
+					List<ProcedimentsRDTO> procRelacionats = serveisService.consultarProcedimentsRelacionats(expedientConsultaRDTO.getProcediment().getId());
+					if(CollectionUtils.isEmpty(procRelacionats)){
+						expedientConsultaRDTO.getAccionsDisponibles().remove(AccioCiutadaApiParamValue.PRESENTAR_RECURSO.getApiParamValue());
 					}
 				}
 			}

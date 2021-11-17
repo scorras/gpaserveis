@@ -132,13 +132,14 @@ public class ProcedimentsServiceImpl implements ProcedimentsService {
 	}
 
 	@Override
-	public ProcedimentsRDTO consultarRelacionatsProcediment(BigDecimal id) throws GPAServeisServiceException {
+	public PageDataOfProcedimentsRDTO consultarRelacionatsProcediment(BigDecimal id) throws GPAServeisServiceException {
 		if (log.isDebugEnabled()) {
 			log.debug("consultarRelacionatsProcediment(BigDecimal) - inici"); //$NON-NLS-1$
 		}
 
 		try {
-			ProcedimentsRDTO procediments = procedimentsApi.consultarRelacionatsProcediment(id);
+			PageDataOfProcedimentsRDTO procediments = procedimentsApi.consultarRelacionatsProcediment(
+					Integer.valueOf(id.intValueExact()), null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 			if (log.isDebugEnabled()) {
 				log.debug("consultarRelacionatsProcediment(BigDecimal) - fi"); //$NON-NLS-1$

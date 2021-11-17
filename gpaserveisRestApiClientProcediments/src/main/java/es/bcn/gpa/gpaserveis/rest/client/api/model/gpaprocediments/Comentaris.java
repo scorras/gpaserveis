@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 /**
  * Comentaris
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-12T13:09:27.652+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-17T10:14:01.849+01:00")
 public class Comentaris {
   @JsonProperty("darreraModificacio")
   private DateTime darreraModificacio = null;

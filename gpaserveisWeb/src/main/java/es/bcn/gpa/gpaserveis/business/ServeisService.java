@@ -1537,6 +1537,6 @@ public interface ServeisService {
 	 * @return the procediment BDTO
 	 * @throws GPAServeisServiceException 
 	 */
-	ProcedimentsRDTO consultarProcedimentsRelacionats(BigDecimal id) throws GPAServeisServiceException;
+	List<ProcedimentsRDTO> consultarProcedimentsRelacionats(BigDecimal id) throws GPAServeisServiceException;
 
 }

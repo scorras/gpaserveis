@@ -53,5 +53,5 @@ public interface ProcedimentsService {
 	 * @return the list
 	 * @throws GPAServeisServiceException 
 	 */
-	ProcedimentsRDTO consultarRelacionatsProcediment(BigDecimal id) throws GPAServeisServiceException;
+	PageDataOfProcedimentsRDTO consultarRelacionatsProcediment(BigDecimal id) throws GPAServeisServiceException;
 }
