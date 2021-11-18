@@ -185,6 +185,7 @@ public class DadesExpedientBDTOToExpedientsConsultaRDTOMapper extends PropertyMa
 		using(internalToDadesAtributsRequeritsListConverter).map(source).setAtributsRequerits(null);
 		using(internalToTramitOvtListConverter).map(source.getSollicituds()).setSollicituds(null);
 		map().setPathGestorDocumental(source.getExpedientsRDTO().getPathGestorDocumental());
+		map().setExpedientBackOffice(source.getExpedientsRDTO().getExpedientBackOffice());
 	}
 
 }

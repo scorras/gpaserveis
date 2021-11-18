@@ -17,7 +17,7 @@ import lombok.Setter;
 @ApiModel(value = "ExpedientActualitzar")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "sollicitant", "representant", "dadesOperacio", "personesInteressades", "personesImplicades", "tipusIniciacio",
-        "respostaRequeriment", "respostaAllegacion" })
+        "respostaRequeriment", "respostaAllegacion", "expedientBackOffice" })
 @Getter
 @Setter
 public class ExpedientActualitzarRDTO {
@@ -38,5 +38,7 @@ public class ExpedientActualitzarRDTO {
 	private BigDecimal respostaRequeriment;
 	@ApiModelProperty(value = "Termini d'al·legacions.", required = false)
 	private BigDecimal respostaAllegacion;
+	@ApiModelProperty(value = "Expedient Back Office", required = false)
+	private BigDecimal expedientBackOffice;
 
 }
