@@ -103,6 +103,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornTramitaci
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusViesRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsOrganigramaRDTO;
@@ -1355,10 +1356,8 @@ public interface ServeisService {
 	/**
 	 * Actualitzar expedient.
 	 *
-	 * @param expedientsCrearBDTO
-	 *            the expedients crear BDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
+	 * @param expedientsRDTO the expedients RDTO
+	 * @throws GPAServeisServiceException             the GPA serveis service exception
 	 */
 	void actualitzarExpedient(ExpedientsRDTO expedientsRDTO) throws GPAServeisServiceException;
 
@@ -1428,11 +1427,9 @@ public interface ServeisService {
 	/**
 	 * Incorporar Tercera Persona.
 	 *
-	 * @param expedientsActualitzarBDTO
-	 *            the expedients actualitzar BDTO
+	 * @param personesSollicitudRDTO the persones sollicitud RDTO
 	 * @return the PersonesSollicitud RDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
+	 * @throws GPAServeisServiceException             the GPA serveis service exception
 	 */
 	PersonesSollicitudRDTO incorporarTerceraPersona(PersonesSollicitudRDTO personesSollicitudRDTO) throws GPAServeisServiceException;
 
@@ -1483,16 +1480,22 @@ public interface ServeisService {
 	 */
 	EsBcnMciSignaturaWebServiceSchemasTicketType parseMciSignaturesTicket(String ticket) throws GPAServeisServiceException;
 
+	/**
+	 * Obtenir persona expedient by document identitat.
+	 *
+	 * @param dadesExpedientBDTO the dades expedient BDTO
+	 * @param documentUsuari the document usuari
+	 * @return the persones
+	 * @throws GPAServeisServiceException the GPA serveis service exception
+	 */
 	Persones obtenirPersonaExpedientByDocumentIdentitat(DadesExpedientBDTO dadesExpedientBDTO, String documentUsuari)
 	        throws GPAServeisServiceException;
 
 	/**
 	 * Registrar auditoria de Serveis Tramitadors.
 	 *
-	 * @param auditServeisTramitadorsBDTO
-	 *            the audit serveis tramitadors BDTO
-	 * @throws GPAServeisServiceException
-	 *             the GPA serveis service exception
+	 * @param auditServeisBDTO the audit serveis BDTO
+	 * @throws GPAServeisServiceException             the GPA serveis service exception
 	 */
 	void registrarAuditServeisTramitadors(AuditServeisBDTO auditServeisBDTO) throws GPAServeisServiceException;
 
@@ -1526,5 +1529,14 @@ public interface ServeisService {
 	 * @throws GPAServeisServiceException the GPA serveis service exception
 	 */
 	void gestionarAvisosPerAccio(GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO) throws GPAServeisServiceException;
+
+	/**
+	 * Consultar procediments relacionats.
+	 *
+	 * @param id the id
+	 * @return the procediment BDTO
+	 * @throws GPAServeisServiceException 
+	 */
+	List<ProcedimentsRDTO> consultarProcedimentsRelacionats(BigDecimal id) throws GPAServeisServiceException;
 
 }

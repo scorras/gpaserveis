@@ -1495,4 +1495,10 @@ public class ServeisServiceHelper {
 		return respostaSollicitudsCercaBDTO;
 	}
 
+	public static List<ProcedimentsRDTO> loadRelacionatsProcediments(ProcedimentsService procedimentsService,
+			BigDecimal id) throws GPAServeisServiceException {
+		PageDataOfProcedimentsRDTO procedimentsRDTO = procedimentsService.consultarRelacionatsProcediment(id);
+		return procedimentsRDTO.getData();
+	}
+
 }

@@ -13,7 +13,7 @@ import lombok.Setter;
 
 @ApiModel(value = "ExpedientCrear")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "procediment", "unitatGestora", "sollicitant", "representant", "personesInteressades", "personesImplicades" })
+@JsonPropertyOrder({ "procediment", "unitatGestora", "sollicitant", "representant", "personesInteressades", "personesImplicades","codiExpedientOrigen" })
 @Getter
 @Setter
 public class ExpedientCrearRDTO {
@@ -30,4 +30,6 @@ public class ExpedientCrearRDTO {
 	private List<PersonesRDTO> personesInteressades;
 	@ApiModelProperty(value = "Persones implicades", required = false)
 	private List<PersonesRDTO> personesImplicades;
+	@ApiModelProperty(value = "Expedient origen", required = false)
+	private String codiExpedientOrigen;
 }

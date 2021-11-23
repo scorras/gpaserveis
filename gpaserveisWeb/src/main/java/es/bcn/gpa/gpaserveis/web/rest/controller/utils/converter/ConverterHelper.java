@@ -1589,6 +1589,8 @@ public class ConverterHelper {
 			        .setRelacioPrincipal(booleanApiParamValueTranslator.getInternalValueByApiParamValueAsBoolean(relacionPrincipal));
 			personesSollicitud.setVisibilitatOvt(
 			        booleanApiParamValueTranslator.getInternalValueByApiParamValueAsBoolean(personesRDTO.getVisibilitatOvt()));
+			personesSollicitud.setRepresentacioPuntual(
+			        booleanApiParamValueTranslator.getInternalValueByApiParamValueAsBoolean(personesRDTO.getRepresentacioPuntual()));
 			Persones persones = new Persones();
 			persones.setTipusPersona(tipusPersonaApiParamValueTranslator.getInternalValueByApiParamValue(personesRDTO.getTipusPersona()));
 			persones.setNomRaoSocial(personesRDTO.getNomRaoSocial());

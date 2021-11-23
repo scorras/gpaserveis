@@ -125,6 +125,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornTramitaci
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudActualitzarRegistre;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.SollicitudsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusViesRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
@@ -2503,5 +2504,11 @@ public class ServeisServiceImpl implements ServeisService {
 	public void gestionarAvisosPerAccio(GestionarAvisosPerAccioBDTO gestionarAvisosPerAccioBDTO) throws GPAServeisServiceException {
 		expedientsService.gestionarAvisosPerAccio(gestionarAvisosPerAccioBDTO);
 
+	}
+
+	@Override
+	public List<ProcedimentsRDTO> consultarProcedimentsRelacionats(BigDecimal id) throws GPAServeisServiceException {
+		List<ProcedimentsRDTO> procedimentsRDTO = ServeisServiceHelper.loadRelacionatsProcediments(procedimentsService, id);
+		return procedimentsRDTO;
 	}
 }

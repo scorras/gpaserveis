@@ -3,10 +3,13 @@ package es.bcn.gpa.gpaserveis.test;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 
 import org.junit.Test;
@@ -42,10 +45,11 @@ public class SwaggerFilesGenerationTest extends RestServerParentTest {
 
 	private void addPath() throws IOException {
 		File jsonFile = getJsonFile();
-		BufferedReader bf = new BufferedReader(new FileReader(jsonFile));
+		BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(jsonFile), StandardCharsets.UTF_8));
 		String linea;
 		StringBuilder buffer = new StringBuilder();
-		boolean bypass = false;
+		boolean bypassNumberParam = false;
+		boolean bypassFormDataRequired = false;
 		while ((linea = bf.readLine()) != null) {
 			if (linea.contains("basePath")) {
 				linea = "\"basePath\":\"" + basePath + "\",";
@@ -53,12 +57,24 @@ public class SwaggerFilesGenerationTest extends RestServerParentTest {
 			// añadido para solucionar el problema con los parametros generados
 			// de tipo number, a la espera de solución por IBM
 			if (linea.contains("in") && linea.contains("path")) {
-				bypass = true;
+				bypassNumberParam = true;
 			}
-			if (bypass && linea.contains("type")) {
-				bypass = false;
+			if (bypassNumberParam && linea.contains("type")) {
+				bypassNumberParam = false;
 				if (linea.contains("number")) {
 					linea = linea.replace("number", "integer");
+				}
+			}
+			
+			// añadido para solucionar el problema con los formData
+			// required, a la espera de solución por IBM
+			if (linea.contains("in") && linea.contains("formData")) {
+				bypassFormDataRequired = true;
+			}
+			if (bypassFormDataRequired && linea.contains("required")) {
+				bypassFormDataRequired = false;
+				if (linea.contains("true")) {
+					linea = linea.replace("true", "false");
 				}
 			}
 			buffer.append(linea);
@@ -66,13 +82,13 @@ public class SwaggerFilesGenerationTest extends RestServerParentTest {
 
 		bf.close();
 		JsonNode json = new ObjectMapper().readTree(buffer.toString());
-		BufferedWriter writer = new BufferedWriter(new FileWriter(jsonFile));
+		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(jsonFile), StandardCharsets.UTF_8));
 		writer.write(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(json));
 		writer.flush();
 		writer.close();
 
 		BufferedWriter writerYaml = new BufferedWriter(
-				new FileWriter(Paths.get(jsonFile.getAbsolutePath().replace(".json", ".yaml")).toFile()));
+				new OutputStreamWriter(new FileOutputStream(Paths.get(jsonFile.getAbsolutePath().replace(".json", ".yaml")).toFile()), StandardCharsets.UTF_8));
 		writerYaml.write(new YAMLMapper().writerWithDefaultPrettyPrinter().writeValueAsString(json));
 		writerYaml.flush();
 		writerYaml.close();

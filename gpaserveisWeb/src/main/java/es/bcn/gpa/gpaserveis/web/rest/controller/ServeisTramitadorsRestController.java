@@ -3193,6 +3193,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		RegistreAssentamentRDTO registreAssentamentRDTO = null;
 		DocsEntradaRDTO docsEntradaRDTOResult = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_PRESENTAR_DECLARACIO_RESPONSABLE_EXPEDIENT);
+		boolean teRegistre = true;
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
@@ -3200,11 +3201,18 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO,
 			        Resultat.ERROR_PRESENTAR_DECLARACIO_RESPONSABLE_EXPEDIENT);
 
-			// El número de registro indicado debe existir
-			registreAssentamentRDTO = serveisService
-			        .consultarDadesRegistreAssentament(declaracioResponsablePresentacio.getDocument().getNumeroRegistre());
-			ServeisRestControllerValidationHelper.validateRegistreAssentament(registreAssentamentRDTO,
-			        Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
+			if (dadesExpedientBDTO.getExpedientsRDTO().getSollicituds().getRegistre() == null
+			        && StringUtils.isEmpty(declaracioResponsablePresentacio.getDocument().getNumeroRegistre())) {
+				teRegistre = false;
+			}
+
+			if (teRegistre) {
+				// El número de registro indicado debe existir
+				registreAssentamentRDTO = serveisService
+				        .consultarDadesRegistreAssentament(declaracioResponsablePresentacio.getDocument().getNumeroRegistre());
+				ServeisRestControllerValidationHelper.validateRegistreAssentament(registreAssentamentRDTO,
+				        Resultat.ERROR_INCORPORAR_NOU_DOCUMENT_EXPEDIENT);
+			}
 
 			// Incorporar un nuevo documento electrónico al expediente si la
 			// acción es permitida
@@ -3229,10 +3237,12 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        .setConfigDocEntrada(configuracioDocsEntradaMap.get(String.valueOf(docsEntradaRDTO.getConfigDocEntrada())).getId());
 			docsEntradaRDTO.setDeclaracioResponsable(BooleanApiParamValue.TRUE.getInternalValue());
 
-			RegistreAssentament registreAssentament = new RegistreAssentament();
-			registreAssentament.setId(registreAssentamentRDTO.getId());
-			docsEntradaRDTO.setRegistreAssentament(registreAssentament);
-
+			if(registreAssentamentRDTO != null) {
+				RegistreAssentament registreAssentament = new RegistreAssentament();
+				registreAssentament.setId(registreAssentamentRDTO.getId());
+				docsEntradaRDTO.setRegistreAssentament(registreAssentament);
+			}
+			
 			CrearDeclaracioResponsableBDTO crearDeclaracioResponsableBDTO = new CrearDeclaracioResponsableBDTO(
 			        dadesExpedientBDTO.getExpedientsRDTO().getId(), docsEntradaRDTO);
 			docsEntradaRDTOResult = serveisService.crearDeclaracioResponsable(crearDeclaracioResponsableBDTO);
@@ -5074,6 +5084,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		DocsTramitacioRDTO docsTramitacioRDTOResult = null;
 		Boolean esAportada = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_DOCUMENT_DIGITALITZAT_EXPEDIENT);
+		boolean teRegistre = false;
 		try {
 			ConfiguracioApiParamValueTranslator configuracioApiParamValueTranslator = new ConfiguracioApiParamValueTranslator();
 			ConfiguracioApiParamValue configuracioApiParamValue = configuracioApiParamValueTranslator
@@ -5094,8 +5105,13 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        ExpedientsApiParamToInternalMapper.getCodiInternalValue(codiExpedient, expedientsIdOrgan));
 			ServeisRestControllerValidationHelper.validateExpedient(dadesExpedientBDTO, Resultat.ERROR_DOCUMENT_DIGITALITZAT_EXPEDIENT);
 
+			if (dadesExpedientBDTO.getExpedientsRDTO().getSollicituds().getRegistre() == null
+			        && StringUtils.isEmpty(documentDigitalitzacio.getDocument().getNumeroRegistre())) {
+				teRegistre = false;
+			}
+			
 			// El número de registro indicado debe existir
-			if (esAportada) {
+			if (esAportada && teRegistre) {
 				// El número de registro indicado debe existir
 				registreAssentamentRDTO = serveisService
 				        .consultarDadesRegistreAssentament(documentDigitalitzacio.getDocument().getNumeroRegistre());

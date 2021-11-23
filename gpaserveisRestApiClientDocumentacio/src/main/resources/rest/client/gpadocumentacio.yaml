@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpadocumentacio"
-  version: "2.5.3"
+  version: "2.11.0"
   title: "API gpadocumentacio"
   contact:
     name: "Sergio Corras"
@@ -2805,6 +2805,9 @@ definitions:
       origen:
         type: "integer"
         format: "int32"
+      representacioPuntual:
+        type: "integer"
+        format: "int32"
       seleccionable:
         type: "boolean"
       suportConfeccio:
@@ -2864,6 +2867,9 @@ definitions:
       nomNti:
         type: "string"
       origen:
+        type: "integer"
+        format: "int32"
+      representacioPuntual:
         type: "integer"
         format: "int32"
       seleccionable:

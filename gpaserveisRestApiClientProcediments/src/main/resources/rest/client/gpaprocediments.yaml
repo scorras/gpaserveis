@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaprocediments"
-  version: "2.8.0"
+  version: "2.11.0"
   title: "API gpaprocediments"
   contact:
     name: "Sergio Corras"
@@ -33,6 +33,98 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/ProcedimentsRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
+  /procediments/relacionats/{id}:
+    get:
+      tags:
+      - "Procediments"
+      summary: "Returns the associated  procediment list "
+      operationId: "consultarRelacionatsProcediment"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "absoluteRowNumberOfFirstRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "absoluteRowNumberOfLastRowInCurrentPage"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "currentPageHasNextPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageHasPreviousPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsFirstPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageIsLastPage"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "currentPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "dir"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id"
+        required: true
+        type: "integer"
+      - name: "nextPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "pageSize"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "previousPageNumber"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "totalElements"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "totalPages"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PageDataOfProcedimentsRDTO"
         401:
           description: "Unauthorized"
         403:
@@ -774,6 +866,9 @@ definitions:
       entrada:
         type: "integer"
         format: "int32"
+      exportable:
+        type: "integer"
+        format: "int32"
       grup:
         type: "number"
       id:
@@ -858,6 +953,9 @@ definitions:
       editable:
         type: "boolean"
       entrada:
+        type: "integer"
+        format: "int32"
+      exportable:
         type: "integer"
         format: "int32"
       grup:
@@ -1171,6 +1269,9 @@ definitions:
       relacioAmbExpedient:
         type: "integer"
         format: "int32"
+      requereixNotificacio:
+        type: "integer"
+        format: "int32"
       responActuacions:
         type: "string"
       respostaAllegacion:
@@ -1395,6 +1496,8 @@ definitions:
         $ref: "#/definitions/Bloquejos"
       codi:
         type: "string"
+      codiInteroperable:
+        type: "string"
       codiNom:
         type: "string"
       comentarisList:
@@ -1486,6 +1589,8 @@ definitions:
       tipusAutenticacioComunicacio:
         type: "number"
       tipusAutenticacioNotificacio:
+        type: "number"
+      tipusProcediment:
         type: "number"
       tramitador:
         type: "string"
@@ -1534,6 +1639,8 @@ definitions:
         $ref: "#/definitions/Bloquejos"
       codi:
         type: "string"
+      codiInteroperable:
+        type: "string"
       codiNom:
         type: "string"
       comentarisList:
@@ -1625,6 +1732,8 @@ definitions:
       tipusAutenticacioComunicacio:
         type: "number"
       tipusAutenticacioNotificacio:
+        type: "number"
+      tipusProcediment:
         type: "number"
       tramitador:
         type: "string"
@@ -1710,6 +1819,9 @@ definitions:
         type: "integer"
         format: "int32"
       nivellSignatura:
+        type: "integer"
+        format: "int32"
+      representacioPuntual:
         type: "integer"
         format: "int32"
       seleccionable:

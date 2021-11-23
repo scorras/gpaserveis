@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Capa de serveis, funcions i accions"
-  version: "2.10.0"
+  version: "2.11.1"
   title: "Capa de serveis, funcions i accions"
   contact:
     name: "Sergio Corras"
@@ -204,6 +204,12 @@ paths:
         default: 1
         format: "int32"
         allowEmptyValue: false
+      - name: "numeroRegistre"
+        in: "query"
+        description: "Filtra els expedients amb número registre"
+        required: false
+        type: "string"
+        allowEmptyValue: false
       - name: "ordenarPer"
         in: "query"
         description: "Indicarà el camp mitjançant el qual s'ordenarà el resultat de\
@@ -272,11 +278,6 @@ paths:
         enum:
         - "TOTES_LES_VERSIONS"
         - "DARRERA_VERSIO"
-      - name: "codiRegistre"
-        in: "query"
-        description: "Número de registre"
-        required: false
-        type: "string"
       responses:
         200:
           description: "OK"
@@ -1394,20 +1395,20 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /serveis/portal/procediments/{idProcediment}:
+  /serveis/portal/procediments/{codiProcediment}/darreraVersion:
     get:
       tags:
       - "Serveis Portal API"
       summary: "Consultar les dades del procediment"
-      operationId: "consultarDadesProcedimentPortal"
+      operationId: "consultarDadesProcedimentPortalDarreraVersion"
       produces:
       - "application/json"
       parameters:
-      - name: "idProcediment"
+      - name: "codiProcediment"
         in: "path"
-        description: "Identificador del procediment"
+        description: "Codi del procediment"
         required: true
-        type: "integer"
+        type: "string"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -1433,20 +1434,20 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /serveis/portal/procediments/{codiProcediment}/darreraVersion:
+  /serveis/portal/procediments/{idProcediment}:
     get:
       tags:
       - "Serveis Portal API"
       summary: "Consultar les dades del procediment"
-      operationId: "consultarDadesProcedimentPortalDarreraVersion"
+      operationId: "consultarDadesProcedimentPortal"
       produces:
       - "application/json"
       parameters:
-      - name: "codiProcediment"
+      - name: "idProcediment"
         in: "path"
-        description: "Codi del procediment"
+        description: "Identificador del procediment"
         required: true
-        type: "string"
+        type: "integer"
       - name: "usuari-autenticat"
         in: "header"
         description: "Número de document d'identitat o matrícula de l'empleat públic"
@@ -2447,6 +2448,12 @@ paths:
         type: "integer"
         default: 1
         format: "int32"
+        allowEmptyValue: false
+      - name: "numeroRegistre"
+        in: "query"
+        description: "Filtra expedients per numero registre"
+        required: false
+        type: "string"
         allowEmptyValue: false
       - name: "ordenarPer"
         in: "query"
@@ -4419,6 +4426,11 @@ definitions:
         description: "Llista de valors repetible de l'atribut"
         items:
           type: "string"
+      valorsGrup:
+        type: "array"
+        description: "Llista de valors de l'atribut del grup"
+        items:
+          type: "string"
       valorsLlista:
         type: "array"
         description: "Si el tipus de camp de l'atribut és llista, valors d'aquesta\
@@ -4518,6 +4530,11 @@ definitions:
         type: "array"
         items:
           type: "string"
+      valorsGrup:
+        type: "array"
+        description: "Llista de valors de l'atribut del grup"
+        items:
+          type: "string"
       valorsLlista:
         type: "array"
         xml:
@@ -4553,6 +4570,25 @@ definitions:
       name: "DADA_OPERACIO"
       attribute: false
       wrapped: false
+  Bloquejos:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+      momentBloqueig:
+        type: "string"
+        format: "date-time"
+      procedimentBloquejatPerAltreUsuari:
+        type: "boolean"
+      procedimentEditable:
+        type: "boolean"
+      tipus:
+        type: "string"
+      usuari:
+        type: "number"
+      usuariBloquejo:
+        $ref: "#/definitions/Usuaris"
+    title: "Bloquejos"
   ComentariPerAInformacioPublica:
     type: "object"
     required:
@@ -4569,6 +4605,58 @@ definitions:
         type: "string"
         description: "Títol del comentari."
     title: "ComentariPerAInformacioPublica"
+  Comentaris:
+    type: "object"
+    properties:
+      darreraModificacio:
+        type: "string"
+        format: "date-time"
+      dataCreacio:
+        type: "string"
+        format: "date-time"
+      descripcio:
+        type: "string"
+      editable:
+        type: "boolean"
+      eliminat:
+        type: "number"
+      id:
+        type: "number"
+      procediment:
+        type: "number"
+      seleccionable:
+        type: "boolean"
+      titol:
+        type: "string"
+      ultimaModificacio:
+        type: "number"
+      usuari:
+        type: "number"
+      usuariNom:
+        type: "string"
+    title: "Comentaris"
+  ConfdocsentTramitsOvt:
+    type: "object"
+    properties:
+      comprovant:
+        type: "integer"
+        format: "int32"
+      confDocsEntrada:
+        type: "number"
+      tramitOvtIdext:
+        type: "number"
+    title: "ConfdocsentTramitsOvt"
+  ConfdocstramTramitsOvt:
+    type: "object"
+    properties:
+      confDocsTramitacio:
+        type: "number"
+      justificant:
+        type: "integer"
+        format: "int32"
+      tramitOvtIdext:
+        type: "number"
+    title: "ConfdocstramTramitsOvt"
   ConfiguracioDocumentacio:
     type: "object"
     properties:
@@ -4734,6 +4822,9 @@ definitions:
       repetible:
         type: "boolean"
         description: "Repetible"
+      representacioPuntual:
+        type: "boolean"
+        description: "Representacio puntual"
       suportConfeccio:
         type: "string"
         description: "Suport per a la confecció del document"
@@ -4916,6 +5007,69 @@ definitions:
         - "ELECTRONICA"
         - "PAPER"
     title: "DadesContacteNotificacio"
+  DadesGrups:
+    type: "object"
+    properties:
+      dadesGrupsCaractGrupsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesGrupsCaractGrups"
+      dadesOperacionsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesOperacions"
+      desTipusGrup:
+        type: "string"
+      descripcio:
+        type: "string"
+      descripcioCastella:
+        type: "string"
+      editable:
+        type: "boolean"
+      grupsOrigen:
+        type: "string"
+      id:
+        type: "number"
+      interoperabilitat:
+        type: "integer"
+        format: "int32"
+      nomColumnes:
+        type: "integer"
+        format: "int32"
+      ordre:
+        type: "integer"
+        format: "int32"
+      pantalla:
+        type: "integer"
+        format: "int32"
+      procediment:
+        type: "number"
+      repeticions:
+        type: "number"
+      seleccionable:
+        type: "boolean"
+      serveiIdext:
+        type: "number"
+      tipusGrup:
+        type: "number"
+      titol:
+        type: "string"
+      titolCastella:
+        type: "string"
+      urlValidacio:
+        type: "string"
+      vigent:
+        type: "integer"
+        format: "int32"
+    title: "DadesGrups"
+  DadesGrupsCaractGrups:
+    type: "object"
+    properties:
+      caracteristicaGrup:
+        type: "number"
+      dadaGrup:
+        type: "number"
+    title: "DadesGrupsCaractGrups"
   DadesIdentificacio:
     type: "object"
     properties:
@@ -4936,6 +5090,19 @@ definitions:
         - "SUBSTANCIAL"
         - "BAIX"
         - "SENSE AUTENTICACIO"
+      procedimentsRelationals:
+        type: "array"
+        description: "Procediments relationals"
+        items:
+          $ref: "#/definitions/ProcedimentsRDTO"
+      requereixNotificacio:
+        type: "string"
+        description: "Requereix Notificacio"
+        enum:
+        - "SENSE NOTIFICACIO"
+        - "NOTIFICACIONS ELECTRONIQUES I EN PAPER"
+        - "NOTIFICACIONS ELECTRONIQUES"
+        - "NOTIFICACIONS EN PAPER"
       terminisDuracio:
         description: "Terminis de duració"
         $ref: "#/definitions/TerminisDuracio"
@@ -4943,6 +5110,58 @@ definitions:
         type: "string"
         description: "Tractament GDPR"
     title: "DadesIdentificacio"
+  DadesOperTramitsOvt:
+    type: "object"
+    properties:
+      dadaOper:
+        type: "number"
+      tramitOvtIdext:
+        type: "number"
+    title: "DadesOperTramitsOvt"
+  DadesOperValidVal:
+    type: "object"
+    properties:
+      dadesOperValid:
+        type: "number"
+      id:
+        type: "number"
+      ordre:
+        type: "integer"
+        format: "int64"
+      valor:
+        type: "string"
+      valorBoolean:
+        type: "integer"
+        format: "int32"
+      valorCalendar:
+        type: "string"
+        format: "date-time"
+      valorClob:
+        type: "string"
+      valorDouble:
+        type: "number"
+        format: "double"
+      valorInteger:
+        type: "integer"
+        format: "int64"
+      valorListaMultiple:
+        type: "integer"
+        format: "int32"
+      valorListaSimple:
+        type: "integer"
+        format: "int32"
+      valorMoneda:
+        type: "number"
+        format: "double"
+      valorMunicipi:
+        type: "string"
+      valorPais:
+        type: "string"
+      valorProvincia:
+        type: "string"
+      valorString:
+        type: "string"
+    title: "DadesOperValidVal"
   DadesOperacio:
     type: "object"
     properties:
@@ -4952,6 +5171,125 @@ definitions:
         items:
           $ref: "#/definitions/Grups"
     title: "DadesOperacio"
+  DadesOperacions:
+    type: "object"
+    properties:
+      cercable:
+        type: "integer"
+        format: "int32"
+      codi:
+        type: "string"
+      comentari:
+        type: "string"
+      dadesOperTramitsOvtList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesOperTramitsOvt"
+      dadesOperacionsValidacio:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesOperacionsValidacio"
+      dadesoperConfdocsentList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesoperConfdocsent"
+      dadesoperEstatsExpList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesoperEstatsExp"
+      desTipusCamp:
+        type: "string"
+      desTipusDadaOperacio:
+        type: "string"
+      descripcio:
+        type: "string"
+      descripcioCastella:
+        type: "string"
+      editable:
+        type: "boolean"
+      entrada:
+        type: "integer"
+        format: "int32"
+      exportable:
+        type: "integer"
+        format: "int32"
+      grup:
+        type: "number"
+      id:
+        type: "number"
+      idDefinicioGrup:
+        type: "number"
+      interoperabilitat:
+        type: "integer"
+        format: "int32"
+      itemsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Items"
+      nivellCriticitat:
+        type: "integer"
+        format: "int32"
+      obligatoriEnEstat:
+        type: "boolean"
+      ordre:
+        type: "integer"
+        format: "int32"
+      procediment:
+        type: "number"
+      repeticions:
+        type: "number"
+      seleccionable:
+        type: "boolean"
+      tipus:
+        type: "integer"
+        format: "int32"
+      tipusDadaOperacio:
+        type: "number"
+      titol:
+        type: "string"
+      titolCastella:
+        type: "string"
+      titolGrup:
+        type: "string"
+      urlOrigen:
+        type: "string"
+      vigent:
+        type: "integer"
+        format: "int32"
+      visibilitatPortal:
+        type: "integer"
+        format: "int32"
+    title: "DadesOperacions"
+  DadesOperacionsValidacio:
+    type: "object"
+    properties:
+      dadesOperacions:
+        type: "number"
+      dadesOperacionsValidValors:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesOperValidVal"
+      id:
+        type: "number"
+      tipusValidacio:
+        type: "number"
+    title: "DadesOperacionsValidacio"
+  DadesoperConfdocsent:
+    type: "object"
+    properties:
+      confdocsentIdext:
+        type: "number"
+      dadesOperacio:
+        type: "number"
+    title: "DadesoperConfdocsent"
+  DadesoperEstatsExp:
+    type: "object"
+    properties:
+      dadesOperacio:
+        type: "number"
+      estatExpIdext:
+        type: "number"
+    title: "DadesoperEstatsExp"
   DeclaracioResponsablePresentacio:
     type: "object"
     required:
@@ -5762,6 +6100,36 @@ definitions:
         type: "string"
         description: "Descripció de l'error"
     title: "Error"
+  Estats:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      descripcioCastella:
+        type: "string"
+      descripcioCatala:
+        type: "string"
+      id:
+        type: "number"
+    title: "Estats"
+  EstatsProcediment:
+    type: "object"
+    properties:
+      estat:
+        type: "number"
+      estatProcedimentAnt:
+        type: "number"
+      estats:
+        $ref: "#/definitions/Estats"
+      estatsProcedimentAnt:
+        $ref: "#/definitions/EstatsProcediment"
+      historic:
+        type: "number"
+      id:
+        type: "number"
+      procediment:
+        type: "number"
+    title: "EstatsProcediment"
   EstatsUgConvidada:
     type: "object"
     properties:
@@ -5886,6 +6254,9 @@ definitions:
         description: "Atributs"
         items:
           $ref: "#/definitions/AtributsActualitzar"
+      expedientBackOffice:
+        type: "number"
+        description: "Expedient Back Office"
       personesImplicades:
         type: "array"
         description: "Persones implicades"
@@ -5981,6 +6352,7 @@ definitions:
           - "REQUERIMENT_ESMENA"
           - "APORTAR_DOCUMENTACIO"
           - "ALEGACIONS"
+          - "PRESENTAR_RECURSO"
       atributsRequerits:
         type: "array"
         description: "Atributs requerits per l'expedient"
@@ -6027,6 +6399,9 @@ definitions:
       estatCastella:
         type: "string"
         description: "Estat actual del expedient en castellà"
+      expedientBackOffice:
+        type: "string"
+        description: "Expedient Back Office"
       historics:
         type: "array"
         description: "Llista d'històrics de l'expedient"
@@ -6093,6 +6468,7 @@ definitions:
           - "REQUERIMENT_ESMENA"
           - "APORTAR_DOCUMENTACIO"
           - "ALEGACIONS"
+          - "PRESENTAR_RECURSO"
       atributsRequerits:
         type: "array"
         description: "Atributs requerits per l'expedient"
@@ -6139,6 +6515,9 @@ definitions:
       estatCastella:
         type: "string"
         description: "Estat actual del expedient en castellà"
+      expedientBackOffice:
+        type: "string"
+        description: "Expedient Back Office"
       historics:
         type: "array"
         description: "Llista d'històrics de l'expedient"
@@ -6207,6 +6586,9 @@ definitions:
     - "procediment"
     - "sollicitant"
     properties:
+      codiExpedientOrigen:
+        type: "string"
+        description: "Expedient origen"
       personesImplicades:
         type: "array"
         description: "Persones implicades"
@@ -6342,6 +6724,10 @@ definitions:
       iniciacio:
         type: "string"
         description: "Iniciació de l'expedient"
+        enum:
+        - "OFICI"
+        - "SOLLICITUD"
+        - "ALTRA_ADMINISTRACIO"
       numeroRegistre:
         type: "string"
         description: "Número de registre."
@@ -6508,6 +6894,16 @@ definitions:
         type: "string"
         description: "Nom del fitxer"
     title: "Fitxer"
+  Fitxers:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+      identificacio:
+        type: "number"
+    title: "Fitxers"
   Grups:
     type: "object"
     properties:
@@ -6574,6 +6970,276 @@ definitions:
         type: "string"
         description: "Estat de l'històric en castellà"
     title: "Historic"
+  HistoricValors:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+      ordre:
+        type: "integer"
+        format: "int64"
+      valor:
+        type: "string"
+    title: "HistoricValors"
+  Historics:
+    type: "object"
+    properties:
+      clauMissatge:
+        type: "string"
+      dataCreacio:
+        type: "string"
+        format: "date-time"
+      descTipus:
+        type: "string"
+      descripcio:
+        type: "string"
+      historicValorsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/HistoricValors"
+      id:
+        type: "number"
+      procediment:
+        type: "number"
+      tipus:
+        type: "integer"
+        format: "int32"
+      usuari:
+        type: "number"
+      usuariNom:
+        type: "string"
+    title: "Historics"
+  Identificacions:
+    type: "object"
+    properties:
+      accesMobil:
+        type: "string"
+      accesQuiosc:
+        type: "string"
+      administratiu:
+        type: "integer"
+        format: "int32"
+      adrecaAltraWeb:
+        type: "string"
+      adrecaPortalTramits:
+        type: "string"
+      afectaCollectius:
+        type: "integer"
+        format: "int32"
+      altraClassificacioFamilia:
+        type: "string"
+      altraWeb:
+        type: "integer"
+        format: "int32"
+      altresCompetencies:
+        type: "string"
+      altresMotiusIniciacio:
+        type: "string"
+      condCreacioExpedient:
+        type: "string"
+      condFinalitzacioExpedient:
+        type: "string"
+      condRelacioExpedient:
+        type: "string"
+      conferimentsVista:
+        type: "integer"
+        format: "int32"
+      crearExpedient:
+        type: "integer"
+        format: "int32"
+      descripcioActivador:
+        type: "string"
+      descripcioDestinatari:
+        type: "string"
+      detallCanalEspecific:
+        type: "string"
+      document:
+        type: "string"
+        format: "byte"
+      especAfectaCollectius:
+        type: "string"
+      especPeriodicitat:
+        type: "string"
+      especRecursInterposables:
+        type: "string"
+      especSilenciAdm:
+        type: "string"
+      especTerminiMaxim:
+        type: "integer"
+        format: "int32"
+      finalitzaViaAdminisitrat:
+        type: "integer"
+        format: "int32"
+      finalitzarExpedient:
+        type: "integer"
+        format: "int32"
+      finsAGestElect:
+        type: "string"
+        format: "date-time"
+      fitxersList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Fitxers"
+      gestioElectronica:
+        type: "integer"
+        format: "int32"
+      id:
+        type: "number"
+      identificacionsCompetenciesList:
+        type: "array"
+        items:
+          $ref: "#/definitions/IdentificacionsCompetencies"
+      identificacionsFamiliesList:
+        type: "array"
+        items:
+          $ref: "#/definitions/IdentificacionsFamilies"
+      identificacionsRecursosList:
+        type: "array"
+        items:
+          $ref: "#/definitions/IdentificacionsRecursos"
+      informacioCiutada:
+        type: "string"
+      informacioPublica:
+        type: "integer"
+        format: "int32"
+      informacioTramitador:
+        type: "string"
+      informacioVeinal:
+        type: "integer"
+        format: "int32"
+      intern:
+        type: "integer"
+        format: "int32"
+      lletratConeixedorProc:
+        type: "string"
+      mobil:
+        type: "integer"
+        format: "int32"
+      nivellAutenticacio:
+        type: "integer"
+        format: "int32"
+      nivellSignatura:
+        type: "number"
+      nomDocument:
+        type: "string"
+      normativaReferencia:
+        type: "string"
+      normesList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Normes"
+      numConferimentsVista:
+        type: "integer"
+        format: "int32"
+      numInformacioPublica:
+        type: "integer"
+        format: "int32"
+      numInformacioVeinal:
+        type: "integer"
+        format: "int32"
+      numTramitsAudiencia:
+        type: "integer"
+        format: "int32"
+      ordenancesList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Ordenances"
+      organResolutori:
+        type: "string"
+      perCanalEspecific:
+        type: "integer"
+        format: "int32"
+      perCanalGeneralista:
+        type: "integer"
+        format: "int32"
+      periodicitatTermini:
+        type: "integer"
+        format: "int32"
+      portalTramits:
+        type: "integer"
+        format: "int32"
+      quiosc:
+        type: "integer"
+        format: "int32"
+      relacioAmbExpedient:
+        type: "integer"
+        format: "int32"
+      requereixNotificacio:
+        type: "integer"
+        format: "int32"
+      responActuacions:
+        type: "string"
+      respostaAllegacion:
+        type: "number"
+      respostaRequeriment:
+        type: "number"
+      serveisList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Serveis"
+      silenciAdministratiu:
+        type: "integer"
+        format: "int32"
+      tecnicConeixedorProc:
+        type: "string"
+      terminiMaxim:
+        type: "integer"
+        format: "int32"
+      terminiTramitacioEstatFinalitzatComunicat:
+        type: "number"
+      terminiTramitacioEstatPendentInformes:
+        type: "number"
+      terminiTramitacioEstatPropostaFinalitzacio:
+        type: "number"
+      terminiTramitacioEstatSolicitudRevisio:
+        type: "number"
+      terminiTramitacioEstatTramitacio:
+        type: "number"
+      terminiTramitacioExpedient:
+        type: "number"
+      tipusAutenticacioComunicacio:
+        type: "number"
+      tipusAutenticacioNotificacio:
+        type: "number"
+      tractamentGdpr:
+        type: "string"
+      tramitacioAmbGpa:
+        type: "integer"
+        format: "int32"
+      tramitsAudiencia:
+        type: "integer"
+        format: "int32"
+      vigenciaFi:
+        type: "string"
+        format: "date-time"
+      vigenciaInici:
+        type: "string"
+        format: "date-time"
+    title: "Identificacions"
+  IdentificacionsCompetencies:
+    type: "object"
+    properties:
+      competencia:
+        type: "number"
+      identificacio:
+        type: "number"
+    title: "IdentificacionsCompetencies"
+  IdentificacionsFamilies:
+    type: "object"
+    properties:
+      familia:
+        type: "number"
+      identificacio:
+        type: "number"
+    title: "IdentificacionsFamilies"
+  IdentificacionsRecursos:
+    type: "object"
+    properties:
+      identificacio:
+        type: "number"
+      recurs:
+        type: "number"
+    title: "IdentificacionsRecursos"
   InformacioPublica:
     type: "object"
     properties:
@@ -6598,6 +7264,28 @@ definitions:
         type: "string"
         description: "Comentari associat al registre."
     title: "InscriureEnRegistre"
+  Items:
+    type: "object"
+    properties:
+      dadesOperacions:
+        type: "number"
+      editable:
+        type: "boolean"
+      id:
+        type: "number"
+      itemDescripcio:
+        type: "string"
+      itemDescripcioCastella:
+        type: "string"
+      itemId:
+        type: "integer"
+        format: "int32"
+      itemOrdre:
+        type: "integer"
+        format: "int32"
+      seleccionable:
+        type: "boolean"
+    title: "Items"
   MciPortasigResultatPeticio:
     type: "object"
     required:
@@ -6752,6 +7440,16 @@ definitions:
           \ si al demanar el alta de la petició es va indicar un valor de versioIntegracio\
           \ igual o major que 2."
     title: "MciPortasigSignataris"
+  Normes:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+      identificacio:
+        type: "number"
+    title: "Normes"
   ObtenirPerInteroperabilitat:
     type: "object"
     required:
@@ -6768,6 +7466,16 @@ definitions:
         type: "string"
         description: "Comentari associat a l'operació comptable."
     title: "OperacioComptable"
+  Ordenances:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+      identificacio:
+        type: "number"
+    title: "Ordenances"
   Paginacio:
     type: "object"
     properties:
@@ -6792,6 +7500,7 @@ definitions:
     type: "object"
     required:
     - "nomRaoSocial"
+    - "representacioPuntual"
     - "tipusPersona"
     properties:
       cognom1:
@@ -6833,6 +7542,9 @@ definitions:
       relacioTerceraPersona:
         type: "string"
         description: "Tipo de relacio de la persona implicada"
+      representacioPuntual:
+        type: "boolean"
+        description: "Representacio puntual"
       tipusPersona:
         type: "string"
         xml:
@@ -6935,6 +7647,9 @@ definitions:
       organResolutori:
         type: "string"
         description: "Òrgan resolutori del procediment"
+      requereixNotificacio:
+        type: "string"
+        description: "Requereix Notificacio"
       tramitador:
         type: "string"
         description: "Aplicació de tramitació"
@@ -7053,13 +7768,328 @@ definitions:
   ProcedimentPersones:
     type: "object"
     properties:
+      editable:
+        type: "boolean"
+      id:
+        type: "number"
       nivellVisibilitat:
+        type: "number"
+      procediment:
+        type: "number"
+      relacio:
         type: "string"
-        description: "Nivell de Visibilitat"
-      tipus:
-        type: "string"
-        description: "Tipus de relació"
+      seleccionable:
+        type: "boolean"
+      tramitsOvtList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentPersonesTramOvt"
     title: "ProcedimentPersones"
+  ProcedimentPersonesTramOvt:
+    type: "object"
+    properties:
+      procedimentPersone:
+        type: "number"
+      tramitOvtIdext:
+        type: "number"
+    title: "ProcedimentPersonesTramOvt"
+  Procediments:
+    type: "object"
+    properties:
+      bloqueig:
+        type: "number"
+      bloquejos:
+        $ref: "#/definitions/Bloquejos"
+      codi:
+        type: "string"
+      codiInteroperable:
+        type: "string"
+      codiNom:
+        type: "string"
+      comentarisList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Comentaris"
+      configuracioAvisos:
+        type: "number"
+      configuracioDocumentacio:
+        type: "number"
+      dadesGrupsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesGrups"
+      darreraModificacio:
+        type: "string"
+        format: "date-time"
+      darreraSincronitzacio:
+        type: "string"
+        format: "date-time"
+      descripcio:
+        type: "string"
+      descripcioCastella:
+        type: "string"
+      descripcioEstat:
+        type: "string"
+      descripcioEstatCastella:
+        type: "string"
+      descripcioEstatCatala:
+        type: "string"
+      descripcioRelacio:
+        type: "string"
+      editable:
+        type: "boolean"
+      estatProcediment:
+        type: "number"
+      estatsProcediment:
+        $ref: "#/definitions/EstatsProcediment"
+      historicsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Historics"
+      id:
+        type: "number"
+      idRelacionat:
+        type: "number"
+      identificacio:
+        type: "number"
+      identificacions:
+        $ref: "#/definitions/Identificacions"
+      iniciacionsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentsIniciacions"
+      nom:
+        type: "string"
+      nomCastella:
+        type: "string"
+      numerador:
+        type: "number"
+      pathSerieDocumental:
+        type: "string"
+      procedimentPersonesList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentPersones"
+      procedimentsAssociatsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Procediments"
+      procedimentsRelacionatsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentsRelacionats"
+      relacioTipusRelacio:
+        type: "string"
+      reqOperatius:
+        $ref: "#/definitions/RequerimentsOperatius"
+      requerimentsOperatius:
+        type: "number"
+      respostaAllegacion:
+        type: "number"
+      respostaRequeriment:
+        type: "number"
+      seleccionable:
+        type: "boolean"
+      serieDocumental:
+        type: "string"
+      tipusAutenticacioComunicacio:
+        type: "number"
+      tipusAutenticacioNotificacio:
+        type: "number"
+      tipusProcediment:
+        type: "number"
+      tramitador:
+        type: "string"
+      ugosDescripcions:
+        type: "string"
+      ugosList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentsUgos"
+      ugosNoms:
+        type: "string"
+      ugosNomsDescripcions:
+        type: "string"
+      ugrDescripcio:
+        type: "string"
+      ugrIdext:
+        type: "number"
+      ugrNom:
+        type: "string"
+      ugrNomDescripcio:
+        type: "string"
+      ultimaModificacio:
+        type: "number"
+      unitat:
+        type: "string"
+      versio:
+        type: "number"
+      versioDocumental:
+        type: "number"
+    title: "Procediments"
+  ProcedimentsIniciacions:
+    type: "object"
+    properties:
+      iniciacio:
+        type: "integer"
+        format: "int32"
+      procediment:
+        type: "number"
+    title: "ProcedimentsIniciacions"
+  ProcedimentsRDTO:
+    type: "object"
+    properties:
+      bloqueig:
+        type: "number"
+      bloquejos:
+        $ref: "#/definitions/Bloquejos"
+      codi:
+        type: "string"
+      codiInteroperable:
+        type: "string"
+      codiNom:
+        type: "string"
+      comentarisList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Comentaris"
+      configuracioAvisos:
+        type: "number"
+      configuracioDocumentacio:
+        type: "number"
+      dadesGrupsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesGrups"
+      darreraModificacio:
+        type: "string"
+        format: "date-time"
+      darreraSincronitzacio:
+        type: "string"
+        format: "date-time"
+      descripcio:
+        type: "string"
+      descripcioCastella:
+        type: "string"
+      descripcioEstat:
+        type: "string"
+      descripcioEstatCastella:
+        type: "string"
+      descripcioEstatCatala:
+        type: "string"
+      descripcioRelacio:
+        type: "string"
+      editable:
+        type: "boolean"
+      estatProcediment:
+        type: "number"
+      estatsProcediment:
+        $ref: "#/definitions/EstatsProcediment"
+      historicsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Historics"
+      id:
+        type: "number"
+      idRelacionat:
+        type: "number"
+      identificacio:
+        type: "number"
+      identificacions:
+        $ref: "#/definitions/Identificacions"
+      iniciacionsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentsIniciacions"
+      nom:
+        type: "string"
+      nomCastella:
+        type: "string"
+      numerador:
+        type: "number"
+      pathSerieDocumental:
+        type: "string"
+      procedimentPersonesList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentPersones"
+      procedimentsAssociatsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Procediments"
+      procedimentsRelacionatsList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentsRelacionats"
+      relacioTipusRelacio:
+        type: "string"
+      reqOperatius:
+        $ref: "#/definitions/RequerimentsOperatius"
+      requerimentsOperatius:
+        type: "number"
+      respostaAllegacion:
+        type: "number"
+      respostaRequeriment:
+        type: "number"
+      seleccionable:
+        type: "boolean"
+      serieDocumental:
+        type: "string"
+      tipusAutenticacioComunicacio:
+        type: "number"
+      tipusAutenticacioNotificacio:
+        type: "number"
+      tipusProcediment:
+        type: "number"
+      tramitador:
+        type: "string"
+      ugosDescripcions:
+        type: "string"
+      ugosList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProcedimentsUgos"
+      ugosNoms:
+        type: "string"
+      ugosNomsDescripcions:
+        type: "string"
+      ugrDescripcio:
+        type: "string"
+      ugrIdext:
+        type: "number"
+      ugrNom:
+        type: "string"
+      ugrNomDescripcio:
+        type: "string"
+      ultimaModificacio:
+        type: "number"
+      unitat:
+        type: "string"
+      versio:
+        type: "number"
+      versioDocumental:
+        type: "number"
+    title: "ProcedimentsRDTO"
+  ProcedimentsRelacionats:
+    type: "object"
+    properties:
+      altresEspecificar:
+        type: "string"
+      procediment:
+        type: "number"
+      relacio:
+        type: "number"
+      relacionat:
+        type: "number"
+    title: "ProcedimentsRelacionats"
+  ProcedimentsUgos:
+    type: "object"
+    properties:
+      procediment:
+        type: "number"
+      ugoIdext:
+        type: "number"
+    title: "ProcedimentsUgos"
   Registre:
     type: "object"
     properties:
@@ -7085,6 +8115,60 @@ definitions:
         description: "Persona que ha efectuat el registre"
         $ref: "#/definitions/Persona"
     title: "Registre"
+  ReqOperatiusTramOvt:
+    type: "object"
+    properties:
+      confDocEntrIdext:
+        type: "number"
+      confDocTramIdext:
+        type: "number"
+      confdocsentTramitsOvtList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocsentTramitsOvt"
+      confdocstramTramitsOvtList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocstramTramitsOvt"
+      dadesOperVinculadesTramitList:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadesOperTramitsOvt"
+      documentacioVinculada:
+        type: "number"
+      editable:
+        type: "boolean"
+      id:
+        type: "string"
+      idReq:
+        type: "number"
+      identificadorRegistro:
+        type: "string"
+      identificadorTramit:
+        type: "string"
+      nivellAutenticacio:
+        type: "integer"
+        format: "int32"
+      nivellSignatura:
+        type: "integer"
+        format: "int32"
+      representacioPuntual:
+        type: "integer"
+        format: "int32"
+      seleccionable:
+        type: "boolean"
+      tramitGeneric:
+        type: "integer"
+        format: "int32"
+      tramitOvtIdext:
+        type: "number"
+      tramitRegistre:
+        type: "integer"
+        format: "int32"
+      tramitSignaturaCiutada:
+        type: "integer"
+        format: "int32"
+    title: "ReqOperatiusTramOvt"
   RequerimentPreparatAccio:
     type: "object"
     properties:
@@ -7107,6 +8191,67 @@ definitions:
         - "INTERN"
         - "EXTERN"
     title: "RequerimentPreparatAccio"
+  RequerimentsOperatius:
+    type: "object"
+    properties:
+      allegacio:
+        type: "integer"
+        format: "int32"
+      ambDocumentSuport:
+        type: "integer"
+        format: "int32"
+      aplicaProcediment:
+        type: "integer"
+        format: "int32"
+      aplicacioNegoci:
+        type: "string"
+      aportacio:
+        type: "integer"
+        format: "int32"
+      detallActivador:
+        type: "string"
+      detallAllegacio:
+        type: "string"
+      detallAportacio:
+        type: "string"
+      detallDestinatari:
+        type: "string"
+      detallEsmena:
+        type: "string"
+      detallSollicitud:
+        type: "string"
+      diagramaProcediment:
+        type: "integer"
+        format: "int32"
+      esmena:
+        type: "integer"
+        format: "int32"
+      id:
+        type: "number"
+      informacioTramitacio:
+        type: "string"
+      instruccionsArxiu:
+        type: "string"
+      linkDocumentSuport:
+        type: "string"
+      nivellIntegracio:
+        type: "number"
+      nomDocument:
+        type: "string"
+      plantillaDadesNegoci:
+        type: "integer"
+        format: "int32"
+      procedimentExecutable:
+        type: "integer"
+        format: "int32"
+      reqOperatiusTramOvtList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ReqOperatiusTramOvt"
+      sollicitud:
+        type: "integer"
+        format: "int32"
+    title: "RequerimentsOperatius"
   RespostSubstituirDocument:
     type: "object"
     properties:
@@ -7384,6 +8529,9 @@ definitions:
       registre:
         type: "string"
         description: "requereix registre"
+      representacioPuntual:
+        type: "string"
+        description: "Representacio puntual"
       signatura:
         type: "string"
         description: "Requereix signatura"
@@ -7964,6 +9112,16 @@ definitions:
         items:
           $ref: "#/definitions/EstatsUgConvidada"
     title: "RetornTramitacio"
+  Serveis:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+      identificacio:
+        type: "number"
+    title: "Serveis"
   SignaturaDocument:
     type: "object"
     discriminator: "modalitatSignatura"
@@ -8372,6 +9530,32 @@ definitions:
         type: "string"
         description: "Matrícula de la persona que va a signar el document"
     title: "UsuariPortasignatures"
+  Usuaris:
+    type: "object"
+    properties:
+      carrec:
+        type: "string"
+      cognom1:
+        type: "string"
+      cognom2:
+        type: "string"
+      documentIdentitat:
+        type: "string"
+      email:
+        type: "string"
+      grp:
+        type: "array"
+        items:
+          type: "string"
+      id:
+        type: "number"
+      matricula:
+        type: "string"
+      nom:
+        type: "string"
+      user:
+        type: "string"
+    title: "Usuaris"
   Validacions:
     type: "object"
     properties:

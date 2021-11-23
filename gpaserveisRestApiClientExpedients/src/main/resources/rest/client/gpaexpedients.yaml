@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "API gpaexpedients"
-  version: "2.10.3"
+  version: "2.11.0"
   title: "API gpaexpedients"
   contact:
     name: "Sergio Corras"
@@ -3169,6 +3169,9 @@ definitions:
       relacioPrincipal:
         type: "integer"
         format: "int32"
+      representacioPuntual:
+        type: "integer"
+        format: "int32"
       seleccionable:
         type: "boolean"
       sollicitud:
@@ -3208,6 +3211,9 @@ definitions:
       relacioImplicada:
         type: "string"
       relacioPrincipal:
+        type: "integer"
+        format: "int32"
+      representacioPuntual:
         type: "integer"
         format: "int32"
       seleccionable:
