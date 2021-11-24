@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * CrearNotificacio
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-12T13:43:03.162+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-24T17:42:42.347+01:00")
 public class CrearNotificacio {
   @JsonProperty("codiExpedient")
   private String codiExpedient = null;

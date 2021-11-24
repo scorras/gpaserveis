@@ -439,7 +439,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	@GetMapping("/procediments/{codiProcediment}/darreraVersion")
+	@GetMapping("/procediments/{codiProcediment}/darreraVersio")
 	@ApiOperation(nickname = "consultarDadesProcedimentPortalDarreraVersion", value = "Consultar les dades del procediment", tags = {
 	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
@@ -839,9 +839,9 @@ public class ServeisPortalRestController extends BaseRestController {
 				filtrarTramitsOvtDisponibles(dadesExpedientBDTO, expedientConsultaRDTO);
 			}
 
-			// Devolvemos el id en Documentum del expediente en la consulta
-			if (StringUtils.isNotEmpty(dadesExpedientBDTO.getExpedientsRDTO().getMigracioIdOrigen())) {
-				expedientConsultaRDTO.setIdGestorDocumental(dadesExpedientBDTO.getExpedientsRDTO().getMigracioIdOrigen());
+			// Devolvemos el id en gestor documental del expediente en la consulta
+			if (StringUtils.isNotEmpty(dadesExpedientBDTO.getExpedientsRDTO().getCodiLlarg())) {
+				expedientConsultaRDTO.setIdGestorDocumental(dadesExpedientBDTO.getExpedientsRDTO().getCodiLlarg());
 			}
 			
 			if (dadesExpedientBDTO.getExpedientsRDTO().getIdiomes() != null

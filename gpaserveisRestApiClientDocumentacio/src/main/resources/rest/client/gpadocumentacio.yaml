@@ -3634,6 +3634,8 @@ definitions:
         type: "string"
       codiExpedient:
         type: "string"
+      codiGestorDocumental:
+        type: "string"
       codiLlargExpedient:
         type: "string"
       codiUnitatOrganigrama:
@@ -3660,8 +3662,6 @@ definitions:
         type: "string"
       idEstat:
         type: "number"
-      migracioIdOrigen:
-        type: "string"
       motiuRelacio:
         type: "string"
       nomProc:
