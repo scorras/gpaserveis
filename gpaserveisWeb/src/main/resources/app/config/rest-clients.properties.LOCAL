@@ -1,11 +1,5 @@
-procediments.service.url=http://oge.int.ocp.ajuntament.bcn/services/gpaprocediments/rest
-unitats.service.url=http://oge.int.ocp.ajuntament.bcn/services/gpaunitats/rest
-tramits.service.url=http://oge.int.ocp.ajuntament.bcn/services/gpatramits/rest
-#expedients.service.url=http://oge.int.ocp.ajuntament.bcn/services/gpaexpedients/rest
-#documentacio.service.url=http://oge.int.ocp.ajuntament.bcn/services/gpadocumentacio/rest
-
-#procediments.service.url=http://localhost:8080/gpaprocediments/rest
-#unitats.service.url=http://localhost:8080/gpaunitats/rest
-#tramits.service.url=http://localhost:8080/gpatramits/rest
+procediments.service.url=http://localhost:8080/gpaprocediments/rest
+unitats.service.url=http://localhost:8080/gpaunitats/rest
+tramits.service.url=http://localhost:8080/gpatramits/rest
 expedients.service.url=http://localhost:8080/gpaexpedients/rest
 documentacio.service.url=http://localhost:8080/gpadocumentacio/rest
