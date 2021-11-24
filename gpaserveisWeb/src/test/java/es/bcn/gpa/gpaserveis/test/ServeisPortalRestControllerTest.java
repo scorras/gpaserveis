@@ -62,7 +62,7 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 	 */
 	@Test
 	public void testStage02_GetConsultarDadesProcedimentDarreraVersion() throws Exception {
-		String url = BASE_URL + "/procediments/CODI/darreraVersion";
+		String url = BASE_URL + "/procediments/CODI/darreraVersio";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}	
 
