@@ -1395,7 +1395,7 @@ paths:
       deprecated: false
       x-imi-roles:
         consulta: "Perfil usuari consulta"
-  /serveis/portal/procediments/{codiProcediment}/darreraVersion:
+  /serveis/portal/procediments/{codiProcediment}/darreraVersio:
     get:
       tags:
       - "Serveis Portal API"
@@ -5412,6 +5412,12 @@ definitions:
           attribute: false
           wrapped: false
         description: "Id del gestor documental"
+      idMigracioOrigen:
+        type: "string"
+        xml:
+          name: "ID_MIGRACIO_ORIGEN"
+          attribute: false
+          wrapped: false
       nom:
         type: "string"
         xml:
@@ -5458,6 +5464,9 @@ definitions:
       idGestorDocumental:
         type: "string"
         description: "Id del gestor documental"
+      idMigracioOrigen:
+        type: "string"
+        description: "Id de migració (de tipus 'cafe')"
       nom:
         type: "string"
         description: "Nom del document"
@@ -5527,6 +5536,12 @@ definitions:
           attribute: false
           wrapped: false
         description: "Id del gestor documental"
+      idMigracioOrigen:
+        type: "string"
+        xml:
+          name: "ID_MIGRACIO_ORIGEN"
+          attribute: false
+          wrapped: false
       nom:
         type: "string"
         xml:
@@ -5842,6 +5857,12 @@ definitions:
           attribute: false
           wrapped: false
         description: "Id del gestor documental"
+      idMigracioOrigen:
+        type: "string"
+        xml:
+          name: "ID_MIGRACIO_ORIGEN"
+          attribute: false
+          wrapped: false
       nom:
         type: "string"
         xml:
