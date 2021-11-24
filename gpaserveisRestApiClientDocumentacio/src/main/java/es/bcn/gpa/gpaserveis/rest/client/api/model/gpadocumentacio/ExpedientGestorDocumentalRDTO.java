@@ -24,13 +24,16 @@ import java.math.BigDecimal;
 /**
  * ExpedientGestorDocumentalRDTO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-12T13:43:03.162+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-24T17:42:42.347+01:00")
 public class ExpedientGestorDocumentalRDTO {
   @JsonProperty("codiExpRelacionat")
   private String codiExpRelacionat = null;
 
   @JsonProperty("codiExpedient")
   private String codiExpedient = null;
+
+  @JsonProperty("codiGestorDocumental")
+  private String codiGestorDocumental = null;
 
   @JsonProperty("codiLlargExpedient")
   private String codiLlargExpedient = null;
@@ -70,9 +73,6 @@ public class ExpedientGestorDocumentalRDTO {
 
   @JsonProperty("idEstat")
   private BigDecimal idEstat = null;
-
-  @JsonProperty("migracioIdOrigen")
-  private String migracioIdOrigen = null;
 
   @JsonProperty("motiuRelacio")
   private String motiuRelacio = null;
@@ -135,6 +135,24 @@ public class ExpedientGestorDocumentalRDTO {
 
   public void setCodiExpedient(String codiExpedient) {
     this.codiExpedient = codiExpedient;
+  }
+
+  public ExpedientGestorDocumentalRDTO codiGestorDocumental(String codiGestorDocumental) {
+    this.codiGestorDocumental = codiGestorDocumental;
+    return this;
+  }
+
+   /**
+   * Get codiGestorDocumental
+   * @return codiGestorDocumental
+  **/
+  @ApiModelProperty(value = "")
+  public String getCodiGestorDocumental() {
+    return codiGestorDocumental;
+  }
+
+  public void setCodiGestorDocumental(String codiGestorDocumental) {
+    this.codiGestorDocumental = codiGestorDocumental;
   }
 
   public ExpedientGestorDocumentalRDTO codiLlargExpedient(String codiLlargExpedient) {
@@ -371,24 +389,6 @@ public class ExpedientGestorDocumentalRDTO {
     this.idEstat = idEstat;
   }
 
-  public ExpedientGestorDocumentalRDTO migracioIdOrigen(String migracioIdOrigen) {
-    this.migracioIdOrigen = migracioIdOrigen;
-    return this;
-  }
-
-   /**
-   * Get migracioIdOrigen
-   * @return migracioIdOrigen
-  **/
-  @ApiModelProperty(value = "")
-  public String getMigracioIdOrigen() {
-    return migracioIdOrigen;
-  }
-
-  public void setMigracioIdOrigen(String migracioIdOrigen) {
-    this.migracioIdOrigen = migracioIdOrigen;
-  }
-
   public ExpedientGestorDocumentalRDTO motiuRelacio(String motiuRelacio) {
     this.motiuRelacio = motiuRelacio;
     return this;
@@ -563,6 +563,7 @@ public class ExpedientGestorDocumentalRDTO {
     ExpedientGestorDocumentalRDTO expedientGestorDocumentalRDTO = (ExpedientGestorDocumentalRDTO) o;
     return Objects.equals(this.codiExpRelacionat, expedientGestorDocumentalRDTO.codiExpRelacionat) &&
         Objects.equals(this.codiExpedient, expedientGestorDocumentalRDTO.codiExpedient) &&
+        Objects.equals(this.codiGestorDocumental, expedientGestorDocumentalRDTO.codiGestorDocumental) &&
         Objects.equals(this.codiLlargExpedient, expedientGestorDocumentalRDTO.codiLlargExpedient) &&
         Objects.equals(this.codiUnitatOrganigrama, expedientGestorDocumentalRDTO.codiUnitatOrganigrama) &&
         Objects.equals(this.cognom1Sollicitant, expedientGestorDocumentalRDTO.cognom1Sollicitant) &&
@@ -576,7 +577,6 @@ public class ExpedientGestorDocumentalRDTO {
         Objects.equals(this.fechaFinExp, expedientGestorDocumentalRDTO.fechaFinExp) &&
         Objects.equals(this.fechaIniExp, expedientGestorDocumentalRDTO.fechaIniExp) &&
         Objects.equals(this.idEstat, expedientGestorDocumentalRDTO.idEstat) &&
-        Objects.equals(this.migracioIdOrigen, expedientGestorDocumentalRDTO.migracioIdOrigen) &&
         Objects.equals(this.motiuRelacio, expedientGestorDocumentalRDTO.motiuRelacio) &&
         Objects.equals(this.nomProc, expedientGestorDocumentalRDTO.nomProc) &&
         Objects.equals(this.nomSollicitant, expedientGestorDocumentalRDTO.nomSollicitant) &&
@@ -590,7 +590,7 @@ public class ExpedientGestorDocumentalRDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(codiExpRelacionat, codiExpedient, codiLlargExpedient, codiUnitatOrganigrama, cognom1Sollicitant, cognom2Sollicitant, dataRegistre, descEstadoExp, destinatariRegistre, documentErroni, documentIdentitatSollicitant, documentacioIdext, fechaFinExp, fechaIniExp, idEstat, migracioIdOrigen, motiuRelacio, nomProc, nomSollicitant, nomUnitatOrganigrama, numRegistre, pathSerieDoc, serieDoc, tipusRegistre, titularRegistre);
+    return Objects.hash(codiExpRelacionat, codiExpedient, codiGestorDocumental, codiLlargExpedient, codiUnitatOrganigrama, cognom1Sollicitant, cognom2Sollicitant, dataRegistre, descEstadoExp, destinatariRegistre, documentErroni, documentIdentitatSollicitant, documentacioIdext, fechaFinExp, fechaIniExp, idEstat, motiuRelacio, nomProc, nomSollicitant, nomUnitatOrganigrama, numRegistre, pathSerieDoc, serieDoc, tipusRegistre, titularRegistre);
   }
 
 
@@ -601,6 +601,7 @@ public class ExpedientGestorDocumentalRDTO {
     
     sb.append("    codiExpRelacionat: ").append(toIndentedString(codiExpRelacionat)).append("\n");
     sb.append("    codiExpedient: ").append(toIndentedString(codiExpedient)).append("\n");
+    sb.append("    codiGestorDocumental: ").append(toIndentedString(codiGestorDocumental)).append("\n");
     sb.append("    codiLlargExpedient: ").append(toIndentedString(codiLlargExpedient)).append("\n");
     sb.append("    codiUnitatOrganigrama: ").append(toIndentedString(codiUnitatOrganigrama)).append("\n");
     sb.append("    cognom1Sollicitant: ").append(toIndentedString(cognom1Sollicitant)).append("\n");
@@ -614,7 +615,6 @@ public class ExpedientGestorDocumentalRDTO {
     sb.append("    fechaFinExp: ").append(toIndentedString(fechaFinExp)).append("\n");
     sb.append("    fechaIniExp: ").append(toIndentedString(fechaIniExp)).append("\n");
     sb.append("    idEstat: ").append(toIndentedString(idEstat)).append("\n");
-    sb.append("    migracioIdOrigen: ").append(toIndentedString(migracioIdOrigen)).append("\n");
     sb.append("    motiuRelacio: ").append(toIndentedString(motiuRelacio)).append("\n");
     sb.append("    nomProc: ").append(toIndentedString(nomProc)).append("\n");
     sb.append("    nomSollicitant: ").append(toIndentedString(nomSollicitant)).append("\n");

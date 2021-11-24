@@ -24,9 +24,9 @@ import lombok.Setter;
 
 @ApiModel(value = "Document")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "idGestorDocumental", "nom", "configuracioDocumentacio", "dataCreacio", "origen", "hash", "codiCSV" })
+@JsonPropertyOrder({ "id", "idGestorDocumental", "idMigracioOrigen", "nom", "configuracioDocumentacio", "dataCreacio", "origen", "hash", "codiCSV" })
 @XmlRootElement(name = "DOCUMENT")
-@XmlType(name = "Document", propOrder = { "id", "idGestorDocumental", "nom", "configuracioDocumentacio", "dataCreacio", "origen", "hash",
+@XmlType(name = "Document", propOrder = { "id", "idGestorDocumental", "idMigracioOrigen", "nom", "configuracioDocumentacio", "dataCreacio", "origen", "hash",
 		"codiCSV" })
 @XmlAccessorType(XmlAccessType.NONE)
 @Getter
@@ -39,6 +39,8 @@ public class DocumentRDTO {
 	@ApiModelProperty(value = "Id del gestor documental")
 	@XmlElement(name = "ID_GESTOR_DOCUMENTAL", required = false, type = String.class)
 	private String idGestorDocumental;
+	@XmlElement(name = "ID_MIGRACIO_ORIGEN", required = false, type = String.class)
+	private String idMigracioOrigen;
 	@ApiModelProperty(value = "Nom del document")
 	@XmlElement(name = "NOM", required = false, type = String.class)
 	private String nom;
