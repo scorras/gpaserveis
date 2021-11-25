@@ -91,4 +91,6 @@ public class ExpedientConsultaTramitadorsRDTO {
 	private String pathGestorDocumental;
 	@ApiModelProperty(value = "Idioma")
 	private String idioma;
+	@ApiModelProperty(value = "Expedient Back Office")
+	private String expedientBackOffice;
 }

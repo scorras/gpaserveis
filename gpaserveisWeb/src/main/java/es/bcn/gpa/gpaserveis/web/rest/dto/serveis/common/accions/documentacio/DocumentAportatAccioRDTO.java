@@ -25,6 +25,8 @@ public class DocumentAportatAccioRDTO {
 	private BigDecimal id;
 	@ApiModelProperty(value = "Id del gestor documental")
 	private String idGestorDocumental;
+	@ApiModelProperty(value = "Id de migració (de tipus 'cafe')")
+	private String idMigracioOrigen;
 	@ApiModelProperty(value = "Nom del document")
 	private String nom;
 	@ApiModelProperty(value = "Categoria a la qual pertany el document")

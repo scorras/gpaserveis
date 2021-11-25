@@ -53,6 +53,18 @@ public class ServeisPortalRestControllerTest extends RestServerParentTest {
 		String url = BASE_URL + "/procediments/1";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
+	
+	/**
+	 * Test stage 02 get consultar dades procediment darrera versio.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Test
+	public void testStage02_GetConsultarDadesProcedimentDarreraVersion() throws Exception {
+		String url = BASE_URL + "/procediments/CODI/darreraVersio";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+	}	
 
 	/**
 	 * Test stage 03 get consultar dades operacio tramit.

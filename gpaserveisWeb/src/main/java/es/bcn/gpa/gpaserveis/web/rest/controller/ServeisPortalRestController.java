@@ -142,6 +142,7 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.Revis
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusDocumentacioVinculadaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusMimeApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.document.TipusSignaturaApiParamValue;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioCiutadaApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.AccioTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.EstatTramitadorApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.SuportConfeccioApiParamValue;
@@ -438,7 +439,7 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	@GetMapping("/procediments/{codiProcediment}/darreraVersion")
+	@GetMapping("/procediments/{codiProcediment}/darreraVersio")
 	@ApiOperation(nickname = "consultarDadesProcedimentPortalDarreraVersion", value = "Consultar les dades del procediment", tags = {
 	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
@@ -838,9 +839,9 @@ public class ServeisPortalRestController extends BaseRestController {
 				filtrarTramitsOvtDisponibles(dadesExpedientBDTO, expedientConsultaRDTO);
 			}
 
-			// Devolvemos el id en Documentum del expediente en la consulta
-			if (StringUtils.isNotEmpty(dadesExpedientBDTO.getExpedientsRDTO().getMigracioIdOrigen())) {
-				expedientConsultaRDTO.setIdGestorDocumental(dadesExpedientBDTO.getExpedientsRDTO().getMigracioIdOrigen());
+			// Devolvemos el id en gestor documental del expediente en la consulta
+			if (StringUtils.isNotEmpty(dadesExpedientBDTO.getExpedientsRDTO().getCodiLlarg())) {
+				expedientConsultaRDTO.setIdGestorDocumental(dadesExpedientBDTO.getExpedientsRDTO().getCodiLlarg());
 			}
 			
 			if (dadesExpedientBDTO.getExpedientsRDTO().getIdiomes() != null
@@ -852,14 +853,11 @@ public class ServeisPortalRestController extends BaseRestController {
 			        && NumberUtils.INTEGER_ONE.equals(dadesExpedientBDTO.getExpedientsRDTO().getEstat().getTancamentAutomatic())) {
 				expedientConsultaRDTO.setTancamentAutomatic(true);
 			}
-			if(expedientConsultaRDTO.getAccionsDisponibles()!=null){
-				for(String accion : expedientConsultaRDTO.getAccionsDisponibles()){
-					if(accion.contains("PRESENTAR_RECURSO")){
-						ProcedimentsRDTO procRelacionats = serveisService.consultarProcedimentsRelacionats(expedientConsultaRDTO.getProcediment().getId());
-						if(procRelacionats==null){
-							expedientConsultaRDTO.getAccionsDisponibles().remove("PRESENTAR_RECURSO");
-							break;
-						}
+			if(expedientConsultaRDTO.getAccionsDisponibles() != null){
+				if(expedientConsultaRDTO.getAccionsDisponibles().contains(AccioCiutadaApiParamValue.PRESENTAR_RECURSO.getApiParamValue())){
+					List<ProcedimentsRDTO> procRelacionats = serveisService.consultarProcedimentsRelacionats(expedientConsultaRDTO.getProcediment().getId());
+					if(CollectionUtils.isEmpty(procRelacionats)){
+						expedientConsultaRDTO.getAccionsDisponibles().remove(AccioCiutadaApiParamValue.PRESENTAR_RECURSO.getApiParamValue());
 					}
 				}
 			}
@@ -3211,9 +3209,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				idsReqOperatiusTramOvtList.add(reqOperatiusTramOvt.getTramitOvtIdext());
 			}
 		}
-		if(!expedientConsultaRDTO.getAccionsDisponibles().isEmpty() && !expedientConsultaRDTO.getAccionsDisponibles().get(0).equals("PRESENTAR_RECURSO")){
-			ServeisRestControllerAccionsDisponiblesHelper.filtrarTramitsOvtDisponibles(expedientConsultaRDTO, idsReqOperatiusTramOvtList);
-		}
+		ServeisRestControllerAccionsDisponiblesHelper.filtrarTramitsOvtDisponibles(expedientConsultaRDTO, idsReqOperatiusTramOvtList);
 	}
 
 }

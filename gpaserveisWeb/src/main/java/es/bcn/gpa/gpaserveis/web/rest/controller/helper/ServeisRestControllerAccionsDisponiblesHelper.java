@@ -16,6 +16,9 @@ public class ServeisRestControllerAccionsDisponiblesHelper {
 		AccioCiutadaApiParamValueTranslator accioCiutadaApiParamValueTranslator = new AccioCiutadaApiParamValueTranslator();
 		for (String accio : expedientConsultaRDTO.getAccionsDisponibles()) {
 			AccioCiutadaApiParamValue value = accioCiutadaApiParamValueTranslator.getEnumByApiParamValue(accio);
+			if(AccioCiutadaApiParamValue.PRESENTAR_RECURSO.equals(value)) { //El recurso no tiene un tramite OVT asociado
+				accionsDisponiblesFinal.add(value.getApiParamValue());
+			} else
 			if (!idsReqOperatiusTramOvtList.isEmpty() && idsReqOperatiusTramOvtList.contains(value.getInternalValueIdTramitOvt())) {
 				accionsDisponiblesFinal.add(value.getApiParamValue());
 			}

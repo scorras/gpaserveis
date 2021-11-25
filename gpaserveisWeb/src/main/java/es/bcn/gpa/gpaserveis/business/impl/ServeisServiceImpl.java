@@ -2509,9 +2509,9 @@ public class ServeisServiceImpl implements ServeisService {
 	}
 
 	@Override
-	public ProcedimentsRDTO consultarProcedimentsRelacionats(BigDecimal id) throws GPAServeisServiceException {
-		ProcedimentsRDTO procedimentsBDTO = ServeisServiceHelper.loadRelacionatsProcediments(procedimentsService, id);
-		return procedimentsBDTO;
+	public List<ProcedimentsRDTO> consultarProcedimentsRelacionats(BigDecimal id) throws GPAServeisServiceException {
+		List<ProcedimentsRDTO> procedimentsRDTO = ServeisServiceHelper.loadRelacionatsProcediments(procedimentsService, id);
+		return procedimentsRDTO;
 	}
 	
 

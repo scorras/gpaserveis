@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * ProcedimentPersones
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-12T13:09:27.652+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-11-17T10:14:01.849+01:00")
 public class ProcedimentPersones {
   @JsonProperty("editable")
   private Boolean editable = null;

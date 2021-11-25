@@ -1540,8 +1540,8 @@ public interface ServeisService {
 	 * @throws GPAServeisServiceException 
 	 */
 	ProcedimentsRDTO consultarProcedimentsRelacionats(BigDecimal id) throws GPAServeisServiceException;
-	
-
 	PageDataOfDadesGrupsRDTO cercaAtributsProcediment(DadesOperacioCercaBDTO dadesOperacioCercaBDTO)throws GPAServeisServiceException;
+
+	List<ProcedimentsRDTO> consultarProcedimentsRelacionats(BigDecimal id) throws GPAServeisServiceException;
 
 }
