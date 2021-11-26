@@ -3,6 +3,7 @@ package es.bcn.gpa.gpaserveis.web.rest.controller;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.bcn.gpa.gpaserveis.business.AuditServeisService;
+import es.bcn.gpa.gpaserveis.business.DocumentsService;
 import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.business.dto.RespostaResultatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.audit.AuditServeisBDTO;
@@ -119,8 +121,11 @@ import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaResolucioValidarDoc
 import es.bcn.gpa.gpaserveis.business.dto.expedients.RespostaSignarDocumentBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.DadesProcedimentBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.procediments.ProcedimentsCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaDadesOperacioRequeritsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.procediments.RespostaProcedimentsCercaBDTO;
+import es.bcn.gpa.gpaserveis.business.dto.tramits.TramitsOvtCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.unitatsgestores.UnitatsGestoresCercaBDTO;
 import es.bcn.gpa.gpaserveis.business.exception.GPAServeisServiceException;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.ConfiguracioDocsEntradaRDTO;
@@ -136,6 +141,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRegis
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequerimentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PrepararSignaturaCriptograficaDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PrepararSignaturaCriptograficaDocumentMassiu;
@@ -172,6 +178,8 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornTramitaci
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.RetornarTramitacioRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.Sollicituds;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TornarEnrereRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentPersones;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
@@ -197,6 +205,8 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.Tipu
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.expedient.TransicioAccioEstatApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.enums.impl.procediment.TramitOvtApiParamValue;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.expedient.ExpedientsApiParamToInternalMapper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.cerca.procediment.ProcedimentsApiParamToInternalMapper;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.mapper.consulta.atributs.DadesOperacioApiParamToInternalMapper;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.ConfiguracioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.TipusEstatsDocumentsApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.document.TipusSignaturaApiParamValueTranslator;
@@ -204,7 +214,14 @@ import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.MotiuPausaApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusCanalComunicacioApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TipusIniciacioSollicitudApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.TramitadorApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.expedient.VersioProcedimentApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.ActivableEnFormatElectronicApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.CompetenciaAssociadaApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.EstatApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.ExclusivamentInternApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.FamiliaApiParamValueTranslator;
+import es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.TramitOvtApiParamValueTranslator;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ErrorDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.ResultatRespostaDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.ActualitzarTerceraPersonaRDTO;
@@ -214,6 +231,7 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.Resp
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.RespostaEsborrarTerceraPersonaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.TerceraPersonaSollicitudRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.common.accions.expedients.actualitzar.RespostaActualitzarExpedientRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.ProcedimentPersonesRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.esborrar.RespostaEsborrarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.resolucio.validar.RespostaResolucioValidarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.documentacio.signar.PreparacioSignaturaCriptograficaDocumentMassiuRDTO;
@@ -228,7 +246,18 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.recu
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.revisar.ExpedientRevisarRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.accions.expedients.revisar.RespostaRevisarExpedientRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.PaginacioRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.ProcedimentsCercaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.cerca.procediments.RespostaCercaProcedimentsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.DadesOperacioConsultaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.RespostaConsultaDadesOperacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.DocumentAportatConsultaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.RepostaConsultaDocumentacioTramitsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.RespostaConsultaConfiguracioDocumentacioAportadaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.ProcedimentsConsultaRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.RepostaConsultaTramitsPersonesProcedimentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.RespostaConsultaProcedimentsRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.RespostaConsultaTramitProcedimentRDTO;
+import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.RespostaTramitsProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.completar.DocumentComplecioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.completar.RespostaCompletarDocumentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.tramitadors.accions.documentacio.digitalitzar.DocumentDigitalitzacioRDTO;
@@ -334,6 +363,10 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	/** The audit serveis service. */
 	@Autowired
 	private AuditServeisService auditServeisService;
+	
+	/** The audit serveis service. */
+	@Autowired
+	private DocumentsService documentsService;
 
 	/**
 	 * Cerca expedients.
@@ -493,7 +526,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// desde tramitadors no se controla la visibilidad, solo afecta a
 			// portal
-			BigDecimal visibilitat = BigDecimal.ONE;
+			BigDecimal visibilitat = Constants.VISIBILITAT_NO_APLICADA;
 
 			// Datos principales del expedient
 			dadesExpedientBDTO = serveisService.consultarDadesExpedient(
@@ -5652,5 +5685,554 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		}
 
 		return respostaReprendreExpedientRDTO;
+	}
+	
+	
+	// GPA-TramitarsAPI
+	//procediments
+	/**
+	 * Cerca procediments.
+	 *
+	 * @param resultatsPerPagina
+	 *            the resultats per pagina
+	 * @param numeroPagina
+	 *            the numero pagina
+	 * @param ordenarPer
+	 *            the ordenar per
+	 * @param sentitOrdenacio
+	 *            the sentit ordenacio
+	 * @param codi
+	 *            the codi
+	 * @param estat
+	 *            the estat
+	 * @param nom
+	 *            the nom
+	 * @param tramitador
+	 *            the tramitador
+	 * @param aplicacioNegoci
+	 *            the aplicacio negoci
+	 * @param ugr
+	 *            the ugr
+	 * @param exclusivamentIntern
+	 *            the exclusivament intern
+	 * @param activableFormatElectronic
+	 *            the activable format electronic
+	 * @param organResolutori
+	 *            the organ resolutori
+	 * @param competenciaAssociada
+	 *            the competencia associada
+	 * @param familia
+	 *            the familia
+	 * @param actuacio
+	 *            the actuacio
+	 * @return the resposta cerca procediments RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@GetMapping("/procediments")
+	@ApiOperation(nickname = "cercaProcedimentsTramitadors", value = "Cerca de procediments", tags = { "Serveis Tramitadors API" })
+	public RespostaCercaProcedimentsRDTO cercaProcediments(
+	        @ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
+	        @ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
+	        @ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
+	        @ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio,
+	        @ApiParam(value = "Filtra procediments per codi") @RequestParam(value = "codi", required = false) String codi,
+	        @ApiParam(value = "Filtrar procediments per conjunt d'estats. Possibles valors: EN_ELABORACIO, FINALITZAT, PUBLICAT", allowableValues = EstatApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = EstatApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] estat,
+	        @ApiParam(value = "Filtra procediments per nom") @RequestParam(value = "nom", required = false) String nom,
+	        @ApiParam(value = "Filtra procediments per aplicació de tramitació", allowableValues = TramitadorApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = TramitadorApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String tramitador,
+	        @ApiParam(value = "En cas que el tramitador sigui una aplicació de negoci, filtra procediments pel nom de dita aplicació") @RequestParam(value = "aplicacioNegoci", required = false) String aplicacioNegoci,
+	        @ApiParam(value = "Filtra procediments per conjunt d'Unitats Gestores Responsables") @RequestParam(value = "ugr", required = false) String ugr,
+	        @ApiParam(value = "Filtra procediments per exclusivament intern", allowableValues = ExclusivamentInternApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ExclusivamentInternApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String exclusivamentIntern,
+	        @ApiParam(value = "Filtra procediments per canals d'activació en format electrònic. Possibles valors: PORTAL_TRAMITS, ALTRA_WEB, MOBIL, QUIOSC, PER_CANAL_GENERALISTA, PER_CANAL_ESPECIFIC", allowableValues = ActivableEnFormatElectronicApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = ActivableEnFormatElectronicApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] activableFormatElectronic,
+	        @ApiParam(value = "Filtra procediments per òrgan resolutori") @RequestParam(value = "organResolutori", required = false) String organResolutori,
+	        @ApiParam(value = "Filtrar procediments per conjunt de competències associades. Possibles valors: ACCIO_SOCIAL, AFERS_JURIDICS, BENS_I_PATRIMONI, COMERC_I_CONSUM, CULTURA, EDUCACIO, ESPORTS_I_LLEURE, HABITATGE, MEDI_AMBIENT, MOVILITAT_TRANSPORT_I_CIRCULACIO, OBRES_I_INFRAESTRUCTURES, ORGANITZACIO_I_COORDINACIO_ADMINISTRATIVA, ORGANS_DE_GOVERN, POBLACIO_I_DEMARCACIO, POTESTATS_DE_PLANIFICACIO_I_NORMATIVA, PRESSUPOSTOS_I_FINANCES, PROMOCIO_ECONOMICA, RECURSOS_HUMANS", allowableValues = CompetenciaAssociadaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = CompetenciaAssociadaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] competenciaAssociada,
+	        @ApiParam(value = "Filtrar procediments per conjunt de famílies. Possibles valors: ATENCIO_SOCIAL_I_RESIDENCIAL, AUTORITZACIONS_I_COMUNICATS, CERTAMENS_I_PREMIS, COL_LABORACIO, CONSULTES_I_SUGGERIMENTS, CONTRACTACIO_PUBLICA, DISCIPLINA_INSPECCIO_I_PROTECCIO_DE_LA_LEGALITAT, DRETS_D_ACCES_A_LA_INFORMACIO, DRETS_I_ACTIVITAT_CIVIL, ENS_DEPENDENTS_I_PARTICIPATS, EXECUCIO_URBANISTICA, GESTIO_DEL_PERSONAL, GESTIO_PRESSUPOSTARIA_I_FINANCERA, GESTIO_TRIBUTARIA, INFORMES_I_CERTIFICATS, INSCRIPCIONS_REGISTRALS, MEDIACIO_I_ARBITRATGE, NORMATIVA, OCUPACIO_I_SERVEIS_A_LA_VIA_PUBLICA, PARTICIPACIO, PLANEJAMENT_URBANISTIC, PREVENCIO, QUEIXES_I_RECLAMACIONS, REGIM_DE_BENS_I_PATRIMONI, REGIM_SANCIONADOR, RESPONSABILITAT_PATRIMONIAL, REVISIO_DE_L_ACTUACIO_ADMINISTRATIVA, SUBVENCIONS_I_AJUTS, TARGETES_CARNETS_I_IDENTIFICACIONS, ALTRES", allowableValues = FamiliaApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = FamiliaApiParamValueTranslator.REQUEST_PARAM_NAME, required = false) String[] familia,
+	        @ApiParam(value = "Filtra procediments per actuació") @RequestParam(value = "actuacio", required = false) String actuacio)
+	        throws GPAServeisServiceException {
+		if (log.isDebugEnabled()) {
+			log.debug(
+			        "cercaProcediments(int, int, String, String, String, String[], String, String, String, String, String, String[], String, String[], String[], String) - inici"); //$NON-NLS-1$
+		}
+
+		// TODO Acceso a la cabecera con la identificación del usuario del
+		// portal del ciudadano
+		// String usuariInteressat = clientEntity.getUsuariInteressat();
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
+		
+
+		RespostaCercaProcedimentsRDTO resposta = new RespostaCercaProcedimentsRDTO();
+		List<ProcedimentsCercaRDTO> procedimentsCercaRDTOList = new ArrayList<ProcedimentsCercaRDTO>();
+		ProcedimentsCercaBDTO procedimentsCercaBDTO = null;
+		try {
+			// Data
+			// Unitats Gestores que hacen match con el parámetro ugr
+			UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(ugr);
+			List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = serveisService.cercaUnitatsGestores(unitatsGestoresCercaBDTO);
+
+			// Procediments que cumplen los criterios de búsqueda
+			procedimentsCercaBDTO = new ProcedimentsCercaBDTO(codi, nom,
+			        ProcedimentsApiParamToInternalMapper.getActivableFormatElectronicInternalValueList(activableFormatElectronic), actuacio,
+			        ProcedimentsApiParamToInternalMapper.getTramitadorInternalValue(tramitador), aplicacioNegoci,
+			        ProcedimentsApiParamToInternalMapper.getCompetenciaAssociadaInternalValueList(competenciaAssociada),
+			        ProcedimentsApiParamToInternalMapper.getEstatInternalValueList(estat),
+			        ProcedimentsApiParamToInternalMapper.getFamiliaInternalValueList(familia),
+			        ProcedimentsApiParamToInternalMapper.getExclusivamentInternInternalValue(exclusivamentIntern), organResolutori,
+			        ProcedimentsApiParamToInternalMapper.getIdUnitatGestoraInternalValueList(unitatsGestoresRDTOList),
+			        Arrays.asList(Constants.INICIACIO_SOLLICITUD_INTERESSAT), numeroPagina, resultatsPerPagina,
+			        ProcedimentsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
+			        ProcedimentsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio));
+
+			RespostaProcedimentsCercaBDTO respostaProcedimentsCercaBDTO = serveisService.cercaProcediments(procedimentsCercaBDTO);
+			
+
+			for (DadesProcedimentBDTO dadesProcedimentBDTO : respostaProcedimentsCercaBDTO.getDadesProcedimentBDTOList()) {
+				procedimentsCercaRDTOList.add(modelMapper.map(dadesProcedimentBDTO, ProcedimentsCercaRDTO.class));
+			}
+			resposta.setData(procedimentsCercaRDTOList);
+
+			// Paginació
+			resposta.setPaginacio(modelMapper.map(respostaProcedimentsCercaBDTO.getPaginationAttributes(), PaginacioRDTO.class));
+
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultatAudit = "KO";
+			ex = e;
+			;
+			throw e;
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/procediments");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Cerca de procediments");
+
+			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, procedimentsCercaBDTO, resposta, ex);
+		}
+
+		if (log.isDebugEnabled()) {
+			log.debug(
+			        "cercaProcediments(int, int, String, String, String, String[], String, String, String, String, String, String[], String, String[], String[], String) - fi"); //$NON-NLS-1$
+		}
+		return resposta;
+		
+	}
+	//procediments/{idprocediment
+	
+	/**
+	 * Consultar dades procediment.
+	 *
+	 * @param idProcediment
+	 *            the id procediment
+	 * @return the resposta consulta procediments RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@GetMapping("/procediments/{idProcediment}")
+	@ApiOperation(nickname = "consultarDadesProcedimentTramitadors", value = "Consultar les dades del procediment", tags = {
+	        "Serveis Tramitadors API" })
+	public RespostaConsultaProcedimentsRDTO consultarDadesProcediment(
+	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment)
+	        throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
+
+		RespostaConsultaProcedimentsRDTO respostaConsultaProcedimentsRDTO = new RespostaConsultaProcedimentsRDTO();
+		try {
+			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService.consultarDadesProcediment(idProcediment);
+			// El id del Procedimiento debe ser válido
+			if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND.getDescripcio());
+				// TODO return 404
+			}
+			ProcedimentsConsultaRDTO procedimentsConsultaRDTO = modelMapper.map(dadesProcedimentBDTO, ProcedimentsConsultaRDTO.class);
+			respostaConsultaProcedimentsRDTO.setProcediment(procedimentsConsultaRDTO);
+
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultatAudit = "KO";
+			ex = e;
+			throw e;
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/procediments/" + idProcediment);
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Consultar les dades del procediment");
+
+			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, null, respostaConsultaProcedimentsRDTO, ex);
+		}
+		return respostaConsultaProcedimentsRDTO;
+	}
+	
+	// /procediments/{idProcediment}/tramits
+	
+	/**
+	 * Consultar les dades del tramit del procediment.
+	 *
+	 * @param idProcediment
+	 *            the id procediment
+	 * @param usuari
+	 * @return the resposta consulta procediments RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@GetMapping("/procediments/{idProcediment}/tramits")
+	@ApiOperation(nickname = "consultarDadesTramitadors", value = "Consultar les dades del tramit", tags = {
+	        "Serveis Tramitadors API" })
+	public RespostaTramitsProcedimentsRDTO consultarDadesTramit(
+	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
+	        @ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
+	        @ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
+	        @ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
+	        @ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio
+	        
+	        )throws GPAServeisServiceException {
+		
+		RespostaTramitsProcedimentsRDTO repostaTramitsProcedimentsRDTO= new RespostaTramitsProcedimentsRDTO();
+		DadesProcedimentBDTO dadesProcedimentBDTO = new DadesProcedimentBDTO();
+		RespostaConsultaTramitProcedimentRDTO respostaConsultaTramitProcedimentRDTO = new RespostaConsultaTramitProcedimentRDTO();
+		String resultatAudit = "OK";
+		Throwable ex = null;
+		List<TramitsOvtRDTO> listTramitsOvt= new ArrayList();
+		
+		// Utilizamos la logica tramitsOVT
+		String[] arrCodiValue=TramitOvtApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES.split(",");
+		for (int i=0;i<arrCodiValue.length;i++){
+			String codiTramit=arrCodiValue[i].trim();
+			BigDecimal iinternalIdTramitOvt = DadesOperacioApiParamToInternalMapper.getTramitOvtInternalValue(codiTramit);
+			TramitsOvtCercaBDTO tramitsOvtCercaBDTO = new TramitsOvtCercaBDTO(iinternalIdTramitOvt);
+			es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.TramitsOvtRDTO internalTramitsOvtRDTO = serveisService
+			        .consultarDadesTramitOvt(tramitsOvtCercaBDTO);
+			es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO tramitsOvtRDTO = modelMapper.map(internalTramitsOvtRDTO,
+			        es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.TramitsOvtRDTO.class);
+			listTramitsOvt.add(internalTramitsOvtRDTO);
+			
+		}
+		
+		
+		try{
+		
+			dadesProcedimentBDTO = serveisService.consultarDadesProcediment(idProcediment);
+			// El id del Procedimiento debe ser válido
+			if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND.getDescripcio());
+			}
+			
+			repostaTramitsProcedimentsRDTO.setTramitsovt(listTramitsOvt);
+			
+			
+		}
+		catch(Exception err){
+			log.error(err.getMessage(), err);
+			resultatAudit = "KO";
+			ex = err;
+			throw err;
+		}finally {
+			
+		AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+		auditServeisBDTO.setMappingAccio("/procediments/" + idProcediment + "/tramits/");
+		auditServeisBDTO.setResultat(resultatAudit);
+		auditServeisBDTO.setTipusPeticio("GET");
+		auditServeisBDTO.setValueAccio("Cerca de tramits");
+
+		auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, dadesProcedimentBDTO, repostaTramitsProcedimentsRDTO, ex);
+	}
+
+		
+		// Devolvemos el resultado Final
+		return repostaTramitsProcedimentsRDTO;
+		
+	}
+	
+	
+	
+	
+	// /procediments/{idProcediment}/tramits/atributs
+	
+	/**
+	 * Consultar dades operacio procediment.
+	 *
+	 * @param idProcediment
+	 *            the id procediment
+	 * @param codiTramit
+	 *            the codi tramit
+	 * @return the resposta consulta dades operacio RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@GetMapping("/procediments/{idProcediment}/atributs")
+	@ApiOperation(nickname = "consultarDadesOperacioTramitTramitadors", value = "Consultar les dades d'operació del procediment", tags = {
+	        "Serveis Tramitadors API" })
+	public RespostaConsultaDadesOperacioRDTO consultarDadesOperacioTramit(
+			 	@ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment,
+		        @ApiParam(value = "Indicarà el número de resultats per pàgina") @RequestParam(value = "resultatsPerPagina", required = false, defaultValue = "20") int resultatsPerPagina,
+		        @ApiParam(value = "Indicarà en quina pàgina hauria de començar els resultats demanats en una cerca") @RequestParam(value = "numeroPagina", required = false, defaultValue = "1") int numeroPagina,
+		        @ApiParam(value = "Indicarà el camp mitjançant el qual s'ordenarà el resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.OrdenarPerApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String ordenarPer,
+		        @ApiParam(value = "Indicarà el sentit d'ordenació per al resultat de la cerca", allowableValues = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_ALLOWABLE_VALUES) @RequestParam(value = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_NAME, required = false, defaultValue = es.bcn.gpa.gpaserveis.web.rest.controller.utils.translator.impl.procediment.SentitOrdenacioApiParamValueTranslator.REQUEST_PARAM_DEFAULT_VALUE) String sentitOrdenacio
+		        
+		        )throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
+		
+		DadesOperacioConsultaRDTO dadesOperacioConsultaRDTO = new DadesOperacioConsultaRDTO();
+		DadesProcedimentBDTO dadesProcedimentBDTO = null;
+		RespostaConsultaDadesOperacioRDTO respostaConsultaDadesOperacioRDTO = new RespostaConsultaDadesOperacioRDTO();
+		
+
+		// We check dadesProcedimentBDTO is on Database
+		try {
+
+			// El id del Procedimiento debe ser válido
+			dadesProcedimentBDTO = serveisService.consultarDadesProcediment(idProcediment);
+			
+
+			if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND.getDescripcio());
+			}
+			//Recuperamos la configuración de documentación de entrada del procedimiento
+			DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO(
+					dadesProcedimentBDTO.getProcedimentsRDTO().getConfiguracioDocumentacio(), null);
+			RespostaDocumentsEntradaCercaBDTO respostaDocumentsEntradaCercaBDTO = serveisService
+			        .cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);	
+			
+			DadesOperacioCercaBDTO dadesOperacioCercaBDTO = new DadesOperacioCercaBDTO(idProcediment,null);
+			RespostaDadesOperacioCercaBDTO respostaDadesOperacioCercaBDTO = serveisService.cercaDadesOperacio(dadesOperacioCercaBDTO);
+			respostaDadesOperacioCercaBDTO.setConfiguracioDocsEntradaRDTOList(respostaDocumentsEntradaCercaBDTO.getConfiguracioDocsEntradaRDTOList());
+			dadesOperacioConsultaRDTO = modelMapper.map(respostaDadesOperacioCercaBDTO, DadesOperacioConsultaRDTO.class);			
+			
+			respostaConsultaDadesOperacioRDTO.setDadesOperacio(dadesOperacioConsultaRDTO);
+
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultatAudit = "KO";
+			ex = e;
+			throw e;
+		}
+
+		finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/procediments/" + idProcediment + "/atributs");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Consultar les dades d'operació del tràmit");
+
+			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, null, dadesOperacioConsultaRDTO, ex);
+		}
+		
+		
+		
+		
+
+		return respostaConsultaDadesOperacioRDTO;
+
+	}
+			
+		
+			
+	
+	
+	
+	// /procediments/{idProcediment}/tramits/documentacio
+	
+	/**
+	 * Consultar documentacio entrada procediment.
+	 *
+	 * @param idProcediment
+	 *            the id procediment
+	 * @param codiTramit
+	 *            the codi tramit
+	 * @return the resposta consulta configuracio documentacio aportada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@GetMapping("/procediments/{idProcediment}/documentacioTramitacio")
+	@ApiOperation(nickname = "consultarDocumentacioTramitacioProcedimentTramitadors", value = "Consultar les documentació d'entrada del procediment", tags = {
+	        "Serveis Tramitadors API" }) 
+	public RepostaConsultaDocumentacioTramitsRDTO consultarDocumentacioTramitacioProcediment(
+	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment)
+	        throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
+
+		RepostaConsultaDocumentacioTramitsRDTO repostaConsultaDocumentacioTramitsRDTO= new RepostaConsultaDocumentacioTramitsRDTO();
+		
+		try {
+			// El id del Procedimiento debe ser válido
+			// Información del Procedimiento, para obtener el Id de Configuració
+			// Documentació
+			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService.consultarDadesProcediment(idProcediment);
+			
+			if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND.getDescripcio());
+			}
+			
+			// Documents que cumplen los criterios de búsqueda
+			//Hemos pasado esto a null
+			DocumentsTramitacioCercaBDTO documentsTramtacioCercaBDTO = new DocumentsTramitacioCercaBDTO(dadesProcedimentBDTO.getProcedimentsRDTO().getConfiguracioDocumentacio());
+			RespostaDocumentsTramitacioCercaBDTO repostaDocumentsTramitacioCercaBDTO;
+			repostaDocumentsTramitacioCercaBDTO=serveisService.cercaConfiguracioDocumentacioTramitacio(documentsTramtacioCercaBDTO);
+			List<ConfiguracioDocsTramitacioRDTO> listConfiguracioDocs=repostaDocumentsTramitacioCercaBDTO.getConfiguracioDocsTramitacioRDTOList();
+			
+			repostaConsultaDocumentacioTramitsRDTO.setConfiguracio(listConfiguracioDocs);
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultatAudit = "KO";
+			ex = e;
+			throw e;
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/procediments/" + idProcediment + "/documentacio");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Consultar les dades de documentació d'entrada del procediment");
+
+			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, null, repostaConsultaDocumentacioTramitsRDTO, ex);
+		}
+		return repostaConsultaDocumentacioTramitsRDTO;
+	}
+	
+	/**
+	 * Consultar documentacio entrada procediment.
+	 *
+	 * @param idProcediment
+	 *            the id procediment
+	 * @param codiTramit
+	 *            the codi tramit
+	 * @return the resposta consulta configuracio documentacio aportada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@GetMapping("/procediments/{idProcediment}/documentacioAportada")
+	@ApiOperation(nickname = "consultarDocumentacioEntradaProcediment", value = "Consultar les documentació d'entrada del procediment", tags = {
+	        "Serveis Tramitadors API" }) 
+	public List<ConfiguracioDocsEntradaRDTO> consultarDocumentacioEntradaProcediment(
+	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment)
+	        throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
+		List<ConfiguracioDocsEntradaRDTO> configuracioDocEntradaRDTOList = Collections.emptyList();
+		
+		try {
+			// El id del Procedimiento debe ser válido
+			// Información del Procedimiento, para obtener el Id de Configuració
+			// Documentació
+			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService.consultarDadesProcediment(idProcediment);
+			
+			if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND.getDescripcio());
+			}
+			
+			// Documents que cumplen los criterios de búsqueda
+			DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO((BigDecimal)dadesProcedimentBDTO.getProcedimentsRDTO().getConfiguracioDocumentacio(),null);
+			PageDataOfConfiguracioDocsEntradaRDTO pageDataOfConfiguracioDocsEntradaRDTO=documentsService.cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);
+			configuracioDocEntradaRDTOList=pageDataOfConfiguracioDocsEntradaRDTO.getData();
+		
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultatAudit = "KO";
+			ex = e;
+			throw e;
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/procediments/" + idProcediment + "documentacio");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Consultar les dades de documentació d'entrada del procediment Aportats");
+
+			
+			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, null, configuracioDocEntradaRDTOList, ex);
+		}
+		return configuracioDocEntradaRDTOList;
+	}
+	
+	// /procediments/{idProcediment}/tramits/persones
+	
+	
+	/**
+	 * Consultar les dades de persones del procediment.
+	 *
+	 * @param idProcediment
+	 *            the id procediment
+	 * @param usuari
+	 * @return the resposta consulta procediments RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@GetMapping("/procediments/{idProcediment}/persones")
+	@ApiOperation(nickname = "consultarDadesPersonesProcedimentTramitadors", value = "Consultar les dades de persones del procediment Tramiter", tags = {
+	        "Serveis Tramitadors API" })
+	public RepostaConsultaTramitsPersonesProcedimentRDTO  consultarDadesPersonesProcediment(
+	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment)
+	        throws GPAServeisServiceException {
+
+		RepostaConsultaTramitsPersonesProcedimentRDTO  respostaConsultaPersonesProcedimentRDTO = new RepostaConsultaTramitsPersonesProcedimentRDTO ();
+
+		DadesProcedimentBDTO dadesProcedimentBDTO =null;
+		String resultatAudit = "OK";
+		Throwable ex = null;
+		
+		
+		
+		
+		try{
+			dadesProcedimentBDTO = serveisService.consultarDadesProcediment(idProcediment);
+			// El id del Procedimiento debe ser válido
+			if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND.getDescripcio());
+				// TODO return 404s
+			}
+			ProcedimentsRDTO procedimentsRDTO=dadesProcedimentBDTO.getProcedimentsRDTO();
+			List<ProcedimentPersones> listPersones=procedimentsRDTO.getProcedimentPersonesList();
+			List<ProcedimentPersonesRDTO> listPersonesRDTO = new ArrayList();
+			for(int i=0;i<listPersones.size();i++){
+				listPersonesRDTO.add(modelMapper.map(listPersones.get(i),ProcedimentPersonesRDTO.class));
+				listPersonesRDTO.get(i).setTipus(listPersones.get(i).getRelacio());
+			}
+			
+			respostaConsultaPersonesProcedimentRDTO.setTerceresPersonesImplicades(listPersonesRDTO);
+		}
+		catch(Exception e){
+			log.error(e.getMessage(), e);
+			resultatAudit = "KO";
+			ex = e;
+			throw new GPAServeisServiceException();
+		}
+		finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/procediments/" + idProcediment + "/persones");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Consultar les dades de persones del procediment");
+
+		auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, null, respostaConsultaPersonesProcedimentRDTO, ex);
+	}
+		
+		
+		// Información del Trámite
+		
+		//IdSolicitud
+		
+		
+
+		
+
+
+		return respostaConsultaPersonesProcedimentRDTO;
+		
 	}
 }

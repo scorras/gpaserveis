@@ -4274,6 +4274,477 @@ paths:
       deprecated: false
       x-imi-roles:
         gestor: "Perfil usuari gestor"
+  /serveis/tramitadors/procediments:
+    get:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Cerca de procediments"
+      operationId: "cercaProcedimentsTramitadors"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "activableFormatElectronic"
+        in: "query"
+        description: "Filtra procediments per canals d'activació en format electrò\
+          nic. Possibles valors: PORTAL_TRAMITS, ALTRA_WEB, MOBIL, QUIOSC, PER_CANAL_GENERALISTA,\
+          \ PER_CANAL_ESPECIFIC"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+        allowEmptyValue: false
+        enum:
+        - "PORTAL_TRAMITS"
+        - "ALTRA_WEB"
+        - "MOBIL"
+        - "QUIOSC"
+        - "PER_CANAL_GENERALISTA"
+        - "PER_CANAL_ESPECIFIC"
+      - name: "actuacio"
+        in: "query"
+        description: "Filtra procediments per actuació"
+        required: false
+        type: "string"
+        allowEmptyValue: false
+      - name: "aplicacioNegoci"
+        in: "query"
+        description: "En cas que el tramitador sigui una aplicació de negoci, filtra\
+          \ procediments pel nom de dita aplicació"
+        required: false
+        type: "string"
+        allowEmptyValue: false
+      - name: "codi"
+        in: "query"
+        description: "Filtra procediments per codi"
+        required: false
+        type: "string"
+        allowEmptyValue: false
+      - name: "competenciaAssociada"
+        in: "query"
+        description: "Filtrar procediments per conjunt de competències associades.\
+          \ Possibles valors: ACCIO_SOCIAL, AFERS_JURIDICS, BENS_I_PATRIMONI, COMERC_I_CONSUM,\
+          \ CULTURA, EDUCACIO, ESPORTS_I_LLEURE, HABITATGE, MEDI_AMBIENT, MOVILITAT_TRANSPORT_I_CIRCULACIO,\
+          \ OBRES_I_INFRAESTRUCTURES, ORGANITZACIO_I_COORDINACIO_ADMINISTRATIVA, ORGANS_DE_GOVERN,\
+          \ POBLACIO_I_DEMARCACIO, POTESTATS_DE_PLANIFICACIO_I_NORMATIVA, PRESSUPOSTOS_I_FINANCES,\
+          \ PROMOCIO_ECONOMICA, RECURSOS_HUMANS"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+        allowEmptyValue: false
+        enum:
+        - "ACCIO_SOCIAL"
+        - "AFERS_JURIDICS"
+        - "BENS_I_PATRIMONI"
+        - "COMERC_I_CONSUM"
+        - "CULTURA"
+        - "EDUCACIO"
+        - "ESPORTS_I_LLEURE"
+        - "HABITATGE"
+        - "MEDI_AMBIENT"
+        - "MOVILITAT_TRANSPORT_I_CIRCULACIO"
+        - "OBRES_I_INFRAESTRUCTURES"
+        - "ORGANITZACIO_I_COORDINACIO_ADMINISTRATIVA"
+        - "ORGANS_DE_GOVERN"
+        - "POBLACIO_I_DEMARCACIO"
+        - "POTESTATS_DE_PLANIFICACIO_I_NORMATIVA"
+        - "PRESSUPOSTOS_I_FINANCES"
+        - "PROMOCIO_ECONOMICA"
+        - "RECURSOS_HUMANS"
+      - name: "estat"
+        in: "query"
+        description: "Filtrar procediments per conjunt d'estats. Possibles valors:\
+          \ EN_ELABORACIO, FINALITZAT, PUBLICAT"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+        allowEmptyValue: false
+        enum:
+        - "EN_ELABORACIO"
+        - "FINALITZAT"
+        - "PUBLICAT"
+      - name: "exclusivamentIntern"
+        in: "query"
+        description: "Filtra procediments per exclusivament intern"
+        required: false
+        type: "string"
+        allowEmptyValue: false
+        enum:
+        - "SI"
+        - "NO"
+      - name: "familia"
+        in: "query"
+        description: "Filtrar procediments per conjunt de famílies. Possibles valors:\
+          \ ATENCIO_SOCIAL_I_RESIDENCIAL, AUTORITZACIONS_I_COMUNICATS, CERTAMENS_I_PREMIS,\
+          \ COL_LABORACIO, CONSULTES_I_SUGGERIMENTS, CONTRACTACIO_PUBLICA, DISCIPLINA_INSPECCIO_I_PROTECCIO_DE_LA_LEGALITAT,\
+          \ DRETS_D_ACCES_A_LA_INFORMACIO, DRETS_I_ACTIVITAT_CIVIL, ENS_DEPENDENTS_I_PARTICIPATS,\
+          \ EXECUCIO_URBANISTICA, GESTIO_DEL_PERSONAL, GESTIO_PRESSUPOSTARIA_I_FINANCERA,\
+          \ GESTIO_TRIBUTARIA, INFORMES_I_CERTIFICATS, INSCRIPCIONS_REGISTRALS, MEDIACIO_I_ARBITRATGE,\
+          \ NORMATIVA, OCUPACIO_I_SERVEIS_A_LA_VIA_PUBLICA, PARTICIPACIO, PLANEJAMENT_URBANISTIC,\
+          \ PREVENCIO, QUEIXES_I_RECLAMACIONS, REGIM_DE_BENS_I_PATRIMONI, REGIM_SANCIONADOR,\
+          \ RESPONSABILITAT_PATRIMONIAL, REVISIO_DE_L_ACTUACIO_ADMINISTRATIVA, SUBVENCIONS_I_AJUTS,\
+          \ TARGETES_CARNETS_I_IDENTIFICACIONS, ALTRES"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+        allowEmptyValue: false
+        enum:
+        - "ATENCIO_SOCIAL_I_RESIDENCIAL"
+        - "AUTORITZACIONS_I_COMUNICATS"
+        - "CERTAMENS_I_PREMIS"
+        - "COL_LABORACIO"
+        - "CONSULTES_I_SUGGERIMENTS"
+        - "CONTRACTACIO_PUBLICA"
+        - "DISCIPLINA_INSPECCIO_I_PROTECCIO_DE_LA_LEGALITAT"
+        - "DRETS_D_ACCES_A_LA_INFORMACIO"
+        - "DRETS_I_ACTIVITAT_CIVIL"
+        - "ENS_DEPENDENTS_I_PARTICIPATS"
+        - "EXECUCIO_URBANISTICA"
+        - "GESTIO_DEL_PERSONAL"
+        - "GESTIO_PRESSUPOSTARIA_I_FINANCERA"
+        - "GESTIO_TRIBUTARIA"
+        - "INFORMES_I_CERTIFICATS"
+        - "INSCRIPCIONS_REGISTRALS"
+        - "MEDIACIO_I_ARBITRATGE"
+        - "NORMATIVA"
+        - "OCUPACIO_I_SERVEIS_A_LA_VIA_PUBLICA"
+        - "PARTICIPACIO"
+        - "PLANEJAMENT_URBANISTIC"
+        - "PREVENCIO"
+        - "QUEIXES_I_RECLAMACIONS"
+        - "REGIM_DE_BENS_I_PATRIMONI"
+        - "REGIM_SANCIONADOR"
+        - "RESPONSABILITAT_PATRIMONIAL"
+        - "REVISIO_DE_L_ACTUACIO_ADMINISTRATIVA"
+        - "SUBVENCIONS_I_AJUTS"
+        - "TARGETES_CARNETS_I_IDENTIFICACIONS"
+        - "ALTRES"
+      - name: "nom"
+        in: "query"
+        description: "Filtra procediments per nom"
+        required: false
+        type: "string"
+        allowEmptyValue: false
+      - name: "numeroPagina"
+        in: "query"
+        description: "Indicarà en quina pàgina hauria de començar els resultats demanats\
+          \ en una cerca"
+        required: false
+        type: "integer"
+        default: 1
+        format: "int32"
+        allowEmptyValue: false
+      - name: "ordenarPer"
+        in: "query"
+        description: "Indicarà el camp mitjançant el qual s'ordenarà el resultat de\
+          \ la cerca"
+        required: false
+        type: "string"
+        default: "CODI"
+        allowEmptyValue: false
+        enum:
+        - "CODI"
+        - "NOM"
+        - "ESTAT"
+        - "TRAMITADOR"
+        - "DARRERA_MODIFICACIO"
+      - name: "organResolutori"
+        in: "query"
+        description: "Filtra procediments per òrgan resolutori"
+        required: false
+        type: "string"
+        allowEmptyValue: false
+      - name: "resultatsPerPagina"
+        in: "query"
+        description: "Indicarà el número de resultats per pàgina"
+        required: false
+        type: "integer"
+        default: 20
+        format: "int32"
+        allowEmptyValue: false
+      - name: "sentitOrdenacio"
+        in: "query"
+        description: "Indicarà el sentit d'ordenació per al resultat de la cerca"
+        required: false
+        type: "string"
+        default: "ASC"
+        allowEmptyValue: false
+        enum:
+        - "ASC"
+        - "DESC"
+      - name: "tramitador"
+        in: "query"
+        description: "Filtra procediments per aplicació de tramitació"
+        required: false
+        type: "string"
+        allowEmptyValue: false
+        enum:
+        - "APLICACIO_DE_NEGOCI"
+        - "OGE"
+      - name: "ugr"
+        in: "query"
+        description: "Filtra procediments per conjunt d'Unitats Gestores Responsables"
+        required: false
+        type: "string"
+        allowEmptyValue: false
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaCercaProcediments"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+  /serveis/tramitadors/procediments/{idProcediment}:
+    get:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Consultar les dades del procediment"
+      operationId: "consultarDadesProcedimentTramitadors"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "idProcediment"
+        in: "path"
+        description: "Identificador del procediment"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaConsultaProcediments"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+  /serveis/tramitadors/procediments/{idProcediment}/atributs:
+    get:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Consultar les dades d'operació del procediment"
+      operationId: "consultarDadesOperacioTramitTramitadors"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "idProcediment"
+        in: "path"
+        description: "Identificador del procediment"
+        required: true
+        type: "integer"
+      - name: "numeroPagina"
+        in: "query"
+        description: "Indicarà en quina pàgina hauria de començar els resultats demanats\
+          \ en una cerca"
+        required: false
+        type: "integer"
+        default: 1
+        format: "int32"
+        allowEmptyValue: false
+      - name: "ordenarPer"
+        in: "query"
+        description: "Indicarà el camp mitjançant el qual s'ordenarà el resultat de\
+          \ la cerca"
+        required: false
+        type: "string"
+        default: "CODI"
+        allowEmptyValue: false
+        enum:
+        - "CODI"
+        - "NOM"
+        - "ESTAT"
+        - "TRAMITADOR"
+        - "DARRERA_MODIFICACIO"
+      - name: "resultatsPerPagina"
+        in: "query"
+        description: "Indicarà el número de resultats per pàgina"
+        required: false
+        type: "integer"
+        default: 20
+        format: "int32"
+        allowEmptyValue: false
+      - name: "sentitOrdenacio"
+        in: "query"
+        description: "Indicarà el sentit d'ordenació per al resultat de la cerca"
+        required: false
+        type: "string"
+        default: "ASC"
+        allowEmptyValue: false
+        enum:
+        - "ASC"
+        - "DESC"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaDadesOperacio"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+  /serveis/tramitadors/procediments/{idProcediment}/documentacioAportada:
+    get:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Consultar les documentació d'entrada del procediment"
+      operationId: "consultarDocumentacioEntradaProcediment"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "idProcediment"
+        in: "path"
+        description: "Identificador del procediment"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ConfiguracioDocsEntradaRDTO"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+  /serveis/tramitadors/procediments/{idProcediment}/documentacioTramitacio:
+    get:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Consultar les documentació d'entrada del procediment"
+      operationId: "consultarDocumentacioTramitacioProcedimentTramitadors"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "idProcediment"
+        in: "path"
+        description: "Identificador del procediment"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ReposaConsultaDocumentacioTramits"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+  /serveis/tramitadors/procediments/{idProcediment}/persones:
+    get:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Consultar les dades de persones del procediment Tramiter"
+      operationId: "consultarDadesPersonesProcedimentTramitadors"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "idProcediment"
+        in: "path"
+        description: "Identificador del procediment"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProcedimentTramitsPersones"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+  /serveis/tramitadors/procediments/{idProcediment}/tramits:
+    get:
+      tags:
+      - "Serveis Tramitadors API"
+      summary: "Consultar les dades del tramit"
+      operationId: "consultarDadesTramitadors"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "idProcediment"
+        in: "path"
+        description: "Identificador del procediment"
+        required: true
+        type: "integer"
+      - name: "numeroPagina"
+        in: "query"
+        description: "Indicarà en quina pàgina hauria de començar els resultats demanats\
+          \ en una cerca"
+        required: false
+        type: "integer"
+        default: 1
+        format: "int32"
+        allowEmptyValue: false
+      - name: "ordenarPer"
+        in: "query"
+        description: "Indicarà el camp mitjançant el qual s'ordenarà el resultat de\
+          \ la cerca"
+        required: false
+        type: "string"
+        default: "CODI"
+        allowEmptyValue: false
+        enum:
+        - "CODI"
+        - "NOM"
+        - "ESTAT"
+        - "TRAMITADOR"
+        - "DARRERA_MODIFICACIO"
+      - name: "resultatsPerPagina"
+        in: "query"
+        description: "Indicarà el número de resultats per pàgina"
+        required: false
+        type: "integer"
+        default: 20
+        format: "int32"
+        allowEmptyValue: false
+      - name: "sentitOrdenacio"
+        in: "query"
+        description: "Indicarà el sentit d'ordenació per al resultat de la cerca"
+        required: false
+        type: "string"
+        default: "ASC"
+        allowEmptyValue: false
+        enum:
+        - "ASC"
+        - "DESC"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaCercaProcediments"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
 definitions:
   ActualitzarTerceraPersona:
     type: "object"
@@ -4399,6 +4870,36 @@ definitions:
           items:
             type: "string"
     title: "AtributsActualitzar"
+  AtributsDocs:
+    type: "object"
+    properties:
+      acces:
+        type: "integer"
+        format: "int32"
+      autenticacio:
+        type: "integer"
+        format: "int32"
+      id:
+        type: "number"
+      indexable:
+        type: "integer"
+        format: "int32"
+      lopd:
+        type: "integer"
+        format: "int32"
+      obligatori:
+        type: "integer"
+        format: "int32"
+      origen:
+        type: "integer"
+        format: "int32"
+      publicable:
+        type: "integer"
+        format: "int32"
+      repetible:
+        type: "integer"
+        format: "int32"
+    title: "AtributsDocs"
   AtributsExpedient:
     type: "object"
     properties:
@@ -4584,6 +5085,10 @@ definitions:
         type: "boolean"
       tipus:
         type: "string"
+      tramitBloquejatPerAltreUsuari:
+        type: "boolean"
+      tramitEditable:
+        type: "boolean"
       usuari:
         type: "number"
       usuariBloquejo:
@@ -4635,6 +5140,33 @@ definitions:
       usuariNom:
         type: "string"
     title: "Comentaris"
+  ConfDocsTramPolitiquesSig:
+    type: "object"
+    properties:
+      configuracioDocsTramitacio:
+        type: "number"
+        description: "Identificador de la configuració del document de tramitació"
+      id:
+        type: "number"
+        description: "Identificador de la relació configuració - política - modalitat"
+      modalitatIdext:
+        type: "number"
+        description: "Nom de la modalitat de signatura"
+      ordre:
+        type: "number"
+        description: "Posició de la política en la seqüència de signatures"
+      politicaSignatura:
+        type: "string"
+        description: "Nom de la política de signatura"
+    title: "ConfDocsTramPolitiquesSig"
+  ConfdocsentEstatsExp:
+    type: "object"
+    properties:
+      confDocsEntrada:
+        type: "number"
+      estatExpIdext:
+        type: "number"
+    title: "ConfdocsentEstatsExp"
   ConfdocsentTramitsOvt:
     type: "object"
     properties:
@@ -4646,6 +5178,14 @@ definitions:
       tramitOvtIdext:
         type: "number"
     title: "ConfdocsentTramitsOvt"
+  ConfdocstramEstatsExp:
+    type: "object"
+    properties:
+      confDocsTramitacio:
+        type: "number"
+      estatExpIdext:
+        type: "number"
+    title: "ConfdocstramEstatsExp"
   ConfdocstramTramitsOvt:
     type: "object"
     properties:
@@ -4657,6 +5197,158 @@ definitions:
       tramitOvtIdext:
         type: "number"
     title: "ConfdocstramTramitsOvt"
+  ConfiguracioDocsEntradaRDTO:
+    type: "object"
+    properties:
+      atributDoc:
+        type: "number"
+      atributsDocs:
+        $ref: "#/definitions/AtributsDocs"
+      codiNti:
+        type: "string"
+      confdocsentEstatsExpList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocsentEstatsExp"
+      confdocsentTramitsOvtList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocsentTramitsOvt"
+      configuracioDocumentacio:
+        type: "number"
+      criticitatIdext:
+        type: "integer"
+        format: "int32"
+      descripcioAmpliada:
+        type: "string"
+      descripcioAmpliadaCastella:
+        type: "string"
+      detallOrigen:
+        type: "string"
+      editable:
+        type: "boolean"
+      fase:
+        type: "integer"
+        format: "int32"
+      id:
+        type: "number"
+      nom:
+        type: "string"
+      nomCastella:
+        type: "string"
+      nomNti:
+        type: "string"
+      origen:
+        type: "integer"
+        format: "int32"
+      representacioPuntual:
+        type: "integer"
+        format: "int32"
+      seleccionable:
+        type: "boolean"
+      suportConfeccio:
+        type: "integer"
+        format: "int32"
+      suportEnllac:
+        type: "string"
+      tipusDocumental:
+        type: "string"
+      tractament:
+        type: "string"
+      uniqueId:
+        type: "number"
+      visibilitatPortal:
+        type: "integer"
+        format: "int32"
+    title: "ConfiguracioDocsEntradaRDTO"
+  ConfiguracioDocsSignatura:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+      personesFirmantsMaxim:
+        type: "integer"
+        format: "int64"
+      unitatGestora:
+        type: "string"
+    title: "ConfiguracioDocsSignatura"
+  ConfiguracioDocsTramitacioRDTO:
+    type: "object"
+    properties:
+      atributDoc:
+        type: "number"
+      atributsDocs:
+        $ref: "#/definitions/AtributsDocs"
+      codiNti:
+        type: "string"
+      confDocsTramPolitiquesSigList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfDocsTramPolitiquesSig"
+      confdocstramEstatsExpList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocstramEstatsExp"
+      confdocstramTramitsOvtList:
+        type: "array"
+        items:
+          $ref: "#/definitions/ConfdocstramTramitsOvt"
+      configuracioDocsSignatura:
+        $ref: "#/definitions/ConfiguracioDocsSignatura"
+      configuracioDocumentacio:
+        type: "number"
+      configuracioSignatura:
+        type: "number"
+      criticitatIdext:
+        type: "integer"
+        format: "int32"
+      descripcio:
+        type: "string"
+      descripcioCastella:
+        type: "string"
+      detallOrigen:
+        type: "string"
+      documentacioVinculada:
+        type: "number"
+      editable:
+        type: "boolean"
+      fase:
+        type: "integer"
+        format: "int32"
+      id:
+        type: "number"
+      nom:
+        type: "string"
+      nomCastella:
+        type: "string"
+      nomNti:
+        type: "string"
+      origen:
+        type: "integer"
+        format: "int32"
+      requereixSignatura:
+        type: "integer"
+        format: "int32"
+      seleccionable:
+        type: "boolean"
+      suportConfeccio:
+        type: "integer"
+        format: "int32"
+      suportEnllac:
+        type: "string"
+      tipusDocumental:
+        type: "string"
+      tractament:
+        type: "string"
+      transicioCompletat:
+        type: "integer"
+        format: "int32"
+      uniqueId:
+        type: "number"
+      visibilitatPortal:
+        type: "integer"
+        format: "int32"
+    title: "ConfiguracioDocsTramitacioRDTO"
   ConfiguracioDocumentacio:
     type: "object"
     properties:
@@ -5836,6 +6528,13 @@ definitions:
           attribute: false
           wrapped: false
         description: "Data de creació del document"
+      estat:
+        type: "string"
+        xml:
+          name: "ESTAT"
+          attribute: false
+          wrapped: false
+        description: "Estat del document"
       hash:
         type: "string"
         xml:
@@ -6151,6 +6850,32 @@ definitions:
       procediment:
         type: "number"
     title: "EstatsProcediment"
+  EstatsTramit:
+    type: "object"
+    properties:
+      estat:
+        type: "number"
+      estatTramitAnt:
+        type: "number"
+      estatsTramitAnt:
+        $ref: "#/definitions/EstatsTramit"
+      estatsTramits:
+        $ref: "#/definitions/EstatsTramits"
+      historic:
+        type: "number"
+      id:
+        type: "number"
+      tramit:
+        type: "number"
+    title: "EstatsTramit"
+  EstatsTramits:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "EstatsTramits"
   EstatsUgConvidada:
     type: "object"
     properties:
@@ -7764,10 +8489,6 @@ definitions:
           wrapped: false
         description: "Versió del procediment"
     title: "ProcedimentConsulta"
-    xml:
-      name: "PROCEDIMENT"
-      attribute: false
-      wrapped: false
   ProcedimentExpedientCrear:
     type: "object"
     required:
@@ -7801,6 +8522,9 @@ definitions:
         type: "string"
       seleccionable:
         type: "boolean"
+      tipus:
+        type: "string"
+        description: "Tipus de relació"
       tramitsOvtList:
         type: "array"
         items:
@@ -7814,6 +8538,15 @@ definitions:
       tramitOvtIdext:
         type: "number"
     title: "ProcedimentPersonesTramOvt"
+  ProcedimentTramitsPersones:
+    type: "object"
+    properties:
+      terceresPersonesImplicades:
+        type: "array"
+        description: "Liste de Persones de un Procediment"
+        items:
+          $ref: "#/definitions/ProcedimentPersones"
+    title: "ProcedimentTramitsPersones"
   Procediments:
     type: "object"
     properties:
@@ -8136,6 +8869,15 @@ definitions:
         description: "Persona que ha efectuat el registre"
         $ref: "#/definitions/Persona"
     title: "Registre"
+  ReposaConsultaDocumentacioTramits:
+    type: "object"
+    properties:
+      configuracio:
+        type: "array"
+        description: "configuracio"
+        items:
+          $ref: "#/definitions/ConfiguracioDocsTramitacioRDTO"
+    title: "ReposaConsultaDocumentacioTramits"
   ReqOperatiusTramOvt:
     type: "object"
     properties:
@@ -8459,6 +9201,14 @@ definitions:
           $ref: "#/definitions/ProcedimentCerca"
       paginacio:
         $ref: "#/definitions/Paginacio"
+      tramits:
+        type: "array"
+        items:
+          $ref: "#/definitions/TramitsRDTO"
+      tramitsovt:
+        type: "array"
+        items:
+          $ref: "#/definitions/TramitsOvtRDTO"
     title: "RespostaCercaProcediments"
   RespostaCertificarExpedient:
     type: "object"
@@ -9494,10 +10244,58 @@ definitions:
           wrapped: false
         description: "Nom del tràmit"
     title: "TramitsOvt"
-    xml:
-      name: "TRAMIT"
-      attribute: false
-      wrapped: false
+  TramitsOvtRDTO:
+    type: "object"
+    properties:
+      descripcio:
+        type: "string"
+      id:
+        type: "number"
+    title: "TramitsOvtRDTO"
+  TramitsRDTO:
+    type: "object"
+    properties:
+      bloqueig:
+        type: "number"
+      bloquejos:
+        $ref: "#/definitions/Bloquejos"
+      darreraModificacio:
+        type: "string"
+        format: "date-time"
+      dataGestioElectronica:
+        type: "string"
+        format: "date-time"
+      descripcio:
+        type: "string"
+      descripcioEstatTramit:
+        type: "string"
+      esTramitIniciacio:
+        type: "integer"
+        format: "int32"
+      estatTramit:
+        type: "number"
+      estatsTramit:
+        $ref: "#/definitions/EstatsTramit"
+      exclusiuIntern:
+        type: "integer"
+        format: "int32"
+      gestioElectronica:
+        type: "string"
+      id:
+        type: "number"
+      informacioTramitador:
+        type: "string"
+      nom:
+        type: "string"
+      normaAltresAplicacio:
+        type: "string"
+      normaReferenciaPrincipal:
+        type: "string"
+      rolUsuari:
+        type: "string"
+      ultimaModificacio:
+        type: "number"
+    title: "TramitsRDTO"
   UnitatGestora:
     type: "object"
     properties:

@@ -1105,6 +1105,8 @@ public class ConverterHelper {
 				configuracioDocumentacioRDTO.setDescripcioCastella(docsTramitacioRDTO.getConfiguracioDocsTramitacioNomCastella());
 				configuracioDocumentacioRDTO.setCodiNti(docsTramitacioRDTO.getConfiguracioDocsTramitacio().getCodiNti());
 				documentGeneratConsultaRDTO.setConfiguracioDocumentacio(configuracioDocumentacioRDTO);
+				
+				documentGeneratConsultaRDTO.setEstat(docsTramitacioRDTO.getDescripcioEstat());
 
 				if (docsTramitacioRDTO.getNotificacions() != null && docsTramitacioRDTO.getNotificacions().getNumRegistre() != null) {
 					registreRDTO = new RegistreRDTO();

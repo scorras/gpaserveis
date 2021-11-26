@@ -39,5 +39,8 @@ public class DocumentGeneratConsultaRDTO extends DocumentRDTO {
 	@ApiModelProperty(value = "Registre del document")
 	@XmlElement(name = "REGISTRE", required = false, type = RegistreRDTO.class)
 	private RegistreRDTO registre;
+	@ApiModelProperty(value = "Estat del document")
+	@XmlElement(name = "ESTAT", required = false)
+	private String estat;
 
 }
