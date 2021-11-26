@@ -106,7 +106,6 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaexpedients.TipusViesRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.PageDataOfDadesGrupsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaprocediments.ProcedimentsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.AccionsEstatsRDTO;
-import es.bcn.gpa.gpaserveis.rest.client.api.model.gpatramits.PageDataOfTramitsRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsGestoresRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UnitatsOrganigramaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpaunitats.UsuarisRDTO;
@@ -1539,9 +1538,14 @@ public interface ServeisService {
 	 * @return the procediment BDTO
 	 * @throws GPAServeisServiceException 
 	 */
-	ProcedimentsRDTO consultarProcedimentsRelacionats(BigDecimal id) throws GPAServeisServiceException;
-	PageDataOfDadesGrupsRDTO cercaAtributsProcediment(DadesOperacioCercaBDTO dadesOperacioCercaBDTO)throws GPAServeisServiceException;
-
 	List<ProcedimentsRDTO> consultarProcedimentsRelacionats(BigDecimal id) throws GPAServeisServiceException;
+	
+	/**
+	 * Cerca atributs procediment.
+	 *
+	 * @return dades operacio cerca BDTO
+	 * @throws GPAServeisServiceException 
+	 */
+	PageDataOfDadesGrupsRDTO cercaAtributsProcediment(DadesOperacioCercaBDTO dadesOperacioCercaBDTO) throws GPAServeisServiceException;
 
 }
