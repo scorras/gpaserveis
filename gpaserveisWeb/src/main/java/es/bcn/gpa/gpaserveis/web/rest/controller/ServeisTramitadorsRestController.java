@@ -3,6 +3,7 @@ package es.bcn.gpa.gpaserveis.web.rest.controller;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.bcn.gpa.gpaserveis.business.AuditServeisService;
+import es.bcn.gpa.gpaserveis.business.DocumentsService;
 import es.bcn.gpa.gpaserveis.business.ServeisService;
 import es.bcn.gpa.gpaserveis.business.dto.RespostaResultatBDTO;
 import es.bcn.gpa.gpaserveis.business.dto.audit.AuditServeisBDTO;
@@ -139,6 +141,7 @@ import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRegis
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.DocumentRevisio;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.GuardarRequerimentExpedient;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.NotificacionsRDTO;
+import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PageDataOfConfiguracioDocsEntradaRDTO;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PeticionsPortasig;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PrepararSignaturaCriptograficaDocument;
 import es.bcn.gpa.gpaserveis.rest.client.api.model.gpadocumentacio.PrepararSignaturaCriptograficaDocumentMassiu;
@@ -360,6 +363,10 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	/** The audit serveis service. */
 	@Autowired
 	private AuditServeisService auditServeisService;
+	
+	/** The audit serveis service. */
+	@Autowired
+	private DocumentsService documentsService;
 
 	/**
 	 * Cerca expedients.
@@ -6046,7 +6053,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	@GetMapping("/procediments/{idProcediment}/tramits/documentacio")
+	@GetMapping("/procediments/{idProcediment}/tramits/documentacioTramitadors")
 	@ApiOperation(nickname = "consultarDocumentacioEntradaProcedimentTramitadors", value = "Consultar les documentació d'entrada del procediment", tags = {
 	        "Serveis Tramitadors API" }) 
 	public RepostaConsultaDocumentacioTramitsRDTO consultarDocumentacioEntradaProcediment(
@@ -6094,6 +6101,63 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, null, repostaConsultaDocumentacioTramitsRDTO, ex);
 		}
 		return repostaConsultaDocumentacioTramitsRDTO;
+	}
+	
+	/**
+	 * Consultar documentacio entrada procediment.
+	 *
+	 * @param idProcediment
+	 *            the id procediment
+	 * @param codiTramit
+	 *            the codi tramit
+	 * @return the resposta consulta configuracio documentacio aportada RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@GetMapping("/procediments/{idProcediment}/tramits/documentacioAportadors")
+	@ApiOperation(nickname = "consultarDocumentacioEntradaProcedimentAportadors", value = "Consultar les documentació d'entrada del procediment aportadors", tags = {
+	        "Serveis Tramitadors API" }) 
+	public List<ConfiguracioDocsEntradaRDTO> consultarDocumentacioSalidaProcediment(
+	        @ApiParam(value = "Identificador del procediment", required = true) @PathVariable BigDecimal idProcediment)
+	        throws GPAServeisServiceException {
+
+		String resultatAudit = "OK";
+		Throwable ex = null;
+		List<ConfiguracioDocsEntradaRDTO> configuracioDocEntradaRDTOList = Collections.emptyList();
+		
+		try {
+			// El id del Procedimiento debe ser válido
+			// Información del Procedimiento, para obtener el Id de Configuració
+			// Documentació
+			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService.consultarDadesProcediment(idProcediment);
+			
+			if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND.getDescripcio());
+			}
+			
+			// Documents que cumplen los criterios de búsqueda
+			DocumentsEntradaCercaBDTO documentsEntradaCercaBDTO = new DocumentsEntradaCercaBDTO((BigDecimal)dadesProcedimentBDTO.getProcedimentsRDTO().getConfiguracioDocumentacio(),null);
+			PageDataOfConfiguracioDocsEntradaRDTO pageDataOfConfiguracioDocsEntradaRDTO=documentsService.cercaConfiguracioDocumentacioEntrada(documentsEntradaCercaBDTO);
+			configuracioDocEntradaRDTOList=pageDataOfConfiguracioDocsEntradaRDTO.getData();
+		
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultatAudit = "KO";
+			ex = e;
+			throw e;
+		} finally {
+			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+
+			auditServeisBDTO.setMappingAccio("/procediments/" + idProcediment + "/tramits/documentacio");
+			auditServeisBDTO.setResultat(resultatAudit);
+			auditServeisBDTO.setTipusPeticio("GET");
+			auditServeisBDTO.setValueAccio("Consultar les dades de documentació d'entrada del procediment Aportats");
+
+			
+			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, null, configuracioDocEntradaRDTOList, ex);
+		}
+		return configuracioDocEntradaRDTOList;
 	}
 	
 	// /procediments/{idProcediment}/tramits/persones

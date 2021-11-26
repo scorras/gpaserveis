@@ -778,28 +778,54 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 	
-	@Test
-	public void testStage102_GetCercaProcedimentsIdProcediment() throws Exception {
-		String url = BASE_URL
-		        + "/procediments/9";
-		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
-	}
-	@Test
-	public void testStage103_GetCercaProcedimentsIdProcedimentAtributs() throws Exception {
-		String url = BASE_URL
-		        + "/procediments/9/tramits/?";
-		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
-	}
-	@Test
-	public void testStage104_GetCercaProcedimentsIdProcedimentAtributsTramitsDocumentacio() throws Exception {
-		String url = BASE_URL
-		        + "/procediments/9/tramits/documentacio";
-		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
-	}
-	@Test
-	public void testStage105_GetCercaProcedimentsIdProcedimentAtributsTramitsDocumentacioPersones() throws Exception {
-		String url = BASE_URL
-		        + "/procediments/9/tramits/persones";
-		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
-	}
+	// GPA-TRAMITS
+		@Test
+		public void testStage101_GetCercaProcedimentsIdProcediment() throws Exception {
+			String url = BASE_URL
+			        + "/procediments/9";
+			getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+		}
+		
+		@Test
+		public void testStage102_consultarDadesOperacioTramit() throws Exception {
+			String url = BASE_URL
+			        + "/procediments/9/tramits/?";
+			getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+		}
+		
+		@Test
+		public void testStage103_consultarDocumentacioEntradaProcediment() throws Exception {
+			String url = BASE_URL
+			        + "/procediments/9/tramits/documentacioAportadors";
+			getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+		}
+		
+		@Test
+		public void testStage104_consultarDadesOperacioTramit() throws Exception {
+			String url = BASE_URL
+			        + "/procediments/{idProcediment}/tramits/atributs";
+			getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+		}
+		
+		@Test
+		public void testStage104_consultarDocumentacioEntradaProcediment() throws Exception {
+			String url = BASE_URL
+			        + "/procediments/{idProcediment}/tramits/documentacioTramitadors";
+			getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+		}
+		
+		@Test
+		public void testStage105_consultarDocumentacioSalidaProcediment() throws Exception {
+			String url = BASE_URL
+			        + "/procediments/{idProcediment}/tramits/documentacioAportadors";
+			getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+		}
+		
+		@Test
+		public void testStage106_consultarDadesPersonesProcediment() throws Exception {
+			String url = BASE_URL
+			        + "/procediments/9/tramits/persones";
+			getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+		}
+		
 }
