@@ -791,13 +791,19 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 	@Test
-	public void testStage104_GetCercaProcedimentsIdProcedimentAtributsTramitsDocumentacio() throws Exception {
+	public void testStage104_GetCercaProcedimentsIdProcedimentDocumentacioAportada() throws Exception {
 		String url = BASE_URL
-		        + "/procediments/9/documentacio";
+		        + "/procediments/9/documentacioAportada";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
 	@Test
-	public void testStage105_GetCercaProcedimentsIdProcedimentAtributsTramitsDocumentacioPersones() throws Exception {
+	public void testStage104_GetCercaProcedimentsIdProcedimentDocumentacioTramitacio() throws Exception {
+		String url = BASE_URL
+		        + "/procediments/9/documentacioTramitacio";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+	}
+	@Test
+	public void testStage105_GetCercaProcedimentsIdProcedimentPersones() throws Exception {
 		String url = BASE_URL
 		        + "/procediments/9/persones";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());

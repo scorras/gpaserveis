@@ -6063,7 +6063,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		String resultatAudit = "OK";
 		Throwable ex = null;
 
-		RespostaConsultaConfiguracioDocumentacioAportadaRDTO respostaConsultaConfiguracioDocumentacioAportadaRDTO = new RespostaConsultaConfiguracioDocumentacioAportadaRDTO();
 		RepostaConsultaDocumentacioTramitsRDTO repostaConsultaDocumentacioTramitsRDTO= new RepostaConsultaDocumentacioTramitsRDTO();
 		
 		try {
@@ -6149,7 +6148,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		} finally {
 			AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
 
-			auditServeisBDTO.setMappingAccio("/procediments/" + idProcediment + "/tramits/documentacio");
+			auditServeisBDTO.setMappingAccio("/procediments/" + idProcediment + "documentacio");
 			auditServeisBDTO.setResultat(resultatAudit);
 			auditServeisBDTO.setTipusPeticio("GET");
 			auditServeisBDTO.setValueAccio("Consultar les dades de documentació d'entrada del procediment Aportats");
