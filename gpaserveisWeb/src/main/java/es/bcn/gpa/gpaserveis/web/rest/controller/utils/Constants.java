@@ -135,5 +135,8 @@ public class Constants {
 
 	/** The Constant SOLLICITANT_PERSONE. */
 	public static final String SOLLICITANT_PERSONE = "SOLLICITANT";
+	
+	/** The Constant VISIBILITAT NO APLICADA. */
+	public static final BigDecimal VISIBILITAT_NO_APLICADA = new BigDecimal(-1);
 
 }
