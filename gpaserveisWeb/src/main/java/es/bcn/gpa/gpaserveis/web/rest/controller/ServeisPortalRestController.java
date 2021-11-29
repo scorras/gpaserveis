@@ -341,8 +341,9 @@ public class ServeisPortalRestController extends BaseRestController {
 			        ProcedimentsApiParamToInternalMapper.getCompetenciaAssociadaInternalValueList(competenciaAssociada),
 			        ProcedimentsApiParamToInternalMapper.getEstatInternalValueList(estat),
 			        ProcedimentsApiParamToInternalMapper.getFamiliaInternalValueList(familia),
-			        ProcedimentsApiParamToInternalMapper.getExclusivamentInternInternalValue(exclusivamentIntern), organResolutori,
-			        ProcedimentsApiParamToInternalMapper.getIdUnitatGestoraInternalValueList(unitatsGestoresRDTOList),
+			        ProcedimentsApiParamToInternalMapper.getExclusivamentInternInternalValue(exclusivamentIntern), null,
+			        //ProcedimentsApiParamToInternalMapper.getIdUnitatGestoraInternalValueList(unitatsGestoresRDTOList),
+			        null,
 			        Arrays.asList(Constants.INICIACIO_SOLLICITUD_INTERESSAT), numeroPagina, resultatsPerPagina,
 			        ProcedimentsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
 			        ProcedimentsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio));

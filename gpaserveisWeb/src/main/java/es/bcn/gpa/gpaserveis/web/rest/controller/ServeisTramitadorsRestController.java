@@ -5769,7 +5769,6 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			// Data
 			// Unitats Gestores que hacen match con el parámetro ugr
 			UnitatsGestoresCercaBDTO unitatsGestoresCercaBDTO = new UnitatsGestoresCercaBDTO(ugr);
-			List<UnitatsGestoresRDTO> unitatsGestoresRDTOList = serveisService.cercaUnitatsGestores(unitatsGestoresCercaBDTO);
 
 			// Procediments que cumplen los criterios de búsqueda
 			procedimentsCercaBDTO = new ProcedimentsCercaBDTO(codi, nom,
@@ -5778,9 +5777,14 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 			        ProcedimentsApiParamToInternalMapper.getCompetenciaAssociadaInternalValueList(competenciaAssociada),
 			        ProcedimentsApiParamToInternalMapper.getEstatInternalValueList(estat),
 			        ProcedimentsApiParamToInternalMapper.getFamiliaInternalValueList(familia),
-			        ProcedimentsApiParamToInternalMapper.getExclusivamentInternInternalValue(exclusivamentIntern), organResolutori,
-			        ProcedimentsApiParamToInternalMapper.getIdUnitatGestoraInternalValueList(unitatsGestoresRDTOList),
-			        Arrays.asList(Constants.INICIACIO_SOLLICITUD_INTERESSAT), numeroPagina, resultatsPerPagina,
+			        ProcedimentsApiParamToInternalMapper.getExclusivamentInternInternalValue(exclusivamentIntern), 
+			        //organResolutori,
+			        null,
+			        //ProcedimentsApiParamToInternalMapper.getIdUnitatGestoraInternalValueList(unitatsGestoresRDTOList),
+			        null,
+			        //Arrays.asList(Constants.INICIACIO_SOLLICITUD_INTERESSAT),
+			        null,
+			        numeroPagina, resultatsPerPagina,
 			        ProcedimentsApiParamToInternalMapper.getOrdenarPerInternalValue(ordenarPer),
 			        ProcedimentsApiParamToInternalMapper.getSentitOrdenacioInternalValue(sentitOrdenacio));
 
@@ -5866,6 +5870,55 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			auditServeisService.registrarAuditServeisTramitadors(auditServeisBDTO, null, respostaConsultaProcedimentsRDTO, ex);
 		}
+		return respostaConsultaProcedimentsRDTO;
+	}
+	
+	/**
+	 * Consultar dades procediment.
+	 *
+	 * @param idProcediment
+	 *            the id procediment
+	 * @return the resposta consulta procediments RDTO
+	 * @throws GPAServeisServiceException
+	 *             the GPA serveis service exception
+	 */
+	@GetMapping("/procediments/{codiProcediment}/darreraVersio")
+	@ApiOperation(nickname = "consultarDadesProcedimentPortalDarreraVersion", value = "Consultar les dades del procediment", tags = {
+	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
+	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
+	public RespostaConsultaProcedimentsRDTO consultarDadesProcedimentDarreraVersion(
+	        @ApiParam(value = "Codi del procediment", required = true) @PathVariable String codiProcediment)
+	        throws GPAServeisServiceException {
+		String resultatAudit = "OK";
+		Throwable ex = null;
+
+		RespostaConsultaProcedimentsRDTO respostaConsultaProcedimentsRDTO = new RespostaConsultaProcedimentsRDTO();
+		try {
+			DadesProcedimentBDTO dadesProcedimentBDTO = serveisService.consultarDadesProcediment(codiProcediment);
+		
+			// El id del Procedimiento debe ser válido
+			if (dadesProcedimentBDTO.getProcedimentsRDTO() == null) {
+				throw new GPAServeisServiceException(ErrorPrincipal.ERROR_PROCEDIMENTS_NOT_FOUND.getDescripcio());
+				// TODO return 404
+			}
+			ProcedimentsConsultaRDTO procedimentsConsultaRDTO = modelMapper.map(dadesProcedimentBDTO, ProcedimentsConsultaRDTO.class);
+			respostaConsultaProcedimentsRDTO.setProcediment(procedimentsConsultaRDTO);
+
+			} catch (Exception e) {
+				log.error(e.getMessage(), e);
+				resultatAudit = "KO";
+				ex = e;
+				throw e;
+			} finally {
+				AuditServeisBDTO auditServeisBDTO = auditServeisService.rellenarAuditoria();
+	
+				auditServeisBDTO.setMappingAccio("/procediments/" + codiProcediment);
+				auditServeisBDTO.setResultat(resultatAudit);
+				auditServeisBDTO.setTipusPeticio("GET");
+				auditServeisBDTO.setValueAccio("Consultar les dades del procediment");
+	
+				auditServeisService.registrarAuditServeisPortal(auditServeisBDTO, null, respostaConsultaProcedimentsRDTO, ex);
+			}
 		return respostaConsultaProcedimentsRDTO;
 	}
 	

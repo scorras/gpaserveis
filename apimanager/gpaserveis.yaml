@@ -4505,6 +4505,35 @@ paths:
         404:
           description: "Not Found"
       deprecated: false
+  /serveis/tramitadors/procediments/{codiProcediment}/darreraVersio:
+    get:
+      tags:
+      - "Serveis Portal API"
+      - "Serveis Tramitadors API"
+      summary: "Consultar les dades del procediment"
+      operationId: "consultarDadesProcedimentPortalDarreraVersion_1"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "codiProcediment"
+        in: "path"
+        description: "Codi del procediment"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RespostaConsultaProcediments"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      deprecated: false
+      x-imi-roles:
+        consulta: "Perfil usuari consulta"
   /serveis/tramitadors/procediments/{idProcediment}:
     get:
       tags:
