@@ -1465,7 +1465,7 @@ public class ServeisPortalRestController extends BaseRestController {
 			// ahora se realiza el registro de la solicitud como tal
 			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
 			        visibilitat);
-
+			
 			// TODO Evaluar regla de asignación y asociar el UGO al que se debe
 			// cambiar, pues ese será el que debe indicarse en el registro que
 			// viene a continuación (esto ahora mismo no se produce hasta el
@@ -1571,12 +1571,12 @@ public class ServeisPortalRestController extends BaseRestController {
 			// Obtener el XML y almacenarlo en el Gestor Documental .
 			// Asociar el código generado a nivel de Sollicitud, puesto que será
 			// el Objeto Documental a utilizar
-			String idDocumentum = respostaCrearJustificant.getMigracioIdOrigen();
+			String idGestorDocumental = respostaCrearJustificant.getCodi();
 			// Buscamos de nuevo la solicitud para que incluya los datos de
 			// registro
 			dadesSollicitudBDTO = serveisService.consultarDadesSollicitud(dadesExpedientBDTO.getExpedientsRDTO().getSollicitud(),
 			        visibilitat);
-			guardarXMLSollicitud(dadesSollicitudBDTO, idDocumentum);
+			guardarXMLSollicitud(dadesSollicitudBDTO, idGestorDocumental);
 
 			// se llama a segell para firmar el justificante de registro del
 			// expediente
@@ -1600,7 +1600,7 @@ public class ServeisPortalRestController extends BaseRestController {
 				// Debe vincularse a Ariadna el Justificante firmado y no el
 				// original
 				ConsultarSignaturaResponse consultarSignaturaResponse = serveisService
-				        .consultarSignatura(signarSegellDocumentResponse.getIdPeticio(), respostaCrearJustificant.getCodi());
+				        .consultarSignatura(signarSegellDocumentResponse.getIdPeticio(), respostaCrearJustificant.getMigracioIdOrigen());
 				if (consultarSignaturaResponse != null && consultarSignaturaResponse.getIdDocumentSignatGestorDocumental() != null) {
 					vincularJustificanteAriadna(dadesExpedientBDTO, respostaCrearRegistreExpedient,
 					        consultarSignaturaResponse.getIdDocumentSignatGestorDocumental());
@@ -3178,13 +3178,13 @@ public class ServeisPortalRestController extends BaseRestController {
 	 * @throws GPAServeisServiceException
 	 *             the GPA serveis service exception
 	 */
-	private String guardarXMLSollicitud(DadesSollicitudBDTO dadesSollicitudBDTO, String idDocumentum) throws GPAServeisServiceException {
+	private String guardarXMLSollicitud(DadesSollicitudBDTO dadesSollicitudBDTO, String idGestorDocumental) throws GPAServeisServiceException {
 		SollicitudConsultaRDTO sollicitudConsultaRDTO = modelMapper.map(dadesSollicitudBDTO, SollicitudConsultaRDTO.class);
 		String xmlDadesSollicitudBase64 = serveisService.crearXmlDadesSollicitud(sollicitudConsultaRDTO);
 		String xmlSolicitud = new String(Base64Utils.decodeFromString(xmlDadesSollicitudBase64), StandardCharsets.UTF_8);
 		// Guardamos XML en pos 1 de documentum asociado al pdf (pdf: pos 0,
 		// xml: pos 1)
-		serveisService.guardarXmlSollicitud(idDocumentum, xmlSolicitud);
+		serveisService.guardarXmlSollicitud(idGestorDocumental, xmlSolicitud);
 		return xmlSolicitud;
 	}
 
