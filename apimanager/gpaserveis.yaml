@@ -4511,7 +4511,7 @@ paths:
       - "Serveis Portal API"
       - "Serveis Tramitadors API"
       summary: "Consultar les dades del procediment"
-      operationId: "consultarDadesProcedimentPortalDarreraVersion_1"
+      operationId: "consultarDadesProcedimentTramitadorsDarreraVersio"
       produces:
       - "application/json"
       parameters:
