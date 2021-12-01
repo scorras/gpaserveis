@@ -5883,7 +5883,7 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 	 *             the GPA serveis service exception
 	 */
 	@GetMapping("/procediments/{codiProcediment}/darreraVersio")
-	@ApiOperation(nickname = "consultarDadesProcedimentPortalDarreraVersion", value = "Consultar les dades del procediment", tags = {
+	@ApiOperation(nickname = "consultarDadesProcedimentTramitadorsDarreraVersio", value = "Consultar les dades del procediment", tags = {
 	        "Serveis Portal API" }, extensions = { @Extension(name = "x-imi-roles", properties = {
 	                @ExtensionProperty(name = "consulta", value = "Perfil usuari consulta") }) })
 	public RespostaConsultaProcedimentsRDTO consultarDadesProcedimentDarreraVersion(
