@@ -784,11 +784,21 @@ public class ServeisTramitadorsRestControllerTest extends RestServerParentTest {
 		        + "/procediments/9";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
+	
+	@Test
 	public void testStage102_GetCercaProcedimentsDarreraVersio() throws Exception {
 		String url = BASE_URL
 		        + "/procediments/CODI/darreraVersio";
 		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
 	}
+	
+	@Test
+	public void testStage102_GetConsultarDadesTramit() throws Exception {
+		String url = BASE_URL
+		        + "/procediments/9/tramits";
+		getMockMvc().perform(get(url)).andDo(print()).andExpect(status().isOk());
+	}
+	
 	@Test
 	public void testStage103_GetCercaProcedimentsIdProcedimentAtributs() throws Exception {
 		String url = BASE_URL
