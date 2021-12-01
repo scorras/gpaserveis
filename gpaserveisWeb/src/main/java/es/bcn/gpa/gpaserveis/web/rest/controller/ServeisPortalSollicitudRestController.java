@@ -520,10 +520,9 @@ public class ServeisPortalSollicitudRestController extends BaseRestController {
 			if (docsEntradaRDTOResposta != null && docsEntradaRDTO.getConfiguracioDocsEntrada() != null
 			        && SuportConfeccioApiParamValue.PLANTILLA.getInternalValue()
 			                .equals(docsEntradaRDTO.getConfiguracioDocsEntrada().getSuportConfeccio())) {
-				String idDocumentum = docsEntradaRDTOResposta.getMigracioIdOrigen();
 				// Se guarda el XML de datos en la posición 1 del objeto
 				// documental del documento de solicitud (basado en plantilla)
-				String xmlSolicitud = guardarXMLSollicitud(dadesSollicitudBDTO, idDocumentum);
+				String xmlSolicitud = guardarXMLSollicitud(dadesSollicitudBDTO, docsEntradaRDTOResposta.getCodi());
 				// calculamos el hash del XML y actualizamos la solicitud
 				// con el hash
 				String hash = DigestUtils.sha256Hex(xmlSolicitud);
