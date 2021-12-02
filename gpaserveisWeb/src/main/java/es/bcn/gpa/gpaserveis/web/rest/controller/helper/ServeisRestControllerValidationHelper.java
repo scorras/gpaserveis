@@ -1540,6 +1540,27 @@ public class ServeisRestControllerValidationHelper {
 			throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_NOT_SIGNAT);
 		}
 	}
+	
+	/**
+	 * Validate documents revisats expedient.
+	 *
+	 * @param listDocsEntradaRDTO
+	 *            the docs entrada list RDTO
+	 * @param resultatError
+	 *            the resultat error
+	 * @throws GPAApiParamValidationException
+	 *             the GPA api param validation exception
+	 */
+	public static void validateDocumentsRevistatsExpedient(List<DocsEntradaRDTO> listDocsEntradaRDTO,
+	        Resultat resultatError) throws GPAApiParamValidationException {
+		if(CollectionUtils.isNotEmpty(listDocsEntradaRDTO)) {
+			for (DocsEntradaRDTO docsEntrada : listDocsEntradaRDTO) {
+				if (docsEntrada.getRevisio() == (Constants.REVISIO_DOCUMENT_EN_REVISIO)) {
+					throw new GPAApiParamValidationException(resultatError, ErrorPrincipal.ERROR_DOCUMENTS_SENSE_REVISAR_EXPEDIENT);
+				}
+			}
+		}
+	}	
 
 	/**
 	 * Validate configuracio documentacio aportada.
