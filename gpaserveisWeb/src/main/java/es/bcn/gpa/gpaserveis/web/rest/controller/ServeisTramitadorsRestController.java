@@ -252,7 +252,6 @@ import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.Dades
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.atributs.RespostaConsultaDadesOperacioRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.DocumentAportatConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.RepostaConsultaDocumentacioTramitsRDTO;
-import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.documents.RespostaConsultaConfiguracioDocumentacioAportadaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.ProcedimentsConsultaRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.RepostaConsultaTramitsPersonesProcedimentRDTO;
 import es.bcn.gpa.gpaserveis.web.rest.dto.serveis.portal.consulta.procediments.RespostaConsultaProcedimentsRDTO;
@@ -1313,8 +1312,9 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 		DadesExpedientBDTO dadesExpedientBDTO = null;
 		RespostaResultatBDTO respostaResultatBDTO = new RespostaResultatBDTO(Resultat.OK_TANCAR_EXPEDIENT);
 		List<AccionsEstatsRDTO> accionsEstatsRDTOList = null;
-		BigDecimal tancamentAutomatic = expedientTancament.getTancamentAutomatic() != null ? expedientTancament.getTancamentAutomatic()
-		        : BigDecimal.ZERO;
+		BigDecimal tancamentAutomatic = 
+				expedientTancament.getTancamentAutomatic() != null ? 
+						expedientTancament.getTancamentAutomatic() : BigDecimal.ZERO;
 		try {
 			// El codi del expediente debe existir
 			dadesExpedientBDTO = serveisService.consultarDadesBasiquesExpedient(
@@ -1323,19 +1323,20 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			// Cerrar expediente si la acción es permitida
 			BigDecimal accionsEstatsId = null;
-			if (!expedientTancament.getTancamentAutomatic().equals(Constants.TANCAMENT_AUTOMATIC)) {// Si
-			                                                                                        // no
-			                                                                                        // es
-			                                                                                        // tancament
-			                                                                                        // automatic
+			// Si no es tancament automatic
+			if (!Constants.TANCAMENT_AUTOMATIC.equals(tancamentAutomatic)) {
 				accionsEstatsId = ServeisRestControllerValidationHelper.validateAccioDisponibleExpedient(dadesExpedientBDTO,
 				        AccioTramitadorApiParamValue.TANCAR_EXPEDIENT, Resultat.ERROR_TANCAR_EXPEDIENT);
+				
+				//Validar documentos revisados
+				ServeisRestControllerValidationHelper.validateDocumentsRevistatsExpedient(
+						documentsService.cercaDocumentsEntradaAgrupatsPerTramitOvt(
+								dadesExpedientBDTO.getExpedientsRDTO().getDocumentacioIdext(), BigDecimal.ONE),
+				        Resultat.ERROR_TANCAR_EXPEDIENT);				
 			}
 
-			if (expedientTancament.getTancamentAutomatic().equals(Constants.TANCAMENT_AUTOMATIC)) { // Si
-			                                                                                        // es
-			                                                                                        // tancament
-			                                                                                        // automatic
+			// Si es tancament automatic
+			if (Constants.TANCAMENT_AUTOMATIC.equals(tancamentAutomatic)) {
 				accionsEstatsRDTOList = serveisService.cercaTransicioCanviEstat(
 				        AccioTramitadorApiParamValue.TANCAR_EXPEDIENT.getInternalValue(),
 				        AccioTramitadorApiParamValue.OBRIR_EXPEDIENT.getInternalValue());
@@ -1355,13 +1356,10 @@ public class ServeisTramitadorsRestController extends BaseRestController {
 
 			expedientCanviEstat.setIdAccioEstat(accionsEstatsRDTOList.get(0).getId());
 			expedientCanviEstat.setTancamentAutomatic(tancamentAutomatic);
-
+			
 			ExpedientsCanviarEstatBDTO expedientsCanviarEstatBDTO = new ExpedientsCanviarEstatBDTO(expedientCanviEstat,
 			        dadesExpedientBDTO.getExpedientsRDTO().getId());
 			serveisService.canviarEstatExpedient(expedientsCanviarEstatBDTO);
-
-			// TODO Validar Contenido mínimo requerido (Documentos, Dades
-			// d'Operació?)
 
 			// Avisos. ACCIONS_ESTATS: 22
 			if (accionsEstatsId != null) {

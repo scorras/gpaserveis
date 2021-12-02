@@ -120,6 +120,8 @@ public class Constants {
 	/** The Constant REVISIO_DOCUMENT_INCORRECT. */
 	public static final int REVISIO_DOCUMENT_INCORRECT = 2;
 	
+	/** The Constant REVISIO_DOCUMENT_EN_REVISIO. */
+	public static final int REVISIO_DOCUMENT_EN_REVISIO = 3;
 
 	/** The Constant DADES_GRUPS_OPERACIONS_REPETICIONS_N. */
 	public static final String DADES_GRUPS_OPERACIONS_REPETICIONS_N = "N";

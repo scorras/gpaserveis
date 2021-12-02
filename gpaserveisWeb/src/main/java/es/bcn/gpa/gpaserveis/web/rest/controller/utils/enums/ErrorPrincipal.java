@@ -116,6 +116,8 @@ public enum ErrorPrincipal {
 	ERROR_EXPEDIENTS_ATRIBUT_GRUP_REPETIBLE_NOT_VALID_VALUE("3038", "El valor de la Dada d'operació no té format JSON: "),
 	
 	ERROR_EXPEDIENTS_ESTA_EN_BORRADOR("3039", "L'expedient està en estat esborrany"),
+	
+	ERROR_EXPEDIENTS_NO_TANCAMENT_AUTOMATIC("3040", "L'expedient no s'ha tancat automàticament"),
 
 	/* Documents */
 	ERROR_DOCUMENTS_NOT_FOUND("4001", "No s'ha trobat el document: "),
@@ -159,7 +161,8 @@ public enum ErrorPrincipal {
 	
 	ERROR_EXPEDIENTS_NO_TANCAT("4020", "L'expedient no aquesta tancat"),
 	
-	ERROR_EXPEDIENTS_NO_TANCAMENT_AUTOMATIC("4021", "L'expedient no s'ha tancat automàticament"),
+	ERROR_DOCUMENTS_SENSE_REVISAR_EXPEDIENT("4021", "Hi han documents sense revisar a l'expedient"),
+	
 
 	/* Integracions */
 	ERROR_ARIADNA("5001", ""),
